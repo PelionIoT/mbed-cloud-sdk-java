@@ -1,12 +1,12 @@
 /**
  * 
  */
-package com.arm.mbed.cloud.sdk.account_management.model.account;
+package com.arm.mbed.cloud.sdk.accountmanagement.model.account;
 
 /**
  * The status of the account
  */
-public enum eAccountStatus {
+public enum AccountStatus {
 
 	ENROLLING, ACTIVE, SUSPENDED, DISABLED
 
