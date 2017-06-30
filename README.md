@@ -1,1 +1,0 @@
-# mbed-cloud-sdk-java
