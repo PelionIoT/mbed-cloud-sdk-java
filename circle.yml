@@ -1,0 +1,17 @@
+machine:
+  timezone: Europe/London
+  java:
+    version: oraclejdk8
+general:
+  artifacts:
+    - "build/distributions/*.zip"
+    - "build/distributions/*.tar"
+    - "build/libs/*-full.jar"
+compile:
+  post:
+    - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
+deployment:
+  production:
+    branch: master
+    commands:
+      - ./generate-docs.sh
