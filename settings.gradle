@@ -1,0 +1,18 @@
+/*
+ * The settings file is used to specify which projects to include in the build.
+ *
+ */
+
+/*
+// Definition of mbed Cloub Java SDK multi-project
+*/
+include 'support-annotations'
+include 'backends:connector_ca'
+include 'backends:device_directory'
+include 'backends:iam'
+include 'backends:mds'
+include 'backends:statistics'
+include 'backends:update_service'
+
+rootProject.name = 'mbed-cloud-sdk'
+
