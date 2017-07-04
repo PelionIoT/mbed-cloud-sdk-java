@@ -1,17 +1,46 @@
 machine:
   timezone: Europe/London
+  node:
+    version: 4.7.0
+  environment:
+    AWS_DEFAULT_REGION: us-west-2
+    PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
+    PROJECT_DOCS: ${HOME}/docs
+    PROJECT_TESTS: ${HOME}/tests
+    PROJECT_ARTIFACTS: ${HOME}/artifacts
+    BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/docs/javadoc
+    BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
+    BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
   java:
     version: oraclejdk8
 general:
   artifacts:
-    - "build/distributions/*.zip"
-    - "build/distributions/*.tar"
-    - "build/libs/*-full.jar"
+    - ~/docs
+    - ~/tests
+    - ~/artifacts
 compile:
   post:
     - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
+    - if [ -e ./gradlew ]; then ./gradlew javadoc;else gradle javadoc;fi
+    - mkdir ${PROJECT_DOCS}
+    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
+    - mkdir ${PROJECT_ARTIFACTS}
+    - cp -r ${BUILD_JARS}/* ${PROJECT_ARTIFACTS}/
+    - cp -r ${BUILD_DIST}/* ${PROJECT_ARTIFACTS}/
+
+# test:
+  # pre:
+    # - npm install -g ansi-html-stream
+  # override:
+    # - flake8 --config ./.flake8
+    # - mkdir ${PROJECT_TESTS}
+    # - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
+    # - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${PROJECT_TESTS}/index.html:
+        # pwd: tests
+
 deployment:
-  production:
+  staging:
     branch: master
     commands:
-      - ./generate-docs.sh
+      - echo Syncing $PROJECT_NAME to S3...
+      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
