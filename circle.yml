@@ -1,7 +1,5 @@
 machine:
   timezone: Europe/London
-  node:
-    version: 4.7.0
   environment:
     AWS_DEFAULT_REGION: us-west-2
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
