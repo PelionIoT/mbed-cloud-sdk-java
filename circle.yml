@@ -9,8 +9,8 @@ machine:
     PROJECT_TESTS: ${HOME}/tests
     PROJECT_ARTIFACTS: ${HOME}/artifacts
     BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/docs/javadoc
-    BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
-    BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
+    BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
+    BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
   java:
     version: oraclejdk8
 general:
@@ -19,14 +19,17 @@ general:
     - ~/tests
     - ~/artifacts
 compile:
-  post:
-    - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
-    - if [ -e ./gradlew ]; then ./gradlew javadoc;else gradle javadoc;fi
+  pre:
     - mkdir ${PROJECT_DOCS}
-    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
     - mkdir ${PROJECT_ARTIFACTS}
-    - cp -r ${BUILD_JARS}/* ${PROJECT_ARTIFACTS}/
+  override:
+    - if [ -e ./gradlew ]; then ./gradlew build;else gradle build;fi
     - cp -r ${BUILD_DIST}/* ${PROJECT_ARTIFACTS}/
+    - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
+    - cp -r ${BUILD_JARS}/* ${PROJECT_ARTIFACTS}/
+  post:
+    - if [ -e ./gradlew ]; then ./gradlew javadoc;else gradle javadoc;fi
+    - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
 
 # test:
   # pre:
