@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** | The description of the object. |  [optional]
+**description** | **String** | The description of the device. |  [optional]
 **endpointName** | **String** | The endpoint name given to the device. |  [optional]
 **autoUpdate** | **Boolean** | DEPRECATED Mark this device for auto firmware update. |  [optional]
 **hostGateway** | **String** | The endpoint_name of the host gateway, if appropriate. |  [optional]
@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **deviceKey** | **String** | Fingerprint of the device certificate. | 
 **endpointType** | **String** | The endpoint type of the device - e.g. if the device is a gateway. |  [optional]
 **caId** | **String** | ID of the issuer of the certificate. | 
-**name** | **String** | The name of the object. |  [optional]
+**name** | **String** | The name of the device. |  [optional]
 
 
 

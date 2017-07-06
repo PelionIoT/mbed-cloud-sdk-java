@@ -219,10 +219,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * Timestamp of when the device was bootstrapped.
+   * Timestamp of when the device last went through the bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(example = "null", value = "Timestamp of when the device was bootstrapped.")
+  @ApiModelProperty(example = "null", value = "Timestamp of when the device last went through the bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -237,10 +237,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * Expiration date of the certificate used to connect to connector server.
+   * Expiration date of the certificate used to connect to the lwm2m server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to connector server.")
+  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to the lwm2m server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
@@ -291,10 +291,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The device class.
+   * An id representing the model and hardware revision of the device.
    * @return deviceClass
   **/
-  @ApiModelProperty(example = "null", value = "The device class.")
+  @ApiModelProperty(example = "null", value = "An id representing the model and hardware revision of the device.")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -309,10 +309,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The ID of the device.
+   * The id of the device. The device id is used to manage a device across all mbed cloud apis.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "The ID of the device.")
+  @ApiModelProperty(example = "null", value = "The id of the device. The device id is used to manage a device across all mbed cloud apis.")
   public String getId() {
     return id;
   }
@@ -543,10 +543,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The description of the object.
+   * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "The description of the object.")
+  @ApiModelProperty(example = "null", value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -669,10 +669,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The name of the object.
+   * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the object.")
+  @ApiModelProperty(example = "null", value = "The name of the device.")
   public String getName() {
     return name;
   }
@@ -705,10 +705,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The time the object was created.
+   * Timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "The time the object was created.")
+  @ApiModelProperty(example = "null", value = "Timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
