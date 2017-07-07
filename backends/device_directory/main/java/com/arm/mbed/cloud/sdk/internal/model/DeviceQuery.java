@@ -72,10 +72,10 @@ public class DeviceQuery implements Serializable {
   }
 
    /**
-   * The time the object was created.
+   * Timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was created.")
+  @ApiModelProperty(example = "null", required = true, value = "Timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }

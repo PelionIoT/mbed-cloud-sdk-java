@@ -201,10 +201,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Timestamp of when the device was bootstrapped.
+   * Timestamp of when the device last went through the bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(example = "null", value = "Timestamp of when the device was bootstrapped.")
+  @ApiModelProperty(example = "null", value = "Timestamp of when the device last went through the bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -219,10 +219,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Expiration date of the certificate used to connect to connector server.
+   * Expiration date of the certificate used to connect to the lwm2m server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to connector server.")
+  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to the lwm2m server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
@@ -255,10 +255,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The device class.
+   * An id representing the model and hardware revision of the device.
    * @return deviceClass
   **/
-  @ApiModelProperty(example = "null", value = "The device class.")
+  @ApiModelProperty(example = "null", value = "An id representing the model and hardware revision of the device.")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -435,10 +435,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The description of the object.
+   * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "The description of the object.")
+  @ApiModelProperty(example = "null", value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -561,10 +561,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The name of the object.
+   * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the object.")
+  @ApiModelProperty(example = "null", value = "The name of the device.")
   public String getName() {
     return name;
   }

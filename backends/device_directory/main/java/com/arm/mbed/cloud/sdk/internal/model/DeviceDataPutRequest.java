@@ -62,10 +62,10 @@ public class DeviceDataPutRequest implements Serializable {
   }
 
    /**
-   * The description of the object.
+   * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "The description of the object.")
+  @ApiModelProperty(example = "null", value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -224,10 +224,10 @@ public class DeviceDataPutRequest implements Serializable {
   }
 
    /**
-   * The name of the object.
+   * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the object.")
+  @ApiModelProperty(example = "null", value = "The name of the device.")
   public String getName() {
     return name;
   }
