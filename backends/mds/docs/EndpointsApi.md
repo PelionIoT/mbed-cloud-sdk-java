@@ -5,7 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**v2EndpointsDeviceIdGet**](EndpointsApi.md#v2EndpointsDeviceIdGet) | **GET** v2/endpoints/{device-id} | List the resources on an endpoint
-[**v2EndpointsGet**](EndpointsApi.md#v2EndpointsGet) | **GET** v2/endpoints | List endpoints. The number of endpoints is currently limited to 200.
+[**v2EndpointsGet**](EndpointsApi.md#v2EndpointsGet) | **GET** v2/endpoints | List registered endpoints. The number of endpoints is currently limited to 200.
 
 
 <a name="v2EndpointsDeviceIdGet"></a>
@@ -67,9 +67,9 @@ Name | Type | Description  | Notes
 # **v2EndpointsGet**
 > List&lt;Endpoint&gt; v2EndpointsGet(type)
 
-List endpoints. The number of endpoints is currently limited to 200.
+List registered endpoints. The number of endpoints is currently limited to 200.
 
-Endpoints are physical devices running mbed Cloud Client. 
+Endpoints are physical devices having valid registration to mbed Cloud Connect. All devices despite the registration status can be requested from Device Directory API [&#39;/v3/devices/ ](/docs/v1.2/api-references/device-directory-api.html#v3-devices) 
 
 ### Example
 ```java
