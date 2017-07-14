@@ -50,10 +50,10 @@ public class AsyncIDResponse implements Serializable {
   }
 
    /**
-   * HTTP status code, for example 200 for OK.
+   * Asynchronous response status code for a device operation related to a proxy request or manual subscription.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "HTTP status code, for example 200 for OK.")
+  @ApiModelProperty(example = "null", value = "Asynchronous response status code for a device operation related to a proxy request or manual subscription.")
   public Integer getStatus() {
     return status;
   }
