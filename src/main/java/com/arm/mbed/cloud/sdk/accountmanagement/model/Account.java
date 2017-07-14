@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.arm.mbed.cloud.sdk.accountmanagement.model.account;
+package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 import java.util.LinkedList;
@@ -22,7 +22,7 @@ public class Account {
 	private String id;
 
 	/**
-	 * status of the account.
+	 * Status of the account.
 	 */
 	@NonNull
 	private AccountStatus status;
@@ -94,7 +94,7 @@ public class Account {
 	 * or not.
 	 */
 	@DefaultValue(value = "true")
-	private boolean provisioningAllowed;
+	private boolean provisioningAllowed = true;
 
 	/**
 	 * List of aliases.
