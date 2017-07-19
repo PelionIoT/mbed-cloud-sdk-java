@@ -101,13 +101,14 @@ public class TestServer {
 			String module = request.getParam(PARAM_MODULE);
 			String method = request.getParam(PARAM_METHOD);
 			Map<String, Object> params = retrieveQueryParameters(request);
-			logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " at " + new Date().toString());
+			logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT " + new Date().toString());
 			APICaller caller = new APICaller(sdk, config);
 			try {
-				logInfo("CALLING " + String.valueOf(method) + " on " + String.valueOf(module) + " USING "
+				logInfo("CALLING " + String.valueOf(method) + " ON " + String.valueOf(module) + " USING "
 						+ String.valueOf(params.toString()));
 				Object result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
 						ApiUtils.convertSnakeToCamel(method, false), params);
+				logInfo("RESULT " + String.valueOf(result));
 				setResponse(routingContext).end(Serializer.convertResultToJson(result));
 			} catch (UnknownAPIException | APICallException e) {
 				sendError(setResponse(routingContext), null, e.getMessage());
