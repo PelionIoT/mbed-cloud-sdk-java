@@ -108,8 +108,9 @@ public class TestServer {
 						+ String.valueOf(params.toString()));
 				Object result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
 						ApiUtils.convertSnakeToCamel(method, false), params);
-				logInfo("RESULT " + String.valueOf(result));
-				setResponse(routingContext).end(Serializer.convertResultToJson(result));
+				String resultJson = Serializer.convertResultToJson(result);
+				logInfo("RESULT " + String.valueOf(resultJson));
+				setResponse(routingContext).end(resultJson);
 			} catch (UnknownAPIException | APICallException e) {
 				sendError(setResponse(routingContext), null, e.getMessage());
 			}
