@@ -158,7 +158,9 @@ public class ListOptions {
 	/**
 	 * Gets a string describing the filter
 	 * 
-	 * @return string
+	 * @param key
+	 *            filter key
+	 * @return string encoded filter
 	 */
 	public @Nullable String encodeFilter(@Nullable String key) {
 		Object filterObj = fetchFilter(key);

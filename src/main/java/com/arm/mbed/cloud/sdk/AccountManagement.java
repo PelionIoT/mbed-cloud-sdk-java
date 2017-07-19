@@ -168,6 +168,7 @@ public class AccountManagement extends AbstractAPI {
 	 *            The API key to update
 	 * @return updated API key
 	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
 	 */
 	@API
 	public @NonNull ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
