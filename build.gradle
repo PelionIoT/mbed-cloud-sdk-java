@@ -72,6 +72,9 @@ subprojects {
     apply plugin: 'build-dashboard'
 }
 
+//Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
+project(':backends:mds').javadoc.enabled = false
+
 def updateArtifactList(propertyName, value){
         def props = new Properties()
         def propFile = new File("artifacts.properties");
@@ -84,6 +87,12 @@ def updateArtifactList(propertyName, value){
         def fileWriter = propFile.newWriter()
         props.store(fileWriter, "mbed Cloud JAVA SDK artifacts");
         fileWriter.close()
+}
+
+compileJava {
+	options.compilerArgs += ["-deprecation","-parameters"]
+	options.fork = true
+    println 'Compiler args for compiled SDK : ' + options.compilerArgs
 }
 
 task sourcesJar(type: Jar, dependsOn: classes) {
@@ -126,8 +135,14 @@ shadowJar {
     }
 }
 
+compileTestJava {
+	options.compilerArgs += ["-g","-deprecation","-parameters"]
+	options.fork = true
+    println 'Compiler args for testing: ' + options.compilerArgs
+}
+
 task testJar(type: Jar) {
-    dependsOn jar
+    dependsOn compileTestJava,jar
     manifest {
         attributes('Implementation-Title': 'mbed Cloud SDK for Java',
                    'Implementation-Version': project.version,

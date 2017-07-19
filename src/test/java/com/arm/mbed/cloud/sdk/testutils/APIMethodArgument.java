@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
+import java.util.Map;
+
 public class APIMethodArgument {
 	private String name;
 	private String type;
@@ -67,6 +69,27 @@ public class APIMethodArgument {
 			this.type = null;
 		}
 		this.type = type.getName();
+	}
+
+	public Class<?> determineClass() throws ClassNotFoundException {
+		if (type == null) {
+			return null;
+		}
+		return Class.forName(type);
+	}
+
+	public <T> Object determineValue(Class<T> clazz, Map<String, Object> fields) {
+		if (clazz == null || Void.class.isAssignableFrom(clazz) || fields == null || fields.isEmpty()) {
+			return null;
+		}
+		return Serializer.convertParametersToObject(fields, clazz);
+	}
+
+	public <T> Object determineValue(Class<T> clazz, String fields) {
+		if (clazz == null || Void.class.isAssignableFrom(clazz) || fields == null || fields.isEmpty()) {
+			return null;
+		}
+		return Serializer.convertStringToObject(fields, clazz);
 	}
 
 }

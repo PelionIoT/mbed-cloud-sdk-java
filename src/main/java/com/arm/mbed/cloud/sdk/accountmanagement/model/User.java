@@ -1,10 +1,22 @@
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
+import java.util.Date;
+import java.util.List;
+
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "This object represents a user in mbed Cloud")
 public class User {
+	/**
+	 * The UUID of the user.
+	 */
+	private String id;
+	/**
+	 * The UUID of the account.
+	 */
+	private final String accountId;
+
 	/**
 	 * The full name of the user.
 	 */
@@ -35,12 +47,87 @@ public class User {
 	 * accepted.
 	 */
 	@DefaultValue(value = "true")
-	private boolean areTermsAccepted = true;
+	private boolean areTermsAccepted;
 	/**
 	 * A flag indicating that receiving marketing information has been accepted.
 	 */
 	@DefaultValue(value = "true")
-	private boolean isMarketingAccepted = true;
+	private boolean isMarketingAccepted;
+	/**
+	 * A list of group IDs this user belongs to.
+	 */
+	private final List<String> groups;
+	/**
+	 * The status of the user. INVITED means that the user has not accepted the
+	 * invitation request. RESET means that the password must be changed
+	 * immediately.
+	 */
+	@DefaultValue(value = "INACTIVE")
+	private final UserStatus status;
+	/**
+	 * A flag indicating whether the user's email address has been verified or
+	 * not.
+	 */
+	@DefaultValue(value = "false")
+	private final boolean isEmailVerified;
+	/**
+	 * Creation time.
+	 */
+	@DefaultValue(value = "now()")
+	private final Date createdAt;
+	/**
+	 * A timestamp of the user creation in the storage, in milliseconds.
+	 */
+	private final long creationTime;
+	/**
+	 * A timestamp of the latest change of the user password, in milliseconds.
+	 */
+	private final long passwordChangedTime;
+	/**
+	 * A timestamp of the latest login of the user, in milliseconds.
+	 */
+	private final long lastLoginTime;
+
+	public User(String id, String accountId, List<String> groups, UserStatus status, boolean isEmailVerified,
+			Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime) {
+		super();
+		setId(id);
+		this.accountId = accountId;
+		this.groups = groups;
+		this.status = status;
+		this.isEmailVerified = isEmailVerified;
+		this.createdAt = createdAt;
+		this.creationTime = creationTime;
+		this.passwordChangedTime = passwordChangedTime;
+		this.lastLoginTime = lastLoginTime;
+		setFullName(null);
+		setUsername(null);
+		setPassword(null);
+		setEmail(null);
+		setPhoneNumber(null);
+		setAddress(null);
+		setTermAccepted(true);
+		setMarketingAccepted(true);
+	}
+
+	public User() {
+		this(null, null, null, UserStatus.INACTIVE, false, new Date(), 0, 0, 0);
+	}
+
+	/**
+	 * @return the id
+	 */
+	public String getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	/**
 	 * @return the fullName
@@ -160,6 +247,62 @@ public class User {
 	 */
 	public void setMarketingAccepted(boolean isMarketingAccepted) {
 		this.isMarketingAccepted = isMarketingAccepted;
+	}
+
+	/**
+	 * @return the accountId
+	 */
+	public String getAccountId() {
+		return accountId;
+	}
+
+	/**
+	 * @return the groups
+	 */
+	public List<String> getGroups() {
+		return groups;
+	}
+
+	/**
+	 * @return the status
+	 */
+	public UserStatus getStatus() {
+		return status;
+	}
+
+	/**
+	 * @return the isEmailVerified
+	 */
+	public boolean isEmailVerified() {
+		return isEmailVerified;
+	}
+
+	/**
+	 * @return the createdAt
+	 */
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+	/**
+	 * @return the creationTime
+	 */
+	public long getCreationTime() {
+		return creationTime;
+	}
+
+	/**
+	 * @return the passwordChangedTime
+	 */
+	public long getPasswordChangedTime() {
+		return passwordChangedTime;
+	}
+
+	/**
+	 * @return the lastLoginTime
+	 */
+	public long getLastLoginTime() {
+		return lastLoginTime;
 	}
 
 }

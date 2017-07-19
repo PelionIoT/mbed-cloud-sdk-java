@@ -6,8 +6,8 @@ public class ConnectionOptions {
 
 	public ConnectionOptions(String apiKey, String host) {
 		super();
-		this.apiKey = apiKey;
-		this.host = host;
+		setApiKey(apiKey);
+		setHost(host);
 	}
 
 	/**
@@ -29,6 +29,10 @@ public class ConnectionOptions {
 		return apiKey == null || apiKey.isEmpty();
 	}
 
+	public boolean isHostEmpty() {
+		return host == null || host.isEmpty();
+	}
+
 	/**
 	 * @return the host
 	 */
@@ -41,6 +45,9 @@ public class ConnectionOptions {
 	 *            the host to set
 	 */
 	public void setHost(String host) {
+		if (host != null && !host.endsWith("/")) {
+			host = host + "/";
+		}
 		this.host = host;
 	}
 

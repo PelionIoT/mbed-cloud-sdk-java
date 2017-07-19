@@ -1,9 +1,11 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
+
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
 public class APIModule {
 	private String name;
@@ -86,6 +88,21 @@ public class APIModule {
 			return null;
 		}
 		return methods.get(methodName);
+	}
+
+	public Object createInstance(ConnectionOptions connectionOptions) {
+		if (name == null) {
+			return null;
+		}
+		try {
+			Class<?> moduleClass = Class.forName(name);
+			Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
+			return constructor.newInstance(connectionOptions);
+		} catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 
 }
