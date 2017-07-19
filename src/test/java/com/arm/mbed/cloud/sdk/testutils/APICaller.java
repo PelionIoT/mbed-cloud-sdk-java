@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Hashtable;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -46,7 +48,7 @@ public class APICaller {
 		this.connectionOptions = connectionOptions;
 	}
 
-	public Object callAPI(String module, String method, Map<String, String> parameters)
+	public Object callAPI(String module, String method, Map<String, Object> parameters)
 			throws UnknownAPIException, APICallException {
 		if (module == null || method == null || sdk == null) {
 			throwUnknownAPI(module, method);
@@ -63,9 +65,15 @@ public class APICaller {
 		return api.call(parameters);
 	}
 
-	private void throwUnknownAPI(String module, String method) throws UnknownAPIException {
+	private static void throwUnknownAPI(String module, String method) throws UnknownAPIException {
 		throw new UnknownAPIException(
 				"method [" + String.valueOf(method) + "] not found on module [" + String.valueOf(module) + "]");
+	}
+
+	private static void throwAPICallException(APIModule module, APIMethod method, Exception e) throws APICallException {
+		throw new APICallException("Error occurred when calling method [" + String.valueOf(method.getName())
+				+ "] on module [" + String.valueOf(module.getSimpleName()) + "]. "
+				+ String.valueOf((e == null) ? "Unknown reason" : e.getMessage()));
 	}
 
 	private static class API {
@@ -80,8 +88,25 @@ public class APICaller {
 			this.method = method;
 		}
 
-		public Object call(Map<String, String> parameters) {
-			// TODO
+		public Object call(Map<String, Object> parameters) throws APICallException {
+			if (method.determineNumberOfArguments() > 1) {
+				throwAPICallException(module, method,
+						new Exception("The test system cannot handle APIs with more than 1 argument for the moment"));
+			}
+
+			Map<String, Map<String, Object>> argDescription = null;
+			if (method.determineNumberOfArguments() != 0 && parameters != null) {
+				argDescription = new Hashtable<String, Map<String, Object>>(method.determineNumberOfArguments());
+				String argName = method.getArguments().get(0).getName();
+				argDescription.put(argName, parameters);
+			}
+			try {
+				return method.invokeMethod(module.createInstance(connectionOptions), argDescription);
+			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
+					| IllegalArgumentException | InvocationTargetException e) {
+				// e.printStackTrace();
+				throwAPICallException(module, method, e);
+			}
 			return null;
 		}
 

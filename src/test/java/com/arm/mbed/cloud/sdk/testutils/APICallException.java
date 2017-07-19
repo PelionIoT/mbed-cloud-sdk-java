@@ -30,7 +30,6 @@ public class APICallException extends Exception {
 	 */
 	public APICallException(Throwable arg0) {
 		super(arg0);
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

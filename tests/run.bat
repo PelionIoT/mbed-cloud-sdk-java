@@ -20,7 +20,7 @@ SET REFORMATTED_TEST_FULL_JAR=%REFORMATTED_TEST_FULL_JAR:\:=:%
 START "java_server" /B "java" "-jar" "%REFORMATTED_TEST_FULL_JAR%"
 SLEEP 1
 
-python -u testrunner/bin/trunner -s http://localhost:5000
+python -u %~dp0/testrunner/bin/trunner -s http://localhost:5000
 
 REM the following is a bit radical but I could not find any way to be more selective
 TASKKILL /F /T /IM java.exe
