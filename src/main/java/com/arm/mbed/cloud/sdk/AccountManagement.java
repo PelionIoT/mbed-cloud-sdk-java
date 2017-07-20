@@ -67,9 +67,9 @@ public class AccountManagement extends AbstractAPI {
 			Response<AccountInfo> response = endpoint.getDeveloper().getMyAccountInfo("limits, policies").execute();
 			return (response == null) ? null : AccountAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
-
+		return null;
 	}
 
 	/**
@@ -89,8 +89,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : AccountAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -114,8 +115,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : ApiKeyAdapter.mapList(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -136,8 +138,9 @@ public class AccountManagement extends AbstractAPI {
 					: endpoint.getDeveloper().getApiKey(apiKeyId).execute();
 			return (response == null) ? null : ApiKeyAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -157,8 +160,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : ApiKeyAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return apiKey;
 	}
 
 	/**
@@ -171,7 +175,7 @@ public class AccountManagement extends AbstractAPI {
 	 *             if a problem occurred during request processing
 	 */
 	@API
-	public @NonNull ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
+	public @Nullable ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
 		ApiUtils.checkNotNull(apiKey, "user");
 		ApiUtils.checkNotNull(apiKey.getId(), "apiKey UUID");
 		try {
@@ -179,8 +183,9 @@ public class AccountManagement extends AbstractAPI {
 					.updateApiKey(apiKey.getId(), ApiKeyAdapter.updateMap(apiKey)).execute();
 			return (response == null) ? null : ApiKeyAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -197,7 +202,7 @@ public class AccountManagement extends AbstractAPI {
 		try {
 			this.endpoint.getDeveloper().deleteApiKey(apiKeyId).execute();
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
 	}
 
@@ -222,8 +227,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : UserAdapter.mapList(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -242,8 +248,9 @@ public class AccountManagement extends AbstractAPI {
 			Response<UserInfoResp> response = endpoint.getAdmin().getUser(userId).execute();
 			return (response == null) ? null : UserAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -263,8 +270,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : UserAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return user;
 	}
 
 	/**
@@ -277,7 +285,7 @@ public class AccountManagement extends AbstractAPI {
 	 *             if a problem occurred during request processing
 	 */
 	@API
-	public User updateUser(@NonNull User user) throws MbedCloudException {
+	public @Nullable User updateUser(@NonNull User user) throws MbedCloudException {
 		ApiUtils.checkNotNull(user, "user");
 		ApiUtils.checkNotNull(user.getId(), "user UUID");
 		try {
@@ -285,8 +293,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : UserAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -303,7 +312,7 @@ public class AccountManagement extends AbstractAPI {
 		try {
 			endpoint.getAdmin().deleteUser(userId).execute();
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
 	}
 
@@ -326,8 +335,9 @@ public class AccountManagement extends AbstractAPI {
 					options.getAfter(), options.getOrder().toString(), options.encodeInclude()).execute();
 			return (response == null) ? null : GroupAdapter.mapList(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -346,8 +356,9 @@ public class AccountManagement extends AbstractAPI {
 			Response<GroupSummary> response = endpoint.getDeveloper().getGroupSummary(groupId).execute();
 			return (response == null) ? null : GroupAdapter.map(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -373,8 +384,9 @@ public class AccountManagement extends AbstractAPI {
 					options.getAfter(), options.getOrder().toString(), options.encodeInclude()).execute();
 			return (response == null) ? null : UserAdapter.mapList(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 	/**
@@ -401,8 +413,9 @@ public class AccountManagement extends AbstractAPI {
 					.execute();
 			return (response == null) ? null : ApiKeyAdapter.mapList(response.body());
 		} catch (IOException e) {
-			throw new MbedCloudException(e);
+			throwSDKException(e);
 		}
+		return null;
 	}
 
 }

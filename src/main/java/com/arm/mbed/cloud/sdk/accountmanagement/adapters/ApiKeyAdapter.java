@@ -69,9 +69,10 @@ public class ApiKeyAdapter {
 	public static ListResponse<ApiKey> mapList(ApiKeyInfoRespList apiKeyList) {
 		Mapper<ApiKey, ApiKeyInfoResp> mapper = new Mapper<ApiKey, ApiKeyInfoResp>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public <T, U> T map(U toBeMapped) {
-				return map(toBeMapped);
+				return (T) ApiKeyAdapter.map((ApiKeyInfoResp) toBeMapped);
 			}
 
 		};

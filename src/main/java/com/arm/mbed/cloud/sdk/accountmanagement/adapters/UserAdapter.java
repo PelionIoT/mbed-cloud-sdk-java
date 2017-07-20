@@ -71,9 +71,10 @@ public class UserAdapter {
 	public static ListResponse<User> mapList(UserInfoRespList userList) {
 		Mapper<User, UserInfoResp> mapper = new Mapper<User, UserInfoResp>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public <T, U> T map(U toBeMapped) {
-				return map(toBeMapped);
+				return (T) UserAdapter.map((UserInfoResp) toBeMapped);
 			}
 
 		};
