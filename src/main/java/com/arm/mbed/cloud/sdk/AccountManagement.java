@@ -24,6 +24,8 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.ListOptions;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.Paginator;
 import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoRespList;
@@ -99,7 +101,7 @@ public class AccountManagement extends AbstractAPI {
 	 * 
 	 * @param options
 	 *            filter options
-	 * @return The list of API keys corresponding to filter options
+	 * @return The list of API keys corresponding to filter options (One page)
 	 * @throws MbedCloudException
 	 *             if a problem occurred during request processing
 	 */
@@ -118,6 +120,27 @@ public class AccountManagement extends AbstractAPI {
 			throwSDKException(e);
 		}
 		return null;
+	}
+
+	/**
+	 * Gets an iterator over all API keys according to filter options
+	 * 
+	 * @param options
+	 *            filter options
+	 * @return paginator for the list of API keys corresponding to filter
+	 *         options
+	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
+	 */
+	@API
+	public @Nullable Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
+		return new Paginator<ApiKey>(new PageRequester<ApiKey>() {
+
+			@Override
+			public ListResponse<ApiKey> requestNewPage() throws MbedCloudException {
+				return listApiKeys(options);
+			}
+		});
 	}
 
 	/**
@@ -211,7 +234,7 @@ public class AccountManagement extends AbstractAPI {
 	 * 
 	 * @param options
 	 *            filter options
-	 * @return list of users
+	 * @return list of users (One page)
 	 * @throws MbedCloudException
 	 *             if a problem occurred during request processing
 	 */
@@ -230,6 +253,26 @@ public class AccountManagement extends AbstractAPI {
 			throwSDKException(e);
 		}
 		return null;
+	}
+
+	/**
+	 * Gets an iterator over all users according to filter options
+	 * 
+	 * @param options
+	 *            filter options
+	 * @return paginator for the list of users corresponding to filter options
+	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
+	 */
+	@API
+	public @Nullable Paginator<User> listAllApiKeys(@Nullable UserListOptions options) throws MbedCloudException {
+		return new Paginator<User>(new PageRequester<User>() {
+
+			@Override
+			public ListResponse<User> requestNewPage() throws MbedCloudException {
+				return listUsers(options);
+			}
+		});
 	}
 
 	/**
@@ -321,7 +364,7 @@ public class AccountManagement extends AbstractAPI {
 	 * 
 	 * @param options
 	 *            filter options
-	 * @return The list of groups corresponding to filter options
+	 * @return The list of groups corresponding to filter options (One page)
 	 * @throws MbedCloudException
 	 *             if a problem occurred during request processing
 	 */
@@ -338,6 +381,26 @@ public class AccountManagement extends AbstractAPI {
 			throwSDKException(e);
 		}
 		return null;
+	}
+
+	/**
+	 * Gets an iterator over all available groups depending on filter options
+	 * 
+	 * @param options
+	 *            filter options
+	 * @return paginator for the groups corresponding to filter options
+	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
+	 */
+	@API
+	public @Nullable Paginator<Group> listAllGroups(@Nullable ListOptions options) throws MbedCloudException {
+		return new Paginator<Group>(new PageRequester<Group>() {
+
+			@Override
+			public ListResponse<Group> requestNewPage() throws MbedCloudException {
+				return listGroups(options);
+			}
+		});
 	}
 
 	/**
@@ -362,13 +425,14 @@ public class AccountManagement extends AbstractAPI {
 	}
 
 	/**
-	 * List users of a group
-	 * 
+	 * Lists users of a group
+	 *
 	 * @param groupId
 	 *            The group ID
 	 * @param options
 	 *            filter options
 	 * @return The list of users corresponding to groupId and filter options
+	 *         (One page)
 	 * @throws MbedCloudException
 	 *             if a problem occurred during request processing
 	 */
@@ -390,13 +454,38 @@ public class AccountManagement extends AbstractAPI {
 	}
 
 	/**
-	 * List API keys of a group
+	 * Gets an iterator over all users of a group
+	 *
+	 * @param groupId
+	 *            The group ID of the group
+	 * @param options
+	 *            filter options
+	 * @return paginator for the list of users corresponding to groupId and
+	 *         filter options
+	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
+	 */
+	@API
+	public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
+			throws MbedCloudException {
+		return new Paginator<User>(new PageRequester<User>() {
+
+			@Override
+			public ListResponse<User> requestNewPage() throws MbedCloudException {
+				return listGroupUsers(groupId, options);
+			}
+		});
+	}
+
+	/**
+	 * Lists API keys of a group
 	 * 
 	 * @param groupId
 	 *            The group ID of the group
 	 * @param options
 	 *            filter options
 	 * @return The list of API keys corresponding to groupId and filter options
+	 *         (One page)
 	 * @throws MbedCloudException
 	 *             if a problem occurred during request processing
 	 */
@@ -416,6 +505,30 @@ public class AccountManagement extends AbstractAPI {
 			throwSDKException(e);
 		}
 		return null;
+	}
+
+	/**
+	 * Gets an iterator over all API keys of a group
+	 *
+	 * @param groupId
+	 *            The group ID of the group
+	 * @param options
+	 *            filter options
+	 * @return paginator for the list of API keys corresponding to groupId and
+	 *         filter options
+	 * @throws MbedCloudException
+	 *             if a problem occurred during request processing
+	 */
+	@API
+	public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
+			throws MbedCloudException {
+		return new Paginator<ApiKey>(new PageRequester<ApiKey>() {
+
+			@Override
+			public ListResponse<ApiKey> requestNewPage() throws MbedCloudException {
+				return listGroupApiKeys(groupId, options);
+			}
+		});
 	}
 
 }
