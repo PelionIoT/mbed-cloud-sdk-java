@@ -3,11 +3,13 @@ package com.arm.mbed.cloud.sdk.common;
 public class ConnectionOptions {
 	private String apiKey;
 	private String host;
+	private CallLogLevel clientLogLevel;
 
 	public ConnectionOptions(String apiKey, String host) {
 		super();
 		setApiKey(apiKey);
 		setHost(host);
+		setClientLogLevel(CallLogLevel.NONE);
 	}
 
 	/**
@@ -49,6 +51,21 @@ public class ConnectionOptions {
 			host = host + "/";
 		}
 		this.host = host;
+	}
+
+	/**
+	 * @return the clientLogLevel
+	 */
+	public CallLogLevel getClientLogLevel() {
+		return clientLogLevel;
+	}
+
+	/**
+	 * @param clientLogLevel
+	 *            the clientLogLevel to set
+	 */
+	public void setClientLogLevel(CallLogLevel clientLogLevel) {
+		this.clientLogLevel = clientLogLevel;
 	}
 
 }

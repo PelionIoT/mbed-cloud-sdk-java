@@ -8,6 +8,7 @@ import java.util.Map.Entry;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.APICaller;
@@ -39,6 +40,7 @@ public class TestServer {
 	private static final String APPLICATION_JSON = "application/json";
 	private static final String ENVVAR_MBED_CLOUD_HOST = "MBED_CLOUD_HOST";
 	private static final String ENVVAR_MBED_CLOUD_API_KEY = "MBED_CLOUD_API_KEY";
+	private static final String ENVVAR_HTTP_LOG_LEVEL = "HTTP_LOG_LEVEL";
 	private static final String PARAM_METHOD = "method";
 	private static final String PARAM_MODULE = "module";
 	private static final boolean CONSOLE_COLOURING = (System.getenv("CONSOLE_COLOURING") == null) ? false : true;
@@ -123,7 +125,8 @@ public class TestServer {
 
 	private void retrieveConfig() {
 		config = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY), System.getenv(ENVVAR_MBED_CLOUD_HOST));
-		logInfo(JsonObject.mapFrom(config).encodePrettily());
+		config.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
+		// logInfo(JsonObject.mapFrom(config).encodePrettily());
 	}
 
 	private Map<String, Object> retrieveQueryParameters(HttpServerRequest request) {
