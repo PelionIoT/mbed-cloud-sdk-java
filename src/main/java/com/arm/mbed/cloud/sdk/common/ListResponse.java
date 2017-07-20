@@ -61,6 +61,8 @@ public class ListResponse<T> {
 
 	/**
 	 * Similar to hasMore()
+	 * 
+	 * @return the hasMore
 	 */
 	@Internal
 	public boolean isHasMore() {
@@ -167,7 +169,7 @@ public class ListResponse<T> {
 	}
 
 	/**
-	 * Iterates over all the <T> objects of the page
+	 * Iterates over all the objects of the page
 	 * 
 	 * @return the page iterator
 	 */
