@@ -26,59 +26,20 @@ import java.io.Serializable;
 public class NotificationData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("timestamp")
-  private String timestamp = null;
-
-  @SerializedName("payload")
-  private String payload = null;
-
   @SerializedName("path")
   private String path = null;
 
   @SerializedName("max-age")
   private String maxAge = null;
 
+  @SerializedName("payload")
+  private String payload = null;
+
   @SerializedName("ep")
   private String ep = null;
 
   @SerializedName("ct")
   private String ct = null;
-
-  public NotificationData timestamp(String timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * Timestamp.
-   * @return timestamp
-  **/
-  @ApiModelProperty(example = "null", value = "Timestamp.")
-  public String getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(String timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public NotificationData payload(String payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * Base64 encoded payload.
-   * @return payload
-  **/
-  @ApiModelProperty(example = "null", value = "Base64 encoded payload.")
-  public String getPayload() {
-    return payload;
-  }
-
-  public void setPayload(String payload) {
-    this.payload = payload;
-  }
 
   public NotificationData path(String path) {
     this.path = path;
@@ -114,6 +75,24 @@ public class NotificationData implements Serializable {
 
   public void setMaxAge(String maxAge) {
     this.maxAge = maxAge;
+  }
+
+  public NotificationData payload(String payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Base64 encoded payload.
+   * @return payload
+  **/
+  @ApiModelProperty(example = "null", value = "Base64 encoded payload.")
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
   }
 
   public NotificationData ep(String ep) {
@@ -162,17 +141,16 @@ public class NotificationData implements Serializable {
       return false;
     }
     NotificationData notificationData = (NotificationData) o;
-    return Objects.equals(this.timestamp, notificationData.timestamp) &&
-        Objects.equals(this.payload, notificationData.payload) &&
-        Objects.equals(this.path, notificationData.path) &&
+    return Objects.equals(this.path, notificationData.path) &&
         Objects.equals(this.maxAge, notificationData.maxAge) &&
+        Objects.equals(this.payload, notificationData.payload) &&
         Objects.equals(this.ep, notificationData.ep) &&
         Objects.equals(this.ct, notificationData.ct);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, payload, path, maxAge, ep, ct);
+    return Objects.hash(path, maxAge, payload, ep, ct);
   }
 
 
@@ -181,10 +159,9 @@ public class NotificationData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class NotificationData {\n");
     
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("    path: ").append(toIndentedString(path)).append("\n");
     sb.append("    maxAge: ").append(toIndentedString(maxAge)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("    ep: ").append(toIndentedString(ep)).append("\n");
     sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
     sb.append("}");
