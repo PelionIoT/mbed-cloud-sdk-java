@@ -47,7 +47,7 @@ public class UserAdapter {
 		userInfo.setUsername(user.getUsername());
 		userInfo.setPassword(user.getPassword());
 		userInfo.setEmail(user.getEmail());
-		userInfo.setPhoneNumber(user.getEmail());
+		userInfo.setPhoneNumber(user.getPhoneNumber());
 		userInfo.setIsGtcAccepted(user.areTermsAccepted());
 		userInfo.setIsMarketingAccepted(user.isMarketingAccepted());
 		return userInfo;
@@ -62,7 +62,7 @@ public class UserAdapter {
 		userUpdate.setUsername(user.getUsername());
 		userUpdate.setPassword(user.getPassword());
 		userUpdate.setEmail(user.getEmail());
-		userUpdate.setPhoneNumber(user.getEmail());
+		userUpdate.setPhoneNumber(user.getPhoneNumber());
 		userUpdate.setIsGtcAccepted(user.areTermsAccepted());
 		userUpdate.setIsMarketingAccepted(user.isMarketingAccepted());
 		return userUpdate;
@@ -71,9 +71,10 @@ public class UserAdapter {
 	public static ListResponse<User> mapList(UserInfoRespList userList) {
 		Mapper<User, UserInfoResp> mapper = new Mapper<User, UserInfoResp>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public <T, U> T map(U toBeMapped) {
-				return map(toBeMapped);
+				return (T) UserAdapter.map((UserInfoResp) toBeMapped);
 			}
 
 		};

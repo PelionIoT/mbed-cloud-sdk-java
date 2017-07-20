@@ -28,9 +28,10 @@ public class GroupAdapter {
 	public static ListResponse<Group> mapList(GroupSummaryList groupList) {
 		Mapper<Group, GroupSummary> mapper = new Mapper<Group, GroupSummary>() {
 
+			@SuppressWarnings("unchecked")
 			@Override
 			public <T, U> T map(U toBeMapped) {
-				return map(toBeMapped);
+				return (T) GroupAdapter.map((GroupSummary) toBeMapped);
 			}
 
 		};

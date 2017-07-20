@@ -85,7 +85,7 @@ public class APIMethod {
 
 	public Object invokeMethod(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
 			throws NoSuchMethodException, SecurityException, ClassNotFoundException, IllegalAccessException,
-			IllegalArgumentException, InvocationTargetException {
+			IllegalArgumentException, InvocationTargetException, APICallException {
 		if (moduleInstance == null) {
 			throw new NoSuchElementException();
 		}
@@ -119,7 +119,8 @@ public class APIMethod {
 		return argsTypeArray.toArray(new Class[] {});
 	}
 
-	private Object[] fetchArgsValues(Map<String, Map<String, Object>> argsDescription) throws ClassNotFoundException {
+	private Object[] fetchArgsValues(Map<String, Map<String, Object>> argsDescription)
+			throws ClassNotFoundException, APICallException {
 		int argsNumber = determineNumberOfArguments();
 		if (argsNumber == 0 || argsDescription == null || argsDescription.isEmpty()) {
 			return null;

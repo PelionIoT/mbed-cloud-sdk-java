@@ -9,10 +9,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
-import com.arm.mbed.cloud.sdk.annotations.NonNull;
-import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
 
 @Preamble(description = "Account")
 public class Account {
@@ -166,6 +164,17 @@ public class Account {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * similar to setId()
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	@Internal
+	public void setAccountId(String id) {
+		setId(id);
 	}
 
 	/**

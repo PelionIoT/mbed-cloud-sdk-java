@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "This object represents a user in mbed Cloud")
@@ -119,6 +120,17 @@ public class User {
 	 */
 	public String getId() {
 		return id;
+	}
+
+	/**
+	 * similar to setId()
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	@Internal
+	public void setUserId(String id) {
+		setId(id);
 	}
 
 	/**

@@ -78,14 +78,14 @@ public class APIMethodArgument {
 		return Class.forName(type);
 	}
 
-	public <T> Object determineValue(Class<T> clazz, Map<String, Object> fields) {
+	public <T> Object determineValue(Class<T> clazz, Map<String, Object> fields) throws APICallException {
 		if (clazz == null || Void.class.isAssignableFrom(clazz) || fields == null || fields.isEmpty()) {
 			return null;
 		}
 		return Serializer.convertParametersToObject(fields, clazz);
 	}
 
-	public <T> Object determineValue(Class<T> clazz, String fields) {
+	public <T> Object determineValue(Class<T> clazz, String fields) throws APICallException {
 		if (clazz == null || Void.class.isAssignableFrom(clazz) || fields == null || fields.isEmpty()) {
 			return null;
 		}

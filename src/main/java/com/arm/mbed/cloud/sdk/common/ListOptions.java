@@ -14,8 +14,8 @@ public class ListOptions {
 	/**
 	 * how many objects to retrieve in the page
 	 */
-	@DefaultValue(value = "0")
-	private int limit;
+	@DefaultValue(value = "default")
+	private Integer limit;
 	/**
 	 * ASC or DESC
 	 */
@@ -36,7 +36,7 @@ public class ListOptions {
 
 	public ListOptions() {
 		super();
-		setLimit(0);
+		setLimit(null);
 		setOrder(Order.ASC);
 		setAfter(null);
 		setInclude(null);
@@ -45,7 +45,7 @@ public class ListOptions {
 	/**
 	 * @return the limit
 	 */
-	public int getLimit() {
+	public Integer getLimit() {
 		return limit;
 	}
 
@@ -53,7 +53,7 @@ public class ListOptions {
 	 * @param limit
 	 *            the limit to set
 	 */
-	public void setLimit(int limit) {
+	public void setLimit(Integer limit) {
 		this.limit = limit;
 	}
 

@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "This object represents an API key in mbed Cloud")
@@ -81,6 +82,17 @@ public class ApiKey {
 	 */
 	public void setId(String id) {
 		this.id = id;
+	}
+
+	/**
+	 * similar to setId()
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	@Internal
+	public void setApiKeyId(String id) {
+		setId(id);
 	}
 
 	/**
