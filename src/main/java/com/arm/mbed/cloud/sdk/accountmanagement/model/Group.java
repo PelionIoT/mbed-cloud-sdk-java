@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Group")
@@ -9,7 +10,7 @@ public class Group {
 	/**
 	 * The UUID of the group.
 	 */
-	private final String id;
+	private String id;
 	/**
 	 * The UUID of the account this group belongs to.
 	 */
@@ -42,7 +43,7 @@ public class Group {
 	public Group(String id, String accountId, String name, long userCount, long apiKeyCount, Date createdAt,
 			long creationTime, long lastUpdateTime) {
 		super();
-		this.id = id;
+		setId(id);
 		this.accountId = accountId;
 		this.name = name;
 		this.userCount = userCount;
@@ -50,6 +51,25 @@ public class Group {
 		this.createdAt = createdAt;
 		this.creationTime = creationTime;
 		this.lastUpdateTime = lastUpdateTime;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	/**
+	 * similar to setId()
+	 * 
+	 * @param id
+	 *            the id to set
+	 */
+	@Internal
+	public void setGroupId(String id) {
+		setId(id);
 	}
 
 	/**
