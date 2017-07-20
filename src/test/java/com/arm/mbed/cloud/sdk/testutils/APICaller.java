@@ -88,18 +88,9 @@ public class APICaller {
 			this.method = method;
 		}
 
+		@SuppressWarnings("unchecked")
 		public Object call(Map<String, Object> parameters) throws APICallException {
-			if (method.determineNumberOfArguments() > 1) {
-				throwAPICallException(module, method,
-						new Exception("The test system cannot handle APIs with more than 1 argument for the moment"));
-			}
-
-			Map<String, Map<String, Object>> argDescription = null;
-			if (method.determineNumberOfArguments() != 0 && parameters != null) {
-				argDescription = new Hashtable<String, Map<String, Object>>(method.determineNumberOfArguments());
-				String argName = method.getArguments().get(0).getName();
-				argDescription.put(argName, parameters);
-			}
+			Map<String, Map<String, Object>> argDescription = determineArgumentJsonValues(parameters);
 			try {
 				return method.invokeMethod(module.createInstance(connectionOptions), argDescription);
 			} catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
@@ -108,6 +99,31 @@ public class APICaller {
 				throwAPICallException(module, method, e);
 			}
 			return null;
+		}
+
+		private Map<String, Map<String, Object>> determineArgumentJsonValues(Map<String, Object> parameters)
+				throws APICallException {
+			Map<String, Map<String, Object>> argDescription = null;
+			if (parameters != null && method.determineNumberOfArguments() > 0) {
+				argDescription = new Hashtable<String, Map<String, Object>>(method.determineNumberOfArguments());
+				if (method.determineNumberOfArguments() == 1 || parameters.size() == 1) {
+					String argName = method.getArguments().get(0).getName();
+					argDescription.put(argName, parameters);
+				} else {
+					for (APIMethodArgument argument : method.getArguments()) {
+						String argName = argument.getName();
+						Object subMap = parameters.get(argName);
+						if (subMap != null) {
+							if (!(subMap instanceof Map)) {
+								throwAPICallException(module, method,
+										new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
+							}
+							argDescription.put(argName, (Map<String, Object>) subMap);
+						}
+					}
+				}
+			}
+			return argDescription;
 		}
 
 	}

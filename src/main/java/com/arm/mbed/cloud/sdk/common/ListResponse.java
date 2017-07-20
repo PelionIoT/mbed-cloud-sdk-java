@@ -1,9 +1,11 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "List response")
@@ -53,8 +55,18 @@ public class ListResponse<T> {
 	/**
 	 * @return the hasMore
 	 */
-	public boolean isHasMore() {
+	public boolean hasMore() {
 		return hasMore;
+	}
+
+	/**
+	 * Similar to hasMore()
+	 * 
+	 * @return the hasMore
+	 */
+	@Internal
+	public boolean isHasMore() {
+		return hasMore();
 	}
 
 	/**
@@ -154,6 +166,18 @@ public class ListResponse<T> {
 			this.data = new LinkedList<T>();
 		}
 		this.data.add(data);
+	}
+
+	/**
+	 * Iterates over all the objects of the page
+	 * 
+	 * @return the page iterator
+	 */
+	public Iterator<T> iterator() {
+		if (data == null) {
+			return null;
+		}
+		return data.iterator();
 	}
 
 }

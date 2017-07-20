@@ -84,7 +84,7 @@ public class TestServer {
 
 			logInfo("Initialising Java SDK modules... (" + new Date().toString() + ")");
 			sdk = APIMappingGenerator.getSDK();
-			// logInfo(JsonObject.mapFrom(sdk).encodePrettily());
+			logDebug(JsonObject.mapFrom(sdk).encodePrettily());
 			JsonObject emptyResponse = new JsonObject();
 			setResponse(routingContext).end(emptyResponse.encode());
 		});
@@ -111,7 +111,7 @@ public class TestServer {
 				Object result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
 						ApiUtils.convertSnakeToCamel(method, false), params);
 				String resultJson = Serializer.convertResultToJson(result);
-				logInfo("RESULT " + String.valueOf(resultJson));
+				logDebug("RESULT " + String.valueOf(resultJson));
 				setResponse(routingContext).end(resultJson);
 			} catch (UnknownAPIException | APICallException e) {
 				sendError(setResponse(routingContext), null, e.getMessage());
@@ -162,6 +162,10 @@ public class TestServer {
 
 	private void logInfo(String message) {
 		testLogger.info((CONSOLE_COLOURING) ? INFO_LOG_PREFIX + message : message);
+	}
+
+	private void logDebug(String message) {
+		testLogger.debug((CONSOLE_COLOURING) ? INFO_LOG_PREFIX + message : message);
 	}
 
 	private void logWarn(String message) {
