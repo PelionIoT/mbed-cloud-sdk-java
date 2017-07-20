@@ -123,7 +123,7 @@ public class TestServer {
 
 	private void retrieveConfig() {
 		config = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY), System.getenv(ENVVAR_MBED_CLOUD_HOST));
-
+		logInfo(JsonObject.mapFrom(config).encodePrettily());
 	}
 
 	private Map<String, Object> retrieveQueryParameters(HttpServerRequest request) {
