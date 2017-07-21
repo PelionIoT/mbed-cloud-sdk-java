@@ -53,6 +53,7 @@ dependencies {
    compile project(':backends:update_service')
    testCompile 'io.vertx:vertx-web:3.4.2'
    testCompile 'org.slf4j:slf4j-simple:1.7.7'
+   testImplementation 'junit:junit:4.12'
 }
 
 allprojects {

@@ -32,7 +32,8 @@ public class ApiUtils {
 		if (stringToConvert == null || stringToConvert.isEmpty()) {
 			return stringToConvert;
 		}
-		return stringToConvert.replaceAll("(.)(\\p{Upper})", "$1_$2").toLowerCase();
+		return stringToConvert.replaceAll("(.)(\\p{Upper})", "$1_$2").replaceAll("(\\p{Upper})(\\p{Upper})", "$1_$2")
+				.toLowerCase();
 	}
 
 	public interface CaseConverter {
