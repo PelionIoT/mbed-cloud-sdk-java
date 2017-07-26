@@ -35,7 +35,7 @@ public class ManifestContents implements Serializable {
   private String vendorId = null;
 
   @SerializedName("manifestVersion")
-  private Integer manifestVersion = null;
+  private String manifestVersion = null;
 
   @SerializedName("description")
   private String description = null;
@@ -94,7 +94,7 @@ public class ManifestContents implements Serializable {
     this.vendorId = vendorId;
   }
 
-  public ManifestContents manifestVersion(Integer manifestVersion) {
+  public ManifestContents manifestVersion(String manifestVersion) {
     this.manifestVersion = manifestVersion;
     return this;
   }
@@ -104,11 +104,11 @@ public class ManifestContents implements Serializable {
    * @return manifestVersion
   **/
   @ApiModelProperty(example = "null", value = "The version of the manifest format being used.")
-  public Integer getManifestVersion() {
+  public String getManifestVersion() {
     return manifestVersion;
   }
 
-  public void setManifestVersion(Integer manifestVersion) {
+  public void setManifestVersion(String manifestVersion) {
     this.manifestVersion = manifestVersion;
   }
 
