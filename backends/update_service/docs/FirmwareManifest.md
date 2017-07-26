@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated. | 
 **manifestContents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature. | 
+**version** | **String** | The format version of the manifest. | 
 **deviceClass** | **String** | The class of device. | 
 **id** | **String** | The ID of the firmware manifest. | 
 **name** | **String** | The name of the object. | 
