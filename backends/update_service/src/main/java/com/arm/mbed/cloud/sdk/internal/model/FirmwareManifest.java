@@ -52,9 +52,6 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("etag")
   private DateTime etag = null;
 
-  @SerializedName("version")
-  private String version = null;
-
   @SerializedName("device_class")
   private String deviceClass = null;
 
@@ -208,24 +205,6 @@ public class FirmwareManifest implements Serializable {
     this.etag = etag;
   }
 
-  public FirmwareManifest version(String version) {
-    this.version = version;
-    return this;
-  }
-
-   /**
-   * The format version of the manifest.
-   * @return version
-  **/
-  @ApiModelProperty(example = "null", required = true, value = "The format version of the manifest.")
-  public String getVersion() {
-    return version;
-  }
-
-  public void setVersion(String version) {
-    this.version = version;
-  }
-
   public FirmwareManifest deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
@@ -298,7 +277,6 @@ public class FirmwareManifest implements Serializable {
         Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
         Objects.equals(this.manifestContents, firmwareManifest.manifestContents) &&
         Objects.equals(this.etag, firmwareManifest.etag) &&
-        Objects.equals(this.version, firmwareManifest.version) &&
         Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
         Objects.equals(this.id, firmwareManifest.id) &&
         Objects.equals(this.name, firmwareManifest.name);
@@ -306,7 +284,7 @@ public class FirmwareManifest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, manifestContents, etag, version, deviceClass, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, manifestContents, etag, deviceClass, id, name);
   }
 
 
@@ -323,7 +301,6 @@ public class FirmwareManifest implements Serializable {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    manifestContents: ").append(toIndentedString(manifestContents)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    version: ").append(toIndentedString(version)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");

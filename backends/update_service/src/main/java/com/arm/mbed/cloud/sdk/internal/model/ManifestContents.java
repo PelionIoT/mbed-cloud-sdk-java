@@ -14,19 +14,11 @@
 package com.arm.mbed.cloud.sdk.internal.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsConditions;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsDigestAlgorithm;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsDirectives;
 import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsEncryptionMode;
 import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayload;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayloadInfo;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayloadInfoPayloadReference;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsText;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -36,26 +28,23 @@ import java.io.Serializable;
 public class ManifestContents implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("nonce")
-  private String nonce = null;
+  @SerializedName("classId")
+  private String classId = null;
 
   @SerializedName("vendorId")
   private String vendorId = null;
 
   @SerializedName("manifestVersion")
-  private String manifestVersion = null;
+  private Integer manifestVersion = null;
 
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("payloadInfo")
-  private ManifestContentsPayloadInfo payloadInfo = null;
+  @SerializedName("nonce")
+  private String nonce = null;
 
-  @SerializedName("digestAlgorithm")
-  private ManifestContentsDigestAlgorithm digestAlgorithm = null;
-
-  @SerializedName("text")
-  private List<ManifestContentsText> text = new ArrayList<ManifestContentsText>();
+  @SerializedName("timestamp")
+  private Integer timestamp = null;
 
   @SerializedName("encryptionMode")
   private ManifestContentsEncryptionMode encryptionMode = null;
@@ -63,46 +52,28 @@ public class ManifestContents implements Serializable {
   @SerializedName("applyImmediately")
   private Boolean applyImmediately = null;
 
-  @SerializedName("directives")
-  private List<ManifestContentsDirectives> directives = new ArrayList<ManifestContentsDirectives>();
-
   @SerializedName("deviceId")
   private String deviceId = null;
-
-  @SerializedName("timestamp")
-  private Integer timestamp = null;
-
-  @SerializedName("classId")
-  private String classId = null;
-
-  @SerializedName("dependenices")
-  private List<ManifestContentsPayloadInfoPayloadReference> dependenices = new ArrayList<ManifestContentsPayloadInfoPayloadReference>();
-
-  @SerializedName("conditions")
-  private List<ManifestContentsConditions> conditions = new ArrayList<ManifestContentsConditions>();
 
   @SerializedName("payload")
   private ManifestContentsPayload payload = null;
 
-  @SerializedName("aliases")
-  private List<ManifestContentsPayloadInfoPayloadReference> aliases = new ArrayList<ManifestContentsPayloadInfoPayloadReference>();
-
-  public ManifestContents nonce(String nonce) {
-    this.nonce = nonce;
+  public ManifestContents classId(String classId) {
+    this.classId = classId;
     return this;
   }
 
    /**
-   * A 128-bit random field
-   * @return nonce
+   * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+   * @return classId
   **/
-  @ApiModelProperty(example = "null", value = "A 128-bit random field")
-  public String getNonce() {
-    return nonce;
+  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.")
+  public String getClassId() {
+    return classId;
   }
 
-  public void setNonce(String nonce) {
-    this.nonce = nonce;
+  public void setClassId(String classId) {
+    this.classId = classId;
   }
 
   public ManifestContents vendorId(String vendorId) {
@@ -123,7 +94,7 @@ public class ManifestContents implements Serializable {
     this.vendorId = vendorId;
   }
 
-  public ManifestContents manifestVersion(String manifestVersion) {
+  public ManifestContents manifestVersion(Integer manifestVersion) {
     this.manifestVersion = manifestVersion;
     return this;
   }
@@ -133,11 +104,11 @@ public class ManifestContents implements Serializable {
    * @return manifestVersion
   **/
   @ApiModelProperty(example = "null", value = "The version of the manifest format being used.")
-  public String getManifestVersion() {
+  public Integer getManifestVersion() {
     return manifestVersion;
   }
 
-  public void setManifestVersion(String manifestVersion) {
+  public void setManifestVersion(Integer manifestVersion) {
     this.manifestVersion = manifestVersion;
   }
 
@@ -159,63 +130,40 @@ public class ManifestContents implements Serializable {
     this.description = description;
   }
 
-  public ManifestContents payloadInfo(ManifestContentsPayloadInfo payloadInfo) {
-    this.payloadInfo = payloadInfo;
+  public ManifestContents nonce(String nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Get payloadInfo
-   * @return payloadInfo
+   * A 128-bit random field
+   * @return nonce
   **/
-  @ApiModelProperty(example = "null", value = "")
-  public ManifestContentsPayloadInfo getPayloadInfo() {
-    return payloadInfo;
+  @ApiModelProperty(example = "null", value = "A 128-bit random field")
+  public String getNonce() {
+    return nonce;
   }
 
-  public void setPayloadInfo(ManifestContentsPayloadInfo payloadInfo) {
-    this.payloadInfo = payloadInfo;
+  public void setNonce(String nonce) {
+    this.nonce = nonce;
   }
 
-  public ManifestContents digestAlgorithm(ManifestContentsDigestAlgorithm digestAlgorithm) {
-    this.digestAlgorithm = digestAlgorithm;
+  public ManifestContents timestamp(Integer timestamp) {
+    this.timestamp = timestamp;
     return this;
   }
 
    /**
-   * Get digestAlgorithm
-   * @return digestAlgorithm
+   * The time the manifest was created. The timestamp is stored as Unix time.
+   * @return timestamp
   **/
-  @ApiModelProperty(example = "null", value = "")
-  public ManifestContentsDigestAlgorithm getDigestAlgorithm() {
-    return digestAlgorithm;
+  @ApiModelProperty(example = "null", value = "The time the manifest was created. The timestamp is stored as Unix time.")
+  public Integer getTimestamp() {
+    return timestamp;
   }
 
-  public void setDigestAlgorithm(ManifestContentsDigestAlgorithm digestAlgorithm) {
-    this.digestAlgorithm = digestAlgorithm;
-  }
-
-  public ManifestContents text(List<ManifestContentsText> text) {
-    this.text = text;
-    return this;
-  }
-
-  public ManifestContents addTextItem(ManifestContentsText textItem) {
-    this.text.add(textItem);
-    return this;
-  }
-
-   /**
-   * Get text
-   * @return text
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ManifestContentsText> getText() {
-    return text;
-  }
-
-  public void setText(List<ManifestContentsText> text) {
-    this.text = text;
+  public void setTimestamp(Integer timestamp) {
+    this.timestamp = timestamp;
   }
 
   public ManifestContents encryptionMode(ManifestContentsEncryptionMode encryptionMode) {
@@ -254,29 +202,6 @@ public class ManifestContents implements Serializable {
     this.applyImmediately = applyImmediately;
   }
 
-  public ManifestContents directives(List<ManifestContentsDirectives> directives) {
-    this.directives = directives;
-    return this;
-  }
-
-  public ManifestContents addDirectivesItem(ManifestContentsDirectives directivesItem) {
-    this.directives.add(directivesItem);
-    return this;
-  }
-
-   /**
-   * Get directives
-   * @return directives
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ManifestContentsDirectives> getDirectives() {
-    return directives;
-  }
-
-  public void setDirectives(List<ManifestContentsDirectives> directives) {
-    this.directives = directives;
-  }
-
   public ManifestContents deviceId(String deviceId) {
     this.deviceId = deviceId;
     return this;
@@ -293,88 +218,6 @@ public class ManifestContents implements Serializable {
 
   public void setDeviceId(String deviceId) {
     this.deviceId = deviceId;
-  }
-
-  public ManifestContents timestamp(Integer timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * The time the manifest was created. The timestamp is stored as Unix time.
-   * @return timestamp
-  **/
-  @ApiModelProperty(example = "null", value = "The time the manifest was created. The timestamp is stored as Unix time.")
-  public Integer getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(Integer timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public ManifestContents classId(String classId) {
-    this.classId = classId;
-    return this;
-  }
-
-   /**
-   * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
-   * @return classId
-  **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.")
-  public String getClassId() {
-    return classId;
-  }
-
-  public void setClassId(String classId) {
-    this.classId = classId;
-  }
-
-  public ManifestContents dependenices(List<ManifestContentsPayloadInfoPayloadReference> dependenices) {
-    this.dependenices = dependenices;
-    return this;
-  }
-
-  public ManifestContents addDependenicesItem(ManifestContentsPayloadInfoPayloadReference dependenicesItem) {
-    this.dependenices.add(dependenicesItem);
-    return this;
-  }
-
-   /**
-   * Get dependenices
-   * @return dependenices
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ManifestContentsPayloadInfoPayloadReference> getDependenices() {
-    return dependenices;
-  }
-
-  public void setDependenices(List<ManifestContentsPayloadInfoPayloadReference> dependenices) {
-    this.dependenices = dependenices;
-  }
-
-  public ManifestContents conditions(List<ManifestContentsConditions> conditions) {
-    this.conditions = conditions;
-    return this;
-  }
-
-  public ManifestContents addConditionsItem(ManifestContentsConditions conditionsItem) {
-    this.conditions.add(conditionsItem);
-    return this;
-  }
-
-   /**
-   * Get conditions
-   * @return conditions
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ManifestContentsConditions> getConditions() {
-    return conditions;
-  }
-
-  public void setConditions(List<ManifestContentsConditions> conditions) {
-    this.conditions = conditions;
   }
 
   public ManifestContents payload(ManifestContentsPayload payload) {
@@ -395,29 +238,6 @@ public class ManifestContents implements Serializable {
     this.payload = payload;
   }
 
-  public ManifestContents aliases(List<ManifestContentsPayloadInfoPayloadReference> aliases) {
-    this.aliases = aliases;
-    return this;
-  }
-
-  public ManifestContents addAliasesItem(ManifestContentsPayloadInfoPayloadReference aliasesItem) {
-    this.aliases.add(aliasesItem);
-    return this;
-  }
-
-   /**
-   * Get aliases
-   * @return aliases
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public List<ManifestContentsPayloadInfoPayloadReference> getAliases() {
-    return aliases;
-  }
-
-  public void setAliases(List<ManifestContentsPayloadInfoPayloadReference> aliases) {
-    this.aliases = aliases;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -428,28 +248,21 @@ public class ManifestContents implements Serializable {
       return false;
     }
     ManifestContents manifestContents = (ManifestContents) o;
-    return Objects.equals(this.nonce, manifestContents.nonce) &&
+    return Objects.equals(this.classId, manifestContents.classId) &&
         Objects.equals(this.vendorId, manifestContents.vendorId) &&
         Objects.equals(this.manifestVersion, manifestContents.manifestVersion) &&
         Objects.equals(this.description, manifestContents.description) &&
-        Objects.equals(this.payloadInfo, manifestContents.payloadInfo) &&
-        Objects.equals(this.digestAlgorithm, manifestContents.digestAlgorithm) &&
-        Objects.equals(this.text, manifestContents.text) &&
+        Objects.equals(this.nonce, manifestContents.nonce) &&
+        Objects.equals(this.timestamp, manifestContents.timestamp) &&
         Objects.equals(this.encryptionMode, manifestContents.encryptionMode) &&
         Objects.equals(this.applyImmediately, manifestContents.applyImmediately) &&
-        Objects.equals(this.directives, manifestContents.directives) &&
         Objects.equals(this.deviceId, manifestContents.deviceId) &&
-        Objects.equals(this.timestamp, manifestContents.timestamp) &&
-        Objects.equals(this.classId, manifestContents.classId) &&
-        Objects.equals(this.dependenices, manifestContents.dependenices) &&
-        Objects.equals(this.conditions, manifestContents.conditions) &&
-        Objects.equals(this.payload, manifestContents.payload) &&
-        Objects.equals(this.aliases, manifestContents.aliases);
+        Objects.equals(this.payload, manifestContents.payload);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(nonce, vendorId, manifestVersion, description, payloadInfo, digestAlgorithm, text, encryptionMode, applyImmediately, directives, deviceId, timestamp, classId, dependenices, conditions, payload, aliases);
+    return Objects.hash(classId, vendorId, manifestVersion, description, nonce, timestamp, encryptionMode, applyImmediately, deviceId, payload);
   }
 
 
@@ -458,23 +271,16 @@ public class ManifestContents implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManifestContents {\n");
     
-    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    classId: ").append(toIndentedString(classId)).append("\n");
     sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
     sb.append("    manifestVersion: ").append(toIndentedString(manifestVersion)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    payloadInfo: ").append(toIndentedString(payloadInfo)).append("\n");
-    sb.append("    digestAlgorithm: ").append(toIndentedString(digestAlgorithm)).append("\n");
-    sb.append("    text: ").append(toIndentedString(text)).append("\n");
+    sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    encryptionMode: ").append(toIndentedString(encryptionMode)).append("\n");
     sb.append("    applyImmediately: ").append(toIndentedString(applyImmediately)).append("\n");
-    sb.append("    directives: ").append(toIndentedString(directives)).append("\n");
     sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    classId: ").append(toIndentedString(classId)).append("\n");
-    sb.append("    dependenices: ").append(toIndentedString(dependenices)).append("\n");
-    sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
     sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("}");
     return sb.toString();
   }
