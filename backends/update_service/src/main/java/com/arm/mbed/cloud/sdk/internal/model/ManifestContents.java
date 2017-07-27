@@ -14,11 +14,17 @@
 package com.arm.mbed.cloud.sdk.internal.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsEncryptionMode;
-import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayload;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsConditions;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsDigestAlgorithm;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsDirectives;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayloadInfo;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsPayloadInfoPayloadReference;
+import com.arm.mbed.cloud.sdk.internal.model.ManifestContentsText;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -28,70 +34,70 @@ import java.io.Serializable;
 public class ManifestContents implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("classId")
-  private String classId = null;
+  @SerializedName("nonce")
+  private String nonce = null;
 
-  @SerializedName("vendorId")
-  private String vendorId = null;
+  @SerializedName("payloadInfo")
+  private ManifestContentsPayloadInfo payloadInfo = null;
 
   @SerializedName("manifestVersion")
   private String manifestVersion = null;
 
-  @SerializedName("description")
-  private String description = null;
+  @SerializedName("digestAlgorithm")
+  private ManifestContentsDigestAlgorithm digestAlgorithm = null;
 
-  @SerializedName("nonce")
-  private String nonce = null;
+  @SerializedName("text")
+  private List<ManifestContentsText> text = new ArrayList<ManifestContentsText>();
+
+  @SerializedName("directives")
+  private List<ManifestContentsDirectives> directives = new ArrayList<ManifestContentsDirectives>();
 
   @SerializedName("timestamp")
   private Integer timestamp = null;
 
-  @SerializedName("encryptionMode")
-  private ManifestContentsEncryptionMode encryptionMode = null;
+  @SerializedName("dependenices")
+  private List<ManifestContentsPayloadInfoPayloadReference> dependenices = new ArrayList<ManifestContentsPayloadInfoPayloadReference>();
 
-  @SerializedName("applyImmediately")
-  private Boolean applyImmediately = null;
+  @SerializedName("conditions")
+  private List<ManifestContentsConditions> conditions = new ArrayList<ManifestContentsConditions>();
 
-  @SerializedName("deviceId")
-  private String deviceId = null;
+  @SerializedName("aliases")
+  private List<ManifestContentsPayloadInfoPayloadReference> aliases = new ArrayList<ManifestContentsPayloadInfoPayloadReference>();
 
-  @SerializedName("payload")
-  private ManifestContentsPayload payload = null;
-
-  public ManifestContents classId(String classId) {
-    this.classId = classId;
+  public ManifestContents nonce(String nonce) {
+    this.nonce = nonce;
     return this;
   }
 
    /**
-   * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
-   * @return classId
+   * A 128-bit random field
+   * @return nonce
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.")
-  public String getClassId() {
-    return classId;
+  @ApiModelProperty(example = "null", value = "A 128-bit random field")
+  public String getNonce() {
+    return nonce;
   }
 
-  public void setClassId(String classId) {
-    this.classId = classId;
+  public void setNonce(String nonce) {
+    this.nonce = nonce;
   }
 
-  public ManifestContents vendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public ManifestContents payloadInfo(ManifestContentsPayloadInfo payloadInfo) {
+    this.payloadInfo = payloadInfo;
     return this;
   }
 
    /**
-   * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
-   * @return vendorId
+   * Get payloadInfo
+   * @return payloadInfo
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the vendor.")
-  public String getVendorId() {
-    return vendorId;
+  @ApiModelProperty(example = "null", value = "")
+  public ManifestContentsPayloadInfo getPayloadInfo() {
+    return payloadInfo;
   }
 
-  public void setVendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public void setPayloadInfo(ManifestContentsPayloadInfo payloadInfo) {
+    this.payloadInfo = payloadInfo;
   }
 
   public ManifestContents manifestVersion(String manifestVersion) {
@@ -112,40 +118,68 @@ public class ManifestContents implements Serializable {
     this.manifestVersion = manifestVersion;
   }
 
-  public ManifestContents description(String description) {
-    this.description = description;
+  public ManifestContents digestAlgorithm(ManifestContentsDigestAlgorithm digestAlgorithm) {
+    this.digestAlgorithm = digestAlgorithm;
     return this;
   }
 
    /**
-   * A short description of the update.
-   * @return description
+   * Get digestAlgorithm
+   * @return digestAlgorithm
   **/
-  @ApiModelProperty(example = "null", value = "A short description of the update.")
-  public String getDescription() {
-    return description;
+  @ApiModelProperty(example = "null", value = "")
+  public ManifestContentsDigestAlgorithm getDigestAlgorithm() {
+    return digestAlgorithm;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setDigestAlgorithm(ManifestContentsDigestAlgorithm digestAlgorithm) {
+    this.digestAlgorithm = digestAlgorithm;
   }
 
-  public ManifestContents nonce(String nonce) {
-    this.nonce = nonce;
+  public ManifestContents text(List<ManifestContentsText> text) {
+    this.text = text;
+    return this;
+  }
+
+  public ManifestContents addTextItem(ManifestContentsText textItem) {
+    this.text.add(textItem);
     return this;
   }
 
    /**
-   * A 128-bit random field
-   * @return nonce
+   * Get text
+   * @return text
   **/
-  @ApiModelProperty(example = "null", value = "A 128-bit random field")
-  public String getNonce() {
-    return nonce;
+  @ApiModelProperty(example = "null", value = "")
+  public List<ManifestContentsText> getText() {
+    return text;
   }
 
-  public void setNonce(String nonce) {
-    this.nonce = nonce;
+  public void setText(List<ManifestContentsText> text) {
+    this.text = text;
+  }
+
+  public ManifestContents directives(List<ManifestContentsDirectives> directives) {
+    this.directives = directives;
+    return this;
+  }
+
+  public ManifestContents addDirectivesItem(ManifestContentsDirectives directivesItem) {
+    this.directives.add(directivesItem);
+    return this;
+  }
+
+   /**
+   * Get directives
+   * @return directives
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<ManifestContentsDirectives> getDirectives() {
+    return directives;
+  }
+
+  public void setDirectives(List<ManifestContentsDirectives> directives) {
+    this.directives = directives;
   }
 
   public ManifestContents timestamp(Integer timestamp) {
@@ -166,76 +200,73 @@ public class ManifestContents implements Serializable {
     this.timestamp = timestamp;
   }
 
-  public ManifestContents encryptionMode(ManifestContentsEncryptionMode encryptionMode) {
-    this.encryptionMode = encryptionMode;
+  public ManifestContents dependenices(List<ManifestContentsPayloadInfoPayloadReference> dependenices) {
+    this.dependenices = dependenices;
+    return this;
+  }
+
+  public ManifestContents addDependenicesItem(ManifestContentsPayloadInfoPayloadReference dependenicesItem) {
+    this.dependenices.add(dependenicesItem);
     return this;
   }
 
    /**
-   * Get encryptionMode
-   * @return encryptionMode
+   * Get dependenices
+   * @return dependenices
   **/
   @ApiModelProperty(example = "null", value = "")
-  public ManifestContentsEncryptionMode getEncryptionMode() {
-    return encryptionMode;
+  public List<ManifestContentsPayloadInfoPayloadReference> getDependenices() {
+    return dependenices;
   }
 
-  public void setEncryptionMode(ManifestContentsEncryptionMode encryptionMode) {
-    this.encryptionMode = encryptionMode;
+  public void setDependenices(List<ManifestContentsPayloadInfoPayloadReference> dependenices) {
+    this.dependenices = dependenices;
   }
 
-  public ManifestContents applyImmediately(Boolean applyImmediately) {
-    this.applyImmediately = applyImmediately;
+  public ManifestContents conditions(List<ManifestContentsConditions> conditions) {
+    this.conditions = conditions;
+    return this;
+  }
+
+  public ManifestContents addConditionsItem(ManifestContentsConditions conditionsItem) {
+    this.conditions.add(conditionsItem);
     return this;
   }
 
    /**
-   * A flag that indicates that the update described by the manifest should be applied as soon as possible.
-   * @return applyImmediately
-  **/
-  @ApiModelProperty(example = "null", value = "A flag that indicates that the update described by the manifest should be applied as soon as possible.")
-  public Boolean getApplyImmediately() {
-    return applyImmediately;
-  }
-
-  public void setApplyImmediately(Boolean applyImmediately) {
-    this.applyImmediately = applyImmediately;
-  }
-
-  public ManifestContents deviceId(String deviceId) {
-    this.deviceId = deviceId;
-    return this;
-  }
-
-   /**
-   * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
-   * @return deviceId
-  **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.")
-  public String getDeviceId() {
-    return deviceId;
-  }
-
-  public void setDeviceId(String deviceId) {
-    this.deviceId = deviceId;
-  }
-
-  public ManifestContents payload(ManifestContentsPayload payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * Get payload
-   * @return payload
+   * Get conditions
+   * @return conditions
   **/
   @ApiModelProperty(example = "null", value = "")
-  public ManifestContentsPayload getPayload() {
-    return payload;
+  public List<ManifestContentsConditions> getConditions() {
+    return conditions;
   }
 
-  public void setPayload(ManifestContentsPayload payload) {
-    this.payload = payload;
+  public void setConditions(List<ManifestContentsConditions> conditions) {
+    this.conditions = conditions;
+  }
+
+  public ManifestContents aliases(List<ManifestContentsPayloadInfoPayloadReference> aliases) {
+    this.aliases = aliases;
+    return this;
+  }
+
+  public ManifestContents addAliasesItem(ManifestContentsPayloadInfoPayloadReference aliasesItem) {
+    this.aliases.add(aliasesItem);
+    return this;
+  }
+
+   /**
+   * Get aliases
+   * @return aliases
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public List<ManifestContentsPayloadInfoPayloadReference> getAliases() {
+    return aliases;
+  }
+
+  public void setAliases(List<ManifestContentsPayloadInfoPayloadReference> aliases) {
+    this.aliases = aliases;
   }
 
 
@@ -248,21 +279,21 @@ public class ManifestContents implements Serializable {
       return false;
     }
     ManifestContents manifestContents = (ManifestContents) o;
-    return Objects.equals(this.classId, manifestContents.classId) &&
-        Objects.equals(this.vendorId, manifestContents.vendorId) &&
+    return Objects.equals(this.nonce, manifestContents.nonce) &&
+        Objects.equals(this.payloadInfo, manifestContents.payloadInfo) &&
         Objects.equals(this.manifestVersion, manifestContents.manifestVersion) &&
-        Objects.equals(this.description, manifestContents.description) &&
-        Objects.equals(this.nonce, manifestContents.nonce) &&
+        Objects.equals(this.digestAlgorithm, manifestContents.digestAlgorithm) &&
+        Objects.equals(this.text, manifestContents.text) &&
+        Objects.equals(this.directives, manifestContents.directives) &&
         Objects.equals(this.timestamp, manifestContents.timestamp) &&
-        Objects.equals(this.encryptionMode, manifestContents.encryptionMode) &&
-        Objects.equals(this.applyImmediately, manifestContents.applyImmediately) &&
-        Objects.equals(this.deviceId, manifestContents.deviceId) &&
-        Objects.equals(this.payload, manifestContents.payload);
+        Objects.equals(this.dependenices, manifestContents.dependenices) &&
+        Objects.equals(this.conditions, manifestContents.conditions) &&
+        Objects.equals(this.aliases, manifestContents.aliases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(classId, vendorId, manifestVersion, description, nonce, timestamp, encryptionMode, applyImmediately, deviceId, payload);
+    return Objects.hash(nonce, payloadInfo, manifestVersion, digestAlgorithm, text, directives, timestamp, dependenices, conditions, aliases);
   }
 
 
@@ -271,16 +302,16 @@ public class ManifestContents implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ManifestContents {\n");
     
-    sb.append("    classId: ").append(toIndentedString(classId)).append("\n");
-    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
-    sb.append("    manifestVersion: ").append(toIndentedString(manifestVersion)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    nonce: ").append(toIndentedString(nonce)).append("\n");
+    sb.append("    payloadInfo: ").append(toIndentedString(payloadInfo)).append("\n");
+    sb.append("    manifestVersion: ").append(toIndentedString(manifestVersion)).append("\n");
+    sb.append("    digestAlgorithm: ").append(toIndentedString(digestAlgorithm)).append("\n");
+    sb.append("    text: ").append(toIndentedString(text)).append("\n");
+    sb.append("    directives: ").append(toIndentedString(directives)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    encryptionMode: ").append(toIndentedString(encryptionMode)).append("\n");
-    sb.append("    applyImmediately: ").append(toIndentedString(applyImmediately)).append("\n");
-    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("    dependenices: ").append(toIndentedString(dependenices)).append("\n");
+    sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
+    sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("}");
     return sb.toString();
   }

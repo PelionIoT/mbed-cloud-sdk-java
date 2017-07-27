@@ -20,10 +20,10 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * ManifestContentsPayloadReference
+ * ManifestContentsPayloadInfoPayloadReference
  */
 
-public class ManifestContentsPayloadReference implements Serializable {
+public class ManifestContentsPayloadInfoPayloadReference implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("hash")
@@ -32,19 +32,16 @@ public class ManifestContentsPayloadReference implements Serializable {
   @SerializedName("uri")
   private String uri = null;
 
-  @SerializedName("size")
-  private Integer size = null;
-
-  public ManifestContentsPayloadReference hash(String hash) {
+  public ManifestContentsPayloadInfoPayloadReference hash(String hash) {
     this.hash = hash;
     return this;
   }
 
    /**
-   * Hex representation of the SHA-256 hash of the payload
+   * Get hash
    * @return hash
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the SHA-256 hash of the payload")
+  @ApiModelProperty(example = "null", value = "")
   public String getHash() {
     return hash;
   }
@@ -53,40 +50,22 @@ public class ManifestContentsPayloadReference implements Serializable {
     this.hash = hash;
   }
 
-  public ManifestContentsPayloadReference uri(String uri) {
+  public ManifestContentsPayloadInfoPayloadReference uri(String uri) {
     this.uri = uri;
     return this;
   }
 
    /**
-   * The URI of the payload.
+   * Get uri
    * @return uri
   **/
-  @ApiModelProperty(example = "null", value = "The URI of the payload.")
+  @ApiModelProperty(example = "null", value = "")
   public String getUri() {
     return uri;
   }
 
   public void setUri(String uri) {
     this.uri = uri;
-  }
-
-  public ManifestContentsPayloadReference size(Integer size) {
-    this.size = size;
-    return this;
-  }
-
-   /**
-   * Size of the payload in bytes
-   * @return size
-  **/
-  @ApiModelProperty(example = "null", value = "Size of the payload in bytes")
-  public Integer getSize() {
-    return size;
-  }
-
-  public void setSize(Integer size) {
-    this.size = size;
   }
 
 
@@ -98,26 +77,24 @@ public class ManifestContentsPayloadReference implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ManifestContentsPayloadReference manifestContentsPayloadReference = (ManifestContentsPayloadReference) o;
-    return Objects.equals(this.hash, manifestContentsPayloadReference.hash) &&
-        Objects.equals(this.uri, manifestContentsPayloadReference.uri) &&
-        Objects.equals(this.size, manifestContentsPayloadReference.size);
+    ManifestContentsPayloadInfoPayloadReference manifestContentsPayloadInfoPayloadReference = (ManifestContentsPayloadInfoPayloadReference) o;
+    return Objects.equals(this.hash, manifestContentsPayloadInfoPayloadReference.hash) &&
+        Objects.equals(this.uri, manifestContentsPayloadInfoPayloadReference.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(hash, uri, size);
+    return Objects.hash(hash, uri);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ManifestContentsPayloadReference {\n");
+    sb.append("class ManifestContentsPayloadInfoPayloadReference {\n");
     
     sb.append("    hash: ").append(toIndentedString(hash)).append("\n");
     sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-    sb.append("    size: ").append(toIndentedString(size)).append("\n");
     sb.append("}");
     return sb.toString();
   }

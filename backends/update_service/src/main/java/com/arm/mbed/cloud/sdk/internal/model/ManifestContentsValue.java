@@ -20,31 +20,52 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * ManifestContentsPayloadFormat
+ * ManifestContentsValue
  */
 
-public class ManifestContentsPayloadFormat implements Serializable {
+public class ManifestContentsValue implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("enum")
-  private Integer _enum = null;
+  @SerializedName("int")
+  private Integer _int = null;
 
-  public ManifestContentsPayloadFormat _enum(Integer _enum) {
-    this._enum = _enum;
+  @SerializedName("raw")
+  private String raw = null;
+
+  public ManifestContentsValue _int(Integer _int) {
+    this._int = _int;
     return this;
   }
 
    /**
-   * Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf 
-   * @return _enum
+   * Get _int
+   * @return _int
   **/
-  @ApiModelProperty(example = "null", value = "Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf ")
-  public Integer getEnum() {
-    return _enum;
+  @ApiModelProperty(example = "null", value = "")
+  public Integer getInt() {
+    return _int;
   }
 
-  public void setEnum(Integer _enum) {
-    this._enum = _enum;
+  public void setInt(Integer _int) {
+    this._int = _int;
+  }
+
+  public ManifestContentsValue raw(String raw) {
+    this.raw = raw;
+    return this;
+  }
+
+   /**
+   * Get raw
+   * @return raw
+  **/
+  @ApiModelProperty(example = "null", value = "")
+  public String getRaw() {
+    return raw;
+  }
+
+  public void setRaw(String raw) {
+    this.raw = raw;
   }
 
 
@@ -56,22 +77,24 @@ public class ManifestContentsPayloadFormat implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ManifestContentsPayloadFormat manifestContentsPayloadFormat = (ManifestContentsPayloadFormat) o;
-    return Objects.equals(this._enum, manifestContentsPayloadFormat._enum);
+    ManifestContentsValue manifestContentsValue = (ManifestContentsValue) o;
+    return Objects.equals(this._int, manifestContentsValue._int) &&
+        Objects.equals(this.raw, manifestContentsValue.raw);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(_enum);
+    return Objects.hash(_int, raw);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ManifestContentsPayloadFormat {\n");
+    sb.append("class ManifestContentsValue {\n");
     
-    sb.append("    _enum: ").append(toIndentedString(_enum)).append("\n");
+    sb.append("    _int: ").append(toIndentedString(_int)).append("\n");
+    sb.append("    raw: ").append(toIndentedString(raw)).append("\n");
     sb.append("}");
     return sb.toString();
   }
