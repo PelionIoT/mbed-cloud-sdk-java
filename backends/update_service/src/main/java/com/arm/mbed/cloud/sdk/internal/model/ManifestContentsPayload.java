@@ -79,10 +79,10 @@ public class ManifestContentsPayload implements Serializable {
   }
 
    /**
-   * An identifier for where the payload is to be located.
+   * An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.
    * @return storageIdentifier
   **/
-  @ApiModelProperty(example = "null", value = "An identifier for where the payload is to be located.")
+  @ApiModelProperty(example = "null", value = "An identifier for where the payload is to be located. This identifier indicates where the image should be placed on the device. For example, when an IoT device contains multiple microcontrollers (MCUs) and the decision needs to be made to which MCU to send which firmware image.")
   public String getStorageIdentifier() {
     return storageIdentifier;
   }

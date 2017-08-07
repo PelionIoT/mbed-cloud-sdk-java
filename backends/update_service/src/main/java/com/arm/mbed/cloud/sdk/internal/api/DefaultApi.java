@@ -8,6 +8,7 @@ import retrofit2.http.*;
 
 import okhttp3.RequestBody;
 
+import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadata;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImagePage;
@@ -213,5 +214,27 @@ public interface DefaultApi {
   Call<UpdateCampaign> updateCampaignUpdate(
     @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
   );
+
+  /**
+   * 
+   * 
+   * @param campaignDeviceMetadataId The id of the campaign device metadata (required)
+   * @return Call&lt;CampaignDeviceMetadata&gt;
+   */
+  
+  @GET("v3/campaign-device-metadata/{campaign_device_metadata_id}")
+  Call<CampaignDeviceMetadata> v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(
+    @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
+  );
+
+  /**
+   * 
+   * 
+   * @return Call&lt;Void&gt;
+   */
+  
+  @GET("v3/campaign-device-metadata")
+  Call<Void> v3CampaignDeviceMetadataGet();
+    
 
 }

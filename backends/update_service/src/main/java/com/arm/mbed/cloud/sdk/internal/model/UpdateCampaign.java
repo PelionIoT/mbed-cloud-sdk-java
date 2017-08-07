@@ -118,7 +118,7 @@ public class UpdateCampaign implements Serializable {
    * An optional description of the campaign.
    * @return description
   **/
-  @ApiModelProperty(example = "null", required = true, value = "An optional description of the campaign.")
+  @ApiModelProperty(example = "null", value = "An optional description of the campaign.")
   public String getDescription() {
     return description;
   }
@@ -136,7 +136,7 @@ public class UpdateCampaign implements Serializable {
    * Get rootManifestId
    * @return rootManifestId
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(example = "null", value = "")
   public String getRootManifestId() {
     return rootManifestId;
   }
@@ -154,7 +154,7 @@ public class UpdateCampaign implements Serializable {
    * The time the object was created.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was created.")
+  @ApiModelProperty(example = "null", value = "The time the object was created.")
   public String getCreatedAt() {
     return createdAt;
   }
@@ -172,7 +172,7 @@ public class UpdateCampaign implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API resource entity.")
+  @ApiModelProperty(example = "null", value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -208,7 +208,7 @@ public class UpdateCampaign implements Serializable {
    * The state of the campaign.
    * @return state
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The state of the campaign.")
+  @ApiModelProperty(example = "null", value = "The state of the campaign.")
   public StateEnum getState() {
     return state;
   }
@@ -244,7 +244,7 @@ public class UpdateCampaign implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The entity instance signature.")
+  @ApiModelProperty(example = "null", value = "The entity instance signature.")
   public String getEtag() {
     return etag;
   }
@@ -262,7 +262,7 @@ public class UpdateCampaign implements Serializable {
    * Get rootManifestUrl
    * @return rootManifestUrl
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(example = "null", value = "")
   public String getRootManifestUrl() {
     return rootManifestUrl;
   }
@@ -298,7 +298,7 @@ public class UpdateCampaign implements Serializable {
    * The ID of the campaign.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The ID of the campaign.")
+  @ApiModelProperty(example = "null", value = "The ID of the campaign.")
   public String getId() {
     return id;
   }
@@ -316,7 +316,7 @@ public class UpdateCampaign implements Serializable {
    * The filter for the devices the campaign will target.
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The filter for the devices the campaign will target.")
+  @ApiModelProperty(example = "null", value = "The filter for the devices the campaign will target.")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -334,7 +334,7 @@ public class UpdateCampaign implements Serializable {
    * A name for this campaign.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "A name for this campaign.")
+  @ApiModelProperty(example = "null", value = "A name for this campaign.")
   public String getName() {
     return name;
   }

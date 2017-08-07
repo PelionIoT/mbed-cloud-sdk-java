@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.internal.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadata;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImagePage;
@@ -228,6 +229,31 @@ public class DefaultApiTest {
         String campaignId = null;
         UpdateCampaignPutRequest campaign = null;
         // UpdateCampaign response = api.updateCampaignUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * 
+     */
+    @Test
+    public void v3CampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
+        String campaignDeviceMetadataId = null;
+        // CampaignDeviceMetadata response = api.v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * 
+     */
+    @Test
+    public void v3CampaignDeviceMetadataGetTest() {
+        // Void response = api.v3CampaignDeviceMetadataGet();
 
         // TODO: test validations
     }
