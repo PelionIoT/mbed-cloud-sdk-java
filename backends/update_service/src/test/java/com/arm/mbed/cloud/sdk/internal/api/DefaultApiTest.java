@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.internal.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadata;
+import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadataPage;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImagePage;
@@ -253,7 +254,7 @@ public class DefaultApiTest {
      */
     @Test
     public void v3CampaignDeviceMetadataGetTest() {
-        // Void response = api.v3CampaignDeviceMetadataGet();
+        // CampaignDeviceMetadataPage response = api.v3CampaignDeviceMetadataGet();
 
         // TODO: test validations
     }

@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 
 <a name="v3CampaignDeviceMetadataGet"></a>
 # **v3CampaignDeviceMetadataGet**
-> Void v3CampaignDeviceMetadataGet()
+> CampaignDeviceMetadataPage v3CampaignDeviceMetadataGet()
 
 
 
@@ -906,7 +906,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 try {
-    Void result = apiInstance.v3CampaignDeviceMetadataGet();
+    CampaignDeviceMetadataPage result = apiInstance.v3CampaignDeviceMetadataGet();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#v3CampaignDeviceMetadataGet");
@@ -919,7 +919,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**Void**](.md)
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 

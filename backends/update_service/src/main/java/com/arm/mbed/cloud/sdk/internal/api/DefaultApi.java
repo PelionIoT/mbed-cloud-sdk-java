@@ -9,6 +9,7 @@ import retrofit2.http.*;
 import okhttp3.RequestBody;
 
 import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadata;
+import com.arm.mbed.cloud.sdk.internal.model.CampaignDeviceMetadataPage;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.model.FirmwareImagePage;
@@ -230,11 +231,11 @@ public interface DefaultApi {
   /**
    * 
    * 
-   * @return Call&lt;Void&gt;
+   * @return Call&lt;CampaignDeviceMetadataPage&gt;
    */
   
   @GET("v3/campaign-device-metadata")
-  Call<Void> v3CampaignDeviceMetadataGet();
+  Call<CampaignDeviceMetadataPage> v3CampaignDeviceMetadataGet();
     
 
 }
