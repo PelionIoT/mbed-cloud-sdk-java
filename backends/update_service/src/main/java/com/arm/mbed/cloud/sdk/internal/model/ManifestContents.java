@@ -136,10 +136,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * A 128-bit random field
+   * A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
    * @return nonce
   **/
-  @ApiModelProperty(example = "null", value = "A 128-bit random field")
+  @ApiModelProperty(example = "null", value = "A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.")
   public String getNonce() {
     return nonce;
   }

@@ -1,0 +1,15 @@
+
+# CampaignDeviceMetadataPage
+
+## Properties
+Name | Type | Description | Notes
+------------ | ------------- | ------------- | -------------
+**after** | **String** | The entity ID to fetch after the given one. |  [optional]
+**hasMore** | **Boolean** | Flag indicating whether there is more results. |  [optional]
+**totalCount** | **Integer** | The total number or records, if requested. It might be returned also for small lists. |  [optional]
+**object** | **String** | Entity name: always ‘list’ |  [optional]
+**limit** | **Integer** | The number of results to return, (range: 2-1000), or equals to total_count |  [optional]
+**data** | [**List&lt;CampaignDeviceMetadata&gt;**](CampaignDeviceMetadata.md) | A list of entities |  [optional]
+
+
+

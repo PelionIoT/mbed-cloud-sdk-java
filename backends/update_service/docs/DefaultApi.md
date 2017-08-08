@@ -18,6 +18,8 @@ Method | HTTP request | Description
 [**updateCampaignPartialUpdate**](DefaultApi.md#updateCampaignPartialUpdate) | **PATCH** v3/update-campaigns/{campaign_id}/ | 
 [**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | 
 [**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | 
+[**v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet**](DefaultApi.md#v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet) | **GET** v3/campaign-device-metadata/{campaign_device_metadata_id} | 
+[**v3CampaignDeviceMetadataGet**](DefaultApi.md#v3CampaignDeviceMetadataGet) | **GET** v3/campaign-device-metadata | 
 
 
 <a name="firmwareImageCreate"></a>
@@ -816,6 +818,108 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaign**](UpdateCampaign.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet"></a>
+# **v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet**
+> CampaignDeviceMetadata v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId)
+
+
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The id of the campaign device metadata
+try {
+    CampaignDeviceMetadata result = apiInstance.v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignDeviceMetadataId** | **String**| The id of the campaign device metadata |
+
+### Return type
+
+[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="v3CampaignDeviceMetadataGet"></a>
+# **v3CampaignDeviceMetadataGet**
+> CampaignDeviceMetadataPage v3CampaignDeviceMetadataGet()
+
+
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+try {
+    CampaignDeviceMetadataPage result = apiInstance.v3CampaignDeviceMetadataGet();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#v3CampaignDeviceMetadataGet");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 
