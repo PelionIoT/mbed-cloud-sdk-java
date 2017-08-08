@@ -1,4 +1,4 @@
 /**
- * Java SDK for mbed Cloud
+ * Java SDK for arm Mbed Cloud
  */
 package com.arm.mbed.cloud.sdk;
