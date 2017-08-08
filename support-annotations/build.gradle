@@ -1,8 +1,14 @@
 // Java SDK annotations version
 version = '1.0.0'
 
-// Java SDK compatibility
-//sourceCompatibility = JavaVersion.VERSION_1_7
+
+apply plugin: 'java-library'
+apply plugin: 'java-library-distribution'
+//apply plugin: 'checkstyle'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'signing'
+apply plugin: 'build-dashboard'
 
 
 // In this section you declare where to find the dependencies of your project
@@ -12,6 +18,12 @@ repositories {
     jcenter()
 }
 
+
+compileJava {
+    // Java SDK compatibility
+    sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+    targetCompatibility  JavaVersion.VERSION_1_7.toString()
+}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'

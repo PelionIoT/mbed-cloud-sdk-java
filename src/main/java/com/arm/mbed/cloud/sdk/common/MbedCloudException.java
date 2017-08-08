@@ -5,20 +5,22 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "A mbed cloud exception")
 public class MbedCloudException extends Exception {
 
-	public MbedCloudException() {
-		super();
-	}
+    private static final long serialVersionUID = 3176049212952952513L;
 
-	public MbedCloudException(String message) {
-		super(message);
-	}
+    public MbedCloudException() {
+        super();
+    }
 
-	public MbedCloudException(Throwable cause) {
-		super("An exception occurred while calling mbed cloud API", cause);
-	}
+    public MbedCloudException(String message) {
+        super(message);
+    }
 
-	public MbedCloudException(String message, Throwable cause) {
-		super(message, cause);
-	}
+    public MbedCloudException(Throwable cause) {
+        super("An exception occurred while calling mbed cloud API", cause);
+    }
+
+    public MbedCloudException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
 }
