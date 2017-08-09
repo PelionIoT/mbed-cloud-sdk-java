@@ -24,10 +24,15 @@ public class TranslationUtils {
     }
 
     public static int toInt(Integer integer) {
-        return (integer == null) ? 0 : integer.intValue();
+        return toInt(integer, 0);
+    }
+
+    public static int toInt(Integer integer, int defaultV) {
+        return (integer == null) ? defaultV : integer.intValue();
     }
 
     public static boolean toBool(Boolean bool, boolean defaultB) {
         return (bool == null) ? defaultB : bool.booleanValue();
     }
+
 }
