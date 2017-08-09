@@ -1,8 +1,6 @@
 package com.mbed.lwm2m.tlv;
 
 public interface TLV {
-    /** HTTP Media type for OMA TLV content. */
-    static final String HTTP_MEDIA_TYPE_LWM2M_TLV = "application/vnd.oma.lwm2m+tlv";
 
     static final int OBJECT_INSTANCE_BINARY_VALUE = 0b00000000;
 
