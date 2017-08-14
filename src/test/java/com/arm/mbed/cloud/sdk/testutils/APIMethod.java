@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import com.arm.mbed.cloud.sdk.common.ApiMetadata;
+
 public class APIMethod {
     private String name;
     private APIMethodArgument returnArgument;
@@ -83,7 +85,21 @@ public class APIMethod {
         return (arguments == null) ? 0 : arguments.size();
     }
 
-    public Object invokeMethod(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
+    public APIMethodResult invokeAPI(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
+            throws NoSuchMethodException, SecurityException, ClassNotFoundException, IllegalAccessException,
+            IllegalArgumentException, APICallException, InvocationTargetException {
+        APIMethodResult result = new APIMethodResult();
+        try {
+            result.setResult(invokeMethod(moduleInstance, argsDescription));
+        } catch (InvocationTargetException e) {
+            result.setException(e);
+        }
+        APIMethod lastMetadataMethod = new APIMethod("getLastApiMetadata");
+        result.setMetadata((ApiMetadata) lastMetadataMethod.invokeMethod(moduleInstance, null));
+        return result;
+    }
+
+    private Object invokeMethod(Object moduleInstance, Map<String, Map<String, Object>> argsDescription)
             throws NoSuchMethodException, SecurityException, ClassNotFoundException, IllegalAccessException,
             IllegalArgumentException, InvocationTargetException, APICallException {
         if (moduleInstance == null) {
@@ -103,7 +119,7 @@ public class APIMethod {
             return null;
         }
         Class<?>[] argTypes = fetchArgsType();
-        return (argTypes == null) ? moduleClass.getDeclaredMethod(name) : moduleClass.getDeclaredMethod(name, argTypes);
+        return (argTypes == null) ? moduleClass.getMethod(name) : moduleClass.getMethod(name, argTypes);
 
     }
 
@@ -112,7 +128,7 @@ public class APIMethod {
         if (argsNumber == 0) {
             return null;
         }
-        List<Class<?>> argsTypeArray = new ArrayList<Class<?>>(argsNumber);
+        List<Class<?>> argsTypeArray = new ArrayList<>(argsNumber);
         for (APIMethodArgument arg : arguments) {
             argsTypeArray.add(arg.determineClass());
         }

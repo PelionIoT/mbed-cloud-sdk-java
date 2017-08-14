@@ -87,11 +87,8 @@ public class APIMethodArgument {
         }
     }
 
-    public void determineType(Class<?> type) {
-        if (type == null) {
-            this.type = null;
-        }
-        this.type = type.getName();
+    public void determineType(@SuppressWarnings("hiding") Class<?> type) {
+        this.type = (type == null) ? null : type.getName();
     }
 
     public Class<?> determineClass() throws ClassNotFoundException {

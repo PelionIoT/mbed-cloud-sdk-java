@@ -61,7 +61,7 @@ public class SDK {
             return;
         }
         if (modules == null) {
-            modules = new LinkedHashMap<String, APIModule>();
+            modules = new LinkedHashMap<>();
         }
         modules.put(module.getSimpleName(), module);
     }

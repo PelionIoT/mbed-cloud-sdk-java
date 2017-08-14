@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.APICaller;
 import com.arm.mbed.cloud.sdk.testutils.APIMappingGenerator;
+import com.arm.mbed.cloud.sdk.testutils.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testutils.SDK;
 import com.arm.mbed.cloud.sdk.testutils.Serializer;
 import com.arm.mbed.cloud.sdk.testutils.UnknownAPIException;
@@ -90,6 +91,7 @@ public class TestServer {
         });
     }
 
+    @SuppressWarnings("boxing")
     private void defineModuleMethodTestRoute() {
         Route route = router.route(HttpMethod.GET, "/:" + PARAM_MODULE + "/:" + PARAM_METHOD + "*")
                 .produces(APPLICATION_JSON);
@@ -105,14 +107,29 @@ public class TestServer {
             Map<String, Object> params = retrieveQueryParameters(request);
             logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT " + new Date().toString());
             APICaller caller = new APICaller(sdk, config);
+            APIMethodResult result = null;
             try {
                 logInfo("CALLING " + String.valueOf(method) + " ON " + String.valueOf(module) + " USING "
                         + String.valueOf(params.toString()));
-                Object result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
+                result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
                         ApiUtils.convertSnakeToCamel(method, false), params);
-                String resultJson = Serializer.convertResultToJson(result);
-                logDebug("RESULT " + String.valueOf(resultJson));
-                setResponse(routingContext).end(resultJson);
+                if (!result.wasExceptionRaised()) {
+                    String resultJson = Serializer.convertResultToJson(result.getResult());
+                    logDebug("RESULT " + String.valueOf(resultJson));
+                    setResponse(routingContext).end(resultJson);
+                } else {
+                    logDebug("RESULT error happened: " + result.getMetadata());
+                    if (result.getMetadata() == null) {
+                        sendError(setResponse(routingContext), null,
+                                (result.getException().getMessage() == null)
+                                        ? "Exception of type " + result.getException() + " was raised"
+                                        : result.getException().getMessage());
+                    } else {
+                        sendError(setResponse(routingContext), result.getMetadata().getStatusCode(),
+                                "An error occurred during call. Call metadata: " + result.getMetadata().toString());
+                    }
+                }
+
             } catch (UnknownAPIException | APICallException e) {
                 sendError(setResponse(routingContext), null,
                         (e.getMessage() == null) ? "Exception of type " + e + " was raised" : e.getMessage());
@@ -132,7 +149,7 @@ public class TestServer {
 
     private Map<String, Object> retrieveQueryParameters(HttpServerRequest request) {
         MultiMap map = request.params();
-        Map<String, Object> params = new LinkedHashMap<String, Object>();
+        Map<String, Object> params = new LinkedHashMap<>();
         for (Entry<String, String> element : map.entries()) {
             if (!element.getKey().equalsIgnoreCase(PARAM_MODULE) && !element.getKey().equalsIgnoreCase(PARAM_METHOD)) {
                 if (element.getKey().equalsIgnoreCase(TEST_ARGS_KEY)) {
@@ -174,6 +191,7 @@ public class TestServer {
     }
 
     private void sendError(HttpServerResponse res, Integer errorCode, String errorMessage) {
+        @SuppressWarnings("boxing")
         int statusCode = (errorCode == null) ? 500 : errorCode;
         JsonObject responseMessage = new JsonObject();
         responseMessage.put("message", errorMessage);

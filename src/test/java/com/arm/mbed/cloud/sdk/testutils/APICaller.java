@@ -50,7 +50,7 @@ public class APICaller {
         this.connectionOptions = connectionOptions;
     }
 
-    public Object callAPI(String module, String method, Map<String, Object> parameters)
+    public APIMethodResult callAPI(String module, String method, Map<String, Object> parameters)
             throws UnknownAPIException, APICallException {
         if (module == null || method == null || sdk == null) {
             throwUnknownAPI(module, method);
@@ -59,6 +59,7 @@ public class APICaller {
         if (moduleObj == null) {
             throwUnknownAPI(module, method);
         }
+        @SuppressWarnings("null")
         APIMethod methodObj = moduleObj.getMethod(method);
         if (methodObj == null) {
             throwUnknownAPI(module, method);
@@ -90,11 +91,10 @@ public class APICaller {
             this.method = method;
         }
 
-        @SuppressWarnings("unchecked")
-        public Object call(Map<String, Object> parameters) throws APICallException {
+        public APIMethodResult call(Map<String, Object> parameters) throws APICallException {
             Map<String, Map<String, Object>> argDescription = determineArgumentJsonValues(parameters);
             try {
-                return method.invokeMethod(module.createInstance(connectionOptions), argDescription);
+                return method.invokeAPI(module.createInstance(connectionOptions), argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException e) {
                 // e.printStackTrace();
@@ -103,6 +103,7 @@ public class APICaller {
             return null;
         }
 
+        @SuppressWarnings("unchecked")
         private Map<String, Map<String, Object>> determineArgumentJsonValues(Map<String, Object> parameters)
                 throws APICallException {
             Map<String, Map<String, Object>> argDescription = null;
@@ -110,7 +111,7 @@ public class APICaller {
                 parameters = new HashMap<>();
             }
             if (method.determineNumberOfArguments() > 0) {
-                argDescription = new Hashtable<String, Map<String, Object>>(method.determineNumberOfArguments());
+                argDescription = new Hashtable<>(method.determineNumberOfArguments());
                 if (method.determineNumberOfArguments() == 1) {
                     String argName = method.getArguments().get(0).getName();
                     argDescription.put(argName, parameters);

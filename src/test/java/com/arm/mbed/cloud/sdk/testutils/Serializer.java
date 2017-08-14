@@ -102,7 +102,7 @@ public class Serializer {
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "boxing" })
     private static <T> T convertPrimitive(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
         try {
             if (transformedObject.fieldNames().size() != 1) {
@@ -157,7 +157,7 @@ public class Serializer {
     @SuppressWarnings("unchecked")
     private static Map<String, Object> reformatResultJsonMap(Map<String, Object> resultMap, CaseConversion conversion,
             boolean capitalAtStart) {
-        Map<String, Object> formattedResult = new LinkedHashMap<String, Object>();
+        Map<String, Object> formattedResult = new LinkedHashMap<>();
         for (Entry<String, Object> entry : resultMap.entrySet()) {
             formattedResult.put(ApiUtils.getCaseConverter(conversion).convert(entry.getKey(), capitalAtStart),
                     (entry.getValue() instanceof Map<?, ?>)

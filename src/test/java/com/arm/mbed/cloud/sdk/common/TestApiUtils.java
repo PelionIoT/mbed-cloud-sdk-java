@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 
 public class TestApiUtils {
 
+    @SuppressWarnings("boxing")
     @Test
     public final void testCheckNotNull() {
         Integer test = null;

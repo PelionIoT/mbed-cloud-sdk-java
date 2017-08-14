@@ -86,7 +86,7 @@ public class APIMappingGenerator {
     }
 
     private List<Class<?>> getClassesContainedInPackage(String packageName) {
-        List<Class<?>> classes = new LinkedList<Class<?>>();
+        List<Class<?>> classes = new LinkedList<>();
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         if (classLoader == null || packageName == null) {
             return classes;
@@ -120,12 +120,13 @@ public class APIMappingGenerator {
     private List<Class<?>> findClassesInPackageWhenInJar(File directory, String packageFilePath) {
         // There is no easy way to list classes present in a jar.
         // https://stackoverflow.com/questions/15720822/how-to-get-names-of-classes-inside-a-jar-file
-        List<Class<?>> classes = new LinkedList<Class<?>>();
+        List<Class<?>> classes = new LinkedList<>();
         String jarFileName = fetchJarName(directory);
         if (jarFileName == null) {
             return classes;
         }
         try {
+            @SuppressWarnings("resource")
             JarFile jarFile = new JarFile(jarFileName);
             Enumeration<JarEntry> entries = jarFile.entries();
             while (entries.hasMoreElements()) {
@@ -167,7 +168,7 @@ public class APIMappingGenerator {
     }
 
     private List<Class<?>> findClassesInPackageWhenInFileSystem(File directory, String packageName) {
-        List<Class<?>> classes = new LinkedList<Class<?>>();
+        List<Class<?>> classes = new LinkedList<>();
         if (!directory.exists() || packageName == null) {
             return classes;
         }
