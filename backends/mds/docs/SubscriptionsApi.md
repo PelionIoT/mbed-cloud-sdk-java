@@ -29,7 +29,7 @@ Removes subscriptions from every endpoint and resource. Note that this does not 
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -80,7 +80,7 @@ Deletes all resource subscriptions in a single endpoint.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -135,7 +135,7 @@ Lists all subscribed resources from a single endpoint.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -190,7 +190,7 @@ To remove an existing subscription from a resource path.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -245,7 +245,7 @@ Read subscription status
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -302,7 +302,7 @@ The mbed Cloud Connect eventing model consists of observable resources.  This me
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -359,7 +359,7 @@ You can retrieve the pre-subscription data by using a GET operation. The server 
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -410,7 +410,7 @@ Pre-subscription is a set of rules and patterns put by the application. When an 
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

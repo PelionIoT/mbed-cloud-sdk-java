@@ -37,7 +37,7 @@ Create firmware image.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -96,7 +96,7 @@ Delete firmware image.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -151,7 +151,7 @@ List all firmware images
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -214,7 +214,7 @@ Retrieve firmware image.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -269,7 +269,7 @@ Create firmware manifest.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -328,7 +328,7 @@ Delete firmware manifest.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -383,7 +383,7 @@ List all firmware manifests.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -446,7 +446,7 @@ Retrieve firmware manifest.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -501,7 +501,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -556,7 +556,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -611,7 +611,7 @@ The APIs for creating and manipulating update campaigns.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -674,7 +674,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -731,7 +731,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -786,7 +786,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -841,7 +841,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -894,7 +894,7 @@ Name | Type | Description  | Notes
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

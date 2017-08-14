@@ -25,7 +25,7 @@ A request to delete a resource must be handled by both mbed Cloud Client and mbe
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ResourcesApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -84,7 +84,7 @@ Requests the resource value and when the response is available, a json AsyncIDRe
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ResourcesApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -145,7 +145,7 @@ With this API, you can execute a function on an existing resource.  All resource
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ResourcesApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -206,7 +206,7 @@ With this API, you can write new values to existing resources, or create new  re
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ResourcesApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

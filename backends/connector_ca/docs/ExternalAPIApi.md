@@ -25,7 +25,7 @@ This REST API is intended to be used by customers to fetch an existing developer
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -82,7 +82,7 @@ This REST API is intended to be used by customers to get a developer certificate
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -139,7 +139,7 @@ This REST API is intended to be used by customers to fetch bootstrap server cred
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -194,7 +194,7 @@ This REST API is intended to be used by customers to fetch LWM2M server credenti
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

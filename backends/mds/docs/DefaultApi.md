@@ -23,7 +23,7 @@ Deletes the callback URL.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -74,7 +74,7 @@ Shows the current callback URL if it exists.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

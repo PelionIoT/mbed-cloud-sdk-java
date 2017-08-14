@@ -22,7 +22,7 @@ This REST API is used to get account-specific statistics.
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.StatisticsApi;
+//import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
