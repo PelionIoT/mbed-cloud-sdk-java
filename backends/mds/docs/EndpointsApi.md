@@ -19,11 +19,11 @@ The list of resources is cached by mbed Cloud Connect, so this call does not cre
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.EndpointsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -74,11 +74,11 @@ Endpoints are physical devices having valid registration to mbed Cloud Connect. 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.EndpointsApi;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

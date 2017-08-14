@@ -33,11 +33,11 @@ Create device
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -88,11 +88,11 @@ Delete device
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -143,11 +143,11 @@ List all device events.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -206,11 +206,11 @@ Retrieve device event
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -261,11 +261,11 @@ List all devices.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -324,11 +324,11 @@ List all device events (deprecated, use /v3/device-events/ instead).
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -387,11 +387,11 @@ Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ inst
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -442,11 +442,11 @@ Update device fields
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -499,11 +499,11 @@ Create device query.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -554,11 +554,11 @@ Delete device query.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -609,11 +609,11 @@ List all device queries. The result will be paged into pages of 100.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -672,11 +672,11 @@ Update device query fields.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -729,11 +729,11 @@ Retrieve device query.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -784,11 +784,11 @@ Update device query.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -841,11 +841,11 @@ Retrieve device
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -896,11 +896,11 @@ Update device
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 

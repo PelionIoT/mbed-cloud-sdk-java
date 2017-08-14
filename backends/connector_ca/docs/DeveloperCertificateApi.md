@@ -19,11 +19,11 @@ This REST API is intended to be used by customers to fetch an existing developer
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DeveloperCertificateApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.DeveloperCertificateApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -76,11 +76,11 @@ This REST API is intended to be used by customers to get a developer certificate
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.api.DeveloperCertificateApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.DeveloperCertificateApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
