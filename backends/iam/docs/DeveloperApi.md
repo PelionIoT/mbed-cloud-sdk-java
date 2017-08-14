@@ -35,10 +35,10 @@ An endpoint for creating a new API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -90,10 +90,10 @@ An endpoint for deleting the API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -145,10 +145,10 @@ An endpoint for deleting a trusted certificate.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -200,10 +200,10 @@ An endpoint for retrieving API keys in an array, optionally filtered by the owne
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -263,10 +263,10 @@ An endpoint for retrieving trusted certificates in an array.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -332,10 +332,10 @@ An endpoint for retrieving all group information.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -393,10 +393,10 @@ An endpoint for retrieving API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -448,10 +448,10 @@ An endpoint for listing the API keys of the group with details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -511,10 +511,10 @@ An endpoint for retrieving a trusted certificate by ID.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -566,10 +566,10 @@ An endpoint for getting general information about the group.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -621,10 +621,10 @@ Returns detailed information about the account.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -676,10 +676,10 @@ An endpoint for retrieving API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -727,10 +727,10 @@ An endpoint for retrieving the details of the logged in user.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -778,10 +778,10 @@ An endpoint for removing API keys from groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -835,10 +835,10 @@ An endpoint for updating API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -892,10 +892,10 @@ An endpoint for updating existing trusted certificates.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -949,10 +949,10 @@ An endpoint for updating API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1004,10 +1004,10 @@ An endpoint for updating the details of the logged in user.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

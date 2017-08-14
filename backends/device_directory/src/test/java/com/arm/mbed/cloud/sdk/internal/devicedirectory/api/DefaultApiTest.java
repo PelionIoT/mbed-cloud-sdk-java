@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.api;
 
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;

@@ -19,10 +19,10 @@ This REST API is intended to be used by customers to fetch bootstrap server cred
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.connectorca.api.ServerCredentialsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -74,10 +74,10 @@ This REST API is intended to be used by customers to fetch LWM2M server credenti
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.connectorca.api.ServerCredentialsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

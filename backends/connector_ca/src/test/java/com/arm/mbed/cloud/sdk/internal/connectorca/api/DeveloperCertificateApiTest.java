@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 
-import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
 import org.junit.Before;

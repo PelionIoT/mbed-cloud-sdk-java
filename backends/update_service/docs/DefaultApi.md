@@ -33,10 +33,10 @@ Create firmware image.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -92,10 +92,10 @@ Delete firmware image.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -147,10 +147,10 @@ List all firmware images
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -210,10 +210,10 @@ Retrieve firmware image.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -265,10 +265,10 @@ Create firmware manifest.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -324,10 +324,10 @@ Delete firmware manifest.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -379,10 +379,10 @@ List all firmware manifests.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -442,10 +442,10 @@ Retrieve firmware manifest.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -497,10 +497,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -552,10 +552,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -607,10 +607,10 @@ The APIs for creating and manipulating update campaigns.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -670,10 +670,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -727,10 +727,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -782,10 +782,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -837,10 +837,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -890,10 +890,10 @@ Name | Type | Description  | Notes
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

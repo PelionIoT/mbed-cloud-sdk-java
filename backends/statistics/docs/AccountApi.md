@@ -18,10 +18,10 @@ This REST API is used to get account-specific statistics.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.statistics.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.statistics.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.statistics.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.statistics.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.statistics.api.AccountApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

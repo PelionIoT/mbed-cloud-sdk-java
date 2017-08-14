@@ -21,10 +21,10 @@ A request to delete a resource must be handled by both mbed Cloud Client and mbe
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -80,10 +80,10 @@ Requests the resource value and when the response is available, a json AsyncIDRe
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -141,10 +141,10 @@ With this API, you can execute a function on an existing resource.  All resource
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -202,10 +202,10 @@ With this API, you can write new values to existing resources, or create new  re
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

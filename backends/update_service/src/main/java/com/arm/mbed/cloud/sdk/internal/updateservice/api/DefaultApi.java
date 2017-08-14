@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.api;
 
-import com.arm.mbed.cloud.sdk.internal.updateservice.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
 import retrofit2.Call;
