@@ -30,7 +30,8 @@ public class SDKLogger {
 
     public void logError(String message, Exception e) {
         String exceptionString = (e == null) ? "Unknown Reason"
-                : (e.getMessage() == null) ? "An exception [" + e.toString() + "] was raised" : e.getMessage();
+                : (e.getMessage() == null) ? "An exception [" + e.toString() + "] was raised"
+                        : e.getMessage() + " Cause: " + e.getCause();
         logger.error(message + ". Reason: " + exceptionString);
     }
 

@@ -10,6 +10,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 public class APIModule {
     private String name;
     private String simpleName;
+    private Object instance;
 
     private Map<String, APIMethod> methods;
 
@@ -18,6 +19,7 @@ public class APIModule {
         setName(name);
         setSimpleName(simpleName);
         setMethods(methods);
+        setInstance(null);
     }
 
     public APIModule(String name, String simpleName) {
@@ -73,6 +75,21 @@ public class APIModule {
         this.methods = methods;
     }
 
+    /**
+     * @return the instance
+     */
+    public Object getInstance() {
+        return instance;
+    }
+
+    /**
+     * @param instance
+     *            the instance to set
+     */
+    public void setInstance(Object instance) {
+        this.instance = instance;
+    }
+
     public void addMethod(APIMethod method) {
         if (method == null) {
             return;
@@ -90,7 +107,14 @@ public class APIModule {
         return methods.get(methodName);
     }
 
-    public Object createInstance(ConnectionOptions connectionOptions) {
+    public Object fetchInstance(ConnectionOptions connectionOptions) {
+        if (instance == null) {
+            instance = createInstance(connectionOptions);
+        }
+        return getInstance();
+    }
+
+    private Object createInstance(ConnectionOptions connectionOptions) {
         if (name == null) {
             return null;
         }

@@ -12,11 +12,11 @@ public class ApiMetadataCache {
         lastMetadata = null;
     }
 
-    public void storeMetadata(ApiMetadata metadata) {
+    public synchronized void storeMetadata(ApiMetadata metadata) {
         lastMetadata = metadata;
     }
 
-    public ApiMetadata getLastApiMetadata() {
+    public synchronized ApiMetadata getLastApiMetadata() {
         return lastMetadata;
     }
 }

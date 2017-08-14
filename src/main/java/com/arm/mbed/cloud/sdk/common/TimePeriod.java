@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Time period")
-public class TimePeriod {
+public class TimePeriod implements Cloneable {
     private static final Pattern STRING_PATTERN = Pattern.compile("\\s*(\\d+)\\s*([A-Za-z])\\s*");
     private static final int DEFAULT_DURATION = 1;
     private static final TimeUnit DEFAULT_UNIT = TimeUnit.DAYS;
@@ -142,6 +142,17 @@ public class TimePeriod {
             setDuration(Long.parseLong(matcher.group(1)));
             setUnit(getUnitFromChar(matcher.group(2)));
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public TimePeriod clone() {
+        TimePeriod clone = new TimePeriod(unit, duration);
+        return clone;
     }
 
 }

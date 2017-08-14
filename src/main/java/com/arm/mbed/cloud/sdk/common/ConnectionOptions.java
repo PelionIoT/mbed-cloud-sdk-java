@@ -3,10 +3,11 @@ package com.arm.mbed.cloud.sdk.common;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "APIs connection options/configuration")
-public class ConnectionOptions {
+public class ConnectionOptions implements Cloneable {
     private String apiKey;
     private String host;
     private CallLogLevel clientLogLevel;
+    private TimePeriod requestTimeout;
 
     public ConnectionOptions(String apiKey, String host) {
         super();
@@ -69,6 +70,35 @@ public class ConnectionOptions {
      */
     public void setClientLogLevel(CallLogLevel clientLogLevel) {
         this.clientLogLevel = clientLogLevel;
+    }
+
+    /**
+     * @return the requestTimeout
+     */
+    public TimePeriod getRequestTimeout() {
+        return requestTimeout;
+    }
+
+    /**
+     * @param requestTimeout
+     *            the requestTimeout to set
+     */
+    public void setRequestTimeout(TimePeriod requestTimeout) {
+        this.requestTimeout = requestTimeout;
+    }
+
+    public boolean hasCustomRequestTimeout() {
+        return requestTimeout != null;
+    }
+
+    @Override
+    public ConnectionOptions clone() {
+        ConnectionOptions options = new ConnectionOptions(apiKey, host);
+        options.setClientLogLevel(clientLogLevel);
+        if (hasCustomRequestTimeout()) {
+            options.setRequestTimeout(requestTimeout.clone());
+        }
+        return options;
     }
 
 }

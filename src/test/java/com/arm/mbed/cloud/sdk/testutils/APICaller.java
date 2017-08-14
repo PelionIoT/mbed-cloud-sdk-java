@@ -94,7 +94,7 @@ public class APICaller {
         public APIMethodResult call(Map<String, Object> parameters) throws APICallException {
             Map<String, Map<String, Object>> argDescription = determineArgumentJsonValues(parameters);
             try {
-                return method.invokeAPI(module.createInstance(connectionOptions), argDescription);
+                return method.invokeAPI(module.fetchInstance(connectionOptions), argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException e) {
                 // e.printStackTrace();
@@ -139,36 +139,6 @@ public class APICaller {
                 }
             }
 
-            // if (parameters != null && method.determineNumberOfArguments() > 0) {
-            // argDescription = new Hashtable<String, Map<String, Object>>(method.determineNumberOfArguments());
-            // if (method.determineNumberOfArguments() == 1 || parameters.size() == 1) {
-            // String argName = method.getArguments().get(0).getName();
-            // System.out.println(argName);
-            // System.out.println(parameters);
-            // argDescription.put(argName, parameters);
-            // } else {
-            // for (APIMethodArgument argument : method.getArguments()) {
-            // String argName = argument.getName();
-            // System.out.println(ApiUtils.convertCamelToSnake(argName));
-            // String paramName = ApiUtils.convertCamelToSnake(argName);
-            // Object subMap = parameters.get(paramName);
-            // System.out.println(String.valueOf(subMap));
-            // if (subMap != null) {
-            // if (!(subMap instanceof Map)) {
-            // if (!(subMap instanceof String)) {
-            // throwAPICallException(module, method,
-            // new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
-            // }
-            // String value = String.valueOf(subMap);
-            // Map<String, Object> fields = new HashMap<>();
-            // fields.put(paramName, value);
-            // subMap = fields;
-            // }
-            // argDescription.put(argName, (Map<String, Object>) subMap);
-            // }
-            // }
-            // }
-            // }
             return argDescription;
         }
 

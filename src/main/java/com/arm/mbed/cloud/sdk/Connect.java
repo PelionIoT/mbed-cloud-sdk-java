@@ -456,6 +456,15 @@ public class Connect extends AbstractAPI {
                 });
     }
 
+    /**
+     * Registers new webhook for incoming subscriptions.
+     * 
+     * @param webhook
+     *            Webhook to set
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
     public void updateWebhook(Webhook webhook) throws MbedCloudException {
         final Webhook finalWebhook = webhook;
         CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {

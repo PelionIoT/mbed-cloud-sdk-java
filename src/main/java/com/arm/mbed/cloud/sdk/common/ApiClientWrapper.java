@@ -11,11 +11,14 @@ import okhttp3.logging.HttpLoggingInterceptor;
 public class ApiClientWrapper {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
     protected final ApiClient client;
+    private final ConnectionOptions connectionOptions;
 
     public ApiClientWrapper(ConnectionOptions options) {
         super();
         this.client = createClient(options);
         setLogging(options.getClientLogLevel());
+        setRequestTimeout(options.getRequestTimeout());
+        this.connectionOptions = options;
     }
 
     private ApiClient createClient(ConnectionOptions options) {
@@ -56,8 +59,22 @@ public class ApiClientWrapper {
         this.client.getOkBuilder().addInterceptor(interceptor);
     }
 
+    public void setRequestTimeout(TimePeriod timeout) {
+        if (timeout == null) {
+            return;
+        }
+        this.client.getOkBuilder().readTimeout(timeout.getDuration(), timeout.getUnit());
+    }
+
     public <S> S createService(Class<S> serviceClass) {
         return client.createService(serviceClass);
+    }
+
+    /**
+     * @return the connectionOptions
+     */
+    public ConnectionOptions getConnectionOptions() {
+        return connectionOptions;
     }
 
 }

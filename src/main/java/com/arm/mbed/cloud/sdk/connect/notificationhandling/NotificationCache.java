@@ -12,9 +12,12 @@ import java.util.concurrent.TimeUnit;
 
 import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
+import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
@@ -29,6 +32,8 @@ import retrofit2.Call;
 
 public class NotificationCache {
 
+    private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
+
     private static final int CACHE_INITIAL_CAPACITY = 10;
 
     private final AbstractAPI api;
@@ -41,11 +46,17 @@ public class NotificationCache {
     public NotificationCache(AbstractAPI api, ExecutorService pollingThread, EndPoints endpoint) {
         super();
         this.pollingThreads = pollingThread;
-        this.endpoint = endpoint;
+        this.endpoint = createLongPolling(endpoint);
         this.api = api;
         pollingHandle = null;
         responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
         subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
+    }
+
+    private EndPoints createLongPolling(EndPoints endpoint2) {
+        ConnectionOptions options = endpoint2.getConnectionOptions();
+        options.setRequestTimeout(REQUEST_TIMEOUT);
+        return new EndPoints(options);
     }
 
     public void startPolling() {
@@ -156,14 +167,21 @@ public class NotificationCache {
             @Override
             public void run() {
                 try {
-                    NotificationMessage notificationMessage = CloudCaller.call(api, "NotificationPullGet()",
-                            getIdentityMapper(), new CloudCall<NotificationMessage>() {
+                    CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
+                            "NotificationPullGet()", getIdentityMapper(), new CloudCall<NotificationMessage>() {
 
                                 @Override
                                 public Call<NotificationMessage> call() {
                                     return endpoint.getNotifications().v2NotificationPullGet();
                                 }
-                            });
+                            }, false);
+                    NotificationMessage notificationMessage = feedback.getResult();
+                    if (notificationMessage == null) {
+                        api.getLogger().logInfo(
+                                "Long polling did not receive any notification during last call. Call information: "
+                                        + feedback.getMetadata());
+                        return;
+                    }
                     cacheResponses(notificationMessage.getAsyncResponses());
                     cacheSubscription(notificationMessage.getNotifications());
 

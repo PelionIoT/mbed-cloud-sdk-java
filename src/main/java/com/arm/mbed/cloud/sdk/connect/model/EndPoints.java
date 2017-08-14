@@ -23,9 +23,11 @@ public class EndPoints {
     private final SubscriptionsApi subscriptions;
     private final AccountApi account;
     private final StatisticsApi statistic;
+    private final ConnectionOptions connectionOptions;
 
     public EndPoints(ApiClientWrapper wrapper) {
         super();
+        this.connectionOptions = wrapper.getConnectionOptions();
         this.webhooks = initialiseWebhook(wrapper);
         this.endpoints = initialiseEndpoint(wrapper);
         this.notifications = initialiseNotification(wrapper);
@@ -115,6 +117,13 @@ public class EndPoints {
      */
     public StatisticsApi getStatistic() {
         return statistic;
+    }
+
+    /**
+     * @return the connectionOptions
+     */
+    public ConnectionOptions getConnectionOptions() {
+        return connectionOptions;
     }
 
 }
