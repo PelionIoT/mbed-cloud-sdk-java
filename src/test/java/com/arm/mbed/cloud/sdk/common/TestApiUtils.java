@@ -16,15 +16,16 @@ public class TestApiUtils {
     @Test
     public final void testCheckNotNull() {
         Integer test = null;
+        SDKLogger logger = new SDKLogger();
         try {
-            ApiUtils.checkNotNull(test, "test");
+            ApiUtils.checkNotNull(logger, test, "test");
             fail("Check has not worked");
         } catch (MbedCloudException e) {
             assertTrue(true);
         }
         test = 5;
         try {
-            ApiUtils.checkNotNull(test, "test");
+            ApiUtils.checkNotNull(logger, test, "test");
             assertTrue(true);
         } catch (MbedCloudException e) {
             fail("Check has not worked");

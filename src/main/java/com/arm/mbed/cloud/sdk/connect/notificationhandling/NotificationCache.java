@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.connect.notificationhandling;
 
-import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -11,11 +10,14 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import org.slf4j.Logger;
-
+import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.CloudCaller;
+import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
+import com.arm.mbed.cloud.sdk.internal.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.model.AsyncIDResponse;
 import com.arm.mbed.cloud.sdk.internal.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.model.NotificationMessage;
@@ -23,34 +25,34 @@ import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
 import com.mbed.lwm2m.base64.Base64Decoder;
 
-import retrofit2.Response;
+import retrofit2.Call;
 
 public class NotificationCache {
 
     private static final int CACHE_INITIAL_CAPACITY = 10;
 
-    private final Logger logger;
+    private final AbstractAPI api;
     private final ExecutorService pollingThreads;
     private Future<?> pollingHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
     private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
 
-    public NotificationCache(Logger logger, ExecutorService pollingThread, EndPoints endpoint) {
+    public NotificationCache(AbstractAPI api, ExecutorService pollingThread, EndPoints endpoint) {
         super();
         this.pollingThreads = pollingThread;
         this.endpoint = endpoint;
-        this.logger = logger;
+        this.api = api;
         pollingHandle = null;
         responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
         subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
     }
 
-    private void logError(String message) {
-        logger.error(message);
-    }
-
     public void startPolling() {
+        if (isPollingActive()) {
+            api.getLogger().logInfo("Notification long polling is already working.");
+            return;
+        }
         final Runnable cachingSingleAction = createCachingSingleAction();
         pollingHandle = null;
         if (pollingThreads instanceof ScheduledExecutorService) {
@@ -90,9 +92,30 @@ public class NotificationCache {
         }
     }
 
-    public Future<Object> fetchAsyncResponse(ExecutorService executor, String id) throws MbedCloudException {
+    public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
+            throws MbedCloudException {
+        if (!isPollingActive()) {
+            api.getLogger().throwSDKException("startNotifications() needs to be called before setting resource value.");
+        }
+        String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
+        return fetchAsyncResponse(executor, asyncResponseId);
+    }
+
+    private static Mapper<AsyncID, String> getResponseIdMapper() {
+        return new Mapper<AsyncID, String>() {
+
+            @Override
+            public String map(AsyncID toBeMapped) {
+                return toBeMapped.getAsyncResponseId();
+            }
+
+        };
+    }
+
+    @SuppressWarnings("null")
+    private Future<Object> fetchAsyncResponse(ExecutorService executor, String id) throws MbedCloudException {
         if (executor == null || id == null || id.isEmpty()) {
-            throw new MbedCloudException(new IllegalArgumentException());
+            api.getLogger().throwSDKException(new IllegalArgumentException());
         }
         final String responseId = id;
         return executor.submit(new Callable<Object>() {
@@ -118,22 +141,34 @@ public class NotificationCache {
         });
     }
 
+    private static Mapper<NotificationMessage, NotificationMessage> getIdentityMapper() {
+        return new Mapper<NotificationMessage, NotificationMessage>() {
+
+            @Override
+            public NotificationMessage map(NotificationMessage toBeMapped) {
+                return toBeMapped;
+            }
+        };
+    }
+
     private Runnable createCachingSingleAction() {
         return new Runnable() {
             @Override
             public void run() {
                 try {
-                    Response<NotificationMessage> notification = endpoint.getNotifications().v2NotificationPullGet()
-                            .execute();
-                    NotificationMessage notificationMessage = (notification == null) ? null : notification.body();
-                    if (notificationMessage == null) {
-                        return;
-                    }
+                    NotificationMessage notificationMessage = CloudCaller.call(api, "NotificationPullGet()",
+                            getIdentityMapper(), new CloudCall<NotificationMessage>() {
+
+                                @Override
+                                public Call<NotificationMessage> call() {
+                                    return endpoint.getNotifications().v2NotificationPullGet();
+                                }
+                            });
                     cacheResponses(notificationMessage.getAsyncResponses());
                     cacheSubscription(notificationMessage.getNotifications());
 
-                } catch (IOException e) {
-                    logError("An error occurred during long polling: " + e.getMessage());
+                } catch (MbedCloudException e) {
+                    api.getLogger().logError("An error occurred during long polling", e);
                 }
             }
         };
@@ -151,7 +186,7 @@ public class NotificationCache {
                 ResourceSubscription subscription = new ResourceSubscription(notification);
                 subscriptionCache.put(subscription.getKey(), subscription);
             } catch (DecodingException e) {
-                logError("An error occurred during long polling: " + e.getMessage());
+                api.getLogger().logError("An error occurred during long polling", e);
             }
 
         }
@@ -170,7 +205,7 @@ public class NotificationCache {
                 AsyncResponse asyncResponse = new AsyncResponse(response);
                 responseCache.put(asyncResponse.getKey(), asyncResponse);
             } catch (DecodingException e) {
-                logError("An error occurred during long polling: " + e.getMessage());
+                api.getLogger().logError("An error occurred during long polling", e);
             }
 
         }
