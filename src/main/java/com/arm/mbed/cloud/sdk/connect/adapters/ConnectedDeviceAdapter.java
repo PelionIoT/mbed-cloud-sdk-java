@@ -3,8 +3,8 @@ package com.arm.mbed.cloud.sdk.connect.adapters;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.internal.model.Endpoint;
@@ -23,15 +23,28 @@ public class ConnectedDeviceAdapter {
         return device;
     }
 
-    public static List<ConnectedDevice> mapList(List<Endpoint> endpoints) {
-        Mapper<ConnectedDevice, Endpoint> mapper = new Mapper<ConnectedDevice, Endpoint>() {
+    public static Mapper<Endpoint, ConnectedDevice> getMapper() {
+        return new Mapper<Endpoint, ConnectedDevice>() {
 
-            @SuppressWarnings("unchecked")
             @Override
-            public <T, U> T map(U toBeMapped) {
-                return (T) ConnectedDeviceAdapter.map((Endpoint) toBeMapped);
+            public ConnectedDevice map(Endpoint toBeMapped) {
+                return ConnectedDeviceAdapter.map(toBeMapped);
+            }
+
+        };
+    }
+
+    public static List<ConnectedDevice> mapList(List<Endpoint> endpoints) {
+        return GenericAdapter.mapList(endpoints, getMapper());
+    }
+
+    public static Mapper<List<Endpoint>, List<ConnectedDevice>> getListMapper() {
+        return new Mapper<List<Endpoint>, List<ConnectedDevice>>() {
+
+            @Override
+            public List<ConnectedDevice> map(List<Endpoint> toBeMapped) {
+                return ConnectedDeviceAdapter.mapList(toBeMapped);
             }
         };
-        return GenericListAdapter.mapList(endpoints, mapper);
     }
 }

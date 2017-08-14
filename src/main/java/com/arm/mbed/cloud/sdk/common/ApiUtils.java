@@ -7,9 +7,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class ApiUtils {
 
-    public static void checkNotNull(Object arg, String argName) throws MbedCloudException {
+    public static void checkNotNull(SDKLogger logger, Object arg, String argName) throws MbedCloudException {
         if (arg == null) {
-            throw new MbedCloudException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
+            logger.throwSDKException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
         }
     }
 

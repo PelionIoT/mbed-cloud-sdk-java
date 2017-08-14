@@ -5,9 +5,9 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyStatus;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.RespList;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoReq;
@@ -30,6 +30,15 @@ public class ApiKeyAdapter {
         apiKey.setName(apiKeyInfo.getName());
         apiKey.setOwnerId(apiKeyInfo.getOwner());
         return apiKey;
+    }
+
+    public static Mapper<ApiKeyInfoResp, ApiKey> getMapper() {
+        return new Mapper<ApiKeyInfoResp, ApiKey>() {
+            @Override
+            public ApiKey map(ApiKeyInfoResp toBeMapped) {
+                return ApiKeyAdapter.map(toBeMapped);
+            }
+        };
     }
 
     public static ApiKeyInfoReq addMap(ApiKey apiKey) {
@@ -69,15 +78,7 @@ public class ApiKeyAdapter {
     }
 
     public static ListResponse<ApiKey> mapList(ApiKeyInfoRespList list) {
-        Mapper<ApiKey, ApiKeyInfoResp> mapper = new Mapper<ApiKey, ApiKeyInfoResp>() {
 
-            @SuppressWarnings("unchecked")
-            @Override
-            public <T, U> T map(U toBeMapped) {
-                return (T) ApiKeyAdapter.map((ApiKeyInfoResp) toBeMapped);
-            }
-
-        };
         final ApiKeyInfoRespList apiKeyList = list;
         RespList<ApiKeyInfoResp> respList = new RespList<ApiKeyInfoResp>() {
 
@@ -111,6 +112,17 @@ public class ApiKeyAdapter {
                 return (apiKeyList == null) ? null : apiKeyList.getData();
             }
         };
-        return GenericListAdapter.mapList(respList, mapper);
+        return GenericAdapter.mapList(respList, getMapper());
+    }
+
+    public static Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>> getListMapper() {
+        return new Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>>() {
+
+            @Override
+            public ListResponse<ApiKey> map(ApiKeyInfoRespList toBeMapped) {
+                return ApiKeyAdapter.mapList(toBeMapped);
+            }
+
+        };
     }
 }

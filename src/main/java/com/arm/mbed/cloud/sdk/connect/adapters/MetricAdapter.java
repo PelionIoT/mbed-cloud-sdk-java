@@ -1,18 +1,17 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.text.DateFormat;
-import java.text.ParseException;
 import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.IncludeField;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
+import com.arm.mbed.cloud.sdk.internal.model.SuccessfulResponse;
 
 @Preamble(description = "Adapter for metric model")
 public class MetricAdapter {
@@ -36,19 +35,33 @@ public class MetricAdapter {
         return metric;
     }
 
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.model.Metric, Metric> getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.internal.model.Metric, Metric>() {
+
+            @Override
+            public Metric map(com.arm.mbed.cloud.sdk.internal.model.Metric toBeMapped) {
+                return MetricAdapter.map(toBeMapped);
+            }
+
+        };
+    }
+
     public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.model.Metric> list) {
         if (list == null) {
             return null;
         }
-        Mapper<Metric, com.arm.mbed.cloud.sdk.internal.model.Metric> mapper = new Mapper<Metric, com.arm.mbed.cloud.sdk.internal.model.Metric>() {
+        return GenericAdapter.mapList(list, getMapper());
+    }
 
-            @SuppressWarnings("unchecked")
+    public static Mapper<SuccessfulResponse, List<Metric>> getListMapper() {
+        return new Mapper<SuccessfulResponse, List<Metric>>() {
+
             @Override
-            public <T, U> T map(U toBeMapped) {
-                return (T) MetricAdapter.map((com.arm.mbed.cloud.sdk.internal.model.Metric) toBeMapped);
+            public List<Metric> map(SuccessfulResponse toBeMapped) {
+                return MetricAdapter.mapList(toBeMapped.getData());
             }
+
         };
-        return GenericListAdapter.mapList(list, mapper);
     }
 
     public static String mapIncludes(List<IncludeField> includeFields) {
@@ -69,13 +82,9 @@ public class MetricAdapter {
     }
 
     private static Date convertTimestamp(String timestamp, Date defaultDate) {
-        if (timestamp == null || timestamp.isEmpty()) {
-            return null;
-        }
-        DateFormat format = DateFormat.getDateInstance();
         try {
-            return format.parse(timestamp);
-        } catch (ParseException e) {
+            return TranslationUtils.convertTimestamp(timestamp);
+        } catch (Exception e) {
             Exception e1 = new Exception(
                     "Error occurred when parsing timestamp. Defaulting to " + String.valueOf(defaultDate), e);
             e1.printStackTrace();

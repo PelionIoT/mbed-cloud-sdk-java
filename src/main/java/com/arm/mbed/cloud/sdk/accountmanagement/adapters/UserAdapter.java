@@ -5,9 +5,9 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.RespList;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.model.UserInfoReq;
@@ -38,6 +38,17 @@ public class UserAdapter {
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.getIsMarketingAccepted(), true));
         return user;
 
+    }
+
+    public static Mapper<UserInfoResp, User> getMapper() {
+        return new Mapper<UserInfoResp, User>() {
+
+            @Override
+            public User map(UserInfoResp toBeMapped) {
+                return UserAdapter.map(toBeMapped);
+            }
+
+        };
     }
 
     public static UserInfoReq addMap(User user) {
@@ -71,15 +82,7 @@ public class UserAdapter {
     }
 
     public static ListResponse<User> mapList(UserInfoRespList list) {
-        Mapper<User, UserInfoResp> mapper = new Mapper<User, UserInfoResp>() {
 
-            @SuppressWarnings("unchecked")
-            @Override
-            public <T, U> T map(U toBeMapped) {
-                return (T) UserAdapter.map((UserInfoResp) toBeMapped);
-            }
-
-        };
         final UserInfoRespList userList = list;
         RespList<UserInfoResp> respList = new RespList<UserInfoResp>() {
 
@@ -113,8 +116,18 @@ public class UserAdapter {
                 return (userList == null) ? null : userList.getData();
             }
         };
-        return GenericListAdapter.mapList(respList, mapper);
+        return GenericAdapter.mapList(respList, getMapper());
+    }
 
+    public static Mapper<UserInfoRespList, ListResponse<User>> getListMapper() {
+        return new Mapper<UserInfoRespList, ListResponse<User>>() {
+
+            @Override
+            public ListResponse<User> map(UserInfoRespList toBeMapped) {
+                return UserAdapter.mapList(toBeMapped);
+            }
+
+        };
     }
 
     private static UserStatus toStatus(StatusEnum userStatus) {

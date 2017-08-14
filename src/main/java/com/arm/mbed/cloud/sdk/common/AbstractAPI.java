@@ -1,39 +1,42 @@
 package com.arm.mbed.cloud.sdk.common;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.arm.mbed.cloud.sdk.annotations.API;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
+@Preamble(description = "Generic SDK module definition")
 public abstract class AbstractAPI {
 
     protected final ApiClientWrapper client;
 
-    protected final Logger logger = LoggerFactory.getLogger("mbed Cloud SDK");
+    protected final SDKLogger logger;
+    protected final ApiMetadataCache metadataCache;
 
     public AbstractAPI(ConnectionOptions options) {
         super();
         this.client = new ApiClientWrapper(options);
+        logger = new SDKLogger();
+        metadataCache = new ApiMetadataCache();
     }
 
-    protected void logInfo(String message) {
-        logger.info(message);
+    protected void checkNotNull(Object arg, String argName) throws MbedCloudException {
+        ApiUtils.checkNotNull(logger, arg, argName);
     }
 
-    protected void logDebug(String message) {
-        logger.debug(message);
+    /**
+     * @return the logger
+     */
+    public SDKLogger getLogger() {
+        return logger;
     }
 
-    protected void logError(String message) {
-        logger.error(message);
-    }
-
-    protected void logWarn(String message) {
-        logger.warn(message);
-    }
-
-    protected void throwSDKException(Exception e) throws MbedCloudException {
-        MbedCloudException ex = new MbedCloudException(e);
-        logError(ex.getMessage());
-        throw ex;
+    /**
+     * Get meta data for the last mbed Cloud API call
+     * 
+     * @return metadata
+     */
+    @API
+    public ApiMetadata getLastApiMetadata() {
+        return metadataCache.getLastApiMetadata();
     }
 
 }

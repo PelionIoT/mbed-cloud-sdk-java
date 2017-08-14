@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Account;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.AccountStatus;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.model.AccountInfo.StatusEnum;
@@ -37,6 +38,17 @@ public class AccountAdapter {
         account.setLimits(accountInfo.getLimits());
         account.setTemplateId(accountInfo.getTemplateId());
         return account;
+    }
+
+    public static Mapper<AccountInfo, Account> getMapper() {
+        return new Mapper<AccountInfo, Account>() {
+
+            @Override
+            public Account map(AccountInfo toBeMapped) {
+                return AccountAdapter.map(toBeMapped);
+            }
+
+        };
     }
 
     private static AccountStatus toStatus(StatusEnum status) {

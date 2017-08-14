@@ -5,12 +5,6 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "Resource")
 public class Resource {
     /**
-     * Resource notification event which returns the notification when handling notifications, otherwise an asyncId
-     * 
-     * @event
-     */
-    private static final String EVENT_NOTIFICATION = "notification";
-    /**
      * Related device ID
      */
     private String deviceId;
