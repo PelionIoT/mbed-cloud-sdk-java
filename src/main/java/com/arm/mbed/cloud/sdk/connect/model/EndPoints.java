@@ -4,13 +4,13 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.api.AccountApi;
-import com.arm.mbed.cloud.sdk.internal.api.DefaultApi;
-import com.arm.mbed.cloud.sdk.internal.api.EndpointsApi;
-import com.arm.mbed.cloud.sdk.internal.api.NotificationsApi;
-import com.arm.mbed.cloud.sdk.internal.api.ResourcesApi;
-import com.arm.mbed.cloud.sdk.internal.api.StatisticsApi;
-import com.arm.mbed.cloud.sdk.internal.api.SubscriptionsApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.NotificationsApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+import com.arm.mbed.cloud.sdk.internal.statistics.api.AccountApi;
+import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 
 @Preamble(description = "Endpoint for Connect API")
 @Internal

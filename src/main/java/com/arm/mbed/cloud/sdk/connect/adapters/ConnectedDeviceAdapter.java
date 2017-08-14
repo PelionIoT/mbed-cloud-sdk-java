@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
-import com.arm.mbed.cloud.sdk.internal.model.Endpoint;
+import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
 
 @Preamble(description = "Adapter for connected device model")
 public class ConnectedDeviceAdapter {

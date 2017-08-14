@@ -60,6 +60,8 @@ public class ApiMetadata {
     /**
      * @param dateString
      *            the date to set
+     * @throws Exception
+     *             if string cannot be interpreted as a date
      */
     public void setDateFromString(String dateString) throws Exception {
         DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");

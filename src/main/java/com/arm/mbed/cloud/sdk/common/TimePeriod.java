@@ -29,8 +29,15 @@ public class TimePeriod {
         this.duration = duration;
     }
 
+    /**
+     * Defines a timeout in second
+     * 
+     * @param duration
+     *            in second
+     */
     public TimePeriod(long duration) {
-        this(TimeUnit.SECONDS, duration);
+        this();
+        setTimeout(duration);
     }
 
     public TimePeriod() {
@@ -69,6 +76,17 @@ public class TimePeriod {
      */
     public void setDuration(long duration) {
         this.duration = duration;
+    }
+
+    /**
+     * Sets as a timeout in second
+     * 
+     * @param timeout
+     *            timeout in second
+     */
+    public void setTimeout(long timeout) {
+        setUnit(TimeUnit.SECONDS);
+        setDuration(timeout);
     }
 
     /*

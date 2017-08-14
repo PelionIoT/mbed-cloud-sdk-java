@@ -24,6 +24,7 @@ import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.connect.adapters.ConnectedDeviceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
+import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
@@ -31,10 +32,11 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
-import com.arm.mbed.cloud.sdk.internal.model.AsyncID;
-import com.arm.mbed.cloud.sdk.internal.model.Endpoint;
-import com.arm.mbed.cloud.sdk.internal.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
+import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
+import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 import retrofit2.Call;
 
@@ -154,10 +156,10 @@ public class Connect extends AbstractAPI {
         final String finalDeviceId = deviceId;
 
         return CloudCaller.call(this, "listResources()", ResourceAdapter.getListMapper(finalDeviceId),
-                new CloudCall<List<com.arm.mbed.cloud.sdk.internal.model.Resource>>() {
+                new CloudCall<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>>() {
 
                     @Override
-                    public Call<List<com.arm.mbed.cloud.sdk.internal.model.Resource>> call() {
+                    public Call<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>> call() {
                         return endpoint.getEndpoints().v2EndpointsDeviceIdGet(finalDeviceId);
                     }
                 });
@@ -435,16 +437,55 @@ public class Connect extends AbstractAPI {
 
     // TODO subscriptions
 
-    // @API
-    // public Webhook getWebhook(){
-    // return CloudCaller.call(this, "getWebhook()", WebhookAdapter.getMapper(),
-    // new CloudCall<com.arm.mbed.cloud.sdk.internal.model.Webhook>() {
-    //
-    // @Override
-    // public Call<com.arm.mbed.cloud.sdk.internal.model.Webhook> call() {
-    // return null;// endpoint.getWebhooks().;
-    // }
-    // });
-    // }
+    /**
+     * Gets the current callback URL if it exists
+     * 
+     * @return the webhook
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public Webhook getWebhook() throws MbedCloudException {
+        return CloudCaller.call(this, "getWebhook()", WebhookAdapter.getMapper(),
+                new CloudCall<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook>() {
+
+                    @Override
+                    public Call<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook> call() {
+                        return endpoint.getWebhooks().v2NotificationCallbackGet();
+                    }
+                });
+    }
+
+    public void updateWebhook(Webhook webhook) throws MbedCloudException {
+        final Webhook finalWebhook = webhook;
+        CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getNotifications().v2NotificationCallbackPut(WebhookAdapter.reverseMap(finalWebhook));
+            }
+        });
+    }
+
+    /**
+     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * 
+     * If no webhook is registered, an exception (404) will be raised.
+     * 
+     * Note that every registered subscription will be deleted as part of deregistering a webhook.
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteWebhook() throws MbedCloudException {
+        CloudCaller.call(this, "deleteWebhook()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getWebhooks().v2NotificationCallbackDelete();
+            }
+        });
+    }
 
 }

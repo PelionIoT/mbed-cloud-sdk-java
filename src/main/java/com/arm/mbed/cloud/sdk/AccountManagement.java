@@ -25,13 +25,13 @@ import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.Paginator;
-import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 
 import retrofit2.Call;
 

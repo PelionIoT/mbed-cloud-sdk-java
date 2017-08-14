@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 
 @Preamble(description = "Adapter for webhook model")
 public class WebhookAdapter {
-    public static Webhook map(com.arm.mbed.cloud.sdk.internal.model.Webhook apiWebhook) {
+    public static Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook apiWebhook) {
         if (apiWebhook == null) {
             return null;
         }
@@ -20,15 +20,25 @@ public class WebhookAdapter {
         return webhook;
     }
 
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.model.Webhook, Webhook> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.model.Webhook, Webhook>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook> getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook>() {
 
             @Override
-            public Webhook map(com.arm.mbed.cloud.sdk.internal.model.Webhook toBeMapped) {
+            public Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook toBeMapped) {
                 return WebhookAdapter.map(toBeMapped);
             }
 
         };
+    }
+
+    public static com.arm.mbed.cloud.sdk.internal.mds.model.Webhook reverseMap(Webhook webhook) {
+        if (webhook == null) {
+            return null;
+        }
+        com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
+        internalWebhook.setUrl((webhook.getUrl() == null) ? null : webhook.getUrl().toString());
+        internalWebhook.setHeaders(convertToHeaderObject(webhook.getHeaders()));
+        return internalWebhook;
     }
 
     private static URL convertUrl(String url) {
@@ -41,6 +51,11 @@ public class WebhookAdapter {
     }
 
     private static Map<String, String> convertHeaders(Object headers) {
+        // TODO
+        return null;
+    }
+
+    private static Object convertToHeaderObject(Map<String, String> headers) {
         // TODO
         return null;
     }

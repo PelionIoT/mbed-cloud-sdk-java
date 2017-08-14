@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Resource;
 @Preamble(description = "Adapter for resource model")
 public class ResourceAdapter {
 
-    public static Resource map(String deviceId, com.arm.mbed.cloud.sdk.internal.model.Resource apiResource) {
+    public static Resource map(String deviceId, com.arm.mbed.cloud.sdk.internal.mds.model.Resource apiResource) {
         if (apiResource == null || deviceId == null || deviceId.isEmpty()) {
             return null;
         }
@@ -24,28 +24,29 @@ public class ResourceAdapter {
         return resource;
     }
 
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.model.Resource, Resource> getMapper(String deviceId) {
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource> getMapper(String deviceId) {
         final String immutableDeviceId = deviceId;
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.model.Resource, Resource>() {
+        return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource>() {
 
             @Override
-            public Resource map(com.arm.mbed.cloud.sdk.internal.model.Resource toBeMapped) {
+            public Resource map(com.arm.mbed.cloud.sdk.internal.mds.model.Resource toBeMapped) {
                 return ResourceAdapter.map(immutableDeviceId, toBeMapped);
             }
         };
     }
 
-    public static List<Resource> mapList(String deviceId, List<com.arm.mbed.cloud.sdk.internal.model.Resource> list) {
+    public static List<Resource> mapList(String deviceId,
+            List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource> list) {
         return GenericAdapter.mapList(list, getMapper(deviceId));
     }
 
-    public static Mapper<List<com.arm.mbed.cloud.sdk.internal.model.Resource>, List<Resource>> getListMapper(
+    public static Mapper<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>, List<Resource>> getListMapper(
             String deviceId) {
         final String immutableDeviceId = deviceId;
-        return new Mapper<List<com.arm.mbed.cloud.sdk.internal.model.Resource>, List<Resource>>() {
+        return new Mapper<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>, List<Resource>>() {
 
             @Override
-            public List<Resource> map(List<com.arm.mbed.cloud.sdk.internal.model.Resource> toBeMapped) {
+            public List<Resource> map(List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource> toBeMapped) {
                 return ResourceAdapter.mapList(immutableDeviceId, toBeMapped);
             }
 

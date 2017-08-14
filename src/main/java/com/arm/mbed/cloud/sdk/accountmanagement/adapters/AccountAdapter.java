@@ -5,9 +5,9 @@ import com.arm.mbed.cloud.sdk.accountmanagement.model.AccountStatus;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.model.AccountInfo.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.model.AccountUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.StatusEnum;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
 public class AccountAdapter {

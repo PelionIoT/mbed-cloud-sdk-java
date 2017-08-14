@@ -11,12 +11,12 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.IncludeField;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
-import com.arm.mbed.cloud.sdk.internal.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 @Preamble(description = "Adapter for metric model")
 public class MetricAdapter {
 
-    public static Metric map(com.arm.mbed.cloud.sdk.internal.model.Metric apiMetric) {
+    public static Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric apiMetric) {
         if (apiMetric == null) {
             return null;
         }
@@ -35,18 +35,18 @@ public class MetricAdapter {
         return metric;
     }
 
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.model.Metric, Metric> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.model.Metric, Metric>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric>() {
 
             @Override
-            public Metric map(com.arm.mbed.cloud.sdk.internal.model.Metric toBeMapped) {
+            public Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric toBeMapped) {
                 return MetricAdapter.map(toBeMapped);
             }
 
         };
     }
 
-    public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.model.Metric> list) {
+    public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> list) {
         if (list == null) {
             return null;
         }

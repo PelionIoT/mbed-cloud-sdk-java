@@ -4,8 +4,8 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.internal.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 @Preamble(description = "Endpoint for Account management")
 @Internal

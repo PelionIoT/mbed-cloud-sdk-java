@@ -10,11 +10,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoReq;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.model.UserUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
 public class UserAdapter {

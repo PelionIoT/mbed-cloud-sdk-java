@@ -10,11 +10,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoReq;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 
 @Preamble(description = "Adapter for API key model")
 public class ApiKeyAdapter {

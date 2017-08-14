@@ -18,21 +18,29 @@ import java.lang.annotation.Target;
 public @interface Daemon {
     /**
      * Daemon Task name or description
+     * 
+     * @return task name of the daemon
      */
     String task() default "N/A";
 
     /**
      * Specifies whether the method should be used to start the daemon
+     * 
+     * @return whether the method should be used to start the daemon
      */
     boolean start() default false;
 
     /**
      * Specifies whether the method should be used to stop the daemon
+     * 
+     * @return whether the method should be used to stop the daemon
      */
     boolean stop() default false;
 
     /**
      * Specifies whether the method should be used to shutdown the daemon service
+     * 
+     * @return whether the method should be used to shutdown the daemon service
      */
     boolean shutdown() default false;
 }
