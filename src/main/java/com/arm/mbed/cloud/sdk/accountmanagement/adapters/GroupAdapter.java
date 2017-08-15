@@ -4,13 +4,13 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Group;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.common.GenericListAdapter.RespList;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 
 @Preamble(description = "Adapter for group model")
 public class GroupAdapter {
@@ -27,16 +27,18 @@ public class GroupAdapter {
                 TranslationUtils.toTimeStamp(groupSummary.getLastUpdateTime()));
     }
 
-    public static ListResponse<Group> mapList(GroupSummaryList list) {
-        Mapper<Group, GroupSummary> mapper = new Mapper<Group, GroupSummary>() {
+    public static Mapper<GroupSummary, Group> getMapper() {
+        return new Mapper<GroupSummary, Group>() {
 
-            @SuppressWarnings("unchecked")
             @Override
-            public <T, U> T map(U toBeMapped) {
-                return (T) GroupAdapter.map((GroupSummary) toBeMapped);
+            public Group map(GroupSummary toBeMapped) {
+                return GroupAdapter.map(toBeMapped);
             }
 
         };
+    }
+
+    public static ListResponse<Group> mapList(GroupSummaryList list) {
         final GroupSummaryList groupList = list;
         RespList<GroupSummary> respList = new RespList<GroupSummary>() {
 
@@ -70,7 +72,18 @@ public class GroupAdapter {
                 return (groupList == null) ? null : groupList.getData();
             }
         };
-        return GenericListAdapter.mapList(respList, mapper);
+        return GenericAdapter.mapList(respList, getMapper());
+    }
+
+    public static Mapper<GroupSummaryList, ListResponse<Group>> getListMapper() {
+        return new Mapper<GroupSummaryList, ListResponse<Group>>() {
+
+            @Override
+            public ListResponse<Group> map(GroupSummaryList toBeMapped) {
+                return GroupAdapter.mapList(toBeMapped);
+            }
+
+        };
     }
 
 }

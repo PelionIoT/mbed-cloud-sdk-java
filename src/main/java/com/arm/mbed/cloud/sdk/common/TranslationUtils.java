@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.util.Date;
 
 import org.joda.time.DateTime;
@@ -24,10 +26,29 @@ public class TranslationUtils {
     }
 
     public static int toInt(Integer integer) {
-        return (integer == null) ? 0 : integer.intValue();
+        return toInt(integer, 0);
+    }
+
+    public static int toInt(Integer integer, int defaultV) {
+        return (integer == null) ? defaultV : integer.intValue();
     }
 
     public static boolean toBool(Boolean bool, boolean defaultB) {
         return (bool == null) ? defaultB : bool.booleanValue();
+    }
+
+    public static Date convertTimestamp(String timestamp) throws Exception {
+        return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
+    }
+
+    public static Date convertTimestamp(String timestamp, DateFormat format) throws Exception {
+        if (timestamp == null || timestamp.isEmpty() || format == null) {
+            return null;
+        }
+        try {
+            return format.parse(timestamp);
+        } catch (ParseException e) {
+            throw new Exception("Error occurred when parsing timestamp.", e);
+        }
     }
 }

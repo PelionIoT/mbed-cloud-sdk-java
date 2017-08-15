@@ -120,7 +120,7 @@ public class TestPaginator {
 
     private class FakePage {
 
-        List<FakeElement> elements = new LinkedList<FakeElement>();
+        List<FakeElement> elements = new LinkedList<>();
 
         void generateElements(int size, int starting) {
             elements.clear();
@@ -131,7 +131,7 @@ public class TestPaginator {
         }
 
         ListResponse<FakeElement> getPage(boolean hasMore) {
-            ListResponse<FakeElement> page = new ListResponse<FakeElement>();
+            ListResponse<FakeElement> page = new ListResponse<>();
             page.setData(elements);
             page.setHasMore(hasMore);
             return page;
@@ -139,7 +139,7 @@ public class TestPaginator {
     }
 
     private class FakePages {
-        List<ListResponse<FakeElement>> pages = new LinkedList<ListResponse<FakeElement>>();
+        List<ListResponse<FakeElement>> pages = new LinkedList<>();
 
         void generateElements(int pageNumber, int pageSize) {
             pages.clear();

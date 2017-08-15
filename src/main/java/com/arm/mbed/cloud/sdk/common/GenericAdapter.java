@@ -6,13 +6,11 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Generic list adapter")
+@Preamble(description = "Generic adapter")
 @Internal
-public class GenericListAdapter {
-    @SuppressWarnings("unused")
-    public interface Mapper<T, U> {
-        @SuppressWarnings("hiding")
-        <T, U> T map(U toBeMapped);
+public class GenericAdapter {
+    public interface Mapper<U, T> {
+        T map(U toBeMapped);
     }
 
     public interface RespList<U> {
@@ -29,8 +27,7 @@ public class GenericListAdapter {
         List<U> getData();
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T, U> ListResponse<T> mapList(RespList<U> respList, Mapper<T, U> mapper) {
+    public static <T, U> ListResponse<T> mapList(RespList<U> respList, Mapper<U, T> mapper) {
         if (respList == null || mapper == null) {
             return null;
         }
@@ -41,20 +38,19 @@ public class GenericListAdapter {
             return responseList;
         }
         for (U resp : respList.getData()) {
-            responseList.addData((T) mapper.map(resp));
+            responseList.addData(mapper.map(resp));
         }
         return responseList;
 
     }
 
-    @SuppressWarnings("unchecked")
-    public static <T, U> List<T> mapList(List<U> list, Mapper<T, U> mapper) {
+    public static <T, U> List<T> mapList(List<U> list, Mapper<U, T> mapper) {
         if (list == null || mapper == null) {
             return null;
         }
         List<T> mappedList = new LinkedList<>();
         for (U element : list) {
-            mappedList.add((T) mapper.map(element));
+            mappedList.add(mapper.map(element));
         }
         return mappedList;
     }

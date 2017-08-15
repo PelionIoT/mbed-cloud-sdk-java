@@ -1,71 +1,104 @@
 package com.arm.mbed.cloud.sdk.common;
 
-public class ConnectionOptions {
-	private String apiKey;
-	private String host;
-	private CallLogLevel clientLogLevel;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-	public ConnectionOptions(String apiKey, String host) {
-		super();
-		setApiKey(apiKey);
-		setHost(host);
-		setClientLogLevel(CallLogLevel.NONE);
-	}
+@Preamble(description = "APIs connection options/configuration")
+public class ConnectionOptions implements Cloneable {
+    private String apiKey;
+    private String host;
+    private CallLogLevel clientLogLevel;
+    private TimePeriod requestTimeout;
 
-	/**
-	 * @return the apiKey
-	 */
-	public String getApiKey() {
-		return apiKey;
-	}
+    public ConnectionOptions(String apiKey, String host) {
+        super();
+        setApiKey(apiKey);
+        setHost(host);
+        setClientLogLevel(CallLogLevel.NONE);
+    }
 
-	/**
-	 * @param apiKey
-	 *            the apiKey to set
-	 */
-	public void setApiKey(String apiKey) {
-		this.apiKey = apiKey;
-	}
+    /**
+     * @return the apiKey
+     */
+    public String getApiKey() {
+        return apiKey;
+    }
 
-	public boolean isApiKeyEmpty() {
-		return apiKey == null || apiKey.isEmpty();
-	}
+    /**
+     * @param apiKey
+     *            the apiKey to set
+     */
+    public void setApiKey(String apiKey) {
+        this.apiKey = apiKey;
+    }
 
-	public boolean isHostEmpty() {
-		return host == null || host.isEmpty();
-	}
+    public boolean isApiKeyEmpty() {
+        return apiKey == null || apiKey.isEmpty();
+    }
 
-	/**
-	 * @return the host
-	 */
-	public String getHost() {
-		return host;
-	}
+    public boolean isHostEmpty() {
+        return host == null || host.isEmpty();
+    }
 
-	/**
-	 * @param host
-	 *            the host to set
-	 */
-	public void setHost(String host) {
-		if (host != null && !host.endsWith("/")) {
-			host = host + "/";
-		}
-		this.host = host;
-	}
+    /**
+     * @return the host
+     */
+    public String getHost() {
+        return host;
+    }
 
-	/**
-	 * @return the clientLogLevel
-	 */
-	public CallLogLevel getClientLogLevel() {
-		return clientLogLevel;
-	}
+    /**
+     * @param host
+     *            the host to set
+     */
+    public void setHost(String host) {
+        if (host != null && !host.endsWith("/")) {
+            host = host + "/";
+        }
+        this.host = host;
+    }
 
-	/**
-	 * @param clientLogLevel
-	 *            the clientLogLevel to set
-	 */
-	public void setClientLogLevel(CallLogLevel clientLogLevel) {
-		this.clientLogLevel = clientLogLevel;
-	}
+    /**
+     * @return the clientLogLevel
+     */
+    public CallLogLevel getClientLogLevel() {
+        return clientLogLevel;
+    }
+
+    /**
+     * @param clientLogLevel
+     *            the clientLogLevel to set
+     */
+    public void setClientLogLevel(CallLogLevel clientLogLevel) {
+        this.clientLogLevel = clientLogLevel;
+    }
+
+    /**
+     * @return the requestTimeout
+     */
+    public TimePeriod getRequestTimeout() {
+        return requestTimeout;
+    }
+
+    /**
+     * @param requestTimeout
+     *            the requestTimeout to set
+     */
+    public void setRequestTimeout(TimePeriod requestTimeout) {
+        this.requestTimeout = requestTimeout;
+    }
+
+    public boolean hasCustomRequestTimeout() {
+        return requestTimeout != null;
+    }
+
+    @Override
+    public ConnectionOptions clone() {
+        ConnectionOptions options = new ConnectionOptions(apiKey, host);
+        options.setClientLogLevel(clientLogLevel);
+        if (hasCustomRequestTimeout()) {
+            options.setRequestTimeout(requestTimeout.clone());
+        }
+        return options;
+    }
 
 }

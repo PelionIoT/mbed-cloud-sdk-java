@@ -1,7 +1,5 @@
 package com.arm.mbed.cloud.sdk;
 
-import java.io.IOException;
-
 import com.arm.mbed.cloud.sdk.accountmanagement.adapters.AccountAdapter;
 import com.arm.mbed.cloud.sdk.accountmanagement.adapters.ApiKeyAdapter;
 import com.arm.mbed.cloud.sdk.accountmanagement.adapters.GroupAdapter;
@@ -19,22 +17,23 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractAPI;
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.CloudCaller;
+import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.ListOptions;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.Paginator;
-import com.arm.mbed.cloud.sdk.internal.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 
-import retrofit2.Response;
+import retrofit2.Call;
 
 @Preamble(description = "Specifies account management API")
 @Module
@@ -43,6 +42,8 @@ import retrofit2.Response;
  */
 public class AccountManagement extends AbstractAPI {
 
+    private static final String TAG_USER_UUID = "user UUID";
+    private static final String TAG_API_KEY_UUID = "apiKey UUID";
     private static final String TAG_API_KEY = "apiKey";
     private static final String TAG_ACCOUNT = "account";
     private static final String TAG_API_KEY_ID = "apiKeyId";
@@ -70,13 +71,13 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable Account getAccount() throws MbedCloudException {
-        try {
-            Response<AccountInfo> response = endpoint.getDeveloper().getMyAccountInfo("limits, policies").execute();
-            return (response == null) ? null : AccountAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        return CloudCaller.call(this, "getAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
+
+            @Override
+            public Call<AccountInfo> call() {
+                return endpoint.getDeveloper().getMyAccountInfo("limits, policies");
+            }
+        });
     }
 
     /**
@@ -90,15 +91,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable Account updateAccount(@NonNull Account account) throws MbedCloudException {
-        ApiUtils.checkNotNull(account, TAG_ACCOUNT);
-        try {
-            Response<AccountInfo> response = endpoint.getAdmin().updateMyAccount(AccountAdapter.reverseMap(account))
-                    .execute();
-            return (response == null) ? null : AccountAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(account, TAG_ACCOUNT);
+        final Account finalAccount = account;
+        return CloudCaller.call(this, "updateAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
+
+            @Override
+            public Call<AccountInfo> call() {
+                return endpoint.getAdmin().updateMyAccount(AccountAdapter.reverseMap(finalAccount));
+            }
+        });
     }
 
     /**
@@ -113,16 +114,17 @@ public class AccountManagement extends AbstractAPI {
     @API
     public @Nullable ListResponse<ApiKey> listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
-        try {
-            Response<ApiKeyInfoRespList> response = this.endpoint.getDeveloper()
-                    .getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                            finalOptions.encodeInclude(), finalOptions.encodeFilter(ApiKeyListOptions.OWNER_ID_FILTER))
-                    .execute();
-            return (response == null) ? null : ApiKeyAdapter.mapList(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+
+        return CloudCaller.call(this, "listApiKeys()", ApiKeyAdapter.getListMapper(),
+                new CloudCall<ApiKeyInfoRespList>() {
+
+                    @Override
+                    public Call<ApiKeyInfoRespList> call() {
+                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(),
+                                finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                                finalOptions.encodeFilter(ApiKeyListOptions.OWNER_ID_FILTER));
+                    }
+                });
     }
 
     /**
@@ -157,16 +159,16 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable ApiKey getApiKey(@NonNull String apiKeyId) throws MbedCloudException {
-        ApiUtils.checkNotNull(apiKeyId, TAG_API_KEY_ID);
-        try {
-            Response<ApiKeyInfoResp> response = (apiKeyId == null || apiKeyId.isEmpty())
-                    ? endpoint.getDeveloper().getMyApiKey().execute()
-                    : endpoint.getDeveloper().getApiKey(apiKeyId).execute();
-            return (response == null) ? null : ApiKeyAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(apiKeyId, TAG_API_KEY_ID);
+        final String finalApiKeyId = apiKeyId;
+        return CloudCaller.call(this, "getApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
+
+            @Override
+            public Call<ApiKeyInfoResp> call() {
+                return (finalApiKeyId == null || finalApiKeyId.isEmpty()) ? endpoint.getDeveloper().getMyApiKey()
+                        : endpoint.getDeveloper().getApiKey(finalApiKeyId);
+            }
+        });
     }
 
     /**
@@ -180,15 +182,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @NonNull ApiKey addApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
-        ApiUtils.checkNotNull(apiKey, TAG_API_KEY);
-        try {
-            Response<ApiKeyInfoResp> response = endpoint.getDeveloper().createApiKey(ApiKeyAdapter.addMap(apiKey))
-                    .execute();
-            return (response == null) ? null : ApiKeyAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return apiKey;
+        checkNotNull(apiKey, TAG_API_KEY);
+        final ApiKey finalApiKey = apiKey;
+        return CloudCaller.call(this, "addApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
+
+            @Override
+            public Call<ApiKeyInfoResp> call() {
+                return endpoint.getDeveloper().createApiKey(ApiKeyAdapter.addMap(finalApiKey));
+            }
+        });
     }
 
     /**
@@ -202,16 +204,16 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
-        ApiUtils.checkNotNull(apiKey, TAG_USER);
-        ApiUtils.checkNotNull(apiKey.getId(), "apiKey UUID");
-        try {
-            Response<ApiKeyInfoResp> response = endpoint.getDeveloper()
-                    .updateApiKey(apiKey.getId(), ApiKeyAdapter.updateMap(apiKey)).execute();
-            return (response == null) ? null : ApiKeyAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(apiKey, TAG_API_KEY);
+        checkNotNull(apiKey.getId(), TAG_API_KEY_UUID);
+        final ApiKey finalApiKey = apiKey;
+        return CloudCaller.call(this, "updateApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
+
+            @Override
+            public Call<ApiKeyInfoResp> call() {
+                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(), ApiKeyAdapter.updateMap(finalApiKey));
+            }
+        });
     }
 
     /**
@@ -224,12 +226,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public void deleteApiKey(@NonNull String apiKeyId) throws MbedCloudException {
-        ApiUtils.checkNotNull(apiKeyId, TAG_API_KEY_ID);
-        try {
-            this.endpoint.getDeveloper().deleteApiKey(apiKeyId).execute();
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
+        checkNotNull(apiKeyId, TAG_API_KEY_ID);
+        final String finalApiKeyId = apiKeyId;
+        CloudCaller.call(this, "deleteApiKey()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getDeveloper().deleteApiKey(finalApiKeyId);
+            }
+        });
     }
 
     /**
@@ -244,16 +249,15 @@ public class AccountManagement extends AbstractAPI {
     @API
     public @Nullable ListResponse<User> listUsers(@Nullable UserListOptions options) throws MbedCloudException {
         final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
-        try {
-            Response<UserInfoRespList> response = this.endpoint.getAdmin()
-                    .getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                            finalOptions.encodeInclude(), finalOptions.encodeFilter(UserListOptions.STATUS_FILTER))
-                    .execute();
-            return (response == null) ? null : UserAdapter.mapList(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        return CloudCaller.call(this, "listUsers()", UserAdapter.getListMapper(), new CloudCall<UserInfoRespList>() {
+
+            @Override
+            public Call<UserInfoRespList> call() {
+                return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
+                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                        finalOptions.encodeFilter(UserListOptions.STATUS_FILTER));
+            }
+        });
     }
 
     /**
@@ -288,14 +292,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable User getUser(@NonNull String userId) throws MbedCloudException {
-        ApiUtils.checkNotNull(userId, TAG_USER_ID);
-        try {
-            Response<UserInfoResp> response = endpoint.getAdmin().getUser(userId).execute();
-            return (response == null) ? null : UserAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(userId, TAG_USER_ID);
+        final String finalUserId = userId;
+        return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
+
+            @Override
+            public Call<UserInfoResp> call() {
+                return endpoint.getAdmin().getUser(finalUserId);
+            }
+        });
     }
 
     /**
@@ -309,15 +314,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @NonNull User addUser(@NonNull User user) throws MbedCloudException {
-        ApiUtils.checkNotNull(user, TAG_USER);
-        try {
-            Response<UserInfoResp> response = endpoint.getAdmin().createUser(UserAdapter.addMap(user), "create")
-                    .execute();
-            return (response == null) ? null : UserAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return user;
+        checkNotNull(user, TAG_USER);
+        final User finalUser = user;
+        return CloudCaller.call(this, "addUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
+
+            @Override
+            public Call<UserInfoResp> call() {
+                return endpoint.getAdmin().createUser(UserAdapter.addMap(finalUser), "create");
+            }
+        });
     }
 
     /**
@@ -331,16 +336,16 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable User updateUser(@NonNull User user) throws MbedCloudException {
-        ApiUtils.checkNotNull(user, TAG_USER);
-        ApiUtils.checkNotNull(user.getId(), "user UUID");
-        try {
-            Response<UserInfoResp> response = endpoint.getAdmin().updateUser(user.getId(), UserAdapter.updateMap(user))
-                    .execute();
-            return (response == null) ? null : UserAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(user, TAG_USER);
+        checkNotNull(user.getId(), TAG_USER_UUID);
+        final User finalUser = user;
+        return CloudCaller.call(this, "updateUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
+
+            @Override
+            public Call<UserInfoResp> call() {
+                return endpoint.getAdmin().updateUser(finalUser.getId(), UserAdapter.updateMap(finalUser));
+            }
+        });
     }
 
     /**
@@ -353,12 +358,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public void deleteUser(@NonNull String userId) throws MbedCloudException {
-        ApiUtils.checkNotNull(userId, TAG_USER_ID);
-        try {
-            endpoint.getAdmin().deleteUser(userId).execute();
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
+        checkNotNull(userId, TAG_USER_ID);
+        final String finalUserId = userId;
+        CloudCaller.call(this, "deleteUser()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getAdmin().deleteUser(finalUserId);
+            }
+        });
     }
 
     /**
@@ -373,15 +381,14 @@ public class AccountManagement extends AbstractAPI {
     @API
     public @Nullable ListResponse<Group> listGroups(@Nullable ListOptions options) throws MbedCloudException {
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
-        try {
-            Response<GroupSummaryList> response = endpoint.getDeveloper().getAllGroups(finalOptions.getLimit(),
-                    finalOptions.getAfter(), finalOptions.getOrder().toString(), finalOptions.encodeInclude())
-                    .execute();
-            return (response == null) ? null : GroupAdapter.mapList(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        return CloudCaller.call(this, "listGroups()", GroupAdapter.getListMapper(), new CloudCall<GroupSummaryList>() {
+
+            @Override
+            public Call<GroupSummaryList> call() {
+                return endpoint.getDeveloper().getAllGroups(finalOptions.getLimit(), finalOptions.getAfter(),
+                        finalOptions.getOrder().toString(), finalOptions.encodeInclude());
+            }
+        });
     }
 
     /**
@@ -416,14 +423,15 @@ public class AccountManagement extends AbstractAPI {
      */
     @API
     public @Nullable Group getGroup(@NonNull String groupId) throws MbedCloudException {
-        ApiUtils.checkNotNull(groupId, TAG_GROUP_ID);
-        try {
-            Response<GroupSummary> response = endpoint.getDeveloper().getGroupSummary(groupId).execute();
-            return (response == null) ? null : GroupAdapter.map(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        checkNotNull(groupId, TAG_GROUP_ID);
+        final String finalGroupId = groupId;
+        return CloudCaller.call(this, "getGroup()", GroupAdapter.getMapper(), new CloudCall<GroupSummary>() {
+
+            @Override
+            public Call<GroupSummary> call() {
+                return endpoint.getDeveloper().getGroupSummary(finalGroupId);
+            }
+        });
     }
 
     /**
@@ -440,17 +448,19 @@ public class AccountManagement extends AbstractAPI {
     @API
     public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
             throws MbedCloudException {
-        ApiUtils.checkNotNull(groupId, TAG_GROUP_ID);
+        checkNotNull(groupId, TAG_GROUP_ID);
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
-        try {
-            Response<UserInfoRespList> response = endpoint.getAdmin().getUsersOfGroup(groupId, finalOptions.getLimit(),
-                    finalOptions.getAfter(), finalOptions.getOrder().toString(), finalOptions.encodeInclude())
-                    .execute();
-            return (response == null) ? null : UserAdapter.mapList(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        final String finalGroupId = groupId;
+        return CloudCaller.call(this, "listGroupUsers()", UserAdapter.getListMapper(),
+                new CloudCall<UserInfoRespList>() {
+
+                    @Override
+                    public Call<UserInfoRespList> call() {
+                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getLimit(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude());
+                    }
+                });
     }
 
     /**
@@ -492,18 +502,19 @@ public class AccountManagement extends AbstractAPI {
     @API
     public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
             throws MbedCloudException {
-        ApiUtils.checkNotNull(groupId, TAG_GROUP_ID);
+        checkNotNull(groupId, TAG_GROUP_ID);
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
-        try {
-            Response<ApiKeyInfoRespList> response = endpoint.getDeveloper()
-                    .getApiKeysOfGroup(groupId, finalOptions.getLimit(), finalOptions.getAfter(),
-                            finalOptions.getOrder().toString(), finalOptions.encodeInclude())
-                    .execute();
-            return (response == null) ? null : ApiKeyAdapter.mapList(response.body());
-        } catch (IOException e) {
-            throwSDKException(e);
-        }
-        return null;
+        final String finalGroupId = groupId;
+        return CloudCaller.call(this, "listGroupApiKeys()", ApiKeyAdapter.getListMapper(),
+                new CloudCall<ApiKeyInfoRespList>() {
+
+                    @Override
+                    public Call<ApiKeyInfoRespList> call() {
+                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getLimit(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude());
+                    }
+                });
     }
 
     /**

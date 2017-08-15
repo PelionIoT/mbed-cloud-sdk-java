@@ -15,7 +15,7 @@ import com.mbed.lwm2m.utils.HexArray;
 public class TLVDecoder {
 
     public TLVDecoder() {
-        // Nothing
+        super();
     }
 
     /**
@@ -31,6 +31,7 @@ public class TLVDecoder {
         if (buffer == null) {
             return null;
         }
+        buffer.order(ByteOrder.BIG_ENDIAN);
         int position = buffer.position();
         int limit = buffer.limit();
         TILFields typeField = decodeTypeField(buffer);
