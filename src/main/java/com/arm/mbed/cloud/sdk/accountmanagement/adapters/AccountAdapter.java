@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Account;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.AccountStatus;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
@@ -10,6 +11,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.StatusEnum;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
+@Internal
 public class AccountAdapter {
 
     public static Account map(AccountInfo accountInfo) {
@@ -67,7 +69,7 @@ public class AccountAdapter {
                 correspondingStatus = AccountStatus.SUSPENDED;
                 break;
             default:
-                correspondingStatus = AccountStatus.SUSPENDED;
+                correspondingStatus = AccountStatus.getDefault();
                 break;
         }
         return correspondingStatus;

@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -81,8 +82,16 @@ public class CloudCaller<T, U> {
             logger.throwSDKException("An error occurred when calling Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
+            String errorMessage = null;
+            try {
+                errorMessage = response.errorBody().string();
+
+            } catch (IOException e) {
+                // Nothing to do
+            }
             logger.throwSDKException(
-                    "An error occurred when calling Mbed Cloud: [" + response.code() + "] " + response.message());
+                    "An error occurred when calling Mbed Cloud: [" + response.code() + "] " + response.message(),
+                    (errorMessage == null) ? null : new MbedCloudException(errorMessage));
         }
     }
 

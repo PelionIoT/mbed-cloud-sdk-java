@@ -114,7 +114,7 @@ public class Account {
     public Account() {
         super();
         setId(null);
-        setStatus(AccountStatus.SUSPENDED);
+        setStatus(AccountStatus.getDefault());
         setDisplayName(null);
         setContact(null);
         setCompany(null);

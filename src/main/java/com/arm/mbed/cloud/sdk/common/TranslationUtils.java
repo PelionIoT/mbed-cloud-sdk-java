@@ -41,6 +41,18 @@ public class TranslationUtils {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
+    @SuppressWarnings("boxing")
+    public static Integer convertToInteger(String value, Integer defaultV) {
+        if (value == null) {
+            return defaultV;
+        }
+        try {
+            return Integer.parseInt(value);
+        } catch (NumberFormatException e) {
+            return defaultV;
+        }
+    }
+
     public static Date convertTimestamp(String timestamp, DateFormat format) throws Exception {
         if (timestamp == null || timestamp.isEmpty() || format == null) {
             return null;

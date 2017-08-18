@@ -149,7 +149,7 @@ public class UserAdapter {
                 status = UserStatus.RESET;
                 break;
             default:
-                status = UserStatus.INACTIVE;
+                status = UserStatus.getDefault();
                 break;
 
         }
