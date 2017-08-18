@@ -83,7 +83,7 @@ public class Resource implements Serializable {
    * The URL of the resource.
    * @return uri
   **/
-  @ApiModelProperty(example = "null", value = "The URL of the resource.")
+  @ApiModelProperty(example = "null", required = true, value = "The URL of the resource.")
   public String getUri() {
     return uri;
   }

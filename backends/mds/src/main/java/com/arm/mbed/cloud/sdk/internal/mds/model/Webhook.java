@@ -41,7 +41,7 @@ public class Webhook implements Serializable {
    * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
    * @return url
   **/
-  @ApiModelProperty(example = "null", value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
+  @ApiModelProperty(example = "null", required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
   public String getUrl() {
     return url;
   }

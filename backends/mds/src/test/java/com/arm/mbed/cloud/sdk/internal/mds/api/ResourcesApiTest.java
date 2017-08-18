@@ -63,7 +63,7 @@ public class ResourcesApiTest {
     public void v2EndpointsDeviceIdResourcePathPostTest() {
         String deviceId = null;
         String resourcePath = null;
-        String resourceFunction = null;
+        byte[] resourceFunction = null;
         Boolean noResp = null;
         // AsyncID response = api.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, resourceFunction, noResp);
 
@@ -79,7 +79,7 @@ public class ResourcesApiTest {
     public void v2EndpointsDeviceIdResourcePathPutTest() {
         String deviceId = null;
         String resourcePath = null;
-        String resourceValue = null;
+        byte[] resourceValue = null;
         Boolean noResp = null;
         // AsyncID response = api.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, resourceValue, noResp);
 

@@ -158,7 +158,7 @@ Bearer.setApiKey("YOUR API KEY");
 ResourcesApi apiInstance = new ResourcesApi();
 String deviceId = "deviceId_example"; // String | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 String resourcePath = "resourcePath_example"; // String | The URL of the resource.
-String resourceFunction = "resourceFunction_example"; // String | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
+byte[] resourceFunction = BINARY_DATA_HERE; // byte[] | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client. 
 Boolean noResp = true; // Boolean | **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
 try {
     AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, resourceFunction, noResp);
@@ -175,7 +175,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **deviceId** | **String**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
  **resourcePath** | **String**| The URL of the resource. |
- **resourceFunction** | **String**| This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client.  | [optional]
+ **resourceFunction** | **byte[]**| This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in mbed Cloud Client.  | [optional]
  **noResp** | **Boolean**| **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  | [optional]
 
 ### Return type
@@ -219,7 +219,7 @@ Bearer.setApiKey("YOUR API KEY");
 ResourcesApi apiInstance = new ResourcesApi();
 String deviceId = "deviceId_example"; // String | A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 String resourcePath = "resourcePath_example"; // String | Resource URL.
-String resourceValue = "resourceValue_example"; // String | The value to be set to the resource. (Check accceptable content-types) 
+byte[] resourceValue = BINARY_DATA_HERE; // byte[] | The value to be set to the resource. 
 Boolean noResp = true; // Boolean | **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict. 
 try {
     AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, resourceValue, noResp);
@@ -236,7 +236,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **deviceId** | **String**| A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
  **resourcePath** | **String**| Resource URL. |
- **resourceValue** | **String**| The value to be set to the resource. (Check accceptable content-types)  |
+ **resourceValue** | **byte[]**| The value to be set to the resource.  |
  **noResp** | **Boolean**| **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  | [optional]
 
 ### Return type
