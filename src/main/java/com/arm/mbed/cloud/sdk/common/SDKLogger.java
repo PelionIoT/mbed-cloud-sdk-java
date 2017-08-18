@@ -28,10 +28,10 @@ public class SDKLogger {
         logger.error(message);
     }
 
-    public void logError(String message, Exception e) {
+    public void logError(String message, Throwable e) {
         String exceptionString = (e == null) ? "Unknown Reason"
                 : (e.getMessage() == null) ? "An exception [" + e.toString() + "] was raised"
-                        : e.getMessage() + " Cause: " + e.getCause();
+                        : e.getMessage() + String.valueOf((e.getCause() == null) ? "" : ". Cause: " + e.getCause());
         logger.error(message + ". Reason: " + exceptionString);
     }
 
@@ -52,7 +52,7 @@ public class SDKLogger {
     }
 
     private void throwCloudException(MbedCloudException ex) throws MbedCloudException {
-        logError(ex.getMessage());
+        logError(ex.getMessage(), ex.getCause());
         throw ex;
     }
 }

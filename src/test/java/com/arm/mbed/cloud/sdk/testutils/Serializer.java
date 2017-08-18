@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
@@ -10,11 +11,47 @@ import java.util.Set;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
+import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 public class Serializer {
+    private static class SDKEnumSerializer extends StdSerializer<SDKEnum> {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 6535238302576144975L;
+
+        public SDKEnumSerializer() {
+            this(null);
+        }
+
+        public SDKEnumSerializer(Class<SDKEnum> t) {
+            super(t);
+        }
+
+        @Override
+        public void serialize(SDKEnum value, JsonGenerator jgen, SerializerProvider provider)
+                throws IOException, JsonProcessingException {
+
+            jgen.writeString((value == null) ? null : value.getString());
+
+        }
+    }
+
+    static {
+        SimpleModule module = new SimpleModule();
+        module.addSerializer(SDKEnum.class, new SDKEnumSerializer());
+        Json.mapper.registerModule(module);
+        Json.prettyMapper.registerModule(module);
+    }
     @SuppressWarnings({ "rawtypes", "unchecked" })
     private static final Set<Class> WRAPPER_TYPES = new HashSet(Arrays.asList(Boolean.class, Character.class,
             Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, Void.class, String.class));

@@ -71,7 +71,7 @@ public class ApiKeyAdapter {
                 status = ApiKeyStatus.INACTIVE;
                 break;
             default:
-                status = ApiKeyStatus.INACTIVE;
+                status = ApiKeyStatus.getDefault();
                 break;
         }
         return status;

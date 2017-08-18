@@ -195,7 +195,7 @@ public class Connect extends AbstractAPI {
                     public Call<SuccessfulResponse> call() {
                         return endpoint.getStatistic().v3MetricsGet(
                                 MetricAdapter.mapIncludes(finalOptions.getInclude()),
-                                finalOptions.getInterval().toString(), "", finalStart, finalEnd, finalPeriod,
+                                finalOptions.getInterval().toString(), null, finalStart, finalEnd, finalPeriod,
                                 finalOptions.getLimit(), finalOptions.getAfter(), finalOptions.getOrder().toString());
                     }
                 });
@@ -299,7 +299,6 @@ public class Connect extends AbstractAPI {
     public @Nullable Future<Object> setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
             @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse)
             throws MbedCloudException {
-        System.out.println("Came in " + deviceId + " " + resourcePath + " " + resourceValue + " " + noResponse);
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
