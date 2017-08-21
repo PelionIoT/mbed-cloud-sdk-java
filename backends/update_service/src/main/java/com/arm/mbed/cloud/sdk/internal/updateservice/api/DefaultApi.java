@@ -219,23 +219,26 @@ public interface DefaultApi {
   /**
    * 
    * 
+   * @param campaignId The ID of the update campaign (required)
    * @param campaignDeviceMetadataId The id of the campaign device metadata (required)
    * @return Call&lt;CampaignDeviceMetadata&gt;
    */
   
-  @GET("v3/campaign-device-metadata/{campaign_device_metadata_id}")
-  Call<CampaignDeviceMetadata> v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(
-    @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
+  @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
+  Call<CampaignDeviceMetadata> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
+    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
   );
 
   /**
    * 
    * 
+   * @param campaignId The ID of the update campaign (required)
    * @return Call&lt;CampaignDeviceMetadataPage&gt;
    */
   
-  @GET("v3/campaign-device-metadata")
-  Call<CampaignDeviceMetadataPage> v3CampaignDeviceMetadataGet();
-    
+  @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/")
+  Call<CampaignDeviceMetadataPage> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(
+    @retrofit2.http.Path("campaign_id") String campaignId
+  );
 
 }
