@@ -26,7 +26,7 @@ public class DefaultApiTest {
     /**
      * Delete callback URL
      *
-     * Deletes the callback URL.
+     * Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39; 
      */
     @Test
     public void v2NotificationCallbackDeleteTest() {
@@ -38,7 +38,7 @@ public class DefaultApiTest {
     /**
      * Check callback URL
      *
-     * Shows the current callback URL if it exists.
+     * Shows the current callback URL if it exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39; 
      */
     @Test
     public void v2NotificationCallbackGetTest() {

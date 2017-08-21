@@ -19,7 +19,7 @@ import java.util.Map;
 public interface DefaultApi {
   /**
    * Delete callback URL
-   * Deletes the callback URL.
+   * Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;Void&gt;
    */
   
@@ -29,7 +29,7 @@ public interface DefaultApi {
 
   /**
    * Check callback URL
-   * Shows the current callback URL if it exists.
+   * Shows the current callback URL if it exists.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;Webhook&gt;
    */
   

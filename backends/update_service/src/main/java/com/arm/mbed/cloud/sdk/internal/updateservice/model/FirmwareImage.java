@@ -48,6 +48,9 @@ public class FirmwareImage implements Serializable {
   @SerializedName("datafile_checksum")
   private String datafileChecksum = null;
 
+  @SerializedName("datafile_size")
+  private Long datafileSize = null;
+
   @SerializedName("id")
   private String id = null;
 
@@ -180,6 +183,24 @@ public class FirmwareImage implements Serializable {
     this.datafileChecksum = datafileChecksum;
   }
 
+  public FirmwareImage datafileSize(Long datafileSize) {
+    this.datafileSize = datafileSize;
+    return this;
+  }
+
+   /**
+   * Size of the datafile (in bytes).
+   * @return datafileSize
+  **/
+  @ApiModelProperty(example = "null", value = "Size of the datafile (in bytes).")
+  public Long getDatafileSize() {
+    return datafileSize;
+  }
+
+  public void setDatafileSize(Long datafileSize) {
+    this.datafileSize = datafileSize;
+  }
+
   public FirmwareImage id(String id) {
     this.id = id;
     return this;
@@ -233,13 +254,14 @@ public class FirmwareImage implements Serializable {
         Objects.equals(this.updatedAt, firmwareImage.updatedAt) &&
         Objects.equals(this.etag, firmwareImage.etag) &&
         Objects.equals(this.datafileChecksum, firmwareImage.datafileChecksum) &&
+        Objects.equals(this.datafileSize, firmwareImage.datafileSize) &&
         Objects.equals(this.id, firmwareImage.id) &&
         Objects.equals(this.name, firmwareImage.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, createdAt, object, updatedAt, etag, datafileChecksum, id, name);
+    return Objects.hash(datafile, description, createdAt, object, updatedAt, etag, datafileChecksum, datafileSize, id, name);
   }
 
 
@@ -255,6 +277,7 @@ public class FirmwareImage implements Serializable {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    datafileChecksum: ").append(toIndentedString(datafileChecksum)).append("\n");
+    sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");

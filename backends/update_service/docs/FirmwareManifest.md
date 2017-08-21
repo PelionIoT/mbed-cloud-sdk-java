@@ -13,6 +13,8 @@ Name | Type | Description | Notes
 **manifestContents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature. | 
 **deviceClass** | **String** | The class of device. | 
+**datafileChecksum** | **String** | Checksum generated for the datafile. |  [optional]
+**datafileSize** | **Long** | Size of the datafile (in bytes). |  [optional]
 **id** | **String** | The ID of the firmware manifest. | 
 **name** | **String** | The name of the object. | 
 
