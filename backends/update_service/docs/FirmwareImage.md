@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated. | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature. | 
 **datafileChecksum** | **String** | Checksum generated for the datafile. | 
+**datafileSize** | **Long** | Size of the datafile (in bytes). |  [optional]
 **id** | **String** | The ID of the firmware image. | 
 **name** | **String** | The name of the object. | 
 
