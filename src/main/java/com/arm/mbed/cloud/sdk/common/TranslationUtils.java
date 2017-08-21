@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
@@ -39,6 +41,19 @@ public class TranslationUtils {
 
     public static Date convertTimestamp(String timestamp) throws Exception {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
+    }
+
+    public static URL toUrl(String url) {
+        try {
+            return (url == null) ? null : new URL(url);
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String toString(URL url) {
+        return (url == null) ? null : url.toString();
     }
 
     @SuppressWarnings("boxing")
