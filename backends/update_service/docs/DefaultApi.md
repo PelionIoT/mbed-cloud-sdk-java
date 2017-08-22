@@ -18,8 +18,8 @@ Method | HTTP request | Description
 [**updateCampaignPartialUpdate**](DefaultApi.md#updateCampaignPartialUpdate) | **PATCH** v3/update-campaigns/{campaign_id}/ | 
 [**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | 
 [**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | 
-[**v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet**](DefaultApi.md#v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet) | **GET** v3/campaign-device-metadata/{campaign_device_metadata_id} | 
-[**v3CampaignDeviceMetadataGet**](DefaultApi.md#v3CampaignDeviceMetadataGet) | **GET** v3/campaign-device-metadata | 
+[**v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet**](DefaultApi.md#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+[**v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**](DefaultApi.md#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
 
 
 <a name="firmwareImageCreate"></a>
@@ -828,9 +828,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet"></a>
-# **v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet**
-> CampaignDeviceMetadata v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId)
+<a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet"></a>
+# **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet**
+> CampaignDeviceMetadata v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId)
 
 
 
@@ -852,12 +852,13 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The ID of the update campaign
 String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The id of the campaign device metadata
 try {
-    CampaignDeviceMetadata result = apiInstance.v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId);
+    CampaignDeviceMetadata result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet");
+    System.err.println("Exception when calling DefaultApi#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet");
     e.printStackTrace();
 }
 ```
@@ -866,6 +867,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The ID of the update campaign |
  **campaignDeviceMetadataId** | **String**| The id of the campaign device metadata |
 
 ### Return type
@@ -881,9 +883,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="v3CampaignDeviceMetadataGet"></a>
-# **v3CampaignDeviceMetadataGet**
-> CampaignDeviceMetadataPage v3CampaignDeviceMetadataGet()
+<a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet"></a>
+# **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**
+> CampaignDeviceMetadataPage v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include)
 
 
 
@@ -905,17 +907,29 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The ID of the update campaign
+Integer limit = 56; // Integer | How many objects to retrieve in the page.
+String order = "order_example"; // String | ASC or DESC
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
+String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
 try {
-    CampaignDeviceMetadataPage result = apiInstance.v3CampaignDeviceMetadataGet();
+    CampaignDeviceMetadataPage result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#v3CampaignDeviceMetadataGet");
+    System.err.println("Exception when calling DefaultApi#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet");
     e.printStackTrace();
 }
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The ID of the update campaign |
+ **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **order** | **String**| ASC or DESC | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
+ **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 

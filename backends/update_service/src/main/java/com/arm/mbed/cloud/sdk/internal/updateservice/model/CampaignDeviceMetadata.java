@@ -54,8 +54,39 @@ public class CampaignDeviceMetadata implements Serializable {
   @SerializedName("mechanism_url")
   private String mechanismUrl = null;
 
+  /**
+   * The state of the update campaign on the device.
+   */
+  public enum DeploymentStateEnum {
+    @SerializedName("pending")
+    PENDING("pending"),
+    
+    @SerializedName("updated_connector_channel")
+    UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"),
+    
+    @SerializedName("failed_connector_channel_update")
+    FAILED_CONNECTOR_CHANNEL_UPDATE("failed_connector_channel_update"),
+    
+    @SerializedName("deployed")
+    DEPLOYED("deployed"),
+    
+    @SerializedName("manifestremoved")
+    MANIFESTREMOVED("manifestremoved");
+
+    private String value;
+
+    DeploymentStateEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+  }
+
   @SerializedName("deployment_state")
-  private String deploymentState = null;
+  private DeploymentStateEnum deploymentState = null;
 
   @SerializedName("id")
   private String id = null;
@@ -225,21 +256,21 @@ public class CampaignDeviceMetadata implements Serializable {
     this.mechanismUrl = mechanismUrl;
   }
 
-  public CampaignDeviceMetadata deploymentState(String deploymentState) {
+  public CampaignDeviceMetadata deploymentState(DeploymentStateEnum deploymentState) {
     this.deploymentState = deploymentState;
     return this;
   }
 
    /**
-   * The state of the update campaign on the device
+   * The state of the update campaign on the device.
    * @return deploymentState
   **/
-  @ApiModelProperty(example = "failed_connector_channel_update", value = "The state of the update campaign on the device")
-  public String getDeploymentState() {
+  @ApiModelProperty(example = "null", value = "The state of the update campaign on the device.")
+  public DeploymentStateEnum getDeploymentState() {
     return deploymentState;
   }
 
-  public void setDeploymentState(String deploymentState) {
+  public void setDeploymentState(DeploymentStateEnum deploymentState) {
     this.deploymentState = deploymentState;
   }
 

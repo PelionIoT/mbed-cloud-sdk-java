@@ -13,9 +13,20 @@ Name | Type | Description | Notes
 **name** | **String** | The name of the record |  [optional]
 **etag** | **String** | API resource entity version. |  [optional]
 **mechanismUrl** | **String** | The url of cloud connect used |  [optional]
-**deploymentState** | **String** | The state of the update campaign on the device |  [optional]
+**deploymentState** | [**DeploymentStateEnum**](#DeploymentStateEnum) | The state of the update campaign on the device. |  [optional]
 **id** | **String** | The id of the metadata record |  [optional]
 **deviceId** | **String** | The id of the device |  [optional]
+
+
+<a name="DeploymentStateEnum"></a>
+## Enum: DeploymentStateEnum
+Name | Value
+---- | -----
+PENDING | &quot;pending&quot;
+UPDATED_CONNECTOR_CHANNEL | &quot;updated_connector_channel&quot;
+FAILED_CONNECTOR_CHANNEL_UPDATE | &quot;failed_connector_channel_update&quot;
+DEPLOYED | &quot;deployed&quot;
+MANIFESTREMOVED | &quot;manifestremoved&quot;
 
 
 

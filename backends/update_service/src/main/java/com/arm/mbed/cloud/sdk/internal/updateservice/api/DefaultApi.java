@@ -219,23 +219,30 @@ public interface DefaultApi {
   /**
    * 
    * 
+   * @param campaignId The ID of the update campaign (required)
    * @param campaignDeviceMetadataId The id of the campaign device metadata (required)
    * @return Call&lt;CampaignDeviceMetadata&gt;
    */
   
-  @GET("v3/campaign-device-metadata/{campaign_device_metadata_id}")
-  Call<CampaignDeviceMetadata> v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(
-    @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
+  @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
+  Call<CampaignDeviceMetadata> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
+    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
   );
 
   /**
    * 
    * 
+   * @param campaignId The ID of the update campaign (required)
+   * @param limit How many objects to retrieve in the page. (optional)
+   * @param order ASC or DESC (optional)
+   * @param after The ID of the the item after which to retrieve the next page. (optional)
+   * @param include Comma separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;CampaignDeviceMetadataPage&gt;
    */
   
-  @GET("v3/campaign-device-metadata")
-  Call<CampaignDeviceMetadataPage> v3CampaignDeviceMetadataGet();
-    
+  @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/")
+  Call<CampaignDeviceMetadataPage> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(
+    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
 
 }

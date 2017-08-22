@@ -240,9 +240,10 @@ public class DefaultApiTest {
      * 
      */
     @Test
-    public void v3CampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
+    public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
+        String campaignId = null;
         String campaignDeviceMetadataId = null;
-        // CampaignDeviceMetadata response = api.v3CampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignDeviceMetadataId);
+        // CampaignDeviceMetadata response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
 
         // TODO: test validations
     }
@@ -253,8 +254,13 @@ public class DefaultApiTest {
      * 
      */
     @Test
-    public void v3CampaignDeviceMetadataGetTest() {
-        // CampaignDeviceMetadataPage response = api.v3CampaignDeviceMetadataGet();
+    public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {
+        String campaignId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // CampaignDeviceMetadataPage response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
 
         // TODO: test validations
     }
