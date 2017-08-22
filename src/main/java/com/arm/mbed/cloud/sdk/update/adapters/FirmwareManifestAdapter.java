@@ -14,8 +14,8 @@ public class FirmwareManifestAdapter {
         if (manifest == null) {
             return null;
         }
-        FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(), null, manifest.getDeviceClass(),
-                ManifestContentsAdapter.map(manifest.getManifestContents()),
+        FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(), TranslationUtils.toUrl("//TODO"),
+                manifest.getDeviceClass(), ManifestContentsAdapter.map(manifest.getManifestContents()),
                 TranslationUtils.toDate(manifest.getCreatedAt()), TranslationUtils.toDate(manifest.getUpdatedAt()),
                 TranslationUtils.toDate(manifest.getTimestamp()));
         firmwareManifest.setDataFile(null);// TODO

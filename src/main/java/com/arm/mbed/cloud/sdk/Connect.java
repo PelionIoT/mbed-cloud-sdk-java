@@ -295,26 +295,26 @@ public class Connect extends AbstractAPI {
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
-    @API
-    public @Nullable Future<Object> setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse)
-            throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        final String finalDeviceId = deviceId;
-        final String finalResourcePath = resourcePath;
-        final String finalResourceValue = resourceValue;
-        final boolean finalNoResponse = noResponse;
-        return cache.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
-
-            @SuppressWarnings("boxing")
-            @Override
-            public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPut(finalDeviceId,
-                        ApiUtils.normalisePath(finalResourcePath), finalResourceValue, finalNoResponse);
-            }
-        });
-    }
+    // @API
+    // public @Nullable Future<Object> setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
+    // @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse)
+    // throws MbedCloudException {
+    // checkNotNull(deviceId, TAG_DEVICE_ID);
+    // checkNotNull(resourcePath, TAG_RESOURCE_PATH);
+    // final String finalDeviceId = deviceId;
+    // final String finalResourcePath = resourcePath;
+    // final String finalResourceValue = resourceValue;
+    // final boolean finalNoResponse = noResponse;
+    // return cache.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
+    //
+    // @SuppressWarnings("boxing")
+    // @Override
+    // public Call<AsyncID> call() {
+    // return endpoint.getResources().v2EndpointsDeviceIdResourcePathPut(finalDeviceId,
+    // ApiUtils.normalisePath(finalResourcePath), finalResourceValue, finalNoResponse);
+    // }
+    // });
+    // }
 
     /**
      * Sets the value of a resource
@@ -335,27 +335,27 @@ public class Connect extends AbstractAPI {
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
-    @API
-    public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
-            @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse,
-            @Nullable TimePeriod timeout) throws MbedCloudException {
-        final String id = deviceId;
-        final String path = resourcePath;
-        final String value = resourceValue;
-        final boolean waitForResponse = noResponse;
-        try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
-
-                @Override
-                public Future<Object> submit() throws MbedCloudException {
-                    return setResourceValueAsync(id, path, value, waitForResponse);
-                }
-            }, timeout);
-        } catch (MbedCloudException e) {
-            logger.throwSDKException(e);
-        }
-        return null;
-    }
+    // @API
+    // public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
+    // @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse,
+    // @Nullable TimePeriod timeout) throws MbedCloudException {
+    // final String id = deviceId;
+    // final String path = resourcePath;
+    // final String value = resourceValue;
+    // final boolean waitForResponse = noResponse;
+    // try {
+    // return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+    //
+    // @Override
+    // public Future<Object> submit() throws MbedCloudException {
+    // return setResourceValueAsync(id, path, value, waitForResponse);
+    // }
+    // }, timeout);
+    // } catch (MbedCloudException e) {
+    // logger.throwSDKException(e);
+    // }
+    // return null;
+    // }
 
     /**
      * Executes a function on a resource.
@@ -372,26 +372,26 @@ public class Connect extends AbstractAPI {
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
-    @API
-    public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        checkNotNull(functionName, TAG_FUNCTION_NAME);
-        final String finalDeviceId = deviceId;
-        final String finalResourcePath = resourcePath;
-        final String finalFunctionName = functionName;
-        final boolean finalNoResponse = noResponse;
-        return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
-
-            @SuppressWarnings("boxing")
-            @Override
-            public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath,
-                        finalFunctionName, finalNoResponse);
-            }
-        });
-    }
+    // @API
+    // public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
+    // @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse) throws MbedCloudException {
+    // checkNotNull(deviceId, TAG_DEVICE_ID);
+    // checkNotNull(resourcePath, TAG_RESOURCE_PATH);
+    // checkNotNull(functionName, TAG_FUNCTION_NAME);
+    // final String finalDeviceId = deviceId;
+    // final String finalResourcePath = resourcePath;
+    // final String finalFunctionName = functionName;
+    // final boolean finalNoResponse = noResponse;
+    // return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
+    //
+    // @SuppressWarnings("boxing")
+    // @Override
+    // public Call<AsyncID> call() {
+    // return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath,
+    // finalFunctionName, finalNoResponse);
+    // }
+    // });
+    // }
 
     /**
      * Executes a function on a resource
@@ -412,27 +412,27 @@ public class Connect extends AbstractAPI {
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
-    @API
-    public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse,
-            @Nullable TimePeriod timeout) throws MbedCloudException {
-        final String id = deviceId;
-        final String path = resourcePath;
-        final String function = functionName;
-        final boolean waitForResponse = noResponse;
-        try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
-
-                @Override
-                public Future<Object> submit() throws MbedCloudException {
-                    return executeResourceAsync(id, path, function, waitForResponse);
-                }
-            }, timeout);
-        } catch (MbedCloudException e) {
-            logger.throwSDKException(e);
-        }
-        return null;
-    }
+    // @API
+    // public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
+    // @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse,
+    // @Nullable TimePeriod timeout) throws MbedCloudException {
+    // final String id = deviceId;
+    // final String path = resourcePath;
+    // final String function = functionName;
+    // final boolean waitForResponse = noResponse;
+    // try {
+    // return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+    //
+    // @Override
+    // public Future<Object> submit() throws MbedCloudException {
+    // return executeResourceAsync(id, path, function, waitForResponse);
+    // }
+    // }, timeout);
+    // } catch (MbedCloudException e) {
+    // logger.throwSDKException(e);
+    // }
+    // return null;
+    // }
 
     // TODO subscriptions
 

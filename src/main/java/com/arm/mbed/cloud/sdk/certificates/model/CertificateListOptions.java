@@ -45,11 +45,11 @@ public class CertificateListOptions extends ListOptions {
     }
 
     /**
-     * @param typeFiler
+     * @param typeFilter
      *            the typeFiler to set
      */
-    public void setTypeFilter(CertificateType typeFiler) {
-        addFilter(TYPE_FILTER, typeFiler);
+    public void setTypeFilter(CertificateType typeFilter) {
+        addFilter(TYPE_FILTER, typeFilter);
     }
 
     /**

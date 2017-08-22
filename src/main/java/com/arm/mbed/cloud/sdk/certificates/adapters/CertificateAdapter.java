@@ -148,7 +148,7 @@ public class CertificateAdapter {
 
     @SuppressWarnings("boxing")
     private static CertificateType toType(Integer executionMode, ServiceEnum service) {
-        if (executionMode == 1) {
+        if (executionMode != null && executionMode == 1) {
             return CertificateType.DEVELOPER;
         }
         CertificateType certificateType = null;

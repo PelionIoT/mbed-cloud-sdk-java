@@ -8,9 +8,11 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.google.gson.Gson;
 
 import okhttp3.Headers;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -83,15 +85,34 @@ public class CloudCaller<T, U> {
         }
         if (response != null && !response.isSuccessful()) {
             String errorMessage = null;
+            Error error = null;
             try {
-                errorMessage = response.errorBody().string();
-
-            } catch (IOException e) {
+                error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
+            } catch (Exception e) {
+                try {
+                    errorMessage = response.errorBody().string();
+                } catch (IOException e1) {
+                    // Nothing to do
+                }
                 // Nothing to do
             }
             logger.throwSDKException(
                     "An error occurred when calling Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+                    (error != null) ? new MbedCloudException(error.toString())
+                            : (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+        }
+    }
+
+    private static class ErrorJsonConverter {
+        private final Gson gson = new Gson();
+        public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
+
+        private Error convert(ResponseBody value) {
+            if (value == null) {
+                return null;
+            }
+            return gson.fromJson(value.charStream(), Error.class);
+
         }
     }
 

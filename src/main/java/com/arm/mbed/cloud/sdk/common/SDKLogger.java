@@ -52,6 +52,7 @@ public class SDKLogger {
     }
 
     private void throwCloudException(MbedCloudException ex) throws MbedCloudException {
+        ex.printStackTrace();// TODO remove
         logError(ex.getMessage(), ex.getCause());
         throw ex;
     }

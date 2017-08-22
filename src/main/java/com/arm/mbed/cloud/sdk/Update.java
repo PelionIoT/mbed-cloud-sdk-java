@@ -10,7 +10,11 @@ import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.Paginator;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
@@ -20,6 +24,7 @@ import com.arm.mbed.cloud.sdk.update.model.Campaign;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 import com.arm.mbed.cloud.sdk.update.model.EndPoints;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
+import com.arm.mbed.cloud.sdk.update.model.FirmwareImageListOptions;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
 
 import retrofit2.Call;
@@ -46,7 +51,55 @@ public class Update extends AbstractAPI {
         endpoint = new EndPoints(this.client);
     }
 
-    // listFirmwareImages
+    /**
+     * Lists all firmware images according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return The list of firmware images corresponding to filter options (One page)
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable ListResponse<FirmwareImage> listFirmwareImages(@Nullable FirmwareImageListOptions options)
+            throws MbedCloudException {
+        final FirmwareImageListOptions finalOptions = (options == null) ? new FirmwareImageListOptions() : options;
+
+        return CloudCaller.call(this, "listFirmwareImages()", FirmwareImageAdapter.getListMapper(),
+                new CloudCall<FirmwareImagePage>() {
+
+                    // TODO Filters
+                    @Override
+                    public Call<FirmwareImagePage> call() {
+                        return endpoint.getUpdate().firmwareImageList(finalOptions.getLimit(),
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.encodeInclude());
+                    }
+                });
+    }
+
+    /**
+     * Gets an iterator over all firmware images according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return paginator for the list of firmware images corresponding to filter options
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable Paginator<FirmwareImage> listAllFirmwareImages(@Nullable FirmwareImageListOptions options)
+            throws MbedCloudException {
+        final FirmwareImageListOptions finalOptions = options;
+        return new Paginator<>(new PageRequester<FirmwareImage>() {
+
+            @Override
+            public ListResponse<FirmwareImage> requestNewPage() throws MbedCloudException {
+                return listFirmwareImages(finalOptions);
+            }
+        });
+    }
+
     /**
      * Gets details of a firmware image
      * 
