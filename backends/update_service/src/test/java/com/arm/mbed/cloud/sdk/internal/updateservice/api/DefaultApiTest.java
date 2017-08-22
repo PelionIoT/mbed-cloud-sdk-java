@@ -256,7 +256,11 @@ public class DefaultApiTest {
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {
         String campaignId = null;
-        // CampaignDeviceMetadataPage response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId);
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // CampaignDeviceMetadataPage response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
 
         // TODO: test validations
     }

@@ -885,7 +885,7 @@ Name | Type | Description  | Notes
 
 <a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet"></a>
 # **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**
-> CampaignDeviceMetadataPage v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId)
+> CampaignDeviceMetadataPage v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include)
 
 
 
@@ -908,8 +908,12 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 String campaignId = "campaignId_example"; // String | The ID of the update campaign
+Integer limit = 56; // Integer | How many objects to retrieve in the page.
+String order = "order_example"; // String | ASC or DESC
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
+String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
 try {
-    CampaignDeviceMetadataPage result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId);
+    CampaignDeviceMetadataPage result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet");
@@ -922,6 +926,10 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The ID of the update campaign |
+ **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **order** | **String**| ASC or DESC | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
+ **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 
