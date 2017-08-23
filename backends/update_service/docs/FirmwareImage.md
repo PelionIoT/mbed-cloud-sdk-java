@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **byte[]** | The binary file of firmware image. | 
+**datafile** | **String** | The url to binary file of firmware image. | 
 **description** | **String** | The description of the object. | 
 **createdAt** | [**DateTime**](DateTime.md) | The time the object was created. | 
 **object** | **String** | The API resource entity. | 

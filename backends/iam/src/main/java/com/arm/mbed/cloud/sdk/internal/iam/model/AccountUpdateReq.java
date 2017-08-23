@@ -47,6 +47,9 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("company")
   private String company = null;
 
+  @SerializedName("idle_timeout")
+  private String idleTimeout = null;
+
   @SerializedName("state")
   private String state = null;
 
@@ -55,6 +58,9 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("end_market")
+  private String endMarket = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
@@ -173,6 +179,24 @@ public class AccountUpdateReq implements Serializable {
     this.company = company;
   }
 
+  public AccountUpdateReq idleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
+    return this;
+  }
+
+   /**
+   * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
+   * @return idleTimeout
+  **/
+  @ApiModelProperty(example = "null", value = "The reference token expiration time in minutes for this account. Between 1 and 120 minutes.")
+  public String getIdleTimeout() {
+    return idleTimeout;
+  }
+
+  public void setIdleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
+  }
+
   public AccountUpdateReq state(String state) {
     this.state = state;
     return this;
@@ -225,6 +249,24 @@ public class AccountUpdateReq implements Serializable {
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  public AccountUpdateReq endMarket(String endMarket) {
+    this.endMarket = endMarket;
+    return this;
+  }
+
+   /**
+   * The end market for this account, not longer than 100 characters.
+   * @return endMarket
+  **/
+  @ApiModelProperty(example = "null", value = "The end market for this account, not longer than 100 characters.")
+  public String getEndMarket() {
+    return endMarket;
+  }
+
+  public void setEndMarket(String endMarket) {
+    this.endMarket = endMarket;
   }
 
   public AccountUpdateReq phoneNumber(String phoneNumber) {
@@ -302,9 +344,11 @@ public class AccountUpdateReq implements Serializable {
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
+        Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
         Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
+        Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
         Objects.equals(this.email, accountUpdateReq.email) &&
         Objects.equals(this.aliases, accountUpdateReq.aliases);
@@ -312,7 +356,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, state, contact, postalCode, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -327,9 +371,11 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
+    sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");

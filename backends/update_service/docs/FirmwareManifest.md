@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **byte[]** |  | 
+**datafile** | **String** | The url to binary file of firmware manifest. | 
 **description** | **String** | The description of the object. | 
 **timestamp** | [**DateTime**](DateTime.md) | The version of the firmware manifest (as a timestamp). | 
 **createdAt** | [**DateTime**](DateTime.md) | The time the object was created. | 

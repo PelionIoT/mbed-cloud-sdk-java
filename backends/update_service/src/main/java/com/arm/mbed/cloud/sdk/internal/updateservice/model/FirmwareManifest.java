@@ -29,7 +29,7 @@ public class FirmwareManifest implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("datafile")
-  private byte[] datafile = null;
+  private String datafile = null;
 
   @SerializedName("description")
   private String description = null;
@@ -67,21 +67,21 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("name")
   private String name = null;
 
-  public FirmwareManifest datafile(byte[] datafile) {
+  public FirmwareManifest datafile(String datafile) {
     this.datafile = datafile;
     return this;
   }
 
    /**
-   * Get datafile
+   * The url to binary file of firmware manifest.
    * @return datafile
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
-  public byte[] getDatafile() {
+  @ApiModelProperty(example = "null", required = true, value = "The url to binary file of firmware manifest.")
+  public String getDatafile() {
     return datafile;
   }
 
-  public void setDatafile(byte[] datafile) {
+  public void setDatafile(String datafile) {
     this.datafile = datafile;
   }
 
