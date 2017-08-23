@@ -17,7 +17,6 @@ import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 @Internal
 public class FirmwareImageAdapter {
 
-    // TODO
     public static com.arm.mbed.cloud.sdk.update.model.FirmwareImage map(
             com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
         if (firmwareImage == null) {
@@ -27,7 +26,7 @@ public class FirmwareImageAdapter {
                 TranslationUtils.toUrl(new String(firmwareImage.getDatafile(), StandardCharsets.UTF_8)),
                 firmwareImage.getDatafileChecksum(), TranslationUtils.toDate(firmwareImage.getCreatedAt()),
                 TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
-        image.setDataFile(null);// TODO
+        image.setDataFile(null);
         image.setDescription(image.getDescription());
         image.setName(firmwareImage.getName());
         return image;
@@ -87,7 +86,7 @@ public class FirmwareImageAdapter {
 
             @Override
             public ListResponse<FirmwareImage> map(FirmwareImagePage toBeMapped) {
-                return mapList(toBeMapped);
+                return FirmwareImageAdapter.mapList(toBeMapped);
             }
 
         };

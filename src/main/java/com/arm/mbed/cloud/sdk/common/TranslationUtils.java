@@ -43,6 +43,17 @@ public class TranslationUtils {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
+    public static Date convertTimestamp(String timestamp, Date defaultDate) {
+        try {
+            return TranslationUtils.convertTimestamp(timestamp);
+        } catch (Exception e) {
+            Exception e1 = new Exception(
+                    "Error occurred when parsing timestamp. Defaulting to " + String.valueOf(defaultDate), e);
+            e1.printStackTrace();
+            return defaultDate;
+        }
+    }
+
     public static URL toUrl(String url) {
         try {
             return (url == null) ? null : new URL(url);

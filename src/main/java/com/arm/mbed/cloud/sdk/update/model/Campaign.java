@@ -5,6 +5,7 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.Filters;
 
 @Preamble(description = "Campaign")
 public class Campaign {
@@ -54,6 +55,7 @@ public class Campaign {
      */
     @DefaultValue(value = "now()")
     private Date scheduledAt;
+    private Filters filters;
 
     public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {
         super();
@@ -67,6 +69,7 @@ public class Campaign {
         setName(null);
         setScheduledAt(new Date());
         setState(CampaignState.getDefault());
+        setFilters(null);
     }
 
     public Campaign() {
@@ -193,6 +196,21 @@ public class Campaign {
      */
     public Date getFinishedAt() {
         return finishedAt;
+    }
+
+    /**
+     * @return the filters
+     */
+    public Filters getFilters() {
+        return filters;
+    }
+
+    /**
+     * @param filters
+     *            the filters to set
+     */
+    public void setFilters(Filters filters) {
+        this.filters = filters;
     }
 
 }

@@ -23,7 +23,7 @@ public class DeviceState {
     /**
      * The state of the update campaign on the device
      */
-    private final CampaignState state;
+    private final DeviceStatus state;
     /**
      * The name of the device
      */
@@ -49,7 +49,7 @@ public class DeviceState {
      */
     private final URL mechanismUrl;
 
-    public DeviceState(String id, String deviceId, String campaignId, CampaignState state, String name,
+    public DeviceState(String id, String deviceId, String campaignId, DeviceStatus state, String name,
             String description, Date createdAt, Date updatedAt, String mechanism, URL mechanismUrl) {
         super();
         this.id = id;
@@ -118,7 +118,7 @@ public class DeviceState {
     /**
      * @return the state
      */
-    public CampaignState getState() {
+    public DeviceStatus getState() {
         return state;
     }
 

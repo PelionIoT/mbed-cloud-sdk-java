@@ -56,6 +56,15 @@ public class DataFile {
         this.file = file;
     }
 
+    /**
+     * Checks that the file exists
+     * 
+     * @return whether the file exists or not
+     */
+    public boolean exists() {
+        return file != null && file.exists();
+    }
+
     @SuppressWarnings("resource")
     public @Nullable String getMd5Checksum() throws MbedCloudException {
         if (file == null) {

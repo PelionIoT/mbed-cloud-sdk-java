@@ -14,18 +14,26 @@ import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.Paginator;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
+import com.arm.mbed.cloud.sdk.update.adapters.DeviceStateAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareImageAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareManifestAdapter;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
+import com.arm.mbed.cloud.sdk.update.model.CampaignDevicesStatusesListOptions;
+import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
+import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 import com.arm.mbed.cloud.sdk.update.model.EndPoints;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImageListOptions;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
+import com.arm.mbed.cloud.sdk.update.model.FirmwareManifestListOptions;
 
 import retrofit2.Call;
 
@@ -143,8 +151,9 @@ public class Update extends AbstractAPI {
 
                     @Override
                     public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> call() {
-                        return endpoint.getUpdate().firmwareImageCreate(DataFileAdapter.map(finalImage.getDataFile()),
-                                finalImage.getName(), finalImage.getDescription());
+                        return endpoint.getUpdate().firmwareImageCreate(
+                                DataFileAdapter.reverseMap(finalImage.getDataFile()), finalImage.getName(),
+                                finalImage.getDescription());
                     }
 
                 });
@@ -172,7 +181,55 @@ public class Update extends AbstractAPI {
         });
     }
 
-    // listFirmwareManifests
+    /**
+     * Lists all firmware manifests according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return The list of firmware manifests corresponding to filter options (One page)
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable ListResponse<FirmwareManifest> listFirmwareManifests(@Nullable FirmwareManifestListOptions options)
+            throws MbedCloudException {
+        final FirmwareManifestListOptions finalOptions = (options == null) ? new FirmwareManifestListOptions()
+                : options;
+
+        return CloudCaller.call(this, "listFirmwareManifests()", FirmwareManifestAdapter.getListMapper(),
+                new CloudCall<FirmwareManifestPage>() {
+
+                    // TODO Filters
+                    @Override
+                    public Call<FirmwareManifestPage> call() {
+                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getLimit(),
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.encodeInclude());
+                    }
+                });
+    }
+
+    /**
+     * Gets an iterator over all firmware manifests according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return paginator for the list of firmware manifests corresponding to filter options
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable Paginator<FirmwareManifest> listAllFirmwareManifests(@Nullable FirmwareManifestListOptions options)
+            throws MbedCloudException {
+        final FirmwareManifestListOptions finalOptions = options;
+        return new Paginator<>(new PageRequester<FirmwareManifest>() {
+
+            @Override
+            public ListResponse<FirmwareManifest> requestNewPage() throws MbedCloudException {
+                return listFirmwareManifests(finalOptions);
+            }
+        });
+    }
 
     /**
      * Get details of a firmware manifest
@@ -220,7 +277,7 @@ public class Update extends AbstractAPI {
                     @Override
                     public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> call() {
                         return endpoint.getUpdate().firmwareManifestCreate(
-                                DataFileAdapter.map(finalManifest.getDataFile()), finalManifest.getName(),
+                                DataFileAdapter.reverseMap(finalManifest.getDataFile()), finalManifest.getName(),
                                 finalManifest.getDescription());
                     }
 
@@ -249,7 +306,55 @@ public class Update extends AbstractAPI {
         });
     }
 
-    // listCampaigns
+    /**
+     * Lists all update campaigns according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return The list of update campaigns corresponding to filter options (One page)
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable ListResponse<Campaign> listCampaigns(@Nullable CampaignListOptions options)
+            throws MbedCloudException {
+        final CampaignListOptions finalOptions = (options == null) ? new CampaignListOptions() : options;
+
+        return CloudCaller.call(this, "listCampaigns()", CampaignAdapter.getListMapper(),
+                new CloudCall<UpdateCampaignPage>() {
+
+                    // TODO Filters
+                    @Override
+                    public Call<UpdateCampaignPage> call() {
+                        return endpoint.getUpdate().updateCampaignList(finalOptions.getLimit(),
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.encodeInclude());
+                    }
+                });
+    }
+
+    /**
+     * Gets an iterator over all update campaigns according to filter options
+     * 
+     * @param options
+     *            filter options
+     * @return paginator for the list of update campaigns corresponding to filter options
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable Paginator<Campaign> listAllCampaigns(@Nullable CampaignListOptions options)
+            throws MbedCloudException {
+        final CampaignListOptions finalOptions = options;
+        return new Paginator<>(new PageRequester<Campaign>() {
+
+            @Override
+            public ListResponse<Campaign> requestNewPage() throws MbedCloudException {
+                return listCampaigns(finalOptions);
+            }
+        });
+    }
+
     /**
      * Gets details of an update campaign
      * 
@@ -290,7 +395,7 @@ public class Update extends AbstractAPI {
 
             @Override
             public Call<UpdateCampaign> call() {
-                return endpoint.getUpdate().updateCampaignCreate(CampaignAdapter.mapAdd(finalCampaign));
+                return endpoint.getUpdate().updateCampaignCreate(CampaignAdapter.reverseMapAdd(finalCampaign));
             }
 
         });
@@ -317,7 +422,7 @@ public class Update extends AbstractAPI {
             @Override
             public Call<UpdateCampaign> call() {
                 return endpoint.getUpdate().updateCampaignUpdate(finalCampaign.getId(),
-                        CampaignAdapter.mapUpdate(finalCampaign));
+                        CampaignAdapter.reverseMapUpdate(finalCampaign));
             }
 
         });
@@ -391,6 +496,63 @@ public class Update extends AbstractAPI {
         final Campaign campaign = new Campaign(campaignId);
         campaign.setState(CampaignState.DRAFT);
         return modifyCampaign(campaign, "stopCampaign()");
+    }
+
+    /**
+     * Lists campaign devices statuses
+     * 
+     * @param campaignId
+     *            The ID of the update campaign
+     * @param options
+     *            filter options
+     * @return The list of campaign device statuses corresponding to filter options (One page)
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable ListResponse<DeviceState> listCampaignDevicesState(@NonNull String campaignId,
+            @Nullable CampaignDevicesStatusesListOptions options) throws MbedCloudException {
+        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
+        final String finalId = campaignId;
+        final CampaignDevicesStatusesListOptions finalOptions = (options == null)
+                ? new CampaignDevicesStatusesListOptions() : options;
+
+        return CloudCaller.call(this, "listCampaignDevicesState()", DeviceStateAdapter.getListMapper(),
+                new CloudCall<CampaignDeviceMetadataPage>() {
+
+                    @Override
+                    public Call<CampaignDeviceMetadataPage> call() {
+                        return endpoint.getUpdate().v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(finalId,
+                                finalOptions.getLimit(), finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                                finalOptions.encodeInclude());
+                    }
+                });
+    }
+
+    /**
+     * Gets an iterator over all campaign device statuses according to filter options
+     * 
+     * @param campaignId
+     *            The ID of the update campaign
+     * @param options
+     *            filter options
+     * @return paginator for the list of all campaign device statuses corresponding to filter options
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable Paginator<DeviceState> listAllCampaignDevicesState(@NonNull String campaignId,
+            @Nullable CampaignDevicesStatusesListOptions options) throws MbedCloudException {
+        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
+        final String finalId = campaignId;
+        final CampaignDevicesStatusesListOptions finalOptions = options;
+        return new Paginator<>(new PageRequester<DeviceState>() {
+
+            @Override
+            public ListResponse<DeviceState> requestNewPage() throws MbedCloudException {
+                return listCampaignDevicesState(finalId, finalOptions);
+            }
+        });
     }
 
 }

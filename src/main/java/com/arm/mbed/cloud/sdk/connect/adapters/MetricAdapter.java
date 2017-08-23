@@ -30,7 +30,7 @@ public class MetricAdapter {
         metric.setSuccessfulApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()));
         metric.setSuccessfulDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()));
         metric.setSuccessfulHandshakes(TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()));
-        metric.setTimestamp(convertTimestamp(apiMetric.getTimestamp(), new Date()));
+        metric.setTimestamp(TranslationUtils.convertTimestamp(apiMetric.getTimestamp(), new Date()));
         metric.setTransactions(TranslationUtils.toLong(apiMetric.getTransactions()));
         return metric;
     }
@@ -79,17 +79,6 @@ public class MetricAdapter {
             start = false;
         }
         return builder.toString();
-    }
-
-    private static Date convertTimestamp(String timestamp, Date defaultDate) {
-        try {
-            return TranslationUtils.convertTimestamp(timestamp);
-        } catch (Exception e) {
-            Exception e1 = new Exception(
-                    "Error occurred when parsing timestamp. Defaulting to " + String.valueOf(defaultDate), e);
-            e1.printStackTrace();
-            return defaultDate;
-        }
     }
 
     private static class IncludeMappingHolder {

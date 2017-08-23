@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
 @Internal
 public class DataFileAdapter {
 
-    public static RequestBody map(DataFile dataFile) {
+    public static RequestBody reverseMap(DataFile dataFile) {
         if (dataFile == null) {
             return null;
         }
