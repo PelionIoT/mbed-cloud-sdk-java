@@ -47,6 +47,31 @@ public class CampaignDeviceMetadataPage implements Serializable {
   @SerializedName("data")
   private List<CampaignDeviceMetadata> data = new ArrayList<CampaignDeviceMetadata>();
 
+  /**
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   */
+  public enum OrderEnum {
+    @SerializedName("ASC")
+    ASC("ASC"),
+    
+    @SerializedName("DESC")
+    DESC("DESC");
+
+    private String value;
+
+    OrderEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+  }
+
+  @SerializedName("order")
+  private OrderEnum order = null;
+
   public CampaignDeviceMetadataPage after(String after) {
     this.after = after;
     return this;
@@ -160,6 +185,24 @@ public class CampaignDeviceMetadataPage implements Serializable {
     this.data = data;
   }
 
+  public CampaignDeviceMetadataPage order(OrderEnum order) {
+    this.order = order;
+    return this;
+  }
+
+   /**
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * @return order
+  **/
+  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  public OrderEnum getOrder() {
+    return order;
+  }
+
+  public void setOrder(OrderEnum order) {
+    this.order = order;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -175,12 +218,13 @@ public class CampaignDeviceMetadataPage implements Serializable {
         Objects.equals(this.totalCount, campaignDeviceMetadataPage.totalCount) &&
         Objects.equals(this.object, campaignDeviceMetadataPage.object) &&
         Objects.equals(this.limit, campaignDeviceMetadataPage.limit) &&
-        Objects.equals(this.data, campaignDeviceMetadataPage.data);
+        Objects.equals(this.data, campaignDeviceMetadataPage.data) &&
+        Objects.equals(this.order, campaignDeviceMetadataPage.order);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data);
+    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
   }
 
 
@@ -195,6 +239,7 @@ public class CampaignDeviceMetadataPage implements Serializable {
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    order: ").append(toIndentedString(order)).append("\n");
     sb.append("}");
     return sb.toString();
   }

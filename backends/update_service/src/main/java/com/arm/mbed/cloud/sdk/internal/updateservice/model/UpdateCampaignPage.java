@@ -47,8 +47,30 @@ public class UpdateCampaignPage implements Serializable {
   @SerializedName("data")
   private List<UpdateCampaign> data = new ArrayList<UpdateCampaign>();
 
+  /**
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   */
+  public enum OrderEnum {
+    @SerializedName("ASC")
+    ASC("ASC"),
+    
+    @SerializedName("DESC")
+    DESC("DESC");
+
+    private String value;
+
+    OrderEnum(String value) {
+      this.value = value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+  }
+
   @SerializedName("order")
-  private String order = null;
+  private OrderEnum order = null;
 
   public UpdateCampaignPage object(String object) {
     this.object = object;
@@ -163,21 +185,21 @@ public class UpdateCampaignPage implements Serializable {
     this.data = data;
   }
 
-  public UpdateCampaignPage order(String order) {
+  public UpdateCampaignPage order(OrderEnum order) {
     this.order = order;
     return this;
   }
 
    /**
-   * Get order
+   * The order of the records to return. Available values: ASC, DESC; by default ASC.
    * @return order
   **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getOrder() {
+  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  public OrderEnum getOrder() {
     return order;
   }
 
-  public void setOrder(String order) {
+  public void setOrder(OrderEnum order) {
     this.order = order;
   }
 
