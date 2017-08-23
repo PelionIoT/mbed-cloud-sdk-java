@@ -34,6 +34,9 @@ import java.io.Serializable;
 public class AccountInfo implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("end_market")
+  private String endMarket = null;
+
   /**
    * The status of the account.
    */
@@ -171,6 +174,9 @@ public class AccountInfo implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
+  @SerializedName("idle_timeout")
+  private String idleTimeout = null;
+
   @SerializedName("contact")
   private String contact = null;
 
@@ -179,6 +185,24 @@ public class AccountInfo implements Serializable {
 
   @SerializedName("template_id")
   private String templateId = null;
+
+  public AccountInfo endMarket(String endMarket) {
+    this.endMarket = endMarket;
+    return this;
+  }
+
+   /**
+   * Account end market.
+   * @return endMarket
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "Account end market.")
+  public String getEndMarket() {
+    return endMarket;
+  }
+
+  public void setEndMarket(String endMarket) {
+    this.endMarket = endMarket;
+  }
 
   public AccountInfo status(StatusEnum status) {
     this.status = status;
@@ -609,6 +633,24 @@ public class AccountInfo implements Serializable {
     this.createdAt = createdAt;
   }
 
+  public AccountInfo idleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
+    return this;
+  }
+
+   /**
+   * The reference token expiration time in minutes for this account.
+   * @return idleTimeout
+  **/
+  @ApiModelProperty(example = "null", value = "The reference token expiration time in minutes for this account.")
+  public String getIdleTimeout() {
+    return idleTimeout;
+  }
+
+  public void setIdleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
+  }
+
   public AccountInfo contact(String contact) {
     this.contact = contact;
     return this;
@@ -678,7 +720,8 @@ public class AccountInfo implements Serializable {
       return false;
     }
     AccountInfo accountInfo = (AccountInfo) o;
-    return Objects.equals(this.status, accountInfo.status) &&
+    return Objects.equals(this.endMarket, accountInfo.endMarket) &&
+        Objects.equals(this.status, accountInfo.status) &&
         Objects.equals(this.postalCode, accountInfo.postalCode) &&
         Objects.equals(this.id, accountInfo.id) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
@@ -701,6 +744,7 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.limits, accountInfo.limits) &&
         Objects.equals(this.country, accountInfo.country) &&
         Objects.equals(this.createdAt, accountInfo.createdAt) &&
+        Objects.equals(this.idleTimeout, accountInfo.idleTimeout) &&
         Objects.equals(this.contact, accountInfo.contact) &&
         Objects.equals(this.policies, accountInfo.policies) &&
         Objects.equals(this.templateId, accountInfo.templateId);
@@ -708,7 +752,7 @@ public class AccountInfo implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, contact, policies, templateId);
+    return Objects.hash(endMarket, status, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contact, policies, templateId);
   }
 
 
@@ -717,6 +761,7 @@ public class AccountInfo implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountInfo {\n");
     
+    sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
@@ -740,6 +785,7 @@ public class AccountInfo implements Serializable {
     sb.append("    limits: ").append(toIndentedString(limits)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    policies: ").append(toIndentedString(policies)).append("\n");
     sb.append("    templateId: ").append(toIndentedString(templateId)).append("\n");

@@ -107,6 +107,9 @@ public class ErrorResponse implements Serializable {
     @SerializedName("invalid_token")
     INVALID_TOKEN("invalid_token"),
     
+    @SerializedName("invalid_apikey")
+    INVALID_APIKEY("invalid_apikey"),
+    
     @SerializedName("access_denied")
     ACCESS_DENIED("access_denied"),
     

@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**endMarket** | **String** | Account end market. | 
 **status** | [**StatusEnum**](#StatusEnum) | The status of the account. | 
 **postalCode** | **String** | The postal code part of the postal address. |  [optional]
 **id** | **String** | Account ID. | 
@@ -27,6 +28,7 @@ Name | Type | Description | Notes
 **limits** | **Map&lt;String, String&gt;** | List of limits as key-value pairs if requested. |  [optional]
 **country** | **String** | The country part of the postal address. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
+**idleTimeout** | **String** | The reference token expiration time in minutes for this account. |  [optional]
 **contact** | **String** | The name of the contact person for this account. |  [optional]
 **policies** | [**List&lt;FeaturePolicy&gt;**](FeaturePolicy.md) | List of policies if requested. |  [optional]
 **templateId** | **String** | Account template ID. |  [optional]

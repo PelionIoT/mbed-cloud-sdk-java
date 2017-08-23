@@ -16,13 +16,14 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -197,11 +198,11 @@ public interface DeveloperApi {
   /**
    * Details of the current user.
    * An endpoint for retrieving the details of the logged in user.
-   * @return Call&lt;UserInfoResp&gt;
+   * @return Call&lt;MyUserInfoResp&gt;
    */
   
   @GET("v3/users/me")
-  Call<UserInfoResp> getMyUser();
+  Call<MyUserInfoResp> getMyUser();
     
 
   /**
@@ -265,14 +266,14 @@ public interface DeveloperApi {
    * Update user details.
    * An endpoint for updating the details of the logged in user.
    * @param body New attributes for the logged in user. (required)
-   * @return Call&lt;UserInfoResp&gt;
+   * @return Call&lt;UserUpdateResp&gt;
    */
   
   @Headers({
   	"Content-Type:application/json" 
   })
   @PUT("v3/users/me")
-  Call<UserInfoResp> updateMyUser(
+  Call<UserUpdateResp> updateMyUser(
     @retrofit2.http.Body UserUpdateReq body
   );
 

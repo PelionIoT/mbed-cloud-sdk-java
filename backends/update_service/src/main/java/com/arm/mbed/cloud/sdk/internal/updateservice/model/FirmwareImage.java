@@ -28,7 +28,7 @@ public class FirmwareImage implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("datafile")
-  private byte[] datafile = null;
+  private String datafile = null;
 
   @SerializedName("description")
   private String description = null;
@@ -57,21 +57,21 @@ public class FirmwareImage implements Serializable {
   @SerializedName("name")
   private String name = null;
 
-  public FirmwareImage datafile(byte[] datafile) {
+  public FirmwareImage datafile(String datafile) {
     this.datafile = datafile;
     return this;
   }
 
    /**
-   * The binary file of firmware image.
+   * The url to binary file of firmware image.
    * @return datafile
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The binary file of firmware image.")
-  public byte[] getDatafile() {
+  @ApiModelProperty(example = "null", required = true, value = "The url to binary file of firmware image.")
+  public String getDatafile() {
     return datafile;
   }
 
-  public void setDatafile(byte[] datafile) {
+  public void setDatafile(String datafile) {
     this.datafile = datafile;
   }
 

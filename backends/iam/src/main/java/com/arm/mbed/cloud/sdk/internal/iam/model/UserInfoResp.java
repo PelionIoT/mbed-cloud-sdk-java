@@ -14,6 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -130,6 +131,12 @@ public class UserInfoResp implements Serializable {
 
   @SerializedName("email")
   private String email = null;
+
+  @SerializedName("login_history")
+  private List<LoginHistory> loginHistory = new ArrayList<LoginHistory>();
+
+  @SerializedName("is_totp_enabled")
+  private Boolean isTotpEnabled = null;
 
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
@@ -343,6 +350,47 @@ public class UserInfoResp implements Serializable {
     this.email = email;
   }
 
+  public UserInfoResp loginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
+    return this;
+  }
+
+  public UserInfoResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
+    this.loginHistory.add(loginHistoryItem);
+    return this;
+  }
+
+   /**
+   * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+   * @return loginHistory
+  **/
+  @ApiModelProperty(example = "null", value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
+  public List<LoginHistory> getLoginHistory() {
+    return loginHistory;
+  }
+
+  public void setLoginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
+  }
+
+  public UserInfoResp isTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+    return this;
+  }
+
+   /**
+   * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+   * @return isTotpEnabled
+  **/
+  @ApiModelProperty(example = "null", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+  public Boolean getIsTotpEnabled() {
+    return isTotpEnabled;
+  }
+
+  public void setIsTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+  }
+
   public UserInfoResp isMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
     return this;
@@ -525,6 +573,8 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.isGtcAccepted, userInfoResp.isGtcAccepted) &&
         Objects.equals(this.accountId, userInfoResp.accountId) &&
         Objects.equals(this.email, userInfoResp.email) &&
+        Objects.equals(this.loginHistory, userInfoResp.loginHistory) &&
+        Objects.equals(this.isTotpEnabled, userInfoResp.isTotpEnabled) &&
         Objects.equals(this.isMarketingAccepted, userInfoResp.isMarketingAccepted) &&
         Objects.equals(this.etag, userInfoResp.etag) &&
         Objects.equals(this.fullName, userInfoResp.fullName) &&
@@ -538,7 +588,7 @@ public class UserInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, username, groups, passwordChangedTime, emailVerified, createdAt, object, isGtcAccepted, accountId, email, isMarketingAccepted, etag, fullName, address, creationTime, password, phoneNumber, id, lastLoginTime);
+    return Objects.hash(status, username, groups, passwordChangedTime, emailVerified, createdAt, object, isGtcAccepted, accountId, email, loginHistory, isTotpEnabled, isMarketingAccepted, etag, fullName, address, creationTime, password, phoneNumber, id, lastLoginTime);
   }
 
 
@@ -557,6 +607,8 @@ public class UserInfoResp implements Serializable {
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
+    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");

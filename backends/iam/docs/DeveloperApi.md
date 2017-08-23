@@ -718,7 +718,7 @@ This endpoint does not need any parameter.
 
 <a name="getMyUser"></a>
 # **getMyUser**
-> UserInfoResp getMyUser()
+> MyUserInfoResp getMyUser()
 
 Details of the current user.
 
@@ -743,7 +743,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DeveloperApi apiInstance = new DeveloperApi();
 try {
-    UserInfoResp result = apiInstance.getMyUser();
+    MyUserInfoResp result = apiInstance.getMyUser();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getMyUser");
@@ -756,7 +756,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**MyUserInfoResp**](MyUserInfoResp.md)
 
 ### Authorization
 
@@ -995,7 +995,7 @@ Name | Type | Description  | Notes
 
 <a name="updateMyUser"></a>
 # **updateMyUser**
-> UserInfoResp updateMyUser(body)
+> UserUpdateResp updateMyUser(body)
 
 Update user details.
 
@@ -1021,7 +1021,7 @@ Bearer.setApiKey("YOUR API KEY");
 DeveloperApi apiInstance = new DeveloperApi();
 UserUpdateReq body = new UserUpdateReq(); // UserUpdateReq | New attributes for the logged in user.
 try {
-    UserInfoResp result = apiInstance.updateMyUser(body);
+    UserUpdateResp result = apiInstance.updateMyUser(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#updateMyUser");
@@ -1037,7 +1037,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserInfoResp**](UserInfoResp.md)
+[**UserUpdateResp**](UserUpdateResp.md)
 
 ### Authorization
 
