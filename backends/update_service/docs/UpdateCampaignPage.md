@@ -10,7 +10,15 @@ Name | Type | Description | Notes
 **after** | **String** |  |  [optional]
 **limit** | **Integer** |  |  [optional]
 **data** | [**List&lt;UpdateCampaign&gt;**](UpdateCampaign.md) |  |  [optional]
-**order** | **String** |  |  [optional]
+**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Available values: ASC, DESC; by default ASC. |  [optional]
+
+
+<a name="OrderEnum"></a>
+## Enum: OrderEnum
+Name | Value
+---- | -----
+ASC | &quot;ASC&quot;
+DESC | &quot;DESC&quot;
 
 
 

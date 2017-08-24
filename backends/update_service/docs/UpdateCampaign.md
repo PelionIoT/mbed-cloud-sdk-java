@@ -6,11 +6,11 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **String** | An optional description of the campaign. |  [optional]
 **rootManifestId** | **String** |  |  [optional]
-**createdAt** | **String** | The time the object was created. |  [optional]
+**createdAt** | [**DateTime**](DateTime.md) | The time the object was created. |  [optional]
 **object** | **String** | The API resource entity. |  [optional]
 **when** | **String** | The timestamp at which update campaign scheduled to start. |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The state of the campaign. |  [optional]
-**finished** | **String** | The timestamp when the update campaign finished. |  [optional]
+**finished** | [**DateTime**](DateTime.md) | The timestamp when the update campaign finished. |  [optional]
 **etag** | **String** | The entity instance signature. |  [optional]
 **rootManifestUrl** | **String** |  |  [optional]
 **startedAt** | [**DateTime**](DateTime.md) |  |  [optional]

@@ -34,7 +34,7 @@ public class UpdateCampaign implements Serializable {
   private String rootManifestId = null;
 
   @SerializedName("created_at")
-  private String createdAt = null;
+  private DateTime createdAt = null;
 
   @SerializedName("object")
   private String object = null;
@@ -89,7 +89,7 @@ public class UpdateCampaign implements Serializable {
   private StateEnum state = null;
 
   @SerializedName("finished")
-  private String finished = null;
+  private DateTime finished = null;
 
   @SerializedName("etag")
   private String etag = null;
@@ -145,7 +145,7 @@ public class UpdateCampaign implements Serializable {
     this.rootManifestId = rootManifestId;
   }
 
-  public UpdateCampaign createdAt(String createdAt) {
+  public UpdateCampaign createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -155,11 +155,11 @@ public class UpdateCampaign implements Serializable {
    * @return createdAt
   **/
   @ApiModelProperty(example = "null", value = "The time the object was created.")
-  public String getCreatedAt() {
+  public DateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -217,7 +217,7 @@ public class UpdateCampaign implements Serializable {
     this.state = state;
   }
 
-  public UpdateCampaign finished(String finished) {
+  public UpdateCampaign finished(DateTime finished) {
     this.finished = finished;
     return this;
   }
@@ -227,11 +227,11 @@ public class UpdateCampaign implements Serializable {
    * @return finished
   **/
   @ApiModelProperty(example = "null", value = "The timestamp when the update campaign finished.")
-  public String getFinished() {
+  public DateTime getFinished() {
     return finished;
   }
 
-  public void setFinished(String finished) {
+  public void setFinished(DateTime finished) {
     this.finished = finished;
   }
 
