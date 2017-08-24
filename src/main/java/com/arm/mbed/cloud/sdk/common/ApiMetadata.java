@@ -7,8 +7,13 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
+/**
+ * @author adrcab01
+ *
+ */
 @Preamble(description = "API metadata")
 public class ApiMetadata {
 
@@ -38,6 +43,10 @@ public class ApiMetadata {
      * etag of the returned data
      */
     private String etag;
+    /**
+     * Error message if an error occurred during Mbed Cloud request null if no error happened
+     */
+    public @Nullable Error errorMessage;
 
     public ApiMetadata() {
         super();
@@ -182,6 +191,21 @@ public class ApiMetadata {
         this.etag = etag;
     }
 
+    /**
+     * @return the errorMessage
+     */
+    public Error getErrorMessage() {
+        return errorMessage;
+    }
+
+    /**
+     * @param errorMessage
+     *            the errorMessage to set
+     */
+    public void setErrorMessage(Error errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
     /*
      * (non-Javadoc)
      * 
@@ -191,7 +215,7 @@ public class ApiMetadata {
     public String toString() {
         return "ApiMetadata [date=" + date + ", headers=" + headers + ", url=" + url + ", method=" + method
                 + ", statusCode=" + statusCode + ", requestId=" + requestId + ", object=" + object + ", etag=" + etag
-                + "]";
+                + ", errorMessage=" + errorMessage + "]";
     }
 
 }

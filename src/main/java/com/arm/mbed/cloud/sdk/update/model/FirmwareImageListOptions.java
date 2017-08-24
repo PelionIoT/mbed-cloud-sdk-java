@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing firmware images")
 public class FirmwareImageListOptions extends ListOptions {

@@ -15,11 +15,11 @@ import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
-import com.arm.mbed.cloud.sdk.common.Paginator;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -94,10 +94,9 @@ public class Certificates extends AbstractAPI {
     public @Nullable ListResponse<Certificate> listCertificates(@Nullable CertificateListOptions options)
             throws MbedCloudException {
         final CertificateListOptions finalOptions = (options == null) ? new CertificateListOptions() : options;
-        final String serviceEq = ((CertificateType) finalOptions
-                .fetchFilter(CertificateListOptions.TYPE_FILTER) == CertificateType.DEVELOPER)
-                        ? CertificateType.BOOTSTRAP.toString()
-                        : finalOptions.encodeFilter(CertificateListOptions.TYPE_FILTER);
+        final String serviceEq = ((CertificateType) finalOptions.getTypeFilter() == CertificateType.DEVELOPER)
+                ? CertificateType.BOOTSTRAP.toString()
+                : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
         return CloudCaller.call(this, "listCertificates()", CertificateAdapter.getListMapper(),
                 new CloudCall<TrustedCertificateRespList>() {
 
@@ -107,9 +106,9 @@ public class Certificates extends AbstractAPI {
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude(), serviceEq,
                                 TranslationUtils.convertToInteger(
-                                        finalOptions.encodeFilter(CertificateListOptions.EXPIRES_FILTER), null),
+                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER), null),
                                 finalOptions.getExecutionModeFilter(),
-                                finalOptions.encodeFilter(CertificateListOptions.OWNER_ID_FILTER));
+                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER));
                     }
                 });
     }

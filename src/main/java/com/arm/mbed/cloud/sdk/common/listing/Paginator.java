@@ -1,8 +1,10 @@
-package com.arm.mbed.cloud.sdk.common;
+package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.Iterator;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.PageRequester;
 
 @Preamble(description = "Iterator over an entire result set of a truncated API operation")
 public class Paginator<T> implements Iterator<T>, Iterable<T> {

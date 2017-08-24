@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Error object sent back from arm Mbed Cloud in case of errors")
+@Preamble(description = "Error object sent back from Arm Mbed Cloud in case of errors")
 public class Error {
 
     private String object;

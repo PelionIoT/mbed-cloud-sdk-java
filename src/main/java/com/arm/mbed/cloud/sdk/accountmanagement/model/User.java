@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "This object represents a user in mbed Cloud")
+@Preamble(description = "This object represents a user in Arm Mbed Cloud")
 public class User {
     /**
      * The UUID of the user.

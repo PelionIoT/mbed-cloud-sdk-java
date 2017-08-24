@@ -5,6 +5,7 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
 
@@ -19,6 +20,39 @@ public class TranslationUtils {
         return (date == null) ? null : date.toDate();
     }
 
+    public static Date toDate(Number timestamp, TimeUnit unit) {
+        if (timestamp == null || unit == null) {
+            return null;
+        }
+        long time = toLong(timestamp);
+        ;
+        switch (unit) {
+            case DAYS:
+                time = time * 86400000;
+                break;
+            case HOURS:
+                time = time * 3600000;
+                break;
+            case MICROSECONDS:
+                time = time / 1000;
+                break;
+            case MINUTES:
+                time = time * 60000;
+                break;
+            case NANOSECONDS:
+                time = time / 1000000;
+                break;
+            case SECONDS:
+                time = time * 1000;
+                break;
+            case MILLISECONDS:
+            default:
+                break;
+
+        }
+        return new Date(time);
+    }
+
     public static DateTime toDateTime(Date date) {
         return (date == null) ? null : new DateTime(date);
     }
@@ -27,7 +61,7 @@ public class TranslationUtils {
         return (time == null) ? 0 : time.longValue();
     }
 
-    public static long toLong(Long longE) {
+    public static long toLong(Number longE) {
         return (longE == null) ? 0 : longE.longValue();
     }
 

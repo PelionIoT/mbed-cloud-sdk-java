@@ -5,8 +5,8 @@ package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.ListOptions;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing metrics")
 public abstract class MetricsListOptions extends ListOptions {

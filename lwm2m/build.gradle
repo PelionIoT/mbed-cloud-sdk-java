@@ -51,8 +51,8 @@ artifacts {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'mbed Cloud SDK Annotations',
+        attributes('Implementation-Title': 'Arm Mbed LMW2M library',
                    'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'ARM Limited')
+                   'Implementation-Vendor': 'Arm Limited')
     }
 }

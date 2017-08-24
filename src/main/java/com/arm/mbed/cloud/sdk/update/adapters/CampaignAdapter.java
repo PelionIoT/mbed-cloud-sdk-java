@@ -1,18 +1,17 @@
 package com.arm.mbed.cloud.sdk.update.adapters;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.Filters;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
@@ -24,29 +23,31 @@ import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 @Preamble(description = "Adapter for campaign model")
 @Internal
 public class CampaignAdapter {
+    private static final Map<String, String> FILTER_MAPPING = getFilterMapping();
 
-    private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSX");
+    private static Map<String, String> getFilterMapping() {
+        Map<String, String> filterMapping = new HashMap<>(4);
+        filterMapping.put("finishedAt", "finished");
+        filterMapping.put("manifestId", "root_manifest_id");
+        filterMapping.put("manifestUrl", "root_manifest_url");
+        filterMapping.put("scheduledAt", "when");
+        return filterMapping;
+    }
 
     public static Campaign map(UpdateCampaign campaign) {
         if (campaign == null) {
             return null;
         }
         Campaign updateCampaign = new Campaign(campaign.getId(), TranslationUtils.toUrl(campaign.getRootManifestUrl()),
-                parseTimeStamp(campaign.getCreatedAt()), TranslationUtils.toDate(campaign.getStartedAt()),
-                parseTimeStamp(campaign.getFinished()));
+                TranslationUtils.toDate(campaign.getCreatedAt()), TranslationUtils.toDate(campaign.getStartedAt()),
+                TranslationUtils.toDate(campaign.getFinished()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());
-        updateCampaign.setScheduledAt(parseTimeStamp(campaign.getFinished()));
+        updateCampaign.setScheduledAt(TranslationUtils.toDate(campaign.getFinished()));
         updateCampaign.setState(toState(campaign.getState()));
-        updateCampaign.setFilters(Filters.decodeFilters(campaign.getDeviceFilter()));
+        updateCampaign.setFilters(decodeFilters(campaign.getDeviceFilter()));
         return updateCampaign;
-    }
-
-    protected static Date parseTimeStamp(String timestamp) {
-        DateFormat format = TIMESTAMP_FORMAT;
-        format.setLenient(true);
-        return TranslationUtils.convertTimestamp(timestamp, format, new Date());
     }
 
     public static Mapper<UpdateCampaign, Campaign> getMapper() {
@@ -66,7 +67,7 @@ public class CampaignAdapter {
         }
         UpdateCampaignPostRequest addRequest = new UpdateCampaignPostRequest();
         addRequest.setDescription(campaign.getDescription());
-        addRequest.setDeviceFilter(Filters.encodeFilters(campaign.getFilters()));
+        addRequest.setDeviceFilter(encodeFilters(campaign.getFilters()));
         addRequest.setName(campaign.getName());
         addRequest.setRootManifestId(campaign.getManifestId());
         addRequest.setState(toPostStateEnum(campaign.getState()));
@@ -80,12 +81,20 @@ public class CampaignAdapter {
         }
         UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
         updateRequest.setDescription(campaign.getDescription());
-        updateRequest.setDeviceFilter(Filters.encodeFilters(campaign.getFilters()));
+        updateRequest.setDeviceFilter(encodeFilters(campaign.getFilters()));
         updateRequest.setName(campaign.getName());
         updateRequest.setRootManifestId(campaign.getManifestId());
         updateRequest.setState(toPutStateEnum(campaign.getState()));
         updateRequest.setWhen(TranslationUtils.toTimestamp(campaign.getScheduledAt()));
         return updateRequest;
+    }
+
+    private static String encodeFilters(Filters filters) {
+        if (filters == null) {
+            return null;
+        }
+        filters.applyFieldnameMapping(FILTER_MAPPING);
+        return filters.encode();
     }
 
     private static CampaignState toState(StateEnum state) {

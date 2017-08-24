@@ -7,41 +7,41 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata.DeploymentStateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.update.model.DeviceState;
-import com.arm.mbed.cloud.sdk.update.model.DeviceStatus;
+import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceStatus;
 
 @Preamble(description = "Adapter for device status model")
 @Internal
 public class DeviceStatusAdapter {
 
-    public static DeviceStatus map(CampaignDeviceMetadata metadata) {
+    public static CampaignDeviceStatus map(CampaignDeviceMetadata metadata) {
         if (metadata == null) {
             return null;
         }
-        DeviceStatus state = new DeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
+        CampaignDeviceStatus state = new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
                 toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
                 TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
                 metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
         return state;
     }
 
-    public static Mapper<CampaignDeviceMetadata, DeviceStatus> getMapper() {
-        return new Mapper<CampaignDeviceMetadata, DeviceStatus>() {
+    public static Mapper<CampaignDeviceMetadata, CampaignDeviceStatus> getMapper() {
+        return new Mapper<CampaignDeviceMetadata, CampaignDeviceStatus>() {
 
             @Override
-            public DeviceStatus map(CampaignDeviceMetadata toBeMapped) {
+            public CampaignDeviceStatus map(CampaignDeviceMetadata toBeMapped) {
                 return DeviceStatusAdapter.map(toBeMapped);
             }
 
         };
     }
 
-    public static ListResponse<DeviceStatus> mapList(CampaignDeviceMetadataPage list) {
+    public static ListResponse<CampaignDeviceStatus> mapList(CampaignDeviceMetadataPage list) {
         final CampaignDeviceMetadataPage deviceList = list;
         RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
 
@@ -67,7 +67,7 @@ public class DeviceStatusAdapter {
 
             @Override
             public String getOrder() {
-                return null;// TODO
+                return (deviceList == null) ? null : deviceList.getOrder().toString();
             }
 
             @Override
@@ -78,11 +78,11 @@ public class DeviceStatusAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
-    public static Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceStatus>> getListMapper() {
-        return new Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceStatus>>() {
+    public static Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceStatus>> getListMapper() {
+        return new Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceStatus>>() {
 
             @Override
-            public ListResponse<DeviceStatus> map(CampaignDeviceMetadataPage toBeMapped) {
+            public ListResponse<CampaignDeviceStatus> map(CampaignDeviceMetadataPage toBeMapped) {
                 return DeviceStatusAdapter.mapList(toBeMapped);
             }
 

@@ -2,7 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing users")
 public class UserListOptions extends ListOptions {
@@ -17,7 +17,7 @@ public class UserListOptions extends ListOptions {
      * @return the status filter
      */
     public @Nullable Object getStatusFilter() {
-        return fetchFilter(STATUS_FILTER);
+        return fetchEqualFilterValue(STATUS_FILTER);
     }
 
     /**
@@ -25,7 +25,7 @@ public class UserListOptions extends ListOptions {
      *            the statusFilter to set
      */
     public void setStatusFilter(@Nullable Object statusFilter) {
-        addFilter(STATUS_FILTER, statusFilter);
+        addEqualFilter(STATUS_FILTER, statusFilter);
     }
 
 }

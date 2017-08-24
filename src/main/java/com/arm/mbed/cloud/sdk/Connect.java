@@ -75,45 +75,44 @@ public class Connect extends AbstractAPI {
      * @param options
      *            connection options
      * @param notificationHandlingThreadPool
-     * @param threadPollingThreadPool
+     * @param notificationPullingThreadPool
      */
     public Connect(ConnectionOptions options, ExecutorService notificationHandlingThreadPool,
-            ExecutorService threadPollingThreadPool) {
+            ExecutorService notificationPullingThreadPool) {
         super(options);
         endpoint = new EndPoints(options);
         this.threadPool = (notificationHandlingThreadPool != null) ? notificationHandlingThreadPool
                 : Executors.newFixedThreadPool(4);
-        this.cache = new NotificationCache(this,
-                (threadPollingThreadPool != null) ? threadPollingThreadPool : Executors.newScheduledThreadPool(1),
-                endpoint);
+        this.cache = new NotificationCache(this, (notificationPullingThreadPool != null) ? notificationPullingThreadPool
+                : Executors.newScheduledThreadPool(1), endpoint);
     }
 
     /**
-     * Starts long polling for notifications
+     * Starts notification pull for notifications
      * <p>
      * If not an external callback is set up (using `update_webhook`) then calling this function is mandatory to get or
      * set resource.
      */
     @API
-    @Daemon(task = "Long polling", start = true)
+    @Daemon(task = "Notification pull", start = true)
     public void startNotifications() {
-        cache.startPolling();
+        cache.startNotificationPull();
     }
 
     /**
-     * Stops long polling for notifications
+     * Stops notification pull for notifications
      */
     @API
-    @Daemon(task = "Long polling", stop = true)
+    @Daemon(task = "Notification pull", stop = true)
     public void stopNotifications() {
-        cache.stopPolling();
+        cache.stopNotificationPull();
     }
 
     /**
      * Shuts down all daemon services
      */
     @API
-    @Daemon(task = "Long polling", shutdown = true)
+    @Daemon(task = "Notification pull", shutdown = true)
     public void shutdownConnectService() {
         cache.shutdown();
         threadPool.shutdown();
@@ -476,7 +475,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Deletes the callback data (effectively stopping mbed Cloud Connect from putting notifications)
+     * Deletes the callback data (effectively stopping Arm Mbed Cloud Connect from putting notifications)
      * 
      * If no webhook is registered, an exception (404) will be raised.
      * 

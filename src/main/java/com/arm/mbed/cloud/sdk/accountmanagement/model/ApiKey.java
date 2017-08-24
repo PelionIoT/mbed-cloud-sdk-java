@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "This object represents an API key in mbed Cloud")
+@Preamble(description = "This object represents an API key in Arm Mbed Cloud")
 public class ApiKey {
     /**
      * The UUID of the API key

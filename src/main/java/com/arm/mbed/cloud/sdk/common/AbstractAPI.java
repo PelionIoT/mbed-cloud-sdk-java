@@ -30,7 +30,7 @@ public abstract class AbstractAPI {
     }
 
     /**
-     * Get meta data for the last mbed Cloud API call
+     * Get meta data for the last Arm Mbed Cloud API call
      * 
      * @return metadata
      */

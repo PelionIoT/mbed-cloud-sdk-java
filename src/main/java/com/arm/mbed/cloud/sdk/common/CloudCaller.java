@@ -16,7 +16,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Preamble(description = "Utility in charge of calling arm Mbed Cloud APIs")
+@Preamble(description = "Utility in charge of calling Arm Mbed Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
 
@@ -59,14 +59,14 @@ public class CloudCaller<T, U> {
 
     public CallFeedback<U> execute() throws MbedCloudException {
         try {
-            logger.logInfo("Calling arm Mbed Cloud API: " + apiName);
+            logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
             Response<T> response = caller.call().execute();
             CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
                 storeApiMetadata(comms.getMetadata());
             }
-            checkResponse(response);
+            checkResponse(response, comms);
             comms.setResultFromResponse(mapper, response);
             return comms;
         } catch (Exception e) {
@@ -79,15 +79,18 @@ public class CloudCaller<T, U> {
         module.metadataCache.storeMetadata(metadata);
     }
 
-    private void checkResponse(Response<T> response) throws MbedCloudException {
+    private void checkResponse(Response<T> response, CallFeedback<U> comms) throws MbedCloudException {
         if (response == null) {
-            logger.throwSDKException("An error occurred when calling Mbed Cloud: no response was received");
+            logger.throwSDKException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
             String errorMessage = null;
             Error error = null;
             try {
                 error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
+                if (comms != null) {
+                    comms.setErrorMessage(error);
+                }
             } catch (Exception e) {
                 try {
                     errorMessage = response.errorBody().string();
@@ -97,7 +100,7 @@ public class CloudCaller<T, U> {
                 // Nothing to do
             }
             logger.throwSDKException(
-                    "An error occurred when calling Mbed Cloud: [" + response.code() + "] " + response.message(),
+                    "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
                     (error != null) ? new MbedCloudException(error.toString())
                             : (errorMessage == null) ? null : new MbedCloudException(errorMessage));
         }
@@ -162,6 +165,12 @@ public class CloudCaller<T, U> {
 
         public <T> void setMetadataFromResponse(Response<T> response) {
             setMetadata(retrieveMetadata(response));
+        }
+
+        public void setErrorMessage(Error error) {
+            if (metadata != null) {
+                metadata.setErrorMessage(error);
+            }
         }
 
         private <T> ApiMetadata retrieveMetadata(Response<T> response) {

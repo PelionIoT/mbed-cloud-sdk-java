@@ -8,7 +8,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.common.IncludeField;
+import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;

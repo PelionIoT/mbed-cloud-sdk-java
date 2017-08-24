@@ -136,6 +136,16 @@ public class FirmwareManifest {
     }
 
     /**
+     * Sets datafile from a path
+     * 
+     * @param datafile
+     *            the path to the datafile
+     */
+    public void setDatafile(String datafile) {
+        setDataFile(new DataFile(datafile));
+    }
+
+    /**
      * @return the url
      */
     public URL getUrl() {

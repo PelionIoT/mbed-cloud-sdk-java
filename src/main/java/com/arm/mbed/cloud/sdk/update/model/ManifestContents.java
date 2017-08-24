@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.update.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Manifest contents")
@@ -42,6 +43,7 @@ public class ManifestContents {
     /**
      * A flag that indicates that the update described by the manifest should be applied as soon as possible.
      */
+    @DefaultValue(value = "false")
     private final boolean applyImmediately;
     /**
      * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Only applies to a manifest
@@ -67,6 +69,7 @@ public class ManifestContents {
     /**
      * Size of the payload in bytes
      */
+    @DefaultValue(value = "0")
     private final long payloadSize;
 
     public ManifestContents(String classId, String vendorId, int version, String description, String nonce,
