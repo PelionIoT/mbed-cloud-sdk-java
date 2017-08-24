@@ -21,14 +21,14 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
-import com.arm.mbed.cloud.sdk.update.adapters.DeviceStateAdapter;
+import com.arm.mbed.cloud.sdk.update.adapters.DeviceStatusAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareImageAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareManifestAdapter;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
 import com.arm.mbed.cloud.sdk.update.model.CampaignDevicesStatusesListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
-import com.arm.mbed.cloud.sdk.update.model.DeviceState;
+import com.arm.mbed.cloud.sdk.update.model.DeviceStatus;
 import com.arm.mbed.cloud.sdk.update.model.EndPoints;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImageListOptions;
@@ -510,14 +510,14 @@ public class Update extends AbstractAPI {
      *             if a problem occurred during request processing
      */
     @API
-    public @Nullable ListResponse<DeviceState> listCampaignDevicesState(@NonNull String campaignId,
+    public @Nullable ListResponse<DeviceStatus> listCampaignDevicesStatuses(@NonNull String campaignId,
             @Nullable CampaignDevicesStatusesListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         final String finalId = campaignId;
         final CampaignDevicesStatusesListOptions finalOptions = (options == null)
                 ? new CampaignDevicesStatusesListOptions() : options;
 
-        return CloudCaller.call(this, "listCampaignDevicesState()", DeviceStateAdapter.getListMapper(),
+        return CloudCaller.call(this, "listCampaignDevicesStatuses()", DeviceStatusAdapter.getListMapper(),
                 new CloudCall<CampaignDeviceMetadataPage>() {
 
                     @Override
@@ -541,16 +541,16 @@ public class Update extends AbstractAPI {
      *             if a problem occurred during request processing
      */
     @API
-    public @Nullable Paginator<DeviceState> listAllCampaignDevicesState(@NonNull String campaignId,
+    public @Nullable Paginator<DeviceStatus> listAllCampaignDevicesStatuses(@NonNull String campaignId,
             @Nullable CampaignDevicesStatusesListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         final String finalId = campaignId;
         final CampaignDevicesStatusesListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<DeviceState>() {
+        return new Paginator<>(new PageRequester<DeviceStatus>() {
 
             @Override
-            public ListResponse<DeviceState> requestNewPage() throws MbedCloudException {
-                return listCampaignDevicesState(finalId, finalOptions);
+            public ListResponse<DeviceStatus> requestNewPage() throws MbedCloudException {
+                return listCampaignDevicesStatuses(finalId, finalOptions);
             }
         });
     }

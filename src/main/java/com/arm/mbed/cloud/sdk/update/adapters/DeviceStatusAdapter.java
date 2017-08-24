@@ -15,33 +15,33 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadat
 import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 import com.arm.mbed.cloud.sdk.update.model.DeviceStatus;
 
-@Preamble(description = "Adapter for device state model")
+@Preamble(description = "Adapter for device status model")
 @Internal
-public class DeviceStateAdapter {
+public class DeviceStatusAdapter {
 
-    public static DeviceState map(CampaignDeviceMetadata metadata) {
+    public static DeviceStatus map(CampaignDeviceMetadata metadata) {
         if (metadata == null) {
             return null;
         }
-        DeviceState state = new DeviceState(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
+        DeviceStatus state = new DeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
                 toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
                 TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
                 metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
         return state;
     }
 
-    public static Mapper<CampaignDeviceMetadata, DeviceState> getMapper() {
-        return new Mapper<CampaignDeviceMetadata, DeviceState>() {
+    public static Mapper<CampaignDeviceMetadata, DeviceStatus> getMapper() {
+        return new Mapper<CampaignDeviceMetadata, DeviceStatus>() {
 
             @Override
-            public DeviceState map(CampaignDeviceMetadata toBeMapped) {
-                return DeviceStateAdapter.map(toBeMapped);
+            public DeviceStatus map(CampaignDeviceMetadata toBeMapped) {
+                return DeviceStatusAdapter.map(toBeMapped);
             }
 
         };
     }
 
-    public static ListResponse<DeviceState> mapList(CampaignDeviceMetadataPage list) {
+    public static ListResponse<DeviceStatus> mapList(CampaignDeviceMetadataPage list) {
         final CampaignDeviceMetadataPage deviceList = list;
         RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
 
@@ -78,36 +78,36 @@ public class DeviceStateAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
-    public static Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceState>> getListMapper() {
-        return new Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceState>>() {
+    public static Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceStatus>> getListMapper() {
+        return new Mapper<CampaignDeviceMetadataPage, ListResponse<DeviceStatus>>() {
 
             @Override
-            public ListResponse<DeviceState> map(CampaignDeviceMetadataPage toBeMapped) {
-                return DeviceStateAdapter.mapList(toBeMapped);
+            public ListResponse<DeviceStatus> map(CampaignDeviceMetadataPage toBeMapped) {
+                return DeviceStatusAdapter.mapList(toBeMapped);
             }
 
         };
     }
 
-    private static DeviceStatus toDeviceState(DeploymentStateEnum state) {
+    private static DeviceState toDeviceState(DeploymentStateEnum state) {
         if (state == null) {
-            return DeviceStatus.getDefault();
+            return DeviceState.getDefault();
         }
         switch (state) {
             case DEPLOYED:
-                return DeviceStatus.DEPLOYED;
+                return DeviceState.DEPLOYED;
             case FAILED_CONNECTOR_CHANNEL_UPDATE:
                 break;
             case MANIFESTREMOVED:
-                return DeviceStatus.MANIFEST_REMOVED;
+                return DeviceState.MANIFEST_REMOVED;
 
             case PENDING:
-                return DeviceStatus.PENDING;
+                return DeviceState.PENDING;
             case UPDATED_CONNECTOR_CHANNEL:
-                return DeviceStatus.UPDATED_CONNECTOR_CHANNEL;
+                return DeviceState.UPDATED_CONNECTOR_CHANNEL;
             default:
                 break;
         }
-        return DeviceStatus.getDefault();
+        return DeviceState.getDefault();
     }
 }

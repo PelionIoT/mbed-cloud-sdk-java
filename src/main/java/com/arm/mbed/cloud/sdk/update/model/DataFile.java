@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 
 @Preamble(description = "Data file")
 public class DataFile {
+    private static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
     private String contentType;
     private File file;
 
@@ -24,6 +25,16 @@ public class DataFile {
         super();
         setContentType(contentType);
         setFile(file);
+    }
+
+    /**
+     * Description of a binary file
+     * 
+     * @param filePath
+     *            path to a binary file
+     */
+    public DataFile(String filePath) {
+        this(BINARY_FILE_MEDIA_TYPE, (filePath == null) ? null : new File(filePath));
     }
 
     /**

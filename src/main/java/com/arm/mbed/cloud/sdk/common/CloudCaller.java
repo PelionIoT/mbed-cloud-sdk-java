@@ -200,7 +200,8 @@ public class CloudCaller<T, U> {
             try {
                 Method getEtagMethod = body.getClass().getMethod("getEtag");
                 if (getEtagMethod != null) {
-                    return (String) getEtagMethod.invoke(body);
+                    Object etag = getEtagMethod.invoke(body);
+                    return (etag == null) ? null : (etag instanceof String) ? (String) etag : etag.toString();
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {

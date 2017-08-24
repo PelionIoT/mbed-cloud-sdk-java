@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.update.adapters;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -23,8 +22,8 @@ public class FirmwareImageAdapter {
             return null;
         }
         com.arm.mbed.cloud.sdk.update.model.FirmwareImage image = new FirmwareImage(firmwareImage.getId(),
-                TranslationUtils.toUrl(new String(firmwareImage.getDatafile(), StandardCharsets.UTF_8)),
-                firmwareImage.getDatafileChecksum(), TranslationUtils.toDate(firmwareImage.getCreatedAt()),
+                TranslationUtils.toUrl(firmwareImage.getDatafile()), firmwareImage.getDatafileChecksum(),
+                TranslationUtils.toDate(firmwareImage.getCreatedAt()),
                 TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
         image.setDataFile(null);
         image.setDescription(image.getDescription());

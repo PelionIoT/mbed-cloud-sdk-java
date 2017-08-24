@@ -19,6 +19,10 @@ public class TranslationUtils {
         return (date == null) ? null : date.toDate();
     }
 
+    public static DateTime toDateTime(Date date) {
+        return (date == null) ? null : new DateTime(date);
+    }
+
     public static long toTimeStamp(Long time) {
         return (time == null) ? 0 : time.longValue();
     }
@@ -43,22 +47,40 @@ public class TranslationUtils {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
+    public static String toTimestamp(Date date) {
+        return toTimestamp(date, DateFormat.getDateTimeInstance());
+    }
+
     public static Date convertTimestamp(String timestamp, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp);
         } catch (Exception e) {
-            Exception e1 = new Exception(
-                    "Error occurred when parsing timestamp. Defaulting to " + String.valueOf(defaultDate), e);
-            e1.printStackTrace();
-            return defaultDate;
+            return defaultToDefaultDate(timestamp, defaultDate, e);
         }
+    }
+
+    public static Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
+        try {
+            return TranslationUtils.convertTimestamp(timestamp, format);
+        } catch (Exception e) {
+            return defaultToDefaultDate(timestamp, defaultDate, e);
+        }
+    }
+
+    private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
+        Exception e1 = new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp)
+                + "]. Defaulting to " + String.valueOf(defaultDate), e);
+        System.err.println(e1.getMessage() + ". Cause: " + e.getCause());
+        return defaultDate;
     }
 
     public static URL toUrl(String url) {
         try {
-            return (url == null) ? null : new URL(url);
+            return (url == null || url.isEmpty()) ? null : new URL(url);
         } catch (MalformedURLException e) {
-            e.printStackTrace();
+            Exception e1 = new Exception(
+                    "Error occurred when parsing URL [" + String.valueOf(url) + "]. Defaulting to null", e);
+            System.err.println(e1.getMessage() + ". Cause: " + e1.getCause());
         }
         return null;
     }
@@ -86,7 +108,14 @@ public class TranslationUtils {
         try {
             return format.parse(timestamp);
         } catch (ParseException e) {
-            throw new Exception("Error occurred when parsing timestamp.", e);
+            throw new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].", e);
         }
+    }
+
+    public static String toTimestamp(Date date, DateFormat format) {
+        if (date == null || format == null) {
+            return null;
+        }
+        return format.format(date);
     }
 }

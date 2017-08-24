@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.update.adapters;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -22,8 +21,8 @@ public class FirmwareManifestAdapter {
             return null;
         }
         FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
-                TranslationUtils.toUrl(new String(manifest.getDatafile(), StandardCharsets.UTF_8)),
-                manifest.getDeviceClass(), ManifestContentsAdapter.map(manifest.getManifestContents()),
+                TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
+                ManifestContentsAdapter.map(manifest.getManifestContents()),
                 TranslationUtils.toDate(manifest.getCreatedAt()), TranslationUtils.toDate(manifest.getUpdatedAt()),
                 TranslationUtils.toDate(manifest.getTimestamp()));
         firmwareManifest.setDataFile(null);

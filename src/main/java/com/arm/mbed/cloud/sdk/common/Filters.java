@@ -15,4 +15,9 @@ public class Filters {
         return null;
     }
 
+    public static String encodeFilters(Filters filters) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

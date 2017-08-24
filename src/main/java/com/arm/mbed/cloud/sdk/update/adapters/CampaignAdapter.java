@@ -1,11 +1,16 @@
 package com.arm.mbed.cloud.sdk.update.adapters;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Filters;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
@@ -20,21 +25,28 @@ import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 @Internal
 public class CampaignAdapter {
 
+    private static final DateFormat TIMESTAMP_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSSSSX");
+
     public static Campaign map(UpdateCampaign campaign) {
         if (campaign == null) {
             return null;
         }
         Campaign updateCampaign = new Campaign(campaign.getId(), TranslationUtils.toUrl(campaign.getRootManifestUrl()),
-                TranslationUtils.convertTimestamp(campaign.getCreatedAt(), new Date()),
-                TranslationUtils.toDate(campaign.getStartedAt()),
-                TranslationUtils.convertTimestamp(campaign.getFinished(), new Date()));
+                parseTimeStamp(campaign.getCreatedAt()), TranslationUtils.toDate(campaign.getStartedAt()),
+                parseTimeStamp(campaign.getFinished()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());
-        updateCampaign.setScheduledAt(TranslationUtils.convertTimestamp(campaign.getFinished(), new Date()));
+        updateCampaign.setScheduledAt(parseTimeStamp(campaign.getFinished()));
         updateCampaign.setState(toState(campaign.getState()));
         updateCampaign.setFilters(Filters.decodeFilters(campaign.getDeviceFilter()));
         return updateCampaign;
+    }
+
+    protected static Date parseTimeStamp(String timestamp) {
+        DateFormat format = TIMESTAMP_FORMAT;
+        format.setLenient(true);
+        return TranslationUtils.convertTimestamp(timestamp, format, new Date());
     }
 
     public static Mapper<UpdateCampaign, Campaign> getMapper() {
@@ -49,11 +61,31 @@ public class CampaignAdapter {
     }
 
     public static UpdateCampaignPostRequest reverseMapAdd(Campaign campaign) {
-        return null;
+        if (campaign == null) {
+            return null;
+        }
+        UpdateCampaignPostRequest addRequest = new UpdateCampaignPostRequest();
+        addRequest.setDescription(campaign.getDescription());
+        addRequest.setDeviceFilter(Filters.encodeFilters(campaign.getFilters()));
+        addRequest.setName(campaign.getName());
+        addRequest.setRootManifestId(campaign.getManifestId());
+        addRequest.setState(toPostStateEnum(campaign.getState()));
+        addRequest.setWhen(TranslationUtils.toTimestamp(campaign.getScheduledAt()));
+        return addRequest;
     }
 
     public static UpdateCampaignPutRequest reverseMapUpdate(Campaign campaign) {
-        return null;
+        if (campaign == null) {
+            return null;
+        }
+        UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
+        updateRequest.setDescription(campaign.getDescription());
+        updateRequest.setDeviceFilter(Filters.encodeFilters(campaign.getFilters()));
+        updateRequest.setName(campaign.getName());
+        updateRequest.setRootManifestId(campaign.getManifestId());
+        updateRequest.setState(toPutStateEnum(campaign.getState()));
+        updateRequest.setWhen(TranslationUtils.toTimestamp(campaign.getScheduledAt()));
+        return updateRequest;
     }
 
     private static CampaignState toState(StateEnum state) {
@@ -86,9 +118,113 @@ public class CampaignAdapter {
         return CampaignState.getDefault();
     }
 
-    public static Mapper<UpdateCampaignPage, ListResponse<Campaign>> getListMapper() {
-        // TODO Auto-generated method stub
+    private static UpdateCampaignPostRequest.StateEnum toPostStateEnum(CampaignState state) {
+        if (state == null) {
+            return null;
+        }
+        switch (state) {
+            case DEPLOYED:
+                return UpdateCampaignPostRequest.StateEnum.DEPLOYED;
+            case DEPLOYING:
+                return UpdateCampaignPostRequest.StateEnum.DEPLOYING;
+            case DEVICE_COPY:
+                return UpdateCampaignPostRequest.StateEnum.DEVICECOPY;
+            case DEVICE_FETCH:
+                return UpdateCampaignPostRequest.StateEnum.DEVICEFETCH;
+            case DRAFT:
+                return UpdateCampaignPostRequest.StateEnum.DRAFT;
+            case EXPIRED:
+                return UpdateCampaignPostRequest.StateEnum.EXPIRED;
+            case MANIFEST_REMOVED:
+                return UpdateCampaignPostRequest.StateEnum.MANIFESTREMOVED;
+            case PUBLISHING:
+                return UpdateCampaignPostRequest.StateEnum.PUBLISHING;
+            case SCHEDULED:
+                return UpdateCampaignPostRequest.StateEnum.SCHEDULED;
+            default:
+                break;
+
+        }
         return null;
+    }
+
+    private static UpdateCampaignPutRequest.StateEnum toPutStateEnum(CampaignState state) {
+        if (state == null) {
+            return null;
+        }
+        switch (state) {
+            case DEPLOYED:
+                return UpdateCampaignPutRequest.StateEnum.DEPLOYED;
+            case DEPLOYING:
+                return UpdateCampaignPutRequest.StateEnum.DEPLOYING;
+            case DEVICE_COPY:
+                return UpdateCampaignPutRequest.StateEnum.DEVICECOPY;
+            case DEVICE_FETCH:
+                return UpdateCampaignPutRequest.StateEnum.DEVICEFETCH;
+            case DRAFT:
+                return UpdateCampaignPutRequest.StateEnum.DRAFT;
+            case EXPIRED:
+                return UpdateCampaignPutRequest.StateEnum.EXPIRED;
+            case MANIFEST_REMOVED:
+                return UpdateCampaignPutRequest.StateEnum.MANIFESTREMOVED;
+            case PUBLISHING:
+                return UpdateCampaignPutRequest.StateEnum.PUBLISHING;
+            case SCHEDULED:
+                return UpdateCampaignPutRequest.StateEnum.SCHEDULED;
+            default:
+                break;
+
+        }
+        return null;
+    }
+
+    public static ListResponse<Campaign> mapList(UpdateCampaignPage list) {
+
+        final UpdateCampaignPage campaignList = list;
+        RespList<UpdateCampaign> respList = new RespList<UpdateCampaign>() {
+
+            @Override
+            public Boolean getHasMore() {
+                return (campaignList == null) ? null : campaignList.getHasMore();
+            }
+
+            @Override
+            public Integer getTotalCount() {
+                return (campaignList == null) ? null : campaignList.getTotalCount();
+            }
+
+            @Override
+            public String getAfter() {
+                return (campaignList == null) ? null : campaignList.getAfter();
+            }
+
+            @Override
+            public Integer getLimit() {
+                return (campaignList == null) ? null : campaignList.getLimit();
+            }
+
+            @Override
+            public String getOrder() {
+                return (campaignList == null) ? null : campaignList.getOrder().toString();
+            }
+
+            @Override
+            public List<UpdateCampaign> getData() {
+                return (campaignList == null) ? null : campaignList.getData();
+            }
+        };
+        return GenericAdapter.mapList(respList, getMapper());
+    }
+
+    public static Mapper<UpdateCampaignPage, ListResponse<Campaign>> getListMapper() {
+        return new Mapper<UpdateCampaignPage, ListResponse<Campaign>>() {
+
+            @Override
+            public ListResponse<Campaign> map(UpdateCampaignPage toBeMapped) {
+                return CampaignAdapter.mapList(toBeMapped);
+            }
+
+        };
     }
 
 }
