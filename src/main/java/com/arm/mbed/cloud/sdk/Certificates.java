@@ -102,13 +102,13 @@ public class Certificates extends AbstractAPI {
 
                     @Override
                     public Call<TrustedCertificateRespList> call() {
-                        return endpoint.getAccountDeveloper().getAllCertificates(finalOptions.getLimit(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude(), serviceEq,
-                                TranslationUtils.convertToInteger(
-                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER), null),
-                                finalOptions.getExecutionModeFilter(),
-                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER));
+                        return endpoint.getAccountDeveloper()
+                                .getAllCertificates(finalOptions.getLimit(), finalOptions.getAfter(),
+                                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(), serviceEq,
+                                        TranslationUtils.convertToInteger(finalOptions
+                                                .encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER), null),
+                                        finalOptions.getExecutionModeFilter(),
+                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER));
                     }
                 });
     }
@@ -173,15 +173,32 @@ public class Certificates extends AbstractAPI {
     public @Nullable Certificate addCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
-        if (CertificateType.isDeveloper(finalCertificate.getType())) {
-            return addDeveloperCertificate(finalCertificate);
-        }
-        return addOtherCertificate(finalCertificate);
+        final Certificate accountCertificate = CloudCaller.call(this, "addCertificate()",
+                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
+
+                    @Override
+                    public Call<TrustedCertificateResp> call() {
+                        return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMap(finalCertificate));
+                    }
+                });
+        return Certificate.merge(accountCertificate,
+                fetchServerInformation((accountCertificate == null) ? null : accountCertificate.getType()));
     }
 
-    @Internal
-    private Certificate addDeveloperCertificate(final Certificate finalCertificate) throws MbedCloudException {
-        final Certificate addedCertificate = CloudCaller.call(this, "addCertificate()",
+    /**
+     * Adds a new developper certificate
+     * 
+     * @param developper
+     *            certificate Certificate request
+     * @return added certificate
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public Certificate addDeveloperCertificate(final Certificate certificate) throws MbedCloudException {
+        checkNotNull(certificate, TAG_CERTIFICATE);
+        final Certificate finalCertificate = certificate;
+        final Certificate addedCertificate = CloudCaller.call(this, "addDeveloperCertificate()",
                 CertificateAdapter.getDeveloperMapper(), new CloudCall<DeveloperCertificateResponseData>() {
 
                     @Override
@@ -202,20 +219,6 @@ public class Certificates extends AbstractAPI {
                     }
                 });
         return Certificate.merge(addedCertificate, addedCertificate2);
-    }
-
-    @Internal
-    private Certificate addOtherCertificate(final Certificate finalCertificate) throws MbedCloudException {
-        final Certificate accountCertificate = CloudCaller.call(this, "addCertificate()",
-                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
-
-                    @Override
-                    public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMap(finalCertificate));
-                    }
-                });
-        return Certificate.merge(accountCertificate,
-                fetchServerInformation((accountCertificate == null) ? null : accountCertificate.getType()));
     }
 
     /**
