@@ -188,7 +188,7 @@ public class Certificates extends AbstractAPI {
     /**
      * Adds a new developper certificate
      * 
-     * @param developper
+     * @param certificate
      *            certificate Certificate request
      * @return added certificate
      * @throws MbedCloudException
