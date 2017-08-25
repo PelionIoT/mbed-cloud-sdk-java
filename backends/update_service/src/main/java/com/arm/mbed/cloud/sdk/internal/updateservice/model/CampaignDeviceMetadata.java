@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API Documentation for the mbed deployment service which is part of the update service.
+ * This is the API documentation for the Mbed deployment service, which is part of the update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -55,7 +55,7 @@ public class CampaignDeviceMetadata implements Serializable {
   private String mechanismUrl = null;
 
   /**
-   * The state of the update campaign on the device.
+   * The state of the update campaign on the device
    */
   public enum DeploymentStateEnum {
     @SerializedName("pending")
@@ -100,10 +100,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * Description of the record
+   * Description
    * @return description
   **/
-  @ApiModelProperty(example = "", value = "Description of the record")
+  @ApiModelProperty(example = "", value = "Description")
   public String getDescription() {
     return description;
   }
@@ -118,10 +118,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The id of the campaign the device is in
+   * The ID of the campaign the device is in
    * @return campaign
   **/
-  @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The id of the campaign the device is in")
+  @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The ID of the campaign the device is in")
   public String getCampaign() {
     return campaign;
   }
@@ -136,10 +136,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * This time the record was created in the database
+   * The time the campaign was created
    * @return createdAt
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "This time the record was created in the database")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -226,10 +226,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * API resource entity version.
+   * API resource entity version
    * @return etag
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version.")
+  @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
   public String getEtag() {
     return etag;
   }
@@ -244,10 +244,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The url of cloud connect used
+   * The URL of cloud connect used
    * @return mechanismUrl
   **/
-  @ApiModelProperty(example = "", value = "The url of cloud connect used")
+  @ApiModelProperty(example = "", value = "The URL of cloud connect used")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
@@ -262,10 +262,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The state of the update campaign on the device.
+   * The state of the update campaign on the device
    * @return deploymentState
   **/
-  @ApiModelProperty(example = "null", value = "The state of the update campaign on the device.")
+  @ApiModelProperty(example = "null", value = "The state of the update campaign on the device")
   public DeploymentStateEnum getDeploymentState() {
     return deploymentState;
   }
@@ -280,10 +280,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The id of the metadata record
+   * The ID of the metadata record
    * @return id
   **/
-  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The id of the metadata record")
+  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The ID of the metadata record")
   public String getId() {
     return id;
   }
@@ -298,10 +298,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The id of the device
+   * The ID of the device
    * @return deviceId
   **/
-  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The id of the device")
+  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The ID of the device")
   public String getDeviceId() {
     return deviceId;
   }

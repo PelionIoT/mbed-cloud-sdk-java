@@ -220,7 +220,7 @@ public interface DefaultApi {
    * 
    * 
    * @param campaignId The ID of the update campaign (required)
-   * @param campaignDeviceMetadataId The id of the campaign device metadata (required)
+   * @param campaignDeviceMetadataId The ID of the campaign device metadata (required)
    * @return Call&lt;CampaignDeviceMetadata&gt;
    */
   

@@ -853,7 +853,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 String campaignId = "campaignId_example"; // String | The ID of the update campaign
-String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The id of the campaign device metadata
+String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The ID of the campaign device metadata
 try {
     CampaignDeviceMetadata result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
     System.out.println(result);
@@ -868,7 +868,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The ID of the update campaign |
- **campaignDeviceMetadataId** | **String**| The id of the campaign device metadata |
+ **campaignDeviceMetadataId** | **String**| The ID of the campaign device metadata |
 
 ### Return type
 
