@@ -30,15 +30,19 @@ public class FirmwareImage implements SDKModel {
      * The binary file of firmware image
      */
     private DataFile dataFile;
-
     /**
-     * The URL of the firmware image
+     * the size in bytes of the uploaded firmware image binary
      */
-    private final URL url;
+    @DefaultValue(value = "0")
+    private final long datafileSize;
     /**
      * Checksum generated for the datafile
      */
     private final String datafileChecksum;
+    /**
+     * The URL of the firmware image
+     */
+    private final URL url;
     /**
      * The time the object was created
      */
@@ -51,20 +55,22 @@ public class FirmwareImage implements SDKModel {
     private final Date updatedAt;
 
     @Internal
-    public FirmwareImage(String id, URL url, String datafileChecksum, Date createdAt, Date updatedAt) {
+    public FirmwareImage(String id, URL url, String datafileChecksum, long datafileSize, Date createdAt,
+            Date updatedAt) {
         super();
         setId(id);
         this.url = url;
         this.datafileChecksum = datafileChecksum;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.datafileSize = datafileSize;
         setDataFile(null);
         setDescription(null);
         setName(null);
     }
 
     public FirmwareImage() {
-        this(null, null, null, new Date(), new Date());
+        this(null, null, null, 0, new Date(), new Date());
     }
 
     /**
@@ -110,6 +116,13 @@ public class FirmwareImage implements SDKModel {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    /**
+     * @return the datafileSize
+     */
+    public long getDatafileSize() {
+        return datafileSize;
     }
 
     /**

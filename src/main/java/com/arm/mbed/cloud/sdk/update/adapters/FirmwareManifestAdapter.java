@@ -7,8 +7,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
 
@@ -22,9 +22,9 @@ public class FirmwareManifestAdapter {
         }
         FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
                 TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
-                ManifestContentsAdapter.map(manifest.getManifestContents()),
-                TranslationUtils.toDate(manifest.getCreatedAt()), TranslationUtils.toDate(manifest.getUpdatedAt()),
-                TranslationUtils.toDate(manifest.getTimestamp()));
+                ManifestContentsAdapter.map(manifest.getManifestContents()), manifest.getDatafileChecksum(),
+                TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
+                TranslationUtils.toDate(manifest.getUpdatedAt()), TranslationUtils.toDate(manifest.getTimestamp()));
         firmwareManifest.setDataFile(null);
         firmwareManifest.setDescription(manifest.getDescription());
         firmwareManifest.setName(manifest.getName());

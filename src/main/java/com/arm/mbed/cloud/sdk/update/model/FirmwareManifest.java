@@ -56,13 +56,22 @@ public class FirmwareManifest implements SDKModel {
      */
     private String description;
     /**
+     * the size in bytes of the uploaded firmware manifest binary
+     */
+    @DefaultValue(value = "0")
+    private final long datafileSize;
+    /**
+     * Checksum generated for the datafile
+     */
+    private final String datafileChecksum;
+    /**
      * The binary file of the manifest
      */
     private DataFile dataFile;
 
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, Date createdAt,
-            Date updatedAt, Date timestamp) {
+    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, String datafileChecksum,
+            long datafileSize, Date createdAt, Date updatedAt, Date timestamp) {
         super();
         setId(id);
         this.url = url;
@@ -71,13 +80,15 @@ public class FirmwareManifest implements SDKModel {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
+        this.datafileSize = datafileSize;
+        this.datafileChecksum = datafileChecksum;
         setName(null);
         setDescription(null);
         setDataFile(null);
     }
 
     public FirmwareManifest() {
-        this(null, null, null, null, new Date(), new Date(), new Date());
+        this(null, null, null, null, null, 0, new Date(), new Date(), new Date());
     }
 
     /**
@@ -148,6 +159,20 @@ public class FirmwareManifest implements SDKModel {
      */
     public void setDatafile(String datafile) {
         setDataFile(new DataFile(datafile));
+    }
+
+    /**
+     * @return the datafileSize
+     */
+    public long getDatafileSize() {
+        return datafileSize;
+    }
+
+    /**
+     * @return the datafileChecksum
+     */
+    public String getDatafileChecksum() {
+        return datafileChecksum;
     }
 
     /**

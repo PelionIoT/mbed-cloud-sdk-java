@@ -7,8 +7,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 
@@ -23,6 +23,7 @@ public class FirmwareImageAdapter {
         }
         com.arm.mbed.cloud.sdk.update.model.FirmwareImage image = new FirmwareImage(firmwareImage.getId(),
                 TranslationUtils.toUrl(firmwareImage.getDatafile()), firmwareImage.getDatafileChecksum(),
+                TranslationUtils.toLong(firmwareImage.getDatafileSize()),
                 TranslationUtils.toDate(firmwareImage.getCreatedAt()),
                 TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
         image.setDataFile(null);
