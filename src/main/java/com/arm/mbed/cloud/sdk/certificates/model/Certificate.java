@@ -85,7 +85,7 @@ public class Certificate implements SDKModel {
     /**
      * X509.v3 CA certificate in PEM or base64 encoded DER format
      */
-    private String certificationData;
+    private String certificateData;
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed
      * with SHA256
@@ -108,7 +108,7 @@ public class Certificate implements SDKModel {
         this.developerCertificate = developerCertificate;
         this.developerPrivateKey = developerPrivateKey;
         this.ownerId = ownerId;
-        setCertificationData(null);
+        setCertificateData(null);
         setDescription(null);
         setName(null);
         setSignature(null);
@@ -223,18 +223,18 @@ public class Certificate implements SDKModel {
     }
 
     /**
-     * @return the certificationData
+     * @return the certificateData
      */
-    public String getCertificationData() {
-        return certificationData;
+    public String getCertificateData() {
+        return certificateData;
     }
 
     /**
-     * @param certificationData
-     *            the certificationData to set
+     * @param certificateData
+     *            the certificate data to set
      */
-    public void setCertificationData(String certificationData) {
-        this.certificationData = certificationData;
+    public void setCertificateData(String certificateData) {
+        this.certificateData = certificateData;
     }
 
     /**
@@ -358,7 +358,7 @@ public class Certificate implements SDKModel {
                 mergeField(partial1.getDeveloperCertificate(), partial2.getDeveloperCertificate()),
                 mergeField(partial1.getDeveloperPrivateKey(), partial2.getDeveloperPrivateKey()),
                 mergeField(partial1.getOwnerId(), partial2.getOwnerId()));
-        merge.setCertificationData(mergeField(partial1.getCertificationData(), partial2.getCertificationData()));
+        merge.setCertificateData(mergeField(partial1.getCertificateData(), partial2.getCertificateData()));
         merge.setDescription(mergeField(partial1.getDescription(), partial2.getDescription()));
         merge.setName(mergeField(partial1.getName(), partial2.getName()));
         merge.setSignature(mergeField(partial1.getSignature(), partial2.getSignature()));
