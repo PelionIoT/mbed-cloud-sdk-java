@@ -4,10 +4,15 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Manifest contents")
-public class ManifestContents {
+public class ManifestContents implements SDKModel {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 2013553030849979521L;
     /**
      * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
      */

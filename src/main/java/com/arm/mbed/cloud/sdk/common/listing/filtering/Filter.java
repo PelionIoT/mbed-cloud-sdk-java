@@ -41,24 +41,4 @@ public class Filter {
         return (fieldName != null && value != null);
     }
 
-    public String encodeFilter(String field) {
-        if (!isValid()) {
-            return null;
-        }
-
-        StringBuilder builder = new StringBuilder();
-        builder.append(field);
-        String suffix = operator.getSuffix();
-        if (suffix != null) {
-            builder.append(suffix);
-        }
-        builder.append("=");
-        builder.append(String.valueOf(value));
-        return builder.toString();
-    }
-
-    public String encodeFilter() {
-        return encodeFilter(fieldName);
-    }
-
 }

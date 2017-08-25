@@ -25,7 +25,6 @@ public class TranslationUtils {
             return null;
         }
         long time = toLong(timestamp);
-        ;
         switch (unit) {
             case DAYS:
                 time = time * 86400000;

@@ -10,16 +10,16 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "filters")
 public class Filters {
     private final Map<String, Map<FilterOperator, List<Filter>>> filters;
-    private Map<String, String> fieldNameMapping;
 
     public Filters() {
         filters = new LinkedHashMap<>();
-        fieldNameMapping = null;
-
     }
 
-    public void applyFieldnameMapping(Map<String, String> mapping) {
-        fieldNameMapping = mapping;
+    /**
+     * @return the filters
+     */
+    public Map<String, Map<FilterOperator, List<Filter>>> getFilters() {
+        return filters;
     }
 
     public void add(Filter filter) {
@@ -79,34 +79,6 @@ public class Filters {
     public List<Filter> get(String fieldName, FilterOperator operator) {
         Map<FilterOperator, List<Filter>> filtersForField = filters.get(fieldName);
         return (filtersForField == null) ? null : filtersForField.get(operator);
-    }
-
-    public String encode() {
-        return encodeList(get());
-    }
-
-    public String encode(String fieldName) {
-        return encodeList(get(fieldName));
-    }
-
-    private String encodeList(List<Filter> list) {
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        StringBuilder builder = new StringBuilder();
-        boolean start = true;
-        for (Filter filter : list) {
-            if (!filter.isValid()) {
-                continue;
-            }
-            if (!start) {
-                builder.append("&");
-            }
-            String newFieldName = (fieldNameMapping == null) ? null : fieldNameMapping.get(filter.getFieldName());
-            builder.append((newFieldName == null) ? filter.encodeFilter() : filter.encodeFilter(newFieldName));
-            start = false;
-        }
-        return builder.toString();
     }
 
 }

@@ -6,10 +6,15 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Firmware Manifest")
-public class FirmwareManifest {
+public class FirmwareManifest implements SDKModel {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -1294421103104004701L;
     /**
      * The ID of the firmware manifest
      */

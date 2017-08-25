@@ -1,10 +1,13 @@
 package com.arm.mbed.cloud.sdk.update.model;
 
 import java.util.Date;
+import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 
 @Preamble(description = "Options to use when listing firmware images")
 public class FirmwareImageListOptions extends ListOptions {
@@ -21,61 +24,70 @@ public class FirmwareImageListOptions extends ListOptions {
     /**
      * @return the name filter
      */
-    public @Nullable Object getNameFilter() {
-        return fetchFilter(NAME_FILTER);
+    public @Nullable List<Filter> getNameFilters() {
+        return fetchFilters(NAME_FILTER);
     }
 
     /**
      * @param nameFilter
-     *            the name filter to set
+     *            the name filter to add
+     * @param operator
+     *            filter operator
      */
-    public void setNameFilter(@Nullable String nameFilter) {
-        addFilter(NAME_FILTER, nameFilter);
+    public void addNameFilter(@Nullable String nameFilter, FilterOperator operator) {
+        addFilter(NAME_FILTER, operator, nameFilter);
     }
 
     /**
      * @return the createdAt filter
      */
-    public @Nullable Object getCreatedAtFilter() {
-        return fetchFilter(CREATED_AT_FILTER);
+    public @Nullable List<Filter> getCreatedAtFilters() {
+        return fetchFilters(CREATED_AT_FILTER);
     }
 
     /**
      * @param createdAtFilter
-     *            the createdAt filter to set
+     *            the createdAt filter to add
+     * @param operator
+     *            filter operator
      */
-    public void setCreatedAtFilter(@Nullable Date createdAtFilter) {
-        addFilter(CREATED_AT_FILTER, createdAtFilter);
+    public void addCreatedAtFilter(@Nullable Date createdAtFilter, FilterOperator operator) {
+        addFilter(CREATED_AT_FILTER, operator, createdAtFilter);
     }
 
     /**
      * @return the updatedAt filter
      */
-    public @Nullable Object getUpdatedAtFilter() {
-        return fetchFilter(UPDATED_AT_FILTER);
+    public @Nullable List<Filter> getUpdatedAtFilters() {
+        return fetchFilters(UPDATED_AT_FILTER);
     }
 
     /**
      * @param updatedAtFilter
-     *            the updatedAt filter to set
+     *            the updatedAt filter to add
+     * @param operator
+     *            filter operator
+     * 
      */
-    public void setUpdatedFilter(@Nullable Date updatedAtFilter) {
-        addFilter(UPDATED_AT_FILTER, updatedAtFilter);
+    public void addUpdatedFilter(@Nullable Date updatedAtFilter, FilterOperator operator) {
+        addFilter(UPDATED_AT_FILTER, operator, updatedAtFilter);
     }
 
     /**
      * @return the dataFileChecksum filter
      */
-    public @Nullable Object getDataFileChecksumFilter() {
-        return fetchFilter(CHECKSUM_FILTER);
+    public @Nullable List<Filter> getDataFileChecksumFilters() {
+        return fetchFilters(CHECKSUM_FILTER);
     }
 
     /**
      * @param dataFileChecksumFilter
-     *            the data File Checksum filter to set
+     *            the data File Checksum filter to add
+     * @param operator
+     *            filter operator
      */
-    public void setDataFileChecksumFilter(@Nullable String dataFileChecksumFilter) {
-        addFilter(CHECKSUM_FILTER, dataFileChecksumFilter);
+    public void addDataFileChecksumFilter(@Nullable String dataFileChecksumFilter, FilterOperator operator) {
+        addFilter(CHECKSUM_FILTER, operator, dataFileChecksumFilter);
     }
 
 }

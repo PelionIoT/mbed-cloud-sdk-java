@@ -6,7 +6,6 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 @Preamble(description = "Options to use when listing devise statuses")
 public class CampaignDevicesStatusesListOptions extends ListOptions {
 
-    // TODO
     public CampaignDevicesStatusesListOptions() {
         super();
     }

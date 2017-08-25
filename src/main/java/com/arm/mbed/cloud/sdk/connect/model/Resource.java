@@ -1,9 +1,14 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Resource")
-public class Resource {
+public class Resource implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6360594606291188856L;
     /**
      * Related device ID
      */

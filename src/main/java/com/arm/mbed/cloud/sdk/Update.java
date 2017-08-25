@@ -9,11 +9,12 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
@@ -25,10 +26,10 @@ import com.arm.mbed.cloud.sdk.update.adapters.DeviceStatusAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareImageAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareManifestAdapter;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
+import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceStatus;
 import com.arm.mbed.cloud.sdk.update.model.CampaignDevicesStatusesListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
-import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceStatus;
 import com.arm.mbed.cloud.sdk.update.model.EndPoints;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImageListOptions;
@@ -76,11 +77,11 @@ public class Update extends AbstractAPI {
         return CloudCaller.call(this, "listFirmwareImages()", FirmwareImageAdapter.getListMapper(),
                 new CloudCall<FirmwareImagePage>() {
 
-                    // TODO Filters
                     @Override
                     public Call<FirmwareImagePage> call() {
                         return endpoint.getUpdate().firmwareImageList(finalOptions.getLimit(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                                new FilterMarshaller(null).encode(finalOptions.getFilters()),
                                 finalOptions.encodeInclude());
                     }
                 });
@@ -199,11 +200,11 @@ public class Update extends AbstractAPI {
         return CloudCaller.call(this, "listFirmwareManifests()", FirmwareManifestAdapter.getListMapper(),
                 new CloudCall<FirmwareManifestPage>() {
 
-                    // TODO Filters
                     @Override
                     public Call<FirmwareManifestPage> call() {
                         return endpoint.getUpdate().firmwareManifestList(finalOptions.getLimit(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                                new FilterMarshaller(null).encode(finalOptions.getFilters()),
                                 finalOptions.encodeInclude());
                     }
                 });
@@ -323,11 +324,11 @@ public class Update extends AbstractAPI {
         return CloudCaller.call(this, "listCampaigns()", CampaignAdapter.getListMapper(),
                 new CloudCall<UpdateCampaignPage>() {
 
-                    // TODO Filters
                     @Override
                     public Call<UpdateCampaignPage> call() {
                         return endpoint.getUpdate().updateCampaignList(finalOptions.getLimit(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(), null,
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                                CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilters()),
                                 finalOptions.encodeInclude());
                     }
                 });

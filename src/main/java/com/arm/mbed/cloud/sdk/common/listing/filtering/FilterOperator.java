@@ -1,10 +1,15 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKEnum;
 
+@Preamble(description = "Filter operator")
 public enum FilterOperator implements SDKEnum {
-    NOT_EQUAL("not equal to", "_neq"), EQUAL("equal to", null), GREATER_THAN("greater than",
-            "_gte"), LESS_THAN("less than", "_lte");
+
+    NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq"), EQUAL("equal to", null), GREATER_THAN(
+            "greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte"), LESS_THAN("less than",
+                    FilterMarshaller.SUFFIX_SEPARATOR + "lte");
+
     private final String suffix;
     private final String string;
 
@@ -42,6 +47,27 @@ public enum FilterOperator implements SDKEnum {
     @Override
     public String toString() {
         return getString();
+    }
+
+    public static FilterOperator getFromSuffix(String suffix) {
+        if (suffix != null) {
+            suffix = suffix.trim();
+            suffix = suffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
+        }
+        for (FilterOperator operator : values()) {
+            String opSuffix = operator.getSuffix();
+            if (opSuffix != null) {
+                opSuffix = opSuffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
+                if (opSuffix.equalsIgnoreCase(suffix)) {
+                    return operator;
+                }
+            } else {
+                if (suffix == null || suffix.isEmpty()) {
+                    return operator;
+                }
+            }
+        }
+        return getDefault();
     }
 
 }

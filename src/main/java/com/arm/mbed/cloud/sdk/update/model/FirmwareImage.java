@@ -6,9 +6,14 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Firmware Image")
-public class FirmwareImage {
+public class FirmwareImage implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4822611919285826743L;
     /**
      * The ID of the firmware image
      */

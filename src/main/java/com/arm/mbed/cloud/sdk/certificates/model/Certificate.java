@@ -5,9 +5,14 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Certificate")
-public class Certificate {
+public class Certificate implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 4006607827430203707L;
     /**
      * Entity ID.
      */

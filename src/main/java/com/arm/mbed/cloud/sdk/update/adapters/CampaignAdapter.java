@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
@@ -23,15 +24,15 @@ import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 @Preamble(description = "Adapter for campaign model")
 @Internal
 public class CampaignAdapter {
-    private static final Map<String, String> FILTER_MAPPING = getFilterMapping();
+    public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
-    private static Map<String, String> getFilterMapping() {
+    private static FilterMarshaller getFilterMarshaller() {
         Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("finishedAt", "finished");
         filterMapping.put("manifestId", "root_manifest_id");
         filterMapping.put("manifestUrl", "root_manifest_url");
         filterMapping.put("scheduledAt", "when");
-        return filterMapping;
+        return new FilterMarshaller(filterMapping);
     }
 
     public static Campaign map(UpdateCampaign campaign) {
@@ -90,11 +91,11 @@ public class CampaignAdapter {
     }
 
     private static String encodeFilters(Filters filters) {
-        if (filters == null) {
-            return null;
-        }
-        filters.applyFieldnameMapping(FILTER_MAPPING);
-        return filters.encode();
+        return FILTERS_MARSHALLER.encode(filters);
+    }
+
+    private static Filters decodeFilters(String filters) {
+        return FILTERS_MARSHALLER.decode(filters);
     }
 
     private static CampaignState toState(StateEnum state) {

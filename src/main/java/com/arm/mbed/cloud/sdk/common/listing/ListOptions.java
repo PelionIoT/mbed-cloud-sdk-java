@@ -43,7 +43,7 @@ public class ListOptions {
         setOrder(Order.ASC);
         setAfter(null);
         setInclude(null);
-        setFilter(null);
+        setFilters(null);
     }
 
     /**
@@ -130,7 +130,7 @@ public class ListOptions {
     /**
      * @return the filters
      */
-    public Filters getFilter() {
+    public Filters getFilters() {
         return filters;
     }
 
@@ -138,7 +138,7 @@ public class ListOptions {
      * @param filters
      *            the filters to set
      */
-    public void setFilter(Filters filters) {
+    public void setFilters(Filters filters) {
         this.filters = filters;
     }
 
@@ -184,6 +184,13 @@ public class ListOptions {
             return null;
         }
         return list.get(0).getValue();
+    }
+
+    protected List<Filter> fetchFilters(@Nullable String fieldName) {
+        if (fieldName == null || filters == null) {
+            return null;
+        }
+        return filters.get(fieldName);
     }
 
     /**
