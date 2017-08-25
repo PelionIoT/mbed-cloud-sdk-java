@@ -10,8 +10,8 @@ import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
@@ -33,7 +33,7 @@ public class CertificateAdapter {
                 iamCertificate.getSubject(), TranslationUtils.toDate(iamCertificate.getValidity()),
                 iamCertificate.getIssuer(), TranslationUtils.toDate(iamCertificate.getCreatedAt()), null, null, null,
                 null, null, iamCertificate.getOwnerId());
-        certificate.setCertificationData(iamCertificate.getCertificate());
+        certificate.setCertificateData(iamCertificate.getCertificate());
         certificate.setDescription(iamCertificate.getDescription());
         certificate.setName(iamCertificate.getName());
         certificate.setStatus(toStatus(iamCertificate.getStatus()));
@@ -98,7 +98,7 @@ public class CertificateAdapter {
             return null;
         }
         TrustedCertificateReq request = new TrustedCertificateReq();
-        request.setCertificate(certificate.getCertificationData());
+        request.setCertificate(certificate.getCertificateData());
         request.setName(certificate.getName());
         request.setService(toServiceType(certificate.getType()));
         request.setStatus(reverseStatus(certificate.getStatus()));
