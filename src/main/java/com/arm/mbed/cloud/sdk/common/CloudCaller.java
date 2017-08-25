@@ -8,13 +8,15 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.google.gson.Gson;
 
 import okhttp3.Headers;
 import okhttp3.Request;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Preamble(description = "Utility in charge of calling arm Mbed Cloud APIs")
+@Preamble(description = "Utility in charge of calling Arm Mbed Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
 
@@ -57,14 +59,14 @@ public class CloudCaller<T, U> {
 
     public CallFeedback<U> execute() throws MbedCloudException {
         try {
-            logger.logInfo("Calling arm Mbed Cloud API: " + apiName);
+            logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
             Response<T> response = caller.call().execute();
             CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
                 storeApiMetadata(comms.getMetadata());
             }
-            checkResponse(response);
+            checkResponse(response, comms);
             comms.setResultFromResponse(mapper, response);
             return comms;
         } catch (Exception e) {
@@ -77,21 +79,43 @@ public class CloudCaller<T, U> {
         module.metadataCache.storeMetadata(metadata);
     }
 
-    private void checkResponse(Response<T> response) throws MbedCloudException {
+    private void checkResponse(Response<T> response, CallFeedback<U> comms) throws MbedCloudException {
         if (response == null) {
-            logger.throwSDKException("An error occurred when calling Mbed Cloud: no response was received");
+            logger.throwSDKException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
             String errorMessage = null;
+            Error error = null;
             try {
-                errorMessage = response.errorBody().string();
-
-            } catch (IOException e) {
+                error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
+                if (comms != null) {
+                    comms.setErrorMessage(error);
+                }
+            } catch (Exception e) {
+                try {
+                    errorMessage = response.errorBody().string();
+                } catch (IOException e1) {
+                    // Nothing to do
+                }
                 // Nothing to do
             }
             logger.throwSDKException(
-                    "An error occurred when calling Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+                    "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
+                    (error != null) ? new MbedCloudException(error.toString())
+                            : (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+        }
+    }
+
+    private static class ErrorJsonConverter {
+        private final Gson gson = new Gson();
+        public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
+
+        private Error convert(ResponseBody value) {
+            if (value == null) {
+                return null;
+            }
+            return gson.fromJson(value.charStream(), Error.class);
+
         }
     }
 
@@ -143,6 +167,12 @@ public class CloudCaller<T, U> {
             setMetadata(retrieveMetadata(response));
         }
 
+        public void setErrorMessage(Error error) {
+            if (metadata != null) {
+                metadata.setErrorMessage(error);
+            }
+        }
+
         private <T> ApiMetadata retrieveMetadata(Response<T> response) {
             if (response == null) {
                 return null;
@@ -179,7 +209,8 @@ public class CloudCaller<T, U> {
             try {
                 Method getEtagMethod = body.getClass().getMethod("getEtag");
                 if (getEtagMethod != null) {
-                    return (String) getEtagMethod.invoke(body);
+                    Object etag = getEtagMethod.invoke(body);
+                    return (etag == null) ? null : (etag instanceof String) ? (String) etag : etag.toString();
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
                     | InvocationTargetException e) {

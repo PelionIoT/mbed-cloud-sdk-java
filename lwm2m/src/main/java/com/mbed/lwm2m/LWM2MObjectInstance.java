@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2011-2017 ARM Limited. All rights reserved.
+ * Copyright (C) 2011-2017 Arm Limited. All rights reserved.
  * SPDX-License-Identifier: Apache-2.0
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -77,7 +77,7 @@ public class LWM2MObjectInstance {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -91,7 +91,7 @@ public class LWM2MObjectInstance {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override

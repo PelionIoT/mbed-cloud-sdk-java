@@ -2,7 +2,7 @@ package com.arm.mbed.cloud.sdk.certificates.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing certificates")
 public class CertificateListOptions extends ListOptions {
@@ -19,21 +19,21 @@ public class CertificateListOptions extends ListOptions {
      * @return the Owner Id Filter
      */
     public @Nullable Object getOwnerIdFilter() {
-        return fetchFilter(OWNER_ID_FILTER);
+        return fetchEqualFilterValue(OWNER_ID_FILTER);
     }
 
     /**
      * @return the Type Filter
      */
     public @Nullable Object getTypeFilter() {
-        return fetchFilter(TYPE_FILTER);
+        return fetchEqualFilterValue(TYPE_FILTER);
     }
 
     /**
      * @return the Expires Filter
      */
     public @Nullable Object getExpiresFilter() {
-        return fetchFilter(EXPIRES_FILTER);
+        return fetchEqualFilterValue(EXPIRES_FILTER);
     }
 
     /**
@@ -41,15 +41,15 @@ public class CertificateListOptions extends ListOptions {
      *            the ownerIdFilter to set
      */
     public void setOwnerIdFilter(String ownerIdFilter) {
-        addFilter(OWNER_ID_FILTER, ownerIdFilter);
+        addEqualFilter(OWNER_ID_FILTER, ownerIdFilter);
     }
 
     /**
-     * @param typeFiler
+     * @param typeFilter
      *            the typeFiler to set
      */
-    public void setTypeFilter(CertificateType typeFiler) {
-        addFilter(TYPE_FILTER, typeFiler);
+    public void setTypeFilter(CertificateType typeFilter) {
+        addEqualFilter(TYPE_FILTER, typeFilter);
     }
 
     /**
@@ -58,12 +58,12 @@ public class CertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("boxing")
     public void setExpiresFilter(int expiresfilter) {
-        addFilter(EXPIRES_FILTER, expiresfilter);
+        addEqualFilter(EXPIRES_FILTER, expiresfilter);
     }
 
     @SuppressWarnings("boxing")
     public Integer getExecutionModeFilter() {
-        CertificateType type = (CertificateType) fetchFilter(TYPE_FILTER);
+        CertificateType type = (CertificateType) fetchEqualFilterValue(TYPE_FILTER);
         if (type == null) {
             return null;
         }

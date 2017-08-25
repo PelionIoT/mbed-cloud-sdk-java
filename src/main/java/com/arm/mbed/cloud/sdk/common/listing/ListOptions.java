@@ -1,12 +1,14 @@
-package com.arm.mbed.cloud.sdk.common;
+package com.arm.mbed.cloud.sdk.common.listing;
 
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.Order;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
 public class ListOptions {
@@ -29,10 +31,11 @@ public class ListOptions {
      * Optional fields to include
      */
     private List<IncludeField> include;
+
     /**
      * Optional filters
      */
-    private Map<String, Object> filter;
+    private Filters filters;
 
     public ListOptions() {
         super();
@@ -40,6 +43,7 @@ public class ListOptions {
         setOrder(Order.ASC);
         setAfter(null);
         setInclude(null);
+        setFilters(null);
     }
 
     /**
@@ -124,46 +128,80 @@ public class ListOptions {
     }
 
     /**
-     * @return the filter
+     * @return the filters
      */
-    public Map<String, Object> getFilter() {
-        return filter;
+    public Filters getFilters() {
+        return filters;
     }
 
     /**
-     * @param filter
-     *            the filter to set
+     * @param filters
+     *            the filters to set
      */
-    public void setFilter(Map<String, Object> filter) {
-        this.filter = filter;
+    public void setFilters(Filters filters) {
+        this.filters = filters;
     }
 
-    public void addFilter(@Nullable String key, @Nullable Object value) {
-        if (value == null || key == null) {
+    /**
+     * Adds a filter to the query
+     * 
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param operator
+     *            the filter operator to apply
+     * @param value
+     *            the value of the filter
+     */
+    public void addFilter(@Nullable String fieldName, FilterOperator operator, @Nullable Object value) {
+        if (value == null || fieldName == null) {
             return;
         }
-        if (filter == null) {
-            filter = new LinkedHashMap<>();
+        if (filters == null) {
+            filters = new Filters();
         }
-        filter.put(key, value);
-    }
-
-    public Object fetchFilter(@Nullable String key) {
-        if (key == null || filter == null) {
-            return null;
-        }
-        return filter.get(key);
+        Filter filter = new Filter(fieldName, operator, value);
+        filters.add(filter);
     }
 
     /**
-     * Gets a string describing the filter
+     * Adds an "equal" filter
      * 
-     * @param key
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param value
+     *            the value of the filter
+     */
+    public void addEqualFilter(@Nullable String fieldName, @Nullable Object value) {
+        addFilter(fieldName, FilterOperator.EQUAL, value);
+    }
+
+    protected Object fetchEqualFilterValue(@Nullable String fieldName) {
+        if (fieldName == null || filters == null) {
+            return null;
+        }
+        List<Filter> list = filters.get(fieldName, FilterOperator.EQUAL);
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        return list.get(0).getValue();
+    }
+
+    protected List<Filter> fetchFilters(@Nullable String fieldName) {
+        if (fieldName == null || filters == null) {
+            return null;
+        }
+        return filters.get(fieldName);
+    }
+
+    /**
+     * Gets a string describing an "equal" filter
+     *
+     * @param fieldName
      *            filter key
      * @return string encoded filter
      */
-    public @Nullable String encodeFilter(@Nullable String key) {
-        Object filterObj = fetchFilter(key);
+    public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
+        Object filterObj = fetchEqualFilterValue(fieldName);
         return (filterObj == null) ? null : filterObj.toString();
     }
 

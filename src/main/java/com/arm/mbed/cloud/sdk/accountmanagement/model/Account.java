@@ -11,9 +11,15 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Account")
-public class Account {
+public class Account implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -2328282179161226623L;
+
     /**
      * Account ID
      */

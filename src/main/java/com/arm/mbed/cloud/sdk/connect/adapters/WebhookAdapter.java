@@ -1,11 +1,10 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 
 @Preamble(description = "Adapter for webhook model")
@@ -15,7 +14,7 @@ public class WebhookAdapter {
             return null;
         }
         Webhook webhook = new Webhook();
-        webhook.setUrl(convertUrl(apiWebhook.getUrl()));
+        webhook.setUrl(TranslationUtils.toUrl(apiWebhook.getUrl()));
         webhook.setHeaders(convertHeaders(apiWebhook.getHeaders()));
         return webhook;
     }
@@ -36,18 +35,9 @@ public class WebhookAdapter {
             return null;
         }
         com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
-        internalWebhook.setUrl((webhook.getUrl() == null) ? null : webhook.getUrl().toString());
+        internalWebhook.setUrl(TranslationUtils.toString(webhook.getUrl()));
         internalWebhook.setHeaders(convertToHeaderObject(webhook.getHeaders()));
         return internalWebhook;
-    }
-
-    private static URL convertUrl(String url) {
-        try {
-            return (url == null) ? null : new URL(url);
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 
     private static Map<String, String> convertHeaders(Object headers) {

@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 @Preamble(description = "Generic adapter")
 @Internal

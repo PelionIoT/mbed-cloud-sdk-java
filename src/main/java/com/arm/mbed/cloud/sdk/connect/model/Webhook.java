@@ -4,9 +4,14 @@ import java.net.URL;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Webhook")
-public class Webhook {
+public class Webhook implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6075770197049142567L;
     /**
      * The URL to which the notifications must be sent
      */

@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
@@ -148,7 +148,7 @@ public class CertificateAdapter {
 
     @SuppressWarnings("boxing")
     private static CertificateType toType(Integer executionMode, ServiceEnum service) {
-        if (executionMode == 1) {
+        if (executionMode != null && executionMode == 1) {
             return CertificateType.DEVELOPER;
         }
         CertificateType certificateType = null;

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.common;
+package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -7,6 +7,7 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.Order;
 
 @Preamble(description = "List response")
 public class ListResponse<T> {

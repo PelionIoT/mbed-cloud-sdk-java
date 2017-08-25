@@ -3,9 +3,14 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Presubscription")
-public class Presubscription {
+public class Presubscription implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -5268031934513375264L;
     /**
      * The device id (optionally having an * character at the end)
      */

@@ -19,12 +19,12 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.common.ListOptions;
-import com.arm.mbed.cloud.sdk.common.ListResponse;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
-import com.arm.mbed.cloud.sdk.common.Paginator;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -122,7 +122,7 @@ public class AccountManagement extends AbstractAPI {
                     public Call<ApiKeyInfoRespList> call() {
                         return endpoint.getDeveloper().getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(),
                                 finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
-                                finalOptions.encodeFilter(ApiKeyListOptions.OWNER_ID_FILTER));
+                                finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
                     }
                 });
     }
@@ -255,7 +255,7 @@ public class AccountManagement extends AbstractAPI {
             public Call<UserInfoRespList> call() {
                 return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
-                        finalOptions.encodeFilter(UserListOptions.STATUS_FILTER));
+                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER));
             }
         });
     }

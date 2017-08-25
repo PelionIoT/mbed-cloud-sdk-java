@@ -24,13 +24,14 @@ public enum CertificateType implements SDKEnum {
     /**
      * @return the string
      */
+    @Override
     public String getString() {
         return value;
     }
 
     @Override
     public boolean isDefault() {
-        return this == DEVELOPER;
+        return this == getDefault();
     }
 
     public static CertificateType getDefault() {

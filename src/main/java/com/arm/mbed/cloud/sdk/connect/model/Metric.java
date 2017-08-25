@@ -3,10 +3,15 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Metric")
-public class Metric {
+public class Metric implements SDKModel {
 
+    /**
+     * 
+     */
+    private static final long serialVersionUID = -3773225008298999579L;
     /**
      * The ID of the metric
      */

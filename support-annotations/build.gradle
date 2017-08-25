@@ -43,9 +43,9 @@ artifacts {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'mbed Cloud SDK Annotations',
+        attributes('Implementation-Title': 'Arm Mbed Cloud SDK Annotations',
                    'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'ARM Limited')
+                   'Implementation-Vendor': 'Arm Limited')
     }
 }
 

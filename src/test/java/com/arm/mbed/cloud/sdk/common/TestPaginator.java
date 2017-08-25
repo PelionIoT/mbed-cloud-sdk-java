@@ -12,6 +12,9 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+
 /**
  * Following tests create a fake server that supplies client with elements. They then verify that the paginator works as
  * intended by making multiple calls to the server

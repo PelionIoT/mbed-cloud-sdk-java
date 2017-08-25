@@ -6,9 +6,14 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
-@Preamble(description = "This object represents an API key in mbed Cloud")
-public class ApiKey {
+@Preamble(description = "This object represents an API key in Arm Mbed Cloud")
+public class ApiKey implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 6908040952116869470L;
     /**
      * The UUID of the API key
      */

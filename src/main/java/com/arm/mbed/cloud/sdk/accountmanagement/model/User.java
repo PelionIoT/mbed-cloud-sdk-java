@@ -6,9 +6,14 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKModel;
 
-@Preamble(description = "This object represents a user in mbed Cloud")
-public class User {
+@Preamble(description = "This object represents a user in Arm Mbed Cloud")
+public class User implements SDKModel {
+    /**
+     * 
+     */
+    private static final long serialVersionUID = 3255828172869706707L;
     /**
      * The UUID of the user.
      */

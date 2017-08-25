@@ -37,40 +37,40 @@ public class NotificationCache {
     private static final int CACHE_INITIAL_CAPACITY = 10;
 
     private final AbstractAPI api;
-    private final ExecutorService pollingThreads;
-    private Future<?> pollingHandle;
+    private final ExecutorService pullThreads;
+    private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
     private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
 
-    public NotificationCache(AbstractAPI api, ExecutorService pollingThread, EndPoints endpoint) {
+    public NotificationCache(AbstractAPI api, ExecutorService pullingThread, EndPoints endpoint) {
         super();
-        this.pollingThreads = pollingThread;
-        this.endpoint = createLongPolling(endpoint);
+        this.pullThreads = pullingThread;
+        this.endpoint = createNotificationPull(endpoint);
         this.api = api;
-        pollingHandle = null;
+        pullHandle = null;
         responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
         subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
     }
 
-    private EndPoints createLongPolling(EndPoints endpoint2) {
+    private EndPoints createNotificationPull(EndPoints endpoint2) {
         ConnectionOptions options = endpoint2.getConnectionOptions();
         options.setRequestTimeout(REQUEST_TIMEOUT);
         return new EndPoints(options);
     }
 
-    public void startPolling() {
-        if (isPollingActive()) {
-            api.getLogger().logInfo("Notification long polling is already working.");
+    public void startNotificationPull() {
+        if (isPullingActive()) {
+            api.getLogger().logInfo("Notification pull is already working.");
             return;
         }
         final Runnable cachingSingleAction = createCachingSingleAction();
-        pollingHandle = null;
-        if (pollingThreads instanceof ScheduledExecutorService) {
-            pollingHandle = ((ScheduledExecutorService) pollingThreads).scheduleWithFixedDelay(cachingSingleAction, 0,
-                    50, TimeUnit.MILLISECONDS);
+        pullHandle = null;
+        if (pullThreads instanceof ScheduledExecutorService) {
+            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(cachingSingleAction, 0, 50,
+                    TimeUnit.MILLISECONDS);
         } else {
-            pollingHandle = pollingThreads.submit(new Runnable() {
+            pullHandle = pullThreads.submit(new Runnable() {
 
                 @Override
                 public void run() {
@@ -84,28 +84,28 @@ public class NotificationCache {
 
     }
 
-    public void stopPolling() {
-        if (pollingHandle != null) {
-            if (!pollingHandle.isDone() && !pollingHandle.isCancelled()) {
-                pollingHandle.cancel(true);
+    public void stopNotificationPull() {
+        if (pullHandle != null) {
+            if (!pullHandle.isDone() && !pullHandle.isCancelled()) {
+                pullHandle.cancel(true);
             }
         }
-        pollingHandle = null;
+        pullHandle = null;
     }
 
-    public boolean isPollingActive() {
-        return (pollingHandle != null);
+    public boolean isPullingActive() {
+        return (pullHandle != null);
     }
 
     public void shutdown() {
-        if (pollingThreads != null) {
-            pollingThreads.shutdown();
+        if (pullThreads != null) {
+            pullThreads.shutdown();
         }
     }
 
     public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
             throws MbedCloudException {
-        if (!isPollingActive()) {
+        if (!isPullingActive()) {
             api.getLogger().throwSDKException("startNotifications() needs to be called before setting resource value.");
         }
         String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
@@ -178,7 +178,7 @@ public class NotificationCache {
                     NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(
-                                "Long polling did not receive any notification during last call. Call information: "
+                                "Notification pull did not receive any notification during last call. Call information: "
                                         + feedback.getMetadata());
                         return;
                     }
@@ -186,7 +186,7 @@ public class NotificationCache {
                     cacheSubscription(notificationMessage.getNotifications());
 
                 } catch (MbedCloudException e) {
-                    api.getLogger().logError("An error occurred during long polling", e);
+                    api.getLogger().logError("An error occurred during Notification pull", e);
                 }
             }
         };
@@ -204,7 +204,7 @@ public class NotificationCache {
                 ResourceSubscription subscription = new ResourceSubscription(notification);
                 subscriptionCache.put(subscription.getKey(), subscription);
             } catch (DecodingException e) {
-                api.getLogger().logError("An error occurred during long polling", e);
+                api.getLogger().logError("An error occurred during Notification pull", e);
             }
 
         }
@@ -223,7 +223,7 @@ public class NotificationCache {
                 AsyncResponse asyncResponse = new AsyncResponse(response);
                 responseCache.put(asyncResponse.getKey(), asyncResponse);
             } catch (DecodingException e) {
-                api.getLogger().logError("An error occurred during long polling", e);
+                api.getLogger().logError("An error occurred during Notification pull", e);
             }
 
         }

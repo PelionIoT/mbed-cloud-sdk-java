@@ -1,8 +1,11 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
 
@@ -17,11 +20,47 @@ public class TranslationUtils {
         return (date == null) ? null : date.toDate();
     }
 
+    public static Date toDate(Number timestamp, TimeUnit unit) {
+        if (timestamp == null || unit == null) {
+            return null;
+        }
+        long time = toLong(timestamp);
+        switch (unit) {
+            case DAYS:
+                time = time * 86400000;
+                break;
+            case HOURS:
+                time = time * 3600000;
+                break;
+            case MICROSECONDS:
+                time = time / 1000;
+                break;
+            case MINUTES:
+                time = time * 60000;
+                break;
+            case NANOSECONDS:
+                time = time / 1000000;
+                break;
+            case SECONDS:
+                time = time * 1000;
+                break;
+            case MILLISECONDS:
+            default:
+                break;
+
+        }
+        return new Date(time);
+    }
+
+    public static DateTime toDateTime(Date date) {
+        return (date == null) ? null : new DateTime(date);
+    }
+
     public static long toTimeStamp(Long time) {
         return (time == null) ? 0 : time.longValue();
     }
 
-    public static long toLong(Long longE) {
+    public static long toLong(Number longE) {
         return (longE == null) ? 0 : longE.longValue();
     }
 
@@ -39,6 +78,48 @@ public class TranslationUtils {
 
     public static Date convertTimestamp(String timestamp) throws Exception {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
+    }
+
+    public static String toTimestamp(Date date) {
+        return toTimestamp(date, DateFormat.getDateTimeInstance());
+    }
+
+    public static Date convertTimestamp(String timestamp, Date defaultDate) {
+        try {
+            return TranslationUtils.convertTimestamp(timestamp);
+        } catch (Exception e) {
+            return defaultToDefaultDate(timestamp, defaultDate, e);
+        }
+    }
+
+    public static Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
+        try {
+            return TranslationUtils.convertTimestamp(timestamp, format);
+        } catch (Exception e) {
+            return defaultToDefaultDate(timestamp, defaultDate, e);
+        }
+    }
+
+    private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
+        Exception e1 = new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp)
+                + "]. Defaulting to " + String.valueOf(defaultDate), e);
+        System.err.println(e1.getMessage() + ". Cause: " + e.getCause());
+        return defaultDate;
+    }
+
+    public static URL toUrl(String url) {
+        try {
+            return (url == null || url.isEmpty()) ? null : new URL(url);
+        } catch (MalformedURLException e) {
+            Exception e1 = new Exception(
+                    "Error occurred when parsing URL [" + String.valueOf(url) + "]. Defaulting to null", e);
+            System.err.println(e1.getMessage() + ". Cause: " + e1.getCause());
+        }
+        return null;
+    }
+
+    public static String toString(URL url) {
+        return (url == null) ? null : url.toString();
     }
 
     @SuppressWarnings("boxing")
@@ -60,7 +141,14 @@ public class TranslationUtils {
         try {
             return format.parse(timestamp);
         } catch (ParseException e) {
-            throw new Exception("Error occurred when parsing timestamp.", e);
+            throw new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].", e);
         }
+    }
+
+    public static String toTimestamp(Date date, DateFormat format) {
+        if (date == null || format == null) {
+            return null;
+        }
+        return format.format(date);
     }
 }
