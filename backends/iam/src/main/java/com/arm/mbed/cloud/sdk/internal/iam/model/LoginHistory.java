@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -27,51 +28,33 @@ public class LoginHistory implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("date")
-  private String date = null;
+  private DateTime date = null;
 
-  @SerializedName("userAgent")
-  private String userAgent = null;
-
-  @SerializedName("ipAddress")
+  @SerializedName("ip_address")
   private String ipAddress = null;
+
+  @SerializedName("user_agent")
+  private String userAgent = null;
 
   @SerializedName("success")
   private Boolean success = null;
 
-  public LoginHistory date(String date) {
+  public LoginHistory date(DateTime date) {
     this.date = date;
     return this;
   }
 
    /**
-   * Get date
+   * UTC time RFC3339 for this login attempt.
    * @return date
   **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getDate() {
+  @ApiModelProperty(example = "null", required = true, value = "UTC time RFC3339 for this login attempt.")
+  public DateTime getDate() {
     return date;
   }
 
-  public void setDate(String date) {
+  public void setDate(DateTime date) {
     this.date = date;
-  }
-
-  public LoginHistory userAgent(String userAgent) {
-    this.userAgent = userAgent;
-    return this;
-  }
-
-   /**
-   * Get userAgent
-   * @return userAgent
-  **/
-  @ApiModelProperty(example = "null", value = "")
-  public String getUserAgent() {
-    return userAgent;
-  }
-
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
   }
 
   public LoginHistory ipAddress(String ipAddress) {
@@ -80,10 +63,10 @@ public class LoginHistory implements Serializable {
   }
 
    /**
-   * Get ipAddress
+   * IP address of the client.
    * @return ipAddress
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(example = "null", required = true, value = "IP address of the client.")
   public String getIpAddress() {
     return ipAddress;
   }
@@ -92,16 +75,34 @@ public class LoginHistory implements Serializable {
     this.ipAddress = ipAddress;
   }
 
+  public LoginHistory userAgent(String userAgent) {
+    this.userAgent = userAgent;
+    return this;
+  }
+
+   /**
+   * User Agent header from the login request.
+   * @return userAgent
+  **/
+  @ApiModelProperty(example = "null", required = true, value = "User Agent header from the login request.")
+  public String getUserAgent() {
+    return userAgent;
+  }
+
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
+  }
+
   public LoginHistory success(Boolean success) {
     this.success = success;
     return this;
   }
 
    /**
-   * Get success
+   * Flag indicating whether login attempt was successful or not.
    * @return success
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(example = "null", required = true, value = "Flag indicating whether login attempt was successful or not.")
   public Boolean getSuccess() {
     return success;
   }
@@ -121,14 +122,14 @@ public class LoginHistory implements Serializable {
     }
     LoginHistory loginHistory = (LoginHistory) o;
     return Objects.equals(this.date, loginHistory.date) &&
-        Objects.equals(this.userAgent, loginHistory.userAgent) &&
         Objects.equals(this.ipAddress, loginHistory.ipAddress) &&
+        Objects.equals(this.userAgent, loginHistory.userAgent) &&
         Objects.equals(this.success, loginHistory.success);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, userAgent, ipAddress, success);
+    return Objects.hash(date, ipAddress, userAgent, success);
   }
 
 
@@ -138,8 +139,8 @@ public class LoginHistory implements Serializable {
     sb.append("class LoginHistory {\n");
     
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
-    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
+    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
     sb.append("}");
     return sb.toString();
