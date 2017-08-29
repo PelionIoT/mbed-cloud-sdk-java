@@ -151,11 +151,9 @@ public class CertificateAdapter {
             return CertificateType.DEVELOPER;
         }
         CertificateType certificateType = null;
-        System.err.println("service " + service);
         switch (service) {
             case BOOTSTRAP:
                 certificateType = CertificateType.BOOTSTRAP;
-                System.err.println("came here");
                 break;
             case LWM2M:
                 certificateType = CertificateType.LWM2M;
