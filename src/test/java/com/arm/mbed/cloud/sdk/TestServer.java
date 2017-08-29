@@ -24,6 +24,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.VertxOptions;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerOptions;
 import io.vertx.core.http.HttpServerRequest;
 import io.vertx.core.http.HttpServerResponse;
 import io.vertx.core.json.JsonObject;
@@ -65,7 +66,9 @@ public class TestServer {
         config = null;
         if (server == null) {
             Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
-            server = vertx.createHttpServer();
+            HttpServerOptions options = new HttpServerOptions();
+            options.setMaxInitialLineLength(options.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
+            server = vertx.createHttpServer(options);
             router = Router.router(vertx);
         }
         retrieveConfig();
@@ -110,7 +113,7 @@ public class TestServer {
             APIMethodResult result = null;
             try {
                 logInfo("CALLING " + String.valueOf(method) + " ON " + String.valueOf(module) + " USING "
-                        + String.valueOf(params.toString()));
+                        + String.valueOf(toString(params)));
                 result = caller.callAPI(ApiUtils.convertSnakeToCamel(module, true),
                         ApiUtils.convertSnakeToCamel(method, false), params);
                 if (!result.wasExceptionRaised()) {
@@ -188,6 +191,30 @@ public class TestServer {
 
     private void logWarn(String message) {
         testLogger.warn((CONSOLE_COLOURING) ? WARNING_LOG_PREFIX + message : message);
+    }
+
+    private String toString(Map<String, Object> params) {
+        if (params == null) {
+            return null;
+        }
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        boolean start = true;
+        for (Entry<String, Object> pair : params.entrySet()) {
+            if (!start) {
+                builder.append(", ");
+            }
+            builder.append(String.valueOf(pair.getKey())).append("=");
+            String value = String.valueOf(pair.getValue());
+            if (value.length() > 70) {
+                value = value.substring(0, 70) + "...";
+            }
+            builder.append(value);
+            start = false;
+        }
+
+        builder.append("}");
+        return builder.toString();
     }
 
     private void sendError(HttpServerResponse res, Integer errorCode, String errorMessage) {

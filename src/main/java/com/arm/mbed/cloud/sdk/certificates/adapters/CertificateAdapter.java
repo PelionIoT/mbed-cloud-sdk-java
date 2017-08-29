@@ -146,15 +146,16 @@ public class CertificateAdapter {
         }
     }
 
-    @SuppressWarnings("boxing")
     private static CertificateType toType(Integer executionMode, ServiceEnum service) {
-        if (executionMode != null && executionMode == 1) {
+        if (executionMode != null && executionMode.intValue() == 1) {
             return CertificateType.DEVELOPER;
         }
         CertificateType certificateType = null;
+        System.err.println("service " + service);
         switch (service) {
             case BOOTSTRAP:
                 certificateType = CertificateType.BOOTSTRAP;
+                System.err.println("came here");
                 break;
             case LWM2M:
                 certificateType = CertificateType.LWM2M;
