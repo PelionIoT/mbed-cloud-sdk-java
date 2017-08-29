@@ -18,9 +18,9 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
@@ -247,7 +247,7 @@ public interface DeveloperApi {
   })
   @PUT("v3/trusted-certificates/{cert-id}")
   Call<TrustedCertificateResp> updateCertificate(
-    @retrofit2.http.Path("cert-id") String certId, @retrofit2.http.Body TrustedCertificateReq body
+    @retrofit2.http.Path("cert-id") String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
   );
 
   /**
