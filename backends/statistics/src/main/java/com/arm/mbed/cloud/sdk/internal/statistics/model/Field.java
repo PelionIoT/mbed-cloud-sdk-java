@@ -56,10 +56,10 @@ public class Field implements Serializable {
   }
 
    /**
-   * The field name in the request for which the validation has failed
+   * The field name in the request for which the validation has failed.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The field name in the request for which the validation has failed")
+  @ApiModelProperty(example = "null", value = "The field name in the request for which the validation has failed.")
   public String getName() {
     return name;
   }
