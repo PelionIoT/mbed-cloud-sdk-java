@@ -5,6 +5,7 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SDKEnum;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Certificate")
@@ -329,12 +330,16 @@ public class Certificate implements SDKModel {
         return ownerId;
     }
 
+    @SuppressWarnings("unchecked")
     private static <T> T mergeField(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }
         if (obj2 == null) {
             return obj1;
+        }
+        if (obj1 instanceof SDKEnum) {
+            return (T) ((SDKEnum) obj1).merge((SDKEnum) obj1, (SDKEnum) obj2);
         }
         return obj2;
     }

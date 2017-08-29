@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.common.SDKEnum;
 
 @Preamble(description = "Certificate type")
 public enum CertificateType implements SDKEnum {
-    DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m");
+    DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m"), UNKNOWN("unknown");
 
     private final String value;
 
@@ -35,7 +35,7 @@ public enum CertificateType implements SDKEnum {
     }
 
     public static CertificateType getDefault() {
-        return CertificateType.DEVELOPER;
+        return CertificateType.UNKNOWN;
     }
 
     public static boolean isDeveloper(CertificateType type) {
@@ -55,4 +55,20 @@ public enum CertificateType implements SDKEnum {
         return getDefault();
     }
 
+    @Override
+    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+        if (obj1 == null) {
+            return obj2;
+        }
+        if (obj2 == null) {
+            return obj1;
+        }
+        if (obj1.isDefault()) {
+            return obj2;
+        }
+        if (obj2.isDefault()) {
+            return obj1;
+        }
+        return obj2;
+    }
 }

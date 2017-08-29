@@ -9,4 +9,6 @@ public interface SDKEnum {
     boolean isDefault();
 
     String getString();
+
+    <T extends SDKEnum> T merge(T obj1, T obj2);
 }
