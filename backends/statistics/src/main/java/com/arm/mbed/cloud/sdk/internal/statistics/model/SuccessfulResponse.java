@@ -53,10 +53,10 @@ public class SuccessfulResponse implements Serializable {
   }
 
    /**
-   * metric ID included in the request or null.
+   * The metric ID included in the request or null.
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "metric ID included in the request or null.")
+  @ApiModelProperty(example = "null", value = "The metric ID included in the request or null.")
   public String getAfter() {
     return after;
   }
@@ -89,10 +89,10 @@ public class SuccessfulResponse implements Serializable {
   }
 
    /**
-   * total number of records available.
+   * The total number of records available.
    * @return totalCount
   **/
-  @ApiModelProperty(example = "null", value = "total number of records available.")
+  @ApiModelProperty(example = "null", value = "The total number of records available.")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -125,10 +125,10 @@ public class SuccessfulResponse implements Serializable {
   }
 
    /**
-   * limit used in the request to retrieve the results.
+   * The limit used in the request to retrieve the results.
    * @return limit
   **/
-  @ApiModelProperty(example = "null", value = "limit used in the request to retrieve the results.")
+  @ApiModelProperty(example = "null", value = "The limit used in the request to retrieve the results.")
   public Integer getLimit() {
     return limit;
   }

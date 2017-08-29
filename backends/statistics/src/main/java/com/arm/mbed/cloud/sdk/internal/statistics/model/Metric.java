@@ -47,9 +47,6 @@ public class Metric implements Serializable {
   @SerializedName("device_server_rest_api_success")
   private Long deviceServerRestApiSuccess = null;
 
-  @SerializedName("handshakes_failed")
-  private Long handshakesFailed = null;
-
   @SerializedName("handshakes_successful")
   private Long handshakesSuccessful = null;
 
@@ -65,10 +62,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of failed device server REST API requests the account has used.
+   * The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
    * @return deviceServerRestApiError
   **/
-  @ApiModelProperty(example = "null", value = "Number of failed device server REST API requests the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
   public Long getDeviceServerRestApiError() {
     return deviceServerRestApiError;
   }
@@ -83,10 +80,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of failed bootstraps the account has used.
+   * The number of failed bootstraps the account has performed.
    * @return bootstrapsFailed
   **/
-  @ApiModelProperty(example = "null", value = "Number of failed bootstraps the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of failed bootstraps the account has performed.")
   public Long getBootstrapsFailed() {
     return bootstrapsFailed;
   }
@@ -101,10 +98,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of transaction events from devices linked to the account.
+   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
    * @return transactions
   **/
-  @ApiModelProperty(example = "null", value = "Number of transaction events from devices linked to the account.")
+  @ApiModelProperty(example = "null", value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
   public Long getTransactions() {
     return transactions;
   }
@@ -119,10 +116,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * UTC time in RFC3339 format.
+   * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
    * @return timestamp
   **/
-  @ApiModelProperty(example = "null", value = "UTC time in RFC3339 format.")
+  @ApiModelProperty(example = "null", value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
   public String getTimestamp() {
     return timestamp;
   }
@@ -137,10 +134,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Maximum number of registered devices linked to the account.
+   * The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.
    * @return registeredDevices
   **/
-  @ApiModelProperty(example = "null", value = "Maximum number of registered devices linked to the account.")
+  @ApiModelProperty(example = "null", value = "The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.")
   public Long getRegisteredDevices() {
     return registeredDevices;
   }
@@ -155,10 +152,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of pending bootstraps the account has used.
+   * The number of pending bootstraps the account has performed.
    * @return bootstrapsPending
   **/
-  @ApiModelProperty(example = "null", value = "Number of pending bootstraps the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of pending bootstraps the account has performed.")
   public Long getBootstrapsPending() {
     return bootstrapsPending;
   }
@@ -173,10 +170,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of successful device server REST API requests the account has used.
+   * The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
    * @return deviceServerRestApiSuccess
   **/
-  @ApiModelProperty(example = "null", value = "Number of successful device server REST API requests the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
   public Long getDeviceServerRestApiSuccess() {
     return deviceServerRestApiSuccess;
   }
@@ -185,34 +182,16 @@ public class Metric implements Serializable {
     this.deviceServerRestApiSuccess = deviceServerRestApiSuccess;
   }
 
-  public Metric handshakesFailed(Long handshakesFailed) {
-    this.handshakesFailed = handshakesFailed;
-    return this;
-  }
-
-   /**
-   * Number of failed handshakes the account has used.
-   * @return handshakesFailed
-  **/
-  @ApiModelProperty(example = "null", value = "Number of failed handshakes the account has used.")
-  public Long getHandshakesFailed() {
-    return handshakesFailed;
-  }
-
-  public void setHandshakesFailed(Long handshakesFailed) {
-    this.handshakesFailed = handshakesFailed;
-  }
-
   public Metric handshakesSuccessful(Long handshakesSuccessful) {
     this.handshakesSuccessful = handshakesSuccessful;
     return this;
   }
 
    /**
-   * Number of successful handshakes the account has used.
+   * The number of successful handshakes the account has performed.
    * @return handshakesSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "Number of successful handshakes the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of successful handshakes the account has performed.")
   public Long getHandshakesSuccessful() {
     return handshakesSuccessful;
   }
@@ -227,10 +206,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * Number of successful bootstraps the account has used.
+   * The number of successful bootstraps the account has performed.
    * @return bootstrapsSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "Number of successful bootstraps the account has used.")
+  @ApiModelProperty(example = "null", value = "The number of successful bootstraps the account has performed.")
   public Long getBootstrapsSuccessful() {
     return bootstrapsSuccessful;
   }
@@ -245,10 +224,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * unique metric ID.
+   * A unique metric ID.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "unique metric ID.")
+  @ApiModelProperty(example = "null", value = "A unique metric ID.")
   public String getId() {
     return id;
   }
@@ -274,7 +253,6 @@ public class Metric implements Serializable {
         Objects.equals(this.registeredDevices, metric.registeredDevices) &&
         Objects.equals(this.bootstrapsPending, metric.bootstrapsPending) &&
         Objects.equals(this.deviceServerRestApiSuccess, metric.deviceServerRestApiSuccess) &&
-        Objects.equals(this.handshakesFailed, metric.handshakesFailed) &&
         Objects.equals(this.handshakesSuccessful, metric.handshakesSuccessful) &&
         Objects.equals(this.bootstrapsSuccessful, metric.bootstrapsSuccessful) &&
         Objects.equals(this.id, metric.id);
@@ -282,7 +260,7 @@ public class Metric implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(deviceServerRestApiError, bootstrapsFailed, transactions, timestamp, registeredDevices, bootstrapsPending, deviceServerRestApiSuccess, handshakesFailed, handshakesSuccessful, bootstrapsSuccessful, id);
+    return Objects.hash(deviceServerRestApiError, bootstrapsFailed, transactions, timestamp, registeredDevices, bootstrapsPending, deviceServerRestApiSuccess, handshakesSuccessful, bootstrapsSuccessful, id);
   }
 
 
@@ -298,7 +276,6 @@ public class Metric implements Serializable {
     sb.append("    registeredDevices: ").append(toIndentedString(registeredDevices)).append("\n");
     sb.append("    bootstrapsPending: ").append(toIndentedString(bootstrapsPending)).append("\n");
     sb.append("    deviceServerRestApiSuccess: ").append(toIndentedString(deviceServerRestApiSuccess)).append("\n");
-    sb.append("    handshakesFailed: ").append(toIndentedString(handshakesFailed)).append("\n");
     sb.append("    handshakesSuccessful: ").append(toIndentedString(handshakesSuccessful)).append("\n");
     sb.append("    bootstrapsSuccessful: ").append(toIndentedString(bootstrapsSuccessful)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
