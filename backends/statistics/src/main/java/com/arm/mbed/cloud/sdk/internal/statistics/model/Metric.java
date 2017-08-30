@@ -29,6 +29,12 @@ public class Metric implements Serializable {
   @SerializedName("device_server_rest_api_error")
   private Long deviceServerRestApiError = null;
 
+  @SerializedName("registration_updates")
+  private Long registrationUpdates = null;
+
+  @SerializedName("full_registrations")
+  private Long fullRegistrations = null;
+
   @SerializedName("bootstraps_failed")
   private Long bootstrapsFailed = null;
 
@@ -38,20 +44,23 @@ public class Metric implements Serializable {
   @SerializedName("timestamp")
   private String timestamp = null;
 
-  @SerializedName("registered_devices")
-  private Long registeredDevices = null;
+  @SerializedName("device_server_rest_api_success")
+  private Long deviceServerRestApiSuccess = null;
 
   @SerializedName("bootstraps_pending")
   private Long bootstrapsPending = null;
 
-  @SerializedName("device_server_rest_api_success")
-  private Long deviceServerRestApiSuccess = null;
+  @SerializedName("expired_registrations")
+  private Long expiredRegistrations = null;
 
   @SerializedName("handshakes_successful")
   private Long handshakesSuccessful = null;
 
   @SerializedName("bootstraps_successful")
   private Long bootstrapsSuccessful = null;
+
+  @SerializedName("deleted_registrations")
+  private Long deletedRegistrations = null;
 
   @SerializedName("id")
   private String id = null;
@@ -74,16 +83,52 @@ public class Metric implements Serializable {
     this.deviceServerRestApiError = deviceServerRestApiError;
   }
 
+  public Metric registrationUpdates(Long registrationUpdates) {
+    this.registrationUpdates = registrationUpdates;
+    return this;
+  }
+
+   /**
+   * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
+   * @return registrationUpdates
+  **/
+  @ApiModelProperty(example = "null", value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
+  public Long getRegistrationUpdates() {
+    return registrationUpdates;
+  }
+
+  public void setRegistrationUpdates(Long registrationUpdates) {
+    this.registrationUpdates = registrationUpdates;
+  }
+
+  public Metric fullRegistrations(Long fullRegistrations) {
+    this.fullRegistrations = fullRegistrations;
+    return this;
+  }
+
+   /**
+   * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+   * @return fullRegistrations
+  **/
+  @ApiModelProperty(example = "null", value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
+  public Long getFullRegistrations() {
+    return fullRegistrations;
+  }
+
+  public void setFullRegistrations(Long fullRegistrations) {
+    this.fullRegistrations = fullRegistrations;
+  }
+
   public Metric bootstrapsFailed(Long bootstrapsFailed) {
     this.bootstrapsFailed = bootstrapsFailed;
     return this;
   }
 
    /**
-   * The number of failed bootstraps the account has performed.
+   * The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
    * @return bootstrapsFailed
   **/
-  @ApiModelProperty(example = "null", value = "The number of failed bootstraps the account has performed.")
+  @ApiModelProperty(example = "null", value = "The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
   public Long getBootstrapsFailed() {
     return bootstrapsFailed;
   }
@@ -128,42 +173,6 @@ public class Metric implements Serializable {
     this.timestamp = timestamp;
   }
 
-  public Metric registeredDevices(Long registeredDevices) {
-    this.registeredDevices = registeredDevices;
-    return this;
-  }
-
-   /**
-   * The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.
-   * @return registeredDevices
-  **/
-  @ApiModelProperty(example = "null", value = "The maximum number of registered devices linked to the account. The registered devices count is calculated based on unique registrations plus registration updates over a period of 5 minutes.")
-  public Long getRegisteredDevices() {
-    return registeredDevices;
-  }
-
-  public void setRegisteredDevices(Long registeredDevices) {
-    this.registeredDevices = registeredDevices;
-  }
-
-  public Metric bootstrapsPending(Long bootstrapsPending) {
-    this.bootstrapsPending = bootstrapsPending;
-    return this;
-  }
-
-   /**
-   * The number of pending bootstraps the account has performed.
-   * @return bootstrapsPending
-  **/
-  @ApiModelProperty(example = "null", value = "The number of pending bootstraps the account has performed.")
-  public Long getBootstrapsPending() {
-    return bootstrapsPending;
-  }
-
-  public void setBootstrapsPending(Long bootstrapsPending) {
-    this.bootstrapsPending = bootstrapsPending;
-  }
-
   public Metric deviceServerRestApiSuccess(Long deviceServerRestApiSuccess) {
     this.deviceServerRestApiSuccess = deviceServerRestApiSuccess;
     return this;
@@ -182,16 +191,52 @@ public class Metric implements Serializable {
     this.deviceServerRestApiSuccess = deviceServerRestApiSuccess;
   }
 
+  public Metric bootstrapsPending(Long bootstrapsPending) {
+    this.bootstrapsPending = bootstrapsPending;
+    return this;
+  }
+
+   /**
+   * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
+   * @return bootstrapsPending
+  **/
+  @ApiModelProperty(example = "null", value = "The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+  public Long getBootstrapsPending() {
+    return bootstrapsPending;
+  }
+
+  public void setBootstrapsPending(Long bootstrapsPending) {
+    this.bootstrapsPending = bootstrapsPending;
+  }
+
+  public Metric expiredRegistrations(Long expiredRegistrations) {
+    this.expiredRegistrations = expiredRegistrations;
+    return this;
+  }
+
+   /**
+   * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+   * @return expiredRegistrations
+  **/
+  @ApiModelProperty(example = "null", value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
+  public Long getExpiredRegistrations() {
+    return expiredRegistrations;
+  }
+
+  public void setExpiredRegistrations(Long expiredRegistrations) {
+    this.expiredRegistrations = expiredRegistrations;
+  }
+
   public Metric handshakesSuccessful(Long handshakesSuccessful) {
     this.handshakesSuccessful = handshakesSuccessful;
     return this;
   }
 
    /**
-   * The number of successful handshakes the account has performed.
+   * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
    * @return handshakesSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "The number of successful handshakes the account has performed.")
+  @ApiModelProperty(example = "null", value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
   public Long getHandshakesSuccessful() {
     return handshakesSuccessful;
   }
@@ -206,16 +251,34 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of successful bootstraps the account has performed.
+   * The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
    * @return bootstrapsSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "The number of successful bootstraps the account has performed.")
+  @ApiModelProperty(example = "null", value = "The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
   public Long getBootstrapsSuccessful() {
     return bootstrapsSuccessful;
   }
 
   public void setBootstrapsSuccessful(Long bootstrapsSuccessful) {
     this.bootstrapsSuccessful = bootstrapsSuccessful;
+  }
+
+  public Metric deletedRegistrations(Long deletedRegistrations) {
+    this.deletedRegistrations = deletedRegistrations;
+    return this;
+  }
+
+   /**
+   * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
+   * @return deletedRegistrations
+  **/
+  @ApiModelProperty(example = "null", value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
+  public Long getDeletedRegistrations() {
+    return deletedRegistrations;
+  }
+
+  public void setDeletedRegistrations(Long deletedRegistrations) {
+    this.deletedRegistrations = deletedRegistrations;
   }
 
   public Metric id(String id) {
@@ -247,20 +310,23 @@ public class Metric implements Serializable {
     }
     Metric metric = (Metric) o;
     return Objects.equals(this.deviceServerRestApiError, metric.deviceServerRestApiError) &&
+        Objects.equals(this.registrationUpdates, metric.registrationUpdates) &&
+        Objects.equals(this.fullRegistrations, metric.fullRegistrations) &&
         Objects.equals(this.bootstrapsFailed, metric.bootstrapsFailed) &&
         Objects.equals(this.transactions, metric.transactions) &&
         Objects.equals(this.timestamp, metric.timestamp) &&
-        Objects.equals(this.registeredDevices, metric.registeredDevices) &&
-        Objects.equals(this.bootstrapsPending, metric.bootstrapsPending) &&
         Objects.equals(this.deviceServerRestApiSuccess, metric.deviceServerRestApiSuccess) &&
+        Objects.equals(this.bootstrapsPending, metric.bootstrapsPending) &&
+        Objects.equals(this.expiredRegistrations, metric.expiredRegistrations) &&
         Objects.equals(this.handshakesSuccessful, metric.handshakesSuccessful) &&
         Objects.equals(this.bootstrapsSuccessful, metric.bootstrapsSuccessful) &&
+        Objects.equals(this.deletedRegistrations, metric.deletedRegistrations) &&
         Objects.equals(this.id, metric.id);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deviceServerRestApiError, bootstrapsFailed, transactions, timestamp, registeredDevices, bootstrapsPending, deviceServerRestApiSuccess, handshakesSuccessful, bootstrapsSuccessful, id);
+    return Objects.hash(deviceServerRestApiError, registrationUpdates, fullRegistrations, bootstrapsFailed, transactions, timestamp, deviceServerRestApiSuccess, bootstrapsPending, expiredRegistrations, handshakesSuccessful, bootstrapsSuccessful, deletedRegistrations, id);
   }
 
 
@@ -270,14 +336,17 @@ public class Metric implements Serializable {
     sb.append("class Metric {\n");
     
     sb.append("    deviceServerRestApiError: ").append(toIndentedString(deviceServerRestApiError)).append("\n");
+    sb.append("    registrationUpdates: ").append(toIndentedString(registrationUpdates)).append("\n");
+    sb.append("    fullRegistrations: ").append(toIndentedString(fullRegistrations)).append("\n");
     sb.append("    bootstrapsFailed: ").append(toIndentedString(bootstrapsFailed)).append("\n");
     sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    registeredDevices: ").append(toIndentedString(registeredDevices)).append("\n");
-    sb.append("    bootstrapsPending: ").append(toIndentedString(bootstrapsPending)).append("\n");
     sb.append("    deviceServerRestApiSuccess: ").append(toIndentedString(deviceServerRestApiSuccess)).append("\n");
+    sb.append("    bootstrapsPending: ").append(toIndentedString(bootstrapsPending)).append("\n");
+    sb.append("    expiredRegistrations: ").append(toIndentedString(expiredRegistrations)).append("\n");
     sb.append("    handshakesSuccessful: ").append(toIndentedString(handshakesSuccessful)).append("\n");
     sb.append("    bootstrapsSuccessful: ").append(toIndentedString(bootstrapsSuccessful)).append("\n");
+    sb.append("    deletedRegistrations: ").append(toIndentedString(deletedRegistrations)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
