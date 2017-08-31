@@ -41,7 +41,7 @@ public class ApiKeyAdapter {
         };
     }
 
-    public static ApiKeyInfoReq addMap(ApiKey apiKey) {
+    public static ApiKeyInfoReq reverseMapAdd(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
         }
@@ -51,7 +51,7 @@ public class ApiKeyAdapter {
         return apiKeyInfo;
     }
 
-    public static ApiKeyUpdateReq updateMap(ApiKey apiKey) {
+    public static ApiKeyUpdateReq reverseMapUpdate(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
         }

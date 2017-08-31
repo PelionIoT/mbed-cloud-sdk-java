@@ -86,6 +86,9 @@ public class Campaign implements SDKModel {
      */
     @DefaultValue(value = "now()")
     private Date scheduledAt;
+    /**
+     * filters
+     */
     private Filters filters;
 
     public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {

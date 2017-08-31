@@ -8,8 +8,8 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
@@ -23,7 +23,7 @@ public class MetricAdapter {
         Metric metric = new Metric();
         metric.setFailedApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()));
         metric.setFailedDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsFailed()));
-        metric.setFailedHandshakes(TranslationUtils.toLong(apiMetric.getHandshakesFailed()));
+        // metric.setFailedHandshakes(TranslationUtils.toLong(apiMetric.get));
         metric.setId(apiMetric.getId());
         metric.setPendingDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsPending()));
         metric.setRegisteredDevices(TranslationUtils.toLong(apiMetric.getRegisteredDevices()));

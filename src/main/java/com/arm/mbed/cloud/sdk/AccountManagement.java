@@ -188,7 +188,7 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().createApiKey(ApiKeyAdapter.addMap(finalApiKey));
+                return endpoint.getDeveloper().createApiKey(ApiKeyAdapter.reverseMapAdd(finalApiKey));
             }
         });
     }
@@ -211,7 +211,7 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(), ApiKeyAdapter.updateMap(finalApiKey));
+                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(), ApiKeyAdapter.reverseMapUpdate(finalApiKey));
             }
         });
     }
@@ -320,7 +320,7 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().createUser(UserAdapter.addMap(finalUser), "create");
+                return endpoint.getAdmin().createUser(UserAdapter.reverseMapAdd(finalUser), "create");
             }
         });
     }
@@ -343,7 +343,7 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().updateUser(finalUser.getId(), UserAdapter.updateMap(finalUser));
+                return endpoint.getAdmin().updateUser(finalUser.getId(), UserAdapter.reverseMapUpdate(finalUser));
             }
         });
     }

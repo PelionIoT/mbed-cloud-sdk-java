@@ -51,7 +51,7 @@ public class UserAdapter {
         };
     }
 
-    public static UserInfoReq addMap(User user) {
+    public static UserInfoReq reverseMapAdd(User user) {
         if (user == null) {
             return null;
         }
@@ -66,7 +66,7 @@ public class UserAdapter {
         return userInfo;
     }
 
-    public static UserUpdateReq updateMap(User user) {
+    public static UserUpdateReq reverseMapUpdate(User user) {
         if (user == null) {
             return null;
         }
