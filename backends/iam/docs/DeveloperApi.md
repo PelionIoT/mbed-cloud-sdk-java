@@ -908,7 +908,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DeveloperApi apiInstance = new DeveloperApi();
 String certId = "certId_example"; // String | The ID of the trusted certificate to be updated.
-TrustedCertificateReq body = new TrustedCertificateReq(); // TrustedCertificateReq | A trusted certificate object with attributes.
+TrustedCertificateUpdateReq body = new TrustedCertificateUpdateReq(); // TrustedCertificateUpdateReq | A trusted certificate object with attributes.
 try {
     TrustedCertificateResp result = apiInstance.updateCertificate(certId, body);
     System.out.println(result);
@@ -923,7 +923,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **certId** | **String**| The ID of the trusted certificate to be updated. |
- **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes. |
+ **body** | [**TrustedCertificateUpdateReq**](TrustedCertificateUpdateReq.md)| A trusted certificate object with attributes. |
 
 ### Return type
 
