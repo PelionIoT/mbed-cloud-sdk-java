@@ -66,13 +66,7 @@ public class GroupSummary implements Serializable {
     LIST("list"),
     
     @SerializedName("error")
-    ERROR("error"),
-    
-    @SerializedName("agreement")
-    AGREEMENT("agreement"),
-    
-    @SerializedName("signed-agreement")
-    SIGNED_AGREEMENT("signed-agreement");
+    ERROR("error");
 
     private String value;
 
