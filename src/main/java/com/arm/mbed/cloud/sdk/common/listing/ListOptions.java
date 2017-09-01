@@ -144,7 +144,8 @@ public class ListOptions {
     }
 
     /**
-     * * @param jsonString Json string defining filters
+     * @param jsonString
+     *            Json string defining filters
      */
     public void setFiltersFromJson(String jsonString) {
         setFilters(FilterMarshaller.fromJson(jsonString));

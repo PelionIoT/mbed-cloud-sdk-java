@@ -40,6 +40,7 @@ public class FilterMarshaller {
      * Encodes all filters
      * 
      * @param filters
+     *            filters to encode
      * @return URL String containing all filters definition
      */
     public @Nullable String encode(@Nullable Filters filters) {
@@ -49,7 +50,10 @@ public class FilterMarshaller {
     /**
      * Encodes all filters related to one field name
      * 
+     * @param fieldName
+     *            field name of interest
      * @param filters
+     *            filters to encode
      * @return URL String containing all filters definition
      */
     public @Nullable String encode(@Nullable String fieldName, @Nullable Filters filters) {
@@ -355,7 +359,7 @@ public class FilterMarshaller {
                 return null;
             }
             if (val instanceof Map) {
-                val = new JsonObject((Map) val);
+                val = new JsonObject((Map<String, Object>) val);
             }
             return (JsonObject) val;
         }
@@ -414,7 +418,7 @@ public class FilterMarshaller {
                 return;
             }
             if (map == null) {
-                setMap(new LinkedHashMap<>());
+                setMap(new LinkedHashMap<String, Object>());
             }
             if (object instanceof JsonObject) {
                 JsonObject jsonObject = (JsonObject) object;

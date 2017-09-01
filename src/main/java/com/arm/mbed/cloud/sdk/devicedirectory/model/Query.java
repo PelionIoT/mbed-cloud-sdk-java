@@ -70,6 +70,17 @@ public class Query implements SDKModel {
     }
 
     /**
+     * similar to setId()
+     * 
+     * @param id
+     *            the id to set
+     */
+    @Internal
+    public void setQueryId(String id) {
+        setId(id);
+    }
+
+    /**
      * @return the name
      */
     public String getName() {
@@ -118,7 +129,8 @@ public class Query implements SDKModel {
     }
 
     /**
-     * * @param jsonString Json string defining filter
+     * @param jsonString
+     *            Json string defining filter
      */
     public void setFilterFromJson(String jsonString) {
         setFilter(FilterMarshaller.fromJson(jsonString));

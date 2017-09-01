@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
@@ -250,6 +251,14 @@ public class Campaign implements SDKModel {
      */
     public void setFilters(Filters filters) {
         this.filters = filters;
+    }
+
+    /**
+     * @param jsonString
+     *            Json string defining filters to set
+     */
+    public void setFiltersFromJson(String jsonString) {
+        setFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
