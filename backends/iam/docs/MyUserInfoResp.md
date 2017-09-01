@@ -51,6 +51,8 @@ ACCOUNT_TEMPLATE | &quot;account-template&quot;
 TRUSTED_CERT | &quot;trusted-cert&quot;
 LIST | &quot;list&quot;
 ERROR | &quot;error&quot;
+AGREEMENT | &quot;agreement&quot;
+SIGNED_AGREEMENT | &quot;signed-agreement&quot;
 
 
 

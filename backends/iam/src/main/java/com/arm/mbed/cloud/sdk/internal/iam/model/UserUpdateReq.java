@@ -27,8 +27,8 @@ import java.io.Serializable;
 public class UserUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("phone_number")
-  private String phoneNumber = null;
+  @SerializedName("status")
+  private String status = null;
 
   @SerializedName("username")
   private String username = null;
@@ -39,11 +39,8 @@ public class UserUpdateReq implements Serializable {
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
 
-  @SerializedName("is_totp_enabled")
-  private Boolean isTotpEnabled = null;
-
-  @SerializedName("status")
-  private String status = null;
+  @SerializedName("email")
+  private String email = null;
 
   @SerializedName("full_name")
   private String fullName = null;
@@ -54,25 +51,28 @@ public class UserUpdateReq implements Serializable {
   @SerializedName("password")
   private String password = null;
 
-  @SerializedName("email")
-  private String email = null;
+  @SerializedName("phone_number")
+  private String phoneNumber = null;
 
-  public UserUpdateReq phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  @SerializedName("is_totp_enabled")
+  private Boolean isTotpEnabled = null;
+
+  public UserUpdateReq status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Phone number, not longer than 100 characters.
-   * @return phoneNumber
+   * The status of the user.
+   * @return status
   **/
-  @ApiModelProperty(example = "null", value = "Phone number, not longer than 100 characters.")
-  public String getPhoneNumber() {
-    return phoneNumber;
+  @ApiModelProperty(example = "null", value = "The status of the user.")
+  public String getStatus() {
+    return status;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public UserUpdateReq username(String username) {
@@ -129,40 +129,22 @@ public class UserUpdateReq implements Serializable {
     this.isGtcAccepted = isGtcAccepted;
   }
 
-  public UserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
+  public UserUpdateReq email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
-   * @return isTotpEnabled
+   * The email address, not longer than 254 characters.
+   * @return email
   **/
-  @ApiModelProperty(example = "null", value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
-  public Boolean getIsTotpEnabled() {
-    return isTotpEnabled;
+  @ApiModelProperty(example = "null", required = true, value = "The email address, not longer than 254 characters.")
+  public String getEmail() {
+    return email;
   }
 
-  public void setIsTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-  }
-
-  public UserUpdateReq status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the user.
-   * @return status
-  **/
-  @ApiModelProperty(example = "null", value = "The status of the user.")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public UserUpdateReq fullName(String fullName) {
@@ -219,22 +201,40 @@ public class UserUpdateReq implements Serializable {
     this.password = password;
   }
 
-  public UserUpdateReq email(String email) {
-    this.email = email;
+  public UserUpdateReq phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
     return this;
   }
 
    /**
-   * The email address, not longer than 254 characters.
-   * @return email
+   * Phone number, not longer than 100 characters.
+   * @return phoneNumber
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The email address, not longer than 254 characters.")
-  public String getEmail() {
-    return email;
+  @ApiModelProperty(example = "null", value = "Phone number, not longer than 100 characters.")
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public UserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+    return this;
+  }
+
+   /**
+   * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+   * @return isTotpEnabled
+  **/
+  @ApiModelProperty(example = "null", value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
+  public Boolean getIsTotpEnabled() {
+    return isTotpEnabled;
+  }
+
+  public void setIsTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
   }
 
 
@@ -247,21 +247,21 @@ public class UserUpdateReq implements Serializable {
       return false;
     }
     UserUpdateReq userUpdateReq = (UserUpdateReq) o;
-    return Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
+    return Objects.equals(this.status, userUpdateReq.status) &&
         Objects.equals(this.username, userUpdateReq.username) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
-        Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
-        Objects.equals(this.status, userUpdateReq.status) &&
+        Objects.equals(this.email, userUpdateReq.email) &&
         Objects.equals(this.fullName, userUpdateReq.fullName) &&
         Objects.equals(this.address, userUpdateReq.address) &&
         Objects.equals(this.password, userUpdateReq.password) &&
-        Objects.equals(this.email, userUpdateReq.email);
+        Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
+        Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, isMarketingAccepted, isGtcAccepted, isTotpEnabled, status, fullName, address, password, email);
+    return Objects.hash(status, username, isMarketingAccepted, isGtcAccepted, email, fullName, address, password, phoneNumber, isTotpEnabled);
   }
 
 
@@ -270,16 +270,16 @@ public class UserUpdateReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserUpdateReq {\n");
     
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
-    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("}");
     return sb.toString();
   }

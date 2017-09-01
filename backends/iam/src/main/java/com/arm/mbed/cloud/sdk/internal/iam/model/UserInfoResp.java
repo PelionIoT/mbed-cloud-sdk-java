@@ -68,11 +68,14 @@ public class UserInfoResp implements Serializable {
   @SerializedName("username")
   private String username = null;
 
+  @SerializedName("password_changed_time")
+  private Long passwordChangedTime = null;
+
   @SerializedName("groups")
   private List<String> groups = new ArrayList<String>();
 
-  @SerializedName("password_changed_time")
-  private Long passwordChangedTime = null;
+  @SerializedName("login_history")
+  private List<LoginHistory> loginHistory = new ArrayList<LoginHistory>();
 
   @SerializedName("email_verified")
   private Boolean emailVerified = null;
@@ -106,7 +109,13 @@ public class UserInfoResp implements Serializable {
     LIST("list"),
     
     @SerializedName("error")
-    ERROR("error");
+    ERROR("error"),
+    
+    @SerializedName("agreement")
+    AGREEMENT("agreement"),
+    
+    @SerializedName("signed-agreement")
+    SIGNED_AGREEMENT("signed-agreement");
 
     private String value;
 
@@ -131,9 +140,6 @@ public class UserInfoResp implements Serializable {
 
   @SerializedName("email")
   private String email = null;
-
-  @SerializedName("login_history")
-  private List<LoginHistory> loginHistory = new ArrayList<LoginHistory>();
 
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
@@ -201,6 +207,24 @@ public class UserInfoResp implements Serializable {
     this.username = username;
   }
 
+  public UserInfoResp passwordChangedTime(Long passwordChangedTime) {
+    this.passwordChangedTime = passwordChangedTime;
+    return this;
+  }
+
+   /**
+   * A timestamp of the latest change of the user password, in milliseconds.
+   * @return passwordChangedTime
+  **/
+  @ApiModelProperty(example = "null", value = "A timestamp of the latest change of the user password, in milliseconds.")
+  public Long getPasswordChangedTime() {
+    return passwordChangedTime;
+  }
+
+  public void setPasswordChangedTime(Long passwordChangedTime) {
+    this.passwordChangedTime = passwordChangedTime;
+  }
+
   public UserInfoResp groups(List<String> groups) {
     this.groups = groups;
     return this;
@@ -224,22 +248,27 @@ public class UserInfoResp implements Serializable {
     this.groups = groups;
   }
 
-  public UserInfoResp passwordChangedTime(Long passwordChangedTime) {
-    this.passwordChangedTime = passwordChangedTime;
+  public UserInfoResp loginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
+    return this;
+  }
+
+  public UserInfoResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
+    this.loginHistory.add(loginHistoryItem);
     return this;
   }
 
    /**
-   * A timestamp of the latest change of the user password, in milliseconds.
-   * @return passwordChangedTime
+   * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+   * @return loginHistory
   **/
-  @ApiModelProperty(example = "null", value = "A timestamp of the latest change of the user password, in milliseconds.")
-  public Long getPasswordChangedTime() {
-    return passwordChangedTime;
+  @ApiModelProperty(example = "null", value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
+  public List<LoginHistory> getLoginHistory() {
+    return loginHistory;
   }
 
-  public void setPasswordChangedTime(Long passwordChangedTime) {
-    this.passwordChangedTime = passwordChangedTime;
+  public void setLoginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
   }
 
   public UserInfoResp emailVerified(Boolean emailVerified) {
@@ -348,29 +377,6 @@ public class UserInfoResp implements Serializable {
 
   public void setEmail(String email) {
     this.email = email;
-  }
-
-  public UserInfoResp loginHistory(List<LoginHistory> loginHistory) {
-    this.loginHistory = loginHistory;
-    return this;
-  }
-
-  public UserInfoResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
-    this.loginHistory.add(loginHistoryItem);
-    return this;
-  }
-
-   /**
-   * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-   * @return loginHistory
-  **/
-  @ApiModelProperty(example = "null", value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
-  public List<LoginHistory> getLoginHistory() {
-    return loginHistory;
-  }
-
-  public void setLoginHistory(List<LoginHistory> loginHistory) {
-    this.loginHistory = loginHistory;
   }
 
   public UserInfoResp isTotpEnabled(Boolean isTotpEnabled) {
@@ -565,15 +571,15 @@ public class UserInfoResp implements Serializable {
     UserInfoResp userInfoResp = (UserInfoResp) o;
     return Objects.equals(this.status, userInfoResp.status) &&
         Objects.equals(this.username, userInfoResp.username) &&
-        Objects.equals(this.groups, userInfoResp.groups) &&
         Objects.equals(this.passwordChangedTime, userInfoResp.passwordChangedTime) &&
+        Objects.equals(this.groups, userInfoResp.groups) &&
+        Objects.equals(this.loginHistory, userInfoResp.loginHistory) &&
         Objects.equals(this.emailVerified, userInfoResp.emailVerified) &&
         Objects.equals(this.createdAt, userInfoResp.createdAt) &&
         Objects.equals(this.object, userInfoResp.object) &&
         Objects.equals(this.isGtcAccepted, userInfoResp.isGtcAccepted) &&
         Objects.equals(this.accountId, userInfoResp.accountId) &&
         Objects.equals(this.email, userInfoResp.email) &&
-        Objects.equals(this.loginHistory, userInfoResp.loginHistory) &&
         Objects.equals(this.isTotpEnabled, userInfoResp.isTotpEnabled) &&
         Objects.equals(this.isMarketingAccepted, userInfoResp.isMarketingAccepted) &&
         Objects.equals(this.etag, userInfoResp.etag) &&
@@ -588,7 +594,7 @@ public class UserInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, username, groups, passwordChangedTime, emailVerified, createdAt, object, isGtcAccepted, accountId, email, loginHistory, isTotpEnabled, isMarketingAccepted, etag, fullName, address, creationTime, password, phoneNumber, id, lastLoginTime);
+    return Objects.hash(status, username, passwordChangedTime, groups, loginHistory, emailVerified, createdAt, object, isGtcAccepted, accountId, email, isTotpEnabled, isMarketingAccepted, etag, fullName, address, creationTime, password, phoneNumber, id, lastLoginTime);
   }
 
 
@@ -599,15 +605,15 @@ public class UserInfoResp implements Serializable {
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");

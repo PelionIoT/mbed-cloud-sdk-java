@@ -24,6 +24,8 @@ ACCOUNT_TEMPLATE | &quot;account-template&quot;
 TRUSTED_CERT | &quot;trusted-cert&quot;
 LIST | &quot;list&quot;
 ERROR | &quot;error&quot;
+AGREEMENT | &quot;agreement&quot;
+SIGNED_AGREEMENT | &quot;signed-agreement&quot;
 
 
 <a name="TypeEnum"></a>
@@ -37,6 +39,7 @@ PERMANENTLY_DELETED | &quot;permanently_deleted&quot;
 VALIDATION_ERROR | &quot;validation_error&quot;
 INVALID_TOKEN | &quot;invalid_token&quot;
 INVALID_APIKEY | &quot;invalid_apikey&quot;
+REAUTH_REQUIRED | &quot;reauth_required&quot;
 ACCESS_DENIED | &quot;access_denied&quot;
 ACCOUNT_LIMIT_EXCEEDED | &quot;account_limit_exceeded&quot;
 NOT_FOUND | &quot;not_found&quot;

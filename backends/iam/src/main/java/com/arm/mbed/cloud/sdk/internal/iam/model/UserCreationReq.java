@@ -26,14 +26,14 @@ import java.io.Serializable;
  */
 @ApiModel(description = "This object represents a user in requests towards mbed Cloud.")
 
-public class UserInfoReq implements Serializable {
+public class UserCreationReq implements Serializable {
   private static final long serialVersionUID = 1L;
-
-  @SerializedName("phone_number")
-  private String phoneNumber = null;
 
   @SerializedName("username")
   private String username = null;
+
+  @SerializedName("phone_number")
+  private String phoneNumber = null;
 
   @SerializedName("groups")
   private List<String> groups = new ArrayList<String>();
@@ -41,11 +41,11 @@ public class UserInfoReq implements Serializable {
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
 
-  @SerializedName("full_name")
-  private String fullName = null;
-
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
+
+  @SerializedName("full_name")
+  private String fullName = null;
 
   @SerializedName("address")
   private String address = null;
@@ -56,25 +56,7 @@ public class UserInfoReq implements Serializable {
   @SerializedName("email")
   private String email = null;
 
-  public UserInfoReq phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * Phone number, not longer than 100 characters.
-   * @return phoneNumber
-  **/
-  @ApiModelProperty(example = "null", value = "Phone number, not longer than 100 characters.")
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-  public UserInfoReq username(String username) {
+  public UserCreationReq username(String username) {
     this.username = username;
     return this;
   }
@@ -92,12 +74,30 @@ public class UserInfoReq implements Serializable {
     this.username = username;
   }
 
-  public UserInfoReq groups(List<String> groups) {
+  public UserCreationReq phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
+
+   /**
+   * Phone number, not longer than 100 characters.
+   * @return phoneNumber
+  **/
+  @ApiModelProperty(example = "null", value = "Phone number, not longer than 100 characters.")
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public UserCreationReq groups(List<String> groups) {
     this.groups = groups;
     return this;
   }
 
-  public UserInfoReq addGroupsItem(String groupsItem) {
+  public UserCreationReq addGroupsItem(String groupsItem) {
     this.groups.add(groupsItem);
     return this;
   }
@@ -115,7 +115,7 @@ public class UserInfoReq implements Serializable {
     this.groups = groups;
   }
 
-  public UserInfoReq isGtcAccepted(Boolean isGtcAccepted) {
+  public UserCreationReq isGtcAccepted(Boolean isGtcAccepted) {
     this.isGtcAccepted = isGtcAccepted;
     return this;
   }
@@ -133,25 +133,7 @@ public class UserInfoReq implements Serializable {
     this.isGtcAccepted = isGtcAccepted;
   }
 
-  public UserInfoReq fullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-   /**
-   * The full name of the user, not longer than 100 characters.
-   * @return fullName
-  **/
-  @ApiModelProperty(example = "null", value = "The full name of the user, not longer than 100 characters.")
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public UserInfoReq isMarketingAccepted(Boolean isMarketingAccepted) {
+  public UserCreationReq isMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
     return this;
   }
@@ -169,7 +151,25 @@ public class UserInfoReq implements Serializable {
     this.isMarketingAccepted = isMarketingAccepted;
   }
 
-  public UserInfoReq address(String address) {
+  public UserCreationReq fullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+   /**
+   * The full name of the user, not longer than 100 characters.
+   * @return fullName
+  **/
+  @ApiModelProperty(example = "null", value = "The full name of the user, not longer than 100 characters.")
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
+  }
+
+  public UserCreationReq address(String address) {
     this.address = address;
     return this;
   }
@@ -187,7 +187,7 @@ public class UserInfoReq implements Serializable {
     this.address = address;
   }
 
-  public UserInfoReq password(String password) {
+  public UserCreationReq password(String password) {
     this.password = password;
     return this;
   }
@@ -205,7 +205,7 @@ public class UserInfoReq implements Serializable {
     this.password = password;
   }
 
-  public UserInfoReq email(String email) {
+  public UserCreationReq email(String email) {
     this.email = email;
     return this;
   }
@@ -232,35 +232,35 @@ public class UserInfoReq implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserInfoReq userInfoReq = (UserInfoReq) o;
-    return Objects.equals(this.phoneNumber, userInfoReq.phoneNumber) &&
-        Objects.equals(this.username, userInfoReq.username) &&
-        Objects.equals(this.groups, userInfoReq.groups) &&
-        Objects.equals(this.isGtcAccepted, userInfoReq.isGtcAccepted) &&
-        Objects.equals(this.fullName, userInfoReq.fullName) &&
-        Objects.equals(this.isMarketingAccepted, userInfoReq.isMarketingAccepted) &&
-        Objects.equals(this.address, userInfoReq.address) &&
-        Objects.equals(this.password, userInfoReq.password) &&
-        Objects.equals(this.email, userInfoReq.email);
+    UserCreationReq userCreationReq = (UserCreationReq) o;
+    return Objects.equals(this.username, userCreationReq.username) &&
+        Objects.equals(this.phoneNumber, userCreationReq.phoneNumber) &&
+        Objects.equals(this.groups, userCreationReq.groups) &&
+        Objects.equals(this.isGtcAccepted, userCreationReq.isGtcAccepted) &&
+        Objects.equals(this.isMarketingAccepted, userCreationReq.isMarketingAccepted) &&
+        Objects.equals(this.fullName, userCreationReq.fullName) &&
+        Objects.equals(this.address, userCreationReq.address) &&
+        Objects.equals(this.password, userCreationReq.password) &&
+        Objects.equals(this.email, userCreationReq.email);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, groups, isGtcAccepted, fullName, isMarketingAccepted, address, password, email);
+    return Objects.hash(username, phoneNumber, groups, isGtcAccepted, isMarketingAccepted, fullName, address, password, email);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserInfoReq {\n");
+    sb.append("class UserCreationReq {\n");
     
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

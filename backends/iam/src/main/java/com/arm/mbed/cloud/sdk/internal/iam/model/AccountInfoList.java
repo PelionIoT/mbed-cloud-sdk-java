@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,10 +23,10 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * TrustedCertificateRespList
+ * AccountInfoList
  */
 
-public class TrustedCertificateRespList implements Serializable {
+public class AccountInfoList implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("after")
@@ -91,7 +91,7 @@ public class TrustedCertificateRespList implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<TrustedCertificateResp> data = new ArrayList<TrustedCertificateResp>();
+  private List<AccountInfo> data = new ArrayList<AccountInfo>();
 
   /**
    * The order of the records to return. Available values: ASC, DESC; by default ASC.
@@ -118,7 +118,7 @@ public class TrustedCertificateRespList implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
-  public TrustedCertificateRespList after(String after) {
+  public AccountInfoList after(String after) {
     this.after = after;
     return this;
   }
@@ -136,7 +136,7 @@ public class TrustedCertificateRespList implements Serializable {
     this.after = after;
   }
 
-  public TrustedCertificateRespList hasMore(Boolean hasMore) {
+  public AccountInfoList hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
@@ -154,7 +154,7 @@ public class TrustedCertificateRespList implements Serializable {
     this.hasMore = hasMore;
   }
 
-  public TrustedCertificateRespList totalCount(Integer totalCount) {
+  public AccountInfoList totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -172,7 +172,7 @@ public class TrustedCertificateRespList implements Serializable {
     this.totalCount = totalCount;
   }
 
-  public TrustedCertificateRespList object(ObjectEnum object) {
+  public AccountInfoList object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -190,7 +190,7 @@ public class TrustedCertificateRespList implements Serializable {
     this.object = object;
   }
 
-  public TrustedCertificateRespList limit(Integer limit) {
+  public AccountInfoList limit(Integer limit) {
     this.limit = limit;
     return this;
   }
@@ -208,12 +208,12 @@ public class TrustedCertificateRespList implements Serializable {
     this.limit = limit;
   }
 
-  public TrustedCertificateRespList data(List<TrustedCertificateResp> data) {
+  public AccountInfoList data(List<AccountInfo> data) {
     this.data = data;
     return this;
   }
 
-  public TrustedCertificateRespList addDataItem(TrustedCertificateResp dataItem) {
+  public AccountInfoList addDataItem(AccountInfo dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -223,15 +223,15 @@ public class TrustedCertificateRespList implements Serializable {
    * @return data
   **/
   @ApiModelProperty(example = "null", required = true, value = "A list of entities.")
-  public List<TrustedCertificateResp> getData() {
+  public List<AccountInfo> getData() {
     return data;
   }
 
-  public void setData(List<TrustedCertificateResp> data) {
+  public void setData(List<AccountInfo> data) {
     this.data = data;
   }
 
-  public TrustedCertificateRespList order(OrderEnum order) {
+  public AccountInfoList order(OrderEnum order) {
     this.order = order;
     return this;
   }
@@ -258,14 +258,14 @@ public class TrustedCertificateRespList implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    TrustedCertificateRespList trustedCertificateRespList = (TrustedCertificateRespList) o;
-    return Objects.equals(this.after, trustedCertificateRespList.after) &&
-        Objects.equals(this.hasMore, trustedCertificateRespList.hasMore) &&
-        Objects.equals(this.totalCount, trustedCertificateRespList.totalCount) &&
-        Objects.equals(this.object, trustedCertificateRespList.object) &&
-        Objects.equals(this.limit, trustedCertificateRespList.limit) &&
-        Objects.equals(this.data, trustedCertificateRespList.data) &&
-        Objects.equals(this.order, trustedCertificateRespList.order);
+    AccountInfoList accountInfoList = (AccountInfoList) o;
+    return Objects.equals(this.after, accountInfoList.after) &&
+        Objects.equals(this.hasMore, accountInfoList.hasMore) &&
+        Objects.equals(this.totalCount, accountInfoList.totalCount) &&
+        Objects.equals(this.object, accountInfoList.object) &&
+        Objects.equals(this.limit, accountInfoList.limit) &&
+        Objects.equals(this.data, accountInfoList.data) &&
+        Objects.equals(this.order, accountInfoList.order);
   }
 
   @Override
@@ -277,7 +277,7 @@ public class TrustedCertificateRespList implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class TrustedCertificateRespList {\n");
+    sb.append("class AccountInfoList {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");

@@ -6,15 +6,15 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**StatusEnum**](#StatusEnum) | The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. | 
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. |  [optional]
-**groups** | **List&lt;String&gt;** | A list of IDs of the groups this user belongs to. |  [optional]
 **passwordChangedTime** | **Long** | A timestamp of the latest change of the user password, in milliseconds. |  [optional]
+**groups** | **List&lt;String&gt;** | A list of IDs of the groups this user belongs to. |  [optional]
+**loginHistory** | [**List&lt;LoginHistory&gt;**](LoginHistory.md) | Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format. |  [optional]
 **emailVerified** | **Boolean** | A flag indicating whether the user&#39;s email address has been verified or not. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;user&#39; | 
 **isGtcAccepted** | **Boolean** | A flag indicating that the General Terms and Conditions has been accepted. |  [optional]
 **accountId** | **String** | The UUID of the account. | 
 **email** | **String** | The email address. | 
-**loginHistory** | [**List&lt;LoginHistory&gt;**](LoginHistory.md) | Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format. |  [optional]
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. |  [optional]
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. |  [optional]
 **etag** | **String** | API resource entity version. | 
@@ -50,6 +50,8 @@ ACCOUNT_TEMPLATE | &quot;account-template&quot;
 TRUSTED_CERT | &quot;trusted-cert&quot;
 LIST | &quot;list&quot;
 ERROR | &quot;error&quot;
+AGREEMENT | &quot;agreement&quot;
+SIGNED_AGREEMENT | &quot;signed-agreement&quot;
 
 
 

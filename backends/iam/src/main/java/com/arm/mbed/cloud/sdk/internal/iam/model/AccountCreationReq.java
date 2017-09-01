@@ -14,7 +14,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.iam.model.PasswordPolicy;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -27,7 +26,7 @@ import java.io.Serializable;
  */
 @ApiModel(description = "This object represents an account creation request.")
 
-public class AccountUpdateReq implements Serializable {
+public class AccountCreationReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("address_line2")
@@ -48,9 +47,6 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("company")
   private String company = null;
 
-  @SerializedName("idle_timeout")
-  private String idleTimeout = null;
-
   @SerializedName("state")
   private String state = null;
 
@@ -60,11 +56,20 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("postal_code")
   private String postalCode = null;
 
-  @SerializedName("password_policy")
-  private PasswordPolicy passwordPolicy = null;
+  @SerializedName("admin_password")
+  private String adminPassword = null;
+
+  @SerializedName("admin_name")
+  private String adminName = null;
+
+  @SerializedName("admin_full_name")
+  private String adminFullName = null;
 
   @SerializedName("end_market")
   private String endMarket = null;
+
+  @SerializedName("admin_email")
+  private String adminEmail = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
@@ -75,7 +80,7 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("aliases")
   private List<String> aliases = new ArrayList<String>();
 
-  public AccountUpdateReq addressLine2(String addressLine2) {
+  public AccountCreationReq addressLine2(String addressLine2) {
     this.addressLine2 = addressLine2;
     return this;
   }
@@ -93,7 +98,7 @@ public class AccountUpdateReq implements Serializable {
     this.addressLine2 = addressLine2;
   }
 
-  public AccountUpdateReq city(String city) {
+  public AccountCreationReq city(String city) {
     this.city = city;
     return this;
   }
@@ -111,7 +116,7 @@ public class AccountUpdateReq implements Serializable {
     this.city = city;
   }
 
-  public AccountUpdateReq addressLine1(String addressLine1) {
+  public AccountCreationReq addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
   }
@@ -129,7 +134,7 @@ public class AccountUpdateReq implements Serializable {
     this.addressLine1 = addressLine1;
   }
 
-  public AccountUpdateReq displayName(String displayName) {
+  public AccountCreationReq displayName(String displayName) {
     this.displayName = displayName;
     return this;
   }
@@ -147,7 +152,7 @@ public class AccountUpdateReq implements Serializable {
     this.displayName = displayName;
   }
 
-  public AccountUpdateReq country(String country) {
+  public AccountCreationReq country(String country) {
     this.country = country;
     return this;
   }
@@ -165,7 +170,7 @@ public class AccountUpdateReq implements Serializable {
     this.country = country;
   }
 
-  public AccountUpdateReq company(String company) {
+  public AccountCreationReq company(String company) {
     this.company = company;
     return this;
   }
@@ -183,25 +188,7 @@ public class AccountUpdateReq implements Serializable {
     this.company = company;
   }
 
-  public AccountUpdateReq idleTimeout(String idleTimeout) {
-    this.idleTimeout = idleTimeout;
-    return this;
-  }
-
-   /**
-   * The reference token expiration time in minutes for this account. Between 1 and 120 minutes.
-   * @return idleTimeout
-  **/
-  @ApiModelProperty(example = "null", value = "The reference token expiration time in minutes for this account. Between 1 and 120 minutes.")
-  public String getIdleTimeout() {
-    return idleTimeout;
-  }
-
-  public void setIdleTimeout(String idleTimeout) {
-    this.idleTimeout = idleTimeout;
-  }
-
-  public AccountUpdateReq state(String state) {
+  public AccountCreationReq state(String state) {
     this.state = state;
     return this;
   }
@@ -219,7 +206,7 @@ public class AccountUpdateReq implements Serializable {
     this.state = state;
   }
 
-  public AccountUpdateReq contact(String contact) {
+  public AccountCreationReq contact(String contact) {
     this.contact = contact;
     return this;
   }
@@ -237,7 +224,7 @@ public class AccountUpdateReq implements Serializable {
     this.contact = contact;
   }
 
-  public AccountUpdateReq postalCode(String postalCode) {
+  public AccountCreationReq postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
   }
@@ -255,34 +242,70 @@ public class AccountUpdateReq implements Serializable {
     this.postalCode = postalCode;
   }
 
-  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
+  public AccountCreationReq adminPassword(String adminPassword) {
+    this.adminPassword = adminPassword;
     return this;
   }
 
    /**
-   * Password policy for this account.
-   * @return passwordPolicy
+   * The password when creating a new user. It will be generated when not present in the request.
+   * @return adminPassword
   **/
-  @ApiModelProperty(example = "null", value = "Password policy for this account.")
-  public PasswordPolicy getPasswordPolicy() {
-    return passwordPolicy;
+  @ApiModelProperty(example = "null", value = "The password when creating a new user. It will be generated when not present in the request.")
+  public String getAdminPassword() {
+    return adminPassword;
   }
 
-  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
+  public void setAdminPassword(String adminPassword) {
+    this.adminPassword = adminPassword;
   }
 
-  public AccountUpdateReq endMarket(String endMarket) {
+  public AccountCreationReq adminName(String adminName) {
+    this.adminName = adminName;
+    return this;
+  }
+
+   /**
+   * The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.
+   * @return adminName
+  **/
+  @ApiModelProperty(example = "null", value = "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  public String getAdminName() {
+    return adminName;
+  }
+
+  public void setAdminName(String adminName) {
+    this.adminName = adminName;
+  }
+
+  public AccountCreationReq adminFullName(String adminFullName) {
+    this.adminFullName = adminFullName;
+    return this;
+  }
+
+   /**
+   * The full name of the admin user to be created.
+   * @return adminFullName
+  **/
+  @ApiModelProperty(example = "null", value = "The full name of the admin user to be created.")
+  public String getAdminFullName() {
+    return adminFullName;
+  }
+
+  public void setAdminFullName(String adminFullName) {
+    this.adminFullName = adminFullName;
+  }
+
+  public AccountCreationReq endMarket(String endMarket) {
     this.endMarket = endMarket;
     return this;
   }
 
    /**
-   * The end market for this account, not longer than 100 characters.
+   * The end market of the account to be created.
    * @return endMarket
   **/
-  @ApiModelProperty(example = "null", value = "The end market for this account, not longer than 100 characters.")
+  @ApiModelProperty(example = "null", required = true, value = "The end market of the account to be created.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -291,7 +314,25 @@ public class AccountUpdateReq implements Serializable {
     this.endMarket = endMarket;
   }
 
-  public AccountUpdateReq phoneNumber(String phoneNumber) {
+  public AccountCreationReq adminEmail(String adminEmail) {
+    this.adminEmail = adminEmail;
+    return this;
+  }
+
+   /**
+   * The email address of the account admin, not longer than 254 characters.
+   * @return adminEmail
+  **/
+  @ApiModelProperty(example = "null", value = "The email address of the account admin, not longer than 254 characters.")
+  public String getAdminEmail() {
+    return adminEmail;
+  }
+
+  public void setAdminEmail(String adminEmail) {
+    this.adminEmail = adminEmail;
+  }
+
+  public AccountCreationReq phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
@@ -309,7 +350,7 @@ public class AccountUpdateReq implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public AccountUpdateReq email(String email) {
+  public AccountCreationReq email(String email) {
     this.email = email;
     return this;
   }
@@ -327,12 +368,12 @@ public class AccountUpdateReq implements Serializable {
     this.email = email;
   }
 
-  public AccountUpdateReq aliases(List<String> aliases) {
+  public AccountCreationReq aliases(List<String> aliases) {
     this.aliases = aliases;
     return this;
   }
 
-  public AccountUpdateReq addAliasesItem(String aliasesItem) {
+  public AccountCreationReq addAliasesItem(String aliasesItem) {
     this.aliases.add(aliasesItem);
     return this;
   }
@@ -359,34 +400,36 @@ public class AccountUpdateReq implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    AccountUpdateReq accountUpdateReq = (AccountUpdateReq) o;
-    return Objects.equals(this.addressLine2, accountUpdateReq.addressLine2) &&
-        Objects.equals(this.city, accountUpdateReq.city) &&
-        Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
-        Objects.equals(this.displayName, accountUpdateReq.displayName) &&
-        Objects.equals(this.country, accountUpdateReq.country) &&
-        Objects.equals(this.company, accountUpdateReq.company) &&
-        Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
-        Objects.equals(this.state, accountUpdateReq.state) &&
-        Objects.equals(this.contact, accountUpdateReq.contact) &&
-        Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
-        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
-        Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
-        Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
-        Objects.equals(this.email, accountUpdateReq.email) &&
-        Objects.equals(this.aliases, accountUpdateReq.aliases);
+    AccountCreationReq accountCreationReq = (AccountCreationReq) o;
+    return Objects.equals(this.addressLine2, accountCreationReq.addressLine2) &&
+        Objects.equals(this.city, accountCreationReq.city) &&
+        Objects.equals(this.addressLine1, accountCreationReq.addressLine1) &&
+        Objects.equals(this.displayName, accountCreationReq.displayName) &&
+        Objects.equals(this.country, accountCreationReq.country) &&
+        Objects.equals(this.company, accountCreationReq.company) &&
+        Objects.equals(this.state, accountCreationReq.state) &&
+        Objects.equals(this.contact, accountCreationReq.contact) &&
+        Objects.equals(this.postalCode, accountCreationReq.postalCode) &&
+        Objects.equals(this.adminPassword, accountCreationReq.adminPassword) &&
+        Objects.equals(this.adminName, accountCreationReq.adminName) &&
+        Objects.equals(this.adminFullName, accountCreationReq.adminFullName) &&
+        Objects.equals(this.endMarket, accountCreationReq.endMarket) &&
+        Objects.equals(this.adminEmail, accountCreationReq.adminEmail) &&
+        Objects.equals(this.phoneNumber, accountCreationReq.phoneNumber) &&
+        Objects.equals(this.email, accountCreationReq.email) &&
+        Objects.equals(this.aliases, accountCreationReq.aliases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, passwordPolicy, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, state, contact, postalCode, adminPassword, adminName, adminFullName, endMarket, adminEmail, phoneNumber, email, aliases);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class AccountUpdateReq {\n");
+    sb.append("class AccountCreationReq {\n");
     
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
@@ -394,12 +437,14 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
-    sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
-    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+    sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
+    sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
+    sb.append("    adminFullName: ").append(toIndentedString(adminFullName)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
+    sb.append("    adminEmail: ").append(toIndentedString(adminEmail)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");

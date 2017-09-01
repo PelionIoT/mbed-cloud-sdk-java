@@ -130,7 +130,13 @@ public class UserUpdateResp implements Serializable {
     LIST("list"),
     
     @SerializedName("error")
-    ERROR("error");
+    ERROR("error"),
+    
+    @SerializedName("agreement")
+    AGREEMENT("agreement"),
+    
+    @SerializedName("signed-agreement")
+    SIGNED_AGREEMENT("signed-agreement");
 
     private String value;
 

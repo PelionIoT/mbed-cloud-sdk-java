@@ -56,7 +56,13 @@ public class UpdatedResponse implements Serializable {
     LIST("list"),
     
     @SerializedName("error")
-    ERROR("error");
+    ERROR("error"),
+    
+    @SerializedName("agreement")
+    AGREEMENT("agreement"),
+    
+    @SerializedName("signed-agreement")
+    SIGNED_AGREEMENT("signed-agreement");
 
     private String value;
 
@@ -100,6 +106,12 @@ public class UpdatedResponse implements Serializable {
     
     @SerializedName("invalid_token")
     INVALID_TOKEN("invalid_token"),
+    
+    @SerializedName("invalid_apikey")
+    INVALID_APIKEY("invalid_apikey"),
+    
+    @SerializedName("reauth_required")
+    REAUTH_REQUIRED("reauth_required"),
     
     @SerializedName("access_denied")
     ACCESS_DENIED("access_denied"),
