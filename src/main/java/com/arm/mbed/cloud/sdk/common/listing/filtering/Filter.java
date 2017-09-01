@@ -3,11 +3,11 @@ package com.arm.mbed.cloud.sdk.common.listing.filtering;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Filter for listing requests")
-public class Filter {
+public class Filter implements Cloneable {
 
-    private final String fieldName;
-    private final Object value;
-    private final FilterOperator operator;
+    protected final String fieldName;
+    protected final Object value;
+    protected final FilterOperator operator;
 
     public Filter(String fieldName, FilterOperator operator, Object value) {
         super();
@@ -39,6 +39,19 @@ public class Filter {
 
     public boolean isValid() {
         return (fieldName != null && value != null);
+    }
+
+    public String getPrefix() {
+        return null;
+    }
+
+    public boolean hasPrefix() {
+        return false;
+    }
+
+    @Override
+    public Filter clone() {
+        return new Filter(fieldName, operator, value);
     }
 
 }

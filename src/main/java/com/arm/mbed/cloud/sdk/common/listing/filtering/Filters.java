@@ -68,6 +68,22 @@ public class Filters {
         return filtersList;
     }
 
+    public boolean hasCustomFilters() {
+        if (filters == null || filters.isEmpty()) {
+            return false;
+        }
+        for (Filter filter : get()) {
+            if (filter instanceof CustomFilter) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isEmpty() {
+        return filters.isEmpty();
+    }
+
     public boolean hasFilters(String fieldName) {
         return filters.containsKey(fieldName);
     }
@@ -80,5 +96,4 @@ public class Filters {
         Map<FilterOperator, List<Filter>> filtersForField = filters.get(fieldName);
         return (filtersForField == null) ? null : filtersForField.get(operator);
     }
-
 }

@@ -20,6 +20,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp.ServiceEnum;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp.StatusEnum;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 
 @Preamble(description = "Adapter for certificate")
 @Internal
@@ -93,15 +94,29 @@ public class CertificateAdapter {
         };
     }
 
-    public static TrustedCertificateReq reverseMap(Certificate certificate) {
+    public static TrustedCertificateReq reverseMapAdd(Certificate certificate) {
         if (certificate == null) {
             return null;
         }
         TrustedCertificateReq request = new TrustedCertificateReq();
         request.setCertificate(certificate.getCertificateData());
         request.setName(certificate.getName());
-        request.setService(toServiceType(certificate.getType()));
-        request.setStatus(reverseStatus(certificate.getStatus()));
+        request.setService(reverseAddRequestServiceType(certificate.getType()));
+        request.setStatus(reverseAddRequestStatus(certificate.getStatus()));
+        request.setSignature(certificate.getSignature());
+        request.setDescription(certificate.getDescription());
+        return request;
+    }
+
+    public static TrustedCertificateUpdateReq reverseMapUpdate(Certificate certificate) {
+        if (certificate == null) {
+            return null;
+        }
+        TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
+        request.setCertificate(certificate.getCertificateData());
+        request.setName(certificate.getName());
+        request.setService(reverseUpdateRequestServiceType(certificate.getType()));
+        request.setStatus(reverseUpdateRequestStatus(certificate.getStatus()));
         request.setSignature(certificate.getSignature());
         request.setDescription(certificate.getDescription());
         return request;
@@ -134,12 +149,24 @@ public class CertificateAdapter {
         return certificateStatus;
     }
 
-    private static TrustedCertificateReq.StatusEnum reverseStatus(CertificateStatus status) {
+    private static TrustedCertificateReq.StatusEnum reverseAddRequestStatus(CertificateStatus status) {
         switch (status) {
             case ACTIVE:
                 return TrustedCertificateReq.StatusEnum.ACTIVE;
             case INACTIVE:
                 return TrustedCertificateReq.StatusEnum.INACTIVE;
+            default:
+                return null;
+
+        }
+    }
+
+    private static TrustedCertificateUpdateReq.StatusEnum reverseUpdateRequestStatus(CertificateStatus status) {
+        switch (status) {
+            case ACTIVE:
+                return TrustedCertificateUpdateReq.StatusEnum.ACTIVE;
+            case INACTIVE:
+                return TrustedCertificateUpdateReq.StatusEnum.INACTIVE;
             default:
                 return null;
 
@@ -166,7 +193,7 @@ public class CertificateAdapter {
         return certificateType;
     }
 
-    private static TrustedCertificateReq.ServiceEnum toServiceType(CertificateType service) {
+    private static TrustedCertificateReq.ServiceEnum reverseAddRequestServiceType(CertificateType service) {
         switch (service) {
             case BOOTSTRAP:
                 return TrustedCertificateReq.ServiceEnum.BOOTSTRAP;
@@ -174,6 +201,20 @@ public class CertificateAdapter {
                 return TrustedCertificateReq.ServiceEnum.BOOTSTRAP;
             case LWM2M:
                 return TrustedCertificateReq.ServiceEnum.LWM2M;
+            default:
+                return null;
+
+        }
+    }
+
+    private static TrustedCertificateUpdateReq.ServiceEnum reverseUpdateRequestServiceType(CertificateType service) {
+        switch (service) {
+            case BOOTSTRAP:
+                return TrustedCertificateUpdateReq.ServiceEnum.BOOTSTRAP;
+            case DEVELOPER:
+                return TrustedCertificateUpdateReq.ServiceEnum.BOOTSTRAP;
+            case LWM2M:
+                return TrustedCertificateUpdateReq.ServiceEnum.LWM2M;
             default:
                 return null;
 

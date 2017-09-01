@@ -67,7 +67,7 @@ public class TestServer {
         if (server == null) {
             Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
             HttpServerOptions options = new HttpServerOptions();
-            options.setMaxInitialLineLength(options.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
+            options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
             router = Router.router(vertx);
         }

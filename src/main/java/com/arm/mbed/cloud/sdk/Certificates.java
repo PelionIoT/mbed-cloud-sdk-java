@@ -178,7 +178,7 @@ public class Certificates extends AbstractAPI {
 
                     @Override
                     public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMap(finalCertificate));
+                        return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMapAdd(finalCertificate));
                     }
                 });
         return Certificate.merge(accountCertificate,
@@ -240,7 +240,7 @@ public class Certificates extends AbstractAPI {
                     @Override
                     public Call<TrustedCertificateResp> call() {
                         return endpoint.getAccountDeveloper().updateCertificate(finalCertificate.getId(),
-                                CertificateAdapter.reverseMap(finalCertificate));
+                                CertificateAdapter.reverseMapUpdate(finalCertificate));
                     }
                 });
     }

@@ -75,6 +75,7 @@ subprojects {
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
 project(':backends:mds').javadoc.enabled = false
+project(':backends:statistics').javadoc.enabled = false
 
 def updateArtifactList(propertyName, value){
         def props = new Properties()
