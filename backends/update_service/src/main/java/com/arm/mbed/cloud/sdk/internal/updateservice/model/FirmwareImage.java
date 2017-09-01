@@ -63,10 +63,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The url to binary file of firmware image.
+   * The firmware image file URL
    * @return datafile
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The url to binary file of firmware image.")
+  @ApiModelProperty(example = "null", required = true, value = "The firmware image file URL")
   public String getDatafile() {
     return datafile;
   }
@@ -81,10 +81,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The description of the object.
+   * The description of the object
    * @return description
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The description of the object.")
+  @ApiModelProperty(example = "null", required = true, value = "The description of the object")
   public String getDescription() {
     return description;
   }
@@ -99,10 +99,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The time the object was created.
+   * The time the object was created
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was created.")
+  @ApiModelProperty(example = "null", required = true, value = "The time the object was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -117,10 +117,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The API resource entity.
+   * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API resource entity.")
+  @ApiModelProperty(example = "null", required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -135,10 +135,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The time the object was updated.
+   * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was updated.")
+  @ApiModelProperty(example = "null", required = true, value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -153,10 +153,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The entity instance signature.
+   * The entity instance signature
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The entity instance signature.")
+  @ApiModelProperty(example = "null", required = true, value = "The entity instance signature")
   public DateTime getEtag() {
     return etag;
   }
@@ -171,10 +171,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * Checksum generated for the datafile.
+   * Checksum generated for the datafile
    * @return datafileChecksum
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Checksum generated for the datafile.")
+  @ApiModelProperty(example = "null", required = true, value = "Checksum generated for the datafile")
   public String getDatafileChecksum() {
     return datafileChecksum;
   }
@@ -189,10 +189,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * Size of the datafile (in bytes).
+   * Size of the datafile in bytes
    * @return datafileSize
   **/
-  @ApiModelProperty(example = "null", value = "Size of the datafile (in bytes).")
+  @ApiModelProperty(example = "null", value = "Size of the datafile in bytes")
   public Long getDatafileSize() {
     return datafileSize;
   }
@@ -207,10 +207,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The ID of the firmware image.
+   * The firmware image ID
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The ID of the firmware image.")
+  @ApiModelProperty(example = "null", required = true, value = "The firmware image ID")
   public String getId() {
     return id;
   }
@@ -225,10 +225,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * The name of the object.
+   * The firmware image name
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The name of the object.")
+  @ApiModelProperty(example = "null", required = true, value = "The firmware image name")
   public String getName() {
     return name;
   }

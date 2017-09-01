@@ -48,7 +48,7 @@ public class FirmwareImagePage implements Serializable {
   private List<FirmwareImage> data = new ArrayList<FirmwareImage>();
 
   /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    */
   public enum OrderEnum {
     @SerializedName("ASC")
@@ -191,10 +191,10 @@ public class FirmwareImagePage implements Serializable {
   }
 
    /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    * @return order
   **/
-  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC")
   public OrderEnum getOrder() {
     return order;
   }

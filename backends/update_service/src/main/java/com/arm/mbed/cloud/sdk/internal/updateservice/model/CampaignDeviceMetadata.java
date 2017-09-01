@@ -118,10 +118,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The ID of the campaign the device is in
+   * The device's campaign ID
    * @return campaign
   **/
-  @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The ID of the campaign the device is in")
+  @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The device's campaign ID")
   public String getCampaign() {
     return campaign;
   }
@@ -190,10 +190,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The mechanism used to deliver the firmware (connector or direct)
+   * How the firmware is delivered (connector or direct)
    * @return mechanism
   **/
-  @ApiModelProperty(example = "connector", value = "The mechanism used to deliver the firmware (connector or direct)")
+  @ApiModelProperty(example = "connector", value = "How the firmware is delivered (connector or direct)")
   public String getMechanism() {
     return mechanism;
   }
@@ -208,10 +208,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The name of the record
+   * The record name
    * @return name
   **/
-  @ApiModelProperty(example = "default_object_name", value = "The name of the record")
+  @ApiModelProperty(example = "default_object_name", value = "The record name")
   public String getName() {
     return name;
   }
@@ -244,10 +244,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The URL of cloud connect used
+   * The Cloud Connect URL
    * @return mechanismUrl
   **/
-  @ApiModelProperty(example = "", value = "The URL of cloud connect used")
+  @ApiModelProperty(example = "", value = "The Cloud Connect URL")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
@@ -280,10 +280,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The ID of the metadata record
+   * The metadata record ID
    * @return id
   **/
-  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The ID of the metadata record")
+  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The metadata record ID")
   public String getId() {
     return id;
   }
@@ -298,10 +298,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The ID of the device
+   * The device ID
    * @return deviceId
   **/
-  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The ID of the device")
+  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The device ID")
   public String getDeviceId() {
     return deviceId;
   }

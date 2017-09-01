@@ -48,9 +48,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-File datafile = new File("/path/to/file.txt"); // File | The firmware image file to upload.
-String name = "name_example"; // String | The name of the object.
-String description = "description_example"; // String | The description of the object.
+File datafile = new File("/path/to/file.txt"); // File | The firmware image file to upload
+String name = "name_example"; // String | The name of the firmware image
+String description = "description_example"; // String | The description of the firmware image
 try {
     FirmwareImage result = apiInstance.firmwareImageCreate(datafile, name, description);
     System.out.println(result);
@@ -64,9 +64,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **File**| The firmware image file to upload. |
- **name** | **String**| The name of the object. |
- **description** | **String**| The description of the object. | [optional]
+ **datafile** | **File**| The firmware image file to upload |
+ **name** | **String**| The name of the firmware image |
+ **description** | **String**| The description of the firmware image | [optional]
 
 ### Return type
 
@@ -107,7 +107,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String imageId = "imageId_example"; // String | The ID of the firmware image.
+String imageId = "imageId_example"; // String | The firmware image ID
 try {
     Void result = apiInstance.firmwareImageDestroy(imageId);
     System.out.println(result);
@@ -121,7 +121,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **imageId** | **String**| The ID of the firmware image. |
+ **imageId** | **String**| The firmware image ID |
 
 ### Return type
 
@@ -142,7 +142,7 @@ Name | Type | Description  | Notes
 
 
 
-List all firmware images
+List all firmware images.
 
 ### Example
 ```java
@@ -162,11 +162,11 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many firmware images to retrieve
 String order = "order_example"; // String | ASC or DESC
-String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
-String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data. The result will be paged into pages of 50.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By firmware image properties (all properties are filterable): For example: ```name={value}``` ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```name=MyName&bootstrapped&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
+String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
 try {
     FirmwareImagePage result = apiInstance.firmwareImageList(limit, order, after, filter, include);
     System.out.println(result);
@@ -180,11 +180,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many firmware images to retrieve | [optional]
  **order** | **String**| ASC or DESC | [optional]
- **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
- **filter** | **String**| URL encoded query string parameter to filter returned data. The result will be paged into pages of 50.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By firmware image properties (all properties are filterable): For example: &#x60;&#x60;&#x60;name&#x3D;{value}&#x60;&#x60;&#x60; ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;name&#x3D;MyName&amp;bootstrapped&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded: &#x60;&#x60;&#x60;?filter&#x3D;name%3DMyName%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60; | [optional]
- **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
+ **filter** | **String**| URL-encoded query string parameter to filter returned data. The results are paginated into groups of 50.  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60; | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 
@@ -225,7 +225,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String imageId = "imageId_example"; // String | The ID of the firmware image.
+String imageId = "imageId_example"; // String | The firmware image ID
 try {
     FirmwareImage result = apiInstance.firmwareImageRetrieve(imageId);
     System.out.println(result);
@@ -239,7 +239,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **imageId** | **String**| The ID of the firmware image. |
+ **imageId** | **String**| The firmware image ID |
 
 ### Return type
 
@@ -280,9 +280,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-File datafile = new File("/path/to/file.txt"); // File | The manifest file to create. The size of the file is account specific and enforced by the api gateway.
-String name = "name_example"; // String | The name of the object.
-String description = "description_example"; // String | The description of the object.
+File datafile = new File("/path/to/file.txt"); // File | The manifest file to create. The API gateway enforces the account-specific file size.
+String name = "name_example"; // String | The name of the firmware manifest
+String description = "description_example"; // String | The description of the firmware manifest
 try {
     FirmwareManifest result = apiInstance.firmwareManifestCreate(datafile, name, description);
     System.out.println(result);
@@ -296,9 +296,9 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **datafile** | **File**| The manifest file to create. The size of the file is account specific and enforced by the api gateway. |
- **name** | **String**| The name of the object. |
- **description** | **String**| The description of the object. | [optional]
+ **datafile** | **File**| The manifest file to create. The API gateway enforces the account-specific file size. |
+ **name** | **String**| The name of the firmware manifest |
+ **description** | **String**| The description of the firmware manifest | [optional]
 
 ### Return type
 
@@ -339,7 +339,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String manifestId = "manifestId_example"; // String | The ID of the firmware manifest.
+String manifestId = "manifestId_example"; // String | The firmware manifest ID
 try {
     Void result = apiInstance.firmwareManifestDestroy(manifestId);
     System.out.println(result);
@@ -353,7 +353,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **manifestId** | **String**| The ID of the firmware manifest. |
+ **manifestId** | **String**| The firmware manifest ID |
 
 ### Return type
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 
 
 
-List all firmware manifests.
+List firmware manifests.
 
 ### Example
 ```java
@@ -394,11 +394,11 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many firmware manifests to retrieve
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
-String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL-encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ##### By manifest ID: ```manifest_id={id}```  ##### By firmware manifest properties (all properties are filterable):  ```device_class={value}```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```device_class=1234&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z```  Encoded: ```?filter=device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
+String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
 try {
     FirmwareManifestPage result = apiInstance.firmwareManifestList(limit, order, after, filter, include);
     System.out.println(result);
@@ -412,11 +412,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many firmware manifests to retrieve | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
- **filter** | **String**| URL-encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL-encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ##### By manifest ID: &#x60;&#x60;&#x60;manifest_id&#x3D;{id}&#x60;&#x60;&#x60;  ##### By firmware manifest properties (all properties are filterable):  &#x60;&#x60;&#x60;device_class&#x3D;{value}&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;device_class&#x3D;1234&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60;  Encoded: &#x60;&#x60;&#x60;?filter&#x3D;device_class%3D1234%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60; | [optional]
- **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
+ **filter** | **String**| URL-encoded query string parameter to filter returned data  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60; | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 
@@ -457,7 +457,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String manifestId = "manifestId_example"; // String | The ID of the firmware manifest.
+String manifestId = "manifestId_example"; // String | The firmware manifest ID
 try {
     FirmwareManifest result = apiInstance.firmwareManifestRetrieve(manifestId);
     System.out.println(result);
@@ -471,7 +471,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **manifestId** | **String**| The ID of the firmware manifest. |
+ **manifestId** | **String**| The firmware manifest ID |
 
 ### Return type
 
@@ -492,7 +492,7 @@ Name | Type | Description  | Notes
 
 
 
-&lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
+Create an update campaign.
 
 ### Example
 ```java
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 
 
 
-&lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
+Delete an update campaign.
 
 ### Example
 ```java
@@ -602,7 +602,7 @@ Name | Type | Description  | Notes
 
 
 
-The APIs for creating and manipulating update campaigns.
+Get update campaigns for devices specified by a filter.
 
 ### Example
 ```java
@@ -622,11 +622,11 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
-String order = "order_example"; // String | ASC or DESC
-String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
-String filter = "filter_example"; // String | URL encoded query string parameter to filter returned data.  ##### Filtering ```?filter={URL encoded query string}```  The query string is made up of key/value pairs separated by ampersands. So for a query of ```key1=value1&key2=value2&key3=value3``` this would be encoded as follows: ```?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3``` The examples below show the queries in *unencoded* form.  ###### By campaign properties (all properties are filterable): For example: ```state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]```  ```root_manifest_id=43217771234242e594ddb433816c498a```  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format ```YYYY-MM-DDThh:mm:ss.msZ```. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &ndash; field name suffixed with ```__gte``` * less than or equal to &ndash; field name suffixed with ```__lte```  Lower and upper limits to a date-time range may be specified by including both the ```__gte``` and ```__lte``` forms in the filter.  ```{field name}[|__lte|__gte]={UTC RFC3339 date-time}```  ##### Multi-field example ```state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z``` Encoded: ```?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z```
-String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
+Integer limit = 56; // Integer | How many update campaigns to retrieve
+String order = "order_example"; // String | The order of the records. Acceptable values: ASC, DESC. Default: ASC
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
+String filter = "filter_example"; // String | URL-encoded query string parameter to filter returned data  <br/> ``` ?filter={URL-encoded query string} ``` <br/>  The query string is made up of key-value pairs separated by ampersands. For example, this query: ``` key1=value1&key2=value2&key3=value3 ```  would be URL-encoded as: ``` ?filter=key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 ``` <br/>  The examples below show the queries in *unencoded* form.<br/>  <br/>**Filtering by campaign properties** ``` state=[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] ```  <br/> ``` root_manifest_id=43217771234242e594ddb433816c498a ```  <br/>**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, `YYYY-MM-DDThh:mm:ss.msZ`. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: `2016-11-30T16:25:12.1234Z` * UTC RFC3339 without milliseconds. Example: `2016-11-30T16:25:12Z` * UTC RFC3339 shortened without milliseconds and punctuation. Example: `20161130T162512Z`  Date-time filtering supports three operators:  * equality * greater than or equal to by appending `__gte` to the field name * less than or equal to by appending `__lte` to the field name  ``` {field name}[|__lte|__gte]={UTC RFC3339 date-time} ``` <br/>  Time ranges may be specified by including both the `__gte` and `__lte` forms in the filter. For example:  ``` created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  <br/>**Filtering on multiple fields**  Example: ``` state=deployed&created_at__gte=2016-11-30T16:25:12.1234Z&created_at__lte=2016-12-30T00:00:00Z ```  The example after URL encoding: ``` ?filter=state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z ```
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
 try {
     UpdateCampaignPage result = apiInstance.updateCampaignList(limit, order, after, filter, include);
     System.out.println(result);
@@ -640,11 +640,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
- **order** | **String**| ASC or DESC | [optional]
- **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
- **filter** | **String**| URL encoded query string parameter to filter returned data.  ##### Filtering &#x60;&#x60;&#x60;?filter&#x3D;{URL encoded query string}&#x60;&#x60;&#x60;  The query string is made up of key/value pairs separated by ampersands. So for a query of &#x60;&#x60;&#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;&#x60;&#x60; this would be encoded as follows: &#x60;&#x60;&#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;&#x60;&#x60; The examples below show the queries in *unencoded* form.  ###### By campaign properties (all properties are filterable): For example: &#x60;&#x60;&#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;&#x60;&#x60;  &#x60;&#x60;&#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;&#x60;&#x60;  ###### On date-time fields: Date-time fields should be specified in UTC RFC3339 format &#x60;&#x60;&#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;&#x60;&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds e.g. 2016-11-30T16:25:12.1234Z * UTC RFC3339 without milliseconds e.g. 2016-11-30T16:25:12Z * UTC RFC3339 shortened - without milliseconds and punctuation e.g. 20161130T162512Z  Date-time filtering supports three operators:  * equality * greater than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; * less than or equal to &amp;ndash; field name suffixed with &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60;  Lower and upper limits to a date-time range may be specified by including both the &#x60;&#x60;&#x60;__gte&#x60;&#x60;&#x60; and &#x60;&#x60;&#x60;__lte&#x60;&#x60;&#x60; forms in the filter.  &#x60;&#x60;&#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;&#x60;&#x60;  ##### Multi-field example &#x60;&#x60;&#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;&#x60;&#x60; Encoded: &#x60;&#x60;&#x60;?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z&#x60;&#x60;&#x60; | [optional]
- **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
+ **limit** | **Integer**| How many update campaigns to retrieve | [optional]
+ **order** | **String**| The order of the records. Acceptable values: ASC, DESC. Default: ASC | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
+ **filter** | **String**| URL-encoded query string parameter to filter returned data  &lt;br/&gt; &#x60;&#x60;&#x60; ?filter&#x3D;{URL-encoded query string} &#x60;&#x60;&#x60; &lt;br/&gt;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;&#x60;&#x60; key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3 &#x60;&#x60;&#x60;  would be URL-encoded as: &#x60;&#x60;&#x60; ?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3 &#x60;&#x60;&#x60; &lt;br/&gt;  The examples below show the queries in *unencoded* form.&lt;br/&gt;  &lt;br/&gt;**Filtering by campaign properties** &#x60;&#x60;&#x60; state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired] &#x60;&#x60;&#x60;  &lt;br/&gt; &#x60;&#x60;&#x60; root_manifest_id&#x3D;43217771234242e594ddb433816c498a &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;&#x60;&#x60; {field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time} &#x60;&#x60;&#x60; &lt;br/&gt;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;&#x60;&#x60; created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  &lt;br/&gt;**Filtering on multiple fields**  Example: &#x60;&#x60;&#x60; state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z &#x60;&#x60;&#x60;  The example after URL encoding: &#x60;&#x60;&#x60; ?filter&#x3D;state%3Ddeployed%26created_at__gte%3D2016-11-30T16%3A25%3A12.1234Z%26created_at__lte%3D2016-11-30T00%3A00%3A00Z &#x60;&#x60;&#x60; | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 
@@ -665,7 +665,7 @@ Name | Type | Description  | Notes
 
 
 
-&lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
+Modify a subset of an update campaign&#39;s fields.
 
 ### Example
 ```java
@@ -722,7 +722,7 @@ Name | Type | Description  | Notes
 
 
 
-&lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
+Get an update campaign.
 
 ### Example
 ```java
@@ -742,7 +742,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The ID of the campaign
+String campaignId = "campaignId_example"; // String | The campaign ID
 try {
     UpdateCampaign result = apiInstance.updateCampaignRetrieve(campaignId);
     System.out.println(result);
@@ -756,7 +756,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The ID of the campaign |
+ **campaignId** | **String**| The campaign ID |
 
 ### Return type
 
@@ -777,7 +777,7 @@ Name | Type | Description  | Notes
 
 
 
-&lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
+Modify an update campaign.
 
 ### Example
 ```java
@@ -834,6 +834,8 @@ Name | Type | Description  | Notes
 
 
 
+Get update campaign metadata.
+
 ### Example
 ```java
 // Import classes:
@@ -852,8 +854,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The ID of the update campaign
-String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The ID of the campaign device metadata
+String campaignId = "campaignId_example"; // String | The update campaign ID
+String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The campaign device metadata ID
 try {
     CampaignDeviceMetadata result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
     System.out.println(result);
@@ -867,8 +869,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The ID of the update campaign |
- **campaignDeviceMetadataId** | **String**| The ID of the campaign device metadata |
+ **campaignId** | **String**| The update campaign ID |
+ **campaignDeviceMetadataId** | **String**| The campaign device metadata ID |
 
 ### Return type
 
@@ -889,6 +891,8 @@ Name | Type | Description  | Notes
 
 
 
+Get campaign device metadata.
+
 ### Example
 ```java
 // Import classes:
@@ -907,11 +911,11 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The ID of the update campaign
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+String campaignId = "campaignId_example"; // String | The update campaign ID
+Integer limit = 56; // Integer | How many objects to retrieve in the page
 String order = "order_example"; // String | ASC or DESC
-String after = "after_example"; // String | The ID of the the item after which to retrieve the next page.
-String include = "include_example"; // String | Comma separated list of data fields to return. Currently supported: total_count
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
 try {
     CampaignDeviceMetadataPage result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
     System.out.println(result);
@@ -925,11 +929,11 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The ID of the update campaign |
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **campaignId** | **String**| The update campaign ID |
+ **limit** | **Integer**| How many objects to retrieve in the page | [optional]
  **order** | **String**| ASC or DESC | [optional]
- **after** | **String**| The ID of the the item after which to retrieve the next page. | [optional]
- **include** | **String**| Comma separated list of data fields to return. Currently supported: total_count | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
 
 ### Return type
 

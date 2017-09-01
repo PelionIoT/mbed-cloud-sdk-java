@@ -48,7 +48,7 @@ public class UpdateCampaignPage implements Serializable {
   private List<UpdateCampaign> data = new ArrayList<UpdateCampaign>();
 
   /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    */
   public enum OrderEnum {
     @SerializedName("ASC")
@@ -191,10 +191,10 @@ public class UpdateCampaignPage implements Serializable {
   }
 
    /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    * @return order
   **/
-  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC")
   public OrderEnum getOrder() {
     return order;
   }

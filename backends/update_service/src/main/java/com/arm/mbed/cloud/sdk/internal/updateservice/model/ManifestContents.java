@@ -64,10 +64,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.
+   * The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
    * @return classId
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the device class that the update targets.")
+  @ApiModelProperty(example = "null", value = "The device class's 128-bit RFC4122 GUID as a hexidecimal digit string")
   public String getClassId() {
     return classId;
   }
@@ -82,10 +82,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * Hex representation of the 128-bit RFC4122 GUID that represents the vendor.
+   * The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
    * @return vendorId
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that represents the vendor.")
+  @ApiModelProperty(example = "null", value = "The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string")
   public String getVendorId() {
     return vendorId;
   }
@@ -100,10 +100,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * The version of the manifest format being used.
+   * The manifest format version
    * @return manifestVersion
   **/
-  @ApiModelProperty(example = "null", value = "The version of the manifest format being used.")
+  @ApiModelProperty(example = "null", value = "The manifest format version")
   public Integer getManifestVersion() {
     return manifestVersion;
   }
@@ -118,10 +118,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * A short description of the update.
+   * A short description of the update
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "A short description of the update.")
+  @ApiModelProperty(example = "null", value = "A short description of the update")
   public String getDescription() {
     return description;
   }
@@ -190,10 +190,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * A flag that indicates that the update described by the manifest should be applied as soon as possible.
+   * A flag that indicates whether the update described by the manifest should be applied as soon as possible
    * @return applyImmediately
   **/
-  @ApiModelProperty(example = "null", value = "A flag that indicates that the update described by the manifest should be applied as soon as possible.")
+  @ApiModelProperty(example = "null", value = "A flag that indicates whether the update described by the manifest should be applied as soon as possible")
   public Boolean getApplyImmediately() {
     return applyImmediately;
   }
@@ -208,10 +208,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.
+   * The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
    * @return deviceId
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the 128-bit RFC4122 GUID that uniquely identifies the device. Each device has a single, unique device ID.")
+  @ApiModelProperty(example = "null", value = "The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.")
   public String getDeviceId() {
     return deviceId;
   }

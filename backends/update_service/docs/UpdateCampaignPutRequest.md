@@ -4,13 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** | An optional description of the campaign. | 
+**description** | **String** | An optional description of the campaign | 
 **rootManifestId** | **String** |  | 
-**object** | **String** | The API resource entity. | 
-**when** | **String** | The timestamp at which update campaign scheduled to start. | 
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign. | 
-**deviceFilter** | **String** | The filter for the devices the campaign will target. | 
-**name** | **String** | A name for this campaign. | 
+**object** | **String** | The API resource entity | 
+**when** | **String** | The scheduled start time for the update campaign | 
+**state** | [**StateEnum**](#StateEnum) | The state of the campaign | 
+**deviceFilter** | **String** | The filter for the devices the campaign will target | 
+**name** | **String** | The campaign&#39;s name | 
 
 
 <a name="StateEnum"></a>

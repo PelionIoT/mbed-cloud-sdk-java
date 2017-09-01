@@ -39,7 +39,7 @@ public class UpdateCampaignPatchRequest implements Serializable {
   private String when = null;
 
   /**
-   * The state of the campaign.
+   * The state of the campaign
    */
   public enum StateEnum {
     @SerializedName("draft")
@@ -96,10 +96,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * An optional description of the campaign.
+   * The optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "An optional description of the campaign.")
+  @ApiModelProperty(example = "null", value = "The optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -132,10 +132,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * The API resource entity.
+   * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "The API resource entity.")
+  @ApiModelProperty(example = "null", value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -150,10 +150,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * The timestamp at which update campaign scheduled to start.
+   * The scheduled start time for the update campaign
    * @return when
   **/
-  @ApiModelProperty(example = "null", value = "The timestamp at which update campaign scheduled to start.")
+  @ApiModelProperty(example = "null", value = "The scheduled start time for the update campaign")
   public String getWhen() {
     return when;
   }
@@ -168,10 +168,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * The state of the campaign.
+   * The state of the campaign
    * @return state
   **/
-  @ApiModelProperty(example = "null", value = "The state of the campaign.")
+  @ApiModelProperty(example = "null", value = "The state of the campaign")
   public StateEnum getState() {
     return state;
   }
@@ -186,10 +186,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * The filter for the devices the campaign will target.
+   * The filter for the devices the campaign will target
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "null", value = "The filter for the devices the campaign will target.")
+  @ApiModelProperty(example = "null", value = "The filter for the devices the campaign will target")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -204,10 +204,10 @@ public class UpdateCampaignPatchRequest implements Serializable {
   }
 
    /**
-   * A name for this campaign.
+   * The campaign name
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "A name for this campaign.")
+  @ApiModelProperty(example = "null", value = "The campaign name")
   public String getName() {
     return name;
   }
