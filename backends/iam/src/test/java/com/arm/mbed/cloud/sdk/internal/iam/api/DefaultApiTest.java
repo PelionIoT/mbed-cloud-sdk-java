@@ -1,7 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -22,31 +21,6 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
-    
-    /**
-     * Download agreement as a document.
-     *
-     * Endpoint for download limits by account ID.
-     */
-    @Test
-    public void downloadAgreementTest() {
-        String agreementId = null;
-        // Void response = api.downloadAgreement(agreementId);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * The heartbeat method for this API.
-     *
-     * 
-     */
-    @Test
-    public void headDownloadsTest() {
-        // Void response = api.headDownloads();
-
-        // TODO: test validations
-    }
     
     /**
      * Get alive status

@@ -38,10 +38,10 @@ public class Field implements Serializable {
   }
 
    /**
-   * Get message
+   * Message describing the erroneous situation.
    * @return message
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(example = "null", required = true, value = "Message describing the erroneous situation.")
   public String getMessage() {
     return message;
   }
@@ -56,10 +56,10 @@ public class Field implements Serializable {
   }
 
    /**
-   * Get name
+   * Name of the erroneous field.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(example = "null", required = true, value = "Name of the erroneous field.")
   public String getName() {
     return name;
   }

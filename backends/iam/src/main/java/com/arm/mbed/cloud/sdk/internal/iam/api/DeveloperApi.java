@@ -34,7 +34,7 @@ import java.util.Map;
 public interface DeveloperApi {
   /**
    * Create a new API key.
-   * An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @param body The details of the API key to be created. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
@@ -49,7 +49,7 @@ public interface DeveloperApi {
 
   /**
    * Delete API key.
-   * An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @param apiKey The ID of the API key to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
@@ -73,7 +73,7 @@ public interface DeveloperApi {
 
   /**
    * Get all API keys
-   * An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
@@ -176,7 +176,7 @@ public interface DeveloperApi {
   /**
    * Get account info.
    * Returns detailed information about the account. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39; .
-   * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
+   * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. (optional)
    * @return Call&lt;AccountInfo&gt;
    */
   
@@ -187,7 +187,7 @@ public interface DeveloperApi {
 
   /**
    * Get API key details.
-   * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
   
@@ -254,7 +254,7 @@ public interface DeveloperApi {
 
   /**
    * Update API key details.
-   * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @param body New API key attributes to be stored. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */

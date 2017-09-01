@@ -36,8 +36,8 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("city")
   private String city = null;
 
-  @SerializedName("address_line1")
-  private String addressLine1 = null;
+  @SerializedName("password_policy")
+  private PasswordPolicy passwordPolicy = null;
 
   @SerializedName("display_name")
   private String displayName = null;
@@ -51,17 +51,17 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
-  @SerializedName("state")
-  private String state = null;
-
   @SerializedName("contact")
   private String contact = null;
 
+  @SerializedName("state")
+  private String state = null;
+
+  @SerializedName("address_line1")
+  private String addressLine1 = null;
+
   @SerializedName("postal_code")
   private String postalCode = null;
-
-  @SerializedName("password_policy")
-  private PasswordPolicy passwordPolicy = null;
 
   @SerializedName("end_market")
   private String endMarket = null;
@@ -111,22 +111,22 @@ public class AccountUpdateReq implements Serializable {
     this.city = city;
   }
 
-  public AccountUpdateReq addressLine1(String addressLine1) {
-    this.addressLine1 = addressLine1;
+  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
     return this;
   }
 
    /**
-   * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
-   * @return addressLine1
+   * Password policy for this account.
+   * @return passwordPolicy
   **/
-  @ApiModelProperty(example = "null", value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
-  public String getAddressLine1() {
-    return addressLine1;
+  @ApiModelProperty(example = "null", value = "Password policy for this account.")
+  public PasswordPolicy getPasswordPolicy() {
+    return passwordPolicy;
   }
 
-  public void setAddressLine1(String addressLine1) {
-    this.addressLine1 = addressLine1;
+  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
   }
 
   public AccountUpdateReq displayName(String displayName) {
@@ -201,24 +201,6 @@ public class AccountUpdateReq implements Serializable {
     this.idleTimeout = idleTimeout;
   }
 
-  public AccountUpdateReq state(String state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * The state part of the postal address, not longer than 100 characters.
-   * @return state
-  **/
-  @ApiModelProperty(example = "null", value = "The state part of the postal address, not longer than 100 characters.")
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
-  }
-
   public AccountUpdateReq contact(String contact) {
     this.contact = contact;
     return this;
@@ -237,6 +219,42 @@ public class AccountUpdateReq implements Serializable {
     this.contact = contact;
   }
 
+  public AccountUpdateReq state(String state) {
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state part of the postal address, not longer than 100 characters.
+   * @return state
+  **/
+  @ApiModelProperty(example = "null", value = "The state part of the postal address, not longer than 100 characters.")
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
+  public AccountUpdateReq addressLine1(String addressLine1) {
+    this.addressLine1 = addressLine1;
+    return this;
+  }
+
+   /**
+   * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
+   * @return addressLine1
+  **/
+  @ApiModelProperty(example = "null", value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
+  public String getAddressLine1() {
+    return addressLine1;
+  }
+
+  public void setAddressLine1(String addressLine1) {
+    this.addressLine1 = addressLine1;
+  }
+
   public AccountUpdateReq postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
@@ -253,24 +271,6 @@ public class AccountUpdateReq implements Serializable {
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
-  }
-
-  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
-    return this;
-  }
-
-   /**
-   * Password policy for this account.
-   * @return passwordPolicy
-  **/
-  @ApiModelProperty(example = "null", value = "Password policy for this account.")
-  public PasswordPolicy getPasswordPolicy() {
-    return passwordPolicy;
-  }
-
-  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
   }
 
   public AccountUpdateReq endMarket(String endMarket) {
@@ -362,15 +362,15 @@ public class AccountUpdateReq implements Serializable {
     AccountUpdateReq accountUpdateReq = (AccountUpdateReq) o;
     return Objects.equals(this.addressLine2, accountUpdateReq.addressLine2) &&
         Objects.equals(this.city, accountUpdateReq.city) &&
-        Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
+        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
         Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
-        Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
+        Objects.equals(this.state, accountUpdateReq.state) &&
+        Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
-        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
         Objects.equals(this.email, accountUpdateReq.email) &&
@@ -379,7 +379,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, passwordPolicy, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, passwordPolicy, displayName, country, company, idleTimeout, contact, state, addressLine1, postalCode, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -390,15 +390,15 @@ public class AccountUpdateReq implements Serializable {
     
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
-    sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
+    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
-    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

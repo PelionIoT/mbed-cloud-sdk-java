@@ -1,18 +1,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
@@ -65,27 +61,13 @@ public class AccountAdminApiTest {
     }
     
     /**
-     * Create a new account.
-     *
-     * An endpoint for creating a new account.
-     */
-    @Test
-    public void createAccountTest() {
-        AccountCreationReq body = null;
-        String action = null;
-        // AccountCreationResp response = api.createAccount(body, action);
-
-        // TODO: test validations
-    }
-    
-    /**
      * Create a new user.
      *
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
      */
     @Test
     public void createUserTest() {
-        UserCreationReq body = null;
+        UserInfoReq body = null;
         String action = null;
         // UserInfoResp response = api.createUser(body, action);
 
@@ -101,40 +83,6 @@ public class AccountAdminApiTest {
     public void deleteUserTest() {
         String userId = null;
         // Void response = api.deleteUser(userId);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * Get account info.
-     *
-     * Returns detailed information about the account.
-     */
-    @Test
-    public void getAccountInfoTest() {
-        String accountID = null;
-        String include = null;
-        // AccountInfo response = api.getAccountInfo(accountID, include);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * Get all accounts.
-     *
-     * Returns an array of account objects, optionally filtered by status and tier level.
-     */
-    @Test
-    public void getAllAccountsTest() {
-        String statusEq = null;
-        String tierEq = null;
-        String parentEq = null;
-        String endMarketEq = null;
-        Integer limit = null;
-        String after = null;
-        String include = null;
-        String format = null;
-        // AccountInfoList response = api.getAllAccounts(statusEq, tierEq, parentEq, endMarketEq, limit, after, include, format);
 
         // TODO: test validations
     }
@@ -201,23 +149,9 @@ public class AccountAdminApiTest {
     }
     
     /**
-     * Update attributes of an existing account.
-     *
-     * An endpoint for updating an account.
-     */
-    @Test
-    public void updateAccountTest() {
-        String accountID = null;
-        AccountUpdateRootReq body = null;
-        // AccountInfo response = api.updateAccount(accountID, body);
-
-        // TODO: test validations
-    }
-    
-    /**
      * Updates attributes of the account.
      *
-     * An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for updating the account. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/me -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
      */
     @Test
     public void updateMyAccountTest() {

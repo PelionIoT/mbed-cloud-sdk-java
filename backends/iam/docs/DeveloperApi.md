@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+An endpoint for creating a new API key. Example usage: curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
 
 ### Example
 ```java
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 
 Delete API key.
 
-An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+An endpoint for deleting the API key. Example usage: curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
 
 ### Example
 ```java
@@ -195,7 +195,7 @@ Name | Type | Description  | Notes
 
 Get all API keys
 
-An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+An endpoint for retrieving API keys in an array, optionally filtered by the owner. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
 
 ### Example
 ```java
@@ -636,7 +636,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperApi apiInstance = new DeveloperApi();
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
 try {
     AccountInfo result = apiInstance.getMyAccountInfo(include);
     System.out.println(result);
@@ -650,7 +650,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **include** | **String**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts | [optional]
+ **include** | **String**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional]
 
 ### Return type
 
@@ -671,7 +671,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
 
 ### Example
 ```java
@@ -948,7 +948,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+An endpoint for updating API key details. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
 
 ### Example
 ```java
