@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **fullName** | **String** | The full name of the user, not longer than 100 characters. |  [optional]
 **address** | **String** | Address, not longer than 100 characters. |  [optional]
 **password** | **String** | The password when creating a new user. It will will generated when not present in the request. |  [optional]
-**email** | **String** | The email address, not longer than 254 characters. | 
+**email** | **String** | The email address, not longer than 254 characters. |  [optional]
 
 
 

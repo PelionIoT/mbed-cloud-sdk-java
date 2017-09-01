@@ -228,7 +228,7 @@ public class UserUpdateReq implements Serializable {
    * The email address, not longer than 254 characters.
    * @return email
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The email address, not longer than 254 characters.")
+  @ApiModelProperty(example = "null", value = "The email address, not longer than 254 characters.")
   public String getEmail() {
     return email;
   }

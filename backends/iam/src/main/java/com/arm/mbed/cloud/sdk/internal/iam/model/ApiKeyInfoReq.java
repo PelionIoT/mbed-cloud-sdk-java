@@ -32,6 +32,9 @@ public class ApiKeyInfoReq implements Serializable {
   @SerializedName("owner")
   private String owner = null;
 
+  @SerializedName("status")
+  private String status = null;
+
   @SerializedName("name")
   private String name = null;
 
@@ -54,6 +57,24 @@ public class ApiKeyInfoReq implements Serializable {
 
   public void setOwner(String owner) {
     this.owner = owner;
+  }
+
+  public ApiKeyInfoReq status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the API key.
+   * @return status
+  **/
+  @ApiModelProperty(example = "null", value = "The status of the API key.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public ApiKeyInfoReq name(String name) {
@@ -108,13 +129,14 @@ public class ApiKeyInfoReq implements Serializable {
     }
     ApiKeyInfoReq apiKeyInfoReq = (ApiKeyInfoReq) o;
     return Objects.equals(this.owner, apiKeyInfoReq.owner) &&
+        Objects.equals(this.status, apiKeyInfoReq.status) &&
         Objects.equals(this.name, apiKeyInfoReq.name) &&
         Objects.equals(this.groups, apiKeyInfoReq.groups);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(owner, name, groups);
+    return Objects.hash(owner, status, name, groups);
   }
 
 
@@ -124,6 +146,7 @@ public class ApiKeyInfoReq implements Serializable {
     sb.append("class ApiKeyInfoReq {\n");
     
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("}");

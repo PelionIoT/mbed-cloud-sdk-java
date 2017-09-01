@@ -14,6 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PasswordPolicy;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,6 +59,9 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("password_policy")
+  private PasswordPolicy passwordPolicy = null;
 
   @SerializedName("end_market")
   private String endMarket = null;
@@ -251,6 +255,24 @@ public class AccountUpdateReq implements Serializable {
     this.postalCode = postalCode;
   }
 
+  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
+    return this;
+  }
+
+   /**
+   * Password policy for this account.
+   * @return passwordPolicy
+  **/
+  @ApiModelProperty(example = "null", value = "Password policy for this account.")
+  public PasswordPolicy getPasswordPolicy() {
+    return passwordPolicy;
+  }
+
+  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
+  }
+
   public AccountUpdateReq endMarket(String endMarket) {
     this.endMarket = endMarket;
     return this;
@@ -348,6 +370,7 @@ public class AccountUpdateReq implements Serializable {
         Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
+        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
         Objects.equals(this.email, accountUpdateReq.email) &&
@@ -356,7 +379,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, passwordPolicy, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -375,6 +398,7 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

@@ -20,9 +20,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in upload requests.
  */
-@ApiModel(description = "This object represents a trusted certificate in requests.")
+@ApiModel(description = "This object represents a trusted certificate in upload requests.")
 
 public class TrustedCertificateReq implements Serializable {
   private static final long serialVersionUID = 1L;

@@ -151,7 +151,7 @@ public interface DeveloperApi {
 
   /**
    * Get trusted certificate by ID.
-   * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+   * An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
    * @param certId The ID or name of the trusted certificate to be retrieved. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
    */
@@ -197,13 +197,15 @@ public interface DeveloperApi {
 
   /**
    * Details of the current user.
-   * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+   * An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+   * @param scratchCodes Request to regenerate new emergency scratch codes. (optional)
    * @return Call&lt;MyUserInfoResp&gt;
    */
   
   @GET("v3/users/me")
-  Call<MyUserInfoResp> getMyUser();
-    
+  Call<MyUserInfoResp> getMyUser(
+    @retrofit2.http.Query("scratch_codes") String scratchCodes
+  );
 
   /**
    * Remove API keys from a group.
@@ -236,7 +238,7 @@ public interface DeveloperApi {
 
   /**
    * Update trusted certificate.
-   * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+   * An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
    * @param certId The ID of the trusted certificate to be updated. (required)
    * @param body A trusted certificate object with attributes. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
@@ -264,7 +266,7 @@ public interface DeveloperApi {
 
   /**
    * Update user details.
-   * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+   * An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
    * @param body New attributes for the logged in user. (required)
    * @return Call&lt;UserUpdateResp&gt;
    */

@@ -101,6 +101,12 @@ public class UpdatedResponse implements Serializable {
     @SerializedName("invalid_token")
     INVALID_TOKEN("invalid_token"),
     
+    @SerializedName("invalid_apikey")
+    INVALID_APIKEY("invalid_apikey"),
+    
+    @SerializedName("reauth_required")
+    REAUTH_REQUIRED("reauth_required"),
+    
     @SerializedName("access_denied")
     ACCESS_DENIED("access_denied"),
     

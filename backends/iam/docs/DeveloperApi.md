@@ -506,7 +506,7 @@ Name | Type | Description  | Notes
 
 Get trusted certificate by ID.
 
-An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+An endpoint for retrieving a trusted certificate by ID. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
 
 ### Example
 ```java
@@ -718,11 +718,11 @@ This endpoint does not need any parameter.
 
 <a name="getMyUser"></a>
 # **getMyUser**
-> MyUserInfoResp getMyUser()
+> MyUserInfoResp getMyUser(scratchCodes)
 
 Details of the current user.
 
-An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+An endpoint for retrieving the details of the logged in user. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
 
 ### Example
 ```java
@@ -742,8 +742,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperApi apiInstance = new DeveloperApi();
+String scratchCodes = "scratchCodes_example"; // String | Request to regenerate new emergency scratch codes.
 try {
-    MyUserInfoResp result = apiInstance.getMyUser();
+    MyUserInfoResp result = apiInstance.getMyUser(scratchCodes);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getMyUser");
@@ -752,7 +753,10 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scratchCodes** | **String**| Request to regenerate new emergency scratch codes. | [optional]
 
 ### Return type
 
@@ -887,7 +891,7 @@ Name | Type | Description  | Notes
 
 Update trusted certificate.
 
-An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+An endpoint for updating existing trusted certificates. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
 
 ### Example
 ```java
@@ -999,7 +1003,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+An endpoint for updating the details of the logged in user. Example usage: curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
 
 ### Example
 ```java

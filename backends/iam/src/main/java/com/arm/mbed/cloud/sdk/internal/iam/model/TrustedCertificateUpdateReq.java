@@ -20,9 +20,9 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * This object represents a trusted certificate in requests.
+ * This object represents a trusted certificate in update requests.
  */
-@ApiModel(description = "This object represents a trusted certificate in requests.")
+@ApiModel(description = "This object represents a trusted certificate in update requests.")
 
 public class TrustedCertificateUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -167,10 +167,10 @@ public class TrustedCertificateUpdateReq implements Serializable {
   }
 
    /**
-   * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
+   * Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
    * @return signature
   **/
-  @ApiModelProperty(example = "null", value = "Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.")
+  @ApiModelProperty(example = "null", value = "Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.")
   public String getSignature() {
     return signature;
   }
