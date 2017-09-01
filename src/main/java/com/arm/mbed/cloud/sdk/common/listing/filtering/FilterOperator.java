@@ -6,16 +6,18 @@ import com.arm.mbed.cloud.sdk.common.SDKEnum;
 @Preamble(description = "Filter operator")
 public enum FilterOperator implements SDKEnum {
 
-    NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq"), EQUAL("equal to", null), GREATER_THAN(
-            "greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte"), LESS_THAN("less than",
-                    FilterMarshaller.SUFFIX_SEPARATOR + "lte");
+    NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"), EQUAL("equal to", null,
+            "$eq"), GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte",
+                    "$gte"), LESS_THAN("less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte", "$lte");
 
     private final String suffix;
     private final String string;
+    private final String symbol;
 
-    private FilterOperator(String string, String suffix) {
+    private FilterOperator(String string, String suffix, String symbol) {
         this.suffix = suffix;
         this.string = string;
+        this.symbol = symbol;
     }
 
     /**
@@ -32,6 +34,13 @@ public enum FilterOperator implements SDKEnum {
 
     public static FilterOperator getDefault() {
         return EQUAL;
+    }
+
+    /**
+     * @return the symbol
+     */
+    public String getSymbol() {
+        return symbol;
     }
 
     @Override
@@ -65,6 +74,19 @@ public enum FilterOperator implements SDKEnum {
                 if (suffix == null || suffix.isEmpty()) {
                     return operator;
                 }
+            }
+        }
+        return getDefault();
+    }
+
+    public static FilterOperator getFromSymbol(String symbol) {
+        if (symbol == null) {
+            return getDefault();
+        }
+        symbol = symbol.trim();
+        for (FilterOperator operator : values()) {
+            if (operator.getSymbol().equalsIgnoreCase(symbol)) {
+                return operator;
             }
         }
         return getDefault();

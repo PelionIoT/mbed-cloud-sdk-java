@@ -96,7 +96,7 @@ public class QueryAdapter {
         }
         DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.getFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
         return deviceQuery;
     }
 
@@ -106,7 +106,7 @@ public class QueryAdapter {
         }
         DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.getFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
         return deviceQuery;
     }
 

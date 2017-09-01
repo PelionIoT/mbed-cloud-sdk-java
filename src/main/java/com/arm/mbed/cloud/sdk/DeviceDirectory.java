@@ -235,9 +235,9 @@ public class DeviceDirectory extends AbstractAPI {
     /**
      * Gets a query
      * 
-     * @param deviceId
-     *            Device ID
-     * @return device corresponding to the device id or null if not found
+     * @param queryId
+     *            Query ID
+     * @return query corresponding to the device id or null if not found
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
@@ -304,7 +304,7 @@ public class DeviceDirectory extends AbstractAPI {
      * Deletes a query
      * 
      * @param queryId
-     *            query ID of the device to delete
+     *            query ID of the query to delete
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */
@@ -374,9 +374,9 @@ public class DeviceDirectory extends AbstractAPI {
     /**
      * Gets a single device event
      * 
-     * @param deviceId
-     *            Device ID
-     * @return device corresponding to the device id or null if not found
+     * @param deviceEventId
+     *            Device event ID
+     * @return device event corresponding to the device event id or null if not found
      * @throws MbedCloudException
      *             if a problem occurred during request processing
      */

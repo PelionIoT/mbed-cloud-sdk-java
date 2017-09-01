@@ -6,6 +6,7 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
@@ -261,15 +262,8 @@ public class Campaign implements SDKModel {
      * @param value
      *            the value of the filter to apply
      */
-    public void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {
-        Filter filter = new Filter(fieldName, operator, value);
-        if (!filter.isValid()) {
-            return;
-        }
-        if (filters == null) {
-            filters = new Filters();
-        }
-        filters.add(filter);
+    public void addCustomDeviceFilter(String fieldName, FilterOperator operator, Object value) {
+        addDeviceFilter(new CustomFilter(fieldName, operator, value));
     }
 
     /**
@@ -550,4 +544,17 @@ public class Campaign implements SDKModel {
         addDeviceFilter(FILTER_VENDOR_ID, operator, vendorIdFilter);
     }
 
+    private void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {
+        addDeviceFilter(new Filter(fieldName, operator, value));
+    }
+
+    private void addDeviceFilter(Filter filter) {
+        if (filter == null || !filter.isValid()) {
+            return;
+        }
+        if (filters == null) {
+            filters = new Filters();
+        }
+        filters.add(filter);
+    }
 }

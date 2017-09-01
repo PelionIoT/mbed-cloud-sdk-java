@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
@@ -140,6 +141,13 @@ public class ListOptions {
      */
     public void setFilters(Filters filters) {
         this.filters = filters;
+    }
+
+    /**
+     * * @param jsonString Json string defining filters
+     */
+    public void setFiltersFromJson(String jsonString) {
+        setFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**

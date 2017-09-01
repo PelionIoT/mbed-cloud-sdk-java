@@ -1,11 +1,13 @@
 package com.arm.mbed.cloud.sdk.devicedirectory.model;
 
 import java.util.Date;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Query model")
@@ -83,18 +85,43 @@ public class Query implements SDKModel {
     }
 
     /**
-     * @return the filter
-     */
-    public Filters getFilter() {
-        return filter;
-    }
-
-    /**
      * @param filter
      *            the filter to set
      */
     public void setFilter(Filters filter) {
         this.filter = filter;
+    }
+
+    /**
+     * @return the filters
+     */
+    public Filters fetchFilter() {
+        return filter;
+    }
+
+    /**
+     * 
+     * @return the filters as a Json object
+     */
+    @Internal
+    public Map<String, Object> getFilter() {
+        return FilterMarshaller.toJsonObject(fetchFilter());
+    }
+
+    /**
+     * Gets the filter as Json String
+     * 
+     * @return the filters as a Json string
+     */
+    public String retrieveFilterAsJson() {
+        return FilterMarshaller.toJson(fetchFilter());
+    }
+
+    /**
+     * * @param jsonString Json string defining filter
+     */
+    public void setFilterFromJson(String jsonString) {
+        setFilter(FilterMarshaller.fromJson(jsonString));
     }
 
     /**

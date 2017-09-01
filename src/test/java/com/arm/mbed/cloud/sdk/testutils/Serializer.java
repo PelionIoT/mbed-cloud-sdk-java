@@ -12,9 +12,14 @@ import java.util.Set;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
 
@@ -46,9 +51,33 @@ public class Serializer {
         }
     }
 
+    private static class SDKFiltersDeserializer extends StdDeserializer<Filters> {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -1389360632544518602L;
+
+        protected SDKFiltersDeserializer(Class<Filters> vc) {
+            super(vc);
+        }
+
+        public SDKFiltersDeserializer() {
+            this(null);
+        }
+
+        @Override
+        public Filters deserialize(JsonParser p, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
+            return FilterMarshaller.fromJson(p.getValueAsString());
+        }
+
+    }
+
     static {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SDKEnum.class, new SDKEnumSerializer());
+        module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);
     }
@@ -196,10 +225,10 @@ public class Serializer {
             boolean capitalAtStart) {
         Map<String, Object> formattedResult = new LinkedHashMap<>();
         for (Entry<String, Object> entry : resultMap.entrySet()) {
+            Object value = entry.getValue();
             formattedResult.put(ApiUtils.getCaseConverter(conversion).convert(entry.getKey(), capitalAtStart),
-                    (entry.getValue() instanceof Map<?, ?>)
-                            ? reformatResultJsonMap((Map<String, Object>) entry.getValue(), conversion, capitalAtStart)
-                            : entry.getValue());
+                    (value instanceof Map<?, ?>)
+                            ? reformatResultJsonMap((Map<String, Object>) value, conversion, capitalAtStart) : value);
         }
         return formattedResult;
     }
