@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
@@ -152,6 +153,15 @@ public class ListOptions {
     }
 
     /**
+     * Gets the filter as Json String
+     * 
+     * @return the filter as a Json string
+     */
+    public String retrieveFilterAsJson() {
+        return FilterMarshaller.toJson(getFilter());
+    }
+
+    /**
      * Adds a filter to the query
      * 
      * @param fieldName
@@ -162,13 +172,30 @@ public class ListOptions {
      *            the value of the filter
      */
     public void addFilter(@Nullable String fieldName, FilterOperator operator, @Nullable Object value) {
-        if (value == null || fieldName == null) {
+        addFilter(new Filter(fieldName, operator, value));
+    }
+
+    /**
+     * Adds a custom filter to the query
+     * 
+     * @param customAttribute
+     *            custom attribute to apply the filter on
+     * @param operator
+     *            the filter operator to apply
+     * @param value
+     *            the value of the filter
+     */
+    public void addCustomFilter(@Nullable String customAttribute, FilterOperator operator, @Nullable Object value) {
+        addFilter(new CustomFilter(customAttribute, operator, value));
+    }
+
+    protected void addFilter(Filter subfilter) {
+        if (subfilter == null || !subfilter.isValid()) {
             return;
         }
         if (filter == null) {
             filter = new Filters();
         }
-        Filter subfilter = new Filter(fieldName, operator, value);
         filter.add(subfilter);
     }
 
