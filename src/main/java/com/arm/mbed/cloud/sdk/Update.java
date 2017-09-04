@@ -81,7 +81,7 @@ public class Update extends AbstractAPI {
                     public Call<FirmwareImagePage> call() {
                         return endpoint.getUpdate().firmwareImageList(finalOptions.getLimit(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                new FilterMarshaller(null).encode(finalOptions.getFilters()),
+                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
                     }
                 });
@@ -204,7 +204,7 @@ public class Update extends AbstractAPI {
                     public Call<FirmwareManifestPage> call() {
                         return endpoint.getUpdate().firmwareManifestList(finalOptions.getLimit(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                new FilterMarshaller(null).encode(finalOptions.getFilters()),
+                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
                     }
                 });
@@ -328,7 +328,7 @@ public class Update extends AbstractAPI {
                     public Call<UpdateCampaignPage> call() {
                         return endpoint.getUpdate().updateCampaignList(finalOptions.getLimit(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilters()),
+                                CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
                     }
                 });

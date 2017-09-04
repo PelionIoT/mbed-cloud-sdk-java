@@ -137,13 +137,6 @@ public class Query implements SDKModel {
     }
 
     /**
-     * @return the serialversionuid
-     */
-    public static long getSerialversionuid() {
-        return serialVersionUID;
-    }
-
-    /**
      * @return the createdAt
      */
     public Date getCreatedAt() {

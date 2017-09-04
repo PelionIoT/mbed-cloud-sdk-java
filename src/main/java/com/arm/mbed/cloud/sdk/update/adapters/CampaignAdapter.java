@@ -47,7 +47,7 @@ public class CampaignAdapter {
         updateCampaign.setName(campaign.getName());
         updateCampaign.setScheduledAt(TranslationUtils.toDate(campaign.getFinished()));
         updateCampaign.setState(toState(campaign.getState()));
-        updateCampaign.setFilters(decodeFilters(campaign.getDeviceFilter()));
+        updateCampaign.setDeviceFilter(decodeFilters(campaign.getDeviceFilter()));
         return updateCampaign;
     }
 
@@ -68,11 +68,11 @@ public class CampaignAdapter {
         }
         UpdateCampaignPostRequest addRequest = new UpdateCampaignPostRequest();
         addRequest.setDescription(campaign.getDescription());
-        addRequest.setDeviceFilter(encodeFilters(campaign.getFilters()));
+        addRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         addRequest.setName(campaign.getName());
         addRequest.setRootManifestId(campaign.getManifestId());
         addRequest.setState(toPostStateEnum(campaign.getState()));
-        addRequest.setWhen(TranslationUtils.toTimestamp(campaign.getScheduledAt()));
+        addRequest.setWhen(TranslationUtils.toRFC3339Timestamp(campaign.getScheduledAt()));
         return addRequest;
     }
 
@@ -82,11 +82,11 @@ public class CampaignAdapter {
         }
         UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
         updateRequest.setDescription(campaign.getDescription());
-        updateRequest.setDeviceFilter(encodeFilters(campaign.getFilters()));
+        updateRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         updateRequest.setName(campaign.getName());
         updateRequest.setRootManifestId(campaign.getManifestId());
         updateRequest.setState(toPutStateEnum(campaign.getState()));
-        updateRequest.setWhen(TranslationUtils.toTimestamp(campaign.getScheduledAt()));
+        updateRequest.setWhen(TranslationUtils.toRFC3339Timestamp(campaign.getScheduledAt()));
         return updateRequest;
     }
 
