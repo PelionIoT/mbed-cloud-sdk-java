@@ -78,6 +78,15 @@ public class User implements SDKModel {
     @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
+     * States whether two factor authentication has been enabled for this user
+     */
+    @DefaultValue(value = "false")
+    private final boolean twoFactorAuthentication;
+    /**
+     * History of logins for this user;
+     */
+    private final List<LoginHistory> loginHistory;
+    /**
      * A timestamp of the user creation in the storage, in milliseconds.
      */
     private final long creationTime;
@@ -92,7 +101,8 @@ public class User implements SDKModel {
 
     @Internal
     public User(String id, String accountId, List<String> groups, UserStatus status, boolean isEmailVerified,
-            Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime) {
+            Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
+            boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -103,6 +113,8 @@ public class User implements SDKModel {
         this.creationTime = creationTime;
         this.passwordChangedTime = passwordChangedTime;
         this.lastLoginTime = lastLoginTime;
+        this.twoFactorAuthentication = twoFactorAuthentication;
+        this.loginHistory = loginHistory;
         setFullName(null);
         setUsername(null);
         setPassword(null);
@@ -117,7 +129,7 @@ public class User implements SDKModel {
      * User constructor
      */
     public User() {
-        this(null, null, null, UserStatus.getDefault(), false, new Date(), 0, 0, 0);
+        this(null, null, null, UserStatus.getDefault(), false, new Date(), 0, 0, 0, false, null);
     }
 
     /**
@@ -320,6 +332,20 @@ public class User implements SDKModel {
      */
     public long getLastLoginTime() {
         return lastLoginTime;
+    }
+
+    /**
+     * @return the twoFactorAuthentication
+     */
+    public boolean isTwoFactorAuthentication() {
+        return twoFactorAuthentication;
+    }
+
+    /**
+     * @return the loginHistory
+     */
+    public List<LoginHistory> getLoginHistory() {
+        return loginHistory;
     }
 
 }

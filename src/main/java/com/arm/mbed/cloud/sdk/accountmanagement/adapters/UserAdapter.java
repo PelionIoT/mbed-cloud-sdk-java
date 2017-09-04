@@ -8,8 +8,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp.StatusEnum;
@@ -27,7 +27,9 @@ public class UserAdapter {
                 TranslationUtils.toDate(apiUser.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiUser.getPasswordChangedTime()),
-                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()));
+                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()),
+                TranslationUtils.toBool(apiUser.getIsTotpEnabled(), false),
+                LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
         user.setFullName(apiUser.getFullName());
         user.setUsername(apiUser.getUsername());
         user.setPassword(apiUser.getPassword());
