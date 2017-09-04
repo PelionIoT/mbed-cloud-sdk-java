@@ -70,7 +70,7 @@ public class DeviceDirectory extends AbstractAPI {
             @Override
             public Call<DevicePage> call() {
                 return endpoint.getDirectory().deviceList(finalOptions.getLimit(), finalOptions.getOrder().toString(),
-                        finalOptions.getAfter(), DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilters()),
+                        finalOptions.getAfter(), DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                         finalOptions.encodeInclude());
             }
         });
@@ -206,7 +206,7 @@ public class DeviceDirectory extends AbstractAPI {
             public Call<DeviceQueryPage> call() {
                 return endpoint.getDirectory().deviceQueryList(finalOptions.getLimit(),
                         finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                        new FilterMarshaller(null).encode(finalOptions.getFilters()), finalOptions.encodeInclude());
+                        new FilterMarshaller(null).encode(finalOptions.getFilter()), finalOptions.encodeInclude());
             }
         });
     }
@@ -343,7 +343,7 @@ public class DeviceDirectory extends AbstractAPI {
                     public Call<DeviceEventPage> call() {
                         return endpoint.getDirectory().deviceLogList(finalOptions.getLimit(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilters()),
+                                DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
                     }
                 });

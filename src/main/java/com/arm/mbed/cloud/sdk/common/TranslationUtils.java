@@ -4,6 +4,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -15,6 +16,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "Utilities for APIs")
 @Internal
 public class TranslationUtils {
+
+    private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
     public static Date toDate(DateTime date) {
         return (date == null) ? null : date.toDate();
@@ -80,8 +83,12 @@ public class TranslationUtils {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
-    public static String toTimestamp(Date date) {
+    public static String toDefaultTimestamp(Date date) {
         return toTimestamp(date, DateFormat.getDateTimeInstance());
+    }
+
+    public static String toRFC3339Timestamp(Date date) {
+        return toTimestamp(date, RFC3339_DATE_FORMAT);
     }
 
     public static Date convertTimestamp(String timestamp, Date defaultDate) {

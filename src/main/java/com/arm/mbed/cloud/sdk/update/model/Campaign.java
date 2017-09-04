@@ -2,8 +2,10 @@ package com.arm.mbed.cloud.sdk.update.model;
 
 import java.net.URL;
 import java.util.Date;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
@@ -11,7 +13,6 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
-import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
 
 @Preamble(description = "Campaign")
 public class Campaign implements SDKModel {
@@ -86,12 +87,12 @@ public class Campaign implements SDKModel {
     /**
      * The timestamp at which update campaign scheduled to start
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = "null")
     private Date scheduledAt;
     /**
      * filters
      */
-    private Filters filters;
+    private Filters deviceFilter;
 
     public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {
         super();
@@ -103,9 +104,9 @@ public class Campaign implements SDKModel {
         setDescription(null);
         setManifestId(null);
         setName(null);
-        setScheduledAt(new Date());
+        setScheduledAt(null);
         setState(CampaignState.getDefault());
-        setFilters(null);
+        setDeviceFilter(null);
     }
 
     public Campaign() {
@@ -237,28 +238,42 @@ public class Campaign implements SDKModel {
     /**
      * @return the filters
      */
-    public Filters getFilters() {
-        return filters;
-    }
-
-    public String getFiltersAsString() {
-        return CampaignAdapter.FILTERS_MARSHALLER.encode(filters);
+    public Filters getFilter() {
+        return deviceFilter;
     }
 
     /**
-     * @param filters
-     *            the filters to set
+     * 
+     * @return the filters as a Json object
      */
-    public void setFilters(Filters filters) {
-        this.filters = filters;
+    @Internal
+    public Map<String, Object> getDeviceFilter() {
+        return FilterMarshaller.toJsonObject(getFilter());
+    }
+
+    /**
+     * @param deviceFilter
+     *            the device filter to set
+     */
+    public void setDeviceFilter(Filters deviceFilter) {
+        this.deviceFilter = deviceFilter;
     }
 
     /**
      * @param jsonString
-     *            Json string defining filters to set
+     *            Json string defining the device filter to set
      */
-    public void setFiltersFromJson(String jsonString) {
-        setFilters(FilterMarshaller.fromJson(jsonString));
+    public void setDeviceFilterFromJson(String jsonString) {
+        setDeviceFilter(FilterMarshaller.fromJson(jsonString));
+    }
+
+    /**
+     * Gets the device filter as Json String
+     * 
+     * @return the filters as a Json string
+     */
+    public String retrieveDeviceFilterAsJson() {
+        return FilterMarshaller.toJson(getFilter());
     }
 
     /**
@@ -561,9 +576,9 @@ public class Campaign implements SDKModel {
         if (filter == null || !filter.isValid()) {
             return;
         }
-        if (filters == null) {
-            filters = new Filters();
+        if (deviceFilter == null) {
+            deviceFilter = new Filters();
         }
-        filters.add(filter);
+        deviceFilter.add(filter);
     }
 }

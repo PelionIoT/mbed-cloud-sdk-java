@@ -46,7 +46,13 @@ public class ListResponse<T> {
         setAfter(after);
         setLimit(limit);
         setOrder(order);
-        setData(null);
+        initialiseData();
+    }
+
+    private void initialiseData() {
+        if (data == null) {
+            setData(new LinkedList<T>());
+        }
     }
 
     public ListResponse() {
@@ -163,9 +169,7 @@ public class ListResponse<T> {
         if (dataToAdd == null) {
             return;
         }
-        if (this.data == null) {
-            this.data = new LinkedList<>();
-        }
+        initialiseData();
         this.data.add(dataToAdd);
     }
 
@@ -175,9 +179,7 @@ public class ListResponse<T> {
      * @return the page iterator
      */
     public Iterator<T> iterator() {
-        if (data == null) {
-            return null;
-        }
+        initialiseData();
         return data.iterator();
     }
 

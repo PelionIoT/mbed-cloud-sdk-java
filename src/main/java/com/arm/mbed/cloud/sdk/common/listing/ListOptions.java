@@ -36,7 +36,7 @@ public class ListOptions {
     /**
      * Optional filters
      */
-    private Filters filters;
+    private Filters filter;
 
     public ListOptions() {
         super();
@@ -44,7 +44,7 @@ public class ListOptions {
         setOrder(Order.ASC);
         setAfter(null);
         setInclude(null);
-        setFilters(null);
+        setFilter(null);
     }
 
     /**
@@ -131,16 +131,16 @@ public class ListOptions {
     /**
      * @return the filters
      */
-    public Filters getFilters() {
-        return filters;
+    public Filters getFilter() {
+        return filter;
     }
 
     /**
-     * @param filters
+     * @param filter
      *            the filters to set
      */
-    public void setFilters(Filters filters) {
-        this.filters = filters;
+    public void setFilter(Filters filter) {
+        this.filter = filter;
     }
 
     /**
@@ -148,7 +148,7 @@ public class ListOptions {
      *            Json string defining filters
      */
     public void setFiltersFromJson(String jsonString) {
-        setFilters(FilterMarshaller.fromJson(jsonString));
+        setFilter(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
@@ -165,11 +165,11 @@ public class ListOptions {
         if (value == null || fieldName == null) {
             return;
         }
-        if (filters == null) {
-            filters = new Filters();
+        if (filter == null) {
+            filter = new Filters();
         }
-        Filter filter = new Filter(fieldName, operator, value);
-        filters.add(filter);
+        Filter subfilter = new Filter(fieldName, operator, value);
+        filter.add(subfilter);
     }
 
     /**
@@ -185,10 +185,10 @@ public class ListOptions {
     }
 
     protected Object fetchEqualFilterValue(@Nullable String fieldName) {
-        if (fieldName == null || filters == null) {
+        if (fieldName == null || filter == null) {
             return null;
         }
-        List<Filter> list = filters.get(fieldName, FilterOperator.EQUAL);
+        List<Filter> list = filter.get(fieldName, FilterOperator.EQUAL);
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -196,10 +196,10 @@ public class ListOptions {
     }
 
     protected List<Filter> fetchFilters(@Nullable String fieldName) {
-        if (fieldName == null || filters == null) {
+        if (fieldName == null || filter == null) {
             return null;
         }
-        return filters.get(fieldName);
+        return filter.get(fieldName);
     }
 
     /**
