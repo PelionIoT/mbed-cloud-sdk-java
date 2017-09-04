@@ -21,17 +21,19 @@ public class MetricAdapter {
             return null;
         }
         Metric metric = new Metric();
-        metric.setFailedApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()));
-        metric.setFailedDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsFailed()));
-        // metric.setFailedHandshakes(TranslationUtils.toLong(apiMetric.get));
         metric.setId(apiMetric.getId());
-        metric.setPendingDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsPending()));
-        metric.setRegisteredDevices(TranslationUtils.toLong(apiMetric.getRegisteredDevices()));
+        metric.setFailedApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()));
+        metric.setFailedBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsFailed()));
+        metric.setPendingBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsPending()));
         metric.setSuccessfulApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()));
-        metric.setSuccessfulDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()));
+        metric.setSuccessfulBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()));
         metric.setSuccessfulHandshakes(TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()));
         metric.setTimestamp(TranslationUtils.convertTimestamp(apiMetric.getTimestamp(), new Date()));
         metric.setTransactions(TranslationUtils.toLong(apiMetric.getTransactions()));
+        metric.setRegistrations(TranslationUtils.toLong(apiMetric.getFullRegistrations()));
+        metric.setUpdatedRegistrations(TranslationUtils.toLong(apiMetric.getRegistrationUpdates()));
+        metric.setExpiredRegistrations(TranslationUtils.toLong(apiMetric.getExpiredRegistrations()));
+        metric.setDeletedRegistrations(TranslationUtils.toLong(apiMetric.getDeletedRegistrations()));
         return metric;
     }
 
