@@ -20,52 +20,31 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * Field
+ * PasswordPolicy
  */
 
-public class Field implements Serializable {
+public class PasswordPolicy implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("message")
-  private String message = null;
+  @SerializedName("minimum_length")
+  private String minimumLength = null;
 
-  @SerializedName("name")
-  private String name = null;
-
-  public Field message(String message) {
-    this.message = message;
+  public PasswordPolicy minimumLength(String minimumLength) {
+    this.minimumLength = minimumLength;
     return this;
   }
 
    /**
-   * Message describing the erroneous situation.
-   * @return message
+   * Minimum length for the password. A number between 8 and 512.
+   * @return minimumLength
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Message describing the erroneous situation.")
-  public String getMessage() {
-    return message;
+  @ApiModelProperty(example = "null", required = true, value = "Minimum length for the password. A number between 8 and 512.")
+  public String getMinimumLength() {
+    return minimumLength;
   }
 
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public Field name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of the erroneous field.
-   * @return name
-  **/
-  @ApiModelProperty(example = "null", required = true, value = "Name of the erroneous field.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
+  public void setMinimumLength(String minimumLength) {
+    this.minimumLength = minimumLength;
   }
 
 
@@ -77,24 +56,22 @@ public class Field implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Field field = (Field) o;
-    return Objects.equals(this.message, field.message) &&
-        Objects.equals(this.name, field.name);
+    PasswordPolicy passwordPolicy = (PasswordPolicy) o;
+    return Objects.equals(this.minimumLength, passwordPolicy.minimumLength);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(message, name);
+    return Objects.hash(minimumLength);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Field {\n");
+    sb.append("class PasswordPolicy {\n");
     
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    minimumLength: ").append(toIndentedString(minimumLength)).append("\n");
     sb.append("}");
     return sb.toString();
   }

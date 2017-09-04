@@ -65,7 +65,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * List all firmware images
+     * List all firmware images.
      */
     @Test
     public void firmwareImageListTest() {
@@ -123,7 +123,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * List all firmware manifests.
+     * List firmware manifests.
      */
     @Test
     public void firmwareManifestListTest() {
@@ -153,7 +153,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Create update campaign&lt;/p&gt;
+     * Create an update campaign.
      */
     @Test
     public void updateCampaignCreateTest() {
@@ -166,7 +166,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Delete update campaign&lt;/p&gt;
+     * Delete an update campaign.
      */
     @Test
     public void updateCampaignDestroyTest() {
@@ -179,7 +179,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * The APIs for creating and manipulating update campaigns.
+     * Get update campaigns for devices specified by a filter.
      */
     @Test
     public void updateCampaignListTest() {
@@ -196,7 +196,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign fields&lt;/p&gt;
+     * Modify a subset of an update campaign&#39;s fields.
      */
     @Test
     public void updateCampaignPartialUpdateTest() {
@@ -210,7 +210,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Retrieve campaign&lt;/p&gt;
+     * Get an update campaign.
      */
     @Test
     public void updateCampaignRetrieveTest() {
@@ -223,7 +223,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * &lt;p&gt;The APIs for creating and manipulating update campaigns. Update campaigns are used to control firmware update to a list of devices specified by a filter.  &lt;/p&gt; &lt;p&gt;Update campaign&lt;/p&gt;
+     * Modify an update campaign.
      */
     @Test
     public void updateCampaignUpdateTest() {
@@ -237,7 +237,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * 
+     * Get update campaign metadata.
      */
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
@@ -251,7 +251,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * 
+     * Get campaign device metadata.
      */
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {

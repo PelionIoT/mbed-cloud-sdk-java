@@ -48,7 +48,7 @@ public class CampaignDeviceMetadataPage implements Serializable {
   private List<CampaignDeviceMetadata> data = new ArrayList<CampaignDeviceMetadata>();
 
   /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    */
   public enum OrderEnum {
     @SerializedName("ASC")
@@ -78,10 +78,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The entity ID to fetch after the given one.
+   * The entity ID to fetch after the given one
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "The entity ID to fetch after the given one.")
+  @ApiModelProperty(example = "null", value = "The entity ID to fetch after the given one")
   public String getAfter() {
     return after;
   }
@@ -96,10 +96,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Flag indicating whether there is more results.
+   * Flag indicating whether there are more results
    * @return hasMore
   **/
-  @ApiModelProperty(example = "false", value = "Flag indicating whether there is more results.")
+  @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
   public Boolean getHasMore() {
     return hasMore;
   }
@@ -191,10 +191,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    * @return order
   **/
-  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC")
   public OrderEnum getOrder() {
     return order;
   }

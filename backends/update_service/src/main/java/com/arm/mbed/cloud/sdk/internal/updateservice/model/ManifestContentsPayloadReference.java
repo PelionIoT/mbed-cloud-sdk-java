@@ -59,10 +59,10 @@ public class ManifestContentsPayloadReference implements Serializable {
   }
 
    /**
-   * The URI of the payload.
+   * The payload URI
    * @return uri
   **/
-  @ApiModelProperty(example = "null", value = "The URI of the payload.")
+  @ApiModelProperty(example = "null", value = "The payload URI")
   public String getUri() {
     return uri;
   }

@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **after** | **String** |  |  [optional]
 **limit** | **Integer** |  |  [optional]
 **data** | [**List&lt;FirmwareManifest&gt;**](FirmwareManifest.md) |  |  [optional]
-**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Available values: ASC, DESC; by default ASC. |  [optional]
+**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Acceptable values: ASC, DESC. Default: ASC |  [optional]
 
 
 <a name="OrderEnum"></a>

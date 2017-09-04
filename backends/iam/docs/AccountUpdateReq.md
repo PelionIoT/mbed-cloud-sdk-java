@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **state** | **String** | The state part of the postal address, not longer than 100 characters. |  [optional]
 **contact** | **String** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address, not longer than 100 characters. |  [optional]
+**passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | Password policy for this account. |  [optional]
 **endMarket** | **String** | The end market for this account, not longer than 100 characters. |  [optional]
 **phoneNumber** | **String** | The phone number of the company, not longer than 100 characters. |  [optional]
 **email** | **String** | The company email address for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
