@@ -40,7 +40,7 @@ public class UpdateCampaign implements Serializable {
   private String object = null;
 
   @SerializedName("when")
-  private String when = null;
+  private DateTime when = null;
 
   /**
    * The state of the campaign
@@ -181,7 +181,7 @@ public class UpdateCampaign implements Serializable {
     this.object = object;
   }
 
-  public UpdateCampaign when(String when) {
+  public UpdateCampaign when(DateTime when) {
     this.when = when;
     return this;
   }
@@ -191,11 +191,11 @@ public class UpdateCampaign implements Serializable {
    * @return when
   **/
   @ApiModelProperty(example = "null", value = "The scheduled start time for the update campaign")
-  public String getWhen() {
+  public DateTime getWhen() {
     return when;
   }
 
-  public void setWhen(String when) {
+  public void setWhen(DateTime when) {
     this.when = when;
   }
 

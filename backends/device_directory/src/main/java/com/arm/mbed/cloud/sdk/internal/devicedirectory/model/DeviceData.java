@@ -17,6 +17,9 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -193,7 +196,7 @@ public class DeviceData implements Serializable {
   private String manifest = null;
 
   @SerializedName("custom_attributes")
-  private Object customAttributes = null;
+  private Map<String, String> customAttributes = new HashMap<String, String>();
 
   public DeviceData bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -735,21 +738,26 @@ public class DeviceData implements Serializable {
     this.manifest = manifest;
   }
 
-  public DeviceData customAttributes(Object customAttributes) {
+  public DeviceData customAttributes(Map<String, String> customAttributes) {
     this.customAttributes = customAttributes;
     return this;
   }
 
+  public DeviceData putCustomAttributesItem(String key, String customAttributesItem) {
+    this.customAttributes.put(key, customAttributesItem);
+    return this;
+  }
+
    /**
-   * Up to 5 custom JSON attributes
+   * Custom attributes(key/value). Up to 5 attributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "null", value = "Up to 5 custom JSON attributes")
-  public Object getCustomAttributes() {
+  @ApiModelProperty(example = "null", value = "Custom attributes(key/value). Up to 5 attributes")
+  public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
 
-  public void setCustomAttributes(Object customAttributes) {
+  public void setCustomAttributes(Map<String, String> customAttributes) {
     this.customAttributes = customAttributes;
   }
 

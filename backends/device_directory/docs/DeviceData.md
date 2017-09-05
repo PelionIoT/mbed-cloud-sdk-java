@@ -34,7 +34,7 @@ Name | Type | Description | Notes
 **deviceKey** | **String** | Fingerprint of the device certificate. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Timestamp of when the device was created in the device directory. |  [optional]
 **manifest** | **String** | DEPRECATED The URL for the current device manifest. |  [optional]
-**customAttributes** | **Object** | Up to 5 custom JSON attributes |  [optional]
+**customAttributes** | **Map&lt;String, String&gt;** | Custom attributes(key/value). Up to 5 attributes |  [optional]
 
 
 <a name="MechanismEnum"></a>

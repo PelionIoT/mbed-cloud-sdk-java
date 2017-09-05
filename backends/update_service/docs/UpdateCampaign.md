@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **rootManifestId** | **String** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The time the update campaign was created |  [optional]
 **object** | **String** | The API resource entity |  [optional]
-**when** | **String** | The scheduled start time for the update campaign |  [optional]
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
 **etag** | **String** | The entity instance signature |  [optional]
