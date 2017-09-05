@@ -33,14 +33,13 @@ public class StatisticsApiTest {
     public void v3MetricsGetTest() {
         String include = null;
         String interval = null;
-        String authorization = null;
         String start = null;
         String end = null;
         String period = null;
         Integer limit = null;
         String after = null;
         String order = null;
-        // SuccessfulResponse response = api.v3MetricsGet(include, interval, authorization, start, end, period, limit, after, order);
+        // SuccessfulResponse response = api.v3MetricsGet(include, interval, start, end, period, limit, after, order);
 
         // TODO: test validations
     }
