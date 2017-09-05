@@ -17,6 +17,9 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -42,7 +45,7 @@ public class DeviceDataPutRequest implements Serializable {
   private String object = null;
 
   @SerializedName("custom_attributes")
-  private Object customAttributes = null;
+  private Map<String, String> customAttributes = new HashMap<String, String>();
 
   @SerializedName("device_key")
   private String deviceKey = null;
@@ -146,21 +149,26 @@ public class DeviceDataPutRequest implements Serializable {
     this.object = object;
   }
 
-  public DeviceDataPutRequest customAttributes(Object customAttributes) {
+  public DeviceDataPutRequest customAttributes(Map<String, String> customAttributes) {
     this.customAttributes = customAttributes;
     return this;
   }
 
+  public DeviceDataPutRequest putCustomAttributesItem(String key, String customAttributesItem) {
+    this.customAttributes.put(key, customAttributesItem);
+    return this;
+  }
+
    /**
-   * Up to 5 custom JSON attributes
+   * Custom attributes(key/value). Up to 5 attributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "null", value = "Up to 5 custom JSON attributes")
-  public Object getCustomAttributes() {
+  @ApiModelProperty(example = "null", value = "Custom attributes(key/value). Up to 5 attributes")
+  public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
 
-  public void setCustomAttributes(Object customAttributes) {
+  public void setCustomAttributes(Map<String, String> customAttributes) {
     this.customAttributes = customAttributes;
   }
 

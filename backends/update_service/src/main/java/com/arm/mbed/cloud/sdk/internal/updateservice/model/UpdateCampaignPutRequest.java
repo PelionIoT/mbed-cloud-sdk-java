@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -36,7 +37,7 @@ public class UpdateCampaignPutRequest implements Serializable {
   private String object = null;
 
   @SerializedName("when")
-  private String when = null;
+  private DateTime when = null;
 
   /**
    * The state of the campaign
@@ -144,7 +145,7 @@ public class UpdateCampaignPutRequest implements Serializable {
     this.object = object;
   }
 
-  public UpdateCampaignPutRequest when(String when) {
+  public UpdateCampaignPutRequest when(DateTime when) {
     this.when = when;
     return this;
   }
@@ -154,11 +155,11 @@ public class UpdateCampaignPutRequest implements Serializable {
    * @return when
   **/
   @ApiModelProperty(example = "null", required = true, value = "The scheduled start time for the update campaign")
-  public String getWhen() {
+  public DateTime getWhen() {
     return when;
   }
 
-  public void setWhen(String when) {
+  public void setWhen(DateTime when) {
     this.when = when;
   }
 

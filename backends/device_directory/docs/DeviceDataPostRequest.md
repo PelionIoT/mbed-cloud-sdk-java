@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **autoUpdate** | **Boolean** | DEPRECATED Mark this device for auto firmware update. |  [optional]
 **hostGateway** | **String** | The endpoint_name of the host gateway, if appropriate. |  [optional]
 **deviceExecutionMode** | **Integer** | Defines the type of certificate used. |  [optional]
-**customAttributes** | **Object** | Up to 5 custom JSON attributes |  [optional]
+**customAttributes** | **Map&lt;String, String&gt;** | Custom attributes(key/value). Up to 5 attributes |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The current state of the device. |  [optional]
 **serialNumber** | **String** | The serial number of the device. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
