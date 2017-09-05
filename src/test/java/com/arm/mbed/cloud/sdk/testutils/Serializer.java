@@ -90,8 +90,18 @@ public class Serializer {
      */
     public static String convertResultToJson(Object result) {
         return (result == null || result instanceof Void) ? "{}"
-                : (result instanceof List) ? reformatJsonList((List<?>) result).encode()
-                        : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false).encode();
+                : (result instanceof String) ? reformatString((String) result)
+                        : (result instanceof List) ? reformatJsonList((List<?>) result).encode()
+                                : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false)
+                                        .encode();
+    }
+
+    private static String reformatString(String result) {
+        result = result.trim();
+        if (!result.startsWith("{")) {
+            result = "{\"message\":\"" + result + "\"}";
+        }
+        return result;
     }
 
     public static JsonArray reformatJsonList(List<?> result) {

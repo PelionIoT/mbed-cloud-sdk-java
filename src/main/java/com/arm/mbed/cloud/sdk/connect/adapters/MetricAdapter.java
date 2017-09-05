@@ -20,21 +20,19 @@ public class MetricAdapter {
         if (apiMetric == null) {
             return null;
         }
-        Metric metric = new Metric();
-        metric.setId(apiMetric.getId());
-        metric.setFailedApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()));
-        metric.setFailedBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsFailed()));
-        metric.setPendingBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsPending()));
-        metric.setSuccessfulApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()));
-        metric.setSuccessfulBootstraps(TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()));
-        metric.setSuccessfulHandshakes(TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()));
-        metric.setTimestamp(TranslationUtils.convertTimestamp(apiMetric.getTimestamp(), new Date()));
-        metric.setTransactions(TranslationUtils.toLong(apiMetric.getTransactions()));
-        metric.setRegistrations(TranslationUtils.toLong(apiMetric.getFullRegistrations()));
-        metric.setUpdatedRegistrations(TranslationUtils.toLong(apiMetric.getRegistrationUpdates()));
-        metric.setExpiredRegistrations(TranslationUtils.toLong(apiMetric.getExpiredRegistrations()));
-        metric.setDeletedRegistrations(TranslationUtils.toLong(apiMetric.getDeletedRegistrations()));
-        return metric;
+        return new Metric(apiMetric.getId(),
+                TranslationUtils.convertRFC3339Timestamp(apiMetric.getTimestamp(), new Date()),
+                TranslationUtils.toLong(apiMetric.getTransactions()),
+                TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()),
+                TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()),
+                TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsPending()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsFailed()),
+                TranslationUtils.toLong(apiMetric.getFullRegistrations()),
+                TranslationUtils.toLong(apiMetric.getRegistrationUpdates()),
+                TranslationUtils.toLong(apiMetric.getExpiredRegistrations()),
+                TranslationUtils.toLong(apiMetric.getDeletedRegistrations()));
     }
 
     public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
@@ -67,18 +65,29 @@ public class MetricAdapter {
     }
 
     public static String mapIncludes(List<IncludeField> includeFields) {
-        if (includeFields == null) {
-            return null;
-        }
         IncludeMapping mapping = IncludeMappingHolder.Instance;
+        // In case no field is specified, default includes are used
+        if (includeFields == null) {
+            return mapping.getDefaultIncludes();
+        }
         StringBuilder builder = new StringBuilder();
         boolean start = true;
+        int numberOfIncludedFields = 0;
         for (IncludeField field : includeFields) {
             if (!start) {
                 builder.append(",");
             }
-            builder.append(mapping.getMappedValue(field.toString()));
+            String mappedValue = mapping.getMappedValue(field.toString());
+            if (mappedValue == null) {
+                continue;
+            }
+            builder.append(mappedValue);
+            numberOfIncludedFields++;
             start = false;
+        }
+        // In case no field could be mapped, default includes are used
+        if (numberOfIncludedFields == 0) {
+            return mapping.getDefaultIncludes();
         }
         return builder.toString();
     }
@@ -90,6 +99,7 @@ public class MetricAdapter {
     private static class IncludeMapping {
 
         private final Map<String, String> mapping;
+        private final String defaultIncludes;
 
         public IncludeMapping() {
             super();
@@ -101,6 +111,20 @@ public class MetricAdapter {
             mapping.put("successfulApiCalls", "device_server_rest_api_success");
             mapping.put("failedApiCalls", "device_server_rest_api_error");
 
+            boolean start = true;
+            StringBuilder builder = new StringBuilder();
+            for (String field : mapping.values()) {
+                if (!start) {
+                    builder.append(",");
+                }
+                builder.append(field);
+                start = false;
+            }
+            defaultIncludes = builder.toString();
+        }
+
+        public String getDefaultIncludes() {
+            return defaultIncludes;
         }
 
         public String getMappedValue(String value) {
