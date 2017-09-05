@@ -46,8 +46,8 @@ public class TestTimePeriod {
         assertEquals("2w", period.toString());
         period = new TimePeriod("1y");
         assertEquals(TimeUnit.DAYS, period.getUnit());
-        assertEquals(365, period.getDuration());
-        assertEquals("365d", period.toString());
+        assertEquals(366, period.getDuration());
+        assertEquals("1y", period.toString());
     }
 
 }

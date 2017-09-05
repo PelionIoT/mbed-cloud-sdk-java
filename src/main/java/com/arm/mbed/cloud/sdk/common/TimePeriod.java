@@ -5,10 +5,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Time period")
 public class TimePeriod implements Cloneable {
+    @Internal
     private enum PeriodTimeUnit {
         YEARS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, NANOSECONDS;
     }
@@ -49,6 +51,12 @@ public class TimePeriod implements Cloneable {
         setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
     }
 
+    /**
+     * Set time period from a string
+     * 
+     * @see fromString() for more information
+     * @param value
+     */
     public TimePeriod(String value) {
         fromString(value);
     }
@@ -108,7 +116,9 @@ public class TimePeriod implements Cloneable {
         StringBuilder builder = new StringBuilder();
         switch (unit) {
             case DAYS:
-                if (duration >= 7 && duration % 7 == 0) {
+                if (duration >= 366 && duration % 366 == 0) {// This case should not happen
+                    builder.append(duration / 366).append("y");
+                } else if (duration >= 7 && duration % 7 == 0) {
                     builder.append(duration / 7).append("w");
                 } else {
                     builder.append(duration).append("d");
@@ -147,6 +157,14 @@ public class TimePeriod implements Cloneable {
         return builder.toString();
     }
 
+    /**
+     * Sets time period from a string:
+     * 
+     * @param value
+     *            string value specifying the period in nanoseconds, seconds, minutes, hours, days or weeks. Sample
+     *            values: 10000n, 50s, 5m, 2h, 3d, 4w. The maximum period cannot exceed one year (365 days). The allowed
+     *            ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.
+     */
     public void fromString(String value) {
         setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
         if (value == null || value.isEmpty()) {
@@ -184,9 +202,9 @@ public class TimePeriod implements Cloneable {
                 setUnit(TimeUnit.DAYS);
                 setDuration(7l * duration);
                 break;
-            case YEARS:
+            case YEARS:// This case should not happen.
                 setUnit(TimeUnit.DAYS);
-                setDuration(365l * duration);
+                setDuration(366l * duration);
                 break;
             default:
                 break;
@@ -202,7 +220,7 @@ public class TimePeriod implements Cloneable {
             return DEFAULT_UNIT;
         }
         switch (trimmedString) {
-            case "y":
+            case "y":// This case should not happen
                 return PeriodTimeUnit.YEARS;
             case "w":
                 return PeriodTimeUnit.WEEKS;
