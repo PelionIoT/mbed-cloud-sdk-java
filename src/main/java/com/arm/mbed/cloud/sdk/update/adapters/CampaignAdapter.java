@@ -72,7 +72,7 @@ public class CampaignAdapter {
         addRequest.setName(campaign.getName());
         addRequest.setRootManifestId(campaign.getManifestId());
         addRequest.setState(toPostStateEnum(campaign.getState()));
-        addRequest.setWhen(TranslationUtils.toRFC3339Timestamp(campaign.getScheduledAt()));
+        addRequest.setWhen(TranslationUtils.toDateTime(campaign.getScheduledAt()));
         return addRequest;
     }
 
@@ -86,7 +86,7 @@ public class CampaignAdapter {
         updateRequest.setName(campaign.getName());
         updateRequest.setRootManifestId(campaign.getManifestId());
         updateRequest.setState(toPutStateEnum(campaign.getState()));
-        updateRequest.setWhen(TranslationUtils.toRFC3339Timestamp(campaign.getScheduledAt()));
+        updateRequest.setWhen(TranslationUtils.toDateTime(campaign.getScheduledAt()));
         return updateRequest;
     }
 

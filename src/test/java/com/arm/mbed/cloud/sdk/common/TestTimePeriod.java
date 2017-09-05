@@ -18,6 +18,12 @@ public class TestTimePeriod {
         period.setDuration(100);
         period.setUnit(TimeUnit.HOURS);
         assertEquals("100h", period.toString());
+        period.setDuration(14);
+        period.setUnit(TimeUnit.DAYS);
+        assertEquals("2w", period.toString());
+        period.setDuration(15);
+        period.setUnit(TimeUnit.DAYS);
+        assertEquals("15d", period.toString());
     }
 
     @Test
@@ -33,6 +39,15 @@ public class TestTimePeriod {
         period.fromString(" 1000 s ");
         assertEquals(TimeUnit.SECONDS, period.getUnit());
         assertEquals(1000, period.getDuration());
+        assertEquals("1000s", period.toString());
+        period = new TimePeriod("2w");
+        assertEquals(TimeUnit.DAYS, period.getUnit());
+        assertEquals(14, period.getDuration());
+        assertEquals("2w", period.toString());
+        period = new TimePeriod("1y");
+        assertEquals(TimeUnit.DAYS, period.getUnit());
+        assertEquals(365, period.getDuration());
+        assertEquals("365d", period.toString());
     }
 
 }
