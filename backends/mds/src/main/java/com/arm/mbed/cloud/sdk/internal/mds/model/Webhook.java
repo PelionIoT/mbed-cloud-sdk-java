@@ -17,6 +17,9 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -30,7 +33,7 @@ public class Webhook implements Serializable {
   private String url = null;
 
   @SerializedName("headers")
-  private Object headers = null;
+  private Map<String, String> headers = new HashMap<String, String>();
 
   public Webhook url(String url) {
     this.url = url;
@@ -50,8 +53,13 @@ public class Webhook implements Serializable {
     this.url = url;
   }
 
-  public Webhook headers(Object headers) {
+  public Webhook headers(Map<String, String> headers) {
     this.headers = headers;
+    return this;
+  }
+
+  public Webhook putHeadersItem(String key, String headersItem) {
+    this.headers.put(key, headersItem);
     return this;
   }
 
@@ -60,11 +68,11 @@ public class Webhook implements Serializable {
    * @return headers
   **/
   @ApiModelProperty(example = "null", value = "Headers (key/value) that are sent with the notification. Optional.")
-  public Object getHeaders() {
+  public Map<String, String> getHeaders() {
     return headers;
   }
 
-  public void setHeaders(Object headers) {
+  public void setHeaders(Map<String, String> headers) {
     this.headers = headers;
   }
 

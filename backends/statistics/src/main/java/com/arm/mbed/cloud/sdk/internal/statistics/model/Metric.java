@@ -17,6 +17,7 @@ import java.util.Objects;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -42,7 +43,7 @@ public class Metric implements Serializable {
   private Long transactions = null;
 
   @SerializedName("timestamp")
-  private String timestamp = null;
+  private DateTime timestamp = null;
 
   @SerializedName("device_server_rest_api_success")
   private Long deviceServerRestApiSuccess = null;
@@ -155,7 +156,7 @@ public class Metric implements Serializable {
     this.transactions = transactions;
   }
 
-  public Metric timestamp(String timestamp) {
+  public Metric timestamp(DateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
@@ -165,11 +166,11 @@ public class Metric implements Serializable {
    * @return timestamp
   **/
   @ApiModelProperty(example = "null", value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
-  public String getTimestamp() {
+  public DateTime getTimestamp() {
     return timestamp;
   }
 
-  public void setTimestamp(String timestamp) {
+  public void setTimestamp(DateTime timestamp) {
     this.timestamp = timestamp;
   }
 
