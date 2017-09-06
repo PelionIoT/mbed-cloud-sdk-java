@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.statistics.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.Metric;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -45,7 +50,7 @@ public class SuccessfulResponse implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<Metric> data = new ArrayList<Metric>();
+  private List<Metric> data = null;
 
   public SuccessfulResponse after(String after) {
     this.after = after;
@@ -56,7 +61,7 @@ public class SuccessfulResponse implements Serializable {
    * The metric ID included in the request or null.
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "The metric ID included in the request or null.")
+  @ApiModelProperty(value = "The metric ID included in the request or null.")
   public String getAfter() {
     return after;
   }
@@ -74,7 +79,7 @@ public class SuccessfulResponse implements Serializable {
    * Indicates whether there are more results for you to fetch in the next page.
    * @return hasMore
   **/
-  @ApiModelProperty(example = "null", value = "Indicates whether there are more results for you to fetch in the next page.")
+  @ApiModelProperty(value = "Indicates whether there are more results for you to fetch in the next page.")
   public Boolean getHasMore() {
     return hasMore;
   }
@@ -92,7 +97,7 @@ public class SuccessfulResponse implements Serializable {
    * The total number of records available.
    * @return totalCount
   **/
-  @ApiModelProperty(example = "null", value = "The total number of records available.")
+  @ApiModelProperty(value = "The total number of records available.")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -110,7 +115,7 @@ public class SuccessfulResponse implements Serializable {
    * API resource name.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "API resource name.")
+  @ApiModelProperty(value = "API resource name.")
   public String getObject() {
     return object;
   }
@@ -128,7 +133,7 @@ public class SuccessfulResponse implements Serializable {
    * The limit used in the request to retrieve the results.
    * @return limit
   **/
-  @ApiModelProperty(example = "null", value = "The limit used in the request to retrieve the results.")
+  @ApiModelProperty(value = "The limit used in the request to retrieve the results.")
   public Integer getLimit() {
     return limit;
   }
@@ -143,6 +148,9 @@ public class SuccessfulResponse implements Serializable {
   }
 
   public SuccessfulResponse addDataItem(Metric dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<Metric>();
+    }
     this.data.add(dataItem);
     return this;
   }
@@ -151,7 +159,7 @@ public class SuccessfulResponse implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<Metric> getData() {
     return data;
   }

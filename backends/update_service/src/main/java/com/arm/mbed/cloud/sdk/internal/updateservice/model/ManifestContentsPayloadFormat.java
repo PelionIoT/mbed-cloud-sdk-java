@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -38,7 +43,7 @@ public class ManifestContentsPayloadFormat implements Serializable {
    * Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf 
    * @return _enum
   **/
-  @ApiModelProperty(example = "null", value = "Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf ")
+  @ApiModelProperty(value = "Format of the payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf ")
   public Integer getEnum() {
     return _enum;
   }

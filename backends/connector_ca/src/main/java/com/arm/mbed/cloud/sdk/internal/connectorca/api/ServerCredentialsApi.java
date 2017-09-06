@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -23,7 +24,6 @@ public interface ServerCredentialsApi {
    * @param authorization Bearer {Access Token}.  (required)
    * @return Call&lt;ServerCredentialsResponseData&gt;
    */
-  
   @GET("v3/server-credentials/bootstrap")
   Call<ServerCredentialsResponseData> v3ServerCredentialsBootstrapGet(
     @retrofit2.http.Header("Authorization") String authorization
@@ -35,7 +35,6 @@ public interface ServerCredentialsApi {
    * @param authorization Bearer {Access Token}.  (required)
    * @return Call&lt;ServerCredentialsResponseData&gt;
    */
-  
   @GET("v3/server-credentials/lwm2m")
   Call<ServerCredentialsResponseData> v3ServerCredentialsLwm2mGet(
     @retrofit2.http.Header("Authorization") String authorization

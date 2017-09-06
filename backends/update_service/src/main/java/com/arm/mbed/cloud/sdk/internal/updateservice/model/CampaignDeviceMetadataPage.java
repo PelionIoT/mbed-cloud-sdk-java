@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -45,16 +50,15 @@ public class CampaignDeviceMetadataPage implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<CampaignDeviceMetadata> data = new ArrayList<CampaignDeviceMetadata>();
+  private List<CampaignDeviceMetadata> data = null;
 
   /**
    * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    */
+  @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
-    @SerializedName("ASC")
     ASC("ASC"),
     
-    @SerializedName("DESC")
     DESC("DESC");
 
     private String value;
@@ -63,9 +67,35 @@ public class CampaignDeviceMetadataPage implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static OrderEnum fromValue(String text) {
+      for (OrderEnum b : OrderEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<OrderEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final OrderEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public OrderEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return OrderEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -81,7 +111,7 @@ public class CampaignDeviceMetadataPage implements Serializable {
    * The entity ID to fetch after the given one
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "The entity ID to fetch after the given one")
+  @ApiModelProperty(value = "The entity ID to fetch after the given one")
   public String getAfter() {
     return after;
   }
@@ -168,6 +198,9 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
   public CampaignDeviceMetadataPage addDataItem(CampaignDeviceMetadata dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<CampaignDeviceMetadata>();
+    }
     this.data.add(dataItem);
     return this;
   }
@@ -176,7 +209,7 @@ public class CampaignDeviceMetadataPage implements Serializable {
    * A list of entities
    * @return data
   **/
-  @ApiModelProperty(example = "null", value = "A list of entities")
+  @ApiModelProperty(value = "A list of entities")
   public List<CampaignDeviceMetadata> getData() {
     return data;
   }

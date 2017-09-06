@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.statistics.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -32,7 +33,6 @@ public interface AccountApi {
    * @param order The order of the records to return. Available values are ASC and DESC. The default value is ASC.  (optional)
    * @return Call&lt;SuccessfulResponse&gt;
    */
-  
   @GET("v3/metrics")
   Call<SuccessfulResponse> v3MetricsGet(
     @retrofit2.http.Query("include") String include, @retrofit2.http.Query("interval") String interval, @retrofit2.http.Query("start") LocalDate start, @retrofit2.http.Query("end") LocalDate end, @retrofit2.http.Query("period") String period, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order

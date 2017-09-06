@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.mds.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -24,10 +25,9 @@ public interface EndpointsApi {
    * @param deviceId A unique mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  (required)
    * @return Call&lt;List&lt;Resource&gt;&gt;
    */
-  
   @GET("v2/endpoints/{device-id}")
   Call<List<Resource>> v2EndpointsDeviceIdGet(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**
@@ -36,7 +36,6 @@ public interface EndpointsApi {
    * @param type Filter endpoints by endpoint-type. (optional)
    * @return Call&lt;List&lt;Endpoint&gt;&gt;
    */
-  
   @GET("v2/endpoints")
   Call<List<Endpoint>> v2EndpointsGet(
     @retrofit2.http.Query("type") String type

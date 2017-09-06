@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -31,11 +36,10 @@ public class TrustedCertificateResp implements Serializable {
   /**
    * Service name where the certificate is to be used.
    */
+  @JsonAdapter(ServiceEnum.Adapter.class)
   public enum ServiceEnum {
-    @SerializedName("lwm2m")
     LWM2M("lwm2m"),
     
-    @SerializedName("bootstrap")
     BOOTSTRAP("bootstrap");
 
     private String value;
@@ -44,9 +48,35 @@ public class TrustedCertificateResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ServiceEnum fromValue(String text) {
+      for (ServiceEnum b : ServiceEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ServiceEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ServiceEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ServiceEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ServiceEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -56,11 +86,10 @@ public class TrustedCertificateResp implements Serializable {
   /**
    * Status of the certificate.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("INACTIVE")
     INACTIVE("INACTIVE");
 
     private String value;
@@ -69,9 +98,35 @@ public class TrustedCertificateResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -94,31 +149,24 @@ public class TrustedCertificateResp implements Serializable {
   private DateTime createdAt = null;
 
   /**
-   * Entity name: always 'trusted-cert'
+   * Entity name: always &#39;trusted-cert&#39;
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -127,9 +175,35 @@ public class TrustedCertificateResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -166,7 +240,7 @@ public class TrustedCertificateResp implements Serializable {
    * Service name where the certificate is to be used.
    * @return service
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Service name where the certificate is to be used.")
+  @ApiModelProperty(required = true, value = "Service name where the certificate is to be used.")
   public ServiceEnum getService() {
     return service;
   }
@@ -184,7 +258,7 @@ public class TrustedCertificateResp implements Serializable {
    * Status of the certificate.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "Status of the certificate.")
+  @ApiModelProperty(value = "Status of the certificate.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -202,7 +276,7 @@ public class TrustedCertificateResp implements Serializable {
    * Human readable description of this certificate.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "Human readable description of this certificate.")
+  @ApiModelProperty(value = "Human readable description of this certificate.")
   public String getDescription() {
     return description;
   }
@@ -220,7 +294,7 @@ public class TrustedCertificateResp implements Serializable {
    * X509.v3 trusted certificate in PEM format.
    * @return certificate
   **/
-  @ApiModelProperty(example = "null", required = true, value = "X509.v3 trusted certificate in PEM format.")
+  @ApiModelProperty(required = true, value = "X509.v3 trusted certificate in PEM format.")
   public String getCertificate() {
     return certificate;
   }
@@ -238,7 +312,7 @@ public class TrustedCertificateResp implements Serializable {
    * Issuer of the certificate.
    * @return issuer
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Issuer of the certificate.")
+  @ApiModelProperty(required = true, value = "Issuer of the certificate.")
   public String getIssuer() {
     return issuer;
   }
@@ -256,7 +330,7 @@ public class TrustedCertificateResp implements Serializable {
    * Device execution mode where 1 means a developer certificate.
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(example = "null", value = "Device execution mode where 1 means a developer certificate.")
+  @ApiModelProperty(value = "Device execution mode where 1 means a developer certificate.")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
@@ -274,7 +348,7 @@ public class TrustedCertificateResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -289,10 +363,10 @@ public class TrustedCertificateResp implements Serializable {
   }
 
    /**
-   * Entity name: always 'trusted-cert'
+   * Entity name: always &#39;trusted-cert&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name: always 'trusted-cert'")
+  @ApiModelProperty(required = true, value = "Entity name: always 'trusted-cert'")
   public ObjectEnum getObject() {
     return object;
   }
@@ -310,7 +384,7 @@ public class TrustedCertificateResp implements Serializable {
    * Subject of the certificate.
    * @return subject
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Subject of the certificate.")
+  @ApiModelProperty(required = true, value = "Subject of the certificate.")
   public String getSubject() {
     return subject;
   }
@@ -328,7 +402,7 @@ public class TrustedCertificateResp implements Serializable {
    * The UUID of the account.
    * @return accountId
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The UUID of the account.")
+  @ApiModelProperty(required = true, value = "The UUID of the account.")
   public String getAccountId() {
     return accountId;
   }
@@ -346,7 +420,7 @@ public class TrustedCertificateResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "API resource entity version.")
+  @ApiModelProperty(required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -364,7 +438,7 @@ public class TrustedCertificateResp implements Serializable {
    * Expiration time in UTC formatted as RFC3339.
    * @return validity
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Expiration time in UTC formatted as RFC3339.")
+  @ApiModelProperty(required = true, value = "Expiration time in UTC formatted as RFC3339.")
   public DateTime getValidity() {
     return validity;
   }
@@ -382,7 +456,7 @@ public class TrustedCertificateResp implements Serializable {
    * The UUID of the owner.
    * @return ownerId
   **/
-  @ApiModelProperty(example = "null", value = "The UUID of the owner.")
+  @ApiModelProperty(value = "The UUID of the owner.")
   public String getOwnerId() {
     return ownerId;
   }
@@ -400,7 +474,7 @@ public class TrustedCertificateResp implements Serializable {
    * Entity ID.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity ID.")
+  @ApiModelProperty(required = true, value = "Entity ID.")
   public String getId() {
     return id;
   }
@@ -418,7 +492,7 @@ public class TrustedCertificateResp implements Serializable {
    * Certificate name.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Certificate name.")
+  @ApiModelProperty(required = true, value = "Certificate name.")
   public String getName() {
     return name;
   }

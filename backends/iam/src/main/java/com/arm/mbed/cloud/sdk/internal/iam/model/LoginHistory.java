@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -49,7 +54,7 @@ public class LoginHistory implements Serializable {
    * UTC time RFC3339 for this login attempt.
    * @return date
   **/
-  @ApiModelProperty(example = "null", required = true, value = "UTC time RFC3339 for this login attempt.")
+  @ApiModelProperty(required = true, value = "UTC time RFC3339 for this login attempt.")
   public DateTime getDate() {
     return date;
   }
@@ -67,7 +72,7 @@ public class LoginHistory implements Serializable {
    * IP address of the client.
    * @return ipAddress
   **/
-  @ApiModelProperty(example = "null", required = true, value = "IP address of the client.")
+  @ApiModelProperty(required = true, value = "IP address of the client.")
   public String getIpAddress() {
     return ipAddress;
   }
@@ -85,7 +90,7 @@ public class LoginHistory implements Serializable {
    * User Agent header from the login request.
    * @return userAgent
   **/
-  @ApiModelProperty(example = "null", required = true, value = "User Agent header from the login request.")
+  @ApiModelProperty(required = true, value = "User Agent header from the login request.")
   public String getUserAgent() {
     return userAgent;
   }
@@ -103,7 +108,7 @@ public class LoginHistory implements Serializable {
    * Flag indicating whether login attempt was successful or not.
    * @return success
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Flag indicating whether login attempt was successful or not.")
+  @ApiModelProperty(required = true, value = "Flag indicating whether login attempt was successful or not.")
   public Boolean getSuccess() {
     return success;
   }

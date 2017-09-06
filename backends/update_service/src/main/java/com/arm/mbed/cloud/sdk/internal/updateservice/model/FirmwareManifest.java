@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContents;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -76,7 +81,7 @@ public class FirmwareManifest implements Serializable {
    * The URL of the firmware manifest binary
    * @return datafile
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The URL of the firmware manifest binary")
+  @ApiModelProperty(required = true, value = "The URL of the firmware manifest binary")
   public String getDatafile() {
     return datafile;
   }
@@ -94,7 +99,7 @@ public class FirmwareManifest implements Serializable {
    * The description of the firmware manifest
    * @return description
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The description of the firmware manifest")
+  @ApiModelProperty(required = true, value = "The description of the firmware manifest")
   public String getDescription() {
     return description;
   }
@@ -112,7 +117,7 @@ public class FirmwareManifest implements Serializable {
    * The firmware manifest version as a timestamp
    * @return timestamp
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The firmware manifest version as a timestamp")
+  @ApiModelProperty(required = true, value = "The firmware manifest version as a timestamp")
   public DateTime getTimestamp() {
     return timestamp;
   }
@@ -130,7 +135,7 @@ public class FirmwareManifest implements Serializable {
    * The time the object was created
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was created")
+  @ApiModelProperty(required = true, value = "The time the object was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -148,7 +153,7 @@ public class FirmwareManifest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API resource entity")
+  @ApiModelProperty(required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -166,7 +171,7 @@ public class FirmwareManifest implements Serializable {
    * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was updated")
+  @ApiModelProperty(required = true, value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -184,7 +189,7 @@ public class FirmwareManifest implements Serializable {
    * Get manifestContents
    * @return manifestContents
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(required = true, value = "")
   public ManifestContents getManifestContents() {
     return manifestContents;
   }
@@ -202,7 +207,7 @@ public class FirmwareManifest implements Serializable {
    * The entity instance signature
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The entity instance signature")
+  @ApiModelProperty(required = true, value = "The entity instance signature")
   public DateTime getEtag() {
     return etag;
   }
@@ -220,7 +225,7 @@ public class FirmwareManifest implements Serializable {
    * The class of the device
    * @return deviceClass
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The class of the device")
+  @ApiModelProperty(required = true, value = "The class of the device")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -238,7 +243,7 @@ public class FirmwareManifest implements Serializable {
    * Checksum generated for the datafile
    * @return datafileChecksum
   **/
-  @ApiModelProperty(example = "null", value = "Checksum generated for the datafile")
+  @ApiModelProperty(value = "Checksum generated for the datafile")
   public String getDatafileChecksum() {
     return datafileChecksum;
   }
@@ -256,7 +261,7 @@ public class FirmwareManifest implements Serializable {
    * Size of the datafile in bytes
    * @return datafileSize
   **/
-  @ApiModelProperty(example = "null", value = "Size of the datafile in bytes")
+  @ApiModelProperty(value = "Size of the datafile in bytes")
   public Long getDatafileSize() {
     return datafileSize;
   }
@@ -274,7 +279,7 @@ public class FirmwareManifest implements Serializable {
    * The firmware manifest ID
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The firmware manifest ID")
+  @ApiModelProperty(required = true, value = "The firmware manifest ID")
   public String getId() {
     return id;
   }
@@ -292,7 +297,7 @@ public class FirmwareManifest implements Serializable {
    * The name of the object
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The name of the object")
+  @ApiModelProperty(required = true, value = "The name of the object")
   public String getName() {
     return name;
   }

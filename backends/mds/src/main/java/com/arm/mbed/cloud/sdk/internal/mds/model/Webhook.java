@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,7 +38,7 @@ public class Webhook implements Serializable {
   private String url = null;
 
   @SerializedName("headers")
-  private Map<String, String> headers = new HashMap<String, String>();
+  private Map<String, String> headers = null;
 
   public Webhook url(String url) {
     this.url = url;
@@ -44,7 +49,7 @@ public class Webhook implements Serializable {
    * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
    * @return url
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
+  @ApiModelProperty(required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
   public String getUrl() {
     return url;
   }
@@ -59,6 +64,9 @@ public class Webhook implements Serializable {
   }
 
   public Webhook putHeadersItem(String key, String headersItem) {
+    if (this.headers == null) {
+      this.headers = new HashMap<String, String>();
+    }
     this.headers.put(key, headersItem);
     return this;
   }
@@ -67,7 +75,7 @@ public class Webhook implements Serializable {
    * Headers (key/value) that are sent with the notification. Optional.
    * @return headers
   **/
-  @ApiModelProperty(example = "null", value = "Headers (key/value) that are sent with the notification. Optional.")
+  @ApiModelProperty(value = "Headers (key/value) that are sent with the notification. Optional.")
   public Map<String, String> getHeaders() {
     return headers;
   }

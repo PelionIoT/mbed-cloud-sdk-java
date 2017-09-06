@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.mds.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -23,7 +24,6 @@ public interface SubscriptionsApi {
    * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v2/subscriptions")
   Call<Void> v2SubscriptionsDelete();
     
@@ -34,10 +34,9 @@ public interface SubscriptionsApi {
    * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v2/subscriptions/{device-id}")
   Call<Void> v2SubscriptionsDeviceIdDelete(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**
@@ -46,10 +45,9 @@ public interface SubscriptionsApi {
    * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @GET("v2/subscriptions/{device-id}")
   Call<Void> v2SubscriptionsDeviceIdGet(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**
@@ -59,10 +57,9 @@ public interface SubscriptionsApi {
    * @param resourcePath The URL of the resource.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> v2SubscriptionsDeviceIdResourcePathDelete(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -72,10 +69,9 @@ public interface SubscriptionsApi {
    * @param resourcePath The URL of the resource.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @GET("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> v2SubscriptionsDeviceIdResourcePathGet(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -85,10 +81,9 @@ public interface SubscriptionsApi {
    * @param resourcePath The URL of the resource.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @PUT("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> v2SubscriptionsDeviceIdResourcePathPut(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -96,7 +91,6 @@ public interface SubscriptionsApi {
    * You can retrieve the pre-subscription data by using a GET operation. The server returns with the same JSON structure  as described above. If there are no pre-subscribed resources, it returns with an empty array.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;PresubscriptionArray&gt;
    */
-  
   @GET("v2/subscriptions")
   Call<PresubscriptionArray> v2SubscriptionsGet();
     
@@ -107,9 +101,8 @@ public interface SubscriptionsApi {
    * @param presubsription Array of pre-subscriptions. (required)
    * @return Call&lt;Void&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v2/subscriptions")
   Call<Void> v2SubscriptionsPut(

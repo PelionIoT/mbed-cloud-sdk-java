@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -45,7 +50,7 @@ public class DevicePage implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<DeviceData> data = new ArrayList<DeviceData>();
+  private List<DeviceData> data = null;
 
   @SerializedName("order")
   private String order = null;
@@ -59,7 +64,7 @@ public class DevicePage implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getObject() {
     return object;
   }
@@ -77,7 +82,7 @@ public class DevicePage implements Serializable {
    * Get hasMore
    * @return hasMore
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Boolean getHasMore() {
     return hasMore;
   }
@@ -95,7 +100,7 @@ public class DevicePage implements Serializable {
    * Get totalCount
    * @return totalCount
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -113,7 +118,7 @@ public class DevicePage implements Serializable {
    * Get after
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getAfter() {
     return after;
   }
@@ -131,7 +136,7 @@ public class DevicePage implements Serializable {
    * Get limit
    * @return limit
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Integer getLimit() {
     return limit;
   }
@@ -146,6 +151,9 @@ public class DevicePage implements Serializable {
   }
 
   public DevicePage addDataItem(DeviceData dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<DeviceData>();
+    }
     this.data.add(dataItem);
     return this;
   }
@@ -154,7 +162,7 @@ public class DevicePage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<DeviceData> getData() {
     return data;
   }
@@ -172,7 +180,7 @@ public class DevicePage implements Serializable {
    * Get order
    * @return order
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getOrder() {
     return order;
   }

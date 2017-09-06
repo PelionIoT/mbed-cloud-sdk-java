@@ -17,9 +17,14 @@ import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncIDResponse;
 import com.arm.mbed.cloud.sdk.internal.mds.model.EndpointData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -32,22 +37,22 @@ public class NotificationMessage implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("async-responses")
-  private List<AsyncIDResponse> asyncResponses = new ArrayList<AsyncIDResponse>();
+  private List<AsyncIDResponse> asyncResponses = null;
 
   @SerializedName("de-registrations")
-  private List<String> deRegistrations = new ArrayList<String>();
+  private List<String> deRegistrations = null;
 
   @SerializedName("reg-updates")
-  private List<EndpointData> regUpdates = new ArrayList<EndpointData>();
+  private List<EndpointData> regUpdates = null;
 
   @SerializedName("registrations")
-  private List<EndpointData> registrations = new ArrayList<EndpointData>();
+  private List<EndpointData> registrations = null;
 
   @SerializedName("notifications")
-  private List<NotificationData> notifications = new ArrayList<NotificationData>();
+  private List<NotificationData> notifications = null;
 
   @SerializedName("registrations-expired")
-  private List<String> registrationsExpired = new ArrayList<String>();
+  private List<String> registrationsExpired = null;
 
   public NotificationMessage asyncResponses(List<AsyncIDResponse> asyncResponses) {
     this.asyncResponses = asyncResponses;
@@ -55,6 +60,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addAsyncResponsesItem(AsyncIDResponse asyncResponsesItem) {
+    if (this.asyncResponses == null) {
+      this.asyncResponses = new ArrayList<AsyncIDResponse>();
+    }
     this.asyncResponses.add(asyncResponsesItem);
     return this;
   }
@@ -63,7 +71,7 @@ public class NotificationMessage implements Serializable {
    * Get asyncResponses
    * @return asyncResponses
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<AsyncIDResponse> getAsyncResponses() {
     return asyncResponses;
   }
@@ -78,6 +86,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addDeRegistrationsItem(String deRegistrationsItem) {
+    if (this.deRegistrations == null) {
+      this.deRegistrations = new ArrayList<String>();
+    }
     this.deRegistrations.add(deRegistrationsItem);
     return this;
   }
@@ -86,7 +97,7 @@ public class NotificationMessage implements Serializable {
    * Get deRegistrations
    * @return deRegistrations
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<String> getDeRegistrations() {
     return deRegistrations;
   }
@@ -101,6 +112,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addRegUpdatesItem(EndpointData regUpdatesItem) {
+    if (this.regUpdates == null) {
+      this.regUpdates = new ArrayList<EndpointData>();
+    }
     this.regUpdates.add(regUpdatesItem);
     return this;
   }
@@ -109,7 +123,7 @@ public class NotificationMessage implements Serializable {
    * Get regUpdates
    * @return regUpdates
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<EndpointData> getRegUpdates() {
     return regUpdates;
   }
@@ -124,6 +138,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addRegistrationsItem(EndpointData registrationsItem) {
+    if (this.registrations == null) {
+      this.registrations = new ArrayList<EndpointData>();
+    }
     this.registrations.add(registrationsItem);
     return this;
   }
@@ -132,7 +149,7 @@ public class NotificationMessage implements Serializable {
    * Get registrations
    * @return registrations
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<EndpointData> getRegistrations() {
     return registrations;
   }
@@ -147,6 +164,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addNotificationsItem(NotificationData notificationsItem) {
+    if (this.notifications == null) {
+      this.notifications = new ArrayList<NotificationData>();
+    }
     this.notifications.add(notificationsItem);
     return this;
   }
@@ -155,7 +175,7 @@ public class NotificationMessage implements Serializable {
    * Get notifications
    * @return notifications
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<NotificationData> getNotifications() {
     return notifications;
   }
@@ -170,6 +190,9 @@ public class NotificationMessage implements Serializable {
   }
 
   public NotificationMessage addRegistrationsExpiredItem(String registrationsExpiredItem) {
+    if (this.registrationsExpired == null) {
+      this.registrationsExpired = new ArrayList<String>();
+    }
     this.registrationsExpired.add(registrationsExpiredItem);
     return this;
   }
@@ -178,7 +201,7 @@ public class NotificationMessage implements Serializable {
    * Get registrationsExpired
    * @return registrationsExpired
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<String> getRegistrationsExpired() {
     return registrationsExpired;
   }

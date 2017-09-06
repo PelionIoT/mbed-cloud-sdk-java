@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -57,20 +62,16 @@ public class CampaignDeviceMetadata implements Serializable {
   /**
    * The state of the update campaign on the device
    */
+  @JsonAdapter(DeploymentStateEnum.Adapter.class)
   public enum DeploymentStateEnum {
-    @SerializedName("pending")
     PENDING("pending"),
     
-    @SerializedName("updated_connector_channel")
     UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"),
     
-    @SerializedName("failed_connector_channel_update")
     FAILED_CONNECTOR_CHANNEL_UPDATE("failed_connector_channel_update"),
     
-    @SerializedName("deployed")
     DEPLOYED("deployed"),
     
-    @SerializedName("manifestremoved")
     MANIFESTREMOVED("manifestremoved");
 
     private String value;
@@ -79,9 +80,35 @@ public class CampaignDeviceMetadata implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static DeploymentStateEnum fromValue(String text) {
+      for (DeploymentStateEnum b : DeploymentStateEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<DeploymentStateEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final DeploymentStateEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public DeploymentStateEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return DeploymentStateEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -118,7 +145,7 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The device's campaign ID
+   * The device&#39;s campaign ID
    * @return campaign
   **/
   @ApiModelProperty(example = "015bf72fccda00000000000100100280", value = "The device's campaign ID")
@@ -154,7 +181,7 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * Entity name: always 'update-campaign-device-metadata'
+   * Entity name: always &#39;update-campaign-device-metadata&#39;
    * @return object
   **/
   @ApiModelProperty(example = "update-campaign-device-metadata", value = "Entity name: always 'update-campaign-device-metadata'")
@@ -265,7 +292,7 @@ public class CampaignDeviceMetadata implements Serializable {
    * The state of the update campaign on the device
    * @return deploymentState
   **/
-  @ApiModelProperty(example = "null", value = "The state of the update campaign on the device")
+  @ApiModelProperty(value = "The state of the update campaign on the device")
   public DeploymentStateEnum getDeploymentState() {
     return deploymentState;
   }

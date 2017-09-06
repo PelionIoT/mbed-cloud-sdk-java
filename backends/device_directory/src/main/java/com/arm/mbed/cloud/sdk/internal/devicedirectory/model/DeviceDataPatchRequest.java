@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,7 +50,7 @@ public class DeviceDataPatchRequest implements Serializable {
   private String object = null;
 
   @SerializedName("custom_attributes")
-  private Map<String, String> customAttributes = new HashMap<String, String>();
+  private Map<String, String> customAttributes = null;
 
   @SerializedName("device_key")
   private String deviceKey = null;
@@ -68,7 +73,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "The description of the device.")
+  @ApiModelProperty(value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -86,7 +91,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The endpoint name given to the device.
    * @return endpointName
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint name given to the device.")
+  @ApiModelProperty(value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
   }
@@ -104,7 +109,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * DEPRECATED Mark this device for auto firmware update.
    * @return autoUpdate
   **/
-  @ApiModelProperty(example = "null", value = "DEPRECATED Mark this device for auto firmware update.")
+  @ApiModelProperty(value = "DEPRECATED Mark this device for auto firmware update.")
   public Boolean getAutoUpdate() {
     return autoUpdate;
   }
@@ -122,7 +127,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The endpoint_name of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint_name of the host gateway, if appropriate.")
+  @ApiModelProperty(value = "The endpoint_name of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -140,7 +145,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "The API resource entity.")
+  @ApiModelProperty(value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -155,6 +160,9 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
   public DeviceDataPatchRequest putCustomAttributesItem(String key, String customAttributesItem) {
+    if (this.customAttributes == null) {
+      this.customAttributes = new HashMap<String, String>();
+    }
     this.customAttributes.put(key, customAttributesItem);
     return this;
   }
@@ -163,7 +171,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * Custom attributes(key/value). Up to 5 attributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "null", value = "Custom attributes(key/value). Up to 5 attributes")
+  @ApiModelProperty(value = "Custom attributes(key/value). Up to 5 attributes")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -181,7 +189,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * Fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(example = "null", value = "Fingerprint of the device certificate.")
+  @ApiModelProperty(value = "Fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -199,7 +207,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The endpoint type of the device - e.g. if the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint type of the device - e.g. if the device is a gateway.")
+  @ApiModelProperty(value = "The endpoint type of the device - e.g. if the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -217,7 +225,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * ID of the issuer of the certificate.
    * @return caId
   **/
-  @ApiModelProperty(example = "null", value = "ID of the issuer of the certificate.")
+  @ApiModelProperty(value = "ID of the issuer of the certificate.")
   public String getCaId() {
     return caId;
   }
@@ -235,7 +243,7 @@ public class DeviceDataPatchRequest implements Serializable {
    * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the device.")
+  @ApiModelProperty(value = "The name of the device.")
   public String getName() {
     return name;
   }

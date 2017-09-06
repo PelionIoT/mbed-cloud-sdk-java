@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -48,7 +53,7 @@ public class FeaturePolicy implements Serializable {
    * Comma separated list of actions, empty string represents all actions.
    * @return action
   **/
-  @ApiModelProperty(example = "null", value = "Comma separated list of actions, empty string represents all actions.")
+  @ApiModelProperty(value = "Comma separated list of actions, empty string represents all actions.")
   public String getAction() {
     return action;
   }
@@ -66,7 +71,7 @@ public class FeaturePolicy implements Serializable {
    * Resource that is protected by this policy.
    * @return resource
   **/
-  @ApiModelProperty(example = "null", value = "Resource that is protected by this policy.")
+  @ApiModelProperty(value = "Resource that is protected by this policy.")
   public String getResource() {
     return resource;
   }
@@ -84,7 +89,7 @@ public class FeaturePolicy implements Serializable {
    * Feature name corresponding to this policy.
    * @return feature
   **/
-  @ApiModelProperty(example = "null", value = "Feature name corresponding to this policy.")
+  @ApiModelProperty(value = "Feature name corresponding to this policy.")
   public String getFeature() {
     return feature;
   }
@@ -102,7 +107,7 @@ public class FeaturePolicy implements Serializable {
    * True or false controlling whether an action is allowed or not.
    * @return allow
   **/
-  @ApiModelProperty(example = "null", value = "True or false controlling whether an action is allowed or not.")
+  @ApiModelProperty(value = "True or false controlling whether an action is allowed or not.")
   public Boolean getAllow() {
     return allow;
   }

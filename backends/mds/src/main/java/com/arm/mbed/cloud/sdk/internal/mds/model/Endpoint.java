@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -47,7 +52,7 @@ public class Endpoint implements Serializable {
    * Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
+  @ApiModelProperty(value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
   public String getStatus() {
     return status;
   }
@@ -62,10 +67,10 @@ public class Endpoint implements Serializable {
   }
 
    /**
-   * Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
+   * Determines whether the device is in queue mode.  &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Queue mode&lt;/b&gt;&lt;br/&gt; When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
    * @return q
   **/
-  @ApiModelProperty(example = "null", value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. ")
+  @ApiModelProperty(value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. ")
   public Boolean getQ() {
     return q;
   }
@@ -83,7 +88,7 @@ public class Endpoint implements Serializable {
    * Type of endpoint. (Free text)
    * @return type
   **/
-  @ApiModelProperty(example = "null", value = "Type of endpoint. (Free text)")
+  @ApiModelProperty(value = "Type of endpoint. (Free text)")
   public String getType() {
     return type;
   }
@@ -101,7 +106,7 @@ public class Endpoint implements Serializable {
    * Unique mbed Cloud Device ID representing the endpoint.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "Unique mbed Cloud Device ID representing the endpoint.")
+  @ApiModelProperty(value = "Unique mbed Cloud Device ID representing the endpoint.")
   public String getName() {
     return name;
   }

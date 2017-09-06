@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.iam.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -38,9 +39,8 @@ public interface DeveloperApi {
    * @param body The details of the API key to be created. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @POST("v3/api-keys")
   Call<ApiKeyInfoResp> createApiKey(
@@ -53,10 +53,9 @@ public interface DeveloperApi {
    * @param apiKey The ID of the API key to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/api-keys/{apiKey}")
   Call<Void> deleteApiKey(
-    @retrofit2.http.Path("apiKey") String apiKey
+    @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey
   );
 
   /**
@@ -65,10 +64,9 @@ public interface DeveloperApi {
    * @param certId The ID of the trusted certificate to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/trusted-certificates/{cert-id}")
   Call<Void> deleteCertificate(
-    @retrofit2.http.Path("cert-id") String certId
+    @retrofit2.http.Path(value = "cert-id", encoded = true) String certId
   );
 
   /**
@@ -81,7 +79,6 @@ public interface DeveloperApi {
    * @param ownerEq Owner name filter. (optional)
    * @return Call&lt;ApiKeyInfoRespList&gt;
    */
-  
   @GET("v3/api-keys")
   Call<ApiKeyInfoRespList> getAllApiKeys(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("owner__eq") String ownerEq
@@ -100,7 +97,6 @@ public interface DeveloperApi {
    * @param ownerEq Owner ID filter (optional)
    * @return Call&lt;TrustedCertificateRespList&gt;
    */
-  
   @GET("v3/trusted-certificates")
   Call<TrustedCertificateRespList> getAllCertificates(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("service__eq") String serviceEq, @retrofit2.http.Query("expire__eq") Integer expireEq, @retrofit2.http.Query("device_execution_mode__eq") Integer deviceExecutionModeEq, @retrofit2.http.Query("owner__eq") String ownerEq
@@ -115,7 +111,6 @@ public interface DeveloperApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;GroupSummaryList&gt;
    */
-  
   @GET("v3/policy-groups")
   Call<GroupSummaryList> getAllGroups(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
@@ -127,10 +122,9 @@ public interface DeveloperApi {
    * @param apiKey The ID of the API key to be retrieved. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
-  
   @GET("v3/api-keys/{apiKey}")
   Call<ApiKeyInfoResp> getApiKey(
-    @retrofit2.http.Path("apiKey") String apiKey
+    @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey
   );
 
   /**
@@ -143,10 +137,9 @@ public interface DeveloperApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;ApiKeyInfoRespList&gt;
    */
-  
   @GET("v3/policy-groups/{groupID}/api-keys")
   Call<ApiKeyInfoRespList> getApiKeysOfGroup(
-    @retrofit2.http.Path("groupID") String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -155,10 +148,9 @@ public interface DeveloperApi {
    * @param certId The ID or name of the trusted certificate to be retrieved. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
    */
-  
   @GET("v3/trusted-certificates/{cert-id}")
   Call<TrustedCertificateResp> getCertificate(
-    @retrofit2.http.Path("cert-id") String certId
+    @retrofit2.http.Path(value = "cert-id", encoded = true) String certId
   );
 
   /**
@@ -167,10 +159,9 @@ public interface DeveloperApi {
    * @param groupID The ID or name of the group to be retrieved. (required)
    * @return Call&lt;GroupSummary&gt;
    */
-  
   @GET("v3/policy-groups/{groupID}")
   Call<GroupSummary> getGroupSummary(
-    @retrofit2.http.Path("groupID") String groupID
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID
   );
 
   /**
@@ -179,7 +170,6 @@ public interface DeveloperApi {
    * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. (optional)
    * @return Call&lt;AccountInfo&gt;
    */
-  
   @GET("v3/accounts/me")
   Call<AccountInfo> getMyAccountInfo(
     @retrofit2.http.Query("include") String include
@@ -190,7 +180,6 @@ public interface DeveloperApi {
    * An endpoint for retrieving API key details. Example usage: curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
-  
   @GET("v3/api-keys/me")
   Call<ApiKeyInfoResp> getMyApiKey();
     
@@ -201,7 +190,6 @@ public interface DeveloperApi {
    * @param scratchCodes Request to regenerate new emergency scratch codes. (optional)
    * @return Call&lt;MyUserInfoResp&gt;
    */
-  
   @GET("v3/users/me")
   Call<MyUserInfoResp> getMyUser(
     @retrofit2.http.Query("scratch_codes") String scratchCodes
@@ -214,13 +202,12 @@ public interface DeveloperApi {
    * @param body A list of API keys to be removed from the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @DELETE("v3/policy-groups/{groupID}/api-keys")
   Call<UpdatedResponse> removeApiKeysFromGroup(
-    @retrofit2.http.Path("groupID") String groupID, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -230,10 +217,9 @@ public interface DeveloperApi {
    * @param body New API key attributes to be stored. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
-  
   @PUT("v3/api-keys/{apiKey}")
   Call<ApiKeyInfoResp> updateApiKey(
-    @retrofit2.http.Path("apiKey") String apiKey, @retrofit2.http.Body ApiKeyUpdateReq body
+    @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey, @retrofit2.http.Body ApiKeyUpdateReq body
   );
 
   /**
@@ -243,13 +229,12 @@ public interface DeveloperApi {
    * @param body A trusted certificate object with attributes. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v3/trusted-certificates/{cert-id}")
   Call<TrustedCertificateResp> updateCertificate(
-    @retrofit2.http.Path("cert-id") String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
+    @retrofit2.http.Path(value = "cert-id", encoded = true) String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
   );
 
   /**
@@ -258,7 +243,6 @@ public interface DeveloperApi {
    * @param body New API key attributes to be stored. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
-  
   @PUT("v3/api-keys/me")
   Call<ApiKeyInfoResp> updateMyApiKey(
     @retrofit2.http.Body ApiKeyUpdateReq body
@@ -270,9 +254,8 @@ public interface DeveloperApi {
    * @param body New attributes for the logged in user. (required)
    * @return Call&lt;UserUpdateResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v3/users/me")
   Call<UserUpdateResp> updateMyUser(

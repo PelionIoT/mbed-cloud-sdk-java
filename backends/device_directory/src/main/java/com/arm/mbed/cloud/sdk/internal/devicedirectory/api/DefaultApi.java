@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.devicedirectory.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -33,7 +34,6 @@ public interface DefaultApi {
    * @param device  (required)
    * @return Call&lt;DeviceData&gt;
    */
-  
   @POST("v3/devices/")
   Call<DeviceData> deviceCreate(
     @retrofit2.http.Body DeviceDataPostRequest device
@@ -45,10 +45,9 @@ public interface DefaultApi {
    * @param id  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/devices/{id}/")
   Call<Void> deviceDestroy(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -61,7 +60,6 @@ public interface DefaultApi {
    * @param include Comma separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;DeviceEventPage&gt;
    */
-  
   @GET("v3/device-events/")
   Call<DeviceEventPage> deviceEventList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -73,10 +71,9 @@ public interface DefaultApi {
    * @param deviceEventId  (required)
    * @return Call&lt;DeviceEventData&gt;
    */
-  
   @GET("v3/device-events/{device_event_id}/")
   Call<DeviceEventData> deviceEventRetrieve(
-    @retrofit2.http.Path("device_event_id") String deviceEventId
+    @retrofit2.http.Path(value = "device_event_id", encoded = true) String deviceEventId
   );
 
   /**
@@ -89,7 +86,6 @@ public interface DefaultApi {
    * @param include Comma separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;DevicePage&gt;
    */
-  
   @GET("v3/devices/")
   Call<DevicePage> deviceList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -105,7 +101,6 @@ public interface DefaultApi {
    * @param include Comma separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;DeviceEventPage&gt;
    */
-  
   @GET("v3/devicelog/")
   Call<DeviceEventPage> deviceLogList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -117,10 +112,9 @@ public interface DefaultApi {
    * @param deviceEventId  (required)
    * @return Call&lt;DeviceEventData&gt;
    */
-  
   @GET("v3/devicelog/{device_event_id}/")
   Call<DeviceEventData> deviceLogRetrieve(
-    @retrofit2.http.Path("device_event_id") String deviceEventId
+    @retrofit2.http.Path(value = "device_event_id", encoded = true) String deviceEventId
   );
 
   /**
@@ -130,10 +124,9 @@ public interface DefaultApi {
    * @param device  (required)
    * @return Call&lt;DeviceData&gt;
    */
-  
   @PATCH("v3/devices/{id}/")
   Call<DeviceData> devicePartialUpdate(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Body DeviceDataPatchRequest device
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body DeviceDataPatchRequest device
   );
 
   /**
@@ -142,7 +135,6 @@ public interface DefaultApi {
    * @param device  (required)
    * @return Call&lt;DeviceQuery&gt;
    */
-  
   @POST("v3/device-queries/")
   Call<DeviceQuery> deviceQueryCreate(
     @retrofit2.http.Body DeviceQueryPostPutRequest device
@@ -154,10 +146,9 @@ public interface DefaultApi {
    * @param queryId  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/device-queries/{query_id}/")
   Call<Void> deviceQueryDestroy(
-    @retrofit2.http.Path("query_id") String queryId
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId
   );
 
   /**
@@ -170,7 +161,6 @@ public interface DefaultApi {
    * @param include Comma separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;DeviceQueryPage&gt;
    */
-  
   @GET("v3/device-queries/")
   Call<DeviceQueryPage> deviceQueryList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -183,10 +173,9 @@ public interface DefaultApi {
    * @param deviceQuery  (required)
    * @return Call&lt;DeviceQuery&gt;
    */
-  
   @PATCH("v3/device-queries/{query_id}/")
   Call<DeviceQuery> deviceQueryPartialUpdate(
-    @retrofit2.http.Path("query_id") String queryId, @retrofit2.http.Body DeviceQueryPatchRequest deviceQuery
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId, @retrofit2.http.Body DeviceQueryPatchRequest deviceQuery
   );
 
   /**
@@ -195,10 +184,9 @@ public interface DefaultApi {
    * @param queryId  (required)
    * @return Call&lt;DeviceQuery&gt;
    */
-  
   @GET("v3/device-queries/{query_id}/")
   Call<DeviceQuery> deviceQueryRetrieve(
-    @retrofit2.http.Path("query_id") String queryId
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId
   );
 
   /**
@@ -208,10 +196,9 @@ public interface DefaultApi {
    * @param body Device query update object. (required)
    * @return Call&lt;DeviceQuery&gt;
    */
-  
   @PUT("v3/device-queries/{query_id}/")
   Call<DeviceQuery> deviceQueryUpdate(
-    @retrofit2.http.Path("query_id") String queryId, @retrofit2.http.Body DeviceQueryPostPutRequest body
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId, @retrofit2.http.Body DeviceQueryPostPutRequest body
   );
 
   /**
@@ -220,10 +207,9 @@ public interface DefaultApi {
    * @param id  (required)
    * @return Call&lt;DeviceData&gt;
    */
-  
   @GET("v3/devices/{id}/")
   Call<DeviceData> deviceRetrieve(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -233,10 +219,9 @@ public interface DefaultApi {
    * @param device  (required)
    * @return Call&lt;DeviceData&gt;
    */
-  
   @PUT("v3/devices/{id}/")
   Call<DeviceData> deviceUpdate(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Body DeviceDataPutRequest device
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body DeviceDataPutRequest device
   );
 
 }

@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -47,7 +52,7 @@ public class Resource implements Serializable {
    * Resource type.
    * @return rt
   **/
-  @ApiModelProperty(example = "null", value = "Resource type.")
+  @ApiModelProperty(value = "Resource type.")
   public String getRt() {
     return rt;
   }
@@ -62,10 +67,10 @@ public class Resource implements Serializable {
   }
 
    /**
-   * The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
+   * The content type of the resource. &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Important&lt;/b&gt;&lt;br/&gt; You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). 
    * @return type
   **/
-  @ApiModelProperty(example = "null", value = "The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). ")
+  @ApiModelProperty(value = "The content type of the resource. <br/><br/><b>Important</b><br/> You are encouraged to use the resource types listed in the [LWM2M specification](http://technical.openmobilealliance.org/Technical/technical-information/omna/lightweight-m2m-lwm2m-object-registry). ")
   public String getType() {
     return type;
   }
@@ -83,7 +88,7 @@ public class Resource implements Serializable {
    * The URL of the resource.
    * @return uri
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The URL of the resource.")
+  @ApiModelProperty(required = true, value = "The URL of the resource.")
   public String getUri() {
     return uri;
   }
@@ -98,10 +103,10 @@ public class Resource implements Serializable {
   }
 
    /**
-   * Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". 
+   * Observable determines whether you can subscribe to changes for this resource. It can have values \&quot;true\&quot; or \&quot;false\&quot;. 
    * @return obs
   **/
-  @ApiModelProperty(example = "null", value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
+  @ApiModelProperty(value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
   public Boolean getObs() {
     return obs;
   }

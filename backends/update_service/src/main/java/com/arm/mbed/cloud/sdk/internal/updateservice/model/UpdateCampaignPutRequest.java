@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -42,32 +47,24 @@ public class UpdateCampaignPutRequest implements Serializable {
   /**
    * The state of the campaign
    */
+  @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
-    @SerializedName("draft")
     DRAFT("draft"),
     
-    @SerializedName("scheduled")
     SCHEDULED("scheduled"),
     
-    @SerializedName("devicefetch")
     DEVICEFETCH("devicefetch"),
     
-    @SerializedName("devicecopy")
     DEVICECOPY("devicecopy"),
     
-    @SerializedName("publishing")
     PUBLISHING("publishing"),
     
-    @SerializedName("deploying")
     DEPLOYING("deploying"),
     
-    @SerializedName("deployed")
     DEPLOYED("deployed"),
     
-    @SerializedName("manifestremoved")
     MANIFESTREMOVED("manifestremoved"),
     
-    @SerializedName("expired")
     EXPIRED("expired");
 
     private String value;
@@ -76,9 +73,35 @@ public class UpdateCampaignPutRequest implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StateEnum fromValue(String text) {
+      for (StateEnum b : StateEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StateEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StateEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StateEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StateEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -100,7 +123,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * An optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(example = "null", required = true, value = "An optional description of the campaign")
+  @ApiModelProperty(required = true, value = "An optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -118,7 +141,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * Get rootManifestId
    * @return rootManifestId
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(required = true, value = "")
   public String getRootManifestId() {
     return rootManifestId;
   }
@@ -136,7 +159,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API resource entity")
+  @ApiModelProperty(required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -154,7 +177,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The scheduled start time for the update campaign
    * @return when
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The scheduled start time for the update campaign")
+  @ApiModelProperty(required = true, value = "The scheduled start time for the update campaign")
   public DateTime getWhen() {
     return when;
   }
@@ -172,7 +195,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The state of the campaign
    * @return state
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The state of the campaign")
+  @ApiModelProperty(required = true, value = "The state of the campaign")
   public StateEnum getState() {
     return state;
   }
@@ -190,7 +213,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The filter for the devices the campaign will target
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(required = true, value = "The filter for the devices the campaign will target")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -205,10 +228,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The campaign's name
+   * The campaign&#39;s name
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The campaign's name")
+  @ApiModelProperty(required = true, value = "The campaign's name")
   public String getName() {
     return name;
   }

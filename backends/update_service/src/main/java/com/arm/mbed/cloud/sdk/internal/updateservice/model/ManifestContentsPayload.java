@@ -16,9 +16,14 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContentsPayloadFormat;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContentsPayloadReference;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -46,7 +51,7 @@ public class ManifestContentsPayload implements Serializable {
    * Get format
    * @return format
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public ManifestContentsPayloadFormat getFormat() {
     return format;
   }
@@ -64,7 +69,7 @@ public class ManifestContentsPayload implements Serializable {
    * Get reference
    * @return reference
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public ManifestContentsPayloadReference getReference() {
     return reference;
   }
@@ -82,7 +87,7 @@ public class ManifestContentsPayload implements Serializable {
    * An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.
    * @return storageIdentifier
   **/
-  @ApiModelProperty(example = "null", value = "An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.")
+  @ApiModelProperty(value = "An payload storage destination identifier. The identifier specifies where to place the firmware image on the device. For example, when an IoT device has multiple microcontrollers (MCUs), the identifier determines which MCU receives the image.")
   public String getStorageIdentifier() {
     return storageIdentifier;
   }

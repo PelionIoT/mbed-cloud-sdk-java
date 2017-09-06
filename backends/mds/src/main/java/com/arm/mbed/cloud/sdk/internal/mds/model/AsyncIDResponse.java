@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -53,7 +58,7 @@ public class AsyncIDResponse implements Serializable {
    * Asynchronous response status code for a device operation related to a proxy request or manual subscription.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "Asynchronous response status code for a device operation related to a proxy request or manual subscription.")
+  @ApiModelProperty(value = "Asynchronous response status code for a device operation related to a proxy request or manual subscription.")
   public Integer getStatus() {
     return status;
   }
@@ -71,7 +76,7 @@ public class AsyncIDResponse implements Serializable {
    * Requested data, base64 encoded.
    * @return payload
   **/
-  @ApiModelProperty(example = "null", value = "Requested data, base64 encoded.")
+  @ApiModelProperty(value = "Requested data, base64 encoded.")
   public String getPayload() {
     return payload;
   }
@@ -89,7 +94,7 @@ public class AsyncIDResponse implements Serializable {
    * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
    * @return maxAge
   **/
-  @ApiModelProperty(example = "null", value = "Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.")
+  @ApiModelProperty(value = "Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.")
   public String getMaxAge() {
     return maxAge;
   }
@@ -107,7 +112,7 @@ public class AsyncIDResponse implements Serializable {
    * Optional error message, describing the error.
    * @return error
   **/
-  @ApiModelProperty(example = "null", value = "Optional error message, describing the error.")
+  @ApiModelProperty(value = "Optional error message, describing the error.")
   public String getError() {
     return error;
   }
@@ -125,7 +130,7 @@ public class AsyncIDResponse implements Serializable {
    * Asynchronous response unique ID.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "Asynchronous response unique ID.")
+  @ApiModelProperty(value = "Asynchronous response unique ID.")
   public String getId() {
     return id;
   }
@@ -143,7 +148,7 @@ public class AsyncIDResponse implements Serializable {
    * Content type
    * @return ct
   **/
-  @ApiModelProperty(example = "null", value = "Content type")
+  @ApiModelProperty(value = "Content type")
   public String getCt() {
     return ct;
   }

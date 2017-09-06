@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -25,10 +26,9 @@ public interface DeveloperCertificateApi {
    * @param authorization Bearer {Access Token}.  (required)
    * @return Call&lt;DeveloperCertificateResponseData&gt;
    */
-  
   @GET("v3/developer-certificates/{id}")
   Call<DeveloperCertificateResponseData> v3DeveloperCertificatesIdGet(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Header("Authorization") String authorization
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Header("Authorization") String authorization
   );
 
   /**
@@ -38,7 +38,6 @@ public interface DeveloperCertificateApi {
    * @param body  (required)
    * @return Call&lt;DeveloperCertificateResponseData&gt;
    */
-  
   @POST("v3/developer-certificates")
   Call<DeveloperCertificateResponseData> v3DeveloperCertificatesPost(
     @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body DeveloperCertificateRequestData body

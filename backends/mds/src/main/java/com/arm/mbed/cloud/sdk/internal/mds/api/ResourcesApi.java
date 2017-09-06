@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.mds.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -25,10 +26,9 @@ public interface ResourcesApi {
    * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  (optional)
    * @return Call&lt;AsyncID&gt;
    */
-  
   @DELETE("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathDelete(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -40,10 +40,9 @@ public interface ResourcesApi {
    * @param noResp **Non-confirmable requests**   All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  409 Conflict.  (optional)
    * @return Call&lt;AsyncID&gt;
    */
-  
   @GET("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathGet(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Query("cacheOnly") Boolean cacheOnly, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Query("cacheOnly") Boolean cacheOnly, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -55,13 +54,12 @@ public interface ResourcesApi {
    * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  (optional)
    * @return Call&lt;AsyncID&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/vnd.oma.lwm2m+json" 
+    "Content-Type:application/vnd.oma.lwm2m+json"
   })
   @POST("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathPost(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Body byte[] resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body byte[] resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -73,13 +71,12 @@ public interface ResourcesApi {
    * @param noResp **Non-confirmable requests**  All resource APIs have the parameter noResp. If you make a request with &#x60;noResp&#x3D;true&#x60;, mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code 204 No Content. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code 409 Conflict.  (optional)
    * @return Call&lt;AsyncID&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/vnd.oma.lwm2m+json" 
+    "Content-Type:application/vnd.oma.lwm2m+json"
   })
   @PUT("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathPut(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Body byte[] resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body byte[] resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
 }

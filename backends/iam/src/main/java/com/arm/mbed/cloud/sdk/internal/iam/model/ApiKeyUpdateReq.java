@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -33,11 +38,10 @@ public class ApiKeyUpdateReq implements Serializable {
   /**
    * The status of the API key.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("INACTIVE")
     INACTIVE("INACTIVE");
 
     private String value;
@@ -46,9 +50,35 @@ public class ApiKeyUpdateReq implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -67,7 +97,7 @@ public class ApiKeyUpdateReq implements Serializable {
    * The owner of this API key, who is the creator by default.
    * @return owner
   **/
-  @ApiModelProperty(example = "null", value = "The owner of this API key, who is the creator by default.")
+  @ApiModelProperty(value = "The owner of this API key, who is the creator by default.")
   public String getOwner() {
     return owner;
   }
@@ -85,7 +115,7 @@ public class ApiKeyUpdateReq implements Serializable {
    * The status of the API key.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "The status of the API key.")
+  @ApiModelProperty(value = "The status of the API key.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -103,7 +133,7 @@ public class ApiKeyUpdateReq implements Serializable {
    * The display name for the API key, not longer than 100 characters.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The display name for the API key, not longer than 100 characters.")
+  @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
   public String getName() {
     return name;
   }
