@@ -54,8 +54,9 @@ public class TimePeriod implements Cloneable {
     /**
      * Set time period from a string
      * 
-     * @see fromString() for more information
      * @param value
+     *            string representing the time period @see {@link #fromString(String)} for more information
+     * 
      */
     public TimePeriod(String value) {
         fromString(value);
