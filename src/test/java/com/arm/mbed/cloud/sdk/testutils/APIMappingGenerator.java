@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.lang.reflect.ParameterizedType;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.LinkedList;
@@ -68,13 +69,26 @@ public class APIMappingGenerator {
             Parameter[] parameters = method.getParameters();
             for (Parameter parameter : parameters) {
                 String defaultValue = determineParameterDefaultValue(parameter);
-                APIMethodArgument arg = new APIMethodArgument(parameter.getName(), parameter.getType(), defaultValue);
+                determineContentType(parameter);
+                APIMethodArgument arg = new APIMethodArgument(parameter.getName(), parameter.getType(),
+                        determineContentType(parameter), defaultValue);
                 m.addArgument(arg);
             }
         }
-        APIMethodArgument returnArg = new APIMethodArgument(method.getReturnType());
+        APIMethodArgument returnArg = new APIMethodArgument(method.getReturnType(), null);
         m.setReturnArgument(returnArg);
         return m;
+    }
+
+    private Class<?> determineContentType(Parameter parameter) {
+        if (parameter == null || !(List.class.isAssignableFrom(parameter.getType()))) {
+            return null;
+        }
+        try {
+            return (Class<?>) ((ParameterizedType) parameter.getParameterizedType()).getActualTypeArguments()[0];
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     private String determineParameterDefaultValue(Parameter parameter) {

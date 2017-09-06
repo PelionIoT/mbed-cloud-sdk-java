@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -131,6 +132,31 @@ public class Serializer {
         return createObjectInstance(objectClass, transformedObject);
     }
 
+    @SuppressWarnings("unchecked")
+    public static <T> List<T> convertParametersToListObject(Map<String, Object> objectFields, Class<T> contentClass)
+            throws APICallException {
+        if (objectFields == null || contentClass == null || objectFields.isEmpty() || objectFields.size() > 1) {
+            return null;
+        }
+        List<T> value = new LinkedList<>();
+        try {
+            JsonArray jsonArray = new JsonArray((String) objectFields.get(objectFields.keySet().iterator().next()));
+            if (isPrimitiveOrWrapperType(contentClass)) {
+                for (Object obj : jsonArray.getList()) {
+                    value.add((T) obj);
+                }
+            } else {
+                JsonArray transformedObject = reformatJsonArray(jsonArray, CaseConversion.SNAKE_TO_CAMEL, false);
+                for (Object obj : transformedObject.getList()) {
+                    value.add(createObjectInstance(contentClass, (JsonObject) obj));
+                }
+            }
+        } catch (Exception e) {
+            throw new APICallException(e);
+        }
+        return value;// createObjectInstance(objectClass, transformedObject);
+    }
+
     public static <T> T convertParametersToObjectFromAbstractClasses(Map<String, Object> objectFields,
             Class<T> objectClass) throws APICallException {
         if (objectClass == null || objectFields == null || objectFields.isEmpty()) {
@@ -160,6 +186,25 @@ public class Serializer {
     private static JsonObject reformatJsonObject(JsonObject result, CaseConversion conversion, boolean capitalAtStart) {
         return (result == null) ? new JsonObject()
                 : new JsonObject(reformatResultJsonMap(result.getMap(), conversion, capitalAtStart));
+    }
+
+    private static JsonArray reformatJsonArray(JsonArray result, CaseConversion conversion, boolean capitalAtStart) {
+        if (result == null || result.isEmpty()) {
+            return new JsonArray();
+        }
+        List<Object> reformatedList = new LinkedList<>();
+        for (Object obj : result.getList()) {
+            if (obj instanceof JsonObject || obj instanceof Map) {
+                @SuppressWarnings("unchecked")
+                JsonObject jsonObject = (obj instanceof JsonObject) ? (JsonObject) obj
+                        : new JsonObject((Map<String, Object>) obj);
+                reformatedList.add(reformatJsonObject(jsonObject, conversion, capitalAtStart));
+            } else {
+                reformatedList.add(obj);
+            }
+        }
+        return new JsonArray(reformatedList);
+
     }
 
     private static boolean isPrimitiveOrWrapperType(Class<?> clazz) throws APICallException {

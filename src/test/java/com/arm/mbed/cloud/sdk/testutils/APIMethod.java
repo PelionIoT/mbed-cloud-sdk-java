@@ -143,7 +143,8 @@ public class APIMethod {
         }
         List<Object> argValuesArray = new ArrayList<>(argsNumber);
         for (APIMethodArgument arg : arguments) {
-            argValuesArray.add(arg.determineValue(arg.determineClass(), argsDescription.get(arg.getName())));
+            argValuesArray.add(arg.determineValue(arg.determineClass(), arg.determineContentClass(),
+                    argsDescription.get(arg.getName())));
         }
         return argValuesArray.toArray();
     }

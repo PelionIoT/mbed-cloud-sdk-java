@@ -24,6 +24,7 @@ import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.connect.adapters.ConnectedDeviceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
+import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
@@ -32,11 +33,13 @@ import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
+import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
+import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 import retrofit2.Call;
@@ -120,7 +123,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * List connected devices
+     * Lists connected devices
      * 
      * @param type
      *            Filter devices by device type
@@ -142,7 +145,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * List device's resources
+     * Lists device's resources
      * 
      * @param deviceId
      *            Device ID
@@ -166,7 +169,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * List metrics
+     * Lists metrics
      * 
      * @param options
      *            metrics options
@@ -435,6 +438,81 @@ public class Connect extends AbstractAPI {
         return null;
     }
 
+    /**
+     * Lists pre-subscription data
+     * 
+     * @return the list of pre-subscription data
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public @Nullable List<Presubscription> listPresubscriptions() throws MbedCloudException {
+        return CloudCaller.call(this, "listPresubscriptions()", PresubscriptionAdapter.getListMapper(),
+                new CloudCall<PresubscriptionArray>() {
+
+                    @Override
+                    public Call<PresubscriptionArray> call() {
+                        return endpoint.getSubscriptions().v2SubscriptionsGet();
+                    }
+                });
+    }
+
+    /**
+     * Updates pre-subscription data.
+     * 
+     * @param presubscriptions
+     *            The pre-subscription list to update.
+     *            <p>
+     *            If you send an empty/null array, the pre-subscription data will be removed @see
+     *            {@link #deletePresubscriptions()} for similar action
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
+        final List<Presubscription> finalList = presubscriptions;
+        CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(finalList));
+            }
+        });
+    }
+
+    /**
+     * Deletes pre-subscription data
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deletePresubscriptions() throws MbedCloudException {
+        CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(null));
+            }
+        });
+    }
+
+    /**
+     * Removes all subscriptions
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteSubscriptions() throws MbedCloudException {
+        CloudCaller.call(this, "deleteSubscriptions()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDelete();
+            }
+        });
+    }
     // TODO subscriptions
 
     /**
