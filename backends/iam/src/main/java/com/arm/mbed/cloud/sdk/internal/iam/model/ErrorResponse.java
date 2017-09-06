@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.Field;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -34,34 +39,27 @@ public class ErrorResponse implements Serializable {
   private Integer code = null;
 
   @SerializedName("fields")
-  private List<Field> fields = new ArrayList<Field>();
+  private List<Field> fields = null;
 
   /**
-   * Entity name, always 'error'.
+   * Entity name, always &#39;error&#39;.
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -70,9 +68,35 @@ public class ErrorResponse implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -88,62 +112,44 @@ public class ErrorResponse implements Serializable {
   /**
    * Error type.
    */
+  @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    @SerializedName("success")
     SUCCESS("success"),
     
-    @SerializedName("created")
     CREATED("created"),
     
-    @SerializedName("accepted")
     ACCEPTED("accepted"),
     
-    @SerializedName("permanently_deleted")
     PERMANENTLY_DELETED("permanently_deleted"),
     
-    @SerializedName("validation_error")
     VALIDATION_ERROR("validation_error"),
     
-    @SerializedName("invalid_token")
     INVALID_TOKEN("invalid_token"),
     
-    @SerializedName("invalid_apikey")
     INVALID_APIKEY("invalid_apikey"),
     
-    @SerializedName("reauth_required")
     REAUTH_REQUIRED("reauth_required"),
     
-    @SerializedName("access_denied")
     ACCESS_DENIED("access_denied"),
     
-    @SerializedName("account_limit_exceeded")
     ACCOUNT_LIMIT_EXCEEDED("account_limit_exceeded"),
     
-    @SerializedName("not_found")
     NOT_FOUND("not_found"),
     
-    @SerializedName("method_not_supported")
     METHOD_NOT_SUPPORTED("method_not_supported"),
     
-    @SerializedName("not_acceptable")
     NOT_ACCEPTABLE("not_acceptable"),
     
-    @SerializedName("duplicate")
     DUPLICATE("duplicate"),
     
-    @SerializedName("precondition_failed")
     PRECONDITION_FAILED("precondition_failed"),
     
-    @SerializedName("unsupported_media_type")
     UNSUPPORTED_MEDIA_TYPE("unsupported_media_type"),
     
-    @SerializedName("rate_limit_exceeded")
     RATE_LIMIT_EXCEEDED("rate_limit_exceeded"),
     
-    @SerializedName("internal_server_error")
     INTERNAL_SERVER_ERROR("internal_server_error"),
     
-    @SerializedName("system_unavailable")
     SYSTEM_UNAVAILABLE("system_unavailable");
 
     private String value;
@@ -152,9 +158,35 @@ public class ErrorResponse implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static TypeEnum fromValue(String text) {
+      for (TypeEnum b : TypeEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<TypeEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final TypeEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public TypeEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return TypeEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -170,7 +202,7 @@ public class ErrorResponse implements Serializable {
    * Response code.
    * @return code
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Response code.")
+  @ApiModelProperty(required = true, value = "Response code.")
   public Integer getCode() {
     return code;
   }
@@ -185,6 +217,9 @@ public class ErrorResponse implements Serializable {
   }
 
   public ErrorResponse addFieldsItem(Field fieldsItem) {
+    if (this.fields == null) {
+      this.fields = new ArrayList<Field>();
+    }
     this.fields.add(fieldsItem);
     return this;
   }
@@ -193,7 +228,7 @@ public class ErrorResponse implements Serializable {
    * Failed input fields during request object validation.
    * @return fields
   **/
-  @ApiModelProperty(example = "null", value = "Failed input fields during request object validation.")
+  @ApiModelProperty(value = "Failed input fields during request object validation.")
   public List<Field> getFields() {
     return fields;
   }
@@ -208,10 +243,10 @@ public class ErrorResponse implements Serializable {
   }
 
    /**
-   * Entity name, always 'error'.
+   * Entity name, always &#39;error&#39;.
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name, always 'error'.")
+  @ApiModelProperty(required = true, value = "Entity name, always 'error'.")
   public ObjectEnum getObject() {
     return object;
   }
@@ -229,7 +264,7 @@ public class ErrorResponse implements Serializable {
    * Request ID.
    * @return requestId
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Request ID.")
+  @ApiModelProperty(required = true, value = "Request ID.")
   public String getRequestId() {
     return requestId;
   }
@@ -247,7 +282,7 @@ public class ErrorResponse implements Serializable {
    * A human readable message with detailed info.
    * @return message
   **/
-  @ApiModelProperty(example = "null", required = true, value = "A human readable message with detailed info.")
+  @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
   public String getMessage() {
     return message;
   }
@@ -265,7 +300,7 @@ public class ErrorResponse implements Serializable {
    * Error type.
    * @return type
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Error type.")
+  @ApiModelProperty(required = true, value = "Error type.")
   public TypeEnum getType() {
     return type;
   }

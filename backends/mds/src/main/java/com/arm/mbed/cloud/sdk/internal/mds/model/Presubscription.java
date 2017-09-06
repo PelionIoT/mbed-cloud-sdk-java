@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -35,7 +40,7 @@ public class Presubscription implements Serializable {
   private String endpointType = null;
 
   @SerializedName("resource-path")
-  private List<String> resourcePath = new ArrayList<String>();
+  private List<String> resourcePath = null;
 
   public Presubscription endpointName(String endpointName) {
     this.endpointName = endpointName;
@@ -46,7 +51,7 @@ public class Presubscription implements Serializable {
    * The Device ID
    * @return endpointName
   **/
-  @ApiModelProperty(example = "null", value = "The Device ID")
+  @ApiModelProperty(value = "The Device ID")
   public String getEndpointName() {
     return endpointName;
   }
@@ -64,7 +69,7 @@ public class Presubscription implements Serializable {
    * Get endpointType
    * @return endpointType
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getEndpointType() {
     return endpointType;
   }
@@ -79,6 +84,9 @@ public class Presubscription implements Serializable {
   }
 
   public Presubscription addResourcePathItem(String resourcePathItem) {
+    if (this.resourcePath == null) {
+      this.resourcePath = new ArrayList<String>();
+    }
     this.resourcePath.add(resourcePathItem);
     return this;
   }
@@ -87,7 +95,7 @@ public class Presubscription implements Serializable {
    * Get resourcePath
    * @return resourcePath
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<String> getResourcePath() {
     return resourcePath;
   }

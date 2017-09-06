@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
@@ -34,20 +39,16 @@ public class UserInfoResp implements Serializable {
   /**
    * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ENROLLING")
     ENROLLING("ENROLLING"),
     
-    @SerializedName("INVITED")
     INVITED("INVITED"),
     
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("RESET")
     RESET("RESET"),
     
-    @SerializedName("INACTIVE")
     INACTIVE("INACTIVE");
 
     private String value;
@@ -56,9 +57,35 @@ public class UserInfoResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -69,7 +96,7 @@ public class UserInfoResp implements Serializable {
   private String username = null;
 
   @SerializedName("groups")
-  private List<String> groups = new ArrayList<String>();
+  private List<String> groups = null;
 
   @SerializedName("password_changed_time")
   private Long passwordChangedTime = null;
@@ -81,31 +108,24 @@ public class UserInfoResp implements Serializable {
   private DateTime createdAt = null;
 
   /**
-   * Entity name: always 'user'
+   * Entity name: always &#39;user&#39;
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -114,9 +134,35 @@ public class UserInfoResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -133,7 +179,7 @@ public class UserInfoResp implements Serializable {
   private String email = null;
 
   @SerializedName("login_history")
-  private List<LoginHistory> loginHistory = new ArrayList<LoginHistory>();
+  private List<LoginHistory> loginHistory = null;
 
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
@@ -174,7 +220,7 @@ public class UserInfoResp implements Serializable {
    * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
    * @return status
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.")
+  @ApiModelProperty(required = true, value = "The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -189,10 +235,10 @@ public class UserInfoResp implements Serializable {
   }
 
    /**
-   * A username containing alphanumerical letters and -,._@+= characters.
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters.
    * @return username
   **/
-  @ApiModelProperty(example = "null", value = "A username containing alphanumerical letters and -,._@+= characters.")
+  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters.")
   public String getUsername() {
     return username;
   }
@@ -207,6 +253,9 @@ public class UserInfoResp implements Serializable {
   }
 
   public UserInfoResp addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
     this.groups.add(groupsItem);
     return this;
   }
@@ -215,7 +264,7 @@ public class UserInfoResp implements Serializable {
    * A list of IDs of the groups this user belongs to.
    * @return groups
   **/
-  @ApiModelProperty(example = "null", value = "A list of IDs of the groups this user belongs to.")
+  @ApiModelProperty(value = "A list of IDs of the groups this user belongs to.")
   public List<String> getGroups() {
     return groups;
   }
@@ -233,7 +282,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the latest change of the user password, in milliseconds.
    * @return passwordChangedTime
   **/
-  @ApiModelProperty(example = "null", value = "A timestamp of the latest change of the user password, in milliseconds.")
+  @ApiModelProperty(value = "A timestamp of the latest change of the user password, in milliseconds.")
   public Long getPasswordChangedTime() {
     return passwordChangedTime;
   }
@@ -248,10 +297,10 @@ public class UserInfoResp implements Serializable {
   }
 
    /**
-   * A flag indicating whether the user's email address has been verified or not.
+   * A flag indicating whether the user&#39;s email address has been verified or not.
    * @return emailVerified
   **/
-  @ApiModelProperty(example = "null", value = "A flag indicating whether the user's email address has been verified or not.")
+  @ApiModelProperty(value = "A flag indicating whether the user's email address has been verified or not.")
   public Boolean getEmailVerified() {
     return emailVerified;
   }
@@ -269,7 +318,7 @@ public class UserInfoResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -284,10 +333,10 @@ public class UserInfoResp implements Serializable {
   }
 
    /**
-   * Entity name: always 'user'
+   * Entity name: always &#39;user&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name: always 'user'")
+  @ApiModelProperty(required = true, value = "Entity name: always 'user'")
   public ObjectEnum getObject() {
     return object;
   }
@@ -305,7 +354,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating that the General Terms and Conditions has been accepted.
    * @return isGtcAccepted
   **/
-  @ApiModelProperty(example = "null", value = "A flag indicating that the General Terms and Conditions has been accepted.")
+  @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
   public Boolean getIsGtcAccepted() {
     return isGtcAccepted;
   }
@@ -323,7 +372,7 @@ public class UserInfoResp implements Serializable {
    * The UUID of the account.
    * @return accountId
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The UUID of the account.")
+  @ApiModelProperty(required = true, value = "The UUID of the account.")
   public String getAccountId() {
     return accountId;
   }
@@ -341,7 +390,7 @@ public class UserInfoResp implements Serializable {
    * The email address.
    * @return email
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The email address.")
+  @ApiModelProperty(required = true, value = "The email address.")
   public String getEmail() {
     return email;
   }
@@ -356,6 +405,9 @@ public class UserInfoResp implements Serializable {
   }
 
   public UserInfoResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
+    if (this.loginHistory == null) {
+      this.loginHistory = new ArrayList<LoginHistory>();
+    }
     this.loginHistory.add(loginHistoryItem);
     return this;
   }
@@ -364,7 +416,7 @@ public class UserInfoResp implements Serializable {
    * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
    * @return loginHistory
   **/
-  @ApiModelProperty(example = "null", value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
+  @ApiModelProperty(value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
   public List<LoginHistory> getLoginHistory() {
     return loginHistory;
   }
@@ -382,7 +434,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
    * @return isTotpEnabled
   **/
-  @ApiModelProperty(example = "null", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+  @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
   public Boolean getIsTotpEnabled() {
     return isTotpEnabled;
   }
@@ -400,7 +452,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating that receiving marketing information has been accepted.
    * @return isMarketingAccepted
   **/
-  @ApiModelProperty(example = "null", value = "A flag indicating that receiving marketing information has been accepted.")
+  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
   public Boolean getIsMarketingAccepted() {
     return isMarketingAccepted;
   }
@@ -418,7 +470,7 @@ public class UserInfoResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "API resource entity version.")
+  @ApiModelProperty(required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -436,7 +488,7 @@ public class UserInfoResp implements Serializable {
    * The full name of the user.
    * @return fullName
   **/
-  @ApiModelProperty(example = "null", value = "The full name of the user.")
+  @ApiModelProperty(value = "The full name of the user.")
   public String getFullName() {
     return fullName;
   }
@@ -454,7 +506,7 @@ public class UserInfoResp implements Serializable {
    * Address.
    * @return address
   **/
-  @ApiModelProperty(example = "null", value = "Address.")
+  @ApiModelProperty(value = "Address.")
   public String getAddress() {
     return address;
   }
@@ -472,7 +524,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the user creation in the storage, in milliseconds.
    * @return creationTime
   **/
-  @ApiModelProperty(example = "null", value = "A timestamp of the user creation in the storage, in milliseconds.")
+  @ApiModelProperty(value = "A timestamp of the user creation in the storage, in milliseconds.")
   public Long getCreationTime() {
     return creationTime;
   }
@@ -490,7 +542,7 @@ public class UserInfoResp implements Serializable {
    * The password when creating a new user. It will will generated when not present in the request.
    * @return password
   **/
-  @ApiModelProperty(example = "null", value = "The password when creating a new user. It will will generated when not present in the request.")
+  @ApiModelProperty(value = "The password when creating a new user. It will will generated when not present in the request.")
   public String getPassword() {
     return password;
   }
@@ -508,7 +560,7 @@ public class UserInfoResp implements Serializable {
    * Phone number.
    * @return phoneNumber
   **/
-  @ApiModelProperty(example = "null", value = "Phone number.")
+  @ApiModelProperty(value = "Phone number.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -526,7 +578,7 @@ public class UserInfoResp implements Serializable {
    * The UUID of the user.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The UUID of the user.")
+  @ApiModelProperty(required = true, value = "The UUID of the user.")
   public String getId() {
     return id;
   }
@@ -544,7 +596,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the latest login of the user, in milliseconds.
    * @return lastLoginTime
   **/
-  @ApiModelProperty(example = "null", value = "A timestamp of the latest login of the user, in milliseconds.")
+  @ApiModelProperty(value = "A timestamp of the latest login of the user, in milliseconds.")
   public Long getLastLoginTime() {
     return lastLoginTime;
   }

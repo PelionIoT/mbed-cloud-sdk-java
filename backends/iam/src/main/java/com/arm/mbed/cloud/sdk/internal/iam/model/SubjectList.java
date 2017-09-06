@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -30,10 +35,10 @@ public class SubjectList implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("apikeys")
-  private List<String> apikeys = new ArrayList<String>();
+  private List<String> apikeys = null;
 
   @SerializedName("users")
-  private List<String> users = new ArrayList<String>();
+  private List<String> users = null;
 
   public SubjectList apikeys(List<String> apikeys) {
     this.apikeys = apikeys;
@@ -41,6 +46,9 @@ public class SubjectList implements Serializable {
   }
 
   public SubjectList addApikeysItem(String apikeysItem) {
+    if (this.apikeys == null) {
+      this.apikeys = new ArrayList<String>();
+    }
     this.apikeys.add(apikeysItem);
     return this;
   }
@@ -49,7 +57,7 @@ public class SubjectList implements Serializable {
    * An array of API keys.
    * @return apikeys
   **/
-  @ApiModelProperty(example = "null", value = "An array of API keys.")
+  @ApiModelProperty(value = "An array of API keys.")
   public List<String> getApikeys() {
     return apikeys;
   }
@@ -64,6 +72,9 @@ public class SubjectList implements Serializable {
   }
 
   public SubjectList addUsersItem(String usersItem) {
+    if (this.users == null) {
+      this.users = new ArrayList<String>();
+    }
     this.users.add(usersItem);
     return this;
   }
@@ -72,7 +83,7 @@ public class SubjectList implements Serializable {
    * An array of user names.
    * @return users
   **/
-  @ApiModelProperty(example = "null", value = "An array of user names.")
+  @ApiModelProperty(value = "An array of user names.")
   public List<String> getUsers() {
     return users;
   }

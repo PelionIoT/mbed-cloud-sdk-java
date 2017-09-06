@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -39,31 +44,24 @@ public class GroupSummaryList implements Serializable {
   private Integer totalCount = null;
 
   /**
-   * Entity name: always 'list'
+   * Entity name: always &#39;list&#39;
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -72,9 +70,35 @@ public class GroupSummaryList implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -90,11 +114,10 @@ public class GroupSummaryList implements Serializable {
   /**
    * The order of the records to return. Available values: ASC, DESC; by default ASC.
    */
+  @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
-    @SerializedName("ASC")
     ASC("ASC"),
     
-    @SerializedName("DESC")
     DESC("DESC");
 
     private String value;
@@ -103,9 +126,35 @@ public class GroupSummaryList implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static OrderEnum fromValue(String text) {
+      for (OrderEnum b : OrderEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<OrderEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final OrderEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public OrderEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return OrderEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -121,7 +170,7 @@ public class GroupSummaryList implements Serializable {
    * The entity ID to fetch after the given one.
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "The entity ID to fetch after the given one.")
+  @ApiModelProperty(value = "The entity ID to fetch after the given one.")
   public String getAfter() {
     return after;
   }
@@ -139,7 +188,7 @@ public class GroupSummaryList implements Serializable {
    * Flag indicating whether there is more results.
    * @return hasMore
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Flag indicating whether there is more results.")
+  @ApiModelProperty(required = true, value = "Flag indicating whether there is more results.")
   public Boolean getHasMore() {
     return hasMore;
   }
@@ -157,7 +206,7 @@ public class GroupSummaryList implements Serializable {
    * The total number or records, if requested. It might be returned also for small lists.
    * @return totalCount
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
+  @ApiModelProperty(required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -172,10 +221,10 @@ public class GroupSummaryList implements Serializable {
   }
 
    /**
-   * Entity name: always 'list'
+   * Entity name: always &#39;list&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name: always 'list'")
+  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
   public ObjectEnum getObject() {
     return object;
   }
@@ -190,10 +239,10 @@ public class GroupSummaryList implements Serializable {
   }
 
    /**
-   * The number of results to return, (range: 2-1000), or equals to `total_count`
+   * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
    * @return limit
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+  @ApiModelProperty(required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
   public Integer getLimit() {
     return limit;
   }
@@ -216,7 +265,7 @@ public class GroupSummaryList implements Serializable {
    * A list of entities.
    * @return data
   **/
-  @ApiModelProperty(example = "null", required = true, value = "A list of entities.")
+  @ApiModelProperty(required = true, value = "A list of entities.")
   public List<GroupSummary> getData() {
     return data;
   }
@@ -234,7 +283,7 @@ public class GroupSummaryList implements Serializable {
    * The order of the records to return. Available values: ASC, DESC; by default ASC.
    * @return order
   **/
-  @ApiModelProperty(example = "null", value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
   public OrderEnum getOrder() {
     return order;
   }

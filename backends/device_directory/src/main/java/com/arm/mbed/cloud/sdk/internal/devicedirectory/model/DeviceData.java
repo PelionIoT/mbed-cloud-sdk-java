@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -69,11 +74,10 @@ public class DeviceData implements Serializable {
   /**
    * The ID of the channel used to communicate with the device.
    */
+  @JsonAdapter(MechanismEnum.Adapter.class)
   public enum MechanismEnum {
-    @SerializedName("connector")
     CONNECTOR("connector"),
     
-    @SerializedName("direct")
     DIRECT("direct");
 
     private String value;
@@ -82,9 +86,35 @@ public class DeviceData implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static MechanismEnum fromValue(String text) {
+      for (MechanismEnum b : MechanismEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MechanismEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MechanismEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MechanismEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MechanismEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -94,20 +124,16 @@ public class DeviceData implements Serializable {
   /**
    * The current state of the device.
    */
+  @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
-    @SerializedName("unenrolled")
     UNENROLLED("unenrolled"),
     
-    @SerializedName("cloud_enrolling")
     CLOUD_ENROLLING("cloud_enrolling"),
     
-    @SerializedName("bootstrapped")
     BOOTSTRAPPED("bootstrapped"),
     
-    @SerializedName("registered")
     REGISTERED("registered"),
     
-    @SerializedName("deregistered")
     DEREGISTERED("deregistered");
 
     private String value;
@@ -116,9 +142,35 @@ public class DeviceData implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StateEnum fromValue(String text) {
+      for (StateEnum b : StateEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StateEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StateEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StateEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StateEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -144,13 +196,12 @@ public class DeviceData implements Serializable {
   private String description = null;
 
   /**
-   * DEPRECATED The state of the device's deployment.
+   * DEPRECATED The state of the device&#39;s deployment.
    */
+  @JsonAdapter(DeployedStateEnum.Adapter.class)
   public enum DeployedStateEnum {
-    @SerializedName("development")
     DEVELOPMENT("development"),
     
-    @SerializedName("production")
     PRODUCTION("production");
 
     private String value;
@@ -159,9 +210,35 @@ public class DeviceData implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static DeployedStateEnum fromValue(String text) {
+      for (DeployedStateEnum b : DeployedStateEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<DeployedStateEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final DeployedStateEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public DeployedStateEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return DeployedStateEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -196,7 +273,7 @@ public class DeviceData implements Serializable {
   private String manifest = null;
 
   @SerializedName("custom_attributes")
-  private Map<String, String> customAttributes = new HashMap<String, String>();
+  private Map<String, String> customAttributes = null;
 
   public DeviceData bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -207,7 +284,7 @@ public class DeviceData implements Serializable {
    * Expiration date of the certificate used to connect to bootstrap server.
    * @return bootstrapExpirationDate
   **/
-  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to bootstrap server.")
+  @ApiModelProperty(value = "Expiration date of the certificate used to connect to bootstrap server.")
   public DateTime getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
@@ -225,7 +302,7 @@ public class DeviceData implements Serializable {
    * Timestamp of when the device last went through the bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(example = "null", value = "Timestamp of when the device last went through the bootstrap process.")
+  @ApiModelProperty(value = "Timestamp of when the device last went through the bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -243,7 +320,7 @@ public class DeviceData implements Serializable {
    * Expiration date of the certificate used to connect to the lwm2m server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(example = "null", value = "Expiration date of the certificate used to connect to the lwm2m server.")
+  @ApiModelProperty(value = "Expiration date of the certificate used to connect to the lwm2m server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
@@ -261,7 +338,7 @@ public class DeviceData implements Serializable {
    * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "null", value = "The time the object was updated.")
+  @ApiModelProperty(value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -279,7 +356,7 @@ public class DeviceData implements Serializable {
    * ID of the issuer of the certificate.
    * @return caId
   **/
-  @ApiModelProperty(example = "null", value = "ID of the issuer of the certificate.")
+  @ApiModelProperty(value = "ID of the issuer of the certificate.")
   public String getCaId() {
     return caId;
   }
@@ -297,7 +374,7 @@ public class DeviceData implements Serializable {
    * An id representing the model and hardware revision of the device.
    * @return deviceClass
   **/
-  @ApiModelProperty(example = "null", value = "An id representing the model and hardware revision of the device.")
+  @ApiModelProperty(value = "An id representing the model and hardware revision of the device.")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -315,7 +392,7 @@ public class DeviceData implements Serializable {
    * The id of the device. The device id is used to manage a device across all mbed cloud apis.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "The id of the device. The device id is used to manage a device across all mbed cloud apis.")
+  @ApiModelProperty(value = "The id of the device. The device id is used to manage a device across all mbed cloud apis.")
   public String getId() {
     return id;
   }
@@ -333,7 +410,7 @@ public class DeviceData implements Serializable {
    * The ID of the associated account.
    * @return accountId
   **/
-  @ApiModelProperty(example = "null", value = "The ID of the associated account.")
+  @ApiModelProperty(value = "The ID of the associated account.")
   public String getAccountId() {
     return accountId;
   }
@@ -351,7 +428,7 @@ public class DeviceData implements Serializable {
    * The endpoint name given to the device.
    * @return endpointName
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint name given to the device.")
+  @ApiModelProperty(value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
   }
@@ -369,7 +446,7 @@ public class DeviceData implements Serializable {
    * DEPRECATED Mark this device for auto firmware update.
    * @return autoUpdate
   **/
-  @ApiModelProperty(example = "null", value = "DEPRECATED Mark this device for auto firmware update.")
+  @ApiModelProperty(value = "DEPRECATED Mark this device for auto firmware update.")
   public Boolean getAutoUpdate() {
     return autoUpdate;
   }
@@ -387,7 +464,7 @@ public class DeviceData implements Serializable {
    * The endpoint_name of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint_name of the host gateway, if appropriate.")
+  @ApiModelProperty(value = "The endpoint_name of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -405,7 +482,7 @@ public class DeviceData implements Serializable {
    * Defines the type of certificate used.
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(example = "null", value = "Defines the type of certificate used.")
+  @ApiModelProperty(value = "Defines the type of certificate used.")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
@@ -423,7 +500,7 @@ public class DeviceData implements Serializable {
    * The ID of the channel used to communicate with the device.
    * @return mechanism
   **/
-  @ApiModelProperty(example = "null", value = "The ID of the channel used to communicate with the device.")
+  @ApiModelProperty(value = "The ID of the channel used to communicate with the device.")
   public MechanismEnum getMechanism() {
     return mechanism;
   }
@@ -441,7 +518,7 @@ public class DeviceData implements Serializable {
    * The current state of the device.
    * @return state
   **/
-  @ApiModelProperty(example = "null", value = "The current state of the device.")
+  @ApiModelProperty(value = "The current state of the device.")
   public StateEnum getState() {
     return state;
   }
@@ -459,7 +536,7 @@ public class DeviceData implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", value = "The entity instance signature.")
+  @ApiModelProperty(value = "The entity instance signature.")
   public DateTime getEtag() {
     return etag;
   }
@@ -477,7 +554,7 @@ public class DeviceData implements Serializable {
    * The serial number of the device.
    * @return serialNumber
   **/
-  @ApiModelProperty(example = "null", value = "The serial number of the device.")
+  @ApiModelProperty(value = "The serial number of the device.")
   public String getSerialNumber() {
     return serialNumber;
   }
@@ -495,7 +572,7 @@ public class DeviceData implements Serializable {
    * The SHA256 checksum of the current firmware image.
    * @return firmwareChecksum
   **/
-  @ApiModelProperty(example = "null", value = "The SHA256 checksum of the current firmware image.")
+  @ApiModelProperty(value = "The SHA256 checksum of the current firmware image.")
   public String getFirmwareChecksum() {
     return firmwareChecksum;
   }
@@ -513,7 +590,7 @@ public class DeviceData implements Serializable {
    * The timestamp of the current manifest version.
    * @return manifestTimestamp
   **/
-  @ApiModelProperty(example = "null", value = "The timestamp of the current manifest version.")
+  @ApiModelProperty(value = "The timestamp of the current manifest version.")
   public DateTime getManifestTimestamp() {
     return manifestTimestamp;
   }
@@ -531,7 +608,7 @@ public class DeviceData implements Serializable {
    * The device vendor ID.
    * @return vendorId
   **/
-  @ApiModelProperty(example = "null", value = "The device vendor ID.")
+  @ApiModelProperty(value = "The device vendor ID.")
   public String getVendorId() {
     return vendorId;
   }
@@ -549,7 +626,7 @@ public class DeviceData implements Serializable {
    * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "The description of the device.")
+  @ApiModelProperty(value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -564,10 +641,10 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * DEPRECATED The state of the device's deployment.
+   * DEPRECATED The state of the device&#39;s deployment.
    * @return deployedState
   **/
-  @ApiModelProperty(example = "null", value = "DEPRECATED The state of the device's deployment.")
+  @ApiModelProperty(value = "DEPRECATED The state of the device's deployment.")
   public DeployedStateEnum getDeployedState() {
     return deployedState;
   }
@@ -585,7 +662,7 @@ public class DeviceData implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "The API resource entity.")
+  @ApiModelProperty(value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -603,7 +680,7 @@ public class DeviceData implements Serializable {
    * The endpoint type of the device - e.g. if the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(example = "null", value = "The endpoint type of the device - e.g. if the device is a gateway.")
+  @ApiModelProperty(value = "The endpoint type of the device - e.g. if the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -621,7 +698,7 @@ public class DeviceData implements Serializable {
    * DEPRECATED The last deployment used on the device.
    * @return deployment
   **/
-  @ApiModelProperty(example = "null", value = "DEPRECATED The last deployment used on the device.")
+  @ApiModelProperty(value = "DEPRECATED The last deployment used on the device.")
   public String getDeployment() {
     return deployment;
   }
@@ -639,7 +716,7 @@ public class DeviceData implements Serializable {
    * The address of the connector to use.
    * @return mechanismUrl
   **/
-  @ApiModelProperty(example = "null", value = "The address of the connector to use.")
+  @ApiModelProperty(value = "The address of the connector to use.")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
@@ -657,7 +734,7 @@ public class DeviceData implements Serializable {
    * The device trust level.
    * @return trustLevel
   **/
-  @ApiModelProperty(example = "null", value = "The device trust level.")
+  @ApiModelProperty(value = "The device trust level.")
   public Integer getTrustLevel() {
     return trustLevel;
   }
@@ -675,7 +752,7 @@ public class DeviceData implements Serializable {
    * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the device.")
+  @ApiModelProperty(value = "The name of the device.")
   public String getName() {
     return name;
   }
@@ -693,7 +770,7 @@ public class DeviceData implements Serializable {
    * Fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(example = "null", value = "Fingerprint of the device certificate.")
+  @ApiModelProperty(value = "Fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -711,7 +788,7 @@ public class DeviceData implements Serializable {
    * Timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(value = "Timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -729,7 +806,7 @@ public class DeviceData implements Serializable {
    * DEPRECATED The URL for the current device manifest.
    * @return manifest
   **/
-  @ApiModelProperty(example = "null", value = "DEPRECATED The URL for the current device manifest.")
+  @ApiModelProperty(value = "DEPRECATED The URL for the current device manifest.")
   public String getManifest() {
     return manifest;
   }
@@ -744,6 +821,9 @@ public class DeviceData implements Serializable {
   }
 
   public DeviceData putCustomAttributesItem(String key, String customAttributesItem) {
+    if (this.customAttributes == null) {
+      this.customAttributes = new HashMap<String, String>();
+    }
     this.customAttributes.put(key, customAttributesItem);
     return this;
   }
@@ -752,7 +832,7 @@ public class DeviceData implements Serializable {
    * Custom attributes(key/value). Up to 5 attributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "null", value = "Custom attributes(key/value). Up to 5 attributes")
+  @ApiModelProperty(value = "Custom attributes(key/value). Up to 5 attributes")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }

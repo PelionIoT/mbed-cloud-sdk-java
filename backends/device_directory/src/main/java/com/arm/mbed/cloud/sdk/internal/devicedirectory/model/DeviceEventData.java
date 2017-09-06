@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -63,7 +68,7 @@ public class DeviceEventData implements Serializable {
    * Get dateTime
    * @return dateTime
   **/
-  @ApiModelProperty(example = "null", required = true, value = "")
+  @ApiModelProperty(required = true, value = "")
   public DateTime getDateTime() {
     return dateTime;
   }
@@ -81,7 +86,7 @@ public class DeviceEventData implements Serializable {
    * Get stateChange
    * @return stateChange
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Boolean getStateChange() {
     return stateChange;
   }
@@ -99,7 +104,7 @@ public class DeviceEventData implements Serializable {
    * Get description
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getDescription() {
     return description;
   }
@@ -117,7 +122,7 @@ public class DeviceEventData implements Serializable {
    * Get changes
    * @return changes
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Object getChanges() {
     return changes;
   }
@@ -135,7 +140,7 @@ public class DeviceEventData implements Serializable {
    * Get eventTypeDescription
    * @return eventTypeDescription
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getEventTypeDescription() {
     return eventTypeDescription;
   }
@@ -153,7 +158,7 @@ public class DeviceEventData implements Serializable {
    * Get eventType
    * @return eventType
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getEventType() {
     return eventType;
   }
@@ -171,7 +176,7 @@ public class DeviceEventData implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Object getData() {
     return data;
   }
@@ -189,7 +194,7 @@ public class DeviceEventData implements Serializable {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getId() {
     return id;
   }
@@ -207,7 +212,7 @@ public class DeviceEventData implements Serializable {
    * Get deviceId
    * @return deviceId
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getDeviceId() {
     return deviceId;
   }

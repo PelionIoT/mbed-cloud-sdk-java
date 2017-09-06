@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -30,11 +35,10 @@ public class TrustedCertificateUpdateReq implements Serializable {
   /**
    * Status of the certificate.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("INACTIVE")
     INACTIVE("INACTIVE");
 
     private String value;
@@ -43,9 +47,35 @@ public class TrustedCertificateUpdateReq implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -61,11 +91,10 @@ public class TrustedCertificateUpdateReq implements Serializable {
   /**
    * Service name where the certificate must be used.
    */
+  @JsonAdapter(ServiceEnum.Adapter.class)
   public enum ServiceEnum {
-    @SerializedName("lwm2m")
     LWM2M("lwm2m"),
     
-    @SerializedName("bootstrap")
     BOOTSTRAP("bootstrap");
 
     private String value;
@@ -74,9 +103,35 @@ public class TrustedCertificateUpdateReq implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ServiceEnum fromValue(String text) {
+      for (ServiceEnum b : ServiceEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ServiceEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ServiceEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ServiceEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ServiceEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -98,7 +153,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * Status of the certificate.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "Status of the certificate.")
+  @ApiModelProperty(value = "Status of the certificate.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -116,7 +171,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * X509.v3 trusted certificate in PEM format.
    * @return certificate
   **/
-  @ApiModelProperty(example = "null", value = "X509.v3 trusted certificate in PEM format.")
+  @ApiModelProperty(value = "X509.v3 trusted certificate in PEM format.")
   public String getCertificate() {
     return certificate;
   }
@@ -134,7 +189,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * Certificate name, not longer than 100 characters.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "Certificate name, not longer than 100 characters.")
+  @ApiModelProperty(value = "Certificate name, not longer than 100 characters.")
   public String getName() {
     return name;
   }
@@ -152,7 +207,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * Service name where the certificate must be used.
    * @return service
   **/
-  @ApiModelProperty(example = "null", value = "Service name where the certificate must be used.")
+  @ApiModelProperty(value = "Service name where the certificate must be used.")
   public ServiceEnum getService() {
     return service;
   }
@@ -170,7 +225,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.
    * @return signature
   **/
-  @ApiModelProperty(example = "null", value = "Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.")
+  @ApiModelProperty(value = "Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256.")
   public String getSignature() {
     return signature;
   }
@@ -188,7 +243,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
    * Human readable description of this certificate, not longer than 500 characters.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "Human readable description of this certificate, not longer than 500 characters.")
+  @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
   public String getDescription() {
     return description;
   }

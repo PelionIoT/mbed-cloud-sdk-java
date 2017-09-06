@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.mds.model.ResourcesData;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -39,7 +44,7 @@ public class EndpointData implements Serializable {
   private String originalEp = null;
 
   @SerializedName("resources")
-  private List<ResourcesData> resources = new ArrayList<ResourcesData>();
+  private List<ResourcesData> resources = null;
 
   @SerializedName("ep")
   private String ep = null;
@@ -53,7 +58,7 @@ public class EndpointData implements Serializable {
    * Queue mode (default value is false).
    * @return q
   **/
-  @ApiModelProperty(example = "null", value = "Queue mode (default value is false).")
+  @ApiModelProperty(value = "Queue mode (default value is false).")
   public Boolean getQ() {
     return q;
   }
@@ -71,7 +76,7 @@ public class EndpointData implements Serializable {
    * Endpoint type.
    * @return ept
   **/
-  @ApiModelProperty(example = "null", value = "Endpoint type.")
+  @ApiModelProperty(value = "Endpoint type.")
   public String getEpt() {
     return ept;
   }
@@ -86,10 +91,10 @@ public class EndpointData implements Serializable {
   }
 
    /**
-   * In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  
+   * In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  
    * @return originalEp
   **/
-  @ApiModelProperty(example = "null", value = "In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  ")
+  @ApiModelProperty(value = "In case of a self-provided endpoint name that is used to initiate the device registration, mbed Cloud provides a new Device ID to be used from that point on. The new mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. mbed Cloud saves the original endpoint name in Device Catalog for future device registrations so there is no need to do the mapping again.  ")
   public String getOriginalEp() {
     return originalEp;
   }
@@ -104,6 +109,9 @@ public class EndpointData implements Serializable {
   }
 
   public EndpointData addResourcesItem(ResourcesData resourcesItem) {
+    if (this.resources == null) {
+      this.resources = new ArrayList<ResourcesData>();
+    }
     this.resources.add(resourcesItem);
     return this;
   }
@@ -112,7 +120,7 @@ public class EndpointData implements Serializable {
    * Get resources
    * @return resources
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<ResourcesData> getResources() {
     return resources;
   }
@@ -130,7 +138,7 @@ public class EndpointData implements Serializable {
    * Unique mbed Cloud Device ID.
    * @return ep
   **/
-  @ApiModelProperty(example = "null", value = "Unique mbed Cloud Device ID.")
+  @ApiModelProperty(value = "Unique mbed Cloud Device ID.")
   public String getEp() {
     return ep;
   }

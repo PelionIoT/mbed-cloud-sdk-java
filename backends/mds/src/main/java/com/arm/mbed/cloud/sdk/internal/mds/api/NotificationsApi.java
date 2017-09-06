@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.mds.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -24,9 +25,8 @@ public interface NotificationsApi {
    * @param webhook A json object that contains the optional headers and the URL to which the notifications need to be sent.  (required)
    * @return Call&lt;Void&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v2/notification/callback")
   Call<Void> v2NotificationCallbackPut(
@@ -38,7 +38,6 @@ public interface NotificationsApi {
    * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v2/notification/pull")
   Call<Void> v2NotificationPullDelete();
     
@@ -48,7 +47,6 @@ public interface NotificationsApi {
    * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out  (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess  TLS handshakes.  **Note:** If it is not possible to have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, long polling is deprecated and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is via [Notification Callback](/docs/v1.2/api-references/connect-api.html#v2-notification-callback). Only a single notification channel per API key can exist in mbed Cloud Connect at a time. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;NotificationMessage&gt;
    */
-  
   @GET("v2/notification/pull")
   Call<NotificationMessage> v2NotificationPullGet();
     

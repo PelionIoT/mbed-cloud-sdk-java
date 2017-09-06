@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -45,16 +50,15 @@ public class FirmwareManifestPage implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<FirmwareManifest> data = new ArrayList<FirmwareManifest>();
+  private List<FirmwareManifest> data = null;
 
   /**
    * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
    */
+  @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
-    @SerializedName("ASC")
     ASC("ASC"),
     
-    @SerializedName("DESC")
     DESC("DESC");
 
     private String value;
@@ -63,9 +67,35 @@ public class FirmwareManifestPage implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static OrderEnum fromValue(String text) {
+      for (OrderEnum b : OrderEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<OrderEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final OrderEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public OrderEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return OrderEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -81,7 +111,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getObject() {
     return object;
   }
@@ -99,7 +129,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get hasMore
    * @return hasMore
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Boolean getHasMore() {
     return hasMore;
   }
@@ -117,7 +147,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get totalCount
    * @return totalCount
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -135,7 +165,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get after
    * @return after
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public String getAfter() {
     return after;
   }
@@ -153,7 +183,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get limit
    * @return limit
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public Integer getLimit() {
     return limit;
   }
@@ -168,6 +198,9 @@ public class FirmwareManifestPage implements Serializable {
   }
 
   public FirmwareManifestPage addDataItem(FirmwareManifest dataItem) {
+    if (this.data == null) {
+      this.data = new ArrayList<FirmwareManifest>();
+    }
     this.data.add(dataItem);
     return this;
   }
@@ -176,7 +209,7 @@ public class FirmwareManifestPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public List<FirmwareManifest> getData() {
     return data;
   }

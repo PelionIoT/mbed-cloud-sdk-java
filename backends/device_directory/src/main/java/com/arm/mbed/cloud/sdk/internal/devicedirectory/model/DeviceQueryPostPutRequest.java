@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -41,7 +46,7 @@ public class DeviceQueryPostPutRequest implements Serializable {
    * The device query.
    * @return query
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The device query.")
+  @ApiModelProperty(required = true, value = "The device query.")
   public String getQuery() {
     return query;
   }
@@ -59,7 +64,7 @@ public class DeviceQueryPostPutRequest implements Serializable {
    * The name of the query.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The name of the query.")
+  @ApiModelProperty(required = true, value = "The name of the query.")
   public String getName() {
     return name;
   }

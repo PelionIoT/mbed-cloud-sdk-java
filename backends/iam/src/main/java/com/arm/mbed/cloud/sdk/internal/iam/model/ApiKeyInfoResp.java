@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import org.joda.time.DateTime;
@@ -31,16 +36,15 @@ public class ApiKeyInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("groups")
-  private List<String> groups = new ArrayList<String>();
+  private List<String> groups = null;
 
   /**
    * The status of the API key.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("INACTIVE")
     INACTIVE("INACTIVE");
 
     private String value;
@@ -49,9 +53,35 @@ public class ApiKeyInfoResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -65,31 +95,24 @@ public class ApiKeyInfoResp implements Serializable {
   private DateTime createdAt = null;
 
   /**
-   * Entity name: always 'api-key'
+   * Entity name: always &#39;api-key&#39;
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -98,9 +121,35 @@ public class ApiKeyInfoResp implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -131,6 +180,9 @@ public class ApiKeyInfoResp implements Serializable {
   }
 
   public ApiKeyInfoResp addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
     this.groups.add(groupsItem);
     return this;
   }
@@ -139,7 +191,7 @@ public class ApiKeyInfoResp implements Serializable {
    * A list of group IDs this API key belongs to.
    * @return groups
   **/
-  @ApiModelProperty(example = "null", value = "A list of group IDs this API key belongs to.")
+  @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
   public List<String> getGroups() {
     return groups;
   }
@@ -157,7 +209,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The status of the API key.
    * @return status
   **/
-  @ApiModelProperty(example = "null", value = "The status of the API key.")
+  @ApiModelProperty(value = "The status of the API key.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -175,7 +227,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The display name for the API key.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The display name for the API key.")
+  @ApiModelProperty(required = true, value = "The display name for the API key.")
   public String getName() {
     return name;
   }
@@ -193,7 +245,7 @@ public class ApiKeyInfoResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -208,10 +260,10 @@ public class ApiKeyInfoResp implements Serializable {
   }
 
    /**
-   * Entity name: always 'api-key'
+   * Entity name: always &#39;api-key&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name: always 'api-key'")
+  @ApiModelProperty(required = true, value = "Entity name: always 'api-key'")
   public ObjectEnum getObject() {
     return object;
   }
@@ -229,7 +281,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The timestamp of the API key creation in the storage, in milliseconds.
    * @return creationTime
   **/
-  @ApiModelProperty(example = "null", value = "The timestamp of the API key creation in the storage, in milliseconds.")
+  @ApiModelProperty(value = "The timestamp of the API key creation in the storage, in milliseconds.")
   public Long getCreationTime() {
     return creationTime;
   }
@@ -247,7 +299,7 @@ public class ApiKeyInfoResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "API resource entity version.")
+  @ApiModelProperty(required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -265,7 +317,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The API key.
    * @return key
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API key.")
+  @ApiModelProperty(required = true, value = "The API key.")
   public String getKey() {
     return key;
   }
@@ -283,7 +335,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The owner of this API key, who is the creator by default.
    * @return owner
   **/
-  @ApiModelProperty(example = "null", value = "The owner of this API key, who is the creator by default.")
+  @ApiModelProperty(value = "The owner of this API key, who is the creator by default.")
   public String getOwner() {
     return owner;
   }
@@ -301,7 +353,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The UUID of the API key.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The UUID of the API key.")
+  @ApiModelProperty(required = true, value = "The UUID of the API key.")
   public String getId() {
     return id;
   }
@@ -319,7 +371,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The timestamp of the latest API key usage, in milliseconds.
    * @return lastLoginTime
   **/
-  @ApiModelProperty(example = "null", value = "The timestamp of the latest API key usage, in milliseconds.")
+  @ApiModelProperty(value = "The timestamp of the latest API key usage, in milliseconds.")
   public Long getLastLoginTime() {
     return lastLoginTime;
   }

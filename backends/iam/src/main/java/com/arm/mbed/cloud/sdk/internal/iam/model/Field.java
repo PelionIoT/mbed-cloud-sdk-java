@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -41,7 +46,7 @@ public class Field implements Serializable {
    * Message describing the erroneous situation.
    * @return message
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Message describing the erroneous situation.")
+  @ApiModelProperty(required = true, value = "Message describing the erroneous situation.")
   public String getMessage() {
     return message;
   }
@@ -59,7 +64,7 @@ public class Field implements Serializable {
    * Name of the erroneous field.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Name of the erroneous field.")
+  @ApiModelProperty(required = true, value = "Name of the erroneous field.")
   public String getName() {
     return name;
   }

@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -38,7 +43,7 @@ public class PasswordPolicy implements Serializable {
    * Minimum length for the password. A number between 8 and 512.
    * @return minimumLength
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Minimum length for the password. A number between 8 and 512.")
+  @ApiModelProperty(required = true, value = "Minimum length for the password. A number between 8 and 512.")
   public String getMinimumLength() {
     return minimumLength;
   }

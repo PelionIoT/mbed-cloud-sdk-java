@@ -16,9 +16,14 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContentsEncryptionMode;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContentsPayload;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -64,10 +69,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * The device class's 128-bit RFC4122 GUID as a hexidecimal digit string
+   * The device class&#39;s 128-bit RFC4122 GUID as a hexidecimal digit string
    * @return classId
   **/
-  @ApiModelProperty(example = "null", value = "The device class's 128-bit RFC4122 GUID as a hexidecimal digit string")
+  @ApiModelProperty(value = "The device class's 128-bit RFC4122 GUID as a hexidecimal digit string")
   public String getClassId() {
     return classId;
   }
@@ -82,10 +87,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string
+   * The vendor&#39;s 128-bit RFC4122 GUID as a hexidecimal digit string
    * @return vendorId
   **/
-  @ApiModelProperty(example = "null", value = "The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string")
+  @ApiModelProperty(value = "The vendor's 128-bit RFC4122 GUID as a hexidecimal digit string")
   public String getVendorId() {
     return vendorId;
   }
@@ -103,7 +108,7 @@ public class ManifestContents implements Serializable {
    * The manifest format version
    * @return manifestVersion
   **/
-  @ApiModelProperty(example = "null", value = "The manifest format version")
+  @ApiModelProperty(value = "The manifest format version")
   public Integer getManifestVersion() {
     return manifestVersion;
   }
@@ -121,7 +126,7 @@ public class ManifestContents implements Serializable {
    * A short description of the update
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "A short description of the update")
+  @ApiModelProperty(value = "A short description of the update")
   public String getDescription() {
     return description;
   }
@@ -139,7 +144,7 @@ public class ManifestContents implements Serializable {
    * A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.
    * @return nonce
   **/
-  @ApiModelProperty(example = "null", value = "A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.")
+  @ApiModelProperty(value = "A 128-bit random field. This is provided by the manifest tool to ensure that the signing algorithm is safe from timing side-channel attacks.")
   public String getNonce() {
     return nonce;
   }
@@ -157,7 +162,7 @@ public class ManifestContents implements Serializable {
    * The time the manifest was created. The timestamp is stored as Unix time.
    * @return timestamp
   **/
-  @ApiModelProperty(example = "null", value = "The time the manifest was created. The timestamp is stored as Unix time.")
+  @ApiModelProperty(value = "The time the manifest was created. The timestamp is stored as Unix time.")
   public Integer getTimestamp() {
     return timestamp;
   }
@@ -175,7 +180,7 @@ public class ManifestContents implements Serializable {
    * Get encryptionMode
    * @return encryptionMode
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public ManifestContentsEncryptionMode getEncryptionMode() {
     return encryptionMode;
   }
@@ -193,7 +198,7 @@ public class ManifestContents implements Serializable {
    * A flag that indicates whether the update described by the manifest should be applied as soon as possible
    * @return applyImmediately
   **/
-  @ApiModelProperty(example = "null", value = "A flag that indicates whether the update described by the manifest should be applied as soon as possible")
+  @ApiModelProperty(value = "A flag that indicates whether the update described by the manifest should be applied as soon as possible")
   public Boolean getApplyImmediately() {
     return applyImmediately;
   }
@@ -208,10 +213,10 @@ public class ManifestContents implements Serializable {
   }
 
    /**
-   * The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
+   * The device&#39;s 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.
    * @return deviceId
   **/
-  @ApiModelProperty(example = "null", value = "The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.")
+  @ApiModelProperty(value = "The device's 128-bit RFC4122 GUID as a hexidecimal digit string. Each device has a single, unique device ID.")
   public String getDeviceId() {
     return deviceId;
   }
@@ -229,7 +234,7 @@ public class ManifestContents implements Serializable {
    * Get payload
    * @return payload
   **/
-  @ApiModelProperty(example = "null", value = "")
+  @ApiModelProperty(value = "")
   public ManifestContentsPayload getPayload() {
     return payload;
   }

@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -36,7 +37,6 @@ public interface DefaultApi {
    * @param description The description of the firmware image (optional)
    * @return Call&lt;FirmwareImage&gt;
    */
-  
   @retrofit2.http.Multipart
   @POST("v3/firmware-images/")
   Call<FirmwareImage> firmwareImageCreate(
@@ -49,10 +49,9 @@ public interface DefaultApi {
    * @param imageId The firmware image ID (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/firmware-images/{image_id}/")
   Call<Void> firmwareImageDestroy(
-    @retrofit2.http.Path("image_id") String imageId
+    @retrofit2.http.Path(value = "image_id", encoded = true) String imageId
   );
 
   /**
@@ -65,7 +64,6 @@ public interface DefaultApi {
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;FirmwareImagePage&gt;
    */
-  
   @GET("v3/firmware-images/")
   Call<FirmwareImagePage> firmwareImageList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -77,10 +75,9 @@ public interface DefaultApi {
    * @param imageId The firmware image ID (required)
    * @return Call&lt;FirmwareImage&gt;
    */
-  
   @GET("v3/firmware-images/{image_id}/")
   Call<FirmwareImage> firmwareImageRetrieve(
-    @retrofit2.http.Path("image_id") String imageId
+    @retrofit2.http.Path(value = "image_id", encoded = true) String imageId
   );
 
   /**
@@ -91,7 +88,6 @@ public interface DefaultApi {
    * @param description The description of the firmware manifest (optional)
    * @return Call&lt;FirmwareManifest&gt;
    */
-  
   @retrofit2.http.Multipart
   @POST("v3/firmware-manifests/")
   Call<FirmwareManifest> firmwareManifestCreate(
@@ -104,10 +100,9 @@ public interface DefaultApi {
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/firmware-manifests/{manifest_id}/")
   Call<Void> firmwareManifestDestroy(
-    @retrofit2.http.Path("manifest_id") String manifestId
+    @retrofit2.http.Path(value = "manifest_id", encoded = true) String manifestId
   );
 
   /**
@@ -120,7 +115,6 @@ public interface DefaultApi {
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;FirmwareManifestPage&gt;
    */
-  
   @GET("v3/firmware-manifests/")
   Call<FirmwareManifestPage> firmwareManifestList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -132,10 +126,9 @@ public interface DefaultApi {
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;FirmwareManifest&gt;
    */
-  
   @GET("v3/firmware-manifests/{manifest_id}/")
   Call<FirmwareManifest> firmwareManifestRetrieve(
-    @retrofit2.http.Path("manifest_id") String manifestId
+    @retrofit2.http.Path(value = "manifest_id", encoded = true) String manifestId
   );
 
   /**
@@ -144,7 +137,6 @@ public interface DefaultApi {
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  
   @POST("v3/update-campaigns/")
   Call<UpdateCampaign> updateCampaignCreate(
     @retrofit2.http.Body UpdateCampaignPostRequest campaign
@@ -156,10 +148,9 @@ public interface DefaultApi {
    * @param campaignId The ID of the update campaign (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/update-campaigns/{campaign_id}/")
   Call<Void> updateCampaignDestroy(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -172,7 +163,6 @@ public interface DefaultApi {
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;UpdateCampaignPage&gt;
    */
-  
   @GET("v3/update-campaigns/")
   Call<UpdateCampaignPage> updateCampaignList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
@@ -185,10 +175,9 @@ public interface DefaultApi {
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  
   @PATCH("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignPartialUpdate(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
   );
 
   /**
@@ -197,10 +186,9 @@ public interface DefaultApi {
    * @param campaignId The campaign ID (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  
   @GET("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignRetrieve(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -210,10 +198,9 @@ public interface DefaultApi {
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  
   @PUT("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignUpdate(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
   );
 
   /**
@@ -223,10 +210,9 @@ public interface DefaultApi {
    * @param campaignDeviceMetadataId The campaign device metadata ID (required)
    * @return Call&lt;CampaignDeviceMetadata&gt;
    */
-  
   @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
   Call<CampaignDeviceMetadata> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
   );
 
   /**
@@ -239,10 +225,9 @@ public interface DefaultApi {
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;CampaignDeviceMetadataPage&gt;
    */
-  
   @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/")
   Call<CampaignDeviceMetadataPage> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
   );
 
 }

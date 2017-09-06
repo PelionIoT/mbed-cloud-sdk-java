@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -47,10 +52,10 @@ public class ResourcesData implements Serializable {
   }
 
    /**
-   * Resource's URI path.
+   * Resource&#39;s URI path.
    * @return path
   **/
-  @ApiModelProperty(example = "null", value = "Resource's URI path.")
+  @ApiModelProperty(value = "Resource's URI path.")
   public String getPath() {
     return path;
   }
@@ -65,10 +70,10 @@ public class ResourcesData implements Serializable {
   }
 
    /**
-   * Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"
+   * Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \&quot;speed_sensor\&quot;
    * @return rf
   **/
-  @ApiModelProperty(example = "null", value = "Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"")
+  @ApiModelProperty(value = "Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"")
   public String getRf() {
     return rf;
   }
@@ -86,7 +91,7 @@ public class ResourcesData implements Serializable {
    * Content type.
    * @return ct
   **/
-  @ApiModelProperty(example = "null", value = "Content type.")
+  @ApiModelProperty(value = "Content type.")
   public String getCt() {
     return ct;
   }
@@ -104,7 +109,7 @@ public class ResourcesData implements Serializable {
    * Whether the resource is observable or not (true/false).
    * @return obs
   **/
-  @ApiModelProperty(example = "null", value = "Whether the resource is observable or not (true/false).")
+  @ApiModelProperty(value = "Whether the resource is observable or not (true/false).")
   public Boolean getObs() {
     return obs;
   }
@@ -122,7 +127,7 @@ public class ResourcesData implements Serializable {
    * Interface description.
    * @return _if
   **/
-  @ApiModelProperty(example = "null", value = "Interface description.")
+  @ApiModelProperty(value = "Interface description.")
   public String getIf() {
     return _if;
   }

@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -68,10 +73,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The content of the `security.c` file that is flashed into the device to provide the security credentials
+   * The content of the &#x60;security.c&#x60; file that is flashed into the device to provide the security credentials
    * @return securityFileContent
   **/
-  @ApiModelProperty(example = "null", value = "The content of the `security.c` file that is flashed into the device to provide the security credentials")
+  @ApiModelProperty(value = "The content of the `security.c` file that is flashed into the device to provide the security credentials")
   public String getSecurityFileContent() {
     return securityFileContent;
   }
@@ -89,7 +94,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * Description for the developer certificate.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "Description for the developer certificate.")
+  @ApiModelProperty(value = "Description for the developer certificate.")
   public String getDescription() {
     return description;
   }
@@ -107,7 +112,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The name of the developer certificate.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The name of the developer certificate.")
+  @ApiModelProperty(value = "The name of the developer certificate.")
   public String getName() {
     return name;
   }
@@ -125,7 +130,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The PEM format X.509 developer certificate.
    * @return developerCertificate
   **/
-  @ApiModelProperty(example = "null", value = "The PEM format X.509 developer certificate.")
+  @ApiModelProperty(value = "The PEM format X.509 developer certificate.")
   public String getDeveloperCertificate() {
     return developerCertificate;
   }
@@ -143,7 +148,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The URI to which the client needs to connect to.
    * @return serverUri
   **/
-  @ApiModelProperty(example = "null", value = "The URI to which the client needs to connect to.")
+  @ApiModelProperty(value = "The URI to which the client needs to connect to.")
   public String getServerUri() {
     return serverUri;
   }
@@ -161,7 +166,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public String getCreatedAt() {
     return createdAt;
   }
@@ -176,10 +181,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * Entity name, always `trusted-cert`.
+   * Entity name, always &#x60;trusted-cert&#x60;.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "Entity name, always `trusted-cert`.")
+  @ApiModelProperty(value = "Entity name, always `trusted-cert`.")
   public String getObject() {
     return object;
   }
@@ -197,7 +202,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The PEM format developer private key associated to the certificate.
    * @return developerPrivateKey
   **/
-  @ApiModelProperty(example = "null", value = "The PEM format developer private key associated to the certificate.")
+  @ApiModelProperty(value = "The PEM format developer private key associated to the certificate.")
   public String getDeveloperPrivateKey() {
     return developerPrivateKey;
   }
@@ -215,7 +220,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
    * @return serverCertificate
   **/
-  @ApiModelProperty(example = "null", value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
+  @ApiModelProperty(value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
   public String getServerCertificate() {
     return serverCertificate;
   }
@@ -233,7 +238,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", value = "API resource entity version.")
+  @ApiModelProperty(value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -251,7 +256,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The mUUID that uniquely identifies the developer certificate.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "The mUUID that uniquely identifies the developer certificate.")
+  @ApiModelProperty(value = "The mUUID that uniquely identifies the developer certificate.")
   public String getId() {
     return id;
   }
@@ -269,7 +274,7 @@ public class DeveloperCertificateResponseData implements Serializable {
    * The account to which the developer certificate belongs.
    * @return accountId
   **/
-  @ApiModelProperty(example = "null", value = "The account to which the developer certificate belongs.")
+  @ApiModelProperty(value = "The account to which the developer certificate belongs.")
   public String getAccountId() {
     return accountId;
   }

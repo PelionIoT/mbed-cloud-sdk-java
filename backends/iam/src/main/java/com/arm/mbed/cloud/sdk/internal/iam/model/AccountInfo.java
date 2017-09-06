@@ -16,9 +16,14 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.FeaturePolicy;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -40,17 +45,14 @@ public class AccountInfo implements Serializable {
   /**
    * The status of the account.
    */
+  @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
-    @SerializedName("ENROLLING")
     ENROLLING("ENROLLING"),
     
-    @SerializedName("ACTIVE")
     ACTIVE("ACTIVE"),
     
-    @SerializedName("RESTRICTED")
     RESTRICTED("RESTRICTED"),
     
-    @SerializedName("SUSPENDED")
     SUSPENDED("SUSPENDED");
 
     private String value;
@@ -59,9 +61,35 @@ public class AccountInfo implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -111,31 +139,24 @@ public class AccountInfo implements Serializable {
   private String company = null;
 
   /**
-   * Entity name: always 'account'
+   * Entity name: always &#39;account&#39;
    */
+  @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    @SerializedName("user")
     USER("user"),
     
-    @SerializedName("api-key")
     API_KEY("api-key"),
     
-    @SerializedName("group")
     GROUP("group"),
     
-    @SerializedName("account")
     ACCOUNT("account"),
     
-    @SerializedName("account-template")
     ACCOUNT_TEMPLATE("account-template"),
     
-    @SerializedName("trusted-cert")
     TRUSTED_CERT("trusted-cert"),
     
-    @SerializedName("list")
     LIST("list"),
     
-    @SerializedName("error")
     ERROR("error");
 
     private String value;
@@ -144,9 +165,35 @@ public class AccountInfo implements Serializable {
       this.value = value;
     }
 
+    public String getValue() {
+      return value;
+    }
+
     @Override
     public String toString() {
       return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
     }
   }
 
@@ -163,10 +210,10 @@ public class AccountInfo implements Serializable {
   private String tier = null;
 
   @SerializedName("sub_accounts")
-  private List<AccountInfo> subAccounts = new ArrayList<AccountInfo>();
+  private List<AccountInfo> subAccounts = null;
 
   @SerializedName("limits")
-  private Map<String, String> limits = new HashMap<String, String>();
+  private Map<String, String> limits = null;
 
   @SerializedName("country")
   private String country = null;
@@ -181,7 +228,7 @@ public class AccountInfo implements Serializable {
   private String contact = null;
 
   @SerializedName("policies")
-  private List<FeaturePolicy> policies = new ArrayList<FeaturePolicy>();
+  private List<FeaturePolicy> policies = null;
 
   @SerializedName("template_id")
   private String templateId = null;
@@ -195,7 +242,7 @@ public class AccountInfo implements Serializable {
    * Account end market.
    * @return endMarket
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Account end market.")
+  @ApiModelProperty(required = true, value = "Account end market.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -213,7 +260,7 @@ public class AccountInfo implements Serializable {
    * The status of the account.
    * @return status
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The status of the account.")
+  @ApiModelProperty(required = true, value = "The status of the account.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -231,7 +278,7 @@ public class AccountInfo implements Serializable {
    * The postal code part of the postal address.
    * @return postalCode
   **/
-  @ApiModelProperty(example = "null", value = "The postal code part of the postal address.")
+  @ApiModelProperty(value = "The postal code part of the postal address.")
   public String getPostalCode() {
     return postalCode;
   }
@@ -249,7 +296,7 @@ public class AccountInfo implements Serializable {
    * Account ID.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Account ID.")
+  @ApiModelProperty(required = true, value = "Account ID.")
   public String getId() {
     return id;
   }
@@ -272,7 +319,7 @@ public class AccountInfo implements Serializable {
    * An array of aliases.
    * @return aliases
   **/
-  @ApiModelProperty(example = "null", required = true, value = "An array of aliases.")
+  @ApiModelProperty(required = true, value = "An array of aliases.")
   public List<String> getAliases() {
     return aliases;
   }
@@ -290,7 +337,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 2.
    * @return addressLine2
   **/
-  @ApiModelProperty(example = "null", value = "Postal address line 2.")
+  @ApiModelProperty(value = "Postal address line 2.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -308,7 +355,7 @@ public class AccountInfo implements Serializable {
    * The city part of the postal address.
    * @return city
   **/
-  @ApiModelProperty(example = "null", value = "The city part of the postal address.")
+  @ApiModelProperty(value = "The city part of the postal address.")
   public String getCity() {
     return city;
   }
@@ -326,7 +373,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 1.
    * @return addressLine1
   **/
-  @ApiModelProperty(example = "null", value = "Postal address line 1.")
+  @ApiModelProperty(value = "Postal address line 1.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -344,7 +391,7 @@ public class AccountInfo implements Serializable {
    * The display name for the account.
    * @return displayName
   **/
-  @ApiModelProperty(example = "null", value = "The display name for the account.")
+  @ApiModelProperty(value = "The display name for the account.")
   public String getDisplayName() {
     return displayName;
   }
@@ -362,7 +409,7 @@ public class AccountInfo implements Serializable {
    * The ID of the parent account, if it has any.
    * @return parentId
   **/
-  @ApiModelProperty(example = "null", value = "The ID of the parent account, if it has any.")
+  @ApiModelProperty(value = "The ID of the parent account, if it has any.")
   public String getParentId() {
     return parentId;
   }
@@ -380,7 +427,7 @@ public class AccountInfo implements Serializable {
    * The state part of the postal address.
    * @return state
   **/
-  @ApiModelProperty(example = "null", value = "The state part of the postal address.")
+  @ApiModelProperty(value = "The state part of the postal address.")
   public String getState() {
     return state;
   }
@@ -398,7 +445,7 @@ public class AccountInfo implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "API resource entity version.")
+  @ApiModelProperty(required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -416,7 +463,7 @@ public class AccountInfo implements Serializable {
    * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
    * @return isProvisioningAllowed
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Flag (true/false) indicating whether Factory Tool is allowed to download or not.")
+  @ApiModelProperty(required = true, value = "Flag (true/false) indicating whether Factory Tool is allowed to download or not.")
   public Boolean getIsProvisioningAllowed() {
     return isProvisioningAllowed;
   }
@@ -434,7 +481,7 @@ public class AccountInfo implements Serializable {
    * The company email address for this account.
    * @return email
   **/
-  @ApiModelProperty(example = "null", value = "The company email address for this account.")
+  @ApiModelProperty(value = "The company email address for this account.")
   public String getEmail() {
     return email;
   }
@@ -452,7 +499,7 @@ public class AccountInfo implements Serializable {
    * The phone number of the company.
    * @return phoneNumber
   **/
-  @ApiModelProperty(example = "null", value = "The phone number of the company.")
+  @ApiModelProperty(value = "The phone number of the company.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -470,7 +517,7 @@ public class AccountInfo implements Serializable {
    * The name of the company.
    * @return company
   **/
-  @ApiModelProperty(example = "null", value = "The name of the company.")
+  @ApiModelProperty(value = "The name of the company.")
   public String getCompany() {
     return company;
   }
@@ -485,10 +532,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * Entity name: always 'account'
+   * Entity name: always &#39;account&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Entity name: always 'account'")
+  @ApiModelProperty(required = true, value = "Entity name: always 'account'")
   public ObjectEnum getObject() {
     return object;
   }
@@ -506,7 +553,7 @@ public class AccountInfo implements Serializable {
    * A reason note for updating the status of the account
    * @return reason
   **/
-  @ApiModelProperty(example = "null", value = "A reason note for updating the status of the account")
+  @ApiModelProperty(value = "A reason note for updating the status of the account")
   public String getReason() {
     return reason;
   }
@@ -524,7 +571,7 @@ public class AccountInfo implements Serializable {
    * Time when upgraded to commercial account in UTC format RFC3339.
    * @return upgradedAt
   **/
-  @ApiModelProperty(example = "null", value = "Time when upgraded to commercial account in UTC format RFC3339.")
+  @ApiModelProperty(value = "Time when upgraded to commercial account in UTC format RFC3339.")
   public DateTime getUpgradedAt() {
     return upgradedAt;
   }
@@ -539,10 +586,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.
+   * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future.
    * @return tier
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.")
+  @ApiModelProperty(required = true, value = "The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.")
   public String getTier() {
     return tier;
   }
@@ -557,6 +604,9 @@ public class AccountInfo implements Serializable {
   }
 
   public AccountInfo addSubAccountsItem(AccountInfo subAccountsItem) {
+    if (this.subAccounts == null) {
+      this.subAccounts = new ArrayList<AccountInfo>();
+    }
     this.subAccounts.add(subAccountsItem);
     return this;
   }
@@ -565,7 +615,7 @@ public class AccountInfo implements Serializable {
    * List of sub accounts.
    * @return subAccounts
   **/
-  @ApiModelProperty(example = "null", value = "List of sub accounts.")
+  @ApiModelProperty(value = "List of sub accounts.")
   public List<AccountInfo> getSubAccounts() {
     return subAccounts;
   }
@@ -580,6 +630,9 @@ public class AccountInfo implements Serializable {
   }
 
   public AccountInfo putLimitsItem(String key, String limitsItem) {
+    if (this.limits == null) {
+      this.limits = new HashMap<String, String>();
+    }
     this.limits.put(key, limitsItem);
     return this;
   }
@@ -588,7 +641,7 @@ public class AccountInfo implements Serializable {
    * List of limits as key-value pairs if requested.
    * @return limits
   **/
-  @ApiModelProperty(example = "null", value = "List of limits as key-value pairs if requested.")
+  @ApiModelProperty(value = "List of limits as key-value pairs if requested.")
   public Map<String, String> getLimits() {
     return limits;
   }
@@ -606,7 +659,7 @@ public class AccountInfo implements Serializable {
    * The country part of the postal address.
    * @return country
   **/
-  @ApiModelProperty(example = "null", value = "The country part of the postal address.")
+  @ApiModelProperty(value = "The country part of the postal address.")
   public String getCountry() {
     return country;
   }
@@ -624,7 +677,7 @@ public class AccountInfo implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -642,7 +695,7 @@ public class AccountInfo implements Serializable {
    * The reference token expiration time in minutes for this account.
    * @return idleTimeout
   **/
-  @ApiModelProperty(example = "null", value = "The reference token expiration time in minutes for this account.")
+  @ApiModelProperty(value = "The reference token expiration time in minutes for this account.")
   public String getIdleTimeout() {
     return idleTimeout;
   }
@@ -660,7 +713,7 @@ public class AccountInfo implements Serializable {
    * The name of the contact person for this account.
    * @return contact
   **/
-  @ApiModelProperty(example = "null", value = "The name of the contact person for this account.")
+  @ApiModelProperty(value = "The name of the contact person for this account.")
   public String getContact() {
     return contact;
   }
@@ -675,6 +728,9 @@ public class AccountInfo implements Serializable {
   }
 
   public AccountInfo addPoliciesItem(FeaturePolicy policiesItem) {
+    if (this.policies == null) {
+      this.policies = new ArrayList<FeaturePolicy>();
+    }
     this.policies.add(policiesItem);
     return this;
   }
@@ -683,7 +739,7 @@ public class AccountInfo implements Serializable {
    * List of policies if requested.
    * @return policies
   **/
-  @ApiModelProperty(example = "null", value = "List of policies if requested.")
+  @ApiModelProperty(value = "List of policies if requested.")
   public List<FeaturePolicy> getPolicies() {
     return policies;
   }
@@ -701,7 +757,7 @@ public class AccountInfo implements Serializable {
    * Account template ID.
    * @return templateId
   **/
-  @ApiModelProperty(example = "null", value = "Account template ID.")
+  @ApiModelProperty(value = "Account template ID.")
   public String getTemplateId() {
     return templateId;
   }

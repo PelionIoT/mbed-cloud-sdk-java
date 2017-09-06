@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.statistics.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -41,7 +46,7 @@ public class Field implements Serializable {
    * Error description.
    * @return message
   **/
-  @ApiModelProperty(example = "null", value = "Error description.")
+  @ApiModelProperty(value = "Error description.")
   public String getMessage() {
     return message;
   }
@@ -59,7 +64,7 @@ public class Field implements Serializable {
    * The field name in the request for which the validation has failed.
    * @return name
   **/
-  @ApiModelProperty(example = "null", value = "The field name in the request for which the validation has failed.")
+  @ApiModelProperty(value = "The field name in the request for which the validation has failed.")
   public String getName() {
     return name;
   }

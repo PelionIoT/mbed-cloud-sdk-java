@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.statistics.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -75,7 +80,7 @@ public class Metric implements Serializable {
    * The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
    * @return deviceServerRestApiError
   **/
-  @ApiModelProperty(example = "null", value = "The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
+  @ApiModelProperty(value = "The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
   public Long getDeviceServerRestApiError() {
     return deviceServerRestApiError;
   }
@@ -93,7 +98,7 @@ public class Metric implements Serializable {
    * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
    * @return registrationUpdates
   **/
-  @ApiModelProperty(example = "null", value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
+  @ApiModelProperty(value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
   public Long getRegistrationUpdates() {
     return registrationUpdates;
   }
@@ -111,7 +116,7 @@ public class Metric implements Serializable {
    * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
    * @return fullRegistrations
   **/
-  @ApiModelProperty(example = "null", value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
+  @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
   public Long getFullRegistrations() {
     return fullRegistrations;
   }
@@ -129,7 +134,7 @@ public class Metric implements Serializable {
    * The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
    * @return bootstrapsFailed
   **/
-  @ApiModelProperty(example = "null", value = "The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+  @ApiModelProperty(value = "The number of failed bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
   public Long getBootstrapsFailed() {
     return bootstrapsFailed;
   }
@@ -144,10 +149,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --&gt; mbed cloud) or received by the device (mbed cloud --&gt; device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
    * @return transactions
   **/
-  @ApiModelProperty(example = "null", value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
+  @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
   public Long getTransactions() {
     return transactions;
   }
@@ -162,10 +167,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.
+   * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval&#39;s starting point.
    * @return timestamp
   **/
-  @ApiModelProperty(example = "null", value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
+  @ApiModelProperty(value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
   public DateTime getTimestamp() {
     return timestamp;
   }
@@ -183,7 +188,7 @@ public class Metric implements Serializable {
    * The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.
    * @return deviceServerRestApiSuccess
   **/
-  @ApiModelProperty(example = "null", value = "The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
+  @ApiModelProperty(value = "The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.")
   public Long getDeviceServerRestApiSuccess() {
     return deviceServerRestApiSuccess;
   }
@@ -201,7 +206,7 @@ public class Metric implements Serializable {
    * The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
    * @return bootstrapsPending
   **/
-  @ApiModelProperty(example = "null", value = "The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+  @ApiModelProperty(value = "The number of pending bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
   public Long getBootstrapsPending() {
     return bootstrapsPending;
   }
@@ -219,7 +224,7 @@ public class Metric implements Serializable {
    * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
    * @return expiredRegistrations
   **/
-  @ApiModelProperty(example = "null", value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
+  @ApiModelProperty(value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
   public Long getExpiredRegistrations() {
     return expiredRegistrations;
   }
@@ -237,7 +242,7 @@ public class Metric implements Serializable {
    * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
    * @return handshakesSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
+  @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
   public Long getHandshakesSuccessful() {
     return handshakesSuccessful;
   }
@@ -255,7 +260,7 @@ public class Metric implements Serializable {
    * The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.
    * @return bootstrapsSuccessful
   **/
-  @ApiModelProperty(example = "null", value = "The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
+  @ApiModelProperty(value = "The number of successful bootstraps the account has performed. Bootstrap is the process of provisioning a Lightweight Machine to Machine Client to a state where it can initiate a management session to a new Lightweight Machine to Machine Server.")
   public Long getBootstrapsSuccessful() {
     return bootstrapsSuccessful;
   }
@@ -273,7 +278,7 @@ public class Metric implements Serializable {
    * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
    * @return deletedRegistrations
   **/
-  @ApiModelProperty(example = "null", value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
+  @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
   public Long getDeletedRegistrations() {
     return deletedRegistrations;
   }
@@ -291,7 +296,7 @@ public class Metric implements Serializable {
    * A unique metric ID.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "A unique metric ID.")
+  @ApiModelProperty(value = "A unique metric ID.")
   public String getId() {
     return id;
   }

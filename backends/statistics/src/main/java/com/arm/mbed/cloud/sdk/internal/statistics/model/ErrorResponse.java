@@ -15,9 +15,14 @@ package com.arm.mbed.cloud.sdk.internal.statistics.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.Field;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -33,7 +38,7 @@ public class ErrorResponse implements Serializable {
   private Integer code = null;
 
   @SerializedName("fields")
-  private List<Field> fields = new ArrayList<Field>();
+  private List<Field> fields = null;
 
   @SerializedName("object")
   private String object = null;
@@ -56,7 +61,7 @@ public class ErrorResponse implements Serializable {
    * HTTP response code.
    * @return code
   **/
-  @ApiModelProperty(example = "null", value = "HTTP response code.")
+  @ApiModelProperty(value = "HTTP response code.")
   public Integer getCode() {
     return code;
   }
@@ -71,6 +76,9 @@ public class ErrorResponse implements Serializable {
   }
 
   public ErrorResponse addFieldsItem(Field fieldsItem) {
+    if (this.fields == null) {
+      this.fields = new ArrayList<Field>();
+    }
     this.fields.add(fieldsItem);
     return this;
   }
@@ -79,7 +87,7 @@ public class ErrorResponse implements Serializable {
    * Details of the error fields.
    * @return fields
   **/
-  @ApiModelProperty(example = "null", value = "Details of the error fields.")
+  @ApiModelProperty(value = "Details of the error fields.")
   public List<Field> getFields() {
     return fields;
   }
@@ -94,10 +102,10 @@ public class ErrorResponse implements Serializable {
   }
 
    /**
-   * Response type, always \"error\".
+   * Response type, always \&quot;error\&quot;.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "Response type, always \"error\".")
+  @ApiModelProperty(value = "Response type, always \"error\".")
   public String getObject() {
     return object;
   }
@@ -115,7 +123,7 @@ public class ErrorResponse implements Serializable {
    * Request ID.
    * @return requestId
   **/
-  @ApiModelProperty(example = "null", value = "Request ID.")
+  @ApiModelProperty(value = "Request ID.")
   public String getRequestId() {
     return requestId;
   }
@@ -133,7 +141,7 @@ public class ErrorResponse implements Serializable {
    * Description of the error.
    * @return message
   **/
-  @ApiModelProperty(example = "null", value = "Description of the error.")
+  @ApiModelProperty(value = "Description of the error.")
   public String getMessage() {
     return message;
   }
@@ -151,7 +159,7 @@ public class ErrorResponse implements Serializable {
    * Type of error.
    * @return type
   **/
-  @ApiModelProperty(example = "null", value = "Type of error.")
+  @ApiModelProperty(value = "Type of error.")
   public String getType() {
     return type;
   }

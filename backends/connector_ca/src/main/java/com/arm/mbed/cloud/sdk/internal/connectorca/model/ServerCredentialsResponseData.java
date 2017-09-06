@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -53,7 +58,7 @@ public class ServerCredentialsResponseData implements Serializable {
    * The server URI to which the client needs to connect to.
    * @return serverUri
   **/
-  @ApiModelProperty(example = "null", value = "The server URI to which the client needs to connect to.")
+  @ApiModelProperty(value = "The server URI to which the client needs to connect to.")
   public String getServerUri() {
     return serverUri;
   }
@@ -71,7 +76,7 @@ public class ServerCredentialsResponseData implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(value = "Creation UTC time RFC3339.")
   public String getCreatedAt() {
     return createdAt;
   }
@@ -86,10 +91,10 @@ public class ServerCredentialsResponseData implements Serializable {
   }
 
    /**
-   * The entity name, always `server-credentials`.
+   * The entity name, always &#x60;server-credentials&#x60;.
    * @return object
   **/
-  @ApiModelProperty(example = "null", value = "The entity name, always `server-credentials`.")
+  @ApiModelProperty(value = "The entity name, always `server-credentials`.")
   public String getObject() {
     return object;
   }
@@ -107,7 +112,7 @@ public class ServerCredentialsResponseData implements Serializable {
    * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
    * @return serverCertificate
   **/
-  @ApiModelProperty(example = "null", value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
+  @ApiModelProperty(value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
   public String getServerCertificate() {
     return serverCertificate;
   }
@@ -125,7 +130,7 @@ public class ServerCredentialsResponseData implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", value = "API resource entity version.")
+  @ApiModelProperty(value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -143,7 +148,7 @@ public class ServerCredentialsResponseData implements Serializable {
    * The mUUID that uniquely identifies the entity.
    * @return id
   **/
-  @ApiModelProperty(example = "null", value = "The mUUID that uniquely identifies the entity.")
+  @ApiModelProperty(value = "The mUUID that uniquely identifies the entity.")
   public String getId() {
     return id;
   }

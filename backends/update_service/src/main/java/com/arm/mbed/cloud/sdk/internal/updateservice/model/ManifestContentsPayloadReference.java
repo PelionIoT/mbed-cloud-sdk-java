@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -44,7 +49,7 @@ public class ManifestContentsPayloadReference implements Serializable {
    * Hex representation of the SHA-256 hash of the payload
    * @return hash
   **/
-  @ApiModelProperty(example = "null", value = "Hex representation of the SHA-256 hash of the payload")
+  @ApiModelProperty(value = "Hex representation of the SHA-256 hash of the payload")
   public String getHash() {
     return hash;
   }
@@ -62,7 +67,7 @@ public class ManifestContentsPayloadReference implements Serializable {
    * The payload URI
    * @return uri
   **/
-  @ApiModelProperty(example = "null", value = "The payload URI")
+  @ApiModelProperty(value = "The payload URI")
   public String getUri() {
     return uri;
   }
@@ -80,7 +85,7 @@ public class ManifestContentsPayloadReference implements Serializable {
    * Size of the payload in bytes
    * @return size
   **/
-  @ApiModelProperty(example = "null", value = "Size of the payload in bytes")
+  @ApiModelProperty(value = "Size of the payload in bytes")
   public Integer getSize() {
     return size;
   }

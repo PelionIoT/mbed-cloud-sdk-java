@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -41,7 +46,7 @@ public class DeveloperCertificateRequestData implements Serializable {
    * The name of the developer certificate, must be unique.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The name of the developer certificate, must be unique.")
+  @ApiModelProperty(required = true, value = "The name of the developer certificate, must be unique.")
   public String getName() {
     return name;
   }
@@ -59,7 +64,7 @@ public class DeveloperCertificateRequestData implements Serializable {
    * A description for the developer certificate.
    * @return description
   **/
-  @ApiModelProperty(example = "null", value = "A description for the developer certificate.")
+  @ApiModelProperty(value = "A description for the developer certificate.")
   public String getDescription() {
     return description;
   }

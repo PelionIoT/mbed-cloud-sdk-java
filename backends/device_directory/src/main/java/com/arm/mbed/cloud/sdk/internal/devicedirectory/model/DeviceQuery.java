@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -57,7 +62,7 @@ public class DeviceQuery implements Serializable {
    * The name of the query.
    * @return name
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The name of the query.")
+  @ApiModelProperty(required = true, value = "The name of the query.")
   public String getName() {
     return name;
   }
@@ -75,7 +80,7 @@ public class DeviceQuery implements Serializable {
    * Timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "Timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(required = true, value = "Timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -93,7 +98,7 @@ public class DeviceQuery implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The API resource entity.")
+  @ApiModelProperty(required = true, value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -111,7 +116,7 @@ public class DeviceQuery implements Serializable {
    * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The time the object was updated.")
+  @ApiModelProperty(required = true, value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -129,7 +134,7 @@ public class DeviceQuery implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The entity instance signature.")
+  @ApiModelProperty(required = true, value = "The entity instance signature.")
   public DateTime getEtag() {
     return etag;
   }
@@ -147,7 +152,7 @@ public class DeviceQuery implements Serializable {
    * The device query.
    * @return query
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The device query.")
+  @ApiModelProperty(required = true, value = "The device query.")
   public String getQuery() {
     return query;
   }
@@ -165,7 +170,7 @@ public class DeviceQuery implements Serializable {
    * The ID of the query.
    * @return id
   **/
-  @ApiModelProperty(example = "null", required = true, value = "The ID of the query.")
+  @ApiModelProperty(required = true, value = "The ID of the query.")
   public String getId() {
     return id;
   }

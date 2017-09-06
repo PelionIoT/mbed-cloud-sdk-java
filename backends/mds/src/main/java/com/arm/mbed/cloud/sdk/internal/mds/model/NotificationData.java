@@ -14,9 +14,14 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
+import com.google.gson.TypeAdapter;
+import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
+import com.google.gson.stream.JsonReader;
+import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -50,7 +55,7 @@ public class NotificationData implements Serializable {
    * URI path.
    * @return path
   **/
-  @ApiModelProperty(example = "null", value = "URI path.")
+  @ApiModelProperty(value = "URI path.")
   public String getPath() {
     return path;
   }
@@ -68,7 +73,7 @@ public class NotificationData implements Serializable {
    * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
    * @return maxAge
   **/
-  @ApiModelProperty(example = "null", value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
+  @ApiModelProperty(value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
   public String getMaxAge() {
     return maxAge;
   }
@@ -86,7 +91,7 @@ public class NotificationData implements Serializable {
    * Base64 encoded payload.
    * @return payload
   **/
-  @ApiModelProperty(example = "null", value = "Base64 encoded payload.")
+  @ApiModelProperty(value = "Base64 encoded payload.")
   public String getPayload() {
     return payload;
   }
@@ -104,7 +109,7 @@ public class NotificationData implements Serializable {
    * mbed Cloud Device ID.
    * @return ep
   **/
-  @ApiModelProperty(example = "null", value = "mbed Cloud Device ID.")
+  @ApiModelProperty(value = "mbed Cloud Device ID.")
   public String getEp() {
     return ep;
   }
@@ -122,7 +127,7 @@ public class NotificationData implements Serializable {
    * Content type.
    * @return ct
   **/
-  @ApiModelProperty(example = "null", value = "Content type.")
+  @ApiModelProperty(value = "Content type.")
   public String getCt() {
     return ct;
   }

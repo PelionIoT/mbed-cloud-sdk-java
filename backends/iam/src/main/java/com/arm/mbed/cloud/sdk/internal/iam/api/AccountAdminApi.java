@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.iam.api;
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
 
+
 import retrofit2.Call;
 import retrofit2.http.*;
 
@@ -33,9 +34,8 @@ public interface AccountAdminApi {
    * @param body A trusted certificate object with attributes. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @POST("v3/trusted-certificates")
   Call<TrustedCertificateResp> addCertificate(
@@ -49,13 +49,12 @@ public interface AccountAdminApi {
    * @param body A list of users and API keys to be added to the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @POST("v3/policy-groups/{groupID}")
   Call<UpdatedResponse> addSubjectsToGroup(
-    @retrofit2.http.Path("groupID") String groupID, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -65,9 +64,8 @@ public interface AccountAdminApi {
    * @param action Action, either &#39;create&#39; or &#39;invite&#39;. (optional, default to create)
    * @return Call&lt;UserInfoResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @POST("v3/users")
   Call<UserInfoResp> createUser(
@@ -80,10 +78,9 @@ public interface AccountAdminApi {
    * @param userId The ID of the user to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
-  
   @DELETE("v3/users/{user-id}")
   Call<Void> deleteUser(
-    @retrofit2.http.Path("user-id") String userId
+    @retrofit2.http.Path(value = "user-id", encoded = true) String userId
   );
 
   /**
@@ -96,7 +93,6 @@ public interface AccountAdminApi {
    * @param statusEq Filter for status, for example active or reset (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
-  
   @GET("v3/users")
   Call<UserInfoRespList> getAllUsers(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq
@@ -108,10 +104,9 @@ public interface AccountAdminApi {
    * @param userId The ID or name of the user whose details are retrieved. (required)
    * @return Call&lt;UserInfoResp&gt;
    */
-  
   @GET("v3/users/{user-id}")
   Call<UserInfoResp> getUser(
-    @retrofit2.http.Path("user-id") String userId
+    @retrofit2.http.Path(value = "user-id", encoded = true) String userId
   );
 
   /**
@@ -124,10 +119,9 @@ public interface AccountAdminApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
-  
   @GET("v3/policy-groups/{groupID}/users")
   Call<UserInfoRespList> getUsersOfGroup(
-    @retrofit2.http.Path("groupID") String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -137,13 +131,12 @@ public interface AccountAdminApi {
    * @param body A list of users to be removed from the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @DELETE("v3/policy-groups/{groupID}/users")
   Call<UpdatedResponse> removeUsersFromGroup(
-    @retrofit2.http.Path("groupID") String groupID, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -152,9 +145,8 @@ public interface AccountAdminApi {
    * @param body Details of the account to be updated. (required)
    * @return Call&lt;AccountInfo&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v3/accounts/me")
   Call<AccountInfo> updateMyAccount(
@@ -168,13 +160,12 @@ public interface AccountAdminApi {
    * @param body A user object with attributes. (required)
    * @return Call&lt;UserInfoResp&gt;
    */
-  
   @Headers({
-  	"Content-Type:application/json" 
+    "Content-Type:application/json"
   })
   @PUT("v3/users/{user-id}")
   Call<UserInfoResp> updateUser(
-    @retrofit2.http.Path("user-id") String userId, @retrofit2.http.Body UserUpdateReq body
+    @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
 }
