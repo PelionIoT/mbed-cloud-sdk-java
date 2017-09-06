@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +23,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.adapters.ConnectedDeviceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
@@ -184,10 +186,10 @@ public class Connect extends AbstractAPI {
             throws MbedCloudException {
         checkNotNull(options, TAG_METRIC_OPTIONS);
         final T finalOptions = options;
-        final String finalStart = (options instanceof MetricsStartEndListOptions)
-                ? ((MetricsStartEndListOptions) options).getStart().toString() : null;
-        final String finalEnd = (options instanceof MetricsStartEndListOptions)
-                ? ((MetricsStartEndListOptions) options).getEnd().toString() : null;
+        final Date finalStart = (options instanceof MetricsStartEndListOptions)
+                ? ((MetricsStartEndListOptions) options).getStart() : null;
+        final Date finalEnd = (options instanceof MetricsStartEndListOptions)
+                ? ((MetricsStartEndListOptions) options).getEnd() : null;
         final String finalPeriod = (options instanceof MetricsPeriodListOptions)
                 ? ((MetricsPeriodListOptions) options).getPeriod().toString() : null;
 
@@ -198,8 +200,9 @@ public class Connect extends AbstractAPI {
                     public Call<SuccessfulResponse> call() {
                         return endpoint.getStatistic().v3MetricsGet(
                                 MetricAdapter.mapIncludes(finalOptions.getInclude()),
-                                finalOptions.getInterval().toString(), finalStart, finalEnd, finalPeriod,
-                                finalOptions.getLimit(), finalOptions.getAfter(), finalOptions.getOrder().toString());
+                                finalOptions.getInterval().toString(), TranslationUtils.toLocalDate(finalStart),
+                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getLimit(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString());
                     }
                 });
 

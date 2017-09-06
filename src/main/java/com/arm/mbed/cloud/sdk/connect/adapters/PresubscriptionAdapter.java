@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -8,7 +7,6 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
-import com.arm.mbed.cloud.sdk.internal.mds.model.ResourcePath;
 
 @Preamble(description = "Adapter for presubscription model")
 public class PresubscriptionAdapter {
@@ -20,7 +18,7 @@ public class PresubscriptionAdapter {
         Presubscription presubscription = new Presubscription();
         presubscription.setDeviceId(apiPresubscription.getEndpointName());
         presubscription.setDeviceType(apiPresubscription.getEndpointType());
-        presubscription.setResourcePaths(convertResourcePathList(apiPresubscription.getResourcePath()));
+        presubscription.setResourcePaths(apiPresubscription.getResourcePath());
         return presubscription;
     }
 
@@ -32,7 +30,7 @@ public class PresubscriptionAdapter {
         com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
         apiPresubscription.setEndpointName(presubscription.getDeviceId());
         apiPresubscription.setEndpointType(presubscription.getDeviceType());
-        apiPresubscription.setResourcePath(reverseResourcePathList(presubscription.getResourcePaths()));
+        apiPresubscription.setResourcePath(presubscription.getResourcePaths());
         return apiPresubscription;
     }
 
@@ -56,33 +54,6 @@ public class PresubscriptionAdapter {
             }
 
         };
-    }
-
-    private static List<String> convertResourcePathList(List<ResourcePath> paths) {
-        List<String> pathStrings = null;
-        if (paths != null) {
-            for (ResourcePath path : paths) {
-                if (pathStrings == null) {
-                    pathStrings = new LinkedList<>();
-                }
-                pathStrings.add(path.toString());
-            }
-        }
-        return pathStrings;
-    }
-
-    private static List<ResourcePath> reverseResourcePathList(List<String> resourcePaths) {
-        // TODO
-        List<ResourcePath> pathStrings = null;
-        if (resourcePaths != null) {
-            for (String path : resourcePaths) {
-                if (pathStrings == null) {
-                    pathStrings = new LinkedList<>();
-                }
-                // pathStrings.add(path.toString());
-            }
-        }
-        return pathStrings;
     }
 
     public static List<Presubscription> mapList(PresubscriptionArray list) {

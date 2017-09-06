@@ -1,7 +1,5 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.util.Map;
-
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
@@ -15,7 +13,7 @@ public class WebhookAdapter {
         }
         Webhook webhook = new Webhook();
         webhook.setUrl(TranslationUtils.toUrl(apiWebhook.getUrl()));
-        webhook.setHeaders(convertHeaders(apiWebhook.getHeaders()));
+        webhook.setHeaders(apiWebhook.getHeaders());
         return webhook;
     }
 
@@ -36,18 +34,8 @@ public class WebhookAdapter {
         }
         com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
         internalWebhook.setUrl(TranslationUtils.toString(webhook.getUrl()));
-        internalWebhook.setHeaders(convertToHeaderObject(webhook.getHeaders()));
+        internalWebhook.setHeaders(webhook.getHeaders());
         return internalWebhook;
-    }
-
-    private static Map<String, String> convertHeaders(Object headers) {
-        // TODO
-        return null;
-    }
-
-    private static Object convertToHeaderObject(Map<String, String> headers) {
-        // TODO
-        return null;
     }
 
 }

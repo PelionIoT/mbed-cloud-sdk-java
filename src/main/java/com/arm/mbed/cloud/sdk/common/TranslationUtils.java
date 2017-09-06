@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -57,6 +58,10 @@ public class TranslationUtils {
 
     public static DateTime toDateTime(Date date) {
         return (date == null) ? null : new DateTime(date);
+    }
+
+    public static LocalDate toLocalDate(Date date) {
+        return (date == null) ? null : new LocalDate(date);
     }
 
     public static long toTimeStamp(Long time) {
