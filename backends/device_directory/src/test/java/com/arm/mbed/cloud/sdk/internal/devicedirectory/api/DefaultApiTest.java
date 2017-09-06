@@ -49,7 +49,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Delete device
+     * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
      */
     @Test
     public void deviceDestroyTest() {

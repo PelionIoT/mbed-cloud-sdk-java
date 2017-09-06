@@ -41,7 +41,7 @@ public interface DefaultApi {
 
   /**
    * 
-   * Delete device
+   * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
    * @param id  (required)
    * @return Call&lt;Void&gt;
    */
