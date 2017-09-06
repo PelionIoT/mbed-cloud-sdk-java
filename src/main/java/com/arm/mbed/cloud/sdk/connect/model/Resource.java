@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -20,18 +21,32 @@ public class Resource implements SDKModel {
     /**
      * Resource's type
      */
-    private String type;
+    private final String type;
     /**
      * The content type of the resource
      */
-    private String contentType;
+    private final String contentType;
     /**
      * Whether you can subscribe to changes for this resource
      */
-    private boolean observable;
+    @DefaultValue(value = "false")
+    private final boolean observable;
+
+    public Resource(String deviceId, String path, String type, String contentType, boolean observable) {
+        super();
+        setDeviceId(deviceId);
+        setPath(path);
+        this.type = type;
+        this.contentType = contentType;
+        this.observable = observable;
+    }
+
+    public Resource(String deviceId, String path) {
+        this(deviceId, path, null, null, false);
+    }
 
     public Resource() {
-        super();
+        this(null, null);
     }
 
     /**
@@ -65,18 +80,20 @@ public class Resource implements SDKModel {
     }
 
     /**
+     * Similar to {@link #setPath(String)}
+     * 
+     * @param path
+     *            the path to set
+     */
+    public void setResourcePath(String path) {
+        setPath(path);
+    }
+
+    /**
      * @return the type
      */
     public String getType() {
         return type;
-    }
-
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
     /**
@@ -87,26 +104,10 @@ public class Resource implements SDKModel {
     }
 
     /**
-     * @param contentType
-     *            the contentType to set
-     */
-    public void setContentType(String contentType) {
-        this.contentType = contentType;
-    }
-
-    /**
      * @return the observable
      */
     public boolean isObservable() {
         return observable;
-    }
-
-    /**
-     * @param observable
-     *            the observable to set
-     */
-    public void setObservable(boolean observable) {
-        this.observable = observable;
     }
 
 }

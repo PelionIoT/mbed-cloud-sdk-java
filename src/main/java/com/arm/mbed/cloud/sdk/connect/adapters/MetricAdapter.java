@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -20,8 +19,7 @@ public class MetricAdapter {
         if (apiMetric == null) {
             return null;
         }
-        return new Metric(apiMetric.getId(),
-                TranslationUtils.convertRFC3339Timestamp(apiMetric.getTimestamp(), new Date()),
+        return new Metric(apiMetric.getId(), TranslationUtils.toDate(apiMetric.getTimestamp()),
                 TranslationUtils.toLong(apiMetric.getTransactions()),
                 TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()),
                 TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()),

@@ -16,11 +16,9 @@ public class ConnectedDeviceAdapter {
         if (endpoint == null) {
             return null;
         }
-        ConnectedDevice device = new ConnectedDevice();
-        device.setId(endpoint.getName());
-        device.setQueueMode(TranslationUtils.toBool(endpoint.getQ(), false));
-        device.setType(endpoint.getType());
-        return device;
+        return new ConnectedDevice(endpoint.getName(), TranslationUtils.toBool(endpoint.getQ(), false),
+                endpoint.getType());
+
     }
 
     public static Mapper<Endpoint, ConnectedDevice> getMapper() {

@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +23,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.adapters.ConnectedDeviceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
@@ -154,7 +156,7 @@ public class Connect extends AbstractAPI {
      *             if a problem occurred during request processing
      */
     @API
-    public List<Resource> listResources(String deviceId) throws MbedCloudException {
+    public List<Resource> listResources(@NonNull String deviceId) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         final String finalDeviceId = deviceId;
 
@@ -167,6 +169,8 @@ public class Connect extends AbstractAPI {
                     }
                 });
     }
+
+    // TODO listDeviceSubscriptions
 
     /**
      * Lists metrics
@@ -184,10 +188,10 @@ public class Connect extends AbstractAPI {
             throws MbedCloudException {
         checkNotNull(options, TAG_METRIC_OPTIONS);
         final T finalOptions = options;
-        final String finalStart = (options instanceof MetricsStartEndListOptions)
-                ? ((MetricsStartEndListOptions) options).getStart().toString() : null;
-        final String finalEnd = (options instanceof MetricsStartEndListOptions)
-                ? ((MetricsStartEndListOptions) options).getEnd().toString() : null;
+        final Date finalStart = (options instanceof MetricsStartEndListOptions)
+                ? ((MetricsStartEndListOptions) options).getStart() : null;
+        final Date finalEnd = (options instanceof MetricsStartEndListOptions)
+                ? ((MetricsStartEndListOptions) options).getEnd() : null;
         final String finalPeriod = (options instanceof MetricsPeriodListOptions)
                 ? ((MetricsPeriodListOptions) options).getPeriod().toString() : null;
 
@@ -198,8 +202,9 @@ public class Connect extends AbstractAPI {
                     public Call<SuccessfulResponse> call() {
                         return endpoint.getStatistic().v3MetricsGet(
                                 MetricAdapter.mapIncludes(finalOptions.getInclude()),
-                                finalOptions.getInterval().toString(), finalStart, finalEnd, finalPeriod,
-                                finalOptions.getLimit(), finalOptions.getAfter(), finalOptions.getOrder().toString());
+                                finalOptions.getInterval().toString(), TranslationUtils.toLocalDate(finalStart),
+                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getLimit(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString());
                     }
                 });
 
@@ -437,6 +442,7 @@ public class Connect extends AbstractAPI {
         }
         return null;
     }
+    // TODO deleteResource
 
     /**
      * Lists pre-subscription data
@@ -471,11 +477,12 @@ public class Connect extends AbstractAPI {
     @API
     public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
         final List<Presubscription> finalList = presubscriptions;
+        final PresubscriptionArray array = PresubscriptionAdapter.reverseMapList(finalList);
         CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(finalList));
+                return endpoint.getSubscriptions().v2SubscriptionsPut(array);
             }
         });
     }
@@ -513,7 +520,98 @@ public class Connect extends AbstractAPI {
             }
         });
     }
+
+    /**
+     * Deletes a device's subscriptions
+     * 
+     * @param deviceId
+     *            Device ID
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        final String finalDeviceId = deviceId;
+        CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdDelete(finalDeviceId);
+            }
+        });
+    }
+
+    // /**
+    // * Gets the status of a resource's subscription
+    // *
+    // * @param deviceId
+    // * Device ID
+    // * @return subscription status
+    // * @throws MbedCloudException
+    // * if a problem occurred during request processing
+    // */
+    // @API
+    // public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+    // checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+    // checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+    // final Resource finalResource = resource;
+    // CloudCaller.call(this, "getResourceSubscription()", null, new CloudCall<Void>() {
+    //
+    // @Override
+    // public Call<Void> call() {
+    // return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(finalResource.getDeviceId(),
+    // finalResource.getPath());
+    // }
+    // });
+    // }
     // TODO subscriptions
+
+    /**
+     * Subscribes to a resource
+     *
+     * @param resource
+     *            resource to subscribe to
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void addResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        final Resource finalResource = resource;
+        CloudCaller.call(this, "addResourceSubscription()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathPut(finalResource.getDeviceId(),
+                        ApiUtils.normalisePath(finalResource.getPath()));
+            }
+        });
+    }
+
+    /**
+     * Deletes a resource's subscription
+     *
+     * @param resource
+     *            resource to subscribe to
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        final Resource finalResource = resource;
+        CloudCaller.call(this, "deleteResourceSubscription()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathDelete(
+                        finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
+            }
+        });
+    }
 
     /**
      * Gets the current callback URL if it exists

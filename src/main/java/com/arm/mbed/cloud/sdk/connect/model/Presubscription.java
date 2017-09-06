@@ -25,7 +25,7 @@ public class Presubscription implements SDKModel {
     private List<String> resourcePaths;
 
     public Presubscription() {
-        // TODO Auto-generated constructor stub
+        super();
     }
 
     /**
