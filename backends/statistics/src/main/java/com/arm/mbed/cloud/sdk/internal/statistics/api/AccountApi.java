@@ -9,6 +9,7 @@ import retrofit2.http.*;
 import okhttp3.RequestBody;
 
 import com.arm.mbed.cloud.sdk.internal.statistics.model.ErrorResponse;
+import org.joda.time.LocalDate;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public interface AccountApi {
   
   @GET("v3/metrics")
   Call<SuccessfulResponse> v3MetricsGet(
-    @retrofit2.http.Query("include") String include, @retrofit2.http.Query("interval") String interval, @retrofit2.http.Query("start") String start, @retrofit2.http.Query("end") String end, @retrofit2.http.Query("period") String period, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
+    @retrofit2.http.Query("include") String include, @retrofit2.http.Query("interval") String interval, @retrofit2.http.Query("start") LocalDate start, @retrofit2.http.Query("end") LocalDate end, @retrofit2.http.Query("period") String period, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
   );
 
 }

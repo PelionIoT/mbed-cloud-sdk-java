@@ -14,7 +14,6 @@
 package com.arm.mbed.cloud.sdk.internal.mds.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.mds.model.ResourcePath;
 import com.google.gson.annotations.SerializedName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -36,7 +35,7 @@ public class Presubscription implements Serializable {
   private String endpointType = null;
 
   @SerializedName("resource-path")
-  private List<ResourcePath> resourcePath = new ArrayList<ResourcePath>();
+  private List<String> resourcePath = new ArrayList<String>();
 
   public Presubscription endpointName(String endpointName) {
     this.endpointName = endpointName;
@@ -74,12 +73,12 @@ public class Presubscription implements Serializable {
     this.endpointType = endpointType;
   }
 
-  public Presubscription resourcePath(List<ResourcePath> resourcePath) {
+  public Presubscription resourcePath(List<String> resourcePath) {
     this.resourcePath = resourcePath;
     return this;
   }
 
-  public Presubscription addResourcePathItem(ResourcePath resourcePathItem) {
+  public Presubscription addResourcePathItem(String resourcePathItem) {
     this.resourcePath.add(resourcePathItem);
     return this;
   }
@@ -89,11 +88,11 @@ public class Presubscription implements Serializable {
    * @return resourcePath
   **/
   @ApiModelProperty(example = "null", value = "")
-  public List<ResourcePath> getResourcePath() {
+  public List<String> getResourcePath() {
     return resourcePath;
   }
 
-  public void setResourcePath(List<ResourcePath> resourcePath) {
+  public void setResourcePath(List<String> resourcePath) {
     this.resourcePath = resourcePath;
   }
 
