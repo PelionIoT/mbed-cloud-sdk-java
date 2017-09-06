@@ -156,7 +156,7 @@ public class Connect extends AbstractAPI {
      *             if a problem occurred during request processing
      */
     @API
-    public List<Resource> listResources(String deviceId) throws MbedCloudException {
+    public List<Resource> listResources(@NonNull String deviceId) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         final String finalDeviceId = deviceId;
 
@@ -169,6 +169,8 @@ public class Connect extends AbstractAPI {
                     }
                 });
     }
+
+    // TODO listDeviceSubscriptions
 
     /**
      * Lists metrics
@@ -440,6 +442,7 @@ public class Connect extends AbstractAPI {
         }
         return null;
     }
+    // TODO deleteResource
 
     /**
      * Lists pre-subscription data
@@ -474,11 +477,12 @@ public class Connect extends AbstractAPI {
     @API
     public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
         final List<Presubscription> finalList = presubscriptions;
+        final PresubscriptionArray array = PresubscriptionAdapter.reverseMapList(finalList);
         CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(finalList));
+                return endpoint.getSubscriptions().v2SubscriptionsPut(array);
             }
         });
     }
@@ -516,7 +520,98 @@ public class Connect extends AbstractAPI {
             }
         });
     }
+
+    /**
+     * Deletes a device's subscriptions
+     * 
+     * @param deviceId
+     *            Device ID
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        final String finalDeviceId = deviceId;
+        CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdDelete(finalDeviceId);
+            }
+        });
+    }
+
+    // /**
+    // * Gets the status of a resource's subscription
+    // *
+    // * @param deviceId
+    // * Device ID
+    // * @return subscription status
+    // * @throws MbedCloudException
+    // * if a problem occurred during request processing
+    // */
+    // @API
+    // public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+    // checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+    // checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+    // final Resource finalResource = resource;
+    // CloudCaller.call(this, "getResourceSubscription()", null, new CloudCall<Void>() {
+    //
+    // @Override
+    // public Call<Void> call() {
+    // return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(finalResource.getDeviceId(),
+    // finalResource.getPath());
+    // }
+    // });
+    // }
     // TODO subscriptions
+
+    /**
+     * Subscribes to a resource
+     *
+     * @param resource
+     *            resource to subscribe to
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void addResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        final Resource finalResource = resource;
+        CloudCaller.call(this, "addResourceSubscription()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathPut(finalResource.getDeviceId(),
+                        ApiUtils.normalisePath(finalResource.getPath()));
+            }
+        });
+    }
+
+    /**
+     * Deletes a resource's subscription
+     *
+     * @param resource
+     *            resource to subscribe to
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        final Resource finalResource = resource;
+        CloudCaller.call(this, "deleteResourceSubscription()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathDelete(
+                        finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
+            }
+        });
+    }
 
     /**
      * Gets the current callback URL if it exists

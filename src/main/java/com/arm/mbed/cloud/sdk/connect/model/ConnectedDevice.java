@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -16,14 +17,22 @@ public class ConnectedDevice implements SDKModel {
     /**
      * Determines whether the device is in queue mode.
      */
-    private boolean queueMode;
+    @DefaultValue(value = "false")
+    private final boolean queueMode;
     /**
      * Type of endpoint. (Free text)
      */
-    private String type;
+    private final String type;
+
+    public ConnectedDevice(String id, boolean queueMode, String type) {
+        super();
+        setId(id);
+        this.queueMode = queueMode;
+        this.type = type;
+    }
 
     public ConnectedDevice() {
-        super();
+        this(null, false, null);
     }
 
     /**
@@ -49,26 +58,10 @@ public class ConnectedDevice implements SDKModel {
     }
 
     /**
-     * @param queueMode
-     *            the queueMode to set
-     */
-    public void setQueueMode(boolean queueMode) {
-        this.queueMode = queueMode;
-    }
-
-    /**
      * @return the type
      */
     public String getType() {
         return type;
-    }
-
-    /**
-     * @param type
-     *            the type to set
-     */
-    public void setType(String type) {
-        this.type = type;
     }
 
 }

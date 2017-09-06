@@ -15,13 +15,7 @@ public class ResourceAdapter {
         if (apiResource == null || deviceId == null || deviceId.isEmpty()) {
             return null;
         }
-        Resource resource = new Resource();
-        resource.setContentType(apiResource.getType());
-        resource.setObservable(TranslationUtils.toBool(apiResource.getObs(), false));
-        resource.setType(apiResource.getRt());
-        resource.setPath(apiResource.getUri());
-        resource.setDeviceId(deviceId);
-        return resource;
+        return new Resource(deviceId,apiResource.getUri(),apiResource.getRt(),apiResource.getType(),TranslationUtils.toBool(apiResource.getObs(), false));
     }
 
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource> getMapper(String deviceId) {
