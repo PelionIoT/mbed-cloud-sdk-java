@@ -6,6 +6,8 @@ apply plugin: 'java-library-distribution'
 //apply plugin: 'checkstyle'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+//apply plugin: 'findbugs'
+//apply plugin: 'pmd'
 apply plugin: 'signing'
 apply plugin: 'build-dashboard'
 

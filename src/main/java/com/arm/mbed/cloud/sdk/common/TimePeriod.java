@@ -5,13 +5,19 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Time period")
 public class TimePeriod implements Cloneable {
+    @Internal
+    private enum PeriodTimeUnit {
+        YEARS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, NANOSECONDS;
+    }
+
     private static final Pattern STRING_PATTERN = Pattern.compile("\\s*(\\d+)\\s*([A-Za-z])\\s*");
     private static final int DEFAULT_DURATION = 1;
-    private static final TimeUnit DEFAULT_UNIT = TimeUnit.DAYS;
+    private static final PeriodTimeUnit DEFAULT_UNIT = PeriodTimeUnit.DAYS;
     /**
      * The time period unit
      */
@@ -41,9 +47,17 @@ public class TimePeriod implements Cloneable {
     }
 
     public TimePeriod() {
-        this(DEFAULT_UNIT, DEFAULT_DURATION);
+        super();
+        setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
     }
 
+    /**
+     * Set time period from a string
+     * 
+     * @param value
+     *            string representing the time period @see {@link #fromString(String)} for more information
+     * 
+     */
     public TimePeriod(String value) {
         fromString(value);
     }
@@ -94,19 +108,111 @@ public class TimePeriod implements Cloneable {
      * 
      * @see java.lang.Object#toString()
      */
+    @SuppressWarnings("incomplete-switch")
     @Override
     public String toString() {
-        if (unit == null) {
-            setUnit(DEFAULT_UNIT);
+        if (unit == null || duration == 0) {
+            setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
         }
-        if (duration == 0) {
-            setDuration(DEFAULT_DURATION);
+        StringBuilder builder = new StringBuilder();
+        switch (unit) {
+            case DAYS:
+                if (duration >= 366 && duration % 366 == 0) {// This case should not happen
+                    builder.append(duration / 366).append("y");
+                } else if (duration >= 7 && duration % 7 == 0) {
+                    builder.append(duration / 7).append("w");
+                } else {
+                    builder.append(duration).append("d");
+                }
+                break;
+            case HOURS:
+                if (duration >= 24 && duration % 24 == 0) {
+                    builder.append(duration / 24).append("d");
+                } else {
+                    builder.append(duration).append("h");
+                }
+                break;
+            case MINUTES:
+                if (duration >= 60 && duration % 60 == 0) {
+                    builder.append(duration / 60).append("h");
+                } else {
+                    builder.append(duration).append("m");
+                }
+                break;
+            case NANOSECONDS:
+                if (duration >= 1000000000 && duration % 1000000000 == 0) {
+                    builder.append(duration / 1000000000).append("s");
+                } else {
+                    builder.append(duration).append("n");
+                }
+                break;
+            case SECONDS:
+                if (duration >= 60 && duration % 60 == 0) {
+                    builder.append(duration / 60).append("m");
+                } else {
+                    builder.append(duration).append("s");
+                }
+                break;
         }
-        String unitStr = unit.toString().toLowerCase();
-        return duration + unitStr.substring(0, 1);
+
+        return builder.toString();
     }
 
-    public static TimeUnit getUnitFromChar(String string) {
+    /**
+     * Sets time period from a string:
+     * 
+     * @param value
+     *            string value specifying the period in nanoseconds, seconds, minutes, hours, days or weeks. Sample
+     *            values: 10000n, 50s, 5m, 2h, 3d, 4w. The maximum period cannot exceed one year (365 days). The allowed
+     *            ranges are 5m-525600m/1h-8760h/1d-365d/1w-53w.
+     */
+    public void fromString(String value) {
+        setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
+        if (value == null || value.isEmpty()) {
+            return;
+        }
+        Matcher matcher = STRING_PATTERN.matcher(value);
+        if (matcher.matches()) {
+            setTimePeriod(Long.parseLong(matcher.group(1)), getUnitFromChar(matcher.group(2)));
+        }
+    }
+
+    private void setTimePeriod(long duration, PeriodTimeUnit unit) {
+        switch (unit) {
+            case DAYS:
+                setUnit(TimeUnit.DAYS);
+                setDuration(duration);
+                break;
+            case HOURS:
+                setUnit(TimeUnit.HOURS);
+                setDuration(duration);
+                break;
+            case MINUTES:
+                setUnit(TimeUnit.MINUTES);
+                setDuration(duration);
+                break;
+            case NANOSECONDS:
+                setUnit(TimeUnit.NANOSECONDS);
+                setDuration(duration);
+                break;
+            case SECONDS:
+                setUnit(TimeUnit.SECONDS);
+                setDuration(duration);
+                break;
+            case WEEKS:
+                setUnit(TimeUnit.DAYS);
+                setDuration(7l * duration);
+                break;
+            case YEARS:// This case should not happen.
+                setUnit(TimeUnit.DAYS);
+                setDuration(366l * duration);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private static PeriodTimeUnit getUnitFromChar(String string) {
         if (string == null || string.isEmpty()) {
             return DEFAULT_UNIT;
         }
@@ -115,33 +221,24 @@ public class TimePeriod implements Cloneable {
             return DEFAULT_UNIT;
         }
         switch (trimmedString) {
+            case "y":// This case should not happen
+                return PeriodTimeUnit.YEARS;
+            case "w":
+                return PeriodTimeUnit.WEEKS;
             case "d":
-                return TimeUnit.DAYS;
+                return PeriodTimeUnit.DAYS;
             case "h":
-                return TimeUnit.HOURS;
+                return PeriodTimeUnit.HOURS;
             case "m":
-                return TimeUnit.MINUTES;
+                return PeriodTimeUnit.MINUTES;
             case "s":
-                return TimeUnit.SECONDS;
+                return PeriodTimeUnit.SECONDS;
             case "n":
-                return TimeUnit.NANOSECONDS;
+                return PeriodTimeUnit.NANOSECONDS;
             default:
                 break;
         }
         return DEFAULT_UNIT;
-    }
-
-    public void fromString(String value) {
-        setDuration(DEFAULT_DURATION);
-        setUnit(DEFAULT_UNIT);
-        if (value == null || value.isEmpty()) {
-            return;
-        }
-        Matcher matcher = STRING_PATTERN.matcher(value);
-        if (matcher.matches()) {
-            setDuration(Long.parseLong(matcher.group(1)));
-            setUnit(getUnitFromChar(matcher.group(2)));
-        }
     }
 
     /*

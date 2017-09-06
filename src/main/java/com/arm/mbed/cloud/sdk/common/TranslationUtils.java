@@ -83,6 +83,10 @@ public class TranslationUtils {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
+    public static Date convertRFC3339Timestamp(String timestamp) throws Exception {
+        return convertTimestamp(timestamp, RFC3339_DATE_FORMAT);
+    }
+
     public static String toDefaultTimestamp(Date date) {
         return toTimestamp(date, DateFormat.getDateTimeInstance());
     }
@@ -94,6 +98,14 @@ public class TranslationUtils {
     public static Date convertTimestamp(String timestamp, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp);
+        } catch (Exception e) {
+            return defaultToDefaultDate(timestamp, defaultDate, e);
+        }
+    }
+
+    public static Date convertRFC3339Timestamp(String timestamp, Date defaultDate) {
+        try {
+            return TranslationUtils.convertRFC3339Timestamp(timestamp);
         } catch (Exception e) {
             return defaultToDefaultDate(timestamp, defaultDate, e);
         }

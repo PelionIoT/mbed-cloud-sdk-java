@@ -49,7 +49,13 @@ public class GenericAdapter {
         if (list == null || mapper == null) {
             return null;
         }
-        List<T> mappedList = new LinkedList<>();
+        return mapList(list, new LinkedList<T>(), mapper);
+    }
+
+    public static <T, U> List<T> mapList(List<U> list, List<T> mappedList, Mapper<U, T> mapper) {
+        if (list == null || mapper == null) {
+            return mappedList;
+        }
         for (U element : list) {
             mappedList.add(mapper.map(element));
         }

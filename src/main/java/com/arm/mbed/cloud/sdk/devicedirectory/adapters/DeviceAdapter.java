@@ -45,7 +45,7 @@ public class DeviceAdapter {
                 TranslationUtils.toDate(deviceData.getCreatedAt()), TranslationUtils.toDate(deviceData.getUpdatedAt()),
                 TranslationUtils.toDate(deviceData.getManifestTimestamp()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
-        device.setCustomAttributes(toAttributes(deviceData.getCustomAttributes()));
+        device.setCustomAttributes(deviceData.getCustomAttributes());
         device.setDescription(deviceData.getDescription());
         device.setDeviceClass(deviceData.getDeviceClass());
         device.setMechanism(toMechanismType(deviceData.getMechanism()));
@@ -65,11 +65,6 @@ public class DeviceAdapter {
         device.setHostGateway(deviceData.getHostGateway());
         device.setDeviceType(deviceData.getEndpointType());
         return device;
-    }
-
-    private static Map<String, String> toAttributes(Object customAttributes) {
-        // TODO Auto-generated method stub
-        return null;
     }
 
     private static DeviceState toState(

@@ -30,4 +30,12 @@ public class MetricsPeriodListOptions extends MetricsListOptions {
         this.period = period;
     }
 
+    /**
+     * @param period
+     *            the period to set
+     */
+    public void setPeriod(String period) {
+        setPeriod(new TimePeriod(period));
+    }
+
 }

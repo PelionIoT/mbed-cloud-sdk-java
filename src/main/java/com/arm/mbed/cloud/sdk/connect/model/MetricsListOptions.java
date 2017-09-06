@@ -36,4 +36,11 @@ public abstract class MetricsListOptions extends ListOptions {
         this.interval = interval;
     }
 
+    /**
+     * @param interval
+     *            the interval to set
+     */
+    public void setInterval(String interval) {
+        setInterval(new TimePeriod(interval));
+    }
 }
