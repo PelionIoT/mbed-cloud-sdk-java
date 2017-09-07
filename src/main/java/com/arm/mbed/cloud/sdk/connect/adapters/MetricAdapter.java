@@ -21,8 +21,8 @@ public class MetricAdapter {
         }
         return new Metric(apiMetric.getId(), TranslationUtils.toDate(apiMetric.getTimestamp()),
                 TranslationUtils.toLong(apiMetric.getTransactions()),
-                TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()),
-                TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()),
+                TranslationUtils.toLong(apiMetric.getConnectRestApiSuccess()),
+                TranslationUtils.toLong(apiMetric.getConnectRestApiError()),
                 TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()),
                 TranslationUtils.toLong(apiMetric.getBootstrapsPending()),
                 TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()),
@@ -30,7 +30,15 @@ public class MetricAdapter {
                 TranslationUtils.toLong(apiMetric.getFullRegistrations()),
                 TranslationUtils.toLong(apiMetric.getRegistrationUpdates()),
                 TranslationUtils.toLong(apiMetric.getExpiredRegistrations()),
-                TranslationUtils.toLong(apiMetric.getDeletedRegistrations()));
+                TranslationUtils.toLong(apiMetric.getDeletedRegistrations()),
+                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestSuccess()),
+                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestError()),
+                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestSuccess()),
+                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestError()),
+                TranslationUtils.toLong(apiMetric.getDeviceObservations())
+
+        );
+
     }
 
     public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
@@ -103,11 +111,21 @@ public class MetricAdapter {
             super();
             mapping = new Hashtable<>(6);
             mapping.put("transactions", "transactions");
-            mapping.put("successfulDeviceRegistrations", "bootstraps_successful");
-            mapping.put("pendingDeviceRegistrations", "bootstraps_pending");
-            mapping.put("failedDeviceRegistrations", "bootstraps_failed");
-            mapping.put("successfulApiCalls", "device_server_rest_api_success");
-            mapping.put("failedApiCalls", "device_server_rest_api_error");
+            mapping.put("successfulApiCalls", "connect_rest_api_success");
+            mapping.put("failedApiCalls", "connect_rest_api_error");
+            mapping.put("successfulHandshakes", "handshakes_successful");
+            mapping.put("pendingBootstraps", "bootstraps_pending");
+            mapping.put("successfulBootstraps", "bootstraps_successful");
+            mapping.put("failedBootstraps", "bootstraps_failed");
+            mapping.put("registrations", "full_registrations");
+            mapping.put("updatedRegistrations", "registration_updates");
+            mapping.put("expiredRegistrations", "expired_registrations");
+            mapping.put("deletedRegistrations", "deleted_registrations");
+            mapping.put("successfulDeviceProxyRequests", "device_proxy_request_success");
+            mapping.put("failedDeviceProxyRequests", "device_proxy_request_error");
+            mapping.put("successfulDeviceSubscriptionRequests", "device_subscription_request_success");
+            mapping.put("failedDeviceSubscriptionRequests", "device_subscription_request_error");
+            mapping.put("deviceObservations", "device_observations");
 
             boolean start = true;
             StringBuilder builder = new StringBuilder();
