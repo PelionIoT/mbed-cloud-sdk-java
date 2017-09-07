@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.statistics.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.statistics.model.Field;
+import com.arm.mbed.cloud.sdk.internal.statistics.model.Fields;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -38,7 +38,7 @@ public class ErrorResponse implements Serializable {
   private Integer code = null;
 
   @SerializedName("fields")
-  private List<Field> fields = null;
+  private List<Fields> fields = null;
 
   @SerializedName("object")
   private String object = null;
@@ -70,14 +70,14 @@ public class ErrorResponse implements Serializable {
     this.code = code;
   }
 
-  public ErrorResponse fields(List<Field> fields) {
+  public ErrorResponse fields(List<Fields> fields) {
     this.fields = fields;
     return this;
   }
 
-  public ErrorResponse addFieldsItem(Field fieldsItem) {
+  public ErrorResponse addFieldsItem(Fields fieldsItem) {
     if (this.fields == null) {
-      this.fields = new ArrayList<Field>();
+      this.fields = new ArrayList<Fields>();
     }
     this.fields.add(fieldsItem);
     return this;
@@ -88,11 +88,11 @@ public class ErrorResponse implements Serializable {
    * @return fields
   **/
   @ApiModelProperty(value = "Details of the error fields.")
-  public List<Field> getFields() {
+  public List<Fields> getFields() {
     return fields;
   }
 
-  public void setFields(List<Field> fields) {
+  public void setFields(List<Fields> fields) {
     this.fields = fields;
   }
 

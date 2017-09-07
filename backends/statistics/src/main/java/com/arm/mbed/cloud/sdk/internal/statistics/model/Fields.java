@@ -25,10 +25,10 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Field
+ * Fields
  */
 
-public class Field implements Serializable {
+public class Fields implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("message")
@@ -37,7 +37,7 @@ public class Field implements Serializable {
   @SerializedName("name")
   private String name = null;
 
-  public Field message(String message) {
+  public Fields message(String message) {
     this.message = message;
     return this;
   }
@@ -55,7 +55,7 @@ public class Field implements Serializable {
     this.message = message;
   }
 
-  public Field name(String name) {
+  public Fields name(String name) {
     this.name = name;
     return this;
   }
@@ -82,9 +82,9 @@ public class Field implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    Field field = (Field) o;
-    return Objects.equals(this.message, field.message) &&
-        Objects.equals(this.name, field.name);
+    Fields fields = (Fields) o;
+    return Objects.equals(this.message, fields.message) &&
+        Objects.equals(this.name, fields.name);
   }
 
   @Override
@@ -96,7 +96,7 @@ public class Field implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class Field {\n");
+    sb.append("class Fields {\n");
     
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
