@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the mbed device directory update service.
+ * This is the API Documentation for the Mbed device directory update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -181,7 +181,7 @@ public class DeviceDataPostRequest implements Serializable {
   private String description = null;
 
   /**
-   * DEPRECATED The state of the device&#39;s deployment.
+   * DEPRECATED: The state of the device&#39;s deployment.
    */
   @JsonAdapter(DeployedStateEnum.Adapter.class)
   public enum DeployedStateEnum {
@@ -263,10 +263,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Expiration date of the certificate used to connect to bootstrap server.
+   * The expiration date of the certificate used to connect to bootstrap server.
    * @return bootstrapExpirationDate
   **/
-  @ApiModelProperty(value = "Expiration date of the certificate used to connect to bootstrap server.")
+  @ApiModelProperty(value = "The expiration date of the certificate used to connect to bootstrap server.")
   public DateTime getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
@@ -281,10 +281,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Timestamp of when the device last went through the bootstrap process.
+   * The timestamp of the device&#39;s most recent bootstrap process..
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "Timestamp of when the device last went through the bootstrap process.")
+  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process..")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -299,10 +299,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Expiration date of the certificate used to connect to the lwm2m server.
+   * The expiration date of the certificate used to connect to the LWM2M server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(value = "Expiration date of the certificate used to connect to the lwm2m server.")
+  @ApiModelProperty(value = "The expiration date of the certificate used to connect to the LWM2M server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
@@ -335,10 +335,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * An id representing the model and hardware revision of the device.
+   * An ID representing the model and hardware revision of the device.
    * @return deviceClass
   **/
-  @ApiModelProperty(value = "An id representing the model and hardware revision of the device.")
+  @ApiModelProperty(value = "An ID representing the model and hardware revision of the device.")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -371,10 +371,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * DEPRECATED Mark this device for auto firmware update.
+   * DEPRECATED: Mark this device for automatic firmware update.
    * @return autoUpdate
   **/
-  @ApiModelProperty(value = "DEPRECATED Mark this device for auto firmware update.")
+  @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
   public Boolean getAutoUpdate() {
     return autoUpdate;
   }
@@ -389,10 +389,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The endpoint_name of the host gateway, if appropriate.
+   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(value = "The endpoint_name of the host gateway, if appropriate.")
+  @ApiModelProperty(value = "The `endpoint_name` of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -407,10 +407,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Defines the type of certificate used.
+   * The certificate type.
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(value = "Defines the type of certificate used.")
+  @ApiModelProperty(value = "The certificate type.")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
@@ -433,10 +433,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Custom attributes(key/value). Up to 5 attributes
+   * Up to five custom key-value attributes.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Custom attributes(key/value). Up to 5 attributes")
+  @ApiModelProperty(value = "Up to five custom key-value attributes.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -541,10 +541,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * DEPRECATED The state of the device&#39;s deployment.
+   * DEPRECATED: The state of the device&#39;s deployment.
    * @return deployedState
   **/
-  @ApiModelProperty(value = "DEPRECATED The state of the device's deployment.")
+  @ApiModelProperty(value = "DEPRECATED: The state of the device's deployment.")
   public DeployedStateEnum getDeployedState() {
     return deployedState;
   }
@@ -577,10 +577,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The endpoint type of the device - e.g. if the device is a gateway.
+   * The endpoint type of the device. For example, the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(value = "The endpoint type of the device - e.g. if the device is a gateway.")
+  @ApiModelProperty(value = "The endpoint type of the device. For example, the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -595,10 +595,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * DEPRECATED The last deployment used on the device.
+   * DEPRECATED: The last deployment used on the device.
    * @return deployment
   **/
-  @ApiModelProperty(value = "DEPRECATED The last deployment used on the device.")
+  @ApiModelProperty(value = "DEPRECATED: The last deployment used on the device.")
   public String getDeployment() {
     return deployment;
   }
@@ -667,10 +667,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Fingerprint of the device certificate.
+   * The fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(required = true, value = "Fingerprint of the device certificate.")
+  @ApiModelProperty(required = true, value = "The fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -685,10 +685,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * DEPRECATED The URL for the current device manifest.
+   * DEPRECATED: The URL for the current device manifest.
    * @return manifest
   **/
-  @ApiModelProperty(value = "DEPRECATED The URL for the current device manifest.")
+  @ApiModelProperty(value = "DEPRECATED: The URL for the current device manifest.")
   public String getManifest() {
     return manifest;
   }
@@ -703,10 +703,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * ID of the issuer of the certificate.
+   * The certificate issuer&#39;s ID.
    * @return caId
   **/
-  @ApiModelProperty(required = true, value = "ID of the issuer of the certificate.")
+  @ApiModelProperty(required = true, value = "The certificate issuer's ID.")
   public String getCaId() {
     return caId;
   }

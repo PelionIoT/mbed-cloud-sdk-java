@@ -59,7 +59,7 @@ public interface ResourcesApi {
   })
   @POST("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathPost(
-    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body byte[] resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body String resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -76,7 +76,7 @@ public interface ResourcesApi {
   })
   @PUT("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> v2EndpointsDeviceIdResourcePathPut(
-    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body byte[] resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body String resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
 }
