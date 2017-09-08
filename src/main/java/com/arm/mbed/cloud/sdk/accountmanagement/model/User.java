@@ -103,6 +103,16 @@ public class User implements SDKModel {
     public User(String id, String accountId, List<String> groups, UserStatus status, boolean isEmailVerified,
             Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
+        this(id, accountId, null, null, null, null, null, null, true, true, groups, status, isEmailVerified, createdAt,
+                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime);
+    }
+
+    @Internal
+    public User(String id, String accountId, String fullName, String username, String password, String email,
+            String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
+            List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
+            boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
+            long passwordChangedTime, long lastLoginTime) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -110,19 +120,19 @@ public class User implements SDKModel {
         this.status = status;
         this.isEmailVerified = isEmailVerified;
         this.createdAt = createdAt;
+        this.twoFactorAuthentication = twoFactorAuthentication;
+        this.loginHistory = loginHistory;
         this.creationTime = creationTime;
         this.passwordChangedTime = passwordChangedTime;
         this.lastLoginTime = lastLoginTime;
-        this.twoFactorAuthentication = twoFactorAuthentication;
-        this.loginHistory = loginHistory;
-        setFullName(null);
-        setUsername(null);
-        setPassword(null);
-        setEmail(null);
-        setPhoneNumber(null);
-        setAddress(null);
-        setTermAccepted(true);
-        setMarketingAccepted(true);
+        setFullName(fullName);
+        setUsername(username);
+        setPassword(password);
+        setEmail(email);
+        setPhoneNumber(phoneNumber);
+        setAddress(address);
+        setTermAccepted(areTermsAccepted);
+        setMarketingAccepted(isMarketingAccepted);
     }
 
     /**
@@ -346,6 +356,18 @@ public class User implements SDKModel {
      */
     public List<LoginHistory> getLoginHistory() {
         return loginHistory;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public User clone() throws CloneNotSupportedException {
+        return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
+                isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
+                creationTime, passwordChangedTime, lastLoginTime);
     }
 
 }

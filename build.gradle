@@ -11,6 +11,7 @@ buildscript {
   dependencies {
     classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
     classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
+    classpath "de.aaschmid:gradle-cpd-plugin:1.0"
   }
 }
 
@@ -18,11 +19,13 @@ buildscript {
 apply plugin: 'java-library'
 apply plugin: 'java-library-distribution'
 apply plugin:'license-report'
-//apply plugin: 'checkstyle'
+apply plugin: 'checkstyle' //code style checks
+apply plugin: 'findbugs' //static analysis
+apply plugin: 'pmd' //static analysis
+apply plugin: "de.aaschmid.cpd" //Code duplication
+apply plugin: "jacoco" //Code coverage
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-//apply plugin: 'findbugs'
-//apply plugin: 'pmd'
 apply plugin: 'signing'
 apply plugin: 'build-dashboard'
 apply plugin: "com.github.johnrengelman.shadow"
@@ -71,7 +74,8 @@ allprojects {
 
 subprojects {
     apply plugin: 'java-library'
-//apply plugin: 'checkstyle'
+    apply plugin:'license-report'
+    apply plugin: "jacoco"
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'signing'
@@ -81,6 +85,65 @@ subprojects {
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
 project(':backends:mds').javadoc.enabled = false
 project(':backends:statistics').javadoc.enabled = false
+
+checkstyle {
+    toolVersion = '7.2'
+    configFile rootProject.file('config/checkstyle/checkstyle.xml')
+}
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+pmd {
+   toolVersion = "5.0.4"
+   sourceSets = [sourceSets.main]
+   ignoreFailures = true
+   ruleSets = []
+   ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+}
+pmdMain {
+   excludes = []
+   reports {
+      xml.enabled false
+      html.enabled true
+   }
+}
+
+cpd {
+    toolVersion = '5.4.2'
+}
+cpdCheck {
+    reports {
+        text.enabled = false
+        xml.enabled = true
+    }
+    ignoreFailures = true
+    source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+}
+
+findbugs {
+    //toolVersion = "2.0.1"
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+}
+
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
 
 def updateArtifactList(propertyName, value){
         def props = new Properties()

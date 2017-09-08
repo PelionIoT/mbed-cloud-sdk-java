@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -32,6 +33,7 @@ public class Resource implements SDKModel {
     @DefaultValue(value = "false")
     private final boolean observable;
 
+    @Internal
     public Resource(String deviceId, String path, String type, String contentType, boolean observable) {
         super();
         setDeviceId(deviceId);
@@ -108,6 +110,16 @@ public class Resource implements SDKModel {
      */
     public boolean isObservable() {
         return observable;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Resource clone() throws CloneNotSupportedException {
+        return new Resource(deviceId, path, type, contentType, observable);
     }
 
 }

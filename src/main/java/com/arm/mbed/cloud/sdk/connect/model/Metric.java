@@ -42,7 +42,7 @@ public class Metric implements SDKModel {
      * Number of successful handshakes the account has used.
      */
     @DefaultValue(value = "0")
-    private final long successfulHandshakes;
+    private final long handshakes;
     /**
      * Number of pending bootstraps the account has used.
      */
@@ -62,7 +62,7 @@ public class Metric implements SDKModel {
      * Number of registrations
      */
     @DefaultValue(value = "0")
-    private final long registrations;
+    private final long fullRegistrations;
     /**
      * Number of updated registrations
      */
@@ -84,35 +84,35 @@ public class Metric implements SDKModel {
      * Connect API endpoints.
      */
     @DefaultValue(value = "0")
-    private final long successfulDeviceProxyRequests;
+    private final long successfulProxyRequests;
     /**
      * Number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are
      * made from Mbed Cloud Connect to devices when you try to read or write values to device resources using Connect
      * API endpoints.
      */
     @DefaultValue(value = "0")
-    private final long failedDeviceProxyRequests;
+    private final long failedProxyRequests;
     /**
      * Number of successful subscription requests from Mbed Cloud Connect to devices linked to the account.The
      * subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path
      * using Connect API endpoints.
      */
     @DefaultValue(value = "0")
-    private final long successfulDeviceSubscriptionRequests;
+    private final long successfulSubscriptionRequests;
     /**
      * Number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription
      * requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using Connect
      * API endpoints.
      */
     @DefaultValue(value = "0")
-    private final long failedDeviceSubscriptionRequests;
+    private final long failedSubscriptionRequests;
     /**
      * Number of observations received by Mbed Cloud Connect from the devices linked to the account.The observations are
      * pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using
      * Connect API endpoints.
      */
     @DefaultValue(value = "0")
-    private final long deviceObservations;
+    private final long observations;
 
     @Internal
     public Metric(String id, Date timestamp, long transactions, long successfulApiCalls, long failedApiCalls,
@@ -126,19 +126,19 @@ public class Metric implements SDKModel {
         this.transactions = transactions;
         this.successfulApiCalls = successfulApiCalls;
         this.failedApiCalls = failedApiCalls;
-        this.successfulHandshakes = successfulHandshakes;
+        this.handshakes = successfulHandshakes;
         this.pendingBootstraps = pendingBootstraps;
         this.successfulBootstraps = successfulBootstraps;
         this.failedBootstraps = failedBootstraps;
-        this.registrations = registrations;
+        this.fullRegistrations = registrations;
         this.updatedRegistrations = updatedRegistrations;
         this.expiredRegistrations = expiredRegistrations;
         this.deletedRegistrations = deletedRegistrations;
-        this.successfulDeviceProxyRequests = successfulDeviceProxyRequests;
-        this.failedDeviceProxyRequests = failedDeviceProxyRequests;
-        this.successfulDeviceSubscriptionRequests = successfulDeviceSubscriptionRequests;
-        this.failedDeviceSubscriptionRequests = failedDeviceSubscriptionRequests;
-        this.deviceObservations = deviceObservations;
+        this.successfulProxyRequests = successfulDeviceProxyRequests;
+        this.failedProxyRequests = failedDeviceProxyRequests;
+        this.successfulSubscriptionRequests = successfulDeviceSubscriptionRequests;
+        this.failedSubscriptionRequests = failedDeviceSubscriptionRequests;
+        this.observations = deviceObservations;
     }
 
     public Metric() {
@@ -169,8 +169,8 @@ public class Metric implements SDKModel {
     /**
      * @return the registrations
      */
-    public long getRegistrations() {
-        return registrations;
+    public long getFullRegistrations() {
+        return fullRegistrations;
     }
 
     /**
@@ -240,43 +240,56 @@ public class Metric implements SDKModel {
     /**
      * @return the successfulHandshakes
      */
-    public long getSuccessfulHandshakes() {
-        return successfulHandshakes;
+    public long getHandshakes() {
+        return handshakes;
     }
 
     /**
      * @return the successfulDeviceProxyRequests
      */
-    public long getSuccessfulDeviceProxyRequests() {
-        return successfulDeviceProxyRequests;
+    public long getSuccessfulProxyRequests() {
+        return successfulProxyRequests;
     }
 
     /**
      * @return the failedDeviceProxyRequests
      */
-    public long getFailedDeviceProxyRequests() {
-        return failedDeviceProxyRequests;
+    public long getFailedProxyRequests() {
+        return failedProxyRequests;
     }
 
     /**
      * @return the successfulDeviceSubscriptionRequests
      */
-    public long getSuccessfulDeviceSubscriptionRequests() {
-        return successfulDeviceSubscriptionRequests;
+    public long getSuccessfulSubscriptionRequests() {
+        return successfulSubscriptionRequests;
     }
 
     /**
      * @return the failedDeviceSubscriptionRequests
      */
-    public long getFailedDeviceSubscriptionRequests() {
-        return failedDeviceSubscriptionRequests;
+    public long getFailedSubscriptionRequests() {
+        return failedSubscriptionRequests;
     }
 
     /**
      * @return the deviceObservations
      */
-    public long getDeviceObservations() {
-        return deviceObservations;
+    public long getObservations() {
+        return observations;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Metric clone() throws CloneNotSupportedException {
+        return new Metric(id, timestamp, transactions, successfulApiCalls, failedApiCalls, handshakes,
+                pendingBootstraps, successfulBootstraps, failedBootstraps, fullRegistrations, updatedRegistrations,
+                expiredRegistrations, deletedRegistrations, successfulProxyRequests, failedProxyRequests,
+                successfulSubscriptionRequests, failedSubscriptionRequests, observations);
     }
 
 }

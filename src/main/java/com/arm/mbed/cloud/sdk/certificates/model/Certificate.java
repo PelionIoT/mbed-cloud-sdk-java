@@ -93,6 +93,7 @@ public class Certificate implements SDKModel {
      */
     private String signature;
 
+    @Internal
     public Certificate(String id, String accountId, String subject, Date validity, String issuer, Date createdAt,
             String serverUri, String serverCertificate, String headerFile, String developerCertificate,
             String developerPrivateKey, String ownerId) {
@@ -115,6 +116,21 @@ public class Certificate implements SDKModel {
         setSignature(null);
         setStatus(CertificateStatus.getDefault());
         setType(CertificateType.getDefault());
+    }
+
+    @Internal
+    public Certificate(String id, String name, String accountId, CertificateStatus status, CertificateType type,
+            String description, String subject, Date validity, String issuer, Date createdAt, String serverUri,
+            String serverCertificate, String headerFile, String developerCertificate, String developerPrivateKey,
+            String ownerId, String certificateData, String signature) {
+        this(id, accountId, subject, validity, issuer, createdAt, serverUri, serverCertificate, headerFile,
+                developerCertificate, developerPrivateKey, ownerId);
+        setCertificateData(certificateData);
+        setDescription(description);
+        setName(name);
+        setSignature(signature);
+        setStatus(status);
+        setType(type);
     }
 
     public Certificate() {
@@ -370,6 +386,18 @@ public class Certificate implements SDKModel {
         merge.setStatus(mergeField(partial1.getStatus(), partial2.getStatus()));
         merge.setType(mergeField(partial1.getType(), partial2.getType()));
         return merge;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Certificate clone() throws CloneNotSupportedException {
+        return new Certificate(id, name, accountId, status, type, description, subject, validity, issuer, createdAt,
+                serverUri, serverCertificate, headerFile, developerCertificate, developerPrivateKey, ownerId,
+                certificateData, signature);
     }
 
 }

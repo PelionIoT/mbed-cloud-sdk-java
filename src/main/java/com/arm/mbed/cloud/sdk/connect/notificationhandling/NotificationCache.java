@@ -280,12 +280,15 @@ public class NotificationCache {
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             AsyncResponse other = (AsyncResponse) obj;
             if (errorMessage == null) {
                 if (other.errorMessage != null)
@@ -295,10 +298,12 @@ public class NotificationCache {
             if (payload == null) {
                 if (other.payload != null)
                     return false;
-            } else if (!payload.equals(other.payload))
+            } else if (!payload.equals(other.payload)) {
                 return false;
-            if (statusCode != other.statusCode)
+            }
+            if (statusCode != other.statusCode) {
                 return false;
+            }
             return true;
         }
 

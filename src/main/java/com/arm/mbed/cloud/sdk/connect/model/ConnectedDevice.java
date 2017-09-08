@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -24,6 +25,7 @@ public class ConnectedDevice implements SDKModel {
      */
     private final String type;
 
+    @Internal
     public ConnectedDevice(String id, boolean queueMode, String type) {
         super();
         setId(id);
@@ -62,6 +64,16 @@ public class ConnectedDevice implements SDKModel {
      */
     public String getType() {
         return type;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public ConnectedDevice clone() throws CloneNotSupportedException {
+        return new ConnectedDevice(id, queueMode, type);
     }
 
 }

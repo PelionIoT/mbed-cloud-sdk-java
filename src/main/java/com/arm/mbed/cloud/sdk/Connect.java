@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -311,8 +310,7 @@ public class Connect extends AbstractAPI {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final byte[] finalResourceValue = (resourceValue == null) ? null
-                : resourceValue.getBytes(StandardCharsets.UTF_8);
+        final String finalResourceValue = (resourceValue == null) ? null : resourceValue;
         final boolean finalNoResponse = noResponse;
         return cache.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
 
@@ -389,7 +387,7 @@ public class Connect extends AbstractAPI {
         checkNotNull(functionName, TAG_FUNCTION_NAME);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final byte[] finalFunctionName = (functionName == null) ? null : functionName.getBytes(StandardCharsets.UTF_8);
+        final String finalFunctionName = functionName;
         final boolean finalNoResponse = noResponse;
         return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 

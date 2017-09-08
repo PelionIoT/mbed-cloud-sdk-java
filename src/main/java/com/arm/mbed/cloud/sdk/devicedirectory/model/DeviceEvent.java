@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.devicedirectory.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -54,6 +55,7 @@ public class DeviceEvent implements SDKModel {
      */
     private final Object data;
 
+    @Internal
     public DeviceEvent(String id, String deviceId, Date eventDate, boolean stateChanged, String description,
             Object changes, String typeDescription, String type, Object data) {
         super();
@@ -141,6 +143,17 @@ public class DeviceEvent implements SDKModel {
      */
     public Object getData() {
         return data;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public DeviceEvent clone() throws CloneNotSupportedException {
+        return new DeviceEvent(id, deviceId, eventDate, stateChanged, description, changes, typeDescription, type,
+                data);
     }
 
 }

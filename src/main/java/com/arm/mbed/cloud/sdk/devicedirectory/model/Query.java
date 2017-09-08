@@ -66,12 +66,17 @@ public class Query implements SDKModel {
 
     @Internal
     public Query(String id, Date createdAt, Date updatedAt) {
+        this(id, createdAt, updatedAt, null, null);
+    }
+
+    @Internal
+    public Query(String id, Date createdAt, Date updatedAt, String name, Filters filter) {
         super();
         setId(id);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        setName(null);
-        setFilter(null);
+        setName(name);
+        setFilter(filter);
     }
 
     public Query() {
@@ -440,6 +445,16 @@ public class Query implements SDKModel {
             filter = new Filters();
         }
         filter.add(afilter);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Query clone() throws CloneNotSupportedException {
+        return new Query(id, createdAt, updatedAt, name, filter);
     }
 
 }

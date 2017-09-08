@@ -128,34 +128,44 @@ public class Device implements SDKModel {
 
     @Internal
     public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp) {
+        this(id, accountId, createdAt, updatedAt, manifestTimestamp, null, null, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null, null, null);
+
+    }
+
+    @Internal
+    public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp,
+            String certificateIssuerId, String certificateFingerprint, String name, String alias, String description,
+            String deviceType, String hostGateway, Map<String, String> customAttributes, DeviceState state,
+            String deviceClass, Integer deviceExecutionMode, String serialNumber, String vendorId,
+            Date connectorCertificateExpiration, Date bootstrapCertificateExpiration, Date bootstrappedTimestamp,
+            MechanismType mechanism, URL mechanismUrl, String firmwareChecksum, Integer trustLevel) {
         super();
-        setId(id);
+        this.id = id;
         this.accountId = accountId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.manifestTimestamp = manifestTimestamp;
-
-        setCertificateIssuerId(null);
-        setCertificateFingerprint(null);
-        setName(null);
-        setAlias(null);
-        setDescription(null);
-        setDeviceType(null);
-        setHostGateway(null);
-        setCustomAttributes(null);
-        setState(null);
-        setDeviceClass(null);
-        setDeviceExecutionMode(null);
-        setSerialNumber(null);
-        setVendorId(null);
-        setConnectorCertificateExpiration(null);
-        setBootstrapCertificateExpiration(null);
-        setBootstrappedTimestamp(null);
-        setMechanismUrl(null);
-        setFirmwareChecksum(null);
-        setTrustLevel(null);
-        setMechanism(null);
-
+        setCertificateIssuerId(certificateIssuerId);
+        setCertificateFingerprint(certificateFingerprint);
+        setName(name);
+        setAlias(alias);
+        setDescription(description);
+        setDeviceType(deviceType);
+        setHostGateway(hostGateway);
+        setCustomAttributes(customAttributes);
+        setState(state);
+        setDeviceClass(deviceClass);
+        setDeviceExecutionMode(deviceExecutionMode);
+        setSerialNumber(serialNumber);
+        setVendorId(vendorId);
+        setConnectorCertificateExpiration(connectorCertificateExpiration);
+        setBootstrapCertificateExpiration(bootstrapCertificateExpiration);
+        setBootstrappedTimestamp(bootstrappedTimestamp);
+        setMechanismUrl(mechanismUrl);
+        setFirmwareChecksum(firmwareChecksum);
+        setTrustLevel(trustLevel);
+        setMechanism(mechanism);
     }
 
     public Device() {
@@ -514,6 +524,20 @@ public class Device implements SDKModel {
      */
     public void setMechanism(MechanismType mechanism) {
         this.mechanism = mechanism;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Device clone() throws CloneNotSupportedException {
+        return new Device(id, accountId, createdAt, updatedAt, manifestTimestamp, certificateIssuerId,
+                certificateFingerprint, name, alias, description, deviceType, hostGateway, customAttributes, state,
+                deviceClass, deviceExecutionMode, serialNumber, vendorId, connectorCertificateExpiration,
+                bootstrapCertificateExpiration, bootstrappedTimestamp, mechanism, mechanismUrl, firmwareChecksum,
+                trustLevel);
     }
 
 }

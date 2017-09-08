@@ -56,18 +56,24 @@ public class ApiKey implements SDKModel {
     private final long lastLoginTime;
 
     @Internal
-    public ApiKey(String id, List<String> groups, ApiKeyStatus status, String key, Date createdAt, long creationTime,
-            long lastLoginTime) {
+    public ApiKey(String id, String name, String ownerId, List<String> groups, ApiKeyStatus status, String key,
+            Date createdAt, long creationTime, long lastLoginTime) {
         super();
         setId(id);
-        setName(null);
-        setOwnerId(null);
+        setName(name);
+        setOwnerId(ownerId);
         this.groups = groups;
         this.status = status;
         this.key = key;
         this.createdAt = createdAt;
         this.creationTime = creationTime;
         this.lastLoginTime = lastLoginTime;
+    }
+
+    @Internal
+    public ApiKey(String id, List<String> groups, ApiKeyStatus status, String key, Date createdAt, long creationTime,
+            long lastLoginTime) {
+        this(id, null, null, groups, status, key, createdAt, creationTime, lastLoginTime);
     }
 
     /**
@@ -173,6 +179,16 @@ public class ApiKey implements SDKModel {
      */
     public long getLastLoginTime() {
         return lastLoginTime;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public ApiKey clone() throws CloneNotSupportedException {
+        return new ApiKey(id, name, ownerId, groups, status, key, createdAt, creationTime, lastLoginTime);
     }
 
 }

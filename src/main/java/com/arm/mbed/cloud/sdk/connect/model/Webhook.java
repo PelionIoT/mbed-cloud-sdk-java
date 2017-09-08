@@ -21,8 +21,14 @@ public class Webhook implements SDKModel {
      */
     Map<String, String> headers;
 
-    public Webhook() {
+    public Webhook(URL url, Map<String, String> headers) {
         super();
+        setUrl(url);
+        setHeaders(headers);
+    }
+
+    public Webhook() {
+        this(null, null);
     }
 
     /**
@@ -53,6 +59,16 @@ public class Webhook implements SDKModel {
      */
     public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Webhook clone() throws CloneNotSupportedException {
+        return new Webhook(url, headers);
     }
 
 }

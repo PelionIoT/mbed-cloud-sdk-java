@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
@@ -27,24 +28,30 @@ public class Group implements SDKModel {
     /**
      * The number of users in this group.
      */
+    @DefaultValue(value = "0")
     private final long userCount;
     /**
      * The number of API keys in this group.
      */
+    @DefaultValue(value = "0")
     private final long apiKeyCount;
     /**
      * Creation time.
      */
+    @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
+    @DefaultValue(value = "0")
     private final long creationTime;
     /**
      * A timestamp of the latest group update, in milliseconds.
      */
+    @DefaultValue(value = "0")
     private final long lastUpdateTime;
 
+    @Internal
     public Group(String id, String accountId, String name, long userCount, long apiKeyCount, Date createdAt,
             long creationTime, long lastUpdateTime) {
         super();
@@ -56,6 +63,10 @@ public class Group implements SDKModel {
         this.createdAt = createdAt;
         this.creationTime = creationTime;
         this.lastUpdateTime = lastUpdateTime;
+    }
+
+    public Group() {
+        this(null, null, null, 0, 0, new Date(), 0, 0);
     }
 
     /**
@@ -131,6 +142,16 @@ public class Group implements SDKModel {
      */
     public long getLastUpdateTime() {
         return lastUpdateTime;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Group clone() throws CloneNotSupportedException {
+        return new Group(id, accountId, name, userCount, apiKeyCount, createdAt, creationTime, lastUpdateTime);
     }
 
 }

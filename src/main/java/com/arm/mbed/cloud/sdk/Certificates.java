@@ -49,8 +49,10 @@ public class Certificates extends AbstractAPI {
     }
 
     @Internal
-    private Certificate fetchServerInformation(CertificateType type) throws MbedCloudException {
-
+    private @Nullable Certificate fetchServerInformation(@Nullable CertificateType type) throws MbedCloudException {
+        if (type == null) {
+            return null;
+        }
         CloudCall<ServerCredentialsResponseData> caller = null;
         switch (type) {
             case BOOTSTRAP:

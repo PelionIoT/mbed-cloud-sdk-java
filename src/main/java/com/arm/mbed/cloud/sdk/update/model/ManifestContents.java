@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.update.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -24,6 +25,7 @@ public class ManifestContents implements SDKModel {
     /**
      * Manifest version.
      */
+    @DefaultValue(value = "0")
     private final int version;
     /**
      * A short description of the update.
@@ -36,6 +38,7 @@ public class ManifestContents implements SDKModel {
     /**
      * The date the manifest was created.
      */
+    @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
      * The encryption mode describing the kind of hashing, signing and, encryption in use. The following modes are
@@ -77,6 +80,7 @@ public class ManifestContents implements SDKModel {
     @DefaultValue(value = "0")
     private final long payloadSize;
 
+    @Internal
     public ManifestContents(String classId, String vendorId, int version, String description, String nonce,
             Date createdAt, ManifestEncryptionMode encryptionMode, boolean applyImmediately, String deviceId,
             ManifestPayloadFormat payloadFormat, String payloadStorageIdentifier, String payloadHash, String payloadUri,
@@ -96,6 +100,11 @@ public class ManifestContents implements SDKModel {
         this.payloadHash = payloadHash;
         this.payloadUri = payloadUri;
         this.payloadSize = payloadSize;
+    }
+
+    public ManifestContents() {
+        this(null, null, 0, null, null, new Date(), ManifestEncryptionMode.getDefault(), false, null,
+                ManifestPayloadFormat.getDefault(), null, null, null, 0);
     }
 
     /**
@@ -194,6 +203,18 @@ public class ManifestContents implements SDKModel {
      */
     public long getPayloadSize() {
         return payloadSize;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public ManifestContents clone() throws CloneNotSupportedException {
+        return new ManifestContents(classId, vendorId, version, description, nonce, createdAt, encryptionMode,
+                applyImmediately, deviceId, payloadFormat, payloadStorageIdentifier, payloadHash, payloadUri,
+                payloadSize);
     }
 
 }

@@ -94,19 +94,28 @@ public class Campaign implements SDKModel {
      */
     private Filters deviceFilter;
 
+    @Internal
     public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {
+        this(id, CampaignState.getDefault(), manifestUrl, createdAt, startedAt, finishedAt, null, null, null, null,
+                null);
+
+    }
+
+    @Internal
+    public Campaign(String id, CampaignState state, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
+            String name, String description, String manifestId, Date scheduledAt, Filters deviceFilter) {
         super();
         setId(id);
         this.manifestUrl = manifestUrl;
         this.createdAt = createdAt;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
-        setDescription(null);
-        setManifestId(null);
-        setName(null);
-        setScheduledAt(null);
-        setState(CampaignState.getDefault());
-        setDeviceFilter(null);
+        setDescription(description);
+        setManifestId(manifestId);
+        setName(name);
+        setScheduledAt(scheduledAt);
+        setState(state);
+        setDeviceFilter(deviceFilter);
     }
 
     public Campaign() {
@@ -581,4 +590,16 @@ public class Campaign implements SDKModel {
         }
         deviceFilter.add(filter);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Campaign clone() throws CloneNotSupportedException {
+        return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, name, description, manifestId,
+                scheduledAt, deviceFilter);
+    }
+
 }
