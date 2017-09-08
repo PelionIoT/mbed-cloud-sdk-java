@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the mbed device directory update service.
+ * This is the API Documentation for the Mbed device directory update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -77,10 +77,10 @@ public class DeviceQuery implements Serializable {
   }
 
    /**
-   * Timestamp of when the device was created in the device directory.
+   * The timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "Timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(required = true, value = "The timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }

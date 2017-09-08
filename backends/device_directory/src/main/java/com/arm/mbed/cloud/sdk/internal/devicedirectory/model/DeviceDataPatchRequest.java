@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the mbed device directory update service.
+ * This is the API Documentation for the Mbed device directory update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -106,10 +106,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * DEPRECATED Mark this device for auto firmware update.
+   * DEPRECATED: Mark this device for automatic firmware update.
    * @return autoUpdate
   **/
-  @ApiModelProperty(value = "DEPRECATED Mark this device for auto firmware update.")
+  @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
   public Boolean getAutoUpdate() {
     return autoUpdate;
   }
@@ -124,10 +124,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * The endpoint_name of the host gateway, if appropriate.
+   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(value = "The endpoint_name of the host gateway, if appropriate.")
+  @ApiModelProperty(value = "The `endpoint_name` of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -168,10 +168,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * Custom attributes(key/value). Up to 5 attributes
+   * Up to five custom key-value attributes.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Custom attributes(key/value). Up to 5 attributes")
+  @ApiModelProperty(value = "Up to five custom key-value attributes.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -186,10 +186,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * Fingerprint of the device certificate.
+   * The fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(value = "Fingerprint of the device certificate.")
+  @ApiModelProperty(value = "The fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -204,10 +204,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * The endpoint type of the device - e.g. if the device is a gateway.
+   * The endpoint type of the device. For example, the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(value = "The endpoint type of the device - e.g. if the device is a gateway.")
+  @ApiModelProperty(value = "The endpoint type of the device. For example, the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -222,10 +222,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * ID of the issuer of the certificate.
+   * The certificate issuer&#39;s ID.
    * @return caId
   **/
-  @ApiModelProperty(value = "ID of the issuer of the certificate.")
+  @ApiModelProperty(value = "The certificate issuer's ID.")
   public String getCaId() {
     return caId;
   }

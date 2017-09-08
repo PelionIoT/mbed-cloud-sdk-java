@@ -36,7 +36,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Create device
+     * Create device.
      */
     @Test
     public void deviceCreateTest() {
@@ -79,7 +79,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Retrieve device event
+     * Retrieve device event.
      */
     @Test
     public void deviceEventRetrieveTest() {
@@ -109,7 +109,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * List all device events (deprecated, use /v3/device-events/ instead).
+     * DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
      */
     @Test
     public void deviceLogListTest() {
@@ -139,7 +139,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Update device fields
+     * Update device fields.
      */
     @Test
     public void devicePartialUpdateTest() {
@@ -237,7 +237,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Retrieve device
+     * Retrieve device.
      */
     @Test
     public void deviceRetrieveTest() {
@@ -250,7 +250,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Update device
+     * Update device.
      */
     @Test
     public void deviceUpdateTest() {
