@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class SDKLogger {
 
-    private final Logger logger = LoggerFactory.getLogger("Arm Mbed Cloud SDK");
+    private static final Logger logger = LoggerFactory.getLogger("Arm Mbed Cloud SDK");
 
     public SDKLogger() {
         super();
@@ -31,7 +31,7 @@ public class SDKLogger {
     public void logError(String message, Throwable e) {
         String exceptionString = (e == null) ? "Unknown Reason"
                 : (e.getMessage() == null) ? "An exception [" + e.toString() + "] was raised"
-                        : e.getMessage() + String.valueOf((e.getCause() == null) ? "" : ". Cause: " + e.getCause());
+                        : e.getMessage() + ((e.getCause() == null) ? "" : ". Cause: " + e.getCause());
         logger.error(message + ". Reason: " + exceptionString);
     }
 
@@ -52,7 +52,6 @@ public class SDKLogger {
     }
 
     private void throwCloudException(MbedCloudException ex) throws MbedCloudException {
-        // ex.printStackTrace();// TODO remove
         logError(ex.getMessage(), ex.getCause());
         throw ex;
     }

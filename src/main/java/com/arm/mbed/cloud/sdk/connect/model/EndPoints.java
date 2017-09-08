@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 public class EndPoints {
 
     private final DefaultApi webhooks;
-    private final EndpointsApi endpoints;
+    private final EndpointsApi endpoint;
     private final NotificationsApi notifications;
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
@@ -29,7 +29,7 @@ public class EndPoints {
         super();
         this.connectionOptions = wrapper.getConnectionOptions();
         this.webhooks = initialiseWebhook(wrapper);
-        this.endpoints = initialiseEndpoint(wrapper);
+        this.endpoint = initialiseEndpoint(wrapper);
         this.notifications = initialiseNotification(wrapper);
         this.resources = initialiseResource(wrapper);
         this.subscriptions = initialiseSubscription(wrapper);
@@ -81,7 +81,7 @@ public class EndPoints {
      * @return the endpoints
      */
     public EndpointsApi getEndpoints() {
-        return endpoints;
+        return endpoint;
     }
 
     /**

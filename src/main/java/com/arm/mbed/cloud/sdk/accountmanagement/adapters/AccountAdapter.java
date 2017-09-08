@@ -14,6 +14,10 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 @Internal
 public class AccountAdapter {
 
+    private AccountAdapter() {
+        super();
+    }
+
     public static Account map(AccountInfo accountInfo) {
         if (accountInfo == null) {
             return null;

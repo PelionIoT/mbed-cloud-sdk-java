@@ -7,6 +7,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class ApiUtils {
 
+    private ApiUtils() {
+        super();
+    }
+
     public static void checkNotNull(SDKLogger logger, Object arg, String argName) throws MbedCloudException {
         if (arg == null) {
             logger.throwSDKException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
@@ -78,7 +82,7 @@ public class ApiUtils {
     }
 
     public static String normalisePath(String path) {
-        if (path != null && path.startsWith("/")) {
+        if (path != null && !path.isEmpty() && path.charAt(0) == '/') {
             return path.substring(1);
         }
         return path;

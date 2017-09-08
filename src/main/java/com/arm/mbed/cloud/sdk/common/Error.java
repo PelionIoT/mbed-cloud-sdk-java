@@ -11,7 +11,7 @@ public class Error {
     private int code;
     private String type;
     private String message;
-    private String request_id;
+    private String requestId;
     private List<Field> fields;
 
     public Error() {
@@ -81,16 +81,16 @@ public class Error {
     /**
      * @return the request_id
      */
-    public String getRequest_id() {
-        return request_id;
+    public String getRequestId() {
+        return requestId;
     }
 
     /**
-     * @param request_id
+     * @param requestId
      *            the request_id to set
      */
-    public void setRequest_id(String request_id) {
-        this.request_id = request_id;
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
     }
 
     /**
@@ -115,8 +115,8 @@ public class Error {
      */
     @Override
     public String toString() {
-        return "Error [object=" + object + ", code=" + code + ", type=" + type + ", message=" + message
-                + ", request_id=" + request_id + ", fields=" + fields + "]";
+        return "Error [object=" + object + ", code=" + code + ", type=" + type + ", message=" + message + ", requestId="
+                + requestId + ", fields=" + fields + "]";
     }
 
     public static class Field {

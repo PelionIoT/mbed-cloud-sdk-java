@@ -11,11 +11,16 @@ import com.arm.mbed.cloud.sdk.connect.model.Resource;
 @Preamble(description = "Adapter for resource model")
 public class ResourceAdapter {
 
+    private ResourceAdapter() {
+        super();
+    }
+
     public static Resource map(String deviceId, com.arm.mbed.cloud.sdk.internal.mds.model.Resource apiResource) {
         if (apiResource == null || deviceId == null || deviceId.isEmpty()) {
             return null;
         }
-        return new Resource(deviceId,apiResource.getUri(),apiResource.getRt(),apiResource.getType(),TranslationUtils.toBool(apiResource.getObs(), false));
+        return new Resource(deviceId, apiResource.getUri(), apiResource.getRt(), apiResource.getType(),
+                TranslationUtils.toBool(apiResource.getObs(), false));
     }
 
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource> getMapper(String deviceId) {

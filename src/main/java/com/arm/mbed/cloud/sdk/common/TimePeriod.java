@@ -118,40 +118,42 @@ public class TimePeriod implements Cloneable {
         switch (unit) {
             case DAYS:
                 if (duration >= 366 && duration % 366 == 0) {// This case should not happen
-                    builder.append(duration / 366).append("y");
+                    builder.append(duration / 366).append('y');
                 } else if (duration >= 7 && duration % 7 == 0) {
-                    builder.append(duration / 7).append("w");
+                    builder.append(duration / 7).append('w');
                 } else {
-                    builder.append(duration).append("d");
+                    builder.append(duration).append('d');
                 }
                 break;
             case HOURS:
                 if (duration >= 24 && duration % 24 == 0) {
                     builder.append(duration / 24).append("d");
                 } else {
-                    builder.append(duration).append("h");
+                    builder.append(duration).append('h');
                 }
                 break;
             case MINUTES:
                 if (duration >= 60 && duration % 60 == 0) {
                     builder.append(duration / 60).append("h");
                 } else {
-                    builder.append(duration).append("m");
+                    builder.append(duration).append('m');
                 }
                 break;
             case NANOSECONDS:
                 if (duration >= 1000000000 && duration % 1000000000 == 0) {
                     builder.append(duration / 1000000000).append("s");
                 } else {
-                    builder.append(duration).append("n");
+                    builder.append(duration).append('n');
                 }
                 break;
             case SECONDS:
                 if (duration >= 60 && duration % 60 == 0) {
                     builder.append(duration / 60).append("m");
                 } else {
-                    builder.append(duration).append("s");
+                    builder.append(duration).append('s');
                 }
+                break;
+            default:
                 break;
         }
 

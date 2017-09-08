@@ -7,26 +7,31 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata.DeploymentStateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
-import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceStatus;
+import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 
 @Preamble(description = "Adapter for device status model")
 @Internal
 public class DeviceStatusAdapter {
 
+    private DeviceStatusAdapter() {
+        super();
+    }
+
     public static CampaignDeviceStatus map(CampaignDeviceMetadata metadata) {
         if (metadata == null) {
             return null;
         }
-        CampaignDeviceStatus state = new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
-                toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
-                TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
-                metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
+        CampaignDeviceStatus state = new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(),
+                metadata.getCampaign(), toDeviceState(metadata.getDeploymentState()), metadata.getName(),
+                metadata.getDescription(), TranslationUtils.toDate(metadata.getCreatedAt()),
+                TranslationUtils.toDate(metadata.getUpdatedAt()), metadata.getMechanism(),
+                TranslationUtils.toUrl(metadata.getMechanismUrl()));
         return state;
     }
 

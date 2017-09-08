@@ -26,6 +26,10 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 @Internal
 public class CertificateAdapter {
 
+    private CertificateAdapter() {
+        super();
+    }
+
     public static Certificate map(TrustedCertificateResp iamCertificate) {
         if (iamCertificate == null) {
             return null;

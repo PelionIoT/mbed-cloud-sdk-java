@@ -9,17 +9,17 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "filters")
 public class Filters {
-    private final Map<String, Map<FilterOperator, List<Filter>>> filters;
+    private final Map<String, Map<FilterOperator, List<Filter>>> filterList;
 
     public Filters() {
-        filters = new LinkedHashMap<>();
+        filterList = new LinkedHashMap<>();
     }
 
     /**
      * @return the filters
      */
     public Map<String, Map<FilterOperator, List<Filter>>> getFilters() {
-        return filters;
+        return filterList;
     }
 
     public void add(Filter filter) {
@@ -35,14 +35,14 @@ public class Filters {
             Map<FilterOperator, List<Filter>> map = getFiltersForField(filter.getFieldName());
             if (map == null) {
                 map = new LinkedHashMap<>();
-                filters.put(filter.getFieldName(), map);
+                filterList.put(filter.getFieldName(), map);
             }
             map.put(filter.getOperator(), filtersForField);
         }
     }
 
     public Map<FilterOperator, List<Filter>> getFiltersForField(String fieldName) {
-        return filters.get(fieldName);
+        return filterList.get(fieldName);
     }
 
     public List<Filter> get(String fieldName) {
@@ -58,18 +58,18 @@ public class Filters {
     }
 
     public List<Filter> get() {
-        if (filters.isEmpty()) {
+        if (filterList.isEmpty()) {
             return null;
         }
         List<Filter> filtersList = new LinkedList<>();
-        for (String fieldName : filters.keySet()) {
+        for (String fieldName : filterList.keySet()) {
             filtersList.addAll(get(fieldName));
         }
         return filtersList;
     }
 
     public boolean hasCustomFilters() {
-        if (filters == null || filters.isEmpty()) {
+        if (filterList == null || filterList.isEmpty()) {
             return false;
         }
         for (Filter filter : get()) {
@@ -81,11 +81,11 @@ public class Filters {
     }
 
     public boolean isEmpty() {
-        return filters.isEmpty();
+        return filterList.isEmpty();
     }
 
     public boolean hasFilters(String fieldName) {
-        return filters.containsKey(fieldName);
+        return filterList.containsKey(fieldName);
     }
 
     public boolean hasFilters(String fieldName, FilterOperator operator) {
@@ -93,7 +93,7 @@ public class Filters {
     }
 
     public List<Filter> get(String fieldName, FilterOperator operator) {
-        Map<FilterOperator, List<Filter>> filtersForField = filters.get(fieldName);
+        Map<FilterOperator, List<Filter>> filtersForField = filterList.get(fieldName);
         return (filtersForField == null) ? null : filtersForField.get(operator);
     }
 }

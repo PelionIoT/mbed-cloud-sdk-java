@@ -12,6 +12,10 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
 @Preamble(description = "Adapter for connected device model")
 public class ConnectedDeviceAdapter {
 
+    private ConnectedDeviceAdapter() {
+        super();
+    }
+
     public static ConnectedDevice map(Endpoint endpoint) {
         if (endpoint == null) {
             return null;

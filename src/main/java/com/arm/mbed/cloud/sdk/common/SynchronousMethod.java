@@ -10,6 +10,11 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "Object to wait for an asynchronous method to complete")
 @Internal
 public class SynchronousMethod {
+
+    private SynchronousMethod() {
+        super();
+    }
+
     public interface AsynchronousMethod<T> {
         Future<T> submit() throws MbedCloudException;
     }

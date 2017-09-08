@@ -16,6 +16,10 @@ import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 @Internal
 public class FirmwareImageAdapter {
 
+    private FirmwareImageAdapter() {
+        super();
+    }
+
     public static com.arm.mbed.cloud.sdk.update.model.FirmwareImage map(
             com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
         if (firmwareImage == null) {

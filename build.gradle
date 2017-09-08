@@ -20,6 +20,7 @@ apply plugin: 'java-library'
 apply plugin: 'java-library-distribution'
 apply plugin:'license-report'
 apply plugin: 'checkstyle' //code style checks
+apply plugin: 'jdepend'// design quality
 apply plugin: 'findbugs' //static analysis
 apply plugin: 'pmd' //static analysis
 apply plugin: "de.aaschmid.cpd" //Code duplication
@@ -28,6 +29,7 @@ apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'signing'
 apply plugin: 'build-dashboard'
+apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
 
 
@@ -89,6 +91,15 @@ project(':backends:statistics').javadoc.enabled = false
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
+}
+jdepend {
+   sourceSets = [sourceSets.main]
+   ignoreFailures = true
+}
+jdependMain {
+   reports {
+      xml.enabled true
+   }
 }
 jacoco {
     toolVersion = "0.7.6.201602180812"

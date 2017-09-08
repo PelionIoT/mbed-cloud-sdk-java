@@ -5,5 +5,5 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 @Preamble(description = "Page requester in pagination process")
 public interface PageRequester<T> {
-	public ListResponse<T> requestNewPage() throws MbedCloudException;
+    ListResponse<T> requestNewPage() throws MbedCloudException;
 }

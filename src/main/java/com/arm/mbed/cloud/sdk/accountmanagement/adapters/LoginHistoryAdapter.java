@@ -11,6 +11,10 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 @Preamble(description = "Adapter for login history model")
 public class LoginHistoryAdapter {
 
+    private LoginHistoryAdapter() {
+        super();
+    }
+
     public static LoginHistory map(com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory history) {
         if (history == null) {
             return null;
@@ -31,7 +35,8 @@ public class LoginHistoryAdapter {
         };
     }
 
-    public static List<LoginHistory> mapList(List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> loginHistory) {
+    public static List<LoginHistory> mapList(
+            List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> loginHistory) {
         return GenericAdapter.mapList(loginHistory, getMapper());
     }
 

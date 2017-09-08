@@ -7,6 +7,11 @@ import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 
 @Preamble(description = "Adapter for webhook model")
 public class WebhookAdapter {
+
+    private WebhookAdapter() {
+        super();
+    }
+
     public static Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook apiWebhook) {
         if (apiWebhook == null) {
             return null;
