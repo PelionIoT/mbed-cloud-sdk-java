@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SDKModel;
 
@@ -32,6 +33,7 @@ public class LoginHistory implements SDKModel {
     @DefaultValue(value = "false")
     public final boolean success;
 
+    @Internal
     public LoginHistory(Date date, String userAgent, String ipAddress, boolean success) {
         super();
         this.date = date;
@@ -70,6 +72,16 @@ public class LoginHistory implements SDKModel {
      */
     public boolean isSuccess() {
         return success;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public LoginHistory clone() throws CloneNotSupportedException {
+        return new LoginHistory(date, userAgent, ipAddress, success);
     }
 
 }

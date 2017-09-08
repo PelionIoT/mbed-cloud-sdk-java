@@ -113,19 +113,19 @@ public class MetricAdapter {
             mapping.put("transactions", "transactions");
             mapping.put("successfulApiCalls", "connect_rest_api_success");
             mapping.put("failedApiCalls", "connect_rest_api_error");
-            mapping.put("successfulHandshakes", "handshakes_successful");
+            mapping.put("handshakes", "handshakes_successful");
             mapping.put("pendingBootstraps", "bootstraps_pending");
             mapping.put("successfulBootstraps", "bootstraps_successful");
             mapping.put("failedBootstraps", "bootstraps_failed");
-            mapping.put("registrations", "full_registrations");
+            mapping.put("fullRegistrations", "full_registrations");
             mapping.put("updatedRegistrations", "registration_updates");
             mapping.put("expiredRegistrations", "expired_registrations");
             mapping.put("deletedRegistrations", "deleted_registrations");
-            mapping.put("successfulDeviceProxyRequests", "device_proxy_request_success");
-            mapping.put("failedDeviceProxyRequests", "device_proxy_request_error");
-            mapping.put("successfulDeviceSubscriptionRequests", "device_subscription_request_success");
-            mapping.put("failedDeviceSubscriptionRequests", "device_subscription_request_error");
-            mapping.put("deviceObservations", "device_observations");
+            mapping.put("successfulProxyRequests", "device_proxy_request_success");
+            mapping.put("failedProxyRequests", "device_proxy_request_error");
+            mapping.put("successfulSubscriptionRequests", "device_subscription_request_success");
+            mapping.put("failedSubscriptionRequests", "device_subscription_request_error");
+            mapping.put("observations", "device_observations");
 
             boolean start = true;
             StringBuilder builder = new StringBuilder();

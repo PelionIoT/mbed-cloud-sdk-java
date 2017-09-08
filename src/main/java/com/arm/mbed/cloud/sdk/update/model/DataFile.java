@@ -137,4 +137,14 @@ public class DataFile implements SDKModel {
         }
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public DataFile clone() throws CloneNotSupportedException {
+        return new DataFile(contentType, file);
+    }
+
 }

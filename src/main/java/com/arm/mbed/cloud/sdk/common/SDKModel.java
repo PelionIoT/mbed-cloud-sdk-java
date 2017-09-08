@@ -5,6 +5,7 @@ import java.io.Serializable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "SDK Model object")
-public interface SDKModel extends Serializable {
-    //
+public interface SDKModel extends Serializable, Cloneable {
+    Object clone() throws CloneNotSupportedException;
+
 }

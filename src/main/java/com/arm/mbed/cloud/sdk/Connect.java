@@ -389,7 +389,7 @@ public class Connect extends AbstractAPI {
         checkNotNull(functionName, TAG_FUNCTION_NAME);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final byte[] finalFunctionName = (functionName == null) ? null : functionName.getBytes(StandardCharsets.UTF_8);
+        final byte[] finalFunctionName = functionName.getBytes(StandardCharsets.UTF_8);
         final boolean finalNoResponse = noResponse;
         return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 

@@ -72,6 +72,14 @@ public class FirmwareManifest implements SDKModel {
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, String datafileChecksum,
             long datafileSize, Date createdAt, Date updatedAt, Date timestamp) {
+        this(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, null, null, datafileSize,
+                datafileChecksum, null);
+    }
+
+    @Internal
+    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, Date createdAt,
+            Date updatedAt, Date timestamp, String name, String description, long datafileSize, String datafileChecksum,
+            DataFile dataFile) {
         super();
         setId(id);
         this.url = url;
@@ -82,9 +90,9 @@ public class FirmwareManifest implements SDKModel {
         this.timestamp = timestamp;
         this.datafileSize = datafileSize;
         this.datafileChecksum = datafileChecksum;
-        setName(null);
-        setDescription(null);
-        setDataFile(null);
+        setName(name);
+        setDescription(description);
+        setDataFile(dataFile);
     }
 
     public FirmwareManifest() {
@@ -215,6 +223,17 @@ public class FirmwareManifest implements SDKModel {
      */
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public FirmwareManifest clone() throws CloneNotSupportedException {
+        return new FirmwareManifest(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, name, description,
+                datafileSize, datafileChecksum, dataFile);
     }
 
 }

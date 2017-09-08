@@ -102,10 +102,12 @@ public class Account implements SDKModel {
     /**
      * Account creation UTC time RFC3339.
      */
+    @DefaultValue(value = "now()")
     private Date createdAt;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
+    @DefaultValue(value = "now()")
     private Date upgradedAt;
     /**
      * List of limits as key-value pairs if requested.
@@ -118,27 +120,36 @@ public class Account implements SDKModel {
     private String templateId;
 
     public Account() {
+        this(null, AccountStatus.getDefault(), null, null, null, null, null, null, null, null, null, null, null, true,
+                null, null, new Date(), new Date(), null, null);
+    }
+
+    @Internal
+    public Account(String id, AccountStatus status, String displayName, String contact, String company,
+            String phoneNumber, String postCode, String addressLine1, String addressLine2, String city, String state,
+            String country, String email, boolean provisioningAllowed, List<String> aliases, String tierLevel,
+            Date createdAt, Date upgradedAt, Map<String, String> limits, String templateId) {
         super();
-        setId(null);
-        setStatus(AccountStatus.getDefault());
-        setDisplayName(null);
-        setContact(null);
-        setCompany(null);
-        setPhoneNumber(null);
-        setPostCode(null);
-        setAddressLine1(null);
-        setAddressLine2(null);
-        setCity(null);
-        setState(null);
-        setCountry(null);
-        setEmail(null);
-        setProvisioningAllowed(true);
-        setAliases(null);
-        setTierLevel(null);
-        setCreatedAt(null);
-        setUpgradedAt(null);
-        setLimits(null);
-        setTemplateId(null);
+        setId(id);
+        setStatus(status);
+        setDisplayName(displayName);
+        setContact(contact);
+        setCompany(company);
+        setPhoneNumber(phoneNumber);
+        setPostCode(postCode);
+        setAddressLine1(addressLine1);
+        setAddressLine2(addressLine2);
+        setCity(city);
+        setState(state);
+        setCountry(country);
+        setEmail(email);
+        setProvisioningAllowed(provisioningAllowed);
+        setAliases(aliases);
+        setTierLevel(tierLevel);
+        setCreatedAt(createdAt);
+        setUpgradedAt(upgradedAt);
+        setLimits(limits);
+        setTemplateId(templateId);
     }
 
     /**
@@ -465,6 +476,18 @@ public class Account implements SDKModel {
      */
     public void setTemplateId(String templateId) {
         this.templateId = templateId;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Account clone() throws CloneNotSupportedException {
+        return new Account(id, status, displayName, contact, company, phoneNumber, postCode, addressLine1, addressLine2,
+                city, state, country, email, provisioningAllowed, aliases, tierLevel, createdAt, upgradedAt, limits,
+                templateId);
     }
 
 }

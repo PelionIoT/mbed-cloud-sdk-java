@@ -57,16 +57,22 @@ public class FirmwareImage implements SDKModel {
     @Internal
     public FirmwareImage(String id, URL url, String datafileChecksum, long datafileSize, Date createdAt,
             Date updatedAt) {
+        this(id, null, null, null, datafileSize, datafileChecksum, url, createdAt, updatedAt);
+    }
+
+    @Internal
+    public FirmwareImage(String id, String name, String description, DataFile dataFile, long datafileSize,
+            String datafileChecksum, URL url, Date createdAt, Date updatedAt) {
         super();
         setId(id);
-        this.url = url;
+        this.datafileSize = datafileSize;
         this.datafileChecksum = datafileChecksum;
+        this.url = url;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.datafileSize = datafileSize;
-        setDataFile(null);
-        setDescription(null);
-        setName(null);
+        setDataFile(dataFile);
+        setDescription(description);
+        setName(name);
     }
 
     public FirmwareImage() {
@@ -176,6 +182,17 @@ public class FirmwareImage implements SDKModel {
      */
     public Date getUpdatedAt() {
         return updatedAt;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public FirmwareImage clone() throws CloneNotSupportedException {
+        return new FirmwareImage(id, name, description, dataFile, datafileSize, datafileChecksum, url, createdAt,
+                updatedAt);
     }
 
 }

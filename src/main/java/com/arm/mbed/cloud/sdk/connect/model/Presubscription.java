@@ -24,8 +24,15 @@ public class Presubscription implements SDKModel {
      */
     private List<String> resourcePaths;
 
-    public Presubscription() {
+    public Presubscription(String deviceId, String deviceType, List<String> resourcePaths) {
         super();
+        setDeviceId(deviceId);
+        setDeviceType(deviceType);
+        setResourcePaths(resourcePaths);
+    }
+
+    public Presubscription() {
+        this(null, null, null);
     }
 
     /**
@@ -71,6 +78,16 @@ public class Presubscription implements SDKModel {
      */
     public void setResourcePaths(List<String> resourcePaths) {
         this.resourcePaths = resourcePaths;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Presubscription clone() throws CloneNotSupportedException {
+        return new Presubscription(deviceId, deviceType, resourcePaths);
     }
 
 }

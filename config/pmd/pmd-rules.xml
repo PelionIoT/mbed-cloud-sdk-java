@@ -28,6 +28,7 @@
     <rule ref="rulesets/java/unusedcode.xml"/>
     <rule ref="rulesets/java/finalizers.xml" />
     <rule ref="rulesets/java/imports.xml" />
+    <rule ref="rulesets/java/logging-java.xml" />
 
 
     <rule ref="rulesets/java/codesize.xml" >
@@ -166,5 +167,7 @@
         <!-- Besides, where's the proof that it affects performance?-->
         <exclude name="ConsecutiveAppendsShouldReuse" />
 	</rule>
-
+    <rule ref="rulesets/java/unnecessary.xml">
+        <exclude name="UselessParentheses" />
+    </rule>
 </ruleset>
