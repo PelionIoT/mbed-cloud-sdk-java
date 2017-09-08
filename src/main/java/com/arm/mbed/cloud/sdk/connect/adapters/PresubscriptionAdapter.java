@@ -11,6 +11,10 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 @Preamble(description = "Adapter for presubscription model")
 public class PresubscriptionAdapter {
 
+    private PresubscriptionAdapter() {
+        super();
+    }
+
     public static Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription) {
         if (apiPresubscription == null) {
             return null;

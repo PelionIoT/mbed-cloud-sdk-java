@@ -15,6 +15,10 @@ import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 @Preamble(description = "Adapter for metric model")
 public class MetricAdapter {
 
+    private MetricAdapter() {
+        super();
+    }
+
     public static Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric apiMetric) {
         if (apiMetric == null) {
             return null;
@@ -71,7 +75,7 @@ public class MetricAdapter {
     }
 
     public static String mapIncludes(List<IncludeField> includeFields) {
-        IncludeMapping mapping = IncludeMappingHolder.Instance;
+        IncludeMapping mapping = IncludeMappingHolder.INSTANCE;
         // In case no field is specified, default includes are used
         if (includeFields == null) {
             return mapping.getDefaultIncludes();
@@ -99,7 +103,7 @@ public class MetricAdapter {
     }
 
     private static class IncludeMappingHolder {
-        public static final IncludeMapping Instance = new IncludeMapping();
+        public static final IncludeMapping INSTANCE = new IncludeMapping();
     }
 
     private static class IncludeMapping {
@@ -131,7 +135,7 @@ public class MetricAdapter {
             StringBuilder builder = new StringBuilder();
             for (String field : mapping.values()) {
                 if (!start) {
-                    builder.append(",");
+                    builder.append(',');
                 }
                 builder.append(field);
                 start = false;

@@ -10,6 +10,11 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 @Preamble(description = "Generic adapter")
 @Internal
 public class GenericAdapter {
+
+    private GenericAdapter() {
+        super();
+    }
+
     public interface Mapper<U, T> {
         T map(U toBeMapped);
     }

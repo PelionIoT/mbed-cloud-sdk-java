@@ -20,6 +20,10 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutR
 @Internal
 public class QueryAdapter {
 
+    private QueryAdapter() {
+        super();
+    }
+
     public static Query map(DeviceQuery deviceQuery) {
         if (deviceQuery == null) {
             return null;

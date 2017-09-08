@@ -27,6 +27,10 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 public class DeviceAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
+    private DeviceAdapter() {
+        super();
+    }
+
     private static FilterMarshaller getFilterMarshaller() {
         Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("alias", "endpoint_name");

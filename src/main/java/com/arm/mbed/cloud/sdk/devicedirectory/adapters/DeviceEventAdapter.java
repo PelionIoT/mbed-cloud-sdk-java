@@ -21,6 +21,10 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 public class DeviceEventAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
+    private DeviceEventAdapter() {
+        super();
+    }
+
     private static FilterMarshaller getFilterMarshaller() {
         Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("eventDate", "date_time");

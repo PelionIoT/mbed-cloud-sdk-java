@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
@@ -18,7 +19,12 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class TranslationUtils {
 
-    private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+    private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
+            Locale.getDefault());
+
+    private TranslationUtils() {
+        super();
+    }
 
     public static Date toDate(DateTime date) {
         return (date == null) ? null : date.toDate();
@@ -84,11 +90,11 @@ public class TranslationUtils {
         return (bool == null) ? defaultB : bool.booleanValue();
     }
 
-    public static Date convertTimestamp(String timestamp) throws Exception {
+    public static Date convertTimestamp(String timestamp) throws MbedCloudException {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
-    public static Date convertRFC3339Timestamp(String timestamp) throws Exception {
+    public static Date convertRFC3339Timestamp(String timestamp) throws MbedCloudException {
         return convertTimestamp(timestamp, RFC3339_DATE_FORMAT);
     }
 
@@ -125,8 +131,8 @@ public class TranslationUtils {
     }
 
     private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
-        Exception e1 = new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp)
-                + "]. Defaulting to " + String.valueOf(defaultDate), e);
+        Exception e1 = new Exception(
+                "Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, e);
         System.err.println(e1.getMessage() + ". Cause: " + e.getCause());
         return defaultDate;
     }
@@ -158,14 +164,17 @@ public class TranslationUtils {
         }
     }
 
-    public static Date convertTimestamp(String timestamp, DateFormat format) throws Exception {
+    public static Date convertTimestamp(String timestamp, DateFormat format) throws MbedCloudException {
         if (timestamp == null || timestamp.isEmpty() || format == null) {
             return null;
         }
         try {
-            return format.parse(timestamp);
+            synchronized (TranslationUtils.class) {
+                return format.parse(timestamp);
+            }
         } catch (ParseException e) {
-            throw new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].", e);
+            throw new MbedCloudException("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].",
+                    e);
         }
     }
 

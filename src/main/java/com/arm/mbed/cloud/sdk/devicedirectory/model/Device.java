@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 @Preamble(description = "Device model")
 public class Device implements SDKModel {
 
+    private static final String NULL = "null";
     /**
      * 
      */
@@ -83,7 +84,7 @@ public class Device implements SDKModel {
     /**
      * The device class
      */
-    @DefaultValue(value = "null")
+    @DefaultValue(value = NULL)
     private Integer deviceExecutionMode;
     /**
      * The serial number of the device
@@ -96,17 +97,17 @@ public class Device implements SDKModel {
     /**
      * Expiration date of the certificate used to connect to connector server
      */
-    @DefaultValue(value = "null")
+    @DefaultValue(value = NULL)
     private Date connectorCertificateExpiration;
     /**
      * Expiration date of the certificate used to connect to bootstrap server
      */
-    @DefaultValue(value = "null")
+    @DefaultValue(value = NULL)
     private Date bootstrapCertificateExpiration;
     /**
      * The time the device was bootstrapped
      */
-    @DefaultValue(value = "null")
+    @DefaultValue(value = NULL)
     private Date bootstrappedTimestamp;
     /**
      * The ID of the channel used to communicate with the device
@@ -123,7 +124,7 @@ public class Device implements SDKModel {
     /**
      * The device trust level
      */
-    @DefaultValue(value = "null")
+    @DefaultValue(value = NULL)
     private Integer trustLevel;
 
     @Internal

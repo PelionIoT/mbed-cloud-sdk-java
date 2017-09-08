@@ -18,6 +18,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
 public class UserAdapter {
+
+    private UserAdapter() {
+        super();
+    }
+
     public static User map(UserInfoResp apiUser) {
         if (apiUser == null) {
             return null;

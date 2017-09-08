@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -69,11 +70,11 @@ public class ApiMetadata {
     /**
      * @param dateString
      *            the date to set
-     * @throws Exception
+     * @throws MbedCloudException
      *             if string cannot be interpreted as a date
      */
-    public void setDateFromString(String dateString) throws Exception {
-        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+    public void setDateFromString(String dateString) throws MbedCloudException {
+        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.getDefault());
         format.setLenient(true);
         setDate(TranslationUtils.convertTimestamp(dateString, format));
     }

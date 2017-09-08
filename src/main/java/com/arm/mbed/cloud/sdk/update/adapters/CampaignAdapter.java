@@ -26,6 +26,10 @@ import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 public class CampaignAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
+    private CampaignAdapter() {
+        super();
+    }
+
     private static FilterMarshaller getFilterMarshaller() {
         Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("finishedAt", "finished");

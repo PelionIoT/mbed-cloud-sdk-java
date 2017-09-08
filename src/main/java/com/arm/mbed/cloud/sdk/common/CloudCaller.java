@@ -20,7 +20,7 @@ import retrofit2.Response;
 @Internal
 public class CloudCaller<T, U> {
 
-    public static interface CloudCall<T> {
+    public interface CloudCall<T> {
         Call<T> call();
     }
 

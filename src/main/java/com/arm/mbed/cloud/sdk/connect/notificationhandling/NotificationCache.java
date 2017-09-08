@@ -41,7 +41,7 @@ public class NotificationCache {
     private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
-    private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
+    // private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
 
     public NotificationCache(AbstractAPI api, ExecutorService pullingThread, EndPoints endpoint) {
         super();
@@ -50,7 +50,7 @@ public class NotificationCache {
         this.api = api;
         pullHandle = null;
         responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
-        subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
+        // subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -85,10 +85,8 @@ public class NotificationCache {
     }
 
     public void stopNotificationPull() {
-        if (pullHandle != null) {
-            if (!pullHandle.isDone() && !pullHandle.isCancelled()) {
-                pullHandle.cancel(true);
-            }
+        if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
+            pullHandle.cancel(true);
         }
         pullHandle = null;
     }
@@ -132,7 +130,7 @@ public class NotificationCache {
         return executor.submit(new Callable<Object>() {
 
             @Override
-            public Object call() throws Exception {
+            public Object call() throws InterruptedException {
                 while (!responseCache.containsKey(responseId)) {
                     Thread.sleep(10);
                 }
@@ -183,7 +181,7 @@ public class NotificationCache {
                         return;
                     }
                     cacheResponses(notificationMessage.getAsyncResponses());
-                    cacheSubscription(notificationMessage.getNotifications());
+                    // cacheSubscription(notificationMessage.getNotifications());
 
                 } catch (MbedCloudException e) {
                     api.getLogger().logError("An error occurred during Notification pull", e);
@@ -192,23 +190,23 @@ public class NotificationCache {
         };
     }
 
-    private void cacheSubscription(List<NotificationData> notifications) {
-        if (notifications == null) {
-            return;
-        }
-        for (NotificationData notification : notifications) {
-            if (notification == null) {
-                continue;
-            }
-            try {
-                ResourceSubscription subscription = new ResourceSubscription(notification);
-                subscriptionCache.put(subscription.getKey(), subscription);
-            } catch (DecodingException e) {
-                api.getLogger().logError("An error occurred during Notification pull", e);
-            }
-
-        }
-    }
+    // private void cacheSubscription(List<NotificationData> notifications) {
+    // if (notifications == null) {
+    // return;
+    // }
+    // for (NotificationData notification : notifications) {
+    // if (notification == null) {
+    // continue;
+    // }
+    // try {
+    // ResourceSubscription subscription = new ResourceSubscription(notification);
+    // subscriptionCache.put(subscription.getKey(), subscription);
+    // } catch (DecodingException e) {
+    // api.getLogger().logError("An error occurred during Notification pull", e);
+    // }
+    //
+    // }
+    // }
 
     private void cacheResponses(List<AsyncIDResponse> asyncResponses) {
         if (asyncResponses == null) {
@@ -291,13 +289,16 @@ public class NotificationCache {
             }
             AsyncResponse other = (AsyncResponse) obj;
             if (errorMessage == null) {
-                if (other.errorMessage != null)
+                if (other.errorMessage != null) {
                     return false;
-            } else if (!errorMessage.equals(other.errorMessage))
+                }
+            } else if (!errorMessage.equals(other.errorMessage)) {
                 return false;
+            }
             if (payload == null) {
-                if (other.payload != null)
+                if (other.payload != null) {
                     return false;
+                }
             } else if (!payload.equals(other.payload)) {
                 return false;
             }
@@ -336,7 +337,7 @@ public class NotificationCache {
             this.payload = payload;
         }
 
-        private ResourceSubscription(NotificationData data) throws DecodingException {
+        protected ResourceSubscription(NotificationData data) throws DecodingException {
             this(data.getEp(), data.getPath(), decodePayload(data.getPayload(), data.getCt()));
         }
 
@@ -361,23 +362,30 @@ public class NotificationCache {
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             ResourceSubscription other = (ResourceSubscription) obj;
             if (deviceId == null) {
-                if (other.deviceId != null)
+                if (other.deviceId != null) {
                     return false;
-            } else if (!deviceId.equals(other.deviceId))
+                }
+            } else if (!deviceId.equals(other.deviceId)) {
                 return false;
+            }
             if (uriPath == null) {
-                if (other.uriPath != null)
+                if (other.uriPath != null) {
                     return false;
-            } else if (!uriPath.equals(other.uriPath))
+                }
+            } else if (!uriPath.equals(other.uriPath)) {
                 return false;
+            }
             return true;
         }
 

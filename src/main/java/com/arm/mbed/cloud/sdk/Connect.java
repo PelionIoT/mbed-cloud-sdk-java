@@ -57,6 +57,8 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractAPI {
+    private static final String TAG_RESOURCE = "resource";
+    private static final String FALSE = "false";
     private static final String TAG_FUNCTION_NAME = "function name";
     private static final String TAG_RESOURCE_PATH = "resource path";
     private static final String TAG_METRIC_OPTIONS = "Metric options";
@@ -226,7 +228,7 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Future<Object> getResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @DefaultValue(value = "false") boolean cacheOnly, @DefaultValue(value = "false") boolean noResponse)
+            @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse)
             throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
@@ -267,7 +269,7 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
-            @DefaultValue(value = "false") boolean cacheOnly, @DefaultValue(value = "false") boolean noResponse,
+            @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse,
             @Nullable TimePeriod timeout) throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
@@ -304,8 +306,7 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Future<Object> setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse)
-            throws MbedCloudException {
+            @Nullable String resourceValue, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
@@ -344,7 +345,7 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
-            @Nullable String resourceValue, @DefaultValue(value = "false") boolean noResponse,
+            @Nullable String resourceValue, @DefaultValue(value = FALSE) boolean noResponse,
             @Nullable TimePeriod timeout) throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
@@ -381,7 +382,7 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse) throws MbedCloudException {
+            @NonNull String functionName, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         checkNotNull(functionName, TAG_FUNCTION_NAME);
@@ -421,8 +422,8 @@ public class Connect extends AbstractAPI {
      */
     @API
     public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = "false") boolean noResponse,
-            @Nullable TimePeriod timeout) throws MbedCloudException {
+            @NonNull String functionName, @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout)
+            throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
         final String function = functionName;
@@ -440,7 +441,32 @@ public class Connect extends AbstractAPI {
         }
         return null;
     }
-    // TODO deleteResource
+
+    /**
+     * Deletes a resource
+     * 
+     * @param resource
+     *            The resource to delete
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing
+     */
+    @API
+    public void deleteResource(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+
+        final Resource finalResource = resource;
+        CloudCaller.call(this, "deleteResource()", null, new CloudCall<AsyncID>() {
+
+            @Override
+            public Call<AsyncID> call() {
+                return endpoint.getResources().v2EndpointsDeviceIdResourcePathDelete(finalResource.getDeviceId(),
+                        finalResource.getPath(), null);
+            }
+        });
+
+    }
 
     /**
      * Lists pre-subscription data

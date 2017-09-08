@@ -16,6 +16,10 @@ import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
 @Internal
 public class FirmwareManifestAdapter {
 
+    private FirmwareManifestAdapter() {
+        super();
+    }
+
     public static FirmwareManifest map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest manifest) {
         if (manifest == null) {
             return null;

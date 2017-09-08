@@ -17,6 +17,10 @@ import com.arm.mbed.cloud.sdk.update.model.ManifestPayloadFormat;
 @Internal
 public class ManifestContentsAdapter {
 
+    private ManifestContentsAdapter() {
+        super();
+    }
+
     public static ManifestContents map(com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContents contents) {
         if (contents == null) {
             return null;
