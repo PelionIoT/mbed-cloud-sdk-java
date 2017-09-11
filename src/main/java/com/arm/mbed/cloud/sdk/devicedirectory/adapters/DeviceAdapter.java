@@ -24,7 +24,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 
 @Preamble(description = "Adapter for device model")
 @Internal
-public class DeviceAdapter {
+public final class DeviceAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
     private DeviceAdapter() {
@@ -32,7 +32,7 @@ public class DeviceAdapter {
     }
 
     private static FilterMarshaller getFilterMarshaller() {
-        Map<String, String> filterMapping = new HashMap<>(4);
+        final Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("alias", "endpoint_name");
         filterMapping.put("bootstrapCertificateExpiration", "bootstrap_expiration_date");
         filterMapping.put("certificateFingerprint", "device_key");
@@ -45,7 +45,7 @@ public class DeviceAdapter {
         if (deviceData == null) {
             return null;
         }
-        Device device = new Device(deviceData.getId(), deviceData.getAccountId(),
+        final Device device = new Device(deviceData.getId(), deviceData.getAccountId(),
                 TranslationUtils.toDate(deviceData.getCreatedAt()), TranslationUtils.toDate(deviceData.getUpdatedAt()),
                 TranslationUtils.toDate(deviceData.getManifestTimestamp()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
@@ -71,8 +71,7 @@ public class DeviceAdapter {
         return device;
     }
 
-    private static DeviceState toState(
-            com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData.StateEnum state) {
+    private static DeviceState toState(DeviceData.StateEnum state) {
         if (state == null) {
             return DeviceState.getDefault();
         }
@@ -94,8 +93,7 @@ public class DeviceAdapter {
         return DeviceState.getDefault();
     }
 
-    private static MechanismType toMechanismType(
-            com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData.MechanismEnum mechanism) {
+    private static MechanismType toMechanismType(DeviceData.MechanismEnum mechanism) {
         if (mechanism == null) {
             return MechanismType.getDefault();
         }
@@ -123,7 +121,7 @@ public class DeviceAdapter {
 
     public static ListResponse<Device> mapList(DevicePage list) {
         final DevicePage deviceList = list;
-        RespList<DeviceData> respList = new RespList<DeviceData>() {
+        final RespList<DeviceData> respList = new RespList<DeviceData>() {
 
             @Override
             public Boolean getHasMore() {
@@ -173,7 +171,7 @@ public class DeviceAdapter {
         if (device == null) {
             return null;
         }
-        DeviceDataPostRequest addDevice = new DeviceDataPostRequest();
+        final DeviceDataPostRequest addDevice = new DeviceDataPostRequest();
         addDevice.setName(device.getName());
         addDevice.setVendorId(device.getVendorId());
         addDevice.setCustomAttributes(device.getCustomAttributes());
@@ -238,7 +236,7 @@ public class DeviceAdapter {
         if (device == null) {
             return null;
         }
-        DeviceDataPatchRequest updateDevice = new DeviceDataPatchRequest();
+        final DeviceDataPatchRequest updateDevice = new DeviceDataPatchRequest();
         updateDevice.setName(device.getName());
         updateDevice.setCustomAttributes(device.getCustomAttributes());
         updateDevice.setDescription(device.getDescription());

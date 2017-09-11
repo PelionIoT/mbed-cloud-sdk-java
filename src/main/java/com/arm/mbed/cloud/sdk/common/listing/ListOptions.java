@@ -110,10 +110,10 @@ public class ListOptions {
             return null;
         }
         boolean start = true;
-        StringBuilder builder = new StringBuilder();
-        for (IncludeField includeField : include) {
+        final StringBuilder builder = new StringBuilder();
+        for (final IncludeField includeField : include) {
             if (!start) {
-                builder.append(",");
+                builder.append(',');
             }
             builder.append(includeField.encode());
             start = false;
@@ -215,7 +215,7 @@ public class ListOptions {
         if (fieldName == null || filter == null) {
             return null;
         }
-        List<Filter> list = filter.get(fieldName, FilterOperator.EQUAL);
+        final List<Filter> list = filter.get(fieldName, FilterOperator.EQUAL);
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -237,7 +237,7 @@ public class ListOptions {
      * @return string encoded filter
      */
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
-        Object filterObj = fetchEqualFilterValue(fieldName);
+        final Object filterObj = fetchEqualFilterValue(fieldName);
         return (filterObj == null) ? null : filterObj.toString();
     }
 

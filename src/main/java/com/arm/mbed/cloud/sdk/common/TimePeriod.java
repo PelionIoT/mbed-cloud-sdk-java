@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -19,16 +20,24 @@ public class TimePeriod implements Cloneable {
     private static final int DEFAULT_DURATION = 1;
     private static final PeriodTimeUnit DEFAULT_UNIT = PeriodTimeUnit.DAYS;
     /**
-     * The time period unit
+     * The time period unit.
      */
     @DefaultValue(value = "days")
     private TimeUnit unit;
     /**
-     * The unit duration
+     * The unit duration.
      */
     @DefaultValue(value = "1")
     private long duration;
 
+    /**
+     * Constructor.
+     * 
+     * @param unit
+     *            time unit to apply e.g. seconds, days.
+     * @param duration
+     *            duration in the unit set above.
+     */
     public TimePeriod(TimeUnit unit, long duration) {
         super();
         this.unit = unit;
@@ -36,26 +45,31 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
-     * Defines a timeout in second
+     * Defines a timeout in second.
      * 
      * @param duration
-     *            in second
+     *            in second.
      */
     public TimePeriod(long duration) {
         this();
         setTimeout(duration);
     }
 
+    /**
+     * Constructor.
+     * <p>
+     * set to the default time period: 1 day.
+     */
     public TimePeriod() {
         super();
         setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
     }
 
     /**
-     * Set time period from a string
+     * Sets time period from a string.
      * 
      * @param value
-     *            string representing the time period @see {@link #fromString(String)} for more information
+     *            string representing the time period @see {@link #fromString(String)} for more information.
      * 
      */
     public TimePeriod(String value) {
@@ -63,7 +77,7 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
-     * @return the unit
+     * @return the unit.
      */
     public TimeUnit getUnit() {
         return unit;
@@ -71,7 +85,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * @param unit
-     *            the unit to set
+     *            the unit to set.
      */
     public void setUnit(TimeUnit unit) {
         this.unit = unit;
@@ -108,56 +122,80 @@ public class TimePeriod implements Cloneable {
      * 
      * @see java.lang.Object#toString()
      */
-    @SuppressWarnings("incomplete-switch")
     @Override
     public String toString() {
         if (unit == null || duration == 0) {
             setTimePeriod(DEFAULT_DURATION, DEFAULT_UNIT);
         }
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         switch (unit) {
             case DAYS:
-                if (duration >= 366 && duration % 366 == 0) {// This case should not happen
-                    builder.append(duration / 366).append('y');
-                } else if (duration >= 7 && duration % 7 == 0) {
-                    builder.append(duration / 7).append('w');
-                } else {
-                    builder.append(duration).append('d');
-                }
+                toStringAsDays(builder);
                 break;
             case HOURS:
-                if (duration >= 24 && duration % 24 == 0) {
-                    builder.append(duration / 24).append("d");
-                } else {
-                    builder.append(duration).append('h');
-                }
+                toStringAsHours(builder);
                 break;
             case MINUTES:
-                if (duration >= 60 && duration % 60 == 0) {
-                    builder.append(duration / 60).append("h");
-                } else {
-                    builder.append(duration).append('m');
-                }
+                toStringAsMinutes(builder);
                 break;
             case NANOSECONDS:
-                if (duration >= 1000000000 && duration % 1000000000 == 0) {
-                    builder.append(duration / 1000000000).append("s");
-                } else {
-                    builder.append(duration).append('n');
-                }
+                toStringAsNanoSeconds(builder);
                 break;
             case SECONDS:
-                if (duration >= 60 && duration % 60 == 0) {
-                    builder.append(duration / 60).append("m");
-                } else {
-                    builder.append(duration).append('s');
-                }
+                toStringAsSeconds(builder);
                 break;
             default:
                 break;
         }
 
         return builder.toString();
+    }
+
+    private StringBuilder toStringAsSeconds(StringBuilder builder) {
+        if (duration >= 60 && duration % 60 == 0) {
+            builder.append(duration / 60).append('m');
+        } else {
+            builder.append(duration).append('s');
+        }
+        return builder;
+    }
+
+    private StringBuilder toStringAsNanoSeconds(StringBuilder builder) {
+        if (duration >= 1000000000 && duration % 1000000000 == 0) {
+            builder.append(duration / 1000000000).append('s');
+        } else {
+            builder.append(duration).append('n');
+        }
+        return builder;
+    }
+
+    private StringBuilder toStringAsMinutes(StringBuilder builder) {
+        if (duration >= 60 && duration % 60 == 0) {
+            builder.append(duration / 60).append('h');
+        } else {
+            builder.append(duration).append('m');
+        }
+        return builder;
+    }
+
+    private StringBuilder toStringAsHours(StringBuilder builder) {
+        if (duration >= 24 && duration % 24 == 0) {
+            builder.append(duration / 24).append('d');
+        } else {
+            builder.append(duration).append('h');
+        }
+        return builder;
+    }
+
+    private StringBuilder toStringAsDays(StringBuilder builder) {
+        if (duration >= 366 && duration % 366 == 0) {// This case should not happen
+            builder.append(duration / 366).append('y');
+        } else if (duration >= 7 && duration % 7 == 0) {
+            builder.append(duration / 7).append('w');
+        } else {
+            builder.append(duration).append('d');
+        }
+        return builder;
     }
 
     /**
@@ -173,7 +211,7 @@ public class TimePeriod implements Cloneable {
         if (value == null || value.isEmpty()) {
             return;
         }
-        Matcher matcher = STRING_PATTERN.matcher(value);
+        final Matcher matcher = STRING_PATTERN.matcher(value);
         if (matcher.matches()) {
             setTimePeriod(Long.parseLong(matcher.group(1)), getUnitFromChar(matcher.group(2)));
         }
@@ -218,7 +256,7 @@ public class TimePeriod implements Cloneable {
         if (string == null || string.isEmpty()) {
             return DEFAULT_UNIT;
         }
-        String trimmedString = string.toLowerCase().trim();
+        final String trimmedString = string.toLowerCase(Locale.getDefault()).trim();
         if (trimmedString.length() != 1) {
             return DEFAULT_UNIT;
         }
@@ -250,8 +288,7 @@ public class TimePeriod implements Cloneable {
      */
     @Override
     public TimePeriod clone() {
-        TimePeriod clone = new TimePeriod(unit, duration);
-        return clone;
+        return new TimePeriod(unit, duration);
     }
 
 }

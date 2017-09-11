@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Utilities for APIs")
 @Internal
-public class TranslationUtils {
+public final class TranslationUtils {
 
     private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
             Locale.getDefault());
@@ -90,23 +90,23 @@ public class TranslationUtils {
         return (bool == null) ? defaultB : bool.booleanValue();
     }
 
-    public static Date convertTimestamp(String timestamp) throws MbedCloudException {
+    public static synchronized Date convertTimestamp(String timestamp) throws MbedCloudException {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
-    public static Date convertRFC3339Timestamp(String timestamp) throws MbedCloudException {
+    public static synchronized Date convertRFC3339Timestamp(String timestamp) throws MbedCloudException {
         return convertTimestamp(timestamp, RFC3339_DATE_FORMAT);
     }
 
-    public static String toDefaultTimestamp(Date date) {
+    public static synchronized String toDefaultTimestamp(Date date) {
         return toTimestamp(date, DateFormat.getDateTimeInstance());
     }
 
-    public static String toRFC3339Timestamp(Date date) {
+    public static synchronized String toRFC3339Timestamp(Date date) {
         return toTimestamp(date, RFC3339_DATE_FORMAT);
     }
 
-    public static Date convertTimestamp(String timestamp, Date defaultDate) {
+    public static synchronized Date convertTimestamp(String timestamp, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp);
         } catch (Exception e) {
@@ -114,7 +114,7 @@ public class TranslationUtils {
         }
     }
 
-    public static Date convertRFC3339Timestamp(String timestamp, Date defaultDate) {
+    public static synchronized Date convertRFC3339Timestamp(String timestamp, Date defaultDate) {
         try {
             return TranslationUtils.convertRFC3339Timestamp(timestamp);
         } catch (Exception e) {
@@ -122,7 +122,7 @@ public class TranslationUtils {
         }
     }
 
-    public static Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
+    public static synchronized Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp, format);
         } catch (Exception e) {
@@ -131,19 +131,16 @@ public class TranslationUtils {
     }
 
     private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
-        Exception e1 = new Exception(
-                "Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, e);
-        System.err.println(e1.getMessage() + ". Cause: " + e.getCause());
+        SDKLogger.getLogger()
+                .logError("Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, e);
         return defaultDate;
     }
 
     public static URL toUrl(String url) {
         try {
-            return (url == null || url.isEmpty()) ? null : new URL(url);
+            return url == null || url.isEmpty() ? null : new URL(url);
         } catch (MalformedURLException e) {
-            Exception e1 = new Exception(
-                    "Error occurred when parsing URL [" + String.valueOf(url) + "]. Defaulting to null", e);
-            System.err.println(e1.getMessage() + ". Cause: " + e1.getCause());
+            SDKLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null", e);
         }
         return null;
     }
@@ -152,29 +149,25 @@ public class TranslationUtils {
         return (url == null) ? null : url.toString();
     }
 
-    @SuppressWarnings("boxing")
     public static Integer convertToInteger(String value, Integer defaultV) {
         if (value == null) {
             return defaultV;
         }
         try {
-            return Integer.parseInt(value);
+            return Integer.decode(value);
         } catch (NumberFormatException e) {
             return defaultV;
         }
     }
 
-    public static Date convertTimestamp(String timestamp, DateFormat format) throws MbedCloudException {
+    public static synchronized Date convertTimestamp(String timestamp, DateFormat format) throws MbedCloudException {
         if (timestamp == null || timestamp.isEmpty() || format == null) {
             return null;
         }
         try {
-            synchronized (TranslationUtils.class) {
-                return format.parse(timestamp);
-            }
+            return format.parse(timestamp);
         } catch (ParseException e) {
-            throw new MbedCloudException("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].",
-                    e);
+            throw new MbedCloudException("Error occurred when parsing timestamp [" + timestamp + "].", e);
         }
     }
 

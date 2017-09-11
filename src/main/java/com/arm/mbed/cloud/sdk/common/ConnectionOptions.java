@@ -51,10 +51,15 @@ public class ConnectionOptions implements Cloneable {
      *            the host to set
      */
     public void setHost(String host) {
-        if (host != null && !host.endsWith("/")) {
-            host = host + "/";
+        final StringBuilder sb = new StringBuilder();
+        if (host != null) {
+            sb.append(host.trim());
+            if (!host.endsWith("/")) {
+                sb.append('/');
+            }
         }
-        this.host = host;
+
+        this.host = sb.toString();
     }
 
     /**
@@ -93,7 +98,7 @@ public class ConnectionOptions implements Cloneable {
 
     @Override
     public ConnectionOptions clone() {
-        ConnectionOptions options = new ConnectionOptions(apiKey, host);
+        final ConnectionOptions options = new ConnectionOptions(apiKey, host);
         options.setClientLogLevel(clientLogLevel);
         if (hasCustomRequestTimeout()) {
             options.setRequestTimeout(requestTimeout.clone());

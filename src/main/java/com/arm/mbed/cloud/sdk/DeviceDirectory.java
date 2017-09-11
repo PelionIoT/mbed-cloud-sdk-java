@@ -393,4 +393,14 @@ public class DeviceDirectory extends AbstractAPI {
                     }
                 });
     }
+
+    /**
+     * Retrieves module name
+     * 
+     * @return module name
+     */
+    @Override
+    public String getModuleName() {
+        return "Device Directory";
+    }
 }

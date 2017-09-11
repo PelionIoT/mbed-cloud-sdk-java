@@ -200,7 +200,7 @@ public class Certificates extends AbstractAPI {
     public Certificate addDeveloperCertificate(final Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
-        final Certificate addedCertificate = CloudCaller.call(this, "addDeveloperCertificate()",
+        final Certificate addedPartialCertificate1 = CloudCaller.call(this, "addDeveloperCertificate()",
                 CertificateAdapter.getDeveloperMapper(), new CloudCall<DeveloperCertificateResponseData>() {
 
                     @Override
@@ -209,18 +209,18 @@ public class Certificates extends AbstractAPI {
                                 CertificateAdapter.reverseDeveloperMap(finalCertificate));
                     }
                 });
-        if (addedCertificate == null) {
+        if (addedPartialCertificate1 == null) {
             return null;
         }
-        Certificate addedCertificate2 = CloudCaller.call(this, "addCertificate()", CertificateAdapter.getMapper(),
+        final Certificate addedPartialCertificate2 = CloudCaller.call(this, "addCertificate()", CertificateAdapter.getMapper(),
                 new CloudCall<TrustedCertificateResp>() {
 
                     @Override
                     public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAccountDeveloper().getCertificate(addedCertificate.getId());
+                        return endpoint.getAccountDeveloper().getCertificate(addedPartialCertificate1.getId());
                     }
                 });
-        return Certificate.merge(addedCertificate, addedCertificate2);
+        return Certificate.merge(addedPartialCertificate1, addedPartialCertificate2);
     }
 
     /**
@@ -266,6 +266,16 @@ public class Certificates extends AbstractAPI {
                 return endpoint.getAccountDeveloper().deleteCertificate(id);
             }
         });
+    }
+
+    /**
+     * Retrieves module name
+     * 
+     * @return module name
+     */
+    @Override
+    public String getModuleName() {
+        return "Certificates";
     }
 
 }

@@ -9,7 +9,7 @@ import okhttp3.RequestBody;
 
 @Preamble(description = "Adapter for data file model")
 @Internal
-public class DataFileAdapter {
+public final class DataFileAdapter {
 
     private DataFileAdapter() {
         super();
@@ -19,9 +19,8 @@ public class DataFileAdapter {
         if (dataFile == null) {
             return null;
         }
-        MediaType contentType = MediaType.parse(dataFile.getContentType());
-        RequestBody body = RequestBody.create(contentType, dataFile.getFile());
-        return body;
+        final MediaType contentType = MediaType.parse(dataFile.getContentType());
+        return RequestBody.create(contentType, dataFile.getFile());
     }
 
 }

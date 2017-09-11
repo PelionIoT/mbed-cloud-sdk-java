@@ -31,7 +31,7 @@ import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
-import com.arm.mbed.cloud.sdk.connect.model.MetricsListOptions;
+import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
@@ -88,10 +88,11 @@ public class Connect extends AbstractAPI {
             ExecutorService notificationPullingThreadPool) {
         super(options);
         endpoint = new EndPoints(options);
-        this.threadPool = (notificationHandlingThreadPool != null) ? notificationHandlingThreadPool
-                : Executors.newFixedThreadPool(4);
-        this.cache = new NotificationCache(this, (notificationPullingThreadPool != null) ? notificationPullingThreadPool
-                : Executors.newScheduledThreadPool(1), endpoint);
+        this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
+                : notificationHandlingThreadPool;
+        this.cache = new NotificationCache(this, (notificationPullingThreadPool == null)
+                ? Executors.newScheduledThreadPool(1) : notificationPullingThreadPool, endpoint);
+
     }
 
     /**
@@ -185,15 +186,15 @@ public class Connect extends AbstractAPI {
      *             if a problem occurred during request processing
      */
     @API
-    public @Nullable <T extends MetricsListOptions> List<Metric> listMetrics(@NonNull T options)
+    public @Nullable <T extends AbstractMetricsListOptions> List<Metric> listMetrics(@NonNull T options)
             throws MbedCloudException {
         checkNotNull(options, TAG_METRIC_OPTIONS);
         final T finalOptions = options;
-        final Date finalStart = (options instanceof MetricsStartEndListOptions)
+        final Date finalStart = options instanceof MetricsStartEndListOptions
                 ? ((MetricsStartEndListOptions) options).getStart() : null;
-        final Date finalEnd = (options instanceof MetricsStartEndListOptions)
+        final Date finalEnd = options instanceof MetricsStartEndListOptions
                 ? ((MetricsStartEndListOptions) options).getEnd() : null;
-        final String finalPeriod = (options instanceof MetricsPeriodListOptions)
+        final String finalPeriod = options instanceof MetricsPeriodListOptions
                 ? ((MetricsPeriodListOptions) options).getPeriod().toString() : null;
 
         return CloudCaller.call(this, "listMetrics()", MetricAdapter.getListMapper(),
@@ -697,4 +698,13 @@ public class Connect extends AbstractAPI {
         });
     }
 
+    /**
+     * Retrieves module name
+     * 
+     * @return module name
+     */
+    @Override
+    public String getModuleName() {
+        return "Connect";
+    }
 }

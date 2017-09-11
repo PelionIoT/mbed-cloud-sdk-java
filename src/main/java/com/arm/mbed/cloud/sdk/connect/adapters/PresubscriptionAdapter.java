@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 
 @Preamble(description = "Adapter for presubscription model")
-public class PresubscriptionAdapter {
+public final class PresubscriptionAdapter {
 
     private PresubscriptionAdapter() {
         super();
@@ -19,7 +19,7 @@ public class PresubscriptionAdapter {
         if (apiPresubscription == null) {
             return null;
         }
-        Presubscription presubscription = new Presubscription();
+        final Presubscription presubscription = new Presubscription();
         presubscription.setDeviceId(apiPresubscription.getEndpointName());
         presubscription.setDeviceType(apiPresubscription.getEndpointType());
         presubscription.setResourcePaths(apiPresubscription.getResourcePath());
@@ -31,7 +31,7 @@ public class PresubscriptionAdapter {
         if (presubscription == null) {
             return null;
         }
-        com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+        final com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
         apiPresubscription.setEndpointName(presubscription.getDeviceId());
         apiPresubscription.setEndpointType(presubscription.getDeviceType());
         apiPresubscription.setResourcePath(presubscription.getResourcePaths());

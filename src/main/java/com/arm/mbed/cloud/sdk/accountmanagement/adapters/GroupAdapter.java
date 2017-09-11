@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 
 @Preamble(description = "Adapter for group model")
-public class GroupAdapter {
+public final class GroupAdapter {
 
     private GroupAdapter() {
         super();
@@ -44,7 +44,7 @@ public class GroupAdapter {
 
     public static ListResponse<Group> mapList(GroupSummaryList list) {
         final GroupSummaryList groupList = list;
-        RespList<GroupSummary> respList = new RespList<GroupSummary>() {
+        final RespList<GroupSummary> respList = new RespList<GroupSummary>() {
 
             @Override
             public Boolean getHasMore() {

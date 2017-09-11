@@ -46,12 +46,12 @@ public class Filters {
     }
 
     public List<Filter> get(String fieldName) {
-        Map<FilterOperator, List<Filter>> filtersForField = getFiltersForField(fieldName);
+        final Map<FilterOperator, List<Filter>> filtersForField = getFiltersForField(fieldName);
         if (filtersForField == null) {
             return null;
         }
-        List<Filter> filtersForFieldList = new LinkedList<>();
-        for (List<Filter> sublist : filtersForField.values()) {
+        final List<Filter> filtersForFieldList = new LinkedList<>();
+        for (final List<Filter> sublist : filtersForField.values()) {
             filtersForFieldList.addAll(sublist);
         }
         return filtersForFieldList;
@@ -61,8 +61,8 @@ public class Filters {
         if (filterList.isEmpty()) {
             return null;
         }
-        List<Filter> filtersList = new LinkedList<>();
-        for (String fieldName : filterList.keySet()) {
+        final List<Filter> filtersList = new LinkedList<>();
+        for (final String fieldName : filterList.keySet()) {
             filtersList.addAll(get(fieldName));
         }
         return filtersList;
@@ -72,7 +72,7 @@ public class Filters {
         if (filterList == null || filterList.isEmpty()) {
             return false;
         }
-        for (Filter filter : get()) {
+        for (final Filter filter : get()) {
             if (filter instanceof CustomFilter) {
                 return true;
             }
@@ -89,11 +89,11 @@ public class Filters {
     }
 
     public boolean hasFilters(String fieldName, FilterOperator operator) {
-        return (!hasFilters(fieldName)) ? false : getFiltersForField(fieldName).containsKey(operator);
+        return hasFilters(fieldName) ? getFiltersForField(fieldName).containsKey(operator) : false;
     }
 
     public List<Filter> get(String fieldName, FilterOperator operator) {
-        Map<FilterOperator, List<Filter>> filtersForField = filterList.get(fieldName);
-        return (filtersForField == null) ? null : filtersForField.get(operator);
+        final Map<FilterOperator, List<Filter>> filtersForField = filterList.get(fieldName);
+        return filtersForField == null ? null : filtersForField.get(operator);
     }
 }

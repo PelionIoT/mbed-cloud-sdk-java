@@ -54,7 +54,7 @@ public class NotificationCache {
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
-        ConnectionOptions options = endpoint2.getConnectionOptions();
+        final ConnectionOptions options = endpoint2.getConnectionOptions();
         options.setRequestTimeout(REQUEST_TIMEOUT);
         return new EndPoints(options);
     }
@@ -92,7 +92,7 @@ public class NotificationCache {
     }
 
     public boolean isPullingActive() {
-        return (pullHandle != null);
+        return pullHandle != null;
     }
 
     public void shutdown() {
@@ -106,7 +106,7 @@ public class NotificationCache {
         if (!isPullingActive()) {
             api.getLogger().throwSDKException("startNotifications() needs to be called before setting resource value.");
         }
-        String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
+        final String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
         return fetchAsyncResponse(executor, asyncResponseId);
     }
 
@@ -134,15 +134,15 @@ public class NotificationCache {
                 while (!responseCache.containsKey(responseId)) {
                     Thread.sleep(10);
                 }
-                AsyncResponse response = responseCache.get(responseId);
+                final AsyncResponse response = responseCache.get(responseId);
                 responseCache.remove(responseId);
                 if (response == null) {
                     return null;
                 }
                 if (response.statusCode != 200) {
-                    String errorMessage = response.errorMessage;
-                    return (errorMessage != null) ? errorMessage
-                            : "Async error (" + responseId + "). Status code: " + response.statusCode;
+                    final String errorMessage = response.errorMessage;
+                    return errorMessage == null
+                            ? "Async error (" + responseId + "). Status code: " + response.statusCode : errorMessage;
                 }
                 return response.payload;
             }
@@ -165,7 +165,7 @@ public class NotificationCache {
             @Override
             public void run() {
                 try {
-                    CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
+                    final CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
                             "NotificationPullGet()", getIdentityMapper(), new CloudCall<NotificationMessage>() {
 
                                 @Override
@@ -173,7 +173,7 @@ public class NotificationCache {
                                     return endpoint.getNotifications().v2NotificationPullGet();
                                 }
                             }, false);
-                    NotificationMessage notificationMessage = feedback.getResult();
+                    final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(
                                 "Notification pull did not receive any notification during last call. Call information: "
@@ -212,13 +212,13 @@ public class NotificationCache {
         if (asyncResponses == null) {
             return;
         }
-        for (AsyncIDResponse response : asyncResponses) {
+        for (final AsyncIDResponse response : asyncResponses) {
             if (response == null) {
                 continue;
             }
 
             try {
-                AsyncResponse asyncResponse = new AsyncResponse(response);
+                final AsyncResponse asyncResponse = new AsyncResponse(response);
                 responseCache.put(asyncResponse.getKey(), asyncResponse);
             } catch (DecodingException e) {
                 api.getLogger().logError("An error occurred during Notification pull", e);
@@ -228,12 +228,12 @@ public class NotificationCache {
     }
 
     private static Object decodePayload(String payload, String ct) throws DecodingException {
-        EncodingType encodingType = EncodingType.getType(ct);
+        final EncodingType encodingType = EncodingType.getType(ct);
         if (encodingType == EncodingType.UNKNOWN) {
             return Base64Decoder.decodeToUtf8(payload);
         }
-        byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
-        ByteBuffer buffer = ByteBuffer.wrap(bytes);
+        final byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
+        final ByteBuffer buffer = ByteBuffer.wrap(bytes);
         return Base64Decoder.decodeBase64(buffer, encodingType);
     }
 
@@ -287,7 +287,7 @@ public class NotificationCache {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            AsyncResponse other = (AsyncResponse) obj;
+            final AsyncResponse other = (AsyncResponse) obj;
             if (errorMessage == null) {
                 if (other.errorMessage != null) {
                     return false;
@@ -371,7 +371,7 @@ public class NotificationCache {
             if (getClass() != obj.getClass()) {
                 return false;
             }
-            ResourceSubscription other = (ResourceSubscription) obj;
+            final ResourceSubscription other = (ResourceSubscription) obj;
             if (deviceId == null) {
                 if (other.deviceId != null) {
                     return false;

@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 
 @Preamble(description = "Adapter for webhook model")
-public class WebhookAdapter {
+public final class WebhookAdapter {
 
     private WebhookAdapter() {
         super();
@@ -16,7 +16,7 @@ public class WebhookAdapter {
         if (apiWebhook == null) {
             return null;
         }
-        Webhook webhook = new Webhook();
+        final Webhook webhook = new Webhook();
         webhook.setUrl(TranslationUtils.toUrl(apiWebhook.getUrl()));
         webhook.setHeaders(apiWebhook.getHeaders());
         return webhook;
@@ -37,7 +37,7 @@ public class WebhookAdapter {
         if (webhook == null) {
             return null;
         }
-        com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
+        final com.arm.mbed.cloud.sdk.internal.mds.model.Webhook internalWebhook = new com.arm.mbed.cloud.sdk.internal.mds.model.Webhook();
         internalWebhook.setUrl(TranslationUtils.toString(webhook.getUrl()));
         internalWebhook.setHeaders(webhook.getHeaders());
         return internalWebhook;

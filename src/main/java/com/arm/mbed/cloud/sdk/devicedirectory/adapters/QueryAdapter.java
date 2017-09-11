@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutR
 
 @Preamble(description = "Adapter for query model")
 @Internal
-public class QueryAdapter {
+public final class QueryAdapter {
 
     private QueryAdapter() {
         super();
@@ -28,7 +28,7 @@ public class QueryAdapter {
         if (deviceQuery == null) {
             return null;
         }
-        Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
+        final Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
                 TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
         query.setName(deviceQuery.getName());
         query.setFilter(decodeFilters(deviceQuery.getQuery()));
@@ -48,7 +48,7 @@ public class QueryAdapter {
 
     public static ListResponse<Query> mapList(DeviceQueryPage list) {
         final DeviceQueryPage queryList = list;
-        RespList<DeviceQuery> respList = new RespList<DeviceQuery>() {
+        final RespList<DeviceQuery> respList = new RespList<DeviceQuery>() {
 
             @Override
             public Boolean getHasMore() {
@@ -98,7 +98,7 @@ public class QueryAdapter {
         if (query == null) {
             return null;
         }
-        DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
+        final DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
         deviceQuery.setName(query.getName());
         deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
         return deviceQuery;
@@ -108,7 +108,7 @@ public class QueryAdapter {
         if (query == null) {
             return null;
         }
-        DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest();
+        final DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest();
         deviceQuery.setName(query.getName());
         deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
         return deviceQuery;

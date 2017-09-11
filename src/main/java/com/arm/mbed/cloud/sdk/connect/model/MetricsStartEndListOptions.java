@@ -5,7 +5,7 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Options to use when listing metrics within a period")
-public class MetricsStartEndListOptions extends MetricsListOptions {
+public class MetricsStartEndListOptions extends AbstractMetricsListOptions {
     /**
      * Start date
      */

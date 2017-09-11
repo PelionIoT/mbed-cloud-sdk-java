@@ -74,7 +74,7 @@ public class ApiMetadata {
      *             if string cannot be interpreted as a date
      */
     public void setDateFromString(String dateString) throws MbedCloudException {
-        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.getDefault());
+        final DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z", Locale.getDefault());
         format.setLenient(true);
         setDate(TranslationUtils.convertTimestamp(dateString, format));
     }

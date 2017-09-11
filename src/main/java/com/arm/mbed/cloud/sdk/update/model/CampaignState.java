@@ -43,9 +43,9 @@ public enum CampaignState implements SDKEnum {
         if (value == null) {
             return getDefault();
         }
-        value = value.trim();
-        for (CampaignState state : values()) {
-            if (state.getString().equalsIgnoreCase(value)) {
+        final String trimmedValue = value.trim();
+        for (final CampaignState state : values()) {
+            if (state.getString().equalsIgnoreCase(trimmedValue)) {
                 return state;
             }
         }

@@ -20,8 +20,8 @@ public enum CertificateStatus implements SDKEnum {
         if (string == null) {
             return getDefault();
         }
-        String trimmedString = string.trim();
-        for (CertificateStatus status : values()) {
+        final String trimmedString = string.trim();
+        for (final CertificateStatus status : values()) {
             if (status.toString().equalsIgnoreCase(trimmedString)) {
                 return status;
             }

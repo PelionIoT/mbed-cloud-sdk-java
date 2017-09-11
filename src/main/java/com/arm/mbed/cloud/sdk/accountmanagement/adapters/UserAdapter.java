@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
-public class UserAdapter {
+public final class UserAdapter {
 
     private UserAdapter() {
         super();
@@ -27,7 +27,7 @@ public class UserAdapter {
         if (apiUser == null) {
             return null;
         }
-        User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
+        final User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
                 toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.getEmailVerified(), false),
                 TranslationUtils.toDate(apiUser.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
@@ -62,7 +62,7 @@ public class UserAdapter {
         if (user == null) {
             return null;
         }
-        UserInfoReq userInfo = new UserInfoReq();
+        final UserInfoReq userInfo = new UserInfoReq();
         userInfo.setFullName(user.getFullName());
         userInfo.setUsername(user.getUsername());
         userInfo.setPassword(user.getPassword());
@@ -77,7 +77,7 @@ public class UserAdapter {
         if (user == null) {
             return null;
         }
-        UserUpdateReq userUpdate = new UserUpdateReq();
+        final UserUpdateReq userUpdate = new UserUpdateReq();
         userUpdate.setFullName(user.getFullName());
         userUpdate.setUsername(user.getUsername());
         userUpdate.setPassword(user.getPassword());
@@ -91,7 +91,7 @@ public class UserAdapter {
     public static ListResponse<User> mapList(UserInfoRespList list) {
 
         final UserInfoRespList userList = list;
-        RespList<UserInfoResp> respList = new RespList<UserInfoResp>() {
+        final RespList<UserInfoResp> respList = new RespList<UserInfoResp>() {
 
             @Override
             public Boolean getHasMore() {

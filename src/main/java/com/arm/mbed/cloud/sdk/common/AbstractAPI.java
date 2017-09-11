@@ -39,4 +39,6 @@ public abstract class AbstractAPI {
         return metadataCache.getLastApiMetadata();
     }
 
+    public abstract String getModuleName();
+
 }
