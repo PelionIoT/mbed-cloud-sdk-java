@@ -5,8 +5,8 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Campaign device status")
-public class CampaignDeviceStatus {
+@Preamble(description = "Campaign device state")
+public class CampaignDeviceState {
 
     /**
      * The id of the metadata record
@@ -49,7 +49,7 @@ public class CampaignDeviceStatus {
      */
     private final URL mechanismUrl;
 
-    public CampaignDeviceStatus(String id, String deviceId, String campaignId, DeviceState state, String name,
+    public CampaignDeviceState(String id, String deviceId, String campaignId, DeviceState state, String name,
             String description, Date createdAt, Date updatedAt, String mechanism, URL mechanismUrl) {
         super();
         this.id = id;

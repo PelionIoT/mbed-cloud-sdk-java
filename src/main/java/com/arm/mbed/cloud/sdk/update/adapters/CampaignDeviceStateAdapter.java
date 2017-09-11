@@ -12,39 +12,39 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata.DeploymentStateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
-import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceStatus;
+import com.arm.mbed.cloud.sdk.update.model.CampaignDeviceState;
 import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 
-@Preamble(description = "Adapter for device status model")
+@Preamble(description = "Adapter for campaign device state model")
 @Internal
-public final class DeviceStatusAdapter {
+public final class CampaignDeviceStateAdapter {
 
-    private DeviceStatusAdapter() {
+    private CampaignDeviceStateAdapter() {
         super();
     }
 
-    public static CampaignDeviceStatus map(CampaignDeviceMetadata metadata) {
+    public static CampaignDeviceState map(CampaignDeviceMetadata metadata) {
         if (metadata == null) {
             return null;
         }
-        return new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
+        return new CampaignDeviceState(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
                 toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
                 TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
                 metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
     }
 
-    public static Mapper<CampaignDeviceMetadata, CampaignDeviceStatus> getMapper() {
-        return new Mapper<CampaignDeviceMetadata, CampaignDeviceStatus>() {
+    public static Mapper<CampaignDeviceMetadata, CampaignDeviceState> getMapper() {
+        return new Mapper<CampaignDeviceMetadata, CampaignDeviceState>() {
 
             @Override
-            public CampaignDeviceStatus map(CampaignDeviceMetadata toBeMapped) {
-                return DeviceStatusAdapter.map(toBeMapped);
+            public CampaignDeviceState map(CampaignDeviceMetadata toBeMapped) {
+                return CampaignDeviceStateAdapter.map(toBeMapped);
             }
 
         };
     }
 
-    public static ListResponse<CampaignDeviceStatus> mapList(CampaignDeviceMetadataPage list) {
+    public static ListResponse<CampaignDeviceState> mapList(CampaignDeviceMetadataPage list) {
         final CampaignDeviceMetadataPage deviceList = list;
         final RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
 
@@ -81,12 +81,12 @@ public final class DeviceStatusAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
-    public static Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceStatus>> getListMapper() {
-        return new Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceStatus>>() {
+    public static Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceState>> getListMapper() {
+        return new Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceState>>() {
 
             @Override
-            public ListResponse<CampaignDeviceStatus> map(CampaignDeviceMetadataPage toBeMapped) {
-                return DeviceStatusAdapter.mapList(toBeMapped);
+            public ListResponse<CampaignDeviceState> map(CampaignDeviceMetadataPage toBeMapped) {
+                return CampaignDeviceStateAdapter.mapList(toBeMapped);
             }
 
         };
@@ -100,16 +100,16 @@ public final class DeviceStatusAdapter {
             case DEPLOYED:
                 return DeviceState.DEPLOYED;
             case FAILED_CONNECTOR_CHANNEL_UPDATE:
-                break;
+                return DeviceState.FAILED_CONNECTOR_CHANNEL_UPDATE;
             case MANIFESTREMOVED:
                 return DeviceState.MANIFEST_REMOVED;
-
             case PENDING:
                 return DeviceState.PENDING;
             case UPDATED_CONNECTOR_CHANNEL:
                 return DeviceState.UPDATED_CONNECTOR_CHANNEL;
             default:
                 break;
+
         }
         return DeviceState.getDefault();
     }
