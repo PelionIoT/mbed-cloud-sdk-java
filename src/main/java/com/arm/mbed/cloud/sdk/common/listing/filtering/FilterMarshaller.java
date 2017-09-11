@@ -30,6 +30,12 @@ public class FilterMarshaller {
     private final Map<String, String> fieldNameMapping;
     private final Map<String, String> fieldNameReverseMapping;
 
+    /**
+     * Constructor.
+     * 
+     * @param fieldNameMapping
+     *            filter field mapping.
+     */
     public FilterMarshaller(Map<String, String> fieldNameMapping) {
         super();
         this.fieldNameMapping = fieldNameMapping;

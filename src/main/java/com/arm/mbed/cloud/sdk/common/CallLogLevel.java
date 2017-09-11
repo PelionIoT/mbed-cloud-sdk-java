@@ -31,9 +31,9 @@ public enum CallLogLevel {
         if (level == null || level.isEmpty()) {
             return NONE;
         }
-        level = level.trim();
-        for (CallLogLevel logLevel : values()) {
-            if (logLevel.toString().equalsIgnoreCase(level)) {
+        final String trimmedLevel = level.trim();
+        for (final CallLogLevel logLevel : values()) {
+            if (logLevel.toString().equalsIgnoreCase(trimmedLevel)) {
                 return logLevel;
             }
         }

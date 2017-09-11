@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 
 @Preamble(description = "Adapter for resource model")
-public class ResourceAdapter {
+public final class ResourceAdapter {
 
     private ResourceAdapter() {
         super();

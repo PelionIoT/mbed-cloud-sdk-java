@@ -19,12 +19,12 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractAPI;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
-import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -165,7 +165,7 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return (finalApiKeyId == null || finalApiKeyId.isEmpty()) ? endpoint.getDeveloper().getMyApiKey()
+                return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getDeveloper().getMyApiKey()
                         : endpoint.getDeveloper().getApiKey(finalApiKeyId);
             }
         });
@@ -211,7 +211,8 @@ public class AccountManagement extends AbstractAPI {
 
             @Override
             public Call<ApiKeyInfoResp> call() {
-                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(), ApiKeyAdapter.reverseMapUpdate(finalApiKey));
+                return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(),
+                        ApiKeyAdapter.reverseMapUpdate(finalApiKey));
             }
         });
     }
@@ -542,4 +543,13 @@ public class AccountManagement extends AbstractAPI {
         });
     }
 
+    /**
+     * Retrieves module name
+     * 
+     * @return module name
+     */
+    @Override
+    public String getModuleName() {
+        return "Account Management";
+    }
 }

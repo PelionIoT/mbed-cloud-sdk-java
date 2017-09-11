@@ -38,7 +38,7 @@ public class Filter implements Cloneable {
     }
 
     public boolean isValid() {
-        return (fieldName != null && value != null);
+        return fieldName != null && value != null;
     }
 
     public String getPrefix() {

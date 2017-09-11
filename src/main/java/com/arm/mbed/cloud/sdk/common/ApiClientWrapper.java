@@ -22,7 +22,7 @@ public class ApiClientWrapper {
     }
 
     private ApiClient createClient(ConnectionOptions options) {
-        ApiClient apiClient = (options.isApiKeyEmpty()) ? new ApiClient()
+        final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
                 : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
         if (!options.isHostEmpty()) {
             apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
@@ -35,7 +35,7 @@ public class ApiClientWrapper {
     }
 
     public void setLogging(CallLogLevel level) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         HttpLoggingInterceptor.Level logLevel = null;
         switch (level) {
             case BASIC:

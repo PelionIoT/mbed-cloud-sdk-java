@@ -43,9 +43,9 @@ public enum DeviceState implements SDKEnum {
         if (value == null) {
             return getDefault();
         }
-        value = value.trim();
-        for (DeviceState state : values()) {
-            if (state.getString().equalsIgnoreCase(value)) {
+        final String trimmedValue = value.trim();
+        for (final DeviceState state : values()) {
+            if (state.getString().equalsIgnoreCase(trimmedValue)) {
                 return state;
             }
         }

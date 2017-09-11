@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.update.model.DeviceState;
 
 @Preamble(description = "Adapter for device status model")
 @Internal
-public class DeviceStatusAdapter {
+public final class DeviceStatusAdapter {
 
     private DeviceStatusAdapter() {
         super();
@@ -27,12 +27,10 @@ public class DeviceStatusAdapter {
         if (metadata == null) {
             return null;
         }
-        CampaignDeviceStatus state = new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(),
-                metadata.getCampaign(), toDeviceState(metadata.getDeploymentState()), metadata.getName(),
-                metadata.getDescription(), TranslationUtils.toDate(metadata.getCreatedAt()),
-                TranslationUtils.toDate(metadata.getUpdatedAt()), metadata.getMechanism(),
-                TranslationUtils.toUrl(metadata.getMechanismUrl()));
-        return state;
+        return new CampaignDeviceStatus(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
+                toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
+                TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
+                metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
     }
 
     public static Mapper<CampaignDeviceMetadata, CampaignDeviceStatus> getMapper() {
@@ -48,7 +46,7 @@ public class DeviceStatusAdapter {
 
     public static ListResponse<CampaignDeviceStatus> mapList(CampaignDeviceMetadataPage list) {
         final CampaignDeviceMetadataPage deviceList = list;
-        RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
+        final RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
 
             @Override
             public Boolean getHasMore() {

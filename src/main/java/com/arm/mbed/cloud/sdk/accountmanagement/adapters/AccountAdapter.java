@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
 @Internal
-public class AccountAdapter {
+public final class AccountAdapter {
 
     private AccountAdapter() {
         super();
@@ -22,7 +22,7 @@ public class AccountAdapter {
         if (accountInfo == null) {
             return null;
         }
-        Account account = new Account();
+        final Account account = new Account();
         account.setId(accountInfo.getId());
         account.setStatus(toStatus(accountInfo.getStatus()));
         account.setDisplayName(accountInfo.getDisplayName());
@@ -83,7 +83,7 @@ public class AccountAdapter {
         if (updateAccount == null) {
             return null;
         }
-        AccountUpdateReq accountUpdateReq = new AccountUpdateReq();
+        final AccountUpdateReq accountUpdateReq = new AccountUpdateReq();
         accountUpdateReq.setDisplayName(updateAccount.getDisplayName());
         accountUpdateReq.setAliases(updateAccount.getAliases());
         accountUpdateReq.setCompany(updateAccount.getCompany());

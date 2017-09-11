@@ -63,7 +63,7 @@ public class CertificateListOptions extends ListOptions {
 
     @SuppressWarnings("boxing")
     public Integer getExecutionModeFilter() {
-        CertificateType type = (CertificateType) fetchEqualFilterValue(TYPE_FILTER);
+        final CertificateType type = (CertificateType) fetchEqualFilterValue(TYPE_FILTER);
         if (type == null) {
             return null;
         }

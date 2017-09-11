@@ -556,4 +556,13 @@ public class Update extends AbstractAPI {
         });
     }
 
+    /**
+     * Retrieves module name
+     * 
+     * @return module name
+     */
+    @Override
+    public String getModuleName() {
+        return "Update";
+    }
 }

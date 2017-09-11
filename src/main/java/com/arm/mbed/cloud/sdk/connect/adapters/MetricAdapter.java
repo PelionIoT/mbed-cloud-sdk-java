@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 @Preamble(description = "Adapter for metric model")
-public class MetricAdapter {
+public final class MetricAdapter {
 
     private MetricAdapter() {
         super();
@@ -75,19 +75,19 @@ public class MetricAdapter {
     }
 
     public static String mapIncludes(List<IncludeField> includeFields) {
-        IncludeMapping mapping = IncludeMappingHolder.INSTANCE;
+        final IncludeMapping mapping = IncludeMappingHolder.INSTANCE;
         // In case no field is specified, default includes are used
         if (includeFields == null) {
             return mapping.getDefaultIncludes();
         }
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         boolean start = true;
         int numberOfIncludedFields = 0;
-        for (IncludeField field : includeFields) {
+        for (final IncludeField field : includeFields) {
             if (!start) {
-                builder.append(",");
+                builder.append(',');
             }
-            String mappedValue = mapping.getMappedValue(field.toString());
+            final String mappedValue = mapping.getMappedValue(field.toString());
             if (mappedValue == null) {
                 continue;
             }
@@ -132,8 +132,8 @@ public class MetricAdapter {
             mapping.put("observations", "device_observations");
 
             boolean start = true;
-            StringBuilder builder = new StringBuilder();
-            for (String field : mapping.values()) {
+            final StringBuilder builder = new StringBuilder();
+            for (final String field : mapping.values()) {
                 if (!start) {
                     builder.append(',');
                 }

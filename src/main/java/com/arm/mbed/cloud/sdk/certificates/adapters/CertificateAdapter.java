@@ -24,7 +24,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 
 @Preamble(description = "Adapter for certificate")
 @Internal
-public class CertificateAdapter {
+public final class CertificateAdapter {
 
     private CertificateAdapter() {
         super();
@@ -34,7 +34,7 @@ public class CertificateAdapter {
         if (iamCertificate == null) {
             return null;
         }
-        Certificate certificate = new Certificate(iamCertificate.getId(), iamCertificate.getAccountId(),
+        final Certificate certificate = new Certificate(iamCertificate.getId(), iamCertificate.getAccountId(),
                 iamCertificate.getSubject(), TranslationUtils.toDate(iamCertificate.getValidity()),
                 iamCertificate.getIssuer(), TranslationUtils.toDate(iamCertificate.getCreatedAt()), null, null, null,
                 null, null, iamCertificate.getOwnerId());
@@ -51,9 +51,8 @@ public class CertificateAdapter {
         if (serverResponse == null) {
             return null;
         }
-        Certificate certificate = new Certificate(null, null, null, null, null, null, serverResponse.getServerUri(),
+        return new Certificate(null, null, null, null, null, null, serverResponse.getServerUri(),
                 serverResponse.getServerCertificate(), null, null, null, null);
-        return certificate;
     }
 
     public static Certificate mapDeveloper(DeveloperCertificateResponseData developerData) {
@@ -102,7 +101,7 @@ public class CertificateAdapter {
         if (certificate == null) {
             return null;
         }
-        TrustedCertificateReq request = new TrustedCertificateReq();
+        final TrustedCertificateReq request = new TrustedCertificateReq();
         request.setCertificate(certificate.getCertificateData());
         request.setName(certificate.getName());
         request.setService(reverseAddRequestServiceType(certificate.getType()));
@@ -116,7 +115,7 @@ public class CertificateAdapter {
         if (certificate == null) {
             return null;
         }
-        TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
+        final TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
         request.setCertificate(certificate.getCertificateData());
         request.setName(certificate.getName());
         request.setService(reverseUpdateRequestServiceType(certificate.getType()));
@@ -130,7 +129,7 @@ public class CertificateAdapter {
         if (certificate == null) {
             return null;
         }
-        DeveloperCertificateRequestData request = new DeveloperCertificateRequestData();
+        final DeveloperCertificateRequestData request = new DeveloperCertificateRequestData();
         request.setDescription(certificate.getDescription());
         request.setName(certificate.getName());
         return request;
@@ -228,7 +227,7 @@ public class CertificateAdapter {
     public static ListResponse<Certificate> mapList(TrustedCertificateRespList list) {
 
         final TrustedCertificateRespList certificateList = list;
-        RespList<TrustedCertificateResp> respList = new RespList<TrustedCertificateResp>() {
+        final RespList<TrustedCertificateResp> respList = new RespList<TrustedCertificateResp>() {
 
             @Override
             public Boolean getHasMore() {

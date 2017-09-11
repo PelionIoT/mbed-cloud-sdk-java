@@ -9,14 +9,14 @@ import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing metrics")
-public abstract class MetricsListOptions extends ListOptions {
+public abstract class AbstractMetricsListOptions extends ListOptions {
     /**
      * Group data by this interval, defaults to 1 day
      */
     @DefaultValue(value = "1 day")
     private TimePeriod interval;
 
-    public MetricsListOptions() {
+    public AbstractMetricsListOptions() {
         super();
         setInterval(new TimePeriod());
     }

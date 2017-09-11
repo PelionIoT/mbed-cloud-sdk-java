@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 public class ManifestContents implements SDKModel {
 
     /**
-     * 
+     * Serialisation ID.
      */
     private static final long serialVersionUID = 2013553030849979521L;
     /**
@@ -32,7 +32,7 @@ public class ManifestContents implements SDKModel {
      */
     private final String description;
     /**
-     * A 128-bit random field
+     * A 128-bit random field.
      */
     private final String nonce;
     /**
@@ -59,7 +59,7 @@ public class ManifestContents implements SDKModel {
      */
     private final String deviceId;
     /**
-     * Format of the manifest payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf
+     * Format of the manifest payload. Can be: 1: raw-binary 2: cbor 3: hex-location-length-data 4: elf.
      */
     private final ManifestPayloadFormat payloadFormat;
     /**
@@ -67,7 +67,7 @@ public class ManifestContents implements SDKModel {
      */
     private final String payloadStorageIdentifier;
     /**
-     * Hex representation of the SHA-256 hash of the payload
+     * Hex representation of the SHA-256 hash of the payload.
      */
     private final String payloadHash;
     /**
@@ -75,11 +75,17 @@ public class ManifestContents implements SDKModel {
      */
     private final String payloadUri;
     /**
-     * Size of the payload in bytes
+     * Size of the payload in bytes.
      */
     @DefaultValue(value = "0")
     private final long payloadSize;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Please use {@link #ManifestContents()} instead.
+     * 
+     */
     @Internal
     public ManifestContents(String classId, String vendorId, int version, String description, String nonce,
             Date createdAt, ManifestEncryptionMode encryptionMode, boolean applyImmediately, String deviceId,
@@ -102,113 +108,144 @@ public class ManifestContents implements SDKModel {
         this.payloadSize = payloadSize;
     }
 
+    /**
+     * Constructor.
+     */
     public ManifestContents() {
         this(null, null, 0, null, null, new Date(), ManifestEncryptionMode.getDefault(), false, null,
                 ManifestPayloadFormat.getDefault(), null, null, null, 0);
     }
 
     /**
-     * @return the classId
+     * Gets class Id.
+     * 
+     * @return the classId.
      */
     public String getClassId() {
         return classId;
     }
 
     /**
-     * @return the vendorId
+     * Gets vendor Id.
+     * 
+     * @return the vendorId.
      */
     public String getVendorId() {
         return vendorId;
     }
 
     /**
-     * @return the version
+     * Gets the version.
+     * 
+     * @return the version.
      */
     public int getVersion() {
         return version;
     }
 
     /**
-     * @return the description
+     * Gets the description.
+     * 
+     * @return the description.
      */
     public String getDescription() {
         return description;
     }
 
     /**
-     * @return the nonce
+     * Gets the nonce.
+     * 
+     * @return the nonce.
      */
     public String getNonce() {
         return nonce;
     }
 
     /**
-     * @return the createdAt
+     * Gets the date of when this manifest was created at.
+     * 
+     * @return the createdAt.
      */
     public Date getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * @return the encryptionMode
+     * Gets the encryption mode.
+     * 
+     * @return the encryptionMode.
      */
     public ManifestEncryptionMode getEncryptionMode() {
         return encryptionMode;
     }
 
     /**
-     * @return the applyImmediately
+     * States whether this manifest should be applied immediately.
+     * 
+     * @return the applyImmediately.
      */
     public boolean isApplyImmediately() {
         return applyImmediately;
     }
 
     /**
-     * @return the deviceId
+     * Gets the device Id.
+     * 
+     * @return the deviceId.
      */
     public String getDeviceId() {
         return deviceId;
     }
 
     /**
-     * @return the payloadFormat
+     * Gets the payload format.
+     * 
+     * @return the payloadFormat.
      */
     public ManifestPayloadFormat getPayloadFormat() {
         return payloadFormat;
     }
 
     /**
-     * @return the payloadStorageIdentifier
+     * Gets the payload storage identifier.
+     * 
+     * @return the payloadStorageIdentifier.
      */
     public String getPayloadStorageIdentifier() {
         return payloadStorageIdentifier;
     }
 
     /**
-     * @return the payloadHash
+     * Gets the payload hash.
+     * 
+     * @return the payloadHash.
      */
     public String getPayloadHash() {
         return payloadHash;
     }
 
     /**
-     * @return the payloadUri
+     * Gets the payload URI.
+     * 
+     * @return the payloadUri.
      */
     public String getPayloadUri() {
         return payloadUri;
     }
 
     /**
-     * @return the payloadSize
+     * Gets the payload size.
+     * 
+     * @return the payloadSize.
      */
     public long getPayloadSize() {
         return payloadSize;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Clones the object.
      * 
-     * @see java.lang.Object#clone()
+     * @return a clone.
      */
     @Override
     public ManifestContents clone() throws CloneNotSupportedException {

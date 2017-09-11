@@ -39,15 +39,15 @@ public enum CertificateType implements SDKEnum {
     }
 
     public static boolean isDeveloper(CertificateType type) {
-        return (type == null || type == CertificateType.DEVELOPER);
+        return type == null || type == CertificateType.DEVELOPER;
     }
 
     public static CertificateType getType(String string) {
         if (string == null) {
             return getDefault();
         }
-        String trimmedString = string.trim();
-        for (CertificateType type : values()) {
+        final String trimmedString = string.trim();
+        for (final CertificateType type : values()) {
             if (type.getString().equalsIgnoreCase(trimmedString)) {
                 return type;
             }

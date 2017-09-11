@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 
 @Preamble(description = "Adapter for device event model")
 @Internal
-public class DeviceEventAdapter {
+public final class DeviceEventAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
     private DeviceEventAdapter() {
@@ -26,7 +26,7 @@ public class DeviceEventAdapter {
     }
 
     private static FilterMarshaller getFilterMarshaller() {
-        Map<String, String> filterMapping = new HashMap<>(4);
+        final Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("eventDate", "date_time");
         filterMapping.put("type", "event_type");
         return new FilterMarshaller(filterMapping);
@@ -36,7 +36,7 @@ public class DeviceEventAdapter {
         if (deviceEventData == null) {
             return null;
         }
-        DeviceEvent event = new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
+        final DeviceEvent event = new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
                 TranslationUtils.toDate(deviceEventData.getDateTime()),
                 TranslationUtils.toBool(deviceEventData.getStateChange(), false), deviceEventData.getDescription(),
                 deviceEventData.getChanges(), deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
@@ -58,7 +58,7 @@ public class DeviceEventAdapter {
 
     public static ListResponse<DeviceEvent> mapList(DeviceEventPage list) {
         final DeviceEventPage eventList = list;
-        RespList<DeviceEventData> respList = new RespList<DeviceEventData>() {
+        final RespList<DeviceEventData> respList = new RespList<DeviceEventData>() {
 
             @Override
             public Boolean getHasMore() {

@@ -21,7 +21,7 @@ public class SynchronousMethod {
 
     public static <T> T waitForCompletion(AsynchronousMethod<T> asyncMethod, TimePeriod timeout)
             throws MbedCloudException {
-        Future<T> future = asyncMethod.submit();
+        final Future<T> future = asyncMethod.submit();
         if (future == null) {
             return null;
         }

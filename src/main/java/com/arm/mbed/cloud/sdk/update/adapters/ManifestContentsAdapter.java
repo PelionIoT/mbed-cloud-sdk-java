@@ -15,7 +15,7 @@ import com.arm.mbed.cloud.sdk.update.model.ManifestPayloadFormat;
 
 @Preamble(description = "Adapter for manifest contents object")
 @Internal
-public class ManifestContentsAdapter {
+public final class ManifestContentsAdapter {
 
     private ManifestContentsAdapter() {
         super();
@@ -25,7 +25,7 @@ public class ManifestContentsAdapter {
         if (contents == null) {
             return null;
         }
-        ManifestContentsPayload payload = contents.getPayload();
+        final ManifestContentsPayload payload = contents.getPayload();
 
         ManifestPayloadFormat payloadFormat = ManifestPayloadFormat.getDefault();
         String payloadStorageIdentifier = null;
@@ -35,7 +35,7 @@ public class ManifestContentsAdapter {
         if (payload != null) {
             payloadFormat = toPayloadFormat(payload.getFormat());
             payloadStorageIdentifier = payload.getStorageIdentifier();
-            ManifestContentsPayloadReference ref = payload.getReference();
+            final ManifestContentsPayloadReference ref = payload.getReference();
             if (ref != null) {
                 payloadSize = TranslationUtils.toLong(ref.getSize());
                 payloadUri = ref.getUri();
@@ -43,13 +43,13 @@ public class ManifestContentsAdapter {
             }
         }
 
-        ManifestContents manifestContents = new ManifestContents(contents.getClassId(), contents.getVendorId(),
+        return new ManifestContents(contents.getClassId(), contents.getVendorId(),
                 TranslationUtils.toInt(contents.getManifestVersion()), contents.getDescription(), contents.getNonce(),
                 TranslationUtils.toDate(contents.getTimestamp(), TimeUnit.SECONDS),
                 toEncryptionMode(contents.getEncryptionMode()),
                 TranslationUtils.toBool(contents.getApplyImmediately(), false), contents.getDeviceId(), payloadFormat,
                 payloadStorageIdentifier, payloadHash, payloadUri, payloadSize);
-        return manifestContents;
+
     }
 
     @SuppressWarnings("boxing")

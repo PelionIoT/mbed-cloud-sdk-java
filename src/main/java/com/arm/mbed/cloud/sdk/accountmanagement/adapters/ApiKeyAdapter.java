@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 
 @Preamble(description = "Adapter for API key model")
-public class ApiKeyAdapter {
+public final class ApiKeyAdapter {
 
     private ApiKeyAdapter() {
         super();
@@ -27,7 +27,7 @@ public class ApiKeyAdapter {
         if (apiKeyInfo == null) {
             return null;
         }
-        ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getGroups(), toStatus(apiKeyInfo.getStatus()),
+        final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getGroups(), toStatus(apiKeyInfo.getStatus()),
                 apiKeyInfo.getKey(), TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
@@ -49,7 +49,7 @@ public class ApiKeyAdapter {
         if (apiKey == null) {
             return null;
         }
-        ApiKeyInfoReq apiKeyInfo = new ApiKeyInfoReq();
+        final ApiKeyInfoReq apiKeyInfo = new ApiKeyInfoReq();
         apiKeyInfo.setName(apiKey.getName());
         apiKeyInfo.setOwner(apiKey.getOwnerId());
         return apiKeyInfo;
@@ -59,7 +59,7 @@ public class ApiKeyAdapter {
         if (apiKey == null) {
             return null;
         }
-        ApiKeyUpdateReq apiKeyUpdate = new ApiKeyUpdateReq();
+        final ApiKeyUpdateReq apiKeyUpdate = new ApiKeyUpdateReq();
         apiKeyUpdate.setName(apiKey.getName());
         apiKeyUpdate.setOwner(apiKey.getOwnerId());
         return apiKeyUpdate;
@@ -84,7 +84,7 @@ public class ApiKeyAdapter {
     public static ListResponse<ApiKey> mapList(ApiKeyInfoRespList list) {
 
         final ApiKeyInfoRespList apiKeyList = list;
-        RespList<ApiKeyInfoResp> respList = new RespList<ApiKeyInfoResp>() {
+        final RespList<ApiKeyInfoResp> respList = new RespList<ApiKeyInfoResp>() {
 
             @Override
             public Boolean getHasMore() {

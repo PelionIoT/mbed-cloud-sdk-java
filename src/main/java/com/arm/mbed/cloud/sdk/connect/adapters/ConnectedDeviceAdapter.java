@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
 
 @Preamble(description = "Adapter for connected device model")
-public class ConnectedDeviceAdapter {
+public final class ConnectedDeviceAdapter {
 
     private ConnectedDeviceAdapter() {
         super();

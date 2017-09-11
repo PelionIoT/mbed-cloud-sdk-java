@@ -367,7 +367,7 @@ public class Certificate implements SDKModel {
         if (partial2 == null) {
             return partial1;
         }
-        Certificate merge = new Certificate(mergeField(partial1.getId(), partial2.getId()),
+        final Certificate merge = new Certificate(mergeField(partial1.getId(), partial2.getId()),
                 mergeField(partial1.getAccountId(), partial2.getAccountId()),
                 mergeField(partial1.getSubject(), partial2.getSubject()),
                 mergeField(partial1.getValidity(), partial2.getValidity()),

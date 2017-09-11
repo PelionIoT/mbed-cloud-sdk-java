@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 
 @Preamble(description = "Options to use when listing metrics within a period")
-public class MetricsPeriodListOptions extends MetricsListOptions {
+public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
     /**
      * Fetch data for this period until now
      */

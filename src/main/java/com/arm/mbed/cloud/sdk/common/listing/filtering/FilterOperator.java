@@ -59,19 +59,20 @@ public enum FilterOperator implements SDKEnum {
     }
 
     public static FilterOperator getFromSuffix(String suffix) {
-        if (suffix != null) {
-            suffix = suffix.trim();
-            suffix = suffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
+        String cleansedSuffix = suffix;
+        if (cleansedSuffix != null) {
+            cleansedSuffix = cleansedSuffix.trim();
+            cleansedSuffix = cleansedSuffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
         }
-        for (FilterOperator operator : values()) {
+        for (final FilterOperator operator : values()) {
             String opSuffix = operator.getSuffix();
-            if (opSuffix != null) {
-                opSuffix = opSuffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
-                if (opSuffix.equalsIgnoreCase(suffix)) {
+            if (opSuffix == null) {
+                if (cleansedSuffix == null || cleansedSuffix.isEmpty()) {
                     return operator;
                 }
             } else {
-                if (suffix == null || suffix.isEmpty()) {
+                opSuffix = opSuffix.replace(FilterMarshaller.SUFFIX_SEPARATOR, "");
+                if (opSuffix.equalsIgnoreCase(cleansedSuffix)) {
                     return operator;
                 }
             }
@@ -83,9 +84,9 @@ public enum FilterOperator implements SDKEnum {
         if (symbol == null) {
             return getDefault();
         }
-        symbol = symbol.trim();
-        for (FilterOperator operator : values()) {
-            if (operator.getSymbol().equalsIgnoreCase(symbol)) {
+        final String trimmedSymbol = symbol.trim();
+        for (final FilterOperator operator : values()) {
+            if (operator.getSymbol().equalsIgnoreCase(trimmedSymbol)) {
                 return operator;
             }
         }

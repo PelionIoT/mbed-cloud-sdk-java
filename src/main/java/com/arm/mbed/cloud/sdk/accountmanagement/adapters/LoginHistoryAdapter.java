@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 
 @Preamble(description = "Adapter for login history model")
-public class LoginHistoryAdapter {
+public final class LoginHistoryAdapter {
 
     private LoginHistoryAdapter() {
         super();
@@ -19,9 +19,8 @@ public class LoginHistoryAdapter {
         if (history == null) {
             return null;
         }
-        LoginHistory logingHistory = new LoginHistory(TranslationUtils.toDate(history.getDate()),
-                history.getUserAgent(), history.getIpAddress(), TranslationUtils.toBool(history.getSuccess(), false));
-        return logingHistory;
+        return new LoginHistory(TranslationUtils.toDate(history.getDate()), history.getUserAgent(),
+                history.getIpAddress(), TranslationUtils.toBool(history.getSuccess(), false));
     }
 
     public static Mapper<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory, LoginHistory> getMapper() {

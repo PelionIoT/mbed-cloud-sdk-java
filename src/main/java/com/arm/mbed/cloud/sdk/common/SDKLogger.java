@@ -10,37 +10,42 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class SDKLogger {
 
-    private static final Logger logger = LoggerFactory.getLogger("Arm Mbed Cloud SDK");
+    private static final Logger LOGGER = LoggerFactory.getLogger("Arm Mbed Cloud SDK");
+
+    public static SDKLogger getLogger() {
+        return SDKLoggerHolder.INSTANCE;
+    }
 
     public SDKLogger() {
         super();
     }
 
     public void logInfo(String message) {
-        logger.info(message);
+        LOGGER.info(message);
     }
 
     public void logDebug(String message) {
-        logger.debug(message);
+        LOGGER.debug(message);
     }
 
     public void logError(String message) {
-        logger.error(message);
+        LOGGER.error(message);
     }
 
     public void logError(String message, Throwable e) {
-        String exceptionString = (e == null) ? "Unknown Reason"
-                : (e.getMessage() == null) ? "An exception [" + e.toString() + "] was raised"
-                        : e.getMessage() + ((e.getCause() == null) ? "" : ". Cause: " + e.getCause());
-        logger.error(message + ". Reason: " + exceptionString);
+        final String exceptionString = e == null ? "Unknown Reason"
+                : e.getMessage() == null ? "An exception [" + e.toString() + "] was raised"
+                        : e.getMessage() + (e.getCause() == null ? "" : ". Cause: " + e.getCause());
+        LOGGER.error(message + ". Reason: " + exceptionString);
     }
 
     public void logWarn(String message) {
-        logger.warn(message);
+        LOGGER.warn(message);
     }
 
-    public void throwSDKException(Exception e) throws MbedCloudException {
-        throwCloudException((e instanceof MbedCloudException) ? (MbedCloudException) e : new MbedCloudException(e));
+    public void throwSDKException(Exception exception) throws MbedCloudException {
+        throwCloudException(exception instanceof MbedCloudException ? (MbedCloudException) exception
+                : new MbedCloudException(exception));
     }
 
     public void throwSDKException(String message, Exception cause) throws MbedCloudException {
@@ -51,8 +56,12 @@ public class SDKLogger {
         throwCloudException(new MbedCloudException(message));
     }
 
-    private void throwCloudException(MbedCloudException ex) throws MbedCloudException {
-        logError(ex.getMessage(), ex.getCause());
-        throw ex;
+    private void throwCloudException(MbedCloudException exception) throws MbedCloudException {
+        logError(exception.getMessage(), exception.getCause());
+        throw exception;
+    }
+
+    private static class SDKLoggerHolder {
+        public final static SDKLogger INSTANCE = new SDKLogger();
     }
 }

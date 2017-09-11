@@ -37,13 +37,13 @@ public class GenericAdapter {
         if (respList == null || mapper == null) {
             return null;
         }
-        ListResponse<T> responseList = new ListResponse<>(TranslationUtils.toBool(respList.getHasMore(), false),
+        final ListResponse<T> responseList = new ListResponse<>(TranslationUtils.toBool(respList.getHasMore(), false),
                 TranslationUtils.toInt(respList.getTotalCount()), respList.getAfter(),
                 TranslationUtils.toInt(respList.getLimit()), Order.getOrder(respList.getOrder()));
         if (respList.getData() == null || respList.getData().isEmpty()) {
             return responseList;
         }
-        for (U resp : respList.getData()) {
+        for (final U resp : respList.getData()) {
             responseList.addData(mapper.map(resp));
         }
         return responseList;
@@ -61,7 +61,7 @@ public class GenericAdapter {
         if (list == null || mapper == null) {
             return mappedList;
         }
-        for (U element : list) {
+        for (final U element : list) {
             mappedList.add(mapper.map(element));
         }
         return mappedList;

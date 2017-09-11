@@ -21,11 +21,11 @@ public class ApiUtils {
         if (stringToConvert == null || stringToConvert.isEmpty()) {
             return stringToConvert;
         }
-        StringBuffer sb = new StringBuffer();
+        final StringBuffer sb = new StringBuffer();
         boolean start = true;
-        for (String s : stringToConvert.split("_")) {
+        for (final String s : stringToConvert.split("_")) {
             if (start) {
-                sb.append((capitalAtStart) ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
+                sb.append(capitalAtStart ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
                 start = false;
             } else {
                 sb.append(Character.toUpperCase(s.charAt(0)));

@@ -14,7 +14,7 @@ import com.arm.mbed.cloud.sdk.update.model.FirmwareManifest;
 
 @Preamble(description = "Adapter for firmware manifest model")
 @Internal
-public class FirmwareManifestAdapter {
+public final class FirmwareManifestAdapter {
 
     private FirmwareManifestAdapter() {
         super();
@@ -24,7 +24,7 @@ public class FirmwareManifestAdapter {
         if (manifest == null) {
             return null;
         }
-        FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
+        final FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
                 TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
                 ManifestContentsAdapter.map(manifest.getManifestContents()), manifest.getDatafileChecksum(),
                 TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
@@ -50,7 +50,7 @@ public class FirmwareManifestAdapter {
     public static ListResponse<FirmwareManifest> mapList(FirmwareManifestPage list) {
 
         final FirmwareManifestPage imageList = list;
-        RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+        final RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
 
             @Override
             public Boolean getHasMore() {

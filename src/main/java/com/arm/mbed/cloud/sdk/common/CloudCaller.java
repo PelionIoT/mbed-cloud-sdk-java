@@ -20,16 +20,16 @@ import retrofit2.Response;
 @Internal
 public class CloudCaller<T, U> {
 
-    public interface CloudCall<T> {
-        Call<T> call();
-    }
-
     private final CloudCall<T> caller;
     private final Mapper<T, U> mapper;
     private final SDKLogger logger;
     private final String apiName;
     private final boolean storeMetadata;
     private final AbstractAPI module;
+
+    public interface CloudCall<T> {
+        Call<T> call();
+    }
 
     private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractAPI module,
             boolean storeMetada) {
@@ -60,8 +60,8 @@ public class CloudCaller<T, U> {
     public CallFeedback<U> execute() throws MbedCloudException {
         try {
             logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
-            Response<T> response = caller.call().execute();
-            CallFeedback<U> comms = new CallFeedback<>(logger);
+            final Response<T> response = caller.call().execute();
+            final CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
                 storeApiMetadata(comms.getMetadata());
@@ -101,8 +101,8 @@ public class CloudCaller<T, U> {
             }
             logger.throwSDKException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    (error != null) ? new MbedCloudException(error.toString())
-                            : (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+                    error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
+                            : new MbedCloudException(error.toString()));
         }
     }
 
@@ -177,16 +177,16 @@ public class CloudCaller<T, U> {
             if (response == null) {
                 return null;
             }
-            ApiMetadata callMetadata = new ApiMetadata();
+            final ApiMetadata callMetadata = new ApiMetadata();
 
-            Request request = response.raw().request();
+            final Request request = response.raw().request();
             if (request != null) {
                 callMetadata.setMethod(request.method());
                 callMetadata.setUrl(request.url().url());
             }
 
             callMetadata.setStatusCode(response.code());
-            Headers headers = response.headers();
+            final Headers headers = response.headers();
             if (headers != null) {
                 callMetadata.setHeaders(headers.toMultimap());
                 callMetadata.setRequestId(headers.get("x-request-id"));
@@ -197,7 +197,7 @@ public class CloudCaller<T, U> {
                     callMetadata.setDate(new Date());
                 }
             }
-            T body = response.body();
+            final T body = response.body();
             if (body != null) {
                 callMetadata.setObject(body.getClass());
                 callMetadata.setEtag(fetchEtagField(body));
@@ -207,9 +207,9 @@ public class CloudCaller<T, U> {
 
         private <T> String fetchEtagField(T body) {
             try {
-                Method getEtagMethod = body.getClass().getMethod("getEtag");
+                final Method getEtagMethod = body.getClass().getMethod("getEtag");
                 if (getEtagMethod != null) {
-                    Object etag = getEtagMethod.invoke(body);
+                    final Object etag = getEtagMethod.invoke(body);
                     return (etag == null) ? null : (etag instanceof String) ? (String) etag : etag.toString();
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException

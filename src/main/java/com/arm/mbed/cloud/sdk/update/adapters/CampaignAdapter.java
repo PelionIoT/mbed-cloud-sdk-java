@@ -23,7 +23,7 @@ import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 
 @Preamble(description = "Adapter for campaign model")
 @Internal
-public class CampaignAdapter {
+public final class CampaignAdapter {
     public static final FilterMarshaller FILTERS_MARSHALLER = getFilterMarshaller();
 
     private CampaignAdapter() {
@@ -31,7 +31,7 @@ public class CampaignAdapter {
     }
 
     private static FilterMarshaller getFilterMarshaller() {
-        Map<String, String> filterMapping = new HashMap<>(4);
+        final Map<String, String> filterMapping = new HashMap<>(4);
         filterMapping.put("finishedAt", "finished");
         filterMapping.put("manifestId", "root_manifest_id");
         filterMapping.put("manifestUrl", "root_manifest_url");
@@ -43,9 +43,9 @@ public class CampaignAdapter {
         if (campaign == null) {
             return null;
         }
-        Campaign updateCampaign = new Campaign(campaign.getId(), TranslationUtils.toUrl(campaign.getRootManifestUrl()),
-                TranslationUtils.toDate(campaign.getCreatedAt()), TranslationUtils.toDate(campaign.getStartedAt()),
-                TranslationUtils.toDate(campaign.getFinished()));
+        final Campaign updateCampaign = new Campaign(campaign.getId(),
+                TranslationUtils.toUrl(campaign.getRootManifestUrl()), TranslationUtils.toDate(campaign.getCreatedAt()),
+                TranslationUtils.toDate(campaign.getStartedAt()), TranslationUtils.toDate(campaign.getFinished()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());
@@ -70,7 +70,7 @@ public class CampaignAdapter {
         if (campaign == null) {
             return null;
         }
-        UpdateCampaignPostRequest addRequest = new UpdateCampaignPostRequest();
+        final UpdateCampaignPostRequest addRequest = new UpdateCampaignPostRequest();
         addRequest.setDescription(campaign.getDescription());
         addRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         addRequest.setName(campaign.getName());
@@ -84,7 +84,7 @@ public class CampaignAdapter {
         if (campaign == null) {
             return null;
         }
-        UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
+        final UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
         updateRequest.setDescription(campaign.getDescription());
         updateRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         updateRequest.setName(campaign.getName());
@@ -195,7 +195,7 @@ public class CampaignAdapter {
     public static ListResponse<Campaign> mapList(UpdateCampaignPage list) {
 
         final UpdateCampaignPage campaignList = list;
-        RespList<UpdateCampaign> respList = new RespList<UpdateCampaign>() {
+        final RespList<UpdateCampaign> respList = new RespList<UpdateCampaign>() {
 
             @Override
             public Boolean getHasMore() {
