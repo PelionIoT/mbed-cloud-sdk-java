@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 
 @Preamble(description = "Group")
 public class Group implements SDKModel {
+    private static final String ZERO = "0";
     /**
      * 
      */
@@ -28,12 +29,12 @@ public class Group implements SDKModel {
     /**
      * The number of users in this group.
      */
-    @DefaultValue(value = "0")
+    @DefaultValue(value = ZERO)
     private final long userCount;
     /**
      * The number of API keys in this group.
      */
-    @DefaultValue(value = "0")
+    @DefaultValue(value = ZERO)
     private final long apiKeyCount;
     /**
      * Creation time.
@@ -43,12 +44,12 @@ public class Group implements SDKModel {
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
-    @DefaultValue(value = "0")
+    @DefaultValue(value = ZERO)
     private final long creationTime;
     /**
      * A timestamp of the latest group update, in milliseconds.
      */
-    @DefaultValue(value = "0")
+    @DefaultValue(value = ZERO)
     private final long lastUpdateTime;
 
     @Internal
