@@ -41,6 +41,7 @@ compile:
     - mkdir ${PROJECT_ARTIFACTS}
     - mkdir ${PROJECT_REPORTS}
   override:
+    - if [ -e ./gradlew ]; then ./gradlew jar;else gradle jar;fi
     - if [ -e ./gradlew ]; then ./gradlew dependencyLicenseReport;else gradle dependencyLicenseReport;fi
     - cp -r ${BUILD_LICENSING}/* ${SRC_DIST}/
     - rm -rf ${SRC_LICENSING}/*.jar 
