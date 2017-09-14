@@ -10,7 +10,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
@@ -36,14 +36,14 @@ public class NotificationCache {
 
     private static final int CACHE_INITIAL_CAPACITY = 10;
 
-    private final AbstractAPI api;
+    private final AbstractApi api;
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
     // private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
 
-    public NotificationCache(AbstractAPI api, ExecutorService pullingThread, EndPoints endpoint) {
+    public NotificationCache(AbstractApi api, ExecutorService pullingThread, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);

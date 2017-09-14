@@ -16,7 +16,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -40,7 +40,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for creating and managing accounts, users, groups and API keys in the organisation.
  */
-public class AccountManagement extends AbstractAPI {
+public class AccountManagement extends AbstractApi {
 
     private static final String TAG_USER_UUID = "user UUID";
     private static final String TAG_API_KEY_UUID = "apiKey UUID";
@@ -53,21 +53,22 @@ public class AccountManagement extends AbstractAPI {
     private final EndPoints endpoint;
 
     /**
+     * Account management module constructor.
      * 
      * @param options
-     *            connection options
+     *            connection options @see {@link ConnectionOptions}.
      */
-    public AccountManagement(ConnectionOptions options) {
+    public AccountManagement(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
     }
 
     /**
-     * Gets details of account associated with current API key
+     * Gets details of account associated with current API key.
      * 
-     * @return account details
+     * @return account details.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Account getAccount() throws MbedCloudException {
@@ -81,13 +82,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Updates details of account associated with current API key
+     * Updates details of account associated with current API key.
      * 
      * @param account
-     *            The account object to update
-     * @return updated account
+     *            The account object to update.
+     * @return updated account.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Account updateAccount(@NonNull Account account) throws MbedCloudException {
@@ -103,13 +104,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Lists all API keys according to filter options
+     * Lists all API keys according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of API keys corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of API keys corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<ApiKey> listApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
@@ -128,13 +129,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all API keys according to filter options
+     * Gets an iterator over all API keys according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of API keys corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of API keys corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
@@ -149,13 +150,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Get details of an API key
+     * Get details of an API key.
      * 
      * @param apiKeyId
-     *            The API key ID (if not specified, returns current API key)
-     * @return the API key
+     *            The API key ID (if not specified, returns current API key).
+     * @return the API key.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ApiKey getApiKey(@NonNull String apiKeyId) throws MbedCloudException {
@@ -172,13 +173,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Adds an API key
+     * Adds an API key.
      * 
      * @param apiKey
-     *            The API key to add
-     * @return added API Key
+     *            The API key to add.
+     * @return added API Key.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @NonNull ApiKey addApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
@@ -194,13 +195,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Updates an API key
+     * Updates an API key.
      * 
      * @param apiKey
-     *            The API key to update
-     * @return updated API key
+     *            The API key to update.
+     * @return updated API key.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
@@ -218,12 +219,12 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Deletes an API key
+     * Deletes an API key.
      * 
      * @param apiKeyId
-     *            The API key ID
+     *            The API key ID.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteApiKey(@NonNull String apiKeyId) throws MbedCloudException {
@@ -239,13 +240,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Lists users according to filter options
+     * Lists users according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return list of users (One page)
+     *            filter options.
+     * @return list of users (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<User> listUsers(@Nullable UserListOptions options) throws MbedCloudException {
@@ -262,16 +263,16 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all users according to filter options
+     * Gets an iterator over all users according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of users corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of users corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<User> listAllApiKeys(@Nullable UserListOptions options) throws MbedCloudException {
+    public @Nullable Paginator<User> listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
         final UserListOptions finalOptions = options;
         return new Paginator<>(new PageRequester<User>() {
 
@@ -283,13 +284,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets details about a user
+     * Gets details about a user.
      * 
      * @param userId
-     *            The user ID
-     * @return a user
+     *            The user ID.
+     * @return a user.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable User getUser(@NonNull String userId) throws MbedCloudException {
@@ -305,13 +306,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Adds a user
+     * Adds a user.
      * 
      * @param user
-     *            User to add
-     * @return added user
+     *            User to add.
+     * @return added user.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @NonNull User addUser(@NonNull User user) throws MbedCloudException {
@@ -327,13 +328,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Updates a user
+     * Updates a user.
      * 
      * @param user
-     *            User to update
-     * @return updated user
+     *            User to update.
+     * @return updated user.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable User updateUser(@NonNull User user) throws MbedCloudException {
@@ -350,12 +351,12 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Deletes a user
+     * Deletes a user.
      * 
      * @param userId
-     *            The user ID of the user to delete
+     *            The user ID of the user to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteUser(@NonNull String userId) throws MbedCloudException {
@@ -371,13 +372,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Lists available groups depending on filter options
+     * Lists available groups depending on filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of groups corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of groups corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<Group> listGroups(@Nullable ListOptions options) throws MbedCloudException {
@@ -393,13 +394,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all available groups depending on filter options
+     * Gets an iterator over all available groups depending on filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the groups corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the groups corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<Group> listAllGroups(@Nullable ListOptions options) throws MbedCloudException {
@@ -414,13 +415,13 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Get details of a group
+     * Get details of a group.
      * 
      * @param groupId
-     *            The group ID to look for
-     * @return corresponding group
+     *            The group ID to look for.
+     * @return corresponding group.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Group getGroup(@NonNull String groupId) throws MbedCloudException {
@@ -436,15 +437,15 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Lists users of a group
+     * Lists users of a group.
      *
      * @param groupId
-     *            The group ID
+     *            The group ID.
      * @param options
-     *            filter options
-     * @return The list of users corresponding to groupId and filter options (One page)
+     *            filter options.
+     * @return The list of users corresponding to groupId and filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
@@ -465,15 +466,15 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all users of a group
+     * Gets an iterator over all users of a group.
      *
      * @param groupId
-     *            The group ID of the group
+     *            The group ID of the group.
      * @param options
-     *            filter options
-     * @return paginator for the list of users corresponding to groupId and filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of users corresponding to groupId and filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
@@ -490,15 +491,15 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Lists API keys of a group
+     * Lists API keys of a group.
      * 
      * @param groupId
-     *            The group ID of the group
+     *            The group ID of the group.
      * @param options
-     *            filter options
-     * @return The list of API keys corresponding to groupId and filter options (One page)
+     *            filter options.
+     * @return The list of API keys corresponding to groupId and filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
@@ -519,15 +520,15 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all API keys of a group
+     * Gets an iterator over all API keys of a group.
      *
      * @param groupId
-     *            The group ID of the group
+     *            The group ID of the group.
      * @param options
-     *            filter options
-     * @return paginator for the list of API keys corresponding to groupId and filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of API keys corresponding to groupId and filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
@@ -544,9 +545,9 @@ public class AccountManagement extends AbstractAPI {
     }
 
     /**
-     * Retrieves module name
+     * Retrieves module name.
      * 
-     * @return module name
+     * @return module name.
      */
     @Override
     public String getModuleName() {

@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -38,7 +38,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with devices
  */
-public class DeviceDirectory extends AbstractAPI {
+public class DeviceDirectory extends AbstractApi {
 
     private static final String TAG_DEVICE_EVENT_ID = "deviceEventId";
     private static final String TAG_QUERY = "query";
@@ -47,19 +47,25 @@ public class DeviceDirectory extends AbstractAPI {
     private static final String TAG_DEVICE = "device";
     private final EndPoints endpoint;
 
-    public DeviceDirectory(ConnectionOptions options) {
+    /**
+     * Device directory module constructor.
+     * 
+     * @param options
+     *            connection options @see {@link ConnectionOptions}.
+     */
+    public DeviceDirectory(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
     }
 
     /**
-     * Lists all devices according to filter options
+     * Lists all devices according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of devices corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of devices corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<Device> listDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
@@ -77,13 +83,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all devices according to filter options
+     * Gets an iterator over all devices according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of devices corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
@@ -98,13 +104,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets details of a device
+     * Gets details of a device.
      * 
      * @param deviceId
-     *            Device ID
-     * @return device corresponding to the device id or null if not found
+     *            Device ID.
+     * @return device corresponding to the device id or null if not found.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Device getDevice(@NonNull String deviceId) throws MbedCloudException {
@@ -120,13 +126,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Adds a device
+     * Adds a device.
      * 
      * @param device
-     *            Device details
-     * @return added device
+     *            Device details.
+     * @return added device.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Device addDevice(@NonNull Device device) throws MbedCloudException {
@@ -142,13 +148,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Updates a device
+     * Updates a device.
      * 
      * @param device
-     *            Device details
-     * @return updated device
+     *            Device details.
+     * @return updated device.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Device updateDevice(@NonNull Device device) throws MbedCloudException {
@@ -166,12 +172,12 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Deletes a device
+     * Deletes a device.
      * 
      * @param deviceId
-     *            Device ID of the device to delete
+     *            Device ID of the device to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteDevice(@NonNull String deviceId) throws MbedCloudException {
@@ -188,13 +194,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Lists all queries according to filter options
+     * Lists all queries according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of queries corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of queries corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<Query> listQueries(@Nullable QueryListOptions options) throws MbedCloudException {
@@ -212,13 +218,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all queries according to filter options
+     * Gets an iterator over all queries according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of queries corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of queries corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<Query> listAllQueries(@Nullable QueryListOptions options) throws MbedCloudException {
@@ -233,13 +239,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets a query
+     * Gets a query.
      * 
      * @param queryId
-     *            Query ID
-     * @return query corresponding to the device id or null if not found
+     *            Query ID.
+     * @return query corresponding to the device id or null if not found.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Query getQuery(@NonNull String queryId) throws MbedCloudException {
@@ -255,13 +261,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Adds a query
+     * Adds a query.
      * 
      * @param query
-     *            the query to add
-     * @return added query
+     *            the query to add.
+     * @return added query.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Query addQuery(@NonNull Query query) throws MbedCloudException {
@@ -277,13 +283,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Updates a query
+     * Updates a query.
      * 
      * @param query
-     *            The query to update
-     * @return updated query
+     *            The query to update.
+     * @return updated query.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Query updateQuery(@NonNull Query query) throws MbedCloudException {
@@ -301,12 +307,12 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Deletes a query
+     * Deletes a query.
      * 
      * @param queryId
-     *            query ID of the query to delete
+     *            query ID of the query to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteQuery(@NonNull String queryId) throws MbedCloudException {
@@ -323,13 +329,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Lists all device events according to filter options
+     * Lists all device events according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of device events corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of device events corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<DeviceEvent> listDeviceEvents(@Nullable DeviceEventListOptions options)
@@ -350,13 +356,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all device events according to filter options
+     * Gets an iterator over all device events according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of device events corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of device events corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<DeviceEvent> listAllDeviceEvents(@Nullable DeviceEventListOptions options)
@@ -372,13 +378,13 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Gets a single device event
+     * Gets a single device event.
      * 
      * @param deviceEventId
-     *            Device event ID
-     * @return device event corresponding to the device event id or null if not found
+     *            Device event ID.
+     * @return device event corresponding to the device event id or null if not found.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable DeviceEvent getDeviceEvent(@NonNull String deviceEventId) throws MbedCloudException {
@@ -395,9 +401,9 @@ public class DeviceDirectory extends AbstractAPI {
     }
 
     /**
-     * Retrieves module name
+     * Retrieves module name.
      * 
-     * @return module name
+     * @return module name.
      */
     @Override
     public String getModuleName() {

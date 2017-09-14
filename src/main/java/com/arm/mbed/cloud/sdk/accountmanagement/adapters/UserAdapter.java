@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
@@ -17,12 +18,20 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
+@Internal
 public final class UserAdapter {
 
     private UserAdapter() {
         super();
     }
 
+    /**
+     * Maps user.
+     * 
+     * @param apiUser
+     *            user to map.
+     * @return mapped user.
+     */
     public static User map(UserInfoResp apiUser) {
         if (apiUser == null) {
             return null;
@@ -47,6 +56,11 @@ public final class UserAdapter {
 
     }
 
+    /**
+     * Gets user mapper.
+     * 
+     * @return user mapper.
+     */
     public static Mapper<UserInfoResp, User> getMapper() {
         return new Mapper<UserInfoResp, User>() {
 
@@ -58,6 +72,13 @@ public final class UserAdapter {
         };
     }
 
+    /**
+     * Reverses user mapping for a new user.
+     * 
+     * @param user
+     *            to map.
+     * @return new user request.
+     */
     public static UserInfoReq reverseMapAdd(User user) {
         if (user == null) {
             return null;
@@ -73,6 +94,13 @@ public final class UserAdapter {
         return userInfo;
     }
 
+    /**
+     * Reverses user mapping for a user to update.
+     * 
+     * @param user
+     *            to update.
+     * @return related update request.
+     */
     public static UserUpdateReq reverseMapUpdate(User user) {
         if (user == null) {
             return null;
@@ -88,6 +116,13 @@ public final class UserAdapter {
         return userUpdate;
     }
 
+    /**
+     * Maps list of users.
+     * 
+     * @param list
+     *            of users to map.
+     * @return list of users.
+     */
     public static ListResponse<User> mapList(UserInfoRespList list) {
 
         final UserInfoRespList userList = list;
@@ -126,6 +161,11 @@ public final class UserAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper.
+     */
     public static Mapper<UserInfoRespList, ListResponse<User>> getListMapper() {
         return new Mapper<UserInfoRespList, ListResponse<User>>() {
 

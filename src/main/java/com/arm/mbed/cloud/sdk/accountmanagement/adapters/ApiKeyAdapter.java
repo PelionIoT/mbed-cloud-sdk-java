@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyStatus;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
@@ -17,12 +18,20 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 
 @Preamble(description = "Adapter for API key model")
+@Internal
 public final class ApiKeyAdapter {
 
     private ApiKeyAdapter() {
         super();
     }
 
+    /**
+     * Maps API keys.
+     * 
+     * @param apiKeyInfo
+     *            an API key.
+     * @return an API Key.
+     */
     public static ApiKey map(ApiKeyInfoResp apiKeyInfo) {
         if (apiKeyInfo == null) {
             return null;
@@ -36,6 +45,11 @@ public final class ApiKeyAdapter {
         return apiKey;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<ApiKeyInfoResp, ApiKey> getMapper() {
         return new Mapper<ApiKeyInfoResp, ApiKey>() {
             @Override
@@ -45,6 +59,13 @@ public final class ApiKeyAdapter {
         };
     }
 
+    /**
+     * Reverses mapping for new API keys.
+     * 
+     * @param apiKey
+     *            an API key.
+     * @return API key addition request.
+     */
     public static ApiKeyInfoReq reverseMapAdd(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
@@ -55,6 +76,13 @@ public final class ApiKeyAdapter {
         return apiKeyInfo;
     }
 
+    /**
+     * Reverses mapping for updated API keys.
+     * 
+     * @param apiKey
+     *            an API key.
+     * @return API key update request.
+     */
     public static ApiKeyUpdateReq reverseMapUpdate(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
@@ -81,6 +109,13 @@ public final class ApiKeyAdapter {
         return status;
     }
 
+    /**
+     * Maps a list of API keys.
+     * 
+     * @param list
+     *            list of API keys.
+     * @return list of API keys.
+     */
     public static ListResponse<ApiKey> mapList(ApiKeyInfoRespList list) {
 
         final ApiKeyInfoRespList apiKeyList = list;
@@ -119,6 +154,11 @@ public final class ApiKeyAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return a list mapper.
+     */
     public static Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>> getListMapper() {
         return new Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>>() {
 

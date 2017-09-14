@@ -16,20 +16,19 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 @Preamble(description = "Account")
 public class Account implements SDKModel {
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = -2328282179161226623L;
 
     /**
-     * Account ID
+     * Account ID.
      */
     private String id;
 
     /**
      * Status of the account.
      */
-    @DefaultValue(value = "SUSPENDED")
-    private AccountStatus status;
+    private final AccountStatus status;
 
     /**
      * The display name for the account.
@@ -46,7 +45,7 @@ public class Account implements SDKModel {
     private String company;
 
     /**
-     * Phone number of the company
+     * Phone number of the company.
      */
     private String phoneNumber;
 
@@ -86,7 +85,7 @@ public class Account implements SDKModel {
      * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
      */
     @DefaultValue(value = "true")
-    private boolean provisioningAllowed;
+    private final boolean provisioningAllowed;
 
     /**
      * List of aliases.
@@ -97,41 +96,128 @@ public class Account implements SDKModel {
      * The tier level of the account; &#39;0&#39;: free tier, commercial account. Other values are reserved for the
      * future.
      */
-    private String tierLevel;
+    private final String tierLevel;
 
     /**
      * Account creation UTC time RFC3339.
      */
     @DefaultValue(value = "now()")
-    private Date createdAt;
+    private final Date createdAt;
     /**
      * Time when upgraded to commercial account in UTC format RFC3339.
      */
     @DefaultValue(value = "now()")
-    private Date upgradedAt;
+    private final Date upgradedAt;
     /**
      * List of limits as key-value pairs if requested.
      */
-    private Map<String, String> limits;
+    private final Map<String, String> limits;
 
     /**
      * Account template ID.
      */
-    private String templateId;
+    private final String templateId;
 
+    /**
+     * Constructor for an account.
+     * <p>
+     * Other constructors are for internal usage only.
+     */
     public Account() {
-        this(null, AccountStatus.getDefault(), null, null, null, null, null, null, null, null, null, null, null, true,
-                null, null, new Date(), new Date(), null, null);
+        this(null, AccountStatus.getDefault(), true, null, new Date(), new Date(), null, null);
     }
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Account()} instead.
+     * 
+     * @param id
+     *            id
+     * @param status
+     *            status
+     * @param provisioningAllowed
+     *            provisioningAllowed
+     * @param tierLevel
+     *            tierLevel
+     * @param createdAt
+     *            createdAt
+     * @param upgradedAt
+     *            upgradedAt
+     * @param limits
+     *            limits
+     * @param templateId
+     *            templateId
+     */
     @Internal
-    public Account(String id, AccountStatus status, String displayName, String contact, String company,
+    public Account(String id, AccountStatus status, boolean provisioningAllowed, String tierLevel, Date createdAt,
+            Date upgradedAt, Map<String, String> limits, String templateId) {
+        this(id, status, null, null, null, null, null, null, null, null, null, null, null, provisioningAllowed, null,
+                tierLevel, createdAt, upgradedAt, limits, templateId);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Account()} instead.
+     * 
+     * @param id
+     *            id
+     * @param status
+     *            status
+     * @param displayName
+     *            displayName
+     * @param contact
+     *            contact
+     * @param company
+     *            company
+     * @param phoneNumber
+     *            phoneNumber
+     * @param postCode
+     *            postCode
+     * @param addressLine1
+     *            addressLine1
+     * 
+     * @param addressLine2
+     *            addressLine2
+     * @param city
+     *            city
+     * @param state
+     *            state
+     * @param country
+     *            country
+     * @param email
+     *            email
+     * @param provisioningAllowed
+     *            provisioningAllowed
+     * @param aliases
+     *            aliases
+     * @param tierLevel
+     *            tierLevel
+     * @param createdAt
+     *            createdAt
+     * @param upgradedAt
+     *            upgradedAt
+     * @param limits
+     *            limits
+     * @param templateId
+     *            templateId
+     */
+    @Internal
+    protected Account(String id, AccountStatus status, String displayName, String contact, String company,
             String phoneNumber, String postCode, String addressLine1, String addressLine2, String city, String state,
             String country, String email, boolean provisioningAllowed, List<String> aliases, String tierLevel,
             Date createdAt, Date upgradedAt, Map<String, String> limits, String templateId) {
         super();
         setId(id);
-        setStatus(status);
+        this.status = status;
+        this.provisioningAllowed = provisioningAllowed;
+        this.tierLevel = tierLevel;
+        this.createdAt = createdAt;
+        this.upgradedAt = upgradedAt;
+        this.limits = limits;
+        this.templateId = templateId;
+        setAliases(aliases);
         setDisplayName(displayName);
         setContact(contact);
         setCompany(company);
@@ -143,31 +229,20 @@ public class Account implements SDKModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-        setProvisioningAllowed(provisioningAllowed);
-        setAliases(aliases);
-        setTierLevel(tierLevel);
-        setCreatedAt(createdAt);
-        setUpgradedAt(upgradedAt);
-        setLimits(limits);
-        setTemplateId(templateId);
     }
 
     /**
-     * @return the status
+     * Gets the status.
+     * 
+     * @return the status.
      */
     public AccountStatus getStatus() {
         return status;
     }
 
     /**
-     * @param status
-     *            the status to set
-     */
-    public void setStatus(AccountStatus status) {
-        this.status = status;
-    }
-
-    /**
+     * Gets the id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -175,6 +250,8 @@ public class Account implements SDKModel {
     }
 
     /**
+     * Sets the id.
+     * 
      * @param id
      *            the id to set
      */
@@ -183,10 +260,12 @@ public class Account implements SDKModel {
     }
 
     /**
-     * similar to setId()
+     * Sets the id.
+     * <p>
+     * Similar to {@link #setId(String)}.
      * 
      * @param id
-     *            the id to set
+     *            the id to set.
      */
     @Internal
     public void setAccountId(String id) {
@@ -194,205 +273,247 @@ public class Account implements SDKModel {
     }
 
     /**
-     * @return the displayName
+     * Gets display name.
+     * 
+     * @return the displayName.
      */
     public String getDisplayName() {
         return displayName;
     }
 
     /**
+     * Sets display name.
+     * 
      * @param displayName
-     *            the displayName to set
+     *            the displayName to set.
      */
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
     }
 
     /**
-     * @return the contact
+     * Gets the contact.
+     * 
+     * @return the contact.
      */
     public String getContact() {
         return contact;
     }
 
     /**
+     * Sets the contact.
+     * 
      * @param contact
-     *            the contact to set
+     *            the contact to set.
      */
     public void setContact(String contact) {
         this.contact = contact;
     }
 
     /**
-     * @return the company
+     * Gets the company.
+     * 
+     * @return the company.
      */
     public String getCompany() {
         return company;
     }
 
     /**
+     * Sets the company.
+     * 
      * @param company
-     *            the company to set
+     *            the company to set.
      */
     public void setCompany(String company) {
         this.company = company;
     }
 
     /**
-     * @return the phoneNumber
+     * Gets the phone number.
+     * 
+     * @return the phoneNumber.
      */
     public String getPhoneNumber() {
         return phoneNumber;
     }
 
     /**
+     * Sets the phone number.
+     * 
      * @param phoneNumber
-     *            the phoneNumber to set
+     *            the phoneNumber to set.
      */
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
     /**
-     * @return the postCode
+     * Gets the post code.
+     * 
+     * @return the postCode.
      */
     public String getPostCode() {
         return postCode;
     }
 
     /**
+     * Sets the post code.
+     * 
      * @param postCode
-     *            the postCode to set
+     *            the postCode to set.
      */
     public void setPostCode(String postCode) {
         this.postCode = postCode;
     }
 
     /**
-     * @return the addressLine1
+     * Gets the first line of the address.
+     * 
+     * @return the addressLine1.
      */
     public String getAddressLine1() {
         return addressLine1;
     }
 
     /**
+     * Sets the first line of the address.
+     * 
      * @param addressLine1
-     *            the addressLine1 to set
+     *            the addressLine1 to set.
      */
     public void setAddressLine1(String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
     /**
-     * @return the addressLine2
+     * Gets the second line of the address.
+     * 
+     * @return the addressLine2.
      */
     public String getAddressLine2() {
         return addressLine2;
     }
 
     /**
+     * Sets the second line of the address.
+     * 
      * @param addressLine2
-     *            the addressLine2 to set
+     *            the addressLine2 to set.
      */
     public void setAddressLine2(String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
     /**
-     * @return the city
+     * Gets the city.
+     * 
+     * @return the city.
      */
     public String getCity() {
         return city;
     }
 
     /**
+     * Sets the city.
+     * 
      * @param city
-     *            the city to set
+     *            the city to set.
      */
     public void setCity(String city) {
         this.city = city;
     }
 
     /**
-     * @return the state
+     * Gets the state (address).
+     * 
+     * @return the state.
      */
     public String getState() {
         return state;
     }
 
     /**
+     * Sets the state (address).
+     * 
      * @param state
-     *            the state to set
+     *            the state to set.
      */
     public void setState(String state) {
         this.state = state;
     }
 
     /**
-     * @return the country
+     * Gets the country.
+     * 
+     * @return the country.
      */
     public String getCountry() {
         return country;
     }
 
     /**
+     * Sets the country.
+     * 
      * @param country
-     *            the country to set
+     *            the country to set.
      */
     public void setCountry(String country) {
         this.country = country;
     }
 
     /**
-     * @return provisioningAllowed states whether provisioning is allowed
+     * States whether provisioning is allowed or not.
+     * 
+     * @return provisioningAllowed states whether provisioning is allowed.
      */
     public boolean isProvisioningAllowed() {
         return provisioningAllowed;
     }
 
     /**
-     * @param provisioningAllowed
-     *            provisioning allowance to set
-     */
-    public void setProvisioningAllowed(boolean provisioningAllowed) {
-        this.provisioningAllowed = provisioningAllowed;
-    }
-
-    /**
-     * @return the email
+     * Gets the email address.
+     * 
+     * @return the email.
      */
     public String getEmail() {
         return email;
     }
 
     /**
+     * Sets the email address.
+     * 
      * @param email
-     *            the email to set
+     *            the email to set.
      */
     public void setEmail(String email) {
         this.email = email;
     }
 
     /**
-     * @return the aliases
+     * Gets account aliases.
+     * 
+     * @return the aliases.
      */
     public List<String> getAliases() {
         return aliases;
     }
 
     /**
+     * Sets account aliases.
+     * 
      * @param aliases
-     *            the aliases to set
+     *            the aliases to set.
      */
     public void setAliases(List<String> aliases) {
         this.aliases = aliases;
     }
 
     /**
-     * Add a new alias to the account
+     * Adds a new alias to the account.
      * 
      * @param alias
-     *            to add
+     *            to add.
      */
     public void addAliases(String alias) {
         if (alias != null && !alias.isEmpty()) {
@@ -404,51 +525,35 @@ public class Account implements SDKModel {
     }
 
     /**
-     * @return the tierLevel
+     * Gets tier level.
+     * 
+     * @return the tierLevel.
      */
     public String getTierLevel() {
         return tierLevel;
     }
 
     /**
-     * @param tierLevel
-     *            the tierLevel to set
-     */
-    public void setTierLevel(String tierLevel) {
-        this.tierLevel = tierLevel;
-    }
-
-    /**
-     * @return the createdAt
+     * Gets when account was created.
+     * 
+     * @return the createdAt.
      */
     public Date getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * @param createdAt
-     *            the createdAt to set
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
-     * @return the upgradedAt
+     * Gets when the account was upgraded.
+     * 
+     * @return the upgradedAt.
      */
     public Date getUpgradedAt() {
         return upgradedAt;
     }
 
     /**
-     * @param upgradedAt
-     *            the upgradedAt to set
-     */
-    public void setUpgradedAt(Date upgradedAt) {
-        this.upgradedAt = upgradedAt;
-    }
-
-    /**
+     * Gets limits.
+     * 
      * @return the limits
      */
     public Map<String, String> getLimits() {
@@ -456,14 +561,8 @@ public class Account implements SDKModel {
     }
 
     /**
-     * @param limits
-     *            the limits to set
-     */
-    public void setLimits(Map<String, String> limits) {
-        this.limits = limits;
-    }
-
-    /**
+     * Gets account template id.
+     * 
      * @return the templateId
      */
     public String getTemplateId() {
@@ -471,15 +570,9 @@ public class Account implements SDKModel {
     }
 
     /**
-     * @param templateId
-     *            the templateId to set
-     */
-    public void setTemplateId(String templateId) {
-        this.templateId = templateId;
-    }
-
-    /*
-     * (non-Javadoc)
+     * Gets a clone.
+     * 
+     * @return a clone of this account.
      * 
      * @see java.lang.Object#clone()
      */

@@ -25,13 +25,13 @@ public class CloudCaller<T, U> {
     private final SDKLogger logger;
     private final String apiName;
     private final boolean storeMetadata;
-    private final AbstractAPI module;
+    private final AbstractApi module;
 
     public interface CloudCall<T> {
         Call<T> call();
     }
 
-    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractAPI module,
+    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
             boolean storeMetada) {
         super();
         this.caller = caller;
@@ -42,17 +42,17 @@ public class CloudCaller<T, U> {
         this.storeMetadata = storeMetada;
     }
 
-    public static <T, U> U call(AbstractAPI module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
             throws MbedCloudException {
         return call(module, functionName, mapper, caller, true);
     }
 
-    public static <T, U> U call(AbstractAPI module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
             boolean storeMetadata) throws MbedCloudException {
         return callWithFeedback(module, functionName, mapper, caller, storeMetadata).getResult();
     }
 
-    public static <T, U> CallFeedback<U> callWithFeedback(AbstractAPI module, String functionName, Mapper<T, U> mapper,
+    public static <T, U> CallFeedback<U> callWithFeedback(AbstractApi module, String functionName, Mapper<T, U> mapper,
             CloudCall<T> caller, boolean storeMetadata) throws MbedCloudException {
         return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata).execute();
     }

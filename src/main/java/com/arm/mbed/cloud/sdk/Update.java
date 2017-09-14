@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -21,8 +21,8 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignAdapter;
-import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.CampaignDeviceStateAdapter;
+import com.arm.mbed.cloud.sdk.update.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareImageAdapter;
 import com.arm.mbed.cloud.sdk.update.adapters.FirmwareManifestAdapter;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
@@ -43,7 +43,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with updates
  */
-public class Update extends AbstractAPI {
+public class Update extends AbstractApi {
 
     private static final String TAG_CAMPAIGN_ID = "campaign id";
     private static final String TAG_CAMPAIGN = "campaign";
@@ -55,19 +55,25 @@ public class Update extends AbstractAPI {
     private static final String TAG_FIRMWARE_IMAGE_ID = "firmwareImageId";
     private final EndPoints endpoint;
 
-    public Update(ConnectionOptions options) {
+    /**
+     * Update module constructor.
+     * 
+     * @param options
+     *            connection options @see {@link ConnectionOptions}.
+     */
+    public Update(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
     }
 
     /**
-     * Lists all firmware images according to filter options
+     * Lists all firmware images according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of firmware images corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of firmware images corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<FirmwareImage> listFirmwareImages(@Nullable FirmwareImageListOptions options)
@@ -88,13 +94,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all firmware images according to filter options
+     * Gets an iterator over all firmware images according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of firmware images corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of firmware images corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<FirmwareImage> listAllFirmwareImages(@Nullable FirmwareImageListOptions options)
@@ -110,13 +116,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets details of a firmware image
+     * Gets details of a firmware image.
      * 
      * @param firmwareImageId
-     *            the firmware image ID
-     * @return firmware image details
+     *            the firmware image ID.
+     * @return firmware image details.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable FirmwareImage getFirmwareImage(@NonNull String firmwareImageId) throws MbedCloudException {
@@ -134,13 +140,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Adds a firmware image
+     * Adds a firmware image.
      * 
      * @param image
-     *            The image to add
-     * @return added image
+     *            The image to add.
+     * @return added image.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable FirmwareImage addFirmwareImage(@NonNull FirmwareImage image) throws MbedCloudException {
@@ -161,12 +167,12 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Deletes a firmware image
+     * Deletes a firmware image.
      * 
      * @param firmwareImageId
-     *            The ID of the firmware image to delete
+     *            The ID of the firmware image to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteFirmwareImage(@NonNull String firmwareImageId) throws MbedCloudException {
@@ -183,13 +189,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Lists all firmware manifests according to filter options
+     * Lists all firmware manifests according to filter options.
      * 
      * @param options
      *            filter options
-     * @return The list of firmware manifests corresponding to filter options (One page)
+     * @return The list of firmware manifests corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<FirmwareManifest> listFirmwareManifests(@Nullable FirmwareManifestListOptions options)
@@ -211,13 +217,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all firmware manifests according to filter options
+     * Gets an iterator over all firmware manifests according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of firmware manifests corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of firmware manifests corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<FirmwareManifest> listAllFirmwareManifests(@Nullable FirmwareManifestListOptions options)
@@ -233,13 +239,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Get details of a firmware manifest
+     * Get details of a firmware manifest.
      * 
      * @param firmwareManifestId
-     *            The firmware manifest ID
-     * @return corresponding firmware manifest
+     *            The firmware manifest ID.
+     * @return corresponding firmware manifest.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable FirmwareManifest getFirmwareManifest(@NonNull String firmwareManifestId)
@@ -258,13 +264,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Adds a firmware manifest
+     * Adds a firmware manifest.
      * 
      * @param manifest
-     *            The manifest to add
-     * @return added manifest
+     *            The manifest to add.
+     * @return added manifest.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable FirmwareManifest addFirmwareManifest(@NonNull FirmwareManifest manifest)
@@ -286,12 +292,12 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Deletes a firmware manifest
+     * Deletes a firmware manifest.
      * 
      * @param firmwareManifestId
-     *            The ID of the firmware manifest to delete
+     *            The ID of the firmware manifest to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteFirmwareManifest(@NonNull String firmwareManifestId) throws MbedCloudException {
@@ -308,13 +314,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Lists all update campaigns according to filter options
+     * Lists all update campaigns according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return The list of update campaigns corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of update campaigns corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<Campaign> listCampaigns(@Nullable CampaignListOptions options)
@@ -335,13 +341,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all update campaigns according to filter options
+     * Gets an iterator over all update campaigns according to filter options.
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of update campaigns corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of update campaigns corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<Campaign> listAllCampaigns(@Nullable CampaignListOptions options)
@@ -357,13 +363,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets details of an update campaign
+     * Gets details of an update campaign.
      * 
      * @param campaignId
-     *            The update campaign ID
-     * @return the update campaign
+     *            The update campaign ID.
+     * @return the update campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Campaign getCampaign(@NonNull String campaignId) throws MbedCloudException {
@@ -380,13 +386,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Adds an update campaign
+     * Adds an update campaign.
      * 
      * @param campaign
-     *            The campaign to add
-     * @return added update campaign
+     *            The campaign to add.
+     * @return added update campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Campaign addCampaign(@NonNull Campaign campaign) throws MbedCloudException {
@@ -403,15 +409,15 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Modifies an update campaign
+     * Modifies an update campaign.
      * 
      * @param campaign
-     *            campaign to modify
+     *            campaign to modify.
      * @param actionName
-     *            name of the modification action
-     * @return modified campaign
+     *            name of the modification action.
+     * @return modified campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @Internal
     private Campaign modifyCampaign(Campaign campaign, String actionName) throws MbedCloudException {
@@ -430,13 +436,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Updates an update campaign
+     * Updates an update campaign.
      * 
      * @param campaign
-     *            The campaign to update
-     * @return updated update campaign
+     *            The campaign to update.
+     * @return updated update campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Campaign updateCampaign(@NonNull Campaign campaign) throws MbedCloudException {
@@ -444,12 +450,12 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Deletes an update campaign
+     * Deletes an update campaign.
      * 
      * @param campaignId
-     *            The ID of the update campaign to delete
+     *            The ID of the update campaign to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteCampaign(@NonNull String campaignId) throws MbedCloudException {
@@ -466,13 +472,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Starts an update campaign
+     * Starts an update campaign.
      * 
      * @param campaignId
-     *            The ID of the update campaign to start
-     * @return the started campaign
+     *            The ID of the update campaign to start.
+     * @return the started campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Campaign startCampaign(@NonNull String campaignId) throws MbedCloudException {
@@ -483,13 +489,13 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Stops an update campaign
+     * Stops an update campaign.
      * 
      * @param campaignId
-     *            The ID of the update campaign to stop
-     * @return the stopped campaign
+     *            The ID of the update campaign to stop.
+     * @return the stopped campaign.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Campaign stopCampaign(@NonNull String campaignId) throws MbedCloudException {
@@ -500,15 +506,15 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Lists campaign devices states
+     * Lists campaign devices states.
      * 
      * @param campaignId
-     *            The ID of the update campaign
+     *            The ID of the update campaign.
      * @param options
-     *            filter options
-     * @return The list of campaign device states corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of campaign device states corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<CampaignDeviceState> listCampaignDeviceStates(@NonNull String campaignId,
@@ -531,15 +537,16 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all campaign device states according to filter options
+     * Gets an iterator over all campaign device states according to filter options.
      * 
      * @param campaignId
-     *            The ID of the update campaign
+     *            The ID of the update campaign.
      * @param options
-     *            filter options
-     * @return paginator for the list of all campaign device states corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of all campaign device states corresponding to filter
+     *         options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<CampaignDeviceState> listAllCampaignDeviceStates(@NonNull String campaignId,
@@ -557,9 +564,9 @@ public class Update extends AbstractAPI {
     }
 
     /**
-     * Retrieves module name
+     * Retrieves module name.
      * 
-     * @return module name
+     * @return module name.
      */
     @Override
     public String getModuleName() {

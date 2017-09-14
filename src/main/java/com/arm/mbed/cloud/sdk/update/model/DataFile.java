@@ -15,7 +15,7 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 @Preamble(description = "Data file")
 public class DataFile implements SDKModel {
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = 2092096356697353992L;
     private static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";

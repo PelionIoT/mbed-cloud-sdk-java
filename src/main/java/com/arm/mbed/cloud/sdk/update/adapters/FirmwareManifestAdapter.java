@@ -26,9 +26,9 @@ public final class FirmwareManifestAdapter {
         }
         final FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
                 TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
-                ManifestContentsAdapter.map(manifest.getManifestContents()), manifest.getDatafileChecksum(),
-                TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
-                TranslationUtils.toDate(manifest.getUpdatedAt()), TranslationUtils.toDate(manifest.getTimestamp()));
+                manifest.getDatafileChecksum(), TranslationUtils.toLong(manifest.getDatafileSize()),
+                TranslationUtils.toDate(manifest.getCreatedAt()), TranslationUtils.toDate(manifest.getUpdatedAt()),
+                TranslationUtils.toDate(manifest.getTimestamp()));
         firmwareManifest.setDataFile(null);
         firmwareManifest.setDescription(manifest.getDescription());
         firmwareManifest.setName(manifest.getName());

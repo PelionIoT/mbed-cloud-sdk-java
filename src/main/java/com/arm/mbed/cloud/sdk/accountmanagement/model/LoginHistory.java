@@ -11,28 +11,42 @@ import com.arm.mbed.cloud.sdk.common.SDKModel;
 public class LoginHistory implements SDKModel {
 
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = -3096297390909097558L;
     /**
-     * Date of login
+     * Date of login.
      */
     @DefaultValue(value = "now()")
     public final Date date;
     /**
-     * User agent used for login
+     * User agent used for login.
      */
     public final String userAgent;
     /**
-     * IP Address login from
+     * IP Address login from.
      */
     public final String ipAddress;
     /**
-     * Whether login was successful
+     * Whether login was successful.
      */
     @DefaultValue(value = "false")
     public final boolean success;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #LoginHistory()} instead.
+     * 
+     * @param date
+     *            date
+     * @param userAgent
+     *            userAgent
+     * @param ipAddress
+     *            ipAddress
+     * @param success
+     *            success
+     */
     @Internal
     public LoginHistory(Date date, String userAgent, String ipAddress, boolean success) {
         super();
@@ -42,41 +56,55 @@ public class LoginHistory implements SDKModel {
         this.success = success;
     }
 
+    /**
+     * Constructor for login history.
+     * <p>
+     * Other constructors are for internal usage only.
+     */
     public LoginHistory() {
         this(new Date(), null, null, false);
     }
 
     /**
-     * @return the date
+     * Gets the date.
+     * 
+     * @return the date.
      */
     public Date getDate() {
         return date;
     }
 
     /**
-     * @return the userAgent
+     * Gets user agent.
+     * 
+     * @return the userAgent.
      */
     public String getUserAgent() {
         return userAgent;
     }
 
     /**
-     * @return the ipAddress
+     * Gets the IP address.
+     * 
+     * @return the ipAddress.
      */
     public String getIpAddress() {
         return ipAddress;
     }
 
     /**
-     * @return the success
+     * States whether login was successful or not.
+     * 
+     * @return the success.
      */
     public boolean isSuccess() {
         return success;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone
      * 
+     * @return a clone.
      * @see java.lang.Object#clone()
      */
     @Override

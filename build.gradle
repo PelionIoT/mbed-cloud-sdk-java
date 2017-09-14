@@ -91,6 +91,16 @@ project(':backends:statistics').javadoc.enabled = false
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+checkstyleMain {
+   reports {
+      xml.enabled true
+      html.enabled true
+   }
 }
 jdepend {
    sourceSets = [sourceSets.main]

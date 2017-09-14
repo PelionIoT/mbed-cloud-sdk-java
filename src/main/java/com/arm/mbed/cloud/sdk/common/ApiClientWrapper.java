@@ -13,6 +13,12 @@ public class ApiClientWrapper {
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
+    /**
+     * Arm Mbed Cloud client.
+     * 
+     * @param options
+     *            connection options @see {@link ConnectionOptions}
+     */
     public ApiClientWrapper(ConnectionOptions options) {
         super();
         this.client = createClient(options);
@@ -34,6 +40,12 @@ public class ApiClientWrapper {
         return DEFAULT_AUTH_NAME + " " + apiKey;
     }
 
+    /**
+     * Set logging level to apply.
+     * 
+     * @param level
+     *            logging level @see {@link CallLogLevel}
+     */
     public void setLogging(CallLogLevel level) {
         final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         HttpLoggingInterceptor.Level logLevel = null;
@@ -59,6 +71,10 @@ public class ApiClientWrapper {
         this.client.getOkBuilder().addInterceptor(interceptor);
     }
 
+    /**
+     * 
+     * @param timeout
+     */
     public void setRequestTimeout(TimePeriod timeout) {
         if (timeout == null) {
             return;

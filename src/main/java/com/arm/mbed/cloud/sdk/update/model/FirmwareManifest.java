@@ -28,10 +28,6 @@ public class FirmwareManifest implements SDKModel {
      */
     private final String deviceClass;
     /**
-     * The contents of the manifest
-     */
-    private final ManifestContents contents;
-    /**
      * The time the object was created
      */
     @DefaultValue(value = "now()")
@@ -70,21 +66,18 @@ public class FirmwareManifest implements SDKModel {
     private DataFile dataFile;
 
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, String datafileChecksum,
-            long datafileSize, Date createdAt, Date updatedAt, Date timestamp) {
-        this(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, null, null, datafileSize,
-                datafileChecksum, null);
+    public FirmwareManifest(String id, URL url, String deviceClass, String datafileChecksum, long datafileSize,
+            Date createdAt, Date updatedAt, Date timestamp) {
+        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, datafileChecksum, null);
     }
 
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, Date createdAt,
-            Date updatedAt, Date timestamp, String name, String description, long datafileSize, String datafileChecksum,
-            DataFile dataFile) {
+    public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
+            String name, String description, long datafileSize, String datafileChecksum, DataFile dataFile) {
         super();
         setId(id);
         this.url = url;
         this.deviceClass = deviceClass;
-        this.contents = contents;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
@@ -96,7 +89,7 @@ public class FirmwareManifest implements SDKModel {
     }
 
     public FirmwareManifest() {
-        this(null, null, null, null, null, 0, new Date(), new Date(), new Date());
+        this(null, null, null, null, 0, new Date(), new Date(), new Date());
     }
 
     /**
@@ -198,13 +191,6 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
-     * @return the contents
-     */
-    public ManifestContents getContents() {
-        return contents;
-    }
-
-    /**
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -232,7 +218,7 @@ public class FirmwareManifest implements SDKModel {
      */
     @Override
     public FirmwareManifest clone() throws CloneNotSupportedException {
-        return new FirmwareManifest(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, name, description,
+        return new FirmwareManifest(id, url, deviceClass, createdAt, updatedAt, timestamp, name, description,
                 datafileSize, datafileChecksum, dataFile);
     }
 
