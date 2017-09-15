@@ -1,10 +1,10 @@
 package com.arm.mbed.cloud.sdk.update.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Device state")
-public enum DeviceState implements SDKEnum {
+public enum DeviceState implements SdkEnum {
 
     PENDING("pending"), UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"), FAILED_CONNECTOR_CHANNEL_UPDATE(
             "failed_connector_channel_update"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved");
@@ -53,7 +53,7 @@ public enum DeviceState implements SDKEnum {
     }
 
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

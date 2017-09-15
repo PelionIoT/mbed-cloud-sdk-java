@@ -7,10 +7,10 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Device model")
-public class Device implements SDKModel {
+public class Device implements SdkModel {
 
     private static final String NULL = "null";
     /**

@@ -1,10 +1,10 @@
 package com.arm.mbed.cloud.sdk.devicedirectory.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The type of channel used to communicate with a device")
-public enum MechanismType implements SDKEnum {
+public enum MechanismType implements SdkEnum {
     CONNECTOR("connector"), DIRECT("direct");
 
     private final String value;
@@ -39,7 +39,7 @@ public enum MechanismType implements SDKEnum {
     }
 
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

@@ -5,10 +5,10 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "This object represents a user login history in Arm Mbed Cloud")
-public class LoginHistory implements SDKModel {
+public class LoginHistory implements SdkModel {
 
     /**
      * Serialisation Id.

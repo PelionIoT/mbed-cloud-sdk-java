@@ -7,7 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -15,7 +15,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Campaign")
-public class Campaign implements SDKModel {
+public class Campaign implements SdkModel {
 
     /**
      * 

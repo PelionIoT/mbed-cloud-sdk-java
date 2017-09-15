@@ -1,10 +1,10 @@
 package com.arm.mbed.cloud.sdk.devicedirectory.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The state of the device")
-public enum DeviceState implements SDKEnum {
+public enum DeviceState implements SdkEnum {
     UNENROLLED("unenrolled"), CLOUD_ENROLLING("cloud_enrolling"), BOOTSTRAPPED("bootstrapped"), REGISTERED(
             "registered"), DEREGISTERED("deregistered");
 
@@ -40,7 +40,7 @@ public enum DeviceState implements SDKEnum {
     }
 
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

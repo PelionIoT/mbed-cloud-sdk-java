@@ -17,7 +17,7 @@ public class TestApiUtils {
     @Test
     public final void testCheckNotNull() {
         Integer test = null;
-        SDKLogger logger = new SDKLogger();
+        SdkLogger logger = new SdkLogger();
         try {
             ApiUtils.checkNotNull(logger, test, "test");
             fail("Check has not worked");

@@ -3,10 +3,10 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Presubscription")
-public class Presubscription implements SDKModel {
+public class Presubscription implements SdkModel {
     /**
      * 
      */

@@ -5,10 +5,10 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Group")
-public class Group implements SDKModel {
+public class Group implements SdkModel {
     private static final String ZERO = "0";
     /**
      * Serialisation Id.
@@ -108,6 +108,8 @@ public class Group implements SDKModel {
     }
 
     /**
+     * Sets the id.
+     * <p>
      * Similar to {@link #setId(String)}.
      * 
      * @param id

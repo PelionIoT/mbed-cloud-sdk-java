@@ -131,7 +131,7 @@ public final class TranslationUtils {
     }
 
     private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
-        SDKLogger.getLogger()
+        SdkLogger.getLogger()
                 .logError("Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, e);
         return defaultDate;
     }
@@ -140,7 +140,7 @@ public final class TranslationUtils {
         try {
             return url == null || url.isEmpty() ? null : new URL(url);
         } catch (MalformedURLException e) {
-            SDKLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null", e);
+            SdkLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null", e);
         }
         return null;
     }

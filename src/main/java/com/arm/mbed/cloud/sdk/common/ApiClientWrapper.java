@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 
@@ -14,7 +15,7 @@ public class ApiClientWrapper {
     private final ConnectionOptions connectionOptions;
 
     /**
-     * Arm Mbed Cloud client.
+     * Arm Mbed Cloud client constructor.
      * 
      * @param options
      *            connection options @see {@link ConnectionOptions}
@@ -27,21 +28,8 @@ public class ApiClientWrapper {
         this.connectionOptions = options;
     }
 
-    private ApiClient createClient(ConnectionOptions options) {
-        final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
-                : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
-        if (!options.isHostEmpty()) {
-            apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
-        }
-        return apiClient;
-    }
-
-    private String formatApiKey(String apiKey) {
-        return DEFAULT_AUTH_NAME + " " + apiKey;
-    }
-
     /**
-     * Set logging level to apply.
+     * Sets logging level to apply.
      * 
      * @param level
      *            logging level @see {@link CallLogLevel}
@@ -72,10 +60,12 @@ public class ApiClientWrapper {
     }
 
     /**
+     * Sets the http request timeout.
      * 
      * @param timeout
+     *            request timeout. By default, retrofit2 default setting is used.
      */
-    public void setRequestTimeout(TimePeriod timeout) {
+    public void setRequestTimeout(@Nullable TimePeriod timeout) {
         if (timeout == null) {
             return;
         }
@@ -87,10 +77,25 @@ public class ApiClientWrapper {
     }
 
     /**
-     * @return the connectionOptions
+     * Gets the connection options used.
+     * 
+     * @return the connectionOptions.
      */
     public ConnectionOptions getConnectionOptions() {
         return connectionOptions;
+    }
+
+    private ApiClient createClient(ConnectionOptions options) {
+        final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
+                : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
+        if (!options.isHostEmpty()) {
+            apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
+        }
+        return apiClient;
+    }
+
+    private String formatApiKey(String apiKey) {
+        return DEFAULT_AUTH_NAME + " " + apiKey;
     }
 
 }

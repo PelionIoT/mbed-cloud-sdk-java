@@ -5,10 +5,10 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Device event model")
-public class DeviceEvent implements SDKModel {
+public class DeviceEvent implements SdkModel {
 
     /**
      * 

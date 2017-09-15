@@ -22,7 +22,7 @@ public class CloudCaller<T, U> {
 
     private final CloudCall<T> caller;
     private final Mapper<T, U> mapper;
-    private final SDKLogger logger;
+    private final SdkLogger logger;
     private final String apiName;
     private final boolean storeMetadata;
     private final AbstractApi module;
@@ -70,7 +70,7 @@ public class CloudCaller<T, U> {
             comms.setResultFromResponse(mapper, response);
             return comms;
         } catch (Exception e) {
-            logger.throwSDKException("An error occurred when calling SDK function [" + apiName + "]", e);
+            logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]", e);
         }
         return null;
     }
@@ -81,7 +81,7 @@ public class CloudCaller<T, U> {
 
     private void checkResponse(Response<T> response, CallFeedback<U> comms) throws MbedCloudException {
         if (response == null) {
-            logger.throwSDKException("An error occurred when calling Arm Mbed Cloud: no response was received");
+            logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
             String errorMessage = null;
@@ -99,7 +99,7 @@ public class CloudCaller<T, U> {
                 }
                 // Nothing to do
             }
-            logger.throwSDKException(
+            logger.throwSdkException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
                     error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
                             : new MbedCloudException(error.toString()));
@@ -120,11 +120,11 @@ public class CloudCaller<T, U> {
     }
 
     public static class CallFeedback<U> {
-        private final SDKLogger logger;
+        private final SdkLogger logger;
         ApiMetadata metadata;
         U result;
 
-        public CallFeedback(SDKLogger logger) {
+        public CallFeedback(SdkLogger logger) {
             super();
             this.logger = logger;
         }

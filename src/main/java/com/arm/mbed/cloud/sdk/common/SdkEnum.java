@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic SDK enum")
 @Internal
-public interface SDKEnum extends Serializable {
+public interface SdkEnum extends Serializable {
     /**
      * States if it corresponds to the default value.
      * 
@@ -35,5 +35,5 @@ public interface SDKEnum extends Serializable {
      * @return the merge of two items.
      */
     @Nullable
-    <T extends SDKEnum> T merge(@Nullable T obj1, @Nullable T obj2);
+    <T extends SdkEnum> T merge(@Nullable T obj1, @Nullable T obj2);
 }

@@ -1,10 +1,10 @@
 package com.arm.mbed.cloud.sdk.update.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "campaign state")
-public enum CampaignState implements SDKEnum {
+public enum CampaignState implements SdkEnum {
 
     DRAFT("draft"), SCHEDULED("scheduled"), DEVICE_FETCH("devicefetch"), DEVICE_COPY("devicecopy"), PUBLISHING(
             "publishing"), DEPLOYING(
@@ -53,7 +53,7 @@ public enum CampaignState implements SDKEnum {
     }
 
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

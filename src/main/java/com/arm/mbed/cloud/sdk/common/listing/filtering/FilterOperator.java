@@ -1,10 +1,10 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Filter operator")
-public enum FilterOperator implements SDKEnum {
+public enum FilterOperator implements SdkEnum {
 
     NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"), EQUAL("equal to", null,
             "$eq"), GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte",
@@ -94,7 +94,7 @@ public enum FilterOperator implements SDKEnum {
     }
 
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

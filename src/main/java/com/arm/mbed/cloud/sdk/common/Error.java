@@ -14,11 +14,22 @@ public class Error {
     private String requestId;
     private List<Field> fields;
 
+    /**
+     * Constructor.
+     */
     public Error() {
         super();
+        setCode(0);
+        setFields(null);
+        setMessage(null);
+        setObject(null);
+        setRequestId(null);
+        setType(null);
     }
 
     /**
+     * Gets the object.
+     * 
      * @return the object
      */
     public String getObject() {
@@ -26,6 +37,8 @@ public class Error {
     }
 
     /**
+     * Sets the object.
+     * 
      * @param object
      *            the object to set
      */
@@ -34,6 +47,8 @@ public class Error {
     }
 
     /**
+     * Gets the error code.
+     * 
      * @return the code
      */
     public int getCode() {
@@ -41,6 +56,8 @@ public class Error {
     }
 
     /**
+     * Sets the error code.
+     * 
      * @param code
      *            the code to set
      */
@@ -49,6 +66,8 @@ public class Error {
     }
 
     /**
+     * Gets the error type.
+     * 
      * @return the type
      */
     public String getType() {
@@ -56,6 +75,8 @@ public class Error {
     }
 
     /**
+     * Sets the error type.
+     * 
      * @param type
      *            the type to set
      */
@@ -64,6 +85,8 @@ public class Error {
     }
 
     /**
+     * Gets the error message.
+     * 
      * @return the message
      */
     public String getMessage() {
@@ -71,6 +94,8 @@ public class Error {
     }
 
     /**
+     * Sets the error message.
+     * 
      * @param message
      *            the message to set
      */
@@ -79,6 +104,8 @@ public class Error {
     }
 
     /**
+     * Gets the request id.
+     * 
      * @return the request_id
      */
     public String getRequestId() {
@@ -86,6 +113,8 @@ public class Error {
     }
 
     /**
+     * Sets the request id.
+     * 
      * @param requestId
      *            the request_id to set
      */
@@ -94,6 +123,8 @@ public class Error {
     }
 
     /**
+     * Gets all the fields containing errors.
+     * 
      * @return the fields
      */
     public List<Field> getFields() {
@@ -101,6 +132,8 @@ public class Error {
     }
 
     /**
+     * Sets all the fields containing errors.
+     * 
      * @param fields
      *            the fields to set
      */
@@ -108,8 +141,8 @@ public class Error {
         this.fields = fields;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * toString.
      * 
      * @see java.lang.Object#toString()
      */
@@ -119,15 +152,23 @@ public class Error {
                 + requestId + ", fields=" + fields + "]";
     }
 
+    @Preamble(description = "Request field in which there is an error")
     public static class Field {
         private String name;
         private String message;
 
+        /**
+         * Constructor.
+         */
         public Field() {
             super();
+            setName(null);
+            setMessage(null);
         }
 
         /**
+         * Gets field name.
+         * 
          * @return the name
          */
         public String getName() {
@@ -135,6 +176,8 @@ public class Error {
         }
 
         /**
+         * Sets field name.
+         * 
          * @param name
          *            the name to set
          */
@@ -143,6 +186,8 @@ public class Error {
         }
 
         /**
+         * Gets field message.
+         * 
          * @return the message
          */
         public String getMessage() {
@@ -150,6 +195,8 @@ public class Error {
         }
 
         /**
+         * Sets field message.
+         * 
          * @param message
          *            the message to set
          */
@@ -157,8 +204,8 @@ public class Error {
             this.message = message;
         }
 
-        /*
-         * (non-Javadoc)
+        /**
+         * toString.
          * 
          * @see java.lang.Object#toString()
          */

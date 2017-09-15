@@ -6,10 +6,10 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "This object represents an API key in Arm Mbed Cloud")
-public class ApiKey implements SDKModel {
+public class ApiKey implements SdkModel {
     /**
      * Serialisation Id.
      */
@@ -149,6 +149,8 @@ public class ApiKey implements SDKModel {
     }
 
     /**
+     * Sets the id.
+     * <p>
      * Similar to {@link #setId(String)}.
      * 
      * @param id

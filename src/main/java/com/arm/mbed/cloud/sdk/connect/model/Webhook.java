@@ -4,10 +4,10 @@ import java.net.URL;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Webhook")
-public class Webhook implements SDKModel {
+public class Webhook implements SdkModel {
     /**
      * 
      */

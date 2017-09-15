@@ -4,17 +4,17 @@
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The status of the account")
-public enum AccountStatus implements SDKEnum {
+public enum AccountStatus implements SdkEnum {
 
     ENROLLING, ACTIVE, SUSPENDED, RESTRICTED;
 
     /**
      * States if it is the default status.
      * 
-     * @see SDKEnum#isDefault()
+     * @see SdkEnum#isDefault()
      */
     @Override
     public boolean isDefault() {
@@ -33,7 +33,7 @@ public enum AccountStatus implements SDKEnum {
     /**
      * Gets string representation.
      * 
-     * @see SDKEnum#getString()
+     * @see SdkEnum#getString()
      */
     @Override
     public String getString() {
@@ -43,10 +43,10 @@ public enum AccountStatus implements SDKEnum {
     /**
      * Merges two items.
      * 
-     * @see SDKEnum#merge(SDKEnum, SDKEnum)
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
      */
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

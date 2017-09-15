@@ -104,7 +104,7 @@ public class NotificationCache {
     public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
             throws MbedCloudException {
         if (!isPullingActive()) {
-            api.getLogger().throwSDKException("startNotifications() needs to be called before setting resource value.");
+            api.getLogger().throwSdkException("startNotifications() needs to be called before setting resource value.");
         }
         final String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
         return fetchAsyncResponse(executor, asyncResponseId);
@@ -124,7 +124,7 @@ public class NotificationCache {
     @SuppressWarnings("null")
     private Future<Object> fetchAsyncResponse(ExecutorService executor, String id) throws MbedCloudException {
         if (executor == null || id == null || id.isEmpty()) {
-            api.getLogger().throwSDKException(new IllegalArgumentException());
+            api.getLogger().throwSdkException(new IllegalArgumentException());
         }
         final String responseId = id;
         return executor.submit(new Callable<Object>() {

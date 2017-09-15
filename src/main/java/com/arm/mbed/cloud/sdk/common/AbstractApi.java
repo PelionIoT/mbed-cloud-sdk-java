@@ -10,7 +10,7 @@ public abstract class AbstractApi {
 
     protected final ApiClientWrapper client;
 
-    protected final SDKLogger logger;
+    protected final SdkLogger logger;
     protected final ApiMetadataCache metadataCache;
 
     /**
@@ -22,7 +22,7 @@ public abstract class AbstractApi {
     public AbstractApi(ConnectionOptions options) {
         super();
         this.client = new ApiClientWrapper(options);
-        logger = new SDKLogger();
+        logger = new SdkLogger();
         metadataCache = new ApiMetadataCache();
     }
 
@@ -33,15 +33,17 @@ public abstract class AbstractApi {
     /**
      * Gets SDK logger.
      * 
+     * @see SdkLogger
      * @return the logger.
      */
-    public SDKLogger getLogger() {
+    public SdkLogger getLogger() {
         return logger;
     }
 
     /**
      * Gets meta data for the last Arm Mbed Cloud API call.
      * 
+     * @see ApiMetadata
      * @return metadata
      */
     @API

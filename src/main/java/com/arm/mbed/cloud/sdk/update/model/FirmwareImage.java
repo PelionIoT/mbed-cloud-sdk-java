@@ -6,10 +6,10 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Firmware Image")
-public class FirmwareImage implements SDKModel {
+public class FirmwareImage implements SdkModel {
     /**
      * 
      */

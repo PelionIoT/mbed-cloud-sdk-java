@@ -12,11 +12,21 @@ public class IncludeField {
         this.str = str;
     }
 
+    /**
+     * Gets field string.
+     * 
+     * @return string representation.
+     */
     @Override
     public String toString() {
         return str;
     }
 
+    /**
+     * Encodes include field to snake case.
+     * 
+     * @return processed string.
+     */
     public String encode() {
         return ApiUtils.convertCamelToSnake(toString());
     }

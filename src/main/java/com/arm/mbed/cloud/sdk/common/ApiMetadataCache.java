@@ -1,8 +1,10 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Cache storing API Metadata")
+@Internal
 public class ApiMetadataCache {
 
     private ApiMetadata lastMetadata;

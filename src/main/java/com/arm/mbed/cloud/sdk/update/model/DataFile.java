@@ -10,10 +10,10 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Data file")
-public class DataFile implements SDKModel {
+public class DataFile implements SdkModel {
     /**
      * Serialisation Id.
      */
@@ -177,8 +177,8 @@ public class DataFile implements SDKModel {
         }
         try (InputStream is = new FileInputStream(file)) {
             return function.determineCheckSum(is);
-        } catch (IOException e) {
-            throw new MbedCloudException(e);
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
         }
     }
 

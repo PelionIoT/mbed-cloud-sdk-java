@@ -301,7 +301,7 @@ public class Connect extends AbstractApi {
                 }
             }, timeout);
         } catch (MbedCloudException exception) {
-            logger.throwSDKException(exception);
+            logger.throwSdkException(exception);
         }
         return null;
     }
@@ -377,7 +377,7 @@ public class Connect extends AbstractApi {
                 }
             }, timeout);
         } catch (MbedCloudException exception) {
-            logger.throwSDKException(exception);
+            logger.throwSdkException(exception);
         }
         return null;
     }
@@ -454,7 +454,7 @@ public class Connect extends AbstractApi {
                 }
             }, timeout);
         } catch (MbedCloudException exception) {
-            logger.throwSDKException(exception);
+            logger.throwSdkException(exception);
         }
         return null;
     }

@@ -11,9 +11,9 @@ public class ApiUtils {
         super();
     }
 
-    public static void checkNotNull(SDKLogger logger, Object arg, String argName) throws MbedCloudException {
+    public static void checkNotNull(SdkLogger logger, Object arg, String argName) throws MbedCloudException {
         if (arg == null) {
-            logger.throwSDKException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
+            logger.throwSdkException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
         }
     }
 

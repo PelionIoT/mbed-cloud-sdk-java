@@ -3,10 +3,10 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Connected device")
-public class ConnectedDevice implements SDKModel {
+public class ConnectedDevice implements SdkModel {
     /**
      * 
      */
