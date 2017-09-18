@@ -6,6 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **endMarket** | **String** | Account end market. | 
 **status** | [**StatusEnum**](#StatusEnum) | The status of the account. | 
+**passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | The password policy for this account. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address. |  [optional]
 **id** | **String** | Account ID. | 
 **aliases** | **List&lt;String&gt;** | An array of aliases. | 

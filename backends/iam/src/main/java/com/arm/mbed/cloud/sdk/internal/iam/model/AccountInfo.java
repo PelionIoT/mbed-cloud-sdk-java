@@ -16,6 +16,7 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.FeaturePolicy;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PasswordPolicy;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -95,6 +96,9 @@ public class AccountInfo implements Serializable {
 
   @SerializedName("status")
   private StatusEnum status = null;
+
+  @SerializedName("password_policy")
+  private PasswordPolicy passwordPolicy = null;
 
   @SerializedName("postal_code")
   private String postalCode = null;
@@ -267,6 +271,24 @@ public class AccountInfo implements Serializable {
 
   public void setStatus(StatusEnum status) {
     this.status = status;
+  }
+
+  public AccountInfo passwordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
+    return this;
+  }
+
+   /**
+   * The password policy for this account.
+   * @return passwordPolicy
+  **/
+  @ApiModelProperty(value = "The password policy for this account.")
+  public PasswordPolicy getPasswordPolicy() {
+    return passwordPolicy;
+  }
+
+  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
   }
 
   public AccountInfo postalCode(String postalCode) {
@@ -778,6 +800,7 @@ public class AccountInfo implements Serializable {
     AccountInfo accountInfo = (AccountInfo) o;
     return Objects.equals(this.endMarket, accountInfo.endMarket) &&
         Objects.equals(this.status, accountInfo.status) &&
+        Objects.equals(this.passwordPolicy, accountInfo.passwordPolicy) &&
         Objects.equals(this.postalCode, accountInfo.postalCode) &&
         Objects.equals(this.id, accountInfo.id) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
@@ -808,7 +831,7 @@ public class AccountInfo implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, status, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contact, policies, templateId);
+    return Objects.hash(endMarket, status, passwordPolicy, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contact, policies, templateId);
   }
 
 
@@ -819,6 +842,7 @@ public class AccountInfo implements Serializable {
     
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
