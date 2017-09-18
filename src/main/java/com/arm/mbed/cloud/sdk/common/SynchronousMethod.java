@@ -18,6 +18,13 @@ public class SynchronousMethod {
 
     @Preamble(description = "Asynchronous method")
     public interface AsynchronousMethod<T> {
+        /**
+         * Gets a future task.
+         * 
+         * @return future task.
+         * @throws MbedCloudException
+         *             if an error happens during submission.
+         */
         Future<T> submit() throws MbedCloudException;
     }
 
@@ -29,6 +36,8 @@ public class SynchronousMethod {
      *            asynchronous method to call.
      * @param timeout
      *            timeout to set. If null, it will wait indefinitely.
+     * @param <T>
+     *            type of the result
      * @return call result
      * @throws MbedCloudException
      *             if an error occurred during the call or the wait.

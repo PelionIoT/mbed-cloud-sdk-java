@@ -11,22 +11,38 @@ public enum DeviceState implements SdkEnum {
 
     private final String value;
 
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
     private DeviceState(String value) {
         this.value = value;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
+     */
     @Override
     public String getString() {
         return value;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * toString
      * 
      * @see java.lang.Enum#toString()
      */
@@ -35,10 +51,22 @@ public enum DeviceState implements SdkEnum {
         return getString();
     }
 
+    /**
+     * Gets default state.
+     * 
+     * @return default state.
+     */
     public static DeviceState getDefault() {
         return PENDING;
     }
 
+    /**
+     * Gets state from its string representation.
+     * 
+     * @param value
+     *            string
+     * @return corresponding state or default state if not recognised.
+     */
     public static DeviceState getState(String value) {
         if (value == null) {
             return getDefault();
@@ -52,6 +80,11 @@ public enum DeviceState implements SdkEnum {
         return getDefault();
     }
 
+    /**
+     * Merges two states.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
     public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {

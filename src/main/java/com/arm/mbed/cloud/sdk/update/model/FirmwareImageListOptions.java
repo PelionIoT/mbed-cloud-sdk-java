@@ -11,17 +11,33 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 
 @Preamble(description = "Options to use when listing firmware images")
 public class FirmwareImageListOptions extends ListOptions {
-
+    /**
+     * Tag of filter by name.
+     */
     public static final String NAME_FILTER = "name";
+    /**
+     * Tag of filter by creation date.
+     */
     public static final String CREATED_AT_FILTER = "createdAt";
+    /**
+     * Tag of filter by last update date.
+     */
     public static final String UPDATED_AT_FILTER = "updatedAt";
+    /**
+     * Tag of filter by file checksum.
+     */
     public static final String CHECKSUM_FILTER = "datafileChecksum";
 
+    /**
+     * Constructor.
+     */
     public FirmwareImageListOptions() {
         super();
     }
 
     /**
+     * Gets device filter based on name field.
+     * 
      * @return the name filter
      */
     public @Nullable List<Filter> getNameFilters() {
@@ -29,6 +45,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on name field.
+     * 
      * @param nameFilter
      *            the name filter to add
      * @param operator
@@ -39,6 +57,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on createdAt field.
+     * 
      * @return the createdAt filter
      */
     public @Nullable List<Filter> getCreatedAtFilters() {
@@ -46,6 +66,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on createdAt field.
+     * 
      * @param createdAtFilter
      *            the createdAt filter to add
      * @param operator
@@ -56,6 +78,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on updatedAt field.
+     * 
      * @return the updatedAt filter
      */
     public @Nullable List<Filter> getUpdatedAtFilters() {
@@ -63,6 +87,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on updatedAt field.
+     * 
      * @param updatedAtFilter
      *            the updatedAt filter to add
      * @param operator
@@ -74,6 +100,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on file checksum field.
+     * 
      * @return the dataFileChecksum filter
      */
     public @Nullable List<Filter> getDataFileChecksumFilters() {
@@ -81,6 +109,8 @@ public class FirmwareImageListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on file checksum field.
+     * 
      * @param dataFileChecksumFilter
      *            the data File Checksum filter to add
      * @param operator

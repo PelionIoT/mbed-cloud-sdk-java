@@ -11,22 +11,38 @@ public enum CampaignState implements SdkEnum {
                     "deploying"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved"), EXPIRED("expired");
     private final String value;
 
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
     private CampaignState(String value) {
         this.value = value;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
+     */
     @Override
     public String getString() {
         return value;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * ToString.
      * 
      * @see java.lang.Enum#toString()
      */
@@ -35,10 +51,22 @@ public enum CampaignState implements SdkEnum {
         return getString();
     }
 
+    /**
+     * Gets default state.
+     * 
+     * @return default state.
+     */
     public static CampaignState getDefault() {
         return DRAFT;
     }
 
+    /**
+     * Gets state from its string representation.
+     * 
+     * @param value
+     *            string
+     * @return corresponding state or default state if not recognised.
+     */
     public static CampaignState getState(String value) {
         if (value == null) {
             return getDefault();
@@ -52,6 +80,11 @@ public enum CampaignState implements SdkEnum {
         return getDefault();
     }
 
+    /**
+     * Merges two states.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
     public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {

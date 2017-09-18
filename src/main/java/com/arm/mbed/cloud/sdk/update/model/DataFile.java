@@ -22,10 +22,21 @@ public class DataFile implements SdkModel {
     private String contentType;
     private File file;
 
+    /**
+     * Constructor.
+     */
     public DataFile() {
         this(null, null);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param contentType
+     *            content type of the file e.g. application/octet-stream
+     * @param file
+     *            file to consider
+     */
     public DataFile(String contentType, File file) {
         super();
         setContentType(contentType);
@@ -33,6 +44,8 @@ public class DataFile implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * <p>
      * Description of a binary file.
      * 
      * @param filePath
@@ -157,8 +170,10 @@ public class DataFile implements SdkModel {
         });
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */

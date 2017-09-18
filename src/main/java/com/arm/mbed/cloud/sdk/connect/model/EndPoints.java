@@ -25,6 +25,12 @@ public class EndPoints {
     private final StatisticsApi statistic;
     private final ConnectionOptions connectionOptions;
 
+    /**
+     * Constructor.
+     * 
+     * @param wrapper
+     *            API client {@link ApiClientWrapper}.
+     */
     public EndPoints(ApiClientWrapper wrapper) {
         super();
         this.connectionOptions = wrapper.getConnectionOptions();
@@ -37,6 +43,12 @@ public class EndPoints {
         this.statistic = initialiseStatistic(wrapper);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}.
+     */
     public EndPoints(ConnectionOptions options) {
         this(new ApiClientWrapper(options));
 
@@ -70,58 +82,34 @@ public class EndPoints {
         return wrapper.createService(SubscriptionsApi.class);
     }
 
-    /**
-     * @return the webhooks
-     */
     public DefaultApi getWebhooks() {
         return webhooks;
     }
 
-    /**
-     * @return the endpoints
-     */
     public EndpointsApi getEndpoints() {
         return endpoint;
     }
 
-    /**
-     * @return the notifications
-     */
     public NotificationsApi getNotifications() {
         return notifications;
     }
 
-    /**
-     * @return the resources
-     */
     public ResourcesApi getResources() {
         return resources;
     }
 
-    /**
-     * @return the subscriptions
-     */
     public SubscriptionsApi getSubscriptions() {
         return subscriptions;
     }
 
-    /**
-     * @return the account
-     */
     public AccountApi getAccount() {
         return account;
     }
 
-    /**
-     * @return the statistic
-     */
     public StatisticsApi getStatistic() {
         return statistic;
     }
 
-    /**
-     * @return the connectionOptions
-     */
     public ConnectionOptions getConnectionOptions() {
         return connectionOptions;
     }

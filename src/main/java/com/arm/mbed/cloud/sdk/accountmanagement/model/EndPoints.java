@@ -26,6 +26,12 @@ public class EndPoints {
         this.admin = initialiseAdmin(wrapper);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}
+     */
     public EndPoints(ConnectionOptions options) {
         this(new ApiClientWrapper(options));
     }
