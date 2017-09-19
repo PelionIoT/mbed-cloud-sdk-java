@@ -8,7 +8,13 @@ public class IncludeField {
 
     private final String str;
 
-    IncludeField(String str) {
+    /**
+     * Constructor.
+     * 
+     * @param str
+     *            field string
+     */
+    public IncludeField(String str) {
         this.str = str;
     }
 

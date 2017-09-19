@@ -12,6 +12,13 @@ public final class WebhookAdapter {
         super();
     }
 
+    /**
+     * Maps a webhook.
+     * 
+     * @param apiWebhook
+     *            webhook to map
+     * @return a webhook
+     */
     public static Webhook map(com.arm.mbed.cloud.sdk.internal.mds.model.Webhook apiWebhook) {
         if (apiWebhook == null) {
             return null;
@@ -22,6 +29,11 @@ public final class WebhookAdapter {
         return webhook;
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook, Webhook>() {
 
@@ -33,6 +45,13 @@ public final class WebhookAdapter {
         };
     }
 
+    /**
+     * Reverses mapping of a new webhook.
+     * 
+     * @param webhook
+     *            new webhook
+     * @return a new webhook request
+     */
     public static com.arm.mbed.cloud.sdk.internal.mds.model.Webhook reverseMap(Webhook webhook) {
         if (webhook == null) {
             return null;

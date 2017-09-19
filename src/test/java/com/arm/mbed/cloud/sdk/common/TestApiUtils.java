@@ -7,6 +7,8 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.Date;
+
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
@@ -31,6 +33,17 @@ public class TestApiUtils {
         } catch (MbedCloudException e) {
             fail("Check has not worked");
         }
+        try {
+            ApiUtils.checkNotNull(new SdkLogger(), new Date(), "now()");
+        } catch (Exception e) {
+            fail("No exception should have been raised");
+        }
+        try {
+            ApiUtils.checkNotNull(logger, null, "test");
+            fail("Check has not worked");
+        } catch (MbedCloudException e) {
+            assertTrue(true);
+        }
 
     }
 
@@ -40,6 +53,8 @@ public class TestApiUtils {
         String testClassString = "this_is_a_class_name";
         assertEquals("thisIsAFunctionName", ApiUtils.convertSnakeToCamel(testfunctionString, false));
         assertEquals("ThisIsAClassName", ApiUtils.convertSnakeToCamel(testClassString, true));
+        assertEquals(null, ApiUtils.convertSnakeToCamel(null, true));
+        assertEquals("", ApiUtils.convertSnakeToCamel("", true));
     }
 
     @Test
@@ -48,6 +63,8 @@ public class TestApiUtils {
         String testClassString = "ThisIsAClassName";
         assertEquals("this_is_a_function_name", ApiUtils.convertCamelToSnake(testfunctionString));
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake(testClassString));
+        assertEquals("", ApiUtils.convertCamelToSnake(""));
+        assertEquals(null, ApiUtils.convertCamelToSnake(null));
     }
 
     @Test

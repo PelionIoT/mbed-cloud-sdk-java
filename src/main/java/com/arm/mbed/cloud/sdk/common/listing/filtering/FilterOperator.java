@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
@@ -21,35 +22,56 @@ public enum FilterOperator implements SdkEnum {
     }
 
     /**
+     * Gets filter suffix.
+     * 
      * @return the suffix
      */
+    @Internal
     public String getSuffix() {
         return suffix;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets default operator.
+     * 
+     * @return default operator.
+     */
     public static FilterOperator getDefault() {
         return EQUAL;
     }
 
     /**
+     * Gets filter symbol.
+     * 
      * @return the symbol
      */
+    @Internal
     public String getSymbol() {
         return symbol;
     }
 
+    /**
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
+     */
     @Override
     public String getString() {
         return string;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets string representation.
      * 
      * @see java.lang.Enum#toString()
      */
@@ -58,6 +80,14 @@ public enum FilterOperator implements SdkEnum {
         return getString();
     }
 
+    /**
+     * Gets a filter from a suffix string.
+     * 
+     * @param suffix
+     *            suffix string
+     * @return corresponding operator. Default operator if unfound.
+     */
+    @Internal
     public static FilterOperator getFromSuffix(String suffix) {
         String cleansedSuffix = suffix;
         if (cleansedSuffix != null) {
@@ -80,6 +110,14 @@ public enum FilterOperator implements SdkEnum {
         return getDefault();
     }
 
+    /**
+     * Gets a filter from a symbol string.
+     * 
+     * @param symbol
+     *            symbol string
+     * @return corresponding operator. Default operator if unfound.
+     */
+    @Internal
     public static FilterOperator getFromSymbol(String symbol) {
         if (symbol == null) {
             return getDefault();
@@ -93,6 +131,11 @@ public enum FilterOperator implements SdkEnum {
         return getDefault();
     }
 
+    /**
+     * Merges two operators.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
     public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {

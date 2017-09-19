@@ -9,12 +9,20 @@ public enum MechanismType implements SdkEnum {
 
     private final String value;
 
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
     private MechanismType(String string) {
         this.value = string;
     }
 
     /**
-     * @return the string
+     * Gets string representation.
+     * 
+     * @see Object#toString()
      */
     @Override
     public String toString() {
@@ -22,22 +30,39 @@ public enum MechanismType implements SdkEnum {
     }
 
     /**
-     * @return the string
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
      */
     @Override
     public String getString() {
         return value;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets default mechanism type.
+     * 
+     * @return default mechanism type.
+     */
     public static MechanismType getDefault() {
         return MechanismType.DIRECT;
     }
 
+    /**
+     * Merges two mechanism types.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
     public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {

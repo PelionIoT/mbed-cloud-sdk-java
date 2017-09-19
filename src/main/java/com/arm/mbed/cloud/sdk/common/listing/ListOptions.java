@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -142,6 +143,22 @@ public class ListOptions {
     }
 
     /**
+     * Adds an include field to consider.
+     * 
+     * @param includeField
+     *            field
+     */
+    public void addInclude(IncludeField includeField) {
+        if (includeField == null) {
+            return;
+        }
+        if (include == null) {
+            setInclude(new LinkedList<IncludeField>());
+        }
+        include.add(includeField);
+    }
+
+    /**
      * Sets include fields.
      * 
      * @see IncludeField
@@ -174,6 +191,7 @@ public class ListOptions {
     /**
      * Sets the filter from a Json string.
      * 
+     * @see FilterMarshaller#fromJson(String) for more information regarding Json accepted format
      * @param jsonString
      *            Json string defining filters
      */
@@ -184,6 +202,7 @@ public class ListOptions {
     /**
      * Gets the filter as Json String.
      * 
+     * @see FilterMarshaller#toJson(Filters) for more information regarding Json filter format
      * @return the filter as a Json string
      */
     public String retrieveFilterAsJson() {

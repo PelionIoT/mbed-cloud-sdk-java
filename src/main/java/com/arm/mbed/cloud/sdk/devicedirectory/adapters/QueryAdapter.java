@@ -24,6 +24,13 @@ public final class QueryAdapter {
         super();
     }
 
+    /**
+     * Maps query.
+     * 
+     * @param deviceQuery
+     *            query to map
+     * @return a map
+     */
     public static Query map(DeviceQuery deviceQuery) {
         if (deviceQuery == null) {
             return null;
@@ -35,6 +42,11 @@ public final class QueryAdapter {
         return query;
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
     public static Mapper<DeviceQuery, Query> getMapper() {
         return new Mapper<DeviceQuery, Query>() {
 
@@ -46,6 +58,13 @@ public final class QueryAdapter {
         };
     }
 
+    /**
+     * Maps a list of query.
+     * 
+     * @param list
+     *            query page.
+     * @return a list of queries
+     */
     public static ListResponse<Query> mapList(DeviceQueryPage list) {
         final DeviceQueryPage queryList = list;
         final RespList<DeviceQuery> respList = new RespList<DeviceQuery>() {
@@ -83,6 +102,11 @@ public final class QueryAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<DeviceQueryPage, ListResponse<Query>> getListMapper() {
         return new Mapper<DeviceQueryPage, ListResponse<Query>>() {
 
@@ -94,6 +118,13 @@ public final class QueryAdapter {
         };
     }
 
+    /**
+     * Reverses mapping of a new query.
+     * 
+     * @param query
+     *            query to add
+     * @return a new query request
+     */
     public static DeviceQueryPostPutRequest reverseMapAdd(Query query) {
         if (query == null) {
             return null;
@@ -104,6 +135,13 @@ public final class QueryAdapter {
         return deviceQuery;
     }
 
+    /**
+     * Reverses mapping of an updated query.
+     * 
+     * @param query
+     *            query to update
+     * @return a query update request
+     */
     public static DeviceQueryPatchRequest reverseMapUpdate(Query query) {
         if (query == null) {
             return null;

@@ -11,50 +11,74 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 public class DeviceEvent implements SdkModel {
 
     /**
-     * 
+     * Serialisation ID.
      */
     private static final long serialVersionUID = 2307075354040045693L;
 
     /**
-     * ID of the event
+     * ID of the event.
      */
     private String id;
     /**
-     * ID of device the event is for
+     * ID of device the event is for.
      */
     private final String deviceId;
     /**
-     * Date and time of the event
+     * Date and time of the event.
      */
     @DefaultValue("now()")
     private final Date eventDate;
     /**
-     * Whether the event changed state
+     * Whether the event changed state.
      */
     @DefaultValue("false")
     private final boolean stateChanged;
     /**
-     * Description of the event
+     * Description of the event.
      */
     private final String description;
     /**
-     * Changes made
+     * Changes made.
      */
     private final Object changes;
     /**
-     * Description of the event type
+     * Description of the event type.
      */
     private final String typeDescription;
     /**
-     * Type of the event
+     * Type of the event.
      */
     private final String type;
 
     /**
-     * Data pertaining to the event
+     * Data pertaining to the event.
      */
     private final Object data;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeviceEvent()} instead.
+     * 
+     * @param id
+     *            id
+     * @param deviceId
+     *            device id
+     * @param eventDate
+     *            event date
+     * @param stateChanged
+     *            state changed
+     * @param description
+     *            description
+     * @param changes
+     *            changes
+     * @param typeDescription
+     *            type description
+     * @param type
+     *            type
+     * @param data
+     *            data
+     */
     @Internal
     public DeviceEvent(String id, String deviceId, Date eventDate, boolean stateChanged, String description,
             Object changes, String typeDescription, String type, Object data) {
@@ -70,11 +94,16 @@ public class DeviceEvent implements SdkModel {
         this.data = data;
     }
 
+    /**
+     * Constructor.
+     */
     public DeviceEvent() {
         this(null, null, new Date(), false, null, null, null, null, null);
     }
 
     /**
+     * Gets id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -82,6 +111,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Sets id.
+     * 
      * @param id
      *            the id to set
      */
@@ -90,6 +121,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets device id.
+     * 
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -97,6 +130,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets event date.
+     * 
      * @return the eventDate
      */
     public Date getEventDate() {
@@ -104,6 +139,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * States whether state has changed.
+     * 
      * @return the stateChanged
      */
     public boolean isStateChanged() {
@@ -111,6 +148,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets description.
+     * 
      * @return the description
      */
     public String getDescription() {
@@ -118,6 +157,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets changes.
+     * 
      * @return the changes
      */
     public Object getChanges() {
@@ -125,6 +166,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets type description.
+     * 
      * @return the typeDescription
      */
     public String getTypeDescription() {
@@ -132,6 +175,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets type.
+     * 
      * @return the type
      */
     public String getType() {
@@ -139,14 +184,18 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
+     * Gets data.
+     * 
      * @return the data
      */
     public Object getData() {
         return data;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */

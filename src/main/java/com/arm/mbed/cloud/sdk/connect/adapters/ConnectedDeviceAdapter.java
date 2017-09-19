@@ -16,6 +16,13 @@ public final class ConnectedDeviceAdapter {
         super();
     }
 
+    /**
+     * Maps an endpoint.
+     * 
+     * @param endpoint
+     *            endpoint
+     * @return a connected device
+     */
     public static ConnectedDevice map(Endpoint endpoint) {
         if (endpoint == null) {
             return null;
@@ -25,6 +32,11 @@ public final class ConnectedDeviceAdapter {
 
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
     public static Mapper<Endpoint, ConnectedDevice> getMapper() {
         return new Mapper<Endpoint, ConnectedDevice>() {
 
@@ -36,10 +48,22 @@ public final class ConnectedDeviceAdapter {
         };
     }
 
+    /**
+     * Maps a list of end points.
+     * 
+     * @param endpoints
+     *            list of end points
+     * @return list of end points
+     */
     public static List<ConnectedDevice> mapList(List<Endpoint> endpoints) {
         return GenericAdapter.mapList(endpoints, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<List<Endpoint>, List<ConnectedDevice>> getListMapper() {
         return new Mapper<List<Endpoint>, List<ConnectedDevice>>() {
 

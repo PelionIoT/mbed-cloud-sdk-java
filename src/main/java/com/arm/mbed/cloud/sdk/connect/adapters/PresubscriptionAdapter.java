@@ -15,6 +15,13 @@ public final class PresubscriptionAdapter {
         super();
     }
 
+    /**
+     * Maps presubscription.
+     * 
+     * @param apiPresubscription
+     *            presubscription to map
+     * @return mapped presubscription
+     */
     public static Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription) {
         if (apiPresubscription == null) {
             return null;
@@ -26,6 +33,13 @@ public final class PresubscriptionAdapter {
         return presubscription;
     }
 
+    /**
+     * Reverses mapping of a presubscription.
+     * 
+     * @param presubscription
+     *            presubscription
+     * @return presubscription
+     */
     public static com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription reverseMap(
             Presubscription presubscription) {
         if (presubscription == null) {
@@ -38,6 +52,11 @@ public final class PresubscriptionAdapter {
         return apiPresubscription;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription>() {
 
@@ -49,6 +68,11 @@ public final class PresubscriptionAdapter {
         };
     }
 
+    /**
+     * Gets reverse mapper.
+     * 
+     * @return reverse mapper
+     */
     public static Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription> getReverseMapper() {
         return new Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription>() {
 
@@ -60,6 +84,13 @@ public final class PresubscriptionAdapter {
         };
     }
 
+    /**
+     * Maps list of presubscriptions.
+     * 
+     * @param list
+     *            of presubscription.
+     * @return list of presubscription
+     */
     public static List<Presubscription> mapList(PresubscriptionArray list) {
         if (list == null) {
             return null;
@@ -67,10 +98,22 @@ public final class PresubscriptionAdapter {
         return GenericAdapter.mapList(list, getMapper());
     }
 
+    /**
+     * Reverses mapping of a list of presubscriptions.
+     * 
+     * @param list
+     *            of presubscription.
+     * @return list of presubscription
+     */
     public static PresubscriptionArray reverseMapList(List<Presubscription> list) {
         return (PresubscriptionArray) GenericAdapter.mapList(list, new PresubscriptionArray(), getReverseMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return a list mapper
+     */
     public static Mapper<PresubscriptionArray, List<Presubscription>> getListMapper() {
         return new Mapper<PresubscriptionArray, List<Presubscription>>() {
 

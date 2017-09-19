@@ -3,14 +3,142 @@ package com.arm.mbed.cloud.sdk.common;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.TimeZone;
+import java.util.concurrent.TimeUnit;
 
+import org.joda.time.DateTime;
 import org.junit.Test;
 
 public class TestTranslationUtils {
+
+    @Test
+    public void testToDateDateTime() {
+        DateTime time = new DateTime(1000);
+        assertEquals(new Date(1000), TranslationUtils.toDate(time));
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testToDateNumberTimeUnit() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(Calendar.MILLISECOND, 0);
+        calendar.set(1971, 0, 1, 0, 0, 0);
+        assertEquals(calendar.getTime(), TranslationUtils.toDate(365, TimeUnit.DAYS));
+        calendar.set(1970, 0, 1, 0, 0, 0);
+        assertEquals(calendar.getTime(), TranslationUtils.toDate(0, TimeUnit.DAYS));
+        calendar.set(1970, 0, 1, 0, 0, 1);
+        assertEquals(calendar.getTime(), TranslationUtils.toDate(1000, TimeUnit.MILLISECONDS));
+        calendar.set(2069, 11, 7, 0, 0, 0);
+        assertEquals(calendar.getTime(), TranslationUtils.toDate(36500, TimeUnit.DAYS));
+    }
+
+    @Test
+    public void testToDateTime() {
+        DateTime time = new DateTime(1000);
+        assertEquals(time, TranslationUtils.toDateTime(new Date(1000)));
+    }
+
+    @Test
+    public void testToDefaultTimestamp() {
+        String timestamp = "11-Aug-2017 18:33:35";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("CET"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        assertEquals(timestamp, TranslationUtils.toDefaultTimestamp(calendar.getTime()));
+    }
+
+    @Test
+    public void testToRFC3339Timestamp() {
+        String timestamp = "2017-08-11T18:33:35+0100";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("CET"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        assertEquals(timestamp, TranslationUtils.toRfc3339Timestamp(calendar.getTime()));
+    }
+
+    @Test
+    public void testConvertTimestampStringDate() {
+        String timestamp = "2017-08-11T19:33:35+0000";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        try {
+            assertEquals(calendar.getTime(), TranslationUtils.convertRfc3339Timestamp(timestamp));
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testConvertRFC3339TimestampStringDate() {
+        String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT"; // timestamp not following RFC
+        Date now = new Date();
+        Date date = TranslationUtils.convertRfc3339Timestamp(timestamp, now);
+        assertEquals(now, date);
+        timestamp = "2017-08-11T19:33:35+0000";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        assertEquals(calendar.getTime(), TranslationUtils.convertRfc3339Timestamp(timestamp, now));
+    }
+
+    @Test
+    public void testConvertTimestampStringDateFormatDate() {
+        String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT";
+        Date now = new Date();
+        Date date = TranslationUtils.convertTimestamp(timestamp, new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"),
+                now);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        assertEquals(calendar.getTime(), date);
+        date = TranslationUtils.convertTimestamp("Fri 11 Aug 2017 19:33:35",
+                new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"), now);
+        assertEquals(now, date);
+    }
+
+    @Test
+    public void testToUrl() {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:80/");
+        } catch (MalformedURLException e) {
+            fail(e.getMessage());
+        }
+        assertEquals(url, TranslationUtils.toUrl("http://localhost:80/"));
+        assertEquals(null, TranslationUtils.toUrl("a+1"));
+    }
+
+    @Test
+    public void testToStringURL() {
+        URL url = null;
+        try {
+            url = new URL("http://localhost:80/");
+        } catch (MalformedURLException e) {
+            fail(e.getMessage());
+        }
+        assertEquals("http://localhost:80/", TranslationUtils.toString(url));
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testConvertToInteger() {
+        assertEquals(1234, (int) TranslationUtils.convertToInteger(" 1234 ", 0));
+        assertEquals(0, (int) TranslationUtils.convertToInteger(" 1p234 ", 0));
+    }
 
     @Test
     public final void testConvertTimestampStringDateFormat() {
@@ -26,6 +154,17 @@ public class TestTranslationUtils {
         calendar.set(2017, 7, 11, 19, 33, 35);
         calendar.set(Calendar.MILLISECOND, 0);
         assertEquals(calendar.getTime(), date);
+    }
+
+    @Test
+    public void testToTimestamp() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+        format.setTimeZone(TimeZone.getTimeZone("GMT"));
+        assertEquals("Fri, 11 Aug 2017 19:33:35 GMT", TranslationUtils.toTimestamp(calendar.getTime(), format));
     }
 
 }

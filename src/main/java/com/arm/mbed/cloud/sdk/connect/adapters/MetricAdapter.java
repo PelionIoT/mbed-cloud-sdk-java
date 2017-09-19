@@ -19,6 +19,13 @@ public final class MetricAdapter {
         super();
     }
 
+    /**
+     * Maps metrics.
+     * 
+     * @param apiMetric
+     *            metrics to map
+     * @return metrics
+     */
     public static Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric apiMetric) {
         if (apiMetric == null) {
             return null;
@@ -45,6 +52,11 @@ public final class MetricAdapter {
 
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric>() {
 
@@ -56,6 +68,13 @@ public final class MetricAdapter {
         };
     }
 
+    /**
+     * Maps a list of metrics.
+     * 
+     * @param list
+     *            of metrics.
+     * @return list of metrics
+     */
     public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> list) {
         if (list == null) {
             return null;
@@ -63,6 +82,11 @@ public final class MetricAdapter {
         return GenericAdapter.mapList(list, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return a list mapper
+     */
     public static Mapper<SuccessfulResponse, List<Metric>> getListMapper() {
         return new Mapper<SuccessfulResponse, List<Metric>>() {
 
@@ -74,6 +98,13 @@ public final class MetricAdapter {
         };
     }
 
+    /**
+     * Maps include fields
+     * 
+     * @param includeFields
+     *            include fields to encode.
+     * @return a string containing all include fields
+     */
     public static String mapIncludes(List<IncludeField> includeFields) {
         final IncludeMapping mapping = IncludeMappingHolder.INSTANCE;
         // In case no field is specified, default includes are used
