@@ -5,7 +5,7 @@ import java.util.Iterator;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
-import com.arm.mbed.cloud.sdk.common.SDKLogger;
+import com.arm.mbed.cloud.sdk.common.SdkLogger;
 
 @Preamble(description = "Iterator over an entire result set of a truncated API operation")
 public class Paginator<T> implements Iterator<T>, Iterable<T> {
@@ -14,6 +14,14 @@ public class Paginator<T> implements Iterator<T>, Iterable<T> {
     private ListResponse<T> currentPage;
     private Iterator<T> currentIterator;
 
+    /**
+     * Constructor.
+     * 
+     * @param requester
+     *            page requester.
+     * @throws MbedCloudException
+     *             if an error occurs during page request.
+     */
     public Paginator(PageRequester<T> requester) throws MbedCloudException {
         super();
         this.requester = requester;
@@ -21,6 +29,8 @@ public class Paginator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
+     * Gets current page.
+     * 
      * @return the currentPage
      */
     public ListResponse<T> getCurrentPage() {
@@ -28,6 +38,8 @@ public class Paginator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
+     * Sets current page.
+     * 
      * @param currentPage
      *            the currentPage to set
      */
@@ -51,17 +63,26 @@ public class Paginator<T> implements Iterator<T>, Iterable<T> {
     }
 
     /**
+     * Gets page requester.
+     * 
      * @return the requester
      */
     public PageRequester<T> getRequester() {
         return requester;
     }
 
+    /**
+     * Gets an iterator (itself).
+     * 
+     */
     @Override
     public Iterator<T> iterator() {
         return this;
     }
 
+    /**
+     * States whether there are more records to fetch.
+     */
     @Override
     public boolean hasNext() {
         if (currentIterator == null || currentPage == null) {
@@ -70,13 +91,16 @@ public class Paginator<T> implements Iterator<T>, Iterable<T> {
         return currentIterator.hasNext() ? true : currentPage.hasMore();
     }
 
+    /**
+     * Gets next page.
+     */
     @Override
     public T next() {
         if (currentIterator == null || !currentIterator.hasNext()) {
             try {
                 fetchNewPage();
-            } catch (MbedCloudException e) {
-                SDKLogger.getLogger().logError("Error occurred when requesting next page", e);
+            } catch (MbedCloudException exception) {
+                SdkLogger.getLogger().logError("Error occurred when requesting next page", exception);
                 return null;
             }
         }

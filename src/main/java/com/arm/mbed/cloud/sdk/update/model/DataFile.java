@@ -10,22 +10,33 @@ import org.apache.commons.codec.digest.DigestUtils;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Data file")
-public class DataFile implements SDKModel {
+public class DataFile implements SdkModel {
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = 2092096356697353992L;
     private static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
     private String contentType;
     private File file;
 
+    /**
+     * Constructor.
+     */
     public DataFile() {
         this(null, null);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param contentType
+     *            content type of the file e.g. application/octet-stream
+     * @param file
+     *            file to consider
+     */
     public DataFile(String contentType, File file) {
         super();
         setContentType(contentType);
@@ -33,6 +44,8 @@ public class DataFile implements SDKModel {
     }
 
     /**
+     * Constructor.
+     * <p>
      * Description of a binary file.
      * 
      * @param filePath
@@ -157,8 +170,10 @@ public class DataFile implements SDKModel {
         });
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */
@@ -177,8 +192,8 @@ public class DataFile implements SDKModel {
         }
         try (InputStream is = new FileInputStream(file)) {
             return function.determineCheckSum(is);
-        } catch (IOException e) {
-            throw new MbedCloudException(e);
+        } catch (IOException exception) {
+            throw new MbedCloudException(exception);
         }
     }
 

@@ -18,6 +18,12 @@ public class EndPoints {
     private final ServerCredentialsApi server;
     private final DeveloperCertificateApi certDeveloper;
 
+    /**
+     * Constructor.
+     * 
+     * @param wrapper
+     *            API client {@link ApiClientWrapper}.
+     */
     public EndPoints(ApiClientWrapper wrapper) {
         super();
         this.accountDeveloper = initialiseDeveloper(wrapper);
@@ -26,6 +32,12 @@ public class EndPoints {
         this.certDeveloper = initialiseCertDeveloper(wrapper);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}.
+     */
     public EndPoints(ConnectionOptions options) {
         this(new ApiClientWrapper(options));
     }
@@ -46,30 +58,18 @@ public class EndPoints {
         return wrapper.createService(ServerCredentialsApi.class);
     }
 
-    /**
-     * @return the accountDeveloper
-     */
     public DeveloperApi getAccountDeveloper() {
         return accountDeveloper;
     }
 
-    /**
-     * @return the admin
-     */
     public AccountAdminApi getAdmin() {
         return admin;
     }
 
-    /**
-     * @return the server
-     */
     public ServerCredentialsApi getServer() {
         return server;
     }
 
-    /**
-     * @return the certDeveloper
-     */
     public DeveloperCertificateApi getCertDeveloper() {
         return certDeveloper;
     }

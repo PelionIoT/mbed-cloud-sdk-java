@@ -4,14 +4,15 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Certificate")
-public class Certificate implements SDKModel {
+public class Certificate implements SdkModel {
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = 4006607827430203707L;
     /**
@@ -19,7 +20,7 @@ public class Certificate implements SDKModel {
      */
     private String id;
     /**
-     * Certificate name
+     * Certificate name.
      */
     private String name;
     /**
@@ -27,12 +28,12 @@ public class Certificate implements SDKModel {
      */
     private final String accountId;
     /**
-     * Status of the certificate
+     * Status of the certificate.
      */
     @DefaultValue(value = "INACTIVE")
     private CertificateStatus status;
     /**
-     * Certificate type
+     * Certificate type.
      */
     @DefaultValue(value = "DEVELOPER")
     private CertificateType type;
@@ -68,7 +69,7 @@ public class Certificate implements SDKModel {
      */
     private final String serverCertificate;
     /**
-     * Content of the security.c file that will be flashed into the device to provide the security credentials
+     * Content of the security.c file that will be flashed into the device to provide the security credentials.
      */
     private final String headerFile;
     /**
@@ -80,19 +81,49 @@ public class Certificate implements SDKModel {
      */
     private final String developerPrivateKey;
     /**
-     * The UUID of the certificate owner (user or ApiKey)
+     * The UUID of the certificate owner (user or ApiKey).
      */
     private final String ownerId;
     /**
-     * X509.v3 CA certificate in PEM or base64 encoded DER format
+     * X509.v3 CA certificate in PEM or base64 encoded DER format.
      */
     private String certificateData;
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed
-     * with SHA256
+     * with SHA256.
      */
     private String signature;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Certificate()} instead.
+     * 
+     * @param id
+     *            id
+     * @param accountId
+     *            accountId
+     * @param subject
+     *            subject
+     * @param validity
+     *            validity
+     * @param issuer
+     *            issuer
+     * @param createdAt
+     *            createdAt
+     * @param serverUri
+     *            serverUri
+     * @param serverCertificate
+     *            serverCertificate
+     * @param headerFile
+     *            headerFile
+     * @param developerCertificate
+     *            developerCertificate
+     * @param developerPrivateKey
+     *            developerPrivateKey
+     * @param ownerId
+     *            ownerId
+     */
     @Internal
     public Certificate(String id, String accountId, String subject, Date validity, String issuer, Date createdAt,
             String serverUri, String serverCertificate, String headerFile, String developerCertificate,
@@ -118,6 +149,48 @@ public class Certificate implements SDKModel {
         setType(CertificateType.getDefault());
     }
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Certificate()} instead.
+     * 
+     * @param id
+     *            id
+     * @param name
+     *            name
+     * @param accountId
+     *            accountId
+     * @param status
+     *            status
+     * @param type
+     *            type
+     * @param description
+     *            description
+     * @param subject
+     *            subject
+     * @param validity
+     *            validity
+     * @param issuer
+     *            issuer
+     * @param createdAt
+     *            createdAt
+     * @param serverUri
+     *            serverUri
+     * @param serverCertificate
+     *            serverCertificate
+     * @param headerFile
+     *            headerFile
+     * @param developerCertificate
+     *            developerCertificate
+     * @param developerPrivateKey
+     *            developerPrivateKey
+     * @param ownerId
+     *            ownerId
+     * @param certificateData
+     *            certificateData
+     * @param signature
+     *            signature
+     */
     @Internal
     public Certificate(String id, String name, String accountId, CertificateStatus status, CertificateType type,
             String description, String subject, Date validity, String issuer, Date createdAt, String serverUri,
@@ -133,18 +206,27 @@ public class Certificate implements SDKModel {
         setType(type);
     }
 
+    /**
+     * Constructor for a certificate.
+     * <p>
+     * Other constructors are for internal usage only.
+     */
     public Certificate() {
         this(null, null, null, new Date(), null, new Date(), null, null, null, null, null, null);
     }
 
     /**
-     * @return the id
+     * Gets the Id.
+     * 
+     * @return the id.
      */
     public String getId() {
         return id;
     }
 
     /**
+     * Sets the Id.
+     * 
      * @param id
      *            the id to set
      */
@@ -153,7 +235,9 @@ public class Certificate implements SDKModel {
     }
 
     /**
-     * similar to setId()
+     * Sets the id.
+     * <p>
+     * Similar to {@link #setId(String)}.
      * 
      * @param id
      *            the id to set
@@ -164,6 +248,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -171,6 +257,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the name.
+     * 
      * @param name
      *            the name to set
      */
@@ -179,6 +267,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the status.
+     * 
      * @return the status
      */
     public CertificateStatus getStatus() {
@@ -186,6 +276,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the status.
+     * 
      * @param status
      *            the status to set
      */
@@ -194,14 +286,18 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the status from a string representation.
+     * 
      * @param status
-     *            the status to set
+     *            the status string representation.
      */
     public void setStatus(String status) {
         setStatus(CertificateStatus.getStatus(status));
     }
 
     /**
+     * Gets the type.
+     * 
      * @return the type
      */
     public CertificateType getType() {
@@ -209,6 +305,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the type.
+     * 
      * @param type
      *            the type to set
      */
@@ -217,14 +315,18 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the type from a string representation.
+     * 
      * @param type
-     *            the type to set
+     *            the type string representation
      */
     public void setType(String type) {
         setType(CertificateType.getType(type));
     }
 
     /**
+     * Gets the description.
+     * 
      * @return the description
      */
     public String getDescription() {
@@ -232,6 +334,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the description.
+     * 
      * @param description
      *            the description to set
      */
@@ -240,6 +344,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the certificate data.
+     * 
      * @return the certificateData
      */
     public String getCertificateData() {
@@ -247,6 +353,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the certificate data.
+     * 
      * @param certificateData
      *            the certificate data to set
      */
@@ -255,6 +363,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the signature.
+     * 
      * @return the signature
      */
     public String getSignature() {
@@ -262,6 +372,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Sets the signature.
+     * 
      * @param signature
      *            the signature to set
      */
@@ -270,6 +382,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the account id.
+     * 
      * @return the accountId
      */
     public String getAccountId() {
@@ -277,6 +391,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the subject.
+     * 
      * @return the subject
      */
     public String getSubject() {
@@ -284,6 +400,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the validity.
+     * 
      * @return the validity
      */
     public Date getValidity() {
@@ -291,6 +409,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the issuer.
+     * 
      * @return the issuer
      */
     public String getIssuer() {
@@ -298,6 +418,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets when the certificate was created.
+     * 
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -305,6 +427,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the server URI.
+     * 
      * @return the serverUri
      */
     public String getServerUri() {
@@ -312,6 +436,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the server certificate.
+     * 
      * @return the serverCertificate
      */
     public String getServerCertificate() {
@@ -319,6 +445,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the header file.
+     * 
      * @return the headerFile
      */
     public String getHeaderFile() {
@@ -326,6 +454,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the developer certificate.
+     * 
      * @return the developerCertificate
      */
     public String getDeveloperCertificate() {
@@ -333,6 +463,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the developer private key.
+     * 
      * @return the developerPrivateKey
      */
     public String getDeveloperPrivateKey() {
@@ -340,6 +472,8 @@ public class Certificate implements SDKModel {
     }
 
     /**
+     * Gets the owner id.
+     * 
      * @return the ownerId
      */
     public String getOwnerId() {
@@ -354,13 +488,22 @@ public class Certificate implements SDKModel {
         if (obj2 == null) {
             return obj1;
         }
-        if (obj1 instanceof SDKEnum) {
-            return (T) ((SDKEnum) obj1).merge((SDKEnum) obj1, (SDKEnum) obj2);
+        if (obj1 instanceof SdkEnum) {
+            return (T) ((SdkEnum) obj1).merge((SdkEnum) obj1, (SdkEnum) obj2);
         }
         return obj2;
     }
 
-    public static Certificate merge(Certificate partial1, Certificate partial2) {
+    /**
+     * Merges two partial certificates.
+     * 
+     * @param partial1
+     *            one partial certificate.
+     * @param partial2
+     *            another partial certificate.
+     * @return a merged certificate
+     */
+    public static Certificate merge(@Nullable Certificate partial1, @Nullable Certificate partial2) {
         if (partial1 == null) {
             return partial2;
         }
@@ -388,8 +531,10 @@ public class Certificate implements SDKModel {
         return merge;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone.
      * 
      * @see java.lang.Object#clone()
      */

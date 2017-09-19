@@ -50,7 +50,7 @@ dependencies {
     // Use JUnit test framework
    // testImplementation 'junit:junit:4.12'
    api 'org.slf4j:slf4j-api:1.7.7'
-   compile 'com.squareup.okhttp3:logging-interceptor:3.2.0'
+   compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
    compile project(':support-annotations')
    compile project(':lwm2m')
    compile project(':backends:connector_ca')
@@ -91,6 +91,16 @@ project(':backends:statistics').javadoc.enabled = false
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    maxWarnings = 0
+}
+
+checkstyleMain {
+   reports {
+      xml.enabled true
+      html.enabled true
+   }
 }
 jdepend {
    sourceSets = [sourceSets.main]

@@ -8,15 +8,31 @@ public class IncludeField {
 
     private final String str;
 
-    IncludeField(String str) {
+    /**
+     * Constructor.
+     * 
+     * @param str
+     *            field string
+     */
+    public IncludeField(String str) {
         this.str = str;
     }
 
+    /**
+     * Gets field string.
+     * 
+     * @return string representation.
+     */
     @Override
     public String toString() {
         return str;
     }
 
+    /**
+     * Encodes include field to snake case.
+     * 
+     * @return processed string.
+     */
     public String encode() {
         return ApiUtils.convertCamelToSnake(toString());
     }

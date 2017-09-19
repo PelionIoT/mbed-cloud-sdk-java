@@ -7,20 +7,30 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 @Preamble(description = "Options to use when listing api keys")
 public class ApiKeyListOptions extends ListOptions {
 
+    /**
+     * Tag of filter by owner id.
+     */
     public static final String OWNER_ID_FILTER = "ownerId";
 
+    /**
+     * Constructor.
+     */
     public ApiKeyListOptions() {
         super();
     }
 
     /**
-     * @return the ownerIdFilter
+     * Gets filter related to owner id.
+     * 
+     * @return the ownerIdFilter.
      */
     public @Nullable Object getOwnerIdFilter() {
         return fetchEqualFilterValue(OWNER_ID_FILTER);
     }
 
     /**
+     * Sets filter related to owner id.
+     * 
      * @param ownerIdFilter
      *            the ownerIdFilter to set
      */

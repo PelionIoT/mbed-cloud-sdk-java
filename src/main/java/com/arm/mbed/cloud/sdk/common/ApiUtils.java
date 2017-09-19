@@ -11,12 +11,33 @@ public class ApiUtils {
         super();
     }
 
-    public static void checkNotNull(SDKLogger logger, Object arg, String argName) throws MbedCloudException {
+    /**
+     * Ensures that a field is not null.
+     * 
+     * @param logger
+     *            logger to report an error if any
+     * @param arg
+     *            value of the argument
+     * @param argName
+     *            name of the argument
+     * @throws MbedCloudException
+     *             if the field is null
+     */
+    public static void checkNotNull(SdkLogger logger, Object arg, String argName) throws MbedCloudException {
         if (arg == null) {
-            logger.throwSDKException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
+            logger.throwSdkException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
         }
     }
 
+    /**
+     * Converts strings from snake to camel case.
+     * 
+     * @param stringToConvert
+     *            string to convert
+     * @param capitalAtStart
+     *            should the first letter be a uppercase or not.
+     * @return camel case string.
+     */
     public static String convertSnakeToCamel(String stringToConvert, boolean capitalAtStart) {
         if (stringToConvert == null || stringToConvert.isEmpty()) {
             return stringToConvert;
@@ -37,6 +58,13 @@ public class ApiUtils {
         return sb.toString();
     }
 
+    /**
+     * Converts strings from camel to snake case.
+     * 
+     * @param stringToConvert
+     *            string to convert
+     * @return snake case string.
+     */
     public static String convertCamelToSnake(String stringToConvert) {
         if (stringToConvert == null || stringToConvert.isEmpty()) {
             return stringToConvert;
@@ -49,10 +77,23 @@ public class ApiUtils {
         String convert(String strToConvert, boolean capitalAtStart);
     }
 
+    /**
+     * Case conversion types.
+     *
+     */
     public enum CaseConversion {
         SNAKE_TO_CAMEL, CAMEL_TO_SNAKE
     }
 
+    /**
+     * Case converter factory.
+     * <p>
+     * Gets a case converter from a type.
+     * 
+     * @param conversion
+     *            conversion type
+     * @return case converter
+     */
     public static CaseConverter getCaseConverter(CaseConversion conversion) {
         CaseConverter converter = null;
         switch (conversion) {
@@ -81,6 +122,13 @@ public class ApiUtils {
         return converter;
     }
 
+    /**
+     * Normalises URL path.
+     * 
+     * @param path
+     *            path string
+     * @return normalised path
+     */
     public static String normalisePath(String path) {
         if (path != null && !path.isEmpty() && path.charAt(0) == '/') {
             return path.substring(1);

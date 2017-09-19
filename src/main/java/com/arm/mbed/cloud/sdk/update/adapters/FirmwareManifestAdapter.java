@@ -20,21 +20,33 @@ public final class FirmwareManifestAdapter {
         super();
     }
 
+    /**
+     * Maps firmware manifest.
+     * 
+     * @param manifest
+     *            manifest
+     * @return manifest
+     */
     public static FirmwareManifest map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest manifest) {
         if (manifest == null) {
             return null;
         }
         final FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
                 TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
-                ManifestContentsAdapter.map(manifest.getManifestContents()), manifest.getDatafileChecksum(),
-                TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
-                TranslationUtils.toDate(manifest.getUpdatedAt()), TranslationUtils.toDate(manifest.getTimestamp()));
+                manifest.getDatafileChecksum(), TranslationUtils.toLong(manifest.getDatafileSize()),
+                TranslationUtils.toDate(manifest.getCreatedAt()), TranslationUtils.toDate(manifest.getUpdatedAt()),
+                TranslationUtils.toDate(manifest.getTimestamp()));
         firmwareManifest.setDataFile(null);
         firmwareManifest.setDescription(manifest.getDescription());
         firmwareManifest.setName(manifest.getName());
         return firmwareManifest;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest>() {
 
@@ -47,6 +59,13 @@ public final class FirmwareManifestAdapter {
         };
     }
 
+    /**
+     * Maps list of manifests.
+     * 
+     * @param list
+     *            manifest page
+     * @return list of manifest
+     */
     public static ListResponse<FirmwareManifest> mapList(FirmwareManifestPage list) {
 
         final FirmwareManifestPage imageList = list;
@@ -85,6 +104,11 @@ public final class FirmwareManifestAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<FirmwareManifestPage, ListResponse<FirmwareManifest>> getListMapper() {
         return new Mapper<FirmwareManifestPage, ListResponse<FirmwareManifest>>() {
 

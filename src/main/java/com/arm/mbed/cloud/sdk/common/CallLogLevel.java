@@ -26,7 +26,13 @@ public enum CallLogLevel {
      * information
      */
     BODY;
-
+    /**
+     * Gets the log level from a string.
+     * 
+     * @param level
+     *            string
+     * @return corresponding log level. If not found, no logging will be performed.
+     */
     public static CallLogLevel getLevel(String level) {
         if (level == null || level.isEmpty()) {
             return NONE;

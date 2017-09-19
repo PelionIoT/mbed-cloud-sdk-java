@@ -7,7 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -15,60 +15,147 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Query model")
-public class Query implements SDKModel {
-
+public class Query implements SdkModel {
+    /**
+     * Tag of filter by vendor id.
+     */
     public static final String FILTER_VENDOR_ID = "vendorId";
+    /**
+     * Tag of filter by updatedAt.
+     */
     public static final String FILTER_UPDATED_AT = "updatedAt";
+    /**
+     * Tag of filter by trust level.
+     */
     public static final String FILTER_TRUST_LEVEL = "trustLevel";
+    /**
+     * Tag of filter by state.
+     */
     public static final String FILTER_STATE = "state";
+    /**
+     * Tag of filter by serial number.
+     */
     public static final String FILTER_SERIAL_NUMBER = "serialNumber";
+    /**
+     * Tag of filter by name.
+     */
     public static final String FILTER_NAME = "name";
+    /**
+     * Tag of filter by mechanism URL.
+     */
     public static final String FILTER_MECHANISM_URL = "mechanismUrl";
+    /**
+     * Tag of filter by mechanism.
+     */
     public static final String FILTER_MECHANISM = "mechanism";
+    /**
+     * Tag of filter by manifest timestamp.
+     */
     public static final String FILTER_MANIFEST_TIMESTAMP = "manifestTimestamp";
+    /**
+     * Tag of filter by firmware checksum.
+     */
     public static final String FILTER_FIRMWARE_CHECKSUM = "firmwareChecksum";
+    /**
+     * Tag of filter by alias.
+     */
     public static final String FILTER_ALIAS = "alias";
+    /**
+     * Tag of filter by certificate fingerprint.
+     */
     public static final String FILTER_CERTIFICATE_FINGERPRINT = "certificateFingerprint";
+    /**
+     * Tag of filter by device class.
+     */
     public static final String FILTER_DEVICE_CLASS = "deviceClass";
+    /**
+     * Tag of filter by description.
+     */
     public static final String FILTER_DESCRIPTION = "description";
+    /**
+     * Tag of filter by creation date.
+     */
     public static final String FILTER_CREATED_AT = "createdAt";
+    /**
+     * Tag of filter by connector certificate expiry date.
+     */
     public static final String FILTER_CONNECTOR_CERTIFICATE_EXPIRATION = "connectorCertificateExpiration";
+    /**
+     * Tag of filter by certificate issuer id.
+     */
     public static final String FILTER_CERTIFICATE_ISSUER_ID = "certificateIssuerId";
+    /**
+     * Tag of filter by bootstrap timestamp.
+     */
     public static final String FILTER_BOOTSTRAPPED_TIMESTAMP = "bootstrappedTimestamp";
+    /**
+     * Tag of filter by account id.
+     */
     public static final String FILTER_ACCOUNT_ID = "accountId";
+    /**
+     * Tag of filter by bootstrap certificate expiry date.
+     */
     public static final String FILTER_BOOTSTRAP_CERTIFICATE_EXPIRATION = "bootstrapCertificateExpiration";
     /**
-     * 
+     * Serialisation id.
      */
     private static final long serialVersionUID = -262399232521895478L;
     /**
-     * The ID of the query
+     * The ID of the query.
      */
     private String id;
     /**
-     * The time the query was created
+     * The time the query was created.
      */
     @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
-     * The time the query was updated
+     * The time the query was updated.
      */
     @DefaultValue(value = "now()")
     private final Date updatedAt;
     /**
-     * The name of the query
+     * The name of the query.
      */
     private String name;
     /**
-     * The device filter
+     * The device filter.
      */
     private Filters filter;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Query()} instead.
+     * 
+     * @param id
+     *            id
+     * @param createdAt
+     *            creation date
+     * @param updatedAt
+     *            last update date
+     */
     @Internal
     public Query(String id, Date createdAt, Date updatedAt) {
         this(id, createdAt, updatedAt, null, null);
     }
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Query()} instead.
+     * 
+     * @param id
+     *            id
+     * @param createdAt
+     *            creation date
+     * @param updatedAt
+     *            last update date
+     * @param name
+     *            name
+     * @param filter
+     *            filter
+     */
     @Internal
     public Query(String id, Date createdAt, Date updatedAt, String name, Filters filter) {
         super();
@@ -79,11 +166,16 @@ public class Query implements SDKModel {
         setFilter(filter);
     }
 
+    /**
+     * Constructor.
+     */
     public Query() {
         this(null, new Date(), new Date());
     }
 
     /**
+     * Gets id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -91,6 +183,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Sets id.
+     * 
      * @param id
      *            the id to set
      */
@@ -99,7 +193,9 @@ public class Query implements SDKModel {
     }
 
     /**
-     * similar to setId()
+     * Sets id.
+     * <p>
+     * similar to {@link #setId(String)}
      * 
      * @param id
      *            the id to set
@@ -110,6 +206,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Gets name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -117,6 +215,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Sets name.
+     * 
      * @param name
      *            the name to set
      */
@@ -125,6 +225,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Sets filter.
+     * 
      * @param filter
      *            the filter to set
      */
@@ -133,6 +235,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Gets filter.
+     * 
      * @return the filters
      */
     public Filters fetchFilter() {
@@ -140,8 +244,11 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Gets filter as "Json object".
+     * <p>
+     * Note: avoid using.
      * 
-     * @return the filters as a Json object
+     * @return the filters as a "Json object"
      */
     @Internal
     public Map<String, Object> getFilter() {
@@ -149,7 +256,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Gets the filter as Json String
+     * Gets the filter as Json String.
      * 
      * @return the filters as a Json string
      */
@@ -158,6 +265,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Sets filter as a Json string.
+     * 
      * @param jsonString
      *            Json string defining filter
      */
@@ -166,6 +275,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Gets creation date.
+     * 
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -173,6 +284,8 @@ public class Query implements SDKModel {
     }
 
     /**
+     * Gets last update date.
+     * 
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -180,7 +293,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a custom filter
+     * Adds a custom filter.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -194,7 +307,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on account id field.
      * 
      * @param accountId
      *            filter to apply
@@ -206,7 +319,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on bootstrap certificate expiry date field.
      * 
      * @param bootstrapCertificateExpiration
      *            filter to apply
@@ -218,7 +331,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on bootstrapped timestamp field.
      * 
      * @param bootstrappedTimestamp
      *            filter to apply
@@ -230,7 +343,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on certificate issuer id field.
      * 
      * @param certificateIssuerId
      *            filter to apply
@@ -242,7 +355,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on connector certificate expiry date field.
      * 
      * @param connectorCertificateExpiration
      *            filter to apply
@@ -254,7 +367,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on createdAt field.
      * 
      * @param createdAtDate
      *            filter to apply
@@ -266,7 +379,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on description field.
      * 
      * @param description
      *            filter to apply
@@ -278,7 +391,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on device class field.
      * 
      * @param deviceClass
      *            filter to apply
@@ -290,7 +403,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on certificate fingerprint field.
      * 
      * @param certificateFingerprint
      *            filter to apply
@@ -302,7 +415,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on alias field.
      * 
      * @param alias
      *            filter to apply
@@ -314,7 +427,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on firmware checksum field.
      * 
      * @param firmwareChecksum
      *            filter to apply
@@ -326,7 +439,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on manifest timestamp field.
      * 
      * @param manifestTimestamp
      *            filter to apply
@@ -338,7 +451,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on mechanism field.
      * 
      * @param mechanism
      *            filter to apply
@@ -350,7 +463,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on mechanism URl field.
      * 
      * @param mechanismUrl
      *            filter to apply
@@ -362,7 +475,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on name field.
      * 
      * @param queryName
      *            filter to apply
@@ -374,7 +487,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on serial number field.
      * 
      * @param serialNumber
      *            filter to apply
@@ -386,7 +499,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on state field.
      * 
      * @param state
      *            filter to apply
@@ -398,7 +511,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on trust level field.
      * 
      * @param trustLevel
      *            filter to apply
@@ -410,7 +523,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on updatedAt field.
      * 
      * @param updatedAtDate
      *            filter to apply
@@ -422,7 +535,7 @@ public class Query implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on vendorId field.
      * 
      * @param vendorId
      *            filter to apply
@@ -447,8 +560,10 @@ public class Query implements SDKModel {
         filter.add(afilter);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */

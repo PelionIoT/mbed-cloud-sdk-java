@@ -6,16 +6,21 @@ import com.arm.mbed.cloud.sdk.common.TimePeriod;
 @Preamble(description = "Options to use when listing metrics within a period")
 public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
     /**
-     * Fetch data for this period until now
+     * Fetch data for this period until now.
      */
     private TimePeriod period;
 
+    /**
+     * Constructor.
+     */
     public MetricsPeriodListOptions() {
         super();
         setPeriod(new TimePeriod());
     }
 
     /**
+     * Gets period to consider.
+     * 
      * @return the period
      */
     public TimePeriod getPeriod() {
@@ -23,6 +28,8 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
     }
 
     /**
+     * Sets period to consider.
+     * 
      * @param period
      *            the period to set
      */
@@ -31,6 +38,11 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
     }
 
     /**
+     * Sets period from a string.
+     * <p>
+     * 
+     * @see TimePeriod#fromString(String) for more information about string format
+     * 
      * @param period
      *            the period to set
      */

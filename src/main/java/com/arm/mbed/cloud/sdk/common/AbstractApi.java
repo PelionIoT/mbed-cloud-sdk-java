@@ -1,20 +1,28 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic SDK module definition")
-public abstract class AbstractAPI {
+@Internal
+public abstract class AbstractApi {
 
     protected final ApiClientWrapper client;
 
-    protected final SDKLogger logger;
+    protected final SdkLogger logger;
     protected final ApiMetadataCache metadataCache;
 
-    public AbstractAPI(ConnectionOptions options) {
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options @see {@link ConnectionOptions}
+     */
+    public AbstractApi(ConnectionOptions options) {
         super();
         this.client = new ApiClientWrapper(options);
-        logger = new SDKLogger();
+        logger = new SdkLogger();
         metadataCache = new ApiMetadataCache();
     }
 
@@ -23,15 +31,19 @@ public abstract class AbstractAPI {
     }
 
     /**
-     * @return the logger
+     * Gets SDK logger.
+     * 
+     * @see SdkLogger
+     * @return the logger.
      */
-    public SDKLogger getLogger() {
+    public SdkLogger getLogger() {
         return logger;
     }
 
     /**
-     * Get meta data for the last Arm Mbed Cloud API call
+     * Gets meta data for the last Arm Mbed Cloud API call.
      * 
+     * @see ApiMetadata
      * @return metadata
      */
     @API
@@ -39,6 +51,11 @@ public abstract class AbstractAPI {
         return metadataCache.getLastApiMetadata();
     }
 
+    /**
+     * Gets the SDK module name.
+     * 
+     * @return module name.
+     */
     public abstract String getModuleName();
 
 }

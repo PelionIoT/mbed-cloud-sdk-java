@@ -39,6 +39,13 @@ public final class CampaignAdapter {
         return new FilterMarshaller(filterMapping);
     }
 
+    /**
+     * Maps campaign.
+     * 
+     * @param campaign
+     *            campaign result
+     * @return campaign
+     */
     public static Campaign map(UpdateCampaign campaign) {
         if (campaign == null) {
             return null;
@@ -55,6 +62,11 @@ public final class CampaignAdapter {
         return updateCampaign;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return a mapper
+     */
     public static Mapper<UpdateCampaign, Campaign> getMapper() {
         return new Mapper<UpdateCampaign, Campaign>() {
 
@@ -66,6 +78,13 @@ public final class CampaignAdapter {
         };
     }
 
+    /**
+     * Reverses mapping of a new campaign.
+     * 
+     * @param campaign
+     *            new campaign
+     * @return new campaign request
+     */
     public static UpdateCampaignPostRequest reverseMapAdd(Campaign campaign) {
         if (campaign == null) {
             return null;
@@ -80,6 +99,13 @@ public final class CampaignAdapter {
         return addRequest;
     }
 
+    /**
+     * Reverses mapping of an updated campaign.
+     * 
+     * @param campaign
+     *            an updated campaign
+     * @return campaign update request
+     */
     public static UpdateCampaignPutRequest reverseMapUpdate(Campaign campaign) {
         if (campaign == null) {
             return null;
@@ -192,6 +218,13 @@ public final class CampaignAdapter {
         return null;
     }
 
+    /**
+     * Maps a list of campaigns.
+     * 
+     * @param list
+     *            campaign page.
+     * @return a list of campaigns
+     */
     public static ListResponse<Campaign> mapList(UpdateCampaignPage list) {
 
         final UpdateCampaignPage campaignList = list;
@@ -230,6 +263,11 @@ public final class CampaignAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<UpdateCampaignPage, ListResponse<Campaign>> getListMapper() {
         return new Mapper<UpdateCampaignPage, ListResponse<Campaign>>() {
 

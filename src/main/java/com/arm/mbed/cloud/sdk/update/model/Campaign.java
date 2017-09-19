@@ -7,7 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -15,85 +15,171 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Campaign")
-public class Campaign implements SDKModel {
+public class Campaign implements SdkModel {
 
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = -5242091156121971819L;
+
+    /**
+     * Tag of filter by bootstrap timestamp.
+     */
     public static final String FILTER_BOOTSTRAPPED_TIMESTAMP = "bootstrappedTimestamp";
+    /**
+     * Tag of filter by bootstrap certificate expiry date.
+     */
     public static final String FILTER_BOOTSTRAP_CERTIFICATE_EXPIRATION = "bootstrapCertificateExpiration";
+    /**
+     * Tag of filter by account id.
+     */
     public static final String FILTER_ACCOUNT_ID = "accountId";
+    /**
+     * Tag of filter by certificate issuer id.
+     */
     public static final String FILTER_CERTIFICATE_ISSUER_ID = "certificateIssuerId";
+    /**
+     * Tag of filter by connector certificate expiry date.
+     */
     public static final String FILTER_CONNECTOR_CERTIFICATE_EXPIRATION = "connectorCertificateExpiration";
+    /**
+     * Tag of filter by creation date.
+     */
     public static final String FILTER_CREATED_AT = "createdAt";
+    /**
+     * Tag of filter by deployment state.
+     */
     public static final String FILTER_DEPLOYED_STATE = "deployedState";
+    /**
+     * Tag of filter by last deployment.
+     */
     public static final String FILTER_LAST_DEPLOYMENT = "lastDeployment";
+    /**
+     * Tag of filter by description.
+     */
     public static final String FILTER_DESCRIPTION = "description";
+    /**
+     * Tag of filter by device class.
+     */
     public static final String FILTER_DEVICE_CLASS = "deviceClass";
+    /**
+     * Tag of filter by certificate fingerprint.
+     */
     public static final String FILTER_CERTIFICATE_FINGERPRINT = "certificateFingerprint";
+    /**
+     * Tag of filter by alias.
+     */
     public static final String FILTER_ALIAS = "alias";
+    /**
+     * Tag of filter by firmware checksum.
+     */
     public static final String FILTER_FIRMWARE_CHECKSUM = "firmwareChecksum";
+    /**
+     * Tag of filter by manifest URL.
+     */
     public static final String FILTER_MANIFEST_URL = "manifestUrl";
+    /**
+     * Tag of filter by manifest timestamp.
+     */
     public static final String FILTER_MANIFEST_TIMESTAMP = "manifestTimestamp";
+    /**
+     * Tag of filter by mechanism.
+     */
     public static final String FILTER_MECHANISM = "mechanism";
+    /**
+     * Tag of filter by mechanism URL.
+     */
     public static final String FILTER_MECHANISM_URL = "mechanismUrl";
+    /**
+     * Tag of filter by name.
+     */
     public static final String FILTER_NAME = "name";
+    /**
+     * Tag of filter by serial number.
+     */
     public static final String FILTER_SERIAL_NUMBER = "serialNumber";
+    /**
+     * Tag of filter by state.
+     */
     public static final String FILTER_STATE = "state";
+    /**
+     * Tag of filter by trust level.
+     */
     public static final String FILTER_TRUST_LEVEL = "trustLevel";
+    /**
+     * Tag of filter by last update date.
+     */
     public static final String FILTER_UPDATED_AT = "updatedAt";
+    /**
+     * Tag of filter by vendor Id.
+     */
     public static final String FILTER_VENDOR_ID = "vendorId";
     /**
-     * The ID of the campaign
+     * The ID of the campaign.
      */
     private String id;
     /**
-     * The state of the campaign
+     * The state of the campaign.
      */
     private CampaignState state;
     /**
-     * URl of the manifest used
+     * URl of the manifest used.
      */
     private final URL manifestUrl;
     /**
-     * The time the object was created
+     * The time the object was created.
      */
     @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
-     * The timestamp at which update campaign scheduled to start
+     * The timestamp at which update campaign scheduled to start.
      */
     @DefaultValue(value = "now()")
     private final Date startedAt;
     /**
-     * The timestamp when the update campaign finished
+     * The timestamp when the update campaign finished.
      */
     @DefaultValue(value = "now()")
     private final Date finishedAt;
     /**
-     * A name for this campaign
+     * A name for this campaign.
      */
     private String name;
     /**
-     * An optional description of the campaign
+     * An optional description of the campaign.
      */
     private String description;
     /**
-     * ID of the manifest to use for update
+     * ID of the manifest to use for update.
      */
     private String manifestId;
 
     /**
-     * The timestamp at which update campaign scheduled to start
+     * The timestamp at which update campaign scheduled to start.
      */
     @DefaultValue(value = "null")
     private Date scheduledAt;
     /**
-     * filters
+     * filters.
      */
     private Filters deviceFilter;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Campaign()} instead.
+     * 
+     * @param id
+     *            id
+     * @param manifestUrl
+     *            manifest URL
+     * @param createdAt
+     *            date when campaign was created.
+     * @param startedAt
+     *            date when campaign was started.
+     * @param finishedAt
+     *            date when campaign finishes.
+     */
     @Internal
     public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {
         this(id, CampaignState.getDefault(), manifestUrl, createdAt, startedAt, finishedAt, null, null, null, null,
@@ -101,6 +187,34 @@ public class Campaign implements SDKModel {
 
     }
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Campaign()} instead.
+     * 
+     * @param id
+     *            id
+     * @param state
+     *            state
+     * @param manifestUrl
+     *            manifest URL
+     * @param createdAt
+     *            date when campaign was created.
+     * @param startedAt
+     *            date when campaign was started.
+     * @param finishedAt
+     *            date when campaign finishes.
+     * @param name
+     *            name
+     * @param description
+     *            description
+     * @param manifestId
+     *            manifest id
+     * @param scheduledAt
+     *            date when campaign is scheduled at.
+     * @param deviceFilter
+     *            device filter
+     */
     @Internal
     public Campaign(String id, CampaignState state, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
             String name, String description, String manifestId, Date scheduledAt, Filters deviceFilter) {
@@ -118,15 +232,26 @@ public class Campaign implements SDKModel {
         setDeviceFilter(deviceFilter);
     }
 
+    /**
+     * Constructor.
+     */
     public Campaign() {
         this(null);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param id
+     *            campaign id
+     */
     public Campaign(String id) {
         this(id, null, new Date(), new Date(), new Date());
     }
 
     /**
+     * Gets the Id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -134,6 +259,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the Id.
+     * 
      * @param id
      *            the id to set
      */
@@ -142,6 +269,9 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the campaign state.
+     * 
+     * @see CampaignState
      * @return the state
      */
     public CampaignState getState() {
@@ -149,6 +279,9 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the campaign state.
+     * 
+     * @see CampaignState
      * @param state
      *            the state to set
      */
@@ -157,6 +290,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -164,6 +299,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the name.
+     * 
      * @param name
      *            the name to set
      */
@@ -172,6 +309,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the description.
+     * 
      * @return the description
      */
     public String getDescription() {
@@ -179,6 +318,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the description.
+     * 
      * @param description
      *            the description to set
      */
@@ -187,6 +328,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the manifest Id.
+     * 
      * @return the manifestId
      */
     public String getManifestId() {
@@ -194,6 +337,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the manigest id.
+     * 
      * @param manifestId
      *            the manifestId to set
      */
@@ -202,6 +347,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets when the campaign is scheduled at.
+     * 
      * @return the scheduledAt
      */
     public Date getScheduledAt() {
@@ -209,6 +356,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets when the campaign should be scheduled for.
+     * 
      * @param scheduledAt
      *            the scheduledAt to set
      */
@@ -217,6 +366,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets manifest URL.
+     * 
      * @return the manifestUrl
      */
     public URL getManifestUrl() {
@@ -224,6 +375,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets when the campaign was created.
+     * 
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -231,6 +384,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets when the campaign was started.
+     * 
      * @return the startedAt
      */
     public Date getStartedAt() {
@@ -238,6 +393,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets when the campaign finishes.
+     * 
      * @return the finishedAt
      */
     public Date getFinishedAt() {
@@ -245,6 +402,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the filter.
+     * 
      * @return the filters
      */
     public Filters getFilter() {
@@ -252,6 +411,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Gets the filter as a "Json object".
      * 
      * @return the filters as a Json object
      */
@@ -261,6 +421,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Set the device filter.
+     * 
      * @param deviceFilter
      *            the device filter to set
      */
@@ -269,6 +431,8 @@ public class Campaign implements SDKModel {
     }
 
     /**
+     * Sets the device filter from a Json string.
+     * 
      * @param jsonString
      *            Json string defining the device filter to set
      */
@@ -277,7 +441,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Gets the device filter as Json String
+     * Gets the device filter as Json String.
      * 
      * @return the filters as a Json string
      */
@@ -286,7 +450,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a custom device filter
+     * Adds a custom device filter.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -300,7 +464,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on account Id field.
      * 
      * @param accountIdFilter
      *            filter to apply
@@ -312,7 +476,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on bootstrap certificate expiry date field.
      * 
      * @param bootstrapCertificateExpirationFilter
      *            filter to apply
@@ -325,7 +489,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on timestamp field.
      * 
      * @param bootstrappedTimestampFilter
      *            filter to apply
@@ -337,7 +501,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on certificate issuer field.
      * 
      * @param certificateIssuerIdFilter
      *            filter to apply
@@ -349,7 +513,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on connector certificate expiry date field.
      * 
      * @param connectorCertificateExpirationFilter
      *            filter to apply
@@ -362,7 +526,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on creation date field.
      * 
      * @param createdAtFilter
      *            filter to apply
@@ -374,7 +538,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on deployment state field.
      * 
      * @param deployedStateFilter
      *            filter to apply
@@ -386,7 +550,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on last deployment date field.
      * 
      * @param lastDeploymentFilter
      *            filter to apply
@@ -398,7 +562,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on description field.
      * 
      * @param descriptionFilter
      *            filter to apply
@@ -410,7 +574,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on device class field.
      * 
      * @param deviceClassFilter
      *            filter to apply
@@ -422,7 +586,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on certificate fingerprint field.
      * 
      * @param certificateFingerprintFilter
      *            filter to apply
@@ -434,7 +598,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on alias field.
      * 
      * @param aliasFilter
      *            filter to apply
@@ -446,7 +610,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on firmware checksum field.
      * 
      * @param firmwareChecksumFilter
      *            filter to apply
@@ -458,7 +622,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on manifest URL field.
      * 
      * @param manifestUrlFilter
      *            filter to apply
@@ -470,7 +634,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on manifest timestamp field.
      * 
      * @param manifestTimestampFilter
      *            filter to apply
@@ -482,7 +646,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on mechanism field.
      * 
      * @param mechanismFilter
      *            filter to apply
@@ -494,7 +658,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on mechanism URL field.
      * 
      * @param mechanismUrlFilter
      *            filter to apply
@@ -506,7 +670,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on name field.
      * 
      * @param nameFilter
      *            filter to apply
@@ -518,7 +682,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on serial number field.
      * 
      * @param serialNumberFilter
      *            filter to apply
@@ -530,7 +694,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on state field.
      * 
      * @param stateFilter
      *            filter to apply
@@ -542,7 +706,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on trust level field.
      * 
      * @param trustLevelFilter
      *            filter to apply
@@ -554,7 +718,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on last update date field.
      * 
      * @param updatedAtFilter
      *            filter to apply
@@ -566,7 +730,7 @@ public class Campaign implements SDKModel {
     }
 
     /**
-     * Adds a device filter
+     * Adds a device filter based on vendor Id field.
      * 
      * @param vendorIdFilter
      *            filter to apply
@@ -591,8 +755,10 @@ public class Campaign implements SDKModel {
         deviceFilter.add(filter);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone.
      * 
      * @see java.lang.Object#clone()
      */

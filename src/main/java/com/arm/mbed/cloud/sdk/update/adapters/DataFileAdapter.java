@@ -15,6 +15,13 @@ public final class DataFileAdapter {
         super();
     }
 
+    /**
+     * Reverses mapping of data file.
+     * 
+     * @param dataFile
+     *            new data file
+     * @return new data file request
+     */
     public static RequestBody reverseMap(DataFile dataFile) {
         if (dataFile == null) {
             return null;

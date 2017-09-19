@@ -32,6 +32,13 @@ public final class DeviceEventAdapter {
         return new FilterMarshaller(filterMapping);
     }
 
+    /**
+     * Maps device event data.
+     * 
+     * @param deviceEventData
+     *            device event to map
+     * @return mapped device event
+     */
     public static DeviceEvent map(DeviceEventData deviceEventData) {
         if (deviceEventData == null) {
             return null;
@@ -45,6 +52,11 @@ public final class DeviceEventAdapter {
 
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper
+     */
     public static Mapper<DeviceEventData, DeviceEvent> getMapper() {
         return new Mapper<DeviceEventData, DeviceEvent>() {
 
@@ -56,6 +68,13 @@ public final class DeviceEventAdapter {
         };
     }
 
+    /**
+     * Maps a list of device event.
+     * 
+     * @param list
+     *            device event page
+     * @return a list of device events
+     */
     public static ListResponse<DeviceEvent> mapList(DeviceEventPage list) {
         final DeviceEventPage eventList = list;
         final RespList<DeviceEventData> respList = new RespList<DeviceEventData>() {
@@ -93,6 +112,11 @@ public final class DeviceEventAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<DeviceEventPage, ListResponse<DeviceEvent>> getListMapper() {
         return new Mapper<DeviceEventPage, ListResponse<DeviceEvent>>() {
 

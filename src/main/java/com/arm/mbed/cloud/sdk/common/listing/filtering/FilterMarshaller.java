@@ -43,7 +43,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Encodes all filters
+     * Encodes all filters.
      * 
      * @param filters
      *            filters to encode
@@ -54,7 +54,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Encodes all filters related to one field name
+     * Encodes all filters related to one field name.
      * 
      * @param fieldName
      *            field name of interest
@@ -67,7 +67,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Decodes a URL String containing filter definitions
+     * Decodes a URL String containing filter definitions.
      * 
      * @param filtersString
      *            URL string containing filter definitions
@@ -92,7 +92,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Serialises filters to Json string
+     * Serialises filters to Json string.
      * 
      * @param filters
      *            Filters to serialise
@@ -110,7 +110,33 @@ public class FilterMarshaller {
     }
 
     /**
-     * Deserialises filters from a Json string
+     * Deserialises filters from a Json string.
+     * <p>
+     * Such string must be of the following form:
+     * <p>
+     * {@code { fieldname:{ operator: value}}}
+     * <p>
+     * { 'device_id': {'$eq': str(uuid.uuid4())},
+     * 
+     * 'auto_update': {'$eq': True},
+     * 
+     * 'state': {'$eq': 'bootstrapped'},
+     * 
+     * 'device_class': {'$eq': 'embedded'},
+     * 
+     * 'serial_number': {'$eq': '1234'},
+     * 
+     * 'vendor_id': {'$eq': 'Arm'},
+     * 
+     * 'description': {'$eq': 'Loreum ipsum'},
+     * 
+     * 'device_name': {'$eq': 'DeviceName'},
+     * 
+     * 'custom_attributes': {
+     * 
+     * 'customA': {'$eq': 'SomethingA'},
+     * 
+     * 'customB': {'$eq': 'Something B'} }
      * 
      * @param json
      *            Json string defining filters
@@ -135,6 +161,13 @@ public class FilterMarshaller {
         return filters;
     }
 
+    /**
+     * Gets filters as a "Json Map".
+     * 
+     * @param filters
+     *            filters
+     * @return Json Map defining filters
+     */
     @Internal
     public static Map<String, Object> toJsonObject(Filters filters) {
         if (filters == null || filters.isEmpty()) {
@@ -310,17 +343,10 @@ public class FilterMarshaller {
 
         }
 
-        /**
-         * @return the map
-         */
         public Map<String, Object> getMap() {
             return map;
         }
 
-        /**
-         * @param map
-         *            the map to set
-         */
         public void setMap(Map<String, Object> map) {
             this.map = map;
         }
@@ -355,7 +381,6 @@ public class FilterMarshaller {
             return (val instanceof String || val instanceof CharSequence);
         }
 
-        @SuppressWarnings("unchecked")
         public JsonObject getJsonObject(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
@@ -365,7 +390,9 @@ public class FilterMarshaller {
                 return null;
             }
             if (val instanceof Map) {
-                val = new JsonObject((Map<String, Object>) val);
+                @SuppressWarnings("unchecked")
+                Map<String, Object> valMap = (Map<String, Object>) val;
+                val = new JsonObject(valMap);
             }
             return (JsonObject) val;
         }

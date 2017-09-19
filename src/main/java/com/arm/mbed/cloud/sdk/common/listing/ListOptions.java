@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -16,29 +17,32 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 public class ListOptions {
 
     /**
-     * how many objects to retrieve in the page
+     * how many objects to retrieve in the page.
      */
     @DefaultValue(value = "default")
     private Integer limit;
     /**
-     * ASC or DESC
+     * Sorting order. ASC or DESC
      */
     @DefaultValue(value = "ASC")
     private Order order;
     /**
-     * the ID of the the item after which to retrieve the next page
+     * the ID of the the item after which to retrieve the next page.
      */
     private String after;
     /**
-     * Optional fields to include
+     * Optional fields to include.
      */
     private List<IncludeField> include;
 
     /**
-     * Optional filters
+     * Optional filters.
      */
     private Filters filter;
 
+    /**
+     * Constructor.
+     */
     public ListOptions() {
         super();
         setLimit(null);
@@ -49,6 +53,8 @@ public class ListOptions {
     }
 
     /**
+     * Gets the limit.
+     * 
      * @return the limit
      */
     public Integer getLimit() {
@@ -56,6 +62,8 @@ public class ListOptions {
     }
 
     /**
+     * Sets the limit.
+     * 
      * @param limit
      *            the limit to set
      */
@@ -64,6 +72,9 @@ public class ListOptions {
     }
 
     /**
+     * Gets the sorting order.
+     * 
+     * @see Order
      * @return the order
      */
     public Order getOrder() {
@@ -71,6 +82,9 @@ public class ListOptions {
     }
 
     /**
+     * Sets the sorting order.
+     * 
+     * @see Order
      * @param order
      *            the order to set
      */
@@ -79,6 +93,8 @@ public class ListOptions {
     }
 
     /**
+     * Gets after (ID of the the item after which to retrieve the next page).
+     * 
      * @return the after
      */
     public String getAfter() {
@@ -86,6 +102,8 @@ public class ListOptions {
     }
 
     /**
+     * Sets after (ID of the the item after which to retrieve the next page).
+     * 
      * @param after
      *            the after to set
      */
@@ -94,14 +112,17 @@ public class ListOptions {
     }
 
     /**
-     * @return the include
+     * Gets include fields.
+     * 
+     * @see IncludeField
+     * @return the include fields
      */
     public List<IncludeField> getInclude() {
         return include;
     }
 
     /**
-     * Gets a string comprising all include fields in Snake case
+     * Gets a string comprising all include fields in Snake case.
      * 
      * @return string
      */
@@ -122,6 +143,25 @@ public class ListOptions {
     }
 
     /**
+     * Adds an include field to consider.
+     * 
+     * @param includeField
+     *            field
+     */
+    public void addInclude(IncludeField includeField) {
+        if (includeField == null) {
+            return;
+        }
+        if (include == null) {
+            setInclude(new LinkedList<IncludeField>());
+        }
+        include.add(includeField);
+    }
+
+    /**
+     * Sets include fields.
+     * 
+     * @see IncludeField
      * @param include
      *            the include to set
      */
@@ -130,6 +170,8 @@ public class ListOptions {
     }
 
     /**
+     * Gets the filter.
+     * 
      * @return the filters
      */
     public Filters getFilter() {
@@ -137,6 +179,8 @@ public class ListOptions {
     }
 
     /**
+     * Sets the filter.
+     * 
      * @param filter
      *            the filters to set
      */
@@ -145,6 +189,9 @@ public class ListOptions {
     }
 
     /**
+     * Sets the filter from a Json string.
+     * 
+     * @see FilterMarshaller#fromJson(String) for more information regarding Json accepted format
      * @param jsonString
      *            Json string defining filters
      */
@@ -153,8 +200,9 @@ public class ListOptions {
     }
 
     /**
-     * Gets the filter as Json String
+     * Gets the filter as Json String.
      * 
+     * @see FilterMarshaller#toJson(Filters) for more information regarding Json filter format
      * @return the filter as a Json string
      */
     public String retrieveFilterAsJson() {
@@ -162,7 +210,7 @@ public class ListOptions {
     }
 
     /**
-     * Adds a filter to the query
+     * Adds a filter to the query.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -173,20 +221,6 @@ public class ListOptions {
      */
     public void addFilter(@Nullable String fieldName, FilterOperator operator, @Nullable Object value) {
         addFilter(new Filter(fieldName, operator, value));
-    }
-
-    /**
-     * Adds a custom filter to the query
-     * 
-     * @param customAttribute
-     *            custom attribute to apply the filter on
-     * @param operator
-     *            the filter operator to apply
-     * @param value
-     *            the value of the filter
-     */
-    public void addCustomFilter(@Nullable String customAttribute, FilterOperator operator, @Nullable Object value) {
-        addFilter(new CustomFilter(customAttribute, operator, value));
     }
 
     protected void addFilter(Filter subfilter) {
@@ -200,7 +234,21 @@ public class ListOptions {
     }
 
     /**
-     * Adds an "equal" filter
+     * Adds a custom filter to the query.
+     * 
+     * @param customAttribute
+     *            custom attribute to apply the filter on
+     * @param operator
+     *            the filter operator to apply
+     * @param value
+     *            the value of the filter
+     */
+    public void addCustomFilter(@Nullable String customAttribute, FilterOperator operator, @Nullable Object value) {
+        addFilter(new CustomFilter(customAttribute, operator, value));
+    }
+
+    /**
+     * Adds an "equal" filter.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -230,7 +278,7 @@ public class ListOptions {
     }
 
     /**
-     * Gets a string describing an "equal" filter
+     * Gets a string describing an "equal" filter.
      *
      * @param fieldName
      *            filter key

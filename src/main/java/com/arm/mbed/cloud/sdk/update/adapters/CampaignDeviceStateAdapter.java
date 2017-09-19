@@ -23,6 +23,13 @@ public final class CampaignDeviceStateAdapter {
         super();
     }
 
+    /**
+     * Maps metadata.
+     * 
+     * @param metadata
+     *            campaign metadata
+     * @return campaign state
+     */
     public static CampaignDeviceState map(CampaignDeviceMetadata metadata) {
         if (metadata == null) {
             return null;
@@ -33,6 +40,11 @@ public final class CampaignDeviceStateAdapter {
                 metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper.
+     */
     public static Mapper<CampaignDeviceMetadata, CampaignDeviceState> getMapper() {
         return new Mapper<CampaignDeviceMetadata, CampaignDeviceState>() {
 
@@ -44,6 +56,13 @@ public final class CampaignDeviceStateAdapter {
         };
     }
 
+    /**
+     * Maps list of campaign metadata.
+     * 
+     * @param list
+     *            metadata page
+     * @return list of campaign metadata
+     */
     public static ListResponse<CampaignDeviceState> mapList(CampaignDeviceMetadataPage list) {
         final CampaignDeviceMetadataPage deviceList = list;
         final RespList<CampaignDeviceMetadata> respList = new RespList<CampaignDeviceMetadata>() {
@@ -81,6 +100,11 @@ public final class CampaignDeviceStateAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceState>> getListMapper() {
         return new Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceState>>() {
 

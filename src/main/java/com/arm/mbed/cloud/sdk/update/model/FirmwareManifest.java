@@ -6,85 +6,128 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Firmware Manifest")
-public class FirmwareManifest implements SDKModel {
+public class FirmwareManifest implements SdkModel {
 
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = -1294421103104004701L;
     /**
-     * The ID of the firmware manifest
+     * The ID of the firmware manifest.
      */
     private String id;
     /**
-     * The URL of the firmware manifest
+     * The URL of the firmware manifest.
      */
     private final URL url;
     /**
-     * The class of device
+     * The class of device.
      */
     private final String deviceClass;
     /**
-     * The contents of the manifest
-     */
-    private final ManifestContents contents;
-    /**
-     * The time the object was created
+     * The time the object was created.
      */
     @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
-     * The time the object was updated
+     * The time the object was updated.
      */
     @DefaultValue(value = "now()")
     private final Date updatedAt;
     /**
-     * The version of the firmware manifest (as a timestamp)
+     * The version of the firmware manifest (as a timestamp).
      */
     @DefaultValue(value = "now()")
     private final Date timestamp;
 
     /**
-     * The name of the object
+     * The name of the object.
      */
     private String name;
     /**
-     * The description of the object
+     * The description of the object.
      */
     private String description;
     /**
-     * the size in bytes of the uploaded firmware manifest binary
+     * the size in bytes of the uploaded firmware manifest binary.
      */
     @DefaultValue(value = "0")
     private final long datafileSize;
     /**
-     * Checksum generated for the datafile
+     * Checksum generated for the datafile.
      */
     private final String datafileChecksum;
     /**
-     * The binary file of the manifest
+     * The binary file of the manifest.
      */
     private DataFile dataFile;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #FirmwareManifest()} instead.
+     * 
+     * @param id
+     *            id
+     * @param url
+     *            URL
+     * @param deviceClass
+     *            deviceClass
+     * @param datafileChecksum
+     *            file checksum
+     * @param datafileSize
+     *            file size
+     * @param createdAt
+     *            createdAt
+     * @param updatedAt
+     *            updatedAt
+     * @param timestamp
+     *            timestamp
+     */
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, String datafileChecksum,
-            long datafileSize, Date createdAt, Date updatedAt, Date timestamp) {
-        this(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, null, null, datafileSize,
-                datafileChecksum, null);
+    public FirmwareManifest(String id, URL url, String deviceClass, String datafileChecksum, long datafileSize,
+            Date createdAt, Date updatedAt, Date timestamp) {
+        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, datafileChecksum, null);
     }
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #FirmwareManifest()} instead.
+     * 
+     * @param id
+     *            id
+     * @param url
+     *            URL
+     * @param deviceClass
+     *            deviceClass
+     * @param createdAt
+     *            createdAt
+     * @param updatedAt
+     *            updatedAt
+     * @param timestamp
+     *            timestamp
+     * @param name
+     *            name
+     * @param description
+     *            description
+     * @param datafileSize
+     *            file size
+     * @param datafileChecksum
+     *            file checksum
+     * @param dataFile
+     *            file
+     */
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, ManifestContents contents, Date createdAt,
-            Date updatedAt, Date timestamp, String name, String description, long datafileSize, String datafileChecksum,
-            DataFile dataFile) {
+    public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
+            String name, String description, long datafileSize, String datafileChecksum, DataFile dataFile) {
         super();
         setId(id);
         this.url = url;
         this.deviceClass = deviceClass;
-        this.contents = contents;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
@@ -95,11 +138,16 @@ public class FirmwareManifest implements SDKModel {
         setDataFile(dataFile);
     }
 
+    /**
+     * Constructor.
+     */
     public FirmwareManifest() {
-        this(null, null, null, null, null, 0, new Date(), new Date(), new Date());
+        this(null, null, null, null, 0, new Date(), new Date(), new Date());
     }
 
     /**
+     * Gets the id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -107,6 +155,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Sets the id.
+     * 
      * @param id
      *            the id to set
      */
@@ -115,6 +165,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets the name.
+     * 
      * @return the name
      */
     public String getName() {
@@ -122,6 +174,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Sets the name.
+     * 
      * @param name
      *            the name to set
      */
@@ -130,6 +184,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets description.
+     * 
      * @return the description
      */
     public String getDescription() {
@@ -137,6 +193,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Sets description.
+     * 
      * @param description
      *            the description to set
      */
@@ -145,6 +203,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets data file.
+     * 
      * @return the dataFile
      */
     public DataFile getDataFile() {
@@ -152,6 +212,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Sets data file.
+     * 
      * @param dataFile
      *            the dataFile to set
      */
@@ -160,7 +222,7 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
-     * Sets datafile from a path
+     * Sets datafile from a path.
      * 
      * @param datafile
      *            the path to the datafile
@@ -170,6 +232,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets file size.
+     * 
      * @return the datafileSize
      */
     public long getDatafileSize() {
@@ -177,6 +241,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets file checksum.
+     * 
      * @return the datafileChecksum
      */
     public String getDatafileChecksum() {
@@ -184,6 +250,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets the URL.
+     * 
      * @return the url
      */
     public URL getUrl() {
@@ -191,6 +259,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets the device class.
+     * 
      * @return the deviceClass
      */
     public String getDeviceClass() {
@@ -198,13 +268,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
-     * @return the contents
-     */
-    public ManifestContents getContents() {
-        return contents;
-    }
-
-    /**
+     * Gets creation date.
+     * 
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -212,6 +277,8 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets last update date.
+     * 
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -219,20 +286,24 @@ public class FirmwareManifest implements SDKModel {
     }
 
     /**
+     * Gets the timestamp.
+     * 
      * @return the timestamp
      */
     public Date getTimestamp() {
         return timestamp;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */
     @Override
     public FirmwareManifest clone() throws CloneNotSupportedException {
-        return new FirmwareManifest(id, url, deviceClass, contents, createdAt, updatedAt, timestamp, name, description,
+        return new FirmwareManifest(id, url, deviceClass, createdAt, updatedAt, timestamp, name, description,
                 datafileSize, datafileChecksum, dataFile);
     }
 

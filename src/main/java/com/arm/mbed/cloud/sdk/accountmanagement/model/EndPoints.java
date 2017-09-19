@@ -14,12 +14,24 @@ public class EndPoints {
     private final DeveloperApi developer;
     private final AccountAdminApi admin;
 
+    /**
+     * Constructor.
+     * 
+     * @param wrapper
+     *            API client {@link ApiClientWrapper}.
+     */
     public EndPoints(ApiClientWrapper wrapper) {
         super();
         this.developer = initialiseDeveloper(wrapper);
         this.admin = initialiseAdmin(wrapper);
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}
+     */
     public EndPoints(ConnectionOptions options) {
         this(new ApiClientWrapper(options));
     }
@@ -32,16 +44,10 @@ public class EndPoints {
         return wrapper.createService(DeveloperApi.class);
     }
 
-    /**
-     * @return the developer
-     */
     public DeveloperApi getDeveloper() {
         return developer;
     }
 
-    /**
-     * @return the admin
-     */
     public AccountAdminApi getAdmin() {
         return admin;
     }

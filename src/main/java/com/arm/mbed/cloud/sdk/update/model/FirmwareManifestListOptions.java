@@ -11,17 +11,37 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 
 @Preamble(description = "Options to use when listing firmware manifest")
 public class FirmwareManifestListOptions extends ListOptions {
+    /**
+     * Tag of filter by timestamp.
+     */
     private static final String TIMESTAMP_FILTER = "timestamp";
+    /**
+     * Tag of filter by device class.
+     */
     private static final String DEVICE_CLASS_FILTER = "deviceClass";
+    /**
+     * Tag of filter by creation date.
+     */
     public static final String CREATED_AT_FILTER = "createdAt";
+    /**
+     * Tag of filter by last update date.
+     */
     public static final String UPDATED_AT_FILTER = "updatedAt";
+    /**
+     * Tag of filter by name.
+     */
     public static final String NAME_FILTER = "name";
 
+    /**
+     * Constructor.
+     */
     public FirmwareManifestListOptions() {
         super();
     }
 
     /**
+     * Gets device filter based on name field.
+     * 
      * @return the name filter
      */
     public @Nullable List<Filter> getNameFilters() {
@@ -29,6 +49,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on name field.
+     * 
      * @param nameFilter
      *            the name filter to add
      * @param operator
@@ -39,6 +61,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on createdAt field.
+     * 
      * @return the createdAt filter
      */
     public @Nullable List<Filter> getCreatedAtFilter() {
@@ -46,6 +70,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on createdAt field.
+     * 
      * @param createdAtFilter
      *            the createdAt filter to add
      * @param operator
@@ -56,6 +82,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on updatedAt field.
+     * 
      * @return the updatedAt filter
      */
     public @Nullable List<Filter> getUpdatedAtFilters() {
@@ -63,6 +91,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on updatedAt field.
+     * 
      * @param updatedAtFilter
      *            the updatedAt filter to add
      * @param operator
@@ -73,6 +103,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on timestamp field.
+     * 
      * @return the timestamp filter
      */
     public @Nullable List<Filter> getTimestampFilters() {
@@ -80,6 +112,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on timestamp field.
+     * 
      * @param timestamp
      *            the timestamp filter to add
      * @param operator
@@ -90,6 +124,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on device class field.
+     * 
      * @return the device class filter
      */
     public @Nullable List<Filter> getDeviceClassFilter() {
@@ -97,6 +133,8 @@ public class FirmwareManifestListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on device class field.
+     *
      * @param deviceClassFilter
      *            the device class filter to add
      * @param operator

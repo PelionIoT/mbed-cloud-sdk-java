@@ -12,7 +12,7 @@ import java.util.Set;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -29,7 +29,7 @@ import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
 public class Serializer {
-    private static class SDKEnumSerializer extends StdSerializer<SDKEnum> {
+    private static class SDKEnumSerializer extends StdSerializer<SdkEnum> {
         /**
          * 
          */
@@ -39,12 +39,12 @@ public class Serializer {
             this(null);
         }
 
-        public SDKEnumSerializer(Class<SDKEnum> t) {
+        public SDKEnumSerializer(Class<SdkEnum> t) {
             super(t);
         }
 
         @Override
-        public void serialize(SDKEnum value, JsonGenerator jgen, SerializerProvider provider)
+        public void serialize(SdkEnum value, JsonGenerator jgen, SerializerProvider provider)
                 throws IOException, JsonProcessingException {
 
             jgen.writeString((value == null) ? null : value.getString());
@@ -77,7 +77,7 @@ public class Serializer {
 
     static {
         SimpleModule module = new SimpleModule();
-        module.addSerializer(SDKEnum.class, new SDKEnumSerializer());
+        module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);

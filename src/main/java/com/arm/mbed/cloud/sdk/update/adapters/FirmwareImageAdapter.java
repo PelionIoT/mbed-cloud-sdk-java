@@ -20,6 +20,13 @@ public final class FirmwareImageAdapter {
         super();
     }
 
+    /**
+     * Maps firmware image.
+     * 
+     * @param firmwareImage
+     *            image
+     * @return image.
+     */
     public static FirmwareImage map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
         if (firmwareImage == null) {
             return null;
@@ -35,6 +42,11 @@ public final class FirmwareImageAdapter {
         return image;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage>() {
 
@@ -45,6 +57,13 @@ public final class FirmwareImageAdapter {
         };
     }
 
+    /**
+     * Maps list of images.
+     * 
+     * @param list
+     *            images page
+     * @return list of images
+     */
     public static ListResponse<FirmwareImage> mapList(FirmwareImagePage list) {
 
         final FirmwareImagePage imageList = list;
@@ -83,6 +102,11 @@ public final class FirmwareImageAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<FirmwareImagePage, ListResponse<FirmwareImage>> getListMapper() {
         return new Mapper<FirmwareImagePage, ListResponse<FirmwareImage>>() {
 

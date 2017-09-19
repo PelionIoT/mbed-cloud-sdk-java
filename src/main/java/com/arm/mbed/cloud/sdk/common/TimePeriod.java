@@ -77,6 +77,9 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
+     * Gets the time unit in use.
+     * 
+     * @see TimeUnit
      * @return the unit.
      */
     public TimeUnit getUnit() {
@@ -84,6 +87,9 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
+     * Sets the time unit.
+     * 
+     * @see TimeUnit
      * @param unit
      *            the unit to set.
      */
@@ -92,6 +98,8 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
+     * Gets the duration.
+     * 
      * @return the duration
      */
     public long getDuration() {
@@ -99,15 +107,17 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
+     * Sets the duration.
+     * 
      * @param duration
-     *            the duration to set
+     *            the duration to set.
      */
     public void setDuration(long duration) {
         this.duration = duration;
     }
 
     /**
-     * Sets as a timeout in second
+     * Sets as a timeout in second.
      * 
      * @param timeout
      *            timeout in second
@@ -117,8 +127,8 @@ public class TimePeriod implements Cloneable {
         setDuration(timeout);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets time period string representation.
      * 
      * @see java.lang.Object#toString()
      */
@@ -188,7 +198,7 @@ public class TimePeriod implements Cloneable {
     }
 
     private StringBuilder toStringAsDays(StringBuilder builder) {
-        if (duration >= 366 && duration % 366 == 0) {// This case should not happen
+        if (duration >= 366 && duration % 366 == 0) { // This case should not happen
             builder.append(duration / 366).append('y');
         } else if (duration >= 7 && duration % 7 == 0) {
             builder.append(duration / 7).append('w');
@@ -199,7 +209,7 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
-     * Sets time period from a string:
+     * Sets time period from a string.
      * 
      * @param value
      *            string value specifying the period in nanoseconds, seconds, minutes, hours, days or weeks. Sample
@@ -241,11 +251,11 @@ public class TimePeriod implements Cloneable {
                 break;
             case WEEKS:
                 setUnit(TimeUnit.DAYS);
-                setDuration(7l * duration);
+                setDuration(7L * duration);
                 break;
             case YEARS:// This case should not happen.
                 setUnit(TimeUnit.DAYS);
-                setDuration(366l * duration);
+                setDuration(366L * duration);
                 break;
             default:
                 break;

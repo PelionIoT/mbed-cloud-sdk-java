@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
@@ -28,10 +28,10 @@ import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
+import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
-import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
@@ -56,7 +56,7 @@ import retrofit2.Call;
  * <p>
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
-public class Connect extends AbstractAPI {
+public class Connect extends AbstractApi {
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
     private static final String TAG_FUNCTION_NAME = "function name";
@@ -68,24 +68,40 @@ public class Connect extends AbstractAPI {
     private final NotificationCache cache;
 
     /**
+     * Connect module constructor.
+     * <p>
+     * This module spawns threads for retrieving notifications when daemon is started @see
+     * {@link #startNotifications()}.
+     * <p>
+     * By default, the executor services in charge are defined and managed internally. It is however possible to specify
+     * your own executors @see #Connect(ConnectionOptions, ExecutorService, ExecutorService).
      * 
      * @param options
-     *            connection options
+     *            connection options @see {@link ConnectionOptions}.
      */
-    public Connect(ConnectionOptions options) {
+    public Connect(@NonNull ConnectionOptions options) {
         this(options, null, null);
     }
 
     /**
-     * TODO
+     * Connect module constructor.
+     * <p>
+     * As opposed to {@link #Connect(ConnectionOptions)} which uses default thread pools for retrieving notifications,
+     * this constructor lets you the possibility to specify the executor services to use.
      * 
      * @param options
-     *            connection options
+     *            connection options @see {@link ConnectionOptions}.
+     *
      * @param notificationHandlingThreadPool
+     *            Threads in charge of retrieving notifications for a specific resource. If null, a default thread pool
+     *            will be created internally.
      * @param notificationPullingThreadPool
+     *            Threads in charge of listening to notifications. The pool can either be a scheduled thread pool or a
+     *            fixed thread pool depending on what best suits your system. If null, an internal timer will be created
+     *            internally.
      */
-    public Connect(ConnectionOptions options, ExecutorService notificationHandlingThreadPool,
-            ExecutorService notificationPullingThreadPool) {
+    public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
+            @Nullable ExecutorService notificationPullingThreadPool) {
         super(options);
         endpoint = new EndPoints(options);
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
@@ -96,10 +112,10 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Starts notification pull for notifications
+     * Starts notification pull for notifications.
      * <p>
      * If not an external callback is set up (using `update_webhook`) then calling this function is mandatory to get or
-     * set resource.
+     * set resources.
      */
     @API
     @Daemon(task = "Notification pull", start = true)
@@ -108,7 +124,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Stops notification pull for notifications
+     * Stops notification pull for notifications.
      */
     @API
     @Daemon(task = "Notification pull", stop = true)
@@ -117,7 +133,7 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Shuts down all daemon services
+     * Shuts down all daemon services.
      */
     @API
     @Daemon(task = "Notification pull", shutdown = true)
@@ -127,13 +143,13 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Lists connected devices
+     * Lists connected devices.
      * 
      * @param type
-     *            Filter devices by device type
-     * @return the list of connected devices
+     *            Filter devices by device type.
+     * @return the list of connected devices.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable List<ConnectedDevice> listConnectedDevices(@Nullable String type) throws MbedCloudException {
@@ -149,13 +165,13 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Lists device's resources
+     * Lists device's resources.
      * 
      * @param deviceId
-     *            Device ID
-     * @return list of resources present on a device
+     *            Device ID.
+     * @return list of resources present on a device.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public List<Resource> listResources(@NonNull String deviceId) throws MbedCloudException {
@@ -175,15 +191,15 @@ public class Connect extends AbstractAPI {
     // TODO listDeviceSubscriptions
 
     /**
-     * Lists metrics
+     * Lists metrics.
      * 
      * @param options
-     *            metrics options
+     *            metrics options.
      * @param <T>
      *            Type of metrics list options
-     * @return list of metrics for the corresponding options
+     * @return list of metrics for the corresponding options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable <T extends AbstractMetricsListOptions> List<Metric> listMetrics(@NonNull T options)
@@ -216,16 +232,16 @@ public class Connect extends AbstractAPI {
      * Gets a resource value for a given device id and resource path.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param cacheOnly
-     *            If true, the response will come only from the cache
+     *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
-     * @return A Future from which it is possible to obtain resource value
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to obtain resource value.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Future<Object> getResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
@@ -255,18 +271,18 @@ public class Connect extends AbstractAPI {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param cacheOnly
-     *            If true, the response will come only from the cache
+     *            If true, the response will come only from the cache.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
+     *            If true, mbed Device Connector will not wait for a response.
      * @param timeout
-     *            Timeout for the request
-     * @return resource value
+     *            Timeout for the request.
+     * @return resource value.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
@@ -284,26 +300,26 @@ public class Connect extends AbstractAPI {
                     return getResourceValueAsync(id, path, fromCache, waitForResponse);
                 }
             }, timeout);
-        } catch (MbedCloudException e) {
-            logger.throwSDKException(e);
+        } catch (MbedCloudException exception) {
+            logger.throwSdkException(exception);
         }
         return null;
     }
 
     /**
-     * Sets the value of a resource
+     * Sets the value of a resource.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param resourceValue
-     *            value to set
+     *            value to set.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
-     * @return A Future from which it is possible to set the value
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to set the value.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Future<Object> setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
@@ -326,23 +342,23 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Sets the value of a resource
+     * Sets the value of a resource.
      * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param resourceValue
-     *            value to set
+     *            value to set.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
+     *            If true, mbed Device Connector will not wait for a response.
      * @param timeout
-     *            Timeout for the request
-     * @return The value of the new resource
+     *            Timeout for the request.
+     * @return The value of the new resource.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
@@ -360,8 +376,8 @@ public class Connect extends AbstractAPI {
                     return setResourceValueAsync(id, path, value, waitForResponse);
                 }
             }, timeout);
-        } catch (MbedCloudException e) {
-            logger.throwSDKException(e);
+        } catch (MbedCloudException exception) {
+            logger.throwSdkException(exception);
         }
         return null;
     }
@@ -370,16 +386,16 @@ public class Connect extends AbstractAPI {
      * Executes a function on a resource.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param functionName
-     *            The function to trigger
+     *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
-     * @return A Future from which it is possible to get the value returned from the function executed on the resource
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to get the value returned from the function executed on the resource.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
@@ -403,23 +419,23 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Executes a function on a resource
+     * Executes a function on a resource.
      * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * 
      * @param deviceId
-     *            The name/id of the device
+     *            The name/id of the device.
      * @param resourcePath
-     *            The resource path to get
+     *            The resource path to get.
      * @param functionName
-     *            The function to trigger
+     *            The function to trigger.
      * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response
+     *            If true, mbed Device Connector will not wait for a response.
      * @param timeout
-     *            Timeout for the request
-     * @return the value returned from the function executed on the resource
+     *            Timeout for the request.
+     * @return the value returned from the function executed on the resource.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
@@ -437,19 +453,19 @@ public class Connect extends AbstractAPI {
                     return executeResourceAsync(id, path, function, waitForResponse);
                 }
             }, timeout);
-        } catch (MbedCloudException e) {
-            logger.throwSDKException(e);
+        } catch (MbedCloudException exception) {
+            logger.throwSdkException(exception);
         }
         return null;
     }
 
     /**
-     * Deletes a resource
+     * Deletes a resource.
      * 
      * @param resource
-     *            The resource to delete
+     *            The resource to delete.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteResource(@NonNull Resource resource) throws MbedCloudException {
@@ -470,11 +486,11 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Lists pre-subscription data
+     * Lists pre-subscription data.
      * 
-     * @return the list of pre-subscription data
+     * @return the list of pre-subscription data.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable List<Presubscription> listPresubscriptions() throws MbedCloudException {
@@ -495,9 +511,9 @@ public class Connect extends AbstractAPI {
      *            The pre-subscription list to update.
      *            <p>
      *            If you send an empty/null array, the pre-subscription data will be removed @see
-     *            {@link #deletePresubscriptions()} for similar action
+     *            {@link #deletePresubscriptions()} for similar action.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
@@ -513,10 +529,10 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Deletes pre-subscription data
+     * Deletes pre-subscription data.
      * 
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deletePresubscriptions() throws MbedCloudException {
@@ -530,10 +546,10 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Removes all subscriptions
+     * Removes all subscriptions.
      * 
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteSubscriptions() throws MbedCloudException {
@@ -547,12 +563,12 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Deletes a device's subscriptions
+     * Deletes a device's subscriptions.
      * 
      * @param deviceId
-     *            Device ID
+     *            Device ID.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
@@ -593,12 +609,12 @@ public class Connect extends AbstractAPI {
     // TODO subscriptions
 
     /**
-     * Subscribes to a resource
+     * Subscribes to a resource.
      *
      * @param resource
-     *            resource to subscribe to
+     *            resource to subscribe to.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void addResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
@@ -616,12 +632,12 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Deletes a resource's subscription
+     * Deletes a resource's subscription.
      *
      * @param resource
-     *            resource to subscribe to
+     *            resource to subscribe to.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
@@ -639,11 +655,11 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Gets the current callback URL if it exists
+     * Gets the current callback URL if it exists.
      * 
-     * @return the webhook
+     * @return the webhook.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public Webhook getWebhook() throws MbedCloudException {
@@ -661,9 +677,9 @@ public class Connect extends AbstractAPI {
      * Registers new webhook for incoming subscriptions.
      * 
      * @param webhook
-     *            Webhook to set
+     *            Webhook to set.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void updateWebhook(Webhook webhook) throws MbedCloudException {
@@ -678,14 +694,14 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Deletes the callback data (effectively stopping Arm Mbed Cloud Connect from putting notifications)
-     * 
+     * Deletes the callback data (effectively stopping Arm Mbed Cloud Connect from putting notifications).
+     * <p>
      * If no webhook is registered, an exception (404) will be raised.
-     * 
+     * <p>
      * Note that every registered subscription will be deleted as part of deregistering a webhook.
      * 
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteWebhook() throws MbedCloudException {
@@ -699,9 +715,9 @@ public class Connect extends AbstractAPI {
     }
 
     /**
-     * Retrieves module name
+     * Retrieves module name.
      * 
-     * @return module name
+     * @return module name.
      */
     @Override
     public String getModuleName() {

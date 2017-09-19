@@ -1,43 +1,67 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+
+@Preamble(description = "Custom filter for listing requests")
 public class CustomFilter extends Filter {
 
     public static final String CUSTOM_ATTRIBUTES_PREFIX = "custom_attributes__";
 
+    /**
+     * Constructor.
+     * 
+     * @param fieldName
+     *            field on which the filter applies
+     * @param operator
+     *            filter operator {@link FilterOperator}
+     * @param value
+     *            filter value to apply
+     */
     public CustomFilter(String fieldName, FilterOperator operator, Object value) {
         super(fieldName, operator, value);
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets filter prefix.
      * 
-     * @see com.arm.mbed.cloud.sdk.common.listing.filtering.Filter#getPrefix()
+     * @return filter prefix
+     * @see Filter#getPrefix()
      */
+    @Internal
     @Override
     public String getPrefix() {
         return CUSTOM_ATTRIBUTES_PREFIX;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * States whether the filter has a prefix.
      * 
-     * @see com.arm.mbed.cloud.sdk.common.listing.filtering.Filter#hasPrefix()
+     * @return true if it has.
+     * @see Filter#hasPrefix()
      */
+    @Internal
     @Override
     public boolean hasPrefix() {
         return true;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone of the filter.
      * 
-     * @see com.arm.mbed.cloud.sdk.common.listing.filtering.Filter#clone()
+     * @return a clone.
+     * @see Cloneable
      */
     @Override
     public CustomFilter clone() {
         return new CustomFilter(fieldName, operator, value);
     }
 
+    /**
+     * Gets parent filter.
+     * 
+     * @return filter
+     */
     public Filter getRawFilter() {
         return super.clone();
     }

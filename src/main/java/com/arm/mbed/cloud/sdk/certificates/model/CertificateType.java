@@ -1,10 +1,11 @@
 package com.arm.mbed.cloud.sdk.certificates.model;
 
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Certificate type")
-public enum CertificateType implements SDKEnum {
+public enum CertificateType implements SdkEnum {
     DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m"), UNKNOWN("unknown");
 
     private final String value;
@@ -14,7 +15,9 @@ public enum CertificateType implements SDKEnum {
     }
 
     /**
-     * @return the string
+     * Converts to string.
+     * 
+     * @see Object#toString()
      */
     @Override
     public String toString() {
@@ -22,27 +25,53 @@ public enum CertificateType implements SDKEnum {
     }
 
     /**
-     * @return the string
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
      */
     @Override
     public String getString() {
         return value;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets default certificate type.
+     * 
+     * @return default status.
+     */
     public static CertificateType getDefault() {
         return CertificateType.UNKNOWN;
     }
 
+    /**
+     * States whether the type corresponds to developer type or not.
+     * 
+     * @param type
+     *            type to test.
+     * @return true if the type corresponds to the developer type. false otherwise.
+     */
     public static boolean isDeveloper(CertificateType type) {
         return type == null || type == CertificateType.DEVELOPER;
     }
 
-    public static CertificateType getType(String string) {
+    /**
+     * Gets the certificate type from its string representation.
+     * 
+     * @param string
+     *            string describing the certificate type.
+     * @return corresponding certificate type. If not found, default type is returned.
+     */
+    public static CertificateType getType(@Nullable String string) {
         if (string == null) {
             return getDefault();
         }
@@ -55,8 +84,13 @@ public enum CertificateType implements SDKEnum {
         return getDefault();
     }
 
+    /**
+     * Merges two types.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

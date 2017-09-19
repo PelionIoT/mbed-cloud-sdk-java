@@ -5,21 +5,21 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Metric")
-public class Metric implements SDKModel {
+public class Metric implements SdkModel {
 
     /**
-     * 
+     * Serialisation id.
      */
     private static final long serialVersionUID = -3773225008298999579L;
     /**
-     * The ID of the metric
+     * The ID of the metric.
      */
     private String id;
     /**
-     * UTC time in RFC3339 format
+     * UTC time in RFC3339 format.
      */
     @DefaultValue(value = "now()")
     private final Date timestamp;
@@ -59,22 +59,22 @@ public class Metric implements SDKModel {
     @DefaultValue(value = "0")
     private final long failedBootstraps;
     /**
-     * Number of registrations
+     * Number of registrations.
      */
     @DefaultValue(value = "0")
     private final long fullRegistrations;
     /**
-     * Number of updated registrations
+     * Number of updated registrations.
      */
     @DefaultValue(value = "0")
     private final long updatedRegistrations;
     /**
-     * Number of expired registrations
+     * Number of expired registrations.
      */
     @DefaultValue(value = "0")
     private final long expiredRegistrations;
     /**
-     * Number of deleted registrations
+     * Number of deleted registrations.
      */
     @DefaultValue(value = "0")
     private final long deletedRegistrations;
@@ -114,6 +114,48 @@ public class Metric implements SDKModel {
     @DefaultValue(value = "0")
     private final long observations;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Metric()} instead.
+     * 
+     * @param id
+     *            id
+     * @param timestamp
+     *            timestamp
+     * @param transactions
+     *            transactions
+     * @param successfulApiCalls
+     *            successful API calls
+     * @param failedApiCalls
+     *            failed API calls
+     * @param successfulHandshakes
+     *            successful handshakes
+     * @param pendingBootstraps
+     *            pending bootstraps
+     * @param successfulBootstraps
+     *            successful bootstraps
+     * @param failedBootstraps
+     *            failed bootstraps
+     * @param registrations
+     *            registrations
+     * @param updatedRegistrations
+     *            updated registrations
+     * @param expiredRegistrations
+     *            expired registrations
+     * @param deletedRegistrations
+     *            deleted registrations
+     * @param successfulDeviceProxyRequests
+     *            successful device proxy requests
+     * @param failedDeviceProxyRequests
+     *            failed device proxy requests
+     * @param successfulDeviceSubscriptionRequests
+     *            successful device subscription requests
+     * @param failedDeviceSubscriptionRequests
+     *            failed subscription requests
+     * @param deviceObservations
+     *            device observations
+     */
     @Internal
     public Metric(String id, Date timestamp, long transactions, long successfulApiCalls, long failedApiCalls,
             long successfulHandshakes, long pendingBootstraps, long successfulBootstraps, long failedBootstraps,
@@ -141,11 +183,16 @@ public class Metric implements SDKModel {
         this.observations = deviceObservations;
     }
 
+    /**
+     * Constructor.
+     */
     public Metric() {
         this(null, new Date(), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
     }
 
     /**
+     * Gets pending bootstraps.
+     * 
      * @return the pendingBootstraps
      */
     public long getPendingBootstraps() {
@@ -153,6 +200,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets successful bootstraps.
+     * 
      * @return the successfulBootstraps
      */
     public long getSuccessfulBootstraps() {
@@ -160,6 +209,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets failed bootstraps.
+     * 
      * @return the failedBootstraps
      */
     public long getFailedBootstraps() {
@@ -167,6 +218,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets full registrations.
+     * 
      * @return the registrations
      */
     public long getFullRegistrations() {
@@ -174,6 +227,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets updated registrations.
+     * 
      * @return the updatedRegistrations
      */
     public long getUpdatedRegistrations() {
@@ -181,6 +236,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets expired registrations.
+     * 
      * @return the expiredRegistrations
      */
     public long getExpiredRegistrations() {
@@ -188,6 +245,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets deleted registrations.
+     * 
      * @return the deletedRegistrations
      */
     public long getDeletedRegistrations() {
@@ -195,6 +254,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets the id.
+     * 
      * @return the id
      */
     public String getId() {
@@ -202,6 +263,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Sets the id.
+     * 
      * @param id
      *            the id to set
      */
@@ -210,6 +273,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets timestamp.
+     * 
      * @return the timestamp
      */
     public Date getTimestamp() {
@@ -217,6 +282,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets transactions.
+     * 
      * @return the transactions
      */
     public long getTransactions() {
@@ -224,6 +291,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets successful API calls.
+     * 
      * @return the successfulApiCalls
      */
     public long getSuccessfulApiCalls() {
@@ -231,6 +300,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets failed API calls.
+     * 
      * @return the failedApiCalls
      */
     public long getFailedApiCalls() {
@@ -238,6 +309,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets successful handshakes.
+     * 
      * @return the successfulHandshakes
      */
     public long getHandshakes() {
@@ -245,6 +318,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets successful device proxy requests.
+     * 
      * @return the successfulDeviceProxyRequests
      */
     public long getSuccessfulProxyRequests() {
@@ -252,6 +327,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets failed device proxy requests.
+     * 
      * @return the failedDeviceProxyRequests
      */
     public long getFailedProxyRequests() {
@@ -259,6 +336,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets successful device subscription requests.
+     * 
      * @return the successfulDeviceSubscriptionRequests
      */
     public long getSuccessfulSubscriptionRequests() {
@@ -266,6 +345,8 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets failed subscription requests.
+     * 
      * @return the failedDeviceSubscriptionRequests
      */
     public long getFailedSubscriptionRequests() {
@@ -273,14 +354,18 @@ public class Metric implements SDKModel {
     }
 
     /**
+     * Gets device observations.
+     * 
      * @return the deviceObservations
      */
     public long getObservations() {
         return observations;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone
      * 
      * @see java.lang.Object#clone()
      */

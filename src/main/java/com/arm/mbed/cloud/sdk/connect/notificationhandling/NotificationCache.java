@@ -10,7 +10,9 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
@@ -30,20 +32,32 @@ import com.mbed.lwm2m.base64.Base64Decoder;
 
 import retrofit2.Call;
 
+@Preamble(description = "Internal cache for notifications")
+@Internal
 public class NotificationCache {
 
     private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
 
     private static final int CACHE_INITIAL_CAPACITY = 10;
 
-    private final AbstractAPI api;
+    private final AbstractApi api;
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
-    // private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
 
-    public NotificationCache(AbstractAPI api, ExecutorService pullingThread, EndPoints endpoint) {
+    // private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
+    /**
+     * Notification cache constructor.
+     * 
+     * @param api
+     *            API module
+     * @param pullingThread
+     *            thread pool
+     * @param endpoint
+     *            endpoint
+     */
+    public NotificationCache(AbstractApi api, ExecutorService pullingThread, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);
@@ -59,6 +73,9 @@ public class NotificationCache {
         return new EndPoints(options);
     }
 
+    /**
+     * Starts notification pull.
+     */
     public void startNotificationPull() {
         if (isPullingActive()) {
             api.getLogger().logInfo("Notification pull is already working.");
@@ -84,6 +101,9 @@ public class NotificationCache {
 
     }
 
+    /**
+     * Stops notification pull.
+     */
     public void stopNotificationPull() {
         if (pullHandle != null && !(pullHandle.isDone() || pullHandle.isCancelled())) {
             pullHandle.cancel(true);
@@ -91,40 +111,50 @@ public class NotificationCache {
         pullHandle = null;
     }
 
+    /**
+     * States whether pulling is currently on going.
+     * 
+     * @return true if pulling is active. false otherwise.
+     */
     public boolean isPullingActive() {
         return pullHandle != null;
     }
 
+    /**
+     * Shuts down the cache and the thread pool it uses.
+     */
     public void shutdown() {
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
     }
 
+    /**
+     * Fetchs the response of an asynchronous request.
+     * 
+     * @param executor
+     *            "finder" thread pool
+     * @param functionName
+     *            name of the API.
+     * @param caller
+     *            caller
+     * @return Future task
+     * @throws MbedCloudException
+     *             if an error occurred during the call.
+     */
     public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
             throws MbedCloudException {
         if (!isPullingActive()) {
-            api.getLogger().throwSDKException("startNotifications() needs to be called before setting resource value.");
+            api.getLogger().throwSdkException("startNotifications() needs to be called before setting resource value.");
         }
         final String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
         return fetchAsyncResponse(executor, asyncResponseId);
     }
 
-    private static Mapper<AsyncID, String> getResponseIdMapper() {
-        return new Mapper<AsyncID, String>() {
-
-            @Override
-            public String map(AsyncID toBeMapped) {
-                return toBeMapped.getAsyncResponseId();
-            }
-
-        };
-    }
-
     @SuppressWarnings("null")
     private Future<Object> fetchAsyncResponse(ExecutorService executor, String id) throws MbedCloudException {
         if (executor == null || id == null || id.isEmpty()) {
-            api.getLogger().throwSDKException(new IllegalArgumentException());
+            api.getLogger().throwSdkException(new IllegalArgumentException());
         }
         final String responseId = id;
         return executor.submit(new Callable<Object>() {
@@ -148,6 +178,17 @@ public class NotificationCache {
             }
 
         });
+    }
+
+    private static Mapper<AsyncID, String> getResponseIdMapper() {
+        return new Mapper<AsyncID, String>() {
+
+            @Override
+            public String map(AsyncID toBeMapped) {
+                return toBeMapped.getAsyncResponseId();
+            }
+
+        };
     }
 
     private static Mapper<NotificationMessage, NotificationMessage> getIdentityMapper() {
@@ -183,8 +224,8 @@ public class NotificationCache {
                     cacheResponses(notificationMessage.getAsyncResponses());
                     // cacheSubscription(notificationMessage.getNotifications());
 
-                } catch (MbedCloudException e) {
-                    api.getLogger().logError("An error occurred during Notification pull", e);
+                } catch (MbedCloudException exception) {
+                    api.getLogger().logError("An error occurred during Notification pull", exception);
                 }
             }
         };
@@ -220,8 +261,8 @@ public class NotificationCache {
             try {
                 final AsyncResponse asyncResponse = new AsyncResponse(response);
                 responseCache.put(asyncResponse.getKey(), asyncResponse);
-            } catch (DecodingException e) {
-                api.getLogger().logError("An error occurred during Notification pull", e);
+            } catch (DecodingException exception) {
+                api.getLogger().logError("An error occurred during Notification pull", exception);
             }
 
         }
@@ -237,12 +278,28 @@ public class NotificationCache {
         return Base64Decoder.decodeBase64(buffer, encodingType);
     }
 
+    /**
+     * Defines Asynchronous responses.
+     *
+     */
     public static class AsyncResponse {
         private final String id;
         private final int statusCode;
         private final String errorMessage;
         private final Object payload;
 
+        /**
+         * Constructor.
+         * 
+         * @param id
+         *            response id
+         * @param statusCode
+         *            HTTP status code
+         * @param errorMessage
+         *            error message
+         * @param payload
+         *            response payload
+         */
         public AsyncResponse(String id, int statusCode, String errorMessage, Object payload) {
             super();
             this.id = id;
@@ -325,11 +382,25 @@ public class NotificationCache {
 
     }
 
+    /**
+     * Defines a resource subscription.
+     *
+     */
     public static class ResourceSubscription {
         private final String deviceId;
         private final String uriPath;
         private final Object payload;
 
+        /**
+         * Constructor.
+         * 
+         * @param deviceId
+         *            device id
+         * @param uriPath
+         *            URI path
+         * @param payload
+         *            response payload
+         */
         public ResourceSubscription(String deviceId, String uriPath, Object payload) {
             super();
             this.deviceId = deviceId;
