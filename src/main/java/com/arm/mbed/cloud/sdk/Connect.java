@@ -189,6 +189,29 @@ public class Connect extends AbstractApi {
     }
 
     // TODO listDeviceSubscriptions
+    /**
+     * Lists a device's subscriptions.
+     * 
+     * @param deviceId
+     *            Device ID.
+     * @return list of subscriptions
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public List<String> listDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        final String finalDeviceId = deviceId;
+
+        return CloudCaller.call(this, "listDeviceSubscriptions()", PresubscriptionAdapter.getResourcePathListMapper(),
+                new CloudCall<String>() {
+
+                    @Override
+                    public Call<String> call() {
+                        return endpoint.getSubscriptions().v2SubscriptionsDeviceIdGet(finalDeviceId);
+                    }
+                });
+    }
 
     /**
      * Lists metrics.
@@ -583,30 +606,36 @@ public class Connect extends AbstractApi {
         });
     }
 
-    // /**
-    // * Gets the status of a resource's subscription
-    // *
-    // * @param deviceId
-    // * Device ID
-    // * @return subscription status
-    // * @throws MbedCloudException
-    // * if a problem occurred during request processing
-    // */
-    // @API
-    // public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
-    // checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
-    // checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
-    // final Resource finalResource = resource;
-    // CloudCaller.call(this, "getResourceSubscription()", null, new CloudCall<Void>() {
-    //
-    // @Override
-    // public Call<Void> call() {
-    // return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(finalResource.getDeviceId(),
-    // finalResource.getPath());
-    // }
-    // });
-    // }
-    // TODO subscriptions
+    /**
+     * Gets the status of a resource's subscription.
+     *
+     * @param resource
+     *            resource
+     * @return true if resource is subscribed. false otherwise.
+     * @throws MbedCloudException
+     *             if a parameter is incorrect
+     * 
+     * 
+     */
+    @API
+    public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
+        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        final Resource finalResource = resource;
+        try {
+            CloudCaller.call(this, "getResourceSubscription()", null, new CloudCall<Void>() {
+
+                @Override
+                public Call<Void> call() {
+                    return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(
+                            finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
+                }
+            });
+            return true;
+        } catch (MbedCloudException exception) {
+            return false;
+        }
+    }
 
     /**
      * Subscribes to a resource.

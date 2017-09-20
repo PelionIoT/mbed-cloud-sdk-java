@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.net.MalformedURLException;
@@ -9,6 +10,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -165,6 +167,21 @@ public class TestTranslationUtils {
         DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
         format.setTimeZone(TimeZone.getTimeZone("GMT"));
         assertEquals("Fri, 11 Aug 2017 19:33:35 GMT", TranslationUtils.toTimestamp(calendar.getTime(), format));
+    }
+
+    public void testParseList() {
+        String entry = "/3/0/13\n/3/0/18\n/3/0/21";
+        List<String> list = TranslationUtils.parseList(entry, "\n");
+        assertNotNull(list);
+        assertEquals(3, list.size());
+        assertEquals("/3/0/13", list.get(0));
+        assertEquals("/3/0/18", list.get(1));
+        assertEquals("/3/0/21", list.get(2));
+        entry = "/3/0/13";
+        list = TranslationUtils.parseList(entry, "\n");
+        assertNotNull(list);
+        assertEquals(1, list.size());
+        assertEquals("/3/0/13", list.get(0));
     }
 
 }
