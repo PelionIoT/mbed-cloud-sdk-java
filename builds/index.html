@@ -31,7 +31,7 @@
 			<% if (build.failed || !build.has_artifacts) { %>
 				<a title="CircleCI Build" href="<%- build.build_url %>">
 			<% } else { %>
-				<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
+				<a title="Test Results" href="<%- getArtifactUrl(build, 'tests/index.html') %>">
 			<% } %>
 
 				<div class="build <%- build.status === 'running' ? 'run' : build.failed ? 'fail' : 'pass' %>">
@@ -57,10 +57,18 @@
 				<a title="Github Commit" href="<%- build.vcs_url %>/commit/<%- build.vcs_revision %>">
 					<img class="logo github" src="images/github.svg" /></a>
 				<% if (build.has_artifacts) { %>
-					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs') %>">
+					<a title="Documentation" href="<%- getArtifactUrl(build, 'docs/index.html') %>">
 						<img class="logo docs" src="images/docs.svg" /></a>
+					<a title="Unit Tests Results" href="<%- getArtifactUrl(build, 'reports/tests/test/index.html') %>">
+						<img class="logo unittests" src="images/unittests.svg" /></a>
 					<a title="Test Results" href="<%- getArtifactUrl(build, 'tests') %>">
 						<img class="logo tests" src="images/tests.svg" /></a>
+					<a title="Code Coverage" href="<%- getArtifactUrl(build, 'reports/jacoco/test/html/index.html') %>">
+						<img class="logo coverage" src="images/coverage.svg" /></a>
+					<a title="TPIP Report" href="<%- getArtifactUrl(build, 'reports/dependency-license/index.html') %>">
+						<img class="logo ip" src="images/tpip.svg" /></a>
+					<a title="Artifacts" href="<%- getArtifactUrl(build, 'artifacts/sdk.zip') %>">
+						<img class="logo zip" src="images/zip.svg" /></a>
 				<% } %>
 			</div>
 		</li>
@@ -112,7 +120,7 @@
 	}
 
 	function getArtifactUrl(build, base) {
-		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + base + "/index.html";
+		return "https://circle-artifacts.com/gh/ARMmbed/" + project + "/" + build.build_num + "/artifacts/0/home/ubuntu/" + base;
 	}
 
 	getCircle(function(builds) {
