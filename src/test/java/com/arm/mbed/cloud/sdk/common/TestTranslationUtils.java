@@ -11,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
 
@@ -50,9 +51,8 @@ public class TestTranslationUtils {
     @Test
     public void testToDefaultTimestamp() {
         String timestamp = "11-Aug-2017 18:33:35";
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTimeZone(TimeZone.getTimeZone("CET"));
-        calendar.set(2017, 7, 11, 19, 33, 35);
+        Calendar calendar = Calendar.getInstance(Locale.getDefault());
+        calendar.set(2017, 7, 11, 18, 33, 35);
         calendar.set(Calendar.MILLISECOND, 0);
         assertEquals(timestamp, TranslationUtils.toDefaultTimestamp(calendar.getTime()));
     }
