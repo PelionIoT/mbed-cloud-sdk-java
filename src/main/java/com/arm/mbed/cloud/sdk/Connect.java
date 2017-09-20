@@ -188,30 +188,29 @@ public class Connect extends AbstractApi {
                 });
     }
 
-    // TODO listDeviceSubscriptions
-    /**
-     * Lists a device's subscriptions.
-     * 
-     * @param deviceId
-     *            Device ID.
-     * @return list of subscriptions
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    public List<String> listDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        final String finalDeviceId = deviceId;
-
-        return CloudCaller.call(this, "listDeviceSubscriptions()", PresubscriptionAdapter.getResourcePathListMapper(),
-                new CloudCall<String>() {
-
-                    @Override
-                    public Call<String> call() {
-                        return endpoint.getSubscriptions().v2SubscriptionsDeviceIdGet(finalDeviceId);
-                    }
-                });
-    }
+    // /**
+    // * Lists a device's subscriptions.
+    // *
+    // * @param deviceId
+    // * Device ID.
+    // * @return list of subscriptions
+    // * @throws MbedCloudException
+    // * if a problem occurred during request processing.
+    // */
+    // @API
+    // public List<String> listDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
+    // checkNotNull(deviceId, TAG_DEVICE_ID);
+    // final String finalDeviceId = deviceId;
+    //
+    // return CloudCaller.call(this, "listDeviceSubscriptions()", PresubscriptionAdapter.getResourcePathListMapper(),
+    // new CloudCall<String>() {
+    //
+    // @Override
+    // public Call<String> call() {
+    // return endpoint.getSubscriptions().v2SubscriptionsDeviceIdGet(finalDeviceId);
+    // }
+    // });
+    // }
 
     /**
      * Lists metrics.
