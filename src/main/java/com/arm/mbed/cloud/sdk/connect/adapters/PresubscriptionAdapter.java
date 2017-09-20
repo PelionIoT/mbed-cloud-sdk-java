@@ -5,6 +5,7 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 
@@ -120,6 +121,37 @@ public final class PresubscriptionAdapter {
             @Override
             public List<Presubscription> map(PresubscriptionArray toBeMapped) {
                 return PresubscriptionAdapter.mapList(toBeMapped);
+            }
+
+        };
+    }
+
+    /**
+     * Gets a list of resource path from a string.
+     * 
+     * @param list
+     *            string containing resource paths.
+     * @return list of resource paths
+     */
+    public static List<String> mapResourcePathList(String list) {
+        if (list == null) {
+            return null;
+        }
+        final String listString = list.replace("\r", "");
+        return TranslationUtils.parseList(listString, "\n");
+    }
+
+    /**
+     * Gets resource path list mapper.
+     * 
+     * @return a list of resource path
+     */
+    public static Mapper<String, List<String>> getResourcePathListMapper() {
+        return new Mapper<String, List<String>>() {
+
+            @Override
+            public List<String> map(String toBeMapped) {
+                return mapResourcePathList(toBeMapped);
             }
 
         };

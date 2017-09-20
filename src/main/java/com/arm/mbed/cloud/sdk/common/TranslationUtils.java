@@ -5,7 +5,9 @@ import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -308,5 +310,21 @@ public final class TranslationUtils {
             return null;
         }
         return format.format(date);
+    }
+
+    /**
+     * Extracts a list of strings from a string.
+     * 
+     * @param string
+     *            string containing a list of string elements
+     * @param separator
+     *            string used as element separator
+     * @return list of string elements
+     */
+    public static List<String> parseList(String string, String separator) {
+        if (string == null || separator == null) {
+            return null;
+        }
+        return Arrays.asList(string.split(separator));
     }
 }

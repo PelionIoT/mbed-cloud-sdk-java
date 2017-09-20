@@ -108,7 +108,15 @@ public class Serializer {
     public static JsonArray reformatJsonList(List<?> result) {
         JsonArray array = new JsonArray();
         for (Object object : result) {
-            array.add(reformatJsonObject(JsonObject.mapFrom(object), CaseConversion.CAMEL_TO_SNAKE, false));
+            try {
+                if (isPrimitiveOrWrapperType(object.getClass())) {
+                    array.add(object);
+                } else {
+                    array.add(reformatJsonObject(JsonObject.mapFrom(object), CaseConversion.CAMEL_TO_SNAKE, false));
+                }
+            } catch (APICallException e) {
+                e.printStackTrace();
+            }
         }
         return array;
     }
