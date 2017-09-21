@@ -407,10 +407,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The certificate type.
+   * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(value = "The certificate type.")
+  @ApiModelProperty(value = "The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
