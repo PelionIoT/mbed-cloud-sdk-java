@@ -41,7 +41,7 @@ public class DeveloperApiTest {
     /**
      * Create a new API key.
      *
-     * An endpoint for creating a new API key.   **Example usage:** curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     @Test
     public void createApiKeyTest() {
@@ -54,7 +54,7 @@ public class DeveloperApiTest {
     /**
      * Delete API key.
      *
-     * An endpoint for deleting the API key.   **Example usage:** curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for deleting the API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     @Test
     public void deleteApiKeyTest() {
@@ -80,7 +80,7 @@ public class DeveloperApiTest {
     /**
      * Get all API keys
      *
-     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     @Test
     public void getAllApiKeysTest() {
@@ -163,7 +163,7 @@ public class DeveloperApiTest {
     /**
      * Get trusted certificate by ID.
      *
-     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      */
     @Test
     public void getCertificateTest() {
@@ -189,7 +189,7 @@ public class DeveloperApiTest {
     /**
      * Get account info.
      *
-     * Returns detailed information about the account.   **Example usage:** curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39; .
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; .
      */
     @Test
     public void getMyAccountInfoTest() {
@@ -202,7 +202,7 @@ public class DeveloperApiTest {
     /**
      * Get API key details.
      *
-     * An endpoint for retrieving API key details.   **Example usage:** curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     @Test
     public void getMyApiKeyTest() {
@@ -214,7 +214,7 @@ public class DeveloperApiTest {
     /**
      * Details of the current user.
      *
-     * An endpoint for retrieving the details of the logged in user.   **Example usage:** curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      */
     @Test
     public void getMyUserTest() {
@@ -255,7 +255,7 @@ public class DeveloperApiTest {
     /**
      * Update trusted certificate.
      *
-     * An endpoint for updating existing trusted certificates.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      */
     @Test
     public void updateCertificateTest() {
@@ -269,7 +269,7 @@ public class DeveloperApiTest {
     /**
      * Update API key details.
      *
-     * An endpoint for updating API key details.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;
+     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/me -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60;
      */
     @Test
     public void updateMyApiKeyTest() {
@@ -282,7 +282,7 @@ public class DeveloperApiTest {
     /**
      * Update user details.
      *
-     * An endpoint for updating the details of the logged in user.   **Example usage:** curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39; 
+     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer AUTH_TOKEN&#39;&#x60; 
      */
     @Test
     public void updateMyUserTest() {
