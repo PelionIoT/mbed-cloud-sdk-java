@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **createdAt** | [**DateTime**](DateTime.md) | The time the object was created | 
 **object** | **String** | The API resource entity | 
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated | 
-**manifestContents** | [**ManifestContents**](ManifestContents.md) |  | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature | 
 **deviceClass** | **String** | The class of the device | 
 **datafileChecksum** | **String** | Checksum generated for the datafile |  [optional]
