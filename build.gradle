@@ -1,5 +1,6 @@
-// Java SDK version
-version = '1.0.0'
+// Project properties
+version = SDKVersion
+group = SDKGroup
 
 buildscript {
   repositories {
@@ -12,25 +13,27 @@ buildscript {
     classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
     classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
     classpath "de.aaschmid:gradle-cpd-plugin:1.0"
+    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
   }
 }
 
 
-apply plugin: 'java-library'
+//apply plugin: 'java-library'
 apply plugin: 'java-library-distribution'
-apply plugin:'license-report'
+//apply plugin: 'license-report'
 apply plugin: 'checkstyle' //code style checks
 apply plugin: 'jdepend'// design quality
 apply plugin: 'findbugs' //static analysis
 apply plugin: 'pmd' //static analysis
 apply plugin: "de.aaschmid.cpd" //Code duplication
-apply plugin: "jacoco" //Code coverage
-apply plugin: 'eclipse'
-apply plugin: 'idea'
-apply plugin: 'signing'
-apply plugin: 'build-dashboard'
+//apply plugin: "jacoco" //Code coverage
+//apply plugin: 'eclipse'
+//apply plugin: 'idea'
+//apply plugin: 'signing'
+//apply plugin: 'build-dashboard'
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
+//apply plugin: 'maven-publish'
 
 
 // In this section you declare where to find the dependencies of your project
@@ -39,6 +42,35 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+allprojects {
+    version = SDKVersion
+    group = SDKGroup
+    task info {
+        doLast { task ->
+            println "Building $task.project.name project..."
+        }
+    }
+    compileJava.dependsOn info
+    
+    apply plugin: 'java-library'
+    apply plugin:'license-report'
+    apply plugin: "jacoco"
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'signing'
+    apply plugin: 'build-dashboard'
+    apply plugin: 'project-report'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: "com.jfrog.artifactory"    
+}
+
+subprojects {
+
+
+}
+
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
@@ -65,24 +97,6 @@ dependencies {
    testImplementation 'junit:junit:4.12'
 }
 
-allprojects {
-    task info {
-        doLast { task ->
-            println "Building $task.project.name project..."
-        }
-    }
-    compileJava.dependsOn info
-}
-
-subprojects {
-    apply plugin: 'java-library'
-    apply plugin:'license-report'
-    apply plugin: "jacoco"
-    apply plugin: 'eclipse'
-    apply plugin: 'idea'
-    apply plugin: 'signing'
-    apply plugin: 'build-dashboard'
-}
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
 project(':backends:mds').javadoc.enabled = false
@@ -268,4 +282,57 @@ task shadowTestJar(type: Jar) {
     doLast {
         updateArtifactList("TEST_FULL_JAR",shadowTestJar.archivePath)
     }
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom.withXml {
+                    asNode().appendNode('description',
+                                'Arm Mbed Cloud SDK')
+               }
+        }
+//        mavenCustom(MavenPublication) {
+//             pom.withXml {
+//                    asNode().appendNode('description',
+//                                'Arm Mbed Cloud SDK')
+//               }
+//        }
+    }
+}
+
+artifactory {
+    contextUrl = "${artifactory_contextUrl}"  
+    publish {
+        repository {
+            repoKey = 'mbed-cloud-sdk-java'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+            
+        }
+        defaults {
+            //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
+            publications ('mavenJava')
+            ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
+            publishConfigs('archives', 'published')
+            publishBuildInfo = true   //Publish build-info to Artifactory (true by default)
+            publishArtifacts = true   //Publish artifacts to Artifactory (true by default)
+            publishPom = true   //Publish generated POM files to Artifactory (true by default).                
+        }
+    }
+    resolve {
+        repository {
+            repoKey = 'maven'
+            username = "${artifactory_user}"
+            password = "${artifactory_password}"
+            maven = true
+            
+        }
+    }
+
 }
