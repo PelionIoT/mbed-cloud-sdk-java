@@ -4,8 +4,8 @@
  */
 
 /*
-// Definition of mbed Cloub Java SDK multi-project
-*/
+ * Definition of mbed Cloub Java SDK multi-project
+ */
 include 'support-annotations'
 include 'lwm2m'
 include 'backends:connector_ca'
@@ -15,5 +15,8 @@ include 'backends:mds'
 include 'backends:statistics'
 include 'backends:update_service'
 
-rootProject.name = 'mbed-cloud-sdk'
+/*
+ * Project properties
+ */
 
+rootProject.name = SDKName
