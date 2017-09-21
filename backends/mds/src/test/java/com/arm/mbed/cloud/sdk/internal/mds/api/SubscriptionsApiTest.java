@@ -57,7 +57,7 @@ public class SubscriptionsApiTest {
     @Test
     public void v2SubscriptionsDeviceIdGetTest() {
         String deviceId = null;
-        // Void response = api.v2SubscriptionsDeviceIdGet(deviceId);
+        // String response = api.v2SubscriptionsDeviceIdGet(deviceId);
 
         // TODO: test validations
     }

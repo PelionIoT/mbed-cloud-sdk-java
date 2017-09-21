@@ -43,10 +43,10 @@ public interface SubscriptionsApi {
    * Read endpoints subscriptions
    * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
    * @param deviceId A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
-   * @return Call&lt;Void&gt;
+   * @return Call&lt;String&gt;
    */
   @GET("v2/subscriptions/{device-id}")
-  Call<Void> v2SubscriptionsDeviceIdGet(
+  Call<String> v2SubscriptionsDeviceIdGet(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 

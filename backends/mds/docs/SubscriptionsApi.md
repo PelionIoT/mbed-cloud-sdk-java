@@ -122,7 +122,7 @@ Name | Type | Description  | Notes
 
 <a name="v2SubscriptionsDeviceIdGet"></a>
 # **v2SubscriptionsDeviceIdGet**
-> Void v2SubscriptionsDeviceIdGet(deviceId)
+> String v2SubscriptionsDeviceIdGet(deviceId)
 
 Read endpoints subscriptions
 
@@ -148,7 +148,7 @@ Bearer.setApiKey("YOUR API KEY");
 SubscriptionsApi apiInstance = new SubscriptionsApi();
 String deviceId = "deviceId_example"; // String | A unique mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
 try {
-    Void result = apiInstance.v2SubscriptionsDeviceIdGet(deviceId);
+    String result = apiInstance.v2SubscriptionsDeviceIdGet(deviceId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdGet");
@@ -164,7 +164,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+**String**
 
 ### Authorization
 
