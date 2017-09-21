@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **endpointName** | **String** | The endpoint name given to the device. |  [optional]
 **autoUpdate** | **Boolean** | DEPRECATED: Mark this device for automatic firmware update. |  [optional]
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
-**deviceExecutionMode** | **Integer** | The certificate type. |  [optional]
+**deviceExecutionMode** | **Integer** | The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The current state of the device. |  [optional]
 **serialNumber** | **String** | The serial number of the device. |  [optional]
