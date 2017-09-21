@@ -14,7 +14,6 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.ManifestContents;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -50,9 +49,6 @@ public class FirmwareManifest implements Serializable {
 
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
-
-  @SerializedName("manifest_contents")
-  private ManifestContents manifestContents = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
@@ -180,24 +176,6 @@ public class FirmwareManifest implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public FirmwareManifest manifestContents(ManifestContents manifestContents) {
-    this.manifestContents = manifestContents;
-    return this;
-  }
-
-   /**
-   * Get manifestContents
-   * @return manifestContents
-  **/
-  @ApiModelProperty(required = true, value = "")
-  public ManifestContents getManifestContents() {
-    return manifestContents;
-  }
-
-  public void setManifestContents(ManifestContents manifestContents) {
-    this.manifestContents = manifestContents;
-  }
-
   public FirmwareManifest etag(DateTime etag) {
     this.etag = etag;
     return this;
@@ -322,7 +300,6 @@ public class FirmwareManifest implements Serializable {
         Objects.equals(this.createdAt, firmwareManifest.createdAt) &&
         Objects.equals(this.object, firmwareManifest.object) &&
         Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
-        Objects.equals(this.manifestContents, firmwareManifest.manifestContents) &&
         Objects.equals(this.etag, firmwareManifest.etag) &&
         Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
         Objects.equals(this.datafileChecksum, firmwareManifest.datafileChecksum) &&
@@ -333,7 +310,7 @@ public class FirmwareManifest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, manifestContents, etag, deviceClass, datafileChecksum, datafileSize, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, deviceClass, datafileChecksum, datafileSize, id, name);
   }
 
 
@@ -348,7 +325,6 @@ public class FirmwareManifest implements Serializable {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    manifestContents: ").append(toIndentedString(manifestContents)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
     sb.append("    datafileChecksum: ").append(toIndentedString(datafileChecksum)).append("\n");
