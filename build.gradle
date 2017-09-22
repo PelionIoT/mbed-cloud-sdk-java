@@ -309,7 +309,7 @@ artifactory {
     contextUrl = "${artifactory_contextUrl}"  
     publish {
         repository {
-            repoKey = 'mbed-cloud-sdk-java'
+            repoKey = "${artifactory_deployment_repository}"
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
@@ -320,19 +320,19 @@ artifactory {
             publications ('mavenJava')
             ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
             publishConfigs('archives', 'published')
-            publishBuildInfo = true   //Publish build-info to Artifactory (true by default)
-            publishArtifacts = true   //Publish artifacts to Artifactory (true by default)
-            publishPom = true   //Publish generated POM files to Artifactory (true by default).                
+            publishBuildInfo = true   //Publish build-info to Artifactory.
+            publishArtifacts = true   //Publish artifacts to Artifactory.
+            publishPom = true   //Publish generated POM files to Artifactory.                
         }
     }
-    resolve {
-        repository {
-            repoKey = 'maven'
-            username = "${artifactory_user}"
-            password = "${artifactory_password}"
-            maven = true
-            
-        }
-    }
+//    resolve {
+//       repository {
+//            repoKey = 'maven'
+//            username = "${artifactory_user}"
+//            password = "${artifactory_password}"
+//            maven = true
+//            
+//        }
+//    }
 
 }
