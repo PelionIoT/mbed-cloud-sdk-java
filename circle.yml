@@ -11,9 +11,7 @@ machine:
     BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
     BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
     BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
-    SRC_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/src/main/dist
-    SRC_LICENSING: ${HOME}/${CIRCLE_PROJECT_REPONAME}/src/main/dist/ThirdParty-Licences
-    BUILD_LICENSING: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports/dependency-license
+    SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
   java:
     version: oraclejdk8
 
@@ -36,25 +34,19 @@ checkout:
     - pip install -r tests/testrunner/requirements.txt
     - python setup.py develop:
         pwd: tests/testrunner
+    - python ${SCRIPTS_DIR}/sdk.py configure
 
 compile:
   pre:
     - mkdir ${PROJECT_DOCS}
     - mkdir ${PROJECT_ARTIFACTS}
-    - mkdir ${PROJECT_REPORTS}
-    - mkdir ${SRC_LICENSING}
+    - mkdir ${PROJECT_REPORTS}    
+
   override:
-    - if [ -e ./gradlew ]; then ./gradlew jar;else gradle jar;fi
-    - if [ -e ./gradlew ]; then ./gradlew dependencyLicenseReport;else gradle dependencyLicenseReport;fi
-    - cp -r ${BUILD_LICENSING}/* ${SRC_LICENSING}/
-    - rm -rf ${SRC_LICENSING}/*.jar 
-    - if [ -e ./gradlew ]; then ./gradlew build;else gradle build;fi
+    - python ${SCRIPTS_DIR}/sdk.py license
+    - python ${SCRIPTS_DIR}/sdk.py build
     - cp -r ${BUILD_DIST}/* ${PROJECT_ARTIFACTS}/
-    - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
-    - if [ -e ./gradlew ]; then ./gradlew jacocoTestReport;else gradle jacocoTestReport;fi
     - cp -r ${BUILD_JARS}/* ${PROJECT_ARTIFACTS}/
-  post:
-    - if [ -e ./gradlew ]; then ./gradlew javadoc;else gradle javadoc;fi
     - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
     - cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
 
@@ -62,7 +54,7 @@ test:
   pre:
     - npm install -g ansi-html-stream
   override:
-    - if [ -e ./gradlew ]; then ./gradlew shadowTestJar;else gradle shadowTestJar;fi
+    - python ${SCRIPTS_DIR}/sdk.py build_test_server
     - mv artifacts.properties tests/
     - mkdir ${PROJECT_TESTS}
     - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
@@ -75,3 +67,15 @@ deployment:
     commands:
       - echo Syncing $PROJECT_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy
+  release:
+    branch: /[0-9]+\.[0-9]+.*/
+    commands:
+      - echo Tagging $PROJECT_NAME in GitHub...
+      - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
+      - git push --tags
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy
+      
+      
