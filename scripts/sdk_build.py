@@ -31,6 +31,9 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
         return True
 
     def zip_distribution_artififacts(self):
+        zip_file_destination = os.path.join(self.distribution_directory, 'sdk.zip')
+        if os.path.exists(zip_file_destination):
+            self.remove_path(zip_file_destination, True)
         self.zip_directory_content(self.distribution_directory, 'sdk')
         zip_file = os.path.join(os.getcwd(), 'sdk.zip')
         shutil.move(zip_file, self.distribution_directory)

@@ -48,7 +48,11 @@ allprojects {
     group = SDKGroup
     task info {
         doLast { task ->
+            task.project.version = SDKVersion
+            task.project.group = SDKGroup
             println "Building $task.project.name project..."
+            println "Version: $task.project.version"
+            println "Group: $task.project.group"
         }
     }
     compileJava.dependsOn info
@@ -67,7 +71,6 @@ allprojects {
 }
 
 subprojects {
-
 
 }
 
@@ -199,8 +202,8 @@ compileJava {
     sourceCompatibility  JavaVersion.VERSION_1_7.toString()
     targetCompatibility  JavaVersion.VERSION_1_7.toString()
 
-	options.compilerArgs += ["-deprecation","-parameters"]
-	options.fork = true
+    options.compilerArgs += ["-deprecation","-parameters"]
+    options.fork = true
     println 'Compiler args for compiled SDK : ' + options.compilerArgs
 }
 
@@ -245,8 +248,8 @@ shadowJar {
 }
 
 compileTestJava {
-	options.compilerArgs += ["-g","-deprecation","-parameters"]
-	options.fork = true
+    options.compilerArgs += ["-g","-deprecation","-parameters"]
+    options.fork = true
     println 'Compiler args for testing: ' + options.compilerArgs
 }
 
