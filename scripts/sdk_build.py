@@ -15,7 +15,6 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
     def execute(self):
         self.print_title()
         try:
-            directory = self.common_config.get_config().get_sdk_top_directory()
             self.log_info("Building sdk")
             self.execute_gradle_task('build')
             self.execute_gradle_task('shadowJar')

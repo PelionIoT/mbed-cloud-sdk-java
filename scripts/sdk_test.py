@@ -10,7 +10,6 @@ class SDKTestServerBuilder(sdk_common.BuildStepUsingGradle):
     def execute(self):
         self.print_title()
         try:
-            directory = self.top_directory
             self.log_info("Building SDK test server")
             self.execute_gradle_task('shadowTestJar')
         except:

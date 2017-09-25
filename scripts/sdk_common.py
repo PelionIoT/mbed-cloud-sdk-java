@@ -4,7 +4,7 @@ import re
 import shutil
 import subprocess
 import sys
-import zipfile
+#import zipfile
 from collections import OrderedDict
 
 import sdk_logger
@@ -166,13 +166,10 @@ class BuildStep(Action):
         return True
 
     def zip_directory_content(self, path, zip_name):
-        print('hello')
         shutil.make_archive(zip_name, 'zip', path)
         # with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zf:
-        #     print('tmp')
         #     for root, dirs, files in os.walk(path):
         #         for file in files:
-        #             print(file)
         #             zf.write(os.path.join(root, file))
 
 
