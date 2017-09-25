@@ -66,12 +66,16 @@ deployment:
     branch: master
     commands:
       - echo Syncing $PROJECT_NAME to S3...
-      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME  
+      - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
       - echo Tagging $PROJECT_NAME in GitHub...
       - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
       - git push --tags
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy
       
       
