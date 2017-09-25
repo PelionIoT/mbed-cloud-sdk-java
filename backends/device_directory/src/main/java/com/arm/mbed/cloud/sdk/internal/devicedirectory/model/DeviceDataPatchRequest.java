@@ -168,10 +168,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * Up to five custom key-value attributes.
+   * Up to five custom key-value attributes. Note that keys cannot start with a number.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Up to five custom key-value attributes.")
+  @ApiModelProperty(value = "Up to five custom key-value attributes. Note that keys cannot start with a number.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
