@@ -4,7 +4,7 @@ import re
 import shutil
 import subprocess
 import sys
-#import zipfile
+# import zipfile
 from collections import OrderedDict
 
 import sdk_logger
@@ -192,6 +192,10 @@ class BuildStepUsingGradle(BuildStep):
 
     def execute_gradle_task(self, task):
         arguments = [self.graddle_command, task]
+        self.check_command_output(arguments, self.gradle_directory)
+
+    def execute_gradle_task_overriding_variable(self, task, variable_name, variable_value):
+        arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
         self.check_command_output(arguments, self.gradle_directory)
 
 
