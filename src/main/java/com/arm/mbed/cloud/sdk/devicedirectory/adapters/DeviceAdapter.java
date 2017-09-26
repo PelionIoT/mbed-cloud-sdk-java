@@ -171,7 +171,6 @@ public final class DeviceAdapter {
         addDevice.setDeviceClass(device.getDeviceClass());
         addDevice.setMechanismUrl(TranslationUtils.toString(device.getMechanismUrl()));
         addDevice.setSerialNumber(device.getSerialNumber());
-        addDevice.setTrustLevel(device.getTrustLevel());
         addDevice.setDescription(device.getDescription());
         addDevice.setBootstrapExpirationDate(TranslationUtils.toDateTime(device.getBootstrapCertificateExpiration()));
         addDevice.setBootstrappedTimestamp(TranslationUtils.toDateTime(device.getBootstrappedTimestamp()));
