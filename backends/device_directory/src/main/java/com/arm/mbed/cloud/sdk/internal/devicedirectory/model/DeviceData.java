@@ -257,9 +257,6 @@ public class DeviceData implements Serializable {
   @SerializedName("mechanism_url")
   private String mechanismUrl = null;
 
-  @SerializedName("trust_level")
-  private Integer trustLevel = null;
-
   @SerializedName("name")
   private String name = null;
 
@@ -725,24 +722,6 @@ public class DeviceData implements Serializable {
     this.mechanismUrl = mechanismUrl;
   }
 
-  public DeviceData trustLevel(Integer trustLevel) {
-    this.trustLevel = trustLevel;
-    return this;
-  }
-
-   /**
-   * The device trust level.
-   * @return trustLevel
-  **/
-  @ApiModelProperty(value = "The device trust level.")
-  public Integer getTrustLevel() {
-    return trustLevel;
-  }
-
-  public void setTrustLevel(Integer trustLevel) {
-    this.trustLevel = trustLevel;
-  }
-
   public DeviceData name(String name) {
     this.name = name;
     return this;
@@ -876,7 +855,6 @@ public class DeviceData implements Serializable {
         Objects.equals(this.endpointType, deviceData.endpointType) &&
         Objects.equals(this.deployment, deviceData.deployment) &&
         Objects.equals(this.mechanismUrl, deviceData.mechanismUrl) &&
-        Objects.equals(this.trustLevel, deviceData.trustLevel) &&
         Objects.equals(this.name, deviceData.name) &&
         Objects.equals(this.deviceKey, deviceData.deviceKey) &&
         Objects.equals(this.createdAt, deviceData.createdAt) &&
@@ -886,7 +864,7 @@ public class DeviceData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, updatedAt, caId, deviceClass, id, accountId, endpointName, autoUpdate, hostGateway, deviceExecutionMode, mechanism, state, etag, serialNumber, firmwareChecksum, manifestTimestamp, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, trustLevel, name, deviceKey, createdAt, manifest, customAttributes);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, updatedAt, caId, deviceClass, id, accountId, endpointName, autoUpdate, hostGateway, deviceExecutionMode, mechanism, state, etag, serialNumber, firmwareChecksum, manifestTimestamp, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, name, deviceKey, createdAt, manifest, customAttributes);
   }
 
 
@@ -920,7 +898,6 @@ public class DeviceData implements Serializable {
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    deployment: ").append(toIndentedString(deployment)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
-    sb.append("    trustLevel: ").append(toIndentedString(trustLevel)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
