@@ -32,6 +32,10 @@ public class TestFilterMarshaller {
         mapping.put("foo", "test_1");
         mapping.put("key", "test_2");
         assertEquals("custom_attributes__test_1_gte=bar&test_2=value", new FilterMarshaller(mapping).encode(filters));
+        filters = new Filters();
+        filters.add(new CustomFilter("fooBar", FilterOperator.GREATER_THAN, "top"));
+        filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
+        assertEquals("custom_attributes__foo_bar_gte=top&key=value", new FilterMarshaller(null).encode(filters));
         // TODO add more test cases
     }
 
@@ -59,7 +63,7 @@ public class TestFilterMarshaller {
         assertTrue(filter.isValid());
         assertFalse(filter instanceof CustomFilter);
         assertEquals(FilterOperator.NOT_EQUAL, filter.getOperator());
-        assertEquals("test_1", filter.getFieldName());
+        assertEquals("test1", filter.getFieldName());
         assertEquals("bar", filter.getValue());
         query = "test_1=bar";
         filter = new FilterMarshaller(null).decodeFilter(query);
@@ -67,7 +71,15 @@ public class TestFilterMarshaller {
         assertTrue(filter.isValid());
         assertFalse(filter instanceof CustomFilter);
         assertEquals(FilterOperator.EQUAL, filter.getOperator());
-        assertEquals("test_1", filter.getFieldName());
+        assertEquals("test1", filter.getFieldName());
+        assertEquals("bar", filter.getValue());
+        query = "test_foo=bar";
+        filter = new FilterMarshaller(null).decodeFilter(query);
+        assertNotNull(filter);
+        assertTrue(filter.isValid());
+        assertFalse(filter instanceof CustomFilter);
+        assertEquals(FilterOperator.EQUAL, filter.getOperator());
+        assertEquals("testFoo", filter.getFieldName());
         assertEquals("bar", filter.getValue());
         // TODO add more test cases
     }
@@ -88,7 +100,7 @@ public class TestFilterMarshaller {
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
         assertEquals(
-                "{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"key\":{\"$lte\":\"value\"},\"test_3\":{\"$eq\":\"value\"}}",
+                "{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"key\":{\"$lte\":\"value\"},\"test3\":{\"$eq\":\"value\"}}",
                 FilterMarshaller.toJson(filters));
         // TODO add more test cases
     }

@@ -115,6 +115,14 @@ public class Campaign implements SdkModel {
      */
     public static final String FILTER_VENDOR_ID = "vendorId";
     /**
+     * Tag of filter by device type.
+     */
+    public static final String FILTER_DEVICE_TYPE = "deviceType";
+    /**
+     * Tag of filter by host gateway.
+     */
+    public static final String FILTER_HOST_GATEWAY = "hostGateway";
+    /**
      * The ID of the campaign.
      */
     private String id;
@@ -739,6 +747,30 @@ public class Campaign implements SdkModel {
      */
     public void addVendorIdFilter(String vendorIdFilter, FilterOperator operator) {
         addDeviceFilter(FILTER_VENDOR_ID, operator, vendorIdFilter);
+    }
+
+    /**
+     * Adds a device filter based on device type field.
+     * 
+     * @param deviceType
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addDeviceTypeFilter(String deviceType, FilterOperator operator) {
+        addDeviceFilter(FILTER_DEVICE_TYPE, operator, deviceType);
+    }
+
+    /**
+     * Adds a device filter based on host gateway type field.
+     * 
+     * @param hostGateway
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addGatewayFilter(String hostGateway, FilterOperator operator) {
+        addDeviceFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
     private void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {

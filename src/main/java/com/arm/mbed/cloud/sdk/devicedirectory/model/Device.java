@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -143,6 +144,24 @@ public class Device implements SdkModel {
         this(id, accountId, createdAt, updatedAt, manifestTimestamp, null, null, null, null, null, null, null, null,
                 null, null, null, null, null, null, null, null, null, null, null);
 
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Device()} instead.
+     * 
+     * @param device
+     *            a device to clone
+     */
+    @Internal
+    protected Device(@NonNull Device device) {
+        this(device.id, device.accountId, device.createdAt, device.updatedAt, device.manifestTimestamp,
+                device.certificateIssuerId, device.certificateFingerprint, device.name, device.alias,
+                device.description, device.deviceType, device.hostGateway, device.customAttributes, device.state,
+                device.deviceClass, device.deviceExecutionMode, device.serialNumber, device.vendorId,
+                device.connectorCertificateExpiration, device.bootstrapCertificateExpiration,
+                device.bootstrappedTimestamp, device.mechanism, device.mechanismUrl, device.firmwareChecksum);
     }
 
     /**

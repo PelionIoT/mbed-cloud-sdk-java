@@ -89,6 +89,14 @@ public class DeviceListOptions extends ListOptions {
      * Tag of filter by last update date.
      */
     public static final String FILTER_UPDATED_AT = "updatedAt";
+    /**
+     * Tag of filter by device type.
+     */
+    public static final String FILTER_DEVICE_TYPE = "deviceType";
+    /**
+     * Tag of filter by host gateway.
+     */
+    public static final String FILTER_HOST_GATEWAY = "hostGateway";
 
     /**
      * Constructor.
@@ -335,6 +343,30 @@ public class DeviceListOptions extends ListOptions {
      */
     public void addVendorIdFilter(String vendorId, FilterOperator operator) {
         addFilter(FILTER_VENDOR_ID, operator, vendorId);
+    }
+
+    /**
+     * Adds a device filter based on device type field.
+     * 
+     * @param deviceType
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addDeviceTypeFilter(String deviceType, FilterOperator operator) {
+        addFilter(FILTER_DEVICE_TYPE, operator, deviceType);
+    }
+
+    /**
+     * Adds a device filter based on host gateway type field.
+     * 
+     * @param hostGateway
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addGatewayFilter(String hostGateway, FilterOperator operator) {
+        addFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
 }

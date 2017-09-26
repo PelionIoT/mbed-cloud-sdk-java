@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceAdapter;
 import com.arm.mbed.cloud.sdk.devicedirectory.adapters.DeviceEventAdapter;
@@ -69,9 +70,16 @@ public class DeviceDirectory extends AbstractApi {
      */
     @API
     public @Nullable ListResponse<Device> listDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
 
-        return CloudCaller.call(this, "listDevices()", DeviceAdapter.getListMapper(), new CloudCall<DevicePage>() {
+        return listConnectedDevices("listDevices()", options, null);
+    }
+
+    protected ListResponse<Device> listConnectedDevices(String functionName, DeviceListOptions options,
+            Filter additionalFilter) throws MbedCloudException {
+        final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
+        finalOptions.addFilter(additionalFilter);
+
+        return CloudCaller.call(this, functionName, DeviceAdapter.getListMapper(), new CloudCall<DevicePage>() {
 
             @Override
             public Call<DevicePage> call() {

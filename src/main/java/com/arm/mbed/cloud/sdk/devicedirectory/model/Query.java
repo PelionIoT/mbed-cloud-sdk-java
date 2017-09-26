@@ -97,6 +97,14 @@ public class Query implements SdkModel {
      */
     public static final String FILTER_BOOTSTRAP_CERTIFICATE_EXPIRATION = "bootstrapCertificateExpiration";
     /**
+     * Tag of filter by device type.
+     */
+    public static final String FILTER_DEVICE_TYPE = "deviceType";
+    /**
+     * Tag of filter by host gateway.
+     */
+    public static final String FILTER_HOST_GATEWAY = "hostGateway";
+    /**
      * Serialisation id.
      */
     private static final long serialVersionUID = -262399232521895478L;
@@ -544,6 +552,30 @@ public class Query implements SdkModel {
      */
     public void addVendorIdFilter(String vendorId, FilterOperator operator) {
         addFilter(FILTER_VENDOR_ID, operator, vendorId);
+    }
+
+    /**
+     * Adds a device filter based on device type field.
+     * 
+     * @param deviceType
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addDeviceTypeFilter(String deviceType, FilterOperator operator) {
+        addFilter(FILTER_DEVICE_TYPE, operator, deviceType);
+    }
+
+    /**
+     * Adds a device filter based on host gateway type field.
+     * 
+     * @param hostGateway
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addGatewayFilter(String hostGateway, FilterOperator operator) {
+        addFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
     private void addFilter(String fieldName, FilterOperator operator, Object value) {

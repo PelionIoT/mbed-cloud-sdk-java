@@ -38,6 +38,7 @@ public final class DeviceAdapter {
         filterMapping.put("certificateFingerprint", "device_key");
         filterMapping.put("certificateIssuerId", "ca_id");
         filterMapping.put("connectorCertificateExpiration", "connector_expiration_date");
+        filterMapping.put("deviceType", "endpoint_type");
         return new FilterMarshaller(filterMapping);
     }
 

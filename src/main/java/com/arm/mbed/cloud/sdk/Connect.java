@@ -19,17 +19,20 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.connect.adapters.ConnectedDeviceAdapter;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.connect.adapters.MetricAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.ResourceAdapter;
 import com.arm.mbed.cloud.sdk.connect.adapters.WebhookAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.AbstractMetricsListOptions;
-import com.arm.mbed.cloud.sdk.connect.model.ConnectedDevice;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
@@ -38,8 +41,9 @@ import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
-import com.arm.mbed.cloud.sdk.internal.mds.model.Endpoint;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
@@ -57,13 +61,16 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractApi {
+    private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL, "registered");
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
     private static final String TAG_FUNCTION_NAME = "function name";
     private static final String TAG_RESOURCE_PATH = "resource path";
     private static final String TAG_METRIC_OPTIONS = "Metric options";
     private static final String TAG_DEVICE_ID = "Device Id";
+    private static final String TAG_DEVICE = "Device";
     private final EndPoints endpoint;
+    private final DeviceDirectory deviceDirectory;
     private final ExecutorService threadPool;
     private final NotificationCache cache;
 
@@ -104,6 +111,7 @@ public class Connect extends AbstractApi {
             @Nullable ExecutorService notificationPullingThreadPool) {
         super(options);
         endpoint = new EndPoints(options);
+        deviceDirectory = new DeviceDirectory(options);
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
         this.cache = new NotificationCache(this, (notificationPullingThreadPool == null)
@@ -152,31 +160,45 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable List<ConnectedDevice> listConnectedDevices(@Nullable String type) throws MbedCloudException {
-        final String finalType = type;
-        return CloudCaller.call(this, "listConnectedDevices()", ConnectedDeviceAdapter.getListMapper(),
-                new CloudCall<List<Endpoint>>() {
+    public @Nullable ListResponse<Device> listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
+        return deviceDirectory.listConnectedDevices("listConnectedDevices()", options, CONNECTED_DEVICES_FILTER);
+    }
 
-                    @Override
-                    public Call<List<Endpoint>> call() {
-                        return endpoint.getEndpoints().v2EndpointsGet(finalType);
-                    }
-                });
+    /**
+     * Gets an iterator over all connected devices according to filter options.
+     * 
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
+        final DeviceListOptions finalOptions = options;
+        return new Paginator<>(new PageRequester<Device>() {
+
+            @Override
+            public ListResponse<Device> requestNewPage() throws MbedCloudException {
+                return listConnectedDevices(finalOptions);
+            }
+        });
     }
 
     /**
      * Lists device's resources.
      * 
-     * @param deviceId
-     *            Device ID.
+     * @param device
+     *            Device.
      * @return list of resources present on a device.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public List<Resource> listResources(@NonNull String deviceId) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        final String finalDeviceId = deviceId;
+    public List<Resource> listResources(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
 
         return CloudCaller.call(this, "listResources()", ResourceAdapter.getListMapper(finalDeviceId),
                 new CloudCall<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>>() {
@@ -191,16 +213,17 @@ public class Connect extends AbstractApi {
     /**
      * Lists a device's subscriptions.
      *
-     * @param deviceId
-     *            Device ID.
+     * @param device
+     *            Device.
      * @return list of subscriptions
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public List<String> listDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        final String finalDeviceId = deviceId;
+    public List<String> listDeviceSubscriptions(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
 
         return CloudCaller.call(this, "listDeviceSubscriptions()", PresubscriptionAdapter.getResourcePathListMapper(),
                 new CloudCall<String>() {
