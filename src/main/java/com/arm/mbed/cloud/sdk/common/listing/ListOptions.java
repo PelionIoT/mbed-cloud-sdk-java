@@ -223,7 +223,13 @@ public class ListOptions {
         addFilter(new Filter(fieldName, operator, value));
     }
 
-    protected void addFilter(Filter subfilter) {
+    /**
+     * Adds a filter to the query.
+     * 
+     * @param subfilter
+     *            filter to apply.
+     */
+    public void addFilter(Filter subfilter) {
         if (subfilter == null || !subfilter.isValid()) {
             return;
         }

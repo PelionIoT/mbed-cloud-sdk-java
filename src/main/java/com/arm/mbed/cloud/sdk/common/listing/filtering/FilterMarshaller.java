@@ -13,6 +13,7 @@ import java.util.Set;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.google.gson.Gson;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
@@ -189,7 +190,7 @@ public class FilterMarshaller {
         if (filter.hasPrefix()) {
             builder.append(filter.getPrefix());
         }
-        builder.append((fieldName == null) ? filter.getFieldName() : fieldName);
+        builder.append(ApiUtils.convertCamelToSnake((fieldName == null) ? filter.getFieldName() : fieldName));
         String suffix = filter.getOperator().getSuffix();
         if (suffix != null) {
             builder.append(suffix);
@@ -284,7 +285,7 @@ public class FilterMarshaller {
         if (fieldNameReverseMapping != null && fieldNameReverseMapping.containsKey(fieldName)) {
             return fieldNameReverseMapping.get(fieldName);
         }
-        return fieldName;
+        return ApiUtils.convertSnakeToCamel(fieldName, false);
     }
 
     protected static void parseFilter(String jsonObj, String fieldName, Filters filters, boolean isCustom) {
