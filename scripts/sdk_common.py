@@ -50,7 +50,7 @@ class Action(object):
                 self.log_debug('Command error message: ' + err)
         return retcode
 
-    def call_command(self, args, directory):
+    def call_command(self, args, directory=None):
         return self._spawn_command(True, args, directory)
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
@@ -164,6 +164,15 @@ class BuildStep(Action):
         if self.remove_path(path, throw_on_error):
             os.makedirs(path)
         return True
+
+    def ping_host(self, host):
+        if not host:
+            return False
+        arguments = ['ping', '-w', '2', host]
+        try:
+            return self.call_command(arguments) == 0
+        except:
+            return False
 
     def zip_directory_content(self, path, zip_name):
         shutil.make_archive(zip_name, 'zip', path)
@@ -464,6 +473,7 @@ class Config(Action):
         self.sdk_build_dir = None
         self.use_gradle_wrapper = False
         self.on_windows = False
+        self.artifactory_host = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -509,6 +519,16 @@ class Config(Action):
 
     def check_platform(self):
         self.on_windows = sys.platform.startswith('win')
+
+    def get_artifactory_host(self):
+        if not self.artifactory_host:
+            url = self.properties['artifactory_contextUrl']
+            url_pattern = r"(https?\:\/\/)?([\w.]+)(\/\w+)*"
+            if url and re.match(url_pattern, url):
+                host_search = re.search(url_pattern, url)
+                if host_search:
+                    self.artifactory_host = host_search.group(2)
+        return self.artifactory_host
 
     def get_version(self):
         if not self.version:
