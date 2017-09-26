@@ -153,8 +153,8 @@ public class Connect extends AbstractApi {
     /**
      * Lists connected devices.
      * 
-     * @param type
-     *            Filter devices by device type.
+     * @param options
+     *            filter options
      * @return the list of connected devices.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
