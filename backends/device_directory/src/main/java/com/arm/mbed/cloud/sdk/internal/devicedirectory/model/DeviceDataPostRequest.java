@@ -242,9 +242,6 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("mechanism_url")
   private String mechanismUrl = null;
 
-  @SerializedName("trust_level")
-  private Integer trustLevel = null;
-
   @SerializedName("name")
   private String name = null;
 
@@ -433,10 +430,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * Up to five custom key-value attributes.
+   * Up to five custom key-value attributes. Note that keys cannot start with a number.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Up to five custom key-value attributes.")
+  @ApiModelProperty(value = "Up to five custom key-value attributes. Note that keys cannot start with a number.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -625,24 +622,6 @@ public class DeviceDataPostRequest implements Serializable {
     this.mechanismUrl = mechanismUrl;
   }
 
-  public DeviceDataPostRequest trustLevel(Integer trustLevel) {
-    this.trustLevel = trustLevel;
-    return this;
-  }
-
-   /**
-   * The device trust level.
-   * @return trustLevel
-  **/
-  @ApiModelProperty(value = "The device trust level.")
-  public Integer getTrustLevel() {
-    return trustLevel;
-  }
-
-  public void setTrustLevel(Integer trustLevel) {
-    this.trustLevel = trustLevel;
-  }
-
   public DeviceDataPostRequest name(String name) {
     this.name = name;
     return this;
@@ -745,7 +724,6 @@ public class DeviceDataPostRequest implements Serializable {
         Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
         Objects.equals(this.deployment, deviceDataPostRequest.deployment) &&
         Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl) &&
-        Objects.equals(this.trustLevel, deviceDataPostRequest.trustLevel) &&
         Objects.equals(this.name, deviceDataPostRequest.name) &&
         Objects.equals(this.deviceKey, deviceDataPostRequest.deviceKey) &&
         Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
@@ -754,7 +732,7 @@ public class DeviceDataPostRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, trustLevel, name, deviceKey, manifest, caId);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, name, deviceKey, manifest, caId);
   }
 
 
@@ -783,7 +761,6 @@ public class DeviceDataPostRequest implements Serializable {
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    deployment: ").append(toIndentedString(deployment)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
-    sb.append("    trustLevel: ").append(toIndentedString(trustLevel)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");

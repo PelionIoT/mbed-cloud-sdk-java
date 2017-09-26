@@ -13,7 +13,7 @@ Name | Type | Description | Notes
 **autoUpdate** | **Boolean** | DEPRECATED: Mark this device for automatic firmware update. |  [optional]
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
 **deviceExecutionMode** | **Integer** | The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices |  [optional]
-**customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. |  [optional]
+**customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. Note that keys cannot start with a number. |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The current state of the device. |  [optional]
 **serialNumber** | **String** | The serial number of the device. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
@@ -24,7 +24,6 @@ Name | Type | Description | Notes
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
 **deployment** | **String** | DEPRECATED: The last deployment used on the device. |  [optional]
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
-**trustLevel** | **Integer** | The device trust level. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 **deviceKey** | **String** | The fingerprint of the device certificate. | 
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
