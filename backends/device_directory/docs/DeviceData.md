@@ -29,7 +29,6 @@ Name | Type | Description | Notes
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
 **deployment** | **String** | DEPRECATED: The last deployment used on the device. |  [optional]
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
-**trustLevel** | **Integer** | The device trust level. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 **deviceKey** | **String** | The fingerprint of the device certificate. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The timestamp of when the device was created in the device directory. |  [optional]
