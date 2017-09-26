@@ -121,11 +121,6 @@ public class Device implements SdkModel {
      * The SHA256 checksum of the current firmware image.
      */
     private String firmwareChecksum;
-    /**
-     * The device trust level.
-     */
-    @DefaultValue(value = NULL)
-    private Integer trustLevel;
 
     /**
      * Internal constructor.
@@ -146,7 +141,7 @@ public class Device implements SdkModel {
     @Internal
     public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp) {
         this(id, accountId, createdAt, updatedAt, manifestTimestamp, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null, null);
+                null, null, null, null, null, null, null, null, null, null, null);
 
     }
 
@@ -212,7 +207,7 @@ public class Device implements SdkModel {
             String deviceType, String hostGateway, Map<String, String> customAttributes, DeviceState state,
             String deviceClass, Integer deviceExecutionMode, String serialNumber, String vendorId,
             Date connectorCertificateExpiration, Date bootstrapCertificateExpiration, Date bootstrappedTimestamp,
-            MechanismType mechanism, URL mechanismUrl, String firmwareChecksum, Integer trustLevel) {
+            MechanismType mechanism, URL mechanismUrl, String firmwareChecksum) {
         super();
         this.id = id;
         this.accountId = accountId;
@@ -237,7 +232,6 @@ public class Device implements SdkModel {
         setBootstrappedTimestamp(bootstrappedTimestamp);
         setMechanismUrl(mechanismUrl);
         setFirmwareChecksum(firmwareChecksum);
-        setTrustLevel(trustLevel);
         setMechanism(mechanism);
     }
 
@@ -623,25 +617,6 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets trust level.
-     * 
-     * @return the trustLevel
-     */
-    public Integer getTrustLevel() {
-        return trustLevel;
-    }
-
-    /**
-     * Sets trust level.
-     * 
-     * @param trustLevel
-     *            the trustLevel to set
-     */
-    public void setTrustLevel(Integer trustLevel) {
-        this.trustLevel = trustLevel;
-    }
-
-    /**
      * Gets account id.
      * 
      * @return the accountId
@@ -708,8 +683,7 @@ public class Device implements SdkModel {
         return new Device(id, accountId, createdAt, updatedAt, manifestTimestamp, certificateIssuerId,
                 certificateFingerprint, name, alias, description, deviceType, hostGateway, customAttributes, state,
                 deviceClass, deviceExecutionMode, serialNumber, vendorId, connectorCertificateExpiration,
-                bootstrapCertificateExpiration, bootstrappedTimestamp, mechanism, mechanismUrl, firmwareChecksum,
-                trustLevel);
+                bootstrapCertificateExpiration, bootstrappedTimestamp, mechanism, mechanismUrl, firmwareChecksum);
     }
 
 }

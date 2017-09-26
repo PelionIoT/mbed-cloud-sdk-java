@@ -64,7 +64,6 @@ public final class DeviceAdapter {
         device.setName(deviceData.getName());
         device.setSerialNumber(deviceData.getSerialNumber());
         device.setState(toState(deviceData.getState()));
-        device.setTrustLevel(deviceData.getTrustLevel());
         device.setVendorId(deviceData.getVendorId());
         device.setAlias(deviceData.getEndpointName());
         device.setBootstrapCertificateExpiration(TranslationUtils.toDate(deviceData.getBootstrapExpirationDate()));
