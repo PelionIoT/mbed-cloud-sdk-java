@@ -198,8 +198,6 @@ public class Device implements SdkModel {
      *            mechanism URL
      * @param firmwareChecksum
      *            firmware checksum
-     * @param trustLevel
-     *            trust level
      */
     @Internal
     public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp,
