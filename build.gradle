@@ -18,22 +18,18 @@ buildscript {
 }
 
 
-//apply plugin: 'java-library'
+
 apply plugin: 'java-library-distribution'
-//apply plugin: 'license-report'
 apply plugin: 'checkstyle' //code style checks
 apply plugin: 'jdepend'// design quality
 apply plugin: 'findbugs' //static analysis
 apply plugin: 'pmd' //static analysis
 apply plugin: "de.aaschmid.cpd" //Code duplication
-//apply plugin: "jacoco" //Code coverage
-//apply plugin: 'eclipse'
-//apply plugin: 'idea'
-//apply plugin: 'signing'
-//apply plugin: 'build-dashboard'
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
-//apply plugin: 'maven-publish'
+
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"    
 
 
 // In this section you declare where to find the dependencies of your project
@@ -44,12 +40,23 @@ repositories {
 }
 
 allprojects {
-    version = SDKVersion
-    group = SDKGroup
+	//The following is to override the version/group values contained in subproject build files
+	tasks.whenTaskAdded { task ->
+		 if (project != project(':lwm2m')){
+			 project.version = SDKVersion
+			 project.group = SDKGroup
+			 if (task.hasProperty('version')){
+					task.version = SDKVersion
+			 }
+			 if (task.hasProperty('group')){
+					task.group = SDKGroup
+			 }
+		 }
+		
+	}
+
     task info {
         doLast { task ->
-            task.project.version = SDKVersion
-            task.project.group = SDKGroup
             println "Building $task.project.name project..."
             println "Version: $task.project.version"
             println "Group: $task.project.group"
@@ -58,16 +65,43 @@ allprojects {
     compileJava.dependsOn info
     
     apply plugin: 'java-library'
-    apply plugin:'license-report'
-    apply plugin: "jacoco"
+    apply plugin: 'license-report'
+    apply plugin: 'jacoco'
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'signing'
+	apply plugin: 'maven'
     apply plugin: 'build-dashboard'
     apply plugin: 'project-report'
-    apply plugin: 'maven'
-    apply plugin: 'maven-publish'
-    apply plugin: "com.jfrog.artifactory"    
+	
+	compileJava {
+		// Java SDK compatibility
+		sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+		targetCompatibility  JavaVersion.VERSION_1_7.toString()
+
+		options.compilerArgs += ["-deprecation","-parameters"]
+		options.fork = true
+		doFirst {
+			println 'Compiler args for compiled SDK : ' + options.compilerArgs
+		}
+	}
+	jar {
+		manifest {
+			attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+					   'Implementation-Version': project.version,
+					   'Implementation-Vendor': 'Arm Limited')
+		}
+		doLast {
+			updateArtifactList("SDK_JAR",jar.archivePath)
+		}
+	}
+	compileTestJava {
+		options.compilerArgs += ["-g","-deprecation","-parameters"]
+		options.fork = true
+		doFirst {
+			println 'Compiler args for testing: ' + options.compilerArgs
+		}
+	}
 }
 
 subprojects {
@@ -76,14 +110,6 @@ subprojects {
 
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    //api 'org.apache.commons:commons-math3:3.6.1'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    //implementation 'com.google.guava:guava:21.0'
-
-    // Use JUnit test framework
-   // testImplementation 'junit:junit:4.12'
    api 'org.slf4j:slf4j-api:1.7.7'
    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
    compile project(':support-annotations')
@@ -189,7 +215,6 @@ def updateArtifactList(propertyName, value){
         if( propFile.exists()){
             propFile.withReader { props.load(it) }
         }
-        println propFile.toString()
         props.setProperty(propertyName.toString(), value.toString())
         props.sort()
         def fileWriter = propFile.newWriter()
@@ -197,15 +222,6 @@ def updateArtifactList(propertyName, value){
         fileWriter.close()
 }
 
-compileJava {
-    // Java SDK compatibility
-    sourceCompatibility  JavaVersion.VERSION_1_7.toString()
-    targetCompatibility  JavaVersion.VERSION_1_7.toString()
-
-    options.compilerArgs += ["-deprecation","-parameters"]
-    options.fork = true
-    println 'Compiler args for compiled SDK : ' + options.compilerArgs
-}
 
 task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
@@ -228,29 +244,11 @@ artifacts {
     archives javadocJar
 }
 
-
-jar {
-    manifest {
-        attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                   'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'Arm Limited')
-    }
-    doLast {
-        updateArtifactList("SDK_JAR",jar.archivePath)
-    }
-}
-
 shadowJar {
    classifier = 'full'
     doLast {
         updateArtifactList("SDK_FULL_JAR",shadowJar.archivePath)
     }
-}
-
-compileTestJava {
-    options.compilerArgs += ["-g","-deprecation","-parameters"]
-    options.fork = true
-    println 'Compiler args for testing: ' + options.compilerArgs
 }
 
 task testJar(type: Jar) {
@@ -286,26 +284,20 @@ task shadowTestJar(type: Jar) {
         updateArtifactList("TEST_FULL_JAR",shadowTestJar.archivePath)
     }
 }
-
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
+	publications {
+		mavenJava(MavenPublication) {
 
-            from components.java
-            artifact sourcesJar
-            artifact javadocJar
-            pom.withXml {
-                    asNode().appendNode('description',
-                                'Arm Mbed Cloud SDK')
-               }
-        }
-//        mavenCustom(MavenPublication) {
-//             pom.withXml {
-//                    asNode().appendNode('description',
-//                                'Arm Mbed Cloud SDK')
-//               }
-//        }
-    }
+			from components.java
+			artifact sourcesJar
+			artifact javadocJar
+
+			pom.withXml {
+					asNode().appendNode('description',
+								'Arm Mbed Cloud SDK')
+			   }
+		}
+	}
 }
 
 artifactory {
@@ -322,20 +314,10 @@ artifactory {
             //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
             publications ('mavenJava')
             ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
-            publishConfigs('archives', 'published')
+            publishConfigs('archives')
             publishBuildInfo = true   //Publish build-info to Artifactory.
             publishArtifacts = true   //Publish artifacts to Artifactory.
             publishPom = true   //Publish generated POM files to Artifactory.                
         }
     }
-//    resolve {
-//       repository {
-//            repoKey = 'maven'
-//            username = "${artifactory_user}"
-//            password = "${artifactory_password}"
-//            maven = true
-//            
-//        }
-//    }
-
 }
