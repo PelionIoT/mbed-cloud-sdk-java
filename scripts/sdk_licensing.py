@@ -18,6 +18,7 @@ class LicenceSetter(sdk_common.BuildStepUsingGradle):
         self.print_title()
         try:
             self.log_info("Generating 3rd party licence documents")
+            self.execute_gradle_task('jar')
             self.execute_gradle_task('dependencyLicenseReport')
             self.log_info("Integrating 3rd party licence documents")
             self.copy_third_party_directory()
