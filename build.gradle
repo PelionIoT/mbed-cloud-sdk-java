@@ -111,7 +111,7 @@ subprojects {
 
 dependencies {
    api 'org.slf4j:slf4j-api:1.7.7'
-   api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+   compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
    compile project(':support-annotations')
    compile project(':lwm2m')
    compile project(':backends:connector_ca')
