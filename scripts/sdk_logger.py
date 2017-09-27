@@ -25,7 +25,7 @@ class DefaultLogger:
 class Logger:
     def __init__(self, show_debug, print_messages, log_filename, action):
         self.is_debug_enabled = show_debug
-        self.log_file_name = log_filename if log_filename else self.__get_default_log_file(
+        self.log_file_name = log_filename if log_filename else self._get_default_log_file(
             self.convert_to_snake(action))
         self.log_file = open(self.log_file_name, 'w+', 1)
         self.are_messages_printed = print_messages
@@ -36,20 +36,20 @@ class Logger:
             return name
         return name.lower().replace(" ", "_")
 
-    def __get_default_log_folder(self):
-        log_folder = './build_logs'
+    def _get_default_log_folder(self):
+        log_folder = os.path.join(os.getcwd(), 'build_logs')
         if not (os.path.exists(log_folder)):
             os.makedirs(log_folder)
         return log_folder
 
-    def __get_default_log_file(self, action):
+    def _get_default_log_file(self, action):
         log_date = time.strftime('%Y-%m-%d_%H-%M-%S')
         log_file_name_prefix = 'sdk_build'
         if action:
             log_file_name_prefix = action
         extension = 'log'
         log_file_name = str(log_file_name_prefix) + '_' + str(log_date) + '.' + str(extension)
-        log_folder = self.__get_default_log_folder()
+        log_folder = self._get_default_log_folder()
         self._remove_previous_log_files_if_any(log_folder, log_file_name_prefix, extension)
         return os.path.join(log_folder, log_file_name)
 
@@ -77,6 +77,12 @@ class Logger:
 
     def print_log_file_location(self):
         self._print_to_console(INFO_COLOUR, 'Arm Mbed Cloud SDK build log file: ' + str(self.log_file_name))
+
+    def print_info_to_console(self, message):
+        self._print_to_console(INFO_COLOUR, message)
+
+    def print_message_to_console(self, message):
+        self._print_to_console(NORMAL_COLOUR, message)
 
     # Stop Logger
     def stop(self):

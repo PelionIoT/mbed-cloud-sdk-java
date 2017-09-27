@@ -1,15 +1,31 @@
 // LWM2M Utils version
-version = '1.0.0'
+version = Lwm2mVersion
+group = Lwm2mGroup
+
+buildscript {
+  repositories {
+   jcenter()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
+  }
+}
 
 apply plugin: 'java-library'
 apply plugin: 'java-library-distribution'
-//apply plugin: 'checkstyle'
+apply plugin: 'license-report'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
-//apply plugin: 'findbugs'
-//apply plugin: 'pmd'
+apply plugin: 'jacoco' //Code coverage
 apply plugin: 'signing'
 apply plugin: 'build-dashboard'
+apply plugin: 'project-report'
+apply plugin: 'maven'
+apply plugin: 'maven-publish'
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -21,9 +37,7 @@ repositories {
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.
     api 'org.slf4j:slf4j-api:1.7.7'
-
-    // This dependency is used internally, and not exposed to consumers on their own compile classpath.
-    implementation 'commons-codec:commons-codec:1.9'
+    api 'commons-codec:commons-codec:1.9'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
@@ -57,4 +71,31 @@ jar {
                    'Implementation-Version': project.version,
                    'Implementation-Vendor': 'Arm Limited')
     }
+}
+
+jacoco {
+    toolVersion = "0.7.6.201602180812"
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+publishing {
+	publications {
+		mavenJava(MavenPublication) {
+
+			from components.java
+			artifact sourcesJar
+			artifact javadocJar
+			pom.withXml {
+					asNode().appendNode('description',
+								'Arm Mbed LMW2M library')
+			   }
+		}
+	}
 }

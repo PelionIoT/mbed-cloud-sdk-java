@@ -9,6 +9,7 @@ import sdk_build
 import sdk_test
 import sdk_clean
 import sdk_version
+import sdk_help
 
 
 # Entry point for executing SDK build steps
@@ -22,7 +23,10 @@ class SDKBuild:
                       'build_test_server': sdk_test.SDKTestServerBuilder(self.logger),
                       'deploy': sdk_deploy.ArtifactDeployer(self.logger),
                       'clean': sdk_clean.SDKCleaner(self.logger),
-                      'version': sdk_version.SDKVersion(self.logger)}
+                      'version': sdk_version.SDKVersion(self.logger),
+                      'help': sdk_help.SDKHelp(self.logger)
+                      }
+        self.steps['help'].set_action_list(self.steps.keys())
         self.print_info = True
 
     def get_logger(self, action):
@@ -46,11 +50,12 @@ class SDKBuild:
         if len(sys.argv) > 1:
             step_name = sys.argv[1]
             step_name = step_name.strip()
-            if step_name == 'version':
+            if step_name == 'version' or step_name == 'help':
                 self.print_info = False
-            step = self.steps[step_name]
+            if self.steps.has_key(step_name):
+                step = self.steps[step_name]
         if not step:
-            self.logger.output_error('SDK build step ' + str(step_name) + ' was not recognised')
+            self.logger.output_error('SDK build step [' + str(step_name) + '] was not recognised')
             sys.exit(1)
         try:
             if self.print_info:
