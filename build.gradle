@@ -28,8 +28,7 @@ apply plugin: "de.aaschmid.cpd" //Code duplication
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
 
-apply plugin: 'maven-publish'
-apply plugin: "com.jfrog.artifactory"    
+   
 
 
 // In this section you declare where to find the dependencies of your project
@@ -40,20 +39,20 @@ repositories {
 }
 
 allprojects {
-	//The following is to override the version/group values contained in subproject build files
-	tasks.whenTaskAdded { task ->
-		 if (project != project(':lwm2m')){
-			 project.version = SDKVersion
-			 project.group = SDKGroup
-			 if (task.hasProperty('version')){
-					task.version = SDKVersion
-			 }
-			 if (task.hasProperty('group')){
-					task.group = SDKGroup
-			 }
-		 }
-		
-	}
+    //The following is to override the version/group values contained in subproject build files
+    tasks.whenTaskAdded { task ->
+         if (project != project(':lwm2m')){
+             project.version = SDKVersion
+             project.group = SDKGroup
+             if (task.hasProperty('version')){
+                    task.version = SDKVersion
+             }
+             if (task.hasProperty('group')){
+                    task.group = SDKGroup
+             }
+         }
+        
+    }
 
     task info {
         doLast { task ->
@@ -70,38 +69,40 @@ allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'signing'
-	apply plugin: 'maven'
+    apply plugin: 'maven'
     apply plugin: 'build-dashboard'
     apply plugin: 'project-report'
-	
-	compileJava {
-		// Java SDK compatibility
-		sourceCompatibility  JavaVersion.VERSION_1_7.toString()
-		targetCompatibility  JavaVersion.VERSION_1_7.toString()
+    apply plugin: 'maven-publish'
+    apply plugin: "com.jfrog.artifactory" 
+    
+    compileJava {
+        // Java SDK compatibility
+        sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+        targetCompatibility  JavaVersion.VERSION_1_7.toString()
 
-		options.compilerArgs += ["-deprecation","-parameters"]
-		options.fork = true
-		doFirst {
-			println 'Compiler args for compiled SDK : ' + options.compilerArgs
-		}
-	}
-	jar {
-		manifest {
-			attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-					   'Implementation-Version': project.version,
-					   'Implementation-Vendor': 'Arm Limited')
-		}
-		doLast {
-			updateArtifactList("SDK_JAR",jar.archivePath)
-		}
-	}
-	compileTestJava {
-		options.compilerArgs += ["-g","-deprecation","-parameters"]
-		options.fork = true
-		doFirst {
-			println 'Compiler args for testing: ' + options.compilerArgs
-		}
-	}
+        options.compilerArgs += ["-deprecation","-parameters"]
+        options.fork = true
+        doFirst {
+            println 'Compiler args for compiled SDK : ' + options.compilerArgs
+        }
+    }
+    jar {
+        manifest {
+            attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+                       'Implementation-Version': project.version,
+                       'Implementation-Vendor': 'Arm Limited')
+        }
+        doLast {
+            updateArtifactList("SDK_JAR",jar.archivePath)
+        }
+    }
+    compileTestJava {
+        options.compilerArgs += ["-g","-deprecation","-parameters"]
+        options.fork = true
+        doFirst {
+            println 'Compiler args for testing: ' + options.compilerArgs
+        }
+    }
 }
 
 subprojects {
@@ -285,19 +286,19 @@ task shadowTestJar(type: Jar) {
     }
 }
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
+    publications {
+        mavenJava(MavenPublication) {
 
-			from components.java
-			artifact sourcesJar
-			artifact javadocJar
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
 
-			pom.withXml {
-					asNode().appendNode('description',
-								'Arm Mbed Cloud SDK')
-			   }
-		}
-	}
+            pom.withXml {
+                    asNode().appendNode('description',
+                                'Arm Mbed Cloud SDK')
+               }
+        }
+    }
 }
 
 artifactory {
