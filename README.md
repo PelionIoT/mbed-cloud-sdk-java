@@ -6,6 +6,8 @@ The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](http
 
 * Java > 1.7   _tested with [Oracle JRE](http://www.oracle.com/technetwork/java/javase/downloads/index.html)_
 
+## Logging
+* The SDK uses **[SLF4j](https://www.slf4j.org/)** and hence, any supported logging framework  (e.g. java.util.logging, logback, log4j) can be used by your application.
 ## Distribution
 In order to best meet your requirements, Java SDK is packaged in 3 different ways:
 * Individual Jars
@@ -43,6 +45,14 @@ These instructions can also be found in the [official documentation](https://s3-
 
 See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-java/.
 
+## Project
+
+* All code inside _\*.internal.\*_ packages or annotated as **@Internal** is considered private API and should not be relied upon at all.
+
+* Classes annotated as **@Module** contain all Arm Mbed Cloud APIs
+
+* Method annotated as **@API** are the functions which can be used to interact with Mbed Cloud.
+* APIs, objects or methods annotated as **@Deprecated** are supported until the next major release and will be removed later on. It is highly recommended to stop using them.
 ## License
 
 Mbed Cloud SDK for Java is free-to-use and licensed under the **Apache License
