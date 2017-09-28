@@ -8,5 +8,5 @@ class SDKVersion(sdk_common.BuildStepUsingGradle):
         super(SDKVersion, self).__init__('SDK Version', logger)
 
     def execute(self):
-        self.log_info(self.common_config.get_config().get_version())
+        self.log_info(self.common_config.get_config().get_version(), True)
         return True

@@ -30,8 +30,8 @@ class Action(object):
     def log_warning(self, message):
         self.logger.output_warning("WARNING [Module: " + str(self.module_name) + "]: " + str(message))
 
-    def log_info(self, message):
-        self.logger.output_message(message)
+    def log_info(self, message, no_colour=False):
+        self.logger.output_message(message, no_colour)
 
     def log_debug(self, message):
         self.logger.output_debug_message("DEBUG [Module: " + str(self.module_name) + "]: " + str(message))
