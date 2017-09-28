@@ -64,16 +64,19 @@ class Logger:
         if msg and self.log_file:
             self.log_file.write(str(msg) + os.linesep)
 
-    def _log_and_print(self, msg_colour, msg, show):
+    def _log_and_print(self, msg_colour, msg, show, no_colour=False):
         if msg:
             self._log_to_file(msg)
             if show:
                 if self.are_messages_printed:
-                    self._print_to_console(msg_colour, msg)
+                    self._print_to_console(msg_colour, msg, no_colour)
 
-    def _print_to_console(self, msg_colour, msg):
-        colour = msg_colour if msg_colour else NORMAL_COLOUR
-        print(colour + str(msg) + NORMAL_COLOUR)
+    def _print_to_console(self, msg_colour, msg, no_colour=False):
+        if no_colour:
+            print(str(msg))
+        else:
+            colour = msg_colour if msg_colour else NORMAL_COLOUR
+            print(colour + str(msg) + NORMAL_COLOUR)
 
     def print_log_file_location(self):
         self._print_to_console(INFO_COLOUR, 'Arm Mbed Cloud SDK build log file: ' + str(self.log_file_name))
@@ -97,21 +100,21 @@ class Logger:
         self.output_message("--------------------------------------------------")
 
     # Output an error message
-    def output_error(self, msg):
-        self._log_and_print(ERROR_COLOUR, msg, True)
+    def output_error(self, msg, no_colour=False):
+        self._log_and_print(ERROR_COLOUR, msg, True, no_colour)
 
     # Output a success message
-    def output_success_message(self, msg):
-        self._log_and_print(SUCCESS_COLOUR, msg, True)
+    def output_success_message(self, msg, no_colour=False):
+        self._log_and_print(SUCCESS_COLOUR, msg, True, no_colour)
 
     # Output a warning message
-    def output_warning(self, msg):
-        self._log_and_print(WARNING_COLOUR, msg, True)
+    def output_warning(self, msg, no_colour=False):
+        self._log_and_print(WARNING_COLOUR, msg, True, no_colour)
 
     # Output a message
-    def output_message(self, msg):
-        self._log_and_print(NORMAL_COLOUR, msg, True)
+    def output_message(self, msg, no_colour=False):
+        self._log_and_print(NORMAL_COLOUR, msg, True, no_colour)
 
     # Output a debug message, if enabled
-    def output_debug_message(self, msg):
-        self._log_and_print(NORMAL_COLOUR, msg, self.is_debug_enabled)
+    def output_debug_message(self, msg, no_colour=False):
+        self._log_and_print(NORMAL_COLOUR, msg, self.is_debug_enabled, no_colour)
