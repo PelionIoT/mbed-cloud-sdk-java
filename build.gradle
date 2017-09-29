@@ -132,6 +132,10 @@ dependencies {
 project(':backends:mds').javadoc.enabled = false
 project(':backends:statistics').javadoc.enabled = false
 
+javadoc {
+    options.overview = "src/main/javadoc/overview.html" 
+}
+
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')

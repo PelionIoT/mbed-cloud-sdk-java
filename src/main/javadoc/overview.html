@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+  <HEAD>
+    <TITLE>Mbed Cloud SDK for Java</TITLE>
+  </HEAD>
+  <BODY>
+<h1 id="mbedcloudsdkforjava">Mbed Cloud SDK for Java</h1>
+
+<p>The Mbed Cloud SDK provides a simplified interface to the <a href="https://www.mbed.com/en/platform/cloud/">Mbed Cloud APIs</a> by exposing functionality using conventions and paradigms familiar to Java developers.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>Java > 1.7   <em>tested with <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JRE</a></em></li>
+</ul>
+
+<h2 id="logging">Logging</h2>
+
+<ul>
+<li>The SDK uses <strong><a href="https://www.slf4j.org/">SLF4j</a></strong> and hence, any supported logging framework  (e.g. java.util.logging, logback, log4j) can be used by your application.</li>
+</ul>
+
+<h2 id="distribution">Distribution</h2>
+
+<p>In order to best meet your requirements, Java SDK is packaged in 3 different ways:</p>
+
+<ul>
+<li>Individual Jars which can be retrieved using a package manager of your choice (i.e. Gradle, Maven or Ivy).</li>
+
+<li>Distribution ZIP. See related <a href="https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html">gradle plugin</a> for more details.</li>
+
+<li>A <a href="https://github.com/johnrengelman/shadow">fat jar</a> comprising the SDK and all its dependencies.</li>
+</ul>
+
+<h2 id="apikeys">API keys</h2>
+
+<p>Before using the SDK, you need to obtain an API key for use with Mbed Cloud.
+You can generate this through the Mbed Cloud management console on <a href="https://portal.mbedcloud.com/">Mbed Cloud Portal</a>.</p>
+
+<h2 id="usage">Usage</h2>
+
+<p>These instructions can also be found in the <a href="https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html#quickstart">official documentation</a>:</p>
+
+<ol>
+<li><p>Obtain an API Key.</p></li>
+
+<li><p>Create a configuration object:</p>
+
+<pre><code class="java language-java">    String logLevel = "BODY";
+    String apiKey = "&lt;apikey&gt;";
+    String cloudHost = "https://&lt;host&gt;";
+    ConnectionOptions config = new ConnectionOptions(apiKey, cloudHost);
+    config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
+</code></pre></li>
+
+<li><p>Import SDK using one of the packages listed above and you're ready to go.</p>
+
+<pre><code class="java language-java">    DeviceDirectory deviceApi = new DeviceDirectory(config);
+    try {
+        System.out.println(deviceApi.listDevices(null));
+    } catch (MbedCloudException e) {
+        // TODO Auto-generated catch block
+        e.printStackTrace();
+    }
+</code></pre></li>
+</ol>
+
+<h2 id="documentationandexamples">Documentation and examples</h2>
+
+<p>See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-java/.</p>
+
+<h2 id="project">Project</h2>
+
+<ul>
+<li><p>All code inside <em>*.internal.*</em> packages or annotated as <strong>@Internal</strong> is considered private API and should not be relied upon at all.</p></li>
+
+<li><p>Classes annotated as <strong>@Module</strong> contain all Arm Mbed Cloud APIs</p></li>
+
+<li><p>Method annotated as <strong>@API</strong> are the functions which can be used to interact with Mbed Cloud.</p></li>
+
+<li><p>APIs, objects or methods annotated as <strong>@Deprecated</strong> are supported until the next major release and will be removed later on. It is highly recommended to stop using them.</p></li>
+</ul>
+
+<h2 id="license">License</h2>
+
+<p>Mbed Cloud SDK for Java is free-to-use and licensed under the <strong>Apache License
+2.0</strong>. See LICENCE file for more information.</p>
+  </BODY>
+</HTML>
