@@ -15,7 +15,7 @@ machine:
   java:
     version: oraclejdk8
   python:
-    version: 3.6
+    version: 3.6.2
 
 general:
   artifacts:
