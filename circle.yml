@@ -32,7 +32,7 @@ checkout:
   post:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
-    - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
+    - git clone -b unittestify https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
     - python3 setup.py:
         pwd: tests/testrunner
     - python ${SCRIPTS_DIR}/sdk.py configure
