@@ -14,6 +14,8 @@ machine:
     SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
   java:
     version: oraclejdk8
+  python:
+    version: 3.6
 
 general:
   artifacts:
@@ -31,8 +33,7 @@ checkout:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
     - git clone https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
-    - pip install -r tests/testrunner/requirements.txt
-    - python setup.py develop:
+    - python3 setup.py:
         pwd: tests/testrunner
     - python ${SCRIPTS_DIR}/sdk.py configure
 
