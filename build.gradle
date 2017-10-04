@@ -134,6 +134,46 @@ project(':backends:statistics').javadoc.enabled = false
 
 javadoc {
     options.overview = "src/main/javadoc/overview.html" 
+    // Add --allow-script-in-comments if available (since 1.8.0_121) see related issue https://github.com/gradle/gradle/issues/1393
+    if (javax.tools.ToolProvider.getSystemDocumentationTool()
+        .isSupportedOption("--allow-script-in-comments")) {
+        options.addBooleanOption("-allow-script-in-comments", true)
+    }
+    
+    if(project.hasProperty('javadocStylesheet') && "${javadocStylesheet}"?.trim()) {
+        def file = new File("${javadocStylesheet}")
+        if (file.exists()){    
+            options.setStylesheetFile(file)
+        }
+    }
+    if(project.hasProperty('javadocHeader') && "${javadocHeader}"?.trim()) {
+        def file = new File("${javadocHeader}")
+        if (file.exists()){         
+            def headerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
+            options.setHeader(headerValue)
+        }
+    }
+    if(project.hasProperty('javadocFooter') && "${javadocFooter}"?.trim()) {
+        def file = new File("${javadocFooter}")
+        if (file.exists()){         
+            def footerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
+            options.setFooter(footerValue)
+        }
+    }
+    if(project.hasProperty('javadocTop') && "${javadocTop}"?.trim()) {
+        def file = new File("${javadocBottom}")
+        if (file.exists()){         
+            def topValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
+            options.addStringOption('top',topValue)
+        }
+    }
+    if(project.hasProperty('javadocBottom') && "${javadocBottom}"?.trim()) {
+        def file = new File("${javadocBottom}")
+        if (file.exists()){         
+            def bottomValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
+            options.setBottom(bottomValue)
+        }
+    }
 }
 
 checkstyle {

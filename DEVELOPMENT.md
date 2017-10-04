@@ -22,6 +22,27 @@
         e.g. python sdk.py build
     ```
 
+## Javadoc
+It is possible to customise the javadoc output by specifying file paths of header, footer, style cheet, etc. in gradle.properties.
+e.g. on Windows:
+
+```shell
+    javadocStylesheet=C:\\Users\\john\\mbed-cloud-sdk-java\\stylesheet.css
+```
+To regenerate afterwards the javadoc, just run the following command:
+```shell
+    ./gradlew clean javadoc
+```
+
+* **Style sheet:** _(javadoc -stylesheetfile option)_ Specifies the path of an alternate HTML stylesheet file. Without this option, the Javadoc tool automatically creates a stylesheet file stylesheet.css that is hard-coded in the Javadoc tool. This option enables you to override this default. The filename can be any name and is not restricted to stylesheet.css.
+
+* **Top:** _(javadoc -top option)_ Specifies the text to be placed at the top of each output file.
+
+* **Header:** _(javadoc -header option)_ Specifies the header text to be placed at the top of each output file. The header will be placed to the right of the upper navigation bar. header may contain HTML tags and white space. Any internal quotation marks within header may have to be escaped.
+
+* **Bottom:** _(javadoc -bottom option)_ Specifies the text to be placed at the bottom of each output file. The text will be placed at the bottom of the page, below the lower navigation bar. The text may contain HTML tags and white space. Any internal quotation marks within text may have to be escaped.
+
+* **Footer:** _(javadoc -footer option)_ Specifies the footer text to be placed at the bottom of each output file. The footer will be placed to the right of the lower navigation bar. footer may contain HTML tags and white space. Any internal quotation marks within footer may have to be escaped.
 
 ## Testing
 1. Sets required environment variables for the test server to run: **ENVVAR_MBED_CLOUD_API_KEY** and **ENVVAR_MBED_CLOUD_HOST**.
