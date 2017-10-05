@@ -10,7 +10,7 @@ class SDKHelp(sdk_common.BuildStepUsingGradle):
 
     def set_action_list(self, action_list):
         self.action_list = action_list
-        if self.action_list:
+        if self.action_list and 'sort' in dir(self.action_list):
             self.action_list.sort()
 
     def execute(self):

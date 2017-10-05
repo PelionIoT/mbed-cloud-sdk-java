@@ -74,7 +74,7 @@ public class TestServer {
         retrieveConfig();
         if (config == null || config.isApiKeyEmpty()) {
             logInfo("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
-            return;
+            System.exit(1);
         }
         defineInitialisationRoute();
         defineModuleMethodTestRoute();
