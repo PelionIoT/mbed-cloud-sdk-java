@@ -473,6 +473,7 @@ class Config(Action):
         self.sdk_build_dir = None
         self.use_gradle_wrapper = False
         self.on_windows = False
+        self.artifactory_url = None
         self.artifactory_host = None
         self.properties = OrderedDict()
 
@@ -520,16 +521,6 @@ class Config(Action):
     def check_platform(self):
         self.on_windows = sys.platform.startswith('win')
 
-    def get_artifactory_host(self):
-        if not self.artifactory_host:
-            url = self.properties['artifactory_contextUrl']
-            url_pattern = r"(https?\:\/\/)?([\w.]+)(\/\w+)*"
-            if url and re.match(url_pattern, url):
-                host_search = re.search(url_pattern, url)
-                if host_search:
-                    self.artifactory_host = host_search.group(2)
-        return self.artifactory_host
-
     def get_branch_name(self):
         try:
             branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
@@ -567,6 +558,23 @@ class Config(Action):
             self.artifactory_user = os.getenv("ARTIFACTORY_USERNAME", "monty-bot")
         return self.artifactory_user
 
+    def get_artifactory_url(self):
+        if not self.artifactory_url:
+            self.log_debug("Determining artifactory url")
+            tmp_url = self.properties['artifactory_contextUrl']
+            self.artifactory_url = os.getenv("ARTIFACTORY_URL", tmp_url)
+        return self.artifactory_url
+
+    def get_artifactory_host(self):
+        if not self.artifactory_host:
+            url = self.get_artifactory_url()
+            url_pattern = r"(https?\:\/\/)?([\w.]+)(\/\w+)*"
+            if url and re.match(url_pattern, url):
+                host_search = re.search(url_pattern, url)
+                if host_search:
+                    self.artifactory_host = host_search.group(2)
+        return self.artifactory_host
+
     def get_artifactory_api_key(self):
         if not self.artifactory_password:
             self.log_debug("Determining artifactory API key")
@@ -588,3 +596,4 @@ class Config(Action):
         self.properties['artifactory_user'] = self.get_artifactory_username()
         self.properties['artifactory_password'] = self.get_artifactory_api_key()
         self.properties['artifactory_deployment_repository'] = self.get_publishing_repo()
+        self.properties['artifactory_contextUrl'] = self.get_artifactory_url()

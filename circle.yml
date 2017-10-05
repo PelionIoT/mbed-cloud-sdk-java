@@ -7,14 +7,18 @@ machine:
     PROJECT_TESTS: ${HOME}/tests
     PROJECT_ARTIFACTS: ${HOME}/artifacts
     PROJECT_REPORTS: ${HOME}/reports
+    PROJECT_TOP: ${HOME}/${CIRCLE_PROJECT_REPONAME}
     BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/docs/javadoc
     BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
     BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
     BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
     SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
+    ARTIFACTORY_URL: http://192.168.99.100:5000/
   java:
     version: oraclejdk8
-
+  services:
+    - docker
+    
 general:
   artifacts:
     - ~/docs
@@ -35,6 +39,9 @@ checkout:
     - python setup.py develop:
         pwd: tests/testrunner
     - python ${SCRIPTS_DIR}/sdk.py configure
+    - aws s3 sync --cache-control max-age=3600 s3://artifactory-store ${PROJECT_TOP}
+    - docker build -t artifactory . :
+        pwd: proxy
 
 compile:
   pre:
@@ -60,6 +67,8 @@ test:
     - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
     - set -o pipefail && bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${PROJECT_TESTS}/index.html:
         pwd: tests
+  post:
+    - docker run -d -p 5000:80 artifactory; sleep 10
 
 deployment:
   staging:
