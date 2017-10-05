@@ -530,13 +530,20 @@ class Config(Action):
                     self.artifactory_host = host_search.group(2)
         return self.artifactory_host
 
+    def get_branch_name(self):
+        try:
+            branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
+        except:
+            return None
+        return branch_name
+
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
             version_pattern = r"(\d+\.)?(\d+\.)?(\d+)(-\w+)?"  # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
             tmp_version = self.properties['SDKVersion']
             build_number = os.getenv("CIRCLE_BUILD_NUM", 0)
-            branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
+            branch_name = self.get_branch_name()
             if branch_name and re.match(version_pattern, branch_name):
                 self.is_release = True
                 if tmp_version:

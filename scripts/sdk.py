@@ -54,7 +54,7 @@ class SDKBuild:
             step_name = step_name.strip()
             if step_name == 'version' or step_name == 'help':
                 self.print_info = False
-            if self.steps.has_key(step_name):
+            if step_name in self.steps:
                 step = self.steps[step_name]
         if not step:
             self.logger.output_error('SDK build step [' + str(step_name) + '] was not recognised')
