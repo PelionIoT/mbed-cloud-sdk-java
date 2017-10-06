@@ -13,7 +13,7 @@ machine:
     BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
     BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
     SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
-    ARTIFACTORY_URL: http://localhost:5000/
+    ARTIFACTORY_URL: http://localhost:5000/artifactory/
   java:
     version: oraclejdk8
   services:
