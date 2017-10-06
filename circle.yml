@@ -13,7 +13,7 @@ machine:
     BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
     BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
     SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
-    ARTIFACTORY_URL: http://192.168.99.100:5000/
+    ARTIFACTORY_URL: http://localhost:5000/
   java:
     version: oraclejdk8
   services:
@@ -39,7 +39,7 @@ checkout:
     - python setup.py develop:
         pwd: tests/testrunner
     - python ${SCRIPTS_DIR}/sdk.py configure
-    - aws s3 sync --cache-control max-age=3600 s3://artifactory-store ${PROJECT_TOP}
+    - aws s3 sync s3://artifactory-store ${PROJECT_TOP}
     - docker build -t artifactory . :
         pwd: proxy
 
