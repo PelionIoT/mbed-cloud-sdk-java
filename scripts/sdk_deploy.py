@@ -14,7 +14,10 @@ class ArtifactDeployer(sdk_common.BuildStepUsingGradle):
         try:
             if self.check_if_artifactory_is_accessible():
                 self.log_info("Pushing artifacts to artifactory as [" + str(self.username) + "]")
-                self.execute_gradle_task('artifactoryPublish')
+                try:  # TODO remove this try catch. Until https://github.com/JFrogDev/build-info/issues/115 is fixed, do not consider task error code
+                    self.execute_gradle_task('artifactoryPublish')
+                except:
+                    pass
             else:
                 self.log_error_without_getting_cause("Artifactory is not accessible [" + str(self.host) + "]")
                 self.log_info("SDK artifacts will not be automatically uploaded to such a repository")
