@@ -195,7 +195,7 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public List<Resource> listResources(@NonNull Device device) throws MbedCloudException {
+    public @Nullable List<Resource> listResources(@NonNull Device device) throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
         final String finalDeviceId = device.getId();
@@ -211,6 +211,33 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Gets device's resource.
+     * 
+     * @param device
+     *            Device.
+     * @param resourcePath
+     *            Path of the resource to get
+     * @return resource present on the device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Resource getResource(@NonNull Device device, @NonNull String resourcePath)
+            throws MbedCloudException {
+        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
+        final List<Resource> resources = listResources(device);
+        if (resources == null || resources.isEmpty()) {
+            return null;
+        }
+        for (final Resource resource : resources) {
+            if (ApiUtils.comparePaths(resourcePath, resource.getPath())) {
+                return resource;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Lists a device's subscriptions.
      *
      * @param device
@@ -220,7 +247,7 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public List<String> listDeviceSubscriptions(@NonNull Device device) throws MbedCloudException {
+    public @Nullable List<String> listDeviceSubscriptions(@NonNull Device device) throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
         final String finalDeviceId = device.getId();

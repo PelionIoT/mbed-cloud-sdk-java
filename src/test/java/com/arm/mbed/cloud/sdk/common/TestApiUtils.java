@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -93,4 +94,12 @@ public class TestApiUtils {
         assertEquals(path, ApiUtils.normalisePath(path2));
     }
 
+    @Test
+    public final void testComparePaths() {
+        assertTrue(ApiUtils.comparePaths(null, null));
+        assertFalse(ApiUtils.comparePaths(null, ""));
+        assertFalse(ApiUtils.comparePaths("", null));
+        assertTrue(ApiUtils.comparePaths("/test/1", "test/1"));
+        assertTrue(ApiUtils.comparePaths("test/2", "/test/2"));
+    }
 }
