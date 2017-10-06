@@ -135,4 +135,23 @@ public class ApiUtils {
         }
         return path;
     }
+
+    /**
+     * Compares two URL paths.
+     * 
+     * @param path1
+     *            path string
+     * @param path2
+     *            path string
+     * @return true if the two paths are equal. False otherwise.
+     */
+    public static boolean comparePaths(String path1, String path2) {
+        final String normalisedPath1 = normalisePath(path1);
+        final String normalisedPath2 = normalisePath(path2);
+        if (normalisedPath1 == null) {
+            return normalisedPath2 == null;
+        }
+        return normalisedPath1.equals(normalisedPath2);
+    }
+
 }
