@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2NotificationPullDelete"></a>
 # **v2NotificationPullDelete**
@@ -113,7 +113,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2NotificationPullGet"></a>
 # **v2NotificationPullGet**
