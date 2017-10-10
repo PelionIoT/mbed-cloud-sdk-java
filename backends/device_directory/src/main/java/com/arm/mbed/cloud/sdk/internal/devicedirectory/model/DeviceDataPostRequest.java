@@ -174,64 +174,14 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("firmware_checksum")
   private String firmwareChecksum = null;
 
-  @SerializedName("vendor_id")
-  private String vendorId = null;
+  @SerializedName("object")
+  private String object = null;
 
   @SerializedName("description")
   private String description = null;
 
-  /**
-   * DEPRECATED: The state of the device&#39;s deployment.
-   */
-  @JsonAdapter(DeployedStateEnum.Adapter.class)
-  public enum DeployedStateEnum {
-    DEVELOPMENT("development"),
-    
-    PRODUCTION("production");
-
-    private String value;
-
-    DeployedStateEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static DeployedStateEnum fromValue(String text) {
-      for (DeployedStateEnum b : DeployedStateEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<DeployedStateEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final DeployedStateEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public DeployedStateEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return DeployedStateEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("deployed_state")
-  private DeployedStateEnum deployedState = null;
-
-  @SerializedName("object")
-  private String object = null;
+  @SerializedName("vendor_id")
+  private String vendorId = null;
 
   @SerializedName("endpoint_type")
   private String endpointType = null;
@@ -496,22 +446,22 @@ public class DeviceDataPostRequest implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
-  public DeviceDataPostRequest vendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public DeviceDataPostRequest object(String object) {
+    this.object = object;
     return this;
   }
 
    /**
-   * The device vendor ID.
-   * @return vendorId
+   * The API resource entity.
+   * @return object
   **/
-  @ApiModelProperty(value = "The device vendor ID.")
-  public String getVendorId() {
-    return vendorId;
+  @ApiModelProperty(value = "The API resource entity.")
+  public String getObject() {
+    return object;
   }
 
-  public void setVendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public void setObject(String object) {
+    this.object = object;
   }
 
   public DeviceDataPostRequest description(String description) {
@@ -532,40 +482,22 @@ public class DeviceDataPostRequest implements Serializable {
     this.description = description;
   }
 
-  public DeviceDataPostRequest deployedState(DeployedStateEnum deployedState) {
-    this.deployedState = deployedState;
+  public DeviceDataPostRequest vendorId(String vendorId) {
+    this.vendorId = vendorId;
     return this;
   }
 
    /**
-   * DEPRECATED: The state of the device&#39;s deployment.
-   * @return deployedState
+   * The device vendor ID.
+   * @return vendorId
   **/
-  @ApiModelProperty(value = "DEPRECATED: The state of the device's deployment.")
-  public DeployedStateEnum getDeployedState() {
-    return deployedState;
+  @ApiModelProperty(value = "The device vendor ID.")
+  public String getVendorId() {
+    return vendorId;
   }
 
-  public void setDeployedState(DeployedStateEnum deployedState) {
-    this.deployedState = deployedState;
-  }
-
-  public DeviceDataPostRequest object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity.
-   * @return object
-  **/
-  @ApiModelProperty(value = "The API resource entity.")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
+  public void setVendorId(String vendorId) {
+    this.vendorId = vendorId;
   }
 
   public DeviceDataPostRequest endpointType(String endpointType) {
@@ -717,10 +649,9 @@ public class DeviceDataPostRequest implements Serializable {
         Objects.equals(this.state, deviceDataPostRequest.state) &&
         Objects.equals(this.serialNumber, deviceDataPostRequest.serialNumber) &&
         Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum) &&
-        Objects.equals(this.vendorId, deviceDataPostRequest.vendorId) &&
-        Objects.equals(this.description, deviceDataPostRequest.description) &&
-        Objects.equals(this.deployedState, deviceDataPostRequest.deployedState) &&
         Objects.equals(this.object, deviceDataPostRequest.object) &&
+        Objects.equals(this.description, deviceDataPostRequest.description) &&
+        Objects.equals(this.vendorId, deviceDataPostRequest.vendorId) &&
         Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
         Objects.equals(this.deployment, deviceDataPostRequest.deployment) &&
         Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl) &&
@@ -732,7 +663,7 @@ public class DeviceDataPostRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, name, deviceKey, manifest, caId);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, object, description, vendorId, endpointType, deployment, mechanismUrl, name, deviceKey, manifest, caId);
   }
 
 
@@ -754,10 +685,9 @@ public class DeviceDataPostRequest implements Serializable {
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
     sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
-    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    deployedState: ").append(toIndentedString(deployedState)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    deployment: ").append(toIndentedString(deployment)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
