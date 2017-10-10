@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareImageDestroy"></a>
 # **firmwareImageDestroy**
@@ -134,7 +134,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareImageList"></a>
 # **firmwareImageList**
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareImageRetrieve"></a>
 # **firmwareImageRetrieve**
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareManifestCreate"></a>
 # **firmwareManifestCreate**
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: multipart/form-data
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareManifestDestroy"></a>
 # **firmwareManifestDestroy**
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareManifestList"></a>
 # **firmwareManifestList**
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="firmwareManifestRetrieve"></a>
 # **firmwareManifestRetrieve**
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignCreate"></a>
 # **updateCampaignCreate**
@@ -539,7 +539,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignDestroy"></a>
 # **updateCampaignDestroy**
@@ -594,7 +594,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignList"></a>
 # **updateCampaignList**
@@ -657,7 +657,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignPartialUpdate"></a>
 # **updateCampaignPartialUpdate**
@@ -714,7 +714,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignRetrieve"></a>
 # **updateCampaignRetrieve**
@@ -769,7 +769,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="updateCampaignUpdate"></a>
 # **updateCampaignUpdate**
@@ -826,7 +826,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet"></a>
 # **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet**
@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet"></a>
 # **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**
@@ -946,5 +946,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 

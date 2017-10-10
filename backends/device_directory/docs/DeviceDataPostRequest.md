@@ -17,10 +17,9 @@ Name | Type | Description | Notes
 **state** | [**StateEnum**](#StateEnum) | The current state of the device. |  [optional]
 **serialNumber** | **String** | The serial number of the device. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
-**vendorId** | **String** | The device vendor ID. |  [optional]
-**description** | **String** | The description of the device. |  [optional]
-**deployedState** | [**DeployedStateEnum**](#DeployedStateEnum) | DEPRECATED: The state of the device&#39;s deployment. |  [optional]
 **object** | **String** | The API resource entity. |  [optional]
+**description** | **String** | The description of the device. |  [optional]
+**vendorId** | **String** | The device vendor ID. |  [optional]
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
 **deployment** | **String** | DEPRECATED: The last deployment used on the device. |  [optional]
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
@@ -47,14 +46,6 @@ CLOUD_ENROLLING | &quot;cloud_enrolling&quot;
 BOOTSTRAPPED | &quot;bootstrapped&quot;
 REGISTERED | &quot;registered&quot;
 DEREGISTERED | &quot;deregistered&quot;
-
-
-<a name="DeployedStateEnum"></a>
-## Enum: DeployedStateEnum
-Name | Value
----- | -----
-DEVELOPMENT | &quot;development&quot;
-PRODUCTION | &quot;production&quot;
 
 
 

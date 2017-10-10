@@ -75,7 +75,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceDestroy"></a>
 # **deviceDestroy**
@@ -130,7 +130,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceEventList"></a>
 # **deviceEventList**
@@ -193,7 +193,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceEventRetrieve"></a>
 # **deviceEventRetrieve**
@@ -248,7 +248,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceList"></a>
 # **deviceList**
@@ -311,7 +311,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceLogList"></a>
 # **deviceLogList**
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceLogRetrieve"></a>
 # **deviceLogRetrieve**
@@ -429,7 +429,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="devicePartialUpdate"></a>
 # **devicePartialUpdate**
@@ -486,7 +486,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryCreate"></a>
 # **deviceQueryCreate**
@@ -541,7 +541,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryDestroy"></a>
 # **deviceQueryDestroy**
@@ -596,7 +596,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryList"></a>
 # **deviceQueryList**
@@ -659,7 +659,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryPartialUpdate"></a>
 # **deviceQueryPartialUpdate**
@@ -716,7 +716,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryRetrieve"></a>
 # **deviceQueryRetrieve**
@@ -771,7 +771,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceQueryUpdate"></a>
 # **deviceQueryUpdate**
@@ -828,7 +828,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceRetrieve"></a>
 # **deviceRetrieve**
@@ -883,7 +883,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
 <a name="deviceUpdate"></a>
 # **deviceUpdate**
@@ -940,5 +940,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
