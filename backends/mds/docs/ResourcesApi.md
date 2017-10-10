@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2EndpointsDeviceIdResourcePathGet"></a>
 # **v2EndpointsDeviceIdResourcePathGet**
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2EndpointsDeviceIdResourcePathPost"></a>
 # **v2EndpointsDeviceIdResourcePathPost**
@@ -189,7 +189,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: text/plain, application/xml, application/octet-stream, application/exi, application/json, application/link-format, application/senml+json, application/nanoservice-tlv, application/vnd.oma.lwm2m+text, application/vnd.oma.lwm2m+opaq, application/vnd.oma.lwm2m+tlvapplication/vnd.oma.lwm2m+json, 
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2EndpointsDeviceIdResourcePathPut"></a>
 # **v2EndpointsDeviceIdResourcePathPut**
@@ -250,5 +250,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: text/plain, application/xml, application/octet-stream, application/exi, application/json, application/link-format, application/senml+json, application/nanoservice-tlv, application/vnd.oma.lwm2m+text, application/vnd.oma.lwm2m+opaq, application/vnd.oma.lwm2m+tlvapplication/vnd.oma.lwm2m+json, 
- - **Accept**: application/json
+ - **Accept**: Not defined
 

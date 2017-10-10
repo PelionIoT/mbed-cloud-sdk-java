@@ -22,7 +22,7 @@ Name | Type | Description | Notes
 **groups** | **List&lt;String&gt;** | A list of IDs of the groups this user belongs to. |  [optional]
 **address** | **String** | Address. |  [optional]
 **totpSecret** | **String** | Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled. |  [optional]
-**password** | **String** | The password when creating a new user. It will will generated when not present in the request. |  [optional]
+**password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **emailVerified** | **Boolean** | A flag indicating whether the user&#39;s email address has been verified or not. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. |  [optional]

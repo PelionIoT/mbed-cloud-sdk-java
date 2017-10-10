@@ -63,7 +63,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2SubscriptionsDeviceIdDelete"></a>
 # **v2SubscriptionsDeviceIdDelete**
@@ -118,7 +118,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2SubscriptionsDeviceIdGet"></a>
 # **v2SubscriptionsDeviceIdGet**
@@ -230,7 +230,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2SubscriptionsDeviceIdResourcePathGet"></a>
 # **v2SubscriptionsDeviceIdResourcePathGet**
@@ -285,7 +285,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2SubscriptionsDeviceIdResourcePathPut"></a>
 # **v2SubscriptionsDeviceIdResourcePathPut**

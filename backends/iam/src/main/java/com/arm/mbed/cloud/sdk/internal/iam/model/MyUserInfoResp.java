@@ -550,10 +550,10 @@ public class MyUserInfoResp implements Serializable {
   }
 
    /**
-   * The password when creating a new user. It will will generated when not present in the request.
+   * The password when creating a new user. It will be generated when not present in the request.
    * @return password
   **/
-  @ApiModelProperty(value = "The password when creating a new user. It will will generated when not present in the request.")
+  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
   public String getPassword() {
     return password;
   }

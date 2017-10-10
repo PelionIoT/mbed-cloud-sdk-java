@@ -320,10 +320,10 @@ public class AccountUpdateReq implements Serializable {
   }
 
    /**
-   * The company email address for this account, not longer than 100 characters. Required for commercial accounts only.
+   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
   public String getEmail() {
     return email;
   }

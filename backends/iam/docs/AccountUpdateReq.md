@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | Password policy for this account. |  [optional]
 **endMarket** | **String** | The end market for this account, not longer than 100 characters. |  [optional]
 **phoneNumber** | **String** | The phone number of the company, not longer than 100 characters. |  [optional]
-**email** | **String** | The company email address for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
+**email** | **String** | The company email address for this account, not longer than 254 characters. Required for commercial accounts only. |  [optional]
 **aliases** | **List&lt;String&gt;** | An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters. |  [optional]
 
 

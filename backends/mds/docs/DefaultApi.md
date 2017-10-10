@@ -57,7 +57,7 @@ This endpoint does not need any parameter.
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
+ - **Accept**: Not defined
 
 <a name="v2NotificationCallbackGet"></a>
 # **v2NotificationCallbackGet**

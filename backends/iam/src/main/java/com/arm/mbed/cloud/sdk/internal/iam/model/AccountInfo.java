@@ -608,10 +608,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future.
+   * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
    * @return tier
   **/
-  @ApiModelProperty(required = true, value = "The tier level of the account; '0': free tier, '1': commercial account. Other values are reserved for the future.")
+  @ApiModelProperty(required = true, value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
   public String getTier() {
     return tier;
   }

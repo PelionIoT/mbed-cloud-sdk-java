@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **fullName** | **String** | The full name of the user. |  [optional]
 **address** | **String** | Address. |  [optional]
 **creationTime** | **Long** | A timestamp of the user creation in the storage, in milliseconds. |  [optional]
-**password** | **String** | The password when creating a new user. It will will generated when not present in the request. |  [optional]
+**password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **phoneNumber** | **String** | Phone number. |  [optional]
 **id** | **String** | The UUID of the user. | 
 **lastLoginTime** | **Long** | A timestamp of the latest login of the user, in milliseconds. |  [optional]

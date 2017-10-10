@@ -21,7 +21,7 @@ Name | Type | Description | Notes
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;user&#39; | 
 **groups** | **List&lt;String&gt;** | A list of IDs of the groups this user belongs to. |  [optional]
 **address** | **String** | Address. |  [optional]
-**password** | **String** | The password when creating a new user. It will will generated when not present in the request. |  [optional]
+**password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **emailVerified** | **Boolean** | A flag indicating whether the user&#39;s email address has been verified or not. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. |  [optional]

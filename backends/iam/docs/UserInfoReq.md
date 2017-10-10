@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **fullName** | **String** | The full name of the user, not longer than 100 characters. |  [optional]
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. |  [optional]
 **address** | **String** | Address, not longer than 100 characters. |  [optional]
-**password** | **String** | The password when creating a new user. It will will generated when not present in the request. |  [optional]
+**password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **email** | **String** | The email address, not longer than 254 characters. | 
 
 

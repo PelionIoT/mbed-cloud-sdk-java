@@ -61,7 +61,7 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/link-format
+ - **Accept**: application/json
 
 <a name="v2EndpointsGet"></a>
 # **v2EndpointsGet**
@@ -116,5 +116,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json, application/link-format
+ - **Accept**: application/json
 

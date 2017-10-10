@@ -24,7 +24,7 @@ Name | Type | Description | Notes
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;account&#39; | 
 **reason** | **String** | A reason note for updating the status of the account |  [optional]
 **upgradedAt** | [**DateTime**](DateTime.md) | Time when upgraded to commercial account in UTC format RFC3339. |  [optional]
-**tier** | **String** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account. Other values are reserved for the future. | 
+**tier** | **String** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future. | 
 **subAccounts** | [**List&lt;AccountInfo&gt;**](AccountInfo.md) | List of sub accounts. |  [optional]
 **limits** | **Map&lt;String, String&gt;** | List of limits as key-value pairs if requested. |  [optional]
 **country** | **String** | The country part of the postal address. |  [optional]
