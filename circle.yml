@@ -35,7 +35,8 @@ checkout:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
     - git clone -b dockerise https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
-    - pip install docker-compose
+    - docker build -t trunner . :
+        pwd: tests/testrunner
     - python ${SCRIPTS_DIR}/sdk.py configure
     - aws s3 sync s3://artifactory-store ${PROJECT_TOP}
     - docker build -t artifactory . :
@@ -56,11 +57,10 @@ compile:
     - cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
 
 test:
+  pre:
+    - docker build -t sdk-test-server && docker run -d --name runner --net="host" -p 5000:5000  sdk-test-server; sleep 5
   override:
-    - docker-compose up:
-        pwd: tests/testrunner
-    - docker-compose down:
-        pwd: tests/testrunner
+    - docker run -it --name runner --net="host" -p 5000:5000 trunner
   post:
     - docker run -d -p 5000:80 artifactory; sleep 10
 
