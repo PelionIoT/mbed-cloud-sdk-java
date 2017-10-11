@@ -268,7 +268,7 @@ Bearer.setApiKey("YOUR API KEY");
 AccountAdminApi apiInstance = new AccountAdminApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String statusEq = "statusEq_example"; // String | Filter for status, for example active or reset
 try {
@@ -286,7 +286,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **statusEq** | **String**| Filter for status, for example active or reset | [optional]
 
@@ -387,7 +387,7 @@ AccountAdminApi apiInstance = new AccountAdminApi();
 String groupID = "groupID_example"; // String | The ID of the group whose users are retrieved.
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 try {
     UserInfoRespList result = apiInstance.getUsersOfGroup(groupID, limit, after, order, include);
@@ -405,7 +405,7 @@ Name | Type | Description  | Notes
  **groupID** | **String**| The ID of the group whose users are retrieved. |
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
 
 ### Return type

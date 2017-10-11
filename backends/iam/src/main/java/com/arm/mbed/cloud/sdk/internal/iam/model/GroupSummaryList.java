@@ -112,7 +112,7 @@ public class GroupSummaryList implements Serializable {
   private List<GroupSummary> data = new ArrayList<GroupSummary>();
 
   /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
    */
   @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
@@ -280,10 +280,10 @@ public class GroupSummaryList implements Serializable {
   }
 
    /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
    * @return order
   **/
-  @ApiModelProperty(value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(value = "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.")
   public OrderEnum getOrder() {
     return order;
   }
