@@ -518,10 +518,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * The phone number of the company.
+   * The phone number of a representative of the company.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of the company.")
+  @ApiModelProperty(value = "The phone number of a representative of the company.")
   public String getPhoneNumber() {
     return phoneNumber;
   }

@@ -302,10 +302,10 @@ public class AccountUpdateReq implements Serializable {
   }
 
    /**
-   * The phone number of the company, not longer than 100 characters.
+   * The phone number of a representative of the company, not longer than 100 characters.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of the company, not longer than 100 characters.")
+  @ApiModelProperty(value = "The phone number of a representative of the company, not longer than 100 characters.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
