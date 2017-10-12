@@ -31,11 +31,10 @@ general:
       - build
 
 checkout:
-  pre:
+  post:
     - aws s3 sync s3://artifactory-store ${PROJECT_TOP}
     - docker build -t artifactory . :
         pwd: proxy
-  post:
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
     - login="$(aws ecr get-login --no-include-email)"
