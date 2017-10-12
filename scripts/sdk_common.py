@@ -50,11 +50,18 @@ class Action(object):
                 self.log_debug('Command error message: ' + err)
         return retcode
 
-    def call_command(self, args, directory=None):
-        return self._spawn_command(True, args, directory)
+    def call_command(self, args, directory=None, show_output_asap=False):
+        return self._spawn_command(True, args, directory, show_output_asap)
+
+    def _spawn_command_with_output(self, args, directory):
+        with subprocess.Popen(args, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                              universal_newlines=True, cwd=directory, bufsize=1) as p:
+            for line in p.stdout:
+                self.log_info(line)
+        return p.returncode
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
-    def _spawn_command(self, debug, args, directory):
+    def _spawn_command(self, debug, args, directory, show_output_asap):
         if args:
             return_code = 1
             # Convert args list to single string (required for any commands using pipes or shell builtins)
@@ -64,16 +71,19 @@ class Action(object):
             if debug:
                 self.log_debug("Executing: " + args + " in directory [" + str(directory) + "]")
             try:
-                proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
-                                      stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
-                return_code = proc.returncode
-                output = proc.stdout
-                err = proc.stderr
-                if debug:
-                    if output:
-                        self.log_debug('Command output: ' + output)
-                    if err:
-                        self.log_debug('Command error message: ' + err)
+                if show_output_asap:
+                    self._spawn_command_with_output(args, directory)
+                else:
+                    proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
+                                          stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
+                    return_code = proc.returncode
+                    output = proc.stdout
+                    err = proc.stderr
+                    if debug:
+                        if output:
+                            self.log_debug('Command output: ' + output)
+                        if err:
+                            self.log_debug('Command error message: ' + err)
 
             except AttributeError:
                 return_code = self._spawn(debug, args, stderr=subprocess.STDOUT, cwd=directory)

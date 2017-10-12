@@ -71,7 +71,16 @@ class Logger:
                 if self.are_messages_printed:
                     self._print_to_console(msg_colour, msg, no_colour)
 
+    def _remove_carriage_return(self, msg):
+        if msg:
+            msg = msg.rstrip('\r\n')
+            msg = msg.rstrip('\n')
+            msg = msg.rstrip('\r')
+            msg = msg.rstrip('\n')
+        return msg
+
     def _print_to_console(self, msg_colour, msg, no_colour=False):
+        msg = self._remove_carriage_return(msg)
         if no_colour:
             print(str(msg))
         else:

@@ -6,6 +6,7 @@ import sdk_common
 class SDKTestServerLauncher(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKTestServerLauncher, self).__init__('SDK test server launch', logger)
+        # self.logger.is_debug_enabled = True
         self.artifacts_parser = sdk_common.PropertyFileParser(self,
                                                               self.common_config.get_config().get_sdk_top_directory(),
                                                               "artifacts.properties", "=", "#")
@@ -21,7 +22,7 @@ class SDKTestServerLauncher(sdk_common.BuildStepUsingGradle):
             test_jar_argument = test_jar_argument.replace("\\\\", "\\")
             test_jar_argument = "\"" + str(test_jar_argument) + "\""
             arguments = ['java', '-jar', test_jar_argument]
-            return_code = self.call_command(arguments)
+            return_code = self.call_command(arguments, None, True)
             if return_code == 1:
                 raise Exception('Error code', return_code)
         except:
