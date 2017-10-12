@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **eventTypeDescription** | **String** |  |  [optional]
 **eventType** | **String** |  |  [optional]
 **data** | **Object** |  |  [optional]
-**id** | **String** |  |  [optional]
+**id** | **String** |  | 
 **deviceId** | **String** |  |  [optional]
 
 
