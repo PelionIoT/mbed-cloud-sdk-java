@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;list&#39; | 
 **limit** | **Integer** | The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60; | 
 **data** | [**List&lt;ApiKeyInfoResp&gt;**](ApiKeyInfoResp.md) | A list of entities. | 
-**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Available values: ASC, DESC; by default ASC. |  [optional]
+**order** | [**OrderEnum**](#OrderEnum) | The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC. |  [optional]
 
 
 <a name="ObjectEnum"></a>

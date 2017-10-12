@@ -70,7 +70,7 @@ public class MyUserInfoResp implements Serializable {
   private String email = null;
 
   /**
-   * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
    */
   @JsonAdapter(StatusEnum.Adapter.class)
   public enum StatusEnum {
@@ -426,10 +426,10 @@ public class MyUserInfoResp implements Serializable {
   }
 
    /**
-   * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.
+   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately.")
+  @ApiModelProperty(required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
   public StatusEnum getStatus() {
     return status;
   }

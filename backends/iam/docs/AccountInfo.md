@@ -19,7 +19,7 @@ Name | Type | Description | Notes
 **etag** | **String** | API resource entity version. | 
 **isProvisioningAllowed** | **Boolean** | Flag (true/false) indicating whether Factory Tool is allowed to download or not. | 
 **email** | **String** | The company email address for this account. |  [optional]
-**phoneNumber** | **String** | The phone number of the company. |  [optional]
+**phoneNumber** | **String** | The phone number of a representative of the company. |  [optional]
 **company** | **String** | The name of the company. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;account&#39; | 
 **reason** | **String** | A reason note for updating the status of the account |  [optional]
