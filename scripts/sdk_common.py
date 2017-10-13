@@ -58,7 +58,7 @@ class Action(object):
                               universal_newlines=True, cwd=directory, bufsize=1) as p:
             for line in p.stdout:
                 self.log_info(line)
-        return p.returncode
+        return p.returncode if 'returncode' in dir(p) else p.poll()
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
     def _spawn_command(self, debug, args, directory, show_output_asap):
@@ -72,7 +72,7 @@ class Action(object):
                 self.log_debug("Executing: " + args + " in directory [" + str(directory) + "]")
             try:
                 if show_output_asap:
-                    self._spawn_command_with_output(args, directory)
+                    return_code = self._spawn_command_with_output(args, directory)
                 else:
                     proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
                                           stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
@@ -123,6 +123,23 @@ class Action(object):
             except subprocess.CalledProcessError as e:
                 self.log_error_without_getting_cause(e.output)
         return result
+
+    def execute_command_output(self, command, directory=None):
+        if not directory:
+            directory = os.getcwd()
+        if command:
+            try:
+                self.log_debug("Executing: " + str(command) + " in directory [" + str(directory) + "]")
+                result = \
+                    subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True, stderr=subprocess.STDOUT,
+                                     shell=True, cwd=directory).communicate()[0]
+                result = subprocess.check_output(result, stderr=subprocess.STDOUT, shell=True, universal_newlines=True,
+                                                 cwd=directory)
+                self.log_debug("Command Output: " + str(result))
+                return result
+            except subprocess.CalledProcessError as e:
+                self.log_error_without_getting_cause(e.output)
+        return None
 
 
 # Note: Each build action to perform during Sdk distribution build or deployment is defined as a separate object (e.g. release configuration, distribution build, deployment, etc)
@@ -485,6 +502,7 @@ class Config(Action):
         self.on_windows = False
         self.artifactory_url = None
         self.artifactory_host = None
+        self.testrunner_image = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -590,6 +608,12 @@ class Config(Action):
             self.log_debug("Determining artifactory API key")
             self.artifactory_password = os.getenv("ARTIFACTORY_KEY", "")
         return self.artifactory_password
+
+    def get_testrunner_docker_image(self):
+        if not self.testrunner_image:
+            self.log_debug("Determining test runner docker image")
+            self.testrunner_image = os.getenv("TESTRUNNER_DOCKER_IMAGE", "")
+        return self.testrunner_image
 
     def get_configuration_as_dictionary(self):
         return self.properties

@@ -23,7 +23,7 @@ class SDKTestServerLauncher(sdk_common.BuildStepUsingGradle):
             test_jar_argument = "\"" + str(test_jar_argument) + "\""
             arguments = ['java', '-jar', test_jar_argument]
             return_code = self.call_command(arguments, None, True)
-            if return_code == 1:
+            if return_code != 0:
                 raise Exception('Error code', return_code)
         except:
             self.log_error('Failed to launch SDK test server')

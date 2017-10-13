@@ -11,6 +11,7 @@ import sdk_clean
 import sdk_version
 import sdk_help
 import sdk_launch_test_server
+import sdk_fetch_test_runner
 
 
 # Entry point for executing SDK build steps
@@ -26,6 +27,7 @@ class SDKBuild:
                       'clean': sdk_clean.SDKCleaner(self.logger),
                       'version': sdk_version.SDKVersion(self.logger),
                       'launch_test_server': sdk_launch_test_server.SDKTestServerLauncher(self.logger),
+                      'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
                       'help': sdk_help.SDKHelp(self.logger)
                       }
         self.steps['help'].set_action_list(self.steps.keys())

@@ -37,8 +37,8 @@ checkout:
         pwd: proxy
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
-    - $(aws ecr get-login --no-include-email) && docker pull ${TESTRUNNER_DOCKER_IMAGE}
     - pip install docker-compose
+    - python ${SCRIPTS_DIR}/sdk.py fetch_test_runner
     - python ${SCRIPTS_DIR}/sdk.py configure
 
 
