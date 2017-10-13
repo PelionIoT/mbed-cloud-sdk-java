@@ -11,9 +11,11 @@ class SDKTestRunnerFetcher(sdk_common.BuildStep):
         self.print_title()
         try:
             self.log_info("Logging to docker images repository")
-            # self.check_shell_command_output("$(aws ecr get-login --no-include-email)")
-            command = "aws ecr get-login --no-include-email"
+            command = "aws ecr get-login"
             result = self.execute_command_output(command)
+            if not result or not ("Login Succeeded" in result):
+                command = "aws ecr get-login --no-include-email"
+                result = self.execute_command_output(command)
             if not result or not ("Login Succeeded" in result):
                 raise Exception('Login Error', result)
             self.log_info("Fetching SDK test runner")
