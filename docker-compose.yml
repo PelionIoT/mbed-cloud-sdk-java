@@ -11,13 +11,17 @@ sdk_test_server:
       - MBED_CLOUD_API_KEY
     volumes:
       - ./results:/testserver/build_logs/
+      - ./test_fixtures:/testserver/test_fixtures
 testrunner:
     #build: tests/mbed-cloud-sdk-testrunner
     image: $TESTRUNNER_DOCKER_IMAGE
     environment:
       - TEST_SERVER_URL=http://sdk_test_server:5000
+      #folder on test server to get test files from
+      - TEST_FIXTURES_DIR=/testserver/test_fixtures
     links:
       - sdk_test_server
     volumes:
       - ./results:/runner/results
+      - ./test_fixtures:/runner/test_fixtures
  

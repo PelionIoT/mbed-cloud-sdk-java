@@ -46,7 +46,8 @@ compile:
   pre:
     - mkdir ${PROJECT_DOCS}
     - mkdir ${PROJECT_ARTIFACTS}
-    - mkdir ${PROJECT_REPORTS}    
+    - mkdir ${PROJECT_REPORTS}
+    - mkdir ${PROJECT_TESTS}
 
   override:
     - python ${SCRIPTS_DIR}/sdk.py license
