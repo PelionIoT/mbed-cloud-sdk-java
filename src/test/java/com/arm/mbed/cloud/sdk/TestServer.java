@@ -65,7 +65,9 @@ public class TestServer {
         sdk = null;
         config = null;
         if (server == null) {
-            Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
+            Vertx vertx = Vertx
+                    .vertx(new VertxOptions().setWorkerPoolSize(40).setBlockedThreadCheckInterval(1000 * 60 * 10)
+                            .setMaxWorkerExecuteTime(1000 * 1000 * 1000 * 60 * 10));
             HttpServerOptions options = new HttpServerOptions();
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
