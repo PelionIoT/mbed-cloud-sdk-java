@@ -194,7 +194,7 @@ public class DeviceEventData implements Serializable {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(required = true, value = "")
   public String getId() {
     return id;
   }
