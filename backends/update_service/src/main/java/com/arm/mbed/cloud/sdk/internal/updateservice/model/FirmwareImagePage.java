@@ -53,7 +53,7 @@ public class FirmwareImagePage implements Serializable {
   private List<FirmwareImage> data = null;
 
   /**
-   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
+   * The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
    */
   @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
@@ -224,10 +224,10 @@ public class FirmwareImagePage implements Serializable {
   }
 
    /**
-   * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
+   * The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
    * @return order
   **/
-  @ApiModelProperty(example = "ASC", value = "The order of the records to return. Acceptable values: ASC, DESC. Default: ASC")
+  @ApiModelProperty(example = "ASC", value = "The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.")
   public OrderEnum getOrder() {
     return order;
   }
