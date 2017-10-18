@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **creationTime** | **Long** | The timestamp of the API key creation in the storage, in milliseconds. |  [optional]
 **etag** | **String** | API resource entity version. | 
 **key** | **String** | The API key. | 
-**owner** | **String** | The owner of this API key, who is the creator by default. |  [optional]
+**owner** | **String** | The owner of this API key. |  [optional]
 **id** | **String** | The UUID of the API key. | 
 **lastLoginTime** | **Long** | The timestamp of the latest API key usage, in milliseconds. |  [optional]
 

@@ -332,10 +332,10 @@ public class ApiKeyInfoResp implements Serializable {
   }
 
    /**
-   * The owner of this API key, who is the creator by default.
+   * The owner of this API key.
    * @return owner
   **/
-  @ApiModelProperty(value = "The owner of this API key, who is the creator by default.")
+  @ApiModelProperty(value = "The owner of this API key.")
   public String getOwner() {
     return owner;
   }
