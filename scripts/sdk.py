@@ -1,16 +1,20 @@
 #!/usr/bin/python
 
 import sys
-import sdk_logger
-import sdk_distribution_config
-import sdk_deploy
-import sdk_licensing
+
 import sdk_build
-import sdk_test
 import sdk_clean
-import sdk_version
+import sdk_deploy
+import sdk_distribution_config
+import sdk_fetch_coverage_tools
+import sdk_fetch_test_runner
+import sdk_report_code_coverage
 import sdk_help
 import sdk_launch_test_server
+import sdk_licensing
+import sdk_logger
+import sdk_test
+import sdk_version
 
 
 # Entry point for executing SDK build steps
@@ -26,6 +30,9 @@ class SDKBuild:
                       'clean': sdk_clean.SDKCleaner(self.logger),
                       'version': sdk_version.SDKVersion(self.logger),
                       'launch_test_server': sdk_launch_test_server.SDKTestServerLauncher(self.logger),
+                      'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
+                      'fetch_code_coverage_tools': sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger),
+                      'report_code_coverage': sdk_report_code_coverage.SDKCoverageReporter(self.logger),
                       'help': sdk_help.SDKHelp(self.logger)
                       }
         self.steps['help'].set_action_list(self.steps.keys())
@@ -34,7 +41,7 @@ class SDKBuild:
     def get_logger(self, action):
         return sdk_logger.DefaultLogger(action).getLogger()
 
-    # Method carrying out the configuration of one block (e.g. configure, add_licences_documentation, build, build_test_server, deploy)
+    # Method executing a build step (e.g. configure, add_licences_documentation, build, build_test_server, deploy)
     def execute(self, module):
         if module:
             success = module.execute()
