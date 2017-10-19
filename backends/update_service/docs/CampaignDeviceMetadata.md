@@ -27,6 +27,7 @@ UPDATED_CONNECTOR_CHANNEL | &quot;updated_connector_channel&quot;
 FAILED_CONNECTOR_CHANNEL_UPDATE | &quot;failed_connector_channel_update&quot;
 DEPLOYED | &quot;deployed&quot;
 MANIFESTREMOVED | &quot;manifestremoved&quot;
+DEREGISTERED | &quot;deregistered&quot;
 
 
 
