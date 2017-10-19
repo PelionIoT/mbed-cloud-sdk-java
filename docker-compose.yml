@@ -11,6 +11,7 @@ sdk_test_server:
       - MBED_CLOUD_API_KEY
     volumes:
       - ./results:/testserver/build_logs/
+      - ./build/coverage-results:/testserver/build/coverage-results
       - ./test_fixtures:/testserver/test_fixtures
 testrunner:
     #build: tests/mbed-cloud-sdk-testrunner

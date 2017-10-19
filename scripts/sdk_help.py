@@ -3,7 +3,7 @@ import sdk_common
 
 
 # Block in charge of print sdk version
-class SDKHelp(sdk_common.BuildStepUsingGradle):
+class SDKHelp(sdk_common.BuildStep):
     def __init__(self, logger=None):
         super(SDKHelp, self).__init__('Help for Arm Mbed Cloud Java SDK', logger)
         self.action_list = []

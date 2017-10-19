@@ -234,15 +234,41 @@ class BuildStepUsingGradle(BuildStep):
         arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
         self.check_command_output(arguments, self.gradle_directory)
 
+    def clean_path(self, path_value, with_quotes=True):
+        if not path_value:
+            return None
+        path = str(path_value)
+        path = path.replace("\\\\", "\\").replace("\\:", ":")
+        path = path.replace("\\\\", "\\")
+        if with_quotes:
+            path = "\"" + str(path) + "\""
+        return path
+
+
+class ProjectBrowser(object):
+    def __init__(self, module, top_dir):
+        self.top_dir = top_dir
+        self.module = module
+
+    def find_all_files(self, pattern):
+        if not pattern:
+            return []
+        list = []
+        if self.top_dir and os.path.exists(self.top_dir):
+            for root, dirs, files in os.walk(self.top_dir):
+                for file in files:
+                    if pattern in file:
+                        list.append(os.path.join(root, file))
+        return list
+
 
 # Generic class defining an object which finds a configuration file
-class ConfigurationFileFinder(object):
+class ConfigurationFileFinder(ProjectBrowser):
     def __init__(self, module, top_dir, file_name):
-        self.module = module
+        super(ConfigurationFileFinder, self).__init__(module, top_dir)
         self.file_name = file_name
         self.found_file = None
         self.found_directory = None
-        self.top_dir = top_dir
 
     def trim_line(self, line):
         if line:
@@ -292,6 +318,14 @@ class PropertyFileParser(ConfigurationFileFinder):
 
     def get_properties(self):
         return self.properties
+
+    def get_property(self, key):
+        if not key:
+            return None
+        try:
+            return self.get_properties()[key]
+        except:
+            return None
 
 
 # Generic (abstract) class defining an object which changes some configuration files
@@ -503,6 +537,7 @@ class Config(Action):
         self.artifactory_url = None
         self.artifactory_host = None
         self.testrunner_image = None
+        self.code_coverage = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -614,6 +649,16 @@ class Config(Action):
             self.log_debug("Determining test runner docker image")
             self.testrunner_image = os.getenv("TESTRUNNER_DOCKER_IMAGE", "")
         return self.testrunner_image
+
+    def should_perform_code_coverage(self):
+        if not self.code_coverage:
+            self.log_debug("Determining if code coverage should be performed")
+            tmp_property = self.properties['codeCoverageOn']
+            if not tmp_property and 'false' in tmp_property.lower():
+                self.code_coverage = False
+            else:
+                self.code_coverage = True
+        return self.code_coverage
 
     def get_configuration_as_dictionary(self):
         return self.properties
