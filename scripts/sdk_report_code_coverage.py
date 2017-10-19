@@ -24,7 +24,7 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         file_argument = []
         for file in files:
             if file:
-                file_path=self.clean_path(file, False).replace('\\', '/')
+                file_path = self.clean_path(file, False).replace('\\', '/')
                 if os.path.exists(file_path):
                     file_argument.append(argument_option)
                     file_argument.append(self.clean_path(file_path, True))
@@ -56,6 +56,10 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         for file in os.listdir(tools_dir):
             if self.jacoco_cli_name in file:
                 cli_jar = file
+        if not cli_jar:
+            self.log_error_without_getting_cause(
+                "Jacoco CLI could not be found. No code coverage reporting will be done.")
+            return None
         cli_path = self.clean_path(code_coverage_tools + cli_jar, True)
         arguments = ['java', '-jar', cli_path, 'report']
         arguments.extend(
@@ -89,6 +93,8 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
                 self.log_info("Generating code coverage report with Jacoco CLI")
                 self.artifacts_parser.load()
                 arguments = self.generate_report_command(coverage_files)
+                if not arguments:
+                    raise Exception('Incorrect command', arguments)
                 return_code = self.call_command(arguments, None, True)
                 if return_code != 0:
                     raise Exception('Error code', return_code)
