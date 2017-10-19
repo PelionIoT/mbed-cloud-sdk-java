@@ -31,7 +31,7 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
         code_coverage_tools_dir = self.retrieve_folder_location('SDK_COVERAGE_TOOLS_DIR')
         return False if not code_coverage_tools_dir else (
             os.path.exists(code_coverage_tools_dir) and len(
-                os.listdir(code_coverage_tools_dir)) > 2)  # TODO change if fewer tools are used
+                os.listdir(code_coverage_tools_dir)) >= 2)  # TODO change if fewer tools are used
 
     def has_already_been_run(self):
         return self.check_whether_coverage_result_folder_has_been_created() and self.check_whether_tools_have_been_copied()
