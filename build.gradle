@@ -339,7 +339,7 @@ task shadowTestJar(type: Jar) {
 }
 
 task copyCoverageAgent(type: Copy) {
-    println Getting code coverage tools
+    println 'Getting code coverage tools'
     def dest = "$buildDir" + File.separator + "coverage-tools" + File.separator
     def coverage_results = "$buildDir" + File.separator + "coverage-results" + File.separator
     from configurations.coverage
