@@ -88,7 +88,7 @@ public interface AccountAdminApi {
    * An endpoint for retrieving the details of all users.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param statusEq Filter for status, for example active or reset (optional)
    * @return Call&lt;UserInfoRespList&gt;
@@ -115,7 +115,7 @@ public interface AccountAdminApi {
    * @param groupID The ID of the group whose users are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */

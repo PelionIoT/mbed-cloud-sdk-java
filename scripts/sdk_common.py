@@ -50,11 +50,18 @@ class Action(object):
                 self.log_debug('Command error message: ' + err)
         return retcode
 
-    def call_command(self, args, directory=None):
-        return self._spawn_command(True, args, directory)
+    def call_command(self, args, directory=None, show_output_asap=False):
+        return self._spawn_command(True, args, directory, show_output_asap)
+
+    def _spawn_command_with_output(self, args, directory):
+        with subprocess.Popen(args, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                              universal_newlines=True, cwd=directory, bufsize=1) as p:
+            for line in p.stdout:
+                self.log_info(line)
+        return p.returncode if 'returncode' in dir(p) else p.poll()
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
-    def _spawn_command(self, debug, args, directory):
+    def _spawn_command(self, debug, args, directory, show_output_asap):
         if args:
             return_code = 1
             # Convert args list to single string (required for any commands using pipes or shell builtins)
@@ -64,16 +71,19 @@ class Action(object):
             if debug:
                 self.log_debug("Executing: " + args + " in directory [" + str(directory) + "]")
             try:
-                proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
-                                      stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
-                return_code = proc.returncode
-                output = proc.stdout
-                err = proc.stderr
-                if debug:
-                    if output:
-                        self.log_debug('Command output: ' + output)
-                    if err:
-                        self.log_debug('Command error message: ' + err)
+                if show_output_asap:
+                    return_code = self._spawn_command_with_output(args, directory)
+                else:
+                    proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
+                                          stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
+                    return_code = proc.returncode
+                    output = proc.stdout
+                    err = proc.stderr
+                    if debug:
+                        if output:
+                            self.log_debug('Command output: ' + output)
+                        if err:
+                            self.log_debug('Command error message: ' + err)
 
             except AttributeError:
                 return_code = self._spawn(debug, args, stderr=subprocess.STDOUT, cwd=directory)
@@ -113,6 +123,23 @@ class Action(object):
             except subprocess.CalledProcessError as e:
                 self.log_error_without_getting_cause(e.output)
         return result
+
+    def execute_command_output(self, command, directory=None):
+        if not directory:
+            directory = os.getcwd()
+        if command:
+            try:
+                self.log_debug("Executing: " + str(command) + " in directory [" + str(directory) + "]")
+                result = \
+                    subprocess.Popen(command, stdout=subprocess.PIPE, universal_newlines=True, stderr=subprocess.STDOUT,
+                                     shell=True, cwd=directory).communicate()[0]
+                result = subprocess.check_output(result, stderr=subprocess.STDOUT, shell=True, universal_newlines=True,
+                                                 cwd=directory)
+                self.log_debug("Command Output: " + str(result))
+                return result
+            except subprocess.CalledProcessError as e:
+                self.log_error_without_getting_cause(e.output)
+        return None
 
 
 # Note: Each build action to perform during Sdk distribution build or deployment is defined as a separate object (e.g. release configuration, distribution build, deployment, etc)
@@ -207,15 +234,41 @@ class BuildStepUsingGradle(BuildStep):
         arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
         self.check_command_output(arguments, self.gradle_directory)
 
+    def clean_path(self, path_value, with_quotes=True):
+        if not path_value:
+            return None
+        path = str(path_value)
+        path = path.replace("\\\\", "\\").replace("\\:", ":")
+        path = path.replace("\\\\", "\\")
+        if with_quotes:
+            path = "\"" + str(path) + "\""
+        return path
+
+
+class ProjectBrowser(object):
+    def __init__(self, module, top_dir):
+        self.top_dir = top_dir
+        self.module = module
+
+    def find_all_files(self, pattern):
+        if not pattern:
+            return []
+        list = []
+        if self.top_dir and os.path.exists(self.top_dir):
+            for root, dirs, files in os.walk(self.top_dir):
+                for file in files:
+                    if pattern in file:
+                        list.append(os.path.join(root, file))
+        return list
+
 
 # Generic class defining an object which finds a configuration file
-class ConfigurationFileFinder(object):
+class ConfigurationFileFinder(ProjectBrowser):
     def __init__(self, module, top_dir, file_name):
-        self.module = module
+        super(ConfigurationFileFinder, self).__init__(module, top_dir)
         self.file_name = file_name
         self.found_file = None
         self.found_directory = None
-        self.top_dir = top_dir
 
     def trim_line(self, line):
         if line:
@@ -265,6 +318,14 @@ class PropertyFileParser(ConfigurationFileFinder):
 
     def get_properties(self):
         return self.properties
+
+    def get_property(self, key):
+        if not key:
+            return None
+        try:
+            return self.get_properties()[key]
+        except:
+            return None
 
 
 # Generic (abstract) class defining an object which changes some configuration files
@@ -475,6 +536,8 @@ class Config(Action):
         self.on_windows = False
         self.artifactory_url = None
         self.artifactory_host = None
+        self.testrunner_image = None
+        self.code_coverage = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -580,6 +643,22 @@ class Config(Action):
             self.log_debug("Determining artifactory API key")
             self.artifactory_password = os.getenv("ARTIFACTORY_KEY", "")
         return self.artifactory_password
+
+    def get_testrunner_docker_image(self):
+        if not self.testrunner_image:
+            self.log_debug("Determining test runner docker image")
+            self.testrunner_image = os.getenv("TESTRUNNER_DOCKER_IMAGE", "")
+        return self.testrunner_image
+
+    def should_perform_code_coverage(self):
+        if not self.code_coverage:
+            self.log_debug("Determining if code coverage should be performed")
+            tmp_property = self.properties['codeCoverageOn']
+            if not tmp_property and 'false' in tmp_property.lower():
+                self.code_coverage = False
+            else:
+                self.code_coverage = True
+        return self.code_coverage
 
     def get_configuration_as_dictionary(self):
         return self.properties

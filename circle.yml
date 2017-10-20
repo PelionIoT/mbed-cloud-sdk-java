@@ -32,20 +32,22 @@ general:
 
 checkout:
   post:
-    - git config --global user.name monty-bot
-    - git config --global user.email monty-bot@arm.com
-    - git clone -b dockerise https://github.com/ARMmbed/mbed-cloud-sdk-testrunner.git tests/testrunner
-    - pip install docker-compose
-    - python ${SCRIPTS_DIR}/sdk.py configure
     - aws s3 sync s3://artifactory-store ${PROJECT_TOP}
     - docker build -t artifactory . :
         pwd: proxy
+    - git config --global user.name monty-bot
+    - git config --global user.email monty-bot@arm.com
+    - pip install docker-compose
+    - python ${SCRIPTS_DIR}/sdk.py fetch_test_runner
+    - python ${SCRIPTS_DIR}/sdk.py configure
+
 
 compile:
   pre:
     - mkdir ${PROJECT_DOCS}
     - mkdir ${PROJECT_ARTIFACTS}
-    - mkdir ${PROJECT_REPORTS}    
+    - mkdir ${PROJECT_REPORTS}
+    - mkdir ${PROJECT_TESTS}
 
   override:
     - python ${SCRIPTS_DIR}/sdk.py license
@@ -57,11 +59,12 @@ compile:
 
 test:
   override:
-    - docker-compose up:
-        pwd: tests/testrunner
-    - docker-compose down:
-        pwd: tests/testrunner
+    - docker-compose up --exit-code-from testrunner
   post:
+    - python ${SCRIPTS_DIR}/sdk.py report_code_coverage
+    - sudo mv ${PROJECT_TOP}/results/results.html ${PROJECT_TESTS}/index.html
+    - sudo cp -r ${PROJECT_TOP}/results/* ${PROJECT_TESTS}/
+    - sudo cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
     - docker run -d -p 5000:80 artifactory; sleep 10
 
 deployment:

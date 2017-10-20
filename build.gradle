@@ -2,6 +2,8 @@
 version = SDKVersion
 group = SDKGroup
 
+
+
 buildscript {
   repositories {
    jcenter()
@@ -28,14 +30,13 @@ apply plugin: "de.aaschmid.cpd" //Code duplication
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
 
-   
-
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+     mavenCentral()
 }
 
 allprojects {
@@ -109,6 +110,9 @@ subprojects {
 
 }
 
+configurations {
+    coverage
+}
 
 dependencies {
    api 'org.slf4j:slf4j-api:1.7.7'
@@ -125,6 +129,8 @@ dependencies {
    testCompile 'org.reflections:reflections:0.9.10'
    testCompile 'org.slf4j:slf4j-simple:1.7.7'
    testImplementation 'junit:junit:4.12'
+   coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
+   //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
 }
 
 
@@ -331,6 +337,37 @@ task shadowTestJar(type: Jar) {
         updateArtifactList("TEST_FULL_JAR",shadowTestJar.archivePath)
     }
 }
+
+task copyCoverageAgent(type: Copy) {
+    println 'Getting code coverage tools'
+    def dest = "$buildDir" + File.separator + "coverage-tools" + File.separator
+    def coverage_results = "$buildDir" + File.separator + "coverage-results" + File.separator
+    from configurations.coverage
+    into dest
+    updateArtifactList("SDK_COVERAGE_TOOLS_DIR",dest)
+    updateArtifactList("SDK_COVERAGE_RESULTS_DIR",coverage_results)
+    mkdir coverage_results    
+}
+
+task reportCoverage(dependsOn: copyCoverageAgent) {
+
+    def report_dest = jacoco.reportsDir.toString() // + '-all'
+    def classes_files = ''
+    def source_files = ''
+    def project_list = []
+    project.subprojects.each {sproject ->
+         if(sproject != project(':backends') && sproject.parent != project(':backends')){
+            project_list.add(sproject)
+         }
+    }
+    project_list.add(project)
+    project_list.each{ projectObject -> classes_files+=projectObject.sourceSets.main.output.asPath + File.pathSeparator }
+    project_list.each{ projectObject -> source_files+=projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
+    updateArtifactList("SDK_PROJECT_SOURCE_FILES", source_files )
+    updateArtifactList("SDK_PROJECT_CLASS_FILES", classes_files)
+    updateArtifactList("SDK_PROJECT_COVERAGE_REPORT_DIR",report_dest)        
+}
+
 publishing {
     publications {
         mavenJava(MavenPublication) {

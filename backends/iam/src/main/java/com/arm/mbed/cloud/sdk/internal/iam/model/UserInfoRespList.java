@@ -112,7 +112,7 @@ public class UserInfoRespList implements Serializable {
   private List<UserInfoResp> data = new ArrayList<UserInfoResp>();
 
   /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
    */
   @JsonAdapter(OrderEnum.Adapter.class)
   public enum OrderEnum {
@@ -280,10 +280,10 @@ public class UserInfoRespList implements Serializable {
   }
 
    /**
-   * The order of the records to return. Available values: ASC, DESC; by default ASC.
+   * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
    * @return order
   **/
-  @ApiModelProperty(value = "The order of the records to return. Available values: ASC, DESC; by default ASC.")
+  @ApiModelProperty(value = "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.")
   public OrderEnum getOrder() {
     return order;
   }

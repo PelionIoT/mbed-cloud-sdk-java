@@ -35,7 +35,7 @@ import java.util.Map;
 public interface DeveloperApi {
   /**
    * Create a new API key.
-   * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body The details of the API key to be created. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
@@ -74,7 +74,7 @@ public interface DeveloperApi {
    * An endpoint for retrieving API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param ownerEq Owner name filter. (optional)
    * @return Call&lt;ApiKeyInfoRespList&gt;
@@ -89,7 +89,7 @@ public interface DeveloperApi {
    * An endpoint for retrieving trusted certificates in an array.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param serviceEq Service filter, either lwm2m or bootstrap (optional)
    * @param expireEq Expire filter in days (optional)
@@ -107,7 +107,7 @@ public interface DeveloperApi {
    * An endpoint for retrieving all group information.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;GroupSummaryList&gt;
    */
@@ -133,7 +133,7 @@ public interface DeveloperApi {
    * @param groupID The ID of the group whose API keys are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @return Call&lt;ApiKeyInfoRespList&gt;
    */

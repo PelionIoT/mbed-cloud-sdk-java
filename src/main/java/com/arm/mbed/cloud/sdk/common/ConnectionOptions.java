@@ -4,6 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "APIs connection options/configuration")
 public class ConnectionOptions implements Cloneable {
+    private static final String ARM_MBED_CLOUD_DEFAULT_HOST = "https://api.us-east-1.mbedcloud.com";
     private String apiKey;
     private String host;
     private CallLogLevel clientLogLevel;
@@ -22,6 +23,18 @@ public class ConnectionOptions implements Cloneable {
         setApiKey(apiKey);
         setHost(host);
         setClientLogLevel(CallLogLevel.NONE);
+    }
+
+    /**
+     * Constructor for communications to Arm Mbed Cloud.
+     * 
+     * @param apiKey
+     *            API key to use. The host does not need to be specified and will default to Arm Mbed Cloud production
+     *            system.
+     * 
+     */
+    public ConnectionOptions(String apiKey) {
+        this(apiKey, ARM_MBED_CLOUD_DEFAULT_HOST);
     }
 
     /**

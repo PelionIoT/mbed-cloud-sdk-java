@@ -15,7 +15,7 @@ Name | Type | Description | Notes
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. |  [optional]
 **phoneNumber** | **String** | Phone number. |  [optional]
 **email** | **String** | The email address. | 
-**status** | [**StatusEnum**](#StatusEnum) | The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. | 
+**status** | [**StatusEnum**](#StatusEnum) | The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. | 
 **accountId** | **String** | The UUID of the account. | 
 **totpScratchCodes** | **List&lt;String&gt;** | A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;user&#39; | 

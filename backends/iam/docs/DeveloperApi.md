@@ -30,7 +30,7 @@ Method | HTTP request | Description
 
 Create a new API key.
 
-An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;,\&quot;owner\&quot;: \&quot;ACCOUNT_ID\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -217,7 +217,7 @@ Bearer.setApiKey("YOUR API KEY");
 DeveloperApi apiInstance = new DeveloperApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String ownerEq = "ownerEq_example"; // String | Owner name filter.
 try {
@@ -235,7 +235,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **ownerEq** | **String**| Owner name filter. | [optional]
 
@@ -280,7 +280,7 @@ Bearer.setApiKey("YOUR API KEY");
 DeveloperApi apiInstance = new DeveloperApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String serviceEq = "serviceEq_example"; // String | Service filter, either lwm2m or bootstrap
 Integer expireEq = 56; // Integer | Expire filter in days
@@ -301,7 +301,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **serviceEq** | **String**| Service filter, either lwm2m or bootstrap | [optional]
  **expireEq** | **Integer**| Expire filter in days | [optional]
@@ -349,7 +349,7 @@ Bearer.setApiKey("YOUR API KEY");
 DeveloperApi apiInstance = new DeveloperApi();
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 try {
     GroupSummaryList result = apiInstance.getAllGroups(limit, after, order, include);
@@ -366,7 +366,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
 
 ### Return type
@@ -466,7 +466,7 @@ DeveloperApi apiInstance = new DeveloperApi();
 String groupID = "groupID_example"; // String | The ID of the group whose API keys are retrieved.
 Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records, ASC or DESC; by default ASC
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 try {
     ApiKeyInfoRespList result = apiInstance.getApiKeysOfGroup(groupID, limit, after, order, include);
@@ -484,7 +484,7 @@ Name | Type | Description  | Notes
  **groupID** | **String**| The ID of the group whose API keys are retrieved. |
  **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
 
 ### Return type
