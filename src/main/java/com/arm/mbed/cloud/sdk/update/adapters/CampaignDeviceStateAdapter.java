@@ -131,6 +131,8 @@ public final class CampaignDeviceStateAdapter {
                 return DeviceState.PENDING;
             case UPDATED_CONNECTOR_CHANNEL:
                 return DeviceState.UPDATED_CONNECTOR_CHANNEL;
+            case DEREGISTERED:
+                return DeviceState.DEREGISTERED;
             default:
                 break;
 

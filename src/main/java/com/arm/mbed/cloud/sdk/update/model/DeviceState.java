@@ -7,7 +7,8 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum DeviceState implements SdkEnum {
 
     PENDING("pending"), UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"), FAILED_CONNECTOR_CHANNEL_UPDATE(
-            "failed_connector_channel_update"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved");
+            "failed_connector_channel_update"), DEPLOYED(
+                    "deployed"), MANIFEST_REMOVED("manifestremoved"), DEREGISTERED("deregistered");
 
     private final String value;
 
