@@ -72,7 +72,9 @@ public class CampaignDeviceMetadata implements Serializable {
     
     DEPLOYED("deployed"),
     
-    MANIFESTREMOVED("manifestremoved");
+    MANIFESTREMOVED("manifestremoved"),
+    
+    DEREGISTERED("deregistered");
 
     private String value;
 
