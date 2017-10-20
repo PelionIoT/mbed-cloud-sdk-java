@@ -224,6 +224,8 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Resource getResource(@NonNull Device device, @NonNull String resourcePath)
             throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final List<Resource> resources = listResources(device);
         if (resources == null || resources.isEmpty()) {
