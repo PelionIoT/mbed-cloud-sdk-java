@@ -144,8 +144,10 @@ public class NotificationCache {
      */
     public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
             throws MbedCloudException {
+        api.clearApiMetadata();
         if (!isPullingActive()) {
-            api.getLogger().throwSdkException("startNotifications() needs to be called before setting resource value.");
+            api.getLogger().throwSdkException(
+                    "startNotifications() needs to be called before fetching any asynchronous response.");
         }
         final String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
         return fetchAsyncResponse(executor, asyncResponseId);

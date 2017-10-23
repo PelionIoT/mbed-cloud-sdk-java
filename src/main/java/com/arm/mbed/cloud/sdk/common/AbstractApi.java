@@ -27,6 +27,7 @@ public abstract class AbstractApi {
     }
 
     protected void checkNotNull(Object arg, String argName) throws MbedCloudException {
+        clearApiMetadata();
         ApiUtils.checkNotNull(logger, arg, argName);
     }
 
@@ -49,6 +50,16 @@ public abstract class AbstractApi {
     @API
     public ApiMetadata getLastApiMetadata() {
         return metadataCache.getLastApiMetadata();
+    }
+
+    /**
+     * Clears API metadata cache.
+     * <p>
+     * This is for internal purposes only.
+     */
+    @Internal
+    public void clearApiMetadata() {
+        metadataCache.clearMetadata();
     }
 
     /**

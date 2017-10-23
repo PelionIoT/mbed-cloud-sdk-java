@@ -473,10 +473,9 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
+            @Nullable String functionName, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        checkNotNull(functionName, TAG_FUNCTION_NAME);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
         final String finalFunctionName = functionName;
