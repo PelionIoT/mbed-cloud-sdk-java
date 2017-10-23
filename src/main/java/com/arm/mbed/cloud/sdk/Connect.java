@@ -64,7 +64,6 @@ public class Connect extends AbstractApi {
     private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL, "registered");
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
-    private static final String TAG_FUNCTION_NAME = "function name";
     private static final String TAG_RESOURCE_PATH = "resource path";
     private static final String TAG_METRIC_OPTIONS = "Metric options";
     private static final String TAG_DEVICE_ID = "Device Id";
