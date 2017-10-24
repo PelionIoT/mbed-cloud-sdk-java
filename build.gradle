@@ -184,6 +184,13 @@ javadoc {
     }
 }
 
+test {
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }               
+}
+
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
