@@ -64,7 +64,6 @@ public class Connect extends AbstractApi {
     private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL, "registered");
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
-    private static final String TAG_FUNCTION_NAME = "function name";
     private static final String TAG_RESOURCE_PATH = "resource path";
     private static final String TAG_METRIC_OPTIONS = "Metric options";
     private static final String TAG_DEVICE_ID = "Device Id";
@@ -473,10 +472,9 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable Future<Object> executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
+            @Nullable String functionName, @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        checkNotNull(functionName, TAG_FUNCTION_NAME);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
         final String finalFunctionName = functionName;

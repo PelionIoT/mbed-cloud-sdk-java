@@ -2,6 +2,8 @@
 import sdk_common
 import shutil
 import os
+import requests
+import re
 
 
 # Block in charge of fetching code coverage tools
@@ -36,6 +38,15 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
     def has_already_been_run(self):
         return self.check_whether_coverage_result_folder_has_been_created() and self.check_whether_tools_have_been_copied()
 
+    def determine_cli_tool_url(self):
+        snapshot_url = 'https://oss.sonatype.org/content/repositories/snapshots/org/jacoco/org.jacoco.cli/0.7.10-SNAPSHOT/'
+        res = requests.get(snapshot_url)
+        if res.status_code != requests.codes.ok:
+            return None
+        pattern = "(" + snapshot_url + "[\\w\\\/.-]*jacoco.cli[\\w\\\/.-]*-nodeps.jar)"
+        m = re.search(pattern, res.text)
+        return m.group(0) if m else None
+
     def execute(self):
         self.print_title()
         try:
@@ -43,14 +54,15 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
                 self.log_info("Retrieving code coverage tools")
                 if not self.has_already_been_run():
                     self.execute_gradle_task("copyCoverageAgent")
-                    # the following should be removed when jacoco cli is actually available on official Maven central
+                    # TODO the following should be removed when jacoco cli is actually available on official Maven central
                     self.log_info("Fetching Jacoco CLI")
                     code_coverage_tools_dir = self.retrieve_folder_location('SDK_COVERAGE_TOOLS_DIR')
                     jacococli_path = os.path.join(code_coverage_tools_dir, self.jacoco_cli_name)
                     if not os.path.exists(jacococli_path):
-                        arguments = ['wget',
-                                     'https://oss.sonatype.org/content/repositories/snapshots/org/jacoco/org.jacoco.cli/0.7.10-SNAPSHOT/org.jacoco.cli-0.7.10-20171013.050915-37-nodeps.jar',
-                                     '--no-check-certificate', '-O', self.jacoco_cli_name]
+                        cli_url = self.determine_cli_tool_url()
+                        if not cli_url:
+                            cli_url = 'https://oss.sonatype.org/content/repositories/snapshots/org/jacoco/org.jacoco.cli/0.7.10-SNAPSHOT/org.jacoco.cli-0.7.10-20171021.210044-41-nodeps.jar'
+                        arguments = ['wget', cli_url, '--no-check-certificate', '-O', self.jacoco_cli_name]
                         return_code = self.call_command(arguments)
                         if return_code != 0:
                             raise Exception('Error code', return_code)

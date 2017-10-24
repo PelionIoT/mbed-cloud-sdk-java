@@ -18,6 +18,10 @@ public class ApiMetadataCache {
         lastMetadata = metadata;
     }
 
+    public synchronized void clearMetadata() {
+        lastMetadata = null;
+    }
+
     public synchronized ApiMetadata getLastApiMetadata() {
         return lastMetadata;
     }

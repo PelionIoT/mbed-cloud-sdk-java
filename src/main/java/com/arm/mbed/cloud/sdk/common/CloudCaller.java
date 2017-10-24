@@ -138,6 +138,7 @@ public class CloudCaller<T, U> {
     public CallFeedback<U> execute() throws MbedCloudException {
         try {
             logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
+            clearPreviousApiMetadata();
             final Response<T> response = caller.call().execute();
             final CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
@@ -151,6 +152,10 @@ public class CloudCaller<T, U> {
             logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]", exception);
         }
         return null;
+    }
+
+    private void clearPreviousApiMetadata() {
+        module.metadataCache.clearMetadata();
     }
 
     private void storeApiMetadata(ApiMetadata metadata) {
