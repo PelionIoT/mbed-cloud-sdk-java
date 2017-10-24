@@ -70,10 +70,10 @@ public class ResourcesData implements Serializable {
   }
 
    /**
-   * Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \&quot;speed_sensor\&quot;
+   * Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \&quot;speed_sensor\&quot;
    * @return rf
   **/
-  @ApiModelProperty(value = "Resource type [created by Client side application](/docs/v1.2/device-dev/connecting-devices-to-the-cloud-with-mbed-cloud-client.html#the-create-operation). For example \"speed_sensor\"")
+  @ApiModelProperty(value = "Resource type [created by Client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"")
   public String getRf() {
     return rf;
   }
