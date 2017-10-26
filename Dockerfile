@@ -4,6 +4,7 @@ FROM cogniteev/oracle-java:java8
 WORKDIR /testserver
 
 RUN  apt-get update \
+	&& DEBIAN_FRONTEND=noninteractive \
 	&& apt-get install -y python3  \
 	&& echo 'alias python=python3' >> ~/.bashrc \
 	&& apt-get install -y python3-pip \
