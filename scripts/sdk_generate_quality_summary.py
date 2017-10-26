@@ -24,7 +24,7 @@ class SDKQualityReportBuilder(sdk_common.BuildStep):
                                                                                                               ns)
         except:
             return None
-        if not summary:
+        if len(summary) == 0:
             return None
         results = OrderedDict()
         for element in summary.findall('html:td', ns):
@@ -105,23 +105,26 @@ class SDKQualityReportBuilder(sdk_common.BuildStep):
             self.artifacts_parser.load()
             results = OrderedDict()
             self.log_info("Determining code coverage summary")
-            code_coverage = self.determine_coverage_result(self.get_coverage_report_path())
+            coverage_path = self.get_coverage_report_path()
+            code_coverage = self.determine_coverage_result(coverage_path)
             if code_coverage:
                 results['Code coverage'] = code_coverage
             else:
-                self.log_warning("No code coverage results were found")
+                self.log_warning("No code coverage results were found at [" + str(coverage_path) + "]")
             self.log_info("Determining unit tests summary")
-            unittests = self.determine_unittest_result(self.get_unittest_report_path())
+            test_path = self.get_unittest_report_path()
+            unittests = self.determine_unittest_result(test_path)
             if unittests:
                 results['Unit tests'] = unittests
             else:
-                self.log_warning("No unit tests results were found")
+                self.log_warning("No unit tests results were found at [" + str(test_path) + "]")
             self.log_info("Determining integration tests summary")
-            integrationtests = self.determine_integration_test_result(self.get_integration_report_path())
+            test_path = self.get_integration_report_path()
+            integrationtests = self.determine_integration_test_result(test_path)
             if integrationtests:
                 results['Integration tests'] = integrationtests
             else:
-                self.log_warning("No integration tests results were found")
+                self.log_warning("No integration tests results were found at [" + str(test_path) + "]")
 
             jsonResults = json.dumps(results)
             dest = self.determine_report_destination_path()
