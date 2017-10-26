@@ -65,6 +65,8 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         arguments.extend(
             self.generate_execfiles_command_arguments(coverage_files))
         report_dir = code_coverage_result_destination.replace('\\', '/')
+        if not os.path.exists(report_dir):
+            os.makedirs(report_dir)
         csv_file = os.path.join(report_dir, 'coverage.csv')
         xml_file = os.path.join(report_dir, 'coverage.xml')
         arguments.extend(

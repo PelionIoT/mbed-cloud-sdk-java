@@ -42,7 +42,7 @@ class SDKQualityReportBuilder(sdk_common.BuildStep):
         tree = ElementTree.parse(path)
         try:
             summary = tree.getroot().find('body').find('div').find('div').find('table').find('tr')
-            if not summary:
+            if len(summary) == 0:
                 return None
             results = OrderedDict()
             for element in summary.findall('td'):
