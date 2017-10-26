@@ -64,8 +64,12 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         arguments = ['java', '-jar', cli_path, 'report']
         arguments.extend(
             self.generate_execfiles_command_arguments(coverage_files))
+        report_dir = code_coverage_result_destination.replace('\\', '/')
+        csv_file = os.path.join(report_dir, 'coverage.csv')
+        xml_file = os.path.join(report_dir, 'coverage.xml')
         arguments.extend(
-            ['--name', self.report_name, '--html', self.clean_path(code_coverage_result_destination, True)])
+            ['--name', self.report_name, '--html', self.clean_path(code_coverage_result_destination, True), '--csv',
+             self.clean_path(csv_file, True), '--xml', self.clean_path(xml_file, True)])
         class_file_args = self.generate_class_files_command_arguments()
         src_file_args = self.generate_source_files_command_arguments()
         if class_file_args:
@@ -86,6 +90,8 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
                     self.log_warning(
                         "No code coverage files were found in the project. Please run unit tests or integration tests with instrumentation first.")
                     return True
+                else:
+                    self.log_info("The following instrumentation files were found: " + str(coverage_files))
                 self.execute_gradle_task("reportCoverage")
                 success = self.coverage_tools.execute()
                 if not success:

@@ -208,6 +208,16 @@ class BuildStep(Action):
         #         for file in files:
         #             zf.write(os.path.join(root, file))
 
+    def clean_path(self, path_value, with_quotes=True):
+        if not path_value:
+            return None
+        path = str(path_value)
+        path = path.replace("\\\\", "\\").replace("\\:", ":")
+        path = path.replace("\\\\", "\\")
+        if with_quotes:
+            path = "\"" + str(path) + "\""
+        return path
+
 
 class BuildStepUsingGradle(BuildStep):
     def __init__(self, name, logger):
@@ -234,17 +244,8 @@ class BuildStepUsingGradle(BuildStep):
         arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
         self.check_command_output(arguments, self.gradle_directory)
 
-    def clean_path(self, path_value, with_quotes=True):
-        if not path_value:
-            return None
-        path = str(path_value)
-        path = path.replace("\\\\", "\\").replace("\\:", ":")
-        path = path.replace("\\\\", "\\")
-        if with_quotes:
-            path = "\"" + str(path) + "\""
-        return path
 
-
+# Generic class looking for files in project
 class ProjectBrowser(object):
     def __init__(self, module, top_dir):
         self.top_dir = top_dir
