@@ -24,7 +24,7 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         file_argument = []
         for file in files:
             if file:
-                file_path = self.clean_path(file, False).replace('\\', '/')
+                file_path = self.clean_path(file, False)
                 if os.path.exists(file_path):
                     file_argument.append(argument_option)
                     file_argument.append(self.clean_path(file_path, True))
@@ -39,7 +39,7 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
     def generate_execfiles_command_arguments(self, coverage_files):
         files_list = []
         for file in coverage_files:
-            files_list.append("\"" + str(file).replace('\\', '/') + "\"")
+            files_list.append(self.clean_path(file, True))
         return files_list
 
     def generate_report_command(self, coverage_files):
@@ -51,9 +51,8 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
             self.log_warning(
                 "Code coverage tools could not be found. No code coverage reporting will be done.")
             return None
-        tools_dir = code_coverage_tools.replace('\\', '/')
         cli_jar = None
-        for file in os.listdir(tools_dir):
+        for file in os.listdir(code_coverage_tools):
             if self.jacoco_cli_name in file:
                 cli_jar = file
         if not cli_jar:
@@ -64,11 +63,10 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         arguments = ['java', '-jar', cli_path, 'report']
         arguments.extend(
             self.generate_execfiles_command_arguments(coverage_files))
-        report_dir = code_coverage_result_destination.replace('\\', '/')
-        if not os.path.exists(report_dir):
-            os.makedirs(report_dir)
-        csv_file = os.path.join(report_dir, 'coverage.csv')
-        xml_file = os.path.join(report_dir, 'coverage.xml')
+        if not os.path.exists(code_coverage_result_destination):
+            os.makedirs(code_coverage_result_destination)
+        csv_file = os.path.join(code_coverage_result_destination, 'coverage.csv')
+        xml_file = os.path.join(code_coverage_result_destination, 'coverage.xml')
         arguments.extend(
             ['--name', self.report_name, '--html', self.clean_path(code_coverage_result_destination, True), '--csv',
              self.clean_path(csv_file, True), '--xml', self.clean_path(xml_file, True)])
