@@ -4,6 +4,7 @@
 
 [![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-java/builds/)
 [![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html)
+[![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java/branch/master/graph/badge.svg?token=hpPPKYJW5L)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java)
 
 ## Prerequisites
 * Java > 1.7   _tested with [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)_

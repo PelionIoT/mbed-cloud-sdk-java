@@ -63,6 +63,7 @@ test:
   post:
     - python ${SCRIPTS_DIR}/sdk.py report_code_coverage
     - python ${SCRIPTS_DIR}/sdk.py generate_quality_summary
+    - bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS}/jacoco-all/coverage.xml
     - sudo mv ${PROJECT_TOP}/results/results.html ${PROJECT_TESTS}/index.html
     - sudo cp -r ${PROJECT_TOP}/results/* ${PROJECT_TESTS}/
     - sudo cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
