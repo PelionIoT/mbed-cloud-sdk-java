@@ -15,6 +15,7 @@ import sdk_licensing
 import sdk_logger
 import sdk_test
 import sdk_version
+import sdk_generate_quality_summary
 
 
 # Entry point for executing SDK build steps
@@ -33,6 +34,7 @@ class SDKBuild:
                       'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
                       'fetch_code_coverage_tools': sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger),
                       'report_code_coverage': sdk_report_code_coverage.SDKCoverageReporter(self.logger),
+                      'generate_quality_summary': sdk_generate_quality_summary.SDKQualityReportBuilder(self.logger),
                       'help': sdk_help.SDKHelp(self.logger)
                       }
         self.steps['help'].set_action_list(self.steps.keys())

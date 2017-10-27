@@ -188,7 +188,9 @@ test {
     reports {
         junitXml.enabled = true
         html.enabled = true
-    }               
+    }
+    updateArtifactList("SDK_REPORT_DIR","$reportsDir")
+	updateArtifactList("SDK_UNITTEST_REPORT_DIR",test.reports.html.destination)
 }
 
 checkstyle {
@@ -358,7 +360,7 @@ task copyCoverageAgent(type: Copy) {
 
 task reportCoverage(dependsOn: copyCoverageAgent) {
 
-    def report_dest = jacoco.reportsDir.toString() // + '-all'
+    def report_dest = jacoco.reportsDir.toString() + '-all'
     def classes_files = ''
     def source_files = ''
     def project_list = []

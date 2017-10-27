@@ -8,6 +8,7 @@ import sys
 from collections import OrderedDict
 
 import sdk_logger
+import signal
 
 
 # Generic class defining an action e.g. process spawning...
@@ -15,6 +16,7 @@ class Action(object):
     def __init__(self, name, logger=None):
         self.module_name = name
         self.logger = logger if logger else sdk_logger.DefaultLogger(name).getLogger()
+        self.last_spawned_subprocess = None
 
     def get_module_name(self):
         return self.module_name
@@ -39,8 +41,36 @@ class Action(object):
     def log_success(self, message):
         self.logger.output_success_message("SUCCESS [Module: " + str(self.module_name) + "]: " + str(message))
 
-    def _spawn(self, debug, args, **kwargs):
-        process = subprocess.Popen(args, stdout=subprocess.PIPE, shell=True, universal_newlines=True, **kwargs)
+    def register_callback_on_exit(self, callback):
+        this = self
+
+        def notify_subprocess_exit(signum, frame):
+            this.log_info("The following signal was received: [" + str(signal.Signals(signum).name) + "]")
+            this.log_info("Telling spawned subprocesses to die if any")
+            if this.last_spawned_subprocess:
+                this.log_info("Terminating subprocess [" + str(this.last_spawned_subprocess.pid) + "]")
+                try:
+                    this.last_spawned_subprocess.terminate()
+                except:
+                    this.log_warning("Failed terminating subprocess [" + str(this.last_spawned_subprocess.pid) + "]")
+                    try:
+                        this.last_spawned_subprocess.kill()
+                    except:
+                        this.log_warning("Failed killing subprocess [" + str(this.last_spawned_subprocess.pid) + "]")
+                this.last_spawned_subprocess = None
+            if callback:
+                callback()
+
+        signal.signal(signal.SIGINT, notify_subprocess_exit)
+        signal.signal(signal.SIGILL, notify_subprocess_exit)
+        signal.signal(signal.SIGTERM, notify_subprocess_exit)
+        signal.signal(signal.SIGABRT, notify_subprocess_exit)
+        signal.signal(signal.SIGFPE, notify_subprocess_exit)
+        signal.signal(signal.SIGSEGV, notify_subprocess_exit)
+
+    def _spawn(self, debug, args, use_shell=True, **kwargs):
+        process = subprocess.Popen(args, stdout=subprocess.PIPE, shell=use_shell, universal_newlines=True, **kwargs)
+        self.last_spawned_subprocess = process
         output, err = process.communicate()
         retcode = process.poll()
         if debug:
@@ -50,31 +80,33 @@ class Action(object):
                 self.log_debug('Command error message: ' + err)
         return retcode
 
-    def call_command(self, args, directory=None, show_output_asap=False):
-        return self._spawn_command(True, args, directory, show_output_asap)
+    def call_command(self, args, directory=None, show_output_asap=False, use_shell=True):
+        return self._spawn_command(True, args, directory, show_output_asap, use_shell)
 
-    def _spawn_command_with_output(self, args, directory):
-        with subprocess.Popen(args, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+    def _spawn_command_with_output(self, args, directory, use_shell=True):
+        with subprocess.Popen(args, shell=use_shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
                               universal_newlines=True, cwd=directory, bufsize=1) as p:
+            self.last_spawned_subprocess = p
             for line in p.stdout:
                 self.log_info(line)
         return p.returncode if 'returncode' in dir(p) else p.poll()
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
-    def _spawn_command(self, debug, args, directory, show_output_asap):
+    def _spawn_command(self, debug, args, directory, show_output_asap, use_shell=True):
         if args:
             return_code = 1
             # Convert args list to single string (required for any commands using pipes or shell builtins)
-            args = ' '.join(args)
+            if use_shell:
+                args = ' '.join(args)
             if not directory:
                 directory = os.getcwd()
             if debug:
-                self.log_debug("Executing: " + args + " in directory [" + str(directory) + "]")
+                self.log_debug("Executing: " + str(args) + " in directory [" + str(directory) + "]")
             try:
                 if show_output_asap:
-                    return_code = self._spawn_command_with_output(args, directory)
+                    return_code = self._spawn_command_with_output(args, directory, use_shell)
                 else:
-                    proc = subprocess.run(args, shell=True, stdout=subprocess.PIPE, timeout=None, check=False,
+                    proc = subprocess.run(args, shell=use_shell, stdout=subprocess.PIPE, timeout=None, check=False,
                                           stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
                     return_code = proc.returncode
                     output = proc.stdout
@@ -86,9 +118,10 @@ class Action(object):
                             self.log_debug('Command error message: ' + err)
 
             except AttributeError:
-                return_code = self._spawn(debug, args, stderr=subprocess.STDOUT, cwd=directory)
+                return_code = self._spawn(debug, args, use_shell, stderr=subprocess.STDOUT, cwd=directory)
             if debug:
                 self.log_debug("Command return code: " + str(return_code))
+            self.last_spawned_subprocess = None
             return return_code
         return None
 
@@ -208,6 +241,20 @@ class BuildStep(Action):
         #         for file in files:
         #             zf.write(os.path.join(root, file))
 
+    def clean_path(self, path_value, with_quotes=True, replace_separator=True):
+        if not path_value:
+            return None
+        path = str(path_value)
+        path = path.replace("\\\\", "\\").replace("\\:", ":")
+        path = path.replace("\\\\", "\\")
+        path = path.replace('\n', '')
+        path = path.replace('\r', '')
+        if replace_separator:
+            path = path.replace('\\', '/')
+        if with_quotes:
+            path = "\"" + str(path) + "\""
+        return path
+
 
 class BuildStepUsingGradle(BuildStep):
     def __init__(self, name, logger):
@@ -234,17 +281,8 @@ class BuildStepUsingGradle(BuildStep):
         arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
         self.check_command_output(arguments, self.gradle_directory)
 
-    def clean_path(self, path_value, with_quotes=True):
-        if not path_value:
-            return None
-        path = str(path_value)
-        path = path.replace("\\\\", "\\").replace("\\:", ":")
-        path = path.replace("\\\\", "\\")
-        if with_quotes:
-            path = "\"" + str(path) + "\""
-        return path
 
-
+# Generic class looking for files in project
 class ProjectBrowser(object):
     def __init__(self, module, top_dir):
         self.top_dir = top_dir

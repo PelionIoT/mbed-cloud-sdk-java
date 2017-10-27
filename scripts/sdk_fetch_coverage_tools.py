@@ -20,10 +20,9 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
         if not key:
             return None
         self.artifacts_parser.load()
-        code_coverage_tools_dir = self.clean_path(
+        return self.clean_path(
             self.artifacts_parser.get_property(key),
             False)
-        return None if not code_coverage_tools_dir else code_coverage_tools_dir.replace('\\', '/')
 
     def check_whether_coverage_result_folder_has_been_created(self):
         code_coverage_result_dir = self.retrieve_folder_location('SDK_COVERAGE_RESULTS_DIR')

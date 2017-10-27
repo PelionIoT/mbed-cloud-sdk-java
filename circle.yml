@@ -62,6 +62,7 @@ test:
     - docker-compose up --exit-code-from testrunner
   post:
     - python ${SCRIPTS_DIR}/sdk.py report_code_coverage
+    - python ${SCRIPTS_DIR}/sdk.py generate_quality_summary
     - sudo mv ${PROJECT_TOP}/results/results.html ${PROJECT_TESTS}/index.html
     - sudo cp -r ${PROJECT_TOP}/results/* ${PROJECT_TESTS}/
     - sudo cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
