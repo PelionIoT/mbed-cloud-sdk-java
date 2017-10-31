@@ -1,6 +1,6 @@
 /*
  * Connect API
- * mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -106,10 +106,10 @@ public class NotificationData implements Serializable {
   }
 
    /**
-   * mbed Cloud Device ID.
+   * Mbed Cloud Device ID.
    * @return ep
   **/
-  @ApiModelProperty(value = "mbed Cloud Device ID.")
+  @ApiModelProperty(value = "Mbed Cloud Device ID.")
   public String getEp() {
     return ep;
   }
