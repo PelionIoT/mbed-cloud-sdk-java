@@ -61,6 +61,29 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Lists all devices according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     DeviceListOptions options = new DeviceListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
+     *
+     *     ListResponse<Device> devices = deviceDirectoryApi.listDevices(options);
+     *     for (int i=0; i<devices.size(); i++) {
+     *         System.out.println("Device ID: " + devices.get(i).getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -92,6 +115,31 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets an iterator over all devices according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     DeviceListOptions options = new DeviceListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
+     *
+     *     Paginator<Device> devices = deviceDirectoryApi.listAllDevices(options);
+     *     Iterator<Device> deviceIterator = devices.iterator();
+     *     while (deviceIterator.hasNext()) {
+     *         Device device = deviceIterator.next();
+     *         System.out.println("Device ID: " + device.getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -113,6 +161,20 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets details of a device.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Device device = deviceDirectoryApi.getDevice(deviceId);
+     *     System.out.println("Device name: " + device.getName());
+     *     assert deviceId == device.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param deviceId
      *            Device ID.
@@ -135,6 +197,24 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Adds a device.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Device device = new Device();
+     *     device.setId("015f4ac587f500000000000100100249");
+     *     device.setName("QuickstartDevice");
+     *     device.setDescription("Quick start device");
+     *     device.setDeviceType("quickstart");
+     *
+     *     Device newDevice = deviceDirectoryApi.addDevice(device);
+     *     System.out.println("New device state: " + newDevice.getState());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param device
      *            Device details.
@@ -157,6 +237,25 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Updates a device.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Device device = new Device();
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     device.setId(deviceId);
+     *     device.setName("QuickstartDevice");
+     *     device.setDescription("Updated quick start device");
+     *     device.setDeviceType("quickstart");
+     *
+     *     Device newDevice = deviceDirectoryApi.updateDevice(device);
+     *     System.out.println("Updated device description: " + newDevice.getDescription());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param device
      *            Device details.
@@ -181,6 +280,18 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Deletes a device.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     deviceDirectoryApi.deleteDevice(deviceId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param deviceId
      *            Device ID of the device to delete.
@@ -203,6 +314,29 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Lists all queries according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     QueryListOptions options = new QueryListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
+     *
+     *     ListResponse<Query> queries = deviceDirectoryApi.listQueries(options);
+     *     for (int i=0; i<queries.size(); i++) {
+     *         System.out.println("Query ID: " + queries.get(i).getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -227,6 +361,31 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets an iterator over all queries according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     QueryListOptions options = new QueryListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
+     *
+     *     Paginator<Query> queries = deviceDirectoryApi.listAllQueries(options);
+     *     Iterator<Query> queryIterator = queries.iterator();
+     *     while (queryIterator.hasNext()) {
+     *         Query query = queryIterator.next();
+     *         System.out.println("Query ID: " + query.getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -248,6 +407,20 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets a query.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String queryId = "015f4ac587f500000000000100100249";
+     *     Query query = deviceDirectoryApi.getQuery(queryId);
+     *     System.out.println("Query name: " + query.getName());
+     *     assert queryId == query.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param queryId
      *            Query ID.
@@ -270,6 +443,30 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Adds a query.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Query query = new Query();
+     *     query.setName("Quickstart query");
+     *
+     *     Filters deviceFilter = new Filters();
+     *     deviceFilter.add(new Filter("state", FilterOperator.EQUAL, "registered"));
+     *     deviceFilter.add(new Filter("deviceClass", FilterOperator.EQUAL, getClassId()));
+     *     query.setFilters(deviceFilter);
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     query.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *
+     *     Query newQuery = deviceDirectoryApi.addQuery(query);
+     *     System.out.println("Query ID: " + newQuery.getId());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param query
      *            the query to add.
@@ -292,6 +489,34 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Updates a query.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Query query = new Query();
+     *     query.setName("NEW Quickstart query");
+     *     String queryId = "015f4ac587f500000000000100100249";
+     *     query.setId(queryId);
+     *
+     *     Filters deviceFilter = new Filters();
+     *     deviceFilter.add(new Filter("state", FilterOperator.EQUAL, "registered"));
+     *     deviceFilter.add(new Filter("deviceClass", FilterOperator.EQUAL, getClassId()));
+     *     query.setFilters(deviceFilter);
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     query.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *
+     *     Query newQuery = deviceDirectoryApi.updateQuery(query);
+     *     System.out.println("Update query name: " + newQuery.getName());
+     *     assert query.getId() == newQuery.getId();
+     *     
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param query
      *            The query to update.
@@ -316,6 +541,19 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Deletes a query.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String queryId = "015f4ac587f500000000000100100249";
+     *     deviceDirectoryApi.deleteQuery(queryId);
+     *     
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param queryId
      *            query ID of the query to delete.
@@ -338,6 +576,30 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Lists all device events according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     DeviceEventListOptions options = new DeviceEventListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addEventDateFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
+     *
+     *     ListResponse<DeviceEvent> deviceEvents = deviceDirectoryApi.listDeviceEvents(options);
+     *     for (int i=0; i<deviceEvents.size(); i++) {
+     *         System.out.println("Device event description: " + deviceEvents.get(i).getTypeDescription());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -365,6 +627,32 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets an iterator over all device events according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     DeviceEventListOptions options = new DeviceEventListOptions();
+     *
+     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
+     *     String date = "31-10-2017 10:20:56";
+     *     options.addEventDateFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
+     *
+     *     Paginator<DeviceEvent> deviceEvents = deviceDirectoryApi.listAllDeviceEvents(options);
+     *     Iterator<DeviceEvent> deviceEventIterator = deviceEvents.iterator();
+     *     while (deviceEventIterator.hasNext()) {
+     *         DeviceEvent deviceEvent = deviceEventIterator.next();
+     *         System.out.println("Device Event ID: " + deviceEvent.getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -387,6 +675,20 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Gets a single device event.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceEventId = "015f4ac587f500000000000100100249";
+     *     DeviceEvent deviceEvent = deviceDirectoryApi.getDeviceEvent(deviceEventId);
+     *     System.out.println("Device event description: " + deviceEvent.getTypeDescription());
+     *     assert deviceEventId == deviceEvent.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param deviceEventId
      *            Device event ID.
