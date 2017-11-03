@@ -189,7 +189,6 @@ public class Connect extends AbstractApi {
      *     for (int i=0; i<devices.size(); i++) {
      *         System.out.println("Device ID: " + devices.get(i).getId());
      *     }
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -228,7 +227,6 @@ public class Connect extends AbstractApi {
      *         Device device = deviceIterator.next();
      *         System.out.println("Device ID: " + device.getId());
      *     }
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -267,7 +265,6 @@ public class Connect extends AbstractApi {
      *     for (Resource resource : resources) {
      *         System.out.println("Resource path: " + resource.getPath());
      *     }
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -311,7 +308,6 @@ public class Connect extends AbstractApi {
      *     Resource resource = connectApi.getResource(device, resourcePath);
      *     System.out.println("Confirmed resource path: " + resource.getPath());
      *     assert resourcePath == resource.getPath();
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -358,7 +354,6 @@ public class Connect extends AbstractApi {
      *     for (String subscription : subscriptions) {
      *         System.out.println("Device subscription: " + subscription);
      *     }
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -832,7 +827,6 @@ public class Connect extends AbstractApi {
      *             System.out.println(resource);
      *         }
      *     }
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -876,7 +870,6 @@ public class Connect extends AbstractApi {
      *
      *     List<Presubscription> presubscriptions = Arrays.asList(presub1, presub2);
      *     connectApi.updatePresubscriptions(presubscriptions);
-     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
