@@ -82,9 +82,9 @@ public class Update extends AbstractApi {
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
      *     ListResponse<FirmwareImage> images = updateApi.listFirmwareImages(options);
-     *     for (int i=0; i<images.size(); i++) {
-     *         System.out.println("Image ID: " + images.get(i).getId());
-     *         URL url = images.get(i).getUrl();
+     *     for (FirmwareImage image : images) {
+     *         System.out.println("Image ID: " + image.getId());
+     *         URL url = image.getUrl();
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -132,9 +132,8 @@ public class Update extends AbstractApi {
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
      *     Paginator<FirmwareImage> images = updateApi.listAllFirmwareImages(options);
-     *     Iterator<FirmwareImage> imageIterator = images.iterator();
-     *     while (imageIterator.hasNext()) {
-     *         FirmwareImage image = imageIterator.next();
+     *     while (images.hasNext()) {
+     *         FirmwareImage image = images.next();
      *         System.out.println("FirmwareImage ID: " + image.getId());
      *     }
      *
@@ -298,9 +297,9 @@ public class Update extends AbstractApi {
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
      *     ListResponse<FirmwareManifest> manifests = updateApi.listFirmwareManifests(options);
-     *     for (int i=0; i<manifests.size(); i++) {
-     *         System.out.println("Manifest ID: " + manifests.get(i).getId());
-     *         URL url = manifests.get(i).getUrl();
+     *     for (FirmwareManifest manifest : manifests) {
+     *         System.out.println("Manifest ID: " + manifest.getId());
+     *         URL url = manifest.getUrl();
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -349,9 +348,8 @@ public class Update extends AbstractApi {
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
      *     Paginator<FirmwareManifest> manifests = updateApi.listAllFirmwareManifests(options);
-     *     Iterator<FirmwareManifest> manifestIterator = manifests.iterator();
-     *     while (manifestIterator.hasNext()) {
-     *         FirmwareManifest image = manifestIterator.next();
+     *     while (manifests.hasNext()) {
+     *         FirmwareManifest image = manifests.next();
      *         System.out.println("FirmwareManifest ID: " + image.getId());
      *     }
      *
@@ -431,7 +429,7 @@ public class Update extends AbstractApi {
      *     FirmwareManifest manifest = new FirmwareManifest();
      *     manifest.setDatafile(fileName);
      *     manifest.setDescription("Quick start manifest");
-     *     manifest.setName(fileName.substring(0,fileName.indexOf(".")));
+     *     manifest.setName(manifest.getDatafile().getName());
      *
      *     FirmwareManifest newManifest = updateApi.addFirmwareManifest(manifest);
      *     System.out.println("FirmwareManifest URL: " + newManifest.getUrl());
@@ -518,9 +516,9 @@ public class Update extends AbstractApi {
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
      *     ListResponse<Campaign> campaigns = updateApi.listCampaigns(options);
-     *     for (int i=0; i<campaigns.size(); i++) {
-     *         System.out.println("Campaign ID: " + campaigns.get(i).getId());
-     *         System.out.println("Currently in state: " + campaigns.get(i).getState());
+     *     for (Campaign campaign : campaigns) {
+     *         System.out.println("Campaign ID: " + campaign.getId());
+     *         System.out.println("Currently in state: " + campaign.getState());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -569,9 +567,8 @@ public class Update extends AbstractApi {
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
      *     Paginator<Campaign> campaigns = updateApi.listAllCampaigns(options);
-     *     Iterator<Campaign> campaignIterator = campaigns.iterator();
-     *     while (campaignIterator.hasNext()) {
-     *         Campaign campaign = campaignIterator.next();
+     *     while (campaigns.hasNext()) {
+     *         Campaign campaign = campaigns.next();
      *         System.out.println("Campaign ID: " + campaign.getId());
      *         System.out.println("Currently in state: " + campaign.getState());
      *     }
@@ -732,9 +729,9 @@ public class Update extends AbstractApi {
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
      *     ListResponse<Campaign> campaigns = updateApi.listCampaigns(options);
-     *     for (int i=0; i<campaigns.size(); i++) {
-     *         campaigns.get(i).setDescription("Changed description!");
-     *         Campaign updatedCampaign = updateApi.updateCampaign(campaigns.get(i));
+     *     for (Campaign campaign : campaigns) {
+     *         campaign.setDescription("Changed description!");
+     *         Campaign updatedCampaign = updateApi.updateCampaign(campaign);
      *         System.out.println("Updated campaign in state: " + updatedCampaign.getState());
      *     }
      * } catch (MbedCloudException e) {
@@ -860,9 +857,9 @@ public class Update extends AbstractApi {
      *     options.setLimit(10);
      *
      *     ListResponse<CampaignDeviceState> states = updateApi.listCampaignDeviceStates(campaignId, options);
-     *     for (int i=0; i<states.size(); i++) {
-     *         System.out.println("Device ID: " + states.get(i).getId());
-     *         System.out.println("Currently in state: " + states.get(i).getState());
+     *     for (CampaignDeviceState state : states) {
+     *         System.out.println("Device ID: " + state.getId());
+     *         System.out.println("Currently in state: " + state.getState());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -910,9 +907,8 @@ public class Update extends AbstractApi {
      *     options.setLimit(10);
      *
      *     Paginator<CampaignDeviceState> states = updateApi.listAllCampaignDeviceStates(campaignId, options);
-     *     Iterator<CampaignDeviceState> stateIterator = states.iterator();
-     *     while (stateIterator.hasNext()) {
-     *         CampaignDeviceState deviceState = stateIterator.next();
+     *     while (states.hasNext()) {
+     *         CampaignDeviceState deviceState = states.next();
      *         System.out.println("Device ID: " + deviceState.getId());
      *         System.out.println("Currently in state: " + deviceState.getState());
      *     }

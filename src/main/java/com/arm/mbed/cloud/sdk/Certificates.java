@@ -97,9 +97,9 @@ public class Certificates extends AbstractApi {
      *     options.setTypeFilter(CertificateType.DEVELOPER);
      * 
      *     ListResponse<Certificate> certificates = certificateApi.listCertificates(options);
-     *     for (int i=0; i<certificates.size(); i++) {
-     *         System.out.println("Certificate name: " + certificates.get(i).getName());
-     *         System.out.println("Certificate server URI: " + certificates.get(i).getServerUri());
+     *     for (Certificate certificate : certificates) {
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -149,11 +149,10 @@ public class Certificates extends AbstractApi {
      *     options.setTypeFilter(CertificateType.DEVELOPER);
      *
      *     Paginator<Certificate> certificates = certificateApi.listAllCertificates(options);
-     *     Iterator<Certificate> certificateIterator = certificates.iterator();
-     *     while (certificateIterator.hasNext()) {
-     *         Certificate certificate = certificateIterator.next();
-     *         System.out.println("Certificate name: " + certificates.getName());
-     *         System.out.println("Certificate server URI: " + certificates.getServerUri());
+     *     while (certificates.hasNext()) {
+     *         Certificate certificate = certificates.next();
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();

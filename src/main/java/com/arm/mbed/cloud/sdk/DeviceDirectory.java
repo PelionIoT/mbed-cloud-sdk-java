@@ -75,8 +75,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     ListResponse<Device> devices = deviceDirectoryApi.listDevices(options);
-     *     for (int i=0; i<devices.size(); i++) {
-     *         System.out.println("Device ID: " + devices.get(i).getId());
+     *     for (Device device : devices) {
+     *         System.out.println("Device ID: " + device.getId());
      *     }
      *
      * } catch (MbedCloudException e) {
@@ -129,9 +129,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     Paginator<Device> devices = deviceDirectoryApi.listAllDevices(options);
-     *     Iterator<Device> deviceIterator = devices.iterator();
-     *     while (deviceIterator.hasNext()) {
-     *         Device device = deviceIterator.next();
+     *     while (devices.hasNext()) {
+     *         Device device = devices.next();
      *         System.out.println("Device ID: " + device.getId());
      *     }
      *
@@ -328,8 +327,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
      *     ListResponse<Query> queries = deviceDirectoryApi.listQueries(options);
-     *     for (int i=0; i<queries.size(); i++) {
-     *         System.out.println("Query ID: " + queries.get(i).getId());
+     *     for (Query query : queries) {
+     *         System.out.println("Query ID: " + query.getId());
      *     }
      *
      * } catch (MbedCloudException e) {
@@ -375,9 +374,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
      *     Paginator<Query> queries = deviceDirectoryApi.listAllQueries(options);
-     *     Iterator<Query> queryIterator = queries.iterator();
-     *     while (queryIterator.hasNext()) {
-     *         Query query = queryIterator.next();
+     *     while (queries.hasNext()) {
+     *         Query query = queries.next();
      *         System.out.println("Query ID: " + query.getId());
      *     }
      *
@@ -591,8 +589,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
      *
      *     ListResponse<DeviceEvent> deviceEvents = deviceDirectoryApi.listDeviceEvents(options);
-     *     for (int i=0; i<deviceEvents.size(); i++) {
-     *         System.out.println("Device event description: " + deviceEvents.get(i).getTypeDescription());
+     *     for (DeviceEvent deviceEvent : deviceEvents) {
+     *         System.out.println("Device event description: " + deviceEvent.getTypeDescription());
      *     }
      *
      * } catch (MbedCloudException e) {
@@ -642,9 +640,8 @@ public class DeviceDirectory extends AbstractApi {
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
      *
      *     Paginator<DeviceEvent> deviceEvents = deviceDirectoryApi.listAllDeviceEvents(options);
-     *     Iterator<DeviceEvent> deviceEventIterator = deviceEvents.iterator();
-     *     while (deviceEventIterator.hasNext()) {
-     *         DeviceEvent deviceEvent = deviceEventIterator.next();
+     *     while (deviceEvents.hasNext()) {
+     *         DeviceEvent deviceEvent = deviceEvents.next();
      *         System.out.println("Device Event ID: " + deviceEvent.getId());
      *     }
      *

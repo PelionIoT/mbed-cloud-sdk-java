@@ -96,16 +96,12 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * <pre>
      * {@code
-     * Account account = new Account();
-     * String accountId = "015f4ac587f500000000000100100249";
-     * account.setAccountId(accountId);
+     * Account account = accountManagementApi.getAccount();
      * account.setCity("Austin");
      * accoujnt.setState("Texas");
      * account.setCountry("US");
-     * 
-     * Account newAccount = accountManagementApi.getAccount();
-     * System.out.println("New user email: " + newAccount.getEmail());
-     * assert accountId == newAccount.getId();
+     *
+     * accountManagementApi.updateAccount(account);
      * }
      * </pre>
      * 
@@ -140,8 +136,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setOwnerIdFilter(ownerId);
      *
      *     ListResponse<ApiKey> apiKeys = accountManagementApi.listApiKeys(options);
-     *     for (int i=0; i<apiKeys.size(); i++) {
-     *         System.out.println("API key: " + apiKeys.get(i).getKey());
+     *     for (ApiKey apiKey : apiKeys) {
+     *         System.out.println("API key: " + apiKey.getKey());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -183,9 +179,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setOwnerIdFilter(ownerId);
      *
      *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllApiKeys(options);
-     *     Iterator<ApiKey> apiKeyIterator = apiKeys.iterator();
-     *     while (apiKeyIterator.hasNext()) {
-     *         ApiKey apiKey = apiKeyIterator.next();
+     *     while (apiKeys.hasNext()) {
+     *         ApiKey apiKey = apiKeys.next();
      *         System.out.println("API key: " + apiKey.getKey());
      *     }
      *
@@ -376,9 +371,9 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     ListResponse<User> users = accountManagementApi.listUsers(options);
-     *     for (int i=0; i<users.size(); i++) {
-     *         System.out.println("User ID: " + users.get(i).getId());
-     *         System.out.println("User name: " + users.get(i).getFullName());
+     *     for (User user : users) {
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -417,9 +412,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     Paginator<User> users = accountManagementApi.listAllUsers(options);
-     *     Iterator<User> usersIterator = users.iterator();
-     *     while (usersIterator.hasNext()) {
-     *         User user = usersIterator.next();
+     *     while (users.hasNext()) {
+     *         User user = users.next();
      *         System.out.println("User ID: " + user.getId());
      *         System.out.println("User name: " + user.getFullName());
      *     }
@@ -610,9 +604,9 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     ListResponse<Group> groups = accountManagementApi.listGroups(options);
-     *     for (int i=0; i<groups.size(); i++) {
-     *         System.out.println("Group ID: " + groups.get(i).getId());
-     *         System.out.println("Group name: " + groups.get(i).getName());
+     *     for (Group group : groups) {
+     *         System.out.println("Group ID: " + group.getId());
+     *         System.out.println("Group name: " + group.getName());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -650,9 +644,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     Paginator<Group> groups = accountManagementApi.listAllGroups(options);
-     *     Iterator<Group> groupsIterator = groups.iterator();
-     *     while (groupsIterator.hasNext()) {
-     *         Group group = groupsIterator.next();
+     *     while (groups.hasNext()) {
+     *         Group group = groups.next();
      *         System.out.println("Group ID: " + group.getId());
      *         System.out.println("Group name: " + group.getName());
      *     }
@@ -729,9 +722,9 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     ListResponse<User> users = accountManagementApi.listGroupUsers(groupId, options);
-     *     for (int i=0; i<users.size(); i++) {
-     *         System.out.println("User ID: " + users.get(i).getId());
-     *         System.out.println("User name: " + users.get(i).getFullName());
+     *     for (User user : users) {
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -777,9 +770,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     Paginator<User> users = accountManagementApi.listAllGroupUsers(options);
-     *     Iterator<User> usersIterator = users.iterator();
-     *     while (usersIterator.hasNext()) {
-     *         User user = usersIterator.next();
+     *     while (users.hasNext()) {
+     *         User user = users.next();
      *         System.out.println("User ID: " + user.getId());
      *         System.out.println("User name: " + user.getFullName());
      *     }
@@ -824,8 +816,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     ListResponse<ApiKey> apiKeys = accountManagementApi.listGroupApiKeys(groupId, options);
-     *     for (int i=0; i<apiKeys.size(); i++) {
-     *         System.out.println("ApiKey: " + apiKeys.get(i).getKey());
+     *     for (ApiKey apiKey : apiKeys) {
+     *         System.out.println("ApiKey: " + apiKey.getKey());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -871,9 +863,8 @@ public class AccountManagement extends AbstractApi {
      *     options.setLimit(10);
      *
      *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllGroupApiKeys(options);
-     *     Iterator<ApiKey> apiKeysIterator = apiKeys.iterator();
-     *     while (apiKeysIterator.hasNext()) {
-     *         ApiKey apiKey = apiKeysIterator.next();
+     *     while (apiKeys.hasNext()) {
+     *         ApiKey apiKey = apiKeys.next();
      *         System.out.println("ApiKey: " + apiKey.getKey());
      *     }
      *

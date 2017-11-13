@@ -186,8 +186,8 @@ public class Connect extends AbstractApi {
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     ListResponse<Device> devices = connectApi.listConnectedDevices(options);
-     *     for (int i=0; i<devices.size(); i++) {
-     *         System.out.println("Device ID: " + devices.get(i).getId());
+     *     for (Device device : devices) {
+     *         System.out.println("Device ID: " + device.getId());
      *     }
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -222,9 +222,8 @@ public class Connect extends AbstractApi {
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     Paginator<Device> devices = connectApi.listAllDevices(options);
-     *     Iterator<Device> deviceIterator = devices.iterator();
-     *     while (deviceIterator.hasNext()) {
-     *         Device device = deviceIterator.next();
+     *     while (devices.hasNext()) {
+     *         Device device = devices.next();
      *         System.out.println("Device ID: " + device.getId());
      *     }
      * } catch (MbedCloudException e) {
