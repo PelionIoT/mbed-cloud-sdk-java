@@ -75,9 +75,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareImageListOptions options = new FirmwareImageListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
@@ -125,9 +124,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareImageListOptions options = new FirmwareImageListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
@@ -290,9 +288,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
@@ -341,9 +338,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
@@ -508,9 +504,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
@@ -559,9 +554,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
@@ -721,9 +715,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);

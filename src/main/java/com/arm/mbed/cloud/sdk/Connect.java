@@ -179,9 +179,8 @@ public class Connect extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -215,9 +214,8 @@ public class Connect extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String date = "31-10-2017 10:20:56";
-     *     options.addCreatedAtFilter(dateFormat.parse(date), FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -388,13 +386,12 @@ public class Connect extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     SimpleDateFormat dateFormat = SimpleDateFormat("dd-M-yyyy hh:mm:ss");
-     *     String startDate = "31-10-2017 10:20:56";
-     *     String endDate = "06-11-2017 12:34:23";
+     *     Calendar startDate = GregorianCalendar(2017,10,31,10,20,56);
+     *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
      * 
      *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
-     *     listOptions.setStart(dateFormat.parse(startDate));
-     *     listOptions.setEnd(dateFormat.parse(endDate));
+     *     listOptions.setStart(startDate);
+     *     listOptions.setEnd(endDate);
      *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
      *
      *     List<Metric> metrics = connectApi.listMetrics(listOptions);
