@@ -162,10 +162,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Entity name: always ‘list’
+   * Entity name: always &#39;list&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "list", value = "Entity name: always ‘list’")
+  @ApiModelProperty(example = "list", value = "Entity name: always 'list'")
   public String getObject() {
     return object;
   }

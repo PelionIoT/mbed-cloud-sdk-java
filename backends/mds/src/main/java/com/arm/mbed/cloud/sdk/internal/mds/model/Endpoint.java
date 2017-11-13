@@ -1,6 +1,6 @@
 /*
  * Connect API
- * mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -67,10 +67,10 @@ public class Endpoint implements Serializable {
   }
 
    /**
-   * Determines whether the device is in queue mode.  &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Queue mode&lt;/b&gt;&lt;br/&gt; When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. 
+   * Determines whether the device is in queue mode.  &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Queue mode&lt;/b&gt;&lt;br/&gt; When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
    * @return q
   **/
-  @ApiModelProperty(value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in Queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to mbed Cloud Connect itself. You can also use the Queue mode when  the device is behind a NAT and cannot be reached directly by mbed Cloud Connect. ")
+  @ApiModelProperty(value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. ")
   public Boolean getQ() {
     return q;
   }
@@ -103,10 +103,10 @@ public class Endpoint implements Serializable {
   }
 
    /**
-   * Unique mbed Cloud Device ID representing the endpoint.
+   * Unique Mbed Cloud Device ID representing the endpoint.
    * @return name
   **/
-  @ApiModelProperty(value = "Unique mbed Cloud Device ID representing the endpoint.")
+  @ApiModelProperty(value = "Unique Mbed Cloud Device ID representing the endpoint.")
   public String getName() {
     return name;
   }
