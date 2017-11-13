@@ -511,7 +511,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
-            @NonNull String functionName, @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout)
+            @Nullable String functionName, @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout)
             throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
