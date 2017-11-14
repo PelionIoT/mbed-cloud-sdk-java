@@ -65,6 +65,15 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets details of account associated with current API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * Account account = accountManagementApi.getAccount();
+     * System.out.println("User account ID: " + account.getId());
+     * System.out.println("Associated user email: " + account.getEmail());
+     * }
+     * </pre>
      * 
      * @return account details.
      * @throws MbedCloudException
@@ -83,6 +92,18 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Updates details of account associated with current API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * Account account = accountManagementApi.getAccount();
+     * account.setCity("Austin");
+     * accoujnt.setState("Texas");
+     * account.setCountry("US");
+     *
+     * accountManagementApi.updateAccount(account);
+     * }
+     * </pre>
      * 
      * @param account
      *            The account object to update.
@@ -105,6 +126,24 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Lists all API keys according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ApiKeyListOptions options = new ApiKeyListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *
+     *     ListResponse<ApiKey> apiKeys = accountManagementApi.listApiKeys(options);
+     *     for (ApiKey apiKey : apiKeys) {
+     *         System.out.println("API key: " + apiKey.getKey());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -130,6 +169,26 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets an iterator over all API keys according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ApiKeyListOptions options = new ApiKeyListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *
+     *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllApiKeys(options);
+     *     while (apiKeys.hasNext()) {
+     *         ApiKey apiKey = apiKeys.next();
+     *         System.out.println("API key: " + apiKey.getKey());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -151,6 +210,21 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Get details of an API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String apiKeyId = "015f4ac587f500000000000100109294";
+     *     ApiKey apiKey = accountManagementApi.getApiKey(apiKeyId);
+     *     System.out.println("Api Key: " + apiKey.getKey());
+     *     assert apiKeyId == apiKey.getId();
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param apiKeyId
      *            The API key ID (if not specified, returns current API key).
@@ -174,6 +248,22 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Adds an API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ApiKey apiKey = new ApiKey();
+     *     apiKey.setName("QuickstartKey");
+     *
+     *     ApiKey newApiKey = accountManagementApi.addApiKey(apiKey);
+     *     System.out.println("Api Key: " + newApiKey.getKey());
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param apiKey
      *            The API key to add.
@@ -196,6 +286,25 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Updates an API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ApiKey apiKey = new ApiKey();
+     *     String apiKeyId = "015f4ac587f500000000000100100249";
+     *     apiKey.setId(apiKeyId);
+     *     apiKey.setName("NewKeyName");
+     *
+     *     ApiKey newApiKey = accountManagementApi.updateApiKey(apiKey);
+     *     System.out.println("New Api Key name: " + newApiKey.getName());
+     *     assert apiKeyId == newApiKey.getId();
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param apiKey
      *            The API key to update.
@@ -220,6 +329,18 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Deletes an API key.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String apiKeyId = "015f4ac587f500000000000100109294";
+     *     accountManagementApi.deleteApiKey(apiKeyId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param apiKeyId
      *            The API key ID.
@@ -241,6 +362,24 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Lists users according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     UserListOptions options = new UserListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<User> users = accountManagementApi.listUsers(options);
+     *     for (User user : users) {
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -264,6 +403,26 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets an iterator over all users according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     UserListOptions options = new UserListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<User> users = accountManagementApi.listAllUsers(options);
+     *     while (users.hasNext()) {
+     *         User user = users.next();
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -285,6 +444,20 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets details about a user.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String userId = "015f4ac587f500000000000100109294";
+     *     User user = accountManagementApi.getUser(userId);
+     *     System.out.println("User name: " + user.getFullName());
+     *     assert userId == user.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param userId
      *            The user ID.
@@ -307,6 +480,23 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Adds a user.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     User user = new User();
+     *     user.setEmail("javaSDK@arm.com");
+     *     user.setUsername("javaSDK");
+     *     user.setFullName("Java SDK");
+     *     
+     *     User newUser = accountManagementApi.addUser(user);
+     *     System.out.println("User ID: " + newUser.getId());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param user
      *            User to add.
@@ -329,6 +519,26 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Updates a user.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     User user = new User();
+     *     String userId = "015f4ac587f500000000000100109294";
+     *     user.setId(userId);
+     *     user.setEmail("javaSDK@arm.com");
+     *     user.setUsername("javaSDK");
+     *     user.setFullName("New JavaSDK");
+     *     
+     *     User newUser = accountManagementApi.updateUser(user);
+     *     System.out.println("New User name: " + newUser.getFullName());
+     *     assert userId == newUser.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param user
      *            User to update.
@@ -352,6 +562,18 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Deletes a user.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String userId = "015f4ac587f500000000000100109294";     
+     *     accountManagementApi.deleteUser(userId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param userId
      *            The user ID of the user to delete.
@@ -373,6 +595,24 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Lists available groups depending on filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<Group> groups = accountManagementApi.listGroups(options);
+     *     for (Group group : groups) {
+     *         System.out.println("Group ID: " + group.getId());
+     *         System.out.println("Group name: " + group.getName());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -395,6 +635,26 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets an iterator over all available groups depending on filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<Group> groups = accountManagementApi.listAllGroups(options);
+     *     while (groups.hasNext()) {
+     *         Group group = groups.next();
+     *         System.out.println("Group ID: " + group.getId());
+     *         System.out.println("Group name: " + group.getName());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -416,6 +676,20 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Get details of a group.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String groupId = "015f4ac587f500000000000100109294";
+     *     Group group = accountManagementApi.getGroup(groupId);
+     *     System.out.println("Group name: " + group.getName());
+     *     assert groupId == group.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param groupId
      *            The group ID to look for.
@@ -438,6 +712,25 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Lists users of a group.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String groupId = "015f4ac587f500000000000100109294";
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<User> users = accountManagementApi.listGroupUsers(groupId, options);
+     *     for (User user : users) {
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      *
      * @param groupId
      *            The group ID.
@@ -467,6 +760,27 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets an iterator over all users of a group.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String groupId = "015f4ac587f500000000000100109294";
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<User> users = accountManagementApi.listAllGroupUsers(options);
+     *     while (users.hasNext()) {
+     *         User user = users.next();
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      *
      * @param groupId
      *            The group ID of the group.
@@ -492,6 +806,24 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Lists API keys of a group.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String groupId = "015f4ac587f500000000000100109294";
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<ApiKey> apiKeys = accountManagementApi.listGroupApiKeys(groupId, options);
+     *     for (ApiKey apiKey : apiKeys) {
+     *         System.out.println("ApiKey: " + apiKey.getKey());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param groupId
      *            The group ID of the group.
@@ -521,6 +853,26 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Gets an iterator over all API keys of a group.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String groupId = "015f4ac587f500000000000100109294";
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllGroupApiKeys(options);
+     *     while (apiKeys.hasNext()) {
+     *         ApiKey apiKey = apiKeys.next();
+     *         System.out.println("ApiKey: " + apiKey.getKey());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      *
      * @param groupId
      *            The group ID of the group.

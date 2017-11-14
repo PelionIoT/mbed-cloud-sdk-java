@@ -86,6 +86,26 @@ public class Certificates extends AbstractApi {
 
     /**
      * Lists all certificates according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     CertificateListOptions options = new CertificateListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *     options.setTypeFilter(CertificateType.DEVELOPER);
+     * 
+     *     ListResponse<Certificate> certificates = certificateApi.listCertificates(options);
+     *     for (Certificate certificate : certificates) {
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -118,6 +138,27 @@ public class Certificates extends AbstractApi {
 
     /**
      * Gets an iterator over all certificates according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     CertificateListOptions options = new CertificateListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *     options.setTypeFilter(CertificateType.DEVELOPER);
+     *
+     *     Paginator<Certificate> certificates = certificateApi.listAllCertificates(options);
+     *     while (certificates.hasNext()) {
+     *         Certificate certificate = certificates.next();
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -140,6 +181,20 @@ public class Certificates extends AbstractApi {
 
     /**
      * Gets details of a certificate.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     Certificate certificate = certificateApi.getCertificate(certificateId);
+     *     System.out.println("Certificate name: " + certificates.getName());
+     *     assert certificateId == certificate.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificateId
      *            The certificate ID.
@@ -165,6 +220,24 @@ public class Certificates extends AbstractApi {
 
     /**
      * Adds a new certificate.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = new Certificate();
+     *     certificate.setName("Test Cert");
+     *     certificate.setType(CertificateType.CUSTOM);
+     *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
+     *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
+     *
+     *     Certificate newCertificate = certificateApi.addCertificate(certificate);
+     *     System.out.println("Certificate ID: " + certificates.getId());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
      *            Certificate request.
@@ -190,6 +263,25 @@ public class Certificates extends AbstractApi {
 
     /**
      * Adds a new developer certificate.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     final Certificate certificate = new Certificate();
+     *     certificate.setName("Test Cert");
+     *     certificate.setType(CertificateType.CUSTOM);
+     *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
+     *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
+     *
+     *     Certificate newCertificate = certificateApi.addDeveloperCertificate(certificate);
+     *     System.out.println("Certificate ID: " + certificates.getId());
+     *     assert newCertificate == certificate;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
      *            certificate Certificate request.
@@ -226,6 +318,26 @@ public class Certificates extends AbstractApi {
 
     /**
      * Updates a certificate.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = new Certificate();
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     certificate.setId(certificateId);
+     *     certificate.setName("Changed Cert name");
+     *     certificate.setType(CertificateType.CUSTOM);
+     *
+     *     Certificate newCertificate = certificateApi.updateCertificate(certificate);
+     *     System.out.println("New cert name: " + newCertificate.getName());
+     *     assert certificateId == newCertificate.getId();
+     *     
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
      *            certificate to update.
@@ -250,6 +362,18 @@ public class Certificates extends AbstractApi {
 
     /**
      * Deletes a certificate.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     certificateApi.deleteCertificate(certificateId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificateId
      *            The certificate ID.

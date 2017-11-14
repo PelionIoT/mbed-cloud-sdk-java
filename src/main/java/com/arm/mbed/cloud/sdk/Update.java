@@ -68,6 +68,28 @@ public class Update extends AbstractApi {
 
     /**
      * Lists all firmware images according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareImageListOptions options = new FirmwareImageListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
+     *
+     *     ListResponse<FirmwareImage> images = updateApi.listFirmwareImages(options);
+     *     for (FirmwareImage image : images) {
+     *         System.out.println("Image ID: " + image.getId());
+     *         URL url = image.getUrl();
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -95,6 +117,29 @@ public class Update extends AbstractApi {
 
     /**
      * Gets an iterator over all firmware images according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareImageListOptions options = new FirmwareImageListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
+     *
+     *     Paginator<FirmwareImage> images = updateApi.listAllFirmwareImages(options);
+     *     while (images.hasNext()) {
+     *         FirmwareImage image = images.next();
+     *         System.out.println("FirmwareImage ID: " + image.getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -117,6 +162,21 @@ public class Update extends AbstractApi {
 
     /**
      * Gets details of a firmware image.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String firmwareImageId = "015f4ac587f500000000000100100249";
+     *     FirmwareImage image = updateApi.getFirmwareImage(firmwareImageId);
+     *     System.out.println("FirmwareImage name: " + image.getName());
+     *     assert firmwareImageId == image.getId();
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param firmwareImageId
      *            the firmware image ID.
@@ -141,6 +201,25 @@ public class Update extends AbstractApi {
 
     /**
      * Adds a firmware image.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String fileName = "C:\\Users\\mbedUser\\mbed-cloud-client-example.bin";
+     *     FirmwareImage image = new FirmwareImage();
+     *     image.setDatafile(fileName);
+     *     image.setDescription("Quick start image");
+     *     image.setName(fileName.substring(0,fileName.indexOf(".")));
+     *
+     *     FirmwareImage newImage = updateApi.addFirmwareImage(image);
+     *     System.out.println("FirmwareImage URL: " + newImage.getUrl());
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param image
      *            The image to add.
@@ -168,6 +247,18 @@ public class Update extends AbstractApi {
 
     /**
      * Deletes a firmware image.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String firmwareImageId = "015f4ac587f500000000000100100249";
+     *     updateApi.deleteFirmwareImage(firmwareImageId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param firmwareImageId
      *            The ID of the firmware image to delete.
@@ -190,6 +281,28 @@ public class Update extends AbstractApi {
 
     /**
      * Lists all firmware manifests according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
+     *
+     *     ListResponse<FirmwareManifest> manifests = updateApi.listFirmwareManifests(options);
+     *     for (FirmwareManifest manifest : manifests) {
+     *         System.out.println("Manifest ID: " + manifest.getId());
+     *         URL url = manifest.getUrl();
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options
@@ -218,6 +331,29 @@ public class Update extends AbstractApi {
 
     /**
      * Gets an iterator over all firmware manifests according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
+     *
+     *     Paginator<FirmwareManifest> manifests = updateApi.listAllFirmwareManifests(options);
+     *     while (manifests.hasNext()) {
+     *         FirmwareManifest image = manifests.next();
+     *         System.out.println("FirmwareManifest ID: " + image.getId());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -240,6 +376,21 @@ public class Update extends AbstractApi {
 
     /**
      * Get details of a firmware manifest.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String firmwareManifestId = "015f4ac587f500000000000100100249";
+     *     FirmwareManifest manifest = updateApi.getFirmwareManifest(firmwareManifestId);
+     *     System.out.println("FirmwareManifest name: " + manifest.getName());
+     *     assert firmwareManifestId == manifest.getId();
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param firmwareManifestId
      *            The firmware manifest ID.
@@ -265,6 +416,25 @@ public class Update extends AbstractApi {
 
     /**
      * Adds a firmware manifest.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String fileName = "C:\\Users\\mbedUser\\quickstart.manifest";
+     *     FirmwareManifest manifest = new FirmwareManifest();
+     *     manifest.setDatafile(fileName);
+     *     manifest.setDescription("Quick start manifest");
+     *     manifest.setName(manifest.getDatafile().getName());
+     *
+     *     FirmwareManifest newManifest = updateApi.addFirmwareManifest(manifest);
+     *     System.out.println("FirmwareManifest URL: " + newManifest.getUrl());
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param manifest
      *            The manifest to add.
@@ -293,6 +463,18 @@ public class Update extends AbstractApi {
 
     /**
      * Deletes a firmware manifest.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String firmwareManifestId = "015f4ac587f500000000000100100249";
+     *     updateApi.deleteFirmwareManifest(firmwareManifestId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param firmwareManifestId
      *            The ID of the firmware manifest to delete.
@@ -315,6 +497,29 @@ public class Update extends AbstractApi {
 
     /**
      * Lists all update campaigns according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     CampaignListOptions options = new CampaignListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
+     *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
+     *
+     *     ListResponse<Campaign> campaigns = updateApi.listCampaigns(options);
+     *     for (Campaign campaign : campaigns) {
+     *         System.out.println("Campaign ID: " + campaign.getId());
+     *         System.out.println("Currently in state: " + campaign.getState());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -342,6 +547,31 @@ public class Update extends AbstractApi {
 
     /**
      * Gets an iterator over all update campaigns according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     CampaignListOptions options = new CampaignListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
+     *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
+     *
+     *     Paginator<Campaign> campaigns = updateApi.listAllCampaigns(options);
+     *     while (campaigns.hasNext()) {
+     *         Campaign campaign = campaigns.next();
+     *         System.out.println("Campaign ID: " + campaign.getId());
+     *         System.out.println("Currently in state: " + campaign.getState());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
      *            filter options.
@@ -364,6 +594,21 @@ public class Update extends AbstractApi {
 
     /**
      * Gets details of an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     Campaign campaign = updateApi.getCampaign(campaignId);
+     *     System.out.println("Campaign name: " + campaign.getName());
+     *     assert campaignId == campaign.getId();
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The update campaign ID.
@@ -387,6 +632,32 @@ public class Update extends AbstractApi {
 
     /**
      * Adds an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     Campaign campaign = new Campaign();
+     *     campaign.setName("QuickstartCampaign");
+     *     campaign.setDescription("Quick start campaign");
+     *     campaign.setState(CampaignState.DRAFT);
+     *     
+     *     Filters deviceFilter = new Filters();
+     *     deviceFilter.add(new Filter("state", FilterOperator.EQUAL, "registered"));
+     *     campaign.setDeviceFilter(deviceFilter);
+     *
+     *     String firmwareManifestId = "015f4ac587f500000000000100100249";
+     *     campaign.setManifestId(firmwareManifestId);
+     *
+     *     Campaign newCampaign = updateApi.addCampaign(campaign);
+     *     System.out.println("Campaign state: " + newCampaign.getState());
+     *     System.out.println("Campaign ID: " + newCampaign.getId());
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaign
      *            The campaign to add.
@@ -437,6 +708,30 @@ public class Update extends AbstractApi {
 
     /**
      * Updates an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     CampaignListOptions options = new CampaignListOptions();
+     *
+     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
+     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     * 
+     *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
+     *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
+     *
+     *     ListResponse<Campaign> campaigns = updateApi.listCampaigns(options);
+     *     for (Campaign campaign : campaigns) {
+     *         campaign.setDescription("Changed description!");
+     *         Campaign updatedCampaign = updateApi.updateCampaign(campaign);
+     *         System.out.println("Updated campaign in state: " + updatedCampaign.getState());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaign
      *            The campaign to update.
@@ -451,6 +746,18 @@ public class Update extends AbstractApi {
 
     /**
      * Deletes an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     updateApi.deleteCampaign(campaignId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The ID of the update campaign to delete.
@@ -473,6 +780,19 @@ public class Update extends AbstractApi {
 
     /**
      * Starts an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     Campaign campaign = updateApi.startCampaign(campaignId);
+     *     System.out.println("Started campaign. State: " + campaign.getState());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The ID of the update campaign to start.
@@ -490,6 +810,19 @@ public class Update extends AbstractApi {
 
     /**
      * Stops an update campaign.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     Campaign campaign = updateApi.stopCampaign(campaignId);
+     *     System.out.println("Stopped campaign. State: " + campaign.getState());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The ID of the update campaign to stop.
@@ -507,6 +840,25 @@ public class Update extends AbstractApi {
 
     /**
      * Lists campaign devices states.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     CampaignDevicesStatesListOptions options = new CampaignDevicesStatesListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<CampaignDeviceState> states = updateApi.listCampaignDeviceStates(campaignId, options);
+     *     for (CampaignDeviceState state : states) {
+     *         System.out.println("Device ID: " + state.getId());
+     *         System.out.println("Currently in state: " + state.getState());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The ID of the update campaign.
@@ -538,6 +890,27 @@ public class Update extends AbstractApi {
 
     /**
      * Gets an iterator over all campaign device states according to filter options.
+     * <p>
+     * Example:
+     * <pre>
+     * {@code
+     * try {
+     *     String campaignId = "015f4ac587f500000000000100109294";
+     *     CampaignDevicesStatesListOptions options = new CampaignDevicesStatesListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<CampaignDeviceState> states = updateApi.listAllCampaignDeviceStates(campaignId, options);
+     *     while (states.hasNext()) {
+     *         CampaignDeviceState deviceState = states.next();
+     *         System.out.println("Device ID: " + deviceState.getId());
+     *         System.out.println("Currently in state: " + deviceState.getState());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param campaignId
      *            The ID of the update campaign.
