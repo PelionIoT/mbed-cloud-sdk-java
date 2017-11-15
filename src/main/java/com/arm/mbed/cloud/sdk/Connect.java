@@ -713,15 +713,16 @@ public class Connect extends AbstractApi {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final String finalFunctionName = functionName;
+        final String finalFunctionName = (functionName == null) ? "" : functionName;// Body parameter value must not
+                                                                                    // be null.
         final boolean finalNoResponse = noResponse;
         return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath,
-                        finalFunctionName, finalNoResponse);
+                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId,
+                        ApiUtils.normalisePath(finalResourcePath), finalFunctionName, finalNoResponse);
             }
         });
     }

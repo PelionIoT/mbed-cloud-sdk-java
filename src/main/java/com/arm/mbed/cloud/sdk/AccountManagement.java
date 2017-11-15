@@ -42,7 +42,6 @@ import retrofit2.Call;
  */
 public class AccountManagement extends AbstractApi {
 
-    private static final String TAG_ACCOUNT_ID = "account id";
     private static final String TAG_USER_UUID = "user UUID";
     private static final String TAG_API_KEY_UUID = "apiKey UUID";
     private static final String TAG_API_KEY = "apiKey";
@@ -116,7 +115,6 @@ public class AccountManagement extends AbstractApi {
     @API
     public @Nullable Account updateAccount(@NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
-        checkNotNull(account.getId(), TAG_ACCOUNT_ID);
         checkModelValidity(account, TAG_ACCOUNT);
         final Account finalAccount = account;
         return CloudCaller.call(this, "updateAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
