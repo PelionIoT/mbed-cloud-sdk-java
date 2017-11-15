@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Resource")
@@ -14,10 +15,12 @@ public class Resource implements SdkModel {
     /**
      * Related device ID.
      */
+    @Required
     private String deviceId;
     /**
      * Resource's url.
      */
+    @Required
     private String path;
     /**
      * Resource's type.
@@ -93,6 +96,7 @@ public class Resource implements SdkModel {
      * @param deviceId
      *            the deviceId to set
      */
+    @Required
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
     }
@@ -112,6 +116,7 @@ public class Resource implements SdkModel {
      * @param path
      *            the path to set
      */
+    @Required
     public void setPath(String path) {
         this.path = path;
     }
@@ -168,4 +173,13 @@ public class Resource implements SdkModel {
         return new Resource(deviceId, path, type, contentType, observable);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return deviceId != null && path != null;
+    }
 }

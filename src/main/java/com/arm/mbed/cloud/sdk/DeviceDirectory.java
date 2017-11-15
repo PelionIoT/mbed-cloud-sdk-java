@@ -63,6 +63,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all devices according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -116,6 +117,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all devices according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -160,6 +162,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets details of a device.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -196,6 +199,7 @@ public class DeviceDirectory extends AbstractApi {
      * Adds a device.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -222,6 +226,7 @@ public class DeviceDirectory extends AbstractApi {
     @API
     public @Nullable Device addDevice(@NonNull Device device) throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
+        checkModelValidity(device, TAG_DEVICE);
         final Device finalDevice = device;
         return CloudCaller.call(this, "addDevice()", DeviceAdapter.getMapper(), new CloudCall<DeviceData>() {
 
@@ -236,6 +241,7 @@ public class DeviceDirectory extends AbstractApi {
      * Updates a device.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -264,6 +270,7 @@ public class DeviceDirectory extends AbstractApi {
     public @Nullable Device updateDevice(@NonNull Device device) throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
+        checkModelValidity(device, TAG_DEVICE);
         final Device finalDevice = device;
         return CloudCaller.call(this, "updateDevice()", DeviceAdapter.getMapper(), new CloudCall<DeviceData>() {
 
@@ -279,6 +286,7 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a device.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -313,6 +321,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all queries according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -359,6 +368,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all queries according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -403,6 +413,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets a query.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -439,6 +450,7 @@ public class DeviceDirectory extends AbstractApi {
      * Adds a query.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -470,6 +482,7 @@ public class DeviceDirectory extends AbstractApi {
     @API
     public @Nullable Query addQuery(@NonNull Query query) throws MbedCloudException {
         checkNotNull(query, TAG_QUERY);
+        checkModelValidity(query, TAG_QUERY);
         final Query finalQuery = query;
         return CloudCaller.call(this, "addQuery()", QueryAdapter.getMapper(), new CloudCall<DeviceQuery>() {
 
@@ -484,6 +497,7 @@ public class DeviceDirectory extends AbstractApi {
      * Updates a query.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -520,6 +534,7 @@ public class DeviceDirectory extends AbstractApi {
     public @Nullable Query updateQuery(@NonNull Query query) throws MbedCloudException {
         checkNotNull(query, TAG_QUERY);
         checkNotNull(query.getId(), TAG_QUERY_ID);
+        checkModelValidity(query, TAG_QUERY);
         final Query finalQuery = query;
         return CloudCaller.call(this, "updateQuery()", QueryAdapter.getMapper(), new CloudCall<DeviceQuery>() {
 
@@ -535,6 +550,7 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a query.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -570,6 +586,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all device events according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -620,6 +637,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all device events according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -666,6 +684,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets a single device event.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {

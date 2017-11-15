@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Device model")
@@ -45,10 +46,12 @@ public class Device implements SdkModel {
     /**
      * ID of the issuer of the certificate.
      */
+    @Required
     private String certificateIssuerId;
     /**
      * Fingerprint of the device certificate.
      */
+    @Required
     private String certificateFingerprint;
     /**
      * The name of the device.
@@ -260,6 +263,20 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param certificateIssuerId
+     *            ID of the issuer of the certificate
+     * @param certificateFingerprint
+     *            Fingerprint of the device certificate
+     */
+    public Device(String certificateIssuerId, String certificateFingerprint) {
+        this();
+        setCertificateFingerprint(certificateFingerprint);
+        setCertificateIssuerId(certificateIssuerId);
+    }
+
+    /**
      * Gets id.
      * 
      * @return the id
@@ -306,6 +323,7 @@ public class Device implements SdkModel {
      * @param certificateIssuerId
      *            the certificateIssuerId to set
      */
+    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         this.certificateIssuerId = certificateIssuerId;
     }
@@ -325,6 +343,7 @@ public class Device implements SdkModel {
      * @param certificateFingerprint
      *            the certificateFingerprint to set
      */
+    @Required
     public void setCertificateFingerprint(String certificateFingerprint) {
         this.certificateFingerprint = certificateFingerprint;
     }
@@ -703,4 +722,13 @@ public class Device implements SdkModel {
                 bootstrapCertificateExpiration, bootstrappedTimestamp, mechanism, mechanismUrl, firmwareChecksum);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return certificateFingerprint != null && certificateIssuerId != null;
+    }
 }

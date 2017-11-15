@@ -1,7 +1,14 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "Utilities for APIs")
 @Internal
@@ -27,6 +34,95 @@ public class ApiUtils {
         if (arg == null) {
             logger.throwSdkException(new IllegalArgumentException("Argument [" + argName + "] cannot be Null"));
         }
+    }
+
+    /**
+     * Ensures that a model object is valid i.e. contains all required field.
+     * 
+     * @param logger
+     *            logger to report an error if any
+     * @param model
+     *            model instance
+     * @param argName
+     *            name of the argument
+     * @throws MbedCloudException
+     *             if the model instance is invalid.
+     */
+    public static void checkModelValidity(SdkLogger logger, SdkModel model, String argName) throws MbedCloudException {
+        if (model == null) {
+            return;
+        }
+        if (model.isValid()) {
+            return;
+        }
+
+        final Field[] modelFields = model.getClass().getDeclaredFields();
+
+        final List<String> missingFields = new LinkedList<>();
+
+        for (final Field modelField : modelFields) {
+            if (modelField.isAnnotationPresent(Required.class)) {
+                Object value = null;
+                try {
+                    modelField.setAccessible(true);
+                    value = modelField.get(model);
+                } catch (IllegalArgumentException | IllegalAccessException exception) {
+                    // Nothing to do
+                }
+                if (value == null) {
+                    missingFields.add(modelField.getName());
+                }
+            }
+
+        }
+        if (missingFields.isEmpty()) {
+            return;
+        }
+        final StringBuilder errorBuilder = generateInvalidModelInstanceErrorMessage(model, missingFields, argName);
+        logger.throwSdkException(new IllegalArgumentException(errorBuilder.toString()));
+
+    }
+
+    private static StringBuilder generateInvalidModelInstanceErrorMessage(SdkModel model, List<String> missingFields,
+            String argName) {
+        final List<String> setters = new LinkedList<>();
+        final Method[] modelMethods = model.getClass().getDeclaredMethods();
+        for (final Method modelMethod : modelMethods) {
+            if (modelMethod.isAnnotationPresent(Required.class)) {
+                for (final String missingField : missingFields) {
+                    if (modelMethod.getName().toLowerCase(Locale.UK).contains(missingField.toLowerCase(Locale.UK))) {
+                        setters.add(modelMethod.getName());
+                        break;
+                    }
+                }
+            }
+            if (setters.size() == missingFields.size()) {
+                break;
+            }
+        }
+        final StringBuilder errorBuilder = new StringBuilder(200);
+        boolean start = true;
+        errorBuilder.append("Fields [");
+        for (final String missingField : missingFields) {
+            if (!start) {
+                errorBuilder.append(", ");
+            }
+            errorBuilder.append(missingField);
+            start = false;
+        }
+        errorBuilder.append("] of parameter [");
+        errorBuilder.append(argName);
+        errorBuilder.append("] are required. Please ensure they get set using the following setters: ");
+        start = true;
+        for (final String setter : setters) {
+            if (!start) {
+                errorBuilder.append(", ");
+            }
+            errorBuilder.append(setter);
+            start = false;
+        }
+        errorBuilder.append('.');
+        return errorBuilder;
     }
 
     /**

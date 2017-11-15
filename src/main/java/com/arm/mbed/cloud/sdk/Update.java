@@ -48,9 +48,7 @@ public class Update extends AbstractApi {
     private static final String TAG_CAMPAIGN_ID = "campaign id";
     private static final String TAG_CAMPAIGN = "campaign";
     private static final String TAG_FIRMWARE_MANIFEST_ID = "firmwareManifestId";
-    private static final String TAG_FIRMWARE_MANIFEST_NAME = "firmware manifest name";
     private static final String TAG_FIRMWARE_MANIFEST = "manifest";
-    private static final String TAG_FIRMWARE_IMAGE_NAME = "firmware image name";
     private static final String TAG_FIRMWARE_IMAGE = "firmware image";
     private static final String TAG_FIRMWARE_IMAGE_ID = "firmwareImageId";
     private final EndPoints endpoint;
@@ -70,6 +68,7 @@ public class Update extends AbstractApi {
      * Lists all firmware images according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -119,6 +118,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all firmware images according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -164,6 +164,7 @@ public class Update extends AbstractApi {
      * Gets details of a firmware image.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -203,6 +204,7 @@ public class Update extends AbstractApi {
      * Adds a firmware image.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -230,7 +232,7 @@ public class Update extends AbstractApi {
     @API
     public @Nullable FirmwareImage addFirmwareImage(@NonNull FirmwareImage image) throws MbedCloudException {
         checkNotNull(image, TAG_FIRMWARE_IMAGE);
-        checkNotNull(image.getName(), TAG_FIRMWARE_IMAGE_NAME);
+        checkModelValidity(image, TAG_FIRMWARE_IMAGE);
         final FirmwareImage finalImage = image;
         return CloudCaller.call(this, "addFirmwareImage()", FirmwareImageAdapter.getMapper(),
                 new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
@@ -249,6 +251,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware image.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -283,6 +286,7 @@ public class Update extends AbstractApi {
      * Lists all firmware manifests according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -333,6 +337,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all firmware manifests according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -378,6 +383,7 @@ public class Update extends AbstractApi {
      * Get details of a firmware manifest.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -418,6 +424,7 @@ public class Update extends AbstractApi {
      * Adds a firmware manifest.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -446,7 +453,7 @@ public class Update extends AbstractApi {
     public @Nullable FirmwareManifest addFirmwareManifest(@NonNull FirmwareManifest manifest)
             throws MbedCloudException {
         checkNotNull(manifest, TAG_FIRMWARE_MANIFEST);
-        checkNotNull(manifest.getName(), TAG_FIRMWARE_MANIFEST_NAME);
+        checkModelValidity(manifest, TAG_FIRMWARE_MANIFEST);
         final FirmwareManifest finalManifest = manifest;
         return CloudCaller.call(this, "addFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
                 new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
@@ -465,6 +472,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware manifest.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -499,6 +507,7 @@ public class Update extends AbstractApi {
      * Lists all update campaigns according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -549,6 +558,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all update campaigns according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -596,6 +606,7 @@ public class Update extends AbstractApi {
      * Gets details of an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -634,6 +645,7 @@ public class Update extends AbstractApi {
      * Adds an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -668,6 +680,7 @@ public class Update extends AbstractApi {
     @API
     public @Nullable Campaign addCampaign(@NonNull Campaign campaign) throws MbedCloudException {
         checkNotNull(campaign, TAG_CAMPAIGN);
+        checkModelValidity(campaign, TAG_CAMPAIGN);
         final Campaign finalCampaign = campaign;
         return CloudCaller.call(this, "addCampaign()", CampaignAdapter.getMapper(), new CloudCall<UpdateCampaign>() {
 
@@ -694,6 +707,7 @@ public class Update extends AbstractApi {
     private Campaign modifyCampaign(Campaign campaign, String actionName) throws MbedCloudException {
         checkNotNull(campaign, TAG_CAMPAIGN);
         checkNotNull(campaign.getId(), TAG_CAMPAIGN_ID);
+        checkModelValidity(campaign, TAG_CAMPAIGN);
         final Campaign finalCampaign = campaign;
         return CloudCaller.call(this, actionName, CampaignAdapter.getMapper(), new CloudCall<UpdateCampaign>() {
 
@@ -710,6 +724,7 @@ public class Update extends AbstractApi {
      * Updates an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -748,6 +763,7 @@ public class Update extends AbstractApi {
      * Deletes an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -782,11 +798,12 @@ public class Update extends AbstractApi {
      * Starts an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
      *     String campaignId = "015f4ac587f500000000000100109294";
-     *     Campaign campaign = updateApi.startCampaign(campaignId);
+     *     Campaign campaign = updateApi.startCampaign(updateApi.getCampaign(campaignId));
      *     System.out.println("Started campaign. State: " + campaign.getState());
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -794,16 +811,15 @@ public class Update extends AbstractApi {
      * }
      * </pre>
      * 
-     * @param campaignId
-     *            The ID of the update campaign to start.
+     * @param campaign
+     *            the update campaign to start.
      * @return the started campaign.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Campaign startCampaign(@NonNull String campaignId) throws MbedCloudException {
-        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
-        final Campaign campaign = new Campaign(campaignId);
+    public @Nullable Campaign startCampaign(@NonNull Campaign campaign) throws MbedCloudException {
+        checkNotNull(campaign, TAG_CAMPAIGN);
         campaign.setState(CampaignState.SCHEDULED);
         return modifyCampaign(campaign, "startCampaign()");
     }
@@ -812,11 +828,12 @@ public class Update extends AbstractApi {
      * Stops an update campaign.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
      *     String campaignId = "015f4ac587f500000000000100109294";
-     *     Campaign campaign = updateApi.stopCampaign(campaignId);
+     *     Campaign campaign = updateApi.stopCampaign(updateApi.getCampaign(campaignId));
      *     System.out.println("Stopped campaign. State: " + campaign.getState());
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -824,16 +841,15 @@ public class Update extends AbstractApi {
      * }
      * </pre>
      * 
-     * @param campaignId
-     *            The ID of the update campaign to stop.
+     * @param campaign
+     *            the update campaign to stop.
      * @return the stopped campaign.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Campaign stopCampaign(@NonNull String campaignId) throws MbedCloudException {
-        checkNotNull(campaignId, TAG_CAMPAIGN_ID);
-        final Campaign campaign = new Campaign(campaignId);
+    public @Nullable Campaign stopCampaign(@NonNull Campaign campaign) throws MbedCloudException {
+        checkNotNull(campaign, TAG_CAMPAIGN);
         campaign.setState(CampaignState.DRAFT);
         return modifyCampaign(campaign, "stopCampaign()");
     }
@@ -842,6 +858,7 @@ public class Update extends AbstractApi {
      * Lists campaign devices states.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -892,6 +909,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all campaign device states according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {

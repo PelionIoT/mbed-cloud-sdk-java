@@ -12,6 +12,7 @@ import java.util.Date;
 
 import org.junit.Test;
 
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 
 public class TestApiUtils {
@@ -46,6 +47,117 @@ public class TestApiUtils {
             assertTrue(true);
         }
 
+    }
+
+    @SuppressWarnings("unused")
+    private static class ModelClass implements SdkModel {
+
+        private static final long serialVersionUID = -1025322916863664007L;
+
+        @Required
+        private Integer field1;
+
+        @Required
+        private String field2;
+        private Object field3;
+
+        public ModelClass(Integer field1, String field2, Object field3) {
+            super();
+            this.field1 = field1;
+            this.field2 = field2;
+            this.field3 = field3;
+        }
+
+        public ModelClass() {
+            super();
+            field1 = null;
+            field2 = null;
+            field3 = null;
+        }
+
+        /**
+         * @param field1
+         *            the field1 to set
+         */
+        @Required
+        public void setField1(Integer field1) {
+            this.field1 = field1;
+        }
+
+        /**
+         * @param field2
+         *            the field2 to set
+         */
+        @Required
+        public void setField2(String field2) {
+            this.field2 = field2;
+        }
+
+        /**
+         * @param field3
+         *            the field3 to set
+         */
+        public void setField3(Object field3) {
+            this.field3 = field3;
+        }
+
+        @Override
+        public ModelClass clone() {
+            return this;
+        }
+
+        @Override
+        public boolean isValid() {
+            return field1 != null && field2 != null;
+        }
+
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public final void testCheckModelValidity() {
+        SdkLogger logger = new SdkLogger();
+        ModelClass test = null;
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+            assertTrue(true);
+        } catch (MbedCloudException e) {
+            fail("No exception should have been raised");
+        }
+        test = new ModelClass(1, "Test", null);
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+            assertTrue(true);
+        } catch (MbedCloudException e) {
+            fail("Check has not worked");
+        }
+        test = new ModelClass(1, "", null);
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+        } catch (Exception e) {
+            fail("No exception should have been raised");
+        }
+        test = new ModelClass(1, null, "Test");
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+            fail("Check has not worked");
+        } catch (MbedCloudException e) {
+            assertTrue(true);
+        }
+        test = new ModelClass(null, "test", "Test");
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+            fail("Check has not worked");
+        } catch (MbedCloudException e) {
+            assertTrue(true);
+        }
+        test = new ModelClass(null, null, "Test");
+        try {
+            ApiUtils.checkModelValidity(logger, test, "test");
+            fail("Check has not worked");
+        } catch (MbedCloudException e) {
+            assertTrue(true);
+        }
     }
 
     @Test

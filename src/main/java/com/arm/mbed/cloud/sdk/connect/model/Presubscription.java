@@ -117,4 +117,13 @@ public class Presubscription implements SdkModel {
         return new Presubscription(deviceId, deviceType, resourcePaths);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return true;
+    }
 }

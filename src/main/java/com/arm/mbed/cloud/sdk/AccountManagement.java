@@ -42,6 +42,7 @@ import retrofit2.Call;
  */
 public class AccountManagement extends AbstractApi {
 
+    private static final String TAG_ACCOUNT_ID = "account id";
     private static final String TAG_USER_UUID = "user UUID";
     private static final String TAG_API_KEY_UUID = "apiKey UUID";
     private static final String TAG_API_KEY = "apiKey";
@@ -67,12 +68,13 @@ public class AccountManagement extends AbstractApi {
      * Gets details of account associated with current API key.
      * <p>
      * Example:
+     * 
      * <pre>
-     * {@code
-     * Account account = accountManagementApi.getAccount();
-     * System.out.println("User account ID: " + account.getId());
-     * System.out.println("Associated user email: " + account.getEmail());
-     * }
+     * {@code Account account = accountManagementApi.getAccount();
+     *     System.out.println("User account ID: " + account.getId());
+     *     System.out.println("Associated user email: " + account.getEmail());
+     *}
+     * 
      * </pre>
      * 
      * @return account details.
@@ -94,14 +96,14 @@ public class AccountManagement extends AbstractApi {
      * Updates details of account associated with current API key.
      * <p>
      * Example:
+     * 
      * <pre>
-     * {@code
-     * Account account = accountManagementApi.getAccount();
-     * account.setCity("Austin");
-     * accoujnt.setState("Texas");
-     * account.setCountry("US");
+     * {@code Account account = accountManagementApi.getAccount();
+     *     account.setCity("Austin");
+     *     accoujnt.setState("Texas");
+     *     account.setCountry("US");
      *
-     * accountManagementApi.updateAccount(account);
+     *     accountManagementApi.updateAccount(account);
      * }
      * </pre>
      * 
@@ -114,6 +116,8 @@ public class AccountManagement extends AbstractApi {
     @API
     public @Nullable Account updateAccount(@NonNull Account account) throws MbedCloudException {
         checkNotNull(account, TAG_ACCOUNT);
+        checkNotNull(account.getId(), TAG_ACCOUNT_ID);
+        checkModelValidity(account, TAG_ACCOUNT);
         final Account finalAccount = account;
         return CloudCaller.call(this, "updateAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
 
@@ -128,6 +132,7 @@ public class AccountManagement extends AbstractApi {
      * Lists all API keys according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -171,6 +176,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all API keys according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -212,6 +218,7 @@ public class AccountManagement extends AbstractApi {
      * Get details of an API key.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -250,6 +257,7 @@ public class AccountManagement extends AbstractApi {
      * Adds an API key.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -274,6 +282,7 @@ public class AccountManagement extends AbstractApi {
     @API
     public @NonNull ApiKey addApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
         checkNotNull(apiKey, TAG_API_KEY);
+        checkModelValidity(apiKey, TAG_API_KEY);
         final ApiKey finalApiKey = apiKey;
         return CloudCaller.call(this, "addApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
 
@@ -288,6 +297,7 @@ public class AccountManagement extends AbstractApi {
      * Updates an API key.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -316,6 +326,7 @@ public class AccountManagement extends AbstractApi {
     public @Nullable ApiKey updateApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
         checkNotNull(apiKey, TAG_API_KEY);
         checkNotNull(apiKey.getId(), TAG_API_KEY_UUID);
+        checkModelValidity(apiKey, TAG_API_KEY);
         final ApiKey finalApiKey = apiKey;
         return CloudCaller.call(this, "updateApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
 
@@ -331,6 +342,7 @@ public class AccountManagement extends AbstractApi {
      * Deletes an API key.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -364,6 +376,7 @@ public class AccountManagement extends AbstractApi {
      * Lists users according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -405,6 +418,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all users according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -446,6 +460,7 @@ public class AccountManagement extends AbstractApi {
      * Gets details about a user.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -482,6 +497,7 @@ public class AccountManagement extends AbstractApi {
      * Adds a user.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -507,6 +523,7 @@ public class AccountManagement extends AbstractApi {
     @API
     public @NonNull User addUser(@NonNull User user) throws MbedCloudException {
         checkNotNull(user, TAG_USER);
+        checkModelValidity(user, TAG_USER);
         final User finalUser = user;
         return CloudCaller.call(this, "addUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
 
@@ -521,6 +538,7 @@ public class AccountManagement extends AbstractApi {
      * Updates a user.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -550,6 +568,7 @@ public class AccountManagement extends AbstractApi {
     public @Nullable User updateUser(@NonNull User user) throws MbedCloudException {
         checkNotNull(user, TAG_USER);
         checkNotNull(user.getId(), TAG_USER_UUID);
+        checkModelValidity(user, TAG_USER);
         final User finalUser = user;
         return CloudCaller.call(this, "updateUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
 
@@ -564,6 +583,7 @@ public class AccountManagement extends AbstractApi {
      * Deletes a user.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -597,6 +617,7 @@ public class AccountManagement extends AbstractApi {
      * Lists available groups depending on filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -637,6 +658,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all available groups depending on filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -678,6 +700,7 @@ public class AccountManagement extends AbstractApi {
      * Get details of a group.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -714,6 +737,7 @@ public class AccountManagement extends AbstractApi {
      * Lists users of a group.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -762,6 +786,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all users of a group.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -808,6 +833,7 @@ public class AccountManagement extends AbstractApi {
      * Lists API keys of a group.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -855,6 +881,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all API keys of a group.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {

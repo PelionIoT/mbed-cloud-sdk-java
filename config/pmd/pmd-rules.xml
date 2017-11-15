@@ -24,7 +24,7 @@
         <exclude name="TooManyFields" />
         <exclude name="TooManyMethods" />
         <exclude name="ExcessivePublicCount" />
-
+        <exclude name="ExcessiveClassLength" />
         <exclude name="ExcessiveParameterList" />
     </rule>
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">

@@ -6,6 +6,7 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Firmware Manifest")
@@ -46,6 +47,7 @@ public class FirmwareManifest implements SdkModel {
     /**
      * The name of the object.
      */
+    @Required
     private String name;
     /**
      * The description of the object.
@@ -63,12 +65,13 @@ public class FirmwareManifest implements SdkModel {
     /**
      * The binary file of the manifest.
      */
+    @Required
     private DataFile dataFile;
 
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #FirmwareManifest()} instead.
+     * Note: Should not be used. Use {@link #FirmwareManifest()} or {@link #FirmwareManifest(String, DataFile)} instead.
      * 
      * @param id
      *            id
@@ -96,7 +99,7 @@ public class FirmwareManifest implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #FirmwareManifest()} instead.
+     * Note: Should not be used. Use {@link #FirmwareManifest()} or {@link #FirmwareManifest(String, DataFile)} instead.
      * 
      * @param id
      *            id
@@ -146,6 +149,20 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param name
+     *            manifest name
+     * @param dataFile
+     *            manifest file
+     */
+    public FirmwareManifest(String name, DataFile dataFile) {
+        this();
+        setName(name);
+        setDataFile(dataFile);
+    }
+
+    /**
      * Gets the id.
      * 
      * @return the id
@@ -179,6 +196,7 @@ public class FirmwareManifest implements SdkModel {
      * @param name
      *            the name to set
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -217,6 +235,7 @@ public class FirmwareManifest implements SdkModel {
      * @param dataFile
      *            the dataFile to set
      */
+    @Required
     public void setDataFile(DataFile dataFile) {
         this.dataFile = dataFile;
     }
@@ -227,6 +246,7 @@ public class FirmwareManifest implements SdkModel {
      * @param datafile
      *            the path to the datafile
      */
+    @Required
     public void setDatafile(String datafile) {
         setDataFile(new DataFile(datafile));
     }
@@ -307,4 +327,13 @@ public class FirmwareManifest implements SdkModel {
                 datafileSize, datafileChecksum, dataFile);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null && dataFile != null;
+    }
 }

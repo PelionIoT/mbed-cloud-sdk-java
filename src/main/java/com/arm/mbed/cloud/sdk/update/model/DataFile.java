@@ -9,6 +9,7 @@ import org.apache.commons.codec.digest.DigestUtils;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -19,7 +20,9 @@ public class DataFile implements SdkModel {
      */
     private static final long serialVersionUID = 2092096356697353992L;
     private static final String BINARY_FILE_MEDIA_TYPE = "application/octet-stream";
+    @Required
     private String contentType;
+    @Required
     private File file;
 
     /**
@@ -45,6 +48,19 @@ public class DataFile implements SdkModel {
 
     /**
      * Constructor.
+     * 
+     * <p>
+     * Description of a binary file.
+     * 
+     * @param file
+     *            binary file to consider
+     */
+    public DataFile(File file) {
+        this(BINARY_FILE_MEDIA_TYPE, file);
+    }
+
+    /**
+     * Constructor.
      * <p>
      * Description of a binary file.
      * 
@@ -52,7 +68,7 @@ public class DataFile implements SdkModel {
      *            path to a binary file.
      */
     public DataFile(String filePath) {
-        this(BINARY_FILE_MEDIA_TYPE, (filePath == null) ? null : new File(filePath));
+        this((filePath == null) ? null : new File(filePath));
     }
 
     /**
@@ -70,6 +86,7 @@ public class DataFile implements SdkModel {
      * @param contentType
      *            the contentType to set.
      */
+    @Required
     public void setContentType(String contentType) {
         this.contentType = contentType;
     }
@@ -89,6 +106,7 @@ public class DataFile implements SdkModel {
      * @param file
      *            the file to set.
      */
+    @Required
     public void setFile(File file) {
         this.file = file;
     }
@@ -197,4 +215,13 @@ public class DataFile implements SdkModel {
         }
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return contentType != null && file != null;
+    }
 }

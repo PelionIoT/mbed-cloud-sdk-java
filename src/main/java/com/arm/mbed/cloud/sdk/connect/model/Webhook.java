@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Webhook")
@@ -16,6 +17,7 @@ public class Webhook implements SdkModel {
     /**
      * The URL to which the notifications must be sent.
      */
+    @Required
     private URL url;
     /**
      * Headers (key/value) that must be sent with the request.
@@ -44,6 +46,18 @@ public class Webhook implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param url
+     *            URL
+     * 
+     */
+    public Webhook(URL url) {
+        this();
+        setUrl(url);
+    }
+
+    /**
      * Gets the URL.
      * 
      * @return the url
@@ -58,6 +72,7 @@ public class Webhook implements SdkModel {
      * @param url
      *            the url to set
      */
+    @Required
     public void setUrl(URL url) {
         this.url = url;
     }
@@ -111,4 +126,13 @@ public class Webhook implements SdkModel {
         return new Webhook(url, headers);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return url != null;
+    }
 }
