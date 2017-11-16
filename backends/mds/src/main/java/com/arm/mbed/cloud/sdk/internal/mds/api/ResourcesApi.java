@@ -38,10 +38,10 @@ public interface ResourcesApi {
    * @param resourcePath The URL of the resource.  (required)
    * @param cacheOnly If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side.  (optional)
    * @param noResp &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  &#x60;409 Conflict&#x60;.  (optional)
-   * @return Call&lt;AsyncID&gt;
+   * @return Call&lt;Void&gt;
    */
   @GET("v2/endpoints/{device-id}/{resourcePath}")
-  Call<AsyncID> v2EndpointsDeviceIdResourcePathGet(
+  Call<Void> v2EndpointsDeviceIdResourcePathGet(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Query("cacheOnly") Boolean cacheOnly, @retrofit2.http.Query("noResp") Boolean noResp
   );
 

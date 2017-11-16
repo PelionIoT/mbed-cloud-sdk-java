@@ -49,7 +49,7 @@ public class ResourcesApiTest {
         String resourcePath = null;
         Boolean cacheOnly = null;
         Boolean noResp = null;
-        // AsyncID response = api.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp);
+        // Void response = api.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp);
 
         // TODO: test validations
     }
