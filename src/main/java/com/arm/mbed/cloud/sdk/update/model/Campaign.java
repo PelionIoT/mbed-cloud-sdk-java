@@ -7,6 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
@@ -152,6 +153,7 @@ public class Campaign implements SdkModel {
     /**
      * A name for this campaign.
      */
+    @Required
     private String name;
     /**
      * An optional description of the campaign.
@@ -160,6 +162,7 @@ public class Campaign implements SdkModel {
     /**
      * ID of the manifest to use for update.
      */
+    @Required
     private String manifestId;
 
     /**
@@ -170,12 +173,13 @@ public class Campaign implements SdkModel {
     /**
      * filters.
      */
+    @Required
     private Filters deviceFilter;
 
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Campaign()} instead.
+     * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
      * 
      * @param id
      *            id
@@ -198,7 +202,7 @@ public class Campaign implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Campaign()} instead.
+     * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
      * 
      * @param id
      *            id
@@ -242,6 +246,19 @@ public class Campaign implements SdkModel {
 
     /**
      * Constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
+     * 
+     * @param id
+     *            campaign id
+     */
+    @Internal
+    public Campaign(String id) {
+        this(id, null, new Date(), new Date(), new Date());
+    }
+
+    /**
+     * Constructor.
      */
     public Campaign() {
         this(null);
@@ -250,11 +267,18 @@ public class Campaign implements SdkModel {
     /**
      * Constructor.
      * 
-     * @param id
-     *            campaign id
+     * @param name
+     *            Name of the update campaign
+     * @param manifestId
+     *            ID of the manifest with description of the update
+     * @param deviceFilter
+     *            The device filter to use
      */
-    public Campaign(String id) {
-        this(id, null, new Date(), new Date(), new Date());
+    public Campaign(String name, String manifestId, Filters deviceFilter) {
+        this();
+        setName(name);
+        setManifestId(manifestId);
+        setDeviceFilter(deviceFilter);
     }
 
     /**
@@ -312,6 +336,7 @@ public class Campaign implements SdkModel {
      * @param name
      *            the name to set
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -350,6 +375,7 @@ public class Campaign implements SdkModel {
      * @param manifestId
      *            the manifestId to set
      */
+    @Required
     public void setManifestId(String manifestId) {
         this.manifestId = manifestId;
     }
@@ -434,6 +460,7 @@ public class Campaign implements SdkModel {
      * @param deviceFilter
      *            the device filter to set
      */
+    @Required
     public void setDeviceFilter(Filters deviceFilter) {
         this.deviceFilter = deviceFilter;
     }
@@ -800,4 +827,13 @@ public class Campaign implements SdkModel {
                 scheduledAt, deviceFilter);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null && manifestId != null && deviceFilter != null;
+    }
 }

@@ -6,6 +6,7 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "This object represents a user in Arm Mbed Cloud")
@@ -30,6 +31,7 @@ public class User implements SdkModel {
     /**
      * A username containing alphanumerical letters and -,._@+= characters.
      */
+    @Required
     private String username;
     /**
      * The password when creating a new user. It will will generated when not present in the request.
@@ -38,7 +40,14 @@ public class User implements SdkModel {
     /**
      * The email address.
      */
+    @Required
     private String email;
+
+    /**
+     * Field to keep track of an updated email.
+     */
+    @Internal
+    private transient boolean hasEmailBeenUpdated;
     /**
      * Phone number.
      */
@@ -101,7 +110,7 @@ public class User implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #User()} instead.
+     * Note: Should not be used. Use {@link #User()} or {@link #User(String, String)} instead.
      * 
      * @param id
      *            id
@@ -137,7 +146,7 @@ public class User implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #User()} instead.
+     * Note: Should not be used. Use {@link #User()} or {@link #User(String, String)} instead.
      * 
      * @param id
      *            id
@@ -204,15 +213,32 @@ public class User implements SdkModel {
         setAddress(address);
         setTermAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
+        hasEmailBeenUpdated = false;
     }
 
     /**
      * Constructor for a user.
      * <p>
-     * Other constructors are for internal usage only.
+     * Other constructors with 'Internal' annotation are for internal usage only.
      */
     public User() {
         this(null, null, null, UserStatus.getDefault(), false, new Date(), 0, 0, 0, false, null);
+    }
+
+    /**
+     * Constructor for a user.
+     * <p>
+     * Other constructors with 'Internal' annotation are for internal usage only.
+     * 
+     * @param username
+     *            A username containing alphanumerical letters and -,._@+= characters.
+     * @param email
+     *            email
+     */
+    public User(String username, String email) {
+        this();
+        setUsername(username);
+        setEmail(email);
     }
 
     /**
@@ -281,6 +307,7 @@ public class User implements SdkModel {
      * @param username
      *            the username to set.
      */
+    @Required
     public void setUsername(String username) {
         this.username = username;
     }
@@ -319,8 +346,10 @@ public class User implements SdkModel {
      * @param email
      *            the email to set.
      */
+    @Required
     public void setEmail(String email) {
         this.email = email;
+        hasEmailBeenUpdated = true;
     }
 
     /**
@@ -490,16 +519,34 @@ public class User implements SdkModel {
     }
 
     /**
+     * Checks whether the email has been modified since creation.
+     * 
+     * @return true if the email has been modified. False otherwise.
+     */
+    public boolean hasEmailBeenUpdated() {
+        return hasEmailBeenUpdated;
+    }
+
+    /**
      * Gets a clone.
      * 
      * @return a clone.
      * @see java.lang.Object#clone()
      */
     @Override
-    public User clone() throws CloneNotSupportedException {
+    public User clone() {
         return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
                 isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
                 creationTime, passwordChangedTime, lastLoginTime);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return username != null && email != null;
+    }
 }

@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -22,6 +23,7 @@ public class Certificate implements SdkModel {
     /**
      * Certificate name.
      */
+    @Required
     private String name;
     /**
      * The UUID of the account.
@@ -35,6 +37,7 @@ public class Certificate implements SdkModel {
     /**
      * Certificate type.
      */
+    @Required
     @DefaultValue(value = "DEVELOPER")
     private CertificateType type;
     /**
@@ -97,7 +100,7 @@ public class Certificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Certificate()} instead.
+     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
      * 
      * @param id
      *            id
@@ -152,7 +155,7 @@ public class Certificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Certificate()} instead.
+     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
      * 
      * @param id
      *            id
@@ -209,10 +212,26 @@ public class Certificate implements SdkModel {
     /**
      * Constructor for a certificate.
      * <p>
-     * Other constructors are for internal usage only.
+     * Other constructors with 'Internal' annotation are for internal usage only.
      */
     public Certificate() {
         this(null, null, null, new Date(), null, new Date(), null, null, null, null, null, null);
+    }
+
+    /**
+     * Constructor for a certificate.
+     * <p>
+     * Other constructors with 'Internal' annotation are for internal usage only.
+     * 
+     * @param name
+     *            name of the certificate
+     * @param type
+     *            type of the certificate
+     */
+    public Certificate(String name, CertificateType type) {
+        this();
+        setName(name);
+        setType(type);
     }
 
     /**
@@ -262,6 +281,7 @@ public class Certificate implements SdkModel {
      * @param name
      *            the name to set
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -310,6 +330,7 @@ public class Certificate implements SdkModel {
      * @param type
      *            the type to set
      */
+    @Required
     public void setType(CertificateType type) {
         this.type = type;
     }
@@ -545,4 +566,13 @@ public class Certificate implements SdkModel {
                 certificateData, signature);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null && type != null;
+    }
 }

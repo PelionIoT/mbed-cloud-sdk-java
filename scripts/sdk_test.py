@@ -6,7 +6,7 @@ import sdk_fetch_coverage_tools
 # Block in charge of building SDK Test server
 class SDKTestServerBuilder(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
-        super(SDKTestServerBuilder, self).__init__('SDK test server build', logger)
+        super(SDKTestServerBuilder, self).__init__('SDK test server', logger)
         self.coverage_tools = sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger)
 
     def execute(self):

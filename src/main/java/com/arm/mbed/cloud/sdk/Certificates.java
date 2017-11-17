@@ -88,6 +88,7 @@ public class Certificates extends AbstractApi {
      * Lists all certificates according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -140,6 +141,7 @@ public class Certificates extends AbstractApi {
      * Gets an iterator over all certificates according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -183,6 +185,7 @@ public class Certificates extends AbstractApi {
      * Gets details of a certificate.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -222,12 +225,13 @@ public class Certificates extends AbstractApi {
      * Adds a new certificate.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
      *     Certificate certificate = new Certificate();
      *     certificate.setName("Test Cert");
-     *     certificate.setType(CertificateType.CUSTOM);
+     *     certificate.setType(CertificateType.BOOTSTRAP);
      *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
      *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
      *
@@ -248,6 +252,7 @@ public class Certificates extends AbstractApi {
     @API
     public @Nullable Certificate addCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         final Certificate accountCertificate = CloudCaller.call(this, "addCertificate()",
                 CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
@@ -265,12 +270,13 @@ public class Certificates extends AbstractApi {
      * Adds a new developer certificate.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
      *     final Certificate certificate = new Certificate();
      *     certificate.setName("Test Cert");
-     *     certificate.setType(CertificateType.CUSTOM);
+     *     certificate.setType(CertificateType.DEVELOPER);
      *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
      *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
      *
@@ -292,6 +298,7 @@ public class Certificates extends AbstractApi {
     @API
     public Certificate addDeveloperCertificate(final Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         final Certificate addedPartialCertificate1 = CloudCaller.call(this, "addDeveloperCertificate()",
                 CertificateAdapter.getDeveloperMapper(), new CloudCall<DeveloperCertificateResponseData>() {
@@ -320,6 +327,7 @@ public class Certificates extends AbstractApi {
      * Updates a certificate.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -327,7 +335,7 @@ public class Certificates extends AbstractApi {
      *     String certificateId = "015f4ac587f500000000000100100249";
      *     certificate.setId(certificateId);
      *     certificate.setName("Changed Cert name");
-     *     certificate.setType(CertificateType.CUSTOM);
+     *     certificate.setType(CertificateType.DEVELOPER);
      *
      *     Certificate newCertificate = certificateApi.updateCertificate(certificate);
      *     System.out.println("New cert name: " + newCertificate.getName());
@@ -348,6 +356,8 @@ public class Certificates extends AbstractApi {
     @API
     public @Nullable Certificate updateCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkNotNull(certificate.getId(), TAG_CERTIFICATE_ID);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         return CloudCaller.call(this, "updateCertificate()", CertificateAdapter.getMapper(),
                 new CloudCall<TrustedCertificateResp>() {
@@ -364,6 +374,7 @@ public class Certificates extends AbstractApi {
      * Deletes a certificate.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {

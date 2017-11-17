@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -47,6 +48,8 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
 import retrofit2.Call;
 
 @Preamble(description = "Specifies Connect API")
@@ -61,6 +64,8 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractApi {
+    private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
+    private static final String TAG_WEBHOOK = "webhook";
     private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL, "registered");
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
@@ -119,21 +124,35 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Starts notification pull for notifications.
+     * Starts notification pull.
      * <p>
      * If not an external callback is set up (using `update_webhook`) then calling this function is mandatory to get or
      * set resources.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * connectApi.startNotifications();
      * }
      * </pre>
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
      */
     @API
     @Daemon(task = "Notification pull", start = true)
-    public void startNotifications() {
+    public void startNotifications() throws MbedCloudException {
+        Webhook webhook = null;
+        try {
+            webhook = getWebhook();
+        } catch (MbedCloudException exception) {
+            // Nothing to do
+        }
+        if (webhook != null) {
+            logger.throwSdkException("A webhook is currently set up [" + webhook
+                    + "]. Notification pull cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
+        }
         cache.startNotificationPull();
     }
 
@@ -141,6 +160,7 @@ public class Connect extends AbstractApi {
      * Stops notification pull for notifications.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * connectApi.stopNotifications();
@@ -157,6 +177,7 @@ public class Connect extends AbstractApi {
      * Shuts down all daemon services.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * connectApi.shutdownConnectService();
@@ -174,6 +195,7 @@ public class Connect extends AbstractApi {
      * Lists connected devices.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -209,6 +231,7 @@ public class Connect extends AbstractApi {
      * Gets an iterator over all connected devices according to filter options.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -252,6 +275,7 @@ public class Connect extends AbstractApi {
      * Lists device's resources.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -294,6 +318,7 @@ public class Connect extends AbstractApi {
      * Gets device's resource.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -341,6 +366,7 @@ public class Connect extends AbstractApi {
      * Lists a device's subscriptions.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -383,6 +409,7 @@ public class Connect extends AbstractApi {
      * Lists metrics.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -446,6 +473,7 @@ public class Connect extends AbstractApi {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -500,6 +528,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -553,6 +582,7 @@ public class Connect extends AbstractApi {
      * Sets the value of a resource.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -607,6 +637,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -663,6 +694,7 @@ public class Connect extends AbstractApi {
      * Executes a function on a resource.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -698,15 +730,16 @@ public class Connect extends AbstractApi {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final String finalFunctionName = functionName;
+        // Body parameter value must not be null.
+        final String finalFunctionName = (functionName == null) ? "" : functionName;
         final boolean finalNoResponse = noResponse;
         return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath,
-                        finalFunctionName, finalNoResponse);
+                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId,
+                        ApiUtils.normalisePath(finalResourcePath), finalFunctionName, finalNoResponse);
             }
         });
     }
@@ -717,6 +750,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -748,8 +782,8 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
-            @Nullable String functionName, @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout)
-            throws MbedCloudException {
+            @Nullable String functionName, @DefaultValue(value = FALSE) boolean noResponse,
+            @Nullable TimePeriod timeout) throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
         final String function = functionName;
@@ -772,6 +806,7 @@ public class Connect extends AbstractApi {
      * Deletes a resource.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -794,8 +829,7 @@ public class Connect extends AbstractApi {
     @API
     public void deleteResource(@NonNull Resource resource) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
-        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        checkModelValidity(resource, TAG_RESOURCE);
 
         final Resource finalResource = resource;
         CloudCaller.call(this, "deleteResource()", null, new CloudCall<AsyncID>() {
@@ -813,6 +847,7 @@ public class Connect extends AbstractApi {
      * Lists pre-subscription data.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -849,6 +884,7 @@ public class Connect extends AbstractApi {
      * Updates pre-subscription data.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -896,7 +932,10 @@ public class Connect extends AbstractApi {
     /**
      * Deletes pre-subscription data.
      * <p>
+     * Note: this method will deregister all subscription callbacks or observers if any.
+     * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -919,12 +958,16 @@ public class Connect extends AbstractApi {
                 return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(null));
             }
         });
+        deregisterAllResourceSubscriptionObserversOrCallbacks();
     }
 
     /**
      * Removes all subscriptions.
      * <p>
+     * Note: this method will deregister all subscription callbacks or observers if any.
+     * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -947,32 +990,39 @@ public class Connect extends AbstractApi {
                 return endpoint.getSubscriptions().v2SubscriptionsDelete();
             }
         });
+        deregisterAllResourceSubscriptionObserversOrCallbacks();
     }
 
     /**
      * Deletes a device's subscriptions.
      * <p>
+     * Note: this method will deregister all subscription callbacks or observers for this device if any.
+     * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
+     *     Device device = new Device();
      *     String deviceId = "015f4ac587f500000000000100100249";
-     *     connectApi.deleteDeviceSubscriptions(deviceId);
+     *     device.setId(deviceId);
+     *     connectApi.deleteDeviceSubscriptions(device);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
      * 
-     * @param deviceId
-     *            Device ID.
+     * @param device
+     *            Device to consider.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public void deleteDeviceSubscriptions(@NonNull String deviceId) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        final String finalDeviceId = deviceId;
+    public void deleteDeviceSubscriptions(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        final String finalDeviceId = device.getId();
         CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
 
             @Override
@@ -980,12 +1030,14 @@ public class Connect extends AbstractApi {
                 return endpoint.getSubscriptions().v2SubscriptionsDeviceIdDelete(finalDeviceId);
             }
         });
+        deregisterAllResourceSubscriptionObserversOrCallbacks(device);
     }
 
     /**
      * Gets the status of a resource's subscription.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -1011,8 +1063,8 @@ public class Connect extends AbstractApi {
      */
     @API
     public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
-        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
-        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
         final Resource finalResource = resource;
         try {
             CloudCaller.call(this, "getResourceSubscription()", null, new CloudCall<Void>() {
@@ -1033,6 +1085,7 @@ public class Connect extends AbstractApi {
      * Subscribes to a resource.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -1054,8 +1107,8 @@ public class Connect extends AbstractApi {
      */
     @API
     public void addResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
-        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
-        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
         final Resource finalResource = resource;
         CloudCaller.call(this, "addResourceSubscription()", null, new CloudCall<Void>() {
 
@@ -1068,9 +1121,267 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Deletes a resource's subscription.
+     * Subscribes to a resource and associates callbacks.
      * <p>
      * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3200/0/5501";
+     *     Resource buttonResource = new Resource(deviceId, resourcePath);
+     *     Callback<Object> callback = new Callback<Object>() {
+     * 
+     *         &#64;Override
+     *         public void execute(Object arg) {
+     *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
+     *                     + ": " + String.valueOf(arg));
+     * 
+     *         }
+     *     };
+     *     connectApi.addResourceSubscription(resource,callback, null);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @param resource
+     *            resource to subscribe to.
+     * @param onNotification
+     *            callback to execute on notification.
+     * @param onFailure
+     *            callback to execute on error.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void addResourceSubscription(@NonNull Resource resource, @NonNull Callback<Object> onNotification,
+            @Nullable Callback<Throwable> onFailure) throws MbedCloudException {
+        registerResourceSubscriptionCallback(resource, onNotification, onFailure);
+        addResourceSubscription(resource);
+    }
+
+    /**
+     * Subscribes to a resource and creates a related observer.
+     * <p>
+     * Note: for more information about observers @see <a href="http://reactivex.io/">Reactive X</a> or
+     * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {
+     * {@code String resourcePath = "/3200/0/5501";
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Resource resource = new Resource(deviceId, path);
+     *     connectApi.addResourceSubscription(resource, BackpressureStrategy.BUFFER)
+     *                   .subscribe(System.out::println);
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            resource to subscribe to.
+     * @param strategy
+     *            backpressure strategy to apply @see {@link BackpressureStrategy}
+     * @return Observable which can be subscribed to. @see {@link Flowable}
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Flowable<Object> addResourceSubscription(@NonNull Resource resource,
+            @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+        final Flowable<Object> observer = createResourceSubscriptionObserver(resource, strategy);
+        addResourceSubscription(resource);
+        return observer;
+    }
+
+    /**
+     * Registers a subscription callback for a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {
+     * {@code String resourcePath = "/3200/0/5501";
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Resource resource = new Resource(deviceId, path);
+     *     Callback<Object> callback = new Callback<Object>() {
+     * 
+     *         &#64;Override
+     *         public void execute(Object arg) {
+     *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
+     *                     + ": " + String.valueOf(arg));
+     * 
+     *         }
+     *     };
+     *     connectApi.registerResourceSubscriptionCallback(resource, callback, null);
+     *     connectApi.addResourceSubscription(resource);
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            resource to register the callback for.
+     * @param onNotification
+     *            callback to execute on notification.
+     * @param onFailure
+     *            callback to execute on error.
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    public void registerResourceSubscriptionCallback(@NonNull Resource resource,
+            @NonNull Callback<Object> onNotification, @Nullable Callback<Throwable> onFailure)
+            throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        checkNotNull(onNotification, TAG_ON_NOTIFICATION_CALLBACK);
+        cache.registerSubscriptionCallback(resource, onNotification, onFailure);
+    }
+
+    /**
+     * Deregisters the subscription callback of a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * 
+     * {
+     *     &#64;code
+     *     String resourcePath = "/3200/0/5501";
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Resource resource = new Resource(deviceId, path);
+     *     connectApi.deregisterResourceSubscriptionCallback(resource);
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            resource to consider.
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    public void deregisterResourceSubscriptionCallback(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        cache.deregisterNotificationSubscriptionCallback(resource);
+    }
+
+    /**
+     * Creates an observer for resource subscriptions.
+     * <p>
+     * Note: for more information about observers @see <a href="http://reactivex.io/">Reactive X</a> or
+     * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {
+     * {@code String resourcePath = "/3200/0/5501";
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Resource resource = new Resource(deviceId, path);
+     *     connectApi.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
+     *                   .subscribe(System.out::println);
+     *     connectApi.addResourceSubscription(resource);
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            resource to subscribe to.
+     * @param strategy
+     *            backpressure strategy to apply @see {@link BackpressureStrategy}
+     * @return Observable which can be subscribed to. @see {@link Flowable}
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    public @Nullable Flowable<Object> createResourceSubscriptionObserver(@NonNull Resource resource,
+            @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        final BackpressureStrategy finalStrategy = (strategy == null) ? BackpressureStrategy.BUFFER : strategy;
+        return cache.createResourceSubscriptionObserver(resource, finalStrategy);
+    }
+
+    /**
+     * Removes the subscription observer of a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     *      
+     * {@code String resourcePath = "/3200/0/5501"
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     Resource resource = new Resource(deviceId, path);
+     *     connectApi.removeResourceSubscriptionObserver(resource);
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            resource to consider.
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    public void removeResourceSubscriptionObserver(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        cache.removeResourceSubscriptionObserver(resource);
+    }
+
+    /**
+     * Deregisters all subscription observers or callbacks for a device.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     *      
+     * {@code String deviceId = "015f4ac587f500000000000100100249"
+     *     Device device = new Device();
+     *     device.setId(deviceId);
+     *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks(device);
+     * }
+     * </pre>
+     * 
+     * @param device
+     *            device to consider.
+     * @throws MbedCloudException
+     *             if an error occurred in the process.
+     */
+    @API
+    public void deregisterAllResourceSubscriptionObserversOrCallbacks(@NonNull Device device)
+            throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        checkNotNull(device.getId(), TAG_DEVICE_ID);
+        cache.deregisterAllResourceSubscriptionObserversOrCallbacks(device.getId());
+    }
+
+    /**
+     * Deregisters all subscription observers or callbacks.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     *      
+     * {@code 
+     *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks();
+     * }
+     * </pre>
+     */
+    @API
+    public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
+        cache.deregisterAllResourceSubscriptionObserversOrCallbacks();
+    }
+
+    /**
+     * Deletes a resource's subscription.
+     * <p>
+     * Note: this method will deregister all subscription callbacks or observers for this resource if any.
+     * <p>
+     * 
+     * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -1092,8 +1403,8 @@ public class Connect extends AbstractApi {
      */
     @API
     public void deleteResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
-        checkNotNull(resource.getDeviceId(), TAG_DEVICE_ID);
-        checkNotNull(resource.getPath(), TAG_RESOURCE_PATH);
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
         final Resource finalResource = resource;
         CloudCaller.call(this, "deleteResourceSubscription()", null, new CloudCall<Void>() {
 
@@ -1103,12 +1414,15 @@ public class Connect extends AbstractApi {
                         finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
             }
         });
+        deregisterResourceSubscriptionCallback(finalResource);
+        removeResourceSubscriptionObserver(finalResource);
     }
 
     /**
      * Gets the current callback URL if it exists.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -1140,6 +1454,7 @@ public class Connect extends AbstractApi {
      * Registers new webhook for incoming subscriptions.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {
@@ -1159,7 +1474,9 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public void updateWebhook(Webhook webhook) throws MbedCloudException {
+    public void updateWebhook(@NonNull Webhook webhook) throws MbedCloudException {
+        checkNotNull(webhook, TAG_WEBHOOK);
+        checkModelValidity(webhook, TAG_WEBHOOK);
         final Webhook finalWebhook = webhook;
         CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
 
@@ -1178,6 +1495,7 @@ public class Connect extends AbstractApi {
      * Note that every registered subscription will be deleted as part of deregistering a webhook.
      * <p>
      * Example:
+     * 
      * <pre>
      * {@code
      * try {

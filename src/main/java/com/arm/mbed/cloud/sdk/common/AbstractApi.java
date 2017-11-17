@@ -31,6 +31,11 @@ public abstract class AbstractApi {
         ApiUtils.checkNotNull(logger, arg, argName);
     }
 
+    protected void checkModelValidity(SdkModel model, String argName) throws MbedCloudException {
+        clearApiMetadata();
+        ApiUtils.checkModelValidity(logger, model, argName);
+    }
+
     /**
      * Gets SDK logger.
      * 

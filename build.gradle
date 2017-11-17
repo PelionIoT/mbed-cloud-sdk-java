@@ -125,6 +125,7 @@ dependencies {
    compile project(':backends:mds')
    compile project(':backends:statistics')
    compile project(':backends:update_service')
+   compile 'io.reactivex.rxjava2:rxjava:2.1.6'
    testCompile 'io.vertx:vertx-web:3.4.2'
    testCompile 'org.reflections:reflections:0.9.10'
    testCompile 'org.slf4j:slf4j-simple:1.7.7'

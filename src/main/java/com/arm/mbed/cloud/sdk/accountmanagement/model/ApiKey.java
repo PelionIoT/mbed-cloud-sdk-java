@@ -6,6 +6,7 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "This object represents an API key in Arm Mbed Cloud")
@@ -21,7 +22,7 @@ public class ApiKey implements SdkModel {
     /**
      * Display name for the API key.
      */
-
+    @Required
     private String name;
     /**
      * The owner of this API key, who is the creator by default.
@@ -57,7 +58,7 @@ public class ApiKey implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #ApiKey()} instead.
+     * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
      * 
      * @param id
      *            id
@@ -96,7 +97,7 @@ public class ApiKey implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #ApiKey()} instead.
+     * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
      * 
      * @param id
      *            id
@@ -122,11 +123,24 @@ public class ApiKey implements SdkModel {
     /**
      * ApiKey constructor.
      * <p>
-     * Other constructors are for internal usage only.
+     * Other constructors with 'Internal' annotation are for internal usage only.
      * 
      */
     public ApiKey() {
         this(null, null, ApiKeyStatus.getDefault(), null, new Date(), 0, 0);
+    }
+
+    /**
+     * ApiKey constructor.
+     * <p>
+     * Other constructors with 'Internal' annotation are for internal usage only.
+     * 
+     * @param name
+     *            API key name.
+     */
+    public ApiKey(String name) {
+        this();
+        setName(name);
     }
 
     /**
@@ -176,6 +190,7 @@ public class ApiKey implements SdkModel {
      * @param name
      *            the name to set.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -265,4 +280,13 @@ public class ApiKey implements SdkModel {
         return new ApiKey(id, name, ownerId, groups, status, key, createdAt, creationTime, lastLoginTime);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null;
+    }
 }

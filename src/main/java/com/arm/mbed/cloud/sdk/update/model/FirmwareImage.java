@@ -6,6 +6,7 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Firmware Image")
@@ -21,6 +22,7 @@ public class FirmwareImage implements SdkModel {
     /**
      * The name of the object.
      */
+    @Required
     private String name;
     /**
      * The description of the object.
@@ -29,6 +31,7 @@ public class FirmwareImage implements SdkModel {
     /**
      * The binary file of firmware image.
      */
+    @Required
     private DataFile dataFile;
     /**
      * the size in bytes of the uploaded firmware image binary.
@@ -57,7 +60,7 @@ public class FirmwareImage implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #FirmwareImage()} instead.
+     * Note: Should not be used. Use {@link #FirmwareImage()} or {@link #FirmwareImage(String, DataFile)} instead.
      * 
      * @param id
      *            id
@@ -81,7 +84,7 @@ public class FirmwareImage implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #FirmwareImage()} instead.
+     * Note: Should not be used. Use {@link #FirmwareImage()} or {@link #FirmwareImage(String, DataFile)} instead.
      * 
      * @param id
      *            id
@@ -125,6 +128,20 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
+     * Constructor.
+     * 
+     * @param name
+     *            image name.
+     * @param dataFile
+     *            image file.
+     */
+    public FirmwareImage(String name, DataFile dataFile) {
+        this();
+        setDataFile(dataFile);
+        setName(name);
+    }
+
+    /**
      * Gets Id.
      * 
      * @return the id
@@ -158,6 +175,7 @@ public class FirmwareImage implements SdkModel {
      * @param name
      *            the name to set
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -205,6 +223,7 @@ public class FirmwareImage implements SdkModel {
      * @param dataFile
      *            the dataFile to set
      */
+    @Required
     public void setDataFile(DataFile dataFile) {
         this.dataFile = dataFile;
     }
@@ -215,6 +234,7 @@ public class FirmwareImage implements SdkModel {
      * @param datafile
      *            the path to the datafile
      */
+    @Required
     public void setDatafile(String datafile) {
         setDataFile(new DataFile(datafile));
     }
@@ -268,4 +288,13 @@ public class FirmwareImage implements SdkModel {
                 updatedAt);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null && dataFile != null;
+    }
 }

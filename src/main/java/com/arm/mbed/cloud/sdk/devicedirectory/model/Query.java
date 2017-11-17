@@ -7,6 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
@@ -125,16 +126,18 @@ public class Query implements SdkModel {
     /**
      * The name of the query.
      */
+    @Required
     private String name;
     /**
      * The device filter.
      */
+    @Required
     private Filters filter;
 
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Query()} instead.
+     * Note: Should not be used. Use {@link #Query()} or {@link #Query(String, Filters)} instead.
      * 
      * @param id
      *            id
@@ -151,7 +154,7 @@ public class Query implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Query()} instead.
+     * Note: Should not be used. Use {@link #Query()} or {@link #Query(String, Filters)} instead.
      * 
      * @param id
      *            id
@@ -179,6 +182,20 @@ public class Query implements SdkModel {
      */
     public Query() {
         this(null, new Date(), new Date());
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param name
+     *            Name of query
+     * @param filter
+     *            Filter properties to apply
+     */
+    public Query(String name, Filters filter) {
+        this();
+        setName(name);
+        setFilter(filter);
     }
 
     /**
@@ -228,6 +245,7 @@ public class Query implements SdkModel {
      * @param name
      *            the name to set
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -238,6 +256,7 @@ public class Query implements SdkModel {
      * @param filter
      *            the filter to set
      */
+    @Required
     public void setFilter(Filters filter) {
         this.filter = filter;
     }
@@ -604,4 +623,13 @@ public class Query implements SdkModel {
         return new Query(id, createdAt, updatedAt, name, filter);
     }
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null && filter != null;
+    }
 }

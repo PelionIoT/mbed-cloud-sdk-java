@@ -15,4 +15,11 @@ public interface SdkModel extends Serializable, Cloneable {
      */
     Object clone() throws CloneNotSupportedException;
 
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    boolean isValid();
+
 }
