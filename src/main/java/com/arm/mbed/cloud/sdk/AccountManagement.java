@@ -69,10 +69,10 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code Account account = accountManagementApi.getAccount();
+     *  {@code Account account = accountManagementApi.getAccount();
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
-     *}
+     * }
      * 
      * </pre>
      * 
@@ -97,7 +97,7 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code Account account = accountManagementApi.getAccount();
+     * {@code Account account = accountManagementApi.getAccount()
      *     account.setCity("Austin");
      *     accoujnt.setState("Texas");
      *     account.setCountry("US");
@@ -418,8 +418,7 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code
-     * try {
+     *  {@code try {
      *     UserListOptions options = new UserListOptions();
      *     options.setLimit(10);
      *
@@ -460,8 +459,7 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code
-     * try {
+     *  {@code try {
      *     String userId = "015f4ac587f500000000000100109294";
      *     User user = accountManagementApi.getUser(userId);
      *     System.out.println("User name: " + user.getFullName());
@@ -566,8 +564,15 @@ public class AccountManagement extends AbstractApi {
     public @Nullable User updateUser(@NonNull User user) throws MbedCloudException {
         checkNotNull(user, TAG_USER);
         checkNotNull(user.getId(), TAG_USER_UUID);
-        checkModelValidity(user, TAG_USER);
-        final User finalUser = user;
+        // checkModelValidity(user, TAG_USER);
+        User updatedUser = null;
+        if (user.hasEmailBeenUpdated()) {
+            updatedUser = user;
+        } else {
+            updatedUser = user.clone();
+            updatedUser.setEmail(null);
+        }
+        final User finalUser = updatedUser;
         return CloudCaller.call(this, "updateUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
 
             @Override

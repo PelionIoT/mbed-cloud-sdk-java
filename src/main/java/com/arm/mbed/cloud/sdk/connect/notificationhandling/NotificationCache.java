@@ -2,17 +2,21 @@ package com.arm.mbed.cloud.sdk.connect.notificationhandling;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
@@ -22,6 +26,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncIDResponse;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
@@ -30,6 +35,10 @@ import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
 import com.mbed.lwm2m.base64.Base64Decoder;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.FlowableEmitter;
+import io.reactivex.FlowableOnSubscribe;
 import retrofit2.Call;
 
 @Preamble(description = "Internal cache for notifications")
@@ -45,8 +54,8 @@ public class NotificationCache {
     private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseCache;
+    private final DevicesSubscriptionCache subscriptionCache;
 
-    // private final ConcurrentHashMap<String, ResourceSubscription> subscriptionCache;
     /**
      * Notification cache constructor.
      * 
@@ -64,7 +73,7 @@ public class NotificationCache {
         this.api = api;
         pullHandle = null;
         responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
-        // subscriptionCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
+        subscriptionCache = new DevicesSubscriptionCache();
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -109,6 +118,7 @@ public class NotificationCache {
             pullHandle.cancel(true);
         }
         pullHandle = null;
+        clearCaches();
     }
 
     /**
@@ -127,6 +137,74 @@ public class NotificationCache {
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
+        clearCaches();
+    }
+
+    /**
+     * Registers resource subscription callback.
+     * 
+     * @param resource
+     *            resource to register the callback for.
+     * @param onNotification
+     *            callback to execute on notification.
+     * @param onFailure
+     *            callback to execute on error.
+     */
+    public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
+            Callback<Throwable> onFailure) {
+        subscriptionCache.registerNotificationSubscriptionCallback(resource, onNotification, onFailure);
+    }
+
+    /**
+     * Creates an observer for resource subscriptions.
+     * 
+     * @param resource
+     *            resource to register the callback for.
+     * @param strategy
+     *            backpressure strategy to apply @see {@link BackpressureStrategy}
+     * @return Observable which can be subscribed to. @see {@link Flowable}
+     */
+    public @Nullable Flowable<Object> createResourceSubscriptionObserver(Resource resource,
+            BackpressureStrategy strategy) {
+        return subscriptionCache.createResourceSubscriptionEmitter(resource, strategy);
+    }
+
+    /**
+     * Deregisters the subscription callback of a resource.
+     * 
+     * @param resource
+     *            resource to consider.
+     */
+    public void deregisterNotificationSubscriptionCallback(Resource resource) {
+        subscriptionCache.deregisterNotificationSubscriptionCallback(resource);
+    }
+
+    /**
+     * Removes the subscription observer of a resource.
+     * 
+     * @param resource
+     *            resource to consider.
+     */
+    public void removeResourceSubscriptionObserver(Resource resource) {
+        subscriptionCache.removeResourceSubscriptionEmitter(resource);
+
+    }
+
+    /**
+     * Deregisters all subscription observers or callbacks.
+     */
+    public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
+        subscriptionCache.clear();
+    }
+
+    /**
+     * Deregisters all subscription observers or callbacks for a device.
+     * 
+     * @param deviceId
+     *            device id of the device.
+     */
+    public void deregisterAllResourceSubscriptionObserversOrCallbacks(String deviceId) {
+        subscriptionCache.removeDeviceCache(deviceId);
     }
 
     /**
@@ -224,32 +302,43 @@ public class NotificationCache {
                         return;
                     }
                     cacheResponses(notificationMessage.getAsyncResponses());
-                    // cacheSubscription(notificationMessage.getNotifications());
+                    handleSubscriptions(notificationMessage.getNotifications());
 
                 } catch (MbedCloudException exception) {
-                    api.getLogger().logError("An error occurred during Notification pull", exception);
+                    logPullError(exception);
                 }
             }
         };
     }
 
-    // private void cacheSubscription(List<NotificationData> notifications) {
-    // if (notifications == null) {
-    // return;
-    // }
-    // for (NotificationData notification : notifications) {
-    // if (notification == null) {
-    // continue;
-    // }
-    // try {
-    // ResourceSubscription subscription = new ResourceSubscription(notification);
-    // subscriptionCache.put(subscription.getKey(), subscription);
-    // } catch (DecodingException e) {
-    // api.getLogger().logError("An error occurred during Notification pull", e);
-    // }
-    //
-    // }
-    // }
+    private void clearCaches() {
+        responseCache.clear();
+        subscriptionCache.clear();
+    }
+
+    private void handleSubscriptions(List<NotificationData> notifications) {
+        if (notifications == null) {
+            return;
+        }
+        for (final NotificationData notification : notifications) {
+            if (notification == null) {
+                continue;
+            }
+            Object value = null;
+            Throwable throwable = null;
+            try {
+                value = decodePayload(notification.getPayload(), notification.getCt());
+            } catch (DecodingException exception) {
+                logPullError(exception);
+                throwable = exception;
+            }
+            subscriptionCache.handleNotification(notification.getEp(), notification.getPath(), value, throwable);
+        }
+    }
+
+    private void logPullError(Exception exception) {
+        api.getLogger().logError("An error occurred during Notification pull", exception);
+    }
 
     private void cacheResponses(List<AsyncIDResponse> asyncResponses) {
         if (asyncResponses == null) {
@@ -264,7 +353,7 @@ public class NotificationCache {
                 final AsyncResponse asyncResponse = new AsyncResponse(response);
                 responseCache.put(asyncResponse.getKey(), asyncResponse);
             } catch (DecodingException exception) {
-                api.getLogger().logError("An error occurred during Notification pull", exception);
+                logPullError(exception);
             }
 
         }
@@ -284,7 +373,7 @@ public class NotificationCache {
      * Defines Asynchronous responses.
      *
      */
-    public static class AsyncResponse {
+    private static class AsyncResponse {
         private final String id;
         private final int statusCode;
         private final String errorMessage;
@@ -384,98 +473,266 @@ public class NotificationCache {
 
     }
 
-    /**
-     * Defines a resource subscription.
-     *
-     */
-    public static class ResourceSubscription {
-        private final String deviceId;
-        private final String uriPath;
-        private final Object payload;
+    private static class NotificationCallBack {
+        private final Callback<Object> onSuccess;
+        private final Callback<Throwable> onFailure;
 
-        /**
-         * Constructor.
-         * 
-         * @param deviceId
-         *            device id
-         * @param uriPath
-         *            URI path
-         * @param payload
-         *            response payload
-         */
-        public ResourceSubscription(String deviceId, String uriPath, Object payload) {
+        public NotificationCallBack(Callback<Object> onSuccess, Callback<Throwable> onFailure) {
             super();
-            this.deviceId = deviceId;
-            this.uriPath = uriPath;
-            this.payload = payload;
+            this.onSuccess = onSuccess;
+            this.onFailure = onFailure;
         }
 
-        protected ResourceSubscription(NotificationData data) throws DecodingException {
-            this(data.getEp(), data.getPath(), decodePayload(data.getPayload(), data.getCt()));
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#hashCode()
-         */
-        @Override
-        public int hashCode() {
-            final int prime = 31;
-            int result = 1;
-            result = prime * result + ((deviceId == null) ? 0 : deviceId.hashCode());
-            result = prime * result + ((uriPath == null) ? 0 : uriPath.hashCode());
-            return result;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#equals(java.lang.Object)
-         */
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) {
-                return true;
-            }
-            if (obj == null) {
-                return false;
-            }
-            if (getClass() != obj.getClass()) {
-                return false;
-            }
-            final ResourceSubscription other = (ResourceSubscription) obj;
-            if (deviceId == null) {
-                if (other.deviceId != null) {
-                    return false;
+        public void callBack(Object notification, Throwable throwable) {
+            if (throwable == null) {
+                if (onSuccess != null) {
+                    onSuccess.execute(notification);
                 }
-            } else if (!deviceId.equals(other.deviceId)) {
-                return false;
-            }
-            if (uriPath == null) {
-                if (other.uriPath != null) {
-                    return false;
+            } else {
+                if (onFailure != null) {
+                    onFailure.execute(throwable);
                 }
-            } else if (!uriPath.equals(other.uriPath)) {
-                return false;
             }
-            return true;
-        }
-
-        public String getKey() {
-            return deviceId + uriPath;
-        }
-
-        /*
-         * (non-Javadoc)
-         * 
-         * @see java.lang.Object#toString()
-         */
-        @Override
-        public String toString() {
-            return "ResourceSubscription [deviceId=" + deviceId + ", uriPath=" + uriPath + ", payload=" + payload + "]";
         }
 
     }
 
+    private static class NotificationEmitter {
+
+        private final List<FlowableEmitter<Object>> emitters = new LinkedList<>();
+
+        public Flowable<Object> create(BackpressureStrategy strategy) {
+
+            final FlowableOnSubscribe<Object> source = new FlowableOnSubscribe<Object>() {
+
+                @Override
+                public void subscribe(FlowableEmitter<Object> emitter) {
+                    emitters.add(emitter);
+
+                }
+            };
+            return Flowable.create(source, strategy);
+        }
+
+        public void emit(Object notification, Throwable throwable) {
+            if (throwable == null) {
+                for (final FlowableEmitter<Object> emitter : emitters) {
+                    emitter.onNext(notification);
+                }
+            } else {
+                for (final FlowableEmitter<Object> emitter : emitters) {
+                    emitter.onError(throwable);
+                }
+            }
+        }
+    }
+
+    private static class NotificationHandler {
+        private NotificationCallBack callback;
+        private NotificationEmitter emitter;
+
+        public NotificationHandler() {
+            super();
+            callback = null;
+            emitter = null;
+        }
+
+        public void registerNotificationSubscriptionCallback(Callback<Object> onNotification,
+                Callback<Throwable> onFailure) {
+            callback = new NotificationCallBack(onNotification, onFailure);
+        }
+
+        public void deregisterNotificationSubscriptionCallback() {
+            callback = null;
+        }
+
+        public Flowable<Object> createResourceSubscriptionEmitter(BackpressureStrategy strategy) {
+            emitter = new NotificationEmitter();
+            return emitter.create(strategy);
+        }
+
+        public void removeResourceSubscriptionEmitter() {
+            emitter = null;
+        }
+
+        public void handleNotification(Object notification, Throwable throwable) {
+            synchronized (this) {
+                if (callback != null) {
+                    callback.callBack(notification, throwable);
+                }
+            }
+            synchronized (this) {
+                if (emitter != null) {
+                    emitter.emit(notification, throwable);
+                }
+            }
+        }
+
+        public synchronized boolean hasHandlers() {
+            return emitter != null || callback != null;
+        }
+
+    }
+
+    private static class DeviceSubscriptionCache {
+        private final ConcurrentMap<String, NotificationHandler> cache = new ConcurrentHashMap<>();
+
+        public void handleNotification(String resourcePath, Object notification, Throwable throwable) {
+            if (resourcePath == null) {
+                return;
+            }
+            final NotificationHandler handler = cache.get(resourcePath);
+            if (handler != null) {
+                handler.handleNotification(notification, throwable);
+            }
+        }
+
+        public NotificationHandler getHandlerOrCreate(String resourcePath) {
+            if (resourcePath == null) {
+                return null;
+            }
+            NotificationHandler handler = new NotificationHandler();
+            final NotificationHandler formerHandler = cache.putIfAbsent(resourcePath, handler);
+            if (formerHandler != null) {
+                handler = formerHandler;
+            }
+            return handler;
+        }
+
+        public void registerNotificationSubscriptionCallback(String resourcePath, Callback<Object> onNotification,
+                Callback<Throwable> onFailure) {
+            if (resourcePath == null) {
+                return;
+            }
+            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
+            handler.registerNotificationSubscriptionCallback(onNotification, onFailure);
+
+        }
+
+        public Flowable<Object> createResourceSubscriptionEmitter(String resourcePath, BackpressureStrategy strategy) {
+            if (resourcePath == null) {
+                return null;
+            }
+            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
+            return handler.createResourceSubscriptionEmitter(strategy);
+        }
+
+        public void deregisterNotificationSubscriptionCallback(String resourcePath) {
+            if (resourcePath == null) {
+                return;
+            }
+            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
+            if (handler == null) {
+                return;
+            }
+            handler.deregisterNotificationSubscriptionCallback();
+            if (!handler.hasHandlers()) {
+                removeNotificationHandler(resourcePath);
+            }
+
+        }
+
+        public void removeResourceSubscriptionEmitter(String resourcePath) {
+            if (resourcePath == null) {
+                return;
+            }
+            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
+            if (handler == null) {
+                return;
+            }
+            handler.removeResourceSubscriptionEmitter();
+            if (!handler.hasHandlers()) {
+                removeNotificationHandler(resourcePath);
+            }
+        }
+
+        public void removeNotificationHandler(String resourcePath) {
+            if (resourcePath == null) {
+                return;
+            }
+            cache.remove(resourcePath);
+        }
+
+        public void removeAllNotificationHandlers() {
+            cache.clear();
+        }
+    }
+
+    private static class DevicesSubscriptionCache {
+        private final ConcurrentMap<String, DeviceSubscriptionCache> cache = new ConcurrentHashMap<>(
+                CACHE_INITIAL_CAPACITY);
+
+        public void handleNotification(String deviceId, String resourcePath, Object notification, Throwable throwable) {
+            if (deviceId == null) {
+                return;
+            }
+            final DeviceSubscriptionCache deviceCache = cache.get(deviceId);
+            if (deviceCache != null) {
+                deviceCache.handleNotification(resourcePath, notification, throwable);
+            }
+        }
+
+        public DeviceSubscriptionCache getDeviceHandlerOrCreate(String deviceId) {
+            if (deviceId == null) {
+                return null;
+            }
+            DeviceSubscriptionCache deviceCache = new DeviceSubscriptionCache();
+            final DeviceSubscriptionCache formerCache = cache.putIfAbsent(deviceId, deviceCache);
+            if (formerCache != null) {
+                deviceCache = formerCache;
+            }
+            return deviceCache;
+        }
+
+        public void registerNotificationSubscriptionCallback(Resource resource, Callback<Object> onNotification,
+                Callback<Throwable> onFailure) {
+            if (resource == null || !resource.isValid()) {
+                return;
+            }
+            final DeviceSubscriptionCache deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
+            deviceCache.registerNotificationSubscriptionCallback(resource.getPath(), onNotification, onFailure);
+
+        }
+
+        public Flowable<Object> createResourceSubscriptionEmitter(Resource resource, BackpressureStrategy strategy) {
+            if (resource == null || !resource.isValid()) {
+                return null;
+            }
+            final DeviceSubscriptionCache deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
+            return deviceCache.createResourceSubscriptionEmitter(resource.getPath(), strategy);
+        }
+
+        public void deregisterNotificationSubscriptionCallback(Resource resource) {
+            if (resource == null || !resource.isValid()) {
+                return;
+            }
+            final DeviceSubscriptionCache deviceCache = cache.get(resource.getDeviceId());
+            if (deviceCache == null) {
+                return;
+            }
+            deviceCache.deregisterNotificationSubscriptionCallback(resource.getPath());
+        }
+
+        public void removeResourceSubscriptionEmitter(Resource resource) {
+            if (resource == null || !resource.isValid()) {
+                return;
+            }
+            final DeviceSubscriptionCache deviceCache = cache.get(resource.getDeviceId());
+            if (deviceCache == null) {
+                return;
+            }
+            deviceCache.removeResourceSubscriptionEmitter(resource.getPath());
+        }
+
+        public void removeDeviceCache(String deviceId) {
+            if (deviceId == null) {
+                return;
+            }
+            cache.remove(deviceId);
+        }
+
+        public void clear() {
+            cache.clear();
+        }
+    }
 }

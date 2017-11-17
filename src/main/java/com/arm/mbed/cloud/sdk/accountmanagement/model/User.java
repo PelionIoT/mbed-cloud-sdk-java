@@ -42,6 +42,12 @@ public class User implements SdkModel {
      */
     @Required
     private String email;
+
+    /**
+     * Field to keep track of an updated email.
+     */
+    @Internal
+    private transient boolean hasEmailBeenUpdated;
     /**
      * Phone number.
      */
@@ -207,6 +213,7 @@ public class User implements SdkModel {
         setAddress(address);
         setTermAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
+        hasEmailBeenUpdated = false;
     }
 
     /**
@@ -342,6 +349,7 @@ public class User implements SdkModel {
     @Required
     public void setEmail(String email) {
         this.email = email;
+        hasEmailBeenUpdated = true;
     }
 
     /**
@@ -511,13 +519,22 @@ public class User implements SdkModel {
     }
 
     /**
+     * Checks whether the email has been modified since creation.
+     * 
+     * @return true if the email has been modified. False otherwise.
+     */
+    public boolean hasEmailBeenUpdated() {
+        return hasEmailBeenUpdated;
+    }
+
+    /**
      * Gets a clone.
      * 
      * @return a clone.
      * @see java.lang.Object#clone()
      */
     @Override
-    public User clone() throws CloneNotSupportedException {
+    public User clone() {
         return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
                 isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
                 creationTime, passwordChangedTime, lastLoginTime);
