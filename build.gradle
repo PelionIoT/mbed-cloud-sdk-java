@@ -136,8 +136,12 @@ dependencies {
 
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
-project(':backends:mds').javadoc.enabled = false
-project(':backends:statistics').javadoc.enabled = false
+if(project(':backends:mds').hasProperty('javadoc')){
+   project(':backends:mds').javadoc.enabled = false
+}
+if(project(':backends:statistics').hasProperty('javadoc')){
+   project(':backends:statistics').javadoc.enabled = false
+}
 
 javadoc {
     options.overview = "src/main/javadoc/overview.html" 
@@ -191,7 +195,7 @@ test {
         html.enabled = true
     }
     updateArtifactList("SDK_REPORT_DIR","$reportsDir")
-	updateArtifactList("SDK_UNITTEST_REPORT_DIR",test.reports.html.destination)
+    updateArtifactList("SDK_UNITTEST_REPORT_DIR",test.reports.html.destination)
 }
 
 checkstyle {
@@ -273,16 +277,18 @@ tasks.withType(FindBugs) {
 }
 
 def updateArtifactList(propertyName, value){
-        def props = new Properties()
-        def propFile = new File("artifacts.properties");
-        if( propFile.exists()){
-            propFile.withReader { props.load(it) }
+        if (UpdateArtifactList){
+            def props = new Properties()
+            def propFile = new File("artifacts.properties");
+            if( propFile.exists()){
+                propFile.withReader { props.load(it) }
+            }
+            props.setProperty(propertyName.toString(), value.toString())
+            props.sort()
+            def fileWriter = propFile.newWriter()
+            props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
+            fileWriter.close()
         }
-        props.setProperty(propertyName.toString(), value.toString())
-        props.sort()
-        def fileWriter = propFile.newWriter()
-        props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
-        fileWriter.close()
 }
 
 

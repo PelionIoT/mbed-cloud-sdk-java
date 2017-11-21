@@ -632,4 +632,16 @@ public class Query implements SdkModel {
     public boolean isValid() {
         return name != null && filter != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Query [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", name=" + name
+                + ", filter=" + retrieveFilterAsJson() + "]";
+    }
+
 }

@@ -593,4 +593,19 @@ public class Account implements SdkModel {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Account [id=" + id + ", status=" + status + ", displayName=" + displayName + ", contact=" + contact
+                + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postCode=" + postCode + ", addressLine1="
+                + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
+                + country + ", email=" + email + ", provisioningAllowed=" + provisioningAllowed + ", aliases=" + aliases
+                + ", tierLevel=" + tierLevel + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", limits="
+                + limits + ", templateId=" + templateId + "]";
+    }
+
 }

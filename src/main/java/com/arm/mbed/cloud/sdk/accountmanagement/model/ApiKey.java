@@ -289,4 +289,17 @@ public class ApiKey implements SdkModel {
     public boolean isValid() {
         return name != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ApiKey [id=" + id + ", name=" + name + ", ownerId=" + ownerId + ", groups=" + groups + ", status="
+                + status + ", key=" + key + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+                + ", lastLoginTime=" + lastLoginTime + "]";
+    }
+
 }

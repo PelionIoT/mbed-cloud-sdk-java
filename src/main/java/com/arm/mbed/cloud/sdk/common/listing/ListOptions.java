@@ -295,4 +295,15 @@ public class ListOptions {
         return (filterObj == null) ? null : filterObj.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ListOptions [limit=" + limit + ", order=" + order + ", after=" + after + ", include=" + encodeInclude()
+                + ", filter=" + retrieveFilterAsJson() + "]";
+    }
+
 }

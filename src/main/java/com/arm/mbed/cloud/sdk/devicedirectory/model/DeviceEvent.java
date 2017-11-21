@@ -214,4 +214,17 @@ public class DeviceEvent implements SdkModel {
     public boolean isValid() {
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "DeviceEvent [id=" + id + ", deviceId=" + deviceId + ", eventDate=" + eventDate + ", stateChanged="
+                + stateChanged + ", description=" + description + ", changes=" + changes + ", typeDescription="
+                + typeDescription + ", type=" + type + ", data=" + data + "]";
+    }
+
 }

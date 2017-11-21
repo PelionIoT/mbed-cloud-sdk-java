@@ -121,4 +121,16 @@ public class LoginHistory implements SdkModel {
     public boolean isValid() {
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "LoginHistory [date=" + date + ", userAgent=" + userAgent + ", ipAddress=" + ipAddress + ", success="
+                + success + "]";
+    }
+
 }

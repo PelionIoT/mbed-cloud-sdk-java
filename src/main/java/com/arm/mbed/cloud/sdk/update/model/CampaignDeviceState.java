@@ -204,4 +204,17 @@ public class CampaignDeviceState implements SdkModel {
     public boolean isValid() {
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "CampaignDeviceState [id=" + id + ", deviceId=" + deviceId + ", campaignId=" + campaignId + ", state="
+                + state + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt
+                + ", updatedAt=" + updatedAt + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + "]";
+    }
+
 }

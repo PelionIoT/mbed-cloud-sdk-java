@@ -58,6 +58,7 @@ public class TestServer {
     private static final String TEST_SERVER_LOG_PREFIX = "  testserver ";
     private static final String INFO_LOG_PREFIX = "\u001B[34m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
     private static final String WARNING_LOG_PREFIX = "\u001B[33m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
+    private static final String ERROR_LOG_PREFIX = "\u001B[31m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
     private volatile SDK sdk;
     private ConnectionOptions config;
 
@@ -75,7 +76,7 @@ public class TestServer {
         }
         retrieveConfig();
         if (config == null || config.isApiKeyEmpty()) {
-            logInfo("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
+            logError("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
             System.exit(1);
         }
         defineInitialisationRoute();
@@ -185,6 +186,10 @@ public class TestServer {
 
     private void logInfo(String message) {
         testLogger.info((CONSOLE_COLOURING) ? INFO_LOG_PREFIX + message : message);
+    }
+
+    private void logError(String message) {
+        testLogger.info((CONSOLE_COLOURING) ? ERROR_LOG_PREFIX + message : message);
     }
 
     private void logDebug(String message) {

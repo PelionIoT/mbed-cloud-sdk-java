@@ -336,4 +336,18 @@ public class FirmwareManifest implements SdkModel {
     public boolean isValid() {
         return name != null && dataFile != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "FirmwareManifest [id=" + id + ", url=" + url + ", deviceClass=" + deviceClass + ", createdAt="
+                + createdAt + ", updatedAt=" + updatedAt + ", timestamp=" + timestamp + ", name=" + name
+                + ", description=" + description + ", datafileSize=" + datafileSize + ", datafileChecksum="
+                + datafileChecksum + ", dataFile=" + dataFile + "]";
+    }
+
 }
