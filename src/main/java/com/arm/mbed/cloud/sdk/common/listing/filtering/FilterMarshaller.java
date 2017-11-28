@@ -66,7 +66,10 @@ public class FilterMarshaller {
      * @return URL String containing all filters definition
      */
     public @Nullable String encode(@Nullable String fieldName, @Nullable Filters filters) {
-        return (filters == null) ? null : (fieldName == null) ? encode(filters) : encodeList(filters.get(fieldName));
+        if (filters == null) {
+            return null;
+        }
+        return (fieldName == null) ? encode(filters) : encodeList(filters.get(fieldName));
     }
 
     /**
@@ -242,7 +245,7 @@ public class FilterMarshaller {
         return builder.toString();
     }
 
-    private Map<String, String> createReverseMapping(Map<String, String> mapping) {
+    private static Map<String, String> createReverseMapping(Map<String, String> mapping) {
         if (mapping == null) {
             return null;
         }
@@ -254,7 +257,7 @@ public class FilterMarshaller {
     }
 
     @SuppressWarnings("cast")
-    private String formatFilterValue(Object value) {
+    private static String formatFilterValue(Object value) {
         if (value instanceof Date) {
             // Moving dates/Times to UTC and formatting them according to rfc3339
             return DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC));
@@ -262,7 +265,7 @@ public class FilterMarshaller {
         return String.valueOf(value);
     }
 
-    private String removeSuffix(String string, FilterOperator operator) {
+    private static String removeSuffix(String string, FilterOperator operator) {
         String suffix = (operator == null) ? null : operator.getSuffix();
         if (suffix != null) {
             string = string.replace(suffix, "");
@@ -270,7 +273,7 @@ public class FilterMarshaller {
         return string;
     }
 
-    private String fetchSuffix(String string) {
+    private static String fetchSuffix(String string) {
         if (string == null) {
             return null;
         }

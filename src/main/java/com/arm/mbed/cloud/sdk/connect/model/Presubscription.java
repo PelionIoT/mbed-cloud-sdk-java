@@ -62,7 +62,7 @@ public class Presubscription implements SdkModel {
      *            A resource to pre-subscribe to.
      */
     public Presubscription(Resource resource) {
-        this((resource == null) ? null : resource.getDeviceId(), null, getResourcePaths(resource));
+        this((resource == null) ? null : resource.getDeviceId(), null, getResourcePath(resource));
     }
 
     /**
@@ -151,11 +151,11 @@ public class Presubscription implements SdkModel {
         return true;
     }
 
-    private static List<String> getResourcePaths(Resource resource) {
+    private static List<String> getResourcePath(Resource resource) {
         if (resource == null || !resource.isValid()) {
             return null;
         }
-        List<String> list = new ArrayList<>(1);
+        final List<String> list = new ArrayList<>(1);
         list.add(resource.getPath());
         return list;
     }

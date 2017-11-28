@@ -58,7 +58,7 @@ public class EndPoints {
      *            connection options {@link ConnectionOptions}.
      */
     public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options), (options != null) ? options.isAutostartDaemon() : true);
+        this(new ApiClientWrapper(options), options.isAutostartDaemon());
 
     }
 

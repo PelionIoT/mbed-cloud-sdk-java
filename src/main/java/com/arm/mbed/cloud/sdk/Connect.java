@@ -377,12 +377,12 @@ public class Connect extends AbstractApi {
             return null;
         }
         final List<Resource> observableResources = new LinkedList<>();
-        for (Resource resource : resources) {
+        for (final Resource resource : resources) {
             if (resource.isObservable()) {
                 observableResources.add(resource);
             }
         }
-        return (observableResources.isEmpty()) ? null : observableResources;
+        return observableResources.isEmpty() ? null : observableResources;
     }
 
     /**
