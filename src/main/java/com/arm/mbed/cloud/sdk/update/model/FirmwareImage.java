@@ -297,4 +297,17 @@ public class FirmwareImage implements SdkModel {
     public boolean isValid() {
         return name != null && dataFile != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "FirmwareImage [id=" + id + ", name=" + name + ", description=" + description + ", dataFile=" + dataFile
+                + ", datafileSize=" + datafileSize + ", datafileChecksum=" + datafileChecksum + ", url=" + url
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+    }
+
 }

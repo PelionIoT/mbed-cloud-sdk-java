@@ -24,14 +24,20 @@ public class EndPoints {
     private final AccountApi account;
     private final StatisticsApi statistic;
     private final ConnectionOptions connectionOptions;
+    private final boolean autostartDaemon;
+    private boolean forceClear;
 
     /**
      * Constructor.
      * 
      * @param wrapper
      *            API client {@link ApiClientWrapper}.
+     *
+     * @param autostartNotificationDaemon
+     *            States whether notification daemon should be started automatically.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
+
+    public EndPoints(ApiClientWrapper wrapper, boolean autostartNotificationDaemon) {
         super();
         this.connectionOptions = wrapper.getConnectionOptions();
         this.webhooks = initialiseWebhook(wrapper);
@@ -41,6 +47,8 @@ public class EndPoints {
         this.subscriptions = initialiseSubscription(wrapper);
         this.account = initialiseAccount(wrapper);
         this.statistic = initialiseStatistic(wrapper);
+        this.autostartDaemon = autostartNotificationDaemon;
+        forceClear = false;
     }
 
     /**
@@ -50,7 +58,7 @@ public class EndPoints {
      *            connection options {@link ConnectionOptions}.
      */
     public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
+        this(new ApiClientWrapper(options), options.isAutostartDaemon());
 
     }
 
@@ -112,6 +120,34 @@ public class EndPoints {
 
     public ConnectionOptions getConnectionOptions() {
         return connectionOptions;
+    }
+
+    /**
+     * States whether notification daemon will start automatically when needed.
+     * 
+     * @return true if daemon will be start automatically. False otherwise.
+     */
+    public boolean isAutostartDaemon() {
+        return autostartDaemon;
+    }
+
+    /**
+     * States whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @return True if the channel will be cleared. False otherwise.
+     */
+    public boolean isForceClear() {
+        return forceClear;
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @param forceClear
+     *            True if the channel will be cleared. False otherwise.
+     */
+    public void setForceClear(boolean forceClear) {
+        this.forceClear = forceClear;
     }
 
 }

@@ -46,6 +46,6 @@ To regenerate afterwards the javadoc, just run the following command:
 * **Footer:** _(javadoc -footer option)_ Specifies the footer text to be placed at the bottom of each output file. The footer will be placed to the right of the lower navigation bar. footer may contain HTML tags and white space. Any internal quotation marks within footer may have to be escaped.
 
 ## Testing
-1. Sets required environment variables for the test server to run: **ENVVAR_MBED_CLOUD_API_KEY** and **ENVVAR_MBED_CLOUD_HOST**.
-1. Clone [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner) in ./tests folder.
-2. Run run.bat or run.sh to launch SDK system test campaign.
+The SDK is tested via a set of unit tests and integration tests.
+Unit tests can be run using ```gradlew test``` command.
+All integration tests are defined in [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).

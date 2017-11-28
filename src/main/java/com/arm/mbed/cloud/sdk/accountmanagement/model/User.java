@@ -549,4 +549,21 @@ public class User implements SdkModel {
     public boolean isValid() {
         return username != null && email != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "User [id=" + id + ", accountId=" + accountId + ", fullName=" + fullName + ", username=" + username
+                + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address="
+                + address + ", areTermsAccepted=" + areTermsAccepted + ", isMarketingAccepted=" + isMarketingAccepted
+                + ", groups=" + groups + ", status=" + status + ", isEmailVerified=" + isEmailVerified + ", createdAt="
+                + createdAt + ", twoFactorAuthentication=" + twoFactorAuthentication + ", loginHistory=" + loginHistory
+                + ", creationTime=" + creationTime + ", passwordChangedTime=" + passwordChangedTime + ", lastLoginTime="
+                + lastLoginTime + "]";
+    }
+
 }

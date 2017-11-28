@@ -14,6 +14,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 
 @Preamble(description = "Campaign")
 public class Campaign implements SdkModel {
@@ -279,6 +280,34 @@ public class Campaign implements SdkModel {
         setName(name);
         setManifestId(manifestId);
         setDeviceFilter(deviceFilter);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param name
+     *            Name of the update campaign
+     * @param manifest
+     *            the manifest with description of the update
+     * @param deviceFilter
+     *            The device filter to use
+     */
+    public Campaign(String name, FirmwareManifest manifest, Filters deviceFilter) {
+        this(name, (manifest == null) ? null : manifest.getId(), deviceFilter);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param name
+     *            Name of the update campaign
+     * @param manifest
+     *            the manifest with description of the update
+     * @param query
+     *            The query to use
+     */
+    public Campaign(String name, FirmwareManifest manifest, Query query) {
+        this(name, manifest, (query == null) ? null : query.fetchFilter());
     }
 
     /**
@@ -836,4 +865,18 @@ public class Campaign implements SdkModel {
     public boolean isValid() {
         return name != null && manifestId != null && deviceFilter != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Campaign [id=" + id + ", state=" + state + ", manifestUrl=" + manifestUrl + ", createdAt=" + createdAt
+                + ", startedAt=" + startedAt + ", finishedAt=" + finishedAt + ", name=" + name + ", description="
+                + description + ", manifestId=" + manifestId + ", scheduledAt=" + scheduledAt + ", deviceFilter="
+                + deviceFilter + "]";
+    }
+
 }

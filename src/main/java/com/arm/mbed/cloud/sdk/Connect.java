@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk;
 
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -45,6 +46,7 @@ import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
+import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
@@ -126,8 +128,9 @@ public class Connect extends AbstractApi {
     /**
      * Starts notification pull.
      * <p>
-     * If not an external callback is set up (using `update_webhook`) then calling this function is mandatory to get or
-     * set resources.
+     * If an external callback is not set up (using `update_webhook`) then calling this function is mandatory to get or
+     * set resources. Unless {@link ConnectionOptions#setAutostartDaemon(boolean)} has been set to true or left as
+     * default.
      * <p>
      * Example:
      * 
@@ -145,6 +148,13 @@ public class Connect extends AbstractApi {
     public void startNotifications() throws MbedCloudException {
         Webhook webhook = null;
         try {
+            if (isForceClear()) {
+                deleteWebhook();
+            }
+        } catch (MbedCloudException exception) {
+            // Nothing to do
+        }
+        try {
             webhook = getWebhook();
         } catch (MbedCloudException exception) {
             // Nothing to do
@@ -154,6 +164,12 @@ public class Connect extends AbstractApi {
                     + "]. Notification pull cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
         }
         cache.startNotificationPull();
+    }
+
+    private void autostartDaemonIfNeeded() throws MbedCloudException {
+        if (!cache.isPullingActive() && endpoint.isAutostartDaemon()) {
+            startNotifications();
+        }
     }
 
     /**
@@ -166,11 +182,21 @@ public class Connect extends AbstractApi {
      * connectApi.stopNotifications();
      * }
      * </pre>
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
      */
     @API
     @Daemon(task = "Notification pull", stop = true)
-    public void stopNotifications() {
+    public void stopNotifications() throws MbedCloudException {
         cache.stopNotificationPull();
+        CloudCaller.call(this, "stopNotification()", null, new CloudCall<Void>() {
+
+            @Override
+            public Call<Void> call() {
+                return endpoint.getNotifications().v2NotificationPullDelete();
+            }
+        });
     }
 
     /**
@@ -201,8 +227,8 @@ public class Connect extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -237,8 +263,8 @@ public class Connect extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -260,7 +286,8 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
+    public @Nullable Paginator<Device> listAllConnectedDevices(@Nullable DeviceListOptions options)
+            throws MbedCloudException {
         final DeviceListOptions finalOptions = options;
         return new Paginator<>(new PageRequester<Device>() {
 
@@ -312,6 +339,50 @@ public class Connect extends AbstractApi {
                         return endpoint.getEndpoints().v2EndpointsDeviceIdGet(finalDeviceId);
                     }
                 });
+    }
+
+    /**
+     * Lists device's observable resources.
+     * 
+     * @see Resource#isObservable()
+     *      <p>
+     *      Example:
+     * 
+     *      <pre>
+     * {@code
+     * try {
+     *     Device device = new Device();
+     *     device.setId("015f4ac587f500000000000100100249");
+     *
+     *     List<Resource> resources = connectApi.listObservableResources(device);
+     *     for (Resource resource : resources) {
+     *         System.out.println("Resource path: " + resource.getPath());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     *      </pre>
+     * 
+     * @param device
+     *            Device.
+     * @return list of observable resources present on a device.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable List<Resource> listObservableResources(@NonNull Device device) throws MbedCloudException {
+        final List<Resource> resources = listResources(device);
+        if (resources == null || resources.isEmpty()) {
+            return null;
+        }
+        final List<Resource> observableResources = new LinkedList<>();
+        for (final Resource resource : resources) {
+            if (resource.isObservable()) {
+                observableResources.add(resource);
+            }
+        }
+        return observableResources.isEmpty() ? null : observableResources;
     }
 
     /**
@@ -413,12 +484,12 @@ public class Connect extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     Calendar startDate = GregorianCalendar(2017,10,31,10,20,56);
+     *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
      *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
      * 
      *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
-     *     listOptions.setStart(startDate);
-     *     listOptions.setEnd(endDate);
+     *     listOptions.setStart(startDate.getTime());
+     *     listOptions.setEnd(endDate.getTime());
      *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
      *
      *     List<Metric> metrics = connectApi.listMetrics(listOptions);
@@ -510,6 +581,7 @@ public class Connect extends AbstractApi {
         final String finalResourcePath = resourcePath;
         final boolean finalCacheOnly = cacheOnly;
         final boolean finalNoResponse = noResponse;
+        autostartDaemonIfNeeded();
         return cache.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
@@ -534,7 +606,7 @@ public class Connect extends AbstractApi {
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
-     *     String ledPattern = connectApi.getResourceValue(deviceId, resourcePath, false, false, new TimePeriod(5));
+     *     String ledPattern = String.valueOf(connectApi.getResourceValue(deviceId, resourcePath, false, false, new TimePeriod(5)));
      *     System.out.println("LED pattern from device: " + ledPattern);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -579,6 +651,43 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String ledPattern = String.valueOf(connectApi.getResourceValue(resource, new TimePeriod(5)));
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * 
+     * @param resource
+     *            The resource path to get the value of.
+     * @param timeout
+     *            Timeout for the request.
+     * @return resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object getResourceValue(@NonNull Resource resource, @Nullable TimePeriod timeout)
+            throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return getResourceValue(resource.getDeviceId(), resource.getPath(), false, false, timeout);
+    }
+
+    /**
      * Sets the value of a resource.
      * <p>
      * Example:
@@ -620,6 +729,7 @@ public class Connect extends AbstractApi {
         final String finalResourcePath = resourcePath;
         final String finalResourceValue = (resourceValue == null) ? null : resourceValue;
         final boolean finalNoResponse = noResponse;
+        autostartDaemonIfNeeded();
         return cache.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
@@ -691,6 +801,47 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String resourceValue = "500:500:500";
+     * 
+     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
+     *     String setValue = (String)resultObject;
+     *     assert setValue == resourceValue;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
+            @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return setResourceValue(resource.getDeviceId(), resource.getPath(), resourceValue, false, timeout);
+    }
+
+    /**
      * Executes a function on a resource.
      * <p>
      * Example:
@@ -733,6 +884,7 @@ public class Connect extends AbstractApi {
         // Body parameter value must not be null.
         final String finalFunctionName = (functionName == null) ? "" : functionName;
         final boolean finalNoResponse = noResponse;
+        autostartDaemonIfNeeded();
         return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
@@ -971,7 +1123,7 @@ public class Connect extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     connectApi.deleteSubscriptions();
+     *     connectApi.deleteSubscribers();
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -982,7 +1134,7 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public void deleteSubscriptions() throws MbedCloudException {
+    public void deleteSubscribers() throws MbedCloudException {
         CloudCaller.call(this, "deleteSubscriptions()", null, new CloudCall<Void>() {
 
             @Override
@@ -1079,6 +1231,48 @@ public class Connect extends AbstractApi {
         } catch (MbedCloudException exception) {
             return false;
         }
+    }
+
+    /**
+     * Allows a notification to be injected into the notifications system.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *       String deviceId = "015f4ac587f500000000000100100249";
+     *       String resourcePath = "/3200/0/5501";         
+     *       String payload ="Q2hhbmdlIG1lIQ==";
+     *       
+     *       NotificationData notification = new NotificationData();
+     *       notification.setEp(deviceId);
+     *       notification.setPath(resourcePath);
+     *       notification.setPayload(payload);
+     *       NotificationMessage notifications = new NotificationMessage();
+     *       notifications.addNotificationsItem(notification);
+     *       Resource resource = new Resource(deviceId, resourcePath);
+     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
+     *               .subscribe(new Consumer<Object>() {
+     * 
+     *                   &#64;Override
+     *                   public void accept(Object t) throws Exception {
+     *                       log("Received notification value", t);
+     *                   }
+     *               });    
+     *       api.notify(notifications);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param data
+     *            The notification data to inject
+     */
+    @API
+    public void notify(NotificationMessage data) {
+        cache.notify(data);
     }
 
     /**
@@ -1477,6 +1671,9 @@ public class Connect extends AbstractApi {
     public void updateWebhook(@NonNull Webhook webhook) throws MbedCloudException {
         checkNotNull(webhook, TAG_WEBHOOK);
         checkModelValidity(webhook, TAG_WEBHOOK);
+        if (isForceClear()) {
+            stopNotifications();
+        }
         final Webhook finalWebhook = webhook;
         CloudCaller.call(this, "updateWebhook()", null, new CloudCall<Void>() {
 
@@ -1528,5 +1725,24 @@ public class Connect extends AbstractApi {
     @Override
     public String getModuleName() {
         return "Connect";
+    }
+
+    /**
+     * States whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @return True if the channel will be cleared. False otherwise.
+     */
+    public boolean isForceClear() {
+        return endpoint.isForceClear();
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @param forceClear
+     *            True if the channel will be cleared. False otherwise.
+     */
+    public void setForceClear(boolean forceClear) {
+        endpoint.setForceClear(forceClear);
     }
 }

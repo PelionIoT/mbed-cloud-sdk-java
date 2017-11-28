@@ -575,4 +575,20 @@ public class Certificate implements SdkModel {
     public boolean isValid() {
         return name != null && type != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Certificate [id=" + id + ", name=" + name + ", accountId=" + accountId + ", status=" + status
+                + ", type=" + type + ", description=" + description + ", subject=" + subject + ", validity=" + validity
+                + ", issuer=" + issuer + ", createdAt=" + createdAt + ", serverUri=" + serverUri
+                + ", serverCertificate=" + serverCertificate + ", headerFile=" + headerFile + ", developerCertificate="
+                + developerCertificate + ", developerPrivateKey=" + developerPrivateKey + ", ownerId=" + ownerId
+                + ", certificateData=" + certificateData + ", signature=" + signature + "]";
+    }
+
 }

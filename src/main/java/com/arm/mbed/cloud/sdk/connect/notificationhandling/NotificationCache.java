@@ -77,6 +77,9 @@ public class NotificationCache {
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
+        if (endpoint2 == null) {
+            return null;
+        }
         final ConnectionOptions options = endpoint2.getConnectionOptions();
         options.setRequestTimeout(REQUEST_TIMEOUT);
         return new EndPoints(options);
@@ -118,7 +121,6 @@ public class NotificationCache {
             pullHandle.cancel(true);
         }
         pullHandle = null;
-        clearCaches();
     }
 
     /**
@@ -205,6 +207,19 @@ public class NotificationCache {
      */
     public void deregisterAllResourceSubscriptionObserversOrCallbacks(String deviceId) {
         subscriptionCache.removeDeviceCache(deviceId);
+    }
+
+    /**
+     * Allows a notification to be injected into the notifications system.
+     * 
+     * @param data
+     *            The notification data to inject
+     */
+    public void notify(NotificationMessage data) {
+        if (data == null) {
+            return;
+        }
+        handleSubscriptions(data.getNotifications());
     }
 
     /**
@@ -329,11 +344,15 @@ public class NotificationCache {
             try {
                 value = decodePayload(notification.getPayload(), notification.getCt());
             } catch (DecodingException exception) {
-                logPullError(exception);
+                logNotificationError(exception);
                 throwable = exception;
             }
             subscriptionCache.handleNotification(notification.getEp(), notification.getPath(), value, throwable);
         }
+    }
+
+    private void logNotificationError(Exception exception) {
+        api.getLogger().logError("An error occurred while handling notifications", exception);
     }
 
     private void logPullError(Exception exception) {

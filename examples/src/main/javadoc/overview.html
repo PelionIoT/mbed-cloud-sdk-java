@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+  <HEAD>
+  </HEAD>
+  <BODY>
+This java project presents several examples of how the SDK can be used to interact with Mbed Cloud.
+It is based on JUnit framework and can be run as is from the command line or from your favourite IDE (e.g. <a href="https://www.eclipse.org/">eclipse</a> or <a href="https://www.jetbrains.com/idea/">IntelliJ</a>).
+It will require however that <strong><code>MBED_CLOUD_API_KEY</code></strong> environment variable is set using a valid Mbed Cloud API key (Use <a href="https://portal.mbedcloud.com/">Mbed Cloud Portal</a> to get one if not already the case).
+The level of logging of HTTP communications can also be set using <strong><code>HTTP_LOG_LEVEL</code></strong> variable (see CallLogLevel for more information about valid values).</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>Java > 1.7   <em>tested with <a href="http://www.oracle.com/technetwork/java/javase/downloads/index.html">Oracle JDK</a></em></li>
+
+<li><a href="https://gradle.org/">Gradle</a>. <em>Use gradle wrapper if possible</em></li>
+
+<li>JUnit > 4. (Gradle should download the right version)</li>
+</ul>
+
+<h2 id="importingintoanide">Importing into an IDE</h2>
+
+<ol>
+<li>Create IDE project files using <code>gradlew eclipse</code> or <code>gradlew idea</code> depending on the IDE you want to use.</li>
+
+<li>Open the IDE of your choice:
+
+
+<ul>
+<li>If eclipse, go to File>Import>Existing Gradle Project (Relevant Eclipse Plug-in might be needed)</li>
+
+<li>If IntelliJ, Import project>Import project from external model>Gradle</li></ul>
+</li>
+</ol>
+
+<h2 id="project">Project</h2>
+
+<p>All example code can be found in src/main/java/mbed<em>cloud</em>sdk or can be browsed <a href="https://armmbed.github.io/mbed-cloud-sdk-java/examples">online</a>.
+Every example is annotated with <strong>@Example</strong> and can be run independently or as a full suite.
+These examples are designed to give developers a headstart with developing with the Mbed Cloud SDK for Java.</p>
+
+<h2 id="buildingandtesting">Building and Testing</h2>
+
+<ol>
+<li>Set required environment variables for the example to run:  <strong><code>MBED_CLOUD_API_KEY</code></strong>.</li>
+
+<li>Run <code>gradlew test</code> to run the full example suite in the command line or use IDE's JUnit plug-in instead.</li>
+</ol>
+  </BODY>
+</HTML>

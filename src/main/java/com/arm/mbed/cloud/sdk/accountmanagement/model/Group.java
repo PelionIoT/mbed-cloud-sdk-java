@@ -213,4 +213,16 @@ public class Group implements SdkModel {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Group [id=" + id + ", accountId=" + accountId + ", name=" + name + ", userCount=" + userCount
+                + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+                + ", lastUpdateTime=" + lastUpdateTime + "]";
+    }
+
 }

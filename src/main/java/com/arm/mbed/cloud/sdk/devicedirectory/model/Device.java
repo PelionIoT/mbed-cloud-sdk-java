@@ -731,4 +731,24 @@ public class Device implements SdkModel {
     public boolean isValid() {
         return certificateFingerprint != null && certificateIssuerId != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Device [id=" + id + ", accountId=" + accountId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", manifestTimestamp=" + manifestTimestamp + ", certificateIssuerId=" + certificateIssuerId
+                + ", certificateFingerprint=" + certificateFingerprint + ", name=" + name + ", alias=" + alias
+                + ", description=" + description + ", deviceType=" + deviceType + ", hostGateway=" + hostGateway
+                + ", customAttributes=" + customAttributes + ", state=" + state + ", deviceClass=" + deviceClass
+                + ", deviceExecutionMode=" + deviceExecutionMode + ", serialNumber=" + serialNumber + ", vendorId="
+                + vendorId + ", connectorCertificateExpiration=" + connectorCertificateExpiration
+                + ", bootstrapCertificateExpiration=" + bootstrapCertificateExpiration + ", bootstrappedTimestamp="
+                + bootstrappedTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl
+                + ", firmwareChecksum=" + firmwareChecksum + "]";
+    }
+
 }
