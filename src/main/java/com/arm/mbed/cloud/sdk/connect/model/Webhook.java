@@ -135,4 +135,15 @@ public class Webhook implements SdkModel {
     public boolean isValid() {
         return url != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Webhook [url=" + url + ", headers=" + headers + "]";
+    }
+
 }

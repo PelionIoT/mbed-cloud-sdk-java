@@ -5,18 +5,18 @@ group = SDKGroup
 
 
 buildscript {
-  repositories {
-   jcenter()
-    maven {
-      url "https://plugins.gradle.org/m2/"
+    repositories {
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
-  }
-  dependencies {
-    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
-    classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
-    classpath "de.aaschmid:gradle-cpd-plugin:1.0"
-    classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
-  }
+    dependencies {
+        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
+        classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
+        classpath "de.aaschmid:gradle-cpd-plugin:1.0"
+        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:latest.release"
+    }
 }
 
 
@@ -30,29 +30,28 @@ apply plugin: "de.aaschmid.cpd" //Code duplication
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
 
-
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
-     mavenCentral()
+    mavenCentral()
 }
 
 allprojects {
     //The following is to override the version/group values contained in subproject build files
     tasks.whenTaskAdded { task ->
-         if (project != project(':lwm2m')){
-             project.version = SDKVersion
-             project.group = SDKGroup
-             if (task.hasProperty('version')){
-                    task.version = SDKVersion
-             }
-             if (task.hasProperty('group')){
-                    task.group = SDKGroup
-             }
-         }
-        
+        if (project != project(':lwm2m')) {
+            project.version = SDKVersion
+            project.group = SDKGroup
+            if (task.hasProperty('version')) {
+                task.version = SDKVersion
+            }
+            if (task.hasProperty('group')) {
+                task.group = SDKGroup
+            }
+        }
+
     }
 
     task info {
@@ -63,7 +62,7 @@ allprojects {
         }
     }
     compileJava.dependsOn info
-    
+
     apply plugin: 'java-library'
     apply plugin: 'license-report'
     apply plugin: 'jacoco'
@@ -74,14 +73,14 @@ allprojects {
     apply plugin: 'build-dashboard'
     apply plugin: 'project-report'
     apply plugin: 'maven-publish'
-    apply plugin: "com.jfrog.artifactory" 
-    
+    apply plugin: "com.jfrog.artifactory"
+
     compileJava {
         // Java SDK compatibility
-        sourceCompatibility  JavaVersion.VERSION_1_7.toString()
-        targetCompatibility  JavaVersion.VERSION_1_7.toString()
+        sourceCompatibility JavaVersion.VERSION_1_7.toString()
+        targetCompatibility JavaVersion.VERSION_1_7.toString()
 
-        options.compilerArgs += ["-deprecation","-parameters"]
+        options.compilerArgs += ["-deprecation", "-parameters"]
         options.fork = true
         doFirst {
             println 'Compiler args for compiled SDK : ' + options.compilerArgs
@@ -90,15 +89,15 @@ allprojects {
     jar {
         manifest {
             attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                       'Implementation-Version': project.version,
-                       'Implementation-Vendor': 'Arm Limited')
+                    'Implementation-Version': project.version,
+                    'Implementation-Vendor': 'Arm Limited')
         }
         doLast {
-            updateArtifactList("SDK_JAR",jar.archivePath)
+            updateArtifactList("SDK_JAR", jar.archivePath)
         }
     }
     compileTestJava {
-        options.compilerArgs += ["-g","-deprecation","-parameters"]
+        options.compilerArgs += ["-g", "-deprecation", "-parameters"]
         options.fork = true
         doFirst {
             println 'Compiler args for testing: ' + options.compilerArgs
@@ -115,74 +114,75 @@ configurations {
 }
 
 dependencies {
-   api 'org.slf4j:slf4j-api:1.7.7'
-   compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-   compile project(':support-annotations')
-   compile project(':lwm2m')
-   compile project(':backends:connector_ca')
-   compile project(':backends:device_directory')
-   compile project(':backends:iam')
-   compile project(':backends:mds')
-   compile project(':backends:statistics')
-   compile project(':backends:update_service')
-   compile 'io.reactivex.rxjava2:rxjava:2.1.6'
-   testCompile 'io.vertx:vertx-web:3.4.2'
-   testCompile 'org.reflections:reflections:0.9.10'
-   testCompile 'org.slf4j:slf4j-simple:1.7.7'
-   testImplementation 'junit:junit:4.12'
-   coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
-   //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
+    api 'org.slf4j:slf4j-api:1.7.7'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
+    compile project(':support-annotations')
+    compile project(':lwm2m')
+    compile project(':backends:connector_ca')
+    compile project(':backends:device_directory')
+    compile project(':backends:iam')
+    compile project(':backends:mds')
+    compile project(':backends:statistics')
+    compile project(':backends:update_service')
+    compile 'io.reactivex.rxjava2:rxjava:2.1.6'
+    compile 'joda-time:joda-time:2.9.9'
+    testCompile 'io.vertx:vertx-web:3.4.2'
+    testCompile 'org.reflections:reflections:0.9.10'
+    testCompile 'org.slf4j:slf4j-simple:1.7.7'
+    testImplementation 'junit:junit:4.12'
+    coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
+    //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
 }
-
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
-if(project(':backends:mds').hasProperty('javadoc')){
-   project(':backends:mds').javadoc.enabled = false
+if (project(':backends:mds').hasProperty('javadoc')) {
+    project(':backends:mds').javadoc.enabled = false
 }
-if(project(':backends:statistics').hasProperty('javadoc')){
-   project(':backends:statistics').javadoc.enabled = false
+if (project(':backends:statistics').hasProperty('javadoc')) {
+    project(':backends:statistics').javadoc.enabled = false
 }
 
 javadoc {
-    options.overview = "src/main/javadoc/overview.html" 
+    options.overview = "src/main/javadoc/overview.html"
     // Add --allow-script-in-comments if available (since 1.8.0_121) see related issue https://github.com/gradle/gradle/issues/1393
     try {
-            if (Class.forName('com.sun.tools.doclets.formats.html.ConfigurationImpl')
-                     .newInstance().optionLength('--allow-script-in-comments') > 0) {
-                options.addBooleanOption("-allow-script-in-comments", true)
-            }
-     } catch (ignored) {}
-    
-    if(project.hasProperty('javadocStylesheet') && "${javadocStylesheet}"?.trim()) {
+        if (Class.forName('com.sun.tools.doclets.formats.html.ConfigurationImpl')
+                .newInstance().optionLength('--allow-script-in-comments') > 0) {
+            options.addBooleanOption("-allow-script-in-comments", true)
+        }
+    } catch (ignored) {
+    }
+
+    if (project.hasProperty('javadocStylesheet') && "${javadocStylesheet}"?.trim()) {
         def file = new File("${javadocStylesheet}")
-        if (file.exists()){    
+        if (file.exists()) {
             options.setStylesheetFile(file)
         }
     }
-    if(project.hasProperty('javadocHeader') && "${javadocHeader}"?.trim()) {
+    if (project.hasProperty('javadocHeader') && "${javadocHeader}"?.trim()) {
         def file = new File("${javadocHeader}")
-        if (file.exists()){         
+        if (file.exists()) {
             def headerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setHeader(headerValue)
         }
     }
-    if(project.hasProperty('javadocFooter') && "${javadocFooter}"?.trim()) {
+    if (project.hasProperty('javadocFooter') && "${javadocFooter}"?.trim()) {
         def file = new File("${javadocFooter}")
-        if (file.exists()){         
+        if (file.exists()) {
             def footerValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setFooter(footerValue)
         }
     }
-    if(project.hasProperty('javadocTop') && "${javadocTop}"?.trim()) {
+    if (project.hasProperty('javadocTop') && "${javadocTop}"?.trim()) {
         def file = new File("${javadocBottom}")
-        if (file.exists()){         
+        if (file.exists()) {
             def topValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
-            options.addStringOption('top',topValue)
+            options.addStringOption('top', topValue)
         }
     }
-    if(project.hasProperty('javadocBottom') && "${javadocBottom}"?.trim()) {
+    if (project.hasProperty('javadocBottom') && "${javadocBottom}"?.trim()) {
         def file = new File("${javadocBottom}")
-        if (file.exists()){         
+        if (file.exists()) {
             def bottomValue = "\"" + file.getText('UTF-8').replace("\n", "").replace("\r", "") + "\""
             options.setBottom(bottomValue)
         }
@@ -194,8 +194,8 @@ test {
         junitXml.enabled = true
         html.enabled = true
     }
-    updateArtifactList("SDK_REPORT_DIR","$reportsDir")
-    updateArtifactList("SDK_UNITTEST_REPORT_DIR",test.reports.html.destination)
+    updateArtifactList("SDK_REPORT_DIR", "$reportsDir")
+    updateArtifactList("SDK_UNITTEST_REPORT_DIR", test.reports.html.destination)
 }
 
 checkstyle {
@@ -207,19 +207,19 @@ checkstyle {
 }
 
 checkstyleMain {
-   reports {
-      xml.enabled true
-      html.enabled true
-   }
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
 }
 jdepend {
-   sourceSets = [sourceSets.main]
-   ignoreFailures = true
+    sourceSets = [sourceSets.main]
+    ignoreFailures = true
 }
 jdependMain {
-   reports {
-      xml.enabled true
-   }
+    reports {
+        xml.enabled true
+    }
 }
 jacoco {
     toolVersion = "0.7.6.201602180812"
@@ -234,18 +234,18 @@ jacocoTestReport {
 }
 
 pmd {
-   toolVersion = "5.0.4"
-   sourceSets = [sourceSets.main]
-   ignoreFailures = false
-   ruleSets = []
-   ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+    toolVersion = "5.0.4"
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    ruleSets = []
+    ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
 }
 pmdMain {
-   excludes = []
-   reports {
-      xml.enabled false
-      html.enabled true
-   }
+    excludes = []
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
 }
 
 cpd {
@@ -276,19 +276,19 @@ tasks.withType(FindBugs) {
     }
 }
 
-def updateArtifactList(propertyName, value){
-        if (UpdateArtifactList){
-            def props = new Properties()
-            def propFile = new File("artifacts.properties");
-            if( propFile.exists()){
-                propFile.withReader { props.load(it) }
-            }
-            props.setProperty(propertyName.toString(), value.toString())
-            props.sort()
-            def fileWriter = propFile.newWriter()
-            props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
-            fileWriter.close()
+def updateArtifactList(propertyName, value) {
+    if (UpdateArtifactList) {
+        def props = new Properties()
+        def propFile = new File("artifacts.properties");
+        if (propFile.exists()) {
+            propFile.withReader { props.load(it) }
         }
+        props.setProperty(propertyName.toString(), value.toString())
+        props.sort()
+        def fileWriter = propFile.newWriter()
+        props.store(fileWriter, "Arm Mbed Cloud JAVA SDK artifacts");
+        fileWriter.close()
+    }
 }
 
 
@@ -296,7 +296,7 @@ task sourcesJar(type: Jar, dependsOn: classes) {
     classifier = 'sources'
     from sourceSets.main.allSource
     doLast {
-        updateArtifactList("SOURCE_JAR",sourcesJar.archivePath)
+        updateArtifactList("SOURCE_JAR", sourcesJar.archivePath)
     }
 }
 
@@ -304,7 +304,7 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
     classifier = 'javadoc'
     from javadoc.destinationDir
     doLast {
-        updateArtifactList("JAVADOC_JAR",javadocJar.archivePath)
+        updateArtifactList("JAVADOC_JAR", javadocJar.archivePath)
     }
 }
 
@@ -314,24 +314,24 @@ artifacts {
 }
 
 shadowJar {
-   classifier = 'full'
+    classifier = 'full'
     doLast {
-        updateArtifactList("SDK_FULL_JAR",shadowJar.archivePath)
+        updateArtifactList("SDK_FULL_JAR", shadowJar.archivePath)
     }
 }
 
 task testJar(type: Jar) {
-    dependsOn compileTestJava,jar
+    dependsOn compileTestJava, jar
     manifest {
         attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                   'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'Arm Limited',
-                   'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'Arm Limited',
+                'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
     }
     baseName = project.name + '-test'
-    from sourceSets.test.output+sourceSets.test.allSource
+    from sourceSets.test.output + sourceSets.test.allSource
     doLast {
-        updateArtifactList("TEST_JAR",testJar.archivePath)
+        updateArtifactList("TEST_JAR", testJar.archivePath)
     }
 }
 
@@ -341,16 +341,16 @@ task shadowTestJar(type: Jar) {
     dependsOn testJar, shadowJar
     manifest {
         attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                   'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'Arm Limited',
-                   'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
+                'Implementation-Version': project.version,
+                'Implementation-Vendor': 'Arm Limited',
+                'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
     }
     baseName = project.name + '-test-full'
     from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
     from sourceSets.test.output
     with jar
     doLast {
-        updateArtifactList("TEST_FULL_JAR",shadowTestJar.archivePath)
+        updateArtifactList("TEST_FULL_JAR", shadowTestJar.archivePath)
     }
 }
 
@@ -360,9 +360,9 @@ task copyCoverageAgent(type: Copy) {
     def coverage_results = "$buildDir" + File.separator + "coverage-results" + File.separator
     from configurations.coverage
     into dest
-    updateArtifactList("SDK_COVERAGE_TOOLS_DIR",dest)
-    updateArtifactList("SDK_COVERAGE_RESULTS_DIR",coverage_results)
-    mkdir coverage_results    
+    updateArtifactList("SDK_COVERAGE_TOOLS_DIR", dest)
+    updateArtifactList("SDK_COVERAGE_RESULTS_DIR", coverage_results)
+    mkdir coverage_results
 }
 
 task reportCoverage(dependsOn: copyCoverageAgent) {
@@ -371,17 +371,17 @@ task reportCoverage(dependsOn: copyCoverageAgent) {
     def classes_files = ''
     def source_files = ''
     def project_list = []
-    project.subprojects.each {sproject ->
-         if(sproject != project(':backends') && sproject.parent != project(':backends')){
+    project.subprojects.each { sproject ->
+        if (sproject != project(':backends') && sproject.parent != project(':backends')) {
             project_list.add(sproject)
-         }
+        }
     }
     project_list.add(project)
-    project_list.each{ projectObject -> classes_files+=projectObject.sourceSets.main.output.asPath + File.pathSeparator }
-    project_list.each{ projectObject -> source_files+=projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
-    updateArtifactList("SDK_PROJECT_SOURCE_FILES", source_files )
+    project_list.each { projectObject -> classes_files += projectObject.sourceSets.main.output.asPath + File.pathSeparator }
+    project_list.each { projectObject -> source_files += projectObject.sourceSets.main.allJava.srcDirs[0].toString() + File.pathSeparator }
+    updateArtifactList("SDK_PROJECT_SOURCE_FILES", source_files)
     updateArtifactList("SDK_PROJECT_CLASS_FILES", classes_files)
-    updateArtifactList("SDK_PROJECT_COVERAGE_REPORT_DIR",report_dest)        
+    updateArtifactList("SDK_PROJECT_COVERAGE_REPORT_DIR", report_dest)
 }
 
 publishing {
@@ -393,26 +393,26 @@ publishing {
             artifact javadocJar
 
             pom.withXml {
-                    asNode().appendNode('description',
-                                'Arm Mbed Cloud SDK')
-               }
+                asNode().appendNode('description',
+                        'Arm Mbed Cloud SDK')
+            }
         }
     }
 }
 
 artifactory {
-    contextUrl = "${artifactory_contextUrl}"  
+    contextUrl = "${artifactory_contextUrl}"
     publish {
         repository {
             repoKey = "${artifactory_deployment_repository}"
             username = "${artifactory_user}"
             password = "${artifactory_password}"
             maven = true
-            
+
         }
         defaults {
             //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
-            publications ('mavenJava')
+            publications('mavenJava')
             ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
             publishConfigs('archives')
             publishBuildInfo = true   //Publish build-info to Artifactory.

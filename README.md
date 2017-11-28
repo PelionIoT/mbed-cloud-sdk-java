@@ -13,24 +13,19 @@ In order to best meet your requirements, Java SDK is packaged in 3 different way
 * Individual Jars
 * Distribution ZIP. See related [gradle plugin](https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html) for more details.
 * A [fat jar](https://github.com/johnrengelman/shadow) comprising the SDK and all its dependencies.
+
 ## Usage
 
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html#quickstart):
-
 1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
-
 2. Create a configuration object:
-
     ```java
-        String logLevel = "BODY";
-        String apiKey = "<apikey>";
-        String cloudHost = "https://<host>"
-        ConnectionOptions config = new ConnectionOptions(apiKey, cloudHost);
+        String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
+        String apiKey = "<apikey>"; //API key to use for contacting Mbed Cloud.
+        ConnectionOptions config = new ConnectionOptions(apiKey);
         config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
     ```
-
-3. Import SDK using one of the packages listed above and you're ready to go.
-
+3. Import SDK using one of the packages listed above and you are ready to go.
     ```java
         DeviceDirectory deviceApi = new DeviceDirectory(config);
         try {
@@ -44,16 +39,17 @@ These instructions can also be found in the [official documentation](https://s3-
 ## Documentation and examples
 
 See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/v1.2/mbed-cloud-sdk-java/.
+For usage examples, please have a look at the [example project](examples/README.md).
 
 ## Project
 
 * All code inside _\*.internal.\*_ packages or annotated as **@Internal** is considered private API and should not be relied upon at all.
-
 * Classes annotated as **@Module** contain all Arm Mbed Cloud APIs
-
-* Method annotated as **@API** are the functions which can be used to interact with Mbed Cloud.
+* Methods annotated as **@API** are the functions which can be used to interact with Mbed Cloud.
 * APIs, objects or methods annotated as **@Deprecated** are supported until the next major release and will be removed later on. It is highly recommended to stop using them.
-## License
+* Methods with **@Daemon** annotation should be used to monitor SDK daemon threads.
+
+## Licence
 
 Mbed Cloud SDK for Java is free-to-use and licensed under the **Apache License
 2.0**. See LICENCE file for more information.

@@ -3,6 +3,7 @@ package utils;
 import java.util.List;
 
 import org.junit.Test;
+import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
 import org.junit.runners.model.FrameworkMethod;
 import org.junit.runners.model.InitializationError;
@@ -26,6 +27,18 @@ public class ExampleRunner extends BlockJUnit4ClassRunner {
         list2.addAll(list);
         return list2;
 
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see org.junit.runners.BlockJUnit4ClassRunner#runChild(org.junit.runners.model.FrameworkMethod,
+     * org.junit.runner.notification.RunNotifier)
+     */
+    @Override
+    protected void runChild(FrameworkMethod method, RunNotifier notifier) {
+        ExampleLogger.logExample(method.getName(), method.getDeclaringClass().getSimpleName());
+        super.runChild(method, notifier);
     }
 
     @Override

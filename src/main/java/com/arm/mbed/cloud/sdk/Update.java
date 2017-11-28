@@ -74,8 +74,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareImageListOptions options = new FirmwareImageListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
@@ -124,8 +124,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareImageListOptions options = new FirmwareImageListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
@@ -292,8 +292,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
@@ -343,8 +343,8 @@ public class Update extends AbstractApi {
      * try {
      *     FirmwareManifestListOptions options = new FirmwareManifestListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
@@ -513,8 +513,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
@@ -564,8 +564,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
@@ -730,8 +730,8 @@ public class Update extends AbstractApi {
      * try {
      *     CampaignListOptions options = new CampaignListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      * 
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);

@@ -5,6 +5,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 
 @Preamble(description = "Resource")
 public class Resource implements SdkModel {
@@ -63,6 +64,30 @@ public class Resource implements SdkModel {
     }
 
     /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Resource(String, String)} instead.
+     * 
+     * @param deviceId
+     *            device id
+     * @param path
+     *            path
+     * @param type
+     *            type
+     * @param contentType
+     *            content type
+     */
+    @Internal
+    public Resource(String deviceId, String path, String type, String contentType) {
+        super();
+        setDeviceId(deviceId);
+        setPath(path);
+        this.type = type;
+        this.contentType = contentType;
+        this.observable = false;
+    }
+
+    /**
      * Constructor.
      * 
      * @param deviceId
@@ -71,14 +96,26 @@ public class Resource implements SdkModel {
      *            resource path.
      */
     public Resource(String deviceId, String path) {
-        this(deviceId, path, null, null, false);
+        this(deviceId, path, null, null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param device
+     *            device.
+     * @param path
+     *            resource path.
+     */
+    public Resource(Device device, String path) {
+        this((device == null) ? null : device.getId(), path);
     }
 
     /**
      * Constructor.
      */
     public Resource() {
-        this(null, null);
+        this(null, null, null, null);
     }
 
     /**
@@ -153,7 +190,8 @@ public class Resource implements SdkModel {
     }
 
     /**
-     * States whether the resource is observable or not.
+     * States whether the resource is observable or not i.e. whether you can subscribe to changes for this resource or
+     * not.
      * 
      * @return the observable
      */
@@ -182,4 +220,16 @@ public class Resource implements SdkModel {
     public boolean isValid() {
         return deviceId != null && path != null;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Resource [deviceId=" + deviceId + ", path=" + path + ", type=" + type + ", contentType=" + contentType
+                + ", observable=" + observable + "]";
+    }
+
 }

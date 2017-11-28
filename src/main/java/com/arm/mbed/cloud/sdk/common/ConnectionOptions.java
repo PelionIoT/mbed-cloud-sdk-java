@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "APIs connection options/configuration")
@@ -9,6 +10,8 @@ public class ConnectionOptions implements Cloneable {
     private String host;
     private CallLogLevel clientLogLevel;
     private TimePeriod requestTimeout;
+    @DefaultValue(value = "TRUE")
+    private boolean autostartDaemon;
 
     /**
      * Constructor.
@@ -22,6 +25,7 @@ public class ConnectionOptions implements Cloneable {
         super();
         setApiKey(apiKey);
         setHost(host);
+        setAutostartDaemon(true);
         setClientLogLevel(CallLogLevel.NONE);
     }
 
@@ -151,6 +155,26 @@ public class ConnectionOptions implements Cloneable {
     }
 
     /**
+     * States whether daemons should autostart when needed.
+     * 
+     * @return true if the daemon will autostart when necessary.
+     */
+    public boolean isAutostartDaemon() {
+        return autostartDaemon;
+    }
+
+    /**
+     * Sets whether daemon should autostart when needed. If set to false, an exception will be raised if a daemon is
+     * required but not started.
+     * 
+     * @param autostartDaemon
+     *            autostart mode for the daemon.
+     */
+    public void setAutostartDaemon(boolean autostartDaemon) {
+        this.autostartDaemon = autostartDaemon;
+    }
+
+    /**
      * Clones the connection options.
      * 
      * @return a clone.
@@ -159,6 +183,7 @@ public class ConnectionOptions implements Cloneable {
     public ConnectionOptions clone() {
         final ConnectionOptions options = new ConnectionOptions(apiKey, host);
         options.setClientLogLevel(clientLogLevel);
+        options.setAutostartDaemon(autostartDaemon);
         if (hasCustomRequestTimeout()) {
             options.setRequestTimeout(requestTimeout.clone());
         }

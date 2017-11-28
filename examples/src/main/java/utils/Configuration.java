@@ -11,8 +11,12 @@ public class Configuration {
     private static final String ENVVAR_HTTP_LOG_LEVEL = "HTTP_LOG_LEVEL";
 
     private ConnectionOptions config;
+    private final boolean isIncomplete;
 
     public static ConnectionOptions get() {
+        if (ConfigurationHolder.INSTANCE.isIncomplete) {
+            thowException();
+        }
         return ConfigurationHolder.INSTANCE.config;
     }
 
@@ -23,13 +27,11 @@ public class Configuration {
     private Configuration() {
         config = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY), System.getenv(ENVVAR_MBED_CLOUD_HOST));
         config.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
-        if (config.isApiKeyEmpty()) {
-            logError("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
-        }
+        isIncomplete = config.isApiKeyEmpty();
     }
 
-    private void logError(String message) {
-        fail(message);
+    private static void thowException() {
+        fail("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
     }
 
 }

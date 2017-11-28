@@ -386,4 +386,23 @@ public class Metric implements SdkModel {
     public boolean isValid() {
         return true;
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Metric [id=" + id + ", timestamp=" + timestamp + ", transactions=" + transactions
+                + ", successfulApiCalls=" + successfulApiCalls + ", failedApiCalls=" + failedApiCalls + ", handshakes="
+                + handshakes + ", pendingBootstraps=" + pendingBootstraps + ", successfulBootstraps="
+                + successfulBootstraps + ", failedBootstraps=" + failedBootstraps + ", fullRegistrations="
+                + fullRegistrations + ", updatedRegistrations=" + updatedRegistrations + ", expiredRegistrations="
+                + expiredRegistrations + ", deletedRegistrations=" + deletedRegistrations + ", successfulProxyRequests="
+                + successfulProxyRequests + ", failedProxyRequests=" + failedProxyRequests
+                + ", successfulSubscriptionRequests=" + successfulSubscriptionRequests + ", failedSubscriptionRequests="
+                + failedSubscriptionRequests + ", observations=" + observations + "]";
+    }
+
 }

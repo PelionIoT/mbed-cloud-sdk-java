@@ -1,7 +1,5 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -9,6 +7,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -24,10 +27,9 @@ public class FilterMarshaller {
 
     private static final String FILTER_SEPARATOR = "&";
 
-    public static final String SUFFIX_SEPARATOR = "_";
+    public static final String SUFFIX_SEPARATOR = "__";
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
+    private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
     private final Map<String, String> fieldNameMapping;
     private final Map<String, String> fieldNameReverseMapping;
 
@@ -251,9 +253,11 @@ public class FilterMarshaller {
         return reverseMapping;
     }
 
-    private Object formatFilterValue(Object value) {
+    @SuppressWarnings("cast")
+    private String formatFilterValue(Object value) {
         if (value instanceof Date) {
-            return DATE_FORMAT.format(value);
+            // Moving dates/Times to UTC and formatting them according to rfc3339
+            return DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC));
         }
         return String.valueOf(value);
     }

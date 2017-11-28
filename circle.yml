@@ -1,7 +1,6 @@
 machine:
   timezone: Europe/London
   environment:
-    AWS_DEFAULT_REGION: us-west-2
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
     PROJECT_DOCS: ${HOME}/docs
     PROJECT_TESTS: ${HOME}/tests

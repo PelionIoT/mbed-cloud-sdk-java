@@ -14,9 +14,9 @@ public class TestFilterMarshaller {
     @Test
     public void testEncodeFilter() {
         Filter filter = new CustomFilter("foo", FilterOperator.GREATER_THAN, "bar");
-        assertEquals("custom_attributes__foo_gte=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
+        assertEquals("custom_attributes__foo__gte=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
         filter = new Filter("foo", FilterOperator.GREATER_THAN, "bar");
-        assertEquals("foo_gte=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
+        assertEquals("foo__gte=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
         filter = new Filter("foo", FilterOperator.EQUAL, "bar");
         assertEquals("foo=bar", new FilterMarshaller(null).encodeFilter(filter, "foo"));
         assertEquals("test_1=bar", new FilterMarshaller(null).encodeFilter(filter, "test_1"));
@@ -27,15 +27,15 @@ public class TestFilterMarshaller {
         Filters filters = new Filters();
         filters.add(new CustomFilter("foo", FilterOperator.GREATER_THAN, "bar"));
         filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
-        assertEquals("custom_attributes__foo_gte=bar&key=value", new FilterMarshaller(null).encode(filters));
+        assertEquals("custom_attributes__foo__gte=bar&key=value", new FilterMarshaller(null).encode(filters));
         Map<String, String> mapping = new HashMap<>(1);
         mapping.put("foo", "test_1");
         mapping.put("key", "test_2");
-        assertEquals("custom_attributes__test_1_gte=bar&test_2=value", new FilterMarshaller(mapping).encode(filters));
+        assertEquals("custom_attributes__test_1__gte=bar&test_2=value", new FilterMarshaller(mapping).encode(filters));
         filters = new Filters();
         filters.add(new CustomFilter("fooBar", FilterOperator.GREATER_THAN, "top"));
         filters.add(new Filter("key", FilterOperator.EQUAL, "value"));
-        assertEquals("custom_attributes__foo_bar_gte=top&key=value", new FilterMarshaller(null).encode(filters));
+        assertEquals("custom_attributes__foo_bar__gte=top&key=value", new FilterMarshaller(null).encode(filters));
         // TODO add more test cases
     }
 
@@ -49,7 +49,7 @@ public class TestFilterMarshaller {
         assertEquals(FilterOperator.EQUAL, filter.getOperator());
         assertEquals("foo", filter.getFieldName());
         assertEquals("bar", filter.getValue());
-        query = "foo_neq=bar";
+        query = "foo__neq=bar";
         filter = new FilterMarshaller(null).decodeFilter(query);
         assertNotNull(filter);
         assertTrue(filter.isValid());
@@ -57,7 +57,7 @@ public class TestFilterMarshaller {
         assertEquals(FilterOperator.NOT_EQUAL, filter.getOperator());
         assertEquals("foo", filter.getFieldName());
         assertEquals("bar", filter.getValue());
-        query = "test_1_neq=bar";
+        query = "test_1__neq=bar";
         filter = new FilterMarshaller(null).decodeFilter(query);
         assertNotNull(filter);
         assertTrue(filter.isValid());
@@ -86,7 +86,7 @@ public class TestFilterMarshaller {
 
     @Test
     public void testDecode() {
-        String query = "custom_attributes__foo_neq=bar&key_lte=value";
+        String query = "custom_attributes__foo__neq=bar&key__lte=value";
         Filters filters = new FilterMarshaller(null).decode(query);
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
@@ -95,7 +95,7 @@ public class TestFilterMarshaller {
         Map<String, String> mapping = new HashMap<>(1);
         mapping.put("foo", "test_1");
         mapping.put("key", "test_2");
-        query = "custom_attributes__test_1_neq=bar&test_2_lte=value&test_3=value";
+        query = "custom_attributes__test_1__neq=bar&test_2__lte=value&test_3=value";
         filters = new FilterMarshaller(mapping).decode(query);
         assertNotNull(filters);
         assertFalse(filters.isEmpty());

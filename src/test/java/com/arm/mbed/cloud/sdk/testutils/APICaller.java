@@ -106,7 +106,6 @@ public class APICaller {
             return null;
         }
 
-        @SuppressWarnings("unchecked")
         private Map<String, Map<String, Object>> determineArgumentJsonValues(Map<String, Object> parameters)
                 throws APICallException {
             Map<String, Map<String, Object>> argDescription = null;

@@ -69,8 +69,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -123,8 +123,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     DeviceListOptions options = new DeviceListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
@@ -327,8 +327,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     QueryListOptions options = new QueryListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
@@ -374,8 +374,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     QueryListOptions options = new QueryListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addCreatedAtFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
@@ -462,8 +462,8 @@ public class DeviceDirectory extends AbstractApi {
      *     deviceFilter.add(new Filter("deviceClass", FilterOperator.EQUAL, getClassId()));
      *     query.setFilters(deviceFilter);
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     query.addCreatedAtFilter(dadateFilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     query.addCreatedAtFilter(date.getTime(),FilterOperator.GREATER_THAN);
      *
      *     Query newQuery = deviceDirectoryApi.addQuery(query);
      *     System.out.println("Query ID: " + newQuery.getId());
@@ -511,8 +511,8 @@ public class DeviceDirectory extends AbstractApi {
      *     deviceFilter.add(new Filter("deviceClass", FilterOperator.EQUAL, getClassId()));
      *     query.setFilters(deviceFilter);
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     query.addCreatedAtFilter(dadateFilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     query.addCreatedAtFilter(date.getTime(),FilterOperator.GREATER_THAN);
      *
      *     Query newQuery = deviceDirectoryApi.updateQuery(query);
      *     System.out.println("Update query name: " + newQuery.getName());
@@ -592,8 +592,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     DeviceEventListOptions options = new DeviceEventListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addEventDateFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addEventDateFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
@@ -643,8 +643,8 @@ public class DeviceDirectory extends AbstractApi {
      * try {
      *     DeviceEventListOptions options = new DeviceEventListOptions();
      *
-     *     Calendar date = GregorianCalendar(2017,10,31,10,20,56);
-     *     options.addEventDateFilter(date, FilterOperator.GREATER_THAN);
+     *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
+     *     options.addEventDateFilter(date.getTime(), FilterOperator.GREATER_THAN);
      *     
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
