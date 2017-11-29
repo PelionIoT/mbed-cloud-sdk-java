@@ -38,7 +38,7 @@ public class ConnectionOptions implements Cloneable {
      * 
      */
     public ConnectionOptions(String apiKey) {
-        this(apiKey, ARM_MBED_CLOUD_DEFAULT_HOST);
+        this(apiKey, null);
     }
 
     /**
@@ -94,14 +94,15 @@ public class ConnectionOptions implements Cloneable {
      *            the host to set
      */
     public void setHost(String host) {
-        final StringBuilder sb = new StringBuilder();
-        if (host != null) {
-            sb.append(host.trim());
-            if (!host.endsWith("/")) {
-                sb.append('/');
-            }
+        String cloudHost = (host == null) ? null : host.trim();
+        if (cloudHost == null || cloudHost.isEmpty()) {
+            cloudHost = ARM_MBED_CLOUD_DEFAULT_HOST;
         }
-
+        final StringBuilder sb = new StringBuilder();
+        sb.append(cloudHost);
+        if (!cloudHost.endsWith("/")) {
+            sb.append('/');
+        }
         this.host = sb.toString();
     }
 
