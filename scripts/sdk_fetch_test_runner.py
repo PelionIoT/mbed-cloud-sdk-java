@@ -2,7 +2,7 @@
 import sdk_common
 
 
-# Block in charge of fetching SDK test runner
+# Block in charge of fetching SDK test runner (Docker container)
 class SDKTestRunnerFetcher(sdk_common.BuildStep):
     def __init__(self, logger=None):
         super(SDKTestRunnerFetcher, self).__init__('SDK test runner fetch', logger)
