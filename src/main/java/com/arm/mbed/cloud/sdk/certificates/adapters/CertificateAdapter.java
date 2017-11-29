@@ -166,10 +166,16 @@ public final class CertificateAdapter {
             return null;
         }
         final TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
-        request.setCertificate(certificate.getCertificateData());
+        if (certificate.hasCertificateDataBeenUpdated()) {
+            request.setCertificate(certificate.getCertificateData());
+        }
         request.setName(certificate.getName());
-        request.setService(reverseUpdateRequestServiceType(certificate.getType()));
-        request.setStatus(reverseUpdateRequestStatus(certificate.getStatus()));
+        if (certificate.hasTypeBeenUpdated()) {
+            request.setService(reverseUpdateRequestServiceType(certificate.getType()));
+        }
+        if (certificate.hasStatusBeenUpdated()) {
+            request.setStatus(reverseUpdateRequestStatus(certificate.getStatus()));
+        }
         request.setSignature(certificate.getSignature());
         request.setDescription(certificate.getDescription());
         return request;

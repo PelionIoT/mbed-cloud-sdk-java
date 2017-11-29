@@ -523,6 +523,7 @@ public class User implements SdkModel {
      * 
      * @return true if the email has been modified. False otherwise.
      */
+    @Internal
     public boolean hasEmailBeenUpdated() {
         return hasEmailBeenUpdated;
     }

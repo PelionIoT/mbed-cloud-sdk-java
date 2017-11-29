@@ -35,11 +35,21 @@ public class Certificate implements SdkModel {
     @DefaultValue(value = "INACTIVE")
     private CertificateStatus status;
     /**
+     * Field to keep track of an updated status.
+     */
+    @Internal
+    private transient boolean hasStatusBeenUpdated;
+    /**
      * Certificate type.
      */
     @Required
     @DefaultValue(value = "DEVELOPER")
     private CertificateType type;
+    /**
+     * Field to keep track of an updated type.
+     */
+    @Internal
+    private transient boolean hasTypeBeenUpdated;
     /**
      * Human readable description of this certificate.
      */
@@ -91,6 +101,11 @@ public class Certificate implements SdkModel {
      * X509.v3 CA certificate in PEM or base64 encoded DER format.
      */
     private String certificateData;
+    /**
+     * Field to keep track of an updated data.
+     */
+    @Internal
+    private transient boolean hasCertificateDataBeenUpdated;
     /**
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed
      * with SHA256.
@@ -150,6 +165,7 @@ public class Certificate implements SdkModel {
         setSignature(null);
         setStatus(CertificateStatus.getDefault());
         setType(CertificateType.getDefault());
+        setAsNew();
     }
 
     /**
@@ -207,6 +223,7 @@ public class Certificate implements SdkModel {
         setSignature(signature);
         setStatus(status);
         setType(type);
+        setAsNew();
     }
 
     /**
@@ -232,6 +249,13 @@ public class Certificate implements SdkModel {
         this();
         setName(name);
         setType(type);
+        setAsNew();
+    }
+
+    private void setAsNew() {
+        hasCertificateDataBeenUpdated = false;
+        hasStatusBeenUpdated = false;
+        hasTypeBeenUpdated = false;
     }
 
     /**
@@ -303,6 +327,7 @@ public class Certificate implements SdkModel {
      */
     public void setStatus(CertificateStatus status) {
         this.status = status;
+        hasStatusBeenUpdated = true;
     }
 
     /**
@@ -333,6 +358,7 @@ public class Certificate implements SdkModel {
     @Required
     public void setType(CertificateType type) {
         this.type = type;
+        hasTypeBeenUpdated = true;
     }
 
     /**
@@ -381,6 +407,7 @@ public class Certificate implements SdkModel {
      */
     public void setCertificateData(String certificateData) {
         this.certificateData = certificateData;
+        hasCertificateDataBeenUpdated = true;
     }
 
     /**
@@ -501,6 +528,36 @@ public class Certificate implements SdkModel {
         return ownerId;
     }
 
+    /**
+     * Checks whether the status has been modified since creation.
+     * 
+     * @return true if the status has been modified. False otherwise.
+     */
+    @Internal
+    public boolean hasStatusBeenUpdated() {
+        return hasStatusBeenUpdated;
+    }
+
+    /**
+     * Checks whether the type has been modified since creation.
+     * 
+     * @return true if the type has been modified. False otherwise.
+     */
+    @Internal
+    public boolean hasTypeBeenUpdated() {
+        return hasTypeBeenUpdated;
+    }
+
+    /**
+     * Checks whether certificate data have been modified since creation.
+     * 
+     * @return true if the data have been modified. False otherwise.
+     */
+    @Internal
+    public boolean hasCertificateDataBeenUpdated() {
+        return hasCertificateDataBeenUpdated;
+    }
+
     @SuppressWarnings("unchecked")
     private static <T> T mergeField(T obj1, T obj2) {
         if (obj1 == null) {
@@ -549,6 +606,7 @@ public class Certificate implements SdkModel {
         merge.setSignature(mergeField(partial1.getSignature(), partial2.getSignature()));
         merge.setStatus(mergeField(partial1.getStatus(), partial2.getStatus()));
         merge.setType(mergeField(partial1.getType(), partial2.getType()));
+        merge.setAsNew();
         return merge;
     }
 
