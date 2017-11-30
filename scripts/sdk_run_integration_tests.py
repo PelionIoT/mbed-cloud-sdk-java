@@ -20,7 +20,7 @@ class SDKIntegrationTestRunner(sdk_common.BuildStepUsingGradle):
             # return_code = self.call_command(arguments, None, True)
             # if return_code != 0:
             #     raise Exception('Error code', return_code)
-            arguments = ["docker-compose", "up", "--exit-code-from", "testrunner"]
+            arguments = ["docker-compose", "up", "--build", "--exit-code-from", "testrunner"]
             self.log_info("Running integration tests against integration lab")
             env = self.common_config.get_config().get_environment_with_host_set(self.host)
             env = self.common_config.get_config().get_environment_with_apikey_set(self.key_lab, env)
