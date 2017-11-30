@@ -653,7 +653,7 @@ class Config(Action):
                 self.publishing_repo = self.properties['artifactory_deployment_snapshot_repository']
         return self.publishing_repo
 
-    def is_release(self):
+    def is_for_release(self):
         return self.is_release
 
     def is_running_on_windows(self):
