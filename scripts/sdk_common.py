@@ -282,9 +282,9 @@ class BuildStep(Action):
 
 
 class BuildStepUsingGradle(BuildStep):
-    def __init__(self, name, logger):
+    def __init__(self, name, logger, dir=None):
         super(BuildStepUsingGradle, self).__init__(name, logger)
-        self.gradle_directory = os.path.normpath(os.path.realpath(self.top_directory))
+        self.gradle_directory = os.path.normpath(os.path.realpath(self.top_directory)) if not dir else dir
         self.graddle_command = self.get_gradle_script_to_use()
 
     def get_gradle_script_to_use(self):
@@ -605,6 +605,7 @@ class Config(Action):
         self.cloud_host = None
         self.lab_api_key = None
         self.prod_api_key = None
+        self.sdk_example_dir = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -617,6 +618,16 @@ class Config(Action):
                 script_loc = os.path.dirname(script_loc)
                 self.sdk_top_dir = os.path.realpath(os.path.join(script_loc, '..'))
         return self.sdk_top_dir
+
+    def get_sdk_example_directory(self):
+        if not self.sdk_example_dir:
+            self.log_debug("Determining SDK examples directory")
+            top_dir = self.get_sdk_top_directory()
+            if top_dir:
+                example_dir = os.path.normpath(os.path.realpath(os.path.join(top_dir, 'examples')))
+                if os.path.exists(example_dir) and os.path.isdir(example_dir):
+                    self.sdk_example_dir = example_dir
+        return self.sdk_example_dir
 
     def get_sdk_build_directory(self):
         if not self.sdk_build_dir:
