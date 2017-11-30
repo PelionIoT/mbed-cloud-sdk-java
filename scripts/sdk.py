@@ -16,6 +16,7 @@ import sdk_logger
 import sdk_test
 import sdk_version
 import sdk_generate_quality_summary
+import sdk_run_integration_tests
 
 
 # Entry point for executing SDK build steps
@@ -31,6 +32,7 @@ class SDKBuild:
                       'clean': sdk_clean.SDKCleaner(self.logger),
                       'version': sdk_version.SDKVersion(self.logger),
                       'launch_test_server': sdk_launch_test_server.SDKTestServerLauncher(self.logger),
+                      'run_integration_tests': sdk_run_integration_tests.SDKIntegrationTestRunner(self.logger),
                       'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
                       'fetch_code_coverage_tools': sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger),
                       'report_code_coverage': sdk_report_code_coverage.SDKCoverageReporter(self.logger),

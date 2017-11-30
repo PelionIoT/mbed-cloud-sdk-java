@@ -13,6 +13,7 @@ machine:
     BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
     SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
     ARTIFACTORY_URL: http://localhost:5000/artifactory/
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
   java:
     version: oraclejdk8
   services:
@@ -58,7 +59,7 @@ compile:
 
 test:
   override:
-    - docker-compose up --exit-code-from testrunner
+    - python ${SCRIPTS_DIR}/sdk.py run_integration_tests
   post:
     - python ${SCRIPTS_DIR}/sdk.py report_code_coverage
     - python ${SCRIPTS_DIR}/sdk.py generate_quality_summary

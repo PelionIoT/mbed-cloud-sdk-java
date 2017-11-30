@@ -68,8 +68,14 @@ class Action(object):
         signal.signal(signal.SIGFPE, notify_subprocess_exit)
         signal.signal(signal.SIGSEGV, notify_subprocess_exit)
 
-    def _spawn(self, debug, args, use_shell=True, **kwargs):
-        process = subprocess.Popen(args, stdout=subprocess.PIPE, shell=use_shell, universal_newlines=True, **kwargs)
+    def call_command(self, args, directory=None, show_output_asap=False, use_shell=True, env=None):
+        return self._spawn_command(True, args, directory, show_output_asap, use_shell, env)
+
+    def _spawn(self, debug, args, use_shell=True, env=None, **kwargs):
+        if not env:
+            env = os.environ
+        process = subprocess.Popen(args, stdout=subprocess.PIPE, shell=use_shell, universal_newlines=True, env=env,
+                                   **kwargs)
         self.last_spawned_subprocess = process
         output, err = process.communicate()
         retcode = process.poll()
@@ -80,19 +86,36 @@ class Action(object):
                 self.log_debug('Command error message: ' + err)
         return retcode
 
-    def call_command(self, args, directory=None, show_output_asap=False, use_shell=True):
-        return self._spawn_command(True, args, directory, show_output_asap, use_shell)
-
-    def _spawn_command_with_output(self, args, directory, use_shell=True):
-        with subprocess.Popen(args, shell=use_shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                              universal_newlines=True, cwd=directory, bufsize=1) as p:
-            self.last_spawned_subprocess = p
-            for line in p.stdout:
+    def _spawn_command_with_output_alternative(self, args, directory, use_shell=True, env=None):
+        if not env:
+            env = os.environ
+        p = subprocess.Popen(args, shell=use_shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                             universal_newlines=True, cwd=directory, bufsize=1, env=env)
+        self.last_spawned_subprocess = p
+        while True:
+            line = p.stdout.readline()
+            if line == '' and p.poll() is not None:
+                break
+            if line:
                 self.log_info(line)
-        return p.returncode if 'returncode' in dir(p) else p.poll()
+        rc = p.poll()
+        return rc
+
+    def _spawn_command_with_output(self, args, directory, use_shell=True, env=None):
+        if not env:
+            env = os.environ
+        try:
+            with subprocess.Popen(args, shell=use_shell, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
+                                  universal_newlines=True, cwd=directory, bufsize=1, env=env) as p:
+                self.last_spawned_subprocess = p
+                for line in p.stdout:
+                    self.log_info(line)
+            return p.returncode if 'returncode' in dir(p) else p.poll()
+        except:
+            return self._spawn_command_with_output_alternative(args, directory, use_shell, env)
 
     # The following method was introduced in order to work using either python 2.7 or python 3 and above
-    def _spawn_command(self, debug, args, directory, show_output_asap, use_shell=True):
+    def _spawn_command(self, debug, args, directory, show_output_asap, use_shell=True, env=None):
         if args:
             return_code = 1
             # Convert args list to single string (required for any commands using pipes or shell builtins)
@@ -100,14 +123,16 @@ class Action(object):
                 args = ' '.join(args)
             if not directory:
                 directory = os.getcwd()
+            if not env:
+                env = os.environ
             if debug:
                 self.log_debug("Executing: " + str(args) + " in directory [" + str(directory) + "]")
             try:
                 if show_output_asap:
-                    return_code = self._spawn_command_with_output(args, directory, use_shell)
+                    return_code = self._spawn_command_with_output(args, directory, use_shell, env)
                 else:
                     proc = subprocess.run(args, shell=use_shell, stdout=subprocess.PIPE, timeout=None, check=False,
-                                          stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory)
+                                          stderr=subprocess.STDOUT, universal_newlines=True, cwd=directory, env=env)
                     return_code = proc.returncode
                     output = proc.stdout
                     err = proc.stderr
@@ -118,7 +143,7 @@ class Action(object):
                             self.log_debug('Command error message: ' + err)
 
             except AttributeError:
-                return_code = self._spawn(debug, args, use_shell, stderr=subprocess.STDOUT, cwd=directory)
+                return_code = self._spawn(debug, args, use_shell, stderr=subprocess.STDOUT, cwd=directory, env=env)
             if debug:
                 self.log_debug("Command return code: " + str(return_code))
             self.last_spawned_subprocess = None
@@ -257,9 +282,9 @@ class BuildStep(Action):
 
 
 class BuildStepUsingGradle(BuildStep):
-    def __init__(self, name, logger):
+    def __init__(self, name, logger, dir=None):
         super(BuildStepUsingGradle, self).__init__(name, logger)
-        self.gradle_directory = os.path.normpath(os.path.realpath(self.top_directory))
+        self.gradle_directory = os.path.normpath(os.path.realpath(self.top_directory)) if not dir else dir
         self.graddle_command = self.get_gradle_script_to_use()
 
     def get_gradle_script_to_use(self):
@@ -576,6 +601,11 @@ class Config(Action):
         self.artifactory_host = None
         self.testrunner_image = None
         self.code_coverage = None
+        self.branch_name = None
+        self.cloud_host = None
+        self.lab_api_key = None
+        self.prod_api_key = None
+        self.sdk_example_dir = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -588,6 +618,16 @@ class Config(Action):
                 script_loc = os.path.dirname(script_loc)
                 self.sdk_top_dir = os.path.realpath(os.path.join(script_loc, '..'))
         return self.sdk_top_dir
+
+    def get_sdk_example_directory(self):
+        if not self.sdk_example_dir:
+            self.log_debug("Determining SDK examples directory")
+            top_dir = self.get_sdk_top_directory()
+            if top_dir:
+                example_dir = os.path.normpath(os.path.realpath(os.path.join(top_dir, 'examples')))
+                if os.path.exists(example_dir) and os.path.isdir(example_dir):
+                    self.sdk_example_dir = example_dir
+        return self.sdk_example_dir
 
     def get_sdk_build_directory(self):
         if not self.sdk_build_dir:
@@ -613,7 +653,7 @@ class Config(Action):
                 self.publishing_repo = self.properties['artifactory_deployment_snapshot_repository']
         return self.publishing_repo
 
-    def is_release(self):
+    def is_for_release(self):
         return self.is_release
 
     def is_running_on_windows(self):
@@ -623,11 +663,13 @@ class Config(Action):
         self.on_windows = sys.platform.startswith('win')
 
     def get_branch_name(self):
-        try:
-            branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
-        except:
-            return None
-        return branch_name
+        if not self.branch_name:
+            self.log_debug("Determining branch name")
+            try:
+                self.branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
+            except:
+                self.branch_name = None
+        return self.branch_name
 
     def get_version(self):
         if not self.version:
@@ -701,6 +743,35 @@ class Config(Action):
     def get_configuration_as_dictionary(self):
         return self.properties
 
+    def get_apikey_lab(self):
+        if not self.lab_api_key:
+            self.lab_api_key = os.getenv("MBED_CLOUD_API_KEY")
+        return self.lab_api_key
+
+    def get_apikey_prod(self):
+        if not self.prod_api_key:
+            self.prod_api_key = os.getenv("MBED_CLOUD_API_KEY_PROD")
+        return self.prod_api_key
+
+    def get_host(self):
+        if not self.cloud_host:
+            self.cloud_host = os.getenv("MBED_CLOUD_HOST")
+        return self.cloud_host
+
+    def get_environment_with_host_set(self, host, env=None):
+        if not env:
+            env = os.environ.copy()
+        if host:
+            env['MBED_CLOUD_HOST'] = host
+        return env
+
+    def get_environment_with_apikey_set(self, apikey, env=None):
+        if not env:
+            env = os.environ.copy()
+        if apikey:
+            env['MBED_CLOUD_API_KEY'] = apikey
+        return env
+
     def load(self):
         self.log_debug("Loading SDK distribution configuration")
         property_file = PropertyFileParser(self, self.get_sdk_top_directory(), "gradle.properties", "=", "#")
@@ -709,6 +780,7 @@ class Config(Action):
         self.check_platform()
         self.check_if_graddle_wrapper_exists()
         self.properties = property_file.get_properties()
+        self.properties['branch_name'] = self.get_branch_name()
         self.properties['SDKVersion'] = self.get_version()
         self.properties['artifactory_user'] = self.get_artifactory_username()
         self.properties['artifactory_password'] = self.get_artifactory_api_key()
