@@ -24,9 +24,9 @@ Name | Type | Description | Notes
 **deployment** | **String** | DEPRECATED: The last deployment used on the device. |  [optional]
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
-**deviceKey** | **String** | The fingerprint of the device certificate. | 
+**deviceKey** | **String** | The fingerprint of the device certificate. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
-**caId** | **String** | The certificate issuer&#39;s ID. | 
+**caId** | **String** | The certificate issuer&#39;s ID. |  [optional]
 
 
 <a name="MechanismEnum"></a>

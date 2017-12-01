@@ -189,7 +189,7 @@ public class DeviceDataPutRequest implements Serializable {
    * The fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(required = true, value = "The fingerprint of the device certificate.")
+  @ApiModelProperty(value = "The fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -225,7 +225,7 @@ public class DeviceDataPutRequest implements Serializable {
    * The certificate issuer&#39;s ID.
    * @return caId
   **/
-  @ApiModelProperty(required = true, value = "The certificate issuer's ID.")
+  @ApiModelProperty(value = "The certificate issuer's ID.")
   public String getCaId() {
     return caId;
   }

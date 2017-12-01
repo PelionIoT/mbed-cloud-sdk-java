@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
 **object** | **String** | The API resource entity. |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. Note that keys cannot start with a number. |  [optional]
-**deviceKey** | **String** | The fingerprint of the device certificate. | 
+**deviceKey** | **String** | The fingerprint of the device certificate. |  [optional]
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
-**caId** | **String** | The certificate issuer&#39;s ID. | 
+**caId** | **String** | The certificate issuer&#39;s ID. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 
 
