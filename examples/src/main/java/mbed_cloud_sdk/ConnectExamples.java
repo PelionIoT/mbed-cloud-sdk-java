@@ -472,6 +472,8 @@ public class ConnectExamples extends AbstractExample {
     public void setUpAWebhook() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
+        // Telling the API to stop notification channel if already in use
+        api.setForceClear(true);
         try {
             // Defining resource to listen to
             String resourcePath = "/5002/0/1";
@@ -485,9 +487,15 @@ public class ConnectExamples extends AbstractExample {
             // Adding subscription to all connected devices.
             Paginator<Device> connectedDevices = api.listAllConnectedDevices(null);
             for (Device connectedDevice : connectedDevices) {
-                Resource resource = api.getResource(connectedDevice, resourcePath);
-                if (resource != null) {
-                    api.addResourceSubscription(resource);
+                try {
+                    Resource resource = api.getResource(connectedDevice, resourcePath);
+                    if (resource != null) {
+                        api.addResourceSubscription(resource);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    logError("An error occurred when trying to fetch Resource [" + resourcePath + "] on device: "
+                            + connectedDevice, api.getLastApiMetadata());
                 }
             }
             // Waiting for notifications to be sent to the webhook.
