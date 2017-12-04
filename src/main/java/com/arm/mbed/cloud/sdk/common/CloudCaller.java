@@ -189,7 +189,7 @@ public class CloudCaller<T, U> {
     }
 
     private static class ErrorJsonConverter {
-        private final JSONSerialiser jsonSerialiser = new JSONSerialiser();
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
 
         private Error convert(ResponseBody value) {

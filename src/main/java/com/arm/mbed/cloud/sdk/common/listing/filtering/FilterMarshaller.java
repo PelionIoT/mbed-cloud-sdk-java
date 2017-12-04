@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.JSONSerialiser;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
@@ -331,7 +331,7 @@ public class FilterMarshaller {
 
     private static class JsonObject {
 
-        private final JSONSerialiser jsonSerialiser = new JSONSerialiser();
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         private Map<String, Object> map;
 
         public JsonObject(Map<String, Object> map) {

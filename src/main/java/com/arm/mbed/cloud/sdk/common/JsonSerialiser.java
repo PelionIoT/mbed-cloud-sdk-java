@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.google.gson.Gson;
 
 @Preamble(description = "JSON serialisation/deserialisation wrapper")
-public class JSONSerialiser {
+public class JsonSerialiser {
     // The implementation of choice is gson rather than Jason because retrofit2 which is used as web client in the SDK
     // uses this implementation.
     private final Gson gson;
@@ -16,7 +16,7 @@ public class JSONSerialiser {
     /**
      * Constructor.
      */
-    public JSONSerialiser() {
+    public JsonSerialiser() {
         gson = new Gson();
     }
 
