@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.google.gson.Gson;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
@@ -330,7 +330,8 @@ public class FilterMarshaller {
     }
 
     private static class JsonObject {
-        private final Gson gson = new Gson();
+
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         private Map<String, Object> map;
 
         public JsonObject(Map<String, Object> map) {
@@ -346,7 +347,7 @@ public class FilterMarshaller {
             if (string == null || string.isEmpty()) {
                 setMap(null);
             } else {
-                setMap(gson.fromJson(string, Map.class));
+                setMap(jsonSerialiser.fromJson(string, Map.class));
             }
 
         }
@@ -414,7 +415,7 @@ public class FilterMarshaller {
         }
 
         public String encode() {
-            return gson.toJson(map);
+            return jsonSerialiser.toJson(map);
         }
 
         public void putFilter(Filter filter) {

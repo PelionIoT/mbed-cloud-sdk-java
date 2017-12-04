@@ -447,6 +447,9 @@ public class ConnectExamples extends AbstractExample {
                 notification.setPayload(payload);
                 notifications.addNotificationsItem(notification);
             }
+            // Creating the same notifications but using their JSON representation instead.
+            String otherNotifications = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
+                    + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
 
             Resource resource = new Resource(deviceId, resourcePath);
             // Creating a subscriber for this resource.
@@ -460,6 +463,7 @@ public class ConnectExamples extends AbstractExample {
                     });
             // Emitting notifications.
             api.notify(notifications);
+            api.notify(otherNotifications);
         } catch (Exception e) {
             fail(e.getMessage());
         }
@@ -472,6 +476,8 @@ public class ConnectExamples extends AbstractExample {
     public void setUpAWebhook() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
+        // Telling the API to stop notification channel if already in use
+        api.setForceClear(true);
         try {
             // Defining resource to listen to
             String resourcePath = "/5002/0/1";
@@ -485,9 +491,15 @@ public class ConnectExamples extends AbstractExample {
             // Adding subscription to all connected devices.
             Paginator<Device> connectedDevices = api.listAllConnectedDevices(null);
             for (Device connectedDevice : connectedDevices) {
-                Resource resource = api.getResource(connectedDevice, resourcePath);
-                if (resource != null) {
-                    api.addResourceSubscription(resource);
+                try {
+                    Resource resource = api.getResource(connectedDevice, resourcePath);
+                    if (resource != null) {
+                        api.addResourceSubscription(resource);
+                    }
+                } catch (Exception e1) {
+                    e1.printStackTrace();
+                    logError("An error occurred when trying to fetch Resource [" + resourcePath + "] on device: "
+                            + connectedDevice, api.getLastApiMetadata());
                 }
             }
             // Waiting for notifications to be sent to the webhook.

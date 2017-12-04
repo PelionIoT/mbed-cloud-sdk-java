@@ -8,7 +8,6 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.google.gson.Gson;
 
 import okhttp3.Headers;
 import okhttp3.Request;
@@ -190,14 +189,14 @@ public class CloudCaller<T, U> {
     }
 
     private static class ErrorJsonConverter {
-        private final Gson gson = new Gson();
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
 
         private Error convert(ResponseBody value) {
             if (value == null) {
                 return null;
             }
-            return gson.fromJson(value.charStream(), Error.class);
+            return jsonSerialiser.fromJson(value.charStream(), Error.class);
 
         }
     }

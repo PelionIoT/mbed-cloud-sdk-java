@@ -20,6 +20,7 @@ import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
@@ -1234,7 +1235,7 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Allows a notification to be injected into the notifications system.
+     * Allows notifications (received from a Webhook) to be injected into the notifications system.
      * <p>
      * Example:
      * 
@@ -1271,8 +1272,88 @@ public class Connect extends AbstractApi {
      *            The notification data to inject
      */
     @API
-    public void notify(NotificationMessage data) {
+    public void notify(@Nullable NotificationMessage data) {
         cache.notify(data);
+    }
+
+    /**
+     * Allows notifications expressed as a JSON string to be injected into the notifications system.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *       String deviceId = "015f4ac587f500000000000100100249";
+     *       String resourcePath = "/3200/0/5501";         
+     *       String payload ="Q2hhbmdlIG1lIQ==";
+     *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
+     *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
+     *       
+     *       Resource resource = new Resource(deviceId, resourcePath);
+     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
+     *               .subscribe(new Consumer<Object>() {
+     * 
+     *                   &#64;Override
+     *                   public void accept(Object t) throws Exception {
+     *                       log("Received notification value", t);
+     *                   }
+     *               });    
+     *       api.notify(notifications);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param dataAsJson
+     *            The notification data to inject as JSON String.
+     */
+    @API
+    public void notify(@Nullable String dataAsJson) {
+        notify(null, dataAsJson);
+    }
+
+    /**
+     * Allows a notification to be injected into the notifications system.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *       String deviceId = "015f4ac587f500000000000100100249";
+     *       String resourcePath = "/3200/0/5501";         
+     *       String payload ="Q2hhbmdlIG1lIQ==";
+     *       JSONSerialiser jsonSerialiser = new JSONSerialiser();
+     *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
+     *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
+     *       
+     *       Resource resource = new Resource(deviceId, resourcePath);
+     *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
+     *               .subscribe(new Consumer<Object>() {
+     * 
+     *                   &#64;Override
+     *                   public void accept(Object t) throws Exception {
+     *                       log("Received notification value", t);
+     *                   }
+     *               });    
+     *       api.notify(jsonSerialiser, notifications);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param deserialiser
+     *            JSON deserialiser to use.
+     * @param dataAsJson
+     *            The notification data to inject as JSON String.
+     */
+    @API
+    public void notify(@Nullable JsonSerialiser deserialiser, @Nullable String dataAsJson) {
+        final JsonSerialiser jsonEngine = (deserialiser == null) ? new JsonSerialiser() : deserialiser;
+        notify(jsonEngine.fromJson(dataAsJson, NotificationMessage.class));
     }
 
     /**

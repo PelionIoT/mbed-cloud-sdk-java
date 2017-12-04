@@ -40,7 +40,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             String certificateFingerprint = UUID.randomUUID().toString();
             log("Certificate Fingerprint", certificateFingerprint);
             Device myDevice = new Device(certificateIssuerId, certificateFingerprint);
-            myDevice.setName("my-test-device");
+            myDevice.setName("my-test-device-" + UUID.randomUUID().toString());
             myDevice.setDeviceExecutionMode(1);
             // Adding the device.
             myDevice = api.addDevice(myDevice);
