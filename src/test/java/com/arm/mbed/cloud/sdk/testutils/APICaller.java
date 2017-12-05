@@ -68,17 +68,29 @@ public class APICaller {
             throwUnknownAPI(module, method);
         }
         APICallException lastException = null;
+        APIMethodResult result = null;
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
-        // then an exception is raised.
+        // then last exception is raised or the last result is returned if not null.
         for (final APIMethod methodObj : methodObjs) {
             try {
+                result = null;
+                lastException = null;
                 API api = new API(connectionOptions, moduleObj, methodObj);
-                return api.call(parameters);
+                result = api.call(parameters);
+                // If the call was successful then it is returned straight away and there is no need to iterate over
+                // other methods
+                if (!result.wasExceptionRaised()) {
+                    return result;
+                }
             } catch (APICallException exception) {
                 lastException = exception;
             }
         }
-        // Only exceptions were raised.
+        // If the call was successful but an exception was raised during it then the failure is returned.
+        if (result != null) {
+            return result;
+        }
+        // If the call was not successful and hence, an exception was raised, then it is thrown.
         throw lastException;
     }
 
