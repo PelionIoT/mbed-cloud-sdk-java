@@ -12,7 +12,6 @@ import com.arm.mbed.cloud.sdk.Connect;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
@@ -91,12 +90,12 @@ public class ConnectExamples extends AbstractExample {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         // resource path to get value from
-        String resourcePath = "/5002/0/1";
+        String resourcePath = "/5001/0/1";
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
             options.setLimit(1);
-            options.setOrder(Order.DESC);
+
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
