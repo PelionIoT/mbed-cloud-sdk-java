@@ -30,10 +30,10 @@ public class DeveloperCertificateApiTest {
      * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
      */
     @Test
-    public void v3DeveloperCertificatesIdGetTest() {
-        String id = null;
+    public void v3DeveloperCertificatesMuuidGetTest() {
+        String muuid = null;
         String authorization = null;
-        // DeveloperCertificateResponseData response = api.v3DeveloperCertificatesIdGet(id, authorization);
+        // DeveloperCertificateResponseData response = api.v3DeveloperCertificatesMuuidGet(muuid, authorization);
 
         // TODO: test validations
     }

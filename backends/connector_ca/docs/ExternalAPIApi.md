@@ -1,18 +1,18 @@
 # ExternalAPIApi
 
-All URIs are relative to *http://api.mbedcloud.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3DeveloperCertificatesIdGet**](ExternalAPIApi.md#v3DeveloperCertificatesIdGet) | **GET** v3/developer-certificates/{id} | Fetch an existing developer certificate to connect to the bootstrap server.
+[**v3DeveloperCertificatesMuuidGet**](ExternalAPIApi.md#v3DeveloperCertificatesMuuidGet) | **GET** v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
 [**v3DeveloperCertificatesPost**](ExternalAPIApi.md#v3DeveloperCertificatesPost) | **POST** v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
 [**v3ServerCredentialsBootstrapGet**](ExternalAPIApi.md#v3ServerCredentialsBootstrapGet) | **GET** v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
 [**v3ServerCredentialsLwm2mGet**](ExternalAPIApi.md#v3ServerCredentialsLwm2mGet) | **GET** v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
 
 
-<a name="v3DeveloperCertificatesIdGet"></a>
-# **v3DeveloperCertificatesIdGet**
-> DeveloperCertificateResponseData v3DeveloperCertificatesIdGet(id, authorization)
+<a name="v3DeveloperCertificatesMuuidGet"></a>
+# **v3DeveloperCertificatesMuuidGet**
+> DeveloperCertificateResponseData v3DeveloperCertificatesMuuidGet(muuid, authorization)
 
 Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -36,13 +36,13 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ExternalAPIApi apiInstance = new ExternalAPIApi();
-String id = "id_example"; // String | A unique identifier for the developer certificate. 
+String muuid = "muuid_example"; // String | A unique identifier for the developer certificate. 
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    DeveloperCertificateResponseData result = apiInstance.v3DeveloperCertificatesIdGet(id, authorization);
+    DeveloperCertificateResponseData result = apiInstance.v3DeveloperCertificatesMuuidGet(muuid, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ExternalAPIApi#v3DeveloperCertificatesIdGet");
+    System.err.println("Exception when calling ExternalAPIApi#v3DeveloperCertificatesMuuidGet");
     e.printStackTrace();
 }
 ```
@@ -51,7 +51,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| A unique identifier for the developer certificate.  |
+ **muuid** | **String**| A unique identifier for the developer certificate.  |
  **authorization** | **String**| Bearer {Access Token}.  |
 
 ### Return type
