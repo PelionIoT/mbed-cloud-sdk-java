@@ -761,7 +761,7 @@ class Config(Action):
     def get_environment_with_host_set(self, host, env=None):
         if not env:
             env = os.environ.copy()
-        if host:
+        if host is not None:
             env['MBED_CLOUD_HOST'] = host
         return env
 

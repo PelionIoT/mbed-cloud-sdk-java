@@ -1799,16 +1799,6 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Retrieves module name.
-     * 
-     * @return module name.
-     */
-    @Override
-    public String getModuleName() {
-        return "Connect";
-    }
-
-    /**
      * States whether any existing notification channel should be cleared before a new one is created.
      * 
      * @return True if the channel will be cleared. False otherwise.
@@ -1825,5 +1815,27 @@ public class Connect extends AbstractApi {
      */
     public void setForceClear(boolean forceClear) {
         endpoint.setForceClear(forceClear);
+    }
+
+    /**
+     * States whether notification daemon will start automatically when needed.
+     * <p>
+     * Note: to change this behaviour, use {@link ConnectionOptions#setAutostartDaemon(boolean)} when initialising this
+     * API.
+     * 
+     * @return true if daemon will be started automatically. False otherwise.
+     */
+    public boolean isAutostartDaemon() {
+        return endpoint.isAutostartDaemon();
+    }
+
+    /**
+     * Retrieves module name.
+     * 
+     * @return module name.
+     */
+    @Override
+    public String getModuleName() {
+        return "Connect";
     }
 }

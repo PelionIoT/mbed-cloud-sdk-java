@@ -125,7 +125,7 @@ public class EndPoints {
     /**
      * States whether notification daemon will start automatically when needed.
      * 
-     * @return true if daemon will be start automatically. False otherwise.
+     * @return true if daemon will be started automatically. False otherwise.
      */
     public boolean isAutostartDaemon() {
         return autostartDaemon;
