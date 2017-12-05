@@ -31,7 +31,7 @@ class SDKIntegrationTestRunner(sdk_common.BuildStepUsingGradle):
             env = self.common_config.get_config().get_environment_with_host_set("https://api.us-east-1.mbedcloud.com")
             env = self.common_config.get_config().get_environment_with_apikey_set(self.key_prod, env)
             self.log_info("Restarting containers to take into account environment changes")
-            self.call_command(["docker-compose", "down"], None, True, True, env)
+            # self.call_command(["docker-compose", "down"], None, True, True, env)
             self.call_command(["docker-compose", "restart"], None, True, True, env)
             self.log_info("Running integration tests against production")
             return_code_prod = self.call_command(arguments, None, True, True, env)
