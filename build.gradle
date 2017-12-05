@@ -90,7 +90,9 @@ allprojects {
         manifest {
             attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
                     'Implementation-Version': project.version,
-                    'Implementation-Vendor': 'Arm Limited')
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt')
         }
         doLast {
             updateArtifactList("SDK_JAR", jar.archivePath)
