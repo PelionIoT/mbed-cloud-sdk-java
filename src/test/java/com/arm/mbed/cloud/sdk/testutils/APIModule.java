@@ -3,6 +3,8 @@ package com.arm.mbed.cloud.sdk.testutils;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -12,9 +14,9 @@ public class APIModule {
     private String simpleName;
     private Object instance;
 
-    private Map<String, APIMethod> methods;
+    private Map<String, List<APIMethod>> methods;
 
-    public APIModule(String name, String simpleName, Map<String, APIMethod> methods) {
+    public APIModule(String name, String simpleName, Map<String, List<APIMethod>> methods) {
         super();
         setName(name);
         setSimpleName(simpleName);
@@ -63,7 +65,7 @@ public class APIModule {
     /**
      * @return the methods
      */
-    public Map<String, APIMethod> getMethods() {
+    public Map<String, List<APIMethod>> getMethods() {
         return methods;
     }
 
@@ -71,7 +73,7 @@ public class APIModule {
      * @param methods
      *            the methods to set
      */
-    public void setMethods(Map<String, APIMethod> methods) {
+    public void setMethods(Map<String, List<APIMethod>> methods) {
         this.methods = methods;
     }
 
@@ -97,10 +99,15 @@ public class APIModule {
         if (methods == null) {
             methods = new LinkedHashMap<>();
         }
-        methods.put(method.getName(), method);
+        List<APIMethod> methodDescriptions = methods.get(method.getName());
+        if (methodDescriptions == null) {
+            methodDescriptions = new LinkedList<>();
+            methods.put(method.getName(), methodDescriptions);
+        }
+        methodDescriptions.add(method);
     }
 
-    public APIMethod getMethod(String methodName) {
+    public List<APIMethod> getMethod(String methodName) {
         if (methodName == null || methods == null) {
             return null;
         }
