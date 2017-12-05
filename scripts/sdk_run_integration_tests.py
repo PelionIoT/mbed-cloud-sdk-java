@@ -29,7 +29,7 @@ class SDKIntegrationTestRunner(sdk_common.BuildStepUsingGradle):
             if return_code_int != 0:
                 self.log_warning("Failures have happened in Integration")
             self.log_info("Running integration tests against production")
-            env = self.common_config.get_config().get_environment_with_host_set("")
+            env = self.common_config.get_config().get_environment_with_host_set("https://api.us-east-1.mbedcloud.com")
             env = self.common_config.get_config().get_environment_with_apikey_set(self.key_prod, env)
             print(env)
             return_code_prod = self.call_command(arguments, None, True, True, env)
