@@ -24,12 +24,14 @@ class SDKIntegrationTestRunner(sdk_common.BuildStepUsingGradle):
             self.log_info("Running integration tests against integration lab")
             env = self.common_config.get_config().get_environment_with_host_set(self.host)
             env = self.common_config.get_config().get_environment_with_apikey_set(self.key_lab, env)
+            print(env)
             return_code_int = self.call_command(arguments, None, True, True, env)
             if return_code_int != 0:
                 self.log_warning("Failures have happened in Integration")
             self.log_info("Running integration tests against production")
             env = self.common_config.get_config().get_environment_with_host_set("")
             env = self.common_config.get_config().get_environment_with_apikey_set(self.key_prod, env)
+            print(env)
             return_code_prod = self.call_command(arguments, None, True, True, env)
             if return_code_prod != 0:
                 self.log_warning("Failures have happened in Production")
