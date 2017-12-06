@@ -50,6 +50,7 @@ public class AccountManagement extends AbstractApi {
     private static final String TAG_USER_ID = "userId";
     private static final String TAG_USER = "user";
     private static final String TAG_GROUP_ID = "groupId";
+    private static final String TAG_GROUP = "group";
     private final EndPoints endpoint;
 
     /**
@@ -69,7 +70,8 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     *  {@code Account account = accountManagementApi.getAccount();
+     * {@code
+     *     Account account = accountManagementApi.getAccount();
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
      * }
@@ -371,6 +373,35 @@ public class AccountManagement extends AbstractApi {
     }
 
     /**
+     * Deletes an API key.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     ApiKey apiKey = accountManagementApi.getApiKey("015f4ac587f500000000000100109294");
+     *     if( apiKey != null){
+     *          accountManagementApi.deleteApiKey(apiKey);
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param apiKey
+     *            The API key.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteApiKey(@NonNull ApiKey apiKey) throws MbedCloudException {
+        checkNotNull(apiKey, TAG_API_KEY);
+        deleteApiKey(apiKey.getId());
+    }
+
+    /**
      * Lists users according to filter options.
      * <p>
      * Example:
@@ -617,6 +648,35 @@ public class AccountManagement extends AbstractApi {
     }
 
     /**
+     * Deletes a user.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     User user = accountManagementApi.getUser("015f4ac587f500000000000100109294");
+     *     if(user != null){
+     *      accountManagementApi.deleteUser(user);
+     *      }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param user
+     *            The user to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteUser(@NonNull User user) throws MbedCloudException {
+        checkNotNull(user, TAG_USER);
+        deleteUser(user.getId());
+    }
+
+    /**
      * Lists available groups depending on filter options.
      * <p>
      * Example:
@@ -786,6 +846,44 @@ public class AccountManagement extends AbstractApi {
     }
 
     /**
+     * Lists users of a group.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Group group = accountManagementApi.getGroup("015f4ac587f500000000000100109294");
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<User> users = accountManagementApi.listGroupUsers(group, options);
+     *     for (User user : users) {
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @param group
+     *            The group to consider.
+     * @param options
+     *            filter options.
+     * @return The list of users corresponding to the group and filter options (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable ListResponse<User> listGroupUsers(@NonNull Group group, @Nullable ListOptions options)
+            throws MbedCloudException {
+        checkNotNull(group, TAG_GROUP);
+        return listGroupUsers(group.getId(), options);
+    }
+
+    /**
      * Gets an iterator over all users of a group.
      * <p>
      * Example:
@@ -797,7 +895,7 @@ public class AccountManagement extends AbstractApi {
      *     ListOptions options = new ListOptions();
      *     options.setLimit(10);
      *
-     *     Paginator<User> users = accountManagementApi.listAllGroupUsers(options);
+     *     Paginator<User> users = accountManagementApi.listAllGroupUsers(groupId,options);
      *     while (users.hasNext()) {
      *         User user = users.next();
      *         System.out.println("User ID: " + user.getId());
@@ -830,6 +928,46 @@ public class AccountManagement extends AbstractApi {
                 return listGroupUsers(finalGroupId, finalOptions);
             }
         });
+    }
+
+    /**
+     * Gets an iterator over all users of a group.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Group group = accountManagementApi.getGroup("015f4ac587f500000000000100109294");
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<User> users = accountManagementApi.listAllGroupUsers(group, options);
+     *     while (users.hasNext()) {
+     *         User user = users.next();
+     *         System.out.println("User ID: " + user.getId());
+     *         System.out.println("User name: " + user.getFullName());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @param group
+     *            The group to consider.
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of users corresponding to the group and filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<User> listAllGroupUsers(@NonNull Group group, @Nullable ListOptions options)
+            throws MbedCloudException {
+        checkNotNull(group, TAG_GROUP);
+        return listAllGroupUsers(group.getId(), options);
     }
 
     /**
@@ -881,6 +1019,43 @@ public class AccountManagement extends AbstractApi {
     }
 
     /**
+     * Lists API keys of a group.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Group group = accountManagementApi.getGroup("015f4ac587f500000000000100109294");
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<ApiKey> apiKeys = accountManagementApi.listGroupApiKeys(group, options);
+     *     for (ApiKey apiKey : apiKeys) {
+     *         System.out.println("ApiKey: " + apiKey.getKey());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param group
+     *            The group to consider.
+     * @param options
+     *            filter options.
+     * @return The list of API keys corresponding to the group and filter options (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+            throws MbedCloudException {
+        checkNotNull(group, TAG_GROUP);
+        return listGroupApiKeys(group.getId(), options);
+    }
+
+    /**
      * Gets an iterator over all API keys of a group.
      * <p>
      * Example:
@@ -892,7 +1067,7 @@ public class AccountManagement extends AbstractApi {
      *     ListOptions options = new ListOptions();
      *     options.setLimit(10);
      *
-     *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllGroupApiKeys(options);
+     *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllGroupApiKeys(groupId,options);
      *     while (apiKeys.hasNext()) {
      *         ApiKey apiKey = apiKeys.next();
      *         System.out.println("ApiKey: " + apiKey.getKey());
@@ -924,6 +1099,44 @@ public class AccountManagement extends AbstractApi {
                 return listGroupApiKeys(finalGroupId, finalOptions);
             }
         });
+    }
+
+    /**
+     * Gets an iterator over all API keys of a group.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Group group = accountManagementApi.getGroup("015f4ac587f500000000000100109294");
+     *     ListOptions options = new ListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<ApiKey> apiKeys = accountManagementApi.listAllGroupApiKeys(group,options);
+     *     for (ApiKey apiKey:apiKeys) {
+     *         System.out.println("ApiKey: " + apiKey.getKey());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @param group
+     *            The group to consider.
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of API keys corresponding to the group and filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+            throws MbedCloudException {
+        checkNotNull(group, TAG_GROUP);
+        return listAllGroupApiKeys(group.getId(), options);
     }
 
     /**

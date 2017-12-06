@@ -296,7 +296,7 @@ public class Certificates extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public Certificate addDeveloperCertificate(final Certificate certificate) throws MbedCloudException {
+    public @Nullable Certificate addDeveloperCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
         checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
@@ -402,6 +402,35 @@ public class Certificates extends AbstractApi {
                 return endpoint.getAccountDeveloper().deleteCertificate(id);
             }
         });
+    }
+
+    /**
+     * Deletes a certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = certificateApi.getCertificate("015f4ac587f500000000000100100249");
+     *     if (certificate != null){
+     *      certificateApi.deleteCertificate(certificate);
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param certificate
+     *            The certificate to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteCertificate(@NonNull Certificate certificate) throws MbedCloudException {
+        checkNotNull(certificate, TAG_CERTIFICATE);
+        deleteCertificate(certificate.getId());
     }
 
     /**
