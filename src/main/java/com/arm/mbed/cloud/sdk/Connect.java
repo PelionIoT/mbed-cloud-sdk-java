@@ -598,6 +598,47 @@ public class Connect extends AbstractApi {
     /**
      * Gets a resource value for a given device id and resource path.
      * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Device device = new Device();
+     *     device.setId("015f4ac587f500000000000100100249");     
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = connectApi.getResource(device, resourcePath);
+    
+     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource, false, false);
+     *     String ledPattern = (String)futureLedPattern.get();
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to get the value of.
+     * @param cacheOnly
+     *            If true, the response will come only from the cache.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to obtain resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> getResourceValueAsync(@NonNull Resource resource,
+            @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse)
+            throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return getResourceValueAsync(resource.getDeviceId(), resource.getPath(), cacheOnly, noResponse);
+
+    }
+
+    /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
@@ -664,6 +705,47 @@ public class Connect extends AbstractApi {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String ledPattern = String.valueOf(connectApi.getResourceValue(resource, false, false, new TimePeriod(5)));
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to get the value of.
+     * @param cacheOnly
+     *            If true, the response will come only from the cache.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @param timeout
+     *            Timeout for the request.
+     * @return resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object getResourceValue(@NonNull Resource resource, @DefaultValue(value = FALSE) boolean cacheOnly,
+            @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return getResourceValue(resource.getDeviceId(), resource.getPath(), cacheOnly, noResponse, timeout);
+
+    }
+
+    /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
      *     String ledPattern = String.valueOf(connectApi.getResourceValue(resource, new TimePeriod(5)));
      *     System.out.println("LED pattern from device: " + ledPattern);
      * } catch (MbedCloudException e) {
@@ -685,7 +767,7 @@ public class Connect extends AbstractApi {
     public @Nullable Object getResourceValue(@NonNull Resource resource, @Nullable TimePeriod timeout)
             throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        return getResourceValue(resource.getDeviceId(), resource.getPath(), false, false, timeout);
+        return getResourceValue(resource, false, false, timeout);
     }
 
     /**
@@ -740,6 +822,44 @@ public class Connect extends AbstractApi {
                         ApiUtils.normalisePath(finalResourcePath), finalResourceValue, finalNoResponse);
             }
         });
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     String resourceValue = "500:500:500";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     Future<Object> futureLedPattern = connectApi.setResourceValueAsync(resource, resourceValue, false);
+     *     String setValue = (String)futureLedPattern.get();
+     *     assert setValue == resourceValue;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to set the value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> setResourceValueAsync(@NonNull Resource resource, @Nullable String resourceValue,
+            @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return setResourceValueAsync(resource.getDeviceId(), resource.getPath(), resourceValue, noResponse);
     }
 
     /**
@@ -829,6 +949,49 @@ public class Connect extends AbstractApi {
      *            The resource to set the value of.
      * @param resourceValue
      *            value to set.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
+            @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return setResourceValue(resource.getDeviceId(), resource.getPath(), resourceValue, noResponse, timeout);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String resourceValue = "500:500:500";
+     * 
+     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
+     *     String setValue = (String)resultObject;
+     *     assert setValue == resourceValue;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
      * @param timeout
      *            Timeout for the request.
      * @return The value of the new resource.
@@ -838,8 +1001,7 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
             @Nullable TimePeriod timeout) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
-        return setResourceValue(resource.getDeviceId(), resource.getPath(), resourceValue, false, timeout);
+        return setResourceValue(resource, resourceValue, false, timeout);
     }
 
     /**
@@ -895,6 +1057,45 @@ public class Connect extends AbstractApi {
                         ApiUtils.normalisePath(finalResourcePath), finalFunctionName, finalNoResponse);
             }
         });
+    }
+
+    /**
+     * Executes a function on a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String functionName = null;
+     * 
+     *     Future<Object> resultObject = connectApi.executeResourceAsync(resource, functionName, false);
+     *     String resultValue = (String)resultObject.get();
+     *     System.out.println("Result from the function executed: " + resultValue);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to execute the function on.
+     * @param functionName
+     *            The function to trigger.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @return A Future from which it is possible to get the value returned from the function executed on the resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> executeResourceAsync(@NonNull Resource resource, @Nullable String functionName,
+            @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return executeResourceAsync(resource.getDeviceId(), resource.getPath(), functionName, noResponse);
     }
 
     /**
@@ -956,6 +1157,122 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Executes a function on a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String functionName = null;
+     * 
+     *     Object resultObject = connectApi.executeResource(resource, functionName, false, new TimePeriod(5));
+     *     System.out.println("Result from the function executed: " + (String)resultObject);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource path to execute the function on.
+     * @param functionName
+     *            The function to trigger.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @param timeout
+     *            Timeout for the request.
+     * @return the value returned from the function executed on the resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object executeResource(@NonNull Resource resource, @Nullable String functionName,
+            @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return executeResource(resource.getDeviceId(), resource.getPath(), functionName, noResponse, timeout);
+    }
+
+    /**
+     * Deletes a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3200/0/5501";
+     * 
+     *     connectApi.deleteResource(deviceId,resourcePath);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param deviceId
+     *            The ID of the device the resource is present on.
+     * @param resourcePath
+     *            The resource path of the resource to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteResource(@NonNull String deviceId, @NonNull String resourcePath) throws MbedCloudException {
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
+        final String finalDeviceId = deviceId;
+        final String finalResourcePath = resourcePath;
+        CloudCaller.call(this, "deleteResource()", null, new CloudCall<AsyncID>() {
+
+            @Override
+            public Call<AsyncID> call() {
+                return endpoint.getResources().v2EndpointsDeviceIdResourcePathDelete(finalDeviceId, finalResourcePath,
+                        null);
+            }
+        });
+
+    }
+
+    /**
+     * Deletes a resource.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Device device = new Device("015f4ac587f500000000000100100249");
+     *     String resourcePath = "/3200/0/5501";
+     * 
+     *     connectApi.deleteResource(device,resourcePath);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param device
+     *            The device the resource is present on.
+     * @param resourcePath
+     *            The resource path of the resource to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteResource(@NonNull Device device, @NonNull String resourcePath) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        deleteResource(device.getId(), resourcePath);
+
+    }
+
+    /**
      * Deletes a resource.
      * <p>
      * Example:
@@ -982,17 +1299,7 @@ public class Connect extends AbstractApi {
     @API
     public void deleteResource(@NonNull Resource resource) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        checkModelValidity(resource, TAG_RESOURCE);
-
-        final Resource finalResource = resource;
-        CloudCaller.call(this, "deleteResource()", null, new CloudCall<AsyncID>() {
-
-            @Override
-            public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathDelete(finalResource.getDeviceId(),
-                        finalResource.getPath(), null);
-            }
-        });
+        deleteResource(resource.getDeviceId(), resource.getPath());
 
     }
 
@@ -1799,16 +2106,6 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Retrieves module name.
-     * 
-     * @return module name.
-     */
-    @Override
-    public String getModuleName() {
-        return "Connect";
-    }
-
-    /**
      * States whether any existing notification channel should be cleared before a new one is created.
      * 
      * @return True if the channel will be cleared. False otherwise.
@@ -1825,5 +2122,27 @@ public class Connect extends AbstractApi {
      */
     public void setForceClear(boolean forceClear) {
         endpoint.setForceClear(forceClear);
+    }
+
+    /**
+     * States whether notification daemon will start automatically when needed.
+     * <p>
+     * Note: to change this behaviour, use {@link ConnectionOptions#setAutostartDaemon(boolean)} when initialising this
+     * API.
+     * 
+     * @return true if daemon will be started automatically. False otherwise.
+     */
+    public boolean isAutostartDaemon() {
+        return endpoint.isAutostartDaemon();
+    }
+
+    /**
+     * Retrieves module name.
+     * 
+     * @return module name.
+     */
+    @Override
+    public String getModuleName() {
+        return "Connect";
     }
 }

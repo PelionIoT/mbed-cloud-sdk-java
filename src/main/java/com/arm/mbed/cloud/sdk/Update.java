@@ -283,6 +283,33 @@ public class Update extends AbstractApi {
     }
 
     /**
+     * Deletes a firmware image.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareImage firmwareImage = updateApi.getFirmwareImage("015f4ac587f500000000000100100249");
+     *     updateApi.deleteFirmwareImage(firmwareImage);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param firmwareImage
+     *            The firmware image to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteFirmwareImage(@NonNull FirmwareImage firmwareImage) throws MbedCloudException {
+        checkNotNull(firmwareImage, TAG_FIRMWARE_IMAGE);
+        deleteFirmwareImage(firmwareImage.getId());
+    }
+
+    /**
      * Lists all firmware manifests according to filter options.
      * <p>
      * Example:
@@ -501,6 +528,33 @@ public class Update extends AbstractApi {
             }
 
         });
+    }
+
+    /**
+     * Deletes a firmware manifest.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     FirmwareManifest firmwareManifest = updateApi.getFirmwareManifest("015f4ac587f500000000000100100249");
+     *     updateApi.deleteFirmwareManifest(firmwareManifest);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param firmwareManifest
+     *            The firmware manifest to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteFirmwareManifest(@NonNull FirmwareManifest firmwareManifest) throws MbedCloudException {
+        checkNotNull(firmwareManifest, TAG_FIRMWARE_MANIFEST);
+        deleteFirmwareManifest(firmwareManifest.getId());
     }
 
     /**
@@ -795,6 +849,33 @@ public class Update extends AbstractApi {
     }
 
     /**
+     * Deletes an update campaign.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Campaign campaign = updateApi.getCampaign("015f4ac587f500000000000100109294");
+     *     updateApi.deleteCampaign(campaign);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param campaign
+     *            The update campaign to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteCampaign(@NonNull Campaign campaign) throws MbedCloudException {
+        checkNotNull(campaign, TAG_CAMPAIGN);
+        deleteCampaign(campaign.getId());
+    }
+
+    /**
      * Starts an update campaign.
      * <p>
      * Example:
@@ -906,6 +987,44 @@ public class Update extends AbstractApi {
     }
 
     /**
+     * Lists campaign devices states.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Campaign campaign = updateApi.getCampaign("015f4ac587f500000000000100109294");
+     *     CampaignDevicesStatesListOptions options = new CampaignDevicesStatesListOptions();
+     *     options.setLimit(10);
+     *
+     *     ListResponse<CampaignDeviceState> states = updateApi.listCampaignDeviceStates(campaign, options);
+     *     for (CampaignDeviceState state : states) {
+     *         System.out.println("Device ID: " + state.getId());
+     *         System.out.println("Currently in state: " + state.getState());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param campaign
+     *            The update campaign.
+     * @param options
+     *            filter options.
+     * @return The list of campaign device states corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable ListResponse<CampaignDeviceState> listCampaignDeviceStates(@NonNull Campaign campaign,
+            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+        checkNotNull(campaign, TAG_CAMPAIGN);
+        return listCampaignDeviceStates(campaign.getId(), options);
+    }
+
+    /**
      * Gets an iterator over all campaign device states according to filter options.
      * <p>
      * Example:
@@ -952,6 +1071,46 @@ public class Update extends AbstractApi {
                 return listCampaignDeviceStates(finalId, finalOptions);
             }
         });
+    }
+
+    /**
+     * Gets an iterator over all campaign device states according to filter options.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Campaign campaign =  updateApi.getCampaign("015f4ac587f500000000000100109294");
+     *     CampaignDevicesStatesListOptions options = new CampaignDevicesStatesListOptions();
+     *     options.setLimit(10);
+     *
+     *     Paginator<CampaignDeviceState> states = updateApi.listAllCampaignDeviceStates(campaign, options);
+     *     for (CampaignDeviceState deviceState:states) {
+     *         System.out.println("Device ID: " + deviceState.getId());
+     *         System.out.println("Currently in state: " + deviceState.getState());
+     *     }
+     *
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param campaign
+     *            The update campaign.
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of all campaign device states corresponding to filter
+     *         options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<CampaignDeviceState> listAllCampaignDeviceStates(@NonNull Campaign campaign,
+            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+        checkNotNull(campaign, TAG_CAMPAIGN);
+        return listAllCampaignDeviceStates(campaign.getId(), options);
     }
 
     /**

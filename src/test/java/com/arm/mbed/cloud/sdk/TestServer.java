@@ -150,6 +150,7 @@ public class TestServer {
     private void retrieveConfig() {
         config = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY), System.getenv(ENVVAR_MBED_CLOUD_HOST));
         config.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
+        logInfo("Host in use: " + config.getHost());
         // logInfo(JsonObject.mapFrom(config).encodePrettily());
     }
 

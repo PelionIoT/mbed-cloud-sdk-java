@@ -318,6 +318,33 @@ public class DeviceDirectory extends AbstractApi {
     }
 
     /**
+     * Deletes a device.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Device device =new Device("015f4ac587f500000000000100100249");
+     *     deviceDirectoryApi.deleteDevice(device);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param device
+     *            the device to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteDevice(@NonNull Device device) throws MbedCloudException {
+        checkNotNull(device, TAG_DEVICE);
+        deleteDevice(device.getId());
+    }
+
+    /**
      * Lists all queries according to filter options.
      * <p>
      * Example:
@@ -580,6 +607,34 @@ public class DeviceDirectory extends AbstractApi {
             }
 
         });
+    }
+
+    /**
+     * Deletes a query.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Query query = deviceDirectoryApi.getQuery("015f4ac587f500000000000100100249");
+     *     deviceDirectoryApi.deleteQuery(query);
+     *     
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param query
+     *            The query to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteQuery(@NonNull Query query) throws MbedCloudException {
+        checkNotNull(query, TAG_QUERY);
+        deleteQuery(query.getId());
     }
 
     /**
