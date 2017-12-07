@@ -12,6 +12,8 @@ class ArtifactDeployer(sdk_common.BuildStepUsingGradle):
     def execute(self):
         self.print_title()
         try:
+            self.log_info("Launch build again to check nothing was lost")
+            self.execute_gradle_task('build')
             self.log_info("Generate Pom file")
             self.execute_gradle_task('generatePomFileForMavenJavaPublication')
             if self.check_if_artifactory_is_accessible():
