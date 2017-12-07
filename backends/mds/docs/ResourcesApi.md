@@ -71,7 +71,7 @@ Name | Type | Description  | Notes
 
 <a name="v2EndpointsDeviceIdResourcePathGet"></a>
 # **v2EndpointsDeviceIdResourcePathGet**
-> Void v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp)
+> AsyncID v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp)
 
 Read from a resource
 
@@ -100,7 +100,7 @@ String resourcePath = "resourcePath_example"; // String | The URL of the resourc
 Boolean cacheOnly = true; // Boolean | If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/v1.2/collecting/handle-resources.html#working-with-the-server-cache) defined in the client side. 
 Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  `409 Conflict`. 
 try {
-    Void result = apiInstance.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp);
+    AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ResourcesApi#v2EndpointsDeviceIdResourcePathGet");
@@ -119,7 +119,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**Void**](.md)
+[**AsyncID**](AsyncID.md)
 
 ### Authorization
 
