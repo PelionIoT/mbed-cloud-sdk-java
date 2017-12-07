@@ -31,6 +31,8 @@ apply plugin: "de.aaschmid.cpd" //Code duplication
 apply plugin: 'project-report'
 apply plugin: "com.github.johnrengelman.shadow"
 apply plugin: "com.dorongold.task-tree"
+apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.artifactory"    
 
 // In this section you declare where to find the dependencies of your project
 repositories {
