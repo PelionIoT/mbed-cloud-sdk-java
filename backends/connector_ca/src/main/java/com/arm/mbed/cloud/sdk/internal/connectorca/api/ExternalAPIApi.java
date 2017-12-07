@@ -23,13 +23,13 @@ public interface ExternalAPIApi {
   /**
    * Fetch an existing developer certificate to connect to the bootstrap server.
    * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-   * @param id A unique identifier for the developer certificate.  (required)
+   * @param muuid A unique identifier for the developer certificate.  (required)
    * @param authorization Bearer {Access Token}.  (required)
    * @return Call&lt;DeveloperCertificateResponseData&gt;
    */
-  @GET("v3/developer-certificates/{id}")
-  Call<DeveloperCertificateResponseData> v3DeveloperCertificatesIdGet(
-    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Header("Authorization") String authorization
+  @GET("v3/developer-certificates/{muuid}")
+  Call<DeveloperCertificateResponseData> v3DeveloperCertificatesMuuidGet(
+    @retrofit2.http.Path(value = "muuid", encoded = true) String muuid, @retrofit2.http.Header("Authorization") String authorization
   );
 
   /**
