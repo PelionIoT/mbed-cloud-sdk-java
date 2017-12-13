@@ -176,10 +176,10 @@ public class FirmwareImage implements Serializable {
   }
 
    /**
-   * Checksum generated for the datafile
+   * Checksum (sha256) generated for the datafile
    * @return datafileChecksum
   **/
-  @ApiModelProperty(required = true, value = "Checksum generated for the datafile")
+  @ApiModelProperty(required = true, value = "Checksum (sha256) generated for the datafile")
   public String getDatafileChecksum() {
     return datafileChecksum;
   }

@@ -56,9 +56,6 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("device_class")
   private String deviceClass = null;
 
-  @SerializedName("datafile_checksum")
-  private String datafileChecksum = null;
-
   @SerializedName("datafile_size")
   private Long datafileSize = null;
 
@@ -212,24 +209,6 @@ public class FirmwareManifest implements Serializable {
     this.deviceClass = deviceClass;
   }
 
-  public FirmwareManifest datafileChecksum(String datafileChecksum) {
-    this.datafileChecksum = datafileChecksum;
-    return this;
-  }
-
-   /**
-   * Checksum generated for the datafile
-   * @return datafileChecksum
-  **/
-  @ApiModelProperty(value = "Checksum generated for the datafile")
-  public String getDatafileChecksum() {
-    return datafileChecksum;
-  }
-
-  public void setDatafileChecksum(String datafileChecksum) {
-    this.datafileChecksum = datafileChecksum;
-  }
-
   public FirmwareManifest datafileSize(Long datafileSize) {
     this.datafileSize = datafileSize;
     return this;
@@ -302,7 +281,6 @@ public class FirmwareManifest implements Serializable {
         Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
         Objects.equals(this.etag, firmwareManifest.etag) &&
         Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
-        Objects.equals(this.datafileChecksum, firmwareManifest.datafileChecksum) &&
         Objects.equals(this.datafileSize, firmwareManifest.datafileSize) &&
         Objects.equals(this.id, firmwareManifest.id) &&
         Objects.equals(this.name, firmwareManifest.name);
@@ -310,7 +288,7 @@ public class FirmwareManifest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, deviceClass, datafileChecksum, datafileSize, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, deviceClass, datafileSize, id, name);
   }
 
 
@@ -327,7 +305,6 @@ public class FirmwareManifest implements Serializable {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
-    sb.append("    datafileChecksum: ").append(toIndentedString(datafileChecksum)).append("\n");
     sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
