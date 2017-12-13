@@ -40,7 +40,11 @@ class SDKIntegrationTestRunner(sdk_common.BuildStepUsingGradle):
                 raise Exception('Failures have happened in Integration and Production', return_code_int)
             if self.should_run_example:
                 self.log_info("Running examples against integration lab")
-                self.execute_gradle_task("test")
+                try:
+                    if self.execute_gradle_task("test") != 0:
+                        self.log_warning("Errors happpened while running the examples")
+                except:
+                    self.log_warning("An exception was raised while running the examples")
         except:
             self.log_error('Failed to successfully run all integration tests')
             return False

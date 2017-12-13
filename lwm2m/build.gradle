@@ -11,6 +11,8 @@ buildscript {
   }
   dependencies {
     classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
+    classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release"
+    classpath "ru.vyarus:gradle-animalsniffer-plugin:1.2.0"
   }
 }
 
@@ -25,12 +27,11 @@ apply plugin: 'build-dashboard'
 apply plugin: 'project-report'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
+apply plugin: "com.jfrog.bintray" //Upload to bintray
+apply plugin: "ru.vyarus.animalsniffer" //Checks that SDK will work on Java 1.7 onwards
 
 
-// In this section you declare where to find the dependencies of your project
 repositories {
-    // Use jcenter for resolving your dependencies.
-    // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
 
@@ -67,9 +68,11 @@ artifacts {
 
 jar {
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed LMW2M library',
-                   'Implementation-Version': project.version,
-                   'Implementation-Vendor': 'Arm Limited')
+        attributes('Implementation-Title': 'Arm Mbed LWM2M library',
+                    'Implementation-Version': project.version,
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt')
     }
 }
 
@@ -86,16 +89,65 @@ jacocoTestReport {
 }
 
 publishing {
-	publications {
-		mavenJava(MavenPublication) {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact sourcesJar
+            artifact javadocJar
+            pom.withXml {
+                    asNode().appendNode('name','Arm Mbed LWM2M library')
+                    asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
+                    asNode().appendNode('description', 'Library for serialisation/deserialisation of LWM2M objects: https://en.wikipedia.org/wiki/OMA_LWM2M')
+                    asNode().appendNode('packaging', 'jar')
+                    asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
+                    asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Mbed').parent().appendNode('organizationUrl','https://www.mbed.com/')
+                    asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
+               }
+        }
+    }
+}
 
-			from components.java
-			artifact sourcesJar
-			artifact javadocJar
-			pom.withXml {
-					asNode().appendNode('description',
-								'Arm Mbed LMW2M library')
-			   }
-		}
-	}
+bintray {
+    if (project.hasProperty('bintray_user')){
+        user = "${bintray_user}"
+    }
+    if (project.hasProperty('bintray_password')){
+        key = "${bintray_password}"
+    }    
+    configurations = ['archives']
+    publications = ['mavenJava']
+    override = true
+    publish = true
+    //dryRun = true
+    pkg {
+        repo = 'mbed-cloud-sdk'
+        name = 'mbed-lwm2m'
+        labels = ["Mbed","LWM2M","TLV","Java","IoT"]
+        desc = 'Utilities for serialisation/deserialisation of LWM2M objects: https://en.wikipedia.org/wiki/OMA_LWM2M.'
+        userOrg = 'armmbed'        
+        licenses = ['Apache-2.0']
+        websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
+        issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
+        vcsUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java.git'
+        githubRepo = 'ARMmbed/mbed-cloud-sdk-java'
+        githubReleaseNotesFile = 'README.md'
+        publicDownloadNumbers = true
+        publish = true
+        if (project.hasProperty('SDKVersion')){
+            version {
+                name = SDKVersion
+                //gpg {
+                //    sign = true //Determines whether to GPG sign the files. The default is false
+                //}
+                if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
+                    mavenCentralSync {
+                        sync = true
+                        user = "${maven_central_user}" //OSS user token
+                        password = "${maven_central_password}" //OSS user password
+                        close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+                    }
+                }                
+            }
+        }
+    }
 }

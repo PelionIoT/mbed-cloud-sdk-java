@@ -767,7 +767,7 @@ public class Update extends AbstractApi {
 
             @Override
             public Call<UpdateCampaign> call() {
-                return endpoint.getUpdate().updateCampaignUpdate(finalCampaign.getId(),
+                return endpoint.getUpdate().updateCampaignPartialUpdate(finalCampaign.getId(),
                         CampaignAdapter.reverseMapUpdate(finalCampaign));
             }
 

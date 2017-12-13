@@ -173,9 +173,14 @@ public class UpdateExamples extends AbstractExample {
             options.setLimit(5);
             // Listing firmware images.
             ListResponse<FirmwareImage> images = api.listFirmwareImages(options);
+            String imageId = null;
             for (FirmwareImage image : images.getData()) {
                 log("Firmware image", image);
+                imageId = image.getId();
             }
+            // Getting a specific image
+            FirmwareImage image = api.getFirmwareImage(imageId);
+            log("Specific firmware image", image);
         } catch (Exception e) {
             logError("last API Metadata", api.getLastApiMetadata());
             fail(e.getMessage());

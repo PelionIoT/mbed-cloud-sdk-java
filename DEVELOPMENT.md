@@ -5,6 +5,8 @@
 [![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-java/builds/)
 [![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html)
 [![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java/branch/master/graph/badge.svg?token=hpPPKYJW5L)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java)
+[ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 ## Prerequisites
 * Java > 1.7   _tested with [Oracle JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html)_

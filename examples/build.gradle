@@ -97,11 +97,6 @@ javadoc {
 }
 
 subprojects {
-    //if(project.hasProperty('UpdateArtifactList')){
-    //project.UpdateArtifactList=UpdateArtifactList
-    //project.properties.each { println "$it.key -> $it.value" }
-    //project.properties.UpdateArtifactList=false
-    //}
     tasks.whenTaskAdded { task ->
         if (task.name == 'javadoc' || task.name == 'checkstyleMain' || task.name == 'findbugsMain' || task.name == 'pmdMain') {
             task.enabled = false
@@ -120,7 +115,3 @@ sourceSets {
         java.srcDir 'src/main/java'
     }
 }
-
-
-
-
