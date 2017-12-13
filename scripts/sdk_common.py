@@ -298,8 +298,10 @@ class BuildStepUsingGradle(BuildStep):
             gradle_command = 'gradle'
         return gradle_command
 
-    def execute_gradle_task(self, task):
+    def execute_gradle_task(self, task, params=None):
         arguments = [self.graddle_command, task]
+        if params:
+            arguments = arguments + params
         self.check_command_output(arguments, self.gradle_directory)
 
     def execute_gradle_task_overriding_variable(self, task, variable_name, variable_value):
@@ -606,6 +608,10 @@ class Config(Action):
         self.lab_api_key = None
         self.prod_api_key = None
         self.sdk_example_dir = None
+        self.bintray_user = None
+        self.bintray_password = None
+        self.maven_central_user = None
+        self.maven_central_password = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -701,6 +707,18 @@ class Config(Action):
             self.artifactory_user = os.getenv("ARTIFACTORY_USERNAME", "monty-bot")
         return self.artifactory_user
 
+    def get_bintray_username(self):
+        if not self.bintray_user:
+            self.log_debug("Determining bintray username")
+            self.bintray_user = os.getenv("BINTRAY_USERNAME", "monty-bot")
+        return self.bintray_user
+
+    def get_maven_central_username(self):
+        if not self.maven_central_user:
+            self.log_debug("Determining Maven Central username")
+            self.maven_central_user = os.getenv("MAVEN_CENTRAL_USERNAME", "monty-bot")
+        return self.maven_central_user
+
     def get_artifactory_url(self):
         if not self.artifactory_url:
             self.log_debug("Determining artifactory url")
@@ -723,6 +741,18 @@ class Config(Action):
             self.log_debug("Determining artifactory API key")
             self.artifactory_password = os.getenv("ARTIFACTORY_KEY", "")
         return self.artifactory_password
+
+    def get_bintray_api_key(self):
+        if not self.bintray_password:
+            self.log_debug("Determining bintray API key")
+            self.bintray_password = os.getenv("BINTRAY_KEY", "")
+        return self.bintray_password
+
+    def get_maven_central_api_key(self):
+        if not self.maven_central_password:
+            self.log_debug("Determining Maven Central API key")
+            self.maven_central_password = os.getenv("MAVEN_CENTRAL_KEY", "")
+        return self.maven_central_password
 
     def get_testrunner_docker_image(self):
         if not self.testrunner_image:
@@ -784,5 +814,9 @@ class Config(Action):
         self.properties['SDKVersion'] = self.get_version()
         self.properties['artifactory_user'] = self.get_artifactory_username()
         self.properties['artifactory_password'] = self.get_artifactory_api_key()
+        self.properties['bintray_user'] = self.get_bintray_username()
+        self.properties['bintray_password'] = self.get_bintray_api_key()
+        self.properties['maven_central_user'] = self.get_maven_central_username()
+        self.properties['maven_central_password'] = self.get_maven_central_api_key()
         self.properties['artifactory_deployment_repository'] = self.get_publishing_repo()
         self.properties['artifactory_contextUrl'] = self.get_artifactory_url()

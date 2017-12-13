@@ -4,7 +4,7 @@
  */
 
 /*
- * Definition of mbed Cloub Java SDK multi-project
+ * Definition of Mbed Cloub SDK for Java multi-project
  */
 include 'support-annotations'
 include 'lwm2m'
