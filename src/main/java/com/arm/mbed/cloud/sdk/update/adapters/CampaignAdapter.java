@@ -16,8 +16,8 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 
@@ -106,11 +106,11 @@ public final class CampaignAdapter {
      *            an updated campaign
      * @return campaign update request
      */
-    public static UpdateCampaignPutRequest reverseMapUpdate(Campaign campaign) {
+    public static UpdateCampaignPatchRequest reverseMapUpdate(Campaign campaign) {
         if (campaign == null) {
             return null;
         }
-        final UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
+        final UpdateCampaignPatchRequest updateRequest = new UpdateCampaignPatchRequest();
         updateRequest.setDescription(campaign.getDescription());
         updateRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         updateRequest.setName(campaign.getName());
@@ -188,29 +188,29 @@ public final class CampaignAdapter {
         return null;
     }
 
-    private static UpdateCampaignPutRequest.StateEnum toPutStateEnum(CampaignState state) {
+    private static UpdateCampaignPatchRequest.StateEnum toPutStateEnum(CampaignState state) {
         if (state == null) {
             return null;
         }
         switch (state) {
             case DEPLOYED:
-                return UpdateCampaignPutRequest.StateEnum.DEPLOYED;
+                return UpdateCampaignPatchRequest.StateEnum.DEPLOYED;
             case DEPLOYING:
-                return UpdateCampaignPutRequest.StateEnum.DEPLOYING;
+                return UpdateCampaignPatchRequest.StateEnum.DEPLOYING;
             case DEVICE_COPY:
-                return UpdateCampaignPutRequest.StateEnum.DEVICECOPY;
+                return UpdateCampaignPatchRequest.StateEnum.DEVICECOPY;
             case DEVICE_FETCH:
-                return UpdateCampaignPutRequest.StateEnum.DEVICEFETCH;
+                return UpdateCampaignPatchRequest.StateEnum.DEVICEFETCH;
             case DRAFT:
-                return UpdateCampaignPutRequest.StateEnum.DRAFT;
+                return UpdateCampaignPatchRequest.StateEnum.DRAFT;
             case EXPIRED:
-                return UpdateCampaignPutRequest.StateEnum.EXPIRED;
+                return UpdateCampaignPatchRequest.StateEnum.EXPIRED;
             case MANIFEST_REMOVED:
-                return UpdateCampaignPutRequest.StateEnum.MANIFESTREMOVED;
+                return UpdateCampaignPatchRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
-                return UpdateCampaignPutRequest.StateEnum.PUBLISHING;
+                return UpdateCampaignPatchRequest.StateEnum.PUBLISHING;
             case SCHEDULED:
-                return UpdateCampaignPutRequest.StateEnum.SCHEDULED;
+                return UpdateCampaignPatchRequest.StateEnum.SCHEDULED;
             default:
                 break;
 
