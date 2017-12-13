@@ -57,5 +57,7 @@ Mbed Cloud SDK for Java is open source and we would like your help. There is a b
 * Methods with **@Daemon** annotation should be used to monitor SDK daemon threads.
 
 ## Licence
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 Mbed Cloud SDK for Java is free-to-use and licensed under the **Apache License
 2.0**. See LICENCE file for more information.
