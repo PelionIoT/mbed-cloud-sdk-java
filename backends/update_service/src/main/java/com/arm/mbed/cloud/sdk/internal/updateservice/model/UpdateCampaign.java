@@ -47,6 +47,9 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("when")
   private DateTime when = null;
 
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
   /**
    * The state of the campaign
    */
@@ -111,11 +114,11 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("state")
   private StateEnum state = null;
 
-  @SerializedName("finished")
-  private DateTime finished = null;
-
   @SerializedName("etag")
   private String etag = null;
+
+  @SerializedName("finished")
+  private DateTime finished = null;
 
   @SerializedName("root_manifest_url")
   private String rootManifestUrl = null;
@@ -222,6 +225,24 @@ public class UpdateCampaign implements Serializable {
     this.when = when;
   }
 
+  public UpdateCampaign updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The time the object was updated
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The time the object was updated")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public UpdateCampaign state(StateEnum state) {
     this.state = state;
     return this;
@@ -240,24 +261,6 @@ public class UpdateCampaign implements Serializable {
     this.state = state;
   }
 
-  public UpdateCampaign finished(DateTime finished) {
-    this.finished = finished;
-    return this;
-  }
-
-   /**
-   * The campaign finish timestamp
-   * @return finished
-  **/
-  @ApiModelProperty(value = "The campaign finish timestamp")
-  public DateTime getFinished() {
-    return finished;
-  }
-
-  public void setFinished(DateTime finished) {
-    this.finished = finished;
-  }
-
   public UpdateCampaign etag(String etag) {
     this.etag = etag;
     return this;
@@ -274,6 +277,24 @@ public class UpdateCampaign implements Serializable {
 
   public void setEtag(String etag) {
     this.etag = etag;
+  }
+
+  public UpdateCampaign finished(DateTime finished) {
+    this.finished = finished;
+    return this;
+  }
+
+   /**
+   * The campaign finish timestamp
+   * @return finished
+  **/
+  @ApiModelProperty(value = "The campaign finish timestamp")
+  public DateTime getFinished() {
+    return finished;
+  }
+
+  public void setFinished(DateTime finished) {
+    this.finished = finished;
   }
 
   public UpdateCampaign rootManifestUrl(String rootManifestUrl) {
@@ -381,9 +402,10 @@ public class UpdateCampaign implements Serializable {
         Objects.equals(this.createdAt, updateCampaign.createdAt) &&
         Objects.equals(this.object, updateCampaign.object) &&
         Objects.equals(this.when, updateCampaign.when) &&
+        Objects.equals(this.updatedAt, updateCampaign.updatedAt) &&
         Objects.equals(this.state, updateCampaign.state) &&
-        Objects.equals(this.finished, updateCampaign.finished) &&
         Objects.equals(this.etag, updateCampaign.etag) &&
+        Objects.equals(this.finished, updateCampaign.finished) &&
         Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl) &&
         Objects.equals(this.startedAt, updateCampaign.startedAt) &&
         Objects.equals(this.id, updateCampaign.id) &&
@@ -393,7 +415,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, rootManifestId, createdAt, object, when, state, finished, etag, rootManifestUrl, startedAt, id, deviceFilter, name);
+    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, startedAt, id, deviceFilter, name);
   }
 
 
@@ -407,9 +429,10 @@ public class UpdateCampaign implements Serializable {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    when: ").append(toIndentedString(when)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
     sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
     sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
