@@ -133,9 +133,9 @@ bintray {
         githubReleaseNotesFile = 'README.md'
         publicDownloadNumbers = true
         publish = true
-        if (project.hasProperty('SDKVersion')){
+        if (project.hasProperty('Lwm2mVersion')){
             version {
-                name = SDKVersion
+                name = Lwm2mVersion
                 //gpg {
                 //    sign = true //Determines whether to GPG sign the files. The default is false
                 //}
