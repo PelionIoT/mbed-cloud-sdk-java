@@ -59,10 +59,6 @@ public class FirmwareManifest implements SdkModel {
     @DefaultValue(value = "0")
     private final long datafileSize;
     /**
-     * Checksum generated for the datafile.
-     */
-    private final String datafileChecksum;
-    /**
      * The binary file of the manifest.
      */
     @Required
@@ -79,8 +75,6 @@ public class FirmwareManifest implements SdkModel {
      *            URL
      * @param deviceClass
      *            deviceClass
-     * @param datafileChecksum
-     *            file checksum
      * @param datafileSize
      *            file size
      * @param createdAt
@@ -91,9 +85,9 @@ public class FirmwareManifest implements SdkModel {
      *            timestamp
      */
     @Internal
-    public FirmwareManifest(String id, URL url, String deviceClass, String datafileChecksum, long datafileSize,
-            Date createdAt, Date updatedAt, Date timestamp) {
-        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, datafileChecksum, null);
+    public FirmwareManifest(String id, URL url, String deviceClass, long datafileSize, Date createdAt, Date updatedAt,
+            Date timestamp) {
+        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, null);
     }
 
     /**
@@ -119,14 +113,12 @@ public class FirmwareManifest implements SdkModel {
      *            description
      * @param datafileSize
      *            file size
-     * @param datafileChecksum
-     *            file checksum
      * @param dataFile
      *            file
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
-            String name, String description, long datafileSize, String datafileChecksum, DataFile dataFile) {
+            String name, String description, long datafileSize, DataFile dataFile) {
         super();
         setId(id);
         this.url = url;
@@ -135,7 +127,6 @@ public class FirmwareManifest implements SdkModel {
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
         this.datafileSize = datafileSize;
-        this.datafileChecksum = datafileChecksum;
         setName(name);
         setDescription(description);
         setDataFile(dataFile);
@@ -145,7 +136,7 @@ public class FirmwareManifest implements SdkModel {
      * Constructor.
      */
     public FirmwareManifest() {
-        this(null, null, null, null, 0, new Date(), new Date(), new Date());
+        this(null, null, null, 0, new Date(), new Date(), new Date());
     }
 
     /**
@@ -261,15 +252,6 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets file checksum.
-     * 
-     * @return the datafileChecksum
-     */
-    public String getDatafileChecksum() {
-        return datafileChecksum;
-    }
-
-    /**
      * Gets the URL.
      * 
      * @return the url
@@ -324,7 +306,7 @@ public class FirmwareManifest implements SdkModel {
     @Override
     public FirmwareManifest clone() throws CloneNotSupportedException {
         return new FirmwareManifest(id, url, deviceClass, createdAt, updatedAt, timestamp, name, description,
-                datafileSize, datafileChecksum, dataFile);
+                datafileSize, dataFile);
     }
 
     /**
@@ -346,8 +328,7 @@ public class FirmwareManifest implements SdkModel {
     public String toString() {
         return "FirmwareManifest [id=" + id + ", url=" + url + ", deviceClass=" + deviceClass + ", createdAt="
                 + createdAt + ", updatedAt=" + updatedAt + ", timestamp=" + timestamp + ", name=" + name
-                + ", description=" + description + ", datafileSize=" + datafileSize + ", datafileChecksum="
-                + datafileChecksum + ", dataFile=" + dataFile + "]";
+                + ", description=" + description + ", datafileSize=" + datafileSize + ", dataFile=" + dataFile + "]";
     }
 
 }

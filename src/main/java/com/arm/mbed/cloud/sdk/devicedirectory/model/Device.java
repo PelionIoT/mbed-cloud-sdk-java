@@ -46,12 +46,10 @@ public class Device implements SdkModel {
     /**
      * ID of the issuer of the certificate.
      */
-    @Required
     private String certificateIssuerId;
     /**
      * Fingerprint of the device certificate.
      */
-    @Required
     private String certificateFingerprint;
     /**
      * The name of the device.
@@ -729,7 +727,7 @@ public class Device implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return certificateFingerprint != null && certificateIssuerId != null;
+        return true;
     }
 
     /*

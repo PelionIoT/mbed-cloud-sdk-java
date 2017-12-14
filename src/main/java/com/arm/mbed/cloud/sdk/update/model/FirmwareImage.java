@@ -39,7 +39,7 @@ public class FirmwareImage implements SdkModel {
     @DefaultValue(value = "0")
     private final long datafileSize;
     /**
-     * Checksum generated for the datafile.
+     * Checksum generated for the datafile (sha256).
      */
     private final String datafileChecksum;
     /**
@@ -249,7 +249,7 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
-     * Gets the checksum.
+     * Gets the checksum (sha256).
      * 
      * @return the datafileChecksum
      */
