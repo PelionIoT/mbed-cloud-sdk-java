@@ -37,7 +37,7 @@ public class LoginHistory implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #LoginHistory()} instead.
-     * 
+     *
      * @param date
      *            date
      * @param userAgent
@@ -67,7 +67,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets the date.
-     * 
+     *
      * @return the date.
      */
     public Date getDate() {
@@ -76,7 +76,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets user agent.
-     * 
+     *
      * @return the userAgent.
      */
     public String getUserAgent() {
@@ -85,7 +85,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets the IP address.
-     * 
+     *
      * @return the ipAddress.
      */
     public String getIpAddress() {
@@ -94,7 +94,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * States whether login was successful or not.
-     * 
+     *
      * @return the success.
      */
     public boolean isSuccess() {
@@ -103,7 +103,7 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets a clone
-     * 
+     *
      * @return a clone.
      * @see java.lang.Object#clone()
      */
@@ -113,8 +113,8 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -124,7 +124,7 @@ public class LoginHistory implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

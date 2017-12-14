@@ -68,7 +68,7 @@ public class FirmwareManifest implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareManifest()} or {@link #FirmwareManifest(String, DataFile)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param url
@@ -94,7 +94,7 @@ public class FirmwareManifest implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareManifest()} or {@link #FirmwareManifest(String, DataFile)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param url
@@ -141,7 +141,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            manifest name
      * @param dataFile
@@ -155,7 +155,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -164,7 +164,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -174,7 +174,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -183,7 +183,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -194,7 +194,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -203,7 +203,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Sets description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -213,7 +213,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets data file.
-     * 
+     *
      * @return the dataFile
      */
     public DataFile getDataFile() {
@@ -222,7 +222,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Sets data file.
-     * 
+     *
      * @param dataFile
      *            the dataFile to set
      */
@@ -233,7 +233,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Sets datafile from a path.
-     * 
+     *
      * @param datafile
      *            the path to the datafile
      */
@@ -244,7 +244,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets file size.
-     * 
+     *
      * @return the datafileSize
      */
     public long getDatafileSize() {
@@ -253,7 +253,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the URL.
-     * 
+     *
      * @return the url
      */
     public URL getUrl() {
@@ -262,7 +262,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the device class.
-     * 
+     *
      * @return the deviceClass
      */
     public String getDeviceClass() {
@@ -271,7 +271,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets creation date.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -280,7 +280,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets last update date.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -289,7 +289,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the timestamp.
-     * 
+     *
      * @return the timestamp
      */
     public Date getTimestamp() {
@@ -298,9 +298,9 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -310,8 +310,8 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -321,7 +321,7 @@ public class FirmwareManifest implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

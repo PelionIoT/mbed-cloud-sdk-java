@@ -41,7 +41,7 @@ public class Resource implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Resource(String, String)} instead.
-     * 
+     *
      * @param deviceId
      *            device id
      * @param path
@@ -67,7 +67,7 @@ public class Resource implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Resource(String, String)} instead.
-     * 
+     *
      * @param deviceId
      *            device id
      * @param path
@@ -89,7 +89,7 @@ public class Resource implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param deviceId
      *            device id.
      * @param path
@@ -101,7 +101,7 @@ public class Resource implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param device
      *            device.
      * @param path
@@ -120,7 +120,7 @@ public class Resource implements SdkModel {
 
     /**
      * Gets device id.
-     * 
+     *
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -129,7 +129,7 @@ public class Resource implements SdkModel {
 
     /**
      * Sets device id.
-     * 
+     *
      * @param deviceId
      *            the deviceId to set
      */
@@ -140,7 +140,7 @@ public class Resource implements SdkModel {
 
     /**
      * Gets resource path.
-     * 
+     *
      * @return the path
      */
     public String getPath() {
@@ -149,7 +149,7 @@ public class Resource implements SdkModel {
 
     /**
      * Sets resource path.
-     * 
+     *
      * @param path
      *            the path to set
      */
@@ -162,7 +162,7 @@ public class Resource implements SdkModel {
      * Sets resource path.
      * <p>
      * Similar to {@link #setPath(String)}
-     * 
+     *
      * @param path
      *            the path to set
      */
@@ -173,7 +173,7 @@ public class Resource implements SdkModel {
 
     /**
      * Gets type.
-     * 
+     *
      * @return the type
      */
     public String getType() {
@@ -182,7 +182,7 @@ public class Resource implements SdkModel {
 
     /**
      * Gets content type.
-     * 
+     *
      * @return the contentType
      */
     public String getContentType() {
@@ -190,9 +190,9 @@ public class Resource implements SdkModel {
     }
 
     /**
-     * States whether the resource is observable or not i.e. whether you can subscribe to changes for this resource or
-     * not.
-     * 
+     * States whether you can subscribe to changes for this resource or
+     * not (whether the resource is observable or not).
+     *
      * @return the observable
      */
     public boolean isObservable() {
@@ -201,9 +201,9 @@ public class Resource implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -212,8 +212,8 @@ public class Resource implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -223,7 +223,7 @@ public class Resource implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

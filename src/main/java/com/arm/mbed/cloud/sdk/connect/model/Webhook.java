@@ -26,7 +26,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param url
      *            URL
      * @param headers
@@ -47,10 +47,10 @@ public class Webhook implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param url
      *            URL
-     * 
+     *
      */
     public Webhook(URL url) {
         this();
@@ -59,7 +59,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Gets the URL.
-     * 
+     *
      * @return the url
      */
     public URL getUrl() {
@@ -68,7 +68,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Sets the URL.
-     * 
+     *
      * @param url
      *            the url to set
      */
@@ -79,7 +79,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Gets HTTP headers.
-     * 
+     *
      * @return the headers
      */
     public Map<String, String> getHeaders() {
@@ -88,7 +88,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Sets HTTP headers.
-     * 
+     *
      * @param headers
      *            the headers to set
      */
@@ -98,7 +98,7 @@ public class Webhook implements SdkModel {
 
     /**
      * Adds an HTTP header.
-     * 
+     *
      * @param key
      *            header
      * @param value
@@ -116,9 +116,9 @@ public class Webhook implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone.
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -127,8 +127,8 @@ public class Webhook implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -138,7 +138,7 @@ public class Webhook implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

@@ -32,7 +32,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param unit
      *            time unit to apply e.g. seconds, days.
      * @param duration
@@ -45,10 +45,10 @@ public class TimePeriod implements Cloneable {
     }
 
     /**
-     * Defines a timeout in second.
-     * 
+     * Defines a timeout in seconds.
+     *
      * @param duration
-     *            in second.
+     *            in seconds.
      */
     public TimePeriod(long duration) {
         this();
@@ -67,10 +67,10 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Sets time period from a string.
-     * 
+     *
      * @param value
      *            string representing the time period @see {@link #fromString(String)} for more information.
-     * 
+     *
      */
     public TimePeriod(String value) {
         fromString(value);
@@ -78,7 +78,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Gets the time unit in use.
-     * 
+     *
      * @see TimeUnit
      * @return the unit.
      */
@@ -88,7 +88,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Sets the time unit.
-     * 
+     *
      * @see TimeUnit
      * @param unit
      *            the unit to set.
@@ -99,7 +99,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Gets the duration.
-     * 
+     *
      * @return the duration
      */
     public long getDuration() {
@@ -108,7 +108,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Sets the duration.
-     * 
+     *
      * @param duration
      *            the duration to set.
      */
@@ -118,7 +118,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Sets as a timeout in second.
-     * 
+     *
      * @param timeout
      *            timeout in second
      */
@@ -129,7 +129,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Gets time period string representation.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -210,7 +210,7 @@ public class TimePeriod implements Cloneable {
 
     /**
      * Sets time period from a string.
-     * 
+     *
      * @param value
      *            string value specifying the period in nanoseconds, seconds, minutes, hours, days or weeks. Sample
      *            values: 10000n, 50s, 5m, 2h, 3d, 4w. The maximum period cannot exceed one year (365 days). The allowed
@@ -293,7 +293,7 @@ public class TimePeriod implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override

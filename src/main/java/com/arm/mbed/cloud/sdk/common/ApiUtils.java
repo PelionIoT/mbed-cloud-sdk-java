@@ -20,7 +20,7 @@ public class ApiUtils {
 
     /**
      * Ensures that a field is not null.
-     * 
+     *
      * @param logger
      *            logger to report an error if any
      * @param arg
@@ -37,8 +37,8 @@ public class ApiUtils {
     }
 
     /**
-     * Ensures that a model object is valid i.e. contains all required field.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @param logger
      *            logger to report an error if any
      * @param model
@@ -127,7 +127,7 @@ public class ApiUtils {
 
     /**
      * Converts strings from snake to camel case.
-     * 
+     *
      * @param stringToConvert
      *            string to convert
      * @param capitalAtStart
@@ -162,7 +162,7 @@ public class ApiUtils {
 
     /**
      * Converts strings from camel to snake case.
-     * 
+     *
      * @param stringToConvert
      *            string to convert
      * @return snake case string.
@@ -191,7 +191,7 @@ public class ApiUtils {
      * Case converter factory.
      * <p>
      * Gets a case converter from a type.
-     * 
+     *
      * @param conversion
      *            conversion type
      * @return case converter
@@ -226,7 +226,7 @@ public class ApiUtils {
 
     /**
      * Normalises URL path.
-     * 
+     *
      * @param path
      *            path string
      * @return normalised path
@@ -240,7 +240,7 @@ public class ApiUtils {
 
     /**
      * Compares two URL paths.
-     * 
+     *
      * @param path1
      *            path string
      * @param path2
