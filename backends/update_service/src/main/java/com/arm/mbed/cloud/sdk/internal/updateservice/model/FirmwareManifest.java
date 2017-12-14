@@ -53,6 +53,9 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("etag")
   private DateTime etag = null;
 
+  @SerializedName("key_table")
+  private String keyTable = null;
+
   @SerializedName("device_class")
   private String deviceClass = null;
 
@@ -191,6 +194,24 @@ public class FirmwareManifest implements Serializable {
     this.etag = etag;
   }
 
+  public FirmwareManifest keyTable(String keyTable) {
+    this.keyTable = keyTable;
+    return this;
+  }
+
+   /**
+   * The optional URL of the key_table binary
+   * @return keyTable
+  **/
+  @ApiModelProperty(value = "The optional URL of the key_table binary")
+  public String getKeyTable() {
+    return keyTable;
+  }
+
+  public void setKeyTable(String keyTable) {
+    this.keyTable = keyTable;
+  }
+
   public FirmwareManifest deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
@@ -280,6 +301,7 @@ public class FirmwareManifest implements Serializable {
         Objects.equals(this.object, firmwareManifest.object) &&
         Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
         Objects.equals(this.etag, firmwareManifest.etag) &&
+        Objects.equals(this.keyTable, firmwareManifest.keyTable) &&
         Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
         Objects.equals(this.datafileSize, firmwareManifest.datafileSize) &&
         Objects.equals(this.id, firmwareManifest.id) &&
@@ -288,7 +310,7 @@ public class FirmwareManifest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, deviceClass, datafileSize, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, keyTable, deviceClass, datafileSize, id, name);
   }
 
 
@@ -304,6 +326,7 @@ public class FirmwareManifest implements Serializable {
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    keyTable: ").append(toIndentedString(keyTable)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
     sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
