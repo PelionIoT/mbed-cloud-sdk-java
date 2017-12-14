@@ -172,6 +172,12 @@ allprojects {
                     }
                 }
             }
+            if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){ 
+                if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
+                    project.maven_central_user=rootProject.maven_central_user
+                    project.maven_central_password=rootProject.maven_central_password
+                }
+            }
             if (project.hasProperty('bintray_password') && project.hasProperty('bintray_user')){
                 bintray {
                     user = "${bintray_user}"
