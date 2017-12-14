@@ -535,6 +535,21 @@ public class Query implements SdkModel {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Adds a device filter based on trust level field.
+     *
+     * @param trustLevel
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addTrustLevelFilter(String trustLevel, FilterOperator operator) {
+        addFilter(FILTER_TRUST_LEVEL, operator, trustLevel);
+    }
+
+    /**
+>>>>>>> Suggested edits
      * Adds a device filter based on updatedAt field.
      *
      * @param updatedAtDate

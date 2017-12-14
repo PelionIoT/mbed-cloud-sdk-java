@@ -149,10 +149,14 @@ public class FilterMarshaller {
      * 'customA': {'$eq': 'SomethingA'},
      *
      * 'customB': {'$eq': 'Something B'} }
+<<<<<<< HEAD
      * <p>
      * dates/times must be expressed as strings following RFC3339. @see
      * <a href="https://tools.ietf.org/html/rfc3339#page-7">(RFC)</a>.
      * 
+=======
+     *
+>>>>>>> Suggested edits
      * @param json
      *            Json string defining filters
      * @return corresponding filters

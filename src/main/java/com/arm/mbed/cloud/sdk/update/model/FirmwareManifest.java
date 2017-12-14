@@ -252,6 +252,18 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
+<<<<<<< HEAD
+=======
+     * Gets file checksum.
+     *
+     * @return the datafileChecksum
+     */
+    public String getDatafileChecksum() {
+        return datafileChecksum;
+    }
+
+    /**
+>>>>>>> Suggested edits
      * Gets the URL.
      *
      * @return the url
