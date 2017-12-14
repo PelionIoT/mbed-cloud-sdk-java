@@ -34,7 +34,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param contentType
      *            content type of the file e.g. application/octet-stream
      * @param file
@@ -48,10 +48,10 @@ public class DataFile implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * <p>
      * Description of a binary file.
-     * 
+     *
      * @param file
      *            binary file to consider
      */
@@ -63,7 +63,7 @@ public class DataFile implements SdkModel {
      * Constructor.
      * <p>
      * Description of a binary file.
-     * 
+     *
      * @param filePath
      *            path to a binary file.
      */
@@ -73,7 +73,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets the content type.
-     * 
+     *
      * @return the contentType.
      */
     public String getContentType() {
@@ -82,7 +82,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Sets the content type.
-     * 
+     *
      * @param contentType
      *            the contentType to set.
      */
@@ -93,7 +93,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets the file.
-     * 
+     *
      * @return the file.
      */
     public File getFile() {
@@ -102,7 +102,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Sets the file.
-     * 
+     *
      * @param file
      *            the file to set.
      */
@@ -113,7 +113,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Checks that the file exists.
-     * 
+     *
      * @return whether the file exists or not.
      */
     public boolean exists() {
@@ -122,7 +122,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets file md5.
-     * 
+     *
      * @return md5 checksum or null is file does not exist.
      * @throws MbedCloudException
      *             if a problem happens during checksum calculation
@@ -139,7 +139,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets file sha1.
-     * 
+     *
      * @return sha1 checksum or null is file does not exist.
      * @throws MbedCloudException
      *             if a problem happens during checksum calculation
@@ -156,7 +156,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets file sha256.
-     * 
+     *
      * @return sha256 checksum or null is file does not exist.
      * @throws MbedCloudException
      *             if a problem happens during checksum calculation
@@ -173,7 +173,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets file sha512.
-     * 
+     *
      * @return sha512 checksum or null is file does not exist.
      * @throws MbedCloudException
      *             if a problem happens during checksum calculation
@@ -190,9 +190,9 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -216,8 +216,8 @@ public class DataFile implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override

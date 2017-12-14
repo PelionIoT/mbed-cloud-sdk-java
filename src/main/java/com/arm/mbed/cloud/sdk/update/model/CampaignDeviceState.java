@@ -56,7 +56,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param id
      *            id
      * @param deviceId
@@ -95,7 +95,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets when the campaign was created.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -104,7 +104,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets when campaign was last updated.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -113,7 +113,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the Id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -122,7 +122,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the device Id.
-     * 
+     *
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -131,7 +131,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the campaign Id.
-     * 
+     *
      * @return the campaignId
      */
     public String getCampaignId() {
@@ -140,7 +140,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the state.
-     * 
+     *
      * @return the state
      */
     public DeviceState getState() {
@@ -149,7 +149,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -158,7 +158,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -167,7 +167,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the mechanism.
-     * 
+     *
      * @return the mechanism
      */
     public String getMechanism() {
@@ -176,7 +176,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets the mechanism URL.
-     * 
+     *
      * @return the mechanismUrl
      */
     public URL getMechanismUrl() {
@@ -185,7 +185,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
      * @see java.lang.Object#clone()
      */
@@ -196,8 +196,8 @@ public class CampaignDeviceState implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -207,7 +207,7 @@ public class CampaignDeviceState implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

@@ -59,7 +59,7 @@ public class DeviceEvent implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #DeviceEvent()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param deviceId
@@ -103,7 +103,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -112,7 +112,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Sets id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -122,7 +122,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets device id.
-     * 
+     *
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -131,7 +131,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets event date.
-     * 
+     *
      * @return the eventDate
      */
     public Date getEventDate() {
@@ -139,8 +139,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
-     * States whether state has changed.
-     * 
+     * Indicates whether state has changed.
+     *
      * @return the stateChanged
      */
     public boolean isStateChanged() {
@@ -149,7 +149,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -158,7 +158,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets changes.
-     * 
+     *
      * @return the changes
      */
     public Object getChanges() {
@@ -167,7 +167,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets type description.
-     * 
+     *
      * @return the typeDescription
      */
     public String getTypeDescription() {
@@ -176,7 +176,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets type.
-     * 
+     *
      * @return the type
      */
     public String getType() {
@@ -185,7 +185,7 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets data.
-     * 
+     *
      * @return the data
      */
     public Object getData() {
@@ -194,9 +194,9 @@ public class DeviceEvent implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -206,8 +206,8 @@ public class DeviceEvent implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -217,7 +217,7 @@ public class DeviceEvent implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

@@ -28,7 +28,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param deviceId
      *            device id.
      * @param deviceType
@@ -45,7 +45,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param device
      *            device.
      * @param resourcePaths
@@ -57,7 +57,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param resource
      *            A resource to pre-subscribe to.
      */
@@ -74,7 +74,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Gets device id.
-     * 
+     *
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -83,7 +83,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Sets device id.
-     * 
+     *
      * @param deviceId
      *            the deviceId to set
      */
@@ -93,7 +93,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Gets device type.
-     * 
+     *
      * @return the deviceType
      */
     public String getDeviceType() {
@@ -102,7 +102,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Sets device type.
-     * 
+     *
      * @param deviceType
      *            the deviceType to set
      */
@@ -112,7 +112,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Gets resource paths.
-     * 
+     *
      * @return the resourcePaths
      */
     public List<String> getResourcePaths() {
@@ -121,7 +121,7 @@ public class Presubscription implements SdkModel {
 
     /**
      * Sets resource paths.
-     * 
+     *
      * @param resourcePaths
      *            the resourcePaths to set
      */
@@ -131,9 +131,9 @@ public class Presubscription implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -142,8 +142,8 @@ public class Presubscription implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -162,7 +162,7 @@ public class Presubscription implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

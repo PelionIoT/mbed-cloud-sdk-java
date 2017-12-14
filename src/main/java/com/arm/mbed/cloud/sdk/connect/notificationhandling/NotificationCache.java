@@ -58,7 +58,7 @@ public class NotificationCache {
 
     /**
      * Notification cache constructor.
-     * 
+     *
      * @param api
      *            API module
      * @param pullingThread
@@ -125,7 +125,7 @@ public class NotificationCache {
 
     /**
      * States whether pulling is currently on going.
-     * 
+     *
      * @return true if pulling is active. false otherwise.
      */
     public boolean isPullingActive() {
@@ -144,7 +144,7 @@ public class NotificationCache {
 
     /**
      * Registers resource subscription callback.
-     * 
+     *
      * @param resource
      *            resource to register the callback for.
      * @param onNotification
@@ -159,7 +159,7 @@ public class NotificationCache {
 
     /**
      * Creates an observer for resource subscriptions.
-     * 
+     *
      * @param resource
      *            resource to register the callback for.
      * @param strategy
@@ -173,7 +173,7 @@ public class NotificationCache {
 
     /**
      * Deregisters the subscription callback of a resource.
-     * 
+     *
      * @param resource
      *            resource to consider.
      */
@@ -183,7 +183,7 @@ public class NotificationCache {
 
     /**
      * Removes the subscription observer of a resource.
-     * 
+     *
      * @param resource
      *            resource to consider.
      */
@@ -201,7 +201,7 @@ public class NotificationCache {
 
     /**
      * Deregisters all subscription observers or callbacks for a device.
-     * 
+     *
      * @param deviceId
      *            device id of the device.
      */
@@ -211,7 +211,7 @@ public class NotificationCache {
 
     /**
      * Allows a notification to be injected into the notifications system.
-     * 
+     *
      * @param data
      *            The notification data to inject
      */
@@ -223,8 +223,8 @@ public class NotificationCache {
     }
 
     /**
-     * Fetchs the response of an asynchronous request.
-     * 
+     * Fetches the response of an asynchronous request.
+     *
      * @param executor
      *            "finder" thread pool
      * @param functionName
@@ -400,7 +400,7 @@ public class NotificationCache {
 
         /**
          * Constructor.
-         * 
+         *
          * @param id
          *            response id
          * @param statusCode
@@ -425,7 +425,7 @@ public class NotificationCache {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -440,7 +440,7 @@ public class NotificationCache {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
@@ -477,7 +477,7 @@ public class NotificationCache {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override

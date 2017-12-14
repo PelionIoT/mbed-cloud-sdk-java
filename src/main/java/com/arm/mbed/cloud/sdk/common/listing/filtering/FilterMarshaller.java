@@ -35,7 +35,7 @@ public class FilterMarshaller {
 
     /**
      * Constructor.
-     * 
+     *
      * @param fieldNameMapping
      *            filter field mapping.
      */
@@ -47,10 +47,10 @@ public class FilterMarshaller {
 
     /**
      * Encodes all filters.
-     * 
+     *
      * @param filters
      *            filters to encode
-     * @return URL String containing all filters definition
+     * @return URL String containing all filter definitions
      */
     public @Nullable String encode(@Nullable Filters filters) {
         return (filters == null) ? null : encodeList(filters.get());
@@ -58,12 +58,12 @@ public class FilterMarshaller {
 
     /**
      * Encodes all filters related to one field name.
-     * 
+     *
      * @param fieldName
      *            field name of interest
      * @param filters
      *            filters to encode
-     * @return URL String containing all filters definition
+     * @return URL String containing all filter definitions
      */
     public @Nullable String encode(@Nullable String fieldName, @Nullable Filters filters) {
         if (filters == null) {
@@ -74,7 +74,7 @@ public class FilterMarshaller {
 
     /**
      * Decodes a URL String containing filter definitions.
-     * 
+     *
      * @param filtersString
      *            URL string containing filter definitions
      * @return corresponding filters
@@ -99,7 +99,7 @@ public class FilterMarshaller {
 
     /**
      * Serialises filters to Json string.
-     * 
+     *
      * @param filters
      *            Filters to serialise
      * @return Json string
@@ -123,27 +123,27 @@ public class FilterMarshaller {
      * {@code { fieldname:{ operator: value}}}
      * <p>
      * { 'device_id': {'$eq': str(uuid.uuid4())},
-     * 
+     *
      * 'auto_update': {'$eq': True},
-     * 
+     *
      * 'state': {'$eq': 'bootstrapped'},
-     * 
+     *
      * 'device_class': {'$eq': 'embedded'},
-     * 
+     *
      * 'serial_number': {'$eq': '1234'},
-     * 
+     *
      * 'vendor_id': {'$eq': 'Arm'},
-     * 
+     *
      * 'description': {'$eq': 'Loreum ipsum'},
-     * 
+     *
      * 'device_name': {'$eq': 'DeviceName'},
-     * 
+     *
      * 'custom_attributes': {
-     * 
+     *
      * 'customA': {'$eq': 'SomethingA'},
-     * 
+     *
      * 'customB': {'$eq': 'Something B'} }
-     * 
+     *
      * @param json
      *            Json string defining filters
      * @return corresponding filters
@@ -169,7 +169,7 @@ public class FilterMarshaller {
 
     /**
      * Gets filters as a "Json Map".
-     * 
+     *
      * @param filters
      *            filters
      * @return Json Map defining filters

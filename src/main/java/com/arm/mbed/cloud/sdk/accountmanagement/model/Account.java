@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
@@ -131,7 +131,7 @@ public class Account implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param status
@@ -160,7 +160,7 @@ public class Account implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param status
@@ -177,7 +177,7 @@ public class Account implements SdkModel {
      *            postCode
      * @param addressLine1
      *            addressLine1
-     * 
+     *
      * @param addressLine2
      *            addressLine2
      * @param city
@@ -233,7 +233,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the status.
-     * 
+     *
      * @return the status.
      */
     public AccountStatus getStatus() {
@@ -242,7 +242,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -251,7 +251,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -263,7 +263,7 @@ public class Account implements SdkModel {
      * Sets the id.
      * <p>
      * Similar to {@link #setId(String)}.
-     * 
+     *
      * @param id
      *            the id to set.
      */
@@ -274,7 +274,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets display name.
-     * 
+     *
      * @return the displayName.
      */
     public String getDisplayName() {
@@ -283,7 +283,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets display name.
-     * 
+     *
      * @param displayName
      *            the displayName to set.
      */
@@ -293,7 +293,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the contact.
-     * 
+     *
      * @return the contact.
      */
     public String getContact() {
@@ -302,7 +302,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the contact.
-     * 
+     *
      * @param contact
      *            the contact to set.
      */
@@ -312,7 +312,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the company.
-     * 
+     *
      * @return the company.
      */
     public String getCompany() {
@@ -321,7 +321,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the company.
-     * 
+     *
      * @param company
      *            the company to set.
      */
@@ -331,7 +331,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the phone number.
-     * 
+     *
      * @return the phoneNumber.
      */
     public String getPhoneNumber() {
@@ -340,7 +340,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the phone number.
-     * 
+     *
      * @param phoneNumber
      *            the phoneNumber to set.
      */
@@ -350,7 +350,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the post code.
-     * 
+     *
      * @return the postCode.
      */
     public String getPostCode() {
@@ -359,7 +359,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the post code.
-     * 
+     *
      * @param postCode
      *            the postCode to set.
      */
@@ -369,7 +369,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the first line of the address.
-     * 
+     *
      * @return the addressLine1.
      */
     public String getAddressLine1() {
@@ -378,7 +378,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the first line of the address.
-     * 
+     *
      * @param addressLine1
      *            the addressLine1 to set.
      */
@@ -388,7 +388,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the second line of the address.
-     * 
+     *
      * @return the addressLine2.
      */
     public String getAddressLine2() {
@@ -397,7 +397,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the second line of the address.
-     * 
+     *
      * @param addressLine2
      *            the addressLine2 to set.
      */
@@ -407,7 +407,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the city.
-     * 
+     *
      * @return the city.
      */
     public String getCity() {
@@ -416,7 +416,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the city.
-     * 
+     *
      * @param city
      *            the city to set.
      */
@@ -426,7 +426,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the state (address).
-     * 
+     *
      * @return the state.
      */
     public String getState() {
@@ -435,7 +435,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the state (address).
-     * 
+     *
      * @param state
      *            the state to set.
      */
@@ -445,7 +445,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the country.
-     * 
+     *
      * @return the country.
      */
     public String getCountry() {
@@ -454,7 +454,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the country.
-     * 
+     *
      * @param country
      *            the country to set.
      */
@@ -464,7 +464,7 @@ public class Account implements SdkModel {
 
     /**
      * States whether provisioning is allowed or not.
-     * 
+     *
      * @return provisioningAllowed states whether provisioning is allowed.
      */
     public boolean isProvisioningAllowed() {
@@ -473,7 +473,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the email address.
-     * 
+     *
      * @return the email.
      */
     public String getEmail() {
@@ -482,7 +482,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the email address.
-     * 
+     *
      * @param email
      *            the email to set.
      */
@@ -492,7 +492,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets account aliases.
-     * 
+     *
      * @return the aliases.
      */
     public List<String> getAliases() {
@@ -501,7 +501,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets account aliases.
-     * 
+     *
      * @param aliases
      *            the aliases to set.
      */
@@ -511,7 +511,7 @@ public class Account implements SdkModel {
 
     /**
      * Adds a new alias to the account.
-     * 
+     *
      * @param alias
      *            to add.
      */
@@ -526,7 +526,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets tier level.
-     * 
+     *
      * @return the tierLevel.
      */
     public String getTierLevel() {
@@ -535,7 +535,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets when account was created.
-     * 
+     *
      * @return the createdAt.
      */
     public Date getCreatedAt() {
@@ -544,7 +544,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets when the account was upgraded.
-     * 
+     *
      * @return the upgradedAt.
      */
     public Date getUpgradedAt() {
@@ -553,7 +553,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets limits.
-     * 
+     *
      * @return the limits
      */
     public Map<String, String> getLimits() {
@@ -562,7 +562,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets account template id.
-     * 
+     *
      * @return the templateId
      */
     public String getTemplateId() {
@@ -571,9 +571,9 @@ public class Account implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone of this account.
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -584,8 +584,8 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -595,7 +595,7 @@ public class Account implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

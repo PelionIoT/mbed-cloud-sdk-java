@@ -111,7 +111,7 @@ public class User implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #User()} or {@link #User(String, String)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param accountId
@@ -147,7 +147,7 @@ public class User implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #User()} or {@link #User(String, String)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param accountId
@@ -229,7 +229,7 @@ public class User implements SdkModel {
      * Constructor for a user.
      * <p>
      * Other constructors with 'Internal' annotation are for internal usage only.
-     * 
+     *
      * @param username
      *            A username containing alphanumerical letters and -,._@+= characters.
      * @param email
@@ -243,7 +243,7 @@ public class User implements SdkModel {
 
     /**
      * Gets user Id.
-     * 
+     *
      * @return the {@link #id}.
      */
     public String getId() {
@@ -254,7 +254,7 @@ public class User implements SdkModel {
      * Sets the id.
      * <p>
      * Similar to {@link #setId(String)}.
-     * 
+     *
      * @param id
      *            the id to set.
      */
@@ -265,7 +265,7 @@ public class User implements SdkModel {
 
     /**
      * Sets user Id.
-     * 
+     *
      * @param id
      *            the id to set.
      */
@@ -275,7 +275,7 @@ public class User implements SdkModel {
 
     /**
      * Gets user full name.
-     * 
+     *
      * @return the {@link #fullName}.
      */
     public String getFullName() {
@@ -284,7 +284,7 @@ public class User implements SdkModel {
 
     /**
      * Sets user full name.
-     * 
+     *
      * @param fullName
      *            the fullName to set.
      */
@@ -294,7 +294,7 @@ public class User implements SdkModel {
 
     /**
      * Gets user name.
-     * 
+     *
      * @return the {@link #username}.
      */
     public String getUsername() {
@@ -303,7 +303,7 @@ public class User implements SdkModel {
 
     /**
      * Sets user name.
-     * 
+     *
      * @param username
      *            the username to set.
      */
@@ -314,7 +314,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the password.
-     * 
+     *
      * @return the {@link #password}.
      */
     public String getPassword() {
@@ -323,7 +323,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the password.
-     * 
+     *
      * @param password
      *            the password to set.
      */
@@ -333,7 +333,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the email.
-     * 
+     *
      * @return the {@link #email}.
      */
     public String getEmail() {
@@ -342,7 +342,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the email.
-     * 
+     *
      * @param email
      *            the email to set.
      */
@@ -354,7 +354,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the phone number.
-     * 
+     *
      * @return the {@link #phoneNumber}.
      */
     public String getPhoneNumber() {
@@ -363,7 +363,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the phone number.
-     * 
+     *
      * @param phoneNumber
      *            the phoneNumber to set.
      */
@@ -373,7 +373,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the address.
-     * 
+     *
      * @return the {@link #address}.
      */
     public String getAddress() {
@@ -382,7 +382,7 @@ public class User implements SdkModel {
 
     /**
      * Sets the address.
-     * 
+     *
      * @param address
      *            the address to set.
      */
@@ -392,7 +392,7 @@ public class User implements SdkModel {
 
     /**
      * States whether terms have been accepted.
-     * 
+     *
      * @return the {@link #areTermsAccepted}.
      */
     public boolean areTermsAccepted() {
@@ -401,7 +401,7 @@ public class User implements SdkModel {
 
     /**
      * Sets whether terms have been accepted.
-     * 
+     *
      * @param areTermsAccepted
      *            the isTermAccepted to set
      */
@@ -411,7 +411,7 @@ public class User implements SdkModel {
 
     /**
      * States whether marketing material can be sent.
-     * 
+     *
      * @return the {@link #isMarketingAccepted}.
      */
     public boolean isMarketingAccepted() {
@@ -420,7 +420,7 @@ public class User implements SdkModel {
 
     /**
      * Sets whether marketing material can be sent.
-     * 
+     *
      * @param isMarketingAccepted
      *            the isMarketingAccepted to set.
      */
@@ -430,7 +430,7 @@ public class User implements SdkModel {
 
     /**
      * Gets account Id.
-     * 
+     *
      * @return the {@link #accountId}.
      */
     public String getAccountId() {
@@ -439,7 +439,7 @@ public class User implements SdkModel {
 
     /**
      * Gets groups.
-     * 
+     *
      * @return the {@link #groups}.
      */
     public List<String> getGroups() {
@@ -448,7 +448,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the status.
-     * 
+     *
      * @return the {@link #status}.
      */
     public UserStatus getStatus() {
@@ -457,7 +457,7 @@ public class User implements SdkModel {
 
     /**
      * States whether the email has been verified.
-     * 
+     *
      * @return the {@link #isEmailVerified}.
      */
     public boolean isEmailVerified() {
@@ -466,7 +466,7 @@ public class User implements SdkModel {
 
     /**
      * Gets when the User was created.
-     * 
+     *
      * @return the {@link #createdAt}.
      */
     public Date getCreatedAt() {
@@ -475,7 +475,7 @@ public class User implements SdkModel {
 
     /**
      * Gets creation time.
-     * 
+     *
      * @return the {@link #creationTime}.
      */
     public long getCreationTime() {
@@ -484,7 +484,7 @@ public class User implements SdkModel {
 
     /**
      * Gets the time when password was changed for the last time.
-     * 
+     *
      * @return the {@link #passwordChangedTime}.
      */
     public long getPasswordChangedTime() {
@@ -493,7 +493,7 @@ public class User implements SdkModel {
 
     /**
      * Gets last login time.
-     * 
+     *
      * @return the {@link #lastLoginTime}.
      */
     public long getLastLoginTime() {
@@ -502,7 +502,7 @@ public class User implements SdkModel {
 
     /**
      * States whether two factor authentication is in place.
-     * 
+     *
      * @return the {@link #twoFactorAuthentication}.
      */
     public boolean isTwoFactorAuthentication() {
@@ -511,7 +511,7 @@ public class User implements SdkModel {
 
     /**
      * Gets user login history.
-     * 
+     *
      * @return the {@link #loginHistory}.
      */
     public List<LoginHistory> getLoginHistory() {
@@ -520,7 +520,7 @@ public class User implements SdkModel {
 
     /**
      * Checks whether the email has been modified since creation.
-     * 
+     *
      * @return true if the email has been modified. False otherwise.
      */
     @Internal
@@ -530,7 +530,7 @@ public class User implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone.
      * @see java.lang.Object#clone()
      */
@@ -542,8 +542,8 @@ public class User implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -553,7 +553,7 @@ public class User implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

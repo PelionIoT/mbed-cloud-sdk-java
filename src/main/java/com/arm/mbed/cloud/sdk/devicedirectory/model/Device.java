@@ -130,7 +130,7 @@ public class Device implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param accountId
@@ -153,7 +153,7 @@ public class Device implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
-     * 
+     *
      * @param device
      *            a device to clone
      */
@@ -171,7 +171,7 @@ public class Device implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Device()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param accountId
@@ -264,7 +264,7 @@ public class Device implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param certificateIssuerId
      *            ID of the issuer of the certificate
      * @param certificateFingerprint
@@ -278,7 +278,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -287,7 +287,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -299,7 +299,7 @@ public class Device implements SdkModel {
      * Sets id.
      * <p>
      * Similar to {@link #setId(String)}
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -310,7 +310,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets certificate issuer id.
-     * 
+     *
      * @return the certificateIssuerId
      */
     public String getCertificateIssuerId() {
@@ -319,7 +319,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets certificate issuer id.
-     * 
+     *
      * @param certificateIssuerId
      *            the certificateIssuerId to set
      */
@@ -330,7 +330,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets certificate fingerprint.
-     * 
+     *
      * @return the certificateFingerprint
      */
     public String getCertificateFingerprint() {
@@ -339,7 +339,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets certificate fingerprint.
-     * 
+     *
      * @param certificateFingerprint
      *            the certificateFingerprint to set
      */
@@ -350,7 +350,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -359,7 +359,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -369,7 +369,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets alias.
-     * 
+     *
      * @return the alias
      */
     public String getAlias() {
@@ -378,7 +378,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets alias.
-     * 
+     *
      * @param alias
      *            the alias to set
      */
@@ -388,7 +388,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -397,7 +397,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -407,7 +407,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets device type.
-     * 
+     *
      * @return the deviceType
      */
     public String getDeviceType() {
@@ -416,7 +416,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets device type.
-     * 
+     *
      * @param deviceType
      *            the deviceType to set
      */
@@ -426,7 +426,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets host gateway.
-     * 
+     *
      * @return the hostGateway
      */
     public String getHostGateway() {
@@ -435,7 +435,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets host gateway.
-     * 
+     *
      * @param hostGateway
      *            the hostGateway to set
      */
@@ -445,7 +445,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets custom attributes.
-     * 
+     *
      * @return the customAttributes
      */
     public Map<String, String> getCustomAttributes() {
@@ -454,7 +454,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets custom attributes.
-     * 
+     *
      * @param customAttributes
      *            the customAttributes to set
      */
@@ -464,7 +464,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets state.
-     * 
+     *
      * @return the state
      */
     public DeviceState getState() {
@@ -473,7 +473,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets state.
-     * 
+     *
      * @param state
      *            the state to set
      */
@@ -483,7 +483,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets device class.
-     * 
+     *
      * @return the deviceClass
      */
     public String getDeviceClass() {
@@ -492,7 +492,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets device class.
-     * 
+     *
      * @param deviceClass
      *            the deviceClass to set
      */
@@ -502,7 +502,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets device execution mode.
-     * 
+     *
      * @return the deviceExecutionMode
      */
     public Integer getDeviceExecutionMode() {
@@ -511,7 +511,7 @@ public class Device implements SdkModel {
 
     /**
      * Set device execution mode.
-     * 
+     *
      * @param deviceExecutionMode
      *            the deviceExecutionMode to set
      */
@@ -521,7 +521,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets serial number.
-     * 
+     *
      * @return the serialNumber
      */
     public String getSerialNumber() {
@@ -530,7 +530,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets serial number.
-     * 
+     *
      * @param serialNumber
      *            the serialNumber to set
      */
@@ -540,7 +540,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets vendor id.
-     * 
+     *
      * @return the vendorId
      */
     public String getVendorId() {
@@ -549,7 +549,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets vendor id.
-     * 
+     *
      * @param vendorId
      *            the vendorId to set
      */
@@ -559,7 +559,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets connector certificate expiry date.
-     * 
+     *
      * @return the connectorCertificateExpiration
      */
     public Date getConnectorCertificateExpiration() {
@@ -568,7 +568,7 @@ public class Device implements SdkModel {
 
     /**
      * Set connector certificate expiry date.
-     * 
+     *
      * @param connectorCertificateExpiration
      *            the connectorCertificateExpiration to set
      */
@@ -578,7 +578,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets bootstrap certificate expiry date.
-     * 
+     *
      * @return the bootstrapCertificateExpiration
      */
     public Date getBootstrapCertificateExpiration() {
@@ -587,7 +587,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets bootstrap certificate expiry date.
-     * 
+     *
      * @param bootstrapCertificateExpiration
      *            the bootstrapCertificateExpiration to set
      */
@@ -597,7 +597,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets bootstrapped timestamp.
-     * 
+     *
      * @return the bootstrappedTimestamp
      */
     public Date getBootstrappedTimestamp() {
@@ -606,7 +606,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets bootstrapped timestamp.
-     * 
+     *
      * @param bootstrappedTimestamp
      *            the bootstrappedTimestamp to set
      */
@@ -616,7 +616,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets mechanism URL.
-     * 
+     *
      * @return the mechanismUrl
      */
     public URL getMechanismUrl() {
@@ -625,7 +625,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets mechanism URL.
-     * 
+     *
      * @param mechanismUrl
      *            the mechanismUrl to set
      */
@@ -635,7 +635,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets firmware checksum.
-     * 
+     *
      * @return the firmwareChecksum
      */
     public String getFirmwareChecksum() {
@@ -644,7 +644,7 @@ public class Device implements SdkModel {
 
     /**
      * Set firmware checksum.
-     * 
+     *
      * @param firmwareChecksum
      *            the firmwareChecksum to set
      */
@@ -654,7 +654,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets account id.
-     * 
+     *
      * @return the accountId
      */
     public String getAccountId() {
@@ -663,7 +663,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets creation date.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -672,7 +672,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets last update date.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -681,7 +681,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets manifest timestamp.
-     * 
+     *
      * @return the manifestTimestamp
      */
     public Date getManifestTimestamp() {
@@ -690,7 +690,7 @@ public class Device implements SdkModel {
 
     /**
      * Gets mechanism.
-     * 
+     *
      * @return the mechanism
      */
     public MechanismType getMechanism() {
@@ -699,7 +699,7 @@ public class Device implements SdkModel {
 
     /**
      * Sets mechanism.
-     * 
+     *
      * @param mechanism
      *            the mechanism to set
      */
@@ -709,9 +709,9 @@ public class Device implements SdkModel {
 
     /**
      * Gets clone.
-     * 
+     *
      * @return clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -723,8 +723,8 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -734,7 +734,7 @@ public class Device implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

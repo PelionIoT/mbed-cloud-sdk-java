@@ -61,7 +61,7 @@ public class FirmwareImage implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareImage()} or {@link #FirmwareImage(String, DataFile)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param url
@@ -85,7 +85,7 @@ public class FirmwareImage implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #FirmwareImage()} or {@link #FirmwareImage(String, DataFile)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param name
@@ -129,7 +129,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            image name.
      * @param dataFile
@@ -143,7 +143,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets Id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -152,7 +152,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets Id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -162,7 +162,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -171,7 +171,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -182,7 +182,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -191,7 +191,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -201,7 +201,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets file size.
-     * 
+     *
      * @return the datafileSize
      */
     public long getDatafileSize() {
@@ -210,7 +210,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets file.
-     * 
+     *
      * @return the dataFile
      */
     public DataFile getDataFile() {
@@ -219,7 +219,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets file.
-     * 
+     *
      * @param dataFile
      *            the dataFile to set
      */
@@ -230,7 +230,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Sets file from a path.
-     * 
+     *
      * @param datafile
      *            the path to the datafile
      */
@@ -241,7 +241,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets the URL.
-     * 
+     *
      * @return the url
      */
     public URL getUrl() {
@@ -250,7 +250,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets the checksum.
-     * 
+     *
      * @return the datafileChecksum
      */
     public String getDatafileChecksum() {
@@ -259,7 +259,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets creation date.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -268,7 +268,7 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets update date.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -277,9 +277,9 @@ public class FirmwareImage implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -289,8 +289,8 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -300,7 +300,7 @@ public class FirmwareImage implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

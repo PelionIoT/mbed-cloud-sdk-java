@@ -59,7 +59,7 @@ public class ApiKey implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param name
@@ -98,7 +98,7 @@ public class ApiKey implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param groups
@@ -124,7 +124,7 @@ public class ApiKey implements SdkModel {
      * ApiKey constructor.
      * <p>
      * Other constructors with 'Internal' annotation are for internal usage only.
-     * 
+     *
      */
     public ApiKey() {
         this(null, null, ApiKeyStatus.getDefault(), null, new Date(), 0, 0);
@@ -134,7 +134,7 @@ public class ApiKey implements SdkModel {
      * ApiKey constructor.
      * <p>
      * Other constructors with 'Internal' annotation are for internal usage only.
-     * 
+     *
      * @param name
      *            API key name.
      */
@@ -145,7 +145,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets API key id.
-     * 
+     *
      * @return the id.
      */
     public String getId() {
@@ -154,7 +154,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets API key id.
-     * 
+     *
      * @param id
      *            the id to set.
      */
@@ -166,7 +166,7 @@ public class ApiKey implements SdkModel {
      * Sets the id.
      * <p>
      * Similar to {@link #setId(String)}.
-     * 
+     *
      * @param id
      *            the id to set.
      */
@@ -177,7 +177,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name.
      */
     public String getName() {
@@ -186,7 +186,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set.
      */
@@ -197,7 +197,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets the owner id.
-     * 
+     *
      * @return the ownerId.
      */
     public String getOwnerId() {
@@ -206,7 +206,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Sets the owner id.
-     * 
+     *
      * @param ownerId
      *            the ownerId to set.
      */
@@ -216,7 +216,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets the groups.
-     * 
+     *
      * @return the groups.
      */
     public List<String> getGroups() {
@@ -225,7 +225,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets the status.
-     * 
+     *
      * @return the status.
      */
     public ApiKeyStatus getStatus() {
@@ -234,7 +234,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets the key.
-     * 
+     *
      * @return the key.
      */
     public String getKey() {
@@ -243,7 +243,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets when the API key was created.
-     * 
+     *
      * @return the createdAt.
      */
     public Date getCreatedAt() {
@@ -252,7 +252,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets creation time.
-     * 
+     *
      * @return the creationTime.
      */
     public long getCreationTime() {
@@ -261,7 +261,7 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets last login time.
-     * 
+     *
      * @return the lastLoginTime.
      */
     public long getLastLoginTime() {
@@ -270,9 +270,9 @@ public class ApiKey implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone.
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -281,8 +281,8 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -292,7 +292,7 @@ public class ApiKey implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
