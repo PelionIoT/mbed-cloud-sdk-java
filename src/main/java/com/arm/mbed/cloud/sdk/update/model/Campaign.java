@@ -19,6 +19,8 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 @Preamble(description = "Campaign")
 public class Campaign implements SdkModel {
 
+    private static final String NOW = "now()";
+
     /**
      * Serialisation Id.
      */
@@ -139,17 +141,22 @@ public class Campaign implements SdkModel {
     /**
      * The time the object was created.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date createdAt;
+    /**
+     * The time the object was updated.
+     */
+    @DefaultValue(value = NOW)
+    private final Date updatedAt;
     /**
      * The timestamp at which update campaign scheduled to start.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date startedAt;
     /**
      * The timestamp when the update campaign finished.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date finishedAt;
     /**
      * A name for this campaign.
@@ -192,11 +199,13 @@ public class Campaign implements SdkModel {
      *            date when campaign was started.
      * @param finishedAt
      *            date when campaign finishes.
+     * @param updatedAt
+     *            date when campaign was updated.
      */
     @Internal
-    public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt) {
-        this(id, CampaignState.getDefault(), manifestUrl, createdAt, startedAt, finishedAt, null, null, null, null,
-                null);
+    public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt, Date updatedAt) {
+        this(id, CampaignState.getDefault(), manifestUrl, createdAt, startedAt, finishedAt, updatedAt, null, null, null,
+                null, null);
 
     }
 
@@ -217,6 +226,8 @@ public class Campaign implements SdkModel {
      *            date when campaign was started.
      * @param finishedAt
      *            date when campaign finishes.
+     * @param updatedAt
+     *            date when campaign was updated.
      * @param name
      *            name
      * @param description
@@ -230,13 +241,15 @@ public class Campaign implements SdkModel {
      */
     @Internal
     public Campaign(String id, CampaignState state, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
-            String name, String description, String manifestId, Date scheduledAt, Filters deviceFilter) {
+            Date updatedAt, String name, String description, String manifestId, Date scheduledAt,
+            Filters deviceFilter) {
         super();
         setId(id);
         this.manifestUrl = manifestUrl;
         this.createdAt = createdAt;
         this.startedAt = startedAt;
         this.finishedAt = finishedAt;
+        this.updatedAt = updatedAt;
         setDescription(description);
         setManifestId(manifestId);
         setName(name);
@@ -255,7 +268,7 @@ public class Campaign implements SdkModel {
      */
     @Internal
     public Campaign(String id) {
-        this(id, null, new Date(), new Date(), new Date());
+        this(id, null, new Date(), new Date(), new Date(), new Date());
     }
 
     /**
@@ -852,8 +865,8 @@ public class Campaign implements SdkModel {
      */
     @Override
     public Campaign clone() throws CloneNotSupportedException {
-        return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, name, description, manifestId,
-                scheduledAt, deviceFilter);
+        return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name, description,
+                manifestId, scheduledAt, deviceFilter);
     }
 
     /**
@@ -874,9 +887,9 @@ public class Campaign implements SdkModel {
     @Override
     public String toString() {
         return "Campaign [id=" + id + ", state=" + state + ", manifestUrl=" + manifestUrl + ", createdAt=" + createdAt
-                + ", startedAt=" + startedAt + ", finishedAt=" + finishedAt + ", name=" + name + ", description="
-                + description + ", manifestId=" + manifestId + ", scheduledAt=" + scheduledAt + ", deviceFilter="
-                + deviceFilter + "]";
+                + ", updatedAt=" + updatedAt + ", startedAt=" + startedAt + ", finishedAt=" + finishedAt + ", name="
+                + name + ", description=" + description + ", manifestId=" + manifestId + ", scheduledAt=" + scheduledAt
+                + ", deviceFilter=" + deviceFilter + "]";
     }
 
 }
