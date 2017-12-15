@@ -102,8 +102,7 @@ public class DefaultApiTest {
         File datafile = null;
         String name = null;
         String description = null;
-        File keyTable = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description);
 
         // TODO: test validations
     }

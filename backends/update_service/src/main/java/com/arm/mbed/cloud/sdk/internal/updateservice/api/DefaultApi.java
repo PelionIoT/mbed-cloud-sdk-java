@@ -86,13 +86,12 @@ public interface DefaultApi {
    * @param datafile The manifest file to create. The API gateway enforces the account-specific file size. (required)
    * @param name The name of the firmware manifest (required)
    * @param description The description of the firmware manifest (optional)
-   * @param keyTable The optional key table file to create. (optional)
    * @return Call&lt;FirmwareManifest&gt;
    */
   @retrofit2.http.Multipart
   @POST("v3/firmware-manifests/")
   Call<FirmwareManifest> firmwareManifestCreate(
-    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description, @retrofit2.http.Part("key_table\"; filename=\"key_table") RequestBody keyTable
+    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
   );
 
   /**

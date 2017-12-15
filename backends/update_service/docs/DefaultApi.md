@@ -256,7 +256,7 @@ Name | Type | Description  | Notes
 
 <a name="firmwareManifestCreate"></a>
 # **firmwareManifestCreate**
-> FirmwareManifest firmwareManifestCreate(datafile, name, description, keyTable)
+> FirmwareManifest firmwareManifestCreate(datafile, name, description)
 
 
 
@@ -283,9 +283,8 @@ DefaultApi apiInstance = new DefaultApi();
 File datafile = new File("/path/to/file.txt"); // File | The manifest file to create. The API gateway enforces the account-specific file size.
 String name = "name_example"; // String | The name of the firmware manifest
 String description = "description_example"; // String | The description of the firmware manifest
-File keyTable = new File("/path/to/file.txt"); // File | The optional key table file to create.
 try {
-    FirmwareManifest result = apiInstance.firmwareManifestCreate(datafile, name, description, keyTable);
+    FirmwareManifest result = apiInstance.firmwareManifestCreate(datafile, name, description);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#firmwareManifestCreate");
@@ -300,7 +299,6 @@ Name | Type | Description  | Notes
  **datafile** | **File**| The manifest file to create. The API gateway enforces the account-specific file size. |
  **name** | **String**| The name of the firmware manifest |
  **description** | **String**| The description of the firmware manifest | [optional]
- **keyTable** | **File**| The optional key table file to create. | [optional]
 
 ### Return type
 

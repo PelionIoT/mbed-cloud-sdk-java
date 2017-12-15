@@ -11,7 +11,6 @@ Name | Type | Description | Notes
 **object** | **String** | The API resource entity | 
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature | 
-**keyTable** | **String** | The optional URL of the key_table binary |  [optional]
 **deviceClass** | **String** | The class of the device | 
 **datafileSize** | **Long** | Size of the datafile in bytes |  [optional]
 **id** | **String** | The firmware manifest ID | 
