@@ -1,6 +1,6 @@
 # Contributing
 
-Mbed Cloud SDK for Java is an open source project of Arm Mbed.
+Mbed Cloud SDK for Java is an open source project from Arm Mbed.
 
 We really appreciate your contributions! You can contribute by letting us know
 about any [SDK issues](https://github.com/ARMmbed/mbed-cloud-sdk-java/issues)
@@ -15,7 +15,7 @@ in the same one. This will help us review, give feedback and merge in your
 changes.
 
 - Fork the repository.
-- Make your change and write unit tests, please try to match the existing coding
+- Make your change and write unit tests, please do match the existing coding
   style. _Code style checks and static analysis are performed during build._
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
   and be sure to mention the issue if contributing a bug fix.
