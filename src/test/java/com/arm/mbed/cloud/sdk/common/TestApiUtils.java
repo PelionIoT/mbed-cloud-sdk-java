@@ -168,6 +168,9 @@ public class TestApiUtils {
         assertEquals("ThisIsAClassName", ApiUtils.convertSnakeToCamel(testClassString, true));
         assertEquals(null, ApiUtils.convertSnakeToCamel(null, true));
         assertEquals("", ApiUtils.convertSnakeToCamel("", true));
+        assertEquals("ThisIsAClassName", ApiUtils.convertSnakeToCamel("ThisIsAClassName", true));
+        assertEquals("thisIsAFunctionName", ApiUtils.convertSnakeToCamel("thisIsAFunctionName", false));
+
     }
 
     @Test
@@ -178,6 +181,7 @@ public class TestApiUtils {
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake(testClassString));
         assertEquals("", ApiUtils.convertCamelToSnake(""));
         assertEquals(null, ApiUtils.convertCamelToSnake(null));
+        assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake("this_is_a_class_name"));
     }
 
     @Test

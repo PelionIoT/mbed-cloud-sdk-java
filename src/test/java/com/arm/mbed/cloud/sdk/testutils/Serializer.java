@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.testutils;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
@@ -10,9 +11,15 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.fasterxml.jackson.core.JsonGenerator;
@@ -52,6 +59,30 @@ public class Serializer {
         }
     }
 
+    private static class DateSerializer extends StdSerializer<Date> {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 4811129002272093745L;
+        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
+
+        public DateSerializer() {
+            this(null);
+        }
+
+        public DateSerializer(Class<Date> t) {
+            super(t);
+        }
+
+        @SuppressWarnings("cast")
+        @Override
+        public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+            jgen.writeString((value == null) ? null
+                    : DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC)));
+
+        }
+    }
+
     private static class SDKFiltersDeserializer extends StdDeserializer<Filters> {
 
         /**
@@ -78,6 +109,7 @@ public class Serializer {
     static {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
+        module.addSerializer(Date.class, new DateSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);
@@ -93,8 +125,10 @@ public class Serializer {
         return (result == null || result instanceof Void) ? "{}"
                 : (result instanceof String) ? reformatString((String) result)
                         : (result instanceof List) ? reformatJsonList((List<?>) result).encode()
-                                : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false)
-                                        .encode();
+                                : (result instanceof ListResponse)
+                                        ? reformatJsonListResponse((ListResponse<?>) result).encode()
+                                        : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE,
+                                                false).encode();
     }
 
     private static String reformatString(String result) {
@@ -103,6 +137,20 @@ public class Serializer {
             result = "{\"message\":\"" + result + "\"}";
         }
         return result;
+    }
+
+    public static JsonObject reformatJsonListResponse(ListResponse<?> result) {
+        List<?> data = result.getData();
+        JsonArray array = null;
+        if (data != null) {
+            array = reformatJsonList(data);
+        }
+        result.setData(null);
+        JsonObject jsonObject = reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false);
+        if (array != null) {
+            jsonObject.put("data", array);
+        }
+        return jsonObject;
     }
 
     public static JsonArray reformatJsonList(List<?> result) {

@@ -17,11 +17,17 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConverter;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
     private static final String CUSTOM_ATTRIBUTES_FIELD_NAME = "custom_attributes";
+    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = ApiUtils
+            .getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
+    private static final String CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE = SNAKE_TO_CAMEL_CONVERTER
+            .convert(CUSTOM_ATTRIBUTES_FIELD_NAME, false);
 
     private static final String FILTER_KEY_VALUE_SEPARATOR = "=";
 
@@ -143,6 +149,9 @@ public class FilterMarshaller {
      * 'customA': {'$eq': 'SomethingA'},
      * 
      * 'customB': {'$eq': 'Something B'} }
+     * <p>
+     * dates/times must be expressed as strings following RFC3339. @see
+     * <a href="https://tools.ietf.org/html/rfc3339#page-7">(RFC)</a>.
      * 
      * @param json
      *            Json string defining filters
@@ -155,7 +164,8 @@ public class FilterMarshaller {
         JsonObject obj = new JsonObject(json);
         Filters filters = new Filters();
         for (String fieldName : obj.fieldNames()) {
-            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)) {
+            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
+                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
                 JsonObject filterJson = obj.getJsonObject(fieldName);
                 for (String subfieldName : filterJson.fieldNames()) {
                     parseFilter(filterJson, subfieldName, filters, true);
@@ -310,8 +320,10 @@ public class FilterMarshaller {
     }
 
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
-        String filterValue = obj.getString(fieldName);
-        Filter filter = new Filter(fieldName, FilterOperator.getDefault(), filterValue);
+        Object filterValue = obj.getValue(fieldName);
+
+        Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
+                filterValue);
         filters.add(filter);
     }
 
@@ -322,9 +334,10 @@ public class FilterMarshaller {
         }
         for (String operator : filterJson.fieldNames()) {
             Filter filter = (isCustom)
-                    ? new CustomFilter(fieldName, FilterOperator.getFromSymbol(operator),
-                            filterJson.getString(operator))
-                    : new Filter(fieldName, FilterOperator.getFromSymbol(operator), filterJson.getString(operator));
+                    ? new CustomFilter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator))
+                    : new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator));
             filters.add(filter);
         }
     }
@@ -360,12 +373,24 @@ public class FilterMarshaller {
             this.map = map;
         }
 
-        public String getString(String fieldName) {
+        public Object getValue(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
             }
-            CharSequence cs = (CharSequence) map.get(fieldName);
-            return cs == null ? null : cs.toString();
+            final Object value = map.get(fieldName);
+            if (value instanceof CharSequence) {
+                final String valueStr = value.toString();
+                if (valueStr == null) {
+                    return valueStr;
+                }
+                try {
+                    // Trying to see if it is a date
+                    return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+                } catch (Exception exception) {
+                    return valueStr;
+                }
+            }
+            return value;
         }
 
         public boolean isJsonObject(String fieldName) {

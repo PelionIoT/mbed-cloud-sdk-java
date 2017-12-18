@@ -5,8 +5,12 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TimeZone;
 
 import org.junit.Test;
 
@@ -131,6 +135,14 @@ public class TestFilterMarshaller {
         assertTrue(filters.hasFilters("id"));
         assertTrue(filters.hasFilters("id", FilterOperator.EQUAL));
         assertTrue(filters.hasCustomFilters());
+        filterJson = "{\"customAttributes\": { \"foo\": { \"$neq\": \"bar\" }},\"id\": { \"$eq\": \"new_device_id\" }}";
+        filters = FilterMarshaller.fromJson(filterJson);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("foo"));
+        assertTrue(filters.hasFilters("foo", FilterOperator.NOT_EQUAL));
+        assertTrue(filters.hasFilters("id"));
+        assertTrue(filters.hasFilters("id", FilterOperator.EQUAL));
+        assertTrue(filters.hasCustomFilters());
         filterJson = "{ \"foo\":  \"bar\" ,\"id\":  \"new_device_id\" }";
         filters = FilterMarshaller.fromJson(filterJson);
         assertFalse(filters.isEmpty());
@@ -139,6 +151,40 @@ public class TestFilterMarshaller {
         assertTrue(filters.hasFilters("id"));
         assertTrue(filters.hasFilters("id", FilterOperator.EQUAL));
         assertFalse(filters.hasCustomFilters());
+        filterJson = "{ \"foo_one\":  \"bar\" ,\"idTwo\":  \"new_device_id\" }";
+        filters = FilterMarshaller.fromJson(filterJson);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooOne"));
+        assertTrue(filters.hasFilters("fooOne", FilterOperator.EQUAL));
+        assertTrue(filters.hasFilters("idTwo"));
+        assertTrue(filters.hasFilters("idTwo", FilterOperator.EQUAL));
+        assertFalse(filters.hasCustomFilters());
+        filterJson = "{\"customAttributes\": { \"fooOne\": { \"$neq\": \"bar\" }},\"idTwo\": { \"$eq\": \"new_device_id\" }}";
+        filters = FilterMarshaller.fromJson(filterJson);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooOne"));
+        assertTrue(filters.hasFilters("fooOne", FilterOperator.NOT_EQUAL));
+        assertTrue(filters.hasFilters("idTwo"));
+        assertTrue(filters.hasFilters("idTwo", FilterOperator.EQUAL));
+        assertTrue(filters.hasCustomFilters());
+        filterJson = "{\"bootstrapped_timestamp\": {\"$eq\": 1494011711686}}";
+        filters = FilterMarshaller.fromJson(filterJson);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("bootstrappedTimestamp"));
+        assertTrue(filters.hasFilters("bootstrappedTimestamp", FilterOperator.EQUAL));
+        assertFalse(filters.hasCustomFilters());
+        filterJson = "{\"customAttributes\": { \"fooOne\": { \"$neq\": \"bar\" }},\"idTwo\": { \"$eq\": \"2017-05-05T19:23:35.0+01:00\" }}";
+        filters = FilterMarshaller.fromJson(filterJson);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooOne"));
+        assertTrue(filters.hasFilters("fooOne", FilterOperator.NOT_EQUAL));
+        assertTrue(filters.hasFilters("idTwo"));
+        assertTrue(filters.hasFilters("idTwo", FilterOperator.EQUAL));
+        List<Filter> filterValues = filters.get("idTwo", FilterOperator.EQUAL);
+        Calendar expectedDate = new GregorianCalendar(2017, 4, 5, 18, 23, 35);
+        expectedDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+        assertEquals(expectedDate.getTime(), filterValues.get(0).getValue());
+        assertTrue(filters.hasCustomFilters());
     }
 
     @Test
@@ -149,6 +195,38 @@ public class TestFilterMarshaller {
         assertFalse(filters.isEmpty());
         assertTrue(filters.hasFilters("foo"));
         assertTrue(filters.hasFilters("foo", FilterOperator.EQUAL));
+        filterJson = "{ \"fooOne\": { \"$eq\": \"bar\" }}";
+        filters = new Filters();
+        FilterMarshaller.parseFilter(filterJson, "fooOne", filters, false);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooOne"));
+        assertTrue(filters.hasFilters("fooOne", FilterOperator.EQUAL));
+        filterJson = "{ \"foo_two\": { \"$eq\": \"bar\" }}";
+        filters = new Filters();
+        FilterMarshaller.parseFilter(filterJson, "foo_two", filters, false);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooTwo"));
+        assertTrue(filters.hasFilters("fooTwo", FilterOperator.EQUAL));
+        filterJson = "{ \"foo_two\": { \"$eq\": \"2017-05-05T19:23:35.0Z\" }}";
+        filters = new Filters();
+        FilterMarshaller.parseFilter(filterJson, "foo_two", filters, false);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooTwo"));
+        assertTrue(filters.hasFilters("fooTwo", FilterOperator.EQUAL));
+        List<Filter> filterValues = filters.get("fooTwo", FilterOperator.EQUAL);
+        Calendar expectedDate = new GregorianCalendar(2017, 4, 5, 19, 23, 35);
+        expectedDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+        assertEquals(expectedDate.getTime(), filterValues.get(0).getValue());
+        filterJson = "{ \"foo_two\": { \"$eq\": \"2017-05-05T19:23:35.0+01:00\" }}";
+        filters = new Filters();
+        FilterMarshaller.parseFilter(filterJson, "foo_two", filters, false);
+        assertFalse(filters.isEmpty());
+        assertTrue(filters.hasFilters("fooTwo"));
+        assertTrue(filters.hasFilters("fooTwo", FilterOperator.EQUAL));
+        filterValues = filters.get("fooTwo", FilterOperator.EQUAL);
+        expectedDate = new GregorianCalendar(2017, 4, 5, 18, 23, 35);
+        expectedDate.setTimeZone(TimeZone.getTimeZone("UTC"));
+        assertEquals(expectedDate.getTime(), filterValues.get(0).getValue());
     }
 
 }

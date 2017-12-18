@@ -23,8 +23,8 @@ public class UserListOptions extends ListOptions {
      * 
      * @return the status filter.
      */
-    public @Nullable Object getStatusFilter() {
-        return fetchEqualFilterValue(STATUS_FILTER);
+    public @Nullable UserStatus getStatusFilter() {
+        return (UserStatus) fetchEqualFilterValue(STATUS_FILTER);
     }
 
     /**
@@ -33,7 +33,7 @@ public class UserListOptions extends ListOptions {
      * @param statusFilter
      *            the statusFilter to set.
      */
-    public void setStatusFilter(@Nullable Object statusFilter) {
+    public void setStatusFilter(@Nullable UserStatus statusFilter) {
         addEqualFilter(STATUS_FILTER, statusFilter);
     }
 
