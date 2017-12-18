@@ -14,10 +14,6 @@ public class DeviceListOptions extends ListOptions {
      */
     public static final String FILTER_VENDOR_ID = "vendorId";
     /**
-     * Tag of filter by trust level.
-     */
-    public static final String FILTER_TRUST_LEVEL = "trustLevel";
-    /**
      * Tag of filter by state.
      */
     public static final String FILTER_STATE = "state";
@@ -307,18 +303,6 @@ public class DeviceListOptions extends ListOptions {
      */
     public void addStateFilter(DeviceState state, FilterOperator operator) {
         addFilter(FILTER_STATE, operator, state);
-    }
-
-    /**
-     * Adds a device filter based on trust level field.
-     * 
-     * @param trustLevel
-     *            filter to apply
-     * @param operator
-     *            filter operator
-     */
-    public void addTrustLevelFilter(String trustLevel, FilterOperator operator) {
-        addFilter(FILTER_TRUST_LEVEL, operator, trustLevel);
     }
 
     /**

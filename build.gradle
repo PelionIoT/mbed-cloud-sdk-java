@@ -189,7 +189,11 @@ allprojects {
                     //dryRun = true
                     pkg {
                         repo = 'mbed-cloud-sdk'
-                        name = 'mbed-cloud-sdk'
+                        if (project == rootProject){
+                            name = 'mbed-cloud-sdk'
+                        } else {
+                            name = 'mbed-cloud-' + project.name
+                        }
                         labels = ["Mbed","Mbed Cloud","Cloud","SDK","Java","IoT"]
                         desc = 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
                         userOrg = 'armmbed'        
