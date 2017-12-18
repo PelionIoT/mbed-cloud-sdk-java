@@ -25,10 +25,7 @@ public class Query implements SdkModel {
      * Tag of filter by updatedAt.
      */
     public static final String FILTER_UPDATED_AT = "updatedAt";
-    /**
-     * Tag of filter by trust level.
-     */
-    public static final String FILTER_TRUST_LEVEL = "trustLevel";
+
     /**
      * Tag of filter by state.
      */
@@ -535,18 +532,6 @@ public class Query implements SdkModel {
      */
     public void addStateFilter(DeviceState state, FilterOperator operator) {
         addFilter(FILTER_STATE, operator, state);
-    }
-
-    /**
-     * Adds a device filter based on trust level field.
-     * 
-     * @param trustLevel
-     *            filter to apply
-     * @param operator
-     *            filter operator
-     */
-    public void addTrustLevelFilter(String trustLevel, FilterOperator operator) {
-        addFilter(FILTER_TRUST_LEVEL, operator, trustLevel);
     }
 
     /**

@@ -251,7 +251,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable ListResponse<Device> listConnectedDevices(DeviceListOptions options) throws MbedCloudException {
-        return deviceDirectory.listConnectedDevices("listConnectedDevices()", options, CONNECTED_DEVICES_FILTER);
+        return deviceDirectory.listDevicesWithExtraFilters("listConnectedDevices()", options, CONNECTED_DEVICES_FILTER);
     }
 
     /**

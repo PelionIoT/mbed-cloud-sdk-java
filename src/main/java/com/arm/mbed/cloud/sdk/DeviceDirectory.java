@@ -94,10 +94,10 @@ public class DeviceDirectory extends AbstractApi {
     @API
     public @Nullable ListResponse<Device> listDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
 
-        return listConnectedDevices("listDevices()", options, null);
+        return listDevicesWithExtraFilters("listDevices()", options, null);
     }
 
-    protected ListResponse<Device> listConnectedDevices(String functionName, DeviceListOptions options,
+    protected ListResponse<Device> listDevicesWithExtraFilters(String functionName, DeviceListOptions options,
             Filter additionalFilter) throws MbedCloudException {
         final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
         finalOptions.addFilter(additionalFilter);

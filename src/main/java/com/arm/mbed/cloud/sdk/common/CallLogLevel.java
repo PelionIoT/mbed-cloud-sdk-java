@@ -4,6 +4,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Log level of the http communications between client and Arm Mbed Cloud")
 public enum CallLogLevel {
+    /**
+     * No HTTP logs are logged.
+     */
     NONE,
     /**
      * Logs request and response lines.

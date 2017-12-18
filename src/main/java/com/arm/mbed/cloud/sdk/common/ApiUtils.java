@@ -140,7 +140,9 @@ public class ApiUtils {
         }
         final StringBuffer sb = new StringBuffer();
         boolean start = true;
-        for (final String s : stringToConvert.split("_")) {
+        final String[] stringElements = stringToConvert.split("_");
+        final int numberOfElements = stringElements.length;
+        for (final String s : stringElements) {
             if (start) {
                 sb.append(capitalAtStart ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
                 start = false;
@@ -148,7 +150,11 @@ public class ApiUtils {
                 sb.append(Character.toUpperCase(s.charAt(0)));
             }
             if (s.length() > 1) {
-                sb.append(s.substring(1, s.length()).toLowerCase());
+                String subString = s.substring(1, s.length());
+                if (numberOfElements > 1) {
+                    subString = subString.toLowerCase(Locale.getDefault());
+                }
+                sb.append(subString);
             }
         }
         return sb.toString();

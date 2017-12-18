@@ -26,12 +26,12 @@ public class TestListOptions {
 
     @Test
     public void testSetFiltersFromJson() {
-        String jsonFilter = "{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"test_3\":{\"$lte\":\"value1\",\"$eq\":\"value2\"}}";
+        String jsonFilter = "{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"test3\":{\"$lte\":\"value1\",\"$eq\":\"value2\"}}";
         ListOptions options = new ListOptions();
         assertNull(options.getFilter());
         options.setFiltersFromJson(jsonFilter);
         assertNotNull(options.getFilter());
-        List<Filter> filters = options.fetchFilters("test_3");
+        List<Filter> filters = options.fetchFilters("test3");
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
         Filter filter = filters.get(1);
