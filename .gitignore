@@ -1,4 +1,15 @@
 /.gradle/
-/.settings/
+*/.settings/*
+*/.idea/*
+.project
+.classpath
 /bin/
 /build/
+*.pyc
+*artifacts.poperties
+/artifacts.poperties
+*.iml
+*.ipr
+*.iws
+*.prefs
+*.log

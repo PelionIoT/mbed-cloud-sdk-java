@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
 @Preamble(description = "Specifies that the element (e.g. package, object, method, field, etc) is in beta state: signature may change between versions without warning")
 @Retention(SOURCE)
 @Target({ TYPE, FIELD, METHOD, PARAMETER, CONSTRUCTOR, LOCAL_VARIABLE, ANNOTATION_TYPE, PACKAGE, TYPE_PARAMETER,
-		TYPE_USE })
+        TYPE_USE })
 @Documented
 public @interface Beta {
 

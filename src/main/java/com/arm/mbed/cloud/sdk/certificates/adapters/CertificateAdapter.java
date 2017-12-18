@@ -24,13 +24,24 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 
 @Preamble(description = "Adapter for certificate")
 @Internal
-public class CertificateAdapter {
+public final class CertificateAdapter {
 
+    private CertificateAdapter() {
+        super();
+    }
+
+    /**
+     * Maps certificate.
+     * 
+     * @param iamCertificate
+     *            response from Mbed Cloud.
+     * @return a partial certificate.
+     */
     public static Certificate map(TrustedCertificateResp iamCertificate) {
         if (iamCertificate == null) {
             return null;
         }
-        Certificate certificate = new Certificate(iamCertificate.getId(), iamCertificate.getAccountId(),
+        final Certificate certificate = new Certificate(iamCertificate.getId(), iamCertificate.getAccountId(),
                 iamCertificate.getSubject(), TranslationUtils.toDate(iamCertificate.getValidity()),
                 iamCertificate.getIssuer(), TranslationUtils.toDate(iamCertificate.getCreatedAt()), null, null, null,
                 null, null, iamCertificate.getOwnerId());
@@ -43,15 +54,28 @@ public class CertificateAdapter {
         return certificate;
     }
 
+    /**
+     * Maps data regarding server credentials.
+     * 
+     * @param serverResponse
+     *            response from Mbed Cloud.
+     * @return a partial certificate.
+     */
     public static Certificate mapServer(ServerCredentialsResponseData serverResponse) {
         if (serverResponse == null) {
             return null;
         }
-        Certificate certificate = new Certificate(null, null, null, null, null, null, serverResponse.getServerUri(),
+        return new Certificate(null, null, null, null, null, null, serverResponse.getServerUri(),
                 serverResponse.getServerCertificate(), null, null, null, null);
-        return certificate;
     }
 
+    /**
+     * Maps a developer certificate.
+     * 
+     * @param developerData
+     *            response from Mbed Cloud.
+     * @return a partial certificate.
+     */
     public static Certificate mapDeveloper(DeveloperCertificateResponseData developerData) {
         if (developerData == null) {
             return null;
@@ -61,6 +85,11 @@ public class CertificateAdapter {
                 developerData.getDeveloperCertificate(), developerData.getDeveloperPrivateKey(), null);
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<TrustedCertificateResp, Certificate> getMapper() {
         return new Mapper<TrustedCertificateResp, Certificate>() {
 
@@ -72,6 +101,11 @@ public class CertificateAdapter {
         };
     }
 
+    /**
+     * Gets a mapper for server data.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<ServerCredentialsResponseData, Certificate> getServerMapper() {
         return new Mapper<ServerCredentialsResponseData, Certificate>() {
 
@@ -83,6 +117,11 @@ public class CertificateAdapter {
         };
     }
 
+    /**
+     * Gets a mapper for developer data.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<DeveloperCertificateResponseData, Certificate> getDeveloperMapper() {
         return new Mapper<DeveloperCertificateResponseData, Certificate>() {
 
@@ -94,11 +133,18 @@ public class CertificateAdapter {
         };
     }
 
+    /**
+     * Reverses mapping for a new certificate.
+     * 
+     * @param certificate
+     *            certificate to add.
+     * @return a new certificate request.
+     */
     public static TrustedCertificateReq reverseMapAdd(Certificate certificate) {
         if (certificate == null) {
             return null;
         }
-        TrustedCertificateReq request = new TrustedCertificateReq();
+        final TrustedCertificateReq request = new TrustedCertificateReq();
         request.setCertificate(certificate.getCertificateData());
         request.setName(certificate.getName());
         request.setService(reverseAddRequestServiceType(certificate.getType()));
@@ -108,25 +154,45 @@ public class CertificateAdapter {
         return request;
     }
 
+    /**
+     * Reverses mapping for updating a certificate.
+     * 
+     * @param certificate
+     *            certificate to update.
+     * @return a certificate update request.
+     */
     public static TrustedCertificateUpdateReq reverseMapUpdate(Certificate certificate) {
         if (certificate == null) {
             return null;
         }
-        TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
-        request.setCertificate(certificate.getCertificateData());
+        final TrustedCertificateUpdateReq request = new TrustedCertificateUpdateReq();
+        if (certificate.hasCertificateDataBeenUpdated()) {
+            request.setCertificate(certificate.getCertificateData());
+        }
         request.setName(certificate.getName());
-        request.setService(reverseUpdateRequestServiceType(certificate.getType()));
-        request.setStatus(reverseUpdateRequestStatus(certificate.getStatus()));
+        if (certificate.hasTypeBeenUpdated()) {
+            request.setService(reverseUpdateRequestServiceType(certificate.getType()));
+        }
+        if (certificate.hasStatusBeenUpdated()) {
+            request.setStatus(reverseUpdateRequestStatus(certificate.getStatus()));
+        }
         request.setSignature(certificate.getSignature());
         request.setDescription(certificate.getDescription());
         return request;
     }
 
+    /**
+     * Reverses mapping for a new developer certificate.
+     * 
+     * @param certificate
+     *            certificate to add.
+     * @return a new certificate request.
+     */
     public static DeveloperCertificateRequestData reverseDeveloperMap(Certificate certificate) {
         if (certificate == null) {
             return null;
         }
-        DeveloperCertificateRequestData request = new DeveloperCertificateRequestData();
+        final DeveloperCertificateRequestData request = new DeveloperCertificateRequestData();
         request.setDescription(certificate.getDescription());
         request.setName(certificate.getName());
         return request;
@@ -221,10 +287,17 @@ public class CertificateAdapter {
         }
     }
 
+    /**
+     * Maps list of certificates.
+     * 
+     * @param list
+     *            certificate list to map.
+     * @return a list of mapped certificates.
+     */
     public static ListResponse<Certificate> mapList(TrustedCertificateRespList list) {
 
         final TrustedCertificateRespList certificateList = list;
-        RespList<TrustedCertificateResp> respList = new RespList<TrustedCertificateResp>() {
+        final RespList<TrustedCertificateResp> respList = new RespList<TrustedCertificateResp>() {
 
             @Override
             public Boolean getHasMore() {
@@ -259,6 +332,11 @@ public class CertificateAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets a list mapper.
+     * 
+     * @return a list mapper.
+     */
     public static Mapper<TrustedCertificateRespList, ListResponse<Certificate>> getListMapper() {
         return new Mapper<TrustedCertificateRespList, ListResponse<Certificate>>() {
 

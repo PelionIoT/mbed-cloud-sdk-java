@@ -14,14 +14,24 @@ import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 
 @Preamble(description = "Adapter for firmware image model")
 @Internal
-public class FirmwareImageAdapter {
+public final class FirmwareImageAdapter {
 
-    public static com.arm.mbed.cloud.sdk.update.model.FirmwareImage map(
-            com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
+    private FirmwareImageAdapter() {
+        super();
+    }
+
+    /**
+     * Maps firmware image.
+     * 
+     * @param firmwareImage
+     *            image
+     * @return image.
+     */
+    public static FirmwareImage map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
         if (firmwareImage == null) {
             return null;
         }
-        com.arm.mbed.cloud.sdk.update.model.FirmwareImage image = new FirmwareImage(firmwareImage.getId(),
+        final FirmwareImage image = new FirmwareImage(firmwareImage.getId(),
                 TranslationUtils.toUrl(firmwareImage.getDatafile()), firmwareImage.getDatafileChecksum(),
                 TranslationUtils.toLong(firmwareImage.getDatafileSize()),
                 TranslationUtils.toDate(firmwareImage.getCreatedAt()),
@@ -32,21 +42,32 @@ public class FirmwareImageAdapter {
         return image;
     }
 
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, com.arm.mbed.cloud.sdk.update.model.FirmwareImage> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, com.arm.mbed.cloud.sdk.update.model.FirmwareImage>() {
+    /**
+     * Gets mapper.
+     * 
+     * @return mapper
+     */
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage> getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage>() {
 
             @Override
-            public com.arm.mbed.cloud.sdk.update.model.FirmwareImage map(
-                    com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage toBeMapped) {
+            public FirmwareImage map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage toBeMapped) {
                 return FirmwareImageAdapter.map(toBeMapped);
             }
         };
     }
 
+    /**
+     * Maps list of images.
+     * 
+     * @param list
+     *            images page
+     * @return list of images
+     */
     public static ListResponse<FirmwareImage> mapList(FirmwareImagePage list) {
 
         final FirmwareImagePage imageList = list;
-        RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+        final RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
 
             @Override
             public Boolean getHasMore() {
@@ -81,6 +102,11 @@ public class FirmwareImageAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper
+     */
     public static Mapper<FirmwareImagePage, ListResponse<FirmwareImage>> getListMapper() {
         return new Mapper<FirmwareImagePage, ListResponse<FirmwareImage>>() {
 

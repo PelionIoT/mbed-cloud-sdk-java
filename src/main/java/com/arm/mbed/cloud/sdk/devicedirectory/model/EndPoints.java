@@ -12,12 +12,24 @@ public class EndPoints {
 
     private final DefaultApi directory;
 
+    /**
+     * Constructor.
+     * 
+     * @param wrapper
+     *            API client {@link ApiClientWrapper}.
+     */
     public EndPoints(ApiClientWrapper wrapper) {
         super();
         this.directory = initialiseDirectory(wrapper);
 
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}.
+     */
     public EndPoints(ConnectionOptions options) {
         this(new ApiClientWrapper(options));
 
@@ -27,9 +39,6 @@ public class EndPoints {
         return wrapper.createService(DefaultApi.class);
     }
 
-    /**
-     * @return the update
-     */
     public DefaultApi getDirectory() {
         return directory;
     }

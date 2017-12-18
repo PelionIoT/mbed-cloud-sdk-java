@@ -12,20 +12,49 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 
 @Preamble(description = "Options to use when listing campaigns")
 public class CampaignListOptions extends ListOptions {
+    /**
+     * Tag of filter by creation date.
+     */
     public static final String CREATED_AT_FILTER = "createdAt";
+    /**
+     * Tag of filter by name.
+     */
     public static final String NAME_FILTER = "name";
+    /**
+     * Tag of filter by state.
+     */
     public static final String STATE_FILTER = "state";
+    /**
+     * Tag of filter by manifest id.
+     */
     public static final String MANIFEST_ID_FILTER = "manifestId";
+    /**
+     * Tag of filter by manifest URL.
+     */
     public static final String MANIFEST_URL_FILTER = "manifestUrl";
+    /**
+     * Tag of filter by start date.
+     */
     public static final String START_AT_FILTER = "startedAt";
+    /**
+     * Tag of filter by schedule date.
+     */
     public static final String SCHEDULED_AT_FILTER = "scheduledAt";
+    /**
+     * Tag of filter by finish date.
+     */
     public static final String FINISHED_AT_FILTER = "finishedAt";
 
+    /**
+     * Constructor.
+     */
     public CampaignListOptions() {
         super();
     }
 
     /**
+     * Gets device filter based on name field.
+     * 
      * @return the name filter
      */
     public @Nullable List<Filter> getNameFilters() {
@@ -33,6 +62,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on name field.
+     * 
      * @param nameFilter
      *            the name filter to add
      * @param operator
@@ -43,6 +74,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on createdAt field.
+     * 
      * @return the createdAt filter
      */
     public @Nullable List<Filter> getCreatedAtFilter() {
@@ -50,6 +83,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on createdAt field.
+     * 
      * @param createdAtFilter
      *            the createdAt filter to add
      * @param operator
@@ -60,6 +95,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on state field.
+     * 
      * @return the state filter
      */
     public @Nullable List<Filter> getStateFilters() {
@@ -67,6 +104,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on state field.
+     * 
      * @param state
      *            the state filter to add
      * @param operator
@@ -77,6 +116,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on manifest id field.
+     * 
      * @return the manifest id filter
      */
     public @Nullable List<Filter> getManifestIdFilters() {
@@ -84,6 +125,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on manifest id field.
+     * 
      * @param manifestId
      *            the manifest id filter to add
      * @param operator
@@ -94,6 +137,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on manifest URL field.
+     * 
      * @return the manifest url filters
      */
     public @Nullable List<Filter> getManifestUrlFilters() {
@@ -101,6 +146,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on manifest URL field.
+     * 
      * @param manifestUrlFilter
      *            the manifest URL filter to add
      * @param operator
@@ -111,6 +158,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on startedAt field.
+     * 
      * @return the started at filters
      */
     public @Nullable List<Filter> getStartedAtFilters() {
@@ -118,6 +167,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on startedAt field.
+     * 
      * @param startedAtFilter
      *            the started at filter to add
      * @param operator
@@ -128,6 +179,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets a device filter based on scheduledAt field.
+     * 
      * @return the scheduled at filters
      */
     public @Nullable List<Filter> getScheduledAtFilters() {
@@ -135,6 +188,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on scheduledAt field.
+     * 
      * @param scheduledAtFilter
      *            the scheduled at filter to add
      * @param operator
@@ -145,6 +200,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Gets device filter based on finishedAt field.
+     * 
      * @return the finished at filters
      */
     public @Nullable List<Filter> getFinishedAtFilters() {
@@ -152,6 +209,8 @@ public class CampaignListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on finishedAt field.
+     * 
      * @param finishedAtFilter
      *            the finished at filter to add
      * @param operator

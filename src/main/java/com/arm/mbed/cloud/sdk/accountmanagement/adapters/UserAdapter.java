@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp.StatusEnum;
@@ -17,17 +18,32 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
-public class UserAdapter {
+@Internal
+public final class UserAdapter {
+
+    private UserAdapter() {
+        super();
+    }
+
+    /**
+     * Maps user.
+     * 
+     * @param apiUser
+     *            user to map.
+     * @return mapped user.
+     */
     public static User map(UserInfoResp apiUser) {
         if (apiUser == null) {
             return null;
         }
-        User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
+        final User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
                 toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.getEmailVerified(), false),
                 TranslationUtils.toDate(apiUser.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiUser.getPasswordChangedTime()),
-                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()));
+                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()),
+                TranslationUtils.toBool(apiUser.getIsTotpEnabled(), false),
+                LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
         user.setFullName(apiUser.getFullName());
         user.setUsername(apiUser.getUsername());
         user.setPassword(apiUser.getPassword());
@@ -40,6 +56,11 @@ public class UserAdapter {
 
     }
 
+    /**
+     * Gets user mapper.
+     * 
+     * @return user mapper.
+     */
     public static Mapper<UserInfoResp, User> getMapper() {
         return new Mapper<UserInfoResp, User>() {
 
@@ -51,11 +72,18 @@ public class UserAdapter {
         };
     }
 
+    /**
+     * Reverses user mapping for a new user.
+     * 
+     * @param user
+     *            to map.
+     * @return new user request.
+     */
     public static UserInfoReq reverseMapAdd(User user) {
         if (user == null) {
             return null;
         }
-        UserInfoReq userInfo = new UserInfoReq();
+        final UserInfoReq userInfo = new UserInfoReq();
         userInfo.setFullName(user.getFullName());
         userInfo.setUsername(user.getUsername());
         userInfo.setPassword(user.getPassword());
@@ -66,11 +94,18 @@ public class UserAdapter {
         return userInfo;
     }
 
+    /**
+     * Reverses user mapping for a user to update.
+     * 
+     * @param user
+     *            to update.
+     * @return related update request.
+     */
     public static UserUpdateReq reverseMapUpdate(User user) {
         if (user == null) {
             return null;
         }
-        UserUpdateReq userUpdate = new UserUpdateReq();
+        final UserUpdateReq userUpdate = new UserUpdateReq();
         userUpdate.setFullName(user.getFullName());
         userUpdate.setUsername(user.getUsername());
         userUpdate.setPassword(user.getPassword());
@@ -81,10 +116,17 @@ public class UserAdapter {
         return userUpdate;
     }
 
+    /**
+     * Maps list of users.
+     * 
+     * @param list
+     *            of users to map.
+     * @return list of users.
+     */
     public static ListResponse<User> mapList(UserInfoRespList list) {
 
         final UserInfoRespList userList = list;
-        RespList<UserInfoResp> respList = new RespList<UserInfoResp>() {
+        final RespList<UserInfoResp> respList = new RespList<UserInfoResp>() {
 
             @Override
             public Boolean getHasMore() {
@@ -119,6 +161,11 @@ public class UserAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return list mapper.
+     */
     public static Mapper<UserInfoRespList, ListResponse<User>> getListMapper() {
         return new Mapper<UserInfoRespList, ListResponse<User>>() {
 

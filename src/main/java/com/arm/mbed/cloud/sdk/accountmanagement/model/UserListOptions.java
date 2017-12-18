@@ -6,25 +6,34 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing users")
 public class UserListOptions extends ListOptions {
-
+    /**
+     * Tag of filter by status.
+     */
     public static final String STATUS_FILTER = "status";
 
+    /**
+     * Constructor.
+     */
     public UserListOptions() {
         super();
     }
 
     /**
-     * @return the status filter
+     * Gets the filter related to the user status.
+     * 
+     * @return the status filter.
      */
-    public @Nullable Object getStatusFilter() {
-        return fetchEqualFilterValue(STATUS_FILTER);
+    public @Nullable UserStatus getStatusFilter() {
+        return (UserStatus) fetchEqualFilterValue(STATUS_FILTER);
     }
 
     /**
+     * Sets the filter related to the user status.
+     * 
      * @param statusFilter
-     *            the statusFilter to set
+     *            the statusFilter to set.
      */
-    public void setStatusFilter(@Nullable Object statusFilter) {
+    public void setStatusFilter(@Nullable UserStatus statusFilter) {
         addEqualFilter(STATUS_FILTER, statusFilter);
     }
 

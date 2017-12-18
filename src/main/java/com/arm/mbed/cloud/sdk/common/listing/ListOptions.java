@@ -1,11 +1,13 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
@@ -15,39 +17,44 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 public class ListOptions {
 
     /**
-     * how many objects to retrieve in the page
+     * how many objects to retrieve in the page.
      */
     @DefaultValue(value = "default")
     private Integer limit;
     /**
-     * ASC or DESC
+     * Sorting order. ASC or DESC
      */
     @DefaultValue(value = "ASC")
     private Order order;
     /**
-     * the ID of the the item after which to retrieve the next page
+     * the ID of the the item after which to retrieve the next page.
      */
     private String after;
     /**
-     * Optional fields to include
+     * Optional fields to include.
      */
     private List<IncludeField> include;
 
     /**
-     * Optional filters
+     * Optional filters.
      */
-    private Filters filters;
+    private Filters filter;
 
+    /**
+     * Constructor.
+     */
     public ListOptions() {
         super();
         setLimit(null);
         setOrder(Order.ASC);
         setAfter(null);
         setInclude(null);
-        setFilters(null);
+        setFilter(null);
     }
 
     /**
+     * Gets the limit.
+     * 
      * @return the limit
      */
     public Integer getLimit() {
@@ -55,6 +62,8 @@ public class ListOptions {
     }
 
     /**
+     * Sets the limit.
+     * 
      * @param limit
      *            the limit to set
      */
@@ -63,6 +72,9 @@ public class ListOptions {
     }
 
     /**
+     * Gets the sorting order.
+     * 
+     * @see Order
      * @return the order
      */
     public Order getOrder() {
@@ -70,6 +82,9 @@ public class ListOptions {
     }
 
     /**
+     * Sets the sorting order.
+     * 
+     * @see Order
      * @param order
      *            the order to set
      */
@@ -78,6 +93,8 @@ public class ListOptions {
     }
 
     /**
+     * Gets after (ID of the the item after which to retrieve the next page).
+     * 
      * @return the after
      */
     public String getAfter() {
@@ -85,6 +102,8 @@ public class ListOptions {
     }
 
     /**
+     * Sets after (ID of the the item after which to retrieve the next page).
+     * 
      * @param after
      *            the after to set
      */
@@ -93,14 +112,17 @@ public class ListOptions {
     }
 
     /**
-     * @return the include
+     * Gets include fields.
+     * 
+     * @see IncludeField
+     * @return the include fields
      */
     public List<IncludeField> getInclude() {
         return include;
     }
 
     /**
-     * Gets a string comprising all include fields in Snake case
+     * Gets a string comprising all include fields in Snake case.
      * 
      * @return string
      */
@@ -109,10 +131,10 @@ public class ListOptions {
             return null;
         }
         boolean start = true;
-        StringBuilder builder = new StringBuilder();
-        for (IncludeField includeField : include) {
+        final StringBuilder builder = new StringBuilder();
+        for (final IncludeField includeField : include) {
             if (!start) {
-                builder.append(",");
+                builder.append(',');
             }
             builder.append(includeField.encode());
             start = false;
@@ -121,6 +143,25 @@ public class ListOptions {
     }
 
     /**
+     * Adds an include field to consider.
+     * 
+     * @param includeField
+     *            field
+     */
+    public void addInclude(IncludeField includeField) {
+        if (includeField == null) {
+            return;
+        }
+        if (include == null) {
+            setInclude(new LinkedList<IncludeField>());
+        }
+        include.add(includeField);
+    }
+
+    /**
+     * Sets include fields.
+     * 
+     * @see IncludeField
      * @param include
      *            the include to set
      */
@@ -129,30 +170,47 @@ public class ListOptions {
     }
 
     /**
+     * Gets the filter.
+     * 
      * @return the filters
      */
-    public Filters getFilters() {
-        return filters;
+    public Filters getFilter() {
+        return filter;
     }
 
     /**
-     * @param filters
+     * Sets the filter.
+     * 
+     * @param filter
      *            the filters to set
      */
-    public void setFilters(Filters filters) {
-        this.filters = filters;
+    public void setFilter(Filters filter) {
+        this.filter = filter;
     }
 
     /**
+     * Sets the filter from a Json string.
+     * 
+     * @see FilterMarshaller#fromJson(String) for more information regarding Json accepted format
      * @param jsonString
      *            Json string defining filters
      */
     public void setFiltersFromJson(String jsonString) {
-        setFilters(FilterMarshaller.fromJson(jsonString));
+        setFilter(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
-     * Adds a filter to the query
+     * Gets the filter as Json String.
+     * 
+     * @see FilterMarshaller#toJson(Filters) for more information regarding Json filter format
+     * @return the filter as a Json string
+     */
+    public String retrieveFilterAsJson() {
+        return FilterMarshaller.toJson(getFilter());
+    }
+
+    /**
+     * Adds a filter to the query.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -162,18 +220,41 @@ public class ListOptions {
      *            the value of the filter
      */
     public void addFilter(@Nullable String fieldName, FilterOperator operator, @Nullable Object value) {
-        if (value == null || fieldName == null) {
-            return;
-        }
-        if (filters == null) {
-            filters = new Filters();
-        }
-        Filter filter = new Filter(fieldName, operator, value);
-        filters.add(filter);
+        addFilter(new Filter(fieldName, operator, value));
     }
 
     /**
-     * Adds an "equal" filter
+     * Adds a filter to the query.
+     * 
+     * @param subfilter
+     *            filter to apply.
+     */
+    public void addFilter(Filter subfilter) {
+        if (subfilter == null || !subfilter.isValid()) {
+            return;
+        }
+        if (filter == null) {
+            filter = new Filters();
+        }
+        filter.add(subfilter);
+    }
+
+    /**
+     * Adds a custom filter to the query.
+     * 
+     * @param customAttribute
+     *            custom attribute to apply the filter on
+     * @param operator
+     *            the filter operator to apply
+     * @param value
+     *            the value of the filter
+     */
+    public void addCustomFilter(@Nullable String customAttribute, FilterOperator operator, @Nullable Object value) {
+        addFilter(new CustomFilter(customAttribute, operator, value));
+    }
+
+    /**
+     * Adds an "equal" filter.
      * 
      * @param fieldName
      *            field name to apply the filter on
@@ -185,10 +266,10 @@ public class ListOptions {
     }
 
     protected Object fetchEqualFilterValue(@Nullable String fieldName) {
-        if (fieldName == null || filters == null) {
+        if (fieldName == null || filter == null) {
             return null;
         }
-        List<Filter> list = filters.get(fieldName, FilterOperator.EQUAL);
+        final List<Filter> list = filter.get(fieldName, FilterOperator.EQUAL);
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -196,22 +277,33 @@ public class ListOptions {
     }
 
     protected List<Filter> fetchFilters(@Nullable String fieldName) {
-        if (fieldName == null || filters == null) {
+        if (fieldName == null || filter == null) {
             return null;
         }
-        return filters.get(fieldName);
+        return filter.get(fieldName);
     }
 
     /**
-     * Gets a string describing an "equal" filter
+     * Gets a string describing an "equal" filter.
      *
      * @param fieldName
      *            filter key
      * @return string encoded filter
      */
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
-        Object filterObj = fetchEqualFilterValue(fieldName);
+        final Object filterObj = fetchEqualFilterValue(fieldName);
         return (filterObj == null) ? null : filterObj.toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ListOptions [limit=" + limit + ", order=" + order + ", after=" + after + ", include=" + encodeInclude()
+                + ", filter=" + retrieveFilterAsJson() + "]";
     }
 
 }

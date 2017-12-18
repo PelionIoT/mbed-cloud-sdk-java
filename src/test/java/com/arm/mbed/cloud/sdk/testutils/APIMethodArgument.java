@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.testutils;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -10,24 +11,27 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 public class APIMethodArgument {
     private String name;
     private String type;
+    private String contentType;
     private String defaultValue;
 
-    public APIMethodArgument(String name, String type, String defaultValue) {
+    public APIMethodArgument(String name, String type, String contentType, String defaultValue) {
         super();
         setName(name);
         setType(type);
+        setContentType(contentType);
         setDefaultValue(defaultValue);
     }
 
-    public APIMethodArgument(String name, Class<?> typeClass, String defaultValue) {
+    public APIMethodArgument(String name, Class<?> typeClass, Class<?> contentTypeClass, String defaultValue) {
         super();
         setName(name);
         setDefaultValue(defaultValue);
         determineType(typeClass);
+        determineContentType(contentTypeClass);
     }
 
-    public APIMethodArgument(Class<?> typeClass) {
-        this(null, typeClass, null);
+    public APIMethodArgument(Class<?> typeClass, Class<?> contentTypeClass) {
+        this(null, typeClass, contentTypeClass, null);
     }
 
     /**
@@ -75,31 +79,47 @@ public class APIMethodArgument {
         this.defaultValue = defaultValue;
     }
 
+    /**
+     * @return the contentType
+     */
+    public String getContentType() {
+        return contentType;
+    }
+
+    /**
+     * @param contentType
+     *            the contentType to set
+     */
+    public void setContentType(String contentType) {
+        this.contentType = contentType;
+    }
+
     public Class<?> retrieveTypeClass() {
-        if (type == null) {
-            return null;
-        }
-        try {
-            return Class.forName(type);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
+        return retrieveClassFromName(type);
+    }
+
+    public Class<?> retrieveContentTypeClass() {
+        return retrieveClassFromName(contentType);
     }
 
     public void determineType(@SuppressWarnings("hiding") Class<?> type) {
         this.type = (type == null) ? null : type.getName();
     }
 
-    public Class<?> determineClass() throws ClassNotFoundException {
-        if (type == null) {
-            return null;
-        }
-        Class<?> primitiveType = PrimitiveTypesHolder.Instance.getMappedValue(type);
-        return (primitiveType != null) ? primitiveType : Class.forName(type);
+    public void determineContentType(@SuppressWarnings("hiding") Class<?> type) {
+        this.contentType = (type == null) ? null : type.getName();
     }
 
-    public <T> Object determineValue(Class<T> clazz, Map<String, Object> fields) throws APICallException {
+    public Class<?> determineClass() throws ClassNotFoundException {
+        return determineClassFromName(type);
+    }
+
+    public Class<?> determineContentClass() throws ClassNotFoundException {
+        return determineClassFromName(contentType);
+    }
+
+    public <T> Object determineValue(Class<T> clazz, Class<?> contentClass, Map<String, Object> fields)
+            throws APICallException {
         if (clazz == null || Void.class.isAssignableFrom(clazz)) {
             return null;
         }
@@ -111,13 +131,15 @@ public class APIMethodArgument {
             String fieldName = ApiUtils.convertCamelToSnake(name);
             fields.put((fieldName == null) ? "" : fieldName, defaultValue.trim());
         }
-        return convertParametersToObject(clazz, fields);
+        return convertParametersToObject(clazz, contentClass, fields);
     }
 
-    private <T> Object convertParametersToObject(Class<T> clazz, Map<String, Object> fields) throws APICallException {
-        return (Modifier.isAbstract(clazz.getModifiers()) && !clazz.isPrimitive())
-                ? Serializer.convertParametersToObjectFromAbstractClasses(fields, clazz)
-                : Serializer.convertParametersToObject(fields, clazz);
+    private <T> Object convertParametersToObject(Class<T> clazz, Class<?> contentClass, Map<String, Object> fields)
+            throws APICallException {
+        return (List.class.isAssignableFrom(clazz)) ? Serializer.convertParametersToListObject(fields, contentClass)
+                : (Modifier.isAbstract(clazz.getModifiers()) && !clazz.isPrimitive())
+                        ? Serializer.convertParametersToObjectFromAbstractClasses(fields, clazz)
+                        : Serializer.convertParametersToObject(fields, clazz);
     }
 
     public <T> Object determineValue(Class<T> clazz, String fields) throws APICallException {
@@ -125,6 +147,26 @@ public class APIMethodArgument {
             return null;
         }
         return Serializer.convertStringToObject(fields, clazz);
+    }
+
+    private Class<?> determineClassFromName(String element) throws ClassNotFoundException {
+        if (element == null) {
+            return null;
+        }
+        Class<?> primitiveType = PrimitiveTypesHolder.Instance.getMappedValue(element);
+        return (primitiveType != null) ? primitiveType : Class.forName(element);
+    }
+
+    private Class<?> retrieveClassFromName(String typeName) {
+        if (typeName == null) {
+            return null;
+        }
+        try {
+            return Class.forName(typeName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 
     private static class PrimitiveTypesHolder {

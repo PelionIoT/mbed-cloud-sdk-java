@@ -4,6 +4,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Log level of the http communications between client and Arm Mbed Cloud")
 public enum CallLogLevel {
+    /**
+     * No HTTP logs are logged.
+     */
     NONE,
     /**
      * Logs request and response lines.
@@ -26,14 +29,20 @@ public enum CallLogLevel {
      * information
      */
     BODY;
-
+    /**
+     * Gets the log level from a string.
+     * 
+     * @param level
+     *            string
+     * @return corresponding log level. If not found, no logging will be performed.
+     */
     public static CallLogLevel getLevel(String level) {
         if (level == null || level.isEmpty()) {
             return NONE;
         }
-        level = level.trim();
-        for (CallLogLevel logLevel : values()) {
-            if (logLevel.toString().equalsIgnoreCase(level)) {
+        final String trimmedLevel = level.trim();
+        for (final CallLogLevel logLevel : values()) {
+            if (logLevel.toString().equalsIgnoreCase(trimmedLevel)) {
                 return logLevel;
             }
         }

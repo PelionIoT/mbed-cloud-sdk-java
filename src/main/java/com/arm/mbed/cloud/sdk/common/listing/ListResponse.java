@@ -13,32 +13,46 @@ import com.arm.mbed.cloud.sdk.common.Order;
 public class ListResponse<T> {
 
     /**
-     * Whether there are more results to display
+     * Whether there are more results to display.
      */
     @DefaultValue(value = "false")
     private boolean hasMore;
     /**
-     * Total number of records
+     * Total number of records.
      */
     private int totalCount;
     /**
-     * Entity id for fetch after it
+     * Entity id for fetch after it.
      */
     private String after;
     /**
-     * The number of results to return
+     * The number of results to return.
      */
     private int limit;
     /**
-     * Order of returned records
+     * Order of returned records.
      */
     @DefaultValue(value = "ASC")
     private Order order;
     /**
-     * data list
+     * data list.
      */
     private List<T> data;
 
+    /**
+     * Constructor.
+     * 
+     * @param hasMore
+     *            Whether there are more results to display.
+     * @param totalCount
+     *            Total number of records.
+     * @param after
+     *            Entity id for fetch after it.
+     * @param limit
+     *            The number of results to return.
+     * @param order
+     *            Order of returned records.
+     */
     public ListResponse(boolean hasMore, int totalCount, String after, int limit, Order order) {
         super();
         setHasMore(hasMore);
@@ -46,14 +60,25 @@ public class ListResponse<T> {
         setAfter(after);
         setLimit(limit);
         setOrder(order);
-        setData(null);
+        initialiseData();
     }
 
+    private void initialiseData() {
+        if (data == null) {
+            setData(new LinkedList<T>());
+        }
+    }
+
+    /**
+     * Constructor with default settings.
+     */
     public ListResponse() {
         this(false, 0, null, 0, Order.ASC);
     }
 
     /**
+     * States whether there are more results.
+     * 
      * @return the hasMore
      */
     public boolean hasMore() {
@@ -61,7 +86,9 @@ public class ListResponse<T> {
     }
 
     /**
-     * Similar to hasMore()
+     * States whether there are more results.
+     * <p>
+     * Similar to {@link #hasMore()}
      * 
      * @return the hasMore
      */
@@ -71,6 +98,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets whether there are more results.
+     * 
      * @param hasMore
      *            the hasMore to set
      */
@@ -79,6 +108,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Gets total number of results.
+     * 
      * @return the totalCount
      */
     public int getTotalCount() {
@@ -86,6 +117,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets total number of records.
+     * 
      * @param totalCount
      *            the totalCount to set
      */
@@ -94,6 +127,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Gets the entity id of the next record.
+     * 
      * @return the after
      */
     public String getAfter() {
@@ -101,6 +136,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets the entity id of the next record.
+     * 
      * @param after
      *            the after to set
      */
@@ -109,6 +146,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Gets the record limit.
+     * 
      * @return the limit
      */
     public int getLimit() {
@@ -116,6 +155,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets the record limit.
+     * 
      * @param limit
      *            the limit to set
      */
@@ -124,6 +165,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Gets record order.
+     * 
      * @return the order
      */
     public Order getOrder() {
@@ -131,6 +174,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets list sorting order.
+     * 
      * @param order
      *            the order to set
      */
@@ -139,6 +184,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Gets records.
+     * 
      * @return the data
      */
     public List<T> getData() {
@@ -146,6 +193,8 @@ public class ListResponse<T> {
     }
 
     /**
+     * Sets records.
+     * 
      * @param data
      *            the data to set
      */
@@ -154,7 +203,7 @@ public class ListResponse<T> {
     }
 
     /**
-     * Adds an element to the data list
+     * Adds an element to the data list.
      * 
      * @param dataToAdd
      *            the data to add
@@ -163,21 +212,17 @@ public class ListResponse<T> {
         if (dataToAdd == null) {
             return;
         }
-        if (this.data == null) {
-            this.data = new LinkedList<>();
-        }
+        initialiseData();
         this.data.add(dataToAdd);
     }
 
     /**
-     * Iterates over all the objects of the page
+     * Iterates over all the objects of the page.
      * 
      * @return the page iterator
      */
     public Iterator<T> iterator() {
-        if (data == null) {
-            return null;
-        }
+        initialiseData();
         return data.iterator();
     }
 

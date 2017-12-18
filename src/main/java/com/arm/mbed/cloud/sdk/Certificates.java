@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.certificates.model.Certificate;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateListOptions;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.certificates.model.EndPoints;
-import com.arm.mbed.cloud.sdk.common.AbstractAPI;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -30,27 +30,30 @@ import retrofit2.Call;
 @Preamble(description = "Specifies Certificates API")
 @Module
 /**
- * API exposing functionality for dealing with certificates
+ * API exposing functionality for dealing with certificates.
  */
-public class Certificates extends AbstractAPI {
+public class Certificates extends AbstractApi {
 
     private static final String TAG_CERTIFICATE = "certificate";
     private static final String TAG_CERTIFICATE_ID = "certificateId";
     private final EndPoints endpoint;
 
     /**
+     * Certificates module constructor.
      * 
      * @param options
-     *            connection options
+     *            connection options @see {@link ConnectionOptions}.
      */
-    public Certificates(ConnectionOptions options) {
+    public Certificates(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
     }
 
     @Internal
-    private Certificate fetchServerInformation(CertificateType type) throws MbedCloudException {
-
+    private @Nullable Certificate fetchServerInformation(@Nullable CertificateType type) throws MbedCloudException {
+        if (type == null) {
+            return null;
+        }
         CloudCall<ServerCredentialsResponseData> caller = null;
         switch (type) {
             case BOOTSTRAP:
@@ -82,13 +85,34 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Lists all certificates according to filter options
+     * Lists all certificates according to filter options.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     CertificateListOptions options = new CertificateListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *     options.setTypeFilter(CertificateType.DEVELOPER);
+     * 
+     *     ListResponse<Certificate> certificates = certificateApi.listCertificates(options);
+     *     for (Certificate certificate : certificates) {
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
-     *            filter options
-     * @return The list of certificates corresponding to filter options (One page)
+     *            filter options.
+     * @return The list of certificates corresponding to filter options (One page).
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable ListResponse<Certificate> listCertificates(@Nullable CertificateListOptions options)
@@ -114,13 +138,35 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Gets an iterator over all certificates according to filter options
+     * Gets an iterator over all certificates according to filter options.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     CertificateListOptions options = new CertificateListOptions();
+     *     String ownerId = "015f4ac587f500000000000100100249";
+     *     options.setOwnerIdFilter(ownerId);
+     *     options.setTypeFilter(CertificateType.DEVELOPER);
+     *
+     *     Paginator<Certificate> certificates = certificateApi.listAllCertificates(options);
+     *     while (certificates.hasNext()) {
+     *         Certificate certificate = certificates.next();
+     *         System.out.println("Certificate name: " + certificate.getName());
+     *         System.out.println("Certificate server URI: " + certificate.getServerUri());
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param options
-     *            filter options
-     * @return paginator for the list of certificates corresponding to filter options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of certificates corresponding to filter options.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Paginator<Certificate> listAllCertificates(@Nullable CertificateListOptions options)
@@ -136,13 +182,28 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Gets details of a certificate
+     * Gets details of a certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     Certificate certificate = certificateApi.getCertificate(certificateId);
+     *     System.out.println("Certificate name: " + certificates.getName());
+     *     assert certificateId == certificate.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificateId
-     *            The certificate ID
-     * @return certificate
+     *            The certificate ID.
+     * @return certificate.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Certificate getCertificate(@NonNull String certificateId) throws MbedCloudException {
@@ -161,17 +222,37 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Adds a new certificate
+     * Adds a new certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = new Certificate();
+     *     certificate.setName("Test Cert");
+     *     certificate.setType(CertificateType.BOOTSTRAP);
+     *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
+     *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
+     *
+     *     Certificate newCertificate = certificateApi.addCertificate(certificate);
+     *     System.out.println("Certificate ID: " + certificates.getId());
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
-     *            Certificate request
-     * @return added certificate
+     *            Certificate request.
+     * @return added certificate.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Certificate addCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         final Certificate accountCertificate = CloudCaller.call(this, "addCertificate()",
                 CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
@@ -186,19 +267,40 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Adds a new developper certificate
+     * Adds a new developer certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     final Certificate certificate = new Certificate();
+     *     certificate.setName("Test Cert");
+     *     certificate.setType(CertificateType.DEVELOPER);
+     *     certificate.setSignature("wqEhG6BzgHWAyFXXXX....XXX");
+     *     certificate.setCertificateData("rFEr1cRvLS1MmA....XXX");
+     *
+     *     Certificate newCertificate = certificateApi.addDeveloperCertificate(certificate);
+     *     System.out.println("Certificate ID: " + certificates.getId());
+     *     assert newCertificate == certificate;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
-     *            certificate Certificate request
-     * @return added certificate
+     *            certificate Certificate request.
+     * @return added certificate.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
-    public Certificate addDeveloperCertificate(final Certificate certificate) throws MbedCloudException {
+    public @Nullable Certificate addDeveloperCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
-        final Certificate addedCertificate = CloudCaller.call(this, "addDeveloperCertificate()",
+        final Certificate addedPartialCertificate1 = CloudCaller.call(this, "addDeveloperCertificate()",
                 CertificateAdapter.getDeveloperMapper(), new CloudCall<DeveloperCertificateResponseData>() {
 
                     @Override
@@ -207,32 +309,55 @@ public class Certificates extends AbstractAPI {
                                 CertificateAdapter.reverseDeveloperMap(finalCertificate));
                     }
                 });
-        if (addedCertificate == null) {
+        if (addedPartialCertificate1 == null) {
             return null;
         }
-        Certificate addedCertificate2 = CloudCaller.call(this, "addCertificate()", CertificateAdapter.getMapper(),
-                new CloudCall<TrustedCertificateResp>() {
+        final Certificate addedPartialCertificate2 = CloudCaller.call(this, "addCertificate()",
+                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
 
                     @Override
                     public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAccountDeveloper().getCertificate(addedCertificate.getId());
+                        return endpoint.getAccountDeveloper().getCertificate(addedPartialCertificate1.getId());
                     }
                 });
-        return Certificate.merge(addedCertificate, addedCertificate2);
+        return Certificate.merge(addedPartialCertificate1, addedPartialCertificate2);
     }
 
     /**
-     * Updates a certificate
+     * Updates a certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = new Certificate();
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     certificate.setId(certificateId);
+     *     certificate.setName("Changed Cert name");
+     *     certificate.setType(CertificateType.DEVELOPER);
+     *
+     *     Certificate newCertificate = certificateApi.updateCertificate(certificate);
+     *     System.out.println("New cert name: " + newCertificate.getName());
+     *     assert certificateId == newCertificate.getId();
+     *     
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificate
-     *            certificate to update
-     * @return updated certificate
+     *            certificate to update.
+     * @return updated certificate.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public @Nullable Certificate updateCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        checkNotNull(certificate.getId(), TAG_CERTIFICATE_ID);
+        checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         return CloudCaller.call(this, "updateCertificate()", CertificateAdapter.getMapper(),
                 new CloudCall<TrustedCertificateResp>() {
@@ -246,12 +371,25 @@ public class Certificates extends AbstractAPI {
     }
 
     /**
-     * Deletes a certificate
+     * Deletes a certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String certificateId = "015f4ac587f500000000000100100249";
+     *     certificateApi.deleteCertificate(certificateId);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
      * 
      * @param certificateId
-     *            The certificate ID
+     *            The certificate ID.
      * @throws MbedCloudException
-     *             if a problem occurred during request processing
+     *             if a problem occurred during request processing.
      */
     @API
     public void deleteCertificate(@NonNull String certificateId) throws MbedCloudException {
@@ -264,6 +402,45 @@ public class Certificates extends AbstractAPI {
                 return endpoint.getAccountDeveloper().deleteCertificate(id);
             }
         });
+    }
+
+    /**
+     * Deletes a certificate.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Certificate certificate = certificateApi.getCertificate("015f4ac587f500000000000100100249");
+     *     if (certificate != null){
+     *      certificateApi.deleteCertificate(certificate);
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param certificate
+     *            The certificate to delete.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteCertificate(@NonNull Certificate certificate) throws MbedCloudException {
+        checkNotNull(certificate, TAG_CERTIFICATE);
+        deleteCertificate(certificate.getId());
+    }
+
+    /**
+     * Retrieves module name.
+     * 
+     * @return module name.
+     */
+    @Override
+    public String getModuleName() {
+        return "Certificates";
     }
 
 }

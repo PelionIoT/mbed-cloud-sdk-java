@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 
@@ -13,6 +14,12 @@ public class ApiClientWrapper {
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
+    /**
+     * Arm Mbed Cloud client constructor.
+     * 
+     * @param options
+     *            connection options @see {@link ConnectionOptions}
+     */
     public ApiClientWrapper(ConnectionOptions options) {
         super();
         this.client = createClient(options);
@@ -21,21 +28,14 @@ public class ApiClientWrapper {
         this.connectionOptions = options;
     }
 
-    private ApiClient createClient(ConnectionOptions options) {
-        ApiClient apiClient = (options.isApiKeyEmpty()) ? new ApiClient()
-                : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
-        if (!options.isHostEmpty()) {
-            apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
-        }
-        return apiClient;
-    }
-
-    private String formatApiKey(String apiKey) {
-        return DEFAULT_AUTH_NAME + " " + apiKey;
-    }
-
+    /**
+     * Sets logging level to apply.
+     * 
+     * @param level
+     *            logging level @see {@link CallLogLevel}
+     */
     public void setLogging(CallLogLevel level) {
-        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        final HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
         HttpLoggingInterceptor.Level logLevel = null;
         switch (level) {
             case BASIC:
@@ -59,7 +59,13 @@ public class ApiClientWrapper {
         this.client.getOkBuilder().addInterceptor(interceptor);
     }
 
-    public void setRequestTimeout(TimePeriod timeout) {
+    /**
+     * Sets the http request timeout.
+     * 
+     * @param timeout
+     *            request timeout. By default, retrofit2 default setting is used.
+     */
+    public void setRequestTimeout(@Nullable TimePeriod timeout) {
         if (timeout == null) {
             return;
         }
@@ -71,10 +77,25 @@ public class ApiClientWrapper {
     }
 
     /**
-     * @return the connectionOptions
+     * Gets the connection options used.
+     * 
+     * @return the connectionOptions.
      */
     public ConnectionOptions getConnectionOptions() {
         return connectionOptions;
+    }
+
+    private ApiClient createClient(ConnectionOptions options) {
+        final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
+                : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
+        if (!options.isHostEmpty()) {
+            apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
+        }
+        return apiClient;
+    }
+
+    private String formatApiKey(String apiKey) {
+        return DEFAULT_AUTH_NAME + " " + apiKey;
     }
 
 }

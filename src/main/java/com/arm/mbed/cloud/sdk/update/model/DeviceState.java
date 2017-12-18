@@ -1,32 +1,49 @@
 package com.arm.mbed.cloud.sdk.update.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKEnum;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Device state")
-public enum DeviceState implements SDKEnum {
+public enum DeviceState implements SdkEnum {
 
     PENDING("pending"), UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"), FAILED_CONNECTOR_CHANNEL_UPDATE(
-            "failed_connector_channel_update"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved");
+            "failed_connector_channel_update"), DEPLOYED(
+                    "deployed"), MANIFEST_REMOVED("manifestremoved"), DEREGISTERED("deregistered");
 
     private final String value;
 
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
     private DeviceState(String value) {
         this.value = value;
     }
 
+    /**
+     * States whether it is the default value.
+     * 
+     * @see SdkEnum#isDefault()
+     */
     @Override
     public boolean isDefault() {
         return this == getDefault();
     }
 
+    /**
+     * Gets string representation.
+     * 
+     * @see SdkEnum#getString()
+     */
     @Override
     public String getString() {
         return value;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * toString
      * 
      * @see java.lang.Enum#toString()
      */
@@ -35,25 +52,42 @@ public enum DeviceState implements SDKEnum {
         return getString();
     }
 
+    /**
+     * Gets default state.
+     * 
+     * @return default state.
+     */
     public static DeviceState getDefault() {
         return PENDING;
     }
 
+    /**
+     * Gets state from its string representation.
+     * 
+     * @param value
+     *            string
+     * @return corresponding state or default state if not recognised.
+     */
     public static DeviceState getState(String value) {
         if (value == null) {
             return getDefault();
         }
-        value = value.trim();
-        for (DeviceState state : values()) {
-            if (state.getString().equalsIgnoreCase(value)) {
+        final String trimmedValue = value.trim();
+        for (final DeviceState state : values()) {
+            if (state.getString().equalsIgnoreCase(trimmedValue)) {
                 return state;
             }
         }
         return getDefault();
     }
 
+    /**
+     * Merges two states.
+     * 
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     */
     @Override
-    public <T extends SDKEnum> T merge(T obj1, T obj2) {
+    public <T extends SdkEnum> T merge(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
         }

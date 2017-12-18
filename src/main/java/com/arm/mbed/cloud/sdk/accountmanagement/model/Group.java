@@ -2,14 +2,16 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Group")
-public class Group implements SDKModel {
+public class Group implements SdkModel {
+    private static final String ZERO = "0";
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = -327889596220983325L;
     /**
@@ -27,24 +29,52 @@ public class Group implements SDKModel {
     /**
      * The number of users in this group.
      */
+    @DefaultValue(value = ZERO)
     private final long userCount;
     /**
      * The number of API keys in this group.
      */
+    @DefaultValue(value = ZERO)
     private final long apiKeyCount;
     /**
      * Creation time.
      */
+    @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
      * A timestamp of the group creation in the storage, in milliseconds.
      */
+    @DefaultValue(value = ZERO)
     private final long creationTime;
     /**
      * A timestamp of the latest group update, in milliseconds.
      */
+    @DefaultValue(value = ZERO)
     private final long lastUpdateTime;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Group()} instead.
+     * 
+     * @param id
+     *            id
+     * @param accountId
+     *            accountId
+     * @param name
+     *            name
+     * @param userCount
+     *            userCount
+     * @param apiKeyCount
+     *            apiKeyCount
+     * @param createdAt
+     *            createdAt
+     * @param creationTime
+     *            creationTime
+     * @param lastUpdateTime
+     *            lastUpdateTime
+     */
+    @Internal
     public Group(String id, String accountId, String name, long userCount, long apiKeyCount, Date createdAt,
             long creationTime, long lastUpdateTime) {
         super();
@@ -59,18 +89,31 @@ public class Group implements SDKModel {
     }
 
     /**
+     * Constructor for a group.
+     * <p>
+     * Other constructors are for internal usage only.
+     */
+    public Group() {
+        this(null, null, null, 0, 0, new Date(), 0, 0);
+    }
+
+    /**
+     * Sets group id.
+     * 
      * @param id
-     *            the id to set
+     *            the id to set.
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * similar to setId()
+     * Sets the id.
+     * <p>
+     * Similar to {@link #setId(String)}.
      * 
      * @param id
-     *            the id to set
+     *            the id to set.
      */
     @Internal
     public void setGroupId(String id) {
@@ -78,27 +121,35 @@ public class Group implements SDKModel {
     }
 
     /**
-     * @return the id
+     * Gets group id.
+     * 
+     * @return the id.
      */
     public String getId() {
         return id;
     }
 
     /**
-     * @return the accountId
+     * Gets account id.
+     * 
+     * @return the accountId.
      */
     public String getAccountId() {
         return accountId;
     }
 
     /**
-     * @return the name
+     * Gets the name.
+     * 
+     * @return the name.
      */
     public String getName() {
         return name;
     }
 
     /**
+     * Gets the count of users.
+     * 
      * @return the userCount
      */
     public long getUserCount() {
@@ -106,6 +157,8 @@ public class Group implements SDKModel {
     }
 
     /**
+     * Gets API key count.
+     * 
      * @return the apiKeyCount
      */
     public long getApiKeyCount() {
@@ -113,6 +166,8 @@ public class Group implements SDKModel {
     }
 
     /**
+     * Gets when the group was created.
+     * 
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -120,17 +175,54 @@ public class Group implements SDKModel {
     }
 
     /**
-     * @return the creationTime
+     * Gets creation time.
+     * 
+     * @return the creationTime.
      */
     public long getCreationTime() {
         return creationTime;
     }
 
     /**
-     * @return the lastUpdateTime
+     * Gets when the group was last updated.
+     * 
+     * @return the lastUpdateTime.
      */
     public long getLastUpdateTime() {
         return lastUpdateTime;
+    }
+
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone.
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Group clone() throws CloneNotSupportedException {
+        return new Group(id, accountId, name, userCount, apiKeyCount, createdAt, creationTime, lastUpdateTime);
+    }
+
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Group [id=" + id + ", accountId=" + accountId + ", name=" + name + ", userCount=" + userCount
+                + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+                + ", lastUpdateTime=" + lastUpdateTime + "]";
     }
 
 }

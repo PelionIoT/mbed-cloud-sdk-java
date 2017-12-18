@@ -4,22 +4,50 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Utilities for APIs")
 @Internal
-public class TranslationUtils {
+public final class TranslationUtils {
 
+    private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
+            Locale.getDefault());
+
+    private TranslationUtils() {
+        super();
+    }
+
+    /**
+     * Converts datetime to date.
+     * 
+     * @param date
+     *            datetime
+     * @return corresponding date
+     */
     public static Date toDate(DateTime date) {
         return (date == null) ? null : date.toDate();
     }
 
+    /**
+     * Converts timestamp into a date.
+     * 
+     * @param timestamp
+     *            timestamp
+     * @param unit
+     *            time unit
+     * @return corresponding date.
+     */
     public static Date toDate(Number timestamp, TimeUnit unit) {
         if (timestamp == null || unit == null) {
             return null;
@@ -52,8 +80,19 @@ public class TranslationUtils {
         return new Date(time);
     }
 
+    /**
+     * Converts to datetime.
+     * 
+     * @param date
+     *            date
+     * @return corresponding datetime.
+     */
     public static DateTime toDateTime(Date date) {
         return (date == null) ? null : new DateTime(date);
+    }
+
+    public static LocalDate toLocalDate(Date date) {
+        return (date == null) ? null : new LocalDate(date);
     }
 
     public static long toTimeStamp(Long time) {
@@ -76,79 +115,216 @@ public class TranslationUtils {
         return (bool == null) ? defaultB : bool.booleanValue();
     }
 
-    public static Date convertTimestamp(String timestamp) throws Exception {
+    /**
+     * Converts timestamp to date.
+     * 
+     * @param timestamp
+     *            string representing a date.
+     * @return corresponding date or default date
+     * 
+     * @throws MbedCloudException
+     *             if timestamp is not recognised
+     */
+    public static synchronized Date convertTimestamp(String timestamp) throws MbedCloudException {
         return convertTimestamp(timestamp, DateFormat.getDateTimeInstance());
     }
 
-    public static String toTimestamp(Date date) {
-        return toTimestamp(date, DateFormat.getDateTimeInstance());
-    }
-
-    public static Date convertTimestamp(String timestamp, Date defaultDate) {
+    /**
+     * Converts timestamp into dates.
+     * 
+     * @param timestamp
+     *            string representing a date
+     * @param defaultDate
+     *            default date if date is not recognised
+     * @return corresponding date or default date
+     */
+    public static synchronized Date convertTimestamp(String timestamp, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp);
-        } catch (Exception e) {
-            return defaultToDefaultDate(timestamp, defaultDate, e);
+        } catch (Exception exception) {
+            return defaultToDefaultDate(timestamp, defaultDate, exception);
         }
     }
 
-    public static Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
+    /**
+     * Converts timestamp to date.
+     * 
+     * @param timestamp
+     *            string representing a date.
+     * @param format
+     *            date format of the string.
+     * @param defaultDate
+     *            default date if date is not recognised
+     * @return corresponding date or default date
+     */
+    public static synchronized Date convertTimestamp(String timestamp, DateFormat format, Date defaultDate) {
         try {
             return TranslationUtils.convertTimestamp(timestamp, format);
-        } catch (Exception e) {
-            return defaultToDefaultDate(timestamp, defaultDate, e);
+        } catch (Exception exception) {
+            return defaultToDefaultDate(timestamp, defaultDate, exception);
         }
     }
 
-    private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception e) {
-        Exception e1 = new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp)
-                + "]. Defaulting to " + String.valueOf(defaultDate), e);
-        System.err.println(e1.getMessage() + ". Cause: " + e.getCause());
-        return defaultDate;
-    }
-
-    public static URL toUrl(String url) {
-        try {
-            return (url == null || url.isEmpty()) ? null : new URL(url);
-        } catch (MalformedURLException e) {
-            Exception e1 = new Exception(
-                    "Error occurred when parsing URL [" + String.valueOf(url) + "]. Defaulting to null", e);
-            System.err.println(e1.getMessage() + ". Cause: " + e1.getCause());
-        }
-        return null;
-    }
-
-    public static String toString(URL url) {
-        return (url == null) ? null : url.toString();
-    }
-
-    @SuppressWarnings("boxing")
-    public static Integer convertToInteger(String value, Integer defaultV) {
-        if (value == null) {
-            return defaultV;
-        }
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            return defaultV;
-        }
-    }
-
-    public static Date convertTimestamp(String timestamp, DateFormat format) throws Exception {
+    /**
+     * Parses a timestamp string.
+     * 
+     * @param timestamp
+     *            string representing a date
+     * @param format
+     *            date format the string abides by
+     * @return corresponding date
+     * @throws MbedCloudException
+     *             if string is not recognised as a valid date (i.e. abiding by the format)
+     */
+    public static synchronized Date convertTimestamp(String timestamp, DateFormat format) throws MbedCloudException {
         if (timestamp == null || timestamp.isEmpty() || format == null) {
             return null;
         }
         try {
             return format.parse(timestamp);
-        } catch (ParseException e) {
-            throw new Exception("Error occurred when parsing timestamp [" + String.valueOf(timestamp) + "].", e);
+        } catch (ParseException exception) {
+            throw new MbedCloudException("Error occurred when parsing timestamp [" + timestamp + "].", exception);
         }
     }
 
+    /**
+     * 
+     * Converts timestamp following RFC3339 into dates.
+     * 
+     * @param timestamp
+     *            string representing a date and following RFC3339
+     * @return corresponding date
+     * @throws MbedCloudException
+     *             if timestamp does not follow RFC3339
+     */
+    public static synchronized Date convertRfc3339Timestamp(String timestamp) throws MbedCloudException {
+        return convertTimestamp(timestamp, RFC3339_DATE_FORMAT);
+    }
+
+    /**
+     * Converts timestamp following RFC3339 into dates.
+     * 
+     * @param timestamp
+     *            string representing a date and following RFC3339
+     * @param defaultDate
+     *            default date if date is not recognised
+     * @return corresponding date or default date
+     */
+    public static synchronized Date convertRfc3339Timestamp(String timestamp, Date defaultDate) {
+        try {
+            return TranslationUtils.convertRfc3339Timestamp(timestamp);
+        } catch (Exception exception) {
+            return defaultToDefaultDate(timestamp, defaultDate, exception);
+        }
+    }
+
+    /**
+     * Gets default string representation of a date.
+     * 
+     * @param date
+     *            date
+     * @return string representation
+     */
+    public static synchronized String toDefaultTimestamp(Date date) {
+        return toTimestamp(date, DateFormat.getDateTimeInstance());
+    }
+
+    /**
+     * Gets RFC3339 string representation of a date.
+     * 
+     * @param date
+     *            date
+     * @return string representation
+     */
+    public static synchronized String toRfc3339Timestamp(Date date) {
+        return toTimestamp(date, RFC3339_DATE_FORMAT);
+    }
+
+    private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception exception) {
+        SdkLogger.getLogger().logError(
+                "Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, exception);
+        return defaultDate;
+    }
+
+    /**
+     * Converts string to URL.
+     * 
+     * @param url
+     *            string
+     * @return corresponding URL or null if incorrect.
+     */
+    public static URL toUrl(String url) {
+        try {
+            return url == null || url.isEmpty() ? null : new URL(url);
+        } catch (MalformedURLException exception) {
+            SdkLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null",
+                    exception);
+        }
+        return null;
+    }
+
+    /**
+     * Converts URL to string.
+     * 
+     * @param url
+     *            a URL
+     * @return corresponding string
+     */
+    public static String toString(URL url) {
+        return (url == null) ? null : url.toString();
+    }
+
+    /**
+     * Converts a string to an integer.
+     * 
+     * @param value
+     *            string containing an integer.
+     * @param defaultV
+     *            default value to consider if string not recognised as an integer representation
+     * @return corresponding integer or default value if not recognised
+     */
+    public static Integer convertToInteger(String value, Integer defaultV) {
+        if (value == null) {
+            return defaultV;
+        }
+        try {
+            return Integer.decode(value.trim());
+        } catch (NumberFormatException exception) {
+            SdkLogger.getLogger().logError(
+                    "Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV, exception);
+            return defaultV;
+        }
+    }
+
+    /**
+     * Converts date into a timestamp string.
+     * 
+     * @param date
+     *            date to convert
+     * @param format
+     *            date string format.
+     * @return string representation
+     */
     public static String toTimestamp(Date date, DateFormat format) {
         if (date == null || format == null) {
             return null;
         }
         return format.format(date);
+    }
+
+    /**
+     * Extracts a list of strings from a string.
+     * 
+     * @param string
+     *            string containing a list of string elements
+     * @param separator
+     *            string used as element separator
+     * @return list of string elements
+     */
+    public static List<String> parseList(String string, String separator) {
+        if (string == null || separator == null) {
+            return null;
+        }
+        return Arrays.asList(string.split(separator));
     }
 }

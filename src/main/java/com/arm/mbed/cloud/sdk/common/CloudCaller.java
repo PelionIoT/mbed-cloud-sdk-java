@@ -8,7 +8,6 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.google.gson.Gson;
 
 import okhttp3.Headers;
 import okhttp3.Request;
@@ -20,18 +19,24 @@ import retrofit2.Response;
 @Internal
 public class CloudCaller<T, U> {
 
-    public static interface CloudCall<T> {
+    private final CloudCall<T> caller;
+    private final Mapper<T, U> mapper;
+    private final SdkLogger logger;
+    private final String apiName;
+    private final boolean storeMetadata;
+    private final AbstractApi module;
+
+    /**
+     * Defines a request to Arm Mbed Cloud.
+     *
+     * @param <T>
+     *            type of response object.
+     */
+    public interface CloudCall<T> {
         Call<T> call();
     }
 
-    private final CloudCall<T> caller;
-    private final Mapper<T, U> mapper;
-    private final SDKLogger logger;
-    private final String apiName;
-    private final boolean storeMetadata;
-    private final AbstractAPI module;
-
-    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractAPI module,
+    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
             boolean storeMetada) {
         super();
         this.caller = caller;
@@ -42,26 +47,99 @@ public class CloudCaller<T, U> {
         this.storeMetadata = storeMetada;
     }
 
-    public static <T, U> U call(AbstractAPI module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * <p>
+     * Note: call metadata are recorded
+     * 
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param caller
+     *            request
+     * 
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @return request result
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
             throws MbedCloudException {
         return call(module, functionName, mapper, caller, true);
     }
 
-    public static <T, U> U call(AbstractAPI module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * 
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param caller
+     *            request
+     * @param storeMetadata
+     *            states whether metadata should be recorded
+     * 
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @return request result
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
             boolean storeMetadata) throws MbedCloudException {
         return callWithFeedback(module, functionName, mapper, caller, storeMetadata).getResult();
     }
 
-    public static <T, U> CallFeedback<U> callWithFeedback(AbstractAPI module, String functionName, Mapper<T, U> mapper,
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * 
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @param caller
+     *            request
+     * @param storeMetadata
+     *            states whether metadata should be recorded
+     * @return CallFeedback @see {@link CallFeedback}
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> CallFeedback<U> callWithFeedback(AbstractApi module, String functionName, Mapper<T, U> mapper,
             CloudCall<T> caller, boolean storeMetadata) throws MbedCloudException {
         return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata).execute();
     }
 
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * 
+     * @return result objects of type U
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
     public CallFeedback<U> execute() throws MbedCloudException {
         try {
             logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
-            Response<T> response = caller.call().execute();
-            CallFeedback<U> comms = new CallFeedback<>(logger);
+            clearPreviousApiMetadata();
+            final Response<T> response = caller.call().execute();
+            final CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
                 storeApiMetadata(comms.getMetadata());
@@ -69,10 +147,14 @@ public class CloudCaller<T, U> {
             checkResponse(response, comms);
             comms.setResultFromResponse(mapper, response);
             return comms;
-        } catch (Exception e) {
-            logger.throwSDKException("An error occurred when calling SDK function [" + apiName + "]", e);
+        } catch (Exception exception) {
+            logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]", exception);
         }
         return null;
+    }
+
+    private void clearPreviousApiMetadata() {
+        module.metadataCache.clearMetadata();
     }
 
     private void storeApiMetadata(ApiMetadata metadata) {
@@ -81,7 +163,7 @@ public class CloudCaller<T, U> {
 
     private void checkResponse(Response<T> response, CallFeedback<U> comms) throws MbedCloudException {
         if (response == null) {
-            logger.throwSDKException("An error occurred when calling Arm Mbed Cloud: no response was received");
+            logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
             String errorMessage = null;
@@ -91,7 +173,7 @@ public class CloudCaller<T, U> {
                 if (comms != null) {
                     comms.setErrorMessage(error);
                 }
-            } catch (Exception e) {
+            } catch (Exception exception) {
                 try {
                     errorMessage = response.errorBody().string();
                 } catch (IOException e1) {
@@ -99,37 +181,53 @@ public class CloudCaller<T, U> {
                 }
                 // Nothing to do
             }
-            logger.throwSDKException(
+            logger.throwSdkException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    (error != null) ? new MbedCloudException(error.toString())
-                            : (errorMessage == null) ? null : new MbedCloudException(errorMessage));
+                    error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
+                            : new MbedCloudException(error.toString()));
         }
     }
 
     private static class ErrorJsonConverter {
-        private final Gson gson = new Gson();
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
 
         private Error convert(ResponseBody value) {
             if (value == null) {
                 return null;
             }
-            return gson.fromJson(value.charStream(), Error.class);
+            return jsonSerialiser.fromJson(value.charStream(), Error.class);
 
         }
     }
 
+    /**
+     * 
+     * Defines a call (Metadata + response) of a call to Arm Mbed Cloud.
+     * 
+     * @param <U>
+     *            type of the result object
+     */
     public static class CallFeedback<U> {
-        private final SDKLogger logger;
+        private final SdkLogger logger;
         ApiMetadata metadata;
         U result;
 
-        public CallFeedback(SDKLogger logger) {
+        /**
+         * Constructor.
+         * 
+         * @param logger
+         *            logger
+         */
+        public CallFeedback(SdkLogger logger) {
             super();
             this.logger = logger;
         }
 
         /**
+         * Gets call metadata.
+         * 
+         * @see ApiMetadata
          * @return the metadata
          */
         public ApiMetadata getMetadata() {
@@ -137,6 +235,8 @@ public class CloudCaller<T, U> {
         }
 
         /**
+         * Gets call result.
+         * 
          * @return the result
          */
         public U getResult() {
@@ -144,6 +244,9 @@ public class CloudCaller<T, U> {
         }
 
         /**
+         * Sets call metadata.
+         * 
+         * @see ApiMetadata
          * @param metadata
          *            the metadata to set
          */
@@ -152,6 +255,8 @@ public class CloudCaller<T, U> {
         }
 
         /**
+         * Sets call result.
+         * 
          * @param result
          *            the result to set
          */
@@ -159,14 +264,38 @@ public class CloudCaller<T, U> {
             this.result = result;
         }
 
+        /**
+         * Sets result from an HTTP response.
+         * 
+         * @param mapper
+         *            object mapper
+         * @param <T>
+         *            type of the result
+         * @param response
+         *            HTTP response
+         */
         public <T> void setResultFromResponse(Mapper<T, U> mapper, Response<T> response) {
             setResult((mapper == null) ? null : mapper.map(response.body()));
         }
 
+        /**
+         * Sets metadata from an HTTP response.
+         * 
+         * @param <T>
+         *            type of the result
+         * @param response
+         *            HTTP response
+         */
         public <T> void setMetadataFromResponse(Response<T> response) {
             setMetadata(retrieveMetadata(response));
         }
 
+        /**
+         * Sets error message.
+         * 
+         * @param error
+         *            error message @see Error
+         */
         public void setErrorMessage(Error error) {
             if (metadata != null) {
                 metadata.setErrorMessage(error);
@@ -177,27 +306,27 @@ public class CloudCaller<T, U> {
             if (response == null) {
                 return null;
             }
-            ApiMetadata callMetadata = new ApiMetadata();
+            final ApiMetadata callMetadata = new ApiMetadata();
 
-            Request request = response.raw().request();
+            final Request request = response.raw().request();
             if (request != null) {
                 callMetadata.setMethod(request.method());
                 callMetadata.setUrl(request.url().url());
             }
 
             callMetadata.setStatusCode(response.code());
-            Headers headers = response.headers();
+            final Headers headers = response.headers();
             if (headers != null) {
                 callMetadata.setHeaders(headers.toMultimap());
                 callMetadata.setRequestId(headers.get("x-request-id"));
                 try {
                     callMetadata.setDateFromString(headers.get("date"));
-                } catch (Exception e) {
-                    logger.logError("Error occurred when trying to fetch server date from API metadata", e);
+                } catch (Exception exception) {
+                    logger.logError("Error occurred when trying to fetch server date from API metadata", exception);
                     callMetadata.setDate(new Date());
                 }
             }
-            T body = response.body();
+            final T body = response.body();
             if (body != null) {
                 callMetadata.setObject(body.getClass());
                 callMetadata.setEtag(fetchEtagField(body));
@@ -207,15 +336,15 @@ public class CloudCaller<T, U> {
 
         private <T> String fetchEtagField(T body) {
             try {
-                Method getEtagMethod = body.getClass().getMethod("getEtag");
+                final Method getEtagMethod = body.getClass().getMethod("getEtag");
                 if (getEtagMethod != null) {
-                    Object etag = getEtagMethod.invoke(body);
+                    final Object etag = getEtagMethod.invoke(body);
                     return (etag == null) ? null : (etag instanceof String) ? (String) etag : etag.toString();
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException e) {
-                logger.logError("Error occurred when trying to fetch etag from API metadata", e);
-            } catch (NoSuchMethodException e) {
+                    | InvocationTargetException exception) {
+                logger.logError("Error occurred when trying to fetch etag from API metadata", exception);
+            } catch (NoSuchMethodException exception) {
                 return null;
             }
             return null;

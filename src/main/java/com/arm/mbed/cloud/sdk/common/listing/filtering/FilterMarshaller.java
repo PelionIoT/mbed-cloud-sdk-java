@@ -1,7 +1,5 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -10,26 +8,43 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.google.gson.Gson;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConverter;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
     private static final String CUSTOM_ATTRIBUTES_FIELD_NAME = "custom_attributes";
+    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = ApiUtils
+            .getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
+    private static final String CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE = SNAKE_TO_CAMEL_CONVERTER
+            .convert(CUSTOM_ATTRIBUTES_FIELD_NAME, false);
 
     private static final String FILTER_KEY_VALUE_SEPARATOR = "=";
 
     private static final String FILTER_SEPARATOR = "&";
 
-    public static final String SUFFIX_SEPARATOR = "_";
+    public static final String SUFFIX_SEPARATOR = "__";
 
-    private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSZ");
-
+    private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
     private final Map<String, String> fieldNameMapping;
     private final Map<String, String> fieldNameReverseMapping;
 
+    /**
+     * Constructor.
+     * 
+     * @param fieldNameMapping
+     *            filter field mapping.
+     */
     public FilterMarshaller(Map<String, String> fieldNameMapping) {
         super();
         this.fieldNameMapping = fieldNameMapping;
@@ -37,7 +52,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Encodes all filters
+     * Encodes all filters.
      * 
      * @param filters
      *            filters to encode
@@ -48,7 +63,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Encodes all filters related to one field name
+     * Encodes all filters related to one field name.
      * 
      * @param fieldName
      *            field name of interest
@@ -57,11 +72,14 @@ public class FilterMarshaller {
      * @return URL String containing all filters definition
      */
     public @Nullable String encode(@Nullable String fieldName, @Nullable Filters filters) {
-        return (filters == null) ? null : (fieldName == null) ? encode(filters) : encodeList(filters.get(fieldName));
+        if (filters == null) {
+            return null;
+        }
+        return (fieldName == null) ? encode(filters) : encodeList(filters.get(fieldName));
     }
 
     /**
-     * Decodes a URL String containing filter definitions
+     * Decodes a URL String containing filter definitions.
      * 
      * @param filtersString
      *            URL string containing filter definitions
@@ -86,7 +104,7 @@ public class FilterMarshaller {
     }
 
     /**
-     * Serialises filters to Json string
+     * Serialises filters to Json string.
      * 
      * @param filters
      *            Filters to serialise
@@ -104,7 +122,36 @@ public class FilterMarshaller {
     }
 
     /**
-     * Deserialises filters from a Json string
+     * Deserialises filters from a Json string.
+     * <p>
+     * Such string must be of the following form:
+     * <p>
+     * {@code { fieldname:{ operator: value}}}
+     * <p>
+     * { 'device_id': {'$eq': str(uuid.uuid4())},
+     * 
+     * 'auto_update': {'$eq': True},
+     * 
+     * 'state': {'$eq': 'bootstrapped'},
+     * 
+     * 'device_class': {'$eq': 'embedded'},
+     * 
+     * 'serial_number': {'$eq': '1234'},
+     * 
+     * 'vendor_id': {'$eq': 'Arm'},
+     * 
+     * 'description': {'$eq': 'Loreum ipsum'},
+     * 
+     * 'device_name': {'$eq': 'DeviceName'},
+     * 
+     * 'custom_attributes': {
+     * 
+     * 'customA': {'$eq': 'SomethingA'},
+     * 
+     * 'customB': {'$eq': 'Something B'} }
+     * <p>
+     * dates/times must be expressed as strings following RFC3339. @see
+     * <a href="https://tools.ietf.org/html/rfc3339#page-7">(RFC)</a>.
      * 
      * @param json
      *            Json string defining filters
@@ -117,7 +164,8 @@ public class FilterMarshaller {
         JsonObject obj = new JsonObject(json);
         Filters filters = new Filters();
         for (String fieldName : obj.fieldNames()) {
-            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)) {
+            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
+                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
                 JsonObject filterJson = obj.getJsonObject(fieldName);
                 for (String subfieldName : filterJson.fieldNames()) {
                     parseFilter(filterJson, subfieldName, filters, true);
@@ -129,6 +177,13 @@ public class FilterMarshaller {
         return filters;
     }
 
+    /**
+     * Gets filters as a "Json Map".
+     * 
+     * @param filters
+     *            filters
+     * @return Json Map defining filters
+     */
     @Internal
     public static Map<String, Object> toJsonObject(Filters filters) {
         if (filters == null || filters.isEmpty()) {
@@ -150,7 +205,7 @@ public class FilterMarshaller {
         if (filter.hasPrefix()) {
             builder.append(filter.getPrefix());
         }
-        builder.append((fieldName == null) ? filter.getFieldName() : fieldName);
+        builder.append(ApiUtils.convertCamelToSnake((fieldName == null) ? filter.getFieldName() : fieldName));
         String suffix = filter.getOperator().getSuffix();
         if (suffix != null) {
             builder.append(suffix);
@@ -200,7 +255,7 @@ public class FilterMarshaller {
         return builder.toString();
     }
 
-    private Map<String, String> createReverseMapping(Map<String, String> mapping) {
+    private static Map<String, String> createReverseMapping(Map<String, String> mapping) {
         if (mapping == null) {
             return null;
         }
@@ -211,14 +266,16 @@ public class FilterMarshaller {
         return reverseMapping;
     }
 
-    private Object formatFilterValue(Object value) {
+    @SuppressWarnings("cast")
+    private static String formatFilterValue(Object value) {
         if (value instanceof Date) {
-            return DATE_FORMAT.format(value);
+            // Moving dates/Times to UTC and formatting them according to rfc3339
+            return DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC));
         }
         return String.valueOf(value);
     }
 
-    private String removeSuffix(String string, FilterOperator operator) {
+    private static String removeSuffix(String string, FilterOperator operator) {
         String suffix = (operator == null) ? null : operator.getSuffix();
         if (suffix != null) {
             string = string.replace(suffix, "");
@@ -226,7 +283,7 @@ public class FilterMarshaller {
         return string;
     }
 
-    private String fetchSuffix(String string) {
+    private static String fetchSuffix(String string) {
         if (string == null) {
             return null;
         }
@@ -245,7 +302,7 @@ public class FilterMarshaller {
         if (fieldNameReverseMapping != null && fieldNameReverseMapping.containsKey(fieldName)) {
             return fieldNameReverseMapping.get(fieldName);
         }
-        return fieldName;
+        return ApiUtils.convertSnakeToCamel(fieldName, false);
     }
 
     protected static void parseFilter(String jsonObj, String fieldName, Filters filters, boolean isCustom) {
@@ -263,8 +320,10 @@ public class FilterMarshaller {
     }
 
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
-        String filterValue = obj.getString(fieldName);
-        Filter filter = new Filter(fieldName, FilterOperator.getDefault(), filterValue);
+        Object filterValue = obj.getValue(fieldName);
+
+        Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
+                filterValue);
         filters.add(filter);
     }
 
@@ -275,15 +334,17 @@ public class FilterMarshaller {
         }
         for (String operator : filterJson.fieldNames()) {
             Filter filter = (isCustom)
-                    ? new CustomFilter(fieldName, FilterOperator.getFromSymbol(operator),
-                            filterJson.getString(operator))
-                    : new Filter(fieldName, FilterOperator.getFromSymbol(operator), filterJson.getString(operator));
+                    ? new CustomFilter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator))
+                    : new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator));
             filters.add(filter);
         }
     }
 
     private static class JsonObject {
-        private final Gson gson = new Gson();
+
+        private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         private Map<String, Object> map;
 
         public JsonObject(Map<String, Object> map) {
@@ -299,32 +360,37 @@ public class FilterMarshaller {
             if (string == null || string.isEmpty()) {
                 setMap(null);
             } else {
-                setMap(gson.fromJson(string, Map.class));
+                setMap(jsonSerialiser.fromJson(string, Map.class));
             }
 
         }
 
-        /**
-         * @return the map
-         */
         public Map<String, Object> getMap() {
             return map;
         }
 
-        /**
-         * @param map
-         *            the map to set
-         */
         public void setMap(Map<String, Object> map) {
             this.map = map;
         }
 
-        public String getString(String fieldName) {
+        public Object getValue(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
             }
-            CharSequence cs = (CharSequence) map.get(fieldName);
-            return cs == null ? null : cs.toString();
+            final Object value = map.get(fieldName);
+            if (value instanceof CharSequence) {
+                final String valueStr = value.toString();
+                if (valueStr == null) {
+                    return valueStr;
+                }
+                try {
+                    // Trying to see if it is a date
+                    return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+                } catch (Exception exception) {
+                    return valueStr;
+                }
+            }
+            return value;
         }
 
         public boolean isJsonObject(String fieldName) {
@@ -349,7 +415,6 @@ public class FilterMarshaller {
             return (val instanceof String || val instanceof CharSequence);
         }
 
-        @SuppressWarnings("unchecked")
         public JsonObject getJsonObject(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
@@ -359,7 +424,9 @@ public class FilterMarshaller {
                 return null;
             }
             if (val instanceof Map) {
-                val = new JsonObject((Map<String, Object>) val);
+                @SuppressWarnings("unchecked")
+                Map<String, Object> valMap = (Map<String, Object>) val;
+                val = new JsonObject(valMap);
             }
             return (JsonObject) val;
         }
@@ -373,7 +440,7 @@ public class FilterMarshaller {
         }
 
         public String encode() {
-            return gson.toJson(map);
+            return jsonSerialiser.toJson(map);
         }
 
         public void putFilter(Filter filter) {

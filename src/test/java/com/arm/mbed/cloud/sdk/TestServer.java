@@ -58,6 +58,7 @@ public class TestServer {
     private static final String TEST_SERVER_LOG_PREFIX = "  testserver ";
     private static final String INFO_LOG_PREFIX = "\u001B[34m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
     private static final String WARNING_LOG_PREFIX = "\u001B[33m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
+    private static final String ERROR_LOG_PREFIX = "\u001B[31m" + TEST_SERVER_LOG_PREFIX + "\u001B[0m";
     private volatile SDK sdk;
     private ConnectionOptions config;
 
@@ -65,7 +66,9 @@ public class TestServer {
         sdk = null;
         config = null;
         if (server == null) {
-            Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40));
+            Vertx vertx = Vertx
+                    .vertx(new VertxOptions().setWorkerPoolSize(40).setBlockedThreadCheckInterval(1000L * 60L * 10L)
+                            .setMaxWorkerExecuteTime(1000L * 1000L * 1000L * 60L * 10L));
             HttpServerOptions options = new HttpServerOptions();
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
@@ -73,8 +76,8 @@ public class TestServer {
         }
         retrieveConfig();
         if (config == null || config.isApiKeyEmpty()) {
-            logInfo("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
-            return;
+            logError("Unable to find " + String.valueOf(ENVVAR_MBED_CLOUD_API_KEY) + " environment variable");
+            System.exit(1);
         }
         defineInitialisationRoute();
         defineModuleMethodTestRoute();
@@ -147,6 +150,7 @@ public class TestServer {
     private void retrieveConfig() {
         config = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY), System.getenv(ENVVAR_MBED_CLOUD_HOST));
         config.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
+        logInfo("Host in use: " + config.getHost());
         // logInfo(JsonObject.mapFrom(config).encodePrettily());
     }
 
@@ -183,6 +187,10 @@ public class TestServer {
 
     private void logInfo(String message) {
         testLogger.info((CONSOLE_COLOURING) ? INFO_LOG_PREFIX + message : message);
+    }
+
+    private void logError(String message) {
+        testLogger.info((CONSOLE_COLOURING) ? ERROR_LOG_PREFIX + message : message);
     }
 
     private void logDebug(String message) {

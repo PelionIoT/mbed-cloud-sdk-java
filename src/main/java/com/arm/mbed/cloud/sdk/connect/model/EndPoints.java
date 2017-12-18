@@ -17,28 +17,48 @@ import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 public class EndPoints {
 
     private final DefaultApi webhooks;
-    private final EndpointsApi endpoints;
+    private final EndpointsApi endpoint;
     private final NotificationsApi notifications;
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
     private final AccountApi account;
     private final StatisticsApi statistic;
     private final ConnectionOptions connectionOptions;
+    private final boolean autostartDaemon;
+    private boolean forceClear;
 
-    public EndPoints(ApiClientWrapper wrapper) {
+    /**
+     * Constructor.
+     * 
+     * @param wrapper
+     *            API client {@link ApiClientWrapper}.
+     *
+     * @param autostartNotificationDaemon
+     *            States whether notification daemon should be started automatically.
+     */
+
+    public EndPoints(ApiClientWrapper wrapper, boolean autostartNotificationDaemon) {
         super();
         this.connectionOptions = wrapper.getConnectionOptions();
         this.webhooks = initialiseWebhook(wrapper);
-        this.endpoints = initialiseEndpoint(wrapper);
+        this.endpoint = initialiseEndpoint(wrapper);
         this.notifications = initialiseNotification(wrapper);
         this.resources = initialiseResource(wrapper);
         this.subscriptions = initialiseSubscription(wrapper);
         this.account = initialiseAccount(wrapper);
         this.statistic = initialiseStatistic(wrapper);
+        this.autostartDaemon = autostartNotificationDaemon;
+        forceClear = false;
     }
 
+    /**
+     * Constructor.
+     * 
+     * @param options
+     *            connection options {@link ConnectionOptions}.
+     */
     public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
+        this(new ApiClientWrapper(options), options.isAutostartDaemon());
 
     }
 
@@ -70,60 +90,64 @@ public class EndPoints {
         return wrapper.createService(SubscriptionsApi.class);
     }
 
-    /**
-     * @return the webhooks
-     */
     public DefaultApi getWebhooks() {
         return webhooks;
     }
 
-    /**
-     * @return the endpoints
-     */
     public EndpointsApi getEndpoints() {
-        return endpoints;
+        return endpoint;
     }
 
-    /**
-     * @return the notifications
-     */
     public NotificationsApi getNotifications() {
         return notifications;
     }
 
-    /**
-     * @return the resources
-     */
     public ResourcesApi getResources() {
         return resources;
     }
 
-    /**
-     * @return the subscriptions
-     */
     public SubscriptionsApi getSubscriptions() {
         return subscriptions;
     }
 
-    /**
-     * @return the account
-     */
     public AccountApi getAccount() {
         return account;
     }
 
-    /**
-     * @return the statistic
-     */
     public StatisticsApi getStatistic() {
         return statistic;
     }
 
-    /**
-     * @return the connectionOptions
-     */
     public ConnectionOptions getConnectionOptions() {
         return connectionOptions;
+    }
+
+    /**
+     * States whether notification daemon will start automatically when needed.
+     * 
+     * @return true if daemon will be started automatically. False otherwise.
+     */
+    public boolean isAutostartDaemon() {
+        return autostartDaemon;
+    }
+
+    /**
+     * States whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @return True if the channel will be cleared. False otherwise.
+     */
+    public boolean isForceClear() {
+        return forceClear;
+    }
+
+    /**
+     * Sets whether any existing notification channel should be cleared before a new one is created.
+     * 
+     * @param forceClear
+     *            True if the channel will be cleared. False otherwise.
+     */
+    public void setForceClear(boolean forceClear) {
+        this.forceClear = forceClear;
     }
 
 }

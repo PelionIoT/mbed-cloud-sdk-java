@@ -5,49 +5,51 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-/**
- * @author adrcab01
- *
- */
 @Preamble(description = "API metadata")
 public class ApiMetadata {
 
+    private static final SimpleDateFormat REQUEST_DATE_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z",
+            Locale.getDefault());
     private Date date;
     private Map<String, List<String>> headers;
     /**
-     * Url of the API request
+     * Url of the API request.
      */
     private URL url;
     /**
-     * Method of the API request
+     * Method of the API request.
      */
     private String method;
     /**
-     * HTTP Status code of the API response
+     * HTTP Status code of the API response.
      */
     private int statusCode;
     /**
-     * Request ID of the transaction
+     * Request ID of the transaction.
      */
     private String requestId;
     /**
-     * Object type of the returned data
+     * Object type of the returned data.
      */
     private Class<?> object;
     /**
-     * etag of the returned data
+     * etag of the returned data.
      */
     private String etag;
     /**
-     * Error message if an error occurred during Mbed Cloud request null if no error happened
+     * Error message if an error occurred during Mbed Cloud request null if no error happened.
      */
     public @Nullable Error errorMessage;
 
+    /**
+     * Constructor.
+     */
     public ApiMetadata() {
         super();
         setDate(null);
@@ -60,6 +62,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the date.
+     * 
      * @return the date
      */
     public Date getDate() {
@@ -67,18 +71,22 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the date from a string representation.
+     * 
      * @param dateString
      *            the date to set
-     * @throws Exception
+     * @throws MbedCloudException
      *             if string cannot be interpreted as a date
      */
-    public void setDateFromString(String dateString) throws Exception {
-        DateFormat format = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z");
+    public synchronized void setDateFromString(String dateString) throws MbedCloudException {
+        final DateFormat format = REQUEST_DATE_FORMAT;
         format.setLenient(true);
         setDate(TranslationUtils.convertTimestamp(dateString, format));
     }
 
     /**
+     * Sets the date.
+     * 
      * @param date
      *            the date to set
      */
@@ -87,6 +95,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the HTTP headers.
+     * 
      * @return the headers
      */
     public Map<String, List<String>> getHeaders() {
@@ -94,6 +104,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the HTTP headers.
+     * 
      * @param headers
      *            the headers to set
      */
@@ -102,6 +114,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the URL used.
+     * 
      * @return the url
      */
     public URL getUrl() {
@@ -109,6 +123,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the URL.
+     * 
      * @param url
      *            the url to set
      */
@@ -117,6 +133,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the method name.
+     * 
      * @return the method
      */
     public String getMethod() {
@@ -124,6 +142,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the method name.
+     * 
      * @param method
      *            the method to set
      */
@@ -132,6 +152,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the status code.
+     * 
      * @return the statusCode
      */
     public int getStatusCode() {
@@ -139,6 +161,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the status code.
+     * 
      * @param statusCode
      *            the statusCode to set
      */
@@ -147,6 +171,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the request id.
+     * 
      * @return the requestId
      */
     public String getRequestId() {
@@ -154,6 +180,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the request id.
+     * 
      * @param requestId
      *            the requestId to set
      */
@@ -162,6 +190,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the object.
+     * 
      * @return the object
      */
     public Class<?> getObject() {
@@ -169,6 +199,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the object.
+     * 
      * @param object
      *            the object to set
      */
@@ -177,6 +209,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Gets the etag.
+     * 
      * @return the etag
      */
     public String getEtag() {
@@ -184,6 +218,8 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets the etag.
+     * 
      * @param etag
      *            the etag to set
      */
@@ -192,13 +228,19 @@ public class ApiMetadata {
     }
 
     /**
-     * @return the errorMessage
+     * Gets error message.
+     * 
+     * @see Error
+     * @return the error message
      */
     public Error getErrorMessage() {
         return errorMessage;
     }
 
     /**
+     * Sets error message.
+     * 
+     * @see Error
      * @param errorMessage
      *            the errorMessage to set
      */
@@ -206,8 +248,8 @@ public class ApiMetadata {
         this.errorMessage = errorMessage;
     }
 
-    /*
-     * (non-Javadoc)
+    /**
+     * toString.
      * 
      * @see java.lang.Object#toString()
      */

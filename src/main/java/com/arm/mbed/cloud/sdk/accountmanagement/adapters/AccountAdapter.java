@@ -12,15 +12,28 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
 @Internal
-public class AccountAdapter {
+public final class AccountAdapter {
 
+    private AccountAdapter() {
+        super();
+    }
+
+    /**
+     * Maps account objects.
+     * 
+     * @param accountInfo
+     *            accountInfo.
+     * @return an account.
+     */
     public static Account map(AccountInfo accountInfo) {
         if (accountInfo == null) {
             return null;
         }
-        Account account = new Account();
-        account.setId(accountInfo.getId());
-        account.setStatus(toStatus(accountInfo.getStatus()));
+        final Account account = new Account(accountInfo.getId(), toStatus(accountInfo.getStatus()),
+                TranslationUtils.toBool(accountInfo.getIsProvisioningAllowed(), true), accountInfo.getTier(),
+                TranslationUtils.toDate(accountInfo.getCreatedAt()),
+                TranslationUtils.toDate(accountInfo.getUpgradedAt()), accountInfo.getLimits(),
+                accountInfo.getTemplateId());
         account.setDisplayName(accountInfo.getDisplayName());
         account.setContact(accountInfo.getContact());
         account.setCompany(accountInfo.getCompany());
@@ -32,16 +45,15 @@ public class AccountAdapter {
         account.setState(accountInfo.getState());
         account.setCountry(accountInfo.getCountry());
         account.setEmail(accountInfo.getEmail());
-        account.setProvisioningAllowed(TranslationUtils.toBool(accountInfo.getIsProvisioningAllowed(), true));
         account.setAliases(accountInfo.getAliases());
-        account.setTierLevel(accountInfo.getTier());
-        account.setCreatedAt(TranslationUtils.toDate(accountInfo.getCreatedAt()));
-        account.setUpgradedAt(TranslationUtils.toDate(accountInfo.getUpgradedAt()));
-        account.setLimits(accountInfo.getLimits());
-        account.setTemplateId(accountInfo.getTemplateId());
         return account;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<AccountInfo, Account> getMapper() {
         return new Mapper<AccountInfo, Account>() {
 
@@ -75,11 +87,18 @@ public class AccountAdapter {
         return correspondingStatus;
     }
 
+    /**
+     * Reverses mapping.
+     * 
+     * @param updateAccount
+     *            an updated account.
+     * @return an account update request.
+     */
     public static AccountUpdateReq reverseMap(Account updateAccount) {
         if (updateAccount == null) {
             return null;
         }
-        AccountUpdateReq accountUpdateReq = new AccountUpdateReq();
+        final AccountUpdateReq accountUpdateReq = new AccountUpdateReq();
         accountUpdateReq.setDisplayName(updateAccount.getDisplayName());
         accountUpdateReq.setAliases(updateAccount.getAliases());
         accountUpdateReq.setCompany(updateAccount.getCompany());

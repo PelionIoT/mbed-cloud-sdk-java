@@ -5,16 +5,19 @@ import java.util.Date;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Options to use when listing metrics within a period")
-public class MetricsStartEndListOptions extends MetricsListOptions {
+public class MetricsStartEndListOptions extends AbstractMetricsListOptions {
     /**
-     * Start date
+     * Start date.
      */
     private Date start;
     /**
-     * End date
+     * End date.
      */
     private Date end;
 
+    /**
+     * Constructor.
+     */
     public MetricsStartEndListOptions() {
         super();
         setStart(null);
@@ -22,6 +25,8 @@ public class MetricsStartEndListOptions extends MetricsListOptions {
     }
 
     /**
+     * Gets start date.
+     * 
      * @return the start
      */
     public Date getStart() {
@@ -29,6 +34,8 @@ public class MetricsStartEndListOptions extends MetricsListOptions {
     }
 
     /**
+     * Sets start date.
+     * 
      * @param start
      *            the start to set
      */
@@ -37,6 +44,8 @@ public class MetricsStartEndListOptions extends MetricsListOptions {
     }
 
     /**
+     * Gets end date.
+     * 
      * @return the end
      */
     public Date getEnd() {
@@ -44,6 +53,8 @@ public class MetricsStartEndListOptions extends MetricsListOptions {
     }
 
     /**
+     * Sets end date.
+     * 
      * @param end
      *            the end to set
      */

@@ -4,12 +4,13 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyStatus;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp.StatusEnum;
@@ -17,13 +18,25 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 
 @Preamble(description = "Adapter for API key model")
-public class ApiKeyAdapter {
+@Internal
+public final class ApiKeyAdapter {
 
+    private ApiKeyAdapter() {
+        super();
+    }
+
+    /**
+     * Maps API keys.
+     * 
+     * @param apiKeyInfo
+     *            an API key.
+     * @return an API Key.
+     */
     public static ApiKey map(ApiKeyInfoResp apiKeyInfo) {
         if (apiKeyInfo == null) {
             return null;
         }
-        ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getGroups(), toStatus(apiKeyInfo.getStatus()),
+        final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getGroups(), toStatus(apiKeyInfo.getStatus()),
                 apiKeyInfo.getKey(), TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
@@ -32,6 +45,11 @@ public class ApiKeyAdapter {
         return apiKey;
     }
 
+    /**
+     * Gets mapper.
+     * 
+     * @return a mapper.
+     */
     public static Mapper<ApiKeyInfoResp, ApiKey> getMapper() {
         return new Mapper<ApiKeyInfoResp, ApiKey>() {
             @Override
@@ -41,21 +59,35 @@ public class ApiKeyAdapter {
         };
     }
 
+    /**
+     * Reverses mapping for new API keys.
+     * 
+     * @param apiKey
+     *            an API key.
+     * @return API key addition request.
+     */
     public static ApiKeyInfoReq reverseMapAdd(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
         }
-        ApiKeyInfoReq apiKeyInfo = new ApiKeyInfoReq();
+        final ApiKeyInfoReq apiKeyInfo = new ApiKeyInfoReq();
         apiKeyInfo.setName(apiKey.getName());
         apiKeyInfo.setOwner(apiKey.getOwnerId());
         return apiKeyInfo;
     }
 
+    /**
+     * Reverses mapping for updated API keys.
+     * 
+     * @param apiKey
+     *            an API key.
+     * @return API key update request.
+     */
     public static ApiKeyUpdateReq reverseMapUpdate(ApiKey apiKey) {
         if (apiKey == null) {
             return null;
         }
-        ApiKeyUpdateReq apiKeyUpdate = new ApiKeyUpdateReq();
+        final ApiKeyUpdateReq apiKeyUpdate = new ApiKeyUpdateReq();
         apiKeyUpdate.setName(apiKey.getName());
         apiKeyUpdate.setOwner(apiKey.getOwnerId());
         return apiKeyUpdate;
@@ -77,10 +109,17 @@ public class ApiKeyAdapter {
         return status;
     }
 
+    /**
+     * Maps a list of API keys.
+     * 
+     * @param list
+     *            list of API keys.
+     * @return list of API keys.
+     */
     public static ListResponse<ApiKey> mapList(ApiKeyInfoRespList list) {
 
         final ApiKeyInfoRespList apiKeyList = list;
-        RespList<ApiKeyInfoResp> respList = new RespList<ApiKeyInfoResp>() {
+        final RespList<ApiKeyInfoResp> respList = new RespList<ApiKeyInfoResp>() {
 
             @Override
             public Boolean getHasMore() {
@@ -115,6 +154,11 @@ public class ApiKeyAdapter {
         return GenericAdapter.mapList(respList, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return a list mapper.
+     */
     public static Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>> getListMapper() {
         return new Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>>() {
 

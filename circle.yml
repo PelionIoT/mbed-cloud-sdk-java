@@ -1,58 +1,73 @@
 machine:
   timezone: Europe/London
   environment:
-    AWS_DEFAULT_REGION: us-west-2
     PROJECT_NAME: ${CIRCLE_PROJECT_REPONAME}
     PROJECT_DOCS: ${HOME}/docs
     PROJECT_TESTS: ${HOME}/tests
     PROJECT_ARTIFACTS: ${HOME}/artifacts
+    PROJECT_REPORTS: ${HOME}/reports
+    PROJECT_TOP: ${HOME}/${CIRCLE_PROJECT_REPONAME}
     BUILD_DOCS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/docs/javadoc
     BUILD_JARS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/libs
     BUILD_DIST: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/distributions
+    BUILD_REPORTS: ${HOME}/${CIRCLE_PROJECT_REPONAME}/build/reports
+    SCRIPTS_DIR: ${HOME}/${CIRCLE_PROJECT_REPONAME}/scripts
+    ARTIFACTORY_URL: http://localhost:5000/artifactory/
+    TESTRUNNER_DOCKER_IMAGE: 104059736540.dkr.ecr.us-west-2.amazonaws.com/mbed/sdk-testrunner:master
   java:
     version: oraclejdk8
-
+  services:
+    - docker
+    
 general:
   artifacts:
     - ~/docs
     - ~/tests
     - ~/artifacts
+    - ~/reports
+    
   branches:
     ignore:
       - build
 
 checkout:
   post:
+    - aws s3 sync s3://artifactory-store ${PROJECT_TOP}
+    - docker build -t artifactory . :
+        pwd: proxy
     - git config --global user.name monty-bot
     - git config --global user.email monty-bot@arm.com
-    - git submodule update --init --remote --force
-    - pip install -r tests/testrunner/requirements.txt
-    - python setup.py develop:
-        pwd: tests/testrunner
+    - pip install docker-compose
+    - python ${SCRIPTS_DIR}/sdk.py fetch_test_runner
+    - python ${SCRIPTS_DIR}/sdk.py configure
+
 
 compile:
   pre:
     - mkdir ${PROJECT_DOCS}
     - mkdir ${PROJECT_ARTIFACTS}
+    - mkdir ${PROJECT_REPORTS}
+    - mkdir ${PROJECT_TESTS}
+
   override:
-    - if [ -e ./gradlew ]; then ./gradlew build;else gradle build;fi
+    - python ${SCRIPTS_DIR}/sdk.py license
+    - python ${SCRIPTS_DIR}/sdk.py build
     - cp -r ${BUILD_DIST}/* ${PROJECT_ARTIFACTS}/
-    - if [ -e ./gradlew ]; then ./gradlew shadowJar;else gradle shadowJar;fi
     - cp -r ${BUILD_JARS}/* ${PROJECT_ARTIFACTS}/
-  post:
-    - if [ -e ./gradlew ]; then ./gradlew javadoc;else gradle javadoc;fi
     - cp -r ${BUILD_DOCS}/* ${PROJECT_DOCS}/
+    - cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
 
 test:
-  pre:
-    - npm install -g ansi-html-stream
   override:
-    - if [ -e ./gradlew ]; then ./gradlew shadowTestJar;else gradle shadowTestJar;fi
-    - mv artifacts.properties tests/
-    - mkdir ${PROJECT_TESTS}
-    - echo "<h1>${PROJECT_NAME} (build ${CIRCLE_BUILD_NUM})</h1>" > ${PROJECT_TESTS}/index.html:
-    - bash run.sh 2>&1 | tee /dev/tty | ansi-html >> ${PROJECT_TESTS}/index.html:
-        pwd: tests
+    - python ${SCRIPTS_DIR}/sdk.py run_integration_tests
+  post:
+    - python ${SCRIPTS_DIR}/sdk.py report_code_coverage
+    - python ${SCRIPTS_DIR}/sdk.py generate_quality_summary
+    - bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS}/jacoco-all/coverage.xml
+    - sudo mv ${PROJECT_TOP}/results/results.html ${PROJECT_TESTS}/index.html
+    - sudo cp -r ${PROJECT_TOP}/results/* ${PROJECT_TESTS}/
+    - sudo cp -r ${BUILD_REPORTS}/* ${PROJECT_REPORTS}/
+    - docker run -d -p 5000:80 artifactory; sleep 10
 
 deployment:
   staging:
@@ -60,3 +75,13 @@ deployment:
     commands:
       - echo Syncing $PROJECT_NAME to S3...
       - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy
+  release:
+    branch: /[0-9]+\.[0-9]+.*/
+    commands:
+      - echo Tagging $PROJECT_NAME in GitHub...
+      - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
+      - git push --tags
+      - echo Deploy to artifactory
+      - python ${SCRIPTS_DIR}/sdk.py deploy

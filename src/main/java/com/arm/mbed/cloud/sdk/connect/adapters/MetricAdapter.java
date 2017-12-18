@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
-import java.util.Date;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -14,27 +13,50 @@ import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
 @Preamble(description = "Adapter for metric model")
-public class MetricAdapter {
+public final class MetricAdapter {
 
+    private MetricAdapter() {
+        super();
+    }
+
+    /**
+     * Maps metrics.
+     * 
+     * @param apiMetric
+     *            metrics to map
+     * @return metrics
+     */
     public static Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric apiMetric) {
         if (apiMetric == null) {
             return null;
         }
-        Metric metric = new Metric();
-        metric.setFailedApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiError()));
-        metric.setFailedDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsFailed()));
-        // metric.setFailedHandshakes(TranslationUtils.toLong(apiMetric.get));
-        metric.setId(apiMetric.getId());
-        metric.setPendingDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsPending()));
-        metric.setRegisteredDevices(TranslationUtils.toLong(apiMetric.getRegisteredDevices()));
-        metric.setSuccessfulApiCalls(TranslationUtils.toLong(apiMetric.getDeviceServerRestApiSuccess()));
-        metric.setSuccessfulDeviceRegistrations(TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()));
-        metric.setSuccessfulHandshakes(TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()));
-        metric.setTimestamp(TranslationUtils.convertTimestamp(apiMetric.getTimestamp(), new Date()));
-        metric.setTransactions(TranslationUtils.toLong(apiMetric.getTransactions()));
-        return metric;
+        return new Metric(apiMetric.getId(), TranslationUtils.toDate(apiMetric.getTimestamp()),
+                TranslationUtils.toLong(apiMetric.getTransactions()),
+                TranslationUtils.toLong(apiMetric.getConnectRestApiSuccess()),
+                TranslationUtils.toLong(apiMetric.getConnectRestApiError()),
+                TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsPending()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()),
+                TranslationUtils.toLong(apiMetric.getBootstrapsFailed()),
+                TranslationUtils.toLong(apiMetric.getFullRegistrations()),
+                TranslationUtils.toLong(apiMetric.getRegistrationUpdates()),
+                TranslationUtils.toLong(apiMetric.getExpiredRegistrations()),
+                TranslationUtils.toLong(apiMetric.getDeletedRegistrations()),
+                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestSuccess()),
+                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestError()),
+                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestSuccess()),
+                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestError()),
+                TranslationUtils.toLong(apiMetric.getDeviceObservations())
+
+        );
+
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @return a mapper
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric>() {
 
@@ -46,6 +68,13 @@ public class MetricAdapter {
         };
     }
 
+    /**
+     * Maps a list of metrics.
+     * 
+     * @param list
+     *            of metrics.
+     * @return list of metrics
+     */
     public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> list) {
         if (list == null) {
             return null;
@@ -53,6 +82,11 @@ public class MetricAdapter {
         return GenericAdapter.mapList(list, getMapper());
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @return a list mapper
+     */
     public static Mapper<SuccessfulResponse, List<Metric>> getListMapper() {
         return new Mapper<SuccessfulResponse, List<Metric>>() {
 
@@ -64,41 +98,84 @@ public class MetricAdapter {
         };
     }
 
+    /**
+     * Maps include fields
+     * 
+     * @param includeFields
+     *            include fields to encode.
+     * @return a string containing all include fields
+     */
     public static String mapIncludes(List<IncludeField> includeFields) {
+        final IncludeMapping mapping = IncludeMappingHolder.INSTANCE;
+        // In case no field is specified, default includes are used
         if (includeFields == null) {
-            return null;
+            return mapping.getDefaultIncludes();
         }
-        IncludeMapping mapping = IncludeMappingHolder.Instance;
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         boolean start = true;
-        for (IncludeField field : includeFields) {
+        int numberOfIncludedFields = 0;
+        for (final IncludeField field : includeFields) {
             if (!start) {
-                builder.append(",");
+                builder.append(',');
             }
-            builder.append(mapping.getMappedValue(field.toString()));
+            final String mappedValue = mapping.getMappedValue(field.toString());
+            if (mappedValue == null) {
+                continue;
+            }
+            builder.append(mappedValue);
+            numberOfIncludedFields++;
             start = false;
+        }
+        // In case no field could be mapped, default includes are used
+        if (numberOfIncludedFields == 0) {
+            return mapping.getDefaultIncludes();
         }
         return builder.toString();
     }
 
     private static class IncludeMappingHolder {
-        public static final IncludeMapping Instance = new IncludeMapping();
+        public static final IncludeMapping INSTANCE = new IncludeMapping();
     }
 
     private static class IncludeMapping {
 
         private final Map<String, String> mapping;
+        private final String defaultIncludes;
 
         public IncludeMapping() {
             super();
             mapping = new Hashtable<>(6);
             mapping.put("transactions", "transactions");
-            mapping.put("successfulDeviceRegistrations", "bootstraps_successful");
-            mapping.put("pendingDeviceRegistrations", "bootstraps_pending");
-            mapping.put("failedDeviceRegistrations", "bootstraps_failed");
-            mapping.put("successfulApiCalls", "device_server_rest_api_success");
-            mapping.put("failedApiCalls", "device_server_rest_api_error");
+            mapping.put("successfulApiCalls", "connect_rest_api_success");
+            mapping.put("failedApiCalls", "connect_rest_api_error");
+            mapping.put("handshakes", "handshakes_successful");
+            mapping.put("pendingBootstraps", "bootstraps_pending");
+            mapping.put("successfulBootstraps", "bootstraps_successful");
+            mapping.put("failedBootstraps", "bootstraps_failed");
+            mapping.put("fullRegistrations", "full_registrations");
+            mapping.put("updatedRegistrations", "registration_updates");
+            mapping.put("expiredRegistrations", "expired_registrations");
+            mapping.put("deletedRegistrations", "deleted_registrations");
+            mapping.put("successfulProxyRequests", "device_proxy_request_success");
+            mapping.put("failedProxyRequests", "device_proxy_request_error");
+            mapping.put("successfulSubscriptionRequests", "device_subscription_request_success");
+            mapping.put("failedSubscriptionRequests", "device_subscription_request_error");
+            mapping.put("observations", "device_observations");
 
+            boolean start = true;
+            final StringBuilder builder = new StringBuilder();
+            for (final String field : mapping.values()) {
+                if (!start) {
+                    builder.append(',');
+                }
+                builder.append(field);
+                start = false;
+            }
+            defaultIncludes = builder.toString();
+        }
+
+        public String getDefaultIncludes() {
+            return defaultIncludes;
         }
 
         public String getMappedValue(String value) {

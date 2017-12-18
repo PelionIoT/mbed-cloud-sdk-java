@@ -9,21 +9,36 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 
 @Preamble(description = "Adapter for resource model")
-public class ResourceAdapter {
+public final class ResourceAdapter {
 
+    private ResourceAdapter() {
+        super();
+    }
+
+    /**
+     * Maps a resource.
+     * 
+     * @param deviceId
+     *            device id of the device containing the resource
+     * @param apiResource
+     *            resource to map
+     * @return mapped resource
+     */
     public static Resource map(String deviceId, com.arm.mbed.cloud.sdk.internal.mds.model.Resource apiResource) {
         if (apiResource == null || deviceId == null || deviceId.isEmpty()) {
             return null;
         }
-        Resource resource = new Resource();
-        resource.setContentType(apiResource.getType());
-        resource.setObservable(TranslationUtils.toBool(apiResource.getObs(), false));
-        resource.setType(apiResource.getRt());
-        resource.setPath(apiResource.getUri());
-        resource.setDeviceId(deviceId);
-        return resource;
+        return new Resource(deviceId, apiResource.getUri(), apiResource.getRt(), apiResource.getType(),
+                TranslationUtils.toBool(apiResource.getObs(), false));
     }
 
+    /**
+     * Gets a mapper.
+     * 
+     * @param deviceId
+     *            device id of the device containing the resource
+     * @return a mapper for this device.
+     */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource> getMapper(String deviceId) {
         final String immutableDeviceId = deviceId;
         return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Resource, Resource>() {
@@ -35,11 +50,27 @@ public class ResourceAdapter {
         };
     }
 
+    /**
+     * Maps a list of resources.
+     * 
+     * @param deviceId
+     *            device id of the device containing the resources
+     * @param list
+     *            resource page
+     * @return list of resources
+     */
     public static List<Resource> mapList(String deviceId,
             List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource> list) {
         return GenericAdapter.mapList(list, getMapper(deviceId));
     }
 
+    /**
+     * Gets list mapper.
+     * 
+     * @param deviceId
+     *            device id of the device containing the resources
+     * @return a list mapper
+     */
     public static Mapper<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>, List<Resource>> getListMapper(
             String deviceId) {
         final String immutableDeviceId = deviceId;

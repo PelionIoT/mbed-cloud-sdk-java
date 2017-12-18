@@ -6,25 +6,26 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SDKModel;
+import com.arm.mbed.cloud.sdk.annotations.Required;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "This object represents an API key in Arm Mbed Cloud")
-public class ApiKey implements SDKModel {
+public class ApiKey implements SdkModel {
     /**
-     * 
+     * Serialisation Id.
      */
     private static final long serialVersionUID = 6908040952116869470L;
     /**
-     * The UUID of the API key
+     * The UUID of the API key.
      */
     private String id;
     /**
-     * Display name for the API key
+     * Display name for the API key.
      */
-
+    @Required
     private String name;
     /**
-     * The owner of this API key, who is the creator by default
+     * The owner of this API key, who is the creator by default.
      */
     private String ownerId;
     /**
@@ -35,7 +36,6 @@ public class ApiKey implements SDKModel {
      * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the
      * password must be changed immediately.
      */
-    @DefaultValue(value = "INACTIVE")
     private final ApiKeyStatus status;
     /**
      * The API key.
@@ -55,13 +55,37 @@ public class ApiKey implements SDKModel {
      */
     private final long lastLoginTime;
 
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
+     * 
+     * @param id
+     *            id
+     * @param name
+     *            name
+     * @param ownerId
+     *            owner id
+     * @param groups
+     *            groups
+     * @param status
+     *            status
+     * @param key
+     *            key
+     * @param createdAt
+     *            createdAt
+     * @param creationTime
+     *            creationTime
+     * @param lastLoginTime
+     *            lastLoginTime
+     */
     @Internal
-    public ApiKey(String id, List<String> groups, ApiKeyStatus status, String key, Date createdAt, long creationTime,
-            long lastLoginTime) {
+    public ApiKey(String id, String name, String ownerId, List<String> groups, ApiKeyStatus status, String key,
+            Date createdAt, long creationTime, long lastLoginTime) {
         super();
         setId(id);
-        setName(null);
-        setOwnerId(null);
+        setName(name);
+        setOwnerId(ownerId);
         this.groups = groups;
         this.status = status;
         this.key = key;
@@ -71,32 +95,80 @@ public class ApiKey implements SDKModel {
     }
 
     /**
-     * ApiKey constructor
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ApiKey()} or {@link #ApiKey(String)} instead.
+     * 
+     * @param id
+     *            id
+     * @param groups
+     *            groups
+     * @param status
+     *            status
+     * @param key
+     *            key
+     * @param createdAt
+     *            createdAt
+     * @param creationTime
+     *            creationTime
+     * @param lastLoginTime
+     *            lastLoginTime
+     */
+    @Internal
+    public ApiKey(String id, List<String> groups, ApiKeyStatus status, String key, Date createdAt, long creationTime,
+            long lastLoginTime) {
+        this(id, null, null, groups, status, key, createdAt, creationTime, lastLoginTime);
+    }
+
+    /**
+     * ApiKey constructor.
+     * <p>
+     * Other constructors with 'Internal' annotation are for internal usage only.
+     * 
      */
     public ApiKey() {
         this(null, null, ApiKeyStatus.getDefault(), null, new Date(), 0, 0);
     }
 
     /**
-     * @return the id
+     * ApiKey constructor.
+     * <p>
+     * Other constructors with 'Internal' annotation are for internal usage only.
+     * 
+     * @param name
+     *            API key name.
+     */
+    public ApiKey(String name) {
+        this();
+        setName(name);
+    }
+
+    /**
+     * Gets API key id.
+     * 
+     * @return the id.
      */
     public String getId() {
         return id;
     }
 
     /**
+     * Sets API key id.
+     * 
      * @param id
-     *            the id to set
+     *            the id to set.
      */
     public void setId(String id) {
         this.id = id;
     }
 
     /**
-     * similar to setId()
+     * Sets the id.
+     * <p>
+     * Similar to {@link #setId(String)}.
      * 
      * @param id
-     *            the id to set
+     *            the id to set.
      */
     @Internal
     public void setApiKeyId(String id) {
@@ -104,75 +176,130 @@ public class ApiKey implements SDKModel {
     }
 
     /**
-     * @return the name
+     * Gets the name.
+     * 
+     * @return the name.
      */
     public String getName() {
         return name;
     }
 
     /**
+     * Sets the name.
+     * 
      * @param name
-     *            the name to set
+     *            the name to set.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * @return the ownerId
+     * Gets the owner id.
+     * 
+     * @return the ownerId.
      */
     public String getOwnerId() {
         return ownerId;
     }
 
     /**
+     * Sets the owner id.
+     * 
      * @param ownerId
-     *            the ownerId to set
+     *            the ownerId to set.
      */
     public void setOwnerId(String ownerId) {
         this.ownerId = ownerId;
     }
 
     /**
-     * @return the groups
+     * Gets the groups.
+     * 
+     * @return the groups.
      */
     public List<String> getGroups() {
         return groups;
     }
 
     /**
-     * @return the status
+     * Gets the status.
+     * 
+     * @return the status.
      */
     public ApiKeyStatus getStatus() {
         return status;
     }
 
     /**
-     * @return the key
+     * Gets the key.
+     * 
+     * @return the key.
      */
     public String getKey() {
         return key;
     }
 
     /**
-     * @return the createdAt
+     * Gets when the API key was created.
+     * 
+     * @return the createdAt.
      */
     public Date getCreatedAt() {
         return createdAt;
     }
 
     /**
-     * @return the creationTime
+     * Gets creation time.
+     * 
+     * @return the creationTime.
      */
     public long getCreationTime() {
         return creationTime;
     }
 
     /**
-     * @return the lastLoginTime
+     * Gets last login time.
+     * 
+     * @return the lastLoginTime.
      */
     public long getLastLoginTime() {
         return lastLoginTime;
+    }
+
+    /**
+     * Gets a clone.
+     * 
+     * @return a clone.
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public ApiKey clone() throws CloneNotSupportedException {
+        return new ApiKey(id, name, ownerId, groups, status, key, createdAt, creationTime, lastLoginTime);
+    }
+
+    /**
+     * Determines whether the model instance is valid i.e. all required fields have been set.
+     * 
+     * @return true if instance is valid. False otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return name != null;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ApiKey [id=" + id + ", name=" + name + ", ownerId=" + ownerId + ", groups=" + groups + ", status="
+                + status + ", key=" + key + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+                + ", lastLoginTime=" + lastLoginTime + "]";
     }
 
 }
