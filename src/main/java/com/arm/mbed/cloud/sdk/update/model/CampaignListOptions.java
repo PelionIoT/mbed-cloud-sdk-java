@@ -44,6 +44,10 @@ public class CampaignListOptions extends ListOptions {
      * Tag of filter by finish date.
      */
     public static final String FINISHED_AT_FILTER = "finishedAt";
+    /**
+     * Tag of filter by update date.
+     */
+    public static final String UPDATED_AT_FILTER = "updatedAt";
 
     /**
      * Constructor.
@@ -170,7 +174,7 @@ public class CampaignListOptions extends ListOptions {
      * Adds a device filter based on startedAt field.
      * 
      * @param startedAtFilter
-     *            the started at filter to add
+     *            the "started at" filter to add
      * @param operator
      *            filter operator
      */
@@ -191,7 +195,7 @@ public class CampaignListOptions extends ListOptions {
      * Adds a device filter based on scheduledAt field.
      * 
      * @param scheduledAtFilter
-     *            the scheduled at filter to add
+     *            the "scheduled at" filter to add
      * @param operator
      *            filter operator
      */
@@ -212,12 +216,24 @@ public class CampaignListOptions extends ListOptions {
      * Adds a device filter based on finishedAt field.
      * 
      * @param finishedAtFilter
-     *            the finished at filter to add
+     *            the "finished at" filter to add
      * @param operator
      *            filter operator
      */
     public void addFinishedAtFilter(@Nullable Date finishedAtFilter, FilterOperator operator) {
         addFilter(FINISHED_AT_FILTER, operator, finishedAtFilter);
+    }
+
+    /**
+     * Adds a device filter based on updatedAt field.
+     * 
+     * @param updatedAtFilter
+     *            the "updated at" filter to add
+     * @param operator
+     *            filter operator
+     */
+    public void addUpdatedAtFilter(@Nullable Date updatedAtFilter, FilterOperator operator) {
+        addFilter(UPDATED_AT_FILTER, operator, updatedAtFilter);
     }
 
 }
