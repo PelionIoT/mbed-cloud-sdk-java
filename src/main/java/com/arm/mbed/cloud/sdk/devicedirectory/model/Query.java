@@ -135,7 +135,7 @@ public class Query implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Query()} or {@link #Query(String, Filters)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param createdAt
@@ -152,7 +152,7 @@ public class Query implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Query()} or {@link #Query(String, Filters)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param createdAt
@@ -183,7 +183,7 @@ public class Query implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            Name of query
      * @param filter
@@ -197,7 +197,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -206,7 +206,7 @@ public class Query implements SdkModel {
 
     /**
      * Sets id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -218,7 +218,7 @@ public class Query implements SdkModel {
      * Sets id.
      * <p>
      * similar to {@link #setId(String)}
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -229,7 +229,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -238,7 +238,7 @@ public class Query implements SdkModel {
 
     /**
      * Sets name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -249,7 +249,7 @@ public class Query implements SdkModel {
 
     /**
      * Sets filter.
-     * 
+     *
      * @param filter
      *            the filter to set
      */
@@ -260,7 +260,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets filter.
-     * 
+     *
      * @return the filters
      */
     public Filters fetchFilter() {
@@ -271,7 +271,7 @@ public class Query implements SdkModel {
      * Gets filter as "Json object".
      * <p>
      * Note: avoid using.
-     * 
+     *
      * @return the filters as a "Json object"
      */
     @Internal
@@ -281,7 +281,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets the filter as Json String.
-     * 
+     *
      * @return the filters as a Json string
      */
     public String retrieveFilterAsJson() {
@@ -290,7 +290,7 @@ public class Query implements SdkModel {
 
     /**
      * Sets filter as a Json string.
-     * 
+     *
      * @param jsonString
      *            Json string defining filter
      */
@@ -300,7 +300,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets creation date.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -309,7 +309,7 @@ public class Query implements SdkModel {
 
     /**
      * Gets last update date.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -318,7 +318,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a custom filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param operator
@@ -332,7 +332,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on account id field.
-     * 
+     *
      * @param accountId
      *            filter to apply
      * @param operator
@@ -344,7 +344,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on bootstrap certificate expiry date field.
-     * 
+     *
      * @param bootstrapCertificateExpiration
      *            filter to apply
      * @param operator
@@ -356,7 +356,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on bootstrapped timestamp field.
-     * 
+     *
      * @param bootstrappedTimestamp
      *            filter to apply
      * @param operator
@@ -368,7 +368,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on certificate issuer id field.
-     * 
+     *
      * @param certificateIssuerId
      *            filter to apply
      * @param operator
@@ -380,7 +380,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on connector certificate expiry date field.
-     * 
+     *
      * @param connectorCertificateExpiration
      *            filter to apply
      * @param operator
@@ -392,7 +392,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on createdAt field.
-     * 
+     *
      * @param createdAtDate
      *            filter to apply
      * @param operator
@@ -404,7 +404,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on description field.
-     * 
+     *
      * @param description
      *            filter to apply
      * @param operator
@@ -416,7 +416,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on device class field.
-     * 
+     *
      * @param deviceClass
      *            filter to apply
      * @param operator
@@ -428,7 +428,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on certificate fingerprint field.
-     * 
+     *
      * @param certificateFingerprint
      *            filter to apply
      * @param operator
@@ -440,7 +440,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on alias field.
-     * 
+     *
      * @param alias
      *            filter to apply
      * @param operator
@@ -452,7 +452,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on firmware checksum field.
-     * 
+     *
      * @param firmwareChecksum
      *            filter to apply
      * @param operator
@@ -464,7 +464,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on manifest timestamp field.
-     * 
+     *
      * @param manifestTimestamp
      *            filter to apply
      * @param operator
@@ -476,7 +476,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on mechanism field.
-     * 
+     *
      * @param mechanism
      *            filter to apply
      * @param operator
@@ -488,7 +488,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on mechanism URl field.
-     * 
+     *
      * @param mechanismUrl
      *            filter to apply
      * @param operator
@@ -500,7 +500,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on name field.
-     * 
+     *
      * @param queryName
      *            filter to apply
      * @param operator
@@ -512,7 +512,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on serial number field.
-     * 
+     *
      * @param serialNumber
      *            filter to apply
      * @param operator
@@ -524,7 +524,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on state field.
-     * 
+     *
      * @param state
      *            filter to apply
      * @param operator
@@ -536,7 +536,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on updatedAt field.
-     * 
+     *
      * @param updatedAtDate
      *            filter to apply
      * @param operator
@@ -548,7 +548,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on vendorId field.
-     * 
+     *
      * @param vendorId
      *            filter to apply
      * @param operator
@@ -560,7 +560,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on device type field.
-     * 
+     *
      * @param deviceType
      *            filter to apply
      * @param operator
@@ -572,7 +572,7 @@ public class Query implements SdkModel {
 
     /**
      * Adds a device filter based on host gateway type field.
-     * 
+     *
      * @param hostGateway
      *            filter to apply
      * @param operator
@@ -598,9 +598,9 @@ public class Query implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -609,8 +609,8 @@ public class Query implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -620,7 +620,7 @@ public class Query implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

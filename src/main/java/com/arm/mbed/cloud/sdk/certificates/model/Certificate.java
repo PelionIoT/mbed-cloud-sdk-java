@@ -116,7 +116,7 @@ public class Certificate implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param accountId
@@ -172,7 +172,7 @@ public class Certificate implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param name
@@ -239,7 +239,7 @@ public class Certificate implements SdkModel {
      * Constructor for a certificate.
      * <p>
      * Other constructors with 'Internal' annotation are for internal usage only.
-     * 
+     *
      * @param name
      *            name of the certificate
      * @param type
@@ -260,7 +260,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the Id.
-     * 
+     *
      * @return the id.
      */
     public String getId() {
@@ -269,7 +269,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the Id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -281,7 +281,7 @@ public class Certificate implements SdkModel {
      * Sets the id.
      * <p>
      * Similar to {@link #setId(String)}.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -292,7 +292,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -301,7 +301,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -312,7 +312,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the status.
-     * 
+     *
      * @return the status
      */
     public CertificateStatus getStatus() {
@@ -321,7 +321,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the status.
-     * 
+     *
      * @param status
      *            the status to set
      */
@@ -332,7 +332,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the status from a string representation.
-     * 
+     *
      * @param status
      *            the status string representation.
      */
@@ -342,7 +342,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the type.
-     * 
+     *
      * @return the type
      */
     public CertificateType getType() {
@@ -351,7 +351,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the type.
-     * 
+     *
      * @param type
      *            the type to set
      */
@@ -363,7 +363,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the type from a string representation.
-     * 
+     *
      * @param type
      *            the type string representation
      */
@@ -373,7 +373,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -382,7 +382,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -392,7 +392,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the certificate data.
-     * 
+     *
      * @return the certificateData
      */
     public String getCertificateData() {
@@ -401,7 +401,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the certificate data.
-     * 
+     *
      * @param certificateData
      *            the certificate data to set
      */
@@ -412,7 +412,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the signature.
-     * 
+     *
      * @return the signature
      */
     public String getSignature() {
@@ -421,7 +421,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Sets the signature.
-     * 
+     *
      * @param signature
      *            the signature to set
      */
@@ -431,7 +431,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the account id.
-     * 
+     *
      * @return the accountId
      */
     public String getAccountId() {
@@ -440,7 +440,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the subject.
-     * 
+     *
      * @return the subject
      */
     public String getSubject() {
@@ -449,7 +449,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the validity.
-     * 
+     *
      * @return the validity
      */
     public Date getValidity() {
@@ -458,7 +458,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the issuer.
-     * 
+     *
      * @return the issuer
      */
     public String getIssuer() {
@@ -467,7 +467,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets when the certificate was created.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -476,7 +476,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the server URI.
-     * 
+     *
      * @return the serverUri
      */
     public String getServerUri() {
@@ -485,7 +485,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the server certificate.
-     * 
+     *
      * @return the serverCertificate
      */
     public String getServerCertificate() {
@@ -494,7 +494,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the header file.
-     * 
+     *
      * @return the headerFile
      */
     public String getHeaderFile() {
@@ -503,7 +503,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the developer certificate.
-     * 
+     *
      * @return the developerCertificate
      */
     public String getDeveloperCertificate() {
@@ -512,7 +512,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the developer private key.
-     * 
+     *
      * @return the developerPrivateKey
      */
     public String getDeveloperPrivateKey() {
@@ -521,7 +521,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets the owner id.
-     * 
+     *
      * @return the ownerId
      */
     public String getOwnerId() {
@@ -530,7 +530,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Checks whether the status has been modified since creation.
-     * 
+     *
      * @return true if the status has been modified. False otherwise.
      */
     @Internal
@@ -540,7 +540,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Checks whether the type has been modified since creation.
-     * 
+     *
      * @return true if the type has been modified. False otherwise.
      */
     @Internal
@@ -550,7 +550,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Checks whether certificate data have been modified since creation.
-     * 
+     *
      * @return true if the data have been modified. False otherwise.
      */
     @Internal
@@ -574,7 +574,7 @@ public class Certificate implements SdkModel {
 
     /**
      * Merges two partial certificates.
-     * 
+     *
      * @param partial1
      *            one partial certificate.
      * @param partial2
@@ -612,9 +612,9 @@ public class Certificate implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone.
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -625,8 +625,8 @@ public class Certificate implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -636,7 +636,7 @@ public class Certificate implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

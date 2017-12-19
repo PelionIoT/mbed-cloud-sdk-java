@@ -188,7 +188,7 @@ public class Campaign implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param manifestUrl
@@ -213,7 +213,7 @@ public class Campaign implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
-     * 
+     *
      * @param id
      *            id
      * @param state
@@ -262,7 +262,7 @@ public class Campaign implements SdkModel {
      * Constructor.
      * <p>
      * Note: Should not be used. Use {@link #Campaign()} or {@link #Campaign(String, String, Filters)} instead.
-     * 
+     *
      * @param id
      *            campaign id
      */
@@ -280,7 +280,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            Name of the update campaign
      * @param manifestId
@@ -297,7 +297,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            Name of the update campaign
      * @param manifest
@@ -311,7 +311,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Constructor.
-     * 
+     *
      * @param name
      *            Name of the update campaign
      * @param manifest
@@ -325,7 +325,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the Id.
-     * 
+     *
      * @return the id
      */
     public String getId() {
@@ -334,7 +334,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the Id.
-     * 
+     *
      * @param id
      *            the id to set
      */
@@ -344,7 +344,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the campaign state.
-     * 
+     *
      * @see CampaignState
      * @return the state
      */
@@ -354,7 +354,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the campaign state.
-     * 
+     *
      * @see CampaignState
      * @param state
      *            the state to set
@@ -365,7 +365,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the name.
-     * 
+     *
      * @return the name
      */
     public String getName() {
@@ -374,7 +374,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the name.
-     * 
+     *
      * @param name
      *            the name to set
      */
@@ -385,7 +385,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the description.
-     * 
+     *
      * @return the description
      */
     public String getDescription() {
@@ -394,7 +394,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the description.
-     * 
+     *
      * @param description
      *            the description to set
      */
@@ -404,7 +404,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the manifest Id.
-     * 
+     *
      * @return the manifestId
      */
     public String getManifestId() {
@@ -412,8 +412,8 @@ public class Campaign implements SdkModel {
     }
 
     /**
-     * Sets the manigest id.
-     * 
+     * Sets the manifest id.
+     *
      * @param manifestId
      *            the manifestId to set
      */
@@ -424,7 +424,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets when the campaign is scheduled at.
-     * 
+     *
      * @return the scheduledAt
      */
     public Date getScheduledAt() {
@@ -433,7 +433,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets when the campaign should be scheduled for.
-     * 
+     *
      * @param scheduledAt
      *            the scheduledAt to set
      */
@@ -443,7 +443,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets manifest URL.
-     * 
+     *
      * @return the manifestUrl
      */
     public URL getManifestUrl() {
@@ -452,7 +452,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets when the campaign was created.
-     * 
+     *
      * @return the createdAt
      */
     public Date getCreatedAt() {
@@ -461,7 +461,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets when the campaign was started.
-     * 
+     *
      * @return the startedAt
      */
     public Date getStartedAt() {
@@ -470,7 +470,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets when the campaign finishes.
-     * 
+     *
      * @return the finishedAt
      */
     public Date getFinishedAt() {
@@ -479,7 +479,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the filter.
-     * 
+     *
      * @return the filters
      */
     public Filters getFilter() {
@@ -488,7 +488,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the filter as a "Json object".
-     * 
+     *
      * @return the filters as a Json object
      */
     @Internal
@@ -498,7 +498,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Set the device filter.
-     * 
+     *
      * @param deviceFilter
      *            the device filter to set
      */
@@ -509,7 +509,6 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the device filter from a Json string.
-     * 
      * 
      * @see FilterMarshaller#fromJson(String)
      * 
@@ -533,7 +532,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a custom device filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param operator
@@ -547,7 +546,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on account Id field.
-     * 
+     *
      * @param accountIdFilter
      *            filter to apply
      * @param operator
@@ -559,7 +558,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on bootstrap certificate expiry date field.
-     * 
+     *
      * @param bootstrapCertificateExpirationFilter
      *            filter to apply
      * @param operator
@@ -572,7 +571,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on timestamp field.
-     * 
+     *
      * @param bootstrappedTimestampFilter
      *            filter to apply
      * @param operator
@@ -584,7 +583,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on certificate issuer field.
-     * 
+     *
      * @param certificateIssuerIdFilter
      *            filter to apply
      * @param operator
@@ -596,7 +595,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on connector certificate expiry date field.
-     * 
+     *
      * @param connectorCertificateExpirationFilter
      *            filter to apply
      * @param operator
@@ -609,7 +608,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on creation date field.
-     * 
+     *
      * @param createdAtFilter
      *            filter to apply
      * @param operator
@@ -621,7 +620,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on deployment state field.
-     * 
+     *
      * @param deployedStateFilter
      *            filter to apply
      * @param operator
@@ -633,7 +632,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on last deployment date field.
-     * 
+     *
      * @param lastDeploymentFilter
      *            filter to apply
      * @param operator
@@ -645,7 +644,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on description field.
-     * 
+     *
      * @param descriptionFilter
      *            filter to apply
      * @param operator
@@ -657,7 +656,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on device class field.
-     * 
+     *
      * @param deviceClassFilter
      *            filter to apply
      * @param operator
@@ -669,7 +668,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on certificate fingerprint field.
-     * 
+     *
      * @param certificateFingerprintFilter
      *            filter to apply
      * @param operator
@@ -681,7 +680,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on alias field.
-     * 
+     *
      * @param aliasFilter
      *            filter to apply
      * @param operator
@@ -693,7 +692,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on firmware checksum field.
-     * 
+     *
      * @param firmwareChecksumFilter
      *            filter to apply
      * @param operator
@@ -705,7 +704,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on manifest URL field.
-     * 
+     *
      * @param manifestUrlFilter
      *            filter to apply
      * @param operator
@@ -717,7 +716,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on manifest timestamp field.
-     * 
+     *
      * @param manifestTimestampFilter
      *            filter to apply
      * @param operator
@@ -729,7 +728,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on mechanism field.
-     * 
+     *
      * @param mechanismFilter
      *            filter to apply
      * @param operator
@@ -741,7 +740,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on mechanism URL field.
-     * 
+     *
      * @param mechanismUrlFilter
      *            filter to apply
      * @param operator
@@ -753,7 +752,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on name field.
-     * 
+     *
      * @param nameFilter
      *            filter to apply
      * @param operator
@@ -765,7 +764,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on serial number field.
-     * 
+     *
      * @param serialNumberFilter
      *            filter to apply
      * @param operator
@@ -777,7 +776,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on state field.
-     * 
+     *
      * @param stateFilter
      *            filter to apply
      * @param operator
@@ -789,7 +788,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on trust level field.
-     * 
+     *
      * @param trustLevelFilter
      *            filter to apply
      * @param operator
@@ -801,7 +800,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on last update date field.
-     * 
+     *
      * @param updatedAtFilter
      *            filter to apply
      * @param operator
@@ -813,7 +812,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on vendor Id field.
-     * 
+     *
      * @param vendorIdFilter
      *            filter to apply
      * @param operator
@@ -825,7 +824,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on device type field.
-     * 
+     *
      * @param deviceType
      *            filter to apply
      * @param operator
@@ -837,7 +836,7 @@ public class Campaign implements SdkModel {
 
     /**
      * Adds a device filter based on host gateway type field.
-     * 
+     *
      * @param hostGateway
      *            filter to apply
      * @param operator
@@ -863,9 +862,9 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets a clone.
-     * 
+     *
      * @return a clone.
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -875,8 +874,8 @@ public class Campaign implements SdkModel {
     }
 
     /**
-     * Determines whether the model instance is valid i.e. all required fields have been set.
-     * 
+     * Determines whether all required fields have been set and therefore if the model instance is valid.
+     *
      * @return true if instance is valid. False otherwise.
      */
     @Override
@@ -886,7 +885,7 @@ public class Campaign implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
