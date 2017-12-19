@@ -249,13 +249,8 @@ public class FirmwareImage implements SdkModel {
     }
 
     /**
-<<<<<<< HEAD
      * Gets the checksum (sha256).
      * 
-=======
-     * Gets the checksum.
-     *
->>>>>>> Suggested edits
      * @return the datafileChecksum
      */
     public String getDatafileChecksum() {

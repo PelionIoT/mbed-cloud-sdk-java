@@ -509,13 +509,9 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the device filter from a Json string.
-<<<<<<< HEAD
      * 
      * @see FilterMarshaller#fromJson(String)
      * 
-=======
-     *
->>>>>>> Suggested edits
      * @param jsonString
      *            Json string defining the device filter to set
      */
@@ -525,13 +521,9 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the device filter as Json String.
-<<<<<<< HEAD
      * 
      * @see FilterMarshaller#toJson(Filters)
      * 
-=======
-     *
->>>>>>> Suggested edits
      * @return the filters as a Json string
      */
     public String retrieveDeviceFilterAsJson() {
