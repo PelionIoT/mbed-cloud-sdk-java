@@ -9,18 +9,22 @@ The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](http
 * The SDK uses **[SLF4j](https://www.slf4j.org/)** and hence, any supported logging framework  (e.g. java.util.logging, logback, log4j) can be used by your application.
 
 ## Distribution
-[ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
-
 In order to best meet your requirements, Java SDK is packaged in 3 different ways:
 * Individual Jars
 * Distribution ZIP. See related [gradle plugin](https://docs.gradle.org/current/userguide/javaLibraryDistribution_plugin.html) for more details.
 * A [fat jar](https://github.com/johnrengelman/shadow) comprising the SDK and all its dependencies.
 
-These artifacts are published on [JCenter](https://bintray.com/bintray/jcenter
-) and [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22mbed-cloud-sdk%22). 
-They can therefore be retrieved and included into your project using the package manager of your choice. To do so, please follow the instructions present on one of this artifact repositories ([Bintray page of the project](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/)).
+## Getting started
+[ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
 
+Artefacts listed above are published on [JCenter](https://bintray.com/bintray/jcenter
+) and [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22mbed-cloud-sdk%22).
+They can therefore be retrieved and included into your project using the package manager of your choice. To do so, please follow the instructions present on one of these artefact repositories ([Bintray page of the project](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/)).
 
+For example, if using Gradle, add the following compile dependency to build.gradle:
+```java
+compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
+```
 ## Usage
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html):
 1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
@@ -41,13 +45,15 @@ These instructions can also be found in the [official documentation](https://s3-
             e.printStackTrace();
         }
     ```
+## Versioning
+The current version scheme used by the SDK reflects the version of the API it abstracts (e.g. 1.2.3 refers to 1.2 version of Mbed Cloud APIs). The last digit of the version corresponds to the SDK incremental version.
 
 ## Documentation and examples
 See the full documentation and API reference (i.e. javadoc) at https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/.
 For usage examples, please have a look at the [example project](examples/README.md).
 
 ## Contributing
-Mbed Cloud SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md). 
+Mbed Cloud SDK for Java is open source and we would like your help. There is a brief guide on how to get started in [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Project
 * All code inside _\*.internal.\*_ packages or annotated as **@Internal** is considered private API and should not be relied upon at all.
