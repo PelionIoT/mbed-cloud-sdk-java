@@ -17,11 +17,19 @@
 
 
 ## Building
-1. Sets required environment/build variables in gradle.properties
-2. In order to build the SDK, you can call gradle tasks directly or use wrapper scripts present in ./scripts folder
+1. Clone the git repository to your machine:
 
     ```shell
-        python sdk.py <action>
+        git clone https://github.com/ARMmbed/mbed-cloud-sdk-java.git
+    ```
+2. Sets required environment/build variables in gradle.properties
+3. In order to build the SDK, you can call gradle tasks directly or use wrapper scripts present in ./scripts folder
+
+    ```shell
+        ./gradlew <action> (on Linux) gradlew.bat <action> (on Windows)
+        e.g. ./gradlew build
+                or
+        python scripts/sdk.py <action>
         e.g. python sdk.py build
     ```
 
@@ -49,5 +57,5 @@ To regenerate afterwards the javadoc, just run the following command:
 
 ## Testing
 The SDK is tested via a set of unit tests and integration tests.
-Unit tests can be run using ```gradlew test``` command.
-All integration tests are defined in [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
+* Unit tests can be run using ```gradlew test``` command. They use JUnit framework and are present in src/test folder.
+* All integration tests are defined in [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
