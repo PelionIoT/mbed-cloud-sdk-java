@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.2.3
+## 1.2.4
 
 ### Deliverables
 The application is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java and built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven).
