@@ -50,7 +50,7 @@ public final class UserAdapter {
         user.setEmail(apiUser.getEmail());
         user.setPhoneNumber(apiUser.getPhoneNumber());
         user.setAddress(apiUser.getAddress());
-        user.setTermAccepted(TranslationUtils.toBool(apiUser.getIsGtcAccepted(), true));
+        user.setTermsAccepted(TranslationUtils.toBool(apiUser.getIsGtcAccepted(), true));
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.getIsMarketingAccepted(), true));
         return user;
 
@@ -89,6 +89,7 @@ public final class UserAdapter {
         userInfo.setPassword(user.getPassword());
         userInfo.setEmail(user.getEmail());
         userInfo.setPhoneNumber(user.getPhoneNumber());
+        userInfo.setAddress(user.getAddress());
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         return userInfo;
@@ -111,6 +112,7 @@ public final class UserAdapter {
         userUpdate.setPassword(user.getPassword());
         userUpdate.setEmail(user.getEmail());
         userUpdate.setPhoneNumber(user.getPhoneNumber());
+        userUpdate.setAddress(user.getAddress());
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         return userUpdate;

@@ -364,6 +364,19 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Sets the campaign state.
+     * <p>
+     * Similar to {@link #setState(CampaignState)}
+     * 
+     * @param state
+     *            the state as string to set
+     */
+    @Internal
+    public void setState(String state) {
+        setState(CampaignState.getState(state));
+    }
+
+    /**
      * Gets the name.
      *
      * @return the name
