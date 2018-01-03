@@ -70,8 +70,7 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code
-     *     Account account = accountManagementApi.getAccount();
+     * {@code Account account = accountManagementApi.getAccount();
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
      * }
@@ -327,7 +326,14 @@ public class AccountManagement extends AbstractApi {
         checkNotNull(apiKey, TAG_API_KEY);
         checkNotNull(apiKey.getId(), TAG_API_KEY_UUID);
         checkModelValidity(apiKey, TAG_API_KEY);
-        final ApiKey finalApiKey = apiKey;
+        ApiKey updatedApiKey = null;
+        if (apiKey.hasStatusBeenUpdated()) {
+            updatedApiKey = apiKey;
+        } else {
+            updatedApiKey = apiKey.clone();
+            updatedApiKey.setStatus(null);
+        }
+        final ApiKey finalApiKey = updatedApiKey;
         return CloudCaller.call(this, "updateApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
 
             @Override

@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.SdkModelUtils;
 
 @Preamble(description = "Account")
 public class Account implements SdkModel {
@@ -52,7 +53,7 @@ public class Account implements SdkModel {
     /**
      * Postal code part of the postal address.
      */
-    private String postCode;
+    private String postcode;
 
     /**
      * Postal address line 1.
@@ -96,7 +97,7 @@ public class Account implements SdkModel {
      * The tier level of the account; &#39;0&#39;: free tier, commercial account. Other values are reserved for the
      * future.
      */
-    private final String tierLevel;
+    private final String tier;
 
     /**
      * Account creation UTC time RFC3339.
@@ -112,11 +113,19 @@ public class Account implements SdkModel {
      * List of limits as key-value pairs if requested.
      */
     private final Map<String, String> limits;
-
+    /**
+     * List of policies.
+     */
+    private final List<Policy> policies;
     /**
      * Account template ID.
      */
     private final String templateId;
+
+    /**
+     * A reason note for updating the status of the account.
+     */
+    private final String reason;
 
     /**
      * Constructor for an account.
@@ -124,7 +133,7 @@ public class Account implements SdkModel {
      * Other constructors are for internal usage only.
      */
     public Account() {
-        this(null, AccountStatus.getDefault(), true, null, new Date(), new Date(), null, null);
+        this(null, AccountStatus.getDefault(), true, null, new Date(), new Date(), null, null, null, null);
     }
 
     /**
@@ -146,14 +155,18 @@ public class Account implements SdkModel {
      *            upgradedAt
      * @param limits
      *            limits
+     * @param policies
+     *            policies
      * @param templateId
      *            templateId
+     * @param reason
+     *            reason
      */
     @Internal
     public Account(String id, AccountStatus status, boolean provisioningAllowed, String tierLevel, Date createdAt,
-            Date upgradedAt, Map<String, String> limits, String templateId) {
+            Date upgradedAt, Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
         this(id, status, null, null, null, null, null, null, null, null, null, null, null, provisioningAllowed, null,
-                tierLevel, createdAt, upgradedAt, limits, templateId);
+                tierLevel, createdAt, upgradedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -173,8 +186,8 @@ public class Account implements SdkModel {
      *            company
      * @param phoneNumber
      *            phoneNumber
-     * @param postCode
-     *            postCode
+     * @param postcode
+     *            postcode
      * @param addressLine1
      *            addressLine1
      *
@@ -192,37 +205,44 @@ public class Account implements SdkModel {
      *            provisioningAllowed
      * @param aliases
      *            aliases
-     * @param tierLevel
-     *            tierLevel
+     * @param tier
+     *            tier Level
      * @param createdAt
      *            createdAt
      * @param upgradedAt
      *            upgradedAt
      * @param limits
      *            limits
+     * @param policies
+     *            policies
      * @param templateId
      *            templateId
+     * @param reason
+     *            reason
      */
     @Internal
     protected Account(String id, AccountStatus status, String displayName, String contact, String company,
-            String phoneNumber, String postCode, String addressLine1, String addressLine2, String city, String state,
-            String country, String email, boolean provisioningAllowed, List<String> aliases, String tierLevel,
-            Date createdAt, Date upgradedAt, Map<String, String> limits, String templateId) {
+            String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
+            String country, String email, boolean provisioningAllowed, List<String> aliases, String tier,
+            Date createdAt, Date upgradedAt, Map<String, String> limits, List<Policy> policies, String templateId,
+            String reason) {
         super();
         setId(id);
         this.status = status;
         this.provisioningAllowed = provisioningAllowed;
-        this.tierLevel = tierLevel;
+        this.tier = tier;
         this.createdAt = createdAt;
         this.upgradedAt = upgradedAt;
         this.limits = limits;
         this.templateId = templateId;
+        this.policies = policies;
+        this.reason = reason;
         setAliases(aliases);
         setDisplayName(displayName);
         setContact(contact);
         setCompany(company);
         setPhoneNumber(phoneNumber);
-        setPostCode(postCode);
+        setPostcode(postcode);
         setAddressLine1(addressLine1);
         setAddressLine2(addressLine2);
         setCity(city);
@@ -349,22 +369,22 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the post code.
+     * Gets the postcode.
      *
      * @return the postCode.
      */
-    public String getPostCode() {
-        return postCode;
+    public String getPostcode() {
+        return postcode;
     }
 
     /**
-     * Sets the post code.
+     * Sets the postcode.
      *
-     * @param postCode
-     *            the postCode to set.
+     * @param postcode
+     *            the postcode to set.
      */
-    public void setPostCode(String postCode) {
-        this.postCode = postCode;
+    public void setPostcode(String postcode) {
+        this.postcode = postcode;
     }
 
     /**
@@ -510,6 +530,17 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Sets account aliases.
+     *
+     * @param aliases
+     *            the aliases to set as a string, such as "[\"arm-iot-tools\", \"AUTOTEST-BXAU54\"]" or "arm-iot-tools,
+     *            AUTOTEST-BXAU54".
+     */
+    public void setAliases(String aliases) {
+        setAliases(SdkModelUtils.parseListString(aliases));
+    }
+
+    /**
      * Adds a new alias to the account.
      *
      * @param alias
@@ -527,10 +558,10 @@ public class Account implements SdkModel {
     /**
      * Gets tier level.
      *
-     * @return the tierLevel.
+     * @return the tier level.
      */
-    public String getTierLevel() {
-        return tierLevel;
+    public String getTier() {
+        return tier;
     }
 
     /**
@@ -570,6 +601,24 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets list of policies.
+     * 
+     * @return the policies
+     */
+    public List<Policy> getPolicies() {
+        return policies;
+    }
+
+    /**
+     * Gets the reason note for updating the status of the account.
+     * 
+     * @return the reason
+     */
+    public String getReason() {
+        return reason;
+    }
+
+    /**
      * Gets a clone.
      *
      * @return a clone of this account.
@@ -578,9 +627,9 @@ public class Account implements SdkModel {
      */
     @Override
     public Account clone() throws CloneNotSupportedException {
-        return new Account(id, status, displayName, contact, company, phoneNumber, postCode, addressLine1, addressLine2,
-                city, state, country, email, provisioningAllowed, aliases, tierLevel, createdAt, upgradedAt, limits,
-                templateId);
+        return new Account(id, status, displayName, contact, company, phoneNumber, postcode, addressLine1, addressLine2,
+                city, state, country, email, provisioningAllowed, aliases, tier, createdAt, upgradedAt, limits,
+                policies, templateId, reason);
     }
 
     /**
@@ -595,17 +644,17 @@ public class Account implements SdkModel {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         return "Account [id=" + id + ", status=" + status + ", displayName=" + displayName + ", contact=" + contact
-                + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postCode=" + postCode + ", addressLine1="
+                + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postcode=" + postcode + ", addressLine1="
                 + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
                 + country + ", email=" + email + ", provisioningAllowed=" + provisioningAllowed + ", aliases=" + aliases
-                + ", tierLevel=" + tierLevel + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", limits="
-                + limits + ", templateId=" + templateId + "]";
+                + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", limits=" + limits
+                + ", policies=" + policies + ", templateId=" + templateId + ", reason=" + reason + "]";
     }
 
 }

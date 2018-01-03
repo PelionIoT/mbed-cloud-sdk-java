@@ -33,12 +33,12 @@ public final class AccountAdapter {
                 TranslationUtils.toBool(accountInfo.getIsProvisioningAllowed(), true), accountInfo.getTier(),
                 TranslationUtils.toDate(accountInfo.getCreatedAt()),
                 TranslationUtils.toDate(accountInfo.getUpgradedAt()), accountInfo.getLimits(),
-                accountInfo.getTemplateId());
+                PolicyAdapter.mapList(accountInfo.getPolicies()), accountInfo.getTemplateId(), accountInfo.getReason());
         account.setDisplayName(accountInfo.getDisplayName());
         account.setContact(accountInfo.getContact());
         account.setCompany(accountInfo.getCompany());
         account.setPhoneNumber(accountInfo.getPhoneNumber());
-        account.setPostCode(accountInfo.getPostalCode());
+        account.setPostcode(accountInfo.getPostalCode());
         account.setAddressLine1(accountInfo.getAddressLine1());
         account.setAddressLine2(accountInfo.getAddressLine2());
         account.setCity(accountInfo.getCity());
@@ -109,7 +109,7 @@ public final class AccountAdapter {
         accountUpdateReq.setAddressLine2(updateAccount.getAddressLine2());
         accountUpdateReq.setCity(accountUpdateReq.getCity());
         accountUpdateReq.setState(accountUpdateReq.getState());
-        accountUpdateReq.setPostalCode(updateAccount.getPostCode());
+        accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
         return accountUpdateReq;
     }
