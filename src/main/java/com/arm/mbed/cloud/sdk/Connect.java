@@ -679,7 +679,7 @@ public class Connect extends AbstractApi {
         final boolean fromCache = cacheOnly;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "getResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
@@ -908,7 +908,7 @@ public class Connect extends AbstractApi {
         final String value = resourceValue;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "setResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
@@ -1143,7 +1143,7 @@ public class Connect extends AbstractApi {
         final String function = functionName;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "executeResource()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {

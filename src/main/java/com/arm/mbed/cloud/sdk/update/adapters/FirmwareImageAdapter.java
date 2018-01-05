@@ -37,7 +37,7 @@ public final class FirmwareImageAdapter {
                 TranslationUtils.toDate(firmwareImage.getCreatedAt()),
                 TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
         image.setDataFile(null);
-        image.setDescription(image.getDescription());
+        image.setDescription(firmwareImage.getDescription());
         image.setName(firmwareImage.getName());
         return image;
     }

@@ -265,9 +265,8 @@ public class NotificationCache {
                     return null;
                 }
                 if (response.statusCode != 200) {
-                    final String errorMessage = response.errorMessage;
-                    return errorMessage == null
-                            ? "Async error (" + responseId + "). Status code: " + response.statusCode : errorMessage;
+                    return new com.arm.mbed.cloud.sdk.common.Error(response.statusCode, "Async error",
+                            response.errorMessage, responseId);
                 }
                 return response.payload;
             }

@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.common;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -256,4 +257,28 @@ public class ApiUtils {
         return normalisedPath1.equals(normalisedPath2);
     }
 
+    /**
+     * Converts date into a UTC timestamp string
+     * 
+     * @param date
+     *            date/time
+     * @return timestamp in UTC (RFC3339)
+     */
+    public static String toUTCTimestamp(Date date) {
+        return TranslationUtils.toUTCTimestamp(date);
+    }
+
+    /**
+     * 
+     * Converts string following RFC3339 into dates.
+     * 
+     * @param valueStr
+     *            string representing a date and following RFC3339
+     * @return corresponding date
+     * @throws Exception
+     *             if string does not follow RFC3339
+     */
+    public static Date convertStringToDate(String valueStr) throws Exception {
+        return TranslationUtils.convertStringToDate(valueStr);
+    }
 }
