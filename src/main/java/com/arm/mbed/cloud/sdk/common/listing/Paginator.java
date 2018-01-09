@@ -131,7 +131,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
     }
 
     /**
-     * Gets the current page’s number in the pager sequence.
+     * Gets the current page's number in the pager sequence.
      * 
      * @return page index.
      */
