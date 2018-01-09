@@ -333,26 +333,26 @@ public final class TranslationUtils {
     }
 
     /**
-     * Moves dates to UTC time zone
+     * Moves dates to UTC time zone.
      * 
      * @param date
      *            date/time
      * @return date/time in UTC
      */
-    public static DateTime moveToUTC(Date date) {
+    public static DateTime moveToUtc(Date date) {
         return (date == null) ? null : new DateTime(date).toDateTime(DateTimeZone.UTC);
     }
 
     /**
-     * Converts date into a UTC timestamp string
+     * Converts date into a UTC timestamp string.
      * 
      * @param date
      *            date/time
      * @return timestamp in UTC (RFC3339)
      */
-    public static String toUTCTimestamp(Date date) {
+    public static String toUtcTimestamp(Date date) {
         // Moving dates/Times to UTC and formatting them according to rfc3339
-        return (date == null) ? null : DATE_ISO_FORMATTER.print(moveToUTC(date));
+        return (date == null) ? null : DATE_ISO_FORMATTER.print(moveToUtc(date));
     }
 
     /**
@@ -366,10 +366,14 @@ public final class TranslationUtils {
      * @param valueStr
      *            string representing a date and following RFC3339
      * @return corresponding date
-     * @throws Exception
+     * @throws MbedCloudException
      *             if string does not follow RFC3339
      */
-    public static Date convertStringToDate(String valueStr) throws Exception {
-        return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+    public static Date convertStringToDate(String valueStr) throws MbedCloudException {
+        try {
+            return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+        } catch (Exception exception) {
+            throw new MbedCloudException(exception);
+        }
     }
 }

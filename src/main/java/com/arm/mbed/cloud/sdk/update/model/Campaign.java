@@ -328,6 +328,7 @@ public class Campaign implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -881,7 +882,7 @@ public class Campaign implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Campaign clone() throws CloneNotSupportedException {
+    public Campaign clone() {
         return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name, description,
                 manifestId, scheduledAt, deviceFilter);
     }

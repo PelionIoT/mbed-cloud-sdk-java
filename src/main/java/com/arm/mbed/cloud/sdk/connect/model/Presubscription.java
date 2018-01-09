@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
@@ -92,6 +93,17 @@ public class Presubscription implements SdkModel {
     }
 
     /**
+     * Gets presubscription Id.
+     * 
+     * @return presubscription id.
+     */
+    @Internal
+    @Override
+    public String getId() {
+        return getDeviceId();
+    }
+
+    /**
      * Gets device type.
      *
      * @return the deviceType
@@ -137,7 +149,7 @@ public class Presubscription implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Presubscription clone() throws CloneNotSupportedException {
+    public Presubscription clone() {
         return new Presubscription(deviceId, deviceType, resourcePaths);
     }
 

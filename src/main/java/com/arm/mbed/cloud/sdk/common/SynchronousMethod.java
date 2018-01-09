@@ -51,7 +51,7 @@ public class SynchronousMethod {
     public static <T> T waitForCompletion(@Nullable AbstractApi module, @Nullable String function,
             @NonNull AsynchronousMethod<T> asyncMethod, @Nullable TimePeriod timeout) throws MbedCloudException {
         if (asyncMethod == null) {
-            throw new MbedCloudException(new NullPointerException());
+            throw new MbedCloudException("Asynchronous method is Null");
         }
         final Future<T> future = asyncMethod.submit();
         if (future == null) {
@@ -65,7 +65,7 @@ public class SynchronousMethod {
                 returnValue = future.get(timeout.getDuration(), timeout.getUnit());
             }
             if (returnValue instanceof Error) {
-                Error error = (Error) returnValue;
+                final Error error = (Error) returnValue;
                 if (module != null) {
                     CloudCaller.storeApiMetadata(module, ApiMetadata.generateMetaData(function, error));
                 }

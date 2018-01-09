@@ -50,8 +50,8 @@ public class AccountManagementExamples extends AbstractExample {
             ApiKeyListOptions options = new ApiKeyListOptions();
             options.setLimit(5);
             // Listing API keys.
-            ListResponse<ApiKey> apikeys = api.listApiKeys(options);
-            for (ApiKey apiKey : apikeys.getData()) {
+            Paginator<ApiKey> apikeys = api.listAllApiKeys(options);
+            for (ApiKey apiKey : apikeys) {
                 log("API key", apiKey);
             }
         } catch (Exception e) {
@@ -105,8 +105,8 @@ public class AccountManagementExamples extends AbstractExample {
             UserListOptions options = new UserListOptions();
             options.setLimit(5);
             // Listing users.
-            ListResponse<User> users = api.listUsers(options);
-            for (User user : users.getData()) {
+            Paginator<User> users = api.listAllUsers(options);
+            for (User user : users) {
                 log("User", user);
             }
         } catch (Exception e) {

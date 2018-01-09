@@ -77,18 +77,76 @@ public class TestGenericAdapter {
                 return data;
             }
         };
-        ListResponse<Integer> listResp = GenericAdapter.mapList(list, new Mapper<String, Integer>() {
+        ListResponse<IntegerModel> listResp = GenericAdapter.mapList(list, new Mapper<String, IntegerModel>() {
 
             @SuppressWarnings("boxing")
             @Override
-            public Integer map(String toBeMapped) {
-                return TranslationUtils.convertToInteger(toBeMapped, 0);
+            public IntegerModel map(String toBeMapped) {
+                return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped, 0));
             }
         });
-        List<Integer> mappedList = listResp.getData();
+        List<IntegerModel> mappedList = listResp.getData();
         for (int i = 0; i < 5; i++) {
-            assertEquals(new Integer(i + 1), mappedList.get(i));
+            assertEquals(new IntegerModel(i + 1), mappedList.get(i));
         }
         assertEquals(list.getLimit(), list.getLimit());
+    }
+
+    private static class IntegerModel implements SdkModel {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = 5594572725706194677L;
+        private final Integer value;
+
+        public IntegerModel(Integer value) {
+            super();
+            this.value = value;
+        }
+
+        public IntegerModel(int value) {
+            this(new Integer(value));
+        }
+
+        @Override
+        public boolean isValid() {
+            return true;
+        }
+
+        @Override
+        public String getId() {
+            return String.valueOf(value);
+        }
+
+        @Override
+        public IntegerModel clone() {
+            return new IntegerModel(value);
+        }
+
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((value == null) ? 0 : value.hashCode());
+            return result;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj)
+                return true;
+            if (obj == null)
+                return false;
+            if (getClass() != obj.getClass())
+                return false;
+            IntegerModel other = (IntegerModel) obj;
+            if (value == null) {
+                if (other.value != null)
+                    return false;
+            } else if (!value.equals(other.value))
+                return false;
+            return true;
+        }
+
     }
 }

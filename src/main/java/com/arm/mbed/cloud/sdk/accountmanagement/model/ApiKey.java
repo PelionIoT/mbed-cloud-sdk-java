@@ -149,6 +149,7 @@ public class ApiKey implements SdkModel {
      *
      * @return the id.
      */
+    @Override
     public String getId() {
         return id;
     }

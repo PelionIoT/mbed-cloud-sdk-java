@@ -263,7 +263,7 @@ public class FilterMarshaller {
     private static String formatFilterValue(Object value) {
         if (value instanceof Date) {
             // Moving dates/Times to UTC and formatting them according to rfc3339
-            return ApiUtils.toUTCTimestamp((Date) value);
+            return ApiUtils.toUtcTimestamp((Date) value);
         }
         return String.valueOf(value);
     }
@@ -408,6 +408,7 @@ public class FilterMarshaller {
             return (val instanceof String || val instanceof CharSequence);
         }
 
+        @SuppressWarnings("unchecked")
         public JsonObject getJsonObject(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
@@ -417,7 +418,6 @@ public class FilterMarshaller {
                 return null;
             }
             if (val instanceof Map) {
-                @SuppressWarnings("unchecked")
                 Map<String, Object> valMap = (Map<String, Object>) val;
                 val = new JsonObject(valMap);
             }

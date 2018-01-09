@@ -76,6 +76,65 @@ public class Policy implements SdkModel {
     }
 
     /**
+     * Gets policy Id.
+     * 
+     * @return the policy id.
+     */
+    @Internal
+    @Override
+    public String getId() {
+        return getFeature();
+    }
+
+    /**
+     * States whether an action is allowed or not.
+     * 
+     * @return True is action is allowed. False otherwise.
+     */
+    public boolean isAllow() {
+        return allow;
+    }
+
+    /**
+     * Controls whether an action is allowed or not.
+     * 
+     * @param allow
+     *            True is action is allowed. False otherwise.
+     */
+    public void setAllow(boolean allow) {
+        this.allow = allow;
+    }
+
+    /**
+     * Gets comma separated list of actions related to this policy.
+     * <p>
+     * Empty string represents all actions.
+     * 
+     * @return comma separated list of actions
+     */
+    public String getAction() {
+        return action;
+    }
+
+    /**
+     * Gets the resource that is protected by this policy.
+     * 
+     * @return the resource
+     */
+    public String getResource() {
+        return resource;
+    }
+
+    /**
+     * Gets the feature name corresponding to this policy.
+     * 
+     * @return the feature name.
+     */
+    public String getFeature() {
+        return feature;
+    }
+
+    /**
      * Gets a clone.
      *
      * @return a clone of this policy.
@@ -83,7 +142,7 @@ public class Policy implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Policy clone() throws CloneNotSupportedException {
+    public Policy clone() {
         return new Policy(action, resource, feature, allow);
     }
 

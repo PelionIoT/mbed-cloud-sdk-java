@@ -4,6 +4,7 @@ import java.net.URL;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -55,6 +56,18 @@ public class Webhook implements SdkModel {
     public Webhook(URL url) {
         this();
         setUrl(url);
+    }
+
+    /**
+     * Gets webhook id (url)
+     * <p>
+     * 
+     * @return the webhook URL as a string.
+     */
+    @Internal
+    @Override
+    public String getId() {
+        return (getUrl() == null) ? null : getUrl().toString();
     }
 
     /**
@@ -122,7 +135,7 @@ public class Webhook implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Webhook clone() throws CloneNotSupportedException {
+    public Webhook clone() {
         return new Webhook(url, headers);
     }
 

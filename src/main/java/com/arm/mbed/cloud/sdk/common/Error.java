@@ -22,14 +22,42 @@ public class Error {
     }
 
     /**
-     * Constructor.
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Error()} instead.
+     * 
+     * 
+     * @param code
+     *            code.
+     * @param type
+     *            type.
+     * @param message
+     *            message.
+     * @param requestId
+     *            requestId.
      */
     public Error(int code, String type, String message, String requestId) {
         this(null, code, type, message, requestId, null);
     }
 
     /**
-     * Constructor.
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Error()} instead.
+     * 
+     * @param object
+     *            object.
+     * @param code
+     *            code.
+     * @param type
+     *            type.
+     * @param message
+     *            message.
+     * @param requestId
+     *            requestId.
+     *
+     * @param fields
+     *            fields.
      */
     public Error(String object, int code, String type, String message, String requestId, List<Field> fields) {
         super();

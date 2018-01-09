@@ -128,6 +128,17 @@ public class Resource implements SdkModel {
     }
 
     /**
+     * Gets resource Id.
+     * 
+     * @return resource Id.
+     */
+    @Internal
+    @Override
+    public String getId() {
+        return getDeviceId() + getPath();
+    }
+
+    /**
      * Sets device id.
      *
      * @param deviceId
@@ -190,8 +201,7 @@ public class Resource implements SdkModel {
     }
 
     /**
-     * States whether you can subscribe to changes for this resource or
-     * not (whether the resource is observable or not).
+     * States whether you can subscribe to changes for this resource or not (whether the resource is observable or not).
      *
      * @return the observable
      */
@@ -207,7 +217,7 @@ public class Resource implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Resource clone() throws CloneNotSupportedException {
+    public Resource clone() {
         return new Resource(deviceId, path, type, contentType, observable);
     }
 

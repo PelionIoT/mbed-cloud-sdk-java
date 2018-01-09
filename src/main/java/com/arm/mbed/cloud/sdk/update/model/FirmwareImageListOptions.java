@@ -120,4 +120,16 @@ public class FirmwareImageListOptions extends ListOptions {
         addFilter(CHECKSUM_FILTER, operator, dataFileChecksumFilter);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public FirmwareImageListOptions clone() {
+        final FirmwareImageListOptions opt = new FirmwareImageListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
+
 }

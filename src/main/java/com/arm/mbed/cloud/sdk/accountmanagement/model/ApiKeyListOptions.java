@@ -38,4 +38,16 @@ public class ApiKeyListOptions extends ListOptions {
         addEqualFilter(OWNER_ID_FILTER, ownerIdFilter);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public ApiKeyListOptions clone() {
+        final ApiKeyListOptions opt = new ApiKeyListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
+
 }

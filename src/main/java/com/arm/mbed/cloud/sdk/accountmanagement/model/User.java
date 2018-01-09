@@ -246,6 +246,7 @@ public class User implements SdkModel {
      *
      * @return the {@link #id}.
      */
+    @Override
     public String getId() {
         return id;
     }

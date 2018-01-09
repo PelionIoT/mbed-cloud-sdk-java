@@ -258,14 +258,14 @@ public class ApiUtils {
     }
 
     /**
-     * Converts date into a UTC timestamp string
+     * Converts date into a UTC timestamp string.
      * 
      * @param date
      *            date/time
      * @return timestamp in UTC (RFC3339)
      */
-    public static String toUTCTimestamp(Date date) {
-        return TranslationUtils.toUTCTimestamp(date);
+    public static String toUtcTimestamp(Date date) {
+        return TranslationUtils.toUtcTimestamp(date);
     }
 
     /**
@@ -275,10 +275,10 @@ public class ApiUtils {
      * @param valueStr
      *            string representing a date and following RFC3339
      * @return corresponding date
-     * @throws Exception
+     * @throws MbedCloudException
      *             if string does not follow RFC3339
      */
-    public static Date convertStringToDate(String valueStr) throws Exception {
+    public static Date convertStringToDate(String valueStr) throws MbedCloudException {
         return TranslationUtils.convertStringToDate(valueStr);
     }
 }

@@ -353,4 +353,15 @@ public class DeviceListOptions extends ListOptions {
         addFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public DeviceListOptions clone() {
+        final DeviceListOptions opt = new DeviceListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

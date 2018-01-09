@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing metrics within a period")
 public class MetricsStartEndListOptions extends AbstractMetricsListOptions {
@@ -20,8 +21,7 @@ public class MetricsStartEndListOptions extends AbstractMetricsListOptions {
      */
     public MetricsStartEndListOptions() {
         super();
-        setStart(null);
-        setEnd(null);
+        setDefault();
     }
 
     /**
@@ -62,4 +62,47 @@ public class MetricsStartEndListOptions extends AbstractMetricsListOptions {
         this.end = end;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.arm.mbed.cloud.sdk.common.listing.ListOptions#setOptions(com.arm.mbed.cloud.sdk.common.listing.ListOptions)
+     */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#setDefault()
+     */
+    @Override
+    protected void setDefault() {
+        super.setDefault();
+        setStart(null);
+        setEnd(null);
+    }
+
+    @Override
+    protected <T extends ListOptions> void setOptions(T options) {
+        if (options == null) {
+            setDefault();
+            return;
+        }
+        super.setOptions(options);
+        if (MetricsStartEndListOptions.class.isAssignableFrom(options.getClass())) {
+            final MetricsStartEndListOptions opt = (MetricsStartEndListOptions) options;
+            setStart(opt.getStart());
+            setEnd(opt.getEnd());
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public MetricsStartEndListOptions clone() {
+        final MetricsStartEndListOptions opt = new MetricsStartEndListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

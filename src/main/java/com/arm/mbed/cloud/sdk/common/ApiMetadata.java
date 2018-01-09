@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
@@ -55,8 +56,22 @@ public class ApiMetadata {
     }
 
     /**
-     * Constructor.
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #ApiMetadata()} instead.
+     *
+     * @param date
+     *            date.
+     * @param method
+     *            method.
+     * @param statusCode
+     *            statusCode.
+     * @param requestId
+     *            requestId.
+     * @param errorMessage
+     *            errorMessage.
      */
+    @Internal
     public ApiMetadata(Date date, String method, int statusCode, String requestId, Error errorMessage) {
         super();
         setDate(date);
@@ -263,10 +278,10 @@ public class ApiMetadata {
      */
     @Override
     public String toString() {
+        final String errorMessageStr = (errorMessage == null) ? null : errorMessage.toPrettyString();
         return "ApiMetadata [date=" + date + ", headers=" + headers + ", url=" + url + ", method=" + method
                 + ", statusCode=" + statusCode + ", requestId=" + requestId + ", object=" + object + ", etag=" + etag
-                + ", errorMessage="
-                + String.valueOf((errorMessage == null) ? errorMessage : errorMessage.toPrettyString()) + "]";
+                + ", errorMessage=" + errorMessageStr + "]";
     }
 
     /**
@@ -279,7 +294,7 @@ public class ApiMetadata {
      * @return corresponding metadata.
      */
     public static ApiMetadata generateMetaData(String method, Error error) {
-        ApiMetadata metadata = new ApiMetadata();
+        final ApiMetadata metadata = new ApiMetadata();
         if (error == null) {
             return metadata;
         }

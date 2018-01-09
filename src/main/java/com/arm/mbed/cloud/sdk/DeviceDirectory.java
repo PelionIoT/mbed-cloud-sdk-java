@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
@@ -148,12 +149,11 @@ public class DeviceDirectory extends AbstractApi {
      */
     @API
     public @Nullable Paginator<Device> listAllDevices(@Nullable DeviceListOptions options) throws MbedCloudException {
-        final DeviceListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Device>() {
+        return new Paginator<>((options == null) ? new DeviceListOptions() : options, new PageRequester<Device>() {
 
             @Override
-            public ListResponse<Device> requestNewPage() throws MbedCloudException {
-                return listDevices(finalOptions);
+            public ListResponse<Device> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listDevices((DeviceListOptions) opt);
             }
         });
     }
@@ -426,12 +426,11 @@ public class DeviceDirectory extends AbstractApi {
      */
     @API
     public @Nullable Paginator<Query> listAllQueries(@Nullable QueryListOptions options) throws MbedCloudException {
-        final QueryListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Query>() {
+        return new Paginator<>((options == null) ? new QueryListOptions() : options, new PageRequester<Query>() {
 
             @Override
-            public ListResponse<Query> requestNewPage() throws MbedCloudException {
-                return listQueries(finalOptions);
+            public ListResponse<Query> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listQueries((QueryListOptions) opt);
             }
         });
     }
@@ -725,14 +724,14 @@ public class DeviceDirectory extends AbstractApi {
     @API
     public @Nullable Paginator<DeviceEvent> listAllDeviceEvents(@Nullable DeviceEventListOptions options)
             throws MbedCloudException {
-        final DeviceEventListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<DeviceEvent>() {
+        return new Paginator<>((options == null) ? new DeviceEventListOptions() : options,
+                new PageRequester<DeviceEvent>() {
 
-            @Override
-            public ListResponse<DeviceEvent> requestNewPage() throws MbedCloudException {
-                return listDeviceEvents(finalOptions);
-            }
-        });
+                    @Override
+                    public ListResponse<DeviceEvent> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listDeviceEvents((DeviceEventListOptions) opt);
+                    }
+                });
     }
 
     /**

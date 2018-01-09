@@ -265,6 +265,7 @@ public class Account implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -626,7 +627,7 @@ public class Account implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Account clone() throws CloneNotSupportedException {
+    public Account clone() {
         return new Account(id, status, displayName, contact, company, phoneNumber, postcode, addressLine1, addressLine2,
                 city, state, country, email, provisioningAllowed, aliases, tier, createdAt, upgradedAt, limits,
                 policies, templateId, reason);

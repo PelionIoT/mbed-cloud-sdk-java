@@ -98,4 +98,15 @@ public class CertificateListOptions extends ListOptions {
         return (type == CertificateType.DEVELOPER) ? 1 : 0;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public CertificateListOptions clone() {
+        final CertificateListOptions opt = new CertificateListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

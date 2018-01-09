@@ -64,7 +64,7 @@ public class GenericAdapter {
      *            type of the object to be mapped to
      * @return mapped list or null if list is null @see ListResponse
      */
-    public static <T, U> ListResponse<T> mapList(RespList<U> respList, Mapper<U, T> mapper) {
+    public static <T extends SdkModel, U> ListResponse<T> mapList(RespList<U> respList, Mapper<U, T> mapper) {
         if (respList == null || mapper == null) {
             return null;
         }

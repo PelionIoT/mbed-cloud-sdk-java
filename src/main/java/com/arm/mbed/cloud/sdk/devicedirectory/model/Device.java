@@ -279,6 +279,7 @@ public class Device implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -713,7 +714,7 @@ public class Device implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Device clone() throws CloneNotSupportedException {
+    public Device clone() {
         return new Device(id, accountId, createdAt, updatedAt, manifestTimestamp, certificateIssuerId,
                 certificateFingerprint, name, alias, description, deviceType, hostGateway, customAttributes, state,
                 deviceClass, deviceExecutionMode, serialNumber, vendorId, connectorCertificateExpiration,
