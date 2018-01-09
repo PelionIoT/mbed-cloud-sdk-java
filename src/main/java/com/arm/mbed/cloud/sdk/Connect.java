@@ -574,6 +574,8 @@ public class Connect extends AbstractApi {
      * 
      * @param options
      *            filter options.
+     * @param <T>
+     *            Type of metrics list options
      * @return paginator @see {@link Paginator} for the list of metrics corresponding to filter options.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.

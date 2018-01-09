@@ -354,6 +354,8 @@ public class ListOptions implements Cloneable {
      * 
      * @param options
      *            parameters to set.
+     * @param <T>
+     *            type of options
      */
     protected <T extends ListOptions> void setOptions(T options) {
         final ListOptions overridingOptions = (options == null) ? new ListOptions() : options;
