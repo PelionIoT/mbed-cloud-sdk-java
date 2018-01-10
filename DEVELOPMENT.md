@@ -5,6 +5,7 @@
 [![Builds](https://img.shields.io/badge/sdk-builds-blue.svg)](http://armmbed.github.io/mbed-cloud-sdk-java/builds/)
 [![Docs](https://img.shields.io/badge/sdk-documentation-blue.svg)](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html)
 [![codecov](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java/branch/master/graph/badge.svg?token=hpPPKYJW5L)](https://codecov.io/gh/ARMmbed/mbed-cloud-sdk-java)
+[![Maintainability](https://api.codeclimate.com/v1/badges/8bc50f9e9e99bdabc030/maintainability)](https://codeclimate.com/github/ARMmbed/mbed-cloud-sdk-java/maintainability)
 [ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 

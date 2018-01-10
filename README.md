@@ -1,5 +1,7 @@
 # Mbed Cloud SDK for Java
 
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
+
 The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
 ## Prerequisites
