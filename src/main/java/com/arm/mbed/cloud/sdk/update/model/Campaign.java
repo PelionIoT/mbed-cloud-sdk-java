@@ -492,6 +492,15 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Gets when a campaign is updated at.
+     *
+     * @return the finishedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
      * Gets the filter.
      *
      * @return the filters

@@ -119,7 +119,7 @@ public class Certificates extends AbstractApi {
     public @Nullable ListResponse<Certificate> listCertificates(@Nullable CertificateListOptions options)
             throws MbedCloudException {
         final CertificateListOptions finalOptions = (options == null) ? new CertificateListOptions() : options;
-        final String serviceEq = ((CertificateType) finalOptions.getTypeFilter() == CertificateType.DEVELOPER)
+        final String serviceEq = finalOptions.getTypeFilter() == CertificateType.DEVELOPER
                 ? CertificateType.BOOTSTRAP.toString()
                 : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
         return CloudCaller.call(this, "listCertificates()", CertificateAdapter.getListMapper(),
