@@ -211,7 +211,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             // Defining query options.
             DeviceEventListOptions options = new DeviceEventListOptions();
             options.setLimit(5);
-            // Listing device events.
+            // Listing device events in a page.
             ListResponse<DeviceEvent> events = api.listDeviceEvents(options);
             for (DeviceEvent event : events.getData()) {
                 log("Device event", event);

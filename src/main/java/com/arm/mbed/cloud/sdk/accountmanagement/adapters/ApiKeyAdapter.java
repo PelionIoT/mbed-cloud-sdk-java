@@ -36,12 +36,14 @@ public final class ApiKeyAdapter {
         if (apiKeyInfo == null) {
             return null;
         }
-        final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getGroups(), toStatus(apiKeyInfo.getStatus()),
-                apiKeyInfo.getKey(), TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
+        final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getKey(),
+                TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
         apiKey.setName(apiKeyInfo.getName());
         apiKey.setOwnerId(apiKeyInfo.getOwner());
+        apiKey.setGroups(apiKeyInfo.getGroups());
+        apiKey.setStatus(toStatus(apiKeyInfo.getStatus()));
         return apiKey;
     }
 
@@ -73,6 +75,8 @@ public final class ApiKeyAdapter {
         final ApiKeyInfoReq apiKeyInfo = new ApiKeyInfoReq();
         apiKeyInfo.setName(apiKey.getName());
         apiKeyInfo.setOwner(apiKey.getOwnerId());
+        apiKeyInfo.setStatus(reverseAddRequestStatus(apiKey.getStatus()));
+        apiKeyInfo.setGroups(apiKey.getGroups());
         return apiKeyInfo;
     }
 
@@ -90,6 +94,7 @@ public final class ApiKeyAdapter {
         final ApiKeyUpdateReq apiKeyUpdate = new ApiKeyUpdateReq();
         apiKeyUpdate.setName(apiKey.getName());
         apiKeyUpdate.setOwner(apiKey.getOwnerId());
+        apiKeyUpdate.setStatus(reverseUpdateRequestStatus(apiKey.getStatus()));
         return apiKeyUpdate;
     }
 
@@ -107,6 +112,34 @@ public final class ApiKeyAdapter {
                 break;
         }
         return status;
+    }
+
+    private static ApiKeyInfoReq.StatusEnum reverseAddRequestStatus(ApiKeyStatus userStatus) {
+        if (userStatus == null) {
+            return null;
+        }
+        switch (userStatus) {
+            case ACTIVE:
+                return ApiKeyInfoReq.StatusEnum.ACTIVE;
+            case INACTIVE:
+                return ApiKeyInfoReq.StatusEnum.INACTIVE;
+            default:
+                return null;
+        }
+    }
+
+    private static ApiKeyUpdateReq.StatusEnum reverseUpdateRequestStatus(ApiKeyStatus userStatus) {
+        if (userStatus == null) {
+            return null;
+        }
+        switch (userStatus) {
+            case ACTIVE:
+                return ApiKeyUpdateReq.StatusEnum.ACTIVE;
+            case INACTIVE:
+                return ApiKeyUpdateReq.StatusEnum.INACTIVE;
+            default:
+                return null;
+        }
     }
 
     /**

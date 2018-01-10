@@ -236,4 +236,15 @@ public class CampaignListOptions extends ListOptions {
         addFilter(UPDATED_AT_FILTER, operator, updatedAtFilter);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public CampaignListOptions clone() {
+        final CampaignListOptions opt = new CampaignListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

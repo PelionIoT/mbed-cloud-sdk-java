@@ -116,6 +116,7 @@ public class CampaignDeviceState implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -190,7 +191,7 @@ public class CampaignDeviceState implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public CampaignDeviceState clone() throws CloneNotSupportedException {
+    public CampaignDeviceState clone() {
         return new CampaignDeviceState(id, deviceId, campaignId, state, name, description, createdAt, updatedAt,
                 mechanism, mechanismUrl);
     }

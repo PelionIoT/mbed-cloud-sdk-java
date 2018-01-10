@@ -146,6 +146,7 @@ public class FirmwareImage implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -283,7 +284,7 @@ public class FirmwareImage implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public FirmwareImage clone() throws CloneNotSupportedException {
+    public FirmwareImage clone() {
         return new FirmwareImage(id, name, description, dataFile, datafileSize, datafileChecksum, url, createdAt,
                 updatedAt);
     }

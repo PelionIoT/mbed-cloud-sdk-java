@@ -18,6 +18,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
@@ -171,14 +172,14 @@ public class Certificates extends AbstractApi {
     @API
     public @Nullable Paginator<Certificate> listAllCertificates(@Nullable CertificateListOptions options)
             throws MbedCloudException {
-        final CertificateListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Certificate>() {
+        return new Paginator<>((options == null) ? new CertificateListOptions() : options,
+                new PageRequester<Certificate>() {
 
-            @Override
-            public ListResponse<Certificate> requestNewPage() throws MbedCloudException {
-                return listCertificates(finalOptions);
-            }
-        });
+                    @Override
+                    public ListResponse<Certificate> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listCertificates((CertificateListOptions) opt);
+                    }
+                });
     }
 
     /**

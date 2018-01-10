@@ -72,6 +72,16 @@ public class DataFile implements SdkModel {
     }
 
     /**
+     * Gets file Id.
+     * 
+     * @return file Id (file path).
+     */
+    @Override
+    public String getId() {
+        return (getFile() == null) ? null : getFile().toString();
+    }
+
+    /**
      * Gets the content type.
      *
      * @return the contentType.
@@ -196,7 +206,7 @@ public class DataFile implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public DataFile clone() throws CloneNotSupportedException {
+    public DataFile clone() {
         return new DataFile(contentType, file);
     }
 

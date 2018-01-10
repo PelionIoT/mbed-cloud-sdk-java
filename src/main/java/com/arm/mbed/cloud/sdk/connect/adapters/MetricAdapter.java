@@ -7,8 +7,11 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
+import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 
@@ -75,11 +78,41 @@ public final class MetricAdapter {
      *            of metrics.
      * @return list of metrics
      */
-    public static List<Metric> mapList(List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> list) {
-        if (list == null) {
-            return null;
-        }
-        return GenericAdapter.mapList(list, getMapper());
+    public static ListResponse<Metric> mapList(SuccessfulResponse list) {
+        final SuccessfulResponse metricsList = list;
+        final RespList<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> respList = new RespList<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric>() {
+
+            @Override
+            public Boolean getHasMore() {
+                return (metricsList == null) ? null : metricsList.getHasMore();
+            }
+
+            @Override
+            public Integer getTotalCount() {
+                return (metricsList == null) ? null : metricsList.getTotalCount();
+            }
+
+            @Override
+            public String getAfter() {
+                return (metricsList == null) ? null : metricsList.getAfter();
+            }
+
+            @Override
+            public Integer getLimit() {
+                return (metricsList == null) ? null : metricsList.getLimit();
+            }
+
+            @Override
+            public String getOrder() {
+                return Order.getDefault().getString();
+            }
+
+            @Override
+            public List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> getData() {
+                return (metricsList == null) ? null : metricsList.getData();
+            }
+        };
+        return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
@@ -87,12 +120,12 @@ public final class MetricAdapter {
      * 
      * @return a list mapper
      */
-    public static Mapper<SuccessfulResponse, List<Metric>> getListMapper() {
-        return new Mapper<SuccessfulResponse, List<Metric>>() {
+    public static Mapper<SuccessfulResponse, ListResponse<Metric>> getListMapper() {
+        return new Mapper<SuccessfulResponse, ListResponse<Metric>>() {
 
             @Override
-            public List<Metric> map(SuccessfulResponse toBeMapped) {
-                return MetricAdapter.mapList(toBeMapped.getData());
+            public ListResponse<Metric> map(SuccessfulResponse toBeMapped) {
+                return MetricAdapter.mapList(toBeMapped);
             }
 
         };

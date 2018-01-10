@@ -111,6 +111,11 @@ public class TestApiUtils {
             return field1 != null && field2 != null;
         }
 
+        @Override
+        public String getId() {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("boxing")

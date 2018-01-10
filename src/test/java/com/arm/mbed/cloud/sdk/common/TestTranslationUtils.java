@@ -58,12 +58,13 @@ public class TestTranslationUtils {
 
     @Test
     public void testToRFC3339Timestamp() {
-        String timestamp = "2017-08-11T18:33:35+0100";
+        String timestamp = "2017-08-11T17:33:35.000Z";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("CET"));
         calendar.set(2017, 7, 11, 19, 33, 35);
         calendar.set(Calendar.MILLISECOND, 0);
-        assertEquals(timestamp, TranslationUtils.toRfc3339Timestamp(calendar.getTime()));
+        Date datetime = calendar.getTime();
+        assertEquals(timestamp, TranslationUtils.toUtcTimestamp(datetime));
     }
 
     @Test

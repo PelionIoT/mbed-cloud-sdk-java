@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.SdkModelUtils;
 
 @Preamble(description = "This object represents an API key in Arm Mbed Cloud")
 public class ApiKey implements SdkModel {
@@ -31,12 +32,16 @@ public class ApiKey implements SdkModel {
     /**
      * A list of group IDs this API key belongs to.
      */
-    private final List<String> groups;
+    private List<String> groups;
     /**
-     * The status of the user. INVITED means that the user has not accepted the invitation request. RESET means that the
-     * password must be changed immediately.
+     * The status of the user.
      */
-    private final ApiKeyStatus status;
+    private ApiKeyStatus status;
+    /**
+     * Field to keep track of an updated status.
+     */
+    @Internal
+    private transient boolean hasStatusBeenUpdated;
     /**
      * The API key.
      */
@@ -84,14 +89,15 @@ public class ApiKey implements SdkModel {
             Date createdAt, long creationTime, long lastLoginTime) {
         super();
         setId(id);
-        setName(name);
-        setOwnerId(ownerId);
-        this.groups = groups;
-        this.status = status;
         this.key = key;
         this.createdAt = createdAt;
         this.creationTime = creationTime;
         this.lastLoginTime = lastLoginTime;
+        setName(name);
+        setOwnerId(ownerId);
+        setGroups(groups);
+        setStatus(status);
+        hasStatusBeenUpdated = false;
     }
 
     /**
@@ -101,10 +107,6 @@ public class ApiKey implements SdkModel {
      *
      * @param id
      *            id
-     * @param groups
-     *            groups
-     * @param status
-     *            status
      * @param key
      *            key
      * @param createdAt
@@ -115,9 +117,8 @@ public class ApiKey implements SdkModel {
      *            lastLoginTime
      */
     @Internal
-    public ApiKey(String id, List<String> groups, ApiKeyStatus status, String key, Date createdAt, long creationTime,
-            long lastLoginTime) {
-        this(id, null, null, groups, status, key, createdAt, creationTime, lastLoginTime);
+    public ApiKey(String id, String key, Date createdAt, long creationTime, long lastLoginTime) {
+        this(id, null, null, null, ApiKeyStatus.getDefault(), key, createdAt, creationTime, lastLoginTime);
     }
 
     /**
@@ -127,7 +128,7 @@ public class ApiKey implements SdkModel {
      *
      */
     public ApiKey() {
-        this(null, null, ApiKeyStatus.getDefault(), null, new Date(), 0, 0);
+        this(null, null, new Date(), 0, 0);
     }
 
     /**
@@ -148,6 +149,7 @@ public class ApiKey implements SdkModel {
      *
      * @return the id.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -215,6 +217,28 @@ public class ApiKey implements SdkModel {
     }
 
     /**
+     * Sets the groups the API key belongs to.
+     * 
+     * @param groups
+     *            list of group IDs this API key belongs to.
+     */
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    /**
+     * Sets the groups the API key belongs to.
+     * 
+     * @param groups
+     *            list of group IDs as a string, such as
+     *            "[\"015bc8548c8902420a016d0600000000\",\"015bc8548c8902420a016d0600fsdf000\"]" or
+     *            "015bc8548c8902420a016d0600000000,015bc8548c8902420a016d0600fsdf000".
+     */
+    public void setGroups(String groups) {
+        setGroups(SdkModelUtils.parseListString(groups));
+    }
+
+    /**
      * Gets the groups.
      *
      * @return the groups.
@@ -230,6 +254,27 @@ public class ApiKey implements SdkModel {
      */
     public ApiKeyStatus getStatus() {
         return status;
+    }
+
+    /**
+     * Sets the status of the API key.
+     *
+     * @param status
+     *            the status.
+     */
+    public void setStatus(ApiKeyStatus status) {
+        this.status = status;
+        hasStatusBeenUpdated = true;
+    }
+
+    /**
+     * Checks whether the status has been modified since creation.
+     *
+     * @return true if the status has been modified. False otherwise.
+     */
+    @Internal
+    public boolean hasStatusBeenUpdated() {
+        return hasStatusBeenUpdated;
     }
 
     /**
@@ -276,7 +321,7 @@ public class ApiKey implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public ApiKey clone() throws CloneNotSupportedException {
+    public ApiKey clone() {
         return new ApiKey(id, name, ownerId, groups, status, key, createdAt, creationTime, lastLoginTime);
     }
 

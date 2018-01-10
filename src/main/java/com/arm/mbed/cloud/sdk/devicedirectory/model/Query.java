@@ -200,6 +200,7 @@ public class Query implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -604,7 +605,7 @@ public class Query implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Query clone() throws CloneNotSupportedException {
+    public Query clone() {
         return new Query(id, createdAt, updatedAt, name, filter);
     }
 

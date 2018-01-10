@@ -58,7 +58,7 @@ public class Filter implements Cloneable {
     /**
      * States whether the definition of the filter is correct.
      * 
-     * @return true if the filter is valid
+     * @return true if the filter is valid. False otherwise.
      */
     public boolean isValid() {
         return fieldName != null && value != null;
@@ -93,6 +93,58 @@ public class Filter implements Cloneable {
     @Override
     public Filter clone() {
         return new Filter(fieldName, operator, value);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((fieldName == null) ? 0 : fieldName.hashCode());
+        result = prime * result + ((operator == null) ? 0 : operator.hashCode());
+        result = prime * result + ((value == null) ? 0 : value.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Filter other = (Filter) obj;
+        if (fieldName == null) {
+            if (other.fieldName != null) {
+                return false;
+            }
+        } else if (!fieldName.equals(other.fieldName)) {
+            return false;
+        }
+        if (operator != other.operator) {
+            return false;
+        }
+        if (value == null) {
+            if (other.value != null) {
+                return false;
+            }
+        } else if (!value.equals(other.value)) {
+            return false;
+        }
+        return true;
     }
 
 }

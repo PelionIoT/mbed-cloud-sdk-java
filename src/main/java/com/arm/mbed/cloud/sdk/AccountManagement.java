@@ -70,7 +70,8 @@ public class AccountManagement extends AbstractApi {
      * Example:
      * 
      * <pre>
-     * {@code
+     * {
+     *     &#64;code
      *     Account account = accountManagementApi.getAccount();
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
@@ -204,12 +205,11 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Paginator<ApiKey> listAllApiKeys(@Nullable ApiKeyListOptions options) throws MbedCloudException {
-        final ApiKeyListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<ApiKey>() {
+        return new Paginator<>((options == null) ? new ApiKeyListOptions() : options, new PageRequester<ApiKey>() {
 
             @Override
-            public ListResponse<ApiKey> requestNewPage() throws MbedCloudException {
-                return listApiKeys(finalOptions);
+            public ListResponse<ApiKey> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listApiKeys((ApiKeyListOptions) opt);
             }
         });
     }
@@ -327,7 +327,14 @@ public class AccountManagement extends AbstractApi {
         checkNotNull(apiKey, TAG_API_KEY);
         checkNotNull(apiKey.getId(), TAG_API_KEY_UUID);
         checkModelValidity(apiKey, TAG_API_KEY);
-        final ApiKey finalApiKey = apiKey;
+        ApiKey updatedApiKey = null;
+        if (apiKey.hasStatusBeenUpdated()) {
+            updatedApiKey = apiKey;
+        } else {
+            updatedApiKey = apiKey.clone();
+            updatedApiKey.setStatus(null);
+        }
+        final ApiKey finalApiKey = updatedApiKey;
         return CloudCaller.call(this, "updateApiKey()", ApiKeyAdapter.getMapper(), new CloudCall<ApiKeyInfoResp>() {
 
             @Override
@@ -474,12 +481,11 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Paginator<User> listAllUsers(@Nullable UserListOptions options) throws MbedCloudException {
-        final UserListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<User>() {
+        return new Paginator<>((options == null) ? new UserListOptions() : options, new PageRequester<User>() {
 
             @Override
-            public ListResponse<User> requestNewPage() throws MbedCloudException {
-                return listUsers(finalOptions);
+            public ListResponse<User> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listUsers((UserListOptions) opt);
             }
         });
     }
@@ -749,12 +755,11 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Paginator<Group> listAllGroups(@Nullable ListOptions options) throws MbedCloudException {
-        final ListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Group>() {
+        return new Paginator<>(options, new PageRequester<Group>() {
 
             @Override
-            public ListResponse<Group> requestNewPage() throws MbedCloudException {
-                return listGroups(finalOptions);
+            public ListResponse<Group> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listGroups(opt);
             }
         });
     }
@@ -919,13 +924,12 @@ public class AccountManagement extends AbstractApi {
     @API
     public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
             throws MbedCloudException {
-        final ListOptions finalOptions = options;
         final String finalGroupId = groupId;
-        return new Paginator<>(new PageRequester<User>() {
+        return new Paginator<>(options, new PageRequester<User>() {
 
             @Override
-            public ListResponse<User> requestNewPage() throws MbedCloudException {
-                return listGroupUsers(finalGroupId, finalOptions);
+            public ListResponse<User> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listGroupUsers(finalGroupId, opt);
             }
         });
     }
@@ -1090,13 +1094,12 @@ public class AccountManagement extends AbstractApi {
     @API
     public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
             throws MbedCloudException {
-        final ListOptions finalOptions = options;
         final String finalGroupId = groupId;
-        return new Paginator<>(new PageRequester<ApiKey>() {
+        return new Paginator<>(options, new PageRequester<ApiKey>() {
 
             @Override
-            public ListResponse<ApiKey> requestNewPage() throws MbedCloudException {
-                return listGroupApiKeys(finalGroupId, finalOptions);
+            public ListResponse<ApiKey> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listGroupApiKeys(finalGroupId, opt);
             }
         });
     }

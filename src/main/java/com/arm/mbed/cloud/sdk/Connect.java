@@ -27,6 +27,7 @@ import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
@@ -219,7 +220,7 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Lists connected devices.
+     * Lists connected devices (One page).
      * <p>
      * Example:
      * 
@@ -245,7 +246,7 @@ public class Connect extends AbstractApi {
      * 
      * @param options
      *            filter options
-     * @return the list of connected devices.
+     * @return the list of connected devices (One page).
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -289,12 +290,11 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Paginator<Device> listAllConnectedDevices(@Nullable DeviceListOptions options)
             throws MbedCloudException {
-        final DeviceListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Device>() {
+        return new Paginator<>((options == null) ? new DeviceListOptions() : options, new PageRequester<Device>() {
 
             @Override
-            public ListResponse<Device> requestNewPage() throws MbedCloudException {
-                return listConnectedDevices(finalOptions);
+            public ListResponse<Device> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listConnectedDevices((DeviceListOptions) opt);
             }
         });
     }
@@ -493,8 +493,9 @@ public class Connect extends AbstractApi {
      *     listOptions.setEnd(endDate.getTime());
      *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
      *
-     *     List<Metric> metrics = connectApi.listMetrics(listOptions);
-     *     for (Metric metric : metrics) {
+     *     ListResponse<Metric> metrics = connectApi.listMetrics(listOptions);
+     *     //Iterates over a page
+     *     for (Metric metric : metrics.getData()) {
      *         System.out.println("Time: " + dateFormat.format(metric.getTimestamp()));
      *         System.out.println("Successful bootstraps: " + metric.getSuccessfulBootstraps());
      *         System.out.println("Successful api calls: " + metric.getSuccessfulApiCalls());
@@ -515,7 +516,7 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable <T extends AbstractMetricsListOptions> List<Metric> listMetrics(@NonNull T options)
+    public @Nullable <T extends AbstractMetricsListOptions> ListResponse<Metric> listMetrics(@NonNull T options)
             throws MbedCloudException {
         checkNotNull(options, TAG_METRIC_OPTIONS);
         final T finalOptions = options;
@@ -539,6 +540,58 @@ public class Connect extends AbstractApi {
                     }
                 });
 
+    }
+
+    /**
+     * Gets an iterator over all metrics according to filter options.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
+     *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
+     * 
+     *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
+     *     listOptions.setStart(startDate.getTime());
+     *     listOptions.setEnd(endDate.getTime());
+     *     listOptions.setInterval(new TimePeriod(360)); //Once an hour
+     *
+     *     Paginator<Metric> metrics = connectApi.listAllMetrics(listOptions);
+     *     for (Metric metric : metrics) {
+     *         System.out.println("Time: " + dateFormat.format(metric.getTimestamp()));
+     *         System.out.println("Successful bootstraps: " + metric.getSuccessfulBootstraps());
+     *         System.out.println("Successful api calls: " + metric.getSuccessfulApiCalls());
+     *         System.out.println("");
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * }
+     * </pre>
+     * 
+     * @param options
+     *            filter options.
+     * @param <T>
+     *            Type of metrics list options
+     * @return paginator @see {@link Paginator} for the list of metrics corresponding to filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable <T extends AbstractMetricsListOptions> Paginator<Metric> listAllMetrics(@NonNull T options)
+            throws MbedCloudException {
+        checkNotNull(options, TAG_METRIC_OPTIONS);
+        return new Paginator<>(options, new PageRequester<Metric>() {
+
+            @SuppressWarnings("unchecked")
+            @Override
+            public ListResponse<Metric> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listMetrics((T) opt);
+            }
+        });
     }
 
     /**
@@ -679,7 +732,7 @@ public class Connect extends AbstractApi {
         final boolean fromCache = cacheOnly;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "getResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
@@ -908,7 +961,7 @@ public class Connect extends AbstractApi {
         final String value = resourceValue;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "setResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
@@ -1143,7 +1196,7 @@ public class Connect extends AbstractApi {
         final String function = functionName;
         final boolean waitForResponse = noResponse;
         try {
-            return SynchronousMethod.waitForCompletion(new AsynchronousMethod<Object>() {
+            return SynchronousMethod.waitForCompletion(this, "executeResource()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {

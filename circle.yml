@@ -77,7 +77,7 @@ deployment:
       - aws s3 sync --delete --cache-control max-age=3600 ${BUILD_DOCS} s3://$PROJECT_NAME
       - echo Deploy to artifactory
       - python ${SCRIPTS_DIR}/sdk.py deploy:
-        timeout: 1200
+        timeout: 1800
   release:
     branch: /[0-9]+\.[0-9]+.*/
     commands:

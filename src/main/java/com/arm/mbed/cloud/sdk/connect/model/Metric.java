@@ -258,6 +258,7 @@ public class Metric implements SdkModel {
      * 
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -370,7 +371,7 @@ public class Metric implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Metric clone() throws CloneNotSupportedException {
+    public Metric clone() {
         return new Metric(id, timestamp, transactions, successfulApiCalls, failedApiCalls, handshakes,
                 pendingBootstraps, successfulBootstraps, failedBootstraps, fullRegistrations, updatedRegistrations,
                 expiredRegistrations, deletedRegistrations, successfulProxyRequests, failedProxyRequests,

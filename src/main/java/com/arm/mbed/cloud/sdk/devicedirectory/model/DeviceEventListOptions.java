@@ -60,4 +60,16 @@ public class DeviceEventListOptions extends ListOptions {
     public void addEventDateFilter(Date eventDate, FilterOperator operator) {
         addFilter(FILTER_EVENT_DATE, operator, eventDate);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public DeviceEventListOptions clone() {
+        final DeviceEventListOptions opt = new DeviceEventListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

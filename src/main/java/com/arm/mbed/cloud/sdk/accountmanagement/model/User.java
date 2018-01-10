@@ -211,7 +211,7 @@ public class User implements SdkModel {
         setEmail(email);
         setPhoneNumber(phoneNumber);
         setAddress(address);
-        setTermAccepted(areTermsAccepted);
+        setTermsAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
         hasEmailBeenUpdated = false;
     }
@@ -246,6 +246,7 @@ public class User implements SdkModel {
      *
      * @return the {@link #id}.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -400,12 +401,24 @@ public class User implements SdkModel {
     }
 
     /**
+     * States whether terms have been accepted.
+     * <p>
+     * Similar to {@link #areTermsAccepted()}
+     * 
+     * @return the {@link #areTermsAccepted}.
+     */
+    @Internal
+    public boolean isTermsAccepted() {
+        return areTermsAccepted();
+    }
+
+    /**
      * Sets whether terms have been accepted.
      *
      * @param areTermsAccepted
      *            the isTermAccepted to set
      */
-    public void setTermAccepted(boolean areTermsAccepted) {
+    public void setTermsAccepted(boolean areTermsAccepted) {
         this.areTermsAccepted = areTermsAccepted;
     }
 

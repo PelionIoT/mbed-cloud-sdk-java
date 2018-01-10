@@ -52,6 +52,7 @@
         <exclude name="AvoidSynchronizedAtMethodLevel" />
         <exclude name="GodClass" />
         <exclude name="ReturnEmptyArrayRatherThanNull" />
+        <exclude name="ConstructorCallsOverridableMethod" />
     </rule>
     <rule ref="rulesets/java/migrating.xml">
     </rule>
@@ -67,6 +68,7 @@
     </rule>
     <rule ref="rulesets/java/strictexception.xml">
         <exclude name="AvoidCatchingGenericException" />
+        <exclude name="AvoidThrowingRawExceptionTypes" />
     </rule>
     <rule ref="rulesets/java/strings.xml">
     </rule>

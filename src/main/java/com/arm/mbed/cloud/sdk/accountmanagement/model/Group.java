@@ -125,6 +125,7 @@ public class Group implements SdkModel {
      * 
      * @return the id.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -199,7 +200,7 @@ public class Group implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Group clone() throws CloneNotSupportedException {
+    public Group clone() {
         return new Group(id, accountId, name, userCount, apiKeyCount, createdAt, creationTime, lastUpdateTime);
     }
 

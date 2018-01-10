@@ -66,6 +66,17 @@ public class LoginHistory implements SdkModel {
     }
 
     /**
+     * Gets login history Id.
+     * 
+     * @return an id.
+     */
+    @Override
+    @Internal
+    public String getId() {
+        return (getDate() == null) ? null : getDate().toString();
+    }
+
+    /**
      * Gets the date.
      *
      * @return the date.
@@ -108,7 +119,7 @@ public class LoginHistory implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public LoginHistory clone() throws CloneNotSupportedException {
+    public LoginHistory clone() {
         return new LoginHistory(date, userAgent, ipAddress, success);
     }
 

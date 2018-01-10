@@ -122,13 +122,26 @@ public class Serializer {
      * Change result JSON entries to be snake case as expected by the test system
      */
     public static String convertResultToJson(Object result) {
-        return (result == null || result instanceof Void) ? "{}"
-                : (result instanceof String) ? reformatString((String) result)
-                        : (result instanceof List) ? reformatJsonList((List<?>) result).encode()
-                                : (result instanceof ListResponse)
-                                        ? reformatJsonListResponse((ListResponse<?>) result).encode()
-                                        : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE,
-                                                false).encode();
+        if (result == null || result instanceof Void) {
+            return "{}";
+        }
+        if (result instanceof String) {
+            return reformatString((String) result);
+        }
+        try {
+            if (isPrimitiveOrWrapperType(result.getClass())) {
+                return String.valueOf(result);
+            }
+        } catch (APICallException e) {
+            // Nothing to do
+        }
+        if (result instanceof List) {
+            return reformatJsonList((List<?>) result).encode();
+        }
+        if (result instanceof ListResponse) {
+            return reformatJsonListResponse((ListResponse<?>) result).encode();
+        }
+        return reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false).encode();
     }
 
     private static String reformatString(String result) {
@@ -337,9 +350,11 @@ public class Serializer {
         Map<String, Object> formattedResult = new LinkedHashMap<>();
         for (Entry<String, Object> entry : resultMap.entrySet()) {
             Object value = entry.getValue();
+
             formattedResult.put(ApiUtils.getCaseConverter(conversion).convert(entry.getKey(), capitalAtStart),
                     (value instanceof Map<?, ?>)
-                            ? reformatResultJsonMap((Map<String, Object>) value, conversion, capitalAtStart) : value);
+                            ? reformatResultJsonMap((Map<String, Object>) value, conversion, capitalAtStart)
+                            : (value instanceof List<?>) ? reformatJsonList((List<?>) value) : value);
         }
         return formattedResult;
     }

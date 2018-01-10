@@ -328,6 +328,7 @@ public class Campaign implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -361,6 +362,19 @@ public class Campaign implements SdkModel {
      */
     public void setState(CampaignState state) {
         this.state = state;
+    }
+
+    /**
+     * Sets the campaign state.
+     * <p>
+     * Similar to {@link #setState(CampaignState)}
+     * 
+     * @param state
+     *            the state as string to set
+     */
+    @Internal
+    public void setState(String state) {
+        setState(CampaignState.getState(state));
     }
 
     /**
@@ -868,7 +882,7 @@ public class Campaign implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Campaign clone() throws CloneNotSupportedException {
+    public Campaign clone() {
         return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name, description,
                 manifestId, scheduledAt, deviceFilter);
     }

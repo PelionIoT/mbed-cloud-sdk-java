@@ -12,4 +12,15 @@ public class CampaignDevicesStatesListOptions extends ListOptions {
         super();
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public CampaignDevicesStatesListOptions clone() {
+        final CampaignDevicesStatesListOptions opt = new CampaignDevicesStatesListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

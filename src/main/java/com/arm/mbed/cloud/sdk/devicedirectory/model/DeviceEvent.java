@@ -106,6 +106,7 @@ public class DeviceEvent implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -200,7 +201,7 @@ public class DeviceEvent implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public DeviceEvent clone() throws CloneNotSupportedException {
+    public DeviceEvent clone() {
         return new DeviceEvent(id, deviceId, eventDate, stateChanged, description, changes, typeDescription, type,
                 data);
     }
