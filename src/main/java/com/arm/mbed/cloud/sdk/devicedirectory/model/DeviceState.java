@@ -60,6 +60,24 @@ public enum DeviceState implements SdkEnum {
     }
 
     /**
+     * States whether a device in this state is connected.
+     * 
+     * @return True if this state is equivalent to a connected device. False otherwise.
+     */
+    public boolean isConnected() {
+        return this == getIsConnectedState();
+    }
+
+    /**
+     * Gets which state corresponds to a connected device.
+     * 
+     * @return corresponding state.
+     */
+    public static DeviceState getIsConnectedState() {
+        return DeviceState.REGISTERED;
+    }
+
+    /**
      * Merges two states.
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
