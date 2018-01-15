@@ -471,6 +471,15 @@ public class Device implements SdkModel {
     }
 
     /**
+     * States whether the device is connected or not.
+     * 
+     * @return True if the device is connected. False otherwise.
+     */
+    public boolean isConnected() {
+        return (state == null) ? false : state.isConnected();
+    }
+
+    /**
      * Sets state.
      *
      * @param state
