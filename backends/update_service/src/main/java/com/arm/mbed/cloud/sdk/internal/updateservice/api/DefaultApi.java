@@ -31,6 +31,78 @@ import java.util.Map;
 public interface DefaultApi {
   /**
    * 
+   * Create an update campaign.
+   * @param campaign Update campaign (required)
+   * @return Call&lt;UpdateCampaign&gt;
+   */
+  @POST("v3/campaigns/")
+  Call<UpdateCampaign> campaignCreate(
+    @retrofit2.http.Body UpdateCampaignPostRequest campaign
+  );
+
+  /**
+   * 
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Delete an update campaign.
+   * @param campaignId The ID of the update campaign (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/update-campaigns/{campaign_id}/")
+  Call<Void> campaignDestroy(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
+  );
+
+  /**
+   * 
+   * Get update campaigns for devices specified by a filter.
+   * @param limit How many update campaigns to retrieve (optional)
+   * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
+   * @param after The ID of the the item after which to retrieve the next page (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60; (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
+   * @return Call&lt;UpdateCampaignPage&gt;
+   */
+  @GET("v3/campaigns/")
+  Call<UpdateCampaignPage> campaignList(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * 
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign&#39;s fields.
+   * @param campaignId  (required)
+   * @param campaign Update campaign (required)
+   * @return Call&lt;UpdateCampaign&gt;
+   */
+  @PATCH("v3/update-campaigns/{campaign_id}/")
+  Call<UpdateCampaign> campaignPartialUpdate(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
+  );
+
+  /**
+   * 
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Get an update campaign.
+   * @param campaignId The campaign ID (required)
+   * @return Call&lt;UpdateCampaign&gt;
+   */
+  @GET("v3/update-campaigns/{campaign_id}/")
+  Call<UpdateCampaign> campaignRetrieve(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
+  );
+
+  /**
+   * 
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify an update campaign.
+   * @param campaignId  (required)
+   * @param campaign Update campaign (required)
+   * @return Call&lt;UpdateCampaign&gt;
+   */
+  @PUT("v3/update-campaigns/{campaign_id}/")
+  Call<UpdateCampaign> campaignUpdate(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
+  );
+
+  /**
+   * 
    * Create firmware image.
    * @param datafile The firmware image file to upload (required)
    * @param name The name of the firmware image (required)
@@ -133,7 +205,7 @@ public interface DefaultApi {
 
   /**
    * 
-   * Create an update campaign.
+   * DEPRECATED (use /v3/campaigns/ instead) Create an update campaign.
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
@@ -148,14 +220,14 @@ public interface DefaultApi {
    * @param campaignId The ID of the update campaign (required)
    * @return Call&lt;Void&gt;
    */
-  @DELETE("v3/update-campaigns/{campaign_id}/")
+  @DELETE("v3/campaigns/{campaign_id}/")
   Call<Void> updateCampaignDestroy(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
    * 
-   * Get update campaigns for devices specified by a filter.
+   * DEPRECATED (use /v3/campaigns/ instead) Get update campaigns for devices specified by a filter.
    * @param limit How many update campaigns to retrieve (optional)
    * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
@@ -175,7 +247,7 @@ public interface DefaultApi {
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  @PATCH("v3/update-campaigns/{campaign_id}/")
+  @PATCH("v3/campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignPartialUpdate(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
   );
@@ -186,8 +258,19 @@ public interface DefaultApi {
    * @param campaignId The campaign ID (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  @GET("v3/update-campaigns/{campaign_id}/")
+  @GET("v3/campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignRetrieve(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
+  );
+
+  /**
+   * 
+   * Stop a running update campaign.
+   * @param campaignId The campaign ID (required)
+   * @return Call&lt;UpdateCampaign&gt;
+   */
+  @POST("v3/update-campaigns/{campaign_id}/stop")
+  Call<UpdateCampaign> updateCampaignStop(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
@@ -198,7 +281,7 @@ public interface DefaultApi {
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
    */
-  @PUT("v3/update-campaigns/{campaign_id}/")
+  @PUT("v3/campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignUpdate(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
   );
@@ -210,6 +293,33 @@ public interface DefaultApi {
    * @param campaignDeviceMetadataId The campaign device metadata ID (required)
    * @return Call&lt;CampaignDeviceMetadata&gt;
    */
+  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
+  Call<CampaignDeviceMetadata> v3CampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
+  );
+
+  /**
+   * 
+   * Get campaign device metadata.
+   * @param campaignId The update campaign ID (required)
+   * @param limit How many objects to retrieve in the page (optional)
+   * @param order ASC or DESC (optional)
+   * @param after The ID of the the item after which to retrieve the next page (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
+   * @return Call&lt;CampaignDeviceMetadataPage&gt;
+   */
+  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/")
+  Call<CampaignDeviceMetadataPage> v3CampaignsCampaignIdCampaignDeviceMetadataGet(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * 
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ instead) Get update campaign metadata.
+   * @param campaignId The update campaign ID (required)
+   * @param campaignDeviceMetadataId The campaign device metadata ID (required)
+   * @return Call&lt;CampaignDeviceMetadata&gt;
+   */
   @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
   Call<CampaignDeviceMetadata> v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
@@ -217,7 +327,7 @@ public interface DefaultApi {
 
   /**
    * 
-   * Get campaign device metadata.
+   * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/ instead) Get campaign device metadata.
    * @param campaignId The update campaign ID (required)
    * @param limit How many objects to retrieve in the page (optional)
    * @param order ASC or DESC (optional)

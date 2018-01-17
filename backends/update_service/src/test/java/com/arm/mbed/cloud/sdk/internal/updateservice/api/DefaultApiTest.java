@@ -37,6 +37,90 @@ public class DefaultApiTest {
     /**
      * 
      *
+     * Create an update campaign.
+     */
+    @Test
+    public void campaignCreateTest() {
+        UpdateCampaignPostRequest campaign = null;
+        // UpdateCampaign response = api.campaignCreate(campaign);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Delete an update campaign.
+     */
+    @Test
+    public void campaignDestroyTest() {
+        String campaignId = null;
+        // Void response = api.campaignDestroy(campaignId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * Get update campaigns for devices specified by a filter.
+     */
+    @Test
+    public void campaignListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String filter = null;
+        String include = null;
+        // UpdateCampaignPage response = api.campaignList(limit, order, after, filter, include);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign&#39;s fields.
+     */
+    @Test
+    public void campaignPartialUpdateTest() {
+        String campaignId = null;
+        UpdateCampaignPatchRequest campaign = null;
+        // UpdateCampaign response = api.campaignPartialUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Get an update campaign.
+     */
+    @Test
+    public void campaignRetrieveTest() {
+        String campaignId = null;
+        // UpdateCampaign response = api.campaignRetrieve(campaignId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify an update campaign.
+     */
+    @Test
+    public void campaignUpdateTest() {
+        String campaignId = null;
+        UpdateCampaignPutRequest campaign = null;
+        // UpdateCampaign response = api.campaignUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
      * Create firmware image.
      */
     @Test
@@ -153,7 +237,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Create an update campaign.
+     * DEPRECATED (use /v3/campaigns/ instead) Create an update campaign.
      */
     @Test
     public void updateCampaignCreateTest() {
@@ -179,7 +263,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Get update campaigns for devices specified by a filter.
+     * DEPRECATED (use /v3/campaigns/ instead) Get update campaigns for devices specified by a filter.
      */
     @Test
     public void updateCampaignListTest() {
@@ -223,6 +307,19 @@ public class DefaultApiTest {
     /**
      * 
      *
+     * Stop a running update campaign.
+     */
+    @Test
+    public void updateCampaignStopTest() {
+        String campaignId = null;
+        // UpdateCampaign response = api.updateCampaignStop(campaignId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
      * Modify an update campaign.
      */
     @Test
@@ -240,6 +337,37 @@ public class DefaultApiTest {
      * Get update campaign metadata.
      */
     @Test
+    public void v3CampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
+        String campaignId = null;
+        String campaignDeviceMetadataId = null;
+        // CampaignDeviceMetadata response = api.v3CampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * Get campaign device metadata.
+     */
+    @Test
+    public void v3CampaignsCampaignIdCampaignDeviceMetadataGetTest() {
+        String campaignId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // CampaignDeviceMetadataPage response = api.v3CampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
+
+        // TODO: test validations
+    }
+    
+    /**
+     * 
+     *
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ instead) Get update campaign metadata.
+     */
+    @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
         String campaignId = null;
         String campaignDeviceMetadataId = null;
@@ -251,7 +379,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Get campaign device metadata.
+     * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/ instead) Get campaign device metadata.
      */
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {

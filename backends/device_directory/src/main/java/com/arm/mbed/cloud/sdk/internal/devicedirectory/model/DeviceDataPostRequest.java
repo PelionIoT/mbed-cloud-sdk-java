@@ -198,6 +198,9 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("device_key")
   private String deviceKey = null;
 
+  @SerializedName("enrolment_list_timestamp")
+  private DateTime enrolmentListTimestamp = null;
+
   @SerializedName("manifest")
   private String manifest = null;
 
@@ -228,10 +231,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The timestamp of the device&#39;s most recent bootstrap process..
+   * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process..")
+  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -590,6 +593,24 @@ public class DeviceDataPostRequest implements Serializable {
     this.deviceKey = deviceKey;
   }
 
+  public DeviceDataPostRequest enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+    return this;
+  }
+
+   /**
+   * The claim date/time.
+   * @return enrolmentListTimestamp
+  **/
+  @ApiModelProperty(value = "The claim date/time.")
+  public DateTime getEnrolmentListTimestamp() {
+    return enrolmentListTimestamp;
+  }
+
+  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  }
+
   public DeviceDataPostRequest manifest(String manifest) {
     this.manifest = manifest;
     return this;
@@ -657,13 +678,14 @@ public class DeviceDataPostRequest implements Serializable {
         Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl) &&
         Objects.equals(this.name, deviceDataPostRequest.name) &&
         Objects.equals(this.deviceKey, deviceDataPostRequest.deviceKey) &&
+        Objects.equals(this.enrolmentListTimestamp, deviceDataPostRequest.enrolmentListTimestamp) &&
         Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
         Objects.equals(this.caId, deviceDataPostRequest.caId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, object, description, vendorId, endpointType, deployment, mechanismUrl, name, deviceKey, manifest, caId);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, object, description, vendorId, endpointType, deployment, mechanismUrl, name, deviceKey, enrolmentListTimestamp, manifest, caId);
   }
 
 
@@ -693,6 +715,7 @@ public class DeviceDataPostRequest implements Serializable {
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
+    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
     sb.append("}");

@@ -263,14 +263,17 @@ public class DeviceData implements Serializable {
   @SerializedName("device_key")
   private String deviceKey = null;
 
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
+  @SerializedName("enrolment_list_timestamp")
+  private DateTime enrolmentListTimestamp = null;
 
   @SerializedName("manifest")
   private String manifest = null;
 
   @SerializedName("custom_attributes")
   private Map<String, String> customAttributes = null;
+
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
 
   public DeviceData bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -758,22 +761,22 @@ public class DeviceData implements Serializable {
     this.deviceKey = deviceKey;
   }
 
-  public DeviceData createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
+  public DeviceData enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
     return this;
   }
 
    /**
-   * The timestamp of when the device was created in the device directory.
-   * @return createdAt
+   * The claim date/time.
+   * @return enrolmentListTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of when the device was created in the device directory.")
-  public DateTime getCreatedAt() {
-    return createdAt;
+  @ApiModelProperty(value = "The claim date/time.")
+  public DateTime getEnrolmentListTimestamp() {
+    return enrolmentListTimestamp;
   }
 
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
+  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
   }
 
   public DeviceData manifest(String manifest) {
@@ -820,6 +823,24 @@ public class DeviceData implements Serializable {
     this.customAttributes = customAttributes;
   }
 
+  public DeviceData createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The timestamp of when the device was created in the device directory.
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "The timestamp of when the device was created in the device directory.")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -857,14 +878,15 @@ public class DeviceData implements Serializable {
         Objects.equals(this.mechanismUrl, deviceData.mechanismUrl) &&
         Objects.equals(this.name, deviceData.name) &&
         Objects.equals(this.deviceKey, deviceData.deviceKey) &&
-        Objects.equals(this.createdAt, deviceData.createdAt) &&
+        Objects.equals(this.enrolmentListTimestamp, deviceData.enrolmentListTimestamp) &&
         Objects.equals(this.manifest, deviceData.manifest) &&
-        Objects.equals(this.customAttributes, deviceData.customAttributes);
+        Objects.equals(this.customAttributes, deviceData.customAttributes) &&
+        Objects.equals(this.createdAt, deviceData.createdAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, updatedAt, caId, deviceClass, id, accountId, endpointName, autoUpdate, hostGateway, deviceExecutionMode, mechanism, state, etag, serialNumber, firmwareChecksum, manifestTimestamp, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, name, deviceKey, createdAt, manifest, customAttributes);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, updatedAt, caId, deviceClass, id, accountId, endpointName, autoUpdate, hostGateway, deviceExecutionMode, mechanism, state, etag, serialNumber, firmwareChecksum, manifestTimestamp, vendorId, description, deployedState, object, endpointType, deployment, mechanismUrl, name, deviceKey, enrolmentListTimestamp, manifest, customAttributes, createdAt);
   }
 
 
@@ -900,9 +922,10 @@ public class DeviceData implements Serializable {
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
