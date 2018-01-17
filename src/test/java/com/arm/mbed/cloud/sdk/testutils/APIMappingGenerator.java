@@ -16,6 +16,10 @@ import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
 
 import io.vertx.core.json.JsonObject;
 
@@ -35,8 +39,7 @@ public class APIMappingGenerator {
     }
 
     public SDK retrieveSDK() {
-        SDK sdk = new SDK();
-        sdk.setPackageName(JAVA_SDK_PACKAGE);
+        SDK sdk = new SDK(JAVA_SDK_PACKAGE);
         List<Class<?>> classes = getClassesContainedInPackage(JAVA_SDK_PACKAGE);
         for (Class<?> clazz : classes) {
             sdk.addModule(recordAPIModule(clazz));

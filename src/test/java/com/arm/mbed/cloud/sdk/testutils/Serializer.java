@@ -83,6 +83,55 @@ public class Serializer {
         }
     }
 
+    private static class DateTimeSerializer extends StdSerializer<DateTime> {
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -5880796497122627333L;
+        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
+
+        public DateTimeSerializer() {
+            this(null);
+        }
+
+        public DateTimeSerializer(Class<DateTime> t) {
+            super(t);
+        }
+
+        @SuppressWarnings("cast")
+        @Override
+        public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
+            jgen.writeString(
+                    (value == null) ? null : DATE_ISO_FORMATTER.print(((DateTime) value).toDateTime(DateTimeZone.UTC)));
+
+        }
+
+    }
+
+    private static class SDKDateTimeDeserializer extends StdDeserializer<DateTime> {
+
+        /**
+         * 
+         */
+        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
+        private static final long serialVersionUID = -1389360632544518602L;
+
+        protected SDKDateTimeDeserializer(Class<DateTime> vc) {
+            super(vc);
+        }
+
+        public SDKDateTimeDeserializer() {
+            this(null);
+        }
+
+        @Override
+        public DateTime deserialize(JsonParser p, DeserializationContext ctxt)
+                throws IOException, JsonProcessingException {
+            return DATE_ISO_FORMATTER.parseDateTime(p.getValueAsString());
+        }
+
+    }
+
     private static class SDKFiltersDeserializer extends StdDeserializer<Filters> {
 
         /**
@@ -110,7 +159,9 @@ public class Serializer {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
         module.addSerializer(Date.class, new DateSerializer());
+        module.addSerializer(DateTime.class, new DateTimeSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
+        module.addDeserializer(DateTime.class, new SDKDateTimeDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);
     }
@@ -121,12 +172,45 @@ public class Serializer {
     /*
      * Change result JSON entries to be snake case as expected by the test system
      */
-    public static String convertResultToJson(Object result) {
+    // TODO REMOVE WHEN NO LONGER NEEDED
+    public static String convertLegacyResultToJson(Object result) {
         if (result == null || result instanceof Void) {
             return "{}";
         }
         if (result instanceof String) {
-            return reformatString((String) result);
+            return reformatLegacyString((String) result);
+        }
+        try {
+            if (isPrimitiveOrWrapperType(result.getClass())) {
+                return String.valueOf(result);
+            }
+        } catch (APICallException e) {
+            // Nothing to do
+        }
+        if (result instanceof List) {
+            return reformatJsonList((List<?>) result).encode();
+        }
+        if (result instanceof ListResponse) {
+            return reformatJsonListResponse((ListResponse<?>) result).encode();
+        }
+        return reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false).encode();
+    }
+
+    public static <T> T convertJsonToObject(String jsonString, Class<T> clazz) {
+        if (jsonString == null || jsonString.isEmpty()) {
+            return null;
+        }
+        JsonObject object = reformatJsonObject(new JsonObject(jsonString.replace("\'", "\"")),
+                CaseConversion.SNAKE_TO_CAMEL, false);
+        return object.mapTo(clazz);
+    }
+
+    public static String convertResultToJson(Object result) {
+        if (result == null || result instanceof Void) {
+            return null;
+        }
+        if (result instanceof String) {
+            return reformatString(result.toString());
         }
         try {
             if (isPrimitiveOrWrapperType(result.getClass())) {
@@ -145,6 +229,14 @@ public class Serializer {
     }
 
     private static String reformatString(String result) {
+        result = result.trim();
+        if (!result.startsWith("{")) {
+            result = "\"" + result + "\"";
+        }
+        return result;
+    }
+
+    private static String reformatLegacyString(String result) {
         result = result.trim();
         if (!result.startsWith("{")) {
             result = "{\"message\":\"" + result + "\"}";

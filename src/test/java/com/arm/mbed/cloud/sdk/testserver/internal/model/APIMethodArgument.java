@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.testutils.APICallException;
+import com.arm.mbed.cloud.sdk.testutils.Serializer;
 
 public class APIMethodArgument {
     private String name;
@@ -32,6 +34,10 @@ public class APIMethodArgument {
 
     public APIMethodArgument(Class<?> typeClass, Class<?> contentTypeClass) {
         this(null, typeClass, contentTypeClass, null);
+    }
+
+    public APIMethodArgument() {
+        this(null, null);
     }
 
     /**
@@ -92,6 +98,17 @@ public class APIMethodArgument {
      */
     public void setContentType(String contentType) {
         this.contentType = contentType;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "APIMethodArgument [name=" + name + ", type=" + type + ", contentType=" + contentType + ", defaultValue="
+                + defaultValue + "]";
     }
 
     public Class<?> retrieveTypeClass() {

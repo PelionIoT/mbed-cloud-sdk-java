@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -30,6 +30,10 @@ public class APIModule {
 
     public APIModule(String name) {
         this(name, null);
+    }
+
+    public APIModule() {
+        this(null);
     }
 
     /**
@@ -107,6 +111,20 @@ public class APIModule {
         methodDescriptions.add(method);
     }
 
+    public List<APIMethod> fetchAllMethod() {
+        if (methods == null) {
+            return null;
+        }
+        List<APIMethod> list = new LinkedList<>();
+        for (String methodName : methods.keySet()) {
+            list.addAll(methods.get(methodName));
+        }
+        if (list.isEmpty()) {
+            return null;
+        }
+        return list;
+    }
+
     public List<APIMethod> getMethod(String methodName) {
         if (methodName == null || methods == null) {
             return null;
@@ -114,9 +132,11 @@ public class APIModule {
         return methods.get(methodName);
     }
 
-    public Object fetchInstance(ConnectionOptions connectionOptions) {
-        if (instance == null) {
-            instance = createInstance(connectionOptions);
+    public Object build(ConnectionOptions connectionOptions) {
+        synchronized (this) {
+            if (instance == null) {
+                instance = createInstance(connectionOptions);
+            }
         }
         return getInstance();
     }
@@ -127,12 +147,43 @@ public class APIModule {
         }
         try {
             Class<?> moduleClass = Class.forName(name);
-            Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
-            return constructor.newInstance(connectionOptions);
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | IllegalArgumentException
-                | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+            return invokeConstructor(moduleClass, connectionOptions);
+        } catch (ClassNotFoundException | SecurityException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    private Object invokeConstructor(Class<?> moduleClass, ConnectionOptions connectionOptions) {
+        final Object constructorInstance = invokeContructorWithConnectionOptions(moduleClass, connectionOptions);
+        if (constructorInstance != null) {
+            return constructorInstance;
+        }
+        return invokeEmptyContructor(moduleClass);
+
+    }
+
+    private Object invokeContructorWithConnectionOptions(Class<?> moduleClass, ConnectionOptions connectionOptions) {
+        try {
+            Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
+            return constructor.newInstance(connectionOptions);
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+            return null;
+
+        }
+    }
+
+    private Object invokeEmptyContructor(Class<?> moduleClass) {
+        try {
+            Constructor<?> constructor = moduleClass.getConstructor();
+            return constructor.newInstance();
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+                | IllegalArgumentException | InvocationTargetException e) {
+            e.printStackTrace();
+            return null;
+
         }
     }
 

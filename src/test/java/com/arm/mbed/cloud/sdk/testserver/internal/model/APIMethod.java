@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,6 +9,8 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkApi;
+import com.arm.mbed.cloud.sdk.testutils.APICallException;
 
 public class APIMethod {
     private String name;
@@ -24,6 +26,10 @@ public class APIMethod {
 
     public APIMethod(String name) {
         this(name, null, null);
+    }
+
+    public APIMethod() {
+        this(null);
     }
 
     /**
@@ -147,6 +153,16 @@ public class APIMethod {
                     argsDescription.get(arg.getName())));
         }
         return argValuesArray.toArray();
+    }
+
+    public SdkApi toSdkApi() {
+        SdkApi api = new SdkApi();
+        api.setName(name);
+        int i = 0;
+        for (APIMethodArgument arg : arguments) {
+            api.put("arg" + i, arg.toString());
+        }
+        return api;
     }
 
 }
