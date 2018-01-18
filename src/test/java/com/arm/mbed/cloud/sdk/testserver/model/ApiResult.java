@@ -14,64 +14,16 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
  * ApiResult
  */
 
-public class ApiResult implements Serializable {
+public class ApiResult extends HashMap<String, String> implements Serializable {
   private static final long serialVersionUID = 1L;
-
-  @SerializedName("success")
-  private Boolean success = null;
-
-  @SerializedName("payload")
-  private String payload = null;
-
-  public ApiResult success(Boolean success) {
-    this.success = success;
-    return this;
-  }
-
-   /**
-   * States whether the API run was successful or not
-   * @return success
-  **/
-  @ApiModelProperty(value = "States whether the API run was successful or not")
-  public Boolean isSuccess() {
-    return success;
-  }
-
-  public void setSuccess(Boolean success) {
-    this.success = success;
-  }
-
-  public ApiResult payload(String payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * JSON string representation of the method call results
-   * @return payload
-  **/
-  @ApiModelProperty(value = "JSON string representation of the method call results")
-  public String getPayload() {
-    return payload;
-  }
-
-  public void setPayload(String payload) {
-    this.payload = payload;
-  }
 
 
   @Override
@@ -82,14 +34,12 @@ public class ApiResult implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiResult apiResult = (ApiResult) o;
-    return Objects.equals(this.success, apiResult.success) &&
-        Objects.equals(this.payload, apiResult.payload);
+    return super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(success, payload);
+    return Objects.hash(super.hashCode());
   }
 
 
@@ -97,9 +47,7 @@ public class ApiResult implements Serializable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiResult {\n");
-    
-    sb.append("    success: ").append(toIndentedString(success)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
     sb.append("}");
     return sb.toString();
   }

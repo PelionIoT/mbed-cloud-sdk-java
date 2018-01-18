@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * parameters to apply to an API
+ * parameter to apply to an API
  */
-@ApiModel(description = "parameters to apply to an API")
+@ApiModel(description = "parameter to apply to an API")
 
 public class SdkApiParameter implements Serializable {
   private static final long serialVersionUID = 1L;

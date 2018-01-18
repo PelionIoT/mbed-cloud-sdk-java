@@ -314,7 +314,6 @@ public class TestServer {
                 instance = engine.createInstance(module, defaultConnectionConfiguration);
                 APIMethodResult result = engine.callAPIOnInstance(instance.getId(), method, params);
                 if (!result.wasExceptionRaised()) {
-                    // System.out.println("Success " + result.getResult());
                     String resultJson = Serializer.convertLegacyResultToJson(result.getResult());
                     logger.logDebug("RESULT: " + String.valueOf(resultJson));
                     engine.deleteInstance(instance.getId());

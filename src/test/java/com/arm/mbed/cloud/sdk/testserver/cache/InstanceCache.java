@@ -75,14 +75,11 @@ public class InstanceCache {
         }
         fetchModuleCache(instance.getModule()).storeModuleInstance(instance);
         fetchModulesCache().put(instance.getModule(), "");
-        System.out.println(instance.getId());
         fetchInstancesRegistry().put(instance.getId(), instance.getModule());
     }
 
     public void deleteInstance(String id) throws ServerCacheException {
-        System.out.println(id);
         String moduleId = fetchInstancesRegistry().get(id);
-        System.out.println(moduleId);
         deleteInstance(moduleId, id);
     }
 
@@ -114,7 +111,6 @@ public class InstanceCache {
             final List<ModuleInstance> sublist = listModuleInstances(moduleId.toString());
             list.addAll(sublist);
         }
-        System.out.println(list);
         return list;
     }
 
