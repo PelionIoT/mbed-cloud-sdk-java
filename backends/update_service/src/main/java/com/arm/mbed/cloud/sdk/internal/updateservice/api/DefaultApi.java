@@ -8,6 +8,7 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import okhttp3.RequestBody;
+import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
@@ -40,7 +41,7 @@ public interface DefaultApi {
   @retrofit2.http.Multipart
   @POST("v3/firmware-images/")
   Call<FirmwareImage> firmwareImageCreate(
-    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
+    @retrofit2.http.Part() MultipartBody.Part datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
   );
 
   /**
@@ -91,7 +92,7 @@ public interface DefaultApi {
   @retrofit2.http.Multipart
   @POST("v3/firmware-manifests/")
   Call<FirmwareManifest> firmwareManifestCreate(
-    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
+    @retrofit2.http.Part() MultipartBody.Part datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
   );
 
   /**
