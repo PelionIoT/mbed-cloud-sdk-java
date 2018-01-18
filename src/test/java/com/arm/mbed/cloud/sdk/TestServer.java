@@ -309,14 +309,19 @@ public class TestServer {
             Map<String, Object> params = retrieveQueryParameters(request);
             logger.logInfo(
                     "TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT " + new Date().toString());
+            ModuleInstance instance = null;
             try {
-                ModuleInstance instance = engine.createInstance(module, defaultConnectionConfiguration);
+                instance = engine.createInstance(module, defaultConnectionConfiguration);
                 APIMethodResult result = engine.callAPIOnInstance(instance.getId(), method, params);
                 if (!result.wasExceptionRaised()) {
+                    // System.out.println("Success " + result.getResult());
                     String resultJson = Serializer.convertLegacyResultToJson(result.getResult());
                     logger.logDebug("RESULT: " + String.valueOf(resultJson));
+                    engine.deleteInstance(instance.getId());
                     respond(200, routingContext, resultJson);
                 } else {
+                    System.out.println("error " + result.getException());
+                    engine.deleteInstance(instance.getId());
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
                         sendError(setResponse(500, routingContext), null,
@@ -330,6 +335,15 @@ public class TestServer {
                 }
 
             } catch (UnknownAPIException | APICallException | ServerCacheException e) {
+                if (instance != null) {
+                    try {
+                        engine.deleteInstance(instance.getId());
+                    } catch (ServerCacheException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+                }
+                System.out.println("error " + e);
                 sendError(setResponse(500, routingContext), null,
                         (e.getMessage() == null) ? "Exception of type " + e + " was raised" : e.getMessage());
             }
