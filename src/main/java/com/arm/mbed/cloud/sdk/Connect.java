@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
@@ -125,8 +127,25 @@ public class Connect extends AbstractApi {
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
         this.cache = new NotificationCache(this, (notificationPullingThreadPool == null)
-                ? Executors.newScheduledThreadPool(1) : notificationPullingThreadPool, endpoint);
+                ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, endpoint);
 
+    }
+
+    /**
+     * Creates a default thread pool in case none was specified.
+     * 
+     * @return thread pool
+     */
+    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
+        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
+
+            @Override
+            public Thread newThread(Runnable r) {
+                Thread thread = new Thread(r);
+                thread.setDaemon(true);
+                return thread;
+            }
+        });
     }
 
     /**
@@ -1433,7 +1452,7 @@ public class Connect extends AbstractApi {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
         final String finalDeviceId = device.getId();
-        CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
+        CloudCaller.call(this, "deleteDeviceSubscriptions()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {
