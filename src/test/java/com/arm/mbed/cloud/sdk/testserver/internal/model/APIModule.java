@@ -6,6 +6,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
@@ -115,10 +116,7 @@ public class APIModule {
         if (methods == null) {
             return null;
         }
-        List<APIMethod> list = new LinkedList<>();
-        for (String methodName : methods.keySet()) {
-            list.addAll(methods.get(methodName));
-        }
+        List<APIMethod> list = methods.values().stream().flatMap(List::stream).collect(Collectors.toList());
         if (list.isEmpty()) {
             return null;
         }
@@ -130,6 +128,43 @@ public class APIModule {
             return null;
         }
         return methods.get(methodName);
+    }
+
+    public boolean hasDaemonControlMethods() {
+        List<APIMethod> allMethods = fetchAllMethod();
+        if (allMethods == null) {
+            return false;
+        }
+        return !allMethods.stream().filter(m -> m.getDaemonControl() != DaemonControl.NONE).collect(Collectors.toList())
+                .isEmpty();
+    }
+
+    public List<APIMethod> getStartDaemonMethods() {
+        DaemonControl type = DaemonControl.START;
+        return findDaemonMethods(type);
+    }
+
+    public List<APIMethod> getStopDaemonMethods() {
+        DaemonControl type = DaemonControl.STOP;
+        return findDaemonMethods(type);
+    }
+
+    public List<APIMethod> getShutdownDaemonMethods() {
+        DaemonControl type = DaemonControl.SHUTDOWN;
+        return findDaemonMethods(type);
+    }
+
+    private List<APIMethod> findDaemonMethods(DaemonControl type) {
+        List<APIMethod> allMethods = fetchAllMethod();
+        if (allMethods == null) {
+            return null;
+        }
+        List<APIMethod> daemonMethods = allMethods.stream().filter(m -> m.getDaemonControl() == type)
+                .collect(Collectors.toList());
+        if (daemonMethods.isEmpty()) {
+            return null;
+        }
+        return daemonMethods;
     }
 
     public Object build(ConnectionOptions connectionOptions) {
@@ -154,7 +189,7 @@ public class APIModule {
         }
     }
 
-    private Object invokeConstructor(Class<?> moduleClass, ConnectionOptions connectionOptions) {
+    private static Object invokeConstructor(Class<?> moduleClass, ConnectionOptions connectionOptions) {
         final Object constructorInstance = invokeContructorWithConnectionOptions(moduleClass, connectionOptions);
         if (constructorInstance != null) {
             return constructorInstance;
@@ -163,7 +198,8 @@ public class APIModule {
 
     }
 
-    private Object invokeContructorWithConnectionOptions(Class<?> moduleClass, ConnectionOptions connectionOptions) {
+    private static Object invokeContructorWithConnectionOptions(Class<?> moduleClass,
+            ConnectionOptions connectionOptions) {
         try {
             Constructor<?> constructor = moduleClass.getConstructor(ConnectionOptions.class);
             return constructor.newInstance(connectionOptions);
@@ -175,7 +211,7 @@ public class APIModule {
         }
     }
 
-    private Object invokeEmptyContructor(Class<?> moduleClass) {
+    private static Object invokeEmptyContructor(Class<?> moduleClass) {
         try {
             Constructor<?> constructor = moduleClass.getConstructor();
             return constructor.newInstance();

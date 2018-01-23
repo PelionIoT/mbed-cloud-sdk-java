@@ -14,32 +14,30 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.Serializable;
 
 /**
- * InstanceConfiguration
+ * Connection options to apply
  */
+@ApiModel(description = "Connection options to apply")
 
-public class InstanceConfiguration extends HashMap<String, String> implements Serializable {
+public class InstanceConfiguration extends HashMap<String, Object> implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("apiKeys")
+  @JsonProperty("apiKeys")
   private String apiKeys = null;
 
-  @SerializedName("host")
+  @JsonProperty("host")
   private String host = null;
 
-  @SerializedName("autoStartDaemon")
+  @JsonProperty("autoStartDaemon")
   private Boolean autoStartDaemon = null;
 
   public InstanceConfiguration apiKeys(String apiKeys) {

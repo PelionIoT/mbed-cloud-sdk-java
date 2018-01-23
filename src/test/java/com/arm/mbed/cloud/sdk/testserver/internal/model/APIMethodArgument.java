@@ -140,6 +140,9 @@ public class APIMethodArgument {
         if (clazz == null || Void.class.isAssignableFrom(clazz)) {
             return null;
         }
+        // If the value of an argument has not been specified and there is a default value specified, then the default
+        // value is
+        // considered.
         if (fields == null || fields.isEmpty()) {
             if (defaultValue == null) {
                 return null;
@@ -196,7 +199,8 @@ public class APIMethodArgument {
 
         public PrimitiveTypes() {
             super();
-            mapping = new Hashtable<>(8);
+            mapping = new Hashtable<>(9);
+            mapping.put("int", Integer.TYPE);
             mapping.put("long", Long.TYPE);
             mapping.put("double", Double.TYPE);
             mapping.put("float", Float.TYPE);

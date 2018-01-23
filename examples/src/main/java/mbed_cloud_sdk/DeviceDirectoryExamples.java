@@ -103,7 +103,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             log("Retrieved query", myQuery);
             // Finding the first 5 devices corresponding to the query.
             DeviceListOptions options = new DeviceListOptions();
-            options.setFilter(myQuery.fetchFilter());
+            options.setFilter(myQuery.fetchFilters());
             options.setLimit(5);
             ListResponse<Device> matchingDevices = api.listDevices(options);
             for (Device device : matchingDevices.getData()) {

@@ -3,7 +3,6 @@ package com.arm.mbed.cloud.sdk.testserver.cache;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
@@ -51,7 +50,7 @@ public class InstanceCache {
         return fetchInstance(moduleId, id);
     }
 
-    public List<APIMethod> listInstanceMethods(String instanceId) throws ServerCacheException {
+    public APIModule fetchModuleFromInstance(String instanceId) throws ServerCacheException, MissingInstanceException {
         String moduleId = fetchInstancesRegistry().get(instanceId);
         SDK sdk = fetchSDK();
         if (sdk == null) {
@@ -60,13 +59,7 @@ public class InstanceCache {
         if (moduleId == null) {
             throw new MissingInstanceException("Instance [" + instanceId + "] is invalid");
         }
-
-        APIModule module = sdk.getModule(moduleId);
-        if (module == null) {
-            return null;
-        }
-        return module.fetchAllMethod();
-
+        return sdk.getModule(moduleId);
     }
 
     public void storeInstance(ModuleInstance instance) throws ServerCacheException {

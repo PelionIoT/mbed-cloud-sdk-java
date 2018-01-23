@@ -8,7 +8,6 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Device model")
@@ -322,7 +321,6 @@ public class Device implements SdkModel {
      * @param certificateIssuerId
      *            the certificateIssuerId to set
      */
-    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         this.certificateIssuerId = certificateIssuerId;
     }
@@ -342,7 +340,6 @@ public class Device implements SdkModel {
      * @param certificateFingerprint
      *            the certificateFingerprint to set
      */
-    @Required
     public void setCertificateFingerprint(String certificateFingerprint) {
         this.certificateFingerprint = certificateFingerprint;
     }

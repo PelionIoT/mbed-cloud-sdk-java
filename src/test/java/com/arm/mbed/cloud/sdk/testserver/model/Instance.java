@@ -14,31 +14,29 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * Instance
+ * Description of an SDK module instance
  */
+@ApiModel(description = "Description of an SDK module instance")
 
 public class Instance implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("id")
+  @JsonProperty("id")
   private String id = null;
 
-  @SerializedName("module")
+  @JsonProperty("module")
   private String module = null;
 
-  @SerializedName("createdAt")
+  @JsonProperty("created_at")
   private DateTime createdAt = null;
 
   public Instance id(String id) {

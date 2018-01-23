@@ -2,6 +2,8 @@ package com.arm.mbed.cloud.sdk;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Module;
@@ -47,41 +49,29 @@ public class TestStub extends AbstractApi {
     }
 
     /**
-     * Test API that does nothing and hence should be successful
+     * Test API that returns the arguments it received, some connection options and adds a day to the date argument it
+     * received. I also returns a field 'success': true
      * 
      * @throws MbedCloudException
      *             an exception
      */
+    @SuppressWarnings("boxing")
     @API
-    public void success() throws MbedCloudException {
-        // Nothing to do
+    public Map<String, Object> success(String testArgument0, int testArgument1, String testArgument2,
+            Date testArgument3) throws MbedCloudException {
+        Map<String, Object> obj = new HashMap<>(10);
+        obj.put("testArgument0", testArgument0);
+        obj.put("testArgument1", testArgument1);
+        obj.put("testArgument2", testArgument2);
+        // Adding a day to testArgument3
+        Calendar c = Calendar.getInstance();
+        c.setTime(testArgument3);
+        c.add(Calendar.DATE, 1);
+        obj.put("testArgument3", c.getTime());
+        obj.put("success", true);
+        obj.put("apiKey", opt.getApiKey());
+        obj.put("host", opt.getHost());
+        return obj;
     }
 
-    /**
-     * Test API that appends a day to a date object
-     * 
-     * @throws MbedCloudException
-     *             an exception
-     */
-    @API
-    public @Nullable Date handleDateAndAddADay(Date aDate) throws MbedCloudException {
-        if (aDate == null) {
-            return null;
-        }
-        Calendar dateWithOneDayAhead = Calendar.getInstance();
-        dateWithOneDayAhead.setTime(aDate);
-        dateWithOneDayAhead.set(Calendar.DAY_OF_MONTH, dateWithOneDayAhead.get(Calendar.DAY_OF_MONTH) + 1);
-        return dateWithOneDayAhead.getTime();
-    }
-
-    /**
-     * Test API that receives a None value and returns it
-     * 
-     * @throws MbedCloudException
-     *             an exception
-     */
-    @API
-    public @Nullable Object handleNone(Object aNoneObject) throws MbedCloudException {
-        return aNoneObject;
-    }
 }

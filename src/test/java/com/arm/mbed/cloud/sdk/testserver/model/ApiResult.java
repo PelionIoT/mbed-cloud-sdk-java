@@ -14,16 +14,41 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 /**
- * ApiResult
+ * JSON string representation of the method call result
  */
+@ApiModel(description = "JSON string representation of the method call result")
 
-public class ApiResult extends HashMap<String, String> implements Serializable {
+public class ApiResult implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  @JsonProperty("payload")
+  private Object payload = null;
+
+  public ApiResult payload(Object payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Get payload
+   * @return payload
+  **/
+  @ApiModelProperty(value = "")
+  public Object getPayload() {
+    return payload;
+  }
+
+  public void setPayload(Object payload) {
+    this.payload = payload;
+  }
 
 
   @Override
@@ -34,12 +59,13 @@ public class ApiResult extends HashMap<String, String> implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    return super.equals(o);
+    ApiResult apiResult = (ApiResult) o;
+    return Objects.equals(this.payload, apiResult.payload);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(super.hashCode());
+    return Objects.hash(payload);
   }
 
 
@@ -47,7 +73,8 @@ public class ApiResult extends HashMap<String, String> implements Serializable {
   public String toString() {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiResult {\n");
-    sb.append("    ").append(toIndentedString(super.toString())).append("\n");
+    
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("}");
     return sb.toString();
   }

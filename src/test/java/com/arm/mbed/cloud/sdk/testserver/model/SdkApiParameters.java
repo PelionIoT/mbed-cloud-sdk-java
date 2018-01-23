@@ -14,10 +14,9 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.testserver.model.SdkApiParameter;
 import io.swagger.annotations.ApiModel;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -25,7 +24,7 @@ import java.io.Serializable;
  */
 @ApiModel(description = "parameters to apply to an API")
 
-public class SdkApiParameters extends ArrayList<SdkApiParameter> implements Serializable {
+public class SdkApiParameters extends HashMap<String, Object> implements Serializable {
   private static final long serialVersionUID = 1L;
 
 

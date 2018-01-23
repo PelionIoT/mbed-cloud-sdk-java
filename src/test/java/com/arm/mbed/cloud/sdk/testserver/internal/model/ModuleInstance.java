@@ -9,6 +9,7 @@ import java.util.UUID;
 
 import org.joda.time.DateTime;
 
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.testserver.model.Instance;
 
 import io.vertx.core.shareddata.Shareable;
@@ -81,7 +82,7 @@ public class ModuleInstance implements Serializable, Shareable {
     public Instance toInstance() {
         Instance value = new Instance();
         value.setId(id);
-        value.setModule(module);
+        value.setModule(ApiUtils.convertCamelToSnake(module));
         value.setCreatedAt(new DateTime(createdAt));
         return value;
     }

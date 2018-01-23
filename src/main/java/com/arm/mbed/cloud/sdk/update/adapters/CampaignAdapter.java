@@ -59,7 +59,7 @@ public final class CampaignAdapter {
         updateCampaign.setName(campaign.getName());
         updateCampaign.setScheduledAt(TranslationUtils.toDate(campaign.getWhen()));
         updateCampaign.setState(toState(campaign.getState()));
-        updateCampaign.setDeviceFilter(decodeFilters(campaign.getDeviceFilter()));
+        updateCampaign.setDeviceFilters(decodeFilters(campaign.getDeviceFilter()));
         return updateCampaign;
     }
 

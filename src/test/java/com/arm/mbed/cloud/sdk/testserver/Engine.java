@@ -9,9 +9,11 @@ import java.util.Map.Entry;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
+import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
@@ -65,7 +67,7 @@ public class Engine {
 
     public List<ModuleInstance> listModuleInstances(String moduleId) throws ServerCacheException {
         logger.logInfo("Retrieving the list of module [" + moduleId + "] instances");
-        return cache.listModuleInstances(moduleId);
+        return cache.listModuleInstances(ApiUtils.convertSnakeToCamel(moduleId, true));
     }
 
     public List<ModuleInstance> listAllModuleInstances() throws ServerCacheException {
@@ -74,7 +76,8 @@ public class Engine {
     }
 
     public List<APIMethod> listInstanceMethods(String instanceId) throws ServerCacheException {
-        return cache.listInstanceMethods(instanceId);
+        APIModule module = cache.fetchModuleFromInstance(instanceId);
+        return (module == null) ? null : module.fetchAllMethod();
     }
 
     public ModuleInstance createInstance(String moduleId, ConnectionOptions config)
@@ -96,6 +99,7 @@ public class Engine {
 
     public void deleteInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK module instance [" + instanceId + "]");
+        stopInstanceDaemons(instanceId);
         cache.deleteInstance(instanceId);
     }
 
@@ -106,6 +110,38 @@ public class Engine {
         ModuleInstance instance = cache.fetchInstance(instanceId);
         APICaller caller = new APICaller(cache.fetchSDK());
         return caller.callAPIOnModuleInstance(instance, ApiUtils.convertSnakeToCamel(methodId, false), params);
+    }
+
+    private void stopInstanceDaemons(String instanceId) throws ServerCacheException, MissingInstanceException {
+        APIModule module = cache.fetchModuleFromInstance(instanceId);
+        if (module != null) {
+            if (module.hasDaemonControlMethods()) {
+                ModuleInstance instance = cache.fetchInstance(instanceId);
+                APICaller caller = new APICaller(cache.fetchSDK());
+                logger.logInfo("Stopping SDK module instance [" + instanceId + "] daemon threads");
+                List<APIMethod> stoppingMethods = module.getStopDaemonMethods();
+                if (stoppingMethods != null) {
+                    stoppingMethods.forEach(m -> {
+                        try {
+                            caller.callAPIOnModuleInstance(instance, m.getName(), null);
+                        } catch (UnknownAPIException | APICallException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+                logger.logInfo("Shutting down SDK module instance [" + instanceId + "] daemon executor service");
+                List<APIMethod> shuttingdownMethods = module.getShutdownDaemonMethods();
+                if (shuttingdownMethods != null) {
+                    shuttingdownMethods.forEach(m -> {
+                        try {
+                            caller.callAPIOnModuleInstance(instance, m.getName(), null);
+                        } catch (UnknownAPIException | APICallException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                }
+            }
+        }
     }
 
     private static String toString(Map<String, Object> params) {

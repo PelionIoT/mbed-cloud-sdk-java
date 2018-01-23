@@ -13,12 +13,14 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
+import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.DaemonControl;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
 
 import io.vertx.core.json.JsonObject;
@@ -68,6 +70,18 @@ public class APIMappingGenerator {
             return null;
         }
         APIMethod m = new APIMethod(method.getName());
+        if (method.isAnnotationPresent(Daemon.class)) {
+            Daemon daemonControl = method.getAnnotation(Daemon.class);
+            if (daemonControl.start()) {
+                m.setDaemonControl(DaemonControl.START);
+            }
+            if (daemonControl.stop()) {
+                m.setDaemonControl(DaemonControl.STOP);
+            }
+            if (daemonControl.shutdown()) {
+                m.setDaemonControl(DaemonControl.SHUTDOWN);
+            }
+        }
         if (method.getParameterCount() > 0) {
             Parameter[] parameters = method.getParameters();
             for (Parameter parameter : parameters) {

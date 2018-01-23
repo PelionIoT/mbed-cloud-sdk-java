@@ -10,8 +10,10 @@ import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.testserver.Engine;
 import com.arm.mbed.cloud.sdk.testserver.Logger;
 import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
@@ -20,6 +22,7 @@ import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
+import com.arm.mbed.cloud.sdk.testserver.model.ApiResult;
 import com.arm.mbed.cloud.sdk.testserver.model.ErrorMessage;
 import com.arm.mbed.cloud.sdk.testserver.model.Instance;
 import com.arm.mbed.cloud.sdk.testserver.model.InstanceConfiguration;
@@ -98,7 +101,6 @@ public class TestServer {
         try {
             engine.initialise();
         } catch (ServerCacheException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         logger.logInfo("Java SDK test server listening to port " + String.valueOf(port) + "...");
@@ -116,7 +118,7 @@ public class TestServer {
                 public Object execute() throws Exception {
                     return null;
                 }
-            });
+            }, false);
         });
     }
 
@@ -129,7 +131,7 @@ public class TestServer {
                 public Object execute() throws Exception {
                     return engine.ping();
                 }
-            });
+            }, false);
         });
     }
 
@@ -143,7 +145,7 @@ public class TestServer {
                     engine.reset();
                     return null;
                 }
-            });
+            }, false);
         });
     }
 
@@ -157,7 +159,7 @@ public class TestServer {
                     engine.shutdown();
                     return null;
                 }
-            });
+            }, false);
             System.exit(0);
         });
     }
@@ -169,9 +171,10 @@ public class TestServer {
 
                 @Override
                 public Object execute() throws Exception {
-                    return engine.listModules();
+                    return engine.listModules().stream().map(m -> ApiUtils.convertCamelToSnake(m))
+                            .collect(Collectors.toList());
                 }
-            });
+            }, false);
         });
     }
 
@@ -188,7 +191,7 @@ public class TestServer {
                     return engine.listModuleInstances(moduleId).stream().map(m -> m.toInstance())
                             .collect(Collectors.toList());
                 }
-            });
+            }, false);
         });
     }
 
@@ -206,7 +209,7 @@ public class TestServer {
                 public Object execute() throws Exception {
                     return engine.createInstance(moduleId, opts).toInstance();
                 }
-            });
+            }, false);
         });
     }
 
@@ -221,7 +224,7 @@ public class TestServer {
                     return engine.listAllModuleInstances().stream().map(m -> m.toInstance())
                             .collect(Collectors.toList());
                 }
-            });
+            }, false);
         });
     }
 
@@ -235,7 +238,7 @@ public class TestServer {
                 public Object execute() throws Exception {
                     return engine.fetchInstance(instanceId).toInstance();
                 }
-            });
+            }, false);
         });
     }
 
@@ -250,7 +253,7 @@ public class TestServer {
                     engine.deleteInstance(instanceId);
                     return null;
                 }
-            });
+            }, false);
         });
     }
 
@@ -266,12 +269,12 @@ public class TestServer {
                     return engine.listInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
                             .collect(Collectors.toList());
                 }
-            });
+            }, false);
         });
     }
 
     private void defineRunInstanceMethodRoute() {
-        Route route = router.route(HttpMethod.POST, "/instances/:" + PARAM_INSTANCE + "/methods+/:" + PARAM_METHOD)
+        Route route = router.route(HttpMethod.POST, "/instances/:" + PARAM_INSTANCE + "/methods/:" + PARAM_METHOD)
                 .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             HttpServerRequest request = routingContext.request();
@@ -291,7 +294,7 @@ public class TestServer {
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     throw new APICallException(result);
                 }
-            });
+            }, true);
         });
     }
 
@@ -319,7 +322,6 @@ public class TestServer {
                     engine.deleteInstance(instance.getId());
                     respond(200, routingContext, resultJson);
                 } else {
-                    System.out.println("error " + result.getException());
                     engine.deleteInstance(instance.getId());
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
@@ -342,7 +344,6 @@ public class TestServer {
                         e1.printStackTrace();
                     }
                 }
-                System.out.println("error " + e);
                 sendError(setResponse(500, routingContext), null,
                         (e.getMessage() == null) ? "Exception of type " + e + " was raised" : e.getMessage());
             }
@@ -360,13 +361,11 @@ public class TestServer {
     }
 
     private Map<String, Object> fetchMethodArgs(String bodyAsString) {
-        Map<String, Object> params = new LinkedHashMap<>();
+
         if (bodyAsString == null || bodyAsString.isEmpty()) {
-            return params;
+            return new LinkedHashMap<>();
         }
-        SdkApiParameters parameters = new JsonObject(bodyAsString).mapTo(SdkApiParameters.class);
-        parameters.forEach(param -> params.put(param.getName(), param.getValue()));
-        return params;
+        return new JsonObject(bodyAsString).mapTo(SdkApiParameters.class);
     }
 
     private ConnectionOptions fetchConnectionOptions(String bodyAsString) {
@@ -384,15 +383,20 @@ public class TestServer {
             return defaultConnectionConfiguration;
         }
         ConnectionOptions opts = new ConnectionOptions(conf.getApiKeys(), conf.getHost());
-        opts.setAutostartDaemon(opts.isAutostartDaemon());
+        if (opts.isApiKeyEmpty()) {
+            logger.logWarn("The test server could not find the API key configuration in the request: [" + bodyAsString
+                    + "]. Defaulting to test server configuration.");
+            return defaultConnectionConfiguration;
+        }
+        opts.setAutostartDaemon(TranslationUtils.toBool(conf.isAutoStartDaemon(), true));
         opts.setClientLogLevel(defaultConnectionConfiguration.getClientLogLevel());
         return opts;
     }
 
-    private void execute(int successfulStatusCode, RoutingContext ctx, ServerAction action) {
+    private void execute(int successfulStatusCode, RoutingContext ctx, ServerAction action, boolean enclosePayload) {
         try {
             Object result = action.execute();
-            result(successfulStatusCode, ctx, result);
+            result(successfulStatusCode, ctx, result, enclosePayload);
         } catch (UnknownAPIException | MissingInstanceException e) {
             ErrorMessage message = generateErrorMessage(e);
             error(404, ctx, message);
@@ -418,8 +422,14 @@ public class TestServer {
         respond(statusCode, routingContext, messageObj.encode());
     }
 
-    private void result(int statusCode, RoutingContext routingContext, Object result) {
-        String resultJson = Serializer.convertResultToJson(result);
+    private void result(int statusCode, RoutingContext routingContext, Object result, boolean enclosePayload) {
+        Object resultObj = Serializer.convertResultToJsonObject(result, true);
+        if (enclosePayload) {
+            ApiResult apiResult = new ApiResult();
+            apiResult.setPayload(resultObj);
+            resultObj = Serializer.convertResultToJsonObject(apiResult, true);
+        }
+        final String resultJson = Serializer.convertJsonResultToJsonString(resultObj);
         logger.logDebug("RESULT: " + String.valueOf(resultJson));
         respond(statusCode, routingContext, resultJson);
     }
@@ -441,8 +451,8 @@ public class TestServer {
         defaultConnectionConfiguration = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY),
                 System.getenv(ENVVAR_MBED_CLOUD_HOST));
         defaultConnectionConfiguration.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
-        // logger.logInfo("Host in use: " + defaultConnectionConfiguration.getHost());
-        // logInfo(JsonObject.mapFrom(config).encodePrettily());
+        // logger.logInfo("Default config:");
+        // logger.logInfo(JsonObject.mapFrom(defaultConnectionConfiguration).encodePrettily());
     }
 
     public void logWelcomeMessage() {
@@ -495,12 +505,12 @@ public class TestServer {
                                         + ". Only the first one will be considered i.e. "
                                         + String.valueOf(entry.getValue().get(0)));
                             } else {
-                                params.put(entry.getKey(), entry.getValue().get(0));
+                                params.put(entry.getKey(), Serializer.deserialiseString(entry.getValue().get(0)));
                             }
                         }
                     }
                 } else {
-                    params.put(element.getKey(), element.getValue());
+                    params.put(element.getKey(), Serializer.deserialiseString(element.getValue()));
                 }
             }
         }

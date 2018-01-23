@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -233,13 +234,26 @@ public class ListOptions implements Cloneable {
     }
 
     /**
-     * Sets the filter.
+     * Sets the filters.
      * 
-     * @param filter
+     * @param filters
      *            the filters to set
      */
-    public void setFilter(Filters filter) {
-        this.filter = filter;
+    public void setFilters(Filters filters) {
+        this.filter = filters;
+    }
+
+    /**
+     * Sets the filters.
+     * <p>
+     * Prefer using {@link #setFilters(Filters)} or {@link #setFiltersFromJson(String)} to set filters.
+     * 
+     * @param filter
+     *            filters expressed as a Json hashtable (key,value)
+     */
+    @Internal
+    public void setFilter(Map<String, Object> filter) {
+        setFilters(FilterMarshaller.fromJsonObject(filter));
     }
 
     /**
@@ -250,7 +264,7 @@ public class ListOptions implements Cloneable {
      *            Json string defining filters
      */
     public void setFiltersFromJson(String jsonString) {
-        setFilter(FilterMarshaller.fromJson(jsonString));
+        setFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
@@ -360,7 +374,7 @@ public class ListOptions implements Cloneable {
     protected <T extends ListOptions> void setOptions(T options) {
         final ListOptions overridingOptions = (options == null) ? new ListOptions() : options;
         setAfter(overridingOptions.getAfter());
-        setFilter(overridingOptions.getFilter());
+        setFilters(overridingOptions.getFilter());
         setInclude(overridingOptions.getInclude());
         setLimit(overridingOptions.getLimit());
         setOrder(overridingOptions.getOrder());
@@ -371,7 +385,7 @@ public class ListOptions implements Cloneable {
      */
     protected void setDefault() {
         setAfter(null);
-        setFilter(null);
+        setFilters(null);
         setInclude(null);
         setLimit(null);
         setOrder(Order.ASC);

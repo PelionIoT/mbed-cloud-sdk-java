@@ -14,14 +14,11 @@
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
-import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -31,10 +28,10 @@ import java.io.Serializable;
 public class ErrorMessage implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("message")
+  @JsonProperty("message")
   private String message = null;
 
-  @SerializedName("traceback")
+  @JsonProperty("traceback")
   private String traceback = null;
 
   public ErrorMessage message(String message) {
