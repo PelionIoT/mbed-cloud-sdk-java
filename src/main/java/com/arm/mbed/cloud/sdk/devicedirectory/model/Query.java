@@ -171,7 +171,7 @@ public class Query implements SdkModel {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         setName(name);
-        setFilters(filter);
+        setFilters(filters);
     }
 
     /**
@@ -192,7 +192,7 @@ public class Query implements SdkModel {
     public Query(String name, Filters filters) {
         this();
         setName(name);
-        setFilters(filter);
+        setFilters(filters);
     }
 
     /**

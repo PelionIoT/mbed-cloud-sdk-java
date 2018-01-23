@@ -16,7 +16,7 @@ public class Filters implements Cloneable, Serializable {
      * Serialisation ID.
      */
     private static final long serialVersionUID = -837782008433807201L;
-    private final Map<String, Map<FilterOperator, List<Filter>>> filterList;
+    private final transient Map<String, Map<FilterOperator, List<Filter>>> filterList;
 
     /**
      * Constructor.

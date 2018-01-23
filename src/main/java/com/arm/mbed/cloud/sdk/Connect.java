@@ -140,8 +140,8 @@ public class Connect extends AbstractApi {
         return Executors.newScheduledThreadPool(1, new ThreadFactory() {
 
             @Override
-            public Thread newThread(Runnable r) {
-                Thread thread = new Thread(r);
+            public Thread newThread(Runnable runable) {
+                final Thread thread = new Thread(runable);
                 thread.setDaemon(true);
                 return thread;
             }
