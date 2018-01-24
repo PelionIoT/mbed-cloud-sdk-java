@@ -50,19 +50,21 @@ public class Certificates extends AbstractApi {
         endpoint = new EndPoints(this.client);
     }
 
+    @SuppressWarnings("unchecked")
     @Internal
-    private @Nullable Certificate fetchServerInformation(@Nullable CertificateType type) throws MbedCloudException {
+    private @Nullable Certificate fetchConnectorInformation(@Nullable CertificateType type,
+            @Nullable String certificateId) throws MbedCloudException {
         if (type == null) {
             return null;
         }
-        CloudCall<ServerCredentialsResponseData> caller = null;
+        CloudCall<?> caller = null;
         switch (type) {
             case BOOTSTRAP:
                 caller = new CloudCall<ServerCredentialsResponseData>() {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServer().v3ServerCredentialsBootstrapGet(null);
+                        return endpoint.getConnector().v3ServerCredentialsBootstrapGet(null);
                     }
 
                 };
@@ -72,21 +74,51 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServer().v3ServerCredentialsLwm2mGet(null);
+                        return endpoint.getConnector().v3ServerCredentialsLwm2mGet(null);
                     }
 
                 };
                 break;
             case DEVELOPER:
+                caller = (certificateId == null) ? null : new CloudCall<DeveloperCertificateResponseData>() {
+
+                    @Override
+                    public Call<DeveloperCertificateResponseData> call() {
+                        return endpoint.getConnector().v3DeveloperCertificatesMuuidGet(certificateId, null);
+                    }
+
+                };
+                break;
             default:
                 break;
         }
-        return (caller == null) ? null
-                : CloudCaller.call(this, "getServerCredential()", CertificateAdapter.getServerMapper(), caller);
+        if (caller == null) {
+            return null;
+        }
+        if (type == CertificateType.DEVELOPER) {
+            return CloudCaller.call(this, "getDeveloperCredentials()", CertificateAdapter.getDeveloperMapper(),
+                    (CloudCall<DeveloperCertificateResponseData>) caller);
+        }
+        return CloudCaller.call(this, "getConnectorCredentials()", CertificateAdapter.getServerMapper(),
+                (CloudCall<ServerCredentialsResponseData>) caller);
+    }
+
+    @Internal
+    private Certificate performCertificateAction(final String actionName,
+            final CloudCall<TrustedCertificateResp> action) throws MbedCloudException {
+        final Certificate accountCertificate = CloudCaller.call(this, actionName, CertificateAdapter.getMapper(),
+                action);
+        return Certificate.merge(accountCertificate,
+                fetchConnectorInformation((accountCertificate == null) ? null : accountCertificate.getType(),
+                        (accountCertificate == null) ? null : accountCertificate.getId()));
     }
 
     /**
      * Lists all certificates according to filter options.
+     * <p>
+     * Note: This method returns only partially complete certificate objects.
+     * <p>
+     * In order to see the full information about a particular certificate, use {@link #getCertificate(String)} instead.
      * <p>
      * Example:
      * 
@@ -210,16 +242,13 @@ public class Certificates extends AbstractApi {
     public @Nullable Certificate getCertificate(@NonNull String certificateId) throws MbedCloudException {
         checkNotNull(certificateId, TAG_CERTIFICATE_ID);
         final String id = certificateId;
-        final Certificate accountCertificate = CloudCaller.call(this, "getCertificate()",
-                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
+        return performCertificateAction("getCertificate()", new CloudCall<TrustedCertificateResp>() {
 
-                    @Override
-                    public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAccountDeveloper().getCertificate(id);
-                    }
-                });
-        return Certificate.merge(accountCertificate,
-                fetchServerInformation((accountCertificate == null) ? null : accountCertificate.getType()));
+            @Override
+            public Call<TrustedCertificateResp> call() {
+                return endpoint.getAccountDeveloper().getCertificate(id);
+            }
+        });
     }
 
     /**
@@ -255,16 +284,13 @@ public class Certificates extends AbstractApi {
         checkNotNull(certificate, TAG_CERTIFICATE);
         checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
-        final Certificate accountCertificate = CloudCaller.call(this, "addCertificate()",
-                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
+        return performCertificateAction("addCertificate()", new CloudCall<TrustedCertificateResp>() {
 
-                    @Override
-                    public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMapAdd(finalCertificate));
-                    }
-                });
-        return Certificate.merge(accountCertificate,
-                fetchServerInformation((accountCertificate == null) ? null : accountCertificate.getType()));
+            @Override
+            public Call<TrustedCertificateResp> call() {
+                return endpoint.getAdmin().addCertificate(CertificateAdapter.reverseMapAdd(finalCertificate));
+            }
+        });
     }
 
     /**
@@ -306,15 +332,15 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getCertDeveloper().v3DeveloperCertificatesPost(null,
+                        return endpoint.getConnector().v3DeveloperCertificatesPost(null,
                                 CertificateAdapter.reverseDeveloperMap(finalCertificate));
                     }
                 });
         if (addedPartialCertificate1 == null) {
             return null;
         }
-        final Certificate addedPartialCertificate2 = CloudCaller.call(this, "addCertificate()",
-                CertificateAdapter.getMapper(), new CloudCall<TrustedCertificateResp>() {
+        final Certificate addedPartialCertificate2 = performCertificateAction("addDeveloperCertificate()",
+                new CloudCall<TrustedCertificateResp>() {
 
                     @Override
                     public Call<TrustedCertificateResp> call() {
@@ -360,15 +386,14 @@ public class Certificates extends AbstractApi {
         checkNotNull(certificate.getId(), TAG_CERTIFICATE_ID);
         checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
-        return CloudCaller.call(this, "updateCertificate()", CertificateAdapter.getMapper(),
-                new CloudCall<TrustedCertificateResp>() {
+        return performCertificateAction("updateCertificate()", new CloudCall<TrustedCertificateResp>() {
 
-                    @Override
-                    public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAccountDeveloper().updateCertificate(finalCertificate.getId(),
-                                CertificateAdapter.reverseMapUpdate(finalCertificate));
-                    }
-                });
+            @Override
+            public Call<TrustedCertificateResp> call() {
+                return endpoint.getAccountDeveloper().updateCertificate(finalCertificate.getId(),
+                        CertificateAdapter.reverseMapUpdate(finalCertificate));
+            }
+        });
     }
 
     /**
