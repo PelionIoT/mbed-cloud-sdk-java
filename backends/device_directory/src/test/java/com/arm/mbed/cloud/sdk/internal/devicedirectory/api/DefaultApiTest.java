@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.internal.devicedirectory.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
@@ -10,7 +9,6 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
 import org.junit.Before;
 import org.junit.Test;
@@ -139,20 +137,6 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Update device fields.
-     */
-    @Test
-    public void devicePartialUpdateTest() {
-        String id = null;
-        DeviceDataPatchRequest device = null;
-        // DeviceData response = api.devicePartialUpdate(id, device);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * 
-     *
      * Create device query.
      */
     @Test
@@ -189,20 +173,6 @@ public class DefaultApiTest {
         String filter = null;
         String include = null;
         // DeviceQueryPage response = api.deviceQueryList(limit, order, after, filter, include);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * 
-     *
-     * Update device query fields.
-     */
-    @Test
-    public void deviceQueryPartialUpdateTest() {
-        String queryId = null;
-        DeviceQueryPatchRequest deviceQuery = null;
-        // DeviceQuery response = api.deviceQueryPartialUpdate(queryId, deviceQuery);
 
         // TODO: test validations
     }

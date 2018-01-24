@@ -18,7 +18,6 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
 
@@ -64,18 +63,6 @@ public interface DefaultApi {
   @GET("v3/campaigns/")
   Call<UpdateCampaignPage> campaignList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
-  );
-
-  /**
-   * 
-   * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify a subset of an update campaign&#39;s fields.
-   * @param campaignId  (required)
-   * @param campaign Update campaign (required)
-   * @return Call&lt;UpdateCampaign&gt;
-   */
-  @PATCH("v3/update-campaigns/{campaign_id}/")
-  Call<UpdateCampaign> campaignPartialUpdate(
-    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
   );
 
   /**
@@ -242,14 +229,29 @@ public interface DefaultApi {
 
   /**
    * 
-   * Modify a subset of an update campaign&#39;s fields.
-   * @param campaignId  (required)
-   * @param campaign Update campaign (required)
-   * @return Call&lt;UpdateCampaign&gt;
+   * Get campaign device metadata.
+   * @param campaignId The update campaign ID (required)
+   * @param limit How many objects to retrieve in the page (optional)
+   * @param order ASC or DESC (optional)
+   * @param after The ID of the the item after which to retrieve the next page (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
+   * @return Call&lt;CampaignDeviceMetadataPage&gt;
    */
-  @PATCH("v3/campaigns/{campaign_id}/")
-  Call<UpdateCampaign> updateCampaignPartialUpdate(
-    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPatchRequest campaign
+  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/")
+  Call<CampaignDeviceMetadataPage> updateCampaignMetadataList(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * 
+   * Get update campaign metadata.
+   * @param campaignId The update campaign ID (required)
+   * @param campaignDeviceMetadataId The campaign device metadata ID (required)
+   * @return Call&lt;CampaignDeviceMetadata&gt;
+   */
+  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
+  Call<CampaignDeviceMetadata> updateCampaignMetadataRetreive(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
   );
 
   /**
@@ -284,33 +286,6 @@ public interface DefaultApi {
   @PUT("v3/campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignUpdate(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
-  );
-
-  /**
-   * 
-   * Get update campaign metadata.
-   * @param campaignId The update campaign ID (required)
-   * @param campaignDeviceMetadataId The campaign device metadata ID (required)
-   * @return Call&lt;CampaignDeviceMetadata&gt;
-   */
-  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
-  Call<CampaignDeviceMetadata> v3CampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(
-    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
-  );
-
-  /**
-   * 
-   * Get campaign device metadata.
-   * @param campaignId The update campaign ID (required)
-   * @param limit How many objects to retrieve in the page (optional)
-   * @param order ASC or DESC (optional)
-   * @param after The ID of the the item after which to retrieve the next page (optional)
-   * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
-   * @return Call&lt;CampaignDeviceMetadataPage&gt;
-   */
-  @GET("v3/campaigns/{campaign_id}/campaign-device-metadata/")
-  Call<CampaignDeviceMetadataPage> v3CampaignsCampaignIdCampaignDeviceMetadataGet(
-    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
   );
 
   /**

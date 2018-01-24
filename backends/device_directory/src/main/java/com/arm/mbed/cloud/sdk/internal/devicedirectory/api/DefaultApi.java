@@ -10,7 +10,6 @@ import retrofit2.http.*;
 import okhttp3.RequestBody;
 
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
@@ -18,7 +17,6 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
 
 import java.util.ArrayList;
@@ -119,18 +117,6 @@ public interface DefaultApi {
 
   /**
    * 
-   * Update device fields.
-   * @param id The ID of the device. (required)
-   * @param device  (required)
-   * @return Call&lt;DeviceData&gt;
-   */
-  @PATCH("v3/devices/{id}/")
-  Call<DeviceData> devicePartialUpdate(
-    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body DeviceDataPatchRequest device
-  );
-
-  /**
-   * 
    * Create device query.
    * @param device  (required)
    * @return Call&lt;DeviceQuery&gt;
@@ -164,18 +150,6 @@ public interface DefaultApi {
   @GET("v3/device-queries/")
   Call<DeviceQueryPage> deviceQueryList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("filter") String filter, @retrofit2.http.Query("include") String include
-  );
-
-  /**
-   * 
-   * Update device query fields.
-   * @param queryId  (required)
-   * @param deviceQuery  (required)
-   * @return Call&lt;DeviceQuery&gt;
-   */
-  @PATCH("v3/device-queries/{query_id}/")
-  Call<DeviceQuery> deviceQueryPartialUpdate(
-    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId, @retrofit2.http.Body DeviceQueryPatchRequest deviceQuery
   );
 
   /**

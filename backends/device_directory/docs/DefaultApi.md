@@ -11,11 +11,9 @@ Method | HTTP request | Description
 [**deviceList**](DefaultApi.md#deviceList) | **GET** v3/devices/ | 
 [**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** v3/devicelog/ | 
 [**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** v3/devicelog/{device_event_id}/ | 
-[**devicePartialUpdate**](DefaultApi.md#devicePartialUpdate) | **PATCH** v3/devices/{id}/ | 
 [**deviceQueryCreate**](DefaultApi.md#deviceQueryCreate) | **POST** v3/device-queries/ | 
 [**deviceQueryDestroy**](DefaultApi.md#deviceQueryDestroy) | **DELETE** v3/device-queries/{query_id}/ | 
 [**deviceQueryList**](DefaultApi.md#deviceQueryList) | **GET** v3/device-queries/ | 
-[**deviceQueryPartialUpdate**](DefaultApi.md#deviceQueryPartialUpdate) | **PATCH** v3/device-queries/{query_id}/ | 
 [**deviceQueryRetrieve**](DefaultApi.md#deviceQueryRetrieve) | **GET** v3/device-queries/{query_id}/ | 
 [**deviceQueryUpdate**](DefaultApi.md#deviceQueryUpdate) | **PUT** v3/device-queries/{query_id}/ | 
 [**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** v3/devices/{id}/ | 
@@ -431,63 +429,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="devicePartialUpdate"></a>
-# **devicePartialUpdate**
-> DeviceData devicePartialUpdate(id, device)
-
-
-
-Update device fields.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String id = "id_example"; // String | The ID of the device.
-DeviceDataPatchRequest device = new DeviceDataPatchRequest(); // DeviceDataPatchRequest | 
-try {
-    DeviceData result = apiInstance.devicePartialUpdate(id, device);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#devicePartialUpdate");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| The ID of the device. |
- **device** | [**DeviceDataPatchRequest**](DeviceDataPatchRequest.md)|  |
-
-### Return type
-
-[**DeviceData**](DeviceData.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="deviceQueryCreate"></a>
 # **deviceQueryCreate**
 > DeviceQuery deviceQueryCreate(device)
@@ -651,63 +592,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeviceQueryPage**](DeviceQueryPage.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="deviceQueryPartialUpdate"></a>
-# **deviceQueryPartialUpdate**
-> DeviceQuery deviceQueryPartialUpdate(queryId, deviceQuery)
-
-
-
-Update device query fields.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String queryId = "queryId_example"; // String | 
-DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest(); // DeviceQueryPatchRequest | 
-try {
-    DeviceQuery result = apiInstance.deviceQueryPartialUpdate(queryId, deviceQuery);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#deviceQueryPartialUpdate");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **queryId** | **String**|  |
- **deviceQuery** | [**DeviceQueryPatchRequest**](DeviceQueryPatchRequest.md)|  |
-
-### Return type
-
-[**DeviceQuery**](DeviceQuery.md)
 
 ### Authorization
 
