@@ -3,6 +3,8 @@
  */
 package com.arm.mbed.cloud.sdk.testutils;
 
+import java.lang.reflect.InvocationTargetException;
+
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
 
 public class APICallException extends Exception {
@@ -30,14 +32,25 @@ public class APICallException extends Exception {
      * @param arg0
      */
     public APICallException(APIMethodResult arg0) {
-        super(generateErrorMessage(arg0));
+        super(generateErrorMessage(arg0), generateThrowable(arg0));
     }
 
+    private static Throwable generateThrowable(APIMethodResult arg0) {
+        if (arg0 == null) {
+            return null;
+        }
+        return arg0.getException().getCause();
+    }
+
+    @SuppressWarnings("cast")
     private static String generateErrorMessage(APIMethodResult arg0) {
         if (arg0 == null) {
             return "Unknown reason";
         }
         if (arg0.getMetadata() == null) {
+            if (arg0.getException() instanceof InvocationTargetException && arg0.getException().getCause() != null) {
+                return arg0.getException().getCause().getMessage();
+            }
             return (arg0.getException().getMessage() == null)
                     ? "Exception of type " + arg0.getException() + " was raised" : arg0.getException().getMessage();
         }

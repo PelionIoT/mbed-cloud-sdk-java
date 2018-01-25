@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
@@ -24,16 +23,10 @@ import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
 @Preamble(description = "Mechanism to call API methods by reflection")
 public class APICaller {
     private SDK sdk;
-    private ConnectionOptions connectionOptions;
-
-    public APICaller(SDK sdk, ConnectionOptions connectionOptions) {
-        super();
-        this.sdk = sdk;
-        this.connectionOptions = connectionOptions;
-    }
 
     public APICaller(SDK sdk) {
-        this(sdk, null);
+        super();
+        this.sdk = sdk;
     }
 
     /**
@@ -51,53 +44,34 @@ public class APICaller {
         this.sdk = sdk;
     }
 
-    /**
-     * @return the connectionOptions
-     */
-    public ConnectionOptions getConnectionOptions() {
-        return connectionOptions;
-    }
-
-    /**
-     * @param connectionOptions
-     *            the connectionOptions to set
-     */
-    public void setConnectionOptions(ConnectionOptions connectionOptions) {
-        this.connectionOptions = connectionOptions;
-    }
-
     @SuppressWarnings("null")
     public APIMethodResult callAPIOnModuleInstance(ModuleInstance moduleInstance, String method,
             Map<String, Object> parameters) throws UnknownAPIException, APICallException {
         if (moduleInstance == null) {
             throwMissingModule(null);
         }
-        return callAPIOnInstance(moduleInstance.getInstance(), method, parameters);
-    }
-
-    @SuppressWarnings("null")
-    public APIMethodResult callAPIOnInstance(APIModule moduleObj, String method, Map<String, Object> parameters)
-            throws UnknownAPIException, APICallException {
-        if (moduleObj == null) {
-            throwMissingModule(moduleObj);
+        APIModule moduleDescription = moduleInstance.getModuleDescription();
+        if (moduleDescription == null) {
+            throwMissingModule(moduleDescription);
         }
         if (method == null) {
-            throwUnknownAPI(moduleObj.getSimpleName(), method);
+            throwUnknownAPI(moduleDescription.getSimpleName(), method);
         }
-        final List<APIMethod> methodObjs = moduleObj.getMethod(method);
+        final List<APIMethod> methodObjs = moduleDescription.getMethod(method);
         if (methodObjs == null) {
-            throwUnknownAPI(moduleObj.getSimpleName(), method);
+            throwUnknownAPI(moduleDescription.getSimpleName(), method);
         }
         APICallException lastException = null;
         APIMethodResult result = null;
+        Object instance = moduleInstance.getInstance();
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
         // then last exception is raised or the last result is returned if not null.
         for (final APIMethod methodObj : methodObjs) {
             try {
                 result = null;
                 lastException = null;
-                API api = new API(connectionOptions, moduleObj, methodObj);
-                result = api.call(moduleObj.getInstance(), parameters);
+                API api = new API(moduleDescription, methodObj);
+                result = api.call(instance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
                 if (!result.wasExceptionRaised()) {
@@ -115,22 +89,20 @@ public class APICaller {
         throw lastException;
     }
 
-    @SuppressWarnings("null")
-    public APIModule retrieveModuleInstance(String module) throws UnknownAPIException {
-        if (module == null || sdk == null) {
-            throwUnknownModule(module);
+    public APIModule retrieveModuleDescription(String moduleName) throws UnknownAPIException {
+        if (moduleName == null || sdk == null) {
+            throwUnknownModule(moduleName);
         }
-        APIModule moduleObj = sdk.getModule(module);
+        APIModule moduleObj = sdk.getModule(moduleName);
         if (moduleObj == null) {
-            throwUnknownModule(module);
+            throwUnknownModule(moduleName);
         }
-        moduleObj.build(connectionOptions);
         return moduleObj;
     }
 
     private static void throwUnknownAPI(String module, String method) throws UnknownAPIException {
         throw new UnknownAPIException(
-                "method [" + String.valueOf(method) + "] not found on module [" + String.valueOf(module) + "]");
+                "no such method [" + String.valueOf(method) + "] on module [" + String.valueOf(module) + "]");
     }
 
     private static void throwUnknownModule(String module) throws UnknownAPIException {
@@ -152,7 +124,7 @@ public class APICaller {
         private APIModule module;
         private APIMethod method;
 
-        public API(ConnectionOptions connectionOptions, APIModule module, APIMethod method) {
+        public API(APIModule module, APIMethod method) {
             super();
             this.module = module;
             this.method = method;

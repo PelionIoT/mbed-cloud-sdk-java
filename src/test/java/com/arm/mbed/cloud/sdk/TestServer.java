@@ -201,7 +201,7 @@ public class TestServer {
         route.blockingHandler(routingContext -> {
             String moduleId = routingContext.request().getParam(PARAM_MODULE);
 
-            ConnectionOptions opts = fetchConnectionOptions(routingContext.getBodyAsString());
+            ConnectionOptions opts = retrieveConnectionOptions(routingContext.getBodyAsString());
 
             execute(200, routingContext, new ServerAction() {
 
@@ -246,12 +246,12 @@ public class TestServer {
         Route route = router.route(HttpMethod.DELETE, "/instances/:" + PARAM_INSTANCE).produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String instanceId = fetchInstanceId(routingContext.request().getParam(PARAM_INSTANCE));
-            execute(204, routingContext, new ServerAction() {
+            execute(200, routingContext, new ServerAction() {
 
+                @SuppressWarnings("boxing")
                 @Override
                 public Object execute() throws Exception {
-                    engine.deleteInstance(instanceId);
-                    return null;
+                    return engine.deleteInstance(instanceId);
                 }
             }, false);
         });
@@ -350,9 +350,17 @@ public class TestServer {
         });
     }
 
+    /**
+     * Safeguard in case a user specifies the whole instance description in the request rather than just setting the
+     * instance id.
+     * 
+     * @param instanceIdAsString
+     *            string that should be the instance id but may be corrupted.
+     * @return the instance id
+     */
     private String fetchInstanceId(String instanceIdAsString) {
         try {
-            Instance instance = Serializer.convertJsonToObject(instanceIdAsString, Instance.class);
+            Instance instance = Serializer.convertStringToObject(instanceIdAsString, Instance.class);
             instanceIdAsString = instance.getId();
         } catch (Exception e) {
             // Nothing to do
@@ -368,7 +376,7 @@ public class TestServer {
         return new JsonObject(bodyAsString).mapTo(SdkApiParameters.class);
     }
 
-    private ConnectionOptions fetchConnectionOptions(String bodyAsString) {
+    private ConnectionOptions retrieveConnectionOptions(String bodyAsString) {
         if (bodyAsString == null || bodyAsString.isEmpty()) {
             logger.logWarn(
                     "The test server did not receive any connection configuration. Defaulting to test server configuration.");
@@ -376,20 +384,22 @@ public class TestServer {
         }
         InstanceConfiguration conf = null;
         try {
-            conf = new JsonObject(bodyAsString).mapTo(InstanceConfiguration.class);
+            conf = Serializer.convertStringToObject(bodyAsString, InstanceConfiguration.class);
         } catch (Exception e) {
             logger.logWarn("The test server could not interpret instance configuration properly: [" + bodyAsString
                     + "]. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
-        ConnectionOptions opts = new ConnectionOptions(conf.getApiKeys(), conf.getHost());
+        ConnectionOptions opts = new ConnectionOptions(conf.getApiKey(), conf.getHost());
         if (opts.isApiKeyEmpty()) {
             logger.logWarn("The test server could not find the API key configuration in the request: [" + bodyAsString
                     + "]. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
-        opts.setAutostartDaemon(TranslationUtils.toBool(conf.isAutoStartDaemon(), true));
+        opts.setAutostartDaemon(
+                TranslationUtils.toBool(conf.isAutostartDaemon(), defaultConnectionConfiguration.isAutostartDaemon()));
         opts.setClientLogLevel(defaultConnectionConfiguration.getClientLogLevel());
+        opts.setRequestTimeout(defaultConnectionConfiguration.getRequestTimeout());
         return opts;
     }
 
@@ -430,7 +440,7 @@ public class TestServer {
             resultObj = Serializer.convertResultToJsonObject(apiResult, true);
         }
         final String resultJson = Serializer.convertJsonResultToJsonString(resultObj);
-        logger.logDebug("RESULT: " + String.valueOf(resultJson));
+        logger.logInfo("RESULT: " + String.valueOf(resultJson));
         respond(statusCode, routingContext, resultJson);
     }
 

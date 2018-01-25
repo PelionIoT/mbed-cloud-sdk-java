@@ -10,6 +10,7 @@ import java.util.UUID;
 import org.joda.time.DateTime;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.testserver.model.Instance;
 
 import io.vertx.core.shareddata.Shareable;
@@ -24,17 +25,18 @@ public class ModuleInstance implements Serializable, Shareable {
      * 
      */
     private final String id;
-    private final APIModule instance;
+    private final APIModule moduleDescription;
     private final Date createdAt;
-    private final String module;
+    private final String moduleName;
+    private final ConnectionOptions options;
 
-    public ModuleInstance(String module, APIModule instance) {
+    public ModuleInstance(String moduleName, APIModule moduleDescription, ConnectionOptions options) {
         super();
-        this.instance = instance;
-        this.module = module;
+        this.moduleDescription = moduleDescription;
+        this.moduleName = moduleName;
         this.createdAt = new Date();
-        this.id = module + "-" + UUID.randomUUID();
-
+        this.options = options;
+        this.id = moduleName + "-" + UUID.randomUUID();
     }
 
     /**
@@ -45,10 +47,17 @@ public class ModuleInstance implements Serializable, Shareable {
     }
 
     /**
-     * @return the instance
+     * @return the module description
      */
-    public APIModule getInstance() {
-        return instance;
+    public APIModule getModuleDescription() {
+        return moduleDescription;
+    }
+
+    /**
+     * @return the module instance
+     */
+    public Object getInstance() {
+        return moduleDescription.build(options);
     }
 
     /**
@@ -62,11 +71,26 @@ public class ModuleInstance implements Serializable, Shareable {
      * @return the module
      */
     public String getModule() {
-        return module;
+        return moduleName;
+    }
+
+    /**
+     * @return the options
+     */
+    public ConnectionOptions getOptions() {
+        return options;
+    }
+
+    /**
+     * 
+     * @return the host in use
+     */
+    public String getHostInUse() {
+        return (options == null) ? null : options.getHost();
     }
 
     public boolean isValid() {
-        return (id != null && module != null && instance != null);
+        return (id != null && moduleName != null && moduleDescription != null && options != null && options.isValid());
     }
 
     /*
@@ -76,13 +100,14 @@ public class ModuleInstance implements Serializable, Shareable {
      */
     @Override
     public String toString() {
-        return "ModuleInstance [id=" + id + ", createdAt=" + createdAt + ", module=" + module + "]";
+        return "ModuleInstance [id=" + id + ", createdAt=" + createdAt + ", module=" + moduleName + ", hostInUse="
+                + getHostInUse() + "]";
     }
 
     public Instance toInstance() {
         Instance value = new Instance();
         value.setId(id);
-        value.setModule(ApiUtils.convertCamelToSnake(module));
+        value.setModule(ApiUtils.convertCamelToSnake(moduleName));
         value.setCreatedAt(new DateTime(createdAt));
         return value;
     }

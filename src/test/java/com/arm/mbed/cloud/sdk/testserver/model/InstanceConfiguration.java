@@ -31,31 +31,31 @@ import java.io.Serializable;
 public class InstanceConfiguration extends HashMap<String, Object> implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @JsonProperty("apiKeys")
-  private String apiKeys = null;
+  @JsonProperty("api_key")
+  private String apiKey = null;
 
   @JsonProperty("host")
   private String host = null;
 
-  @JsonProperty("autoStartDaemon")
-  private Boolean autoStartDaemon = null;
+  @JsonProperty("autostart_daemon")
+  private Boolean autostartDaemon = null;
 
-  public InstanceConfiguration apiKeys(String apiKeys) {
-    this.apiKeys = apiKeys;
+  public InstanceConfiguration apiKey(String apiKey) {
+    this.apiKey = apiKey;
     return this;
   }
 
    /**
-   * Get apiKeys
-   * @return apiKeys
+   * Get apiKey
+   * @return apiKey
   **/
   @ApiModelProperty(value = "")
-  public String getApiKeys() {
-    return apiKeys;
+  public String getApiKey() {
+    return apiKey;
   }
 
-  public void setApiKeys(String apiKeys) {
-    this.apiKeys = apiKeys;
+  public void setApiKey(String apiKey) {
+    this.apiKey = apiKey;
   }
 
   public InstanceConfiguration host(String host) {
@@ -76,22 +76,22 @@ public class InstanceConfiguration extends HashMap<String, Object> implements Se
     this.host = host;
   }
 
-  public InstanceConfiguration autoStartDaemon(Boolean autoStartDaemon) {
-    this.autoStartDaemon = autoStartDaemon;
+  public InstanceConfiguration autostartDaemon(Boolean autostartDaemon) {
+    this.autostartDaemon = autostartDaemon;
     return this;
   }
 
    /**
-   * Get autoStartDaemon
-   * @return autoStartDaemon
+   * Get autostartDaemon
+   * @return autostartDaemon
   **/
   @ApiModelProperty(value = "")
-  public Boolean isAutoStartDaemon() {
-    return autoStartDaemon;
+  public Boolean isAutostartDaemon() {
+    return autostartDaemon;
   }
 
-  public void setAutoStartDaemon(Boolean autoStartDaemon) {
-    this.autoStartDaemon = autoStartDaemon;
+  public void setAutostartDaemon(Boolean autostartDaemon) {
+    this.autostartDaemon = autostartDaemon;
   }
 
 
@@ -104,15 +104,15 @@ public class InstanceConfiguration extends HashMap<String, Object> implements Se
       return false;
     }
     InstanceConfiguration instanceConfiguration = (InstanceConfiguration) o;
-    return Objects.equals(this.apiKeys, instanceConfiguration.apiKeys) &&
+    return Objects.equals(this.apiKey, instanceConfiguration.apiKey) &&
         Objects.equals(this.host, instanceConfiguration.host) &&
-        Objects.equals(this.autoStartDaemon, instanceConfiguration.autoStartDaemon) &&
+        Objects.equals(this.autostartDaemon, instanceConfiguration.autostartDaemon) &&
         super.equals(o);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiKeys, host, autoStartDaemon, super.hashCode());
+    return Objects.hash(apiKey, host, autostartDaemon, super.hashCode());
   }
 
 
@@ -121,9 +121,9 @@ public class InstanceConfiguration extends HashMap<String, Object> implements Se
     StringBuilder sb = new StringBuilder();
     sb.append("class InstanceConfiguration {\n");
     sb.append("    ").append(toIndentedString(super.toString())).append("\n");
-    sb.append("    apiKeys: ").append(toIndentedString(apiKeys)).append("\n");
+    sb.append("    apiKey: ").append(toIndentedString(apiKey)).append("\n");
     sb.append("    host: ").append(toIndentedString(host)).append("\n");
-    sb.append("    autoStartDaemon: ").append(toIndentedString(autoStartDaemon)).append("\n");
+    sb.append("    autostartDaemon: ").append(toIndentedString(autostartDaemon)).append("\n");
     sb.append("}");
     return sb.toString();
   }

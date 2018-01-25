@@ -9,6 +9,7 @@ import java.util.Map.Entry;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.testserver.cache.InstanceCache;
+import com.arm.mbed.cloud.sdk.testserver.cache.InvalidInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.MissingInstanceException;
 import com.arm.mbed.cloud.sdk.testserver.cache.ServerCacheException;
 import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
@@ -46,9 +47,10 @@ public class Engine {
         return "pong";
     }
 
-    public void reset() throws ServerCacheException {
+    public boolean reset() throws ServerCacheException {
         logger.logInfo("Resetting SDK instance cache");
         cache.clear();
+        return true;
     }
 
     public void shutdown() {
@@ -83,10 +85,11 @@ public class Engine {
     public ModuleInstance createInstance(String moduleId, ConnectionOptions config)
             throws ServerCacheException, UnknownAPIException {
         logger.logInfo("Creating an instance of SDK module [" + moduleId + "]");
-        logger.logInfo("Host in use: " + config.getHost());
         String javaModuleId = ApiUtils.convertSnakeToCamel(moduleId, true);
         ModuleInstance instance = new ModuleInstance(javaModuleId,
-                new APICaller(cache.fetchSDK(), config).retrieveModuleInstance(javaModuleId));
+                createAnApiCaller().retrieveModuleDescription(javaModuleId), config);
+        logger.logInfo("Host in use: " + instance.getHostInUse());
+        checkInstanceValidity(instance);
         cache.storeInstance(instance);
         logger.logInfo("Module [" + moduleId + "] instance [" + instance.getId() + "] was created.");
         return instance;
@@ -94,30 +97,30 @@ public class Engine {
 
     public ModuleInstance fetchInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Fetching SDK module instance [" + instanceId + "]");
-        return cache.fetchInstance(instanceId);
+        return retrieveInstance(instanceId);
     }
 
-    public void deleteInstance(String instanceId) throws ServerCacheException {
+    public boolean deleteInstance(String instanceId) throws ServerCacheException {
         logger.logInfo("Deleting SDK module instance [" + instanceId + "]");
         stopInstanceDaemons(instanceId);
         cache.deleteInstance(instanceId);
+        return true;
     }
 
     public APIMethodResult callAPIOnInstance(String instanceId, String methodId, Map<String, Object> params)
             throws ServerCacheException, UnknownAPIException, APICallException {
         logger.logInfo("CALLING " + String.valueOf(methodId) + " ON " + String.valueOf(instanceId) + " USING "
                 + String.valueOf(toString(params)));
-        ModuleInstance instance = cache.fetchInstance(instanceId);
-        APICaller caller = new APICaller(cache.fetchSDK());
-        return caller.callAPIOnModuleInstance(instance, ApiUtils.convertSnakeToCamel(methodId, false), params);
+        return createAnApiCaller().callAPIOnModuleInstance(retrieveInstance(instanceId),
+                ApiUtils.convertSnakeToCamel(methodId, false), params);
     }
 
     private void stopInstanceDaemons(String instanceId) throws ServerCacheException, MissingInstanceException {
         APIModule module = cache.fetchModuleFromInstance(instanceId);
         if (module != null) {
             if (module.hasDaemonControlMethods()) {
-                ModuleInstance instance = cache.fetchInstance(instanceId);
-                APICaller caller = new APICaller(cache.fetchSDK());
+                ModuleInstance instance = retrieveInstance(instanceId);
+                APICaller caller = createAnApiCaller();
                 logger.logInfo("Stopping SDK module instance [" + instanceId + "] daemon threads");
                 List<APIMethod> stoppingMethods = module.getStopDaemonMethods();
                 if (stoppingMethods != null) {
@@ -142,6 +145,22 @@ public class Engine {
                 }
             }
         }
+    }
+
+    private ModuleInstance retrieveInstance(String instanceId) throws ServerCacheException, InvalidInstanceException {
+        ModuleInstance instance = cache.fetchInstance(instanceId);
+        checkInstanceValidity(instance);
+        return instance;
+    }
+
+    private void checkInstanceValidity(ModuleInstance instance) throws InvalidInstanceException {
+        if (!instance.isValid()) {
+            throw new InvalidInstanceException("Current module instance is invalid (" + instance + ")");
+        }
+    }
+
+    private APICaller createAnApiCaller() {
+        return new APICaller(cache.fetchSDK());
     }
 
     private static String toString(Map<String, Object> params) {

@@ -1,6 +1,9 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.LinkedHashMap;
@@ -17,7 +20,9 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
@@ -195,15 +200,6 @@ public class Serializer {
         return reformatJsonObject(retrieveJsonObject(result), CaseConversion.CAMEL_TO_SNAKE, false).encode();
     }
 
-    public static <T> T convertJsonToObject(String jsonString, Class<T> clazz) {
-        if (jsonString == null || jsonString.isEmpty()) {
-            return null;
-        }
-        JsonObject object = reformatJsonObject(new JsonObject(jsonString.replace("\'", "\"")),
-                CaseConversion.SNAKE_TO_CAMEL, false);
-        return object.mapTo(clazz);
-    }
-
     public static Object deserialiseString(String serialisedObject) {
         if (serialisedObject == null || serialisedObject.isEmpty()) {
             return serialisedObject;
@@ -256,32 +252,9 @@ public class Serializer {
                 : retrieveJsonObject(result);
     }
 
-    @SuppressWarnings({ "unchecked", "rawtypes" })
     private static JsonObject retrieveJsonObject(Object result) {
         if (result instanceof Map) {
-            // This is a temporary fix to solve the problem raised against Vertx JsonObject
-            // https://github.com/eclipse/vert.x/issues/2286
-            // The following looks for any extra fields with the Jason annotation JsonProperty (in the current class and
-            // all its parents) and add them to the hashtable.
-            Class<?> clazz = result.getClass();
-            List<Class<?>> classes = new LinkedList<>();
-            while (clazz != null) {
-                classes.add(clazz);
-                clazz = clazz.getSuperclass();
-            }
-            Map<String, Object> extraFields = classes.stream().map(cls -> Arrays.asList(cls.getDeclaredFields()))
-                    .flatMap(l -> l.stream()).filter(f -> f.isAnnotationPresent(JsonProperty.class))
-                    .collect(Collectors.toMap(java.lang.reflect.Field::getName, f -> {
-                        f.setAccessible(true);
-                        try {
-                            return f.get(result);
-                        } catch (IllegalArgumentException | IllegalAccessException e) {
-                            return null;
-                        }
-                    }));
-            if (extraFields != null) {
-                ((Map) result).putAll(extraFields);
-            }
+            result = performWorkaroundForMapSerialisation(result);
         }
         return JsonObject.mapFrom(result);
     }
@@ -338,7 +311,16 @@ public class Serializer {
     }
 
     public static <T> T convertStringToObject(String serializedObject, Class<T> objectClass) throws APICallException {
-        if (objectClass == null || serializedObject == null || serializedObject.isEmpty()) {
+        if (objectClass == null) {
+            return null;
+        }
+        if (Utils.isPrimitiveOrWrapperType(objectClass)) {
+            return convertStringToPrimitive(objectClass, serializedObject);
+        }
+        if (Utils.isDateType(objectClass)) {
+            return convertStringToDate(objectClass, serializedObject);
+        }
+        if (serializedObject == null || serializedObject.isEmpty()) {
             return null;
         }
         JsonObject jsonObject = new JsonObject(serializedObject);
@@ -432,10 +414,94 @@ public class Serializer {
 
     private static <T> T convertObject(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
         try {
+            if (Map.class.isAssignableFrom(objectClass)) {
+                return performWorkaroundFoMapDeserialisation(objectClass, transformedObject);
+            }
             return transformedObject.mapTo(objectClass);
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new APICallException(e);
         }
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static Object performWorkaroundForMapSerialisation(Object result) {
+        // This is a temporary fix to solve the problem raised against Vertx JsonObject
+        // https://github.com/eclipse/vert.x/issues/2286
+        // The following looks for any extra fields with the Jason annotation JsonProperty (in the current class and
+        // all its parents) and adds them to the hashtable.
+        Class<?> clazz = result.getClass();
+        List<Class<?>> classes = new LinkedList<>();
+        while (clazz != null) {
+            classes.add(clazz);
+            clazz = clazz.getSuperclass();
+        }
+        Map<String, Object> extraFields = classes.stream().map(cls -> Arrays.asList(cls.getDeclaredFields()))
+                .flatMap(l -> l.stream()).filter(f -> f.isAnnotationPresent(JsonProperty.class))
+                .collect(Collectors.toMap(java.lang.reflect.Field::getName, f -> {
+                    f.setAccessible(true);
+                    try {
+                        return f.get(result);
+                    } catch (IllegalArgumentException | IllegalAccessException e) {
+                        return null;
+                    }
+                }));
+        if (extraFields != null) {
+            ((Map) result).putAll(extraFields);
+        }
+        return result;
+    }
+
+    private static <T> T performWorkaroundFoMapDeserialisation(Class<T> objectClass, JsonObject transformedObject)
+            throws APICallException {
+        // This is a temporary fix to solve the problem raised against Vertx JsonObject
+        // https://github.com/eclipse/vert.x/issues/2286
+        // The following goes through all key/value pairs and verify that the object does not have field that
+        // corresponds (i.e key equals field name). If so, it tries to set the field with the value.
+        // The following is a bit of a hack and has not been thoroughly tested
+        try {
+            Constructor<T> constructor = objectClass.getConstructor(null);
+            if (constructor == null) {
+                throw new APICallException("Cannot find a suitable constructor for class [" + objectClass
+                        + "] which is supposed to be a POJO.");
+            }
+            T instance = constructor.newInstance();
+            List<Class<?>> classes = new LinkedList<>();
+            Class<?> clazz = objectClass;
+            while (clazz != null) {
+                classes.add(clazz);
+                clazz = clazz.getSuperclass();
+            }
+
+            Map<String, Field> fields = classes.stream().map(cls -> Arrays.asList(cls.getDeclaredFields()))
+                    .flatMap(l -> l.stream()).filter(f -> f.isAnnotationPresent(JsonProperty.class))
+                    .collect(Collectors.toMap(java.lang.reflect.Field::getName, f -> {
+                        f.setAccessible(true);
+                        try {
+                            return f;
+                        } catch (IllegalArgumentException e) {
+                            return null;
+                        }
+                    }));
+            ((Map<?, ?>) transformedObject.getMap()).forEach((k, v) -> {
+                if (fields.containsKey(k)) {
+                    final Field f = fields.get(k);
+                    if (f != null) {
+                        try {
+                            f.set(instance, Serializer.convertStringToObject(String.valueOf(v), f.getType()));
+                        } catch (IllegalArgumentException | IllegalAccessException | APICallException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            return instance;
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+
+        }
+        return null;
     }
 
     @SuppressWarnings("unchecked")
@@ -449,6 +515,68 @@ public class Serializer {
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new APICallException(e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T convertStringToDate(Class<T> objectClass, String stringValue) throws APICallException {
+        try {
+            return (stringValue == null || stringValue.isEmpty()) ? null
+                    : (T) TranslationUtils.convertStringToDate(stringValue);
+        } catch (IllegalArgumentException | ClassCastException | MbedCloudException e) {
+            throw new APICallException(e);
+        }
+    }
+
+    @SuppressWarnings({ "unchecked", "boxing" })
+    private static <T> T convertStringToPrimitive(Class<T> objectClass, String stringValue) throws APICallException {
+        try {
+            if (objectClass == String.class) {
+                return (T) stringValue;
+            }
+            if (objectClass == Character.class || objectClass == char.class) {
+                return (T) ((stringValue == null || stringValue.isEmpty()) ? null : stringValue.toCharArray()[0]);
+            }
+            if (objectClass == Boolean.class || objectClass == boolean.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Boolean(false);
+                }
+                return (T) new Boolean(Boolean.parseBoolean(stringValue));
+
+            }
+            if (objectClass == Double.class || objectClass == double.class || objectClass == Float.class
+                    || objectClass == float.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Double(0);
+                }
+                return (T) new Double(Double.parseDouble(stringValue));
+
+            }
+            if (objectClass == Integer.class || objectClass == int.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Integer(0);
+                }
+                return (T) new Integer(Integer.parseInt(stringValue));
+
+            }
+            if (objectClass == Long.class || objectClass == long.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Long(0);
+                }
+                return (T) new Long(Long.parseLong(stringValue));
+
+            }
+            if (objectClass == Short.class || objectClass == short.class || objectClass == Byte.class
+                    || objectClass == byte.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Short((short) 0);
+                }
+                return (T) new Integer(Integer.parseInt(stringValue));
+
+            }
+        } catch (IllegalArgumentException | ClassCastException e) {
+            throw new APICallException(e);
+        }
+        return null;
     }
 
     @SuppressWarnings({ "unchecked", "boxing" })

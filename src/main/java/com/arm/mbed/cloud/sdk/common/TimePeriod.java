@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Serializable;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
@@ -10,7 +11,12 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Time period")
-public class TimePeriod implements Cloneable {
+public class TimePeriod implements Cloneable, Serializable {
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = -5978245025854281358L;
+
     @Internal
     private enum PeriodTimeUnit {
         YEARS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, NANOSECONDS;

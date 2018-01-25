@@ -47,6 +47,9 @@ public class InstanceCache {
 
     public ModuleInstance fetchInstance(String id) throws ServerCacheException {
         String moduleId = fetchInstancesRegistry().get(id);
+        if (moduleId == null) {
+            throw new MissingInstanceException("No such instance [" + id + "] in cache");
+        }
         return fetchInstance(moduleId, id);
     }
 
