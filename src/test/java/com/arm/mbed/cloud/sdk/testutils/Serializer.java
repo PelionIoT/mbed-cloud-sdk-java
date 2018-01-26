@@ -13,11 +13,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -73,7 +68,6 @@ public class Serializer {
          * 
          */
         private static final long serialVersionUID = 4811129002272093745L;
-        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
 
         public DateSerializer() {
             this(null);
@@ -83,60 +77,36 @@ public class Serializer {
             super(t);
         }
 
-        @SuppressWarnings("cast")
         @Override
         public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-            jgen.writeString((value == null) ? null
-                    : DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC)));
+            jgen.writeString((value == null) ? null : ApiUtils.toUtcTimestamp(value));
 
         }
     }
 
-    private static class DateTimeSerializer extends StdSerializer<DateTime> {
-        /**
-         * 
-         */
-        private static final long serialVersionUID = -5880796497122627333L;
-        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
-
-        public DateTimeSerializer() {
-            this(null);
-        }
-
-        public DateTimeSerializer(Class<DateTime> t) {
-            super(t);
-        }
-
-        @SuppressWarnings("cast")
-        @Override
-        public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-            jgen.writeString(
-                    (value == null) ? null : DATE_ISO_FORMATTER.print(((DateTime) value).toDateTime(DateTimeZone.UTC)));
-
-        }
-
-    }
-
-    private static class SDKDateTimeDeserializer extends StdDeserializer<DateTime> {
+    private static class SDKDateDeserializer extends StdDeserializer<Date> {
 
         /**
          * 
          */
-        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
-        private static final long serialVersionUID = -1389360632544518602L;
+        private static final long serialVersionUID = -4080497056681306862L;
 
-        protected SDKDateTimeDeserializer(Class<DateTime> vc) {
+        protected SDKDateDeserializer(Class<Date> vc) {
             super(vc);
         }
 
-        public SDKDateTimeDeserializer() {
+        public SDKDateDeserializer() {
             this(null);
         }
 
         @Override
-        public DateTime deserialize(JsonParser p, DeserializationContext ctxt)
-                throws IOException, JsonProcessingException {
-            return DATE_ISO_FORMATTER.parseDateTime(p.getValueAsString());
+        public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            try {
+                return ApiUtils.convertStringToDate(p.getValueAsString());
+            } catch (MbedCloudException e) {
+                e.printStackTrace();
+                return null;
+            }
         }
 
     }
@@ -168,9 +138,10 @@ public class Serializer {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
         module.addSerializer(Date.class, new DateSerializer());
-        module.addSerializer(DateTime.class, new DateTimeSerializer());
+        // module.addSerializer(DateTime.class, new DateTimeSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
-        module.addDeserializer(DateTime.class, new SDKDateTimeDeserializer());
+        module.addDeserializer(Date.class, new SDKDateDeserializer());
+        // module.addDeserializer(DateTime.class, new SDKDateTimeDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);
     }

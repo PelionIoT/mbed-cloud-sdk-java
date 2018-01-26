@@ -26,7 +26,8 @@ public final class TranslationUtils {
 
     private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
             Locale.getDefault());
-    private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
+    private static final DateTimeFormatter DATE_ISO_PARSER = ISODateTimeFormat.dateTimeParser();
+    private static final DateTimeFormatter DATE_ISO_PRINTER = ISODateTimeFormat.dateTime();
 
     private TranslationUtils() {
         super();
@@ -344,6 +345,18 @@ public final class TranslationUtils {
     }
 
     /**
+     * Moves dates to UTC time zone.
+     * 
+     * @param date
+     *            date/time
+     * @return date/time in UTC
+     */
+    public static Date moveDateTimeToUtc(Date date) {
+        DateTime time = moveToUtc(date);
+        return (time == null) ? null : time.toDate();
+    }
+
+    /**
      * Converts date into a UTC timestamp string.
      * 
      * @param date
@@ -352,7 +365,7 @@ public final class TranslationUtils {
      */
     public static String toUtcTimestamp(Date date) {
         // Moving dates/Times to UTC and formatting them according to rfc3339
-        return (date == null) ? null : DATE_ISO_FORMATTER.print(moveToUtc(date));
+        return (date == null) ? null : DATE_ISO_PRINTER.print(moveToUtc(date));
     }
 
     /**
@@ -371,7 +384,7 @@ public final class TranslationUtils {
      */
     public static Date convertStringToDate(String valueStr) throws MbedCloudException {
         try {
-            return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+            return DATE_ISO_PARSER.parseDateTime(valueStr).toDate();
         } catch (Exception exception) {
             throw new MbedCloudException(exception);
         }
