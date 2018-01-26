@@ -352,7 +352,7 @@ public final class TranslationUtils {
      * @return date/time in UTC
      */
     public static Date moveDateTimeToUtc(Date date) {
-        DateTime time = moveToUtc(date);
+        final DateTime time = moveToUtc(date);
         return (time == null) ? null : time.toDate();
     }
 

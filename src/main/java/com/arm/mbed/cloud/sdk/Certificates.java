@@ -80,11 +80,12 @@ public class Certificates extends AbstractApi {
                 };
                 break;
             case DEVELOPER:
+                final String finalCertificateId = certificateId;
                 caller = (certificateId == null) ? null : new CloudCall<DeveloperCertificateResponseData>() {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getConnector().v3DeveloperCertificatesMuuidGet(certificateId, null);
+                        return endpoint.getConnector().v3DeveloperCertificatesMuuidGet(finalCertificateId, null);
                     }
 
                 };
@@ -325,6 +326,8 @@ public class Certificates extends AbstractApi {
     @API
     public @Nullable Certificate addDeveloperCertificate(@NonNull Certificate certificate) throws MbedCloudException {
         checkNotNull(certificate, TAG_CERTIFICATE);
+        // To run this method, the certificate must be a developer certificate.
+        certificate.setType(CertificateType.DEVELOPER);
         checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         final Certificate addedPartialCertificate1 = CloudCaller.call(this, "addDeveloperCertificate()",
