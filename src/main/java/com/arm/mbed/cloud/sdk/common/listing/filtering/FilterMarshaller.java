@@ -336,7 +336,6 @@ public class FilterMarshaller {
 
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
         Object filterValue = obj.getValue(fieldName);
-
         Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
                 filterValue);
         filters.add(filter);
@@ -395,7 +394,11 @@ public class FilterMarshaller {
             final Object value = map.get(fieldName);
             if (value instanceof CharSequence) {
                 final String valueStr = value.toString();
-                if (valueStr == null) {
+                if (valueStr == null || valueStr.isEmpty()) {
+                    return valueStr;
+                }
+                // If only numeric values
+                if (valueStr.matches("[0-9]+")) {
                     return valueStr;
                 }
                 try {
@@ -514,6 +517,16 @@ public class FilterMarshaller {
 
         private void putFilterDefinition(FilterOperator operator, Object value) {
             put(operator.getSymbol(), value);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "JsonObject [jsonSerialiser=" + jsonSerialiser + ", map=" + map + "]";
         }
 
     }
