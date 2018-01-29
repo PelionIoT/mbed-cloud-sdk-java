@@ -116,6 +116,7 @@ allprojects {
         compileTestJava {
             options.compilerArgs += ["-g", "-deprecation", "-parameters"]
             options.fork = true
+            options.encoding = "UTF-8"
             doFirst {
                 println 'Compiler args for testing: ' + options.compilerArgs
             }
