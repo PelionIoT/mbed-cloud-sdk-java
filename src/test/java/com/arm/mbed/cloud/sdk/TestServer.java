@@ -440,7 +440,7 @@ public class TestServer {
             resultObj = Serializer.convertResultToJsonObject(apiResult, true);
         }
         final String resultJson = Serializer.convertJsonResultToJsonString(resultObj);
-        logger.logInfo("RESULT: " + String.valueOf(resultJson));
+        logger.logDebug("RESULT: " + String.valueOf(resultJson));
         respond(statusCode, routingContext, resultJson);
     }
 
