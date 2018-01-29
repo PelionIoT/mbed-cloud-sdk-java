@@ -18,7 +18,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, FIELD, METHOD, ANNOTATION_TYPE, PARAMETER })
-
 public @interface Required {
 
 }

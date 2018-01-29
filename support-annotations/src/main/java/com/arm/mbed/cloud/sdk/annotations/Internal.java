@@ -19,7 +19,6 @@ import java.lang.annotation.Target;
 @Documented
 @Retention(RUNTIME)
 @Target({ TYPE, FIELD, METHOD, ANNOTATION_TYPE, PACKAGE, TYPE_USE })
-
 public @interface Internal {
 
 }
