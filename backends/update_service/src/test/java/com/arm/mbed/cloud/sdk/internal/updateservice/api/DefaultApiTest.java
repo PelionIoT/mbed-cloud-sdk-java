@@ -32,7 +32,6 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
-    
     /**
      * 
      *
@@ -45,7 +44,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -58,7 +56,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -75,7 +72,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -88,7 +84,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -102,7 +97,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -117,7 +111,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -130,7 +123,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -147,7 +139,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -160,7 +151,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -175,7 +165,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -188,7 +177,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -205,7 +193,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -218,7 +205,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -231,7 +217,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -244,7 +229,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -261,7 +245,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -278,7 +261,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -292,7 +274,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -305,7 +286,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -318,7 +298,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -332,7 +311,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -346,7 +324,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -363,5 +340,4 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
 }

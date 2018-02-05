@@ -343,7 +343,7 @@ public class UserUpdateResp implements Serializable {
    * @return isGtcAccepted
   **/
   @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
-  public Boolean getIsGtcAccepted() {
+  public Boolean isIsGtcAccepted() {
     return isGtcAccepted;
   }
 
@@ -379,7 +379,7 @@ public class UserUpdateResp implements Serializable {
    * @return isMarketingAccepted
   **/
   @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
-  public Boolean getIsMarketingAccepted() {
+  public Boolean isIsMarketingAccepted() {
     return isMarketingAccepted;
   }
 
@@ -593,7 +593,7 @@ public class UserUpdateResp implements Serializable {
    * @return emailVerified
   **/
   @ApiModelProperty(value = "A flag indicating whether the user's email address has been verified or not.")
-  public Boolean getEmailVerified() {
+  public Boolean isEmailVerified() {
     return emailVerified;
   }
 
@@ -629,7 +629,7 @@ public class UserUpdateResp implements Serializable {
    * @return isTotpEnabled
   **/
   @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
-  public Boolean getIsTotpEnabled() {
+  public Boolean isIsTotpEnabled() {
     return isTotpEnabled;
   }
 
@@ -738,6 +738,6 @@ public class UserUpdateResp implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

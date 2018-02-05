@@ -22,7 +22,6 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
-    
     /**
      * Delete callback URL
      *
@@ -34,7 +33,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Check callback URL
      *
@@ -46,5 +44,4 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
 }

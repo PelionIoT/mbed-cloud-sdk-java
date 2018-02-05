@@ -114,6 +114,6 @@ public class DeveloperCertificateRequestData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

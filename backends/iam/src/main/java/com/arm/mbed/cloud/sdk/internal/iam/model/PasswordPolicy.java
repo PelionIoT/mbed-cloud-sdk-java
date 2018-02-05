@@ -91,6 +91,6 @@ public class PasswordPolicy implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

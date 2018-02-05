@@ -130,7 +130,7 @@ public class FirmwareManifestPage implements Serializable {
    * @return hasMore
   **/
   @ApiModelProperty(value = "")
-  public Boolean getHasMore() {
+  public Boolean isHasMore() {
     return hasMore;
   }
 
@@ -287,6 +287,6 @@ public class FirmwareManifestPage implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

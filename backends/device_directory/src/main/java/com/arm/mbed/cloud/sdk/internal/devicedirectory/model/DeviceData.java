@@ -447,7 +447,7 @@ public class DeviceData implements Serializable {
    * @return autoUpdate
   **/
   @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
-  public Boolean getAutoUpdate() {
+  public Boolean isAutoUpdate() {
     return autoUpdate;
   }
 
@@ -940,6 +940,6 @@ public class DeviceData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

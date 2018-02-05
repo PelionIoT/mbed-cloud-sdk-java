@@ -22,7 +22,6 @@ public class ResourcesApiTest {
         api = new ApiClient().createService(ResourcesApi.class);
     }
 
-    
     /**
      * Delete a resource
      *
@@ -37,7 +36,6 @@ public class ResourcesApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Read from a resource
      *
@@ -53,7 +51,6 @@ public class ResourcesApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Execute a function on a resource
      *
@@ -69,7 +66,6 @@ public class ResourcesApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Write to a resource
      *
@@ -85,5 +81,4 @@ public class ResourcesApiTest {
 
         // TODO: test validations
     }
-    
 }

@@ -83,7 +83,7 @@ public class DeviceQueryPage implements Serializable {
    * @return hasMore
   **/
   @ApiModelProperty(required = true, value = "")
-  public Boolean getHasMore() {
+  public Boolean isHasMore() {
     return hasMore;
   }
 
@@ -237,6 +237,6 @@ public class DeviceQueryPage implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

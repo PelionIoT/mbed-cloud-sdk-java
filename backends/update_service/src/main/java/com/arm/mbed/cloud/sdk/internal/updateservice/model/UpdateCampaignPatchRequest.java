@@ -291,6 +291,6 @@ public class UpdateCampaignPatchRequest implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

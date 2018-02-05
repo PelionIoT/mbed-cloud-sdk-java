@@ -344,6 +344,6 @@ public class DeveloperCertificateResponseData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

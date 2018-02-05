@@ -439,6 +439,6 @@ public class ApiKeyInfoResp implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

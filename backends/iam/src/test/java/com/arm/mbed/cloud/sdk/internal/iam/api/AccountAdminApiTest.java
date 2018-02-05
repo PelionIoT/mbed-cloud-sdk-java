@@ -32,7 +32,6 @@ public class AccountAdminApiTest {
         api = new ApiClient().createService(AccountAdminApi.class);
     }
 
-    
     /**
      * Upload a new trusted certificate.
      *
@@ -45,7 +44,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Add members to a group.
      *
@@ -59,7 +57,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Create a new user.
      *
@@ -73,7 +70,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Delete a user.
      *
@@ -86,7 +82,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get the details of all users.
      *
@@ -103,7 +98,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Details of a user.
      *
@@ -116,7 +110,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get users of a group.
      *
@@ -133,7 +126,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Remove users from a group.
      *
@@ -147,7 +139,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Updates attributes of the account.
      *
@@ -160,7 +151,6 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Update user details.
      *
@@ -174,5 +164,4 @@ public class AccountAdminApiTest {
 
         // TODO: test validations
     }
-    
 }

@@ -22,7 +22,6 @@ public class ServerCredentialsApiTest {
         api = new ApiClient().createService(ServerCredentialsApi.class);
     }
 
-    
     /**
      * Fetch bootstrap server credentials.
      *
@@ -35,7 +34,6 @@ public class ServerCredentialsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Fetch LWM2M server credentials.
      *
@@ -48,5 +46,4 @@ public class ServerCredentialsApiTest {
 
         // TODO: test validations
     }
-    
 }

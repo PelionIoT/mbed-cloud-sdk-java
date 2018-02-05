@@ -23,7 +23,6 @@ public class NotificationsApiTest {
         api = new ApiClient().createService(NotificationsApi.class);
     }
 
-    
     /**
      * Register a callback URL
      *
@@ -36,7 +35,6 @@ public class NotificationsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Delete notification Long Poll channel
      *
@@ -48,7 +46,6 @@ public class NotificationsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get notifications using Long Poll
      *
@@ -60,5 +57,4 @@ public class NotificationsApiTest {
 
         // TODO: test validations
     }
-    
 }

@@ -359,6 +359,6 @@ public class GroupSummary implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

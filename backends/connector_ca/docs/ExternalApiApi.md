@@ -1,13 +1,13 @@
-# ExternalAPIApi
+# ExternalApiApi
 
 All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3DeveloperCertificatesMuuidGet**](ExternalAPIApi.md#v3DeveloperCertificatesMuuidGet) | **GET** v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
-[**v3DeveloperCertificatesPost**](ExternalAPIApi.md#v3DeveloperCertificatesPost) | **POST** v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
-[**v3ServerCredentialsBootstrapGet**](ExternalAPIApi.md#v3ServerCredentialsBootstrapGet) | **GET** v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
-[**v3ServerCredentialsLwm2mGet**](ExternalAPIApi.md#v3ServerCredentialsLwm2mGet) | **GET** v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
+[**v3DeveloperCertificatesMuuidGet**](ExternalApiApi.md#v3DeveloperCertificatesMuuidGet) | **GET** v3/developer-certificates/{muuid} | Fetch an existing developer certificate to connect to the bootstrap server.
+[**v3DeveloperCertificatesPost**](ExternalApiApi.md#v3DeveloperCertificatesPost) | **POST** v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
+[**v3ServerCredentialsBootstrapGet**](ExternalApiApi.md#v3ServerCredentialsBootstrapGet) | **GET** v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
+[**v3ServerCredentialsLwm2mGet**](ExternalApiApi.md#v3ServerCredentialsLwm2mGet) | **GET** v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
 
 
 <a name="v3DeveloperCertificatesMuuidGet"></a>
@@ -25,7 +25,7 @@ This REST API is intended to be used by customers to fetch an existing developer
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -35,14 +35,14 @@ Bearer.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //Bearer.setApiKeyPrefix("Token");
 
-ExternalAPIApi apiInstance = new ExternalAPIApi();
+ExternalApiApi apiInstance = new ExternalApiApi();
 String muuid = "muuid_example"; // String | A unique identifier for the developer certificate. 
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
     DeveloperCertificateResponseData result = apiInstance.v3DeveloperCertificatesMuuidGet(muuid, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ExternalAPIApi#v3DeveloperCertificatesMuuidGet");
+    System.err.println("Exception when calling ExternalApiApi#v3DeveloperCertificatesMuuidGet");
     e.printStackTrace();
 }
 ```
@@ -82,7 +82,7 @@ This REST API is intended to be used by customers to get a developer certificate
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -92,14 +92,14 @@ Bearer.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //Bearer.setApiKeyPrefix("Token");
 
-ExternalAPIApi apiInstance = new ExternalAPIApi();
+ExternalApiApi apiInstance = new ExternalApiApi();
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 DeveloperCertificateRequestData body = new DeveloperCertificateRequestData(); // DeveloperCertificateRequestData | 
 try {
     DeveloperCertificateResponseData result = apiInstance.v3DeveloperCertificatesPost(authorization, body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ExternalAPIApi#v3DeveloperCertificatesPost");
+    System.err.println("Exception when calling ExternalApiApi#v3DeveloperCertificatesPost");
     e.printStackTrace();
 }
 ```
@@ -139,7 +139,7 @@ This REST API is intended to be used by customers to fetch bootstrap server cred
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -149,13 +149,13 @@ Bearer.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //Bearer.setApiKeyPrefix("Token");
 
-ExternalAPIApi apiInstance = new ExternalAPIApi();
+ExternalApiApi apiInstance = new ExternalApiApi();
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
     ServerCredentialsResponseData result = apiInstance.v3ServerCredentialsBootstrapGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ExternalAPIApi#v3ServerCredentialsBootstrapGet");
+    System.err.println("Exception when calling ExternalApiApi#v3ServerCredentialsBootstrapGet");
     e.printStackTrace();
 }
 ```
@@ -194,7 +194,7 @@ This REST API is intended to be used by customers to fetch LWM2M server credenti
 //import com.arm.mbed.cloud.sdk.internal.ApiException;
 //import com.arm.mbed.cloud.sdk.internal.Configuration;
 //import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
+//import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
 
@@ -204,13 +204,13 @@ Bearer.setApiKey("YOUR API KEY");
 // Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
 //Bearer.setApiKeyPrefix("Token");
 
-ExternalAPIApi apiInstance = new ExternalAPIApi();
+ExternalApiApi apiInstance = new ExternalApiApi();
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
     ServerCredentialsResponseData result = apiInstance.v3ServerCredentialsLwm2mGet(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ExternalAPIApi#v3ServerCredentialsLwm2mGet");
+    System.err.println("Exception when calling ExternalApiApi#v3ServerCredentialsLwm2mGet");
     e.printStackTrace();
 }
 ```

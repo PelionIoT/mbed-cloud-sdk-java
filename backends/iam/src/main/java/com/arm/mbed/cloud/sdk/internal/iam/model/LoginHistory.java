@@ -109,7 +109,7 @@ public class LoginHistory implements Serializable {
    * @return success
   **/
   @ApiModelProperty(required = true, value = "Flag indicating whether login attempt was successful or not.")
-  public Boolean getSuccess() {
+  public Boolean isSuccess() {
     return success;
   }
 
@@ -162,6 +162,6 @@ public class LoginHistory implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -358,6 +358,6 @@ public class ErrorResponse implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 
