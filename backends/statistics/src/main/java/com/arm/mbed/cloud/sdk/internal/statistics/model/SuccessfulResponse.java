@@ -80,7 +80,7 @@ public class SuccessfulResponse implements Serializable {
    * @return hasMore
   **/
   @ApiModelProperty(value = "Indicates whether there are more results for you to fetch in the next page.")
-  public Boolean getHasMore() {
+  public Boolean isHasMore() {
     return hasMore;
   }
 
@@ -217,6 +217,6 @@ public class SuccessfulResponse implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

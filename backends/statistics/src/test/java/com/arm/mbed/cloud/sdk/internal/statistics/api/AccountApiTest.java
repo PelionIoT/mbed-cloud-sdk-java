@@ -24,7 +24,6 @@ public class AccountApiTest {
         api = new ApiClient().createService(AccountApi.class);
     }
 
-    
     /**
      * Provides account-specific statistics for other cloud services.
      *
@@ -44,5 +43,4 @@ public class AccountApiTest {
 
         // TODO: test validations
     }
-    
 }

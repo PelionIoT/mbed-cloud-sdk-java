@@ -63,6 +63,6 @@ public class PresubscriptionArray extends ArrayList<Presubscription> implements 
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

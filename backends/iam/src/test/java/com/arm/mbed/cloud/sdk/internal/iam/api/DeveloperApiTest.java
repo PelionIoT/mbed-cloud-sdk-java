@@ -37,7 +37,6 @@ public class DeveloperApiTest {
         api = new ApiClient().createService(DeveloperApi.class);
     }
 
-    
     /**
      * Create a new API key.
      *
@@ -50,7 +49,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Delete API key.
      *
@@ -63,7 +61,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Delete a trusted certificate by ID.
      *
@@ -76,7 +73,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get all API keys
      *
@@ -93,7 +89,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get all trusted certificates.
      *
@@ -113,7 +108,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get all group information.
      *
@@ -129,7 +123,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get API key details.
      *
@@ -142,7 +135,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get the API keys of a group.
      *
@@ -159,7 +151,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get trusted certificate by ID.
      *
@@ -172,7 +163,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get group information.
      *
@@ -185,7 +175,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get account info.
      *
@@ -198,7 +187,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get API key details.
      *
@@ -210,7 +198,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Details of the current user.
      *
@@ -223,7 +210,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Remove API keys from a group.
      *
@@ -237,7 +223,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Update API key details.
      *
@@ -251,7 +236,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Update trusted certificate.
      *
@@ -265,7 +249,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Update API key details.
      *
@@ -278,7 +261,6 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Update user details.
      *
@@ -291,5 +273,4 @@ public class DeveloperApiTest {
 
         // TODO: test validations
     }
-    
 }

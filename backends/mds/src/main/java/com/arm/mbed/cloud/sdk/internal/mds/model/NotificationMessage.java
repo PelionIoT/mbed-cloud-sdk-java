@@ -259,6 +259,6 @@ public class NotificationMessage implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

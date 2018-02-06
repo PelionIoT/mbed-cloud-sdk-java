@@ -87,7 +87,7 @@ public class DeviceEventData implements Serializable {
    * @return stateChange
   **/
   @ApiModelProperty(value = "")
-  public Boolean getStateChange() {
+  public Boolean isStateChange() {
     return stateChange;
   }
 
@@ -276,6 +276,6 @@ public class DeviceEventData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 
