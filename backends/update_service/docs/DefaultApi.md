@@ -5,10 +5,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**campaignCreate**](DefaultApi.md#campaignCreate) | **POST** v3/campaigns/ | 
-[**campaignDestroy**](DefaultApi.md#campaignDestroy) | **DELETE** v3/update-campaigns/{campaign_id}/ | 
+[**campaignDestroy**](DefaultApi.md#campaignDestroy) | **DELETE** v3/campaigns/{campaign_id}/ | 
 [**campaignList**](DefaultApi.md#campaignList) | **GET** v3/campaigns/ | 
-[**campaignRetrieve**](DefaultApi.md#campaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | 
-[**campaignUpdate**](DefaultApi.md#campaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | 
+[**campaignMetadataList**](DefaultApi.md#campaignMetadataList) | **GET** v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
+[**campaignMetadataRetreive**](DefaultApi.md#campaignMetadataRetreive) | **GET** v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+[**campaignRetrieve**](DefaultApi.md#campaignRetrieve) | **GET** v3/campaigns/{campaign_id}/ | 
+[**campaignStop**](DefaultApi.md#campaignStop) | **POST** v3/campaigns/{campaign_id}/stop | 
+[**campaignUpdate**](DefaultApi.md#campaignUpdate) | **PUT** v3/campaigns/{campaign_id}/ | 
 [**firmwareImageCreate**](DefaultApi.md#firmwareImageCreate) | **POST** v3/firmware-images/ | 
 [**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** v3/firmware-images/{image_id}/ | 
 [**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** v3/firmware-images/ | 
@@ -18,15 +21,13 @@ Method | HTTP request | Description
 [**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** v3/firmware-manifests/ | 
 [**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** v3/firmware-manifests/{manifest_id}/ | 
 [**updateCampaignCreate**](DefaultApi.md#updateCampaignCreate) | **POST** v3/update-campaigns/ | 
-[**updateCampaignDestroy**](DefaultApi.md#updateCampaignDestroy) | **DELETE** v3/campaigns/{campaign_id}/ | 
+[**updateCampaignDestroy**](DefaultApi.md#updateCampaignDestroy) | **DELETE** v3/update-campaigns/{campaign_id}/ | 
 [**updateCampaignList**](DefaultApi.md#updateCampaignList) | **GET** v3/update-campaigns/ | 
-[**updateCampaignMetadataList**](DefaultApi.md#updateCampaignMetadataList) | **GET** v3/campaigns/{campaign_id}/campaign-device-metadata/ | 
-[**updateCampaignMetadataRetreive**](DefaultApi.md#updateCampaignMetadataRetreive) | **GET** v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-[**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/campaigns/{campaign_id}/ | 
-[**updateCampaignStop**](DefaultApi.md#updateCampaignStop) | **POST** v3/campaigns/{campaign_id}/stop | 
-[**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/campaigns/{campaign_id}/ | 
-[**v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet**](DefaultApi.md#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-[**v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**](DefaultApi.md#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
+[**updateCampaignMetadataList**](DefaultApi.md#updateCampaignMetadataList) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
+[**updateCampaignMetadataRetrieve**](DefaultApi.md#updateCampaignMetadataRetrieve) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
+[**updateCampaignMetadataStop**](DefaultApi.md#updateCampaignMetadataStop) | **POST** v3/update-campaigns/{campaign_id}/stop | 
+[**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | 
+[**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | 
 
 
 <a name="campaignCreate"></a>
@@ -202,6 +203,126 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="campaignMetadataList"></a>
+# **campaignMetadataList**
+> CampaignDeviceMetadataPage campaignMetadataList(campaignId, limit, order, after, include)
+
+
+
+Get campaign device metadata.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The update campaign ID
+Integer limit = 56; // Integer | How many objects to retrieve in the page
+String order = "order_example"; // String | ASC or DESC
+String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
+try {
+    CampaignDeviceMetadataPage result = apiInstance.campaignMetadataList(campaignId, limit, order, after, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#campaignMetadataList");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The update campaign ID |
+ **limit** | **Integer**| How many objects to retrieve in the page | [optional]
+ **order** | **String**| ASC or DESC | [optional]
+ **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="campaignMetadataRetreive"></a>
+# **campaignMetadataRetreive**
+> CampaignDeviceMetadata campaignMetadataRetreive(campaignId, campaignDeviceMetadataId)
+
+
+
+Get update campaign metadata.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The update campaign ID
+String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The campaign device metadata ID
+try {
+    CampaignDeviceMetadata result = apiInstance.campaignMetadataRetreive(campaignId, campaignDeviceMetadataId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#campaignMetadataRetreive");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The update campaign ID |
+ **campaignDeviceMetadataId** | **String**| The campaign device metadata ID |
+
+### Return type
+
+[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="campaignRetrieve"></a>
 # **campaignRetrieve**
 > UpdateCampaign campaignRetrieve(campaignId)
@@ -247,6 +368,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaign**](UpdateCampaign.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="campaignStop"></a>
+# **campaignStop**
+> Void campaignStop(campaignId)
+
+
+
+Stop a running update campaign.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+try {
+    Void result = apiInstance.campaignStop(campaignId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#campaignStop");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
@@ -1014,9 +1190,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="updateCampaignMetadataRetreive"></a>
-# **updateCampaignMetadataRetreive**
-> CampaignDeviceMetadata updateCampaignMetadataRetreive(campaignId, campaignDeviceMetadataId)
+<a name="updateCampaignMetadataRetrieve"></a>
+# **updateCampaignMetadataRetrieve**
+> CampaignDeviceMetadata updateCampaignMetadataRetrieve(campaignId, campaignDeviceMetadataId)
 
 
 
@@ -1043,10 +1219,10 @@ DefaultApi apiInstance = new DefaultApi();
 String campaignId = "campaignId_example"; // String | The update campaign ID
 String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The campaign device metadata ID
 try {
-    CampaignDeviceMetadata result = apiInstance.updateCampaignMetadataRetreive(campaignId, campaignDeviceMetadataId);
+    CampaignDeviceMetadata result = apiInstance.updateCampaignMetadataRetrieve(campaignId, campaignDeviceMetadataId);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#updateCampaignMetadataRetreive");
+    System.err.println("Exception when calling DefaultApi#updateCampaignMetadataRetrieve");
     e.printStackTrace();
 }
 ```
@@ -1061,6 +1237,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateCampaignMetadataStop"></a>
+# **updateCampaignMetadataStop**
+> Void updateCampaignMetadataStop(campaignId)
+
+
+
+Stop a running update campaign.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+try {
+    Void result = apiInstance.updateCampaignMetadataStop(campaignId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#updateCampaignMetadataStop");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
@@ -1103,61 +1334,6 @@ try {
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DefaultApi#updateCampaignRetrieve");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The campaign ID |
-
-### Return type
-
-[**UpdateCampaign**](UpdateCampaign.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="updateCampaignStop"></a>
-# **updateCampaignStop**
-> UpdateCampaign updateCampaignStop(campaignId)
-
-
-
-Stop a running update campaign.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The campaign ID
-try {
-    UpdateCampaign result = apiInstance.updateCampaignStop(campaignId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#updateCampaignStop");
     e.printStackTrace();
 }
 ```
@@ -1228,126 +1404,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdateCampaign**](UpdateCampaign.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet"></a>
-# **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet**
-> CampaignDeviceMetadata v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId)
-
-
-
-Get update campaign metadata.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The update campaign ID
-String campaignDeviceMetadataId = "campaignDeviceMetadataId_example"; // String | The campaign device metadata ID
-try {
-    CampaignDeviceMetadata result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The update campaign ID |
- **campaignDeviceMetadataId** | **String**| The campaign device metadata ID |
-
-### Return type
-
-[**CampaignDeviceMetadata**](CampaignDeviceMetadata.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet"></a>
-# **v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet**
-> CampaignDeviceMetadataPage v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include)
-
-
-
-Get campaign device metadata.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DefaultApi apiInstance = new DefaultApi();
-String campaignId = "campaignId_example"; // String | The update campaign ID
-Integer limit = 56; // Integer | How many objects to retrieve in the page
-String order = "order_example"; // String | ASC or DESC
-String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
-String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: total_count
-try {
-    CampaignDeviceMetadataPage result = apiInstance.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DefaultApi#v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **campaignId** | **String**| The update campaign ID |
- **limit** | **Integer**| How many objects to retrieve in the page | [optional]
- **order** | **String**| ASC or DESC | [optional]
- **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
- **include** | **String**| Comma-separated list of data fields to return. Currently supported: total_count | [optional]
-
-### Return type
-
-[**CampaignDeviceMetadataPage**](CampaignDeviceMetadataPage.md)
 
 ### Authorization
 
