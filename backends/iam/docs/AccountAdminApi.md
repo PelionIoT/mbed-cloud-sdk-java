@@ -4,17 +4,144 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addAccountApiKeyToGroups**](AccountAdminApi.md#addAccountApiKeyToGroups) | **POST** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Add API key to a list of groups.
+[**addApiKeyToGroups**](AccountAdminApi.md#addApiKeyToGroups) | **POST** v3/api-keys/{apiKey}/groups | Add API key to a list of groups.
 [**addCertificate**](AccountAdminApi.md#addCertificate) | **POST** v3/trusted-certificates | Upload a new trusted certificate.
 [**addSubjectsToGroup**](AccountAdminApi.md#addSubjectsToGroup) | **POST** v3/policy-groups/{groupID} | Add members to a group.
+[**addUserToGroups**](AccountAdminApi.md#addUserToGroups) | **POST** v3/users/{user-id}/groups | Add user to a list of groups.
+[**createGroup**](AccountAdminApi.md#createGroup) | **POST** v3/policy-groups | Create a new group.
 [**createUser**](AccountAdminApi.md#createUser) | **POST** v3/users | Create a new user.
+[**deleteGroup**](AccountAdminApi.md#deleteGroup) | **DELETE** v3/policy-groups/{groupID} | Delete a group.
 [**deleteUser**](AccountAdminApi.md#deleteUser) | **DELETE** v3/users/{user-id} | Delete a user.
 [**getAllUsers**](AccountAdminApi.md#getAllUsers) | **GET** v3/users | Get the details of all users.
+[**getGroupsOfAccountApikey**](AccountAdminApi.md#getGroupsOfAccountApikey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Get groups of the API key.
+[**getGroupsOfApikey**](AccountAdminApi.md#getGroupsOfApikey) | **GET** v3/api-keys/{apiKey}/groups | Get groups of the API key.
+[**getGroupsOfUser**](AccountAdminApi.md#getGroupsOfUser) | **GET** v3/users/{user-id}/groups | Get groups of the user.
 [**getUser**](AccountAdminApi.md#getUser) | **GET** v3/users/{user-id} | Details of a user.
 [**getUsersOfGroup**](AccountAdminApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{groupID}/users | Get users of a group.
+[**removeAccountApiKeyFromGroups**](AccountAdminApi.md#removeAccountApiKeyFromGroups) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Remove API key from groups.
+[**removeApiKeyFromGroups**](AccountAdminApi.md#removeApiKeyFromGroups) | **DELETE** v3/api-keys/{apiKey}/groups | Remove API key from groups.
+[**removeUserFromGroups**](AccountAdminApi.md#removeUserFromGroups) | **DELETE** v3/users/{user-id}/groups | Remove user from groups.
 [**removeUsersFromGroup**](AccountAdminApi.md#removeUsersFromGroup) | **DELETE** v3/policy-groups/{groupID}/users | Remove users from a group.
 [**updateMyAccount**](AccountAdminApi.md#updateMyAccount) | **PUT** v3/accounts/me | Updates attributes of the account.
 [**updateUser**](AccountAdminApi.md#updateUser) | **PUT** v3/users/{user-id} | Update user details.
 
+
+<a name="addAccountApiKeyToGroups"></a>
+# **addAccountApiKeyToGroups**
+> UpdatedResponse addAccountApiKeyToGroups(accountID, apiKey, body)
+
+Add API key to a list of groups.
+
+An endpoint for adding API key to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key to be added to the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addAccountApiKeyToGroups(accountID, apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#addAccountApiKeyToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key to be added to the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addApiKeyToGroups"></a>
+# **addApiKeyToGroups**
+> UpdatedResponse addApiKeyToGroups(apiKey, body)
+
+Add API key to a list of groups.
+
+An endpoint for adding API key to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String apiKey = "apiKey_example"; // String | The ID of the API key to be added to the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addApiKeyToGroups(apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#addApiKeyToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**| The ID of the API key to be added to the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="addCertificate"></a>
 # **addCertificate**
@@ -128,6 +255,118 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="addUserToGroups"></a>
+# **addUserToGroups**
+> UpdatedResponse addUserToGroups(userId, body)
+
+Add user to a list of groups.
+
+An endpoint for adding user to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String userId = "userId_example"; // String | The ID of the user to be added to the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addUserToGroups(userId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#addUserToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**| The ID of the user to be added to the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="createGroup"></a>
+# **createGroup**
+> GroupSummary createGroup(body)
+
+Create a new group.
+
+An endpoint for creating a new group.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+GroupCreationInfo body = new GroupCreationInfo(); // GroupCreationInfo | Details of the group to be created.
+try {
+    GroupSummary result = apiInstance.createGroup(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#createGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**GroupCreationInfo**](GroupCreationInfo.md)| Details of the group to be created. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createUser"></a>
 # **createUser**
 > UserInfoResp createUser(body, action)
@@ -183,6 +422,61 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteGroup"></a>
+# **deleteGroup**
+> Void deleteGroup(groupID)
+
+Delete a group.
+
+An endpoint for deleting a group.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String groupID = "groupID_example"; // String | The ID of the group to be deleted.
+try {
+    Void result = apiInstance.deleteGroup(groupID);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#deleteGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **groupID** | **String**| The ID of the group to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="deleteUser"></a>
@@ -242,7 +536,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllUsers"></a>
 # **getAllUsers**
-> UserInfoRespList getAllUsers(limit, after, order, include, statusEq)
+> UserInfoRespList getAllUsers(limit, after, order, include, emailEq, statusEq)
 
 Get the details of all users.
 
@@ -270,9 +564,10 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String emailEq = "emailEq_example"; // String | Filter for email address
 String statusEq = "statusEq_example"; // String | Filter for status, for example active or reset
 try {
-    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, statusEq);
+    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, emailEq, statusEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getAllUsers");
@@ -288,6 +583,7 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **emailEq** | **String**| Filter for email address | [optional]
  **statusEq** | **String**| Filter for status, for example active or reset | [optional]
 
 ### Return type
@@ -303,9 +599,200 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getGroupsOfAccountApikey"></a>
+# **getGroupsOfAccountApikey**
+> GroupSummaryList getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include)
+
+Get groups of the API key.
+
+An endpoint for retrieving groups of the API key.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key whose details are retrieved.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getGroupsOfAccountApikey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key whose details are retrieved. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getGroupsOfApikey"></a>
+# **getGroupsOfApikey**
+> GroupSummaryList getGroupsOfApikey(apiKey, limit, after, order, include)
+
+Get groups of the API key.
+
+An endpoint for retrieving groups of the API key.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String apiKey = "apiKey_example"; // String | The ID of the API key whose details are retrieved.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getGroupsOfApikey(apiKey, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getGroupsOfApikey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**| The ID of the API key whose details are retrieved. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getGroupsOfUser"></a>
+# **getGroupsOfUser**
+> GroupSummaryList getGroupsOfUser(userId, limit, after, order, include)
+
+Get groups of the user.
+
+An endpoint for retrieving groups of the user.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String userId = "userId_example"; // String | The ID of the user whose details are retrieved.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getGroupsOfUser(userId, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getGroupsOfUser");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**| The ID of the user whose details are retrieved. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getUser"></a>
 # **getUser**
-> UserInfoResp getUser(userId)
+> UserInfoResp getUser(userId, properties)
 
 Details of a user.
 
@@ -329,9 +816,10 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 AccountAdminApi apiInstance = new AccountAdminApi();
-String userId = "userId_example"; // String | The ID or name of the user whose details are retrieved.
+String userId = "userId_example"; // String | The ID of the user whose details are retrieved.
+String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
 try {
-    UserInfoResp result = apiInstance.getUser(userId);
+    UserInfoResp result = apiInstance.getUser(userId, properties);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getUser");
@@ -343,7 +831,8 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **userId** | **String**| The ID or name of the user whose details are retrieved. |
+ **userId** | **String**| The ID of the user whose details are retrieved. |
+ **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
 
 ### Return type
 
@@ -419,6 +908,179 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="removeAccountApiKeyFromGroups"></a>
+# **removeAccountApiKeyFromGroups**
+> UpdatedResponse removeAccountApiKeyFromGroups(accountID, apiKey, body)
+
+Remove API key from groups.
+
+An endpoint for removing API key from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key to be removed from the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeAccountApiKeyFromGroups(accountID, apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#removeAccountApiKeyFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key to be removed from the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeApiKeyFromGroups"></a>
+# **removeApiKeyFromGroups**
+> UpdatedResponse removeApiKeyFromGroups(apiKey, body)
+
+Remove API key from groups.
+
+An endpoint for removing API key from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String apiKey = "apiKey_example"; // String | The ID of the API key to be removed from the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeApiKeyFromGroups(apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#removeApiKeyFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **apiKey** | **String**| The ID of the API key to be removed from the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeUserFromGroups"></a>
+# **removeUserFromGroups**
+> UpdatedResponse removeUserFromGroups(userId, body)
+
+Remove user from groups.
+
+An endpoint for removing user from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String userId = "userId_example"; // String | The ID of the user to be removed from the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeUserFromGroups(userId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#removeUserFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **String**| The ID of the user to be removed from the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="removeUsersFromGroup"></a>

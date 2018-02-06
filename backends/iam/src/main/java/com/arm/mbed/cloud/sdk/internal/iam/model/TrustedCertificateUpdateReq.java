@@ -82,6 +82,9 @@ public class TrustedCertificateUpdateReq implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
+  @SerializedName("enrollment_mode")
+  private Boolean enrollmentMode = null;
+
   @SerializedName("certificate")
   private String certificate = null;
 
@@ -160,6 +163,24 @@ public class TrustedCertificateUpdateReq implements Serializable {
 
   public void setStatus(StatusEnum status) {
     this.status = status;
+  }
+
+  public TrustedCertificateUpdateReq enrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
+    return this;
+  }
+
+   /**
+   * If true, signature parameter is not required. Default value is false.
+   * @return enrollmentMode
+  **/
+  @ApiModelProperty(value = "If true, signature parameter is not required. Default value is false.")
+  public Boolean isEnrollmentMode() {
+    return enrollmentMode;
+  }
+
+  public void setEnrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
   }
 
   public TrustedCertificateUpdateReq certificate(String certificate) {
@@ -263,6 +284,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
     }
     TrustedCertificateUpdateReq trustedCertificateUpdateReq = (TrustedCertificateUpdateReq) o;
     return Objects.equals(this.status, trustedCertificateUpdateReq.status) &&
+        Objects.equals(this.enrollmentMode, trustedCertificateUpdateReq.enrollmentMode) &&
         Objects.equals(this.certificate, trustedCertificateUpdateReq.certificate) &&
         Objects.equals(this.name, trustedCertificateUpdateReq.name) &&
         Objects.equals(this.service, trustedCertificateUpdateReq.service) &&
@@ -272,7 +294,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, certificate, name, service, signature, description);
+    return Objects.hash(status, enrollmentMode, certificate, name, service, signature, description);
   }
 
 
@@ -282,6 +304,7 @@ public class TrustedCertificateUpdateReq implements Serializable {
     sb.append("class TrustedCertificateUpdateReq {\n");
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    service: ").append(toIndentedString(service)).append("\n");

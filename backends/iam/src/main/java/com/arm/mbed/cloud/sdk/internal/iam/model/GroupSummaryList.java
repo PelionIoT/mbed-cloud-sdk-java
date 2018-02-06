@@ -62,7 +62,11 @@ public class GroupSummaryList implements Serializable {
     
     LIST("list"),
     
-    ERROR("error");
+    ERROR("error"),
+    
+    POLICY("policy"),
+    
+    IDENTITY_PROVIDER("identity-provider");
 
     private String value;
 

@@ -133,11 +133,14 @@ public class TrustedCertificateResp implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("description")
-  private String description = null;
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("certificate")
   private String certificate = null;
+
+  @SerializedName("enrollment_mode")
+  private Boolean enrollmentMode = null;
 
   @SerializedName("issuer")
   private String issuer = null;
@@ -167,7 +170,11 @@ public class TrustedCertificateResp implements Serializable {
     
     LIST("list"),
     
-    ERROR("error");
+    ERROR("error"),
+    
+    POLICY("policy"),
+    
+    IDENTITY_PROVIDER("identity-provider");
 
     private String value;
 
@@ -213,6 +220,9 @@ public class TrustedCertificateResp implements Serializable {
   @SerializedName("subject")
   private String subject = null;
 
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
   @SerializedName("account_id")
   private String accountId = null;
 
@@ -228,8 +238,8 @@ public class TrustedCertificateResp implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("description")
+  private String description = null;
 
   public TrustedCertificateResp service(ServiceEnum service) {
     this.service = service;
@@ -267,22 +277,22 @@ public class TrustedCertificateResp implements Serializable {
     this.status = status;
   }
 
-  public TrustedCertificateResp description(String description) {
-    this.description = description;
+  public TrustedCertificateResp name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Human readable description of this certificate.
-   * @return description
+   * Certificate name.
+   * @return name
   **/
-  @ApiModelProperty(value = "Human readable description of this certificate.")
-  public String getDescription() {
-    return description;
+  @ApiModelProperty(required = true, value = "Certificate name.")
+  public String getName() {
+    return name;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public TrustedCertificateResp certificate(String certificate) {
@@ -301,6 +311,24 @@ public class TrustedCertificateResp implements Serializable {
 
   public void setCertificate(String certificate) {
     this.certificate = certificate;
+  }
+
+  public TrustedCertificateResp enrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
+    return this;
+  }
+
+   /**
+   * If true, signature is not required. Default value false.
+   * @return enrollmentMode
+  **/
+  @ApiModelProperty(value = "If true, signature is not required. Default value false.")
+  public Boolean isEnrollmentMode() {
+    return enrollmentMode;
+  }
+
+  public void setEnrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
   }
 
   public TrustedCertificateResp issuer(String issuer) {
@@ -393,6 +421,24 @@ public class TrustedCertificateResp implements Serializable {
     this.subject = subject;
   }
 
+  public TrustedCertificateResp updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public TrustedCertificateResp accountId(String accountId) {
     this.accountId = accountId;
     return this;
@@ -483,22 +529,22 @@ public class TrustedCertificateResp implements Serializable {
     this.id = id;
   }
 
-  public TrustedCertificateResp name(String name) {
-    this.name = name;
+  public TrustedCertificateResp description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Certificate name.
-   * @return name
+   * Human readable description of this certificate.
+   * @return description
   **/
-  @ApiModelProperty(required = true, value = "Certificate name.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(value = "Human readable description of this certificate.")
+  public String getDescription() {
+    return description;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -513,24 +559,26 @@ public class TrustedCertificateResp implements Serializable {
     TrustedCertificateResp trustedCertificateResp = (TrustedCertificateResp) o;
     return Objects.equals(this.service, trustedCertificateResp.service) &&
         Objects.equals(this.status, trustedCertificateResp.status) &&
-        Objects.equals(this.description, trustedCertificateResp.description) &&
+        Objects.equals(this.name, trustedCertificateResp.name) &&
         Objects.equals(this.certificate, trustedCertificateResp.certificate) &&
+        Objects.equals(this.enrollmentMode, trustedCertificateResp.enrollmentMode) &&
         Objects.equals(this.issuer, trustedCertificateResp.issuer) &&
         Objects.equals(this.deviceExecutionMode, trustedCertificateResp.deviceExecutionMode) &&
         Objects.equals(this.createdAt, trustedCertificateResp.createdAt) &&
         Objects.equals(this.object, trustedCertificateResp.object) &&
         Objects.equals(this.subject, trustedCertificateResp.subject) &&
+        Objects.equals(this.updatedAt, trustedCertificateResp.updatedAt) &&
         Objects.equals(this.accountId, trustedCertificateResp.accountId) &&
         Objects.equals(this.etag, trustedCertificateResp.etag) &&
         Objects.equals(this.validity, trustedCertificateResp.validity) &&
         Objects.equals(this.ownerId, trustedCertificateResp.ownerId) &&
         Objects.equals(this.id, trustedCertificateResp.id) &&
-        Objects.equals(this.name, trustedCertificateResp.name);
+        Objects.equals(this.description, trustedCertificateResp.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(service, status, description, certificate, issuer, deviceExecutionMode, createdAt, object, subject, accountId, etag, validity, ownerId, id, name);
+    return Objects.hash(service, status, name, certificate, enrollmentMode, issuer, deviceExecutionMode, createdAt, object, subject, updatedAt, accountId, etag, validity, ownerId, id, description);
   }
 
 
@@ -541,19 +589,21 @@ public class TrustedCertificateResp implements Serializable {
     
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
+    sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    issuer: ").append(toIndentedString(issuer)).append("\n");
     sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
     sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

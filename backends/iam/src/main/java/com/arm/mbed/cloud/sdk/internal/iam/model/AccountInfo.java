@@ -100,8 +100,20 @@ public class AccountInfo implements Serializable {
   @SerializedName("password_policy")
   private PasswordPolicy passwordPolicy = null;
 
+  @SerializedName("sales_contact")
+  private String salesContact = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("account_properties")
+  private Map<String, Map<String, String>> accountProperties = null;
+
+  @SerializedName("customer_number")
+  private String customerNumber = null;
 
   @SerializedName("id")
   private String id = null;
@@ -121,6 +133,58 @@ public class AccountInfo implements Serializable {
   @SerializedName("display_name")
   private String displayName = null;
 
+  /**
+   * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+   */
+  @JsonAdapter(MfaStatusEnum.Adapter.class)
+  public enum MfaStatusEnum {
+    ENABLED("enabled"),
+    
+    ENFORCED("enforced"),
+    
+    OPTIONAL("optional");
+
+    private String value;
+
+    MfaStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MfaStatusEnum fromValue(String text) {
+      for (MfaStatusEnum b : MfaStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MfaStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MfaStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MfaStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MfaStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("mfa_status")
+  private MfaStatusEnum mfaStatus = null;
+
   @SerializedName("parent_id")
   private String parentId = null;
 
@@ -130,14 +194,14 @@ public class AccountInfo implements Serializable {
   @SerializedName("etag")
   private String etag = null;
 
-  @SerializedName("is_provisioning_allowed")
-  private Boolean isProvisioningAllowed = null;
-
   @SerializedName("email")
   private String email = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
+
+  @SerializedName("reference_note")
+  private String referenceNote = null;
 
   @SerializedName("company")
   private String company = null;
@@ -161,7 +225,11 @@ public class AccountInfo implements Serializable {
     
     LIST("list"),
     
-    ERROR("error");
+    ERROR("error"),
+    
+    POLICY("policy"),
+    
+    IDENTITY_PROVIDER("identity-provider");
 
     private String value;
 
@@ -228,11 +296,20 @@ public class AccountInfo implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
+  @SerializedName("contract_number")
+  private String contractNumber = null;
+
+  @SerializedName("expiration_warning_threshold")
+  private String expirationWarningThreshold = null;
+
   @SerializedName("contact")
   private String contact = null;
 
   @SerializedName("policies")
   private List<FeaturePolicy> policies = null;
+
+  @SerializedName("notification_emails")
+  private List<String> notificationEmails = null;
 
   @SerializedName("template_id")
   private String templateId = null;
@@ -291,6 +368,42 @@ public class AccountInfo implements Serializable {
     this.passwordPolicy = passwordPolicy;
   }
 
+  public AccountInfo salesContact(String salesContact) {
+    this.salesContact = salesContact;
+    return this;
+  }
+
+   /**
+   * Email address of the sales contact.
+   * @return salesContact
+  **/
+  @ApiModelProperty(value = "Email address of the sales contact.")
+  public String getSalesContact() {
+    return salesContact;
+  }
+
+  public void setSalesContact(String salesContact) {
+    this.salesContact = salesContact;
+  }
+
+  public AccountInfo updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public AccountInfo postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
@@ -307,6 +420,50 @@ public class AccountInfo implements Serializable {
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  public AccountInfo accountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+    return this;
+  }
+
+  public AccountInfo putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
+    if (this.accountProperties == null) {
+      this.accountProperties = new HashMap<String, Map<String, String>>();
+    }
+    this.accountProperties.put(key, accountPropertiesItem);
+    return this;
+  }
+
+   /**
+   * Account specific custom properties.
+   * @return accountProperties
+  **/
+  @ApiModelProperty(value = "Account specific custom properties.")
+  public Map<String, Map<String, String>> getAccountProperties() {
+    return accountProperties;
+  }
+
+  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+  }
+
+  public AccountInfo customerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
+    return this;
+  }
+
+   /**
+   * Customer number of the customer.
+   * @return customerNumber
+  **/
+  @ApiModelProperty(value = "Customer number of the customer.")
+  public String getCustomerNumber() {
+    return customerNumber;
+  }
+
+  public void setCustomerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
   }
 
   public AccountInfo id(String id) {
@@ -422,6 +579,24 @@ public class AccountInfo implements Serializable {
     this.displayName = displayName;
   }
 
+  public AccountInfo mfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+    return this;
+  }
+
+   /**
+   * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+   * @return mfaStatus
+  **/
+  @ApiModelProperty(value = "The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.")
+  public MfaStatusEnum getMfaStatus() {
+    return mfaStatus;
+  }
+
+  public void setMfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+  }
+
   public AccountInfo parentId(String parentId) {
     this.parentId = parentId;
     return this;
@@ -476,24 +651,6 @@ public class AccountInfo implements Serializable {
     this.etag = etag;
   }
 
-  public AccountInfo isProvisioningAllowed(Boolean isProvisioningAllowed) {
-    this.isProvisioningAllowed = isProvisioningAllowed;
-    return this;
-  }
-
-   /**
-   * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-   * @return isProvisioningAllowed
-  **/
-  @ApiModelProperty(required = true, value = "Flag (true/false) indicating whether Factory Tool is allowed to download or not.")
-  public Boolean isIsProvisioningAllowed() {
-    return isProvisioningAllowed;
-  }
-
-  public void setIsProvisioningAllowed(Boolean isProvisioningAllowed) {
-    this.isProvisioningAllowed = isProvisioningAllowed;
-  }
-
   public AccountInfo email(String email) {
     this.email = email;
     return this;
@@ -528,6 +685,24 @@ public class AccountInfo implements Serializable {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public AccountInfo referenceNote(String referenceNote) {
+    this.referenceNote = referenceNote;
+    return this;
+  }
+
+   /**
+   * A reference note for updating the status of the account
+   * @return referenceNote
+  **/
+  @ApiModelProperty(value = "A reference note for updating the status of the account")
+  public String getReferenceNote() {
+    return referenceNote;
+  }
+
+  public void setReferenceNote(String referenceNote) {
+    this.referenceNote = referenceNote;
   }
 
   public AccountInfo company(String company) {
@@ -726,6 +901,42 @@ public class AccountInfo implements Serializable {
     this.idleTimeout = idleTimeout;
   }
 
+  public AccountInfo contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+    return this;
+  }
+
+   /**
+   * Contract number of the customer.
+   * @return contractNumber
+  **/
+  @ApiModelProperty(value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+  }
+
+  public AccountInfo expirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
+    return this;
+  }
+
+   /**
+   * Indicates how many days before the account expiration a notification email should be sent.
+   * @return expirationWarningThreshold
+  **/
+  @ApiModelProperty(value = "Indicates how many days before the account expiration a notification email should be sent.")
+  public String getExpirationWarningThreshold() {
+    return expirationWarningThreshold;
+  }
+
+  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
+  }
+
   public AccountInfo contact(String contact) {
     this.contact = contact;
     return this;
@@ -770,6 +981,32 @@ public class AccountInfo implements Serializable {
     this.policies = policies;
   }
 
+  public AccountInfo notificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+    return this;
+  }
+
+  public AccountInfo addNotificationEmailsItem(String notificationEmailsItem) {
+    if (this.notificationEmails == null) {
+      this.notificationEmails = new ArrayList<String>();
+    }
+    this.notificationEmails.add(notificationEmailsItem);
+    return this;
+  }
+
+   /**
+   * A list of notification email addresses.
+   * @return notificationEmails
+  **/
+  @ApiModelProperty(value = "A list of notification email addresses.")
+  public List<String> getNotificationEmails() {
+    return notificationEmails;
+  }
+
+  public void setNotificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+  }
+
   public AccountInfo templateId(String templateId) {
     this.templateId = templateId;
     return this;
@@ -801,19 +1038,24 @@ public class AccountInfo implements Serializable {
     return Objects.equals(this.endMarket, accountInfo.endMarket) &&
         Objects.equals(this.status, accountInfo.status) &&
         Objects.equals(this.passwordPolicy, accountInfo.passwordPolicy) &&
+        Objects.equals(this.salesContact, accountInfo.salesContact) &&
+        Objects.equals(this.updatedAt, accountInfo.updatedAt) &&
         Objects.equals(this.postalCode, accountInfo.postalCode) &&
+        Objects.equals(this.accountProperties, accountInfo.accountProperties) &&
+        Objects.equals(this.customerNumber, accountInfo.customerNumber) &&
         Objects.equals(this.id, accountInfo.id) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
         Objects.equals(this.addressLine2, accountInfo.addressLine2) &&
         Objects.equals(this.city, accountInfo.city) &&
         Objects.equals(this.addressLine1, accountInfo.addressLine1) &&
         Objects.equals(this.displayName, accountInfo.displayName) &&
+        Objects.equals(this.mfaStatus, accountInfo.mfaStatus) &&
         Objects.equals(this.parentId, accountInfo.parentId) &&
         Objects.equals(this.state, accountInfo.state) &&
         Objects.equals(this.etag, accountInfo.etag) &&
-        Objects.equals(this.isProvisioningAllowed, accountInfo.isProvisioningAllowed) &&
         Objects.equals(this.email, accountInfo.email) &&
         Objects.equals(this.phoneNumber, accountInfo.phoneNumber) &&
+        Objects.equals(this.referenceNote, accountInfo.referenceNote) &&
         Objects.equals(this.company, accountInfo.company) &&
         Objects.equals(this.object, accountInfo.object) &&
         Objects.equals(this.reason, accountInfo.reason) &&
@@ -824,14 +1066,17 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.country, accountInfo.country) &&
         Objects.equals(this.createdAt, accountInfo.createdAt) &&
         Objects.equals(this.idleTimeout, accountInfo.idleTimeout) &&
+        Objects.equals(this.contractNumber, accountInfo.contractNumber) &&
+        Objects.equals(this.expirationWarningThreshold, accountInfo.expirationWarningThreshold) &&
         Objects.equals(this.contact, accountInfo.contact) &&
         Objects.equals(this.policies, accountInfo.policies) &&
+        Objects.equals(this.notificationEmails, accountInfo.notificationEmails) &&
         Objects.equals(this.templateId, accountInfo.templateId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, status, passwordPolicy, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contact, policies, templateId);
+    return Objects.hash(endMarket, status, passwordPolicy, salesContact, updatedAt, postalCode, accountProperties, customerNumber, id, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, parentId, state, etag, email, phoneNumber, referenceNote, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contractNumber, expirationWarningThreshold, contact, policies, notificationEmails, templateId);
   }
 
 
@@ -843,19 +1088,24 @@ public class AccountInfo implements Serializable {
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+    sb.append("    salesContact: ").append(toIndentedString(salesContact)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
+    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
     sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    isProvisioningAllowed: ").append(toIndentedString(isProvisioningAllowed)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    referenceNote: ").append(toIndentedString(referenceNote)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
@@ -866,8 +1116,11 @@ public class AccountInfo implements Serializable {
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
+    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    policies: ").append(toIndentedString(policies)).append("\n");
+    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
     sb.append("    templateId: ").append(toIndentedString(templateId)).append("\n");
     sb.append("}");
     return sb.toString();

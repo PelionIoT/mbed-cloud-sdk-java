@@ -33,14 +33,11 @@ import java.io.Serializable;
 public class GroupSummary implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("last_update_time")
-  private Long lastUpdateTime = null;
-
   @SerializedName("user_count")
   private Integer userCount = null;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("account_id")
+  private String accountId = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
@@ -64,7 +61,11 @@ public class GroupSummary implements Serializable {
     
     LIST("list"),
     
-    ERROR("error");
+    ERROR("error"),
+    
+    POLICY("policy"),
+    
+    IDENTITY_PROVIDER("identity-provider");
 
     private String value;
 
@@ -107,8 +108,8 @@ public class GroupSummary implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
-  @SerializedName("creation_time")
-  private Long creationTime = null;
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private String etag = null;
@@ -119,26 +120,8 @@ public class GroupSummary implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
-
-  public GroupSummary lastUpdateTime(Long lastUpdateTime) {
-    this.lastUpdateTime = lastUpdateTime;
-    return this;
-  }
-
-   /**
-   * A timestamp of the latest group update, in milliseconds.
-   * @return lastUpdateTime
-  **/
-  @ApiModelProperty(value = "A timestamp of the latest group update, in milliseconds.")
-  public Long getLastUpdateTime() {
-    return lastUpdateTime;
-  }
-
-  public void setLastUpdateTime(Long lastUpdateTime) {
-    this.lastUpdateTime = lastUpdateTime;
-  }
+  @SerializedName("name")
+  private String name = null;
 
   public GroupSummary userCount(Integer userCount) {
     this.userCount = userCount;
@@ -158,22 +141,22 @@ public class GroupSummary implements Serializable {
     this.userCount = userCount;
   }
 
-  public GroupSummary name(String name) {
-    this.name = name;
+  public GroupSummary accountId(String accountId) {
+    this.accountId = accountId;
     return this;
   }
 
    /**
-   * The name of the group.
-   * @return name
+   * The UUID of the account this group belongs to.
+   * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "The name of the group.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(required = true, value = "The UUID of the account this group belongs to.")
+  public String getAccountId() {
+    return accountId;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
   public GroupSummary createdAt(DateTime createdAt) {
@@ -212,22 +195,22 @@ public class GroupSummary implements Serializable {
     this.object = object;
   }
 
-  public GroupSummary creationTime(Long creationTime) {
-    this.creationTime = creationTime;
+  public GroupSummary updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * A timestamp of the group creation in the storage, in milliseconds.
-   * @return creationTime
+   * Last update UTC time RFC3339.
+   * @return updatedAt
   **/
-  @ApiModelProperty(value = "A timestamp of the group creation in the storage, in milliseconds.")
-  public Long getCreationTime() {
-    return creationTime;
+  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setCreationTime(Long creationTime) {
-    this.creationTime = creationTime;
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public GroupSummary etag(String etag) {
@@ -284,22 +267,22 @@ public class GroupSummary implements Serializable {
     this.id = id;
   }
 
-  public GroupSummary accountId(String accountId) {
-    this.accountId = accountId;
+  public GroupSummary name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * The UUID of the account this group belongs to.
-   * @return accountId
+   * The name of the group.
+   * @return name
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the account this group belongs to.")
-  public String getAccountId() {
-    return accountId;
+  @ApiModelProperty(required = true, value = "The name of the group.")
+  public String getName() {
+    return name;
   }
 
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -312,21 +295,20 @@ public class GroupSummary implements Serializable {
       return false;
     }
     GroupSummary groupSummary = (GroupSummary) o;
-    return Objects.equals(this.lastUpdateTime, groupSummary.lastUpdateTime) &&
-        Objects.equals(this.userCount, groupSummary.userCount) &&
-        Objects.equals(this.name, groupSummary.name) &&
+    return Objects.equals(this.userCount, groupSummary.userCount) &&
+        Objects.equals(this.accountId, groupSummary.accountId) &&
         Objects.equals(this.createdAt, groupSummary.createdAt) &&
         Objects.equals(this.object, groupSummary.object) &&
-        Objects.equals(this.creationTime, groupSummary.creationTime) &&
+        Objects.equals(this.updatedAt, groupSummary.updatedAt) &&
         Objects.equals(this.etag, groupSummary.etag) &&
         Objects.equals(this.apikeyCount, groupSummary.apikeyCount) &&
         Objects.equals(this.id, groupSummary.id) &&
-        Objects.equals(this.accountId, groupSummary.accountId);
+        Objects.equals(this.name, groupSummary.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lastUpdateTime, userCount, name, createdAt, object, creationTime, etag, apikeyCount, id, accountId);
+    return Objects.hash(userCount, accountId, createdAt, object, updatedAt, etag, apikeyCount, id, name);
   }
 
 
@@ -335,16 +317,15 @@ public class GroupSummary implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class GroupSummary {\n");
     
-    sb.append("    lastUpdateTime: ").append(toIndentedString(lastUpdateTime)).append("\n");
     sb.append("    userCount: ").append(toIndentedString(userCount)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    apikeyCount: ").append(toIndentedString(apikeyCount)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }
