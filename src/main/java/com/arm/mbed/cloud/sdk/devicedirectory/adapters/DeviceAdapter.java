@@ -13,13 +13,14 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.MechanismType;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.MechanismEnum;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.StateEnum;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 
 @Preamble(description = "Adapter for device model")
@@ -33,12 +34,12 @@ public final class DeviceAdapter {
 
     private static FilterMarshaller getFilterMarshaller() {
         final Map<String, String> filterMapping = new HashMap<>(4);
-        filterMapping.put("alias", "endpoint_name");
-        filterMapping.put("bootstrapCertificateExpiration", "bootstrap_expiration_date");
-        filterMapping.put("certificateFingerprint", "device_key");
-        filterMapping.put("certificateIssuerId", "ca_id");
-        filterMapping.put("connectorCertificateExpiration", "connector_expiration_date");
-        filterMapping.put("deviceType", "endpoint_type");
+        filterMapping.put(DeviceListOptions.FILTER_ALIAS, "endpoint_name");
+        filterMapping.put(DeviceListOptions.FILTER_BOOTSTRAP_CERTIFICATE_EXPIRATION, "bootstrap_expiration_date");
+        filterMapping.put(DeviceListOptions.FILTER_CERTIFICATE_FINGERPRINT, "device_key");
+        filterMapping.put(DeviceListOptions.FILTER_CERTIFICATE_ISSUER_ID, "ca_id");
+        filterMapping.put(DeviceListOptions.FILTER_CONNECTOR_CERTIFICATE_EXPIRATION, "connector_expiration_date");
+        filterMapping.put(DeviceListOptions.FILTER_DEVICE_TYPE, "endpoint_type");
         return new FilterMarshaller(filterMapping);
     }
 
@@ -55,6 +56,7 @@ public final class DeviceAdapter {
         }
         final Device device = new Device(deviceData.getId(), deviceData.getAccountId(),
                 TranslationUtils.toDate(deviceData.getCreatedAt()), TranslationUtils.toDate(deviceData.getUpdatedAt()),
+                TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
                 TranslationUtils.toDate(deviceData.getManifestTimestamp()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
         device.setCustomAttributes(deviceData.getCustomAttributes());
@@ -106,7 +108,7 @@ public final class DeviceAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (deviceList == null) ? null : deviceList.getHasMore();
+                return (deviceList == null) ? null : deviceList.isHasMore();
             }
 
             @Override
@@ -194,11 +196,11 @@ public final class DeviceAdapter {
      *            updated device
      * @return a device data update request
      */
-    public static DeviceDataPatchRequest reverseMapUpdate(Device device) {
+    public static DeviceDataPutRequest reverseMapUpdate(Device device) {
         if (device == null) {
             return null;
         }
-        final DeviceDataPatchRequest updateDevice = new DeviceDataPatchRequest();
+        final DeviceDataPutRequest updateDevice = new DeviceDataPutRequest();
         updateDevice.setName(device.getName());
         updateDevice.setCustomAttributes(device.getCustomAttributes());
         updateDevice.setDescription(device.getDescription());

@@ -398,7 +398,7 @@ public class FilterMarshaller {
                     return valueStr;
                 }
                 // If only numeric values
-                if (valueStr.matches("[0-9]+")) {
+                if (valueStr.matches("-?[0-9.]+")) {
                     return valueStr;
                 }
                 try {

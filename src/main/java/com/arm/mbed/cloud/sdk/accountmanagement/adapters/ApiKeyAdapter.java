@@ -156,7 +156,7 @@ public final class ApiKeyAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (apiKeyList == null) ? null : apiKeyList.getHasMore();
+                return (apiKeyList == null) ? null : apiKeyList.isHasMore();
             }
 
             @Override

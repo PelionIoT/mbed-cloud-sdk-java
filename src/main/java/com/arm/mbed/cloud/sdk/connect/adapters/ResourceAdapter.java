@@ -29,7 +29,7 @@ public final class ResourceAdapter {
             return null;
         }
         return new Resource(deviceId, apiResource.getUri(), apiResource.getRt(), apiResource.getType(),
-                TranslationUtils.toBool(apiResource.getObs(), false));
+                TranslationUtils.toBool(apiResource.isObs(), false));
     }
 
     /**

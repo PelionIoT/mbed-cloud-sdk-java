@@ -69,7 +69,7 @@ public final class CampaignDeviceStateAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (deviceList == null) ? null : deviceList.getHasMore();
+                return (deviceList == null) ? null : deviceList.isHasMore();
             }
 
             @Override

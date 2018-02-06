@@ -16,9 +16,10 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign.StateEnum;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
 import com.arm.mbed.cloud.sdk.update.model.Campaign;
+import com.arm.mbed.cloud.sdk.update.model.CampaignListOptions;
 import com.arm.mbed.cloud.sdk.update.model.CampaignState;
 
 @Preamble(description = "Adapter for campaign model")
@@ -32,10 +33,10 @@ public final class CampaignAdapter {
 
     private static FilterMarshaller getFilterMarshaller() {
         final Map<String, String> filterMapping = new HashMap<>(4);
-        filterMapping.put("finishedAt", "finished");
-        filterMapping.put("manifestId", "root_manifest_id");
-        filterMapping.put("manifestUrl", "root_manifest_url");
-        filterMapping.put("scheduledAt", "when");
+        filterMapping.put(CampaignListOptions.FINISHED_AT_FILTER, "finished");
+        filterMapping.put(CampaignListOptions.MANIFEST_ID_FILTER, "root_manifest_id");
+        filterMapping.put(CampaignListOptions.MANIFEST_URL_FILTER, "root_manifest_url");
+        filterMapping.put(CampaignListOptions.SCHEDULED_AT_FILTER, "when");
         return new FilterMarshaller(filterMapping);
     }
 
@@ -107,11 +108,11 @@ public final class CampaignAdapter {
      *            an updated campaign
      * @return campaign update request
      */
-    public static UpdateCampaignPatchRequest reverseMapUpdate(Campaign campaign) {
+    public static UpdateCampaignPutRequest reverseMapUpdate(Campaign campaign) {
         if (campaign == null) {
             return null;
         }
-        final UpdateCampaignPatchRequest updateRequest = new UpdateCampaignPatchRequest();
+        final UpdateCampaignPutRequest updateRequest = new UpdateCampaignPutRequest();
         updateRequest.setDescription(campaign.getDescription());
         updateRequest.setDeviceFilter(encodeFilters(campaign.getFilter()));
         updateRequest.setName(campaign.getName());
@@ -189,29 +190,29 @@ public final class CampaignAdapter {
         return null;
     }
 
-    private static UpdateCampaignPatchRequest.StateEnum toPutStateEnum(CampaignState state) {
+    private static UpdateCampaignPutRequest.StateEnum toPutStateEnum(CampaignState state) {
         if (state == null) {
             return null;
         }
         switch (state) {
             case DEPLOYED:
-                return UpdateCampaignPatchRequest.StateEnum.DEPLOYED;
+                return UpdateCampaignPutRequest.StateEnum.DEPLOYED;
             case DEPLOYING:
-                return UpdateCampaignPatchRequest.StateEnum.DEPLOYING;
+                return UpdateCampaignPutRequest.StateEnum.DEPLOYING;
             case DEVICE_COPY:
-                return UpdateCampaignPatchRequest.StateEnum.DEVICECOPY;
+                return UpdateCampaignPutRequest.StateEnum.DEVICECOPY;
             case DEVICE_FETCH:
-                return UpdateCampaignPatchRequest.StateEnum.DEVICEFETCH;
+                return UpdateCampaignPutRequest.StateEnum.DEVICEFETCH;
             case DRAFT:
-                return UpdateCampaignPatchRequest.StateEnum.DRAFT;
+                return UpdateCampaignPutRequest.StateEnum.DRAFT;
             case EXPIRED:
-                return UpdateCampaignPatchRequest.StateEnum.EXPIRED;
+                return UpdateCampaignPutRequest.StateEnum.EXPIRED;
             case MANIFEST_REMOVED:
-                return UpdateCampaignPatchRequest.StateEnum.MANIFESTREMOVED;
+                return UpdateCampaignPutRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
-                return UpdateCampaignPatchRequest.StateEnum.PUBLISHING;
+                return UpdateCampaignPutRequest.StateEnum.PUBLISHING;
             case SCHEDULED:
-                return UpdateCampaignPatchRequest.StateEnum.SCHEDULED;
+                return UpdateCampaignPutRequest.StateEnum.SCHEDULED;
             default:
                 break;
 
@@ -233,7 +234,7 @@ public final class CampaignAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (campaignList == null) ? null : campaignList.getHasMore();
+                return (campaignList == null) ? null : campaignList.isHasMore();
             }
 
             @Override

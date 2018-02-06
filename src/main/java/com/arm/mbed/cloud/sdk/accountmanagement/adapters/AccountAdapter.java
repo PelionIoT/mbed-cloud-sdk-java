@@ -30,7 +30,7 @@ public final class AccountAdapter {
             return null;
         }
         final Account account = new Account(accountInfo.getId(), toStatus(accountInfo.getStatus()),
-                TranslationUtils.toBool(accountInfo.getIsProvisioningAllowed(), true), accountInfo.getTier(),
+                TranslationUtils.toBool(accountInfo.isIsProvisioningAllowed(), true), accountInfo.getTier(),
                 TranslationUtils.toDate(accountInfo.getCreatedAt()),
                 TranslationUtils.toDate(accountInfo.getUpgradedAt()), accountInfo.getLimits(),
                 PolicyAdapter.mapList(accountInfo.getPolicies()), accountInfo.getTemplateId(), accountInfo.getReason());
