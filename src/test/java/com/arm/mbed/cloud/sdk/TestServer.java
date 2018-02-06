@@ -85,6 +85,7 @@ public class TestServer {
         // Route registration
         router.route().handler(BodyHandler.create());
         defineInitialisationRoute();
+        defineHelloRoute();
         definePingRoute();
         defineResetRoute();
         defineShutdownRoute();
@@ -103,7 +104,7 @@ public class TestServer {
         } catch (ServerCacheException e) {
             e.printStackTrace();
         }
-        logger.logInfo("Java SDK test server listening to port " + String.valueOf(port) + "...");
+        logger.logInfo("Java SDK test server listening on port " + String.valueOf(port) + "...");
         server.requestHandler(router::accept).listen(port);
 
     }
@@ -117,6 +118,19 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     return null;
+                }
+            }, false);
+        });
+    }
+
+    private void defineHelloRoute() {
+        Route route = router.route(HttpMethod.GET, "/").produces(APPLICATION_JSON);
+        route.handler(routingContext -> {
+            execute(200, routingContext, new ServerAction() {
+
+                @Override
+                public Object execute() throws Exception {
+                    return engine.hello();
                 }
             }, false);
         });

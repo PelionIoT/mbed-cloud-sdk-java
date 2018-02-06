@@ -41,6 +41,11 @@ public class Engine {
         cache.storeSDK(sdk);
     }
 
+    public String hello() {
+        logger.logInfo("Hello !");
+        return "Hello. I am Java Mbed Cloud SDK Test server. How can I help?";
+    }
+
     public String ping() {
         logger.logInfo("Received a Ping!  -------------->");
         logger.logInfo("Sending a Pong!   <--------------");
