@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEvent;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEventListOptions;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 
@@ -27,8 +28,8 @@ public final class DeviceEventAdapter {
 
     private static FilterMarshaller getFilterMarshaller() {
         final Map<String, String> filterMapping = new HashMap<>(4);
-        filterMapping.put("eventDate", "date_time");
-        filterMapping.put("type", "event_type");
+        filterMapping.put(DeviceEventListOptions.FILTER_EVENT_DATE, "date_time");
+        filterMapping.put(DeviceEventListOptions.FILTER_TYPE, "event_type");
         return new FilterMarshaller(filterMapping);
     }
 
@@ -43,13 +44,11 @@ public final class DeviceEventAdapter {
         if (deviceEventData == null) {
             return null;
         }
-        final DeviceEvent event = new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
+        return new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
                 TranslationUtils.toDate(deviceEventData.getDateTime()),
-                TranslationUtils.toBool(deviceEventData.getStateChange(), false), deviceEventData.getDescription(),
+                TranslationUtils.toBool(deviceEventData.isStateChange(), false), deviceEventData.getDescription(),
                 deviceEventData.getChanges(), deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
                 deviceEventData.getData());
-        return event;
-
     }
 
     /**
@@ -81,7 +80,7 @@ public final class DeviceEventAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (eventList == null) ? null : eventList.getHasMore();
+                return (eventList == null) ? null : eventList.isHasMore();
             }
 
             @Override

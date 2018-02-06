@@ -86,6 +86,10 @@ public class DeviceListOptions extends ListOptions {
      */
     public static final String FILTER_UPDATED_AT = "updatedAt";
     /**
+     * Tag of filter by last claim date.
+     */
+    public static final String FILTER_CLAIMED_AT = "claimedAt";
+    /**
      * Tag of filter by device type.
      */
     public static final String FILTER_DEVICE_TYPE = "deviceType";
@@ -315,6 +319,18 @@ public class DeviceListOptions extends ListOptions {
      */
     public void addUpdatedAtFilter(Date updatedAtDate, FilterOperator operator) {
         addFilter(FILTER_UPDATED_AT, operator, updatedAtDate);
+    }
+
+    /**
+     * Adds a device filter based on claimedAt field.
+     * 
+     * @param claimedAtDate
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addClaimedAtFilter(Date claimedAtDate, FilterOperator operator) {
+        addFilter(FILTER_CLAIMED_AT, operator, claimedAtDate);
     }
 
     /**

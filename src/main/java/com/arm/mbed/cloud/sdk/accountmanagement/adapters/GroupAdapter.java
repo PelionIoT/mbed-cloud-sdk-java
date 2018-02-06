@@ -69,7 +69,7 @@ public final class GroupAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (groupList == null) ? null : groupList.getHasMore();
+                return (groupList == null) ? null : groupList.isHasMore();
             }
 
             @Override

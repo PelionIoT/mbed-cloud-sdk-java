@@ -301,7 +301,7 @@ public final class CertificateAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (certificateList == null) ? null : certificateList.getHasMore();
+                return (certificateList == null) ? null : certificateList.isHasMore();
             }
 
             @Override

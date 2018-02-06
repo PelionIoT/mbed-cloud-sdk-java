@@ -71,7 +71,7 @@ public final class FirmwareImageAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (imageList == null) ? null : imageList.getHasMore();
+                return (imageList == null) ? null : imageList.isHasMore();
             }
 
             @Override

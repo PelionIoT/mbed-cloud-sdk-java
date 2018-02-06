@@ -29,7 +29,7 @@ public final class LoginHistoryAdapter {
             return null;
         }
         return new LoginHistory(TranslationUtils.toDate(history.getDate()), history.getUserAgent(),
-                history.getIpAddress(), TranslationUtils.toBool(history.getSuccess(), false));
+                history.getIpAddress(), TranslationUtils.toBool(history.isSuccess(), false));
     }
 
     /**
