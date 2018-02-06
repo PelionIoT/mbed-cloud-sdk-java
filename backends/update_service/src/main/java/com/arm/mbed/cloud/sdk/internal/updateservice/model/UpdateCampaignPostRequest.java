@@ -53,9 +53,21 @@ public class UpdateCampaignPostRequest implements Serializable {
     
     SCHEDULED("scheduled"),
     
+    ALLOCATINGQUOTA("allocatingquota"),
+    
+    ALLOCATEDQUOTA("allocatedquota"),
+    
+    INSUFFICIENTQUOTA("insufficientquota"),
+    
+    CHECKINGMANIFEST("checkingmanifest"),
+    
+    CHECKEDMANIFEST("checkedmanifest"),
+    
     DEVICEFETCH("devicefetch"),
     
     DEVICECOPY("devicecopy"),
+    
+    DEVICECHECK("devicecheck"),
     
     PUBLISHING("publishing"),
     
@@ -65,7 +77,15 @@ public class UpdateCampaignPostRequest implements Serializable {
     
     MANIFESTREMOVED("manifestremoved"),
     
-    EXPIRED("expired");
+    EXPIRED("expired"),
+    
+    STOPPING("stopping"),
+    
+    AUTOSTOPPED("autostopped"),
+    
+    USERSTOPPED("userstopped"),
+    
+    CONFLICT("conflict");
 
     private String value;
 

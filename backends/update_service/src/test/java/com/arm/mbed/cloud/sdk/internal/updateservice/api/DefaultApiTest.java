@@ -47,7 +47,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Delete an update campaign.
+     * Delete an update campaign.
      */
     @Test
     public void campaignDestroyTest() {
@@ -75,7 +75,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Get an update campaign.
+     * Get an update campaign.
      */
     @Test
     public void campaignRetrieveTest() {
@@ -87,7 +87,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/{campaign_id}/ instead) Modify an update campaign.
+     * Modify an update campaign.
      */
     @Test
     public void campaignUpdateTest() {
@@ -208,7 +208,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/ instead) Create an update campaign.
+     * Create an update campaign.
      */
     @Test
     public void updateCampaignCreateTest() {
@@ -232,7 +232,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/ instead) Get update campaigns for devices specified by a filter.
+     * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
      */
     @Test
     public void updateCampaignListTest() {
@@ -314,7 +314,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ instead) Get update campaign metadata.
+     * Get update campaign metadata.
      */
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
@@ -327,7 +327,7 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * DEPRECATED (use /v3/campaigns/{campaign_id}/campaign-device-metadata/ instead) Get campaign device metadata.
+     * Get campaign device metadata.
      */
     @Test
     public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {
