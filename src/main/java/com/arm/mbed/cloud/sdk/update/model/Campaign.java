@@ -255,7 +255,7 @@ public class Campaign implements SdkModel {
         setName(name);
         setScheduledAt(scheduledAt);
         setState(state);
-        setDeviceFilter(deviceFilter);
+        setDeviceFilters(deviceFilter);
     }
 
     /**
@@ -292,7 +292,7 @@ public class Campaign implements SdkModel {
         this();
         setName(name);
         setManifestId(manifestId);
-        setDeviceFilter(deviceFilter);
+        setDeviceFilters(deviceFilter);
     }
 
     /**
@@ -320,7 +320,7 @@ public class Campaign implements SdkModel {
      *            The query to use
      */
     public Campaign(String name, FirmwareManifest manifest, Query query) {
-        this(name, manifest, (query == null) ? null : query.fetchFilter());
+        this(name, manifest, (query == null) ? null : query.fetchFilters());
     }
 
     /**
@@ -492,6 +492,15 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Gets when a campaign is updated at.
+     *
+     * @return the finishedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
      * Gets the filter.
      *
      * @return the filters
@@ -513,12 +522,25 @@ public class Campaign implements SdkModel {
     /**
      * Set the device filter.
      *
-     * @param deviceFilter
+     * @param deviceFilters
      *            the device filter to set
      */
     @Required
-    public void setDeviceFilter(Filters deviceFilter) {
-        this.deviceFilter = deviceFilter;
+    public void setDeviceFilters(Filters deviceFilters) {
+        this.deviceFilter = deviceFilters;
+    }
+
+    /**
+     * Sets the filters.
+     * <p>
+     * Prefer using {@link #setDeviceFilters(Filters)} or {@link #setDeviceFilterFromJson(String)} to set filters.
+     * 
+     * @param filter
+     *            filters expressed as a Json hashtable (key,value)
+     */
+    @Internal
+    public void setDeviceFilter(Map<String, Object> filter) {
+        setDeviceFilters(FilterMarshaller.fromJsonObject(filter));
     }
 
     /**
@@ -530,7 +552,7 @@ public class Campaign implements SdkModel {
      *            Json string defining the device filter to set
      */
     public void setDeviceFilterFromJson(String jsonString) {
-        setDeviceFilter(FilterMarshaller.fromJson(jsonString));
+        setDeviceFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**

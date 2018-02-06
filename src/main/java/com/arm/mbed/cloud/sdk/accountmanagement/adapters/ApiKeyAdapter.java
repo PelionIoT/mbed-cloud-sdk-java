@@ -42,7 +42,7 @@ public final class ApiKeyAdapter {
                 TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
         apiKey.setName(apiKeyInfo.getName());
         apiKey.setOwnerId(apiKeyInfo.getOwner());
-        apiKey.setGroups(apiKeyInfo.getGroups());
+        apiKey.setGroup(apiKeyInfo.getGroups());
         apiKey.setStatus(toStatus(apiKeyInfo.getStatus()));
         return apiKey;
     }

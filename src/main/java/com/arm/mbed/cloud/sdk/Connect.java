@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ThreadFactory;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
@@ -47,6 +49,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
+import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
@@ -70,7 +73,8 @@ import retrofit2.Call;
 public class Connect extends AbstractApi {
     private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
     private static final String TAG_WEBHOOK = "webhook";
-    private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL, "registered");
+    private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL,
+            DeviceState.getIsConnectedState().getString());
     private static final String TAG_RESOURCE = "resource";
     private static final String FALSE = "false";
     private static final String TAG_RESOURCE_PATH = "resource path";
@@ -123,8 +127,25 @@ public class Connect extends AbstractApi {
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
         this.cache = new NotificationCache(this, (notificationPullingThreadPool == null)
-                ? Executors.newScheduledThreadPool(1) : notificationPullingThreadPool, endpoint);
+                ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, endpoint);
 
+    }
+
+    /**
+     * Creates a default thread pool in case none was specified.
+     * 
+     * @return thread pool
+     */
+    private static ScheduledExecutorService createDefaultDaemonThreadPool() {
+        return Executors.newScheduledThreadPool(1, new ThreadFactory() {
+
+            @Override
+            public Thread newThread(Runnable runable) {
+                final Thread thread = new Thread(runable);
+                thread.setDaemon(true);
+                return thread;
+            }
+        });
     }
 
     /**
@@ -1431,7 +1452,7 @@ public class Connect extends AbstractApi {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
         final String finalDeviceId = device.getId();
-        CloudCaller.call(this, "deletePresubscriptions()", null, new CloudCall<Void>() {
+        CloudCaller.call(this, "deleteDeviceSubscriptions()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {

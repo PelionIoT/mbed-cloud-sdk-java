@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -10,8 +11,12 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "filters for Cloud requests")
-public class Filters implements Cloneable {
-    private final Map<String, Map<FilterOperator, List<Filter>>> filterList;
+public class Filters implements Cloneable, Serializable {
+    /**
+     * Serialisation ID.
+     */
+    private static final long serialVersionUID = -837782008433807201L;
+    private final transient Map<String, Map<FilterOperator, List<Filter>>> filterList;
 
     /**
      * Constructor.

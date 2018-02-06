@@ -229,4 +229,16 @@ public class TestFilterMarshaller {
         assertEquals(expectedDate.getTime(), filterValues.get(0).getValue());
     }
 
+    @Test
+    public void testEncodeAndParseFiltersWithNumericValues() {
+        String encodedFilter = "serial_number=10";
+        Filters filters = new Filters();
+        filters.add(new Filter("serialNumber", FilterOperator.EQUAL, "10"));
+        assertEquals(encodedFilter, new FilterMarshaller(null).encode(filters));
+        String filterJson = "{\"serial_number\":{\"$eq\"=\"10\"}}";
+        Filters newfilters = FilterMarshaller.fromJson(filterJson);
+        assertEquals(filters, newfilters);
+        assertEquals(encodedFilter, new FilterMarshaller(null).encode(newfilters));
+    }
+
 }

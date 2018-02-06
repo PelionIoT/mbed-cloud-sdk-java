@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.testutils.APICallException;
+import com.arm.mbed.cloud.sdk.testutils.Serializer;
 
 public class APIMethodArgument {
     private String name;
@@ -32,6 +34,10 @@ public class APIMethodArgument {
 
     public APIMethodArgument(Class<?> typeClass, Class<?> contentTypeClass) {
         this(null, typeClass, contentTypeClass, null);
+    }
+
+    public APIMethodArgument() {
+        this(null, null);
     }
 
     /**
@@ -94,6 +100,17 @@ public class APIMethodArgument {
         this.contentType = contentType;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "APIMethodArgument [name=" + name + ", type=" + type + ", contentType=" + contentType + ", defaultValue="
+                + defaultValue + "]";
+    }
+
     public Class<?> retrieveTypeClass() {
         return retrieveClassFromName(type);
     }
@@ -123,6 +140,9 @@ public class APIMethodArgument {
         if (clazz == null || Void.class.isAssignableFrom(clazz)) {
             return null;
         }
+        // If the value of an argument has not been specified and there is a default value specified, then the default
+        // value is
+        // considered.
         if (fields == null || fields.isEmpty()) {
             if (defaultValue == null) {
                 return null;
@@ -179,7 +199,8 @@ public class APIMethodArgument {
 
         public PrimitiveTypes() {
             super();
-            mapping = new Hashtable<>(8);
+            mapping = new Hashtable<>(9);
+            mapping.put("int", Integer.TYPE);
             mapping.put("long", Long.TYPE);
             mapping.put("double", Double.TYPE);
             mapping.put("float", Float.TYPE);

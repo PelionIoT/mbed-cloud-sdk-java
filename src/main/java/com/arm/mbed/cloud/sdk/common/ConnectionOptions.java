@@ -1,10 +1,18 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Serializable;
+import java.net.MalformedURLException;
+import java.net.URL;
+
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "APIs connection options/configuration")
-public class ConnectionOptions implements Cloneable {
+public class ConnectionOptions implements Cloneable, Serializable {
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = -7143679922351151624L;
     private static final String ARM_MBED_CLOUD_DEFAULT_HOST = "https://api.us-east-1.mbedcloud.com";
     private String apiKey;
     private String host;
@@ -76,6 +84,19 @@ public class ConnectionOptions implements Cloneable {
      */
     public boolean isHostEmpty() {
         return host == null || host.isEmpty();
+    }
+
+    /**
+     * States whether the current connection options are valid or not.
+     * 
+     * @return true if it is the case. false otherwise.
+     */
+    public boolean isValid() {
+        try {
+            return !isApiKeyEmpty() && !isHostEmpty() && new URL(getHost()).getHost() != null;
+        } catch (MalformedURLException exception) {
+            return false;
+        }
     }
 
     /**

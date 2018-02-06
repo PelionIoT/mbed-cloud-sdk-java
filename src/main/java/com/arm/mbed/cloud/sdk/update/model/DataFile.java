@@ -78,7 +78,7 @@ public class DataFile implements SdkModel {
      */
     @Override
     public String getId() {
-        return (getFile() == null) ? null : getFile().toString();
+        return hasFile() ? getFile().toString() : null;
     }
 
     /**
@@ -108,6 +108,24 @@ public class DataFile implements SdkModel {
      */
     public File getFile() {
         return file;
+    }
+
+    /**
+     * Gets the file name.
+     * 
+     * @return the file name.
+     */
+    public @Nullable String getFileName() {
+        return hasFile() ? getFile().getName() : null;
+    }
+
+    /**
+     * States whether a file has been specified.
+     * 
+     * @return True if a file has been specified. False otherwise.
+     */
+    public boolean hasFile() {
+        return getFile() != null;
     }
 
     /**

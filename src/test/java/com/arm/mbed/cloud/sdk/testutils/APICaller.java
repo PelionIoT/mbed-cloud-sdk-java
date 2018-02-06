@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedList;
@@ -10,17 +11,22 @@ import java.util.Map.Entry;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethod;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodArgument;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIMethodResult;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.APIModule;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.ModuleInstance;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.SDK;
+import com.arm.mbed.cloud.sdk.testserver.internal.model.UnknownAPIException;
 
 @Preamble(description = "Mechanism to call API methods by reflection")
 public class APICaller {
     private SDK sdk;
-    private ConnectionOptions connectionOptions;
 
-    public APICaller(SDK sdk, ConnectionOptions connectionOptions) {
+    public APICaller(SDK sdk) {
         super();
         this.sdk = sdk;
-        this.connectionOptions = connectionOptions;
     }
 
     /**
@@ -38,45 +44,34 @@ public class APICaller {
         this.sdk = sdk;
     }
 
-    /**
-     * @return the connectionOptions
-     */
-    public ConnectionOptions getConnectionOptions() {
-        return connectionOptions;
-    }
-
-    /**
-     * @param connectionOptions
-     *            the connectionOptions to set
-     */
-    public void setConnectionOptions(ConnectionOptions connectionOptions) {
-        this.connectionOptions = connectionOptions;
-    }
-
     @SuppressWarnings("null")
-    public APIMethodResult callAPI(String module, String method, Map<String, Object> parameters)
-            throws UnknownAPIException, APICallException {
-        if (module == null || method == null || sdk == null) {
-            throwUnknownAPI(module, method);
+    public APIMethodResult callAPIOnModuleInstance(ModuleInstance moduleInstance, String method,
+            Map<String, Object> parameters) throws UnknownAPIException, APICallException {
+        if (moduleInstance == null) {
+            throwMissingModule(null);
         }
-        APIModule moduleObj = sdk.getModule(module);
-        if (moduleObj == null) {
-            throwUnknownAPI(module, method);
+        APIModule moduleDescription = moduleInstance.getModuleDescription();
+        if (moduleDescription == null) {
+            throwMissingModule(moduleDescription);
         }
-        List<APIMethod> methodObjs = moduleObj.getMethod(method);
+        if (method == null) {
+            throwUnknownAPI(moduleDescription.getSimpleName(), method);
+        }
+        final List<APIMethod> methodObjs = moduleDescription.getMethod(method);
         if (methodObjs == null) {
-            throwUnknownAPI(module, method);
+            throwUnknownAPI(moduleDescription.getSimpleName(), method);
         }
         APICallException lastException = null;
         APIMethodResult result = null;
+        Object instance = moduleInstance.getInstance();
         // This is iterating over all methods with the same name but different signatures. If calls to all of them fail
         // then last exception is raised or the last result is returned if not null.
         for (final APIMethod methodObj : methodObjs) {
             try {
                 result = null;
                 lastException = null;
-                API api = new API(connectionOptions, moduleObj, methodObj);
-                result = api.call(parameters);
+                API api = new API(moduleDescription, methodObj);
+                result = api.call(instance, parameters);
                 // If the call was successful then it is returned straight away and there is no need to iterate over
                 // other methods
                 if (!result.wasExceptionRaised()) {
@@ -94,9 +89,29 @@ public class APICaller {
         throw lastException;
     }
 
+    public APIModule retrieveModuleDescription(String moduleName) throws UnknownAPIException {
+        if (moduleName == null || sdk == null) {
+            throwUnknownModule(moduleName);
+        }
+        APIModule moduleObj = sdk.getModule(moduleName);
+        if (moduleObj == null) {
+            throwUnknownModule(moduleName);
+        }
+        return moduleObj;
+    }
+
     private static void throwUnknownAPI(String module, String method) throws UnknownAPIException {
         throw new UnknownAPIException(
-                "method [" + String.valueOf(method) + "] not found on module [" + String.valueOf(module) + "]");
+                "no such method [" + String.valueOf(method) + "] on module [" + String.valueOf(module) + "]");
+    }
+
+    private static void throwUnknownModule(String module) throws UnknownAPIException {
+        throw new UnknownAPIException("SDK module [" + String.valueOf(module) + "] could not be found");
+    }
+
+    private static void throwMissingModule(APIModule module) throws UnknownAPIException {
+        throw new UnknownAPIException(
+                "Requested SDK module was not instantiated properly [" + String.valueOf(module) + "].");
     }
 
     private static void throwAPICallException(APIModule module, APIMethod method, Exception e) throws APICallException {
@@ -106,21 +121,19 @@ public class APICaller {
     }
 
     private static class API {
-        private ConnectionOptions connectionOptions;
         private APIModule module;
         private APIMethod method;
 
-        public API(ConnectionOptions connectionOptions, APIModule module, APIMethod method) {
+        public API(APIModule module, APIMethod method) {
             super();
-            this.connectionOptions = connectionOptions;
             this.module = module;
             this.method = method;
         }
 
-        public APIMethodResult call(Map<String, Object> parameters) throws APICallException {
+        public APIMethodResult call(Object moduleInstance, Map<String, Object> parameters) throws APICallException {
             Map<String, Map<String, Object>> argDescription = determineArgumentJsonValues(parameters);
             try {
-                return method.invokeAPI(module.fetchInstance(connectionOptions), argDescription);
+                return method.invokeAPI(moduleInstance, argDescription);
             } catch (NoSuchMethodException | SecurityException | ClassNotFoundException | IllegalAccessException
                     | IllegalArgumentException | InvocationTargetException e) {
                 // e.printStackTrace();
@@ -141,11 +154,17 @@ public class APICaller {
                 } else {
                     List<APIMethodArgument> unfoundArguments = new LinkedList<>();
                     for (APIMethodArgument argument : method.getArguments()) {
+                        Class<?> argumentClass = null;
+                        try {
+                            argumentClass = argument.determineClass();
+                        } catch (ClassNotFoundException e) {
+                            // DO nothing
+                        }
                         String argName = argument.getName();
                         String paramName = ApiUtils.convertCamelToSnake(argName);
                         Object subMap = testParameters.get(paramName);
                         if (subMap != null) {
-                            argDescription.put(argName, determineParameterValue(paramName, subMap));
+                            argDescription.put(argName, determineParameterValue(paramName, subMap, argumentClass));
                         } else {
                             unfoundArguments.add(argument);
                         }
@@ -154,9 +173,16 @@ public class APICaller {
                         if (testParameters.hasUnusedParameters()) {// In case, some parameters were specified with
                                                                    // different names
                             for (APIMethodArgument argument : unfoundArguments) {
+                                Class<?> argumentClass = null;
+                                try {
+                                    argumentClass = argument.determineClass();
+                                } catch (ClassNotFoundException e) {
+                                    // DO nothing
+                                }
                                 Entry<String, Object> unusedEntry = testParameters.pop();
                                 Map<String, Object> guessedSubMap = (unusedEntry == null) ? new HashMap<>()
-                                        : determineParameterValue(unusedEntry.getKey(), unusedEntry.getValue());
+                                        : determineParameterValue(unusedEntry.getKey(), unusedEntry.getValue(),
+                                                argumentClass);
                                 argDescription.put(argument.getName(), guessedSubMap);
                             }
                         } else {
@@ -173,15 +199,26 @@ public class APICaller {
         }
 
         @SuppressWarnings("unchecked")
-        private Map<String, Object> determineParameterValue(String paramName, Object subMap) throws APICallException {
+        private Map<String, Object> determineParameterValue(String paramName, Object subMap, Class<?> paramClass)
+                throws APICallException {
             if (!(subMap instanceof Map)) {
-                if (!(subMap instanceof String)) {
+                // The parameter must be a Json primitive
+                if (subMap != null && !Utils.isPrimitiveOrWrapperType(subMap.getClass())) {
                     throwAPICallException(module, method,
                             new Exception("Incorrect argument type [" + String.valueOf(subMap) + "]."));
                 }
-                String value = String.valueOf(subMap);
+                // In the special case of dates, we try to parse the ISO String representation
+                if (subMap != null && paramClass != null && paramClass.isAssignableFrom(Date.class)) {
+                    try {
+                        subMap = ApiUtils.convertStringToDate(subMap.toString());
+                    } catch (MbedCloudException e) {
+                        e.printStackTrace();
+                        // Nothing to do
+                    }
+                }
+
                 Map<String, Object> fields = new HashMap<>();
-                fields.put(paramName, value);
+                fields.put(paramName, subMap);
                 subMap = fields;
             }
             return (Map<String, Object>) subMap;

@@ -537,7 +537,7 @@ public class Account implements SdkModel {
      *            the aliases to set as a string, such as "[\"arm-iot-tools\", \"AUTOTEST-BXAU54\"]" or "arm-iot-tools,
      *            AUTOTEST-BXAU54".
      */
-    public void setAliases(String aliases) {
+    public void setAliasesFromString(String aliases) {
         setAliases(SdkModelUtils.parseListString(aliases));
     }
 

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -9,21 +9,46 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.testserver.model.SdkApi;
+import com.arm.mbed.cloud.sdk.testutils.APICallException;
 
 public class APIMethod {
     private String name;
     private APIMethodArgument returnArgument;
     private List<APIMethodArgument> arguments;
+    private DaemonControl daemonControl;
 
-    public APIMethod(String name, APIMethodArgument returnArgument, List<APIMethodArgument> arguments) {
+    public APIMethod(String name, APIMethodArgument returnArgument, List<APIMethodArgument> arguments,
+            DaemonControl daemonControl) {
         super();
         setName(name);
         setReturnArgument(returnArgument);
         setArguments(arguments);
+        setDaemonControl(daemonControl);
     }
 
     public APIMethod(String name) {
-        this(name, null, null);
+        this(name, null, null, DaemonControl.NONE);
+    }
+
+    public APIMethod() {
+        this(null);
+    }
+
+    /**
+     * @return the daemonControl
+     */
+    public DaemonControl getDaemonControl() {
+        return daemonControl;
+    }
+
+    /**
+     * @param daemonControl
+     *            the daemonControl to set
+     */
+    public void setDaemonControl(DaemonControl daemonControl) {
+        this.daemonControl = daemonControl;
     }
 
     /**
@@ -111,6 +136,7 @@ public class APIMethod {
         }
         Object[] args = fetchArgsValues(argsDescription);
         return (args == null) ? m.invoke(moduleInstance) : m.invoke(moduleInstance, args);
+
     }
 
     private Method fetchMethod(Class<?> moduleClass)
@@ -147,6 +173,16 @@ public class APIMethod {
                     argsDescription.get(arg.getName())));
         }
         return argValuesArray.toArray();
+    }
+
+    public SdkApi toSdkApi() {
+        SdkApi api = new SdkApi();
+        api.setName(ApiUtils.convertCamelToSnake(name));
+        if (arguments == null) {
+            return api;
+        }
+        arguments.forEach(arg -> api.put("arg" + api.size(), arg.toString()));
+        return api;
     }
 
 }
