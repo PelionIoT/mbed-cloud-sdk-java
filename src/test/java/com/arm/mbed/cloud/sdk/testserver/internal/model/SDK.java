@@ -1,7 +1,10 @@
-package com.arm.mbed.cloud.sdk.testutils;
+package com.arm.mbed.cloud.sdk.testserver.internal.model;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
+
+import com.arm.mbed.cloud.sdk.testutils.ReflectionUtils;
 
 public class SDK {
     private Map<String, APIModule> modules;
@@ -11,6 +14,10 @@ public class SDK {
         super();
         setModules(modules);
         setPackageName(packageName);
+    }
+
+    public SDK(String packageName) {
+        this(packageName, null);
     }
 
     public SDK() {
@@ -54,6 +61,13 @@ public class SDK {
         }
         return modules.get(moduleSimpleName);
 
+    }
+
+    public Set<String> fetchModuleSet() {
+        if (modules == null) {
+            return null;
+        }
+        return modules.keySet();
     }
 
     public void addModule(APIModule module) {

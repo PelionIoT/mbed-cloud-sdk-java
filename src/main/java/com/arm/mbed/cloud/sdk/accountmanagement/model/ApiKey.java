@@ -95,7 +95,7 @@ public class ApiKey implements SdkModel {
         this.lastLoginTime = lastLoginTime;
         setName(name);
         setOwnerId(ownerId);
-        setGroups(groups);
+        setGroup(groups);
         setStatus(status);
         hasStatusBeenUpdated = false;
     }
@@ -222,7 +222,7 @@ public class ApiKey implements SdkModel {
      * @param groups
      *            list of group IDs this API key belongs to.
      */
-    public void setGroups(List<String> groups) {
+    public void setGroup(List<String> groups) {
         this.groups = groups;
     }
 
@@ -234,8 +234,8 @@ public class ApiKey implements SdkModel {
      *            "[\"015bc8548c8902420a016d0600000000\",\"015bc8548c8902420a016d0600fsdf000\"]" or
      *            "015bc8548c8902420a016d0600000000,015bc8548c8902420a016d0600fsdf000".
      */
-    public void setGroups(String groups) {
-        setGroups(SdkModelUtils.parseListString(groups));
+    public void setGroupsFromString(String groups) {
+        setGroup(SdkModelUtils.parseListString(groups));
     }
 
     /**

@@ -156,19 +156,7 @@ public class FilterMarshaller {
             return null;
         }
         JsonObject obj = new JsonObject(json);
-        Filters filters = new Filters();
-        for (String fieldName : obj.fieldNames()) {
-            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
-                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
-                JsonObject filterJson = obj.getJsonObject(fieldName);
-                for (String subfieldName : filterJson.fieldNames()) {
-                    parseFilter(filterJson, subfieldName, filters, true);
-                }
-            } else {
-                parseFilter(obj, fieldName, filters, false);
-            }
-        }
-        return filters;
+        return convertJsonObjectToFilters(obj);
     }
 
     /**
@@ -188,6 +176,24 @@ public class FilterMarshaller {
             obj.putFilter(filter);
         }
         return obj.map;
+    }
+
+    /**
+     * Gets filters from a "Json Map".
+     * <p>
+     * 
+     * @param filtersJson
+     *            Json Map defining filters
+     * @return corresponding filters
+     */
+    @Internal
+    public static @Nullable Filters fromJsonObject(Map<String, Object> filtersJson) {
+        if (filtersJson == null || filtersJson.isEmpty()) {
+            return null;
+        }
+        JsonObject obj = new JsonObject();
+        obj.setMap(filtersJson);
+        return convertJsonObjectToFilters(obj);
     }
 
     protected String encodeFilter(Filter filter, String fieldName) {
@@ -227,6 +233,22 @@ public class FilterMarshaller {
         Filter filter = (isCustom) ? new CustomFilter(fetchFieldName(key, operator), operator, parts[1])
                 : new Filter(fetchFieldName(key, operator), operator, parts[1]);
         return (filter.isValid()) ? filter : null;
+    }
+
+    private static Filters convertJsonObjectToFilters(JsonObject obj) {
+        Filters filters = new Filters();
+        for (String fieldName : obj.fieldNames()) {
+            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
+                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
+                JsonObject filterJson = obj.getJsonObject(fieldName);
+                for (String subfieldName : filterJson.fieldNames()) {
+                    parseFilter(filterJson, subfieldName, filters, true);
+                }
+            } else {
+                parseFilter(obj, fieldName, filters, false);
+            }
+        }
+        return filters;
     }
 
     private String encodeList(List<Filter> list) {
@@ -314,7 +336,6 @@ public class FilterMarshaller {
 
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
         Object filterValue = obj.getValue(fieldName);
-
         Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
                 filterValue);
         filters.add(filter);
@@ -373,7 +394,11 @@ public class FilterMarshaller {
             final Object value = map.get(fieldName);
             if (value instanceof CharSequence) {
                 final String valueStr = value.toString();
-                if (valueStr == null) {
+                if (valueStr == null || valueStr.isEmpty()) {
+                    return valueStr;
+                }
+                // If only numeric values
+                if (valueStr.matches("[0-9]+")) {
                     return valueStr;
                 }
                 try {
@@ -492,6 +517,16 @@ public class FilterMarshaller {
 
         private void putFilterDefinition(FilterOperator operator, Object value) {
             put(operator.getSymbol(), value);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "JsonObject [jsonSerialiser=" + jsonSerialiser + ", map=" + map + "]";
         }
 
     }

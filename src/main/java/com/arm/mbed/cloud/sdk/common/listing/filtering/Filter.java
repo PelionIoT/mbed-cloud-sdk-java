@@ -147,4 +147,14 @@ public class Filter implements Cloneable {
         return true;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Filter [fieldName=" + fieldName + ", value=" + value + ", operator=" + operator + "]";
+    }
+
 }

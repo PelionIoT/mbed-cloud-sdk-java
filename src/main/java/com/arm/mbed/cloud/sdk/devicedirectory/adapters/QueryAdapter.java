@@ -38,7 +38,7 @@ public final class QueryAdapter {
         final Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
                 TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
         query.setName(deviceQuery.getName());
-        query.setFilter(decodeFilters(deviceQuery.getQuery()));
+        query.setFilters(decodeFilters(deviceQuery.getQuery()));
         return query;
     }
 
@@ -131,7 +131,7 @@ public final class QueryAdapter {
         }
         final DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilters()));
         return deviceQuery;
     }
 
@@ -148,7 +148,7 @@ public final class QueryAdapter {
         }
         final DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilters()));
         return deviceQuery;
     }
 
