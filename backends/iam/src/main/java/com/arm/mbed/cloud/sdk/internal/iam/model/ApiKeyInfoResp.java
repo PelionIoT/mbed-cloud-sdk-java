@@ -113,7 +113,11 @@ public class ApiKeyInfoResp implements Serializable {
     
     LIST("list"),
     
-    ERROR("error");
+    ERROR("error"),
+    
+    POLICY("policy"),
+    
+    IDENTITY_PROVIDER("identity-provider");
 
     private String value;
 
@@ -158,6 +162,9 @@ public class ApiKeyInfoResp implements Serializable {
 
   @SerializedName("creation_time")
   private Long creationTime = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private String etag = null;
@@ -290,6 +297,24 @@ public class ApiKeyInfoResp implements Serializable {
     this.creationTime = creationTime;
   }
 
+  public ApiKeyInfoResp updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public ApiKeyInfoResp etag(String etag) {
     this.etag = etag;
     return this;
@@ -332,10 +357,10 @@ public class ApiKeyInfoResp implements Serializable {
   }
 
    /**
-   * The owner of this API key.
+   * The owner of this API key, who is the creator by default.
    * @return owner
   **/
-  @ApiModelProperty(value = "The owner of this API key.")
+  @ApiModelProperty(value = "The owner of this API key, who is the creator by default.")
   public String getOwner() {
     return owner;
   }
@@ -396,6 +421,7 @@ public class ApiKeyInfoResp implements Serializable {
         Objects.equals(this.createdAt, apiKeyInfoResp.createdAt) &&
         Objects.equals(this.object, apiKeyInfoResp.object) &&
         Objects.equals(this.creationTime, apiKeyInfoResp.creationTime) &&
+        Objects.equals(this.updatedAt, apiKeyInfoResp.updatedAt) &&
         Objects.equals(this.etag, apiKeyInfoResp.etag) &&
         Objects.equals(this.key, apiKeyInfoResp.key) &&
         Objects.equals(this.owner, apiKeyInfoResp.owner) &&
@@ -405,7 +431,7 @@ public class ApiKeyInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(groups, status, name, createdAt, object, creationTime, etag, key, owner, id, lastLoginTime);
+    return Objects.hash(groups, status, name, createdAt, object, creationTime, updatedAt, etag, key, owner, id, lastLoginTime);
   }
 
 
@@ -420,6 +446,7 @@ public class ApiKeyInfoResp implements Serializable {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");

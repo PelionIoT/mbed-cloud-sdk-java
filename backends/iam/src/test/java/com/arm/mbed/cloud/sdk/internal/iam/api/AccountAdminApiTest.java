@@ -4,6 +4,9 @@ import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -33,6 +36,33 @@ public class AccountAdminApiTest {
     }
 
     /**
+     * Add API key to a list of groups.
+     *
+     * An endpoint for adding API key to groups.
+     */
+    @Test
+    public void addAccountApiKeyToGroupsTest() {
+        String accountID = null;
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.addAccountApiKeyToGroups(accountID, apiKey, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Add API key to a list of groups.
+     *
+     * An endpoint for adding API key to groups.
+     */
+    @Test
+    public void addApiKeyToGroupsTest() {
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.addApiKeyToGroups(apiKey, body);
+
+        // TODO: test validations
+    }
+    /**
      * Upload a new trusted certificate.
      *
      * An endpoint for uploading new trusted certificates.
@@ -58,6 +88,31 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Add user to a list of groups.
+     *
+     * An endpoint for adding user to groups.
+     */
+    @Test
+    public void addUserToGroupsTest() {
+        String userId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.addUserToGroups(userId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a new group.
+     *
+     * An endpoint for creating a new group.
+     */
+    @Test
+    public void createGroupTest() {
+        GroupCreationInfo body = null;
+        // GroupSummary response = api.createGroup(body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a new user.
      *
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
@@ -67,6 +122,18 @@ public class AccountAdminApiTest {
         UserInfoReq body = null;
         String action = null;
         // UserInfoResp response = api.createUser(body, action);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a group.
+     *
+     * An endpoint for deleting a group.
+     */
+    @Test
+    public void deleteGroupTest() {
+        String groupID = null;
+        // Void response = api.deleteGroup(groupID);
 
         // TODO: test validations
     }
@@ -93,8 +160,58 @@ public class AccountAdminApiTest {
         String after = null;
         String order = null;
         String include = null;
+        String emailEq = null;
         String statusEq = null;
-        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, statusEq);
+        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, emailEq, statusEq);
+
+        // TODO: test validations
+    }
+    /**
+     * Get groups of the API key.
+     *
+     * An endpoint for retrieving groups of the API key.
+     */
+    @Test
+    public void getGroupsOfAccountApikeyTest() {
+        String accountID = null;
+        String apiKey = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // GroupSummaryList response = api.getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Get groups of the API key.
+     *
+     * An endpoint for retrieving groups of the API key.
+     */
+    @Test
+    public void getGroupsOfApikeyTest() {
+        String apiKey = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // GroupSummaryList response = api.getGroupsOfApikey(apiKey, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Get groups of the user.
+     *
+     * An endpoint for retrieving groups of the user.
+     */
+    @Test
+    public void getGroupsOfUserTest() {
+        String userId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // GroupSummaryList response = api.getGroupsOfUser(userId, limit, after, order, include);
 
         // TODO: test validations
     }
@@ -106,7 +223,8 @@ public class AccountAdminApiTest {
     @Test
     public void getUserTest() {
         String userId = null;
-        // UserInfoResp response = api.getUser(userId);
+        String properties = null;
+        // UserInfoResp response = api.getUser(userId, properties);
 
         // TODO: test validations
     }
@@ -123,6 +241,46 @@ public class AccountAdminApiTest {
         String order = null;
         String include = null;
         // UserInfoRespList response = api.getUsersOfGroup(groupID, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove API key from groups.
+     *
+     * An endpoint for removing API key from groups.
+     */
+    @Test
+    public void removeAccountApiKeyFromGroupsTest() {
+        String accountID = null;
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.removeAccountApiKeyFromGroups(accountID, apiKey, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove API key from groups.
+     *
+     * An endpoint for removing API key from groups.
+     */
+    @Test
+    public void removeApiKeyFromGroupsTest() {
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.removeApiKeyFromGroups(apiKey, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove user from groups.
+     *
+     * An endpoint for removing user from groups.
+     */
+    @Test
+    public void removeUserFromGroupsTest() {
+        String userId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.removeUserFromGroups(userId, body);
 
         // TODO: test validations
     }

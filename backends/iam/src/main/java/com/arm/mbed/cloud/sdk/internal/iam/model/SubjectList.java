@@ -27,9 +27,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents an array of users and API keys.
+ * This object represents arrays of user and API key IDs.
  */
-@ApiModel(description = "This object represents an array of users and API keys.")
+@ApiModel(description = "This object represents arrays of user and API key IDs.")
 
 public class SubjectList implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -54,10 +54,10 @@ public class SubjectList implements Serializable {
   }
 
    /**
-   * An array of API keys.
+   * An array of API key IDs.
    * @return apikeys
   **/
-  @ApiModelProperty(value = "An array of API keys.")
+  @ApiModelProperty(value = "An array of API key IDs.")
   public List<String> getApikeys() {
     return apikeys;
   }
@@ -80,10 +80,10 @@ public class SubjectList implements Serializable {
   }
 
    /**
-   * An array of user names.
+   * An array of user IDs.
    * @return users
   **/
-  @ApiModelProperty(value = "An array of user names.")
+  @ApiModelProperty(value = "An array of user IDs.")
   public List<String> getUsers() {
     return users;
   }
