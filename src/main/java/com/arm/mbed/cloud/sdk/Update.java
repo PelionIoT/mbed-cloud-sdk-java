@@ -979,8 +979,8 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<CampaignDeviceMetadataPage> call() {
-                        return endpoint.getUpdate().v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(finalId,
-                                finalOptions.getLimit(), finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                        return endpoint.getUpdate().updateCampaignMetadataList(finalId, finalOptions.getLimit(),
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 finalOptions.encodeInclude());
                     }
                 });
