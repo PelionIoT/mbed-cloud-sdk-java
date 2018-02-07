@@ -132,7 +132,7 @@ public final class CampaignAdapter {
 
     private static CampaignState toState(StateEnum state) {
         if (state == null) {
-            return CampaignState.getDefault();
+            return CampaignState.getUnknownEnum();
         }
         switch (state) {
             case DEPLOYED:
@@ -157,7 +157,7 @@ public final class CampaignAdapter {
                 break;
 
         }
-        return CampaignState.getDefault();
+        return CampaignState.getUnknownEnum();
     }
 
     private static UpdateCampaignPostRequest.StateEnum toPostStateEnum(CampaignState state) {

@@ -214,7 +214,7 @@ public final class DeviceAdapter {
 
     private static DeviceState toState(DeviceData.StateEnum state) {
         if (state == null) {
-            return DeviceState.getDefault();
+            return DeviceState.getUnknownEnum();
         }
         switch (state) {
             case BOOTSTRAPPED:
@@ -231,12 +231,12 @@ public final class DeviceAdapter {
                 break;
 
         }
-        return DeviceState.getDefault();
+        return DeviceState.getUnknownEnum();
     }
 
     private static MechanismType toMechanismType(DeviceData.MechanismEnum mechanism) {
         if (mechanism == null) {
-            return MechanismType.getDefault();
+            return MechanismType.getUnknownEnum();
         }
         switch (mechanism) {
             case CONNECTOR:
@@ -247,7 +247,7 @@ public final class DeviceAdapter {
                 break;
 
         }
-        return MechanismType.getDefault();
+        return MechanismType.getUnknownEnum();
     }
 
     private static StateEnum toAddState(DeviceState state) {

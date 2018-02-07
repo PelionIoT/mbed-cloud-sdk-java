@@ -5,7 +5,20 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The status of the API key")
 public enum ApiKeyStatus implements SdkEnum {
-    ACTIVE, INACTIVE;
+    ACTIVE("ACTIVE"), INACTIVE("INACTIVE"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+
+    private final String value;
+
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
+    private ApiKeyStatus(String string) {
+        this.value = string;
+    }
+
     /**
      * States whether it is the default value.
      * 
@@ -14,6 +27,16 @@ public enum ApiKeyStatus implements SdkEnum {
     @Override
     public boolean isDefault() {
         return this == getDefault();
+    }
+
+    /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
     }
 
     /**
@@ -26,13 +49,32 @@ public enum ApiKeyStatus implements SdkEnum {
     }
 
     /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static ApiKeyStatus getUnknownEnum() {
+        return UNKNOWN_ENUM;
+    }
+
+    /**
      * Gets string representation.
      * 
      * @see SdkEnum#getString()
      */
     @Override
     public String getString() {
-        return toString();
+        return value;
+    }
+
+    /**
+     * Gets string representation.
+     * 
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getString();
     }
 
     /**

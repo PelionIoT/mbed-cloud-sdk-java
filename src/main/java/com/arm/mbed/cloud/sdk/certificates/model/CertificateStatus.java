@@ -6,7 +6,19 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Certificate status")
 public enum CertificateStatus implements SdkEnum {
-    ACTIVE, INACTIVE;
+    ACTIVE("ACTIVE"), INACTIVE("INACTIVE"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    private final String value;
+
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
+    private CertificateStatus(String string) {
+        this.value = string;
+    }
+
     /**
      * States whether it is the default value.
      * 
@@ -18,12 +30,31 @@ public enum CertificateStatus implements SdkEnum {
     }
 
     /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
+    }
+
+    /**
      * Gets default certificate status.
      * 
      * @return default status.
      */
     public static CertificateStatus getDefault() {
         return INACTIVE;
+    }
+
+    /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static CertificateStatus getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**
@@ -53,7 +84,17 @@ public enum CertificateStatus implements SdkEnum {
      */
     @Override
     public String getString() {
-        return toString();
+        return value;
+    }
+
+    /**
+     * Gets string representation.
+     * 
+     * @see Object#toString()
+     */
+    @Override
+    public String toString() {
+        return getString();
     }
 
     /**
