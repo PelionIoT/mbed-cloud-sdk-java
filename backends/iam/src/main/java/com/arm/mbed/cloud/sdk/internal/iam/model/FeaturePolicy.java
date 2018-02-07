@@ -44,9 +44,6 @@ public class FeaturePolicy implements Serializable {
   @SerializedName("allow")
   private Boolean allow = null;
 
-  @SerializedName("inherited")
-  private Boolean inherited = null;
-
   public FeaturePolicy action(String action) {
     this.action = action;
     return this;
@@ -119,24 +116,6 @@ public class FeaturePolicy implements Serializable {
     this.allow = allow;
   }
 
-  public FeaturePolicy inherited(Boolean inherited) {
-    this.inherited = inherited;
-    return this;
-  }
-
-   /**
-   * Flag indicating whether this feature is inherited or overwritten specifically.
-   * @return inherited
-  **/
-  @ApiModelProperty(value = "Flag indicating whether this feature is inherited or overwritten specifically.")
-  public Boolean isInherited() {
-    return inherited;
-  }
-
-  public void setInherited(Boolean inherited) {
-    this.inherited = inherited;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -150,13 +129,12 @@ public class FeaturePolicy implements Serializable {
     return Objects.equals(this.action, featurePolicy.action) &&
         Objects.equals(this.resource, featurePolicy.resource) &&
         Objects.equals(this.feature, featurePolicy.feature) &&
-        Objects.equals(this.allow, featurePolicy.allow) &&
-        Objects.equals(this.inherited, featurePolicy.inherited);
+        Objects.equals(this.allow, featurePolicy.allow);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, resource, feature, allow, inherited);
+    return Objects.hash(action, resource, feature, allow);
   }
 
 
@@ -169,7 +147,6 @@ public class FeaturePolicy implements Serializable {
     sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
     sb.append("    allow: ").append(toIndentedString(allow)).append("\n");
-    sb.append("    inherited: ").append(toIndentedString(inherited)).append("\n");
     sb.append("}");
     return sb.toString();
   }

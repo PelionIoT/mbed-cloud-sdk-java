@@ -82,9 +82,6 @@ public class TrustedCertificateReq implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("enrollment_mode")
-  private Boolean enrollmentMode = null;
-
   @SerializedName("certificate")
   private String certificate = null;
 
@@ -165,24 +162,6 @@ public class TrustedCertificateReq implements Serializable {
     this.status = status;
   }
 
-  public TrustedCertificateReq enrollmentMode(Boolean enrollmentMode) {
-    this.enrollmentMode = enrollmentMode;
-    return this;
-  }
-
-   /**
-   * If true, signature parameter is not required. Default value is false.
-   * @return enrollmentMode
-  **/
-  @ApiModelProperty(value = "If true, signature parameter is not required. Default value is false.")
-  public Boolean isEnrollmentMode() {
-    return enrollmentMode;
-  }
-
-  public void setEnrollmentMode(Boolean enrollmentMode) {
-    this.enrollmentMode = enrollmentMode;
-  }
-
   public TrustedCertificateReq certificate(String certificate) {
     this.certificate = certificate;
     return this;
@@ -243,10 +222,10 @@ public class TrustedCertificateReq implements Serializable {
   }
 
    /**
-   * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;.
+   * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.
    * @return signature
   **/
-  @ApiModelProperty(value = "Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.")
+  @ApiModelProperty(required = true, value = "Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256.")
   public String getSignature() {
     return signature;
   }
@@ -284,7 +263,6 @@ public class TrustedCertificateReq implements Serializable {
     }
     TrustedCertificateReq trustedCertificateReq = (TrustedCertificateReq) o;
     return Objects.equals(this.status, trustedCertificateReq.status) &&
-        Objects.equals(this.enrollmentMode, trustedCertificateReq.enrollmentMode) &&
         Objects.equals(this.certificate, trustedCertificateReq.certificate) &&
         Objects.equals(this.name, trustedCertificateReq.name) &&
         Objects.equals(this.service, trustedCertificateReq.service) &&
@@ -294,7 +272,7 @@ public class TrustedCertificateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, enrollmentMode, certificate, name, service, signature, description);
+    return Objects.hash(status, certificate, name, service, signature, description);
   }
 
 
@@ -304,7 +282,6 @@ public class TrustedCertificateReq implements Serializable {
     sb.append("class TrustedCertificateReq {\n");
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
