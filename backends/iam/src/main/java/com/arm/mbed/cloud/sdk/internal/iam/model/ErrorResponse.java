@@ -60,11 +60,7 @@ public class ErrorResponse implements Serializable {
     
     LIST("list"),
     
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    ERROR("error");
 
     private String value;
 

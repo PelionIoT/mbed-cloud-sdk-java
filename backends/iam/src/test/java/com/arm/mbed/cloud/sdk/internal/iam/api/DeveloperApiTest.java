@@ -38,30 +38,6 @@ public class DeveloperApiTest {
     }
 
     /**
-     * Add user to a list of groupS.
-     *
-     * An endpoint for adding user to groups.
-     */
-    @Test
-    public void addMeToGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.addMeToGroups(body);
-
-        // TODO: test validations
-    }
-    /**
-     * Add API key to a list of groups.
-     *
-     * An endpoint for adding API key to groups.
-     */
-    @Test
-    public void addMyApiKeyToGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.addMyApiKeyToGroups(body);
-
-        // TODO: test validations
-    }
-    /**
      * Create a new API key.
      *
      * An endpoint for creating a new API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -108,9 +84,8 @@ public class DeveloperApiTest {
         String after = null;
         String order = null;
         String include = null;
-        String keyEq = null;
         String ownerEq = null;
-        // ApiKeyInfoRespList response = api.getAllApiKeys(limit, after, order, include, keyEq, ownerEq);
+        // ApiKeyInfoRespList response = api.getAllApiKeys(limit, after, order, include, ownerEq);
 
         // TODO: test validations
     }
@@ -125,16 +100,11 @@ public class DeveloperApiTest {
         String after = null;
         String order = null;
         String include = null;
-        String nameEq = null;
         String serviceEq = null;
         Integer expireEq = null;
         Integer deviceExecutionModeEq = null;
-        Integer deviceExecutionModeNeq = null;
         String ownerEq = null;
-        Boolean enrollmentModeEq = null;
-        String issuerLike = null;
-        String subjectLike = null;
-        // TrustedCertificateRespList response = api.getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, issuerLike, subjectLike);
+        // TrustedCertificateRespList response = api.getAllCertificates(limit, after, order, include, serviceEq, expireEq, deviceExecutionModeEq, ownerEq);
 
         // TODO: test validations
     }
@@ -149,8 +119,7 @@ public class DeveloperApiTest {
         String after = null;
         String order = null;
         String include = null;
-        String nameEq = null;
-        // GroupSummaryList response = api.getAllGroups(limit, after, order, include, nameEq);
+        // GroupSummaryList response = api.getAllGroups(limit, after, order, include);
 
         // TODO: test validations
     }
@@ -185,7 +154,7 @@ public class DeveloperApiTest {
     /**
      * Get trusted certificate by ID.
      *
-     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      */
     @Test
     public void getCertificateTest() {
@@ -207,30 +176,14 @@ public class DeveloperApiTest {
         // TODO: test validations
     }
     /**
-     * Get groups of the API key.
-     *
-     * An endpoint for retrieving groups of the API key.
-     */
-    @Test
-    public void getGroupsOfMyApiKeyTest() {
-        Integer limit = null;
-        String after = null;
-        String order = null;
-        String include = null;
-        // GroupSummaryList response = api.getGroupsOfMyApiKey(limit, after, order, include);
-
-        // TODO: test validations
-    }
-    /**
      * Get account info.
      *
-     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60; .
      */
     @Test
     public void getMyAccountInfoTest() {
         String include = null;
-        String properties = null;
-        // AccountInfo response = api.getMyAccountInfo(include, properties);
+        // AccountInfo response = api.getMyAccountInfo(include);
 
         // TODO: test validations
     }
@@ -246,31 +199,14 @@ public class DeveloperApiTest {
         // TODO: test validations
     }
     /**
-     * Get groups of the user.
-     *
-     * An endpoint for retrieving groups of the user.
-     */
-    @Test
-    public void getMyGroupsTest() {
-        Integer limit = null;
-        String after = null;
-        String order = null;
-        String include = null;
-        // GroupSummaryList response = api.getMyGroups(limit, after, order, include);
-
-        // TODO: test validations
-    }
-    /**
      * Details of the current user.
      *
-     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      */
     @Test
     public void getMyUserTest() {
         String scratchCodes = null;
-        String properties = null;
-        String include = null;
-        // MyUserInfoResp response = api.getMyUser(scratchCodes, properties, include);
+        // MyUserInfoResp response = api.getMyUser(scratchCodes);
 
         // TODO: test validations
     }
@@ -284,30 +220,6 @@ public class DeveloperApiTest {
         String groupID = null;
         SubjectList body = null;
         // UpdatedResponse response = api.removeApiKeysFromGroup(groupID, body);
-
-        // TODO: test validations
-    }
-    /**
-     * Remove user from a group.
-     *
-     * An endpoint for removing user from groups.
-     */
-    @Test
-    public void removeMeFromGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.removeMeFromGroups(body);
-
-        // TODO: test validations
-    }
-    /**
-     * Remove API key from groups.
-     *
-     * An endpoint for removing API key from groups.
-     */
-    @Test
-    public void removeMyApiKeyFromGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.removeMyApiKeyFromGroups(body);
 
         // TODO: test validations
     }
@@ -327,7 +239,7 @@ public class DeveloperApiTest {
     /**
      * Update trusted certificate.
      *
-     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      */
     @Test
     public void updateCertificateTest() {
@@ -352,7 +264,7 @@ public class DeveloperApiTest {
     /**
      * Update user details.
      *
-     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
      */
     @Test
     public void updateMyUserTest() {

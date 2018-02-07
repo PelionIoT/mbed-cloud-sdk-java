@@ -36,7 +36,7 @@ public class UpdatedResponse implements Serializable {
   private Integer code = null;
 
   /**
-   * Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;.
+   * Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39; or &#39;account&#39;.
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
@@ -54,11 +54,7 @@ public class UpdatedResponse implements Serializable {
     
     LIST("list"),
     
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    ERROR("error");
 
     private String value;
 
@@ -218,10 +214,10 @@ public class UpdatedResponse implements Serializable {
   }
 
    /**
-   * Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;.
+   * Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39; or &#39;account&#39;.
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "Entity name: 'user', 'apikey', 'group', 'policy' or 'account'.")
+  @ApiModelProperty(required = true, value = "Entity name: 'user', 'apikey', 'group' or 'account'.")
   public ObjectEnum getObject() {
     return object;
   }

@@ -14,7 +14,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ActiveSession;
 import com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
@@ -25,9 +24,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -42,17 +39,11 @@ public class UserUpdateResp implements Serializable {
   @SerializedName("username")
   private String username = null;
 
-  @SerializedName("active_sessions")
-  private List<ActiveSession> activeSessions = null;
-
   @SerializedName("login_history")
   private List<LoginHistory> loginHistory = null;
 
   @SerializedName("creation_time")
   private Long creationTime = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
 
   @SerializedName("full_name")
   private String fullName = null;
@@ -159,11 +150,7 @@ public class UserUpdateResp implements Serializable {
     
     LIST("list"),
     
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    ERROR("error");
 
     private String value;
 
@@ -224,9 +211,6 @@ public class UserUpdateResp implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
 
@@ -249,32 +233,6 @@ public class UserUpdateResp implements Serializable {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public UserUpdateResp activeSessions(List<ActiveSession> activeSessions) {
-    this.activeSessions = activeSessions;
-    return this;
-  }
-
-  public UserUpdateResp addActiveSessionsItem(ActiveSession activeSessionsItem) {
-    if (this.activeSessions == null) {
-      this.activeSessions = new ArrayList<ActiveSession>();
-    }
-    this.activeSessions.add(activeSessionsItem);
-    return this;
-  }
-
-   /**
-   * List of active user sessions.
-   * @return activeSessions
-  **/
-  @ApiModelProperty(value = "List of active user sessions.")
-  public List<ActiveSession> getActiveSessions() {
-    return activeSessions;
-  }
-
-  public void setActiveSessions(List<ActiveSession> activeSessions) {
-    this.activeSessions = activeSessions;
   }
 
   public UserUpdateResp loginHistory(List<LoginHistory> loginHistory) {
@@ -319,24 +277,6 @@ public class UserUpdateResp implements Serializable {
 
   public void setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
-  }
-
-  public UserUpdateResp updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Last update UTC time RFC3339.
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "Last update UTC time RFC3339.")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
   }
 
   public UserUpdateResp fullName(String fullName) {
@@ -679,32 +619,6 @@ public class UserUpdateResp implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public UserUpdateResp userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public UserUpdateResp putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-  }
-
   public UserUpdateResp isTotpEnabled(Boolean isTotpEnabled) {
     this.isTotpEnabled = isTotpEnabled;
     return this;
@@ -752,10 +666,8 @@ public class UserUpdateResp implements Serializable {
     }
     UserUpdateResp userUpdateResp = (UserUpdateResp) o;
     return Objects.equals(this.username, userUpdateResp.username) &&
-        Objects.equals(this.activeSessions, userUpdateResp.activeSessions) &&
         Objects.equals(this.loginHistory, userUpdateResp.loginHistory) &&
         Objects.equals(this.creationTime, userUpdateResp.creationTime) &&
-        Objects.equals(this.updatedAt, userUpdateResp.updatedAt) &&
         Objects.equals(this.fullName, userUpdateResp.fullName) &&
         Objects.equals(this.id, userUpdateResp.id) &&
         Objects.equals(this.lastLoginTime, userUpdateResp.lastLoginTime) &&
@@ -774,14 +686,13 @@ public class UserUpdateResp implements Serializable {
         Objects.equals(this.password, userUpdateResp.password) &&
         Objects.equals(this.emailVerified, userUpdateResp.emailVerified) &&
         Objects.equals(this.createdAt, userUpdateResp.createdAt) &&
-        Objects.equals(this.userProperties, userUpdateResp.userProperties) &&
         Objects.equals(this.isTotpEnabled, userUpdateResp.isTotpEnabled) &&
         Objects.equals(this.passwordChangedTime, userUpdateResp.passwordChangedTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(username, activeSessions, loginHistory, creationTime, updatedAt, fullName, id, lastLoginTime, isGtcAccepted, etag, isMarketingAccepted, phoneNumber, email, status, accountId, totpScratchCodes, object, groups, address, totpSecret, password, emailVerified, createdAt, userProperties, isTotpEnabled, passwordChangedTime);
+    return Objects.hash(username, loginHistory, creationTime, fullName, id, lastLoginTime, isGtcAccepted, etag, isMarketingAccepted, phoneNumber, email, status, accountId, totpScratchCodes, object, groups, address, totpSecret, password, emailVerified, createdAt, isTotpEnabled, passwordChangedTime);
   }
 
 
@@ -791,10 +702,8 @@ public class UserUpdateResp implements Serializable {
     sb.append("class UserUpdateResp {\n");
     
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    activeSessions: ").append(toIndentedString(activeSessions)).append("\n");
     sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    lastLoginTime: ").append(toIndentedString(lastLoginTime)).append("\n");
@@ -813,7 +722,6 @@ public class UserUpdateResp implements Serializable {
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");
     sb.append("}");

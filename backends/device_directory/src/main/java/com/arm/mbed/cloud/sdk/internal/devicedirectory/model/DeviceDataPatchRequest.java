@@ -25,7 +25,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -46,9 +45,6 @@ public class DeviceDataPatchRequest implements Serializable {
 
   @SerializedName("host_gateway")
   private String hostGateway = null;
-
-  @SerializedName("enrolment_list_timestamp")
-  private DateTime enrolmentListTimestamp = null;
 
   @SerializedName("object")
   private String object = null;
@@ -138,24 +134,6 @@ public class DeviceDataPatchRequest implements Serializable {
 
   public void setHostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
-  }
-
-  public DeviceDataPatchRequest enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
-    return this;
-  }
-
-   /**
-   * The claim date/time.
-   * @return enrolmentListTimestamp
-  **/
-  @ApiModelProperty(value = "The claim date/time.")
-  public DateTime getEnrolmentListTimestamp() {
-    return enrolmentListTimestamp;
-  }
-
-  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
   }
 
   public DeviceDataPatchRequest object(String object) {
@@ -288,7 +266,6 @@ public class DeviceDataPatchRequest implements Serializable {
         Objects.equals(this.endpointName, deviceDataPatchRequest.endpointName) &&
         Objects.equals(this.autoUpdate, deviceDataPatchRequest.autoUpdate) &&
         Objects.equals(this.hostGateway, deviceDataPatchRequest.hostGateway) &&
-        Objects.equals(this.enrolmentListTimestamp, deviceDataPatchRequest.enrolmentListTimestamp) &&
         Objects.equals(this.object, deviceDataPatchRequest.object) &&
         Objects.equals(this.customAttributes, deviceDataPatchRequest.customAttributes) &&
         Objects.equals(this.deviceKey, deviceDataPatchRequest.deviceKey) &&
@@ -299,7 +276,7 @@ public class DeviceDataPatchRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, endpointName, autoUpdate, hostGateway, enrolmentListTimestamp, object, customAttributes, deviceKey, endpointType, caId, name);
+    return Objects.hash(description, endpointName, autoUpdate, hostGateway, object, customAttributes, deviceKey, endpointType, caId, name);
   }
 
 
@@ -312,7 +289,6 @@ public class DeviceDataPatchRequest implements Serializable {
     sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
-    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");

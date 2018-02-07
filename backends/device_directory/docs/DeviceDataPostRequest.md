@@ -25,7 +25,6 @@ Name | Type | Description | Notes
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 **deviceKey** | **String** | The fingerprint of the device certificate. |  [optional]
-**enrolmentListTimestamp** | [**DateTime**](DateTime.md) | The claim date/time. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
 **caId** | **String** | The certificate issuer&#39;s ID. |  [optional]
 

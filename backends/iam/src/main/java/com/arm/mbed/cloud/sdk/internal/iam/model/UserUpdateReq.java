@@ -22,9 +22,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -43,9 +40,6 @@ public class UserUpdateReq implements Serializable {
 
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
-
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
 
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
@@ -120,32 +114,6 @@ public class UserUpdateReq implements Serializable {
 
   public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
-  }
-
-  public UserUpdateReq userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public UserUpdateReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
   }
 
   public UserUpdateReq isGtcAccepted(Boolean isGtcAccepted) {
@@ -287,7 +255,6 @@ public class UserUpdateReq implements Serializable {
     return Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
         Objects.equals(this.username, userUpdateReq.username) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
-        Objects.equals(this.userProperties, userUpdateReq.userProperties) &&
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
         Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
         Objects.equals(this.status, userUpdateReq.status) &&
@@ -299,7 +266,7 @@ public class UserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, status, fullName, address, password, email);
+    return Objects.hash(phoneNumber, username, isMarketingAccepted, isGtcAccepted, isTotpEnabled, status, fullName, address, password, email);
   }
 
 
@@ -311,7 +278,6 @@ public class UserUpdateReq implements Serializable {
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
