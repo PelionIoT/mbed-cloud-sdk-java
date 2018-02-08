@@ -99,19 +99,17 @@ public final class ApiKeyAdapter {
     }
 
     private static ApiKeyStatus toStatus(StatusEnum userStatus) {
-        ApiKeyStatus status = null;
+        if (userStatus == null) {
+            return ApiKeyStatus.getUnknownEnum();
+        }
         switch (userStatus) {
             case ACTIVE:
-                status = ApiKeyStatus.ACTIVE;
-                break;
+                return ApiKeyStatus.ACTIVE;
             case INACTIVE:
-                status = ApiKeyStatus.INACTIVE;
-                break;
+                return ApiKeyStatus.INACTIVE;
             default:
-                status = ApiKeyStatus.getDefault();
-                break;
+                return ApiKeyStatus.getUnknownEnum();
         }
-        return status;
     }
 
     private static ApiKeyInfoReq.StatusEnum reverseAddRequestStatus(ApiKeyStatus userStatus) {
@@ -156,7 +154,7 @@ public final class ApiKeyAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (apiKeyList == null) ? null : apiKeyList.getHasMore();
+                return (apiKeyList == null) ? null : apiKeyList.isHasMore();
             }
 
             @Override

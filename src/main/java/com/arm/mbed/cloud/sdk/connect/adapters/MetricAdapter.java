@@ -84,7 +84,7 @@ public final class MetricAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (metricsList == null) ? null : metricsList.getHasMore();
+                return (metricsList == null) ? null : metricsList.isHasMore();
             }
 
             @Override

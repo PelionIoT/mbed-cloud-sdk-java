@@ -110,7 +110,7 @@ public class ResourcesData implements Serializable {
    * @return obs
   **/
   @ApiModelProperty(value = "Whether the resource is observable or not (true/false).")
-  public Boolean getObs() {
+  public Boolean isObs() {
     return obs;
   }
 
@@ -183,6 +183,6 @@ public class ResourcesData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

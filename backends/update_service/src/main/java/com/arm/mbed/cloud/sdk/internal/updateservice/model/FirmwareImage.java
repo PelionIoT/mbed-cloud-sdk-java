@@ -299,6 +299,6 @@ public class FirmwareImage implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -199,20 +199,18 @@ public final class CertificateAdapter {
     }
 
     private static CertificateStatus toStatus(StatusEnum status) {
-        CertificateStatus certificateStatus = null;
+        if (status == null) {
+            return CertificateStatus.getUnknownEnum();
+        }
         switch (status) {
             case ACTIVE:
-                certificateStatus = CertificateStatus.ACTIVE;
-                break;
+                return CertificateStatus.ACTIVE;
             case INACTIVE:
-                certificateStatus = CertificateStatus.INACTIVE;
-                break;
+                return CertificateStatus.INACTIVE;
             default:
-                certificateStatus = CertificateStatus.getDefault();
-                break;
-
+                return CertificateStatus.getUnknownEnum();
         }
-        return certificateStatus;
+
     }
 
     private static TrustedCertificateReq.StatusEnum reverseAddRequestStatus(CertificateStatus status) {
@@ -252,7 +250,7 @@ public final class CertificateAdapter {
                 certificateType = CertificateType.LWM2M;
                 break;
             default:
-                certificateType = CertificateType.getDefault();
+                certificateType = CertificateType.getUnknownEnum();
                 break;
 
         }
@@ -301,7 +299,7 @@ public final class CertificateAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (certificateList == null) ? null : certificateList.getHasMore();
+                return (certificateList == null) ? null : certificateList.isHasMore();
             }
 
             @Override

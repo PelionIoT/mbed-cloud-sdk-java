@@ -23,7 +23,6 @@ public class EndpointsApiTest {
         api = new ApiClient().createService(EndpointsApi.class);
     }
 
-    
     /**
      * List the resources on an endpoint
      *
@@ -36,7 +35,6 @@ public class EndpointsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
      *
@@ -49,5 +47,4 @@ public class EndpointsApiTest {
 
         // TODO: test validations
     }
-    
 }

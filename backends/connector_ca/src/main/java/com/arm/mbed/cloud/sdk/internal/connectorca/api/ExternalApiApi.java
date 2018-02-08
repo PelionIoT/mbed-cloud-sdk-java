@@ -2,12 +2,12 @@ package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 
 import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
 
-
-
 import retrofit2.Call;
 import retrofit2.http.*;
 
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
@@ -18,8 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-
-public interface ExternalAPIApi {
+public interface ExternalApiApi {
   /**
    * Fetch an existing developer certificate to connect to the bootstrap server.
    * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 

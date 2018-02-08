@@ -29,7 +29,7 @@
     </rule>
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
         <properties>
-            <property name="reportLevel" value="20" />
+            <property name="reportLevel" value="25" />
         </properties>
         <properties>
             <!-- ignore this run on methods: equals and hashCode -->

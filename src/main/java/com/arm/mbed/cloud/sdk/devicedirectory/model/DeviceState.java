@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 @Preamble(description = "The state of the device")
 public enum DeviceState implements SdkEnum {
     UNENROLLED("unenrolled"), CLOUD_ENROLLING("cloud_enrolling"), BOOTSTRAPPED("bootstrapped"), REGISTERED(
-            "registered"), DEREGISTERED("deregistered");
+            "registered"), DEREGISTERED("deregistered"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
@@ -51,12 +51,31 @@ public enum DeviceState implements SdkEnum {
     }
 
     /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
+    }
+
+    /**
      * Gets default state.
      * 
      * @return default state.
      */
     public static DeviceState getDefault() {
         return DeviceState.DEREGISTERED;
+    }
+
+    /**
+     * + Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static DeviceState getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

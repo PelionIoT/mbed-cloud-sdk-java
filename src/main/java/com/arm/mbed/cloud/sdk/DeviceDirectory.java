@@ -276,7 +276,7 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DeviceData> call() {
-                return endpoint.getDirectory().devicePartialUpdate(finalDevice.getId(),
+                return endpoint.getDirectory().deviceUpdate(finalDevice.getId(),
                         DeviceAdapter.reverseMapUpdate(finalDevice));
             }
         });
@@ -566,7 +566,7 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DeviceQuery> call() {
-                return endpoint.getDirectory().deviceQueryPartialUpdate(finalQuery.getId(),
+                return endpoint.getDirectory().deviceQueryUpdate(finalQuery.getId(),
                         QueryAdapter.reverseMapUpdate(finalQuery));
             }
         });

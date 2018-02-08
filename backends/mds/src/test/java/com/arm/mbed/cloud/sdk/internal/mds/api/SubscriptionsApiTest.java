@@ -23,7 +23,6 @@ public class SubscriptionsApiTest {
         api = new ApiClient().createService(SubscriptionsApi.class);
     }
 
-    
     /**
      * Remove all subscriptions
      *
@@ -35,7 +34,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Delete subscriptions from an endpoint
      *
@@ -48,7 +46,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Read endpoints subscriptions
      *
@@ -61,7 +58,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Remove a subscription
      *
@@ -75,7 +71,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Read subscription status
      *
@@ -89,7 +84,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Subscribe to a resource path
      *
@@ -103,7 +97,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Get pre-subscriptions
      *
@@ -115,7 +108,6 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Set pre-subscriptions
      *
@@ -128,5 +120,4 @@ public class SubscriptionsApiTest {
 
         // TODO: test validations
     }
-    
 }

@@ -114,6 +114,6 @@ public class DeviceQueryPostPutRequest implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -8,8 +8,9 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum FilterOperator implements SdkEnum {
 
     NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"), EQUAL("equal to", null,
-            "$eq"), GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte",
-                    "$gte"), LESS_THAN("less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte", "$lte");
+            "$eq"), GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte", "$gte"), LESS_THAN(
+                    "less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte",
+                    "$lte"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE);
 
     private final String suffix;
     private final String string;
@@ -42,12 +43,31 @@ public enum FilterOperator implements SdkEnum {
     }
 
     /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
+    }
+
+    /**
      * Gets default operator.
      * 
      * @return default operator.
      */
     public static FilterOperator getDefault() {
         return EQUAL;
+    }
+
+    /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static FilterOperator getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

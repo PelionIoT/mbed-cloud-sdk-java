@@ -6,9 +6,15 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 @Preamble(description = "campaign state")
 public enum CampaignState implements SdkEnum {
 
-    DRAFT("draft"), SCHEDULED("scheduled"), DEVICE_FETCH("devicefetch"), DEVICE_COPY("devicecopy"), PUBLISHING(
-            "publishing"), DEPLOYING(
-                    "deploying"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved"), EXPIRED("expired");
+    DRAFT("draft"), DEVICE_CHECK("devicecheck"), AUTO_STOPPED("autostopped"), SCHEDULED("scheduled"), DEVICE_FETCH(
+            "devicefetch"), DEVICE_COPY("devicecopy"), PUBLISHING("publishing"), DEPLOYING("deploying"), DEPLOYED(
+                    "deployed"), MANIFEST_REMOVED("manifestremoved"), EXPIRED("expired"), STOPPING(
+                            "stopping"), USER_STOPPED("userstopped"), ALLOCATED_QUOTA(
+                                    "allocatedquota"), ALLOCATING_QUOTA(
+                                            "allocatingquota"), INSUFFICIENT_QUOTA("insufficientquota"), CONFLICT(
+                                                    "conflict"), CHECKED_MANIFEST("checkedmanifest"), CHECKING_MANIFEST(
+                                                            "checkingmanifest"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+
     private final String value;
 
     /**
@@ -29,6 +35,16 @@ public enum CampaignState implements SdkEnum {
     @Override
     public boolean isDefault() {
         return this == getDefault();
+    }
+
+    /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
     }
 
     /**
@@ -58,6 +74,15 @@ public enum CampaignState implements SdkEnum {
      */
     public static CampaignState getDefault() {
         return DRAFT;
+    }
+
+    /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static CampaignState getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

@@ -37,12 +37,12 @@ public final class UserAdapter {
             return null;
         }
         final User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
-                toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.getEmailVerified(), false),
+                toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.isEmailVerified(), false),
                 TranslationUtils.toDate(apiUser.getCreatedAt()),
                 TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
                 TranslationUtils.toTimeStamp(apiUser.getPasswordChangedTime()),
                 TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()),
-                TranslationUtils.toBool(apiUser.getIsTotpEnabled(), false),
+                TranslationUtils.toBool(apiUser.isIsTotpEnabled(), false),
                 LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
         user.setFullName(apiUser.getFullName());
         user.setUsername(apiUser.getUsername());
@@ -50,8 +50,8 @@ public final class UserAdapter {
         user.setEmail(apiUser.getEmail());
         user.setPhoneNumber(apiUser.getPhoneNumber());
         user.setAddress(apiUser.getAddress());
-        user.setTermsAccepted(TranslationUtils.toBool(apiUser.getIsGtcAccepted(), true));
-        user.setMarketingAccepted(TranslationUtils.toBool(apiUser.getIsMarketingAccepted(), true));
+        user.setTermsAccepted(TranslationUtils.toBool(apiUser.isIsGtcAccepted(), true));
+        user.setMarketingAccepted(TranslationUtils.toBool(apiUser.isIsMarketingAccepted(), true));
         return user;
 
     }
@@ -132,7 +132,7 @@ public final class UserAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (userList == null) ? null : userList.getHasMore();
+                return (userList == null) ? null : userList.isHasMore();
             }
 
             @Override
@@ -180,28 +180,23 @@ public final class UserAdapter {
     }
 
     private static UserStatus toStatus(StatusEnum userStatus) {
-        UserStatus status = null;
+        if (userStatus == null) {
+            return UserStatus.getUnknownEnum();
+        }
         switch (userStatus) {
             case ACTIVE:
-                status = UserStatus.ACTIVE;
-                break;
+                return UserStatus.ACTIVE;
             case ENROLLING:
-                status = UserStatus.ENROLLING;
-                break;
+                return UserStatus.ENROLLING;
             case INACTIVE:
-                status = UserStatus.INACTIVE;
-                break;
+                return UserStatus.INACTIVE;
             case INVITED:
-                status = UserStatus.INVITED;
-                break;
+                return UserStatus.INVITED;
             case RESET:
-                status = UserStatus.RESET;
-                break;
+                return UserStatus.RESET;
             default:
-                status = UserStatus.getDefault();
-                break;
+                return UserStatus.getUnknownEnum();
 
         }
-        return status;
     }
 }

@@ -10,7 +10,6 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifestPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
 import org.junit.Before;
@@ -33,7 +32,112 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
-    
+    /**
+     * 
+     *
+     * Create an update campaign.
+     */
+    @Test
+    public void campaignCreateTest() {
+        UpdateCampaignPostRequest campaign = null;
+        // UpdateCampaign response = api.campaignCreate(campaign);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Delete an update campaign.
+     */
+    @Test
+    public void campaignDestroyTest() {
+        String campaignId = null;
+        // Void response = api.campaignDestroy(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Get update campaigns for devices specified by a filter.
+     */
+    @Test
+    public void campaignListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String filter = null;
+        String include = null;
+        // UpdateCampaignPage response = api.campaignList(limit, order, after, filter, include);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Get campaign device metadata.
+     */
+    @Test
+    public void campaignMetadataListTest() {
+        String campaignId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // CampaignDeviceMetadataPage response = api.campaignMetadataList(campaignId, limit, order, after, include);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Get update campaign metadata.
+     */
+    @Test
+    public void campaignMetadataRetreiveTest() {
+        String campaignId = null;
+        String campaignDeviceMetadataId = null;
+        // CampaignDeviceMetadata response = api.campaignMetadataRetreive(campaignId, campaignDeviceMetadataId);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Get an update campaign.
+     */
+    @Test
+    public void campaignRetrieveTest() {
+        String campaignId = null;
+        // UpdateCampaign response = api.campaignRetrieve(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Stop a running update campaign.
+     */
+    @Test
+    public void campaignStopTest() {
+        String campaignId = null;
+        // Void response = api.campaignStop(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Modify an update campaign.
+     */
+    @Test
+    public void campaignUpdateTest() {
+        String campaignId = null;
+        UpdateCampaignPutRequest campaign = null;
+        // UpdateCampaign response = api.campaignUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
     /**
      * 
      *
@@ -48,7 +152,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -61,7 +164,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -78,7 +180,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -91,7 +192,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -106,7 +206,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -119,7 +218,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -136,7 +234,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -149,7 +246,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -162,7 +258,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -175,11 +270,10 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
-     * Get update campaigns for devices specified by a filter.
+     * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
      */
     @Test
     public void updateCampaignListTest() {
@@ -192,21 +286,47 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
-     * Modify a subset of an update campaign&#39;s fields.
+     * Get campaign device metadata.
      */
     @Test
-    public void updateCampaignPartialUpdateTest() {
+    public void updateCampaignMetadataListTest() {
         String campaignId = null;
-        UpdateCampaignPatchRequest campaign = null;
-        // UpdateCampaign response = api.updateCampaignPartialUpdate(campaignId, campaign);
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // CampaignDeviceMetadataPage response = api.updateCampaignMetadataList(campaignId, limit, order, after, include);
 
         // TODO: test validations
     }
-    
+    /**
+     * 
+     *
+     * Get update campaign metadata.
+     */
+    @Test
+    public void updateCampaignMetadataRetrieveTest() {
+        String campaignId = null;
+        String campaignDeviceMetadataId = null;
+        // CampaignDeviceMetadata response = api.updateCampaignMetadataRetrieve(campaignId, campaignDeviceMetadataId);
+
+        // TODO: test validations
+    }
+    /**
+     * 
+     *
+     * Stop a running update campaign.
+     */
+    @Test
+    public void updateCampaignMetadataStopTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignMetadataStop(campaignId);
+
+        // TODO: test validations
+    }
     /**
      * 
      *
@@ -219,7 +339,6 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * 
      *
@@ -233,36 +352,4 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
-    
-    /**
-     * 
-     *
-     * Get update campaign metadata.
-     */
-    @Test
-    public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGetTest() {
-        String campaignId = null;
-        String campaignDeviceMetadataId = null;
-        // CampaignDeviceMetadata response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataCampaignDeviceMetadataIdGet(campaignId, campaignDeviceMetadataId);
-
-        // TODO: test validations
-    }
-    
-    /**
-     * 
-     *
-     * Get campaign device metadata.
-     */
-    @Test
-    public void v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGetTest() {
-        String campaignId = null;
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String include = null;
-        // CampaignDeviceMetadataPage response = api.v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(campaignId, limit, order, after, include);
-
-        // TODO: test validations
-    }
-    
 }

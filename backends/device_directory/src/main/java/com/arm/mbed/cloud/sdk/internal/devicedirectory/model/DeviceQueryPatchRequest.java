@@ -114,6 +114,6 @@ public class DeviceQueryPatchRequest implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

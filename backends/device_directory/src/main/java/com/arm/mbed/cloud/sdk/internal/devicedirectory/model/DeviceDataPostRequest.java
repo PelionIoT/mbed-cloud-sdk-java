@@ -228,10 +228,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The timestamp of the device&#39;s most recent bootstrap process..
+   * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process..")
+  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -322,7 +322,7 @@ public class DeviceDataPostRequest implements Serializable {
    * @return autoUpdate
   **/
   @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
-  public Boolean getAutoUpdate() {
+  public Boolean isAutoUpdate() {
     return autoUpdate;
   }
 
@@ -709,6 +709,6 @@ public class DeviceDataPostRequest implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

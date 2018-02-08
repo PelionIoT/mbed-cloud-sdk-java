@@ -107,7 +107,7 @@ public class Resource implements Serializable {
    * @return obs
   **/
   @ApiModelProperty(value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
-  public Boolean getObs() {
+  public Boolean isObs() {
     return obs;
   }
 
@@ -160,6 +160,6 @@ public class Resource implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

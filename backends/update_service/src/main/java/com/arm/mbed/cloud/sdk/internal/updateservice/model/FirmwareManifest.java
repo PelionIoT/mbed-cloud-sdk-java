@@ -322,6 +322,6 @@ public class FirmwareManifest implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

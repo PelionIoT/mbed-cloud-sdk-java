@@ -568,6 +568,6 @@ public class TrustedCertificateResp implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

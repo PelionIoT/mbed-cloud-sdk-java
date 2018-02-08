@@ -147,6 +147,6 @@ public class Presubscription implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

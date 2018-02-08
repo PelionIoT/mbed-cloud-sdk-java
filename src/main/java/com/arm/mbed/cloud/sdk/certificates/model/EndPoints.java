@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalAPIApi;
+import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
@@ -14,7 +14,7 @@ public class EndPoints {
 
     private final DeveloperApi accountDeveloper;
     private final AccountAdminApi admin;
-    private final ExternalAPIApi connector;
+    private final ExternalApiApi connector;
 
     /**
      * Constructor.
@@ -47,8 +47,8 @@ public class EndPoints {
         return wrapper.createService(DeveloperApi.class);
     }
 
-    private ExternalAPIApi initialiseConnector(ApiClientWrapper wrapper) {
-        return wrapper.createService(ExternalAPIApi.class);
+    private ExternalApiApi initialiseConnector(ApiClientWrapper wrapper) {
+        return wrapper.createService(ExternalApiApi.class);
     }
 
     public DeveloperApi getAccountDeveloper() {
@@ -59,7 +59,7 @@ public class EndPoints {
         return admin;
     }
 
-    public ExternalAPIApi getConnector() {
+    public ExternalApiApi getConnector() {
         return connector;
     }
 
