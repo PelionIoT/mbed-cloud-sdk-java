@@ -120,6 +120,7 @@ public final class CampaignDeviceStateAdapter {
         if (state == null) {
             return DeviceState.getUnknownEnum();
         }
+
         switch (state) {
             case DEPLOYED:
                 return DeviceState.DEPLOYED;

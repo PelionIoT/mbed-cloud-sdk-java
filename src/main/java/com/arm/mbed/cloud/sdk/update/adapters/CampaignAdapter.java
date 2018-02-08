@@ -135,10 +135,24 @@ public final class CampaignAdapter {
             return CampaignState.getUnknownEnum();
         }
         switch (state) {
+            case ALLOCATEDQUOTA:
+                return CampaignState.ALLOCATED_QUOTA;
+            case ALLOCATINGQUOTA:
+                return CampaignState.ALLOCATING_QUOTA;
+            case AUTOSTOPPED:
+                return CampaignState.AUTO_STOPPED;
+            case CHECKEDMANIFEST:
+                return CampaignState.CHECKED_MANIFEST;
+            case CHECKINGMANIFEST:
+                return CampaignState.CHECKING_MANIFEST;
+            case CONFLICT:
+                return CampaignState.CONFLICT;
             case DEPLOYED:
                 return CampaignState.DEPLOYED;
             case DEPLOYING:
                 return CampaignState.DEPLOYING;
+            case DEVICECHECK:
+                return CampaignState.DEVICE_CHECK;
             case DEVICECOPY:
                 return CampaignState.DEVICE_COPY;
             case DEVICEFETCH:
@@ -147,15 +161,20 @@ public final class CampaignAdapter {
                 return CampaignState.DRAFT;
             case EXPIRED:
                 return CampaignState.EXPIRED;
+            case INSUFFICIENTQUOTA:
+                return CampaignState.INSUFFICIENT_QUOTA;
             case MANIFESTREMOVED:
                 return CampaignState.MANIFEST_REMOVED;
             case PUBLISHING:
                 return CampaignState.PUBLISHING;
             case SCHEDULED:
                 return CampaignState.SCHEDULED;
+            case STOPPING:
+                return CampaignState.STOPPING;
+            case USERSTOPPED:
+                return CampaignState.USER_STOPPED;
             default:
                 break;
-
         }
         return CampaignState.getUnknownEnum();
     }
@@ -165,10 +184,24 @@ public final class CampaignAdapter {
             return null;
         }
         switch (state) {
+            case ALLOCATED_QUOTA:
+                return UpdateCampaignPostRequest.StateEnum.ALLOCATEDQUOTA;
+            case ALLOCATING_QUOTA:
+                return UpdateCampaignPostRequest.StateEnum.ALLOCATINGQUOTA;
+            case AUTO_STOPPED:
+                return UpdateCampaignPostRequest.StateEnum.AUTOSTOPPED;
+            case CHECKED_MANIFEST:
+                return UpdateCampaignPostRequest.StateEnum.CHECKEDMANIFEST;
+            case CHECKING_MANIFEST:
+                return UpdateCampaignPostRequest.StateEnum.CHECKINGMANIFEST;
+            case CONFLICT:
+                return UpdateCampaignPostRequest.StateEnum.CONFLICT;
             case DEPLOYED:
                 return UpdateCampaignPostRequest.StateEnum.DEPLOYED;
             case DEPLOYING:
                 return UpdateCampaignPostRequest.StateEnum.DEPLOYING;
+            case DEVICE_CHECK:
+                return UpdateCampaignPostRequest.StateEnum.DEVICECHECK;
             case DEVICE_COPY:
                 return UpdateCampaignPostRequest.StateEnum.DEVICECOPY;
             case DEVICE_FETCH:
@@ -177,12 +210,20 @@ public final class CampaignAdapter {
                 return UpdateCampaignPostRequest.StateEnum.DRAFT;
             case EXPIRED:
                 return UpdateCampaignPostRequest.StateEnum.EXPIRED;
+            case INSUFFICIENT_QUOTA:
+                return UpdateCampaignPostRequest.StateEnum.INSUFFICIENTQUOTA;
             case MANIFEST_REMOVED:
                 return UpdateCampaignPostRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
                 return UpdateCampaignPostRequest.StateEnum.PUBLISHING;
             case SCHEDULED:
                 return UpdateCampaignPostRequest.StateEnum.SCHEDULED;
+            case STOPPING:
+                return UpdateCampaignPostRequest.StateEnum.STOPPING;
+            case UNKNOWN_ENUM:
+                break;
+            case USER_STOPPED:
+                return UpdateCampaignPostRequest.StateEnum.USERSTOPPED;
             default:
                 break;
 
@@ -195,10 +236,24 @@ public final class CampaignAdapter {
             return null;
         }
         switch (state) {
+            case ALLOCATED_QUOTA:
+                return UpdateCampaignPutRequest.StateEnum.ALLOCATEDQUOTA;
+            case ALLOCATING_QUOTA:
+                return UpdateCampaignPutRequest.StateEnum.ALLOCATINGQUOTA;
+            case AUTO_STOPPED:
+                return UpdateCampaignPutRequest.StateEnum.AUTOSTOPPED;
+            case CHECKED_MANIFEST:
+                return UpdateCampaignPutRequest.StateEnum.CHECKEDMANIFEST;
+            case CHECKING_MANIFEST:
+                return UpdateCampaignPutRequest.StateEnum.CHECKINGMANIFEST;
+            case CONFLICT:
+                return UpdateCampaignPutRequest.StateEnum.CONFLICT;
             case DEPLOYED:
                 return UpdateCampaignPutRequest.StateEnum.DEPLOYED;
             case DEPLOYING:
                 return UpdateCampaignPutRequest.StateEnum.DEPLOYING;
+            case DEVICE_CHECK:
+                return UpdateCampaignPutRequest.StateEnum.DEVICECHECK;
             case DEVICE_COPY:
                 return UpdateCampaignPutRequest.StateEnum.DEVICECOPY;
             case DEVICE_FETCH:
@@ -207,12 +262,20 @@ public final class CampaignAdapter {
                 return UpdateCampaignPutRequest.StateEnum.DRAFT;
             case EXPIRED:
                 return UpdateCampaignPutRequest.StateEnum.EXPIRED;
+            case INSUFFICIENT_QUOTA:
+                return UpdateCampaignPutRequest.StateEnum.INSUFFICIENTQUOTA;
             case MANIFEST_REMOVED:
                 return UpdateCampaignPutRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
                 return UpdateCampaignPutRequest.StateEnum.PUBLISHING;
             case SCHEDULED:
                 return UpdateCampaignPutRequest.StateEnum.SCHEDULED;
+            case STOPPING:
+                return UpdateCampaignPutRequest.StateEnum.STOPPING;
+            case UNKNOWN_ENUM:
+                break;
+            case USER_STOPPED:
+                return UpdateCampaignPutRequest.StateEnum.USERSTOPPED;
             default:
                 break;
 
