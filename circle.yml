@@ -85,4 +85,5 @@ deployment:
       - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
       - git push --tags
       - echo Deploy to artifactory
-      - python ${SCRIPTS_DIR}/sdk.py deploy
+      - python ${SCRIPTS_DIR}/sdk.py deploy:
+        timeout: 2100
