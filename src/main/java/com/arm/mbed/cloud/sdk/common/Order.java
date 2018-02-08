@@ -42,6 +42,10 @@ public enum Order implements SdkEnum {
     /**
      * Parses a string and returns corresponding Order value or defaultValue if the order could not be identified.
      * 
+     * @param str
+     *            string to parse
+     * @param defaultValue
+     *            default value to apply if parsing failed.
      * @return corresponding order or defaultValue when parsing failed;
      */
     public static Order parseOrder(String str, Order defaultValue) {
