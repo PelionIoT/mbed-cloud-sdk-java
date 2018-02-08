@@ -5,6 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
+**enrollmentMode** | **Boolean** | If true, signature parameter is not required. Default value is false. |  [optional]
 **certificate** | **String** | X509.v3 trusted certificate in PEM format. |  [optional]
 **name** | **String** | Certificate name, not longer than 100 characters. |  [optional]
 **service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. |  [optional]
