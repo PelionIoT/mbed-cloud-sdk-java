@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The type of channel used to communicate with a device")
 public enum MechanismType implements SdkEnum {
-    CONNECTOR("connector"), DIRECT("direct");
+    CONNECTOR("connector"), DIRECT("direct"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
@@ -50,12 +50,31 @@ public enum MechanismType implements SdkEnum {
     }
 
     /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
+    }
+
+    /**
      * Gets default mechanism type.
      * 
      * @return default mechanism type.
      */
     public static MechanismType getDefault() {
         return MechanismType.DIRECT;
+    }
+
+    /**
+     * Gets Unknown type value.
+     * 
+     * @return unknown type.
+     */
+    public static MechanismType getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

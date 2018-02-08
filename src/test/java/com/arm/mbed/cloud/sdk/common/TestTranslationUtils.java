@@ -63,7 +63,19 @@ public class TestTranslationUtils {
         calendar.setTimeZone(TimeZone.getTimeZone("CET"));
         calendar.set(2017, 7, 11, 19, 33, 35);
         calendar.set(Calendar.MILLISECOND, 0);
-        assertEquals(timestamp, TranslationUtils.toRfc3339Timestamp(calendar.getTime()));
+        Date datetime = TranslationUtils.moveDateTimeToUtc(calendar.getTime());
+        assertEquals(timestamp, TranslationUtils.toRfc3339Timestamp(datetime));
+    }
+
+    @Test
+    public void testToRFC3339TimestampUsingJodaImplementation() {
+        String timestamp = "2017-08-11T17:33:35.000Z";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("CET"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date datetime = calendar.getTime();
+        assertEquals(timestamp, TranslationUtils.toUtcTimestamp(datetime));
     }
 
     @Test
@@ -78,6 +90,36 @@ public class TestTranslationUtils {
         } catch (MbedCloudException e) {
             fail(e.getMessage());
         }
+    }
+
+    @Test
+    public void testConvertTimestampStringDateUsingJodaImplementation() {
+        String timestamp = "2017-08-11T19:33:35Z";
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
+        calendar.set(2017, 7, 11, 19, 33, 35);
+        calendar.set(Calendar.MILLISECOND, 0);
+        try {
+            assertEquals(calendar.getTime(), TranslationUtils.convertStringToDate(timestamp));
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public void testAllDateManipulations() {
+        String timestamp = "1971-12-08T01:04:45+12:45";
+        String timestampInUtc = "1971-12-07T12:19:45.000Z";
+        try {
+            Date dateInNZ = TranslationUtils.convertStringToDate(timestamp);
+            Date dateInUTC = TranslationUtils.convertStringToDate(timestampInUtc);
+            assertEquals(dateInUTC, dateInNZ);
+            assertEquals(timestampInUtc, TranslationUtils.toUtcTimestamp(dateInNZ));
+
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+
     }
 
     @Test
@@ -168,6 +210,7 @@ public class TestTranslationUtils {
         assertEquals("Fri, 11 Aug 2017 19:33:35 GMT", TranslationUtils.toTimestamp(calendar.getTime(), format));
     }
 
+    @Test
     public void testParseList() {
         String entry = "/3/0/13\n/3/0/18\n/3/0/21";
         List<String> list = TranslationUtils.parseList(entry, "\n");

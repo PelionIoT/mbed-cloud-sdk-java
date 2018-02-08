@@ -189,7 +189,7 @@ public class GroupSummaryList implements Serializable {
    * @return hasMore
   **/
   @ApiModelProperty(required = true, value = "Flag indicating whether there is more results.")
-  public Boolean getHasMore() {
+  public Boolean isHasMore() {
     return hasMore;
   }
 
@@ -343,6 +343,6 @@ public class GroupSummaryList implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

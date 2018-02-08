@@ -37,4 +37,15 @@ public class UserListOptions extends ListOptions {
         addEqualFilter(STATUS_FILTER, statusFilter);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public UserListOptions clone() {
+        final UserListOptions opt = new UserListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

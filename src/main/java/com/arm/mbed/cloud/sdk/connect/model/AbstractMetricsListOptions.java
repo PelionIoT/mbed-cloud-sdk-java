@@ -21,7 +21,7 @@ public abstract class AbstractMetricsListOptions extends ListOptions {
      */
     public AbstractMetricsListOptions() {
         super();
-        setInterval(new TimePeriod());
+        setDefault();
     }
 
     /**
@@ -55,4 +55,35 @@ public abstract class AbstractMetricsListOptions extends ListOptions {
     public void setInterval(String interval) {
         setInterval(new TimePeriod(interval));
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.arm.mbed.cloud.sdk.common.listing.ListOptions#setOptions(com.arm.mbed.cloud.sdk.common.listing.ListOptions)
+     */
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#setDefault()
+     */
+    @Override
+    protected void setDefault() {
+        super.setDefault();
+        setInterval(new TimePeriod());
+    }
+
+    @Override
+    protected <T extends ListOptions> void setOptions(T options) {
+        if (options == null) {
+            setDefault();
+            return;
+        }
+        super.setOptions(options);
+        if (AbstractMetricsListOptions.class.isAssignableFrom(options.getClass())) {
+            final AbstractMetricsListOptions abstractMetrics = (AbstractMetricsListOptions) options;
+            setInterval(abstractMetrics.getInterval());
+        }
+    }
+
 }

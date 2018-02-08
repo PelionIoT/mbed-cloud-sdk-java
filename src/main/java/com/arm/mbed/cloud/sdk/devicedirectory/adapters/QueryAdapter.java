@@ -13,7 +13,6 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPatchRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
 
 @Preamble(description = "Adapter for query model")
@@ -38,7 +37,7 @@ public final class QueryAdapter {
         final Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
                 TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
         query.setName(deviceQuery.getName());
-        query.setFilter(decodeFilters(deviceQuery.getQuery()));
+        query.setFilters(decodeFilters(deviceQuery.getQuery()));
         return query;
     }
 
@@ -71,7 +70,7 @@ public final class QueryAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (queryList == null) ? null : queryList.getHasMore();
+                return (queryList == null) ? null : queryList.isHasMore();
             }
 
             @Override
@@ -131,7 +130,7 @@ public final class QueryAdapter {
         }
         final DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilters()));
         return deviceQuery;
     }
 
@@ -142,13 +141,13 @@ public final class QueryAdapter {
      *            query to update
      * @return a query update request
      */
-    public static DeviceQueryPatchRequest reverseMapUpdate(Query query) {
+    public static DeviceQueryPostPutRequest reverseMapUpdate(Query query) {
         if (query == null) {
             return null;
         }
-        final DeviceQueryPatchRequest deviceQuery = new DeviceQueryPatchRequest();
+        final DeviceQueryPostPutRequest deviceQuery = new DeviceQueryPostPutRequest();
         deviceQuery.setName(query.getName());
-        deviceQuery.setQuery(encodeFilters(query.fetchFilter()));
+        deviceQuery.setQuery(encodeFilters(query.fetchFilters()));
         return deviceQuery;
     }
 

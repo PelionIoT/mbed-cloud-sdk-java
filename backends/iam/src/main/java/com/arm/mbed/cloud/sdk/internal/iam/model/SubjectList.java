@@ -133,6 +133,6 @@ public class SubjectList implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

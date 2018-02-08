@@ -130,7 +130,7 @@ public class CampaignDeviceMetadataPage implements Serializable {
    * @return hasMore
   **/
   @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
-  public Boolean getHasMore() {
+  public Boolean isHasMore() {
     return hasMore;
   }
 
@@ -287,6 +287,6 @@ public class CampaignDeviceMetadataPage implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

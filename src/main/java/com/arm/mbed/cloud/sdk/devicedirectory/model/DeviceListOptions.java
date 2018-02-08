@@ -86,6 +86,10 @@ public class DeviceListOptions extends ListOptions {
      */
     public static final String FILTER_UPDATED_AT = "updatedAt";
     /**
+     * Tag of filter by last claim date.
+     */
+    public static final String FILTER_CLAIMED_AT = "claimedAt";
+    /**
      * Tag of filter by device type.
      */
     public static final String FILTER_DEVICE_TYPE = "deviceType";
@@ -318,6 +322,18 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on claimedAt field.
+     * 
+     * @param claimedAtDate
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addClaimedAtFilter(Date claimedAtDate, FilterOperator operator) {
+        addFilter(FILTER_CLAIMED_AT, operator, claimedAtDate);
+    }
+
+    /**
      * Adds a device filter based on vendor id field.
      * 
      * @param vendorId
@@ -353,4 +369,15 @@ public class DeviceListOptions extends ListOptions {
         addFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public DeviceListOptions clone() {
+        final DeviceListOptions opt = new DeviceListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

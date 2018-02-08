@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.certificates.model.CertificateListOptions;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 import utils.AbstractExample;
 import utils.Configuration;
@@ -63,8 +63,8 @@ public class CertificatesExamples extends AbstractExample {
             CertificateListOptions options = new CertificateListOptions();
             options.setLimit(5);
             // Listing certificates.
-            ListResponse<Certificate> certificates = api.listCertificates(options);
-            for (Certificate certificate : certificates.getData()) {
+            Paginator<Certificate> certificates = api.listAllCertificates(options);
+            for (Certificate certificate : certificates) {
                 log("Certificate", certificate);
             }
         } catch (Exception e) {

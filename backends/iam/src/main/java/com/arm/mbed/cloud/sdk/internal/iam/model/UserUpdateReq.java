@@ -108,7 +108,7 @@ public class UserUpdateReq implements Serializable {
    * @return isMarketingAccepted
   **/
   @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
-  public Boolean getIsMarketingAccepted() {
+  public Boolean isIsMarketingAccepted() {
     return isMarketingAccepted;
   }
 
@@ -126,7 +126,7 @@ public class UserUpdateReq implements Serializable {
    * @return isGtcAccepted
   **/
   @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
-  public Boolean getIsGtcAccepted() {
+  public Boolean isIsGtcAccepted() {
     return isGtcAccepted;
   }
 
@@ -144,7 +144,7 @@ public class UserUpdateReq implements Serializable {
    * @return isTotpEnabled
   **/
   @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
-  public Boolean getIsTotpEnabled() {
+  public Boolean isIsTotpEnabled() {
     return isTotpEnabled;
   }
 
@@ -299,6 +299,6 @@ public class UserUpdateReq implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

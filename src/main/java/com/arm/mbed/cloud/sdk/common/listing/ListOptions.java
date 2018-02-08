@@ -2,8 +2,10 @@ package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
@@ -14,7 +16,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
-public class ListOptions {
+public class ListOptions implements Cloneable {
 
     /**
      * how many objects to retrieve in the page.
@@ -45,11 +47,31 @@ public class ListOptions {
      */
     public ListOptions() {
         super();
-        setLimit(null);
-        setOrder(Order.ASC);
-        setAfter(null);
-        setInclude(null);
-        setFilter(null);
+        setDefault();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param limit
+     *            limit.
+     * @param order
+     *            order.
+     * @param after
+     *            after.
+     * @param include
+     *            include.
+     * @param filter
+     *            filter.
+     */
+    @Internal
+    protected ListOptions(Integer limit, Order order, String after, List<IncludeField> include, Filters filter) {
+        super();
+        this.limit = limit;
+        this.order = order;
+        this.after = after;
+        this.include = include;
+        this.filter = filter;
     }
 
     /**
@@ -143,13 +165,16 @@ public class ListOptions {
     }
 
     /**
-     * Adds an include field to consider.
+     * Appends an include field.
      * 
      * @param includeField
-     *            field
+     *            include field to append.
      */
     public void addInclude(IncludeField includeField) {
         if (includeField == null) {
+            return;
+        }
+        if (containsIncludeField(includeField)) {
             return;
         }
         if (include == null) {
@@ -170,6 +195,36 @@ public class ListOptions {
     }
 
     /**
+     * Determines whether an include field has already been set.
+     * 
+     * @param field
+     *            include field.
+     * @return True if the field is already present. False otherwise.
+     */
+    public boolean containsIncludeField(IncludeField field) {
+        if (include == null || field == null) {
+            return false;
+        }
+        return include.contains(field);
+    }
+
+    /**
+     * Determines whether 'total count' include field has already been set.
+     * 
+     * @return True if the 'total count' field is already present. False otherwise.
+     */
+    public boolean constainsTotalCountInclude() {
+        return containsIncludeField(IncludeField.TOTAL_COUNT);
+    }
+
+    /**
+     * Includes 'total count' field so that the total number of records appears in the response.
+     */
+    public void includeTotalCount() {
+        addInclude(IncludeField.TOTAL_COUNT);
+    }
+
+    /**
      * Gets the filter.
      * 
      * @return the filters
@@ -179,13 +234,26 @@ public class ListOptions {
     }
 
     /**
-     * Sets the filter.
+     * Sets the filters.
      * 
-     * @param filter
+     * @param filters
      *            the filters to set
      */
-    public void setFilter(Filters filter) {
-        this.filter = filter;
+    public void setFilters(Filters filters) {
+        this.filter = filters;
+    }
+
+    /**
+     * Sets the filters.
+     * <p>
+     * Prefer using {@link #setFilters(Filters)} or {@link #setFiltersFromJson(String)} to set filters.
+     * 
+     * @param filter
+     *            filters expressed as a Json hashtable (key,value)
+     */
+    @Internal
+    public void setFilter(Map<String, Object> filter) {
+        setFilters(FilterMarshaller.fromJsonObject(filter));
     }
 
     /**
@@ -196,7 +264,7 @@ public class ListOptions {
      *            Json string defining filters
      */
     public void setFiltersFromJson(String jsonString) {
-        setFilter(FilterMarshaller.fromJson(jsonString));
+        setFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
@@ -293,6 +361,113 @@ public class ListOptions {
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
         final Object filterObj = fetchEqualFilterValue(fieldName);
         return (filterObj == null) ? null : filterObj.toString();
+    }
+
+    /**
+     * Overrides option parameters.
+     * 
+     * @param options
+     *            parameters to set.
+     * @param <T>
+     *            type of options
+     */
+    protected <T extends ListOptions> void setOptions(T options) {
+        final ListOptions overridingOptions = (options == null) ? new ListOptions() : options;
+        setAfter(overridingOptions.getAfter());
+        setFilters(overridingOptions.getFilter());
+        setInclude(overridingOptions.getInclude());
+        setLimit(overridingOptions.getLimit());
+        setOrder(overridingOptions.getOrder());
+    }
+
+    /**
+     * Sets options to default.
+     */
+    protected void setDefault() {
+        setAfter(null);
+        setFilters(null);
+        setInclude(null);
+        setLimit(null);
+        setOrder(Order.ASC);
+    }
+
+    /**
+     * Clones the options.
+     * 
+     * @return a clone.
+     */
+    @Override
+    public ListOptions clone() {
+        return new ListOptions(limit, order, after, (include == null) ? null : new LinkedList<>(include),
+                (filter == null) ? null : filter.clone());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((after == null) ? 0 : after.hashCode());
+        result = prime * result + ((filter == null) ? 0 : filter.hashCode());
+        result = prime * result + ((include == null) ? 0 : include.hashCode());
+        result = prime * result + ((limit == null) ? 0 : limit.hashCode());
+        result = prime * result + ((order == null) ? 0 : order.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ListOptions other = (ListOptions) obj;
+        if (after == null) {
+            if (other.after != null) {
+                return false;
+            }
+        } else if (!after.equals(other.after)) {
+            return false;
+        }
+        if (filter == null) {
+            if (other.filter != null) {
+                return false;
+            }
+        } else if (!filter.equals(other.filter)) {
+            return false;
+        }
+        if (include == null) {
+            if (other.include != null) {
+                return false;
+            }
+        } else if (!include.equals(other.include)) {
+            return false;
+        }
+        if (limit == null) {
+            if (other.limit != null) {
+                return false;
+            }
+        } else if (!limit.equals(other.limit)) {
+            return false;
+        }
+        if (order != other.order) {
+            return false;
+        }
+        return true;
     }
 
     /*

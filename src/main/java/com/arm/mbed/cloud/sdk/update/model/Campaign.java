@@ -255,7 +255,7 @@ public class Campaign implements SdkModel {
         setName(name);
         setScheduledAt(scheduledAt);
         setState(state);
-        setDeviceFilter(deviceFilter);
+        setDeviceFilters(deviceFilter);
     }
 
     /**
@@ -292,7 +292,7 @@ public class Campaign implements SdkModel {
         this();
         setName(name);
         setManifestId(manifestId);
-        setDeviceFilter(deviceFilter);
+        setDeviceFilters(deviceFilter);
     }
 
     /**
@@ -320,7 +320,7 @@ public class Campaign implements SdkModel {
      *            The query to use
      */
     public Campaign(String name, FirmwareManifest manifest, Query query) {
-        this(name, manifest, (query == null) ? null : query.fetchFilter());
+        this(name, manifest, (query == null) ? null : query.fetchFilters());
     }
 
     /**
@@ -328,6 +328,7 @@ public class Campaign implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -361,6 +362,19 @@ public class Campaign implements SdkModel {
      */
     public void setState(CampaignState state) {
         this.state = state;
+    }
+
+    /**
+     * Sets the campaign state.
+     * <p>
+     * Similar to {@link #setState(CampaignState)}
+     * 
+     * @param state
+     *            the state as string to set
+     */
+    @Internal
+    public void setState(String state) {
+        setState(CampaignState.getState(state));
     }
 
     /**
@@ -478,6 +492,15 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Gets when a campaign is updated at.
+     *
+     * @return the finishedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
      * Gets the filter.
      *
      * @return the filters
@@ -499,12 +522,25 @@ public class Campaign implements SdkModel {
     /**
      * Set the device filter.
      *
-     * @param deviceFilter
+     * @param deviceFilters
      *            the device filter to set
      */
     @Required
-    public void setDeviceFilter(Filters deviceFilter) {
-        this.deviceFilter = deviceFilter;
+    public void setDeviceFilters(Filters deviceFilters) {
+        this.deviceFilter = deviceFilters;
+    }
+
+    /**
+     * Sets the filters.
+     * <p>
+     * Prefer using {@link #setDeviceFilters(Filters)} or {@link #setDeviceFilterFromJson(String)} to set filters.
+     * 
+     * @param filter
+     *            filters expressed as a Json hashtable (key,value)
+     */
+    @Internal
+    public void setDeviceFilter(Map<String, Object> filter) {
+        setDeviceFilters(FilterMarshaller.fromJsonObject(filter));
     }
 
     /**
@@ -516,7 +552,7 @@ public class Campaign implements SdkModel {
      *            Json string defining the device filter to set
      */
     public void setDeviceFilterFromJson(String jsonString) {
-        setDeviceFilter(FilterMarshaller.fromJson(jsonString));
+        setDeviceFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
@@ -868,7 +904,7 @@ public class Campaign implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Campaign clone() throws CloneNotSupportedException {
+    public Campaign clone() {
         return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name, description,
                 manifestId, scheduledAt, deviceFilter);
     }

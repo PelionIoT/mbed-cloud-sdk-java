@@ -30,15 +30,15 @@ public final class AccountAdapter {
             return null;
         }
         final Account account = new Account(accountInfo.getId(), toStatus(accountInfo.getStatus()),
-                TranslationUtils.toBool(accountInfo.getIsProvisioningAllowed(), true), accountInfo.getTier(),
+                TranslationUtils.toBool(accountInfo.isIsProvisioningAllowed(), true), accountInfo.getTier(),
                 TranslationUtils.toDate(accountInfo.getCreatedAt()),
                 TranslationUtils.toDate(accountInfo.getUpgradedAt()), accountInfo.getLimits(),
-                accountInfo.getTemplateId());
+                PolicyAdapter.mapList(accountInfo.getPolicies()), accountInfo.getTemplateId(), accountInfo.getReason());
         account.setDisplayName(accountInfo.getDisplayName());
         account.setContact(accountInfo.getContact());
         account.setCompany(accountInfo.getCompany());
         account.setPhoneNumber(accountInfo.getPhoneNumber());
-        account.setPostCode(accountInfo.getPostalCode());
+        account.setPostcode(accountInfo.getPostalCode());
         account.setAddressLine1(accountInfo.getAddressLine1());
         account.setAddressLine2(accountInfo.getAddressLine2());
         account.setCity(accountInfo.getCity());
@@ -66,25 +66,22 @@ public final class AccountAdapter {
     }
 
     private static AccountStatus toStatus(StatusEnum status) {
-        AccountStatus correspondingStatus = null;
+        if (status == null) {
+            return AccountStatus.getUnknownEnum();
+        }
         switch (status) {
             case ACTIVE:
-                correspondingStatus = AccountStatus.ACTIVE;
-                break;
+                return AccountStatus.ACTIVE;
             case ENROLLING:
-                correspondingStatus = AccountStatus.ENROLLING;
-                break;
+                return AccountStatus.ENROLLING;
             case RESTRICTED:
-                correspondingStatus = AccountStatus.RESTRICTED;
-                break;
+                return AccountStatus.RESTRICTED;
             case SUSPENDED:
-                correspondingStatus = AccountStatus.SUSPENDED;
-                break;
+                return AccountStatus.SUSPENDED;
             default:
-                correspondingStatus = AccountStatus.getDefault();
-                break;
+                return AccountStatus.getUnknownEnum();
         }
-        return correspondingStatus;
+
     }
 
     /**
@@ -109,7 +106,7 @@ public final class AccountAdapter {
         accountUpdateReq.setAddressLine2(updateAccount.getAddressLine2());
         accountUpdateReq.setCity(accountUpdateReq.getCity());
         accountUpdateReq.setState(accountUpdateReq.getState());
-        accountUpdateReq.setPostalCode(updateAccount.getPostCode());
+        accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
         return accountUpdateReq;
     }

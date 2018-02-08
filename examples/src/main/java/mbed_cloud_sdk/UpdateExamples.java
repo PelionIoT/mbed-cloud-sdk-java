@@ -10,7 +10,6 @@ import com.arm.mbed.cloud.sdk.Update;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.Order;
-import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.QueryListOptions;
@@ -58,7 +57,7 @@ public class UpdateExamples extends AbstractExample {
             if (!queries.hasNext()) {
                 fail("Could not fetch any queries from Mbed Cloud");
             }
-            query = queries.next();
+            query = queries.first();
             log("Campaign query", query);
             // Creating an update campaign.
             String campaignName = "campaign-" + UUID.randomUUID().toString();
@@ -126,8 +125,8 @@ public class UpdateExamples extends AbstractExample {
             CampaignListOptions options = new CampaignListOptions();
             options.setLimit(5);
             // Listing campaigns.
-            ListResponse<Campaign> campaigns = api.listCampaigns(options);
-            for (Campaign campaign : campaigns.getData()) {
+            Paginator<Campaign> campaigns = api.listAllCampaigns(options);
+            for (Campaign campaign : campaigns) {
                 log("Update campaign", campaign);
             }
         } catch (Exception e) {
@@ -149,8 +148,8 @@ public class UpdateExamples extends AbstractExample {
             FirmwareManifestListOptions options = new FirmwareManifestListOptions();
             options.setLimit(5);
             // Listing firmware manifests.
-            ListResponse<FirmwareManifest> manifests = api.listFirmwareManifests(options);
-            for (FirmwareManifest manifest : manifests.getData()) {
+            Paginator<FirmwareManifest> manifests = api.listAllFirmwareManifests(options);
+            for (FirmwareManifest manifest : manifests) {
                 log("Firmware manifest", manifest);
             }
         } catch (Exception e) {
@@ -172,9 +171,9 @@ public class UpdateExamples extends AbstractExample {
             FirmwareImageListOptions options = new FirmwareImageListOptions();
             options.setLimit(5);
             // Listing firmware images.
-            ListResponse<FirmwareImage> images = api.listFirmwareImages(options);
+            Paginator<FirmwareImage> images = api.listAllFirmwareImages(options);
             String imageId = null;
-            for (FirmwareImage image : images.getData()) {
+            for (FirmwareImage image : images) {
                 log("Firmware image", image);
                 imageId = image.getId();
             }

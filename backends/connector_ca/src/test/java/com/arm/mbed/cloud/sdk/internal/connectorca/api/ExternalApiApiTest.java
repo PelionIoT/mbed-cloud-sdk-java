@@ -13,18 +13,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * API tests for ExternalAPIApi
+ * API tests for ExternalApiApi
  */
-public class ExternalAPIApiTest {
+public class ExternalApiApiTest {
 
-    private ExternalAPIApi api;
+    private ExternalApiApi api;
 
     @Before
     public void setup() {
-        api = new ApiClient().createService(ExternalAPIApi.class);
+        api = new ApiClient().createService(ExternalApiApi.class);
     }
 
-    
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      *
@@ -38,7 +37,6 @@ public class ExternalAPIApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Create a new developer certificate to connect to the bootstrap server.
      *
@@ -52,7 +50,6 @@ public class ExternalAPIApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Fetch bootstrap server credentials.
      *
@@ -65,7 +62,6 @@ public class ExternalAPIApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Fetch LWM2M server credentials.
      *
@@ -78,5 +74,4 @@ public class ExternalAPIApiTest {
 
         // TODO: test validations
     }
-    
 }

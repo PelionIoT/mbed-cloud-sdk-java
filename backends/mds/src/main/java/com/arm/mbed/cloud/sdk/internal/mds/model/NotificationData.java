@@ -183,6 +183,6 @@ public class NotificationData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

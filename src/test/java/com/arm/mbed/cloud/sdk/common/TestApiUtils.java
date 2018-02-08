@@ -111,6 +111,11 @@ public class TestApiUtils {
             return field1 != null && field2 != null;
         }
 
+        @Override
+        public String getId() {
+            return null;
+        }
+
     }
 
     @SuppressWarnings("boxing")
@@ -217,5 +222,21 @@ public class TestApiUtils {
         assertFalse(ApiUtils.comparePaths("", null));
         assertTrue(ApiUtils.comparePaths("/test/1", "test/1"));
         assertTrue(ApiUtils.comparePaths("test/2", "/test/2"));
+    }
+
+    @Test
+    public void testAllDateManipulations() {
+        String timestamp = "1971-12-08T01:04:45+12:45";
+        String timestampInUtc = "1971-12-07T12:19:45.000Z";
+        try {
+            Date dateInNZ = ApiUtils.convertStringToDate(timestamp);
+            Date dateInUTC = ApiUtils.convertStringToDate(timestampInUtc);
+            assertEquals(dateInUTC, dateInNZ);
+            assertEquals(timestampInUtc, ApiUtils.toUtcTimestamp(dateInNZ));
+
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+
     }
 }

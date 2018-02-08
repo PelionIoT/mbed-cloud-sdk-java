@@ -347,6 +347,6 @@ public class UpdatedResponse implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

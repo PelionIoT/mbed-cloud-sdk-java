@@ -7,8 +7,8 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum DeviceState implements SdkEnum {
 
     PENDING("pending"), UPDATED_CONNECTOR_CHANNEL("updated_connector_channel"), FAILED_CONNECTOR_CHANNEL_UPDATE(
-            "failed_connector_channel_update"), DEPLOYED(
-                    "deployed"), MANIFEST_REMOVED("manifestremoved"), DEREGISTERED("deregistered");
+            "failed_connector_channel_update"), DEPLOYED("deployed"), MANIFEST_REMOVED(
+                    "manifestremoved"), DEREGISTERED("deregistered"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
@@ -30,6 +30,16 @@ public enum DeviceState implements SdkEnum {
     @Override
     public boolean isDefault() {
         return this == getDefault();
+    }
+
+    /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
     }
 
     /**
@@ -59,6 +69,15 @@ public enum DeviceState implements SdkEnum {
      */
     public static DeviceState getDefault() {
         return PENDING;
+    }
+
+    /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static DeviceState getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

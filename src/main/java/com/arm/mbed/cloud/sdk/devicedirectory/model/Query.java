@@ -161,17 +161,17 @@ public class Query implements SdkModel {
      *            last update date
      * @param name
      *            name
-     * @param filter
-     *            filter
+     * @param filters
+     *            filters
      */
     @Internal
-    public Query(String id, Date createdAt, Date updatedAt, String name, Filters filter) {
+    public Query(String id, Date createdAt, Date updatedAt, String name, Filters filters) {
         super();
         setId(id);
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
         setName(name);
-        setFilter(filter);
+        setFilters(filters);
     }
 
     /**
@@ -186,13 +186,13 @@ public class Query implements SdkModel {
      *
      * @param name
      *            Name of query
-     * @param filter
-     *            Filter properties to apply
+     * @param filters
+     *            Filters properties to apply
      */
-    public Query(String name, Filters filter) {
+    public Query(String name, Filters filters) {
         this();
         setName(name);
-        setFilter(filter);
+        setFilters(filters);
     }
 
     /**
@@ -200,6 +200,7 @@ public class Query implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -250,12 +251,25 @@ public class Query implements SdkModel {
     /**
      * Sets filter.
      *
-     * @param filter
-     *            the filter to set
+     * @param filters
+     *            the filters to set
      */
     @Required
-    public void setFilter(Filters filter) {
-        this.filter = filter;
+    public void setFilters(Filters filters) {
+        this.filter = filters;
+    }
+
+    /**
+     * Sets the filters.
+     * <p>
+     * Prefer using {@link #setFilters(Filters)} or {@link #setFiltersFromJson(String)} to set filters.
+     * 
+     * @param filter
+     *            filters expressed as a Json hashtable (key,value)
+     */
+    @Internal
+    public void setFilter(Map<String, Object> filter) {
+        setFilters(FilterMarshaller.fromJsonObject(filter));
     }
 
     /**
@@ -263,7 +277,7 @@ public class Query implements SdkModel {
      *
      * @return the filters
      */
-    public Filters fetchFilter() {
+    public Filters fetchFilters() {
         return filter;
     }
 
@@ -276,7 +290,7 @@ public class Query implements SdkModel {
      */
     @Internal
     public Map<String, Object> getFilter() {
-        return FilterMarshaller.toJsonObject(fetchFilter());
+        return FilterMarshaller.toJsonObject(fetchFilters());
     }
 
     /**
@@ -285,7 +299,7 @@ public class Query implements SdkModel {
      * @return the filters as a Json string
      */
     public String retrieveFilterAsJson() {
-        return FilterMarshaller.toJson(fetchFilter());
+        return FilterMarshaller.toJson(fetchFilters());
     }
 
     /**
@@ -294,8 +308,8 @@ public class Query implements SdkModel {
      * @param jsonString
      *            Json string defining filter
      */
-    public void setFilterFromJson(String jsonString) {
-        setFilter(FilterMarshaller.fromJson(jsonString));
+    public void setFiltersFromJson(String jsonString) {
+        setFilters(FilterMarshaller.fromJson(jsonString));
     }
 
     /**
@@ -604,7 +618,7 @@ public class Query implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Query clone() throws CloneNotSupportedException {
+    public Query clone() {
         return new Query(id, createdAt, updatedAt, name, filter);
     }
 

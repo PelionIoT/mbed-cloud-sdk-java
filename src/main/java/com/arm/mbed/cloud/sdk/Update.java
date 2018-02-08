@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -150,14 +151,14 @@ public class Update extends AbstractApi {
     @API
     public @Nullable Paginator<FirmwareImage> listAllFirmwareImages(@Nullable FirmwareImageListOptions options)
             throws MbedCloudException {
-        final FirmwareImageListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<FirmwareImage>() {
+        return new Paginator<>((options == null) ? new FirmwareImageListOptions() : options,
+                new PageRequester<FirmwareImage>() {
 
-            @Override
-            public ListResponse<FirmwareImage> requestNewPage() throws MbedCloudException {
-                return listFirmwareImages(finalOptions);
-            }
-        });
+                    @Override
+                    public ListResponse<FirmwareImage> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listFirmwareImages((FirmwareImageListOptions) opt);
+                    }
+                });
     }
 
     /**
@@ -396,14 +397,14 @@ public class Update extends AbstractApi {
     @API
     public @Nullable Paginator<FirmwareManifest> listAllFirmwareManifests(@Nullable FirmwareManifestListOptions options)
             throws MbedCloudException {
-        final FirmwareManifestListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<FirmwareManifest>() {
+        return new Paginator<>((options == null) ? new FirmwareManifestListOptions() : options,
+                new PageRequester<FirmwareManifest>() {
 
-            @Override
-            public ListResponse<FirmwareManifest> requestNewPage() throws MbedCloudException {
-                return listFirmwareManifests(finalOptions);
-            }
-        });
+                    @Override
+                    public ListResponse<FirmwareManifest> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listFirmwareManifests((FirmwareManifestListOptions) opt);
+                    }
+                });
     }
 
     /**
@@ -646,12 +647,11 @@ public class Update extends AbstractApi {
     @API
     public @Nullable Paginator<Campaign> listAllCampaigns(@Nullable CampaignListOptions options)
             throws MbedCloudException {
-        final CampaignListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<Campaign>() {
+        return new Paginator<>((options == null) ? new CampaignListOptions() : options, new PageRequester<Campaign>() {
 
             @Override
-            public ListResponse<Campaign> requestNewPage() throws MbedCloudException {
-                return listCampaigns(finalOptions);
+            public ListResponse<Campaign> requestNewPage(ListOptions opt) throws MbedCloudException {
+                return listCampaigns((CampaignListOptions) opt);
             }
         });
     }
@@ -767,7 +767,7 @@ public class Update extends AbstractApi {
 
             @Override
             public Call<UpdateCampaign> call() {
-                return endpoint.getUpdate().updateCampaignPartialUpdate(finalCampaign.getId(),
+                return endpoint.getUpdate().updateCampaignUpdate(finalCampaign.getId(),
                         CampaignAdapter.reverseMapUpdate(finalCampaign));
             }
 
@@ -979,8 +979,8 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<CampaignDeviceMetadataPage> call() {
-                        return endpoint.getUpdate().v3UpdateCampaignsCampaignIdCampaignDeviceMetadataGet(finalId,
-                                finalOptions.getLimit(), finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                        return endpoint.getUpdate().updateCampaignMetadataList(finalId, finalOptions.getLimit(),
+                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 finalOptions.encodeInclude());
                     }
                 });
@@ -1063,14 +1063,14 @@ public class Update extends AbstractApi {
             @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         final String finalId = campaignId;
-        final CampaignDevicesStatesListOptions finalOptions = options;
-        return new Paginator<>(new PageRequester<CampaignDeviceState>() {
+        return new Paginator<>((options == null) ? new CampaignDevicesStatesListOptions() : options,
+                new PageRequester<CampaignDeviceState>() {
 
-            @Override
-            public ListResponse<CampaignDeviceState> requestNewPage() throws MbedCloudException {
-                return listCampaignDeviceStates(finalId, finalOptions);
-            }
-        });
+                    @Override
+                    public ListResponse<CampaignDeviceState> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listCampaignDeviceStates(finalId, (CampaignDevicesStatesListOptions) opt);
+                    }
+                });
     }
 
     /**

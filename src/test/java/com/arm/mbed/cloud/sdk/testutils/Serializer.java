@@ -1,27 +1,27 @@
 package com.arm.mbed.cloud.sdk.testutils;
 
 import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.Set;
-
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonGenerator;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -35,6 +35,10 @@ import io.vertx.core.json.Json;
 import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 
+/**
+ * This class performs Json transformation for understanding/translating data coming from or going to the testrunner.
+ *
+ */
 public class Serializer {
     private static class SDKEnumSerializer extends StdSerializer<SdkEnum> {
         /**
@@ -64,7 +68,6 @@ public class Serializer {
          * 
          */
         private static final long serialVersionUID = 4811129002272093745L;
-        private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
 
         public DateSerializer() {
             this(null);
@@ -74,13 +77,38 @@ public class Serializer {
             super(t);
         }
 
-        @SuppressWarnings("cast")
         @Override
         public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException {
-            jgen.writeString((value == null) ? null
-                    : DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC)));
+            jgen.writeString((value == null) ? null : ApiUtils.toUtcTimestamp(value));
 
         }
+    }
+
+    private static class SDKDateDeserializer extends StdDeserializer<Date> {
+
+        /**
+         * 
+         */
+        private static final long serialVersionUID = -4080497056681306862L;
+
+        protected SDKDateDeserializer(Class<Date> vc) {
+            super(vc);
+        }
+
+        public SDKDateDeserializer() {
+            this(null);
+        }
+
+        @Override
+        public Date deserialize(JsonParser p, DeserializationContext ctxt) throws IOException, JsonProcessingException {
+            try {
+                return ApiUtils.convertStringToDate(p.getValueAsString());
+            } catch (MbedCloudException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }
+
     }
 
     private static class SDKFiltersDeserializer extends StdDeserializer<Filters> {
@@ -110,28 +138,108 @@ public class Serializer {
         SimpleModule module = new SimpleModule();
         module.addSerializer(SdkEnum.class, new SDKEnumSerializer());
         module.addSerializer(Date.class, new DateSerializer());
+        // module.addSerializer(DateTime.class, new DateTimeSerializer());
         module.addDeserializer(Filters.class, new SDKFiltersDeserializer());
+        module.addDeserializer(Date.class, new SDKDateDeserializer());
+        // module.addDeserializer(DateTime.class, new SDKDateTimeDeserializer());
         Json.mapper.registerModule(module);
         Json.prettyMapper.registerModule(module);
     }
-    @SuppressWarnings({ "rawtypes", "unchecked" })
-    private static final Set<Class> WRAPPER_TYPES = new HashSet(Arrays.asList(Boolean.class, Character.class,
-            Byte.class, Short.class, Integer.class, Long.class, Float.class, Double.class, Void.class, String.class));
 
     /*
      * Change result JSON entries to be snake case as expected by the test system
      */
-    public static String convertResultToJson(Object result) {
-        return (result == null || result instanceof Void) ? "{}"
-                : (result instanceof String) ? reformatString((String) result)
-                        : (result instanceof List) ? reformatJsonList((List<?>) result).encode()
-                                : (result instanceof ListResponse)
-                                        ? reformatJsonListResponse((ListResponse<?>) result).encode()
-                                        : reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE,
-                                                false).encode();
+    // TODO REMOVE WHEN NO LONGER NEEDED
+    public static String convertLegacyResultToJson(Object result) {
+        if (result == null || result instanceof Void) {
+            return "{}";
+        }
+        if (result instanceof String) {
+            return reformatLegacyString((String) result);
+        }
+
+        if (Utils.isPrimitiveOrWrapperType(result.getClass())) {
+            return String.valueOf(result);
+        }
+
+        if (result instanceof List) {
+            return reformatJsonList((List<?>) result, true).encode();
+        }
+        if (result instanceof ListResponse) {
+            return reformatJsonListResponse((ListResponse<?>) result, true).encode();
+        }
+        return reformatJsonObject(retrieveJsonObject(result), CaseConversion.CAMEL_TO_SNAKE, false).encode();
+    }
+
+    public static Object deserialiseString(String serialisedObject) {
+        if (serialisedObject == null || serialisedObject.isEmpty()) {
+            return serialisedObject;
+        }
+        try {
+            return new JsonObject(serialisedObject);
+        } catch (Exception e) {
+            try {
+                return new JsonArray(serialisedObject);
+            } catch (Exception e1) {
+                return serialisedObject;
+            }
+        }
+    }
+
+    public static String convertJsonResultToJsonString(Object result) {
+        if (result == null || result instanceof Void) {
+            return new JsonObject().encode();
+        }
+        if (result instanceof String) {
+            return reformatString(result.toString());
+        }
+
+        if (Utils.isPrimitiveOrWrapperType(result.getClass())) {
+            return String.valueOf(result);
+        }
+
+        if (result instanceof JsonArray) {
+            return ((JsonArray) result).encode();
+        }
+
+        return ((JsonObject) result).encode();
+    }
+
+    public static Object convertResultToJsonObject(Object result, boolean reformat) {
+        if (result == null || result instanceof Void) {
+            return null;
+        }
+        if (result instanceof String || Utils.isPrimitiveOrWrapperType(result.getClass())) {
+            return result;
+        }
+
+        if (result instanceof List) {
+            return reformatJsonList((List<?>) result, reformat);
+        }
+        if (result instanceof ListResponse) {
+            return reformatJsonListResponse((ListResponse<?>) result, reformat);
+        }
+        return (reformat) ? reformatJsonObject(retrieveJsonObject(result), CaseConversion.CAMEL_TO_SNAKE, false)
+                : retrieveJsonObject(result);
+    }
+
+    private static JsonObject retrieveJsonObject(Object result) {
+        if (result instanceof Map) {
+            result = performWorkaroundForMapSerialisation(result);
+        }
+        return JsonObject.mapFrom(result);
     }
 
     private static String reformatString(String result) {
+        result = result.trim();
+        if (!result.startsWith("{")) {
+            result = "\"" + result + "\"";
+        }
+        return result;
+    }
+
+    // TODO Remove when no longer needed
+    private static String reformatLegacyString(String result) {
         result = result.trim();
         if (!result.startsWith("{")) {
             result = "{\"message\":\"" + result + "\"}";
@@ -139,28 +247,32 @@ public class Serializer {
         return result;
     }
 
-    public static JsonObject reformatJsonListResponse(ListResponse<?> result) {
+    public static JsonObject reformatJsonListResponse(ListResponse<?> result, boolean reformat) {
         List<?> data = result.getData();
         JsonArray array = null;
         if (data != null) {
-            array = reformatJsonList(data);
+            array = reformatJsonList(data, reformat);
         }
         result.setData(null);
-        JsonObject jsonObject = reformatJsonObject(JsonObject.mapFrom(result), CaseConversion.CAMEL_TO_SNAKE, false);
+        JsonObject jsonObject = (reformat)
+                ? reformatJsonObject(retrieveJsonObject(result), CaseConversion.CAMEL_TO_SNAKE, false)
+                : retrieveJsonObject(result);
         if (array != null) {
             jsonObject.put("data", array);
         }
         return jsonObject;
     }
 
-    public static JsonArray reformatJsonList(List<?> result) {
+    public static JsonArray reformatJsonList(List<?> result, boolean reformat) {
         JsonArray array = new JsonArray();
         for (Object object : result) {
             try {
-                if (isPrimitiveOrWrapperType(object.getClass())) {
+                if (Utils.isPrimitiveOrWrapperTypeAndThrow(object.getClass())) {
                     array.add(object);
                 } else {
-                    array.add(reformatJsonObject(JsonObject.mapFrom(object), CaseConversion.CAMEL_TO_SNAKE, false));
+                    array.add((reformat)
+                            ? reformatJsonObject(retrieveJsonObject(object), CaseConversion.CAMEL_TO_SNAKE, false)
+                            : retrieveJsonObject(object));
                 }
             } catch (APICallException e) {
                 e.printStackTrace();
@@ -170,7 +282,16 @@ public class Serializer {
     }
 
     public static <T> T convertStringToObject(String serializedObject, Class<T> objectClass) throws APICallException {
-        if (objectClass == null || serializedObject == null || serializedObject.isEmpty()) {
+        if (objectClass == null) {
+            return null;
+        }
+        if (Utils.isPrimitiveOrWrapperType(objectClass)) {
+            return convertStringToPrimitive(objectClass, serializedObject);
+        }
+        if (Utils.isDateType(objectClass)) {
+            return convertStringToDate(objectClass, serializedObject);
+        }
+        if (serializedObject == null || serializedObject.isEmpty()) {
             return null;
         }
         JsonObject jsonObject = new JsonObject(serializedObject);
@@ -196,11 +317,15 @@ public class Serializer {
         }
         List<T> value = new LinkedList<>();
         try {
-            JsonArray jsonArray = new JsonArray((String) objectFields.get(objectFields.keySet().iterator().next()));
-            if (isPrimitiveOrWrapperType(contentClass)) {
-                for (Object obj : jsonArray.getList()) {
-                    value.add((T) obj);
-                }
+            Object parameterValue = objectFields.get(objectFields.keySet().iterator().next());
+            JsonArray jsonArray = null;
+            if (parameterValue instanceof List<?>) {
+                jsonArray = new JsonArray((List<?>) parameterValue);
+            } else {
+                jsonArray = new JsonArray((String) parameterValue);
+            }
+            if (Utils.isPrimitiveOrWrapperTypeAndThrow(contentClass)) {
+                jsonArray.getList().forEach(o -> value.add((T) o));
             } else {
                 JsonArray transformedObject = reformatJsonArray(jsonArray, CaseConversion.SNAKE_TO_CAMEL, false);
                 for (Object obj : transformedObject.getList()) {
@@ -235,8 +360,9 @@ public class Serializer {
 
     private static <T> T createObjectInstance(Class<T> objectClass, JsonObject transformedObject)
             throws APICallException {
-        return (!isPrimitiveOrWrapperType(objectClass)) ? convertObject(objectClass, transformedObject)
-                : convertPrimitive(objectClass, transformedObject);
+        return (Utils.isPrimitiveOrWrapperTypeAndThrow(objectClass)) ? convertPrimitive(objectClass, transformedObject)
+                : Utils.isDateType(objectClass) ? convertDate(objectClass, transformedObject)
+                        : convertObject(objectClass, transformedObject);
     }
 
     private static JsonObject reformatJsonObject(JsonObject result, CaseConversion conversion, boolean capitalAtStart) {
@@ -244,39 +370,184 @@ public class Serializer {
                 : new JsonObject(reformatResultJsonMap(result.getMap(), conversion, capitalAtStart));
     }
 
+    @SuppressWarnings("unchecked")
     private static JsonArray reformatJsonArray(JsonArray result, CaseConversion conversion, boolean capitalAtStart) {
         if (result == null || result.isEmpty()) {
             return new JsonArray();
         }
-        List<Object> reformatedList = new LinkedList<>();
-        for (Object obj : result.getList()) {
-            if (obj instanceof JsonObject || obj instanceof Map) {
-                @SuppressWarnings("unchecked")
-                JsonObject jsonObject = (obj instanceof JsonObject) ? (JsonObject) obj
-                        : new JsonObject((Map<String, Object>) obj);
-                reformatedList.add(reformatJsonObject(jsonObject, conversion, capitalAtStart));
-            } else {
-                reformatedList.add(obj);
-            }
-        }
-        return new JsonArray(reformatedList);
 
-    }
-
-    private static boolean isPrimitiveOrWrapperType(Class<?> clazz) throws APICallException {
-        try {
-            return (clazz != null) && (clazz.isPrimitive() || WRAPPER_TYPES.contains(clazz));
-        } catch (IllegalArgumentException | ClassCastException e) {
-            throw new APICallException(e);
-        }
+        return new JsonArray((List<Object>) result.getList().stream()
+                .map(e -> (e instanceof JsonObject || e instanceof Map) ? reformatJsonObject(
+                        (e instanceof JsonObject) ? (JsonObject) e : new JsonObject((Map<String, Object>) e),
+                        conversion, capitalAtStart) : e)
+                .collect(Collectors.toList()));
     }
 
     private static <T> T convertObject(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
         try {
+            if (Map.class.isAssignableFrom(objectClass)) {
+                return performWorkaroundFoMapDeserialisation(objectClass, transformedObject);
+            }
             return transformedObject.mapTo(objectClass);
         } catch (IllegalArgumentException | ClassCastException e) {
             throw new APICallException(e);
         }
+    }
+
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private static Object performWorkaroundForMapSerialisation(Object result) {
+        // This is a temporary fix to solve the problem raised against Vertx JsonObject
+        // https://github.com/eclipse/vert.x/issues/2286
+        // The following looks for any extra fields with the Jason annotation JsonProperty (in the current class and
+        // all its parents) and adds them to the hashtable.
+        Class<?> clazz = result.getClass();
+        List<Class<?>> classes = new LinkedList<>();
+        while (clazz != null) {
+            classes.add(clazz);
+            clazz = clazz.getSuperclass();
+        }
+        Map<String, Object> extraFields = classes.stream().map(cls -> Arrays.asList(cls.getDeclaredFields()))
+                .flatMap(l -> l.stream()).filter(f -> f.isAnnotationPresent(JsonProperty.class))
+                .collect(Collectors.toMap(java.lang.reflect.Field::getName, f -> {
+                    f.setAccessible(true);
+                    try {
+                        return f.get(result);
+                    } catch (IllegalArgumentException | IllegalAccessException e) {
+                        return null;
+                    }
+                }));
+        if (extraFields != null) {
+            ((Map) result).putAll(extraFields);
+        }
+        return result;
+    }
+
+    private static <T> T performWorkaroundFoMapDeserialisation(Class<T> objectClass, JsonObject transformedObject)
+            throws APICallException {
+        // This is a temporary fix to solve the problem raised against Vertx JsonObject
+        // https://github.com/eclipse/vert.x/issues/2286
+        // The following goes through all key/value pairs and verify that the object does not have field that
+        // corresponds (i.e key equals field name). If so, it tries to set the field with the value.
+        // The following is a bit of a hack and has not been thoroughly tested
+        try {
+            Constructor<T> constructor = objectClass.getConstructor(null);
+            if (constructor == null) {
+                throw new APICallException("Cannot find a suitable constructor for class [" + objectClass
+                        + "] which is supposed to be a POJO.");
+            }
+            T instance = constructor.newInstance();
+            List<Class<?>> classes = new LinkedList<>();
+            Class<?> clazz = objectClass;
+            while (clazz != null) {
+                classes.add(clazz);
+                clazz = clazz.getSuperclass();
+            }
+
+            Map<String, Field> fields = classes.stream().map(cls -> Arrays.asList(cls.getDeclaredFields()))
+                    .flatMap(l -> l.stream()).filter(f -> f.isAnnotationPresent(JsonProperty.class))
+                    .collect(Collectors.toMap(java.lang.reflect.Field::getName, f -> {
+                        f.setAccessible(true);
+                        try {
+                            return f;
+                        } catch (IllegalArgumentException e) {
+                            return null;
+                        }
+                    }));
+            ((Map<?, ?>) transformedObject.getMap()).forEach((k, v) -> {
+                if (fields.containsKey(k)) {
+                    final Field f = fields.get(k);
+                    if (f != null) {
+                        try {
+                            f.set(instance, Serializer.convertStringToObject(String.valueOf(v), f.getType()));
+                        } catch (IllegalArgumentException | IllegalAccessException | APICallException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }
+            });
+
+            return instance;
+        } catch (NoSuchMethodException | SecurityException | InstantiationException | IllegalAccessException
+                | InvocationTargetException e) {
+            e.printStackTrace();
+
+        }
+        return null;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T convertDate(Class<T> objectClass, JsonObject transformedObject) throws APICallException {
+        if (transformedObject.fieldNames().size() != 1) {
+            throw new IllegalArgumentException(transformedObject.encode());
+        }
+        String fieldName = transformedObject.fieldNames().iterator().next();
+        try {
+            return (T) transformedObject.getValue(fieldName);
+        } catch (IllegalArgumentException | ClassCastException e) {
+            throw new APICallException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T> T convertStringToDate(Class<T> objectClass, String stringValue) throws APICallException {
+        try {
+            return (stringValue == null || stringValue.isEmpty()) ? null
+                    : (T) TranslationUtils.convertStringToDate(stringValue);
+        } catch (IllegalArgumentException | ClassCastException | MbedCloudException e) {
+            throw new APICallException(e);
+        }
+    }
+
+    @SuppressWarnings({ "unchecked", "boxing" })
+    private static <T> T convertStringToPrimitive(Class<T> objectClass, String stringValue) throws APICallException {
+        try {
+            if (objectClass == String.class) {
+                return (T) stringValue;
+            }
+            if (objectClass == Character.class || objectClass == char.class) {
+                return (T) ((stringValue == null || stringValue.isEmpty()) ? null : stringValue.toCharArray()[0]);
+            }
+            if (objectClass == Boolean.class || objectClass == boolean.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Boolean(false);
+                }
+                return (T) new Boolean(Boolean.parseBoolean(stringValue));
+
+            }
+            if (objectClass == Double.class || objectClass == double.class || objectClass == Float.class
+                    || objectClass == float.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Double(0);
+                }
+                return (T) new Double(Double.parseDouble(stringValue));
+
+            }
+            if (objectClass == Integer.class || objectClass == int.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Integer(0);
+                }
+                return (T) new Integer(Integer.parseInt(stringValue));
+
+            }
+            if (objectClass == Long.class || objectClass == long.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Long(0);
+                }
+                return (T) new Long(Long.parseLong(stringValue));
+
+            }
+            if (objectClass == Short.class || objectClass == short.class || objectClass == Byte.class
+                    || objectClass == byte.class) {
+                if (stringValue == null || stringValue.isEmpty()) {
+                    return (T) new Short((short) 0);
+                }
+                return (T) new Integer(Integer.parseInt(stringValue));
+
+            }
+        } catch (IllegalArgumentException | ClassCastException e) {
+            throw new APICallException(e);
+        }
+        return null;
     }
 
     @SuppressWarnings({ "unchecked", "boxing" })
@@ -309,8 +580,14 @@ public class Serializer {
                 }
                 return (T) transformedObject.getDouble(fieldName);
             }
-            if (objectClass == Integer.class || objectClass == int.class || objectClass == Long.class
-                    || objectClass == long.class) {
+            if (objectClass == Integer.class || objectClass == int.class) {
+                Object value = transformedObject.getValue(fieldName);
+                if (value instanceof String) {
+                    return (T) new Integer(Integer.parseInt((String) value));
+                }
+                return (T) transformedObject.getInteger(fieldName);
+            }
+            if (objectClass == Long.class || objectClass == long.class) {
                 Object value = transformedObject.getValue(fieldName);
                 if (value instanceof String) {
                     return (T) new Long(Long.parseLong((String) value));
@@ -335,13 +612,10 @@ public class Serializer {
     private static Map<String, Object> reformatResultJsonMap(Map<String, Object> resultMap, CaseConversion conversion,
             boolean capitalAtStart) {
         Map<String, Object> formattedResult = new LinkedHashMap<>();
-        for (Entry<String, Object> entry : resultMap.entrySet()) {
-            Object value = entry.getValue();
-            formattedResult.put(ApiUtils.getCaseConverter(conversion).convert(entry.getKey(), capitalAtStart),
-                    (value instanceof Map<?, ?>)
-                            ? reformatResultJsonMap((Map<String, Object>) value, conversion, capitalAtStart) : value);
-        }
+        resultMap.forEach((k, v) -> formattedResult.put(
+                ApiUtils.getCaseConverter(conversion).convert(k, capitalAtStart),
+                (v instanceof Map<?, ?>) ? reformatResultJsonMap((Map<String, Object>) v, conversion, capitalAtStart)
+                        : (v instanceof List<?>) ? reformatJsonList((List<?>) v, true) : v));
         return formattedResult;
     }
-
 }

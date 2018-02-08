@@ -8,11 +8,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
-import org.joda.time.format.DateTimeFormatter;
-import org.joda.time.format.ISODateTimeFormat;
-
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -35,7 +30,6 @@ public class FilterMarshaller {
 
     public static final String SUFFIX_SEPARATOR = "__";
 
-    private static final DateTimeFormatter DATE_ISO_FORMATTER = ISODateTimeFormat.dateTime();
     private final Map<String, String> fieldNameMapping;
     private final Map<String, String> fieldNameReverseMapping;
 
@@ -162,19 +156,7 @@ public class FilterMarshaller {
             return null;
         }
         JsonObject obj = new JsonObject(json);
-        Filters filters = new Filters();
-        for (String fieldName : obj.fieldNames()) {
-            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
-                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
-                JsonObject filterJson = obj.getJsonObject(fieldName);
-                for (String subfieldName : filterJson.fieldNames()) {
-                    parseFilter(filterJson, subfieldName, filters, true);
-                }
-            } else {
-                parseFilter(obj, fieldName, filters, false);
-            }
-        }
-        return filters;
+        return convertJsonObjectToFilters(obj);
     }
 
     /**
@@ -194,6 +176,24 @@ public class FilterMarshaller {
             obj.putFilter(filter);
         }
         return obj.map;
+    }
+
+    /**
+     * Gets filters from a "Json Map".
+     * <p>
+     * 
+     * @param filtersJson
+     *            Json Map defining filters
+     * @return corresponding filters
+     */
+    @Internal
+    public static @Nullable Filters fromJsonObject(Map<String, Object> filtersJson) {
+        if (filtersJson == null || filtersJson.isEmpty()) {
+            return null;
+        }
+        JsonObject obj = new JsonObject();
+        obj.setMap(filtersJson);
+        return convertJsonObjectToFilters(obj);
     }
 
     protected String encodeFilter(Filter filter, String fieldName) {
@@ -235,6 +235,22 @@ public class FilterMarshaller {
         return (filter.isValid()) ? filter : null;
     }
 
+    private static Filters convertJsonObjectToFilters(JsonObject obj) {
+        Filters filters = new Filters();
+        for (String fieldName : obj.fieldNames()) {
+            if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
+                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
+                JsonObject filterJson = obj.getJsonObject(fieldName);
+                for (String subfieldName : filterJson.fieldNames()) {
+                    parseFilter(filterJson, subfieldName, filters, true);
+                }
+            } else {
+                parseFilter(obj, fieldName, filters, false);
+            }
+        }
+        return filters;
+    }
+
     private String encodeList(List<Filter> list) {
         if (list == null || list.isEmpty()) {
             return null;
@@ -266,11 +282,10 @@ public class FilterMarshaller {
         return reverseMapping;
     }
 
-    @SuppressWarnings("cast")
     private static String formatFilterValue(Object value) {
         if (value instanceof Date) {
             // Moving dates/Times to UTC and formatting them according to rfc3339
-            return DATE_ISO_FORMATTER.print(new DateTime((Date) value).toDateTime(DateTimeZone.UTC));
+            return ApiUtils.toUtcTimestamp((Date) value);
         }
         return String.valueOf(value);
     }
@@ -321,7 +336,6 @@ public class FilterMarshaller {
 
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
         Object filterValue = obj.getValue(fieldName);
-
         Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
                 filterValue);
         filters.add(filter);
@@ -380,12 +394,16 @@ public class FilterMarshaller {
             final Object value = map.get(fieldName);
             if (value instanceof CharSequence) {
                 final String valueStr = value.toString();
-                if (valueStr == null) {
+                if (valueStr == null || valueStr.isEmpty()) {
+                    return valueStr;
+                }
+                // If only numeric values
+                if (valueStr.matches("-?[0-9.]+")) {
                     return valueStr;
                 }
                 try {
                     // Trying to see if it is a date
-                    return DATE_ISO_FORMATTER.parseDateTime(valueStr).toDate();
+                    return ApiUtils.convertStringToDate(valueStr);
                 } catch (Exception exception) {
                     return valueStr;
                 }
@@ -415,6 +433,7 @@ public class FilterMarshaller {
             return (val instanceof String || val instanceof CharSequence);
         }
 
+        @SuppressWarnings("unchecked")
         public JsonObject getJsonObject(String fieldName) {
             if (fieldName == null || fieldName.isEmpty()) {
                 return null;
@@ -424,7 +443,6 @@ public class FilterMarshaller {
                 return null;
             }
             if (val instanceof Map) {
-                @SuppressWarnings("unchecked")
                 Map<String, Object> valMap = (Map<String, Object>) val;
                 val = new JsonObject(valMap);
             }
@@ -499,6 +517,16 @@ public class FilterMarshaller {
 
         private void putFilterDefinition(FilterOperator operator, Object value) {
             put(operator.getSymbol(), value);
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "JsonObject [jsonSerialiser=" + jsonSerialiser + ", map=" + map + "]";
         }
 
     }

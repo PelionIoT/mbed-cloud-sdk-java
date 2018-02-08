@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.common;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -128,6 +129,18 @@ public class CloudCaller<T, U> {
     }
 
     /**
+     * Stores API Metadata to the module.
+     * 
+     * @param module
+     *            module.
+     * @param metadata
+     *            api metadata
+     */
+    public static void storeApiMetadata(AbstractApi module, ApiMetadata metadata) {
+        new CloudCaller<>(null, null, null, module, true).storeApiMetadataInTheCache(metadata);
+    }
+
+    /**
      * Executes a call to Arm Mbed Cloud.
      * 
      * @return result objects of type U
@@ -142,7 +155,7 @@ public class CloudCaller<T, U> {
             final CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
-                storeApiMetadata(comms.getMetadata());
+                storeApiMetadataInTheCache(comms.getMetadata());
             }
             checkResponse(response, comms);
             comms.setResultFromResponse(mapper, response);
@@ -153,12 +166,18 @@ public class CloudCaller<T, U> {
         return null;
     }
 
-    private void clearPreviousApiMetadata() {
-        module.metadataCache.clearMetadata();
+    /**
+     * Stores API metadata.
+     * 
+     * @param metadata
+     *            API metadata
+     */
+    public void storeApiMetadataInTheCache(ApiMetadata metadata) {
+        module.metadataCache.storeMetadata(metadata);
     }
 
-    private void storeApiMetadata(ApiMetadata metadata) {
-        module.metadataCache.storeMetadata(metadata);
+    private void clearPreviousApiMetadata() {
+        module.metadataCache.clearMetadata();
     }
 
     private void checkResponse(Response<T> response, CallFeedback<U> comms) throws MbedCloudException {
@@ -166,26 +185,59 @@ public class CloudCaller<T, U> {
             logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
-            String errorMessage = null;
-            Error error = null;
-            try {
-                error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
-                if (comms != null) {
-                    comms.setErrorMessage(error);
-                }
-            } catch (Exception exception) {
-                try {
-                    errorMessage = response.errorBody().string();
-                } catch (IOException e1) {
-                    // Nothing to do
-                }
-                // Nothing to do
+            final Error error = retrieveErrorDetails(response);
+            if (comms != null) {
+                comms.setErrorMessage(error);
             }
+            final String errorMessage = retrieveErrorMessage(response);
             logger.throwSdkException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
                     error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
-                            : new MbedCloudException(error.toString()));
+                            : new MbedCloudException(error.toPrettyString()));
         }
+    }
+
+    private String retrieveErrorMessage(Response<T> response) {
+        String errorMessage = null;
+        try {
+            errorMessage = response.errorBody().string();
+        } catch (IOException exception) {
+            // Nothing to do
+        }
+        return errorMessage;
+    }
+
+    private Error retrieveErrorDetails(Response<T> response) {
+        Error error = null;
+        try {
+            error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
+        } catch (Exception exception) {
+            // Nothing to do
+        }
+        if (error == null) {
+            error = generateErrorFromResponse(response);
+        }
+        return error;
+    }
+
+    private Error generateErrorFromResponse(Response<T> response) {
+        return new Error(response.code(), "Mbed Cloud call", response.message(), fetchRequestUrlString(response));
+    }
+
+    private String fetchRequestUrlString(Response<T> response) {
+        final URL url = fetchRequestUrl(fetchRequest(response));
+        return (url == null) ? null : url.toString();
+    }
+
+    private static URL fetchRequestUrl(Request request) {
+        if (request == null) {
+            return null;
+        }
+        return request.url().url();
+    }
+
+    private static <T> Request fetchRequest(Response<T> response) {
+        return response.raw().request();
     }
 
     private static class ErrorJsonConverter {
@@ -308,10 +360,10 @@ public class CloudCaller<T, U> {
             }
             final ApiMetadata callMetadata = new ApiMetadata();
 
-            final Request request = response.raw().request();
+            final Request request = fetchRequest(response);
             if (request != null) {
                 callMetadata.setMethod(request.method());
-                callMetadata.setUrl(request.url().url());
+                callMetadata.setUrl(fetchRequestUrl(request));
             }
 
             callMetadata.setStatusCode(response.code());

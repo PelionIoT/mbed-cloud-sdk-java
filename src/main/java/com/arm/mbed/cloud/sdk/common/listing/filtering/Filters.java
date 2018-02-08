@@ -1,22 +1,37 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import java.io.Serializable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "filters for Cloud requests")
-public class Filters {
-    private final Map<String, Map<FilterOperator, List<Filter>>> filterList;
+public class Filters implements Cloneable, Serializable {
+    /**
+     * Serialisation ID.
+     */
+    private static final long serialVersionUID = -837782008433807201L;
+    private final transient Map<String, Map<FilterOperator, List<Filter>>> filterList;
 
     /**
      * Constructor.
      */
     public Filters() {
-        filterList = new LinkedHashMap<>();
+        this(new LinkedHashMap<String, Map<FilterOperator, List<Filter>>>());
+    }
+
+    /**
+     * Constructor.
+     */
+    @Internal
+    private Filters(Map<String, Map<FilterOperator, List<Filter>>> filterList) {
+        super();
+        this.filterList = filterList;
     }
 
     /**
@@ -162,6 +177,56 @@ public class Filters {
      */
     public boolean hasFilters(String fieldName, FilterOperator operator) {
         return hasFilters(fieldName) ? getFiltersForField(fieldName).containsKey(operator) : false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public Filters clone() {
+        return new Filters(filterList);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((filterList == null) ? 0 : filterList.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Filters other = (Filters) obj;
+        if (filterList == null) {
+            if (other.filterList != null) {
+                return false;
+            }
+        } else if (!filterList.equals(other.filterList)) {
+            return false;
+        }
+        return true;
     }
 
 }

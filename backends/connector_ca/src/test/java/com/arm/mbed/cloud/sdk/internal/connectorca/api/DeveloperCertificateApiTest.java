@@ -23,7 +23,6 @@ public class DeveloperCertificateApiTest {
         api = new ApiClient().createService(DeveloperCertificateApi.class);
     }
 
-    
     /**
      * Fetch an existing developer certificate to connect to the bootstrap server.
      *
@@ -37,7 +36,6 @@ public class DeveloperCertificateApiTest {
 
         // TODO: test validations
     }
-    
     /**
      * Create a new developer certificate to connect to the bootstrap server.
      *
@@ -51,5 +49,4 @@ public class DeveloperCertificateApiTest {
 
         // TODO: test validations
     }
-    
 }

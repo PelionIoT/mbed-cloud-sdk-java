@@ -40,8 +40,16 @@ public class CertificateListOptions extends ListOptions {
      * 
      * @return the type filter
      */
-    public @Nullable Object getTypeFilter() {
-        return fetchEqualFilterValue(TYPE_FILTER);
+    public @Nullable CertificateType getTypeFilter() {
+        final Object typeFilterValue = fetchEqualFilterValue(TYPE_FILTER);
+        if (typeFilterValue == null) {
+            return null;
+        }
+        if (typeFilterValue instanceof CertificateType) {
+            return (CertificateType) typeFilterValue;
+        }
+        return CertificateType.getType(typeFilterValue.toString());
+
     }
 
     /**
@@ -91,11 +99,22 @@ public class CertificateListOptions extends ListOptions {
      */
     @SuppressWarnings("boxing")
     public Integer getExecutionModeFilter() {
-        final CertificateType type = (CertificateType) fetchEqualFilterValue(TYPE_FILTER);
+        final CertificateType type = getTypeFilter();
         if (type == null) {
             return null;
         }
-        return (type == CertificateType.DEVELOPER) ? 1 : 0;
+        return (type == CertificateType.DEVELOPER) ? 1 : null;
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public CertificateListOptions clone() {
+        final CertificateListOptions opt = new CertificateListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

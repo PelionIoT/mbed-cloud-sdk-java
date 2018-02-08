@@ -1,5 +1,7 @@
 # Mbed Cloud SDK for Java
 
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
+
 The Mbed Cloud SDK provides a simplified interface to the [Mbed Cloud APIs](https://www.mbed.com/en/platform/cloud/) by exposing functionality using conventions and paradigms familiar to Java developers.
 
 ## Prerequisites
@@ -17,8 +19,8 @@ In order to best meet your requirements, Java SDK is packaged in 3 different way
 ## Getting started
 [ ![Download](https://api.bintray.com/packages/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/images/download.svg) ](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/_latestVersion)
 
-Artefacts listed above are published on [JCenter](https://bintray.com/bintray/jcenter
-) and [Maven Central](http://search.maven.org/#search%7Cga%7C1%7Ca%3A%22mbed-cloud-sdk%22).
+Artefacts listed above are published on [JCenter](https://bintray.com/armmbed/mbed-cloud-sdk
+) and [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
 They can therefore be retrieved and included into your project using the package manager of your choice. To do so, please follow the instructions present on one of these artefact repositories ([Bintray page of the project](https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/)).
 
 For example, if using Gradle, add the following compile dependency to build.gradle:

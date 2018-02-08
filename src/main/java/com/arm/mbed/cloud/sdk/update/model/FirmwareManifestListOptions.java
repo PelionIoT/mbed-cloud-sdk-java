@@ -143,4 +143,16 @@ public class FirmwareManifestListOptions extends ListOptions {
     public void addDeviceClassFilter(@Nullable String deviceClassFilter, FilterOperator operator) {
         addFilter(DEVICE_CLASS_FILTER, operator, deviceClassFilter);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public FirmwareManifestListOptions clone() {
+        final FirmwareManifestListOptions opt = new FirmwareManifestListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

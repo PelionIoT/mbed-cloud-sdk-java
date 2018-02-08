@@ -486,7 +486,7 @@ public class AccountInfo implements Serializable {
    * @return isProvisioningAllowed
   **/
   @ApiModelProperty(required = true, value = "Flag (true/false) indicating whether Factory Tool is allowed to download or not.")
-  public Boolean getIsProvisioningAllowed() {
+  public Boolean isIsProvisioningAllowed() {
     return isProvisioningAllowed;
   }
 
@@ -883,6 +883,6 @@ public class AccountInfo implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

@@ -29,7 +29,7 @@
     </rule>
     <rule ref="rulesets/java/codesize.xml/CyclomaticComplexity">
         <properties>
-            <property name="reportLevel" value="20" />
+            <property name="reportLevel" value="25" />
         </properties>
         <properties>
             <!-- ignore this run on methods: equals and hashCode -->
@@ -52,6 +52,7 @@
         <exclude name="AvoidSynchronizedAtMethodLevel" />
         <exclude name="GodClass" />
         <exclude name="ReturnEmptyArrayRatherThanNull" />
+        <exclude name="ConstructorCallsOverridableMethod" />
     </rule>
     <rule ref="rulesets/java/migrating.xml">
     </rule>
@@ -67,6 +68,7 @@
     </rule>
     <rule ref="rulesets/java/strictexception.xml">
         <exclude name="AvoidCatchingGenericException" />
+        <exclude name="AvoidThrowingRawExceptionTypes" />
     </rule>
     <rule ref="rulesets/java/strings.xml">
     </rule>

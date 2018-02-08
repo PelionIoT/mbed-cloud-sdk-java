@@ -61,4 +61,15 @@ public class QueryListOptions extends ListOptions {
         addFilter(FILTER_NAME, operator, name);
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
+     */
+    @Override
+    public QueryListOptions clone() {
+        final QueryListOptions opt = new QueryListOptions();
+        opt.setOptions(this);
+        return opt;
+    }
 }

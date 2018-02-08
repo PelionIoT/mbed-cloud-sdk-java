@@ -69,7 +69,7 @@ public final class CampaignDeviceStateAdapter {
 
             @Override
             public Boolean getHasMore() {
-                return (deviceList == null) ? null : deviceList.getHasMore();
+                return (deviceList == null) ? null : deviceList.isHasMore();
             }
 
             @Override
@@ -118,8 +118,9 @@ public final class CampaignDeviceStateAdapter {
 
     private static DeviceState toDeviceState(DeploymentStateEnum state) {
         if (state == null) {
-            return DeviceState.getDefault();
+            return DeviceState.getUnknownEnum();
         }
+
         switch (state) {
             case DEPLOYED:
                 return DeviceState.DEPLOYED;
@@ -137,6 +138,6 @@ public final class CampaignDeviceStateAdapter {
                 break;
 
         }
-        return DeviceState.getDefault();
+        return DeviceState.getUnknownEnum();
     }
 }

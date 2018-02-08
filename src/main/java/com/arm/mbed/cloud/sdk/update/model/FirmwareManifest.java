@@ -158,6 +158,7 @@ public class FirmwareManifest implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -304,7 +305,7 @@ public class FirmwareManifest implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public FirmwareManifest clone() throws CloneNotSupportedException {
+    public FirmwareManifest clone() {
         return new FirmwareManifest(id, url, deviceClass, createdAt, updatedAt, timestamp, name, description,
                 datafileSize, dataFile);
     }

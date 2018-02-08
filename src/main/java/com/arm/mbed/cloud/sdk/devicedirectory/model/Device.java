@@ -8,12 +8,12 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Device model")
 public class Device implements SdkModel {
 
+    private static final String NOW = "now()";
     private static final String NULL = "null";
     /**
      * serialisation id.
@@ -31,17 +31,22 @@ public class Device implements SdkModel {
     /**
      * The time the device was created.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date createdAt;
     /**
      * The time the device was updated.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date updatedAt;
+    /**
+     * The time the device was claimed.
+     */
+    @DefaultValue(value = NOW)
+    private final Date claimedAt;
     /**
      * The timestamp of the current manifest version.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date manifestTimestamp;
     /**
      * ID of the issuer of the certificate.
@@ -137,13 +142,15 @@ public class Device implements SdkModel {
      *            createdAt
      * @param updatedAt
      *            updatedAt
+     * @param claimedAt
+     *            claimedAt
      * @param manifestTimestamp
      *            manifest timestamp
      */
     @Internal
-    public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp) {
-        this(id, accountId, createdAt, updatedAt, manifestTimestamp, null, null, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null);
+    public Device(String id, String accountId, Date createdAt, Date updatedAt, Date claimedAt, Date manifestTimestamp) {
+        this(id, accountId, createdAt, updatedAt, claimedAt, manifestTimestamp, null, null, null, null, null, null,
+                null, null, null, null, null, null, null, null, null, null, null, null, null);
 
     }
 
@@ -157,10 +164,10 @@ public class Device implements SdkModel {
      */
     @Internal
     protected Device(@NonNull Device device) {
-        this(device.id, device.accountId, device.createdAt, device.updatedAt, device.manifestTimestamp,
-                device.certificateIssuerId, device.certificateFingerprint, device.name, device.alias,
-                device.description, device.deviceType, device.hostGateway, device.customAttributes, device.state,
-                device.deviceClass, device.deviceExecutionMode, device.serialNumber, device.vendorId,
+        this(device.id, device.accountId, device.createdAt, device.updatedAt, device.claimedAt,
+                device.manifestTimestamp, device.certificateIssuerId, device.certificateFingerprint, device.name,
+                device.alias, device.description, device.deviceType, device.hostGateway, device.customAttributes,
+                device.state, device.deviceClass, device.deviceExecutionMode, device.serialNumber, device.vendorId,
                 device.connectorCertificateExpiration, device.bootstrapCertificateExpiration,
                 device.bootstrappedTimestamp, device.mechanism, device.mechanismUrl, device.firmwareChecksum);
     }
@@ -178,6 +185,8 @@ public class Device implements SdkModel {
      *            creation date
      * @param updatedAt
      *            last update date
+     * @param claimedAt
+     *            last claim date
      * @param manifestTimestamp
      *            manifest timestamp
      * @param certificateIssuerId
@@ -220,7 +229,7 @@ public class Device implements SdkModel {
      *            firmware checksum
      */
     @Internal
-    public Device(String id, String accountId, Date createdAt, Date updatedAt, Date manifestTimestamp,
+    public Device(String id, String accountId, Date createdAt, Date updatedAt, Date claimedAt, Date manifestTimestamp,
             String certificateIssuerId, String certificateFingerprint, String name, String alias, String description,
             String deviceType, String hostGateway, Map<String, String> customAttributes, DeviceState state,
             String deviceClass, Integer deviceExecutionMode, String serialNumber, String vendorId,
@@ -231,6 +240,7 @@ public class Device implements SdkModel {
         this.accountId = accountId;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.claimedAt = claimedAt;
         this.manifestTimestamp = manifestTimestamp;
         setCertificateIssuerId(certificateIssuerId);
         setCertificateFingerprint(certificateFingerprint);
@@ -257,7 +267,7 @@ public class Device implements SdkModel {
      * Constructor.
      */
     public Device() {
-        this(null, null, new Date(), new Date(), new Date());
+        this(null, null, new Date(), new Date(), new Date(), new Date());
     }
 
     /**
@@ -279,6 +289,7 @@ public class Device implements SdkModel {
      *
      * @return the id
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -321,7 +332,6 @@ public class Device implements SdkModel {
      * @param certificateIssuerId
      *            the certificateIssuerId to set
      */
-    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         this.certificateIssuerId = certificateIssuerId;
     }
@@ -341,7 +351,6 @@ public class Device implements SdkModel {
      * @param certificateFingerprint
      *            the certificateFingerprint to set
      */
-    @Required
     public void setCertificateFingerprint(String certificateFingerprint) {
         this.certificateFingerprint = certificateFingerprint;
     }
@@ -467,6 +476,15 @@ public class Device implements SdkModel {
      */
     public DeviceState getState() {
         return state;
+    }
+
+    /**
+     * States whether the device is connected or not.
+     * 
+     * @return True if the device is connected. False otherwise.
+     */
+    public boolean isConnected() {
+        return (state == null) ? false : state.isConnected();
     }
 
     /**
@@ -678,6 +696,15 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Gets last claim date.
+     * 
+     * @return the claimedAt
+     */
+    public Date getClaimedAt() {
+        return claimedAt;
+    }
+
+    /**
      * Sets manifest timestamp.
      *
      * @return the manifestTimestamp
@@ -713,11 +740,8 @@ public class Device implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Device clone() throws CloneNotSupportedException {
-        return new Device(id, accountId, createdAt, updatedAt, manifestTimestamp, certificateIssuerId,
-                certificateFingerprint, name, alias, description, deviceType, hostGateway, customAttributes, state,
-                deviceClass, deviceExecutionMode, serialNumber, vendorId, connectorCertificateExpiration,
-                bootstrapCertificateExpiration, bootstrappedTimestamp, mechanism, mechanismUrl, firmwareChecksum);
+    public Device clone() {
+        return new Device(this);
     }
 
     /**
@@ -732,18 +756,18 @@ public class Device implements SdkModel {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         return "Device [id=" + id + ", accountId=" + accountId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", manifestTimestamp=" + manifestTimestamp + ", certificateIssuerId=" + certificateIssuerId
-                + ", certificateFingerprint=" + certificateFingerprint + ", name=" + name + ", alias=" + alias
-                + ", description=" + description + ", deviceType=" + deviceType + ", hostGateway=" + hostGateway
-                + ", customAttributes=" + customAttributes + ", state=" + state + ", deviceClass=" + deviceClass
-                + ", deviceExecutionMode=" + deviceExecutionMode + ", serialNumber=" + serialNumber + ", vendorId="
-                + vendorId + ", connectorCertificateExpiration=" + connectorCertificateExpiration
+                + ", claimedAt=" + claimedAt + ", manifestTimestamp=" + manifestTimestamp + ", certificateIssuerId="
+                + certificateIssuerId + ", certificateFingerprint=" + certificateFingerprint + ", name=" + name
+                + ", alias=" + alias + ", description=" + description + ", deviceType=" + deviceType + ", hostGateway="
+                + hostGateway + ", customAttributes=" + customAttributes + ", state=" + state + ", deviceClass="
+                + deviceClass + ", deviceExecutionMode=" + deviceExecutionMode + ", serialNumber=" + serialNumber
+                + ", vendorId=" + vendorId + ", connectorCertificateExpiration=" + connectorCertificateExpiration
                 + ", bootstrapCertificateExpiration=" + bootstrapCertificateExpiration + ", bootstrappedTimestamp="
                 + bootstrappedTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl
                 + ", firmwareChecksum=" + firmwareChecksum + "]";

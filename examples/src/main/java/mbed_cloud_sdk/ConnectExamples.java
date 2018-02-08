@@ -63,12 +63,12 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setLimit(Integer.valueOf(1));
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
             }
-            Device device = deviceIterator.next();
+            Device device = deviceIterator.first();
             log("Device", device);
             // Listing all device's resource.
             List<Resource> resources = api.listResources(device);
@@ -100,7 +100,7 @@ public class ConnectExamples extends AbstractExample {
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
             }
-            Device device = deviceIterator.next();
+            Device device = deviceIterator.first();
             log("Device", device);
             Resource resourceToConsider = api.getResource(device, resourcePath);
             if (resourceToConsider == null) {
@@ -178,6 +178,7 @@ public class ConnectExamples extends AbstractExample {
     /**
      * Creates, updates and deletes a presubscription.
      */
+    @SuppressWarnings("null")
     @Example
     public void managePresubscription() {
         ConnectionOptions config = Configuration.get();
@@ -190,7 +191,7 @@ public class ConnectExamples extends AbstractExample {
             }
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setLimit(Integer.valueOf(1));
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
                 fail("No endpoints registered. Aborting.");
@@ -235,8 +236,8 @@ public class ConnectExamples extends AbstractExample {
             options.setPeriod("30d");
             options.setInterval("1d");
             // Listing metrics data.
-            List<Metric> Metrics = api.listMetrics(options);
-            for (Metric metric : Metrics) {
+            Paginator<Metric> metrics = api.listAllMetrics(options);
+            for (Metric metric : metrics) {
                 log("Metric", metric);
             }
         } catch (Exception e) {
@@ -258,8 +259,8 @@ public class ConnectExamples extends AbstractExample {
             options.setPeriod("2d");
             options.setInterval("3h");
             // Listing metrics data.
-            List<Metric> Metrics = api.listMetrics(options);
-            for (Metric metric : Metrics) {
+            Paginator<Metric> metrics = api.listAllMetrics(options);
+            for (Metric metric : metrics) {
                 log("Metric", metric);
             }
         } catch (Exception e) {
@@ -281,7 +282,7 @@ public class ConnectExamples extends AbstractExample {
             options.setStart(new GregorianCalendar(2017, 2, 1).getTime());
             options.setEnd(new GregorianCalendar(2017, 3, 1).getTime());
             // Listing metrics data.
-            List<Metric> metrics = api.listMetrics(options);
+            Paginator<Metric> metrics = api.listAllMetrics(options);
             for (Metric metric : metrics) {
                 log("Metric", metric);
             }
@@ -294,7 +295,7 @@ public class ConnectExamples extends AbstractExample {
     /**
      * Subscribes to a resource with callbacks.
      */
-    @SuppressWarnings("boxing")
+    @SuppressWarnings({ "boxing", "null" })
     @Example
     public void subscribeResourcesWithCallbacks() {
         ConnectionOptions config = Configuration.get();
@@ -364,7 +365,7 @@ public class ConnectExamples extends AbstractExample {
      * <p>
      * Note: for more information about observable streams, see also <a href="http://reactivex.io/">Reactive X</a>
      */
-    @SuppressWarnings("boxing")
+    @SuppressWarnings({ "boxing", "null" })
     @Example
     public void subscribeResourcesWithObservableStreams() {
         ConnectionOptions config = Configuration.get();

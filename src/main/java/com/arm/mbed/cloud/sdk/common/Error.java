@@ -18,13 +18,55 @@ public class Error {
      * Constructor.
      */
     public Error() {
+        this(0, null, null, null);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Error()} instead.
+     * 
+     * 
+     * @param code
+     *            code.
+     * @param type
+     *            type.
+     * @param message
+     *            message.
+     * @param requestId
+     *            requestId.
+     */
+    public Error(int code, String type, String message, String requestId) {
+        this(null, code, type, message, requestId, null);
+    }
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #Error()} instead.
+     * 
+     * @param object
+     *            object.
+     * @param code
+     *            code.
+     * @param type
+     *            type.
+     * @param message
+     *            message.
+     * @param requestId
+     *            requestId.
+     *
+     * @param fields
+     *            fields.
+     */
+    public Error(String object, int code, String type, String message, String requestId, List<Field> fields) {
         super();
-        setCode(0);
-        setFields(null);
-        setMessage(null);
-        setObject(null);
-        setRequestId(null);
-        setType(null);
+        setCode(code);
+        setFields(fields);
+        setMessage(message);
+        setObject(object);
+        setRequestId(requestId);
+        setType(type);
     }
 
     /**
@@ -150,6 +192,15 @@ public class Error {
     public String toString() {
         return "Error [object=" + object + ", code=" + code + ", type=" + type + ", message=" + message + ", requestId="
                 + requestId + ", fields=" + fields + "]";
+    }
+
+    /**
+     * Generates a pretty string representation.
+     * 
+     * @return string representation of the error.
+     */
+    public String toPrettyString() {
+        return type + " (" + requestId + "). Status code: " + code + ". Object: " + object + ". Message: " + message;
     }
 
     @Preamble(description = "Request field in which there is an error")

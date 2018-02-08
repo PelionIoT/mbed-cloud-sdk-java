@@ -12,17 +12,22 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 import org.joda.time.LocalDate;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Utilities for APIs")
+@Preamble(description = "Utilities for Adapters")
 @Internal
 public final class TranslationUtils {
 
     private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
             Locale.getDefault());
+    private static final DateTimeFormatter DATE_ISO_PARSER = ISODateTimeFormat.dateTimeParser();
+    private static final DateTimeFormatter DATE_ISO_PRINTER = ISODateTimeFormat.dateTime();
 
     private TranslationUtils() {
         super();
@@ -326,5 +331,62 @@ public final class TranslationUtils {
             return null;
         }
         return Arrays.asList(string.split(separator));
+    }
+
+    /**
+     * Moves dates to UTC time zone.
+     * 
+     * @param date
+     *            date/time
+     * @return date/time in UTC
+     */
+    public static DateTime moveToUtc(Date date) {
+        return (date == null) ? null : new DateTime(date).toDateTime(DateTimeZone.UTC);
+    }
+
+    /**
+     * Moves dates to UTC time zone.
+     * 
+     * @param date
+     *            date/time
+     * @return date/time in UTC
+     */
+    public static Date moveDateTimeToUtc(Date date) {
+        final DateTime time = moveToUtc(date);
+        return (time == null) ? null : time.toDate();
+    }
+
+    /**
+     * Converts date into a UTC timestamp string.
+     * 
+     * @param date
+     *            date/time
+     * @return timestamp in UTC (RFC3339)
+     */
+    public static String toUtcTimestamp(Date date) {
+        // Moving dates/Times to UTC and formatting them according to rfc3339
+        return (date == null) ? null : DATE_ISO_PRINTER.print(moveToUtc(date));
+    }
+
+    /**
+     * 
+     * Converts string following RFC3339 into dates.
+     * <p>
+     * Similar to {@link #convertRfc3339Timestamp(String)} but using Joda time implementation.
+     * 
+     * @see DateTimeFormatter#parseDateTime(String)
+     * 
+     * @param valueStr
+     *            string representing a date and following RFC3339
+     * @return corresponding date
+     * @throws MbedCloudException
+     *             if string does not follow RFC3339
+     */
+    public static Date convertStringToDate(String valueStr) throws MbedCloudException {
+        try {
+            return DATE_ISO_PARSER.parseDateTime(valueStr).toDate();
+        } catch (Exception exception) {
+            throw new MbedCloudException(exception);
+        }
     }
 }

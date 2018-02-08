@@ -31,9 +31,10 @@ Name | Type | Description | Notes
 **mechanismUrl** | **String** | The address of the connector to use. |  [optional]
 **name** | **String** | The name of the device. |  [optional]
 **deviceKey** | **String** | The fingerprint of the device certificate. |  [optional]
-**createdAt** | [**DateTime**](DateTime.md) | The timestamp of when the device was created in the device directory. |  [optional]
+**enrolmentListTimestamp** | [**DateTime**](DateTime.md) | The claim date/time. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. |  [optional]
+**createdAt** | [**DateTime**](DateTime.md) | The timestamp of when the device was created in the device directory. |  [optional]
 
 
 <a name="MechanismEnum"></a>

@@ -263,6 +263,7 @@ public class Certificate implements SdkModel {
      *
      * @return the id.
      */
+    @Override
     public String getId() {
         return id;
     }
@@ -618,7 +619,7 @@ public class Certificate implements SdkModel {
      * @see java.lang.Object#clone()
      */
     @Override
-    public Certificate clone() throws CloneNotSupportedException {
+    public Certificate clone() {
         return new Certificate(id, name, accountId, status, type, description, subject, validity, issuer, createdAt,
                 serverUri, serverCertificate, headerFile, developerCertificate, developerPrivateKey, ownerId,
                 certificateData, signature);

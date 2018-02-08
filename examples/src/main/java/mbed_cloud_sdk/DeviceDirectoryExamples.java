@@ -103,7 +103,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             log("Retrieved query", myQuery);
             // Finding the first 5 devices corresponding to the query.
             DeviceListOptions options = new DeviceListOptions();
-            options.setFilter(myQuery.fetchFilter());
+            options.setFilters(myQuery.fetchFilters());
             options.setLimit(5);
             ListResponse<Device> matchingDevices = api.listDevices(options);
             for (Device device : matchingDevices.getData()) {
@@ -211,7 +211,7 @@ public class DeviceDirectoryExamples extends AbstractExample {
             // Defining query options.
             DeviceEventListOptions options = new DeviceEventListOptions();
             options.setLimit(5);
-            // Listing device events.
+            // Listing device events in a page.
             ListResponse<DeviceEvent> events = api.listDeviceEvents(options);
             for (DeviceEvent event : events.getData()) {
                 log("Device event", event);

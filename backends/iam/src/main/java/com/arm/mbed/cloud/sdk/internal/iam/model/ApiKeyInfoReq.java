@@ -218,6 +218,6 @@ public class ApiKeyInfoReq implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

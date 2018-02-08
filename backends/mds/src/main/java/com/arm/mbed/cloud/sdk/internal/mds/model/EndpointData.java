@@ -59,7 +59,7 @@ public class EndpointData implements Serializable {
    * @return q
   **/
   @ApiModelProperty(value = "Queue mode (default value is false).")
-  public Boolean getQ() {
+  public Boolean isQ() {
     return q;
   }
 
@@ -194,6 +194,6 @@ public class EndpointData implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 

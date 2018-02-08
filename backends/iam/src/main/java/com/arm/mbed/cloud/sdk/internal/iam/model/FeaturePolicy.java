@@ -108,7 +108,7 @@ public class FeaturePolicy implements Serializable {
    * @return allow
   **/
   @ApiModelProperty(value = "True or false controlling whether an action is allowed or not.")
-  public Boolean getAllow() {
+  public Boolean isAllow() {
     return allow;
   }
 
@@ -161,6 +161,6 @@ public class FeaturePolicy implements Serializable {
     }
     return o.toString().replace("\n", "\n    ");
   }
-  
+
 }
 
