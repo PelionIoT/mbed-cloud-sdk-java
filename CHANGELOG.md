@@ -26,6 +26,7 @@ through an open notification channel. This affects all previous versions.
 - The only known workaround at present is to ensure the cloud cache is not used by:
   - Waiting between calls to get_resource_value
   - Reducing [the configured TTL](https://cloud.mbed.com/docs/latest/collecting/handle-resources.html#working-with-the-server-cache) on the cloud client image on the device
+
 ## 1.2.4
 ![Status](https://img.shields.io/badge/status-beta-orange.svg)
 ### Deliverables
