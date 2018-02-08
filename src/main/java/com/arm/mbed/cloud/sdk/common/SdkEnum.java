@@ -14,7 +14,7 @@ public interface SdkEnum extends Serializable {
      * <p>
      * Please report such error as well as corresponding lastAPIMetadata.
      */
-    public static String SDK_UNKNOWN_ENUM_VALUE = "enum_unknown";
+    String SDK_UNKNOWN_ENUM_VALUE = "enum_unknown";
 
     /**
      * States whether there has been a SDK internal issue when parsing enumerator values from the Cloud and resulting
