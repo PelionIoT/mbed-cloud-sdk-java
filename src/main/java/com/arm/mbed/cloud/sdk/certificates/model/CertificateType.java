@@ -6,10 +6,17 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Certificate type")
 public enum CertificateType implements SdkEnum {
-    DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m"), UNKNOWN("unknown");
+    DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m"), UNKNOWN("unknown"), UNKNOWN_ENUM(
+            SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
+    /**
+     * Constructor.
+     * 
+     * @param value
+     *            string representation.
+     */
     private CertificateType(String string) {
         this.value = string;
     }
@@ -45,12 +52,31 @@ public enum CertificateType implements SdkEnum {
     }
 
     /**
+     * States whether the value is unknown and an error happened during parsing.
+     * 
+     * @see SdkEnum#isUnknownValue()
+     */
+    @Override
+    public boolean isUnknownValue() {
+        return this == getUnknownEnum();
+    }
+
+    /**
      * Gets default certificate type.
      * 
      * @return default status.
      */
     public static CertificateType getDefault() {
         return CertificateType.UNKNOWN;
+    }
+
+    /**
+     * Gets Unknown state value.
+     * 
+     * @return unknown state.
+     */
+    public static CertificateType getUnknownEnum() {
+        return UNKNOWN_ENUM;
     }
 
     /**

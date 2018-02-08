@@ -66,25 +66,22 @@ public final class AccountAdapter {
     }
 
     private static AccountStatus toStatus(StatusEnum status) {
-        AccountStatus correspondingStatus = null;
+        if (status == null) {
+            return AccountStatus.getUnknownEnum();
+        }
         switch (status) {
             case ACTIVE:
-                correspondingStatus = AccountStatus.ACTIVE;
-                break;
+                return AccountStatus.ACTIVE;
             case ENROLLING:
-                correspondingStatus = AccountStatus.ENROLLING;
-                break;
+                return AccountStatus.ENROLLING;
             case RESTRICTED:
-                correspondingStatus = AccountStatus.RESTRICTED;
-                break;
+                return AccountStatus.RESTRICTED;
             case SUSPENDED:
-                correspondingStatus = AccountStatus.SUSPENDED;
-                break;
+                return AccountStatus.SUSPENDED;
             default:
-                correspondingStatus = AccountStatus.getDefault();
-                break;
+                return AccountStatus.getUnknownEnum();
         }
-        return correspondingStatus;
+
     }
 
     /**

@@ -10,6 +10,23 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public interface SdkEnum extends Serializable {
     /**
+     * Enumerator value stating that there has been a SDK internal issue when parsing enumerator values from the Cloud.
+     * <p>
+     * Please report such error as well as corresponding lastAPIMetadata.
+     */
+    public static String SDK_UNKNOWN_ENUM_VALUE = "enum_unknown";
+
+    /**
+     * States whether there has been a SDK internal issue when parsing enumerator values from the Cloud and resulting
+     * value is unknown.
+     * <p>
+     * Please report such error as well as corresponding lastAPIMetadata.
+     * 
+     * @return true if current value is unknown. false otherwise.
+     */
+    boolean isUnknownValue();
+
+    /**
      * States if it corresponds to the default value.
      * 
      * @return whether the item is the default value.

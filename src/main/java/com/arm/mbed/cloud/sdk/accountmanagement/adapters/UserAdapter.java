@@ -180,28 +180,23 @@ public final class UserAdapter {
     }
 
     private static UserStatus toStatus(StatusEnum userStatus) {
-        UserStatus status = null;
+        if (userStatus == null) {
+            return UserStatus.getUnknownEnum();
+        }
         switch (userStatus) {
             case ACTIVE:
-                status = UserStatus.ACTIVE;
-                break;
+                return UserStatus.ACTIVE;
             case ENROLLING:
-                status = UserStatus.ENROLLING;
-                break;
+                return UserStatus.ENROLLING;
             case INACTIVE:
-                status = UserStatus.INACTIVE;
-                break;
+                return UserStatus.INACTIVE;
             case INVITED:
-                status = UserStatus.INVITED;
-                break;
+                return UserStatus.INVITED;
             case RESET:
-                status = UserStatus.RESET;
-                break;
+                return UserStatus.RESET;
             default:
-                status = UserStatus.getDefault();
-                break;
+                return UserStatus.getUnknownEnum();
 
         }
-        return status;
     }
 }
