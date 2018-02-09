@@ -108,6 +108,11 @@ public final class AccountAdapter {
         accountUpdateReq.setState(accountUpdateReq.getState());
         accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
+        accountUpdateReq.setAccountProperties(accountProperties);
+        accountUpdateReq.setExpirationWarningThreshold(expirationWarningThreshold);
+        accountUpdateReq.setMfaStatus(mfaStatus);
+        accountUpdateReq.setNotificationEmails(notificationEmails);
+
         return accountUpdateReq;
     }
 }
