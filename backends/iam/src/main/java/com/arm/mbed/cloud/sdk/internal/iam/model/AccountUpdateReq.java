@@ -24,7 +24,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -47,6 +49,56 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("display_name")
   private String displayName = null;
 
+  /**
+   * The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up the MFA is required after login. &#39;Optional&#39; means that the MFA is not required.
+   */
+  @JsonAdapter(MfaStatusEnum.Adapter.class)
+  public enum MfaStatusEnum {
+    ENFORCED("enforced"),
+    
+    OPTIONAL("optional");
+
+    private String value;
+
+    MfaStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MfaStatusEnum fromValue(String text) {
+      for (MfaStatusEnum b : MfaStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MfaStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MfaStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MfaStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MfaStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("mfa_status")
+  private MfaStatusEnum mfaStatus = null;
+
   @SerializedName("country")
   private String country = null;
 
@@ -56,6 +108,9 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
+  @SerializedName("notification_emails")
+  private List<String> notificationEmails = null;
+
   @SerializedName("state")
   private String state = null;
 
@@ -64,6 +119,12 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("account_properties")
+  private Map<String, Map<String, String>> accountProperties = null;
+
+  @SerializedName("expiration_warning_threshold")
+  private String expirationWarningThreshold = null;
 
   @SerializedName("password_policy")
   private PasswordPolicy passwordPolicy = null;
@@ -152,6 +213,24 @@ public class AccountUpdateReq implements Serializable {
     this.displayName = displayName;
   }
 
+  public AccountUpdateReq mfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+    return this;
+  }
+
+   /**
+   * The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up the MFA is required after login. &#39;Optional&#39; means that the MFA is not required.
+   * @return mfaStatus
+  **/
+  @ApiModelProperty(value = "The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.")
+  public MfaStatusEnum getMfaStatus() {
+    return mfaStatus;
+  }
+
+  public void setMfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+  }
+
   public AccountUpdateReq country(String country) {
     this.country = country;
     return this;
@@ -206,6 +285,32 @@ public class AccountUpdateReq implements Serializable {
     this.idleTimeout = idleTimeout;
   }
 
+  public AccountUpdateReq notificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+    return this;
+  }
+
+  public AccountUpdateReq addNotificationEmailsItem(String notificationEmailsItem) {
+    if (this.notificationEmails == null) {
+      this.notificationEmails = new ArrayList<String>();
+    }
+    this.notificationEmails.add(notificationEmailsItem);
+    return this;
+  }
+
+   /**
+   * A list of notification email addresses.
+   * @return notificationEmails
+  **/
+  @ApiModelProperty(value = "A list of notification email addresses.")
+  public List<String> getNotificationEmails() {
+    return notificationEmails;
+  }
+
+  public void setNotificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+  }
+
   public AccountUpdateReq state(String state) {
     this.state = state;
     return this;
@@ -258,6 +363,50 @@ public class AccountUpdateReq implements Serializable {
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  public AccountUpdateReq accountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+    return this;
+  }
+
+  public AccountUpdateReq putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
+    if (this.accountProperties == null) {
+      this.accountProperties = new HashMap<String, Map<String, String>>();
+    }
+    this.accountProperties.put(key, accountPropertiesItem);
+    return this;
+  }
+
+   /**
+   * Properties for this account.
+   * @return accountProperties
+  **/
+  @ApiModelProperty(value = "Properties for this account.")
+  public Map<String, Map<String, String>> getAccountProperties() {
+    return accountProperties;
+  }
+
+  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+  }
+
+  public AccountUpdateReq expirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
+    return this;
+  }
+
+   /**
+   * Indicates how many days before the account expiration a notification email should be sent.
+   * @return expirationWarningThreshold
+  **/
+  @ApiModelProperty(value = "Indicates how many days before the account expiration a notification email should be sent.")
+  public String getExpirationWarningThreshold() {
+    return expirationWarningThreshold;
+  }
+
+  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
   }
 
   public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
@@ -372,12 +521,16 @@ public class AccountUpdateReq implements Serializable {
         Objects.equals(this.city, accountUpdateReq.city) &&
         Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
+        Objects.equals(this.mfaStatus, accountUpdateReq.mfaStatus) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
         Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
+        Objects.equals(this.notificationEmails, accountUpdateReq.notificationEmails) &&
         Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
+        Objects.equals(this.accountProperties, accountUpdateReq.accountProperties) &&
+        Objects.equals(this.expirationWarningThreshold, accountUpdateReq.expirationWarningThreshold) &&
         Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
@@ -387,7 +540,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, passwordPolicy, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, mfaStatus, country, company, idleTimeout, notificationEmails, state, contact, postalCode, accountProperties, expirationWarningThreshold, passwordPolicy, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -400,12 +553,16 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
+    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
+    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
