@@ -52,6 +52,12 @@ public class AccountCreationReq implements Serializable {
   @SerializedName("company")
   private String company = null;
 
+  @SerializedName("customer_number")
+  private String customerNumber = null;
+
+  @SerializedName("contract_number")
+  private String contractNumber = null;
+
   @SerializedName("state")
   private String state = null;
 
@@ -191,6 +197,42 @@ public class AccountCreationReq implements Serializable {
 
   public void setCompany(String company) {
     this.company = company;
+  }
+
+  public AccountCreationReq customerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
+    return this;
+  }
+
+   /**
+   * Customer number of the customer.
+   * @return customerNumber
+  **/
+  @ApiModelProperty(value = "Customer number of the customer.")
+  public String getCustomerNumber() {
+    return customerNumber;
+  }
+
+  public void setCustomerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
+  }
+
+  public AccountCreationReq contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+    return this;
+  }
+
+   /**
+   * Contract number of the customer.
+   * @return contractNumber
+  **/
+  @ApiModelProperty(value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
   }
 
   public AccountCreationReq state(String state) {
@@ -415,6 +457,8 @@ public class AccountCreationReq implements Serializable {
         Objects.equals(this.displayName, accountCreationReq.displayName) &&
         Objects.equals(this.country, accountCreationReq.country) &&
         Objects.equals(this.company, accountCreationReq.company) &&
+        Objects.equals(this.customerNumber, accountCreationReq.customerNumber) &&
+        Objects.equals(this.contractNumber, accountCreationReq.contractNumber) &&
         Objects.equals(this.state, accountCreationReq.state) &&
         Objects.equals(this.contact, accountCreationReq.contact) &&
         Objects.equals(this.postalCode, accountCreationReq.postalCode) &&
@@ -430,7 +474,7 @@ public class AccountCreationReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, state, contact, postalCode, adminPassword, adminName, adminFullName, endMarket, adminEmail, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, customerNumber, contractNumber, state, contact, postalCode, adminPassword, adminName, adminFullName, endMarket, adminEmail, phoneNumber, email, aliases);
   }
 
 
@@ -445,6 +489,8 @@ public class AccountCreationReq implements Serializable {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
+    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");

@@ -10,6 +10,8 @@ Name | Type | Description | Notes
 **displayName** | **String** | The display name for the account, not longer than 100 characters. |  [optional]
 **country** | **String** | The country part of the postal address, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **company** | **String** | The name of the company, not longer than 100 characters. Required for commercial accounts only. |  [optional]
+**customerNumber** | **String** | Customer number of the customer. |  [optional]
+**contractNumber** | **String** | Contract number of the customer. |  [optional]
 **state** | **String** | The state part of the postal address, not longer than 100 characters. |  [optional]
 **contact** | **String** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address, not longer than 100 characters. |  [optional]
