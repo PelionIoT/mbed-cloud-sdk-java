@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **idleTimeout** | **String** | The reference token expiration time in minutes for this account. |  [optional]
 **contractNumber** | **String** | Contract number of the customer. |  [optional]
-**expirationWarningThreshold** | **String** | Indicates how many days before the account expiration a notification email should be sent. |  [optional]
+**expirationWarningThreshold** | **String** | Indicates how many days (1-180) before account expiration a notification email should be sent. |  [optional]
 **contact** | **String** | The name of the contact person for this account. |  [optional]
 **policies** | [**List&lt;FeaturePolicy&gt;**](FeaturePolicy.md) | List of policies if requested. |  [optional]
 **notificationEmails** | **List&lt;String&gt;** | A list of notification email addresses. |  [optional]
@@ -57,7 +57,6 @@ SUSPENDED | &quot;SUSPENDED&quot;
 ## Enum: MfaStatusEnum
 Name | Value
 ---- | -----
-ENABLED | &quot;enabled&quot;
 ENFORCED | &quot;enforced&quot;
 OPTIONAL | &quot;optional&quot;
 

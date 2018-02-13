@@ -189,10 +189,10 @@ public class TrustedCertificateRootReq implements Serializable {
   }
 
    /**
-   * X509.v3 trusted certificate in PEM format.
+   * X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.
    * @return certificate
   **/
-  @ApiModelProperty(required = true, value = "X509.v3 trusted certificate in PEM format.")
+  @ApiModelProperty(required = true, value = "X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported.")
   public String getCertificate() {
     return certificate;
   }

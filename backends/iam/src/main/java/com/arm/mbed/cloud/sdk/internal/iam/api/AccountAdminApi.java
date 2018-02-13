@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -30,22 +31,6 @@ import java.util.List;
 import java.util.Map;
 
 public interface AccountAdminApi {
-  /**
-   * Add API key to a list of groups.
-   * An endpoint for adding API key to groups.
-   * @param accountID Account ID. (required)
-   * @param apiKey The ID of the API key to be added to the group. (required)
-   * @param body A list of IDs of the groups to be updated. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/accounts/{accountID}/api-keys/{apiKey}/groups")
-  Call<UpdatedResponse> addAccountApiKeyToGroups(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey, @retrofit2.http.Body List<String> body
-  );
-
   /**
    * Add API key to a list of groups.
    * An endpoint for adding API key to groups.
@@ -175,22 +160,6 @@ public interface AccountAdminApi {
   /**
    * Get groups of the API key.
    * An endpoint for retrieving groups of the API key.
-   * @param accountID Account ID. (required)
-   * @param apiKey The ID of the API key whose details are retrieved. (required)
-   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
-   * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
-   * @param include Comma separated additional data to return. Currently supported: total_count (optional)
-   * @return Call&lt;GroupSummaryList&gt;
-   */
-  @GET("v3/accounts/{accountID}/api-keys/{apiKey}/groups")
-  Call<GroupSummaryList> getGroupsOfAccountApikey(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
-  );
-
-  /**
-   * Get groups of the API key.
-   * An endpoint for retrieving groups of the API key.
    * @param apiKey The ID of the API key whose details are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -248,22 +217,6 @@ public interface AccountAdminApi {
   /**
    * Remove API key from groups.
    * An endpoint for removing API key from groups.
-   * @param accountID Account ID. (required)
-   * @param apiKey The ID of the API key to be removed from the group. (required)
-   * @param body A list of IDs of the groups to be updated. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @DELETE("v3/accounts/{accountID}/api-keys/{apiKey}/groups")
-  Call<UpdatedResponse> removeAccountApiKeyFromGroups(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "apiKey", encoded = true) String apiKey, @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Remove API key from groups.
-   * An endpoint for removing API key from groups.
    * @param apiKey The ID of the API key to be removed from the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -304,6 +257,21 @@ public interface AccountAdminApi {
   @DELETE("v3/policy-groups/{groupID}/users")
   Call<UpdatedResponse> removeUsersFromGroup(
     @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body SubjectList body
+  );
+
+  /**
+   * Update the group name.
+   * An endpoint for updating a group name.
+   * @param groupID The ID of the group to be updated. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/policy-groups/{groupID}")
+  Call<UpdatedResponse> updateGroupName(
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
   );
 
   /**

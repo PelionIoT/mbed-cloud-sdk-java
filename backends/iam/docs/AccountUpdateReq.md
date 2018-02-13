@@ -17,7 +17,7 @@ Name | Type | Description | Notes
 **contact** | **String** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **postalCode** | **String** | The postal code part of the postal address, not longer than 100 characters. |  [optional]
 **accountProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | Properties for this account. |  [optional]
-**expirationWarningThreshold** | **String** | Indicates how many days before the account expiration a notification email should be sent. |  [optional]
+**expirationWarningThreshold** | **String** | Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180. |  [optional]
 **passwordPolicy** | [**PasswordPolicy**](PasswordPolicy.md) | Password policy for this account. |  [optional]
 **endMarket** | **String** | The end market for this account, not longer than 100 characters. |  [optional]
 **phoneNumber** | **String** | The phone number of a representative of the company, not longer than 100 characters. |  [optional]
