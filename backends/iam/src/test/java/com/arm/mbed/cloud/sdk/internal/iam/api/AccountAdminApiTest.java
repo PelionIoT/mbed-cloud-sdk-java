@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -35,20 +36,6 @@ public class AccountAdminApiTest {
         api = new ApiClient().createService(AccountAdminApi.class);
     }
 
-    /**
-     * Add API key to a list of groups.
-     *
-     * An endpoint for adding API key to groups.
-     */
-    @Test
-    public void addAccountApiKeyToGroupsTest() {
-        String accountID = null;
-        String apiKey = null;
-        List<String> body = null;
-        // UpdatedResponse response = api.addAccountApiKeyToGroups(accountID, apiKey, body);
-
-        // TODO: test validations
-    }
     /**
      * Add API key to a list of groups.
      *
@@ -172,23 +159,6 @@ public class AccountAdminApiTest {
      * An endpoint for retrieving groups of the API key.
      */
     @Test
-    public void getGroupsOfAccountApikeyTest() {
-        String accountID = null;
-        String apiKey = null;
-        Integer limit = null;
-        String after = null;
-        String order = null;
-        String include = null;
-        // GroupSummaryList response = api.getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include);
-
-        // TODO: test validations
-    }
-    /**
-     * Get groups of the API key.
-     *
-     * An endpoint for retrieving groups of the API key.
-     */
-    @Test
     public void getGroupsOfApikeyTest() {
         String apiKey = null;
         Integer limit = null;
@@ -250,20 +220,6 @@ public class AccountAdminApiTest {
      * An endpoint for removing API key from groups.
      */
     @Test
-    public void removeAccountApiKeyFromGroupsTest() {
-        String accountID = null;
-        String apiKey = null;
-        List<String> body = null;
-        // UpdatedResponse response = api.removeAccountApiKeyFromGroups(accountID, apiKey, body);
-
-        // TODO: test validations
-    }
-    /**
-     * Remove API key from groups.
-     *
-     * An endpoint for removing API key from groups.
-     */
-    @Test
     public void removeApiKeyFromGroupsTest() {
         String apiKey = null;
         List<String> body = null;
@@ -294,6 +250,19 @@ public class AccountAdminApiTest {
         String groupID = null;
         SubjectList body = null;
         // UpdatedResponse response = api.removeUsersFromGroup(groupID, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Update the group name.
+     *
+     * An endpoint for updating a group name.
+     */
+    @Test
+    public void updateGroupNameTest() {
+        String groupID = null;
+        GroupUpdateInfo body = null;
+        // UpdatedResponse response = api.updateGroupName(groupID, body);
 
         // TODO: test validations
     }

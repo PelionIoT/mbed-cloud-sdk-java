@@ -47,6 +47,20 @@ public class AggregatorAccountAdminApiTest {
     }
 
     /**
+     * Add API key to a list of groups.
+     *
+     * An endpoint for adding API key to groups.
+     */
+    @Test
+    public void addAccountApiKeyToGroupsTest() {
+        String accountID = null;
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.addAccountApiKeyToGroups(accountID, apiKey, body);
+
+        // TODO: test validations
+    }
+    /**
      * Upload new trusted certificate.
      *
      * An endpoint for uploading new trusted certificates.
@@ -365,6 +379,23 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Get groups of the API key.
+     *
+     * An endpoint for retrieving groups of the API key.
+     */
+    @Test
+    public void getGroupsOfAccountApikeyTest() {
+        String accountID = null;
+        String apiKey = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // GroupSummaryList response = api.getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
      * Get groups of the user.
      *
      * An endpoint for retrieving groups of the user.
@@ -395,6 +426,20 @@ public class AggregatorAccountAdminApiTest {
         String order = null;
         String include = null;
         // UserInfoRespList response = api.getUsersOfAccountGroup(accountID, groupID, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove API key from groups.
+     *
+     * An endpoint for removing API key from groups.
+     */
+    @Test
+    public void removeAccountApiKeyFromGroupsTest() {
+        String accountID = null;
+        String apiKey = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.removeAccountApiKeyFromGroups(accountID, apiKey, body);
 
         // TODO: test validations
     }

@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +41,9 @@ public class AdminUserUpdateReq implements Serializable {
 
   @SerializedName("username")
   private String username = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
@@ -105,6 +109,32 @@ public class AdminUserUpdateReq implements Serializable {
 
   public void setUsername(String username) {
     this.username = username;
+  }
+
+  public AdminUserUpdateReq groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public AdminUserUpdateReq addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * A list of group IDs this user belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "A list of group IDs this user belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
   }
 
   public AdminUserUpdateReq isMarketingAccepted(Boolean isMarketingAccepted) {
@@ -315,6 +345,7 @@ public class AdminUserUpdateReq implements Serializable {
     AdminUserUpdateReq adminUserUpdateReq = (AdminUserUpdateReq) o;
     return Objects.equals(this.phoneNumber, adminUserUpdateReq.phoneNumber) &&
         Objects.equals(this.username, adminUserUpdateReq.username) &&
+        Objects.equals(this.groups, adminUserUpdateReq.groups) &&
         Objects.equals(this.isMarketingAccepted, adminUserUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.userProperties, adminUserUpdateReq.userProperties) &&
         Objects.equals(this.isGtcAccepted, adminUserUpdateReq.isGtcAccepted) &&
@@ -329,7 +360,7 @@ public class AdminUserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, notificationProperties, status, fullName, address, password, email);
+    return Objects.hash(phoneNumber, username, groups, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, notificationProperties, status, fullName, address, password, email);
   }
 
 
@@ -340,6 +371,7 @@ public class AdminUserUpdateReq implements Serializable {
     
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");

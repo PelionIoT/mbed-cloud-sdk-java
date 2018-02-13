@@ -138,8 +138,6 @@ public class AccountInfo implements Serializable {
    */
   @JsonAdapter(MfaStatusEnum.Adapter.class)
   public enum MfaStatusEnum {
-    ENABLED("enabled"),
-    
     ENFORCED("enforced"),
     
     OPTIONAL("optional");
@@ -925,10 +923,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * Indicates how many days before the account expiration a notification email should be sent.
+   * Indicates how many days (1-180) before account expiration a notification email should be sent.
    * @return expirationWarningThreshold
   **/
-  @ApiModelProperty(value = "Indicates how many days before the account expiration a notification email should be sent.")
+  @ApiModelProperty(value = "Indicates how many days (1-180) before account expiration a notification email should be sent.")
   public String getExpirationWarningThreshold() {
     return expirationWarningThreshold;
   }

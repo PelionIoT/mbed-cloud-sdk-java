@@ -23,7 +23,7 @@ Name | Type | Description | Notes
 **idleTimeout** | **String** | The reference token expiration time in minutes for this account. Between 1 and 120 minutes. |  [optional]
 **country** | **String** | The country part of the postal address, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **customerNumber** | **String** | Customer number of the customer. |  [optional]
-**expirationWarningThreshold** | **String** | Indicates how many days before the account expiration a notification email should be sent. |  [optional]
+**expirationWarningThreshold** | **String** | Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180. |  [optional]
 **contact** | **String** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **notificationEmails** | **List&lt;String&gt;** | A list of notification email addresses. |  [optional]
 

@@ -514,10 +514,10 @@ public class AccountUpdateRootReq implements Serializable {
   }
 
    /**
-   * Indicates how many days before the account expiration a notification email should be sent.
+   * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
    * @return expirationWarningThreshold
   **/
-  @ApiModelProperty(value = "Indicates how many days before the account expiration a notification email should be sent.")
+  @ApiModelProperty(value = "Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.")
   public String getExpirationWarningThreshold() {
     return expirationWarningThreshold;
   }
