@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 **enrollmentMode** | **Boolean** | If true, signature parameter is not required. Default value is false. |  [optional]
-**certificate** | **String** | X509.v3 trusted certificate in PEM format. | 
+**certificate** | **String** | X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported. | 
 **name** | **String** | Certificate name, not longer than 100 characters. | 
 **service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. | 
 **signature** | **String** | Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;. |  [optional]

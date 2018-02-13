@@ -4,6 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addAccountApiKeyToGroups**](AggregatorAccountAdminApi.md#addAccountApiKeyToGroups) | **POST** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Add API key to a list of groups.
 [**addAccountCertificate**](AggregatorAccountAdminApi.md#addAccountCertificate) | **POST** v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
 [**addAccountUserToGroups**](AggregatorAccountAdminApi.md#addAccountUserToGroups) | **POST** v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
 [**addSubjectsToAccountGroup**](AggregatorAccountAdminApi.md#addSubjectsToAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
@@ -25,8 +26,10 @@ Method | HTTP request | Description
 [**getAllAccountUsers**](AggregatorAccountAdminApi.md#getAllAccountUsers) | **GET** v3/accounts/{accountID}/users | Get all user details.
 [**getAllAccounts**](AggregatorAccountAdminApi.md#getAllAccounts) | **GET** v3/accounts | Get all accounts.
 [**getApiKeysOfAccountGroup**](AggregatorAccountAdminApi.md#getApiKeysOfAccountGroup) | **GET** v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
+[**getGroupsOfAccountApikey**](AggregatorAccountAdminApi.md#getGroupsOfAccountApikey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Get groups of the API key.
 [**getGroupsOfAccountUser**](AggregatorAccountAdminApi.md#getGroupsOfAccountUser) | **GET** v3/accounts/{accountID}/users/{user-id}/groups | Get groups of the user.
 [**getUsersOfAccountGroup**](AggregatorAccountAdminApi.md#getUsersOfAccountGroup) | **GET** v3/accounts/{accountID}/policy-groups/{groupID}/users | Get users of a group.
+[**removeAccountApiKeyFromGroups**](AggregatorAccountAdminApi.md#removeAccountApiKeyFromGroups) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey}/groups | Remove API key from groups.
 [**removeAccountUserFromGroups**](AggregatorAccountAdminApi.md#removeAccountUserFromGroups) | **DELETE** v3/accounts/{accountID}/users/{user-id}/groups | Remove user from groups.
 [**removeApiKeysFromAccountGroup**](AggregatorAccountAdminApi.md#removeApiKeysFromAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Remove API keys from a group.
 [**removeUsersFromAccountGroup**](AggregatorAccountAdminApi.md#removeUsersFromAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID}/users | Remove users from a group.
@@ -37,6 +40,65 @@ Method | HTTP request | Description
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
+
+<a name="addAccountApiKeyToGroups"></a>
+# **addAccountApiKeyToGroups**
+> UpdatedResponse addAccountApiKeyToGroups(accountID, apiKey, body)
+
+Add API key to a list of groups.
+
+An endpoint for adding API key to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key to be added to the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addAccountApiKeyToGroups(accountID, apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#addAccountApiKeyToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key to be added to the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="addAccountCertificate"></a>
 # **addAccountCertificate**
@@ -1325,6 +1387,71 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getGroupsOfAccountApikey"></a>
+# **getGroupsOfAccountApikey**
+> GroupSummaryList getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include)
+
+Get groups of the API key.
+
+An endpoint for retrieving groups of the API key.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key whose details are retrieved.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getGroupsOfAccountApikey(accountID, apiKey, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getGroupsOfAccountApikey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key whose details are retrieved. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getGroupsOfAccountUser"></a>
 # **getGroupsOfAccountUser**
 > GroupSummaryList getGroupsOfAccountUser(accountID, userId, limit, after, order, include)
@@ -1453,6 +1580,65 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="removeAccountApiKeyFromGroups"></a>
+# **removeAccountApiKeyFromGroups**
+> UpdatedResponse removeAccountApiKeyFromGroups(accountID, apiKey, body)
+
+Remove API key from groups.
+
+An endpoint for removing API key from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String apiKey = "apiKey_example"; // String | The ID of the API key to be removed from the group.
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeAccountApiKeyFromGroups(accountID, apiKey, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#removeAccountApiKeyFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **apiKey** | **String**| The ID of the API key to be removed from the group. |
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="removeAccountUserFromGroups"></a>
