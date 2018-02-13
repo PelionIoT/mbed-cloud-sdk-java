@@ -26,10 +26,10 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * FirmwareManifest
+ * FirmwareManifestFilter
  */
 
-public class FirmwareManifest implements Serializable {
+public class FirmwareManifestFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("datafile")
@@ -44,23 +44,17 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("object")
-  private String object = null;
-
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
 
-  @SerializedName("key_table")
-  private String keyTable = null;
-
   @SerializedName("device_class")
   private String deviceClass = null;
 
   @SerializedName("datafile_size")
-  private Long datafileSize = null;
+  private Integer datafileSize = null;
 
   @SerializedName("id")
   private String id = null;
@@ -68,16 +62,16 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("name")
   private String name = null;
 
-  public FirmwareManifest datafile(String datafile) {
+  public FirmwareManifestFilter datafile(String datafile) {
     this.datafile = datafile;
     return this;
   }
 
    /**
-   * The URL of the firmware manifest binary
+   * Get datafile
    * @return datafile
   **/
-  @ApiModelProperty(required = true, value = "The URL of the firmware manifest binary")
+  @ApiModelProperty(value = "")
   public String getDatafile() {
     return datafile;
   }
@@ -86,16 +80,16 @@ public class FirmwareManifest implements Serializable {
     this.datafile = datafile;
   }
 
-  public FirmwareManifest description(String description) {
+  public FirmwareManifestFilter description(String description) {
     this.description = description;
     return this;
   }
 
    /**
-   * The description of the firmware manifest
+   * Get description
    * @return description
   **/
-  @ApiModelProperty(required = true, value = "The description of the firmware manifest")
+  @ApiModelProperty(value = "")
   public String getDescription() {
     return description;
   }
@@ -104,16 +98,16 @@ public class FirmwareManifest implements Serializable {
     this.description = description;
   }
 
-  public FirmwareManifest timestamp(DateTime timestamp) {
+  public FirmwareManifestFilter timestamp(DateTime timestamp) {
     this.timestamp = timestamp;
     return this;
   }
 
    /**
-   * The firmware manifest version as a timestamp
+   * Get timestamp
    * @return timestamp
   **/
-  @ApiModelProperty(required = true, value = "The firmware manifest version as a timestamp")
+  @ApiModelProperty(value = "")
   public DateTime getTimestamp() {
     return timestamp;
   }
@@ -122,16 +116,16 @@ public class FirmwareManifest implements Serializable {
     this.timestamp = timestamp;
   }
 
-  public FirmwareManifest createdAt(DateTime createdAt) {
+  public FirmwareManifestFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
 
    /**
-   * The time the object was created
+   * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was created")
+  @ApiModelProperty(value = "")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -140,34 +134,16 @@ public class FirmwareManifest implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public FirmwareManifest object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity
-   * @return object
-  **/
-  @ApiModelProperty(required = true, value = "The API resource entity")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public FirmwareManifest updatedAt(DateTime updatedAt) {
+  public FirmwareManifestFilter updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * The time the object was updated
+   * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was updated")
+  @ApiModelProperty(value = "")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -176,16 +152,16 @@ public class FirmwareManifest implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public FirmwareManifest etag(DateTime etag) {
+  public FirmwareManifestFilter etag(DateTime etag) {
     this.etag = etag;
     return this;
   }
 
    /**
-   * The entity instance signature
+   * Get etag
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "The entity instance signature")
+  @ApiModelProperty(value = "")
   public DateTime getEtag() {
     return etag;
   }
@@ -194,34 +170,16 @@ public class FirmwareManifest implements Serializable {
     this.etag = etag;
   }
 
-  public FirmwareManifest keyTable(String keyTable) {
-    this.keyTable = keyTable;
-    return this;
-  }
-
-   /**
-   * The key table of re-shared keys for devices
-   * @return keyTable
-  **/
-  @ApiModelProperty(value = "The key table of re-shared keys for devices")
-  public String getKeyTable() {
-    return keyTable;
-  }
-
-  public void setKeyTable(String keyTable) {
-    this.keyTable = keyTable;
-  }
-
-  public FirmwareManifest deviceClass(String deviceClass) {
+  public FirmwareManifestFilter deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
   }
 
    /**
-   * The class of the device
+   * Get deviceClass
    * @return deviceClass
   **/
-  @ApiModelProperty(required = true, value = "The class of the device")
+  @ApiModelProperty(value = "")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -230,34 +188,34 @@ public class FirmwareManifest implements Serializable {
     this.deviceClass = deviceClass;
   }
 
-  public FirmwareManifest datafileSize(Long datafileSize) {
+  public FirmwareManifestFilter datafileSize(Integer datafileSize) {
     this.datafileSize = datafileSize;
     return this;
   }
 
    /**
-   * Size of the datafile in bytes
+   * Get datafileSize
    * @return datafileSize
   **/
-  @ApiModelProperty(value = "Size of the datafile in bytes")
-  public Long getDatafileSize() {
+  @ApiModelProperty(value = "")
+  public Integer getDatafileSize() {
     return datafileSize;
   }
 
-  public void setDatafileSize(Long datafileSize) {
+  public void setDatafileSize(Integer datafileSize) {
     this.datafileSize = datafileSize;
   }
 
-  public FirmwareManifest id(String id) {
+  public FirmwareManifestFilter id(String id) {
     this.id = id;
     return this;
   }
 
    /**
-   * The firmware manifest ID
+   * Get id
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The firmware manifest ID")
+  @ApiModelProperty(value = "")
   public String getId() {
     return id;
   }
@@ -266,16 +224,16 @@ public class FirmwareManifest implements Serializable {
     this.id = id;
   }
 
-  public FirmwareManifest name(String name) {
+  public FirmwareManifestFilter name(String name) {
     this.name = name;
     return this;
   }
 
    /**
-   * The name of the object
+   * Get name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the object")
+  @ApiModelProperty(value = "")
   public String getName() {
     return name;
   }
@@ -293,40 +251,36 @@ public class FirmwareManifest implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FirmwareManifest firmwareManifest = (FirmwareManifest) o;
-    return Objects.equals(this.datafile, firmwareManifest.datafile) &&
-        Objects.equals(this.description, firmwareManifest.description) &&
-        Objects.equals(this.timestamp, firmwareManifest.timestamp) &&
-        Objects.equals(this.createdAt, firmwareManifest.createdAt) &&
-        Objects.equals(this.object, firmwareManifest.object) &&
-        Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
-        Objects.equals(this.etag, firmwareManifest.etag) &&
-        Objects.equals(this.keyTable, firmwareManifest.keyTable) &&
-        Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
-        Objects.equals(this.datafileSize, firmwareManifest.datafileSize) &&
-        Objects.equals(this.id, firmwareManifest.id) &&
-        Objects.equals(this.name, firmwareManifest.name);
+    FirmwareManifestFilter firmwareManifestFilter = (FirmwareManifestFilter) o;
+    return Objects.equals(this.datafile, firmwareManifestFilter.datafile) &&
+        Objects.equals(this.description, firmwareManifestFilter.description) &&
+        Objects.equals(this.timestamp, firmwareManifestFilter.timestamp) &&
+        Objects.equals(this.createdAt, firmwareManifestFilter.createdAt) &&
+        Objects.equals(this.updatedAt, firmwareManifestFilter.updatedAt) &&
+        Objects.equals(this.etag, firmwareManifestFilter.etag) &&
+        Objects.equals(this.deviceClass, firmwareManifestFilter.deviceClass) &&
+        Objects.equals(this.datafileSize, firmwareManifestFilter.datafileSize) &&
+        Objects.equals(this.id, firmwareManifestFilter.id) &&
+        Objects.equals(this.name, firmwareManifestFilter.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, keyTable, deviceClass, datafileSize, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, updatedAt, etag, deviceClass, datafileSize, id, name);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FirmwareManifest {\n");
+    sb.append("class FirmwareManifestFilter {\n");
     
     sb.append("    datafile: ").append(toIndentedString(datafile)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    keyTable: ").append(toIndentedString(keyTable)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
     sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
