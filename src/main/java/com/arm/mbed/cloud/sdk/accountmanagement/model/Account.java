@@ -16,6 +16,10 @@ import com.arm.mbed.cloud.sdk.common.SdkModelUtils;
 
 @Preamble(description = "Account")
 public class Account implements SdkModel {
+    private static final String NOW = "now()";
+    public static final long DEFAULT_EXPIRY_WARNING = 0;
+    private static final String DEFAULT_EXPIRY_WARNING_STRING = "0";
+
     /**
      * Serialisation Id.
      */
@@ -101,12 +105,12 @@ public class Account implements SdkModel {
     /**
      * Number of days before an email should be sent to notify account expiration.
      */
-    @DefaultValue(value = "0")
-    private long expirationWarning;
+    @DefaultValue(value = DEFAULT_EXPIRY_WARNING_STRING)
+    private long expiryWarning;
     /**
      * List of notification email addresses.
      */
-    private List<String> notificationEmailAddresses;
+    private List<String> notificationEmails;
     /**
      * The enforcement status of the multi-factor authentication.
      */
@@ -128,17 +132,17 @@ public class Account implements SdkModel {
     /**
      * Account creation.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date createdAt;
     /**
      * Time when upgraded to commercial account.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date upgradedAt;
     /**
      * Time when upgraded to commercial account.
      */
-    @DefaultValue(value = "now()")
+    @DefaultValue(value = NOW)
     private final Date updatedAt;
     /**
      * List of limits as key-value pairs if requested.
@@ -164,26 +168,36 @@ public class Account implements SdkModel {
      * Other constructors are for internal usage only.
      */
     public Account() {
-        this(null, AccountStatus.getDefault(), true, null, new Date(), new Date(), null, null, null, null);
+        this(null, AccountStatus.getDefault(), null, null, null, null, null, new Date(), new Date(), new Date(), null,
+                null, null, null);
+
     }
 
     /**
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
-     *
+     * 
      * @param id
      *            id
      * @param status
      *            status
-     * @param provisioningAllowed
-     *            provisioningAllowed
-     * @param tierLevel
-     *            tierLevel
+     * @param customerNumber
+     *            customerNumber
+     * @param salesContactEmail
+     *            salesContactEmail
+     * @param contractNumber
+     *            contractNumber
+     * @param referenceNote
+     *            referenceNote
+     * @param tier
+     *            tier
      * @param createdAt
      *            createdAt
      * @param upgradedAt
      *            upgradedAt
+     * @param updatedAt
+     *            updatedAt
      * @param limits
      *            limits
      * @param policies
@@ -194,10 +208,13 @@ public class Account implements SdkModel {
      *            reason
      */
     @Internal
-    public Account(String id, AccountStatus status, boolean provisioningAllowed, String tierLevel, Date createdAt,
-            Date upgradedAt, Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
-        this(id, status, null, null, null, null, null, null, null, null, null, null, null, provisioningAllowed, null,
-                tierLevel, createdAt, upgradedAt, limits, policies, templateId, reason);
+    public Account(String id, AccountStatus status, String customerNumber, String salesContactEmail,
+            String contractNumber, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
+            Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
+        this(id, status, null, null, null, null, null, null, null, null, null, null, null, customerNumber,
+                salesContactEmail, contractNumber, null, DEFAULT_EXPIRY_WARNING, null,
+                MultifactorAuthenticationStatus.getDefault(), null, referenceNote, tier, createdAt, upgradedAt,
+                updatedAt, limits, policies, null, reason);
     }
 
     /**
@@ -250,11 +267,32 @@ public class Account implements SdkModel {
      *            templateId
      * @param reason
      *            reason
+     * @param contractNumber
+     *            contractNumber
+     * @param customerNumber
+     *            customerNumber
+     * @param referenceNote
+     *            referenceNote
+     * @param salesContactEmail
+     *            salesContactEmail
+     * @param updatedAt
+     *            updatedAt
+     * @param customProperties
+     *            customProperties
+     * @param expiryWarning
+     *            expiryWarning
+     * @param multifactorAuthenticationStatus
+     *            multifactorAuthenticationStatus
+     * @param notificationEmailAddresses
+     *            notificationEmailAddresses
      */
     @Internal
     protected Account(String id, AccountStatus status, String displayName, String contact, String company,
             String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
-            String country, String email, List<String> aliases, String tier, Date createdAt, Date upgradedAt,
+            String country, String email, String customerNumber, String salesContactEmail, String contractNumber,
+            Map<String, Map<String, String>> customProperties, long expiryWarning,
+            List<String> notificationEmailAddresses, MultifactorAuthenticationStatus multifactorAuthenticationStatus,
+            List<String> aliases, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
             Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
         super();
         setId(id);
@@ -266,6 +304,12 @@ public class Account implements SdkModel {
         this.templateId = templateId;
         this.policies = policies;
         this.reason = reason;
+
+        this.contractNumber = contractNumber;
+        this.customerNumber = customerNumber;
+        this.referenceNote = referenceNote;
+        this.salesContactEmail = salesContactEmail;
+        this.updatedAt = updatedAt;
         setAliases(aliases);
         setDisplayName(displayName);
         setContact(contact);
@@ -278,127 +322,10 @@ public class Account implements SdkModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-    }
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #Account()} instead.
-     *
-     * @param id
-     *            id
-     * @param status
-     *            status
-     * @param displayName
-     *            displayName
-     * @param contact
-     *            contact
-     * @param company
-     *            company
-     * @param phoneNumber
-     *            phoneNumber
-     * @param postcode
-     *            postcode
-     * @param addressLine1
-     *            addressLine1
-     *
-     * @param addressLine2
-     *            addressLine2
-     * @param city
-     *            city
-     * @param state
-     *            state
-     * @param country
-     *            country
-     * @param email
-     *            email
-     * @param provisioningAllowed
-     *            provisioningAllowed
-     * @param aliases
-     *            aliases
-     * @param tier
-     *            tier Level
-     * @param createdAt
-     *            createdAt
-     * @param upgradedAt
-     *            upgradedAt
-     * @param limits
-     *            limits
-     * @param policies
-     *            policies
-     * @param templateId
-     *            templateId
-     * @param reason
-     *            reason
-     * @param id
-     * @param status
-     * @param displayName
-     * @param contact
-     * @param company
-     * @param phoneNumber
-     * @param postcode
-     * @param addressLine1
-     * @param addressLine2
-     * @param city
-     * @param state
-     * @param country
-     * @param email
-     * @param customerNumber
-     * @param salesContactEmail
-     * @param contractNumber
-     * @param customProperties
-     * @param expirationWarning
-     * @param notificationEmailAddresses
-     * @param multifactorAuthenticationStatus
-     * @param aliases
-     * @param referenceNote
-     * @param tier
-     * @param createdAt
-     * @param upgradedAt
-     * @param updatedAt
-     * @param limits
-     * @param policies
-     * @param templateId
-     * @param reason
-     */
-    protected Account(String id, AccountStatus status, String displayName, String contact, String company,
-            String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
-            String country, String email, String customerNumber, String salesContactEmail, String contractNumber,
-            Map<String, Map<String, String>> customProperties, long expirationWarning,
-            List<String> notificationEmailAddresses, MultifactorAuthenticationStatus multifactorAuthenticationStatus,
-            List<String> aliases, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
-            Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
-        super();
-        setId(id);
-        this.status = status;
-        this.displayName = displayName;
-        this.contact = contact;
-        this.company = company;
-        this.phoneNumber = phoneNumber;
-        this.postcode = postcode;
-        this.addressLine1 = addressLine1;
-        this.addressLine2 = addressLine2;
-        this.city = city;
-        this.state = state;
-        this.country = country;
-        this.email = email;
-        this.customerNumber = customerNumber;
-        this.salesContactEmail = salesContactEmail;
-        this.contractNumber = contractNumber;
-        this.customProperties = customProperties;
-        this.expirationWarning = expirationWarning;
-        this.notificationEmailAddresses = notificationEmailAddresses;
-        this.multifactorAuthenticationStatus = multifactorAuthenticationStatus;
-        this.aliases = aliases;
-        this.referenceNote = referenceNote;
-        this.tier = tier;
-        this.createdAt = createdAt;
-        this.upgradedAt = upgradedAt;
-        this.updatedAt = updatedAt;
-        this.limits = limits;
-        this.policies = policies;
-        this.templateId = templateId;
-        this.reason = reason;
+        setCustomProperties(customProperties);
+        setExpiryWarning(expiryWarning);
+        setMultifactorAuthenticationStatus(multifactorAuthenticationStatus);
+        setNotificationEmails(notificationEmailAddresses);
     }
 
     /**
@@ -782,33 +709,33 @@ public class Account implements SdkModel {
     /**
      * Gets the number of days a
      * 
-     * @return the expirationWarning
+     * @return the expiryWarning
      */
-    public long getExpirationWarning() {
-        return expirationWarning;
+    public long getExpiryWarning() {
+        return expiryWarning;
     }
 
     /**
-     * @param expirationWarning
-     *            the expirationWarning to set
+     * @param expiryWarning
+     *            the expiryWarning to set
      */
-    public void setExpirationWarning(long expirationWarning) {
-        this.expirationWarning = expirationWarning;
+    public void setExpiryWarning(long expiryWarning) {
+        this.expiryWarning = expiryWarning;
     }
 
     /**
      * @return the notificationEmailAddresses
      */
-    public List<String> getNotificationEmailAddresses() {
-        return notificationEmailAddresses;
+    public List<String> getNotificationEmails() {
+        return notificationEmails;
     }
 
     /**
      * @param notificationEmailAddresses
      *            the notificationEmailAddresses to set
      */
-    public void setNotificationEmailAddresses(List<String> notificationEmailAddresses) {
-        this.notificationEmailAddresses = notificationEmailAddresses;
+    public void setNotificationEmails(List<String> notificationEmailAddresses) {
+        this.notificationEmails = notificationEmailAddresses;
     }
 
     /**
@@ -824,6 +751,16 @@ public class Account implements SdkModel {
      */
     public void setMultifactorAuthenticationStatus(MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
         this.multifactorAuthenticationStatus = multifactorAuthenticationStatus;
+    }
+
+    /**
+     * Sets the status from a string representation.
+     *
+     * @param status
+     *            the status string representation.
+     */
+    public void setMultifactorAuthenticationStatus(String status) {
+        setMultifactorAuthenticationStatus(MultifactorAuthenticationStatus.getStatus(status));
     }
 
     /**
@@ -871,8 +808,9 @@ public class Account implements SdkModel {
     @Override
     public Account clone() {
         return new Account(id, status, displayName, contact, company, phoneNumber, postcode, addressLine1, addressLine2,
-                city, state, country, email, provisioningAllowed, aliases, tier, createdAt, upgradedAt, limits,
-                policies, templateId, reason);
+                city, state, country, email, customerNumber, salesContactEmail, contractNumber, customProperties,
+                expiryWarning, notificationEmails, multifactorAuthenticationStatus, aliases, referenceNote, tier,
+                createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -897,11 +835,11 @@ public class Account implements SdkModel {
                 + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
                 + country + ", email=" + email + ", customerNumber=" + customerNumber + ", salesContactEmail="
                 + salesContactEmail + ", contractNumber=" + contractNumber + ", customProperties=" + customProperties
-                + ", expirationWarning=" + expirationWarning + ", notificationEmailAddresses="
-                + notificationEmailAddresses + ", multifactorAuthenticationStatus=" + multifactorAuthenticationStatus
-                + ", aliases=" + aliases + ", referenceNote=" + referenceNote + ", tier=" + tier + ", createdAt="
-                + createdAt + ", upgradedAt=" + upgradedAt + ", updatedAt=" + updatedAt + ", limits=" + limits
-                + ", policies=" + policies + ", templateId=" + templateId + ", reason=" + reason + "]";
+                + ", expiryWarning=" + expiryWarning + ", notificationEmails=" + notificationEmails
+                + ", multifactorAuthenticationStatus=" + multifactorAuthenticationStatus + ", aliases=" + aliases
+                + ", referenceNote=" + referenceNote + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt="
+                + upgradedAt + ", updatedAt=" + updatedAt + ", limits=" + limits + ", policies=" + policies
+                + ", templateId=" + templateId + ", reason=" + reason + "]";
     }
 
 }

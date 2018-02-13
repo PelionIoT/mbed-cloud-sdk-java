@@ -52,6 +52,7 @@ public final class UserAdapter {
         user.setAddress(apiUser.getAddress());
         user.setTermsAccepted(TranslationUtils.toBool(apiUser.isIsGtcAccepted(), true));
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.isIsMarketingAccepted(), true));
+        user.setCustomProperties(apiUser.getUserProperties());
         return user;
 
     }
@@ -92,6 +93,7 @@ public final class UserAdapter {
         userInfo.setAddress(user.getAddress());
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
+        // TODO add custom properties
         return userInfo;
     }
 
@@ -115,6 +117,7 @@ public final class UserAdapter {
         userUpdate.setAddress(user.getAddress());
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
+        userUpdate.setUserProperties(user.getCustomProperties());
         return userUpdate;
     }
 

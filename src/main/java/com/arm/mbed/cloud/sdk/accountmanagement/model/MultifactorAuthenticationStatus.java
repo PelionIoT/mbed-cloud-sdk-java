@@ -3,13 +3,14 @@
  */
 package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The enforcement status of the multi-factor authentication")
 public enum MultifactorAuthenticationStatus implements SdkEnum {
 
-    ENABLED("enabled"), ENFORCED("enforced"), OPTIONAL("optional"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    ENFORCED("enforced"), OPTIONAL("optional"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
@@ -79,6 +80,26 @@ public enum MultifactorAuthenticationStatus implements SdkEnum {
     @Override
     public String toString() {
         return getString();
+    }
+
+    /**
+     * Gets the multi-factor authentication status from its string representation.
+     * 
+     * @param string
+     *            string describing the multi-factor authentication status.
+     * @return corresponding multi-factor authentication status. If not found, default status is returned.
+     */
+    public static MultifactorAuthenticationStatus getStatus(@Nullable String string) {
+        if (string == null) {
+            return getDefault();
+        }
+        final String trimmedString = string.trim();
+        for (final MultifactorAuthenticationStatus status : values()) {
+            if (status.toString().equalsIgnoreCase(trimmedString)) {
+                return status;
+            }
+        }
+        return getDefault();
     }
 
     /**

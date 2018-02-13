@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyListOptions;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.EndPoints;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Group;
+import com.arm.mbed.cloud.sdk.accountmanagement.model.GroupListOptions;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserListOptions;
 import com.arm.mbed.cloud.sdk.annotations.API;
@@ -72,6 +73,39 @@ public class AccountManagement extends AbstractApi {
      * <pre>
      * {
      *     &#64;code
+     *     Account account = accountManagementApi.getAccount(null);
+     *     System.out.println("User account ID: " + account.getId());
+     *     System.out.println("Associated user email: " + account.getEmail());
+     * }
+     * 
+     * </pre>
+     * 
+     * @param propertyName
+     *            Property name to be returned from account specific properties.
+     * @return account details.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Account getAccount(@Nullable String propertyName) throws MbedCloudException {
+        final String finalPropertyName = propertyName;
+        return CloudCaller.call(this, "getAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
+
+            @Override
+            public Call<AccountInfo> call() {
+                return endpoint.getDeveloper().getMyAccountInfo("limits, policies", finalPropertyName);
+            }
+        });
+    }
+
+    /**
+     * Gets details of account associated with current API key.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {
+     *     &#64;code
      *     Account account = accountManagementApi.getAccount();
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
@@ -85,13 +119,7 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Account getAccount() throws MbedCloudException {
-        return CloudCaller.call(this, "getAccount()", AccountAdapter.getMapper(), new CloudCall<AccountInfo>() {
-
-            @Override
-            public Call<AccountInfo> call() {
-                return endpoint.getDeveloper().getMyAccountInfo("limits, policies");
-            }
-        });
+        return getAccount(null);
     }
 
     /**
@@ -168,6 +196,7 @@ public class AccountManagement extends AbstractApi {
                     public Call<ApiKeyInfoRespList> call() {
                         return endpoint.getDeveloper().getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(),
                                 finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                                finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
                                 finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
                     }
                 });
@@ -445,6 +474,7 @@ public class AccountManagement extends AbstractApi {
             public Call<UserInfoRespList> call() {
                 return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                        finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER));
             }
         });
@@ -509,21 +539,51 @@ public class AccountManagement extends AbstractApi {
      * 
      * @param userId
      *            The user ID.
+     * @param property
+     *            Request to return account specific user property values according to the given property name.
      * @return a user.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable User getUser(@NonNull String userId) throws MbedCloudException {
+    public @Nullable User getUser(@NonNull String userId, @Nullable String property) throws MbedCloudException {
         checkNotNull(userId, TAG_USER_ID);
         final String finalUserId = userId;
         return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().getUser(finalUserId);
+                return endpoint.getAdmin().getUser(finalUserId, property);
             }
         });
+    }
+
+    /**
+     * Gets details about a user.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     *  {@code try {
+     *     String userId = "015f4ac587f500000000000100109294";
+     *     User user = accountManagementApi.getUser(userId);
+     *     System.out.println("User name: " + user.getFullName());
+     *     assert userId == user.getId();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param userId
+     *            The user ID.
+     * @return a user.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable User getUser(@NonNull String userId) throws MbedCloudException {
+        return getUser(userId, null);
     }
 
     /**
@@ -690,7 +750,7 @@ public class AccountManagement extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     ListOptions options = new ListOptions();
+     *     GroupListOptions options = new GroupListOptions();
      *     options.setLimit(10);
      *
      *     ListResponse<Group> groups = accountManagementApi.listGroups(options);
@@ -711,14 +771,14 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<Group> listGroups(@Nullable ListOptions options) throws MbedCloudException {
-        final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
+    public @Nullable ListResponse<Group> listGroups(@Nullable GroupListOptions options) throws MbedCloudException {
+        final GroupListOptions finalOptions = (options == null) ? new GroupListOptions() : options;
         return CloudCaller.call(this, "listGroups()", GroupAdapter.getListMapper(), new CloudCall<GroupSummaryList>() {
 
             @Override
             public Call<GroupSummaryList> call() {
                 return endpoint.getDeveloper().getAllGroups(finalOptions.getLimit(), finalOptions.getAfter(),
-                        finalOptions.getOrder().toString(), finalOptions.encodeInclude());
+                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(), finalOptions.getNameFilter());
             }
         });
     }
@@ -731,7 +791,7 @@ public class AccountManagement extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     ListOptions options = new ListOptions();
+     *     GroupListOptions options = new GroupListOptions();
      *     options.setLimit(10);
      *
      *     Paginator<Group> groups = accountManagementApi.listAllGroups(options);
@@ -754,12 +814,12 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<Group> listAllGroups(@Nullable ListOptions options) throws MbedCloudException {
+    public @Nullable Paginator<Group> listAllGroups(@Nullable GroupListOptions options) throws MbedCloudException {
         return new Paginator<>(options, new PageRequester<Group>() {
 
             @Override
             public ListResponse<Group> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listGroups(opt);
+                return listGroups((GroupListOptions) opt);
             }
         });
     }

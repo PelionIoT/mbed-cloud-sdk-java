@@ -30,7 +30,7 @@ public class CertificatesExamples extends AbstractExample {
             log("Certificate Name", certificateName);
             // Creating and adding a certificate
             Certificate myCertificate = api
-                    .addDeveloperCertificate(new Certificate(certificateName, CertificateType.DEVELOPER));
+                    .addDeveloperCertificate(new Certificate(certificateName, CertificateType.DEVELOPER, false));
             log("Created developer certificate", myCertificate);
             certificateId = myCertificate.getId();
             String newName = generateCertificateName();

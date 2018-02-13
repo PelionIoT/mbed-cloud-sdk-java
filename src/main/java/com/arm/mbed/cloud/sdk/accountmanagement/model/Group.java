@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Group")
 public class Group implements SdkModel {
+    public static final long DEFAULT_LONG_VALLUE = 0;
     private static final String ZERO = "0";
     /**
      * Serialisation Id.
@@ -42,15 +43,10 @@ public class Group implements SdkModel {
     @DefaultValue(value = "now()")
     private final Date createdAt;
     /**
-     * A timestamp of the group creation in the storage, in milliseconds.
-     */
-    @DefaultValue(value = ZERO)
-    private final long creationTime;
-    /**
      * A timestamp of the latest group update, in milliseconds.
      */
     @DefaultValue(value = ZERO)
-    private final long lastUpdateTime;
+    private final Date updatedAt;
 
     /**
      * Internal constructor.
@@ -69,14 +65,12 @@ public class Group implements SdkModel {
      *            apiKeyCount
      * @param createdAt
      *            createdAt
-     * @param creationTime
-     *            creationTime
-     * @param lastUpdateTime
-     *            lastUpdateTime
+     * @param updatedAt
+     *            updatedAt
      */
     @Internal
     public Group(String id, String accountId, String name, long userCount, long apiKeyCount, Date createdAt,
-            long creationTime, long lastUpdateTime) {
+            Date updatedAt) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -84,8 +78,7 @@ public class Group implements SdkModel {
         this.userCount = userCount;
         this.apiKeyCount = apiKeyCount;
         this.createdAt = createdAt;
-        this.creationTime = creationTime;
-        this.lastUpdateTime = lastUpdateTime;
+        this.updatedAt = updatedAt;
     }
 
     /**
@@ -94,7 +87,7 @@ public class Group implements SdkModel {
      * Other constructors are for internal usage only.
      */
     public Group() {
-        this(null, null, null, 0, 0, new Date(), 0, 0);
+        this(null, null, null, DEFAULT_LONG_VALLUE, DEFAULT_LONG_VALLUE, new Date(), new Date());
     }
 
     /**
@@ -176,21 +169,12 @@ public class Group implements SdkModel {
     }
 
     /**
-     * Gets creation time.
-     * 
-     * @return the creationTime.
-     */
-    public long getCreationTime() {
-        return creationTime;
-    }
-
-    /**
      * Gets when the group was last updated.
      * 
-     * @return the lastUpdateTime.
+     * @return the updatedAt
      */
-    public long getLastUpdateTime() {
-        return lastUpdateTime;
+    public Date getUpdatedAt() {
+        return updatedAt;
     }
 
     /**
@@ -201,7 +185,7 @@ public class Group implements SdkModel {
      */
     @Override
     public Group clone() {
-        return new Group(id, accountId, name, userCount, apiKeyCount, createdAt, creationTime, lastUpdateTime);
+        return new Group(id, accountId, name, userCount, apiKeyCount, createdAt, updatedAt);
     }
 
     /**
@@ -222,8 +206,7 @@ public class Group implements SdkModel {
     @Override
     public String toString() {
         return "Group [id=" + id + ", accountId=" + accountId + ", name=" + name + ", userCount=" + userCount
-                + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", creationTime=" + creationTime
-                + ", lastUpdateTime=" + lastUpdateTime + "]";
+                + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
 }

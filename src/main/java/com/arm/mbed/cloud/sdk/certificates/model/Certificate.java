@@ -12,6 +12,8 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Certificate")
 public class Certificate implements SdkModel {
+    public static final boolean DEFAULT_ENROLMENT_MODE = false;
+    private static final String DEFAULT_ENROLMENT_MODE_STRING = "FALSE";
     /**
      * Serialisation Id.
      */
@@ -111,6 +113,12 @@ public class Certificate implements SdkModel {
      * with SHA256.
      */
     private String signature;
+    /**
+     * Enrolment mode. If true, signature is not required.
+     */
+    @Required
+    @DefaultValue(value = DEFAULT_ENROLMENT_MODE_STRING)
+    private boolean enrollmentMode;
 
     /**
      * Internal constructor.
@@ -165,7 +173,9 @@ public class Certificate implements SdkModel {
         setSignature(null);
         setStatus(CertificateStatus.getDefault());
         setType(CertificateType.getDefault());
+        setEnrollmentMode(DEFAULT_ENROLMENT_MODE);
         setAsNew();
+
     }
 
     /**
@@ -209,12 +219,14 @@ public class Certificate implements SdkModel {
      *            certificateData
      * @param signature
      *            signature
+     * @param enrollmentMode
+     *            enrolment mode
      */
     @Internal
     public Certificate(String id, String name, String accountId, CertificateStatus status, CertificateType type,
             String description, String subject, Date validity, String issuer, Date createdAt, String serverUri,
             String serverCertificate, String headerFile, String developerCertificate, String developerPrivateKey,
-            String ownerId, String certificateData, String signature) {
+            String ownerId, String certificateData, String signature, boolean enrollmentMode) {
         this(id, accountId, subject, validity, issuer, createdAt, serverUri, serverCertificate, headerFile,
                 developerCertificate, developerPrivateKey, ownerId);
         setCertificateData(certificateData);
@@ -223,6 +235,7 @@ public class Certificate implements SdkModel {
         setSignature(signature);
         setStatus(status);
         setType(type);
+        setEnrollmentMode(enrollmentMode);
         setAsNew();
     }
 
@@ -244,11 +257,14 @@ public class Certificate implements SdkModel {
      *            name of the certificate
      * @param type
      *            type of the certificate
+     * @param enrollmentMode
+     *            enrolment mode
      */
-    public Certificate(String name, CertificateType type) {
+    public Certificate(String name, CertificateType type, boolean enrollmentMode) {
         this();
         setName(name);
         setType(type);
+        setEnrollmentMode(enrollmentMode);
         setAsNew();
     }
 
@@ -530,6 +546,30 @@ public class Certificate implements SdkModel {
     }
 
     /**
+     * States whether the enrolment mode is set to true or not.
+     * <p>
+     * If true, signature is not required.
+     * 
+     * @return the enrollmentMode
+     */
+    public boolean isEnrollmentMode() {
+        return enrollmentMode;
+    }
+
+    /**
+     * Sets enrolment mode.
+     * <p>
+     * If true, signature is not required.
+     * 
+     * @param enrollmentMode
+     *            the enrollmentMode to set
+     */
+    @Required
+    public void setEnrollmentMode(boolean enrollmentMode) {
+        this.enrollmentMode = enrollmentMode;
+    }
+
+    /**
      * Checks whether the status has been modified since creation.
      *
      * @return true if the status has been modified. False otherwise.
@@ -559,7 +599,7 @@ public class Certificate implements SdkModel {
         return hasCertificateDataBeenUpdated;
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "boxing" })
     private static <T> T mergeField(T obj1, T obj2) {
         if (obj1 == null) {
             return obj2;
@@ -569,6 +609,9 @@ public class Certificate implements SdkModel {
         }
         if (obj1 instanceof SdkEnum) {
             return (T) ((SdkEnum) obj1).merge((SdkEnum) obj1, (SdkEnum) obj2);
+        }
+        if (obj1 instanceof Boolean && obj2 instanceof Boolean) {
+            return (T) (Boolean) (((boolean) obj1) || ((boolean) obj2));
         }
         return obj2;
     }
@@ -582,6 +625,7 @@ public class Certificate implements SdkModel {
      *            another partial certificate.
      * @return a merged certificate
      */
+    @SuppressWarnings({ "boxing", "cast" })
     public static Certificate merge(@Nullable Certificate partial1, @Nullable Certificate partial2) {
         if (partial1 == null) {
             return partial2;
@@ -607,6 +651,8 @@ public class Certificate implements SdkModel {
         merge.setSignature(mergeField(partial1.getSignature(), partial2.getSignature()));
         merge.setStatus(mergeField(partial1.getStatus(), partial2.getStatus()));
         merge.setType(mergeField(partial1.getType(), partial2.getType()));
+        merge.setEnrollmentMode((boolean) mergeField(Boolean.valueOf(partial1.isEnrollmentMode()),
+                Boolean.valueOf(partial2.isEnrollmentMode())));
         merge.setAsNew();
         return merge;
     }
@@ -622,7 +668,7 @@ public class Certificate implements SdkModel {
     public Certificate clone() {
         return new Certificate(id, name, accountId, status, type, description, subject, validity, issuer, createdAt,
                 serverUri, serverCertificate, headerFile, developerCertificate, developerPrivateKey, ownerId,
-                certificateData, signature);
+                certificateData, signature, enrollmentMode);
     }
 
     /**
@@ -637,7 +683,7 @@ public class Certificate implements SdkModel {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
@@ -647,7 +693,8 @@ public class Certificate implements SdkModel {
                 + ", issuer=" + issuer + ", createdAt=" + createdAt + ", serverUri=" + serverUri
                 + ", serverCertificate=" + serverCertificate + ", headerFile=" + headerFile + ", developerCertificate="
                 + developerCertificate + ", developerPrivateKey=" + developerPrivateKey + ", ownerId=" + ownerId
-                + ", certificateData=" + certificateData + ", signature=" + signature + "]";
+                + ", certificateData=" + certificateData + ", signature=" + signature + ", enrollmentMode="
+                + enrollmentMode + "]";
     }
 
 }

@@ -107,6 +107,18 @@ public class TestTranslationUtils {
     }
 
     @Test
+    public void testToLongConversion() {
+        long longValue = 156433465;
+        String longString = String.valueOf(longValue);
+        assertEquals(longValue, TranslationUtils.toLong(longString, 0));
+        longValue = Long.MAX_VALUE;
+        longString = String.valueOf(longValue);
+        assertEquals(longValue, TranslationUtils.toLong(longString, 0));
+        assertEquals(0, TranslationUtils.toLong("454.4554", 0));
+        assertEquals(10, TranslationUtils.toLong("fsdlfsfkls", 10));
+    }
+
+    @Test
     public void testAllDateManipulations() {
         String timestamp = "1971-12-08T01:04:45+12:45";
         String timestampInUtc = "1971-12-07T12:19:45.000Z";
