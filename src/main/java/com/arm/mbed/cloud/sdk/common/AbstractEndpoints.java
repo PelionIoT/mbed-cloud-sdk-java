@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic endpoints")
 @Internal
-public abstract class AbstractEndpoints {
+public class AbstractEndpoints {
 
     private final ApiClientWrapper client;
 

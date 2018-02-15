@@ -549,11 +549,12 @@ public class AccountManagement extends AbstractApi {
     public @Nullable User getUser(@NonNull String userId, @Nullable String property) throws MbedCloudException {
         checkNotNull(userId, TAG_USER_ID);
         final String finalUserId = userId;
+        final String propertyName = property;
         return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
 
             @Override
             public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().getUser(finalUserId, property);
+                return endpoint.getAdmin().getUser(finalUserId, propertyName);
             }
         });
     }

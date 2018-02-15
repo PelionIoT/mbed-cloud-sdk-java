@@ -15,7 +15,12 @@ import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
 
 @Preamble(description = "Adapter for enrollment claim model")
 @Internal
-public class EnrollmentAdapter {
+public final class EnrollmentAdapter {
+
+    private EnrollmentAdapter() {
+        super();
+    }
+
     /**
      * Maps an enrolment claim.
      * 
@@ -27,7 +32,7 @@ public class EnrollmentAdapter {
         if (enrollmentClaim == null) {
             return null;
         }
-        EnrollmentClaim claim = new EnrollmentClaim(enrollmentClaim.getId(),
+        final EnrollmentClaim claim = new EnrollmentClaim(enrollmentClaim.getId(),
                 TranslationUtils.toDate(enrollmentClaim.getCreatedAt()),
                 TranslationUtils.toDate(enrollmentClaim.getClaimedAt()),
                 TranslationUtils.toDate(enrollmentClaim.getExpiresAt()), enrollmentClaim.getAccountId(),

@@ -214,7 +214,7 @@ public class Account implements SdkModel {
         this(id, status, null, null, null, null, null, null, null, null, null, null, null, customerNumber,
                 salesContactEmail, contractNumber, null, DEFAULT_EXPIRY_WARNING, null,
                 MultifactorAuthenticationStatus.getDefault(), null, referenceNote, tier, createdAt, upgradedAt,
-                updatedAt, limits, policies, null, reason);
+                updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -249,8 +249,6 @@ public class Account implements SdkModel {
      *            country
      * @param email
      *            email
-     * @param provisioningAllowed
-     *            provisioningAllowed
      * @param aliases
      *            aliases
      * @param tier
@@ -707,7 +705,7 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the number of days a
+     * Gets the number of days before a expiry warning email is sent.
      * 
      * @return the expiryWarning
      */
@@ -716,14 +714,18 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Sets the number of days before a expiry warning email is sent.
+     * 
      * @param expiryWarning
-     *            the expiryWarning to set
+     *            number of days before email notification
      */
     public void setExpiryWarning(long expiryWarning) {
         this.expiryWarning = expiryWarning;
     }
 
     /**
+     * Gets notification email addresses.
+     * 
      * @return the notificationEmailAddresses
      */
     public List<String> getNotificationEmails() {
@@ -731,6 +733,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Sets notifications email addresses.
+     * 
      * @param notificationEmailAddresses
      *            the notificationEmailAddresses to set
      */
@@ -739,6 +743,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets the enforcement status of the multi-factor authentication.
+     * 
      * @return the multifactorAuthenticationStatus
      */
     public MultifactorAuthenticationStatus getMultifactorAuthenticationStatus() {
@@ -746,6 +752,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Sets the enforcement status of the multi-factor authentication.
+     * 
      * @param multifactorAuthenticationStatus
      *            the multifactorAuthenticationStatus to set
      */
@@ -764,6 +772,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets customer reference number.
+     * 
      * @return the customerNumber
      */
     public String getCustomerNumber() {
@@ -771,6 +781,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets the email address of the sales contact.
+     * 
      * @return the salesContactEmail
      */
     public String getSalesContactEmail() {
@@ -778,6 +790,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets contract number.
+     * 
      * @return the contractNumber
      */
     public String getContractNumber() {
@@ -785,6 +799,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets a reference note for updating the status of the account.
+     * 
      * @return the referenceNote
      */
     public String getReferenceNote() {
@@ -792,6 +808,8 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets when the account was last updated.
+     * 
      * @return the updatedAt
      */
     public Date getUpdatedAt() {

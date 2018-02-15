@@ -83,10 +83,9 @@ public class CertificateListOptions extends ListOptions {
      * 
      * @return enrolment mode filter
      */
-    @SuppressWarnings("boxing")
     public @Nullable Boolean getEnrollmentFilter() {
         final Object value = fetchEqualFilterValue(ENROLLMENT_MODE_FILTER);
-        return (value == null) ? null : Boolean.valueOf((boolean) value);
+        return (value == null) ? null : (Boolean) value;
     }
 
     /**
@@ -160,9 +159,8 @@ public class CertificateListOptions extends ListOptions {
      * @param enrollmentFilter
      *            the enrollmentFilter to set
      */
-    @SuppressWarnings("boxing")
     public void setEnrollmentFilter(boolean enrollmentFilter) {
-        addEqualFilter(ENROLLMENT_MODE_FILTER, enrollmentFilter);
+        addEqualFilter(ENROLLMENT_MODE_FILTER, Boolean.valueOf(enrollmentFilter));
     }
 
     /**
@@ -181,9 +179,8 @@ public class CertificateListOptions extends ListOptions {
      * @param expiresfilter
      *            the expiresfilter (in days) to set
      */
-    @SuppressWarnings("boxing")
     public void setExpiresFilter(int expiresfilter) {
-        addEqualFilter(EXPIRES_FILTER, expiresfilter);
+        addEqualFilter(EXPIRES_FILTER, Integer.valueOf(expiresfilter));
     }
 
     /**
@@ -191,13 +188,12 @@ public class CertificateListOptions extends ListOptions {
      * 
      * @return execution mode filter (equal).
      */
-    @SuppressWarnings("boxing")
     public Integer getExecutionModeFilter() {
         final CertificateType type = getTypeFilter();
         if (type == null) {
             return null;
         }
-        return (type == CertificateType.DEVELOPER) ? 1 : null;
+        return (type == CertificateType.DEVELOPER) ? Integer.valueOf(1) : null;
     }
 
     /**
@@ -205,13 +201,12 @@ public class CertificateListOptions extends ListOptions {
      * 
      * @return execution mode filter (not equal).
      */
-    @SuppressWarnings("boxing")
     public Integer getExecutionModeNotEqualFilter() {
         final CertificateType type = getTypeFilter();
         if (type == null) {
             return null;
         }
-        return (type == CertificateType.DEVELOPER) ? null : 1;
+        return (type == CertificateType.DEVELOPER) ? null : Integer.valueOf(1);
     }
 
     /*

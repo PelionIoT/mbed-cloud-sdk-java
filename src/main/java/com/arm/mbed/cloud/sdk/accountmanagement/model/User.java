@@ -108,7 +108,7 @@ public class User implements SdkModel {
      */
     private final long lastLoginTime;
     /**
-     * User's account specific custom properties
+     * User's account specific custom properties.
      */
     private Map<String, Map<String, String>> customProperties;
 
@@ -550,6 +550,8 @@ public class User implements SdkModel {
     }
 
     /**
+     * Gets account custom properties.
+     * 
      * @return the customProperties
      */
     public Map<String, Map<String, String>> getCustomProperties() {
@@ -557,6 +559,8 @@ public class User implements SdkModel {
     }
 
     /**
+     * Sets account custom properties.
+     * 
      * @param customProperties
      *            the customProperties to set
      */

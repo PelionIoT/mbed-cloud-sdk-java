@@ -123,7 +123,8 @@ public class Certificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
+     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType, boolean)}
+     * instead.
      *
      * @param id
      *            id
@@ -181,7 +182,8 @@ public class Certificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType)} instead.
+     * Note: Should not be used. Use {@link #Certificate()} or {@link #Certificate(String, CertificateType, boolean)}
+     * instead.
      *
      * @param id
      *            id
@@ -611,7 +613,7 @@ public class Certificate implements SdkModel {
             return (T) ((SdkEnum) obj1).merge((SdkEnum) obj1, (SdkEnum) obj2);
         }
         if (obj1 instanceof Boolean && obj2 instanceof Boolean) {
-            return (T) (Boolean) (((boolean) obj1) || ((boolean) obj2));
+            return (T) Boolean.valueOf(((Boolean) obj1) || ((Boolean) obj2));
         }
         return obj2;
     }

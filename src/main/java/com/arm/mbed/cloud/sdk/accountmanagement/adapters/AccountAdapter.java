@@ -109,7 +109,7 @@ public final class AccountAdapter {
         return MultifactorAuthenticationStatus.getUnknownEnum();
     }
 
-    private static com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq.MfaStatusEnum toMfaStatus(
+    private static AccountUpdateReq.MfaStatusEnum toMfaStatus(
             MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
         if (multifactorAuthenticationStatus == null) {
             return null;
