@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.internal.mds.api.DefaultApi;
@@ -14,7 +15,7 @@ import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 
 @Preamble(description = "Endpoint for Connect API")
 @Internal
-public class EndPoints {
+public class EndPoints extends AbstractEndpoints {
 
     private final DefaultApi webhooks;
     private final EndpointsApi endpoint;
@@ -38,7 +39,7 @@ public class EndPoints {
      */
 
     public EndPoints(ApiClientWrapper wrapper, boolean autostartNotificationDaemon) {
-        super();
+        super(wrapper);
         this.connectionOptions = wrapper.getConnectionOptions();
         this.webhooks = initialiseWebhook(wrapper);
         this.endpoint = initialiseEndpoint(wrapper);

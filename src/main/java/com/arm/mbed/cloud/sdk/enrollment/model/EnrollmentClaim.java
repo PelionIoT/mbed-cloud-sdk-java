@@ -16,14 +16,14 @@ public class EnrollmentClaim implements SdkModel {
     private final Date claimedAt;
     private final Date expiresAt;
     @Required
-    private String identity;
+    private String claimId;
     private final String accountId;
     private final String deviceId;
 
     public EnrollmentClaim(String id, Date createdAt, Date claimedAt, Date expiresAt, String accountId, String deviceId,
             String identity) {
         this(id, createdAt, claimedAt, expiresAt, accountId, deviceId);
-        setIdentity(identity);
+        setClaimId(identity);
     }
 
     public EnrollmentClaim(String id, Date createdAt, Date claimedAt, Date expiresAt, String accountId,
@@ -35,7 +35,7 @@ public class EnrollmentClaim implements SdkModel {
         this.expiresAt = expiresAt;
         this.accountId = accountId;
         this.deviceId = deviceId;
-        setIdentity(null);
+        setClaimId(null);
     }
 
     public EnrollmentClaim() {
@@ -45,17 +45,17 @@ public class EnrollmentClaim implements SdkModel {
     /**
      * @return the identity
      */
-    public String getIdentity() {
-        return identity;
+    public String getClaimId() {
+        return claimId;
     }
 
     /**
-     * @param identity
+     * @param claimId
      *            the identity to set
      */
     @Required
-    public void setIdentity(String identity) {
-        this.identity = identity;
+    public void setClaimId(String claimId) {
+        this.claimId = claimId;
     }
 
     /**
@@ -108,12 +108,12 @@ public class EnrollmentClaim implements SdkModel {
 
     @Override
     public SdkModel clone() {
-        return new EnrollmentClaim(id, createdAt, claimedAt, expiresAt, identity, accountId, deviceId);
+        return new EnrollmentClaim(id, createdAt, claimedAt, expiresAt, claimId, accountId, deviceId);
     }
 
     @Override
     public boolean isValid() {
-        return identity != null && !identity.isEmpty();
+        return claimId != null && !claimId.isEmpty();
     }
 
 }

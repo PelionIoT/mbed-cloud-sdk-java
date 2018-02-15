@@ -28,7 +28,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with enrolment.
  */
-public class EnrollmentManagement extends AbstractApi {
+public class Enrollment extends AbstractApi {
 
     private static final String TAG_ENROLLMENT_ID = "device enrollment id";
     private static final String TAG_ENROLLMENT = "device enrollment claim";
@@ -41,13 +41,13 @@ public class EnrollmentManagement extends AbstractApi {
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
-    public EnrollmentManagement(@NonNull ConnectionOptions options) {
+    public Enrollment(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
     }
 
     /**
-     * Lists all device enrolments.
+     * Lists all device enrolment claims.
      * <p>
      * Example:
      * 
@@ -57,8 +57,8 @@ public class EnrollmentManagement extends AbstractApi {
      *     ListOptions options = new ListOptions();
      *      options.setLimit(20);
      *
-     *     ListResponse<Enrollment> enrollments = enrollmentApi.listDeviceEnrollments(options);
-     *     for (Enrollment enrollment : enrollments) {
+     *     ListResponse<EnrollmentClaim> enrollments = enrollmentApi.listEnrollmentClaims(options);
+     *     for (EnrollmentClaim enrollment : enrollments) {
      *         System.out.println(enrollment.toString());
      *     }
      * } catch (MbedCloudException e) {
@@ -74,23 +74,24 @@ public class EnrollmentManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<EnrollmentClaim> listDeviceEnrollments(@Nullable ListOptions options)
+    public @Nullable ListResponse<EnrollmentClaim> listEnrollmentClaims(@Nullable ListOptions options)
             throws MbedCloudException {
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
 
-        return CloudCaller.call(this, "listDeviceEnrollments()", EnrollmentAdapter.getListMapper(),
+        return CloudCaller.call(this, "listEnrollmentClaims()", EnrollmentAdapter.getListMapper(),
                 new CloudCall<EnrollmentIdentities>() {
 
                     @Override
                     public Call<EnrollmentIdentities> call() {
                         return endpoint.getEnrollment().v3DeviceEnrollmentsGet(finalOptions.getLimit(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString());
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude());
                     }
                 });
     }
 
     /**
-     * Gets an iterator over all device enrolments.
+     * Gets an iterator over all device enrolment claims.
      * <p>
      * Example:
      * 
@@ -98,7 +99,7 @@ public class EnrollmentManagement extends AbstractApi {
      * {@code
      * try {
      *     ListOptions options = new ListOptions();    
-     *     Paginator<Enrollment> enrollments = enrollmentApi.listAllDeviceEnrollments(options);
+     *     Paginator<EnrollmentClaim> enrollments = enrollmentApi.listAllEnrollmentClaims(options);
      *     while (enrollments.hasNext()) {
      *         System.out.println(enrollments.next());
      *     }
@@ -116,13 +117,13 @@ public class EnrollmentManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<EnrollmentClaim> listAllDeviceEnrollments(@Nullable ListOptions options)
+    public @Nullable Paginator<EnrollmentClaim> listAllEnrollmentClaims(@Nullable ListOptions options)
             throws MbedCloudException {
         return new Paginator<>((options == null) ? new ListOptions() : options, new PageRequester<EnrollmentClaim>() {
 
             @Override
             public ListResponse<EnrollmentClaim> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listDeviceEnrollments(opt);
+                return listEnrollmentClaims(opt);
             }
         });
     }
@@ -135,8 +136,8 @@ public class EnrollmentManagement extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     String deviceEnrollmentId = "015f4ac587f500000000000100100249";
-     *     Enrollment deviceEnrollment = enrollmentApi.getDeviceEnrollment(deviceEnrollmentId);
+     *     String deviceEnrollmentId = "";
+     *     EnrollmentClaim deviceEnrollment = enrollmentApi.getEnrollmentClaim(deviceEnrollmentId);
      *     System.out.println(deviceEnrollment);
      *
      * } catch (MbedCloudException e) {
@@ -145,37 +146,37 @@ public class EnrollmentManagement extends AbstractApi {
      * }
      * </pre>
      * 
-     * @param deviceEnrollmentId
+     * @param enrollmentId
      *            the ID of the device enrolment.
      * @return device enrolment details.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable EnrollmentClaim getDeviceEnrollment(@NonNull String enrollmentId) throws MbedCloudException {
+    public @Nullable EnrollmentClaim getEnrollmentClaim(@NonNull String enrollmentId) throws MbedCloudException {
         checkNotNull(enrollmentId, TAG_ENROLLMENT_ID);
         final String finalId = enrollmentId;
-        return CloudCaller.call(this, "getDeviceEnrollment()", EnrollmentAdapter.getMapper(),
+        return CloudCaller.call(this, "getEnrollmentClaim()", EnrollmentAdapter.getMapper(),
                 new CloudCall<EnrollmentIdentity>() {
 
                     @Override
                     public Call<EnrollmentIdentity> call() {
-                        return endpoint.getEnrollment().v3DeviceEnrollmentsidGet();// TODO add finalId
+                        return endpoint.getEnrollment().v3DeviceEnrollmentsIdGet(finalId);
                     }
 
                 });
     }
 
     /**
-     * Place an enrolment claim for one or several devices.
+     * Places an enrolment claim for one or several devices.
      * <p>
      * Example:
      * 
      * <pre>
      * {@code
      * try {
-     *     String enrollmentIdentity = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5";
-    *     EnrollmentClaim claim = enrollmentApi.placeEnrollmentClaim(enrollmentIdentity0
+     *     String claimId = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5";
+    *     EnrollmentClaim claim = enrollmentApi.addEnrollmentClaim(claimId)
      *     System.out.println(claim);
      *
      * } catch (MbedCloudException e) {
@@ -184,18 +185,18 @@ public class EnrollmentManagement extends AbstractApi {
      * }
      * </pre>
      * 
-     * @param enrollmentId
-     *            Enrollment identity. Pattern: '^[A-Z]{1}-[A-Za-z0-9:]{1, 256}' e.g.
+     * @param claimId
+     *            Claim Id. Pattern: '^[A-Z]{1}-[A-Za-z0-9:]{1, 256}' e.g.
      *            A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
      * @return enrollment claim.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable EnrollmentClaim placeEnrollmentClaim(@NonNull String enrollmentId) throws MbedCloudException {
-        checkNotNull(enrollmentId, TAG_ENROLLMENT_ID);
-        final EnrollmentId finalEnrollmentId = new EnrollmentId().enrollmentIdentity(enrollmentId);
-        return CloudCaller.call(this, "placeEnrollmentClaim()", EnrollmentAdapter.getMapper(),
+    public @Nullable EnrollmentClaim addEnrollmentClaim(@NonNull String claimId) throws MbedCloudException {
+        checkNotNull(claimId, TAG_ENROLLMENT_ID);
+        final EnrollmentId finalEnrollmentId = new EnrollmentId().enrollmentIdentity(claimId);
+        return CloudCaller.call(this, "addEnrollmentClaim()", EnrollmentAdapter.getMapper(),
                 new CloudCall<EnrollmentIdentity>() {
 
                     @Override
@@ -214,7 +215,7 @@ public class EnrollmentManagement extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *       enrollmentApi.deleteDeviceEnrollment("A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5");
+     *       enrollmentApi.deleteEnrollmentClaim("5454");
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -222,20 +223,19 @@ public class EnrollmentManagement extends AbstractApi {
      * </pre>
      * 
      * @param enrollmentId
-     *            Enrollment identity of the claim to delete. Pattern: '^[A-Z]{1}-[A-Za-z0-9:]{1, 256}' e.g.
-     *            A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
+     *            the ID of the device enrolment.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public void deleteDeviceEnrollment(@NonNull String enrollmentId) throws MbedCloudException {
+    public void deleteEnrollmentClaim(@NonNull String enrollmentId) throws MbedCloudException {
         checkNotNull(enrollmentId, TAG_ENROLLMENT_ID);
         final String finalId = enrollmentId;
-        CloudCaller.call(this, "deleteDeviceEnrollment()", null, new CloudCall<Void>() {
+        CloudCaller.call(this, "deleteEnrollmentClaim()", null, new CloudCall<Void>() {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getEnrollment().v3DeviceEnrollmentsidDelete();// TODO add finalId
+                return endpoint.getEnrollment().v3DeviceEnrollmentsIdDelete(finalId);
             }
 
         });
@@ -249,8 +249,8 @@ public class EnrollmentManagement extends AbstractApi {
      * <pre>
      * {@code
      * try {
-     *     EnrollmentClaim enrollmentClaim = enrollmentApi.getDeviceEnrollment("A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5");
-     *     enrollmentApi.deleteDeviceEnrollment(enrollmentClaim);
+     *     EnrollmentClaim enrollmentClaim = enrollmentApi.getEnrollmentClaim("4543");
+     *     enrollmentApi.deleteEnrollmentClaim(enrollmentClaim);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
@@ -258,14 +258,14 @@ public class EnrollmentManagement extends AbstractApi {
      * </pre>
      * 
      * @param enrollmentClaim
-     *            An enrollment claim to delete
+     *            An enrolment claim to delete
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     @API
-    public void deleteDeviceEnrollment(@NonNull EnrollmentClaim enrollmentClaim) throws MbedCloudException {
+    public void deleteEnrollmentClaim(@NonNull EnrollmentClaim enrollmentClaim) throws MbedCloudException {
         checkNotNull(enrollmentClaim, TAG_ENROLLMENT);
-        deleteDeviceEnrollment(enrollmentClaim.getId());
+        deleteEnrollmentClaim(enrollmentClaim.getId());
     }
 
     /**
@@ -275,6 +275,6 @@ public class EnrollmentManagement extends AbstractApi {
      */
     @Override
     public String getModuleName() {
-        return "EnrollmentManagement";
+        return "Enrollment";
     }
 }

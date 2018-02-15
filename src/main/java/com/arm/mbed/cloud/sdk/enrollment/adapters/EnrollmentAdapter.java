@@ -32,7 +32,7 @@ public class EnrollmentAdapter {
                 TranslationUtils.toDate(enrollmentClaim.getClaimedAt()),
                 TranslationUtils.toDate(enrollmentClaim.getExpiresAt()), enrollmentClaim.getAccountId(),
                 enrollmentClaim.getDeviceId());
-        claim.setIdentity(enrollmentClaim.getEnrollmentIdentity());
+        claim.setClaimId(enrollmentClaim.getEnrollmentIdentity());
         return claim;
     }
 
@@ -46,7 +46,7 @@ public class EnrollmentAdapter {
 
             @Override
             public EnrollmentClaim map(EnrollmentIdentity toBeMapped) {
-                return map(toBeMapped);
+                return EnrollmentAdapter.map(toBeMapped);
             }
 
         };

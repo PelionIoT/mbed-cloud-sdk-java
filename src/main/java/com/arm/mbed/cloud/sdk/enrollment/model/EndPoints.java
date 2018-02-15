@@ -2,13 +2,14 @@ package com.arm.mbed.cloud.sdk.enrollment.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;;
+import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
 
 @Preamble(description = "Endpoint for Enrollment API")
 @Internal
-public class EndPoints {
+public class EndPoints extends AbstractEndpoints {
 
     private final PublicApiApi enrollment;
 
@@ -19,7 +20,7 @@ public class EndPoints {
      *            API client {@link ApiClientWrapper}.
      */
     public EndPoints(ApiClientWrapper wrapper) {
-        super();
+        super(wrapper);
         this.enrollment = initialiseEnrollment(wrapper);
 
     }
