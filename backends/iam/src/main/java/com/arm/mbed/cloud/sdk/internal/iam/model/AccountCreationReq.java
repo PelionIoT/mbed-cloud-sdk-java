@@ -100,7 +100,7 @@ public class AccountCreationReq implements Serializable {
    * Postal address line 2, not longer than 100 characters.
    * @return addressLine2
   **/
-  @ApiModelProperty(value = "Postal address line 2, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "Postal address line 2, not longer than 100 characters.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -118,7 +118,7 @@ public class AccountCreationReq implements Serializable {
    * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return city
   **/
-  @ApiModelProperty(value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "Cambridge", value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCity() {
     return city;
   }
@@ -136,7 +136,7 @@ public class AccountCreationReq implements Serializable {
    * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
    * @return addressLine1
   **/
-  @ApiModelProperty(value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "110 Fulbourn Rd", value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -154,7 +154,7 @@ public class AccountCreationReq implements Serializable {
    * The display name for the account, not longer than 100 characters.
    * @return displayName
   **/
-  @ApiModelProperty(value = "The display name for the account, not longer than 100 characters.")
+  @ApiModelProperty(example = "ARM", value = "The display name for the account, not longer than 100 characters.")
   public String getDisplayName() {
     return displayName;
   }
@@ -172,7 +172,7 @@ public class AccountCreationReq implements Serializable {
    * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return country
   **/
-  @ApiModelProperty(value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "United Kingdom", value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCountry() {
     return country;
   }
@@ -190,7 +190,7 @@ public class AccountCreationReq implements Serializable {
    * The name of the company, not longer than 100 characters. Required for commercial accounts only.
    * @return company
   **/
-  @ApiModelProperty(value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
   public String getCompany() {
     return company;
   }
@@ -208,7 +208,7 @@ public class AccountCreationReq implements Serializable {
    * Customer number of the customer.
    * @return customerNumber
   **/
-  @ApiModelProperty(value = "Customer number of the customer.")
+  @ApiModelProperty(example = "1NC25_0001", value = "Customer number of the customer.")
   public String getCustomerNumber() {
     return customerNumber;
   }
@@ -226,7 +226,7 @@ public class AccountCreationReq implements Serializable {
    * Contract number of the customer.
    * @return contractNumber
   **/
-  @ApiModelProperty(value = "Contract number of the customer.")
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
   public String getContractNumber() {
     return contractNumber;
   }
@@ -244,7 +244,7 @@ public class AccountCreationReq implements Serializable {
    * The state part of the postal address, not longer than 100 characters.
    * @return state
   **/
-  @ApiModelProperty(value = "The state part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
   public String getState() {
     return state;
   }
@@ -262,7 +262,7 @@ public class AccountCreationReq implements Serializable {
    * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
    * @return contact
   **/
-  @ApiModelProperty(value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
   public String getContact() {
     return contact;
   }
@@ -280,7 +280,7 @@ public class AccountCreationReq implements Serializable {
    * The postal code part of the postal address, not longer than 100 characters.
    * @return postalCode
   **/
-  @ApiModelProperty(value = "The postal code part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address, not longer than 100 characters.")
   public String getPostalCode() {
     return postalCode;
   }
@@ -298,7 +298,7 @@ public class AccountCreationReq implements Serializable {
    * The password when creating a new user. It will be generated when not present in the request.
    * @return adminPassword
   **/
-  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
+  @ApiModelProperty(example = "PZf9eEUH43DAPE9ULINFeuj", value = "The password when creating a new user. It will be generated when not present in the request.")
   public String getAdminPassword() {
     return adminPassword;
   }
@@ -316,7 +316,7 @@ public class AccountCreationReq implements Serializable {
    * The username of the admin user to be created, containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
    * @return adminName
   **/
-  @ApiModelProperty(value = "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  @ApiModelProperty(example = "admin", value = "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
   public String getAdminName() {
     return adminName;
   }
@@ -334,7 +334,7 @@ public class AccountCreationReq implements Serializable {
    * The full name of the admin user to be created.
    * @return adminFullName
   **/
-  @ApiModelProperty(value = "The full name of the admin user to be created.")
+  @ApiModelProperty(example = "Admin Doe", value = "The full name of the admin user to be created.")
   public String getAdminFullName() {
     return adminFullName;
   }
@@ -352,7 +352,7 @@ public class AccountCreationReq implements Serializable {
    * The end market of the account to be created.
    * @return endMarket
   **/
-  @ApiModelProperty(required = true, value = "The end market of the account to be created.")
+  @ApiModelProperty(example = "IT", required = true, value = "The end market of the account to be created.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -370,7 +370,7 @@ public class AccountCreationReq implements Serializable {
    * The email address of the account admin, not longer than 254 characters.
    * @return adminEmail
   **/
-  @ApiModelProperty(value = "The email address of the account admin, not longer than 254 characters.")
+  @ApiModelProperty(example = "admin@arm.com", value = "The email address of the account admin, not longer than 254 characters.")
   public String getAdminEmail() {
     return adminEmail;
   }
@@ -388,7 +388,7 @@ public class AccountCreationReq implements Serializable {
    * The phone number of a representative of the company, not longer than 100 characters.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of a representative of the company, not longer than 100 characters.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company, not longer than 100 characters.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -406,7 +406,7 @@ public class AccountCreationReq implements Serializable {
    * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
   public String getEmail() {
     return email;
   }

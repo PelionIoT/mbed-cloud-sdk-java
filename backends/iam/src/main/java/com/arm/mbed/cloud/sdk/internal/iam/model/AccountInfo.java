@@ -209,25 +209,7 @@ public class AccountInfo implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    ACCOUNT("account");
 
     private String value;
 
@@ -321,7 +303,7 @@ public class AccountInfo implements Serializable {
    * Account end market.
    * @return endMarket
   **/
-  @ApiModelProperty(required = true, value = "Account end market.")
+  @ApiModelProperty(example = "IT", required = true, value = "Account end market.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -339,7 +321,7 @@ public class AccountInfo implements Serializable {
    * The status of the account.
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "The status of the account.")
+  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the account.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -375,7 +357,7 @@ public class AccountInfo implements Serializable {
    * Email address of the sales contact.
    * @return salesContact
   **/
-  @ApiModelProperty(value = "Email address of the sales contact.")
+  @ApiModelProperty(example = "sales@arm.com", value = "Email address of the sales contact.")
   public String getSalesContact() {
     return salesContact;
   }
@@ -393,7 +375,7 @@ public class AccountInfo implements Serializable {
    * Last update UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -411,7 +393,7 @@ public class AccountInfo implements Serializable {
    * The postal code part of the postal address.
    * @return postalCode
   **/
-  @ApiModelProperty(value = "The postal code part of the postal address.")
+  @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address.")
   public String getPostalCode() {
     return postalCode;
   }
@@ -455,7 +437,7 @@ public class AccountInfo implements Serializable {
    * Customer number of the customer.
    * @return customerNumber
   **/
-  @ApiModelProperty(value = "Customer number of the customer.")
+  @ApiModelProperty(example = "1NC25_0001", value = "Customer number of the customer.")
   public String getCustomerNumber() {
     return customerNumber;
   }
@@ -473,7 +455,7 @@ public class AccountInfo implements Serializable {
    * Account ID.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Account ID.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "Account ID.")
   public String getId() {
     return id;
   }
@@ -514,7 +496,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 2.
    * @return addressLine2
   **/
-  @ApiModelProperty(value = "Postal address line 2.")
+  @ApiModelProperty(example = " ", value = "Postal address line 2.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -532,7 +514,7 @@ public class AccountInfo implements Serializable {
    * The city part of the postal address.
    * @return city
   **/
-  @ApiModelProperty(value = "The city part of the postal address.")
+  @ApiModelProperty(example = "Cambridge", value = "The city part of the postal address.")
   public String getCity() {
     return city;
   }
@@ -550,7 +532,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 1.
    * @return addressLine1
   **/
-  @ApiModelProperty(value = "Postal address line 1.")
+  @ApiModelProperty(example = "110 Fulbourn Rd", value = "Postal address line 1.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -568,7 +550,7 @@ public class AccountInfo implements Serializable {
    * The display name for the account.
    * @return displayName
   **/
-  @ApiModelProperty(value = "The display name for the account.")
+  @ApiModelProperty(example = "ARM", value = "The display name for the account.")
   public String getDisplayName() {
     return displayName;
   }
@@ -604,7 +586,7 @@ public class AccountInfo implements Serializable {
    * The ID of the parent account, if it has any.
    * @return parentId
   **/
-  @ApiModelProperty(value = "The ID of the parent account, if it has any.")
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account, if it has any.")
   public String getParentId() {
     return parentId;
   }
@@ -622,7 +604,7 @@ public class AccountInfo implements Serializable {
    * The state part of the postal address.
    * @return state
   **/
-  @ApiModelProperty(value = "The state part of the postal address.")
+  @ApiModelProperty(example = " ", value = "The state part of the postal address.")
   public String getState() {
     return state;
   }
@@ -640,7 +622,7 @@ public class AccountInfo implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -658,7 +640,7 @@ public class AccountInfo implements Serializable {
    * The company email address for this account.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account.")
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account.")
   public String getEmail() {
     return email;
   }
@@ -676,7 +658,7 @@ public class AccountInfo implements Serializable {
    * The phone number of a representative of the company.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of a representative of the company.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -694,7 +676,7 @@ public class AccountInfo implements Serializable {
    * A reference note for updating the status of the account
    * @return referenceNote
   **/
-  @ApiModelProperty(value = "A reference note for updating the status of the account")
+  @ApiModelProperty(example = "ARM-INT-0001", value = "A reference note for updating the status of the account")
   public String getReferenceNote() {
     return referenceNote;
   }
@@ -712,7 +694,7 @@ public class AccountInfo implements Serializable {
    * The name of the company.
    * @return company
   **/
-  @ApiModelProperty(value = "The name of the company.")
+  @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company.")
   public String getCompany() {
     return company;
   }
@@ -748,7 +730,7 @@ public class AccountInfo implements Serializable {
    * A reason note for updating the status of the account
    * @return reason
   **/
-  @ApiModelProperty(value = "A reason note for updating the status of the account")
+  @ApiModelProperty(example = "Subscription paid.", value = "A reason note for updating the status of the account")
   public String getReason() {
     return reason;
   }
@@ -766,7 +748,7 @@ public class AccountInfo implements Serializable {
    * Time when upgraded to commercial account in UTC format RFC3339.
    * @return upgradedAt
   **/
-  @ApiModelProperty(value = "Time when upgraded to commercial account in UTC format RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Time when upgraded to commercial account in UTC format RFC3339.")
   public DateTime getUpgradedAt() {
     return upgradedAt;
   }
@@ -784,7 +766,7 @@ public class AccountInfo implements Serializable {
    * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
    * @return tier
   **/
-  @ApiModelProperty(required = true, value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
+  @ApiModelProperty(example = "1", required = true, value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
   public String getTier() {
     return tier;
   }
@@ -854,7 +836,7 @@ public class AccountInfo implements Serializable {
    * The country part of the postal address.
    * @return country
   **/
-  @ApiModelProperty(value = "The country part of the postal address.")
+  @ApiModelProperty(example = "United Kingdom", value = "The country part of the postal address.")
   public String getCountry() {
     return country;
   }
@@ -872,7 +854,7 @@ public class AccountInfo implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -890,7 +872,7 @@ public class AccountInfo implements Serializable {
    * The reference token expiration time in minutes for this account.
    * @return idleTimeout
   **/
-  @ApiModelProperty(value = "The reference token expiration time in minutes for this account.")
+  @ApiModelProperty(example = "30", value = "The reference token expiration time in minutes for this account.")
   public String getIdleTimeout() {
     return idleTimeout;
   }
@@ -908,7 +890,7 @@ public class AccountInfo implements Serializable {
    * Contract number of the customer.
    * @return contractNumber
   **/
-  @ApiModelProperty(value = "Contract number of the customer.")
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
   public String getContractNumber() {
     return contractNumber;
   }
@@ -926,7 +908,7 @@ public class AccountInfo implements Serializable {
    * Indicates how many days (1-180) before account expiration a notification email should be sent.
    * @return expirationWarningThreshold
   **/
-  @ApiModelProperty(value = "Indicates how many days (1-180) before account expiration a notification email should be sent.")
+  @ApiModelProperty(example = "180", value = "Indicates how many days (1-180) before account expiration a notification email should be sent.")
   public String getExpirationWarningThreshold() {
     return expirationWarningThreshold;
   }
@@ -944,7 +926,7 @@ public class AccountInfo implements Serializable {
    * The name of the contact person for this account.
    * @return contact
   **/
-  @ApiModelProperty(value = "The name of the contact person for this account.")
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account.")
   public String getContact() {
     return contact;
   }
@@ -1014,7 +996,7 @@ public class AccountInfo implements Serializable {
    * Account template ID.
    * @return templateId
   **/
-  @ApiModelProperty(value = "Account template ID.")
+  @ApiModelProperty(example = "01619571e7160242ac12000600000000", value = "Account template ID.")
   public String getTemplateId() {
     return templateId;
   }

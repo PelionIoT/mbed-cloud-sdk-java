@@ -138,25 +138,7 @@ public class UserInfoResp implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    USER("user");
 
     private String value;
 
@@ -232,7 +214,7 @@ public class UserInfoResp implements Serializable {
    * A username containing alphanumerical letters and -,._@+&#x3D; characters.
    * @return username
   **/
-  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters.")
+  @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
   public String getUsername() {
     return username;
   }
@@ -276,7 +258,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the user creation in the storage, in milliseconds.
    * @return creationTime
   **/
-  @ApiModelProperty(value = "A timestamp of the user creation in the storage, in milliseconds.")
+  @ApiModelProperty(example = "1518630727683", value = "A timestamp of the user creation in the storage, in milliseconds.")
   public Long getCreationTime() {
     return creationTime;
   }
@@ -294,7 +276,7 @@ public class UserInfoResp implements Serializable {
    * Last update UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -312,7 +294,7 @@ public class UserInfoResp implements Serializable {
    * The full name of the user.
    * @return fullName
   **/
-  @ApiModelProperty(value = "The full name of the user.")
+  @ApiModelProperty(example = "User Doe", value = "The full name of the user.")
   public String getFullName() {
     return fullName;
   }
@@ -330,7 +312,7 @@ public class UserInfoResp implements Serializable {
    * The UUID of the user.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the user.")
+  @ApiModelProperty(example = "01619571e2e89242ac12000600000000", required = true, value = "The UUID of the user.")
   public String getId() {
     return id;
   }
@@ -348,7 +330,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the latest login of the user, in milliseconds.
    * @return lastLoginTime
   **/
-  @ApiModelProperty(value = "A timestamp of the latest login of the user, in milliseconds.")
+  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest login of the user, in milliseconds.")
   public Long getLastLoginTime() {
     return lastLoginTime;
   }
@@ -366,7 +348,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating that the General Terms and Conditions has been accepted.
    * @return isGtcAccepted
   **/
-  @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
+  @ApiModelProperty(example = "true", value = "A flag indicating that the General Terms and Conditions has been accepted.")
   public Boolean isIsGtcAccepted() {
     return isGtcAccepted;
   }
@@ -384,7 +366,7 @@ public class UserInfoResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -402,7 +384,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating that receiving marketing information has been accepted.
    * @return isMarketingAccepted
   **/
-  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
+  @ApiModelProperty(example = "true", value = "A flag indicating that receiving marketing information has been accepted.")
   public Boolean isIsMarketingAccepted() {
     return isMarketingAccepted;
   }
@@ -420,7 +402,7 @@ public class UserInfoResp implements Serializable {
    * Phone number.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "Phone number.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "Phone number.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -438,7 +420,7 @@ public class UserInfoResp implements Serializable {
    * The email address.
    * @return email
   **/
-  @ApiModelProperty(required = true, value = "The email address.")
+  @ApiModelProperty(example = "user@arm.com", required = true, value = "The email address.")
   public String getEmail() {
     return email;
   }
@@ -456,7 +438,7 @@ public class UserInfoResp implements Serializable {
    * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
+  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -474,7 +456,7 @@ public class UserInfoResp implements Serializable {
    * The UUID of the account.
    * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the account.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
   public String getAccountId() {
     return accountId;
   }
@@ -536,7 +518,7 @@ public class UserInfoResp implements Serializable {
    * Address.
    * @return address
   **/
-  @ApiModelProperty(value = "Address.")
+  @ApiModelProperty(example = "110 Fulbourn Rd, Cambridge, United Kingdom", value = "Address.")
   public String getAddress() {
     return address;
   }
@@ -554,7 +536,7 @@ public class UserInfoResp implements Serializable {
    * The password when creating a new user. It will be generated when not present in the request.
    * @return password
   **/
-  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
+  @ApiModelProperty(example = "PZf9eEUH43DAPE9ULINFeuj", value = "The password when creating a new user. It will be generated when not present in the request.")
   public String getPassword() {
     return password;
   }
@@ -572,7 +554,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating whether the user&#39;s email address has been verified or not.
    * @return emailVerified
   **/
-  @ApiModelProperty(value = "A flag indicating whether the user's email address has been verified or not.")
+  @ApiModelProperty(example = "true", value = "A flag indicating whether the user's email address has been verified or not.")
   public Boolean isEmailVerified() {
     return emailVerified;
   }
@@ -590,7 +572,7 @@ public class UserInfoResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -634,7 +616,7 @@ public class UserInfoResp implements Serializable {
    * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
    * @return isTotpEnabled
   **/
-  @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+  @ApiModelProperty(example = "true", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
   public Boolean isIsTotpEnabled() {
     return isTotpEnabled;
   }
@@ -652,7 +634,7 @@ public class UserInfoResp implements Serializable {
    * A timestamp of the latest change of the user password, in milliseconds.
    * @return passwordChangedTime
   **/
-  @ApiModelProperty(value = "A timestamp of the latest change of the user password, in milliseconds.")
+  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest change of the user password, in milliseconds.")
   public Long getPasswordChangedTime() {
     return passwordChangedTime;
   }

@@ -159,7 +159,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The end market for this account, not longer than 100 characters.
    * @return endMarket
   **/
-  @ApiModelProperty(value = "The end market for this account, not longer than 100 characters.")
+  @ApiModelProperty(example = "IT", value = "The end market for this account, not longer than 100 characters.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -213,7 +213,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
   public String getEmail() {
     return email;
   }
@@ -231,7 +231,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The postal code part of the postal address, not longer than 100 characters.
    * @return postalCode
   **/
-  @ApiModelProperty(value = "The postal code part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address, not longer than 100 characters.")
   public String getPostalCode() {
     return postalCode;
   }
@@ -301,7 +301,7 @@ public class AccountUpdateRootReq implements Serializable {
    * Postal address line 2, not longer than 100 characters.
    * @return addressLine2
   **/
-  @ApiModelProperty(value = "Postal address line 2, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "Postal address line 2, not longer than 100 characters.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -319,7 +319,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return city
   **/
-  @ApiModelProperty(value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "Cambridge", value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCity() {
     return city;
   }
@@ -337,7 +337,7 @@ public class AccountUpdateRootReq implements Serializable {
    * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
    * @return addressLine1
   **/
-  @ApiModelProperty(value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "110 Fulbourn Rd", value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -355,7 +355,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The display name for the account, not longer than 100 characters.
    * @return displayName
   **/
-  @ApiModelProperty(value = "The display name for the account, not longer than 100 characters.")
+  @ApiModelProperty(example = "ARM", value = "The display name for the account, not longer than 100 characters.")
   public String getDisplayName() {
     return displayName;
   }
@@ -391,7 +391,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The state part of the postal address, not longer than 100 characters.
    * @return state
   **/
-  @ApiModelProperty(value = "The state part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
   public String getState() {
     return state;
   }
@@ -427,7 +427,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The phone number of a representative of the company, not longer than 100 characters.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of a representative of the company, not longer than 100 characters.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company, not longer than 100 characters.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -445,7 +445,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The name of the company, not longer than 100 characters. Required for commercial accounts only.
    * @return company
   **/
-  @ApiModelProperty(value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
   public String getCompany() {
     return company;
   }
@@ -481,7 +481,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return country
   **/
-  @ApiModelProperty(value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "United Kingdom", value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCountry() {
     return country;
   }
@@ -535,7 +535,7 @@ public class AccountUpdateRootReq implements Serializable {
    * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
    * @return contact
   **/
-  @ApiModelProperty(value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
   public String getContact() {
     return contact;
   }
