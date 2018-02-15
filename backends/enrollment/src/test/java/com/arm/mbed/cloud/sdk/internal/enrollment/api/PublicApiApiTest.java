@@ -35,7 +35,32 @@ public class PublicApiApiTest {
         Integer limit = null;
         String after = null;
         String order = null;
-        // EnrollmentIdentities response = api.v3DeviceEnrollmentsGet(limit, after, order);
+        String include = null;
+        // EnrollmentIdentities response = api.v3DeviceEnrollmentsGet(limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete an enrollment by ID.
+     *
+     * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+     */
+    @Test
+    public void v3DeviceEnrollmentsIdDeleteTest() {
+        String id = null;
+        // Void response = api.v3DeviceEnrollmentsIdDelete(id);
+
+        // TODO: test validations
+    }
+    /**
+     * Get details of an enrollment by ID.
+     *
+     * To check the enrollment info in detail, for example claming date and expiration date.
+     */
+    @Test
+    public void v3DeviceEnrollmentsIdGetTest() {
+        String id = null;
+        // EnrollmentIdentity response = api.v3DeviceEnrollmentsIdGet(id);
 
         // TODO: test validations
     }
@@ -48,28 +73,6 @@ public class PublicApiApiTest {
     public void v3DeviceEnrollmentsPostTest() {
         EnrollmentId enrollmentIdentity = null;
         // EnrollmentIdentity response = api.v3DeviceEnrollmentsPost(enrollmentIdentity);
-
-        // TODO: test validations
-    }
-    /**
-     * Delete an enrollment by ID.
-     *
-     * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
-     */
-    @Test
-    public void v3DeviceEnrollmentsidDeleteTest() {
-        // Void response = api.v3DeviceEnrollmentsidDelete();
-
-        // TODO: test validations
-    }
-    /**
-     * Get details of an enrollment by ID.
-     *
-     * To check the enrollment info in detail, for example claming date and expiration date.
-     */
-    @Test
-    public void v3DeviceEnrollmentsidGetTest() {
-        // EnrollmentIdentity response = api.v3DeviceEnrollmentsidGet();
 
         // TODO: test validations
     }

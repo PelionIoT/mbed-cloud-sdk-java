@@ -221,10 +221,10 @@ public class EnrollmentIdentity implements Serializable {
   }
 
    /**
-   * Enrolled device internal ID (muuid)
+   * Enrolled device internal ID
    * @return enrolledDeviceId
   **/
-  @ApiModelProperty(value = "Enrolled device internal ID (muuid)")
+  @ApiModelProperty(value = "Enrolled device internal ID")
   public String getEnrolledDeviceId() {
     return enrolledDeviceId;
   }
@@ -257,10 +257,10 @@ public class EnrollmentIdentity implements Serializable {
   }
 
    /**
-   * muuid
+   * Enrollment identity internal id
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "muuid")
+  @ApiModelProperty(required = true, value = "Enrollment identity internal id")
   public String getId() {
     return id;
   }
