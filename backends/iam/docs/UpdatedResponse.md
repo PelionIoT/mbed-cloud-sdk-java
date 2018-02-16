@@ -33,24 +33,6 @@ IDENTITY_PROVIDER | &quot;identity-provider&quot;
 Name | Value
 ---- | -----
 SUCCESS | &quot;success&quot;
-CREATED | &quot;created&quot;
-ACCEPTED | &quot;accepted&quot;
-PERMANENTLY_DELETED | &quot;permanently_deleted&quot;
-VALIDATION_ERROR | &quot;validation_error&quot;
-INVALID_TOKEN | &quot;invalid_token&quot;
-INVALID_APIKEY | &quot;invalid_apikey&quot;
-REAUTH_REQUIRED | &quot;reauth_required&quot;
-ACCESS_DENIED | &quot;access_denied&quot;
-ACCOUNT_LIMIT_EXCEEDED | &quot;account_limit_exceeded&quot;
-NOT_FOUND | &quot;not_found&quot;
-METHOD_NOT_SUPPORTED | &quot;method_not_supported&quot;
-NOT_ACCEPTABLE | &quot;not_acceptable&quot;
-DUPLICATE | &quot;duplicate&quot;
-PRECONDITION_FAILED | &quot;precondition_failed&quot;
-UNSUPPORTED_MEDIA_TYPE | &quot;unsupported_media_type&quot;
-RATE_LIMIT_EXCEEDED | &quot;rate_limit_exceeded&quot;
-INTERNAL_SERVER_ERROR | &quot;internal_server_error&quot;
-SYSTEM_UNAVAILABLE | &quot;system_unavailable&quot;
 
 
 

@@ -56,7 +56,7 @@ public class FeaturePolicy implements Serializable {
    * Comma separated list of actions, empty string represents all actions.
    * @return action
   **/
-  @ApiModelProperty(value = "Comma separated list of actions, empty string represents all actions.")
+  @ApiModelProperty(example = "GET", value = "Comma separated list of actions, empty string represents all actions.")
   public String getAction() {
     return action;
   }
@@ -74,7 +74,7 @@ public class FeaturePolicy implements Serializable {
    * Resource that is protected by this policy.
    * @return resource
   **/
-  @ApiModelProperty(value = "Resource that is protected by this policy.")
+  @ApiModelProperty(example = "/v3/update-campaign", value = "Resource that is protected by this policy.")
   public String getResource() {
     return resource;
   }
@@ -92,7 +92,7 @@ public class FeaturePolicy implements Serializable {
    * Feature name corresponding to this policy.
    * @return feature
   **/
-  @ApiModelProperty(value = "Feature name corresponding to this policy.")
+  @ApiModelProperty(example = "update-campaigns", value = "Feature name corresponding to this policy.")
   public String getFeature() {
     return feature;
   }
@@ -110,7 +110,7 @@ public class FeaturePolicy implements Serializable {
    * True or false controlling whether an action is allowed or not.
    * @return allow
   **/
-  @ApiModelProperty(value = "True or false controlling whether an action is allowed or not.")
+  @ApiModelProperty(example = "true", value = "True or false controlling whether an action is allowed or not.")
   public Boolean isAllow() {
     return allow;
   }
@@ -128,7 +128,7 @@ public class FeaturePolicy implements Serializable {
    * Flag indicating whether this feature is inherited or overwritten specifically.
    * @return inherited
   **/
-  @ApiModelProperty(value = "Flag indicating whether this feature is inherited or overwritten specifically.")
+  @ApiModelProperty(example = "false", value = "Flag indicating whether this feature is inherited or overwritten specifically.")
   public Boolean isInherited() {
     return inherited;
   }

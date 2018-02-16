@@ -112,43 +112,7 @@ public class UpdatedResponse implements Serializable {
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    SUCCESS("success"),
-    
-    CREATED("created"),
-    
-    ACCEPTED("accepted"),
-    
-    PERMANENTLY_DELETED("permanently_deleted"),
-    
-    VALIDATION_ERROR("validation_error"),
-    
-    INVALID_TOKEN("invalid_token"),
-    
-    INVALID_APIKEY("invalid_apikey"),
-    
-    REAUTH_REQUIRED("reauth_required"),
-    
-    ACCESS_DENIED("access_denied"),
-    
-    ACCOUNT_LIMIT_EXCEEDED("account_limit_exceeded"),
-    
-    NOT_FOUND("not_found"),
-    
-    METHOD_NOT_SUPPORTED("method_not_supported"),
-    
-    NOT_ACCEPTABLE("not_acceptable"),
-    
-    DUPLICATE("duplicate"),
-    
-    PRECONDITION_FAILED("precondition_failed"),
-    
-    UNSUPPORTED_MEDIA_TYPE("unsupported_media_type"),
-    
-    RATE_LIMIT_EXCEEDED("rate_limit_exceeded"),
-    
-    INTERNAL_SERVER_ERROR("internal_server_error"),
-    
-    SYSTEM_UNAVAILABLE("system_unavailable");
+    SUCCESS("success");
 
     private String value;
 
@@ -293,7 +257,7 @@ public class UpdatedResponse implements Serializable {
    * Entity ID.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Entity ID.")
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", required = true, value = "Entity ID.")
   public String getId() {
     return id;
   }
