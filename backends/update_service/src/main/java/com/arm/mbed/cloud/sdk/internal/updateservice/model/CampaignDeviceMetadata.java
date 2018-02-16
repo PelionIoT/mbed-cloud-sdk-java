@@ -54,7 +54,7 @@ public class CampaignDeviceMetadata implements Serializable {
   private String name = null;
 
   @SerializedName("etag")
-  private String etag = null;
+  private DateTime etag = null;
 
   @SerializedName("mechanism_url")
   private String mechanismUrl = null;
@@ -249,7 +249,7 @@ public class CampaignDeviceMetadata implements Serializable {
     this.name = name;
   }
 
-  public CampaignDeviceMetadata etag(String etag) {
+  public CampaignDeviceMetadata etag(DateTime etag) {
     this.etag = etag;
     return this;
   }
@@ -259,11 +259,11 @@ public class CampaignDeviceMetadata implements Serializable {
    * @return etag
   **/
   @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
-  public String getEtag() {
+  public DateTime getEtag() {
     return etag;
   }
 
-  public void setEtag(String etag) {
+  public void setEtag(DateTime etag) {
     this.etag = etag;
   }
 
