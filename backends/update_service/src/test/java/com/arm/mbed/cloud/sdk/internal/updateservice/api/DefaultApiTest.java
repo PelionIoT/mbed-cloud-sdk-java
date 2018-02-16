@@ -35,112 +35,6 @@ public class DefaultApiTest {
     /**
      * 
      *
-     * Create an update campaign.
-     */
-    @Test
-    public void campaignCreateTest() {
-        UpdateCampaignPostRequest campaign = null;
-        // UpdateCampaign response = api.campaignCreate(campaign);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Delete an update campaign.
-     */
-    @Test
-    public void campaignDestroyTest() {
-        String campaignId = null;
-        // Void response = api.campaignDestroy(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get update campaigns for devices specified by a filter.
-     */
-    @Test
-    public void campaignListTest() {
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String filter = null;
-        String include = null;
-        // UpdateCampaignPage response = api.campaignList(limit, order, after, filter, include);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get campaign device metadata.
-     */
-    @Test
-    public void campaignMetadataListTest() {
-        String campaignId = null;
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String include = null;
-        // CampaignDeviceMetadataPage response = api.campaignMetadataList(campaignId, limit, order, after, include);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get update campaign metadata.
-     */
-    @Test
-    public void campaignMetadataRetreiveTest() {
-        String campaignId = null;
-        String campaignDeviceMetadataId = null;
-        // CampaignDeviceMetadata response = api.campaignMetadataRetreive(campaignId, campaignDeviceMetadataId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get an update campaign.
-     */
-    @Test
-    public void campaignRetrieveTest() {
-        String campaignId = null;
-        // UpdateCampaign response = api.campaignRetrieve(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Stop a running update campaign.
-     */
-    @Test
-    public void campaignStopTest() {
-        String campaignId = null;
-        // Void response = api.campaignStop(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Modify an update campaign.
-     */
-    @Test
-    public void campaignUpdateTest() {
-        String campaignId = null;
-        UpdateCampaignPutRequest campaign = null;
-        // UpdateCampaign response = api.campaignUpdate(campaignId, campaign);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
      * Create firmware image.
      */
     @Test
@@ -202,7 +96,8 @@ public class DefaultApiTest {
         File datafile = null;
         String name = null;
         String description = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description);
+        File keyTable = null;
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
 
         // TODO: test validations
     }

@@ -77,7 +77,7 @@ public class FirmwareManifest implements Serializable {
    * The URL of the firmware manifest binary
    * @return datafile
   **/
-  @ApiModelProperty(required = true, value = "The URL of the firmware manifest binary")
+  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", required = true, value = "The URL of the firmware manifest binary")
   public String getDatafile() {
     return datafile;
   }
@@ -95,7 +95,7 @@ public class FirmwareManifest implements Serializable {
    * The description of the firmware manifest
    * @return description
   **/
-  @ApiModelProperty(required = true, value = "The description of the firmware manifest")
+  @ApiModelProperty(example = "", required = true, value = "The description of the firmware manifest")
   public String getDescription() {
     return description;
   }
@@ -149,7 +149,7 @@ public class FirmwareManifest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "The API resource entity")
+  @ApiModelProperty(example = "firmware-manifest", required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -200,10 +200,10 @@ public class FirmwareManifest implements Serializable {
   }
 
    /**
-   * The key table of re-shared keys for devices
+   * The key table of pre-shared keys for devices
    * @return keyTable
   **/
-  @ApiModelProperty(value = "The key table of re-shared keys for devices")
+  @ApiModelProperty(example = "http://example.com", value = "The key table of pre-shared keys for devices")
   public String getKeyTable() {
     return keyTable;
   }
@@ -221,7 +221,7 @@ public class FirmwareManifest implements Serializable {
    * The class of the device
    * @return deviceClass
   **/
-  @ApiModelProperty(required = true, value = "The class of the device")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", required = true, value = "The class of the device")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -257,7 +257,7 @@ public class FirmwareManifest implements Serializable {
    * The firmware manifest ID
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The firmware manifest ID")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The firmware manifest ID")
   public String getId() {
     return id;
   }
@@ -275,7 +275,7 @@ public class FirmwareManifest implements Serializable {
    * The name of the object
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the object")
+  @ApiModelProperty(example = "", required = true, value = "The name of the object")
   public String getName() {
     return name;
   }
