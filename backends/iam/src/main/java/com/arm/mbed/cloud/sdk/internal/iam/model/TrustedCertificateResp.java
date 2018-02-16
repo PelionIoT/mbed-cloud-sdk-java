@@ -156,25 +156,7 @@ public class TrustedCertificateResp implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    CERT("trusted-cert");
 
     private String value;
 
@@ -268,7 +250,7 @@ public class TrustedCertificateResp implements Serializable {
    * Status of the certificate.
    * @return status
   **/
-  @ApiModelProperty(value = "Status of the certificate.")
+  @ApiModelProperty(example = "ACTIVE", value = "Status of the certificate.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -286,7 +268,7 @@ public class TrustedCertificateResp implements Serializable {
    * Certificate name.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "Certificate name.")
+  @ApiModelProperty(example = "My certificate", required = true, value = "Certificate name.")
   public String getName() {
     return name;
   }
@@ -304,7 +286,7 @@ public class TrustedCertificateResp implements Serializable {
    * X509.v3 trusted certificate in PEM format.
    * @return certificate
   **/
-  @ApiModelProperty(required = true, value = "X509.v3 trusted certificate in PEM format.")
+  @ApiModelProperty(example = "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----", required = true, value = "X509.v3 trusted certificate in PEM format.")
   public String getCertificate() {
     return certificate;
   }
@@ -322,7 +304,7 @@ public class TrustedCertificateResp implements Serializable {
    * If true, signature is not required. Default value false.
    * @return enrollmentMode
   **/
-  @ApiModelProperty(value = "If true, signature is not required. Default value false.")
+  @ApiModelProperty(example = "false", value = "If true, signature is not required. Default value false.")
   public Boolean isEnrollmentMode() {
     return enrollmentMode;
   }
@@ -340,7 +322,7 @@ public class TrustedCertificateResp implements Serializable {
    * Issuer of the certificate.
    * @return issuer
   **/
-  @ApiModelProperty(required = true, value = "Issuer of the certificate.")
+  @ApiModelProperty(example = "CN=issuer", required = true, value = "Issuer of the certificate.")
   public String getIssuer() {
     return issuer;
   }
@@ -358,7 +340,7 @@ public class TrustedCertificateResp implements Serializable {
    * Device execution mode where 1 means a developer certificate.
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(value = "Device execution mode where 1 means a developer certificate.")
+  @ApiModelProperty(example = "1", value = "Device execution mode where 1 means a developer certificate.")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
@@ -376,7 +358,7 @@ public class TrustedCertificateResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -412,7 +394,7 @@ public class TrustedCertificateResp implements Serializable {
    * Subject of the certificate.
    * @return subject
   **/
-  @ApiModelProperty(required = true, value = "Subject of the certificate.")
+  @ApiModelProperty(example = "CN=subject", required = true, value = "Subject of the certificate.")
   public String getSubject() {
     return subject;
   }
@@ -430,7 +412,7 @@ public class TrustedCertificateResp implements Serializable {
    * Last update UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -448,7 +430,7 @@ public class TrustedCertificateResp implements Serializable {
    * The UUID of the account.
    * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the account.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
   public String getAccountId() {
     return accountId;
   }
@@ -466,7 +448,7 @@ public class TrustedCertificateResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -484,7 +466,7 @@ public class TrustedCertificateResp implements Serializable {
    * Expiration time in UTC formatted as RFC3339.
    * @return validity
   **/
-  @ApiModelProperty(required = true, value = "Expiration time in UTC formatted as RFC3339.")
+  @ApiModelProperty(example = "2038-02-14T15:24:14Z", required = true, value = "Expiration time in UTC formatted as RFC3339.")
   public DateTime getValidity() {
     return validity;
   }
@@ -502,7 +484,7 @@ public class TrustedCertificateResp implements Serializable {
    * The UUID of the owner.
    * @return ownerId
   **/
-  @ApiModelProperty(value = "The UUID of the owner.")
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The UUID of the owner.")
   public String getOwnerId() {
     return ownerId;
   }
@@ -520,7 +502,7 @@ public class TrustedCertificateResp implements Serializable {
    * Entity ID.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Entity ID.")
+  @ApiModelProperty(example = "01619571d01d0242ac12000600000000", required = true, value = "Entity ID.")
   public String getId() {
     return id;
   }
@@ -538,7 +520,7 @@ public class TrustedCertificateResp implements Serializable {
    * Human readable description of this certificate.
    * @return description
   **/
-  @ApiModelProperty(value = "Human readable description of this certificate.")
+  @ApiModelProperty(example = "Certificate created by me.", value = "Human readable description of this certificate.")
   public String getDescription() {
     return description;
   }

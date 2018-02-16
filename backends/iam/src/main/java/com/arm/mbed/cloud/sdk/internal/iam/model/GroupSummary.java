@@ -47,25 +47,7 @@ public class GroupSummary implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    GROUP("group");
 
     private String value;
 
@@ -132,7 +114,7 @@ public class GroupSummary implements Serializable {
    * The number of users in this group.
    * @return userCount
   **/
-  @ApiModelProperty(required = true, value = "The number of users in this group.")
+  @ApiModelProperty(example = "1", required = true, value = "The number of users in this group.")
   public Integer getUserCount() {
     return userCount;
   }
@@ -150,7 +132,7 @@ public class GroupSummary implements Serializable {
    * The UUID of the account this group belongs to.
    * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the account this group belongs to.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account this group belongs to.")
   public String getAccountId() {
     return accountId;
   }
@@ -168,7 +150,7 @@ public class GroupSummary implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -204,7 +186,7 @@ public class GroupSummary implements Serializable {
    * Last update UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "Last update UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -222,7 +204,7 @@ public class GroupSummary implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -240,7 +222,7 @@ public class GroupSummary implements Serializable {
    * The number of API keys in this group.
    * @return apikeyCount
   **/
-  @ApiModelProperty(required = true, value = "The number of API keys in this group.")
+  @ApiModelProperty(example = "0", required = true, value = "The number of API keys in this group.")
   public Integer getApikeyCount() {
     return apikeyCount;
   }
@@ -258,7 +240,7 @@ public class GroupSummary implements Serializable {
    * The UUID of the group.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the group.")
+  @ApiModelProperty(example = "01619571dec00242ac12000600000000", required = true, value = "The UUID of the group.")
   public String getId() {
     return id;
   }
@@ -276,7 +258,7 @@ public class GroupSummary implements Serializable {
    * The name of the group.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the group.")
+  @ApiModelProperty(example = "Admoinistrators", required = true, value = "The name of the group.")
   public String getName() {
     return name;
   }

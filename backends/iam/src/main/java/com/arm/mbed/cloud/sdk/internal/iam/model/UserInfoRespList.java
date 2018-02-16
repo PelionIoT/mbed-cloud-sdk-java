@@ -48,25 +48,7 @@ public class UserInfoRespList implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error"),
-    
-    POLICY("policy"),
-    
-    IDENTITY_PROVIDER("identity-provider");
+    LIST("list");
 
     private String value;
 
@@ -174,7 +156,7 @@ public class UserInfoRespList implements Serializable {
    * The entity ID to fetch after the given one.
    * @return after
   **/
-  @ApiModelProperty(value = "The entity ID to fetch after the given one.")
+  @ApiModelProperty(example = "01619571f3c00242ac12000600000000", value = "The entity ID to fetch after the given one.")
   public String getAfter() {
     return after;
   }
@@ -192,7 +174,7 @@ public class UserInfoRespList implements Serializable {
    * Flag indicating whether there is more results.
    * @return hasMore
   **/
-  @ApiModelProperty(required = true, value = "Flag indicating whether there is more results.")
+  @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -210,7 +192,7 @@ public class UserInfoRespList implements Serializable {
    * The total number or records, if requested. It might be returned also for small lists.
    * @return totalCount
   **/
-  @ApiModelProperty(required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
+  @ApiModelProperty(example = "20", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -246,7 +228,7 @@ public class UserInfoRespList implements Serializable {
    * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
    * @return limit
   **/
-  @ApiModelProperty(required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+  @ApiModelProperty(example = "50", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
   public Integer getLimit() {
     return limit;
   }
