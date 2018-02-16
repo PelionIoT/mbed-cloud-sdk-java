@@ -143,7 +143,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(value = "The optional description of the campaign")
+  @ApiModelProperty(example = "", value = "The optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -161,7 +161,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * Get rootManifestId
    * @return rootManifestId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
   public String getRootManifestId() {
     return rootManifestId;
   }
@@ -179,7 +179,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(value = "The API resource entity")
+  @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -233,7 +233,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The filter for the devices the campaign will target
    * @return deviceFilter
   **/
-  @ApiModelProperty(required = true, value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign will target")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -251,7 +251,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The name for this campaign
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name for this campaign")
+  @ApiModelProperty(example = "campaign", required = true, value = "The name for this campaign")
   public String getName() {
     return name;
   }

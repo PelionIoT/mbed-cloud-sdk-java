@@ -228,7 +228,7 @@ public class UpdateCampaign implements Serializable {
    * The optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(value = "The optional description of the campaign")
+  @ApiModelProperty(example = "", value = "The optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -246,7 +246,7 @@ public class UpdateCampaign implements Serializable {
    * Get rootManifestId
    * @return rootManifestId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
   public String getRootManifestId() {
     return rootManifestId;
   }
@@ -282,7 +282,7 @@ public class UpdateCampaign implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(value = "The API resource entity")
+  @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -354,7 +354,7 @@ public class UpdateCampaign implements Serializable {
    * The entity instance signature
    * @return etag
   **/
-  @ApiModelProperty(value = "The entity instance signature")
+  @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "The entity instance signature")
   public String getEtag() {
     return etag;
   }
@@ -390,7 +390,7 @@ public class UpdateCampaign implements Serializable {
    * Get rootManifestUrl
    * @return rootManifestUrl
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", value = "")
   public String getRootManifestUrl() {
     return rootManifestUrl;
   }
@@ -444,7 +444,7 @@ public class UpdateCampaign implements Serializable {
    * The campaign ID
    * @return id
   **/
-  @ApiModelProperty(value = "The campaign ID")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The campaign ID")
   public String getId() {
     return id;
   }
@@ -462,7 +462,7 @@ public class UpdateCampaign implements Serializable {
    * The filter for the devices the campaign will target
    * @return deviceFilter
   **/
-  @ApiModelProperty(value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id=00000000000000000000000000000000", value = "The filter for the devices the campaign will target")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -480,7 +480,7 @@ public class UpdateCampaign implements Serializable {
    * The campaign name
    * @return name
   **/
-  @ApiModelProperty(value = "The campaign name")
+  @ApiModelProperty(example = "campaign", value = "The campaign name")
   public String getName() {
     return name;
   }
