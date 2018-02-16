@@ -58,7 +58,7 @@ public class AsyncIDResponse implements Serializable {
    * Asynchronous response status code for a device operation related to a proxy request or manual subscription.
    * @return status
   **/
-  @ApiModelProperty(value = "Asynchronous response status code for a device operation related to a proxy request or manual subscription.")
+  @ApiModelProperty(example = "200", value = "Asynchronous response status code for a device operation related to a proxy request or manual subscription.")
   public Integer getStatus() {
     return status;
   }
@@ -76,7 +76,7 @@ public class AsyncIDResponse implements Serializable {
    * Requested data, base64 encoded.
    * @return payload
   **/
-  @ApiModelProperty(value = "Requested data, base64 encoded.")
+  @ApiModelProperty(example = "My4zMQ==", value = "Requested data, base64 encoded.")
   public String getPayload() {
     return payload;
   }
@@ -94,7 +94,7 @@ public class AsyncIDResponse implements Serializable {
    * Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.
    * @return maxAge
   **/
-  @ApiModelProperty(value = "Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.")
+  @ApiModelProperty(example = "60", value = "Determines how long this value will be valid in cache, in seconds. 0 means that value is not stored in cache.")
   public String getMaxAge() {
     return maxAge;
   }
@@ -112,7 +112,7 @@ public class AsyncIDResponse implements Serializable {
    * Optional error message, describing the error.
    * @return error
   **/
-  @ApiModelProperty(value = "Optional error message, describing the error.")
+  @ApiModelProperty(example = "TIMEOUT", value = "Optional error message, describing the error.")
   public String getError() {
     return error;
   }
@@ -130,7 +130,7 @@ public class AsyncIDResponse implements Serializable {
    * Asynchronous response unique ID.
    * @return id
   **/
-  @ApiModelProperty(value = "Asynchronous response unique ID.")
+  @ApiModelProperty(example = "9e3c96b8-c4d7-496a-ab90-cc732b9b560e", value = "Asynchronous response unique ID.")
   public String getId() {
     return id;
   }
@@ -148,7 +148,7 @@ public class AsyncIDResponse implements Serializable {
    * Content type
    * @return ct
   **/
-  @ApiModelProperty(value = "Content type")
+  @ApiModelProperty(example = "text/plain", value = "Content type")
   public String getCt() {
     return ct;
   }

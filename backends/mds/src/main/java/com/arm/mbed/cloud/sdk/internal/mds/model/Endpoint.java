@@ -52,7 +52,7 @@ public class Endpoint implements Serializable {
    * Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
    * @return status
   **/
-  @ApiModelProperty(value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
+  @ApiModelProperty(example = "ACTIVE", value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
   public String getStatus() {
     return status;
   }
@@ -70,7 +70,7 @@ public class Endpoint implements Serializable {
    * Determines whether the device is in queue mode.  &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Queue mode&lt;/b&gt;&lt;br/&gt; When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. 
    * @return q
   **/
-  @ApiModelProperty(value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. ")
+  @ApiModelProperty(example = "false", value = "Determines whether the device is in queue mode.  <br/><br/><b>Queue mode</b><br/> When an endpoint is in queue mode, messages sent to the endpoint do not wake up the physical device. The messages are queued  and delivered when the device wakes up and connects to Mbed Cloud Connect itself. You can also use the queue mode when  the device is behind a NAT and cannot be reached directly by Mbed Cloud Connect. ")
   public Boolean isQ() {
     return q;
   }
@@ -88,7 +88,7 @@ public class Endpoint implements Serializable {
    * Type of endpoint. (Free text)
    * @return type
   **/
-  @ApiModelProperty(value = "Type of endpoint. (Free text)")
+  @ApiModelProperty(example = "Light", value = "Type of endpoint. (Free text)")
   public String getType() {
     return type;
   }
@@ -106,7 +106,7 @@ public class Endpoint implements Serializable {
    * Unique Mbed Cloud Device ID representing the endpoint.
    * @return name
   **/
-  @ApiModelProperty(value = "Unique Mbed Cloud Device ID representing the endpoint.")
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud Device ID representing the endpoint.")
   public String getName() {
     return name;
   }
