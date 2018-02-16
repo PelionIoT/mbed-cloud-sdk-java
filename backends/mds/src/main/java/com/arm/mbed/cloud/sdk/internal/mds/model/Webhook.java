@@ -49,7 +49,7 @@ public class Webhook implements Serializable {
    * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
    * @return url
   **/
-  @ApiModelProperty(example = "https://www.example.com/my-webhook", required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
+  @ApiModelProperty(required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
   public String getUrl() {
     return url;
   }
@@ -72,10 +72,10 @@ public class Webhook implements Serializable {
   }
 
    /**
-   * Headers (key/value) that are sent with the notification. Optional.
+   * The headers (key/value) sent with the notification. Optional.
    * @return headers
   **/
-  @ApiModelProperty(example = "\"{\\\"authorization\\\" : \\\"f4b93d6e-4652-4874-82e4-41a3ced0cd56\\\"}\"", value = "Headers (key/value) that are sent with the notification. Optional.")
+  @ApiModelProperty(value = "The headers (key/value) sent with the notification. Optional.")
   public Map<String, String> getHeaders() {
     return headers;
   }

@@ -48,10 +48,10 @@ public class Presubscription implements Serializable {
   }
 
    /**
-   * The Device ID
+   * The device ID.
    * @return endpointName
   **/
-  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "The Device ID")
+  @ApiModelProperty(value = "The device ID.")
   public String getEndpointName() {
     return endpointName;
   }
@@ -69,7 +69,7 @@ public class Presubscription implements Serializable {
    * Get endpointType
    * @return endpointType
   **/
-  @ApiModelProperty(example = "Light", value = "")
+  @ApiModelProperty(value = "")
   public String getEndpointType() {
     return endpointType;
   }
@@ -95,7 +95,7 @@ public class Presubscription implements Serializable {
    * Get resourcePath
    * @return resourcePath
   **/
-  @ApiModelProperty(example = "\"/sen/_*\"", value = "")
+  @ApiModelProperty(value = "")
   public List<String> getResourcePath() {
     return resourcePath;
   }
