@@ -490,7 +490,8 @@ public class Update extends AbstractApi {
                     public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> call() {
                         return endpoint.getUpdate().firmwareManifestCreate(
                                 DataFileAdapter.reverseMap(finalManifest.getDataFile()), finalManifest.getName(),
-                                finalManifest.getDescription());
+                                finalManifest.getDescription(),
+                                DataFileAdapter.reverseMap(finalManifest.getDecryptionKeysFile()));
                     }
 
                 });
