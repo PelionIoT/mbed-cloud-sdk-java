@@ -127,13 +127,13 @@ public class FirmwareManifest implements SdkModel {
      *            file
      * @param keyTableFile
      *            key table file
-     * @param keyTableURL
+     * @param keyTableUrl
      *            key table url
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
             String name, String description, long datafileSize, DataFile dataFile, DataFile keyTableFile,
-            URL keyTableURL) {
+            URL keyTableUrl) {
         super();
         setId(id);
         this.url = url;
@@ -142,7 +142,7 @@ public class FirmwareManifest implements SdkModel {
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
         this.datafileSize = datafileSize;
-        this.decryptionKeysUrl = keyTableURL;
+        this.decryptionKeysUrl = keyTableUrl;
         setName(name);
         setDescription(description);
         setDataFile(dataFile);
@@ -345,7 +345,7 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the URL to the decryption key table
+     * Gets the URL to the decryption key table.
      * 
      * @return the decryptionKeysUrl
      */
