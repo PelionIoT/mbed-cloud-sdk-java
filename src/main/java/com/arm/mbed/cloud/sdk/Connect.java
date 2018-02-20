@@ -1503,7 +1503,7 @@ public class Connect extends AbstractApi {
                     return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(
                             finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
                 }
-            });
+            }, true);
             return true;
         } catch (MbedCloudException exception) {
             return false;
