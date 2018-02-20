@@ -303,7 +303,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The endpoint name given to the device.
    * @return endpointName
   **/
-  @ApiModelProperty(value = "The endpoint name given to the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
   }
@@ -339,7 +339,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(value = "The `endpoint_name` of the host gateway, if appropriate.")
+  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -383,7 +383,7 @@ public class DeviceDataPostRequest implements Serializable {
    * Up to five custom key-value attributes. Note that keys cannot start with a number.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Up to five custom key-value attributes. Note that keys cannot start with a number.")
+  @ApiModelProperty(example = "\"{ 'key': 'value' }\"", value = "Up to five custom key-value attributes. Note that keys cannot start with a number.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -419,7 +419,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The serial number of the device.
    * @return serialNumber
   **/
-  @ApiModelProperty(value = "The serial number of the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The serial number of the device.")
   public String getSerialNumber() {
     return serialNumber;
   }
@@ -437,7 +437,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The SHA256 checksum of the current firmware image.
    * @return firmwareChecksum
   **/
-  @ApiModelProperty(value = "The SHA256 checksum of the current firmware image.")
+  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", value = "The SHA256 checksum of the current firmware image.")
   public String getFirmwareChecksum() {
     return firmwareChecksum;
   }
@@ -455,7 +455,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(value = "The API resource entity.")
+  @ApiModelProperty(example = "device", value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -473,7 +473,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(value = "The description of the device.")
+  @ApiModelProperty(example = "", value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -491,7 +491,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The device vendor ID.
    * @return vendorId
   **/
-  @ApiModelProperty(value = "The device vendor ID.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The device vendor ID.")
   public String getVendorId() {
     return vendorId;
   }
@@ -509,7 +509,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The endpoint type of the device. For example, the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(value = "The endpoint type of the device. For example, the device is a gateway.")
+  @ApiModelProperty(example = "", value = "The endpoint type of the device. For example, the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -527,7 +527,7 @@ public class DeviceDataPostRequest implements Serializable {
    * DEPRECATED: The last deployment used on the device.
    * @return deployment
   **/
-  @ApiModelProperty(value = "DEPRECATED: The last deployment used on the device.")
+  @ApiModelProperty(example = "", value = "DEPRECATED: The last deployment used on the device.")
   public String getDeployment() {
     return deployment;
   }
@@ -545,7 +545,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The address of the connector to use.
    * @return mechanismUrl
   **/
-  @ApiModelProperty(value = "The address of the connector to use.")
+  @ApiModelProperty(example = "", value = "The address of the connector to use.")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
@@ -563,7 +563,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The name of the device.")
   public String getName() {
     return name;
   }
@@ -581,7 +581,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(value = "The fingerprint of the device certificate.")
+  @ApiModelProperty(example = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00", value = "The fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -599,7 +599,7 @@ public class DeviceDataPostRequest implements Serializable {
    * DEPRECATED: The URL for the current device manifest.
    * @return manifest
   **/
-  @ApiModelProperty(value = "DEPRECATED: The URL for the current device manifest.")
+  @ApiModelProperty(example = "", value = "DEPRECATED: The URL for the current device manifest.")
   public String getManifest() {
     return manifest;
   }
@@ -617,7 +617,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The certificate issuer&#39;s ID.
    * @return caId
   **/
-  @ApiModelProperty(value = "The certificate issuer's ID.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
   public String getCaId() {
     return caId;
   }
