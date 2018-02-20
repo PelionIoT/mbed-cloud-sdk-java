@@ -7,14 +7,14 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generator of Universal Unique Identifier")
 @Internal
-public class UUIDGenerator {
+public class UuidGenerator {
     /**
      * Generates a UUID.
      * 
      * @return UUID
      */
-    public static String generateUUID() {
+    public static String generateUuid() {
         return UUID.randomUUID().toString();
-    };
+    }
 
 }

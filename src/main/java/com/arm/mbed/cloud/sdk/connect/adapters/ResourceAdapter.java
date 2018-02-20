@@ -138,29 +138,28 @@ public final class ResourceAdapter {
 
         @Override
         public Response<AsyncID> execute() throws IOException {
-            try {
-                call.execute();
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw e;
+            final Response<Void> response = call.execute();
+            if (response.isSuccessful()) {
+                return Response.success(new AsyncID().asyncResponseId(uuid));
             }
-            return Response.success(new AsyncID().asyncResponseId(uuid));
+            return Response.error(response.code(), response.errorBody());
         }
 
         @Override
         public void enqueue(retrofit2.Callback<AsyncID> callback) {
             final Call<AsyncID> thisCall = this;
+            final retrofit2.Callback<AsyncID> finalCallback = callback;
             call.enqueue(new retrofit2.Callback<Void>() {
 
                 @Override
-                public void onResponse(Call<Void> call, Response<Void> response) {
-                    callback.onResponse(thisCall, Response.success(new AsyncID().asyncResponseId(uuid)));
+                public void onResponse(Call<Void> call0, Response<Void> response) {
+                    finalCallback.onResponse(thisCall, Response.success(new AsyncID().asyncResponseId(uuid)));
 
                 }
 
                 @Override
-                public void onFailure(Call<Void> call, Throwable t) {
-                    callback.onFailure(thisCall, t);
+                public void onFailure(Call<Void> call0, Throwable throwable) {
+                    finalCallback.onFailure(thisCall, throwable);
 
                 }
             });

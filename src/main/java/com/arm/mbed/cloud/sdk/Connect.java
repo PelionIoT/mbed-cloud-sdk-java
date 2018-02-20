@@ -29,7 +29,7 @@ import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.common.UUIDGenerator;
+import com.arm.mbed.cloud.sdk.common.UuidGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -689,18 +689,16 @@ public class Connect extends AbstractApi {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final String finalAsyncId = UUIDGenerator.generateUUID();
+        final String finalAsyncId = UuidGenerator.generateUuid();
 
         autostartDaemonIfNeeded();
         return cache.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
 
             @Override
             public Call<AsyncID> call() {
-                System.out.println(finalAsyncId);
-                final Call<Void> initialCall = endpoint.getAsync().v2DeviceRequestsDeviceIdasyncIdasyncIdPost(
-                        finalDeviceId, finalAsyncId,
+                final Call<Void> initialCall = endpoint.getAsync().v2DeviceRequestsDeviceIdPost(finalDeviceId,
+                        finalAsyncId,
                         ResourceAdapter.callGetFunctionOnResource(ApiUtils.normaliseResourcePath(finalResourcePath)));
-                System.out.println(initialCall);
                 return ResourceAdapter.convertResourceCall(finalAsyncId, initialCall);
             }
         });
