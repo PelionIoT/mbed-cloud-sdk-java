@@ -307,7 +307,7 @@ public class NotificationCache {
                                 public Call<NotificationMessage> call() {
                                     return endpoint.getNotifications().v2NotificationPullGet();
                                 }
-                            }, false);
+                            }, false, true);
                     final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(

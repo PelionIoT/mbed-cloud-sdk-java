@@ -25,6 +25,7 @@ public class CloudCaller<T, U> {
     private final SdkLogger logger;
     private final String apiName;
     private final boolean storeMetadata;
+    private final boolean throwExceptionOnNotFound;
     private final AbstractApi module;
 
     /**
@@ -38,7 +39,7 @@ public class CloudCaller<T, U> {
     }
 
     private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
-            boolean storeMetada) {
+            boolean storeMetada, boolean throwExceptionOnNotFound) {
         super();
         this.caller = caller;
         this.mapper = mapper;
@@ -46,6 +47,7 @@ public class CloudCaller<T, U> {
         this.apiName = apiName;
         this.module = module;
         this.storeMetadata = storeMetada;
+        this.throwExceptionOnNotFound = throwExceptionOnNotFound;
     }
 
     /**
@@ -72,11 +74,13 @@ public class CloudCaller<T, U> {
      */
     public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
             throws MbedCloudException {
-        return call(module, functionName, mapper, caller, true);
+        return call(module, functionName, mapper, caller, false);
     }
 
     /**
      * Executes a call to Arm Mbed Cloud.
+     * <p>
+     * Note: call metadata are recorded
      * 
      * @param module
      *            API module
@@ -86,9 +90,8 @@ public class CloudCaller<T, U> {
      *            object mapper
      * @param caller
      *            request
-     * @param storeMetadata
-     *            states whether metadata should be recorded
-     * 
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
      * @param <T>
      *            type of HTTP response object.
      * @param <U>
@@ -98,8 +101,37 @@ public class CloudCaller<T, U> {
      *             if an error occurred during the call
      */
     public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
-            boolean storeMetadata) throws MbedCloudException {
-        return callWithFeedback(module, functionName, mapper, caller, storeMetadata).getResult();
+            boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return call(module, functionName, mapper, caller, true, throwExceptionOnNotFound);
+    }
+
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * 
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param mapper
+     *            object mapper
+     * @param caller
+     *            request
+     * @param storeMetadata
+     *            states whether metadata should be recorded
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
+     * @param <T>
+     *            type of HTTP response object.
+     * @param <U>
+     *            type of API response object.
+     * @return request result
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+            boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return callWithFeedback(module, functionName, mapper, caller, storeMetadata, throwExceptionOnNotFound)
+                .getResult();
     }
 
     /**
@@ -119,13 +151,16 @@ public class CloudCaller<T, U> {
      *            request
      * @param storeMetadata
      *            states whether metadata should be recorded
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
      * @return CallFeedback @see {@link CallFeedback}
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
     public static <T, U> CallFeedback<U> callWithFeedback(AbstractApi module, String functionName, Mapper<T, U> mapper,
-            CloudCall<T> caller, boolean storeMetadata) throws MbedCloudException {
-        return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata).execute();
+            CloudCall<T> caller, boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata, throwExceptionOnNotFound)
+                .execute();
     }
 
     /**
@@ -137,7 +172,7 @@ public class CloudCaller<T, U> {
      *            api metadata
      */
     public static void storeApiMetadata(AbstractApi module, ApiMetadata metadata) {
-        new CloudCaller<>(null, null, null, module, true).storeApiMetadataInTheCache(metadata);
+        new CloudCaller<>(null, null, null, module, true, false).storeApiMetadataInTheCache(metadata);
     }
 
     /**
@@ -185,6 +220,11 @@ public class CloudCaller<T, U> {
             logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
+            // In the case of a 404 Not found error, consider that the request result is actually NULL and not
+            // erroneous.
+            if (response.code() == 404 && !throwExceptionOnNotFound) {
+                return;
+            }
             final Error error = retrieveErrorDetails(response);
             if (comms != null) {
                 comms.setErrorMessage(error);
