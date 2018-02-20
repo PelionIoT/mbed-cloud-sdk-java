@@ -29,6 +29,7 @@ import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.UUIDGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -647,24 +648,60 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Future<Object> getResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath,
             @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse)
+            throws MbedCloudException {
+        return getResourceValueAsync(deviceId, resourcePath);
+    }
+
+    /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(deviceId, resourcePath);
+     *     String ledPattern = (String)futureLedPattern.get();
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param deviceId
+     *            The name/id of the device.
+     * @param resourcePath
+     *            The resource path to get.
+     * @return A Future from which it is possible to obtain resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> getResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath)
             throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final boolean finalCacheOnly = cacheOnly;
-        final boolean finalNoResponse = noResponse;
+        final String finalAsyncId = UUIDGenerator.generateUUID();
+
         autostartDaemonIfNeeded();
         return cache.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
 
-            @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath, resourceFunction, noResp)
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathGet(finalDeviceId,
-                        ApiUtils.normalisePath(finalResourcePath), finalCacheOnly, finalNoResponse);
+                System.out.println(finalAsyncId);
+                final Call<Void> initialCall = endpoint.getAsync().v2DeviceRequestsDeviceIdasyncIdasyncIdPost(
+                        finalDeviceId, finalAsyncId,
+                        ResourceAdapter.callGetFunctionOnResource(ApiUtils.normaliseResourcePath(finalResourcePath)));
+                System.out.println(initialCall);
+                return ResourceAdapter.convertResourceCall(finalAsyncId, initialCall);
             }
         });
 
@@ -703,11 +740,47 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Future<Object> getResourceValueAsync(@NonNull Resource resource,
             @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse)
             throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        return getResourceValueAsync(resource.getDeviceId(), resource.getPath(), cacheOnly, noResponse);
+        return getResourceValueAsync(resource);
+
+    }
+
+    /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     Device device = new Device();
+     *     device.setId("015f4ac587f500000000000100100249");     
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = connectApi.getResource(device, resourcePath);
+    
+     *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource);
+     *     String ledPattern = (String)futureLedPattern.get();
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param resource
+     *            The resource to get the value of.
+     * @return A Future from which it is possible to obtain resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> getResourceValueAsync(@NonNull Resource resource) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        return getResourceValueAsync(resource.getDeviceId(), resource.getPath());
 
     }
 
@@ -746,19 +819,54 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
             @DefaultValue(value = FALSE) boolean cacheOnly, @DefaultValue(value = FALSE) boolean noResponse,
             @Nullable TimePeriod timeout) throws MbedCloudException {
+        return getResourceValue(deviceId, resourcePath, timeout);
+    }
+
+    /**
+     * Gets a resource value for a given device id and resource path.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     String ledPattern = String.valueOf(connectApi.getResourceValue(deviceId, resourcePath,  new TimePeriod(5)));
+     *     System.out.println("LED pattern from device: " + ledPattern);
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @param deviceId
+     *            The name/id of the device.
+     * @param resourcePath
+     *            The resource path to get.
+     * @param timeout
+     *            Timeout for the request.
+     * @return resource value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
+            @Nullable TimePeriod timeout) throws MbedCloudException {
         final String id = deviceId;
         final String path = resourcePath;
-        final boolean fromCache = cacheOnly;
-        final boolean waitForResponse = noResponse;
         try {
             return SynchronousMethod.waitForCompletion(this, "getResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
-                    return getResourceValueAsync(id, path, fromCache, waitForResponse);
+                    return getResourceValueAsync(id, path);
                 }
             }, timeout);
         } catch (MbedCloudException exception) {
@@ -801,10 +909,11 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Object getResourceValue(@NonNull Resource resource, @DefaultValue(value = FALSE) boolean cacheOnly,
             @DefaultValue(value = FALSE) boolean noResponse, @Nullable TimePeriod timeout) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        return getResourceValue(resource.getDeviceId(), resource.getPath(), cacheOnly, noResponse, timeout);
+        return getResourceValue(resource, timeout);
 
     }
 
@@ -842,7 +951,7 @@ public class Connect extends AbstractApi {
     public @Nullable Object getResourceValue(@NonNull Resource resource, @Nullable TimePeriod timeout)
             throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
-        return getResourceValue(resource, false, false, timeout);
+        return getResourceValue(resource.getDeviceId(), resource.getPath(), timeout);
     }
 
     /**
@@ -1997,7 +2106,7 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook> call() {
-                        return endpoint.getWebhooks().v2NotificationCallbackGet();
+                        return endpoint.getNotifications().v2NotificationCallbackGet();
                     }
                 });
     }
@@ -2070,7 +2179,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getWebhooks().v2NotificationCallbackDelete();
+                return endpoint.getNotifications().v2NotificationCallbackDelete();
             }
         });
     }
