@@ -72,10 +72,10 @@ public class Webhook implements Serializable {
   }
 
    /**
-   * Headers (key/value) that are sent with the notification. Optional.
+   * The headers (key/value) sent with the notification. Optional.
    * @return headers
   **/
-  @ApiModelProperty(value = "Headers (key/value) that are sent with the notification. Optional.")
+  @ApiModelProperty(value = "The headers (key/value) sent with the notification. Optional.")
   public Map<String, String> getHeaders() {
     return headers;
   }
