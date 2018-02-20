@@ -46,7 +46,7 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
-import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
+import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
@@ -84,7 +84,7 @@ public class Connect extends AbstractApi {
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
     private final ExecutorService threadPool;
-    private final NotificationCache cache;
+    private final NotificationHandlersStore cache;
 
     /**
      * Connect module constructor.
@@ -126,7 +126,7 @@ public class Connect extends AbstractApi {
         deviceDirectory = new DeviceDirectory(options);
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
-        this.cache = new NotificationCache(this, (notificationPullingThreadPool == null)
+        this.cache = new NotificationHandlersStore(this, (notificationPullingThreadPool == null)
                 ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, endpoint);
 
     }
@@ -662,6 +662,7 @@ public class Connect extends AbstractApi {
             @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
+                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId, finalResourcePath, resourceFunction, noResp)
                 return endpoint.getResources().v2EndpointsDeviceIdResourcePathGet(finalDeviceId,
                         ApiUtils.normalisePath(finalResourcePath), finalCacheOnly, finalNoResponse);
             }

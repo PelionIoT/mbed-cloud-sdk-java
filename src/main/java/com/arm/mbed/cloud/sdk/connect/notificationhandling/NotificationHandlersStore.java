@@ -41,23 +41,23 @@ import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 import retrofit2.Call;
 
-@Preamble(description = "Internal cache for notifications")
+@Preamble(description = "Internal store for notifications")
 @Internal
-public class NotificationCache {
+public class NotificationHandlersStore {
 
     private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
 
-    private static final int CACHE_INITIAL_CAPACITY = 10;
+    private static final int STORE_INITIAL_CAPACITY = 10;
 
     private final AbstractApi api;
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
-    private final ConcurrentHashMap<String, AsyncResponse> responseCache;
-    private final DevicesSubscriptionCache subscriptionCache;
+    private final ConcurrentHashMap<String, AsyncResponse> responseStore;
+    private final DevicesSubscriptionHandlers subscriptionHandlers;
 
     /**
-     * Notification cache constructor.
+     * Notification store constructor.
      *
      * @param api
      *            API module
@@ -66,14 +66,14 @@ public class NotificationCache {
      * @param endpoint
      *            endpoint
      */
-    public NotificationCache(AbstractApi api, ExecutorService pullingThread, EndPoints endpoint) {
+    public NotificationHandlersStore(AbstractApi api, ExecutorService pullingThread, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);
         this.api = api;
         pullHandle = null;
-        responseCache = new ConcurrentHashMap<>(CACHE_INITIAL_CAPACITY);
-        subscriptionCache = new DevicesSubscriptionCache();
+        responseStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
+        subscriptionHandlers = new DevicesSubscriptionHandlers();
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -133,13 +133,13 @@ public class NotificationCache {
     }
 
     /**
-     * Shuts down the cache and the thread pool it uses.
+     * Shuts down the store and the thread pool it uses.
      */
     public void shutdown() {
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
-        clearCaches();
+        clearStores();
     }
 
     /**
@@ -154,7 +154,7 @@ public class NotificationCache {
      */
     public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
             Callback<Throwable> onFailure) {
-        subscriptionCache.registerNotificationSubscriptionCallback(resource, onNotification, onFailure);
+        subscriptionHandlers.registerNotificationSubscriptionCallback(resource, onNotification, onFailure);
     }
 
     /**
@@ -168,7 +168,7 @@ public class NotificationCache {
      */
     public @Nullable Flowable<Object> createResourceSubscriptionObserver(Resource resource,
             BackpressureStrategy strategy) {
-        return subscriptionCache.createResourceSubscriptionEmitter(resource, strategy);
+        return subscriptionHandlers.createResourceSubscriptionEmitter(resource, strategy);
     }
 
     /**
@@ -178,7 +178,7 @@ public class NotificationCache {
      *            resource to consider.
      */
     public void deregisterNotificationSubscriptionCallback(Resource resource) {
-        subscriptionCache.deregisterNotificationSubscriptionCallback(resource);
+        subscriptionHandlers.deregisterNotificationSubscriptionCallback(resource);
     }
 
     /**
@@ -188,7 +188,7 @@ public class NotificationCache {
      *            resource to consider.
      */
     public void removeResourceSubscriptionObserver(Resource resource) {
-        subscriptionCache.removeResourceSubscriptionEmitter(resource);
+        subscriptionHandlers.removeResourceSubscriptionEmitter(resource);
 
     }
 
@@ -196,7 +196,7 @@ public class NotificationCache {
      * Deregisters all subscription observers or callbacks.
      */
     public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
-        subscriptionCache.clear();
+        subscriptionHandlers.clear();
     }
 
     /**
@@ -206,7 +206,7 @@ public class NotificationCache {
      *            device id of the device.
      */
     public void deregisterAllResourceSubscriptionObserversOrCallbacks(String deviceId) {
-        subscriptionCache.removeDeviceCache(deviceId);
+        subscriptionHandlers.removeDeviceStore(deviceId);
     }
 
     /**
@@ -256,11 +256,11 @@ public class NotificationCache {
 
             @Override
             public Object call() throws InterruptedException {
-                while (!responseCache.containsKey(responseId)) {
+                while (!responseStore.containsKey(responseId)) {
                     Thread.sleep(10);
                 }
-                final AsyncResponse response = responseCache.get(responseId);
-                responseCache.remove(responseId);
+                final AsyncResponse response = responseStore.get(responseId);
+                responseStore.remove(responseId);
                 if (response == null) {
                     return null;
                 }
@@ -315,7 +315,7 @@ public class NotificationCache {
                                         + feedback.getMetadata());
                         return;
                     }
-                    cacheResponses(notificationMessage.getAsyncResponses());
+                    storeResponses(notificationMessage.getAsyncResponses());
                     handleSubscriptions(notificationMessage.getNotifications());
 
                 } catch (MbedCloudException exception) {
@@ -325,9 +325,9 @@ public class NotificationCache {
         };
     }
 
-    private void clearCaches() {
-        responseCache.clear();
-        subscriptionCache.clear();
+    private void clearStores() {
+        responseStore.clear();
+        subscriptionHandlers.clear();
     }
 
     private void handleSubscriptions(List<NotificationData> notifications) {
@@ -346,7 +346,7 @@ public class NotificationCache {
                 logNotificationError(exception);
                 throwable = exception;
             }
-            subscriptionCache.handleNotification(notification.getEp(), notification.getPath(), value, throwable);
+            subscriptionHandlers.handleNotification(notification.getEp(), notification.getPath(), value, throwable);
         }
     }
 
@@ -358,7 +358,7 @@ public class NotificationCache {
         api.getLogger().logError("An error occurred during Notification pull", exception);
     }
 
-    private void cacheResponses(List<AsyncIDResponse> asyncResponses) {
+    private void storeResponses(List<AsyncIDResponse> asyncResponses) {
         if (asyncResponses == null) {
             return;
         }
@@ -369,7 +369,7 @@ public class NotificationCache {
 
             try {
                 final AsyncResponse asyncResponse = new AsyncResponse(response);
-                responseCache.put(asyncResponse.getKey(), asyncResponse);
+                responseStore.put(asyncResponse.getKey(), asyncResponse);
             } catch (DecodingException exception) {
                 logPullError(exception);
             }
@@ -592,14 +592,14 @@ public class NotificationCache {
 
     }
 
-    private static class DeviceSubscriptionCache {
-        private final ConcurrentMap<String, NotificationHandler> cache = new ConcurrentHashMap<>();
+    private static class DeviceSubscriptionStore {
+        private final ConcurrentMap<String, NotificationHandler> store = new ConcurrentHashMap<>();
 
         public void handleNotification(String resourcePath, Object notification, Throwable throwable) {
             if (resourcePath == null) {
                 return;
             }
-            final NotificationHandler handler = cache.get(resourcePath);
+            final NotificationHandler handler = store.get(resourcePath);
             if (handler != null) {
                 handler.handleNotification(notification, throwable);
             }
@@ -610,7 +610,7 @@ public class NotificationCache {
                 return null;
             }
             NotificationHandler handler = new NotificationHandler();
-            final NotificationHandler formerHandler = cache.putIfAbsent(resourcePath, handler);
+            final NotificationHandler formerHandler = store.putIfAbsent(resourcePath, handler);
             if (formerHandler != null) {
                 handler = formerHandler;
             }
@@ -668,34 +668,34 @@ public class NotificationCache {
             if (resourcePath == null) {
                 return;
             }
-            cache.remove(resourcePath);
+            store.remove(resourcePath);
         }
 
         public void removeAllNotificationHandlers() {
-            cache.clear();
+            store.clear();
         }
     }
 
-    private static class DevicesSubscriptionCache {
-        private final ConcurrentMap<String, DeviceSubscriptionCache> cache = new ConcurrentHashMap<>(
-                CACHE_INITIAL_CAPACITY);
+    private static class DevicesSubscriptionHandlers {
+        private final ConcurrentMap<String, DeviceSubscriptionStore> store = new ConcurrentHashMap<>(
+                STORE_INITIAL_CAPACITY);
 
         public void handleNotification(String deviceId, String resourcePath, Object notification, Throwable throwable) {
             if (deviceId == null) {
                 return;
             }
-            final DeviceSubscriptionCache deviceCache = cache.get(deviceId);
-            if (deviceCache != null) {
-                deviceCache.handleNotification(resourcePath, notification, throwable);
+            final DeviceSubscriptionStore deviceStore = store.get(deviceId);
+            if (deviceStore != null) {
+                deviceStore.handleNotification(resourcePath, notification, throwable);
             }
         }
 
-        public DeviceSubscriptionCache getDeviceHandlerOrCreate(String deviceId) {
+        public DeviceSubscriptionStore getDeviceHandlerOrCreate(String deviceId) {
             if (deviceId == null) {
                 return null;
             }
-            DeviceSubscriptionCache deviceCache = new DeviceSubscriptionCache();
-            final DeviceSubscriptionCache formerCache = cache.putIfAbsent(deviceId, deviceCache);
+            DeviceSubscriptionStore deviceCache = new DeviceSubscriptionStore();
+            final DeviceSubscriptionStore formerCache = store.putIfAbsent(deviceId, deviceCache);
             if (formerCache != null) {
                 deviceCache = formerCache;
             }
@@ -707,7 +707,7 @@ public class NotificationCache {
             if (resource == null || !resource.isValid()) {
                 return;
             }
-            final DeviceSubscriptionCache deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
+            final DeviceSubscriptionStore deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
             deviceCache.registerNotificationSubscriptionCallback(resource.getPath(), onNotification, onFailure);
 
         }
@@ -716,7 +716,7 @@ public class NotificationCache {
             if (resource == null || !resource.isValid()) {
                 return null;
             }
-            final DeviceSubscriptionCache deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
+            final DeviceSubscriptionStore deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
             return deviceCache.createResourceSubscriptionEmitter(resource.getPath(), strategy);
         }
 
@@ -724,7 +724,7 @@ public class NotificationCache {
             if (resource == null || !resource.isValid()) {
                 return;
             }
-            final DeviceSubscriptionCache deviceCache = cache.get(resource.getDeviceId());
+            final DeviceSubscriptionStore deviceCache = store.get(resource.getDeviceId());
             if (deviceCache == null) {
                 return;
             }
@@ -735,22 +735,22 @@ public class NotificationCache {
             if (resource == null || !resource.isValid()) {
                 return;
             }
-            final DeviceSubscriptionCache deviceCache = cache.get(resource.getDeviceId());
+            final DeviceSubscriptionStore deviceCache = store.get(resource.getDeviceId());
             if (deviceCache == null) {
                 return;
             }
             deviceCache.removeResourceSubscriptionEmitter(resource.getPath());
         }
 
-        public void removeDeviceCache(String deviceId) {
+        public void removeDeviceStore(String deviceId) {
             if (deviceId == null) {
                 return;
             }
-            cache.remove(deviceId);
+            store.remove(deviceId);
         }
 
         public void clear() {
-            cache.clear();
+            store.clear();
         }
     }
 }
