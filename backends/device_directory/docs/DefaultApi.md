@@ -4,29 +4,29 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** v3/devices/ | 
-[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** v3/devices/{id}/ | 
-[**deviceEventList**](DefaultApi.md#deviceEventList) | **GET** v3/device-events/ | 
-[**deviceEventRetrieve**](DefaultApi.md#deviceEventRetrieve) | **GET** v3/device-events/{device_event_id}/ | 
-[**deviceList**](DefaultApi.md#deviceList) | **GET** v3/devices/ | 
-[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** v3/devicelog/ | 
-[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** v3/devicelog/{device_event_id}/ | 
-[**deviceQueryCreate**](DefaultApi.md#deviceQueryCreate) | **POST** v3/device-queries/ | 
-[**deviceQueryDestroy**](DefaultApi.md#deviceQueryDestroy) | **DELETE** v3/device-queries/{query_id}/ | 
-[**deviceQueryList**](DefaultApi.md#deviceQueryList) | **GET** v3/device-queries/ | 
-[**deviceQueryRetrieve**](DefaultApi.md#deviceQueryRetrieve) | **GET** v3/device-queries/{query_id}/ | 
-[**deviceQueryUpdate**](DefaultApi.md#deviceQueryUpdate) | **PUT** v3/device-queries/{query_id}/ | 
-[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** v3/devices/{id}/ | 
-[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** v3/devices/{id}/ | 
+[**deviceCreate**](DefaultApi.md#deviceCreate) | **POST** v3/devices/ | Create a device
+[**deviceDestroy**](DefaultApi.md#deviceDestroy) | **DELETE** v3/devices/{id}/ | Delete a device.
+[**deviceEventList**](DefaultApi.md#deviceEventList) | **GET** v3/device-events/ | List all device events.
+[**deviceEventRetrieve**](DefaultApi.md#deviceEventRetrieve) | **GET** v3/device-events/{device_event_id}/ | Retrieve a device event.
+[**deviceList**](DefaultApi.md#deviceList) | **GET** v3/devices/ | List all devices.
+[**deviceLogList**](DefaultApi.md#deviceLogList) | **GET** v3/devicelog/ | DEPRECATED: List all device events.
+[**deviceLogRetrieve**](DefaultApi.md#deviceLogRetrieve) | **GET** v3/devicelog/{device_event_id}/ | DEPRECATED: Retrieve a device event.
+[**deviceQueryCreate**](DefaultApi.md#deviceQueryCreate) | **POST** v3/device-queries/ | Create a device query
+[**deviceQueryDestroy**](DefaultApi.md#deviceQueryDestroy) | **DELETE** v3/device-queries/{query_id}/ | Delete a device query
+[**deviceQueryList**](DefaultApi.md#deviceQueryList) | **GET** v3/device-queries/ | List device queries.
+[**deviceQueryRetrieve**](DefaultApi.md#deviceQueryRetrieve) | **GET** v3/device-queries/{query_id}/ | Retrieve a device query.
+[**deviceQueryUpdate**](DefaultApi.md#deviceQueryUpdate) | **PUT** v3/device-queries/{query_id}/ | Update a device query
+[**deviceRetrieve**](DefaultApi.md#deviceRetrieve) | **GET** v3/devices/{id}/ | Get a devices
+[**deviceUpdate**](DefaultApi.md#deviceUpdate) | **PUT** v3/devices/{id}/ | Update a device
 
 
 <a name="deviceCreate"></a>
 # **deviceCreate**
 > DeviceData deviceCreate(device)
 
+Create a device
 
-
-Create device.
+Create a new device.
 
 ### Example
 ```java
@@ -79,7 +79,7 @@ Name | Type | Description  | Notes
 # **deviceDestroy**
 > Void deviceDestroy(id)
 
-
+Delete a device.
 
 Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
 
@@ -134,9 +134,9 @@ Name | Type | Description  | Notes
 # **deviceEventList**
 > DeviceEventPage deviceEventList(limit, order, after, filter, include)
 
-
-
 List all device events.
+
+List all device events for an account.
 
 ### Example
 ```java
@@ -197,9 +197,9 @@ Name | Type | Description  | Notes
 # **deviceEventRetrieve**
 > DeviceEventData deviceEventRetrieve(deviceEventId)
 
+Retrieve a device event.
 
-
-Retrieve device event.
+Retrieve a specific device event.
 
 ### Example
 ```java
@@ -252,7 +252,7 @@ Name | Type | Description  | Notes
 # **deviceList**
 > DevicePage deviceList(limit, order, after, filter, include)
 
-
+List all devices.
 
 List all devices.
 
@@ -315,7 +315,7 @@ Name | Type | Description  | Notes
 # **deviceLogList**
 > DeviceEventPage deviceLogList(limit, order, after, filter, include)
 
-
+DEPRECATED: List all device events.
 
 DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
 
@@ -378,7 +378,7 @@ Name | Type | Description  | Notes
 # **deviceLogRetrieve**
 > DeviceEventData deviceLogRetrieve(deviceEventId)
 
-
+DEPRECATED: Retrieve a device event.
 
 Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
 
@@ -433,9 +433,9 @@ Name | Type | Description  | Notes
 # **deviceQueryCreate**
 > DeviceQuery deviceQueryCreate(device)
 
+Create a device query
 
-
-Create device query.
+Create a new device query.
 
 ### Example
 ```java
@@ -488,9 +488,9 @@ Name | Type | Description  | Notes
 # **deviceQueryDestroy**
 > Void deviceQueryDestroy(queryId)
 
+Delete a device query
 
-
-Delete device query.
+Delete a device query.
 
 ### Example
 ```java
@@ -543,7 +543,7 @@ Name | Type | Description  | Notes
 # **deviceQueryList**
 > DeviceQueryPage deviceQueryList(limit, order, after, filter, include)
 
-
+List device queries.
 
 List all device queries. The result will be paged into pages of 100.
 
@@ -606,9 +606,9 @@ Name | Type | Description  | Notes
 # **deviceQueryRetrieve**
 > DeviceQuery deviceQueryRetrieve(queryId)
 
+Retrieve a device query.
 
-
-Retrieve device query.
+Retrieve a specific device query.
 
 ### Example
 ```java
@@ -661,9 +661,9 @@ Name | Type | Description  | Notes
 # **deviceQueryUpdate**
 > DeviceQuery deviceQueryUpdate(queryId, body)
 
+Update a device query
 
-
-Update device query.
+Update a specifc device query.
 
 ### Example
 ```java
@@ -718,9 +718,9 @@ Name | Type | Description  | Notes
 # **deviceRetrieve**
 > DeviceData deviceRetrieve(id)
 
+Get a devices
 
-
-Retrieve device.
+Retrieve information about a specific device.
 
 ### Example
 ```java
@@ -773,9 +773,9 @@ Name | Type | Description  | Notes
 # **deviceUpdate**
 > DeviceData deviceUpdate(id, device)
 
+Update a device
 
-
-Update device.
+Update a specific device.
 
 ### Example
 ```java

@@ -26,8 +26,8 @@ import java.util.Map;
 
 public interface DefaultApi {
   /**
-   * 
-   * Create device.
+   * Create a device
+   * Create a new device.
    * @param device  (required)
    * @return Call&lt;DeviceData&gt;
    */
@@ -37,7 +37,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete a device.
    * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
    * @param id  (required)
    * @return Call&lt;Void&gt;
@@ -48,8 +48,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
    * List all device events.
+   * List all device events for an account.
    * @param limit How many objects to retrieve in the page. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
@@ -63,8 +63,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Retrieve device event.
+   * Retrieve a device event.
+   * Retrieve a specific device event.
    * @param deviceEventId  (required)
    * @return Call&lt;DeviceEventData&gt;
    */
@@ -74,7 +74,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List all devices.
    * List all devices.
    * @param limit How many objects to retrieve in the page. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
@@ -89,7 +89,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * DEPRECATED: List all device events.
    * DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
    * @param limit How many objects to retrieve in the page. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
@@ -104,7 +104,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * DEPRECATED: Retrieve a device event.
    * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
    * @param deviceEventId  (required)
    * @return Call&lt;DeviceEventData&gt;
@@ -115,8 +115,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Create device query.
+   * Create a device query
+   * Create a new device query.
    * @param device  (required)
    * @return Call&lt;DeviceQuery&gt;
    */
@@ -126,8 +126,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Delete device query.
+   * Delete a device query
+   * Delete a device query.
    * @param queryId  (required)
    * @return Call&lt;Void&gt;
    */
@@ -137,7 +137,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List device queries.
    * List all device queries. The result will be paged into pages of 100.
    * @param limit How many objects to retrieve in the page. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
@@ -152,8 +152,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Retrieve device query.
+   * Retrieve a device query.
+   * Retrieve a specific device query.
    * @param queryId  (required)
    * @return Call&lt;DeviceQuery&gt;
    */
@@ -163,8 +163,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Update device query.
+   * Update a device query
+   * Update a specifc device query.
    * @param queryId  (required)
    * @param body Device query update object. (required)
    * @return Call&lt;DeviceQuery&gt;
@@ -175,8 +175,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Retrieve device.
+   * Get a devices
+   * Retrieve information about a specific device.
    * @param id  (required)
    * @return Call&lt;DeviceData&gt;
    */
@@ -186,8 +186,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Update device.
+   * Update a device
+   * Update a specific device.
    * @param id The ID of the device. (required)
    * @param device  (required)
    * @return Call&lt;DeviceData&gt;
