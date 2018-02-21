@@ -136,13 +136,28 @@ public final class ResourceAdapter {
             this.call = call;
         }
 
+        // TODO This is a temporary implementation to transform a Response<Void> to Response<AsyncID> and ensure the
+        // error message contained in the body is correctly passed. This may need change/refactoring in the future when
+        // the error message changes
         @Override
         public Response<AsyncID> execute() throws IOException {
             final Response<Void> response = call.execute();
             if (response.isSuccessful()) {
                 return Response.success(new AsyncID().asyncResponseId(uuid));
             }
-            return Response.error(response.code(), response.errorBody());
+
+            final StringBuilder errorMessageBuilder = new StringBuilder();
+            errorMessageBuilder.append(response.message());
+            try {
+                final String errorMessage = response.errorBody().string();
+                if (errorMessage != null && !errorMessage.isEmpty()) {
+                    errorMessageBuilder.append(": ").append(errorMessage);
+                }
+            } catch (Exception exception) {
+                // Nothing to do.
+            }
+            return Response.error(response.errorBody(),
+                    response.raw().newBuilder().message(errorMessageBuilder.toString()).build());
         }
 
         @Override

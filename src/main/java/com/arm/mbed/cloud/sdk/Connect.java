@@ -85,7 +85,7 @@ public class Connect extends AbstractApi {
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
     private final ExecutorService threadPool;
-    private final NotificationHandlersStore cache;
+    private final NotificationHandlersStore handlersStore;
 
     /**
      * Connect module constructor.
@@ -127,7 +127,7 @@ public class Connect extends AbstractApi {
         deviceDirectory = new DeviceDirectory(options);
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
-        this.cache = new NotificationHandlersStore(this, (notificationPullingThreadPool == null)
+        this.handlersStore = new NotificationHandlersStore(this, (notificationPullingThreadPool == null)
                 ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, endpoint);
 
     }
@@ -187,11 +187,11 @@ public class Connect extends AbstractApi {
             logger.throwSdkException("A webhook is currently set up [" + webhook
                     + "]. Notification pull cannot be used at the same time. Please remove the webhook if you want to use this mechanism instead.");
         }
-        cache.startNotificationPull();
+        handlersStore.startNotificationPull();
     }
 
     private void autostartDaemonIfNeeded() throws MbedCloudException {
-        if (!cache.isPullingActive() && endpoint.isAutostartDaemon()) {
+        if (!handlersStore.isPullingActive() && endpoint.isAutostartDaemon()) {
             startNotifications();
         }
     }
@@ -213,7 +213,7 @@ public class Connect extends AbstractApi {
     @API
     @Daemon(task = "Notification pull", stop = true)
     public void stopNotifications() throws MbedCloudException {
-        cache.stopNotificationPull();
+        handlersStore.stopNotificationPull();
         CloudCaller.call(this, "stopNotification()", null, new CloudCall<Void>() {
 
             @Override
@@ -237,7 +237,7 @@ public class Connect extends AbstractApi {
     @API
     @Daemon(task = "Notification pull", shutdown = true)
     public void shutdownConnectService() {
-        cache.shutdown();
+        handlersStore.shutdown();
         threadPool.shutdown();
     }
 
@@ -689,10 +689,10 @@ public class Connect extends AbstractApi {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         final String finalDeviceId = deviceId;
         final String finalResourcePath = resourcePath;
-        final String finalAsyncId = UuidGenerator.generateUuid();
+        final String finalAsyncId = UuidGenerator.generate();
 
         autostartDaemonIfNeeded();
-        return cache.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
+        return handlersStore.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
 
             @Override
             public Call<AsyncID> call() {
@@ -995,7 +995,7 @@ public class Connect extends AbstractApi {
         final String finalResourceValue = (resourceValue == null) ? null : resourceValue;
         final boolean finalNoResponse = noResponse;
         autostartDaemonIfNeeded();
-        return cache.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
+        return handlersStore.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
             @Override
@@ -1230,7 +1230,7 @@ public class Connect extends AbstractApi {
         final String finalFunctionName = (functionName == null) ? "" : functionName;
         final boolean finalNoResponse = noResponse;
         autostartDaemonIfNeeded();
-        return cache.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
+        return handlersStore.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
 
             @SuppressWarnings("boxing")
             @Override
@@ -1657,7 +1657,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public void notify(@Nullable NotificationMessage data) {
-        cache.notify(data);
+        handlersStore.notify(data);
     }
 
     /**
@@ -1896,7 +1896,7 @@ public class Connect extends AbstractApi {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
         checkNotNull(onNotification, TAG_ON_NOTIFICATION_CALLBACK);
-        cache.registerSubscriptionCallback(resource, onNotification, onFailure);
+        handlersStore.registerSubscriptionCallback(resource, onNotification, onFailure);
     }
 
     /**
@@ -1924,7 +1924,7 @@ public class Connect extends AbstractApi {
     public void deregisterResourceSubscriptionCallback(@NonNull Resource resource) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        cache.deregisterNotificationSubscriptionCallback(resource);
+        handlersStore.deregisterNotificationSubscriptionCallback(resource);
     }
 
     /**
@@ -1960,7 +1960,7 @@ public class Connect extends AbstractApi {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
         final BackpressureStrategy finalStrategy = (strategy == null) ? BackpressureStrategy.BUFFER : strategy;
-        return cache.createResourceSubscriptionObserver(resource, finalStrategy);
+        return handlersStore.createResourceSubscriptionObserver(resource, finalStrategy);
     }
 
     /**
@@ -1986,7 +1986,7 @@ public class Connect extends AbstractApi {
     public void removeResourceSubscriptionObserver(@NonNull Resource resource) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        cache.removeResourceSubscriptionObserver(resource);
+        handlersStore.removeResourceSubscriptionObserver(resource);
     }
 
     /**
@@ -2013,7 +2013,7 @@ public class Connect extends AbstractApi {
             throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(device.getId(), TAG_DEVICE_ID);
-        cache.deregisterAllResourceSubscriptionObserversOrCallbacks(device.getId());
+        handlersStore.deregisterAllResourceSubscriptionObserversOrCallbacks(device.getId());
     }
 
     /**
@@ -2030,7 +2030,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
-        cache.deregisterAllResourceSubscriptionObserversOrCallbacks();
+        handlersStore.deregisterAllResourceSubscriptionObserversOrCallbacks();
     }
 
     /**

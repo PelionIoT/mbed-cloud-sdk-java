@@ -13,7 +13,7 @@ public class UuidGenerator {
      * 
      * @return UUID
      */
-    public static String generateUuid() {
+    public static String generate() {
         return UUID.randomUUID().toString();
     }
 
