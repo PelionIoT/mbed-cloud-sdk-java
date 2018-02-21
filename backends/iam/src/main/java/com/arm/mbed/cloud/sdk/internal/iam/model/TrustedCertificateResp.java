@@ -83,70 +83,17 @@ public class TrustedCertificateResp implements Serializable {
   @SerializedName("service")
   private ServiceEnum service = null;
 
-  /**
-   * Status of the certificate.
-   */
-  @JsonAdapter(StatusEnum.Adapter.class)
-  public enum StatusEnum {
-    ACTIVE("ACTIVE"),
-    
-    INACTIVE("INACTIVE");
+  @SerializedName("enrollment_mode")
+  private Boolean enrollmentMode = null;
 
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<StatusEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public StatusEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return StatusEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("status")
-  private StatusEnum status = null;
-
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("account_id")
+  private String accountId = null;
 
   @SerializedName("certificate")
   private String certificate = null;
 
-  @SerializedName("enrollment_mode")
-  private Boolean enrollmentMode = null;
-
-  @SerializedName("issuer")
-  private String issuer = null;
-
-  @SerializedName("device_execution_mode")
-  private Integer deviceExecutionMode = null;
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
@@ -199,23 +146,76 @@ public class TrustedCertificateResp implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
+  @SerializedName("device_execution_mode")
+  private Integer deviceExecutionMode = null;
+
+  @SerializedName("owner_id")
+  private String ownerId = null;
+
   @SerializedName("subject")
   private String subject = null;
 
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
-  @SerializedName("account_id")
-  private String accountId = null;
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("etag")
   private String etag = null;
 
+  /**
+   * Status of the certificate.
+   */
+  @JsonAdapter(StatusEnum.Adapter.class)
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    INACTIVE("INACTIVE");
+
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("status")
+  private StatusEnum status = null;
+
   @SerializedName("validity")
   private DateTime validity = null;
 
-  @SerializedName("owner_id")
-  private String ownerId = null;
+  @SerializedName("issuer")
+  private String issuer = null;
 
   @SerializedName("id")
   private String id = null;
@@ -241,40 +241,40 @@ public class TrustedCertificateResp implements Serializable {
     this.service = service;
   }
 
-  public TrustedCertificateResp status(StatusEnum status) {
-    this.status = status;
+  public TrustedCertificateResp enrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
     return this;
   }
 
    /**
-   * Status of the certificate.
-   * @return status
+   * If true, signature is not required. Default value false.
+   * @return enrollmentMode
   **/
-  @ApiModelProperty(example = "ACTIVE", value = "Status of the certificate.")
-  public StatusEnum getStatus() {
-    return status;
+  @ApiModelProperty(example = "false", value = "If true, signature is not required. Default value false.")
+  public Boolean isEnrollmentMode() {
+    return enrollmentMode;
   }
 
-  public void setStatus(StatusEnum status) {
-    this.status = status;
+  public void setEnrollmentMode(Boolean enrollmentMode) {
+    this.enrollmentMode = enrollmentMode;
   }
 
-  public TrustedCertificateResp name(String name) {
-    this.name = name;
+  public TrustedCertificateResp accountId(String accountId) {
+    this.accountId = accountId;
     return this;
   }
 
    /**
-   * Certificate name.
-   * @return name
+   * The UUID of the account.
+   * @return accountId
   **/
-  @ApiModelProperty(example = "My certificate", required = true, value = "Certificate name.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
+  public String getAccountId() {
+    return accountId;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
   public TrustedCertificateResp certificate(String certificate) {
@@ -295,58 +295,22 @@ public class TrustedCertificateResp implements Serializable {
     this.certificate = certificate;
   }
 
-  public TrustedCertificateResp enrollmentMode(Boolean enrollmentMode) {
-    this.enrollmentMode = enrollmentMode;
+  public TrustedCertificateResp updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * If true, signature is not required. Default value false.
-   * @return enrollmentMode
+   * Last update UTC time RFC3339.
+   * @return updatedAt
   **/
-  @ApiModelProperty(example = "false", value = "If true, signature is not required. Default value false.")
-  public Boolean isEnrollmentMode() {
-    return enrollmentMode;
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setEnrollmentMode(Boolean enrollmentMode) {
-    this.enrollmentMode = enrollmentMode;
-  }
-
-  public TrustedCertificateResp issuer(String issuer) {
-    this.issuer = issuer;
-    return this;
-  }
-
-   /**
-   * Issuer of the certificate.
-   * @return issuer
-  **/
-  @ApiModelProperty(example = "CN=issuer", required = true, value = "Issuer of the certificate.")
-  public String getIssuer() {
-    return issuer;
-  }
-
-  public void setIssuer(String issuer) {
-    this.issuer = issuer;
-  }
-
-  public TrustedCertificateResp deviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
-    return this;
-  }
-
-   /**
-   * Device execution mode where 1 means a developer certificate.
-   * @return deviceExecutionMode
-  **/
-  @ApiModelProperty(example = "1", value = "Device execution mode where 1 means a developer certificate.")
-  public Integer getDeviceExecutionMode() {
-    return deviceExecutionMode;
-  }
-
-  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public TrustedCertificateResp createdAt(DateTime createdAt) {
@@ -385,6 +349,42 @@ public class TrustedCertificateResp implements Serializable {
     this.object = object;
   }
 
+  public TrustedCertificateResp deviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+    return this;
+  }
+
+   /**
+   * Device execution mode where 1 means a developer certificate.
+   * @return deviceExecutionMode
+  **/
+  @ApiModelProperty(example = "1", value = "Device execution mode where 1 means a developer certificate.")
+  public Integer getDeviceExecutionMode() {
+    return deviceExecutionMode;
+  }
+
+  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+  }
+
+  public TrustedCertificateResp ownerId(String ownerId) {
+    this.ownerId = ownerId;
+    return this;
+  }
+
+   /**
+   * The UUID of the owner.
+   * @return ownerId
+  **/
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The UUID of the owner.")
+  public String getOwnerId() {
+    return ownerId;
+  }
+
+  public void setOwnerId(String ownerId) {
+    this.ownerId = ownerId;
+  }
+
   public TrustedCertificateResp subject(String subject) {
     this.subject = subject;
     return this;
@@ -403,40 +403,22 @@ public class TrustedCertificateResp implements Serializable {
     this.subject = subject;
   }
 
-  public TrustedCertificateResp updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public TrustedCertificateResp name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Last update UTC time RFC3339.
-   * @return updatedAt
+   * Certificate name.
+   * @return name
   **/
-  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
+  @ApiModelProperty(example = "My certificate", required = true, value = "Certificate name.")
+  public String getName() {
+    return name;
   }
 
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public TrustedCertificateResp accountId(String accountId) {
-    this.accountId = accountId;
-    return this;
-  }
-
-   /**
-   * The UUID of the account.
-   * @return accountId
-  **/
-  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
-  public String getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public TrustedCertificateResp etag(String etag) {
@@ -457,6 +439,24 @@ public class TrustedCertificateResp implements Serializable {
     this.etag = etag;
   }
 
+  public TrustedCertificateResp status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Status of the certificate.
+   * @return status
+  **/
+  @ApiModelProperty(example = "ACTIVE", value = "Status of the certificate.")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
   public TrustedCertificateResp validity(DateTime validity) {
     this.validity = validity;
     return this;
@@ -475,22 +475,22 @@ public class TrustedCertificateResp implements Serializable {
     this.validity = validity;
   }
 
-  public TrustedCertificateResp ownerId(String ownerId) {
-    this.ownerId = ownerId;
+  public TrustedCertificateResp issuer(String issuer) {
+    this.issuer = issuer;
     return this;
   }
 
    /**
-   * The UUID of the owner.
-   * @return ownerId
+   * Issuer of the certificate.
+   * @return issuer
   **/
-  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The UUID of the owner.")
-  public String getOwnerId() {
-    return ownerId;
+  @ApiModelProperty(example = "CN=issuer", required = true, value = "Issuer of the certificate.")
+  public String getIssuer() {
+    return issuer;
   }
 
-  public void setOwnerId(String ownerId) {
-    this.ownerId = ownerId;
+  public void setIssuer(String issuer) {
+    this.issuer = issuer;
   }
 
   public TrustedCertificateResp id(String id) {
@@ -540,27 +540,27 @@ public class TrustedCertificateResp implements Serializable {
     }
     TrustedCertificateResp trustedCertificateResp = (TrustedCertificateResp) o;
     return Objects.equals(this.service, trustedCertificateResp.service) &&
-        Objects.equals(this.status, trustedCertificateResp.status) &&
-        Objects.equals(this.name, trustedCertificateResp.name) &&
-        Objects.equals(this.certificate, trustedCertificateResp.certificate) &&
         Objects.equals(this.enrollmentMode, trustedCertificateResp.enrollmentMode) &&
-        Objects.equals(this.issuer, trustedCertificateResp.issuer) &&
-        Objects.equals(this.deviceExecutionMode, trustedCertificateResp.deviceExecutionMode) &&
+        Objects.equals(this.accountId, trustedCertificateResp.accountId) &&
+        Objects.equals(this.certificate, trustedCertificateResp.certificate) &&
+        Objects.equals(this.updatedAt, trustedCertificateResp.updatedAt) &&
         Objects.equals(this.createdAt, trustedCertificateResp.createdAt) &&
         Objects.equals(this.object, trustedCertificateResp.object) &&
-        Objects.equals(this.subject, trustedCertificateResp.subject) &&
-        Objects.equals(this.updatedAt, trustedCertificateResp.updatedAt) &&
-        Objects.equals(this.accountId, trustedCertificateResp.accountId) &&
-        Objects.equals(this.etag, trustedCertificateResp.etag) &&
-        Objects.equals(this.validity, trustedCertificateResp.validity) &&
+        Objects.equals(this.deviceExecutionMode, trustedCertificateResp.deviceExecutionMode) &&
         Objects.equals(this.ownerId, trustedCertificateResp.ownerId) &&
+        Objects.equals(this.subject, trustedCertificateResp.subject) &&
+        Objects.equals(this.name, trustedCertificateResp.name) &&
+        Objects.equals(this.etag, trustedCertificateResp.etag) &&
+        Objects.equals(this.status, trustedCertificateResp.status) &&
+        Objects.equals(this.validity, trustedCertificateResp.validity) &&
+        Objects.equals(this.issuer, trustedCertificateResp.issuer) &&
         Objects.equals(this.id, trustedCertificateResp.id) &&
         Objects.equals(this.description, trustedCertificateResp.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(service, status, name, certificate, enrollmentMode, issuer, deviceExecutionMode, createdAt, object, subject, updatedAt, accountId, etag, validity, ownerId, id, description);
+    return Objects.hash(service, enrollmentMode, accountId, certificate, updatedAt, createdAt, object, deviceExecutionMode, ownerId, subject, name, etag, status, validity, issuer, id, description);
   }
 
 
@@ -570,20 +570,20 @@ public class TrustedCertificateResp implements Serializable {
     sb.append("class TrustedCertificateResp {\n");
     
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
     sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
-    sb.append("    issuer: ").append(toIndentedString(issuer)).append("\n");
-    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
+    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
     sb.append("    ownerId: ").append(toIndentedString(ownerId)).append("\n");
+    sb.append("    subject: ").append(toIndentedString(subject)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
+    sb.append("    issuer: ").append(toIndentedString(issuer)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");

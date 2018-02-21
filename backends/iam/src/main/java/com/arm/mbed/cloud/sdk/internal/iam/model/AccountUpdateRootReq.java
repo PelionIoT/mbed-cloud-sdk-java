@@ -46,9 +46,6 @@ public class AccountUpdateRootReq implements Serializable {
   @SerializedName("sales_contact")
   private String salesContact = null;
 
-  @SerializedName("email")
-  private String email = null;
-
   @SerializedName("postal_code")
   private String postalCode = null;
 
@@ -123,11 +120,14 @@ public class AccountUpdateRootReq implements Serializable {
   @SerializedName("state")
   private String state = null;
 
-  @SerializedName("contract_number")
-  private String contractNumber = null;
+  @SerializedName("email")
+  private String email = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
+
+  @SerializedName("contract_number")
+  private String contractNumber = null;
 
   @SerializedName("company")
   private String company = null;
@@ -202,24 +202,6 @@ public class AccountUpdateRootReq implements Serializable {
 
   public void setSalesContact(String salesContact) {
     this.salesContact = salesContact;
-  }
-
-  public AccountUpdateRootReq email(String email) {
-    this.email = email;
-    return this;
-  }
-
-   /**
-   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-   * @return email
-  **/
-  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
   }
 
   public AccountUpdateRootReq postalCode(String postalCode) {
@@ -400,22 +382,22 @@ public class AccountUpdateRootReq implements Serializable {
     this.state = state;
   }
 
-  public AccountUpdateRootReq contractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public AccountUpdateRootReq email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * Contract number of the customer.
-   * @return contractNumber
+   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+   * @return email
   **/
-  @ApiModelProperty(value = "Contract number of the customer.")
-  public String getContractNumber() {
-    return contractNumber;
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  public String getEmail() {
+    return email;
   }
 
-  public void setContractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public AccountUpdateRootReq phoneNumber(String phoneNumber) {
@@ -434,6 +416,24 @@ public class AccountUpdateRootReq implements Serializable {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public AccountUpdateRootReq contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+    return this;
+  }
+
+   /**
+   * Contract number of the customer.
+   * @return contractNumber
+  **/
+  @ApiModelProperty(value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
   }
 
   public AccountUpdateRootReq company(String company) {
@@ -583,7 +583,6 @@ public class AccountUpdateRootReq implements Serializable {
     return Objects.equals(this.endMarket, accountUpdateRootReq.endMarket) &&
         Objects.equals(this.passwordPolicy, accountUpdateRootReq.passwordPolicy) &&
         Objects.equals(this.salesContact, accountUpdateRootReq.salesContact) &&
-        Objects.equals(this.email, accountUpdateRootReq.email) &&
         Objects.equals(this.postalCode, accountUpdateRootReq.postalCode) &&
         Objects.equals(this.accountProperties, accountUpdateRootReq.accountProperties) &&
         Objects.equals(this.aliases, accountUpdateRootReq.aliases) &&
@@ -593,8 +592,9 @@ public class AccountUpdateRootReq implements Serializable {
         Objects.equals(this.displayName, accountUpdateRootReq.displayName) &&
         Objects.equals(this.mfaStatus, accountUpdateRootReq.mfaStatus) &&
         Objects.equals(this.state, accountUpdateRootReq.state) &&
-        Objects.equals(this.contractNumber, accountUpdateRootReq.contractNumber) &&
+        Objects.equals(this.email, accountUpdateRootReq.email) &&
         Objects.equals(this.phoneNumber, accountUpdateRootReq.phoneNumber) &&
+        Objects.equals(this.contractNumber, accountUpdateRootReq.contractNumber) &&
         Objects.equals(this.company, accountUpdateRootReq.company) &&
         Objects.equals(this.idleTimeout, accountUpdateRootReq.idleTimeout) &&
         Objects.equals(this.country, accountUpdateRootReq.country) &&
@@ -606,7 +606,7 @@ public class AccountUpdateRootReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, passwordPolicy, salesContact, email, postalCode, accountProperties, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, state, contractNumber, phoneNumber, company, idleTimeout, country, customerNumber, expirationWarningThreshold, contact, notificationEmails);
+    return Objects.hash(endMarket, passwordPolicy, salesContact, postalCode, accountProperties, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, state, email, phoneNumber, contractNumber, company, idleTimeout, country, customerNumber, expirationWarningThreshold, contact, notificationEmails);
   }
 
 
@@ -618,7 +618,6 @@ public class AccountUpdateRootReq implements Serializable {
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    salesContact: ").append(toIndentedString(salesContact)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
@@ -628,8 +627,9 @@ public class AccountUpdateRootReq implements Serializable {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");

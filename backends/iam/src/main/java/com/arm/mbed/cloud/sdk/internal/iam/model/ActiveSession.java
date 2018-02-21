@@ -33,20 +33,104 @@ import java.io.Serializable;
 public class ActiveSession implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("account_id")
+  private String accountId = null;
+
+  /**
+   * Entity name: always &#39;user-session&#39;
+   */
+  @JsonAdapter(ObjectEnum.Adapter.class)
+  public enum ObjectEnum {
+    SESSION("user-session");
+
+    private String value;
+
+    ObjectEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("object")
+  private ObjectEnum object = null;
+
   @SerializedName("user_agent")
   private String userAgent = null;
 
   @SerializedName("ip_address")
   private String ipAddress = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
-
   @SerializedName("reference_token")
   private String referenceToken = null;
 
   @SerializedName("login_time")
   private DateTime loginTime = null;
+
+  public ActiveSession accountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+   /**
+   * The UUID of the account.
+   * @return accountId
+  **/
+  @ApiModelProperty(required = true, value = "The UUID of the account.")
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
+  }
+
+  public ActiveSession object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;user-session&#39;
+   * @return object
+  **/
+  @ApiModelProperty(required = true, value = "Entity name: always 'user-session'")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
 
   public ActiveSession userAgent(String userAgent) {
     this.userAgent = userAgent;
@@ -82,24 +166,6 @@ public class ActiveSession implements Serializable {
 
   public void setIpAddress(String ipAddress) {
     this.ipAddress = ipAddress;
-  }
-
-  public ActiveSession accountId(String accountId) {
-    this.accountId = accountId;
-    return this;
-  }
-
-   /**
-   * The UUID of the account.
-   * @return accountId
-  **/
-  @ApiModelProperty(required = true, value = "The UUID of the account.")
-  public String getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
   }
 
   public ActiveSession referenceToken(String referenceToken) {
@@ -148,16 +214,17 @@ public class ActiveSession implements Serializable {
       return false;
     }
     ActiveSession activeSession = (ActiveSession) o;
-    return Objects.equals(this.userAgent, activeSession.userAgent) &&
+    return Objects.equals(this.accountId, activeSession.accountId) &&
+        Objects.equals(this.object, activeSession.object) &&
+        Objects.equals(this.userAgent, activeSession.userAgent) &&
         Objects.equals(this.ipAddress, activeSession.ipAddress) &&
-        Objects.equals(this.accountId, activeSession.accountId) &&
         Objects.equals(this.referenceToken, activeSession.referenceToken) &&
         Objects.equals(this.loginTime, activeSession.loginTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(userAgent, ipAddress, accountId, referenceToken, loginTime);
+    return Objects.hash(accountId, object, userAgent, ipAddress, referenceToken, loginTime);
   }
 
 
@@ -166,9 +233,10 @@ public class ActiveSession implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ActiveSession {\n");
     
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    referenceToken: ").append(toIndentedString(referenceToken)).append("\n");
     sb.append("    loginTime: ").append(toIndentedString(loginTime)).append("\n");
     sb.append("}");

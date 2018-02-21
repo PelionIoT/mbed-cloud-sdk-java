@@ -26,6 +26,7 @@ LIST | &quot;list&quot;
 ERROR | &quot;error&quot;
 POLICY | &quot;policy&quot;
 IDENTITY_PROVIDER | &quot;identity-provider&quot;
+USER_SESSION | &quot;user-session&quot;
 
 
 <a name="TypeEnum"></a>

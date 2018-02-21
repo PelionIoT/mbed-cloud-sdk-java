@@ -1,5 +1,5 @@
 
-# TrustedCertificateInternalRespList
+# PolicyInfoList
 
 ## Properties
 Name | Type | Description | Notes
@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **totalCount** | **Integer** | The total number or records, if requested. It might be returned also for small lists. | 
 **after** | **String** | The entity ID to fetch after the given one. |  [optional]
 **limit** | **Integer** | The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60; | 
-**data** | [**List&lt;TrustedCertificateInternalResp&gt;**](TrustedCertificateInternalResp.md) | A list of entities. | 
+**data** | [**List&lt;PolicyInfo&gt;**](PolicyInfo.md) | A list of entities. | 
 **order** | [**OrderEnum**](#OrderEnum) | The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC. |  [optional]
 
 

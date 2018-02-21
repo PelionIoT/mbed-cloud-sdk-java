@@ -55,23 +55,23 @@ public class AccountCreationReq implements Serializable {
   @SerializedName("customer_number")
   private String customerNumber = null;
 
-  @SerializedName("contract_number")
-  private String contractNumber = null;
+  @SerializedName("contact")
+  private String contact = null;
+
+  @SerializedName("email")
+  private String email = null;
 
   @SerializedName("state")
   private String state = null;
 
-  @SerializedName("contact")
-  private String contact = null;
+  @SerializedName("admin_name")
+  private String adminName = null;
 
   @SerializedName("postal_code")
   private String postalCode = null;
 
   @SerializedName("admin_password")
   private String adminPassword = null;
-
-  @SerializedName("admin_name")
-  private String adminName = null;
 
   @SerializedName("admin_full_name")
   private String adminFullName = null;
@@ -85,8 +85,8 @@ public class AccountCreationReq implements Serializable {
   @SerializedName("phone_number")
   private String phoneNumber = null;
 
-  @SerializedName("email")
-  private String email = null;
+  @SerializedName("contract_number")
+  private String contractNumber = null;
 
   @SerializedName("aliases")
   private List<String> aliases = null;
@@ -217,22 +217,40 @@ public class AccountCreationReq implements Serializable {
     this.customerNumber = customerNumber;
   }
 
-  public AccountCreationReq contractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public AccountCreationReq contact(String contact) {
+    this.contact = contact;
     return this;
   }
 
    /**
-   * Contract number of the customer.
-   * @return contractNumber
+   * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
+   * @return contact
   **/
-  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
-  public String getContractNumber() {
-    return contractNumber;
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
+  public String getContact() {
+    return contact;
   }
 
-  public void setContractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public void setContact(String contact) {
+    this.contact = contact;
+  }
+
+  public AccountCreationReq email(String email) {
+    this.email = email;
+    return this;
+  }
+
+   /**
+   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+   * @return email
+  **/
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public AccountCreationReq state(String state) {
@@ -253,22 +271,22 @@ public class AccountCreationReq implements Serializable {
     this.state = state;
   }
 
-  public AccountCreationReq contact(String contact) {
-    this.contact = contact;
+  public AccountCreationReq adminName(String adminName) {
+    this.adminName = adminName;
     return this;
   }
 
    /**
-   * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
-   * @return contact
+   * The username of the admin user to be created, containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
+   * @return adminName
   **/
-  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
-  public String getContact() {
-    return contact;
+  @ApiModelProperty(example = "admin", value = "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  public String getAdminName() {
+    return adminName;
   }
 
-  public void setContact(String contact) {
-    this.contact = contact;
+  public void setAdminName(String adminName) {
+    this.adminName = adminName;
   }
 
   public AccountCreationReq postalCode(String postalCode) {
@@ -305,24 +323,6 @@ public class AccountCreationReq implements Serializable {
 
   public void setAdminPassword(String adminPassword) {
     this.adminPassword = adminPassword;
-  }
-
-  public AccountCreationReq adminName(String adminName) {
-    this.adminName = adminName;
-    return this;
-  }
-
-   /**
-   * The username of the admin user to be created, containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
-   * @return adminName
-  **/
-  @ApiModelProperty(example = "admin", value = "The username of the admin user to be created, containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
-  public String getAdminName() {
-    return adminName;
-  }
-
-  public void setAdminName(String adminName) {
-    this.adminName = adminName;
   }
 
   public AccountCreationReq adminFullName(String adminFullName) {
@@ -397,22 +397,22 @@ public class AccountCreationReq implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public AccountCreationReq email(String email) {
-    this.email = email;
+  public AccountCreationReq contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
     return this;
   }
 
    /**
-   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-   * @return email
+   * Contract number of the customer.
+   * @return contractNumber
   **/
-  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
-  public String getEmail() {
-    return email;
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
   }
 
   public AccountCreationReq aliases(List<String> aliases) {
@@ -458,23 +458,23 @@ public class AccountCreationReq implements Serializable {
         Objects.equals(this.country, accountCreationReq.country) &&
         Objects.equals(this.company, accountCreationReq.company) &&
         Objects.equals(this.customerNumber, accountCreationReq.customerNumber) &&
-        Objects.equals(this.contractNumber, accountCreationReq.contractNumber) &&
-        Objects.equals(this.state, accountCreationReq.state) &&
         Objects.equals(this.contact, accountCreationReq.contact) &&
+        Objects.equals(this.email, accountCreationReq.email) &&
+        Objects.equals(this.state, accountCreationReq.state) &&
+        Objects.equals(this.adminName, accountCreationReq.adminName) &&
         Objects.equals(this.postalCode, accountCreationReq.postalCode) &&
         Objects.equals(this.adminPassword, accountCreationReq.adminPassword) &&
-        Objects.equals(this.adminName, accountCreationReq.adminName) &&
         Objects.equals(this.adminFullName, accountCreationReq.adminFullName) &&
         Objects.equals(this.endMarket, accountCreationReq.endMarket) &&
         Objects.equals(this.adminEmail, accountCreationReq.adminEmail) &&
         Objects.equals(this.phoneNumber, accountCreationReq.phoneNumber) &&
-        Objects.equals(this.email, accountCreationReq.email) &&
+        Objects.equals(this.contractNumber, accountCreationReq.contractNumber) &&
         Objects.equals(this.aliases, accountCreationReq.aliases);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, customerNumber, contractNumber, state, contact, postalCode, adminPassword, adminName, adminFullName, endMarket, adminEmail, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, customerNumber, contact, email, state, adminName, postalCode, adminPassword, adminFullName, endMarket, adminEmail, phoneNumber, contractNumber, aliases);
   }
 
 
@@ -490,17 +490,17 @@ public class AccountCreationReq implements Serializable {
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
-    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
-    sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
     sb.append("    adminFullName: ").append(toIndentedString(adminFullName)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    adminEmail: ").append(toIndentedString(adminEmail)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("}");
     return sb.toString();

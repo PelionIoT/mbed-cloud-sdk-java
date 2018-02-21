@@ -88,8 +88,8 @@ public class TrustedCertificateRootReq implements Serializable {
   @SerializedName("certificate")
   private String certificate = null;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("description")
+  private String description = null;
 
   /**
    * Service name where the certificate must be used.
@@ -144,8 +144,8 @@ public class TrustedCertificateRootReq implements Serializable {
   @SerializedName("signature")
   private String signature = null;
 
-  @SerializedName("description")
-  private String description = null;
+  @SerializedName("name")
+  private String name = null;
 
   public TrustedCertificateRootReq status(StatusEnum status) {
     this.status = status;
@@ -201,22 +201,22 @@ public class TrustedCertificateRootReq implements Serializable {
     this.certificate = certificate;
   }
 
-  public TrustedCertificateRootReq name(String name) {
-    this.name = name;
+  public TrustedCertificateRootReq description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Certificate name, not longer than 100 characters.
-   * @return name
+   * Human readable description of this certificate, not longer than 500 characters.
+   * @return description
   **/
-  @ApiModelProperty(required = true, value = "Certificate name, not longer than 100 characters.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
+  public String getDescription() {
+    return description;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public TrustedCertificateRootReq service(ServiceEnum service) {
@@ -255,22 +255,22 @@ public class TrustedCertificateRootReq implements Serializable {
     this.signature = signature;
   }
 
-  public TrustedCertificateRootReq description(String description) {
-    this.description = description;
+  public TrustedCertificateRootReq name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Human readable description of this certificate, not longer than 500 characters.
-   * @return description
+   * Certificate name, not longer than 100 characters.
+   * @return name
   **/
-  @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
-  public String getDescription() {
-    return description;
+  @ApiModelProperty(required = true, value = "Certificate name, not longer than 100 characters.")
+  public String getName() {
+    return name;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setName(String name) {
+    this.name = name;
   }
 
 
@@ -286,15 +286,15 @@ public class TrustedCertificateRootReq implements Serializable {
     return Objects.equals(this.status, trustedCertificateRootReq.status) &&
         Objects.equals(this.enrollmentMode, trustedCertificateRootReq.enrollmentMode) &&
         Objects.equals(this.certificate, trustedCertificateRootReq.certificate) &&
-        Objects.equals(this.name, trustedCertificateRootReq.name) &&
+        Objects.equals(this.description, trustedCertificateRootReq.description) &&
         Objects.equals(this.service, trustedCertificateRootReq.service) &&
         Objects.equals(this.signature, trustedCertificateRootReq.signature) &&
-        Objects.equals(this.description, trustedCertificateRootReq.description);
+        Objects.equals(this.name, trustedCertificateRootReq.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, enrollmentMode, certificate, name, service, signature, description);
+    return Objects.hash(status, enrollmentMode, certificate, description, service, signature, name);
   }
 
 
@@ -306,10 +306,10 @@ public class TrustedCertificateRootReq implements Serializable {
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
     sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyInfo;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,10 +28,10 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * ApiKeyInfoRespList
+ * PolicyInfoList
  */
 
-public class ApiKeyInfoRespList implements Serializable {
+public class PolicyInfoList implements Serializable {
   private static final long serialVersionUID = 1L;
 
   /**
@@ -95,7 +95,7 @@ public class ApiKeyInfoRespList implements Serializable {
   private Integer limit = null;
 
   @SerializedName("data")
-  private List<ApiKeyInfoResp> data = new ArrayList<ApiKeyInfoResp>();
+  private List<PolicyInfo> data = new ArrayList<PolicyInfo>();
 
   /**
    * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
@@ -147,7 +147,7 @@ public class ApiKeyInfoRespList implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
-  public ApiKeyInfoRespList object(ObjectEnum object) {
+  public PolicyInfoList object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -165,7 +165,7 @@ public class ApiKeyInfoRespList implements Serializable {
     this.object = object;
   }
 
-  public ApiKeyInfoRespList hasMore(Boolean hasMore) {
+  public PolicyInfoList hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
@@ -183,7 +183,7 @@ public class ApiKeyInfoRespList implements Serializable {
     this.hasMore = hasMore;
   }
 
-  public ApiKeyInfoRespList totalCount(Integer totalCount) {
+  public PolicyInfoList totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -201,7 +201,7 @@ public class ApiKeyInfoRespList implements Serializable {
     this.totalCount = totalCount;
   }
 
-  public ApiKeyInfoRespList after(String after) {
+  public PolicyInfoList after(String after) {
     this.after = after;
     return this;
   }
@@ -219,7 +219,7 @@ public class ApiKeyInfoRespList implements Serializable {
     this.after = after;
   }
 
-  public ApiKeyInfoRespList limit(Integer limit) {
+  public PolicyInfoList limit(Integer limit) {
     this.limit = limit;
     return this;
   }
@@ -237,12 +237,12 @@ public class ApiKeyInfoRespList implements Serializable {
     this.limit = limit;
   }
 
-  public ApiKeyInfoRespList data(List<ApiKeyInfoResp> data) {
+  public PolicyInfoList data(List<PolicyInfo> data) {
     this.data = data;
     return this;
   }
 
-  public ApiKeyInfoRespList addDataItem(ApiKeyInfoResp dataItem) {
+  public PolicyInfoList addDataItem(PolicyInfo dataItem) {
     this.data.add(dataItem);
     return this;
   }
@@ -252,15 +252,15 @@ public class ApiKeyInfoRespList implements Serializable {
    * @return data
   **/
   @ApiModelProperty(required = true, value = "A list of entities.")
-  public List<ApiKeyInfoResp> getData() {
+  public List<PolicyInfo> getData() {
     return data;
   }
 
-  public void setData(List<ApiKeyInfoResp> data) {
+  public void setData(List<PolicyInfo> data) {
     this.data = data;
   }
 
-  public ApiKeyInfoRespList order(OrderEnum order) {
+  public PolicyInfoList order(OrderEnum order) {
     this.order = order;
     return this;
   }
@@ -287,14 +287,14 @@ public class ApiKeyInfoRespList implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ApiKeyInfoRespList apiKeyInfoRespList = (ApiKeyInfoRespList) o;
-    return Objects.equals(this.object, apiKeyInfoRespList.object) &&
-        Objects.equals(this.hasMore, apiKeyInfoRespList.hasMore) &&
-        Objects.equals(this.totalCount, apiKeyInfoRespList.totalCount) &&
-        Objects.equals(this.after, apiKeyInfoRespList.after) &&
-        Objects.equals(this.limit, apiKeyInfoRespList.limit) &&
-        Objects.equals(this.data, apiKeyInfoRespList.data) &&
-        Objects.equals(this.order, apiKeyInfoRespList.order);
+    PolicyInfoList policyInfoList = (PolicyInfoList) o;
+    return Objects.equals(this.object, policyInfoList.object) &&
+        Objects.equals(this.hasMore, policyInfoList.hasMore) &&
+        Objects.equals(this.totalCount, policyInfoList.totalCount) &&
+        Objects.equals(this.after, policyInfoList.after) &&
+        Objects.equals(this.limit, policyInfoList.limit) &&
+        Objects.equals(this.data, policyInfoList.data) &&
+        Objects.equals(this.order, policyInfoList.order);
   }
 
   @Override
@@ -306,7 +306,7 @@ public class ApiKeyInfoRespList implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ApiKeyInfoRespList {\n");
+    sb.append("class PolicyInfoList {\n");
     
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");

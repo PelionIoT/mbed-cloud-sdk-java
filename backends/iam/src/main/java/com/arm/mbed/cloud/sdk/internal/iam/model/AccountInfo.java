@@ -112,9 +112,6 @@ public class AccountInfo implements Serializable {
   @SerializedName("account_properties")
   private Map<String, Map<String, String>> accountProperties = null;
 
-  @SerializedName("customer_number")
-  private String customerNumber = null;
-
   @SerializedName("id")
   private String id = null;
 
@@ -198,6 +195,9 @@ public class AccountInfo implements Serializable {
   @SerializedName("phone_number")
   private String phoneNumber = null;
 
+  @SerializedName("contract_number")
+  private String contractNumber = null;
+
   @SerializedName("reference_note")
   private String referenceNote = null;
 
@@ -252,8 +252,8 @@ public class AccountInfo implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
-  @SerializedName("reason")
-  private String reason = null;
+  @SerializedName("idle_timeout")
+  private String idleTimeout = null;
 
   @SerializedName("upgraded_at")
   private DateTime upgradedAt = null;
@@ -273,11 +273,11 @@ public class AccountInfo implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("idle_timeout")
-  private String idleTimeout = null;
+  @SerializedName("reason")
+  private String reason = null;
 
-  @SerializedName("contract_number")
-  private String contractNumber = null;
+  @SerializedName("customer_number")
+  private String customerNumber = null;
 
   @SerializedName("expiration_warning_threshold")
   private String expirationWarningThreshold = null;
@@ -426,24 +426,6 @@ public class AccountInfo implements Serializable {
 
   public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
     this.accountProperties = accountProperties;
-  }
-
-  public AccountInfo customerNumber(String customerNumber) {
-    this.customerNumber = customerNumber;
-    return this;
-  }
-
-   /**
-   * Customer number of the customer.
-   * @return customerNumber
-  **/
-  @ApiModelProperty(example = "1NC25_0001", value = "Customer number of the customer.")
-  public String getCustomerNumber() {
-    return customerNumber;
-  }
-
-  public void setCustomerNumber(String customerNumber) {
-    this.customerNumber = customerNumber;
   }
 
   public AccountInfo id(String id) {
@@ -667,6 +649,24 @@ public class AccountInfo implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
+  public AccountInfo contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+    return this;
+  }
+
+   /**
+   * Contract number of the customer.
+   * @return contractNumber
+  **/
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+  }
+
   public AccountInfo referenceNote(String referenceNote) {
     this.referenceNote = referenceNote;
     return this;
@@ -721,22 +721,22 @@ public class AccountInfo implements Serializable {
     this.object = object;
   }
 
-  public AccountInfo reason(String reason) {
-    this.reason = reason;
+  public AccountInfo idleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
     return this;
   }
 
    /**
-   * A reason note for updating the status of the account
-   * @return reason
+   * The reference token expiration time in minutes for this account.
+   * @return idleTimeout
   **/
-  @ApiModelProperty(example = "Subscription paid.", value = "A reason note for updating the status of the account")
-  public String getReason() {
-    return reason;
+  @ApiModelProperty(example = "30", value = "The reference token expiration time in minutes for this account.")
+  public String getIdleTimeout() {
+    return idleTimeout;
   }
 
-  public void setReason(String reason) {
-    this.reason = reason;
+  public void setIdleTimeout(String idleTimeout) {
+    this.idleTimeout = idleTimeout;
   }
 
   public AccountInfo upgradedAt(DateTime upgradedAt) {
@@ -863,40 +863,40 @@ public class AccountInfo implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public AccountInfo idleTimeout(String idleTimeout) {
-    this.idleTimeout = idleTimeout;
+  public AccountInfo reason(String reason) {
+    this.reason = reason;
     return this;
   }
 
    /**
-   * The reference token expiration time in minutes for this account.
-   * @return idleTimeout
+   * A reason note for updating the status of the account
+   * @return reason
   **/
-  @ApiModelProperty(example = "30", value = "The reference token expiration time in minutes for this account.")
-  public String getIdleTimeout() {
-    return idleTimeout;
+  @ApiModelProperty(example = "Subscription paid.", value = "A reason note for updating the status of the account")
+  public String getReason() {
+    return reason;
   }
 
-  public void setIdleTimeout(String idleTimeout) {
-    this.idleTimeout = idleTimeout;
+  public void setReason(String reason) {
+    this.reason = reason;
   }
 
-  public AccountInfo contractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public AccountInfo customerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
     return this;
   }
 
    /**
-   * Contract number of the customer.
-   * @return contractNumber
+   * Customer number of the customer.
+   * @return customerNumber
   **/
-  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
-  public String getContractNumber() {
-    return contractNumber;
+  @ApiModelProperty(example = "1NC25_0001", value = "Customer number of the customer.")
+  public String getCustomerNumber() {
+    return customerNumber;
   }
 
-  public void setContractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
+  public void setCustomerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
   }
 
   public AccountInfo expirationWarningThreshold(String expirationWarningThreshold) {
@@ -1022,7 +1022,6 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.updatedAt, accountInfo.updatedAt) &&
         Objects.equals(this.postalCode, accountInfo.postalCode) &&
         Objects.equals(this.accountProperties, accountInfo.accountProperties) &&
-        Objects.equals(this.customerNumber, accountInfo.customerNumber) &&
         Objects.equals(this.id, accountInfo.id) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
         Objects.equals(this.addressLine2, accountInfo.addressLine2) &&
@@ -1035,18 +1034,19 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.etag, accountInfo.etag) &&
         Objects.equals(this.email, accountInfo.email) &&
         Objects.equals(this.phoneNumber, accountInfo.phoneNumber) &&
+        Objects.equals(this.contractNumber, accountInfo.contractNumber) &&
         Objects.equals(this.referenceNote, accountInfo.referenceNote) &&
         Objects.equals(this.company, accountInfo.company) &&
         Objects.equals(this.object, accountInfo.object) &&
-        Objects.equals(this.reason, accountInfo.reason) &&
+        Objects.equals(this.idleTimeout, accountInfo.idleTimeout) &&
         Objects.equals(this.upgradedAt, accountInfo.upgradedAt) &&
         Objects.equals(this.tier, accountInfo.tier) &&
         Objects.equals(this.subAccounts, accountInfo.subAccounts) &&
         Objects.equals(this.limits, accountInfo.limits) &&
         Objects.equals(this.country, accountInfo.country) &&
         Objects.equals(this.createdAt, accountInfo.createdAt) &&
-        Objects.equals(this.idleTimeout, accountInfo.idleTimeout) &&
-        Objects.equals(this.contractNumber, accountInfo.contractNumber) &&
+        Objects.equals(this.reason, accountInfo.reason) &&
+        Objects.equals(this.customerNumber, accountInfo.customerNumber) &&
         Objects.equals(this.expirationWarningThreshold, accountInfo.expirationWarningThreshold) &&
         Objects.equals(this.contact, accountInfo.contact) &&
         Objects.equals(this.policies, accountInfo.policies) &&
@@ -1056,7 +1056,7 @@ public class AccountInfo implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, status, passwordPolicy, salesContact, updatedAt, postalCode, accountProperties, customerNumber, id, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, parentId, state, etag, email, phoneNumber, referenceNote, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contractNumber, expirationWarningThreshold, contact, policies, notificationEmails, templateId);
+    return Objects.hash(endMarket, status, passwordPolicy, salesContact, updatedAt, postalCode, accountProperties, id, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, parentId, state, etag, email, phoneNumber, contractNumber, referenceNote, company, object, idleTimeout, upgradedAt, tier, subAccounts, limits, country, createdAt, reason, customerNumber, expirationWarningThreshold, contact, policies, notificationEmails, templateId);
   }
 
 
@@ -1072,7 +1072,6 @@ public class AccountInfo implements Serializable {
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
-    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
@@ -1085,18 +1084,19 @@ public class AccountInfo implements Serializable {
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    referenceNote: ").append(toIndentedString(referenceNote)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
     sb.append("    upgradedAt: ").append(toIndentedString(upgradedAt)).append("\n");
     sb.append("    tier: ").append(toIndentedString(tier)).append("\n");
     sb.append("    subAccounts: ").append(toIndentedString(subAccounts)).append("\n");
     sb.append("    limits: ").append(toIndentedString(limits)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
-    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
+    sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
+    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    policies: ").append(toIndentedString(policies)).append("\n");

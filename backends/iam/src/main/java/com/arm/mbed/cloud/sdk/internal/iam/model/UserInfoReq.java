@@ -40,8 +40,8 @@ public class UserInfoReq implements Serializable {
   @SerializedName("username")
   private String username = null;
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+  @SerializedName("is_marketing_accepted")
+  private Boolean isMarketingAccepted = null;
 
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
@@ -49,8 +49,8 @@ public class UserInfoReq implements Serializable {
   @SerializedName("full_name")
   private String fullName = null;
 
-  @SerializedName("is_marketing_accepted")
-  private Boolean isMarketingAccepted = null;
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("address")
   private String address = null;
@@ -97,30 +97,22 @@ public class UserInfoReq implements Serializable {
     this.username = username;
   }
 
-  public UserInfoReq groups(List<String> groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public UserInfoReq addGroupsItem(String groupsItem) {
-    if (this.groups == null) {
-      this.groups = new ArrayList<String>();
-    }
-    this.groups.add(groupsItem);
+  public UserInfoReq isMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
     return this;
   }
 
    /**
-   * A list of IDs of the groups this user belongs to.
-   * @return groups
+   * A flag indicating that receiving marketing information has been accepted.
+   * @return isMarketingAccepted
   **/
-  @ApiModelProperty(value = "A list of IDs of the groups this user belongs to.")
-  public List<String> getGroups() {
-    return groups;
+  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
+  public Boolean isIsMarketingAccepted() {
+    return isMarketingAccepted;
   }
 
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
+  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
   }
 
   public UserInfoReq isGtcAccepted(Boolean isGtcAccepted) {
@@ -159,22 +151,30 @@ public class UserInfoReq implements Serializable {
     this.fullName = fullName;
   }
 
-  public UserInfoReq isMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
+  public UserInfoReq groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public UserInfoReq addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
     return this;
   }
 
    /**
-   * A flag indicating that receiving marketing information has been accepted.
-   * @return isMarketingAccepted
+   * A list of IDs of the groups this user belongs to.
+   * @return groups
   **/
-  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
-  public Boolean isIsMarketingAccepted() {
-    return isMarketingAccepted;
+  @ApiModelProperty(value = "A list of IDs of the groups this user belongs to.")
+  public List<String> getGroups() {
+    return groups;
   }
 
-  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
   }
 
   public UserInfoReq address(String address) {
@@ -243,10 +243,10 @@ public class UserInfoReq implements Serializable {
     UserInfoReq userInfoReq = (UserInfoReq) o;
     return Objects.equals(this.phoneNumber, userInfoReq.phoneNumber) &&
         Objects.equals(this.username, userInfoReq.username) &&
-        Objects.equals(this.groups, userInfoReq.groups) &&
+        Objects.equals(this.isMarketingAccepted, userInfoReq.isMarketingAccepted) &&
         Objects.equals(this.isGtcAccepted, userInfoReq.isGtcAccepted) &&
         Objects.equals(this.fullName, userInfoReq.fullName) &&
-        Objects.equals(this.isMarketingAccepted, userInfoReq.isMarketingAccepted) &&
+        Objects.equals(this.groups, userInfoReq.groups) &&
         Objects.equals(this.address, userInfoReq.address) &&
         Objects.equals(this.password, userInfoReq.password) &&
         Objects.equals(this.email, userInfoReq.email);
@@ -254,7 +254,7 @@ public class UserInfoReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, groups, isGtcAccepted, fullName, isMarketingAccepted, address, password, email);
+    return Objects.hash(phoneNumber, username, isMarketingAccepted, isGtcAccepted, fullName, groups, address, password, email);
   }
 
 
@@ -265,10 +265,10 @@ public class UserInfoReq implements Serializable {
     
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
-    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

@@ -99,6 +99,9 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("mfa_status")
   private MfaStatusEnum mfaStatus = null;
 
+  @SerializedName("state")
+  private String state = null;
+
   @SerializedName("country")
   private String country = null;
 
@@ -108,11 +111,11 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
-  @SerializedName("notification_emails")
-  private List<String> notificationEmails = null;
+  @SerializedName("password_policy")
+  private PasswordPolicy passwordPolicy = null;
 
-  @SerializedName("state")
-  private String state = null;
+  @SerializedName("expiration_warning_threshold")
+  private String expirationWarningThreshold = null;
 
   @SerializedName("contact")
   private String contact = null;
@@ -123,11 +126,8 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("account_properties")
   private Map<String, Map<String, String>> accountProperties = null;
 
-  @SerializedName("expiration_warning_threshold")
-  private String expirationWarningThreshold = null;
-
-  @SerializedName("password_policy")
-  private PasswordPolicy passwordPolicy = null;
+  @SerializedName("notification_emails")
+  private List<String> notificationEmails = null;
 
   @SerializedName("end_market")
   private String endMarket = null;
@@ -231,6 +231,24 @@ public class AccountUpdateReq implements Serializable {
     this.mfaStatus = mfaStatus;
   }
 
+  public AccountUpdateReq state(String state) {
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state part of the postal address, not longer than 100 characters.
+   * @return state
+  **/
+  @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
+  public String getState() {
+    return state;
+  }
+
+  public void setState(String state) {
+    this.state = state;
+  }
+
   public AccountUpdateReq country(String country) {
     this.country = country;
     return this;
@@ -285,48 +303,40 @@ public class AccountUpdateReq implements Serializable {
     this.idleTimeout = idleTimeout;
   }
 
-  public AccountUpdateReq notificationEmails(List<String> notificationEmails) {
-    this.notificationEmails = notificationEmails;
-    return this;
-  }
-
-  public AccountUpdateReq addNotificationEmailsItem(String notificationEmailsItem) {
-    if (this.notificationEmails == null) {
-      this.notificationEmails = new ArrayList<String>();
-    }
-    this.notificationEmails.add(notificationEmailsItem);
+  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
     return this;
   }
 
    /**
-   * A list of notification email addresses.
-   * @return notificationEmails
+   * Password policy for this account.
+   * @return passwordPolicy
   **/
-  @ApiModelProperty(value = "A list of notification email addresses.")
-  public List<String> getNotificationEmails() {
-    return notificationEmails;
+  @ApiModelProperty(value = "Password policy for this account.")
+  public PasswordPolicy getPasswordPolicy() {
+    return passwordPolicy;
   }
 
-  public void setNotificationEmails(List<String> notificationEmails) {
-    this.notificationEmails = notificationEmails;
+  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
+    this.passwordPolicy = passwordPolicy;
   }
 
-  public AccountUpdateReq state(String state) {
-    this.state = state;
+  public AccountUpdateReq expirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
     return this;
   }
 
    /**
-   * The state part of the postal address, not longer than 100 characters.
-   * @return state
+   * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+   * @return expirationWarningThreshold
   **/
-  @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
-  public String getState() {
-    return state;
+  @ApiModelProperty(value = "Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.")
+  public String getExpirationWarningThreshold() {
+    return expirationWarningThreshold;
   }
 
-  public void setState(String state) {
-    this.state = state;
+  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
   }
 
   public AccountUpdateReq contact(String contact) {
@@ -391,40 +401,30 @@ public class AccountUpdateReq implements Serializable {
     this.accountProperties = accountProperties;
   }
 
-  public AccountUpdateReq expirationWarningThreshold(String expirationWarningThreshold) {
-    this.expirationWarningThreshold = expirationWarningThreshold;
+  public AccountUpdateReq notificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+    return this;
+  }
+
+  public AccountUpdateReq addNotificationEmailsItem(String notificationEmailsItem) {
+    if (this.notificationEmails == null) {
+      this.notificationEmails = new ArrayList<String>();
+    }
+    this.notificationEmails.add(notificationEmailsItem);
     return this;
   }
 
    /**
-   * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
-   * @return expirationWarningThreshold
+   * A list of notification email addresses.
+   * @return notificationEmails
   **/
-  @ApiModelProperty(value = "Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.")
-  public String getExpirationWarningThreshold() {
-    return expirationWarningThreshold;
+  @ApiModelProperty(value = "A list of notification email addresses.")
+  public List<String> getNotificationEmails() {
+    return notificationEmails;
   }
 
-  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
-    this.expirationWarningThreshold = expirationWarningThreshold;
-  }
-
-  public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
-    return this;
-  }
-
-   /**
-   * Password policy for this account.
-   * @return passwordPolicy
-  **/
-  @ApiModelProperty(value = "Password policy for this account.")
-  public PasswordPolicy getPasswordPolicy() {
-    return passwordPolicy;
-  }
-
-  public void setPasswordPolicy(PasswordPolicy passwordPolicy) {
-    this.passwordPolicy = passwordPolicy;
+  public void setNotificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
   }
 
   public AccountUpdateReq endMarket(String endMarket) {
@@ -522,16 +522,16 @@ public class AccountUpdateReq implements Serializable {
         Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
         Objects.equals(this.mfaStatus, accountUpdateReq.mfaStatus) &&
+        Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
         Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
-        Objects.equals(this.notificationEmails, accountUpdateReq.notificationEmails) &&
-        Objects.equals(this.state, accountUpdateReq.state) &&
+        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
+        Objects.equals(this.expirationWarningThreshold, accountUpdateReq.expirationWarningThreshold) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
         Objects.equals(this.accountProperties, accountUpdateReq.accountProperties) &&
-        Objects.equals(this.expirationWarningThreshold, accountUpdateReq.expirationWarningThreshold) &&
-        Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
+        Objects.equals(this.notificationEmails, accountUpdateReq.notificationEmails) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
         Objects.equals(this.email, accountUpdateReq.email) &&
@@ -540,7 +540,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, mfaStatus, country, company, idleTimeout, notificationEmails, state, contact, postalCode, accountProperties, expirationWarningThreshold, passwordPolicy, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, mfaStatus, state, country, company, idleTimeout, passwordPolicy, expirationWarningThreshold, contact, postalCode, accountProperties, notificationEmails, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -554,16 +554,16 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
-    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
-    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
-    sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
