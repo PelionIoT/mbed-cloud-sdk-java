@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2EndpointsDeviceIdResourcePathDelete**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathDelete) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource
+[**v2EndpointsDeviceIdResourcePathDelete**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathDelete) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
 [**v2EndpointsDeviceIdResourcePathGet**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathGet) | **GET** v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 [**v2EndpointsDeviceIdResourcePathPost**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPost) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 [**v2EndpointsDeviceIdResourcePathPut**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPut) | **PUT** v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 # **v2EndpointsDeviceIdResourcePathDelete**
 > AsyncID v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResp)
 
-Delete a resource
+Delete a resource path
 
-A request to delete a resource must be handled by both Mbed Cloud Client and Mbed Cloud Connect. The resource is not deleted from Mbed Cloud Connect until the request is handled by Mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+A request to delete a resource path must be handled by both Mbed Cloud Client and Mbed Cloud Connect.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
 
 ### Example
 ```java
