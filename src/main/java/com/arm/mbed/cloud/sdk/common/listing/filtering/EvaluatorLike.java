@@ -1,5 +1,9 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import java.util.Locale;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 public class EvaluatorLike implements FilterEvaluator {
 
     @Override
@@ -11,14 +15,29 @@ public class EvaluatorLike implements FilterEvaluator {
         if (EvaluatorEqual.verify(value, filterValue)) {
             return true;
         }
-        if (filterValue instanceof String || filterValue instanceof Character) {
+        if ((value == null && filterValue != null) || (value != null && filterValue == null)) {
+            return false;
+        }
+        if (filterValue instanceof String || filterValue instanceof CharSequence) {
             final String pattern = String.valueOf(filterValue);
-            final String valueString = String.valueOf(value);
-            if (valueString.contains(pattern)) {
+            final String valueString = String.valueOf(value).toLowerCase(Locale.getDefault());
+            if (valueString.contains(pattern) || valueString.contains(pattern.toLowerCase(Locale.getDefault()))) {
                 return true;
             }
-            // TODO add more checks if the pattern is a regex or contains wilcards, etc.
-            return false;
+            // If filterValue is a Java Regex.
+            try {
+                return Pattern.matches(pattern, valueString);
+            } catch (PatternSyntaxException e) {
+                // Nothing to do
+            }
+            // If filterValue is a SQL like entry i.e.
+            final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("?", ".")
+                    .replace("%", ".*");
+            try {
+                return Pattern.matches(javaPattern, valueString);
+            } catch (PatternSyntaxException e) {
+                return false;
+            }
         }
         // If not a string "like" is equivalent to equal
         return EvaluatorEqual.verify(value, filterValue);
