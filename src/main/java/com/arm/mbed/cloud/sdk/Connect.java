@@ -45,6 +45,7 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationCache;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
@@ -1395,6 +1396,48 @@ public class Connect extends AbstractApi {
      * <p>
      * Note: this method will deregister all subscription callbacks or observers if any.
      * <p>
+     * Please note that this operation is potentially really expensive and hence, use wisely.
+     * <p>
+     * Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *     connectApi.deleteSubscriptions();
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void deleteSubscriptions() throws MbedCloudException {
+        // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
+        final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
+        if (connectedDevices != null) {
+            for (final Device connectedDevice : connectedDevices) {
+                deleteDeviceSubscriptions(connectedDevice);
+            }
+        }
+        // When such an endpoint is created, use some code similar to below.
+        // CloudCaller.call(this, "deleteSubscriptions()", null, new CloudCall<Void>() {
+        //
+        // @Override
+        // public Call<Void> call() {
+        // return endpoint.getSubscriptions().v2SubscriptionsDelete();
+        // }
+        // });
+        // deregisterAllResourceSubscriptionObserversOrCallbacks();
+    }
+
+    /**
+     * Removes all subscriptions.
+     * <p>
+     * Note: use {@link #deleteSubscriptions()} instead.
+     * <p>
      * Example:
      * 
      * <pre>
@@ -1411,15 +1454,48 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public void deleteSubscribers() throws MbedCloudException {
-        CloudCaller.call(this, "deleteSubscriptions()", null, new CloudCall<Void>() {
+        deleteSubscriptions();
+    }
 
-            @Override
-            public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsDelete();
+    /**
+     * Lists all subscriptions.
+     * <p>
+     * Note: Please note that this operation is potentially really expensive and hence, use wisely. Example:
+     * 
+     * <pre>
+     * {@code
+     * try {
+     *
+     *     List<String> subscriptions = connectApi.listSubscriptions();
+     *     for (Subscription subscription : subscriptions) {
+     *         System.out.println("subscription: " + subscription);
+     *     }
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @return list of subscriptions
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable List<Subscription> listSubscriptions() throws MbedCloudException {
+        final List<Subscription> subscriptions = new LinkedList<>();
+        // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
+        final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
+        if (connectedDevices != null) {
+            for (final Device connectedDevice : connectedDevices) {
+                final List<String> deviceSubscriptions = listDeviceSubscriptions(connectedDevice);
+                if (deviceSubscriptions != null) {
+                    subscriptions.add(new Subscription(connectedDevice.getId(), deviceSubscriptions));
+                }
             }
-        });
-        deregisterAllResourceSubscriptionObserversOrCallbacks();
+        }
+        return subscriptions.isEmpty() ? null : subscriptions;
     }
 
     /**
