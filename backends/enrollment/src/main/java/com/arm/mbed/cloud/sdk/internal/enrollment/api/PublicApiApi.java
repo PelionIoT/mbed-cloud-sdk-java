@@ -21,17 +21,17 @@ import java.util.Map;
 
 public interface PublicApiApi {
   /**
-   * Get enrollment list.
-   * Provides a list of pending and claimed enrollments. Example usage: 
-   * @param limit Number of results to be returned. Between 2 and 1000, inclusive. (optional)
-   * @param after Entity ID to fetch after. (optional)
-   * @param order ASC or DESC (optional, default to ASC)
-   * @param include Comma separate additional data to return. Currently supported: total_count (optional)
-   * @return Call&lt;EnrollmentIdentities&gt;
+   * Place an enrollment claim for one or several devices.
+   * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+   * @param enrollmentIdentity  (required)
+   * @return Call&lt;EnrollmentIdentity&gt;
    */
-  @GET("v3/device-enrollments")
-  Call<EnrollmentIdentities> v3DeviceEnrollmentsGet(
-    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/device-enrollments")
+  Call<EnrollmentIdentity> createDeviceEnrollment(
+    @retrofit2.http.Body EnrollmentId enrollmentIdentity
   );
 
   /**
@@ -41,7 +41,7 @@ public interface PublicApiApi {
    * @return Call&lt;Void&gt;
    */
   @DELETE("v3/device-enrollments/{id}")
-  Call<Void> v3DeviceEnrollmentsIdDelete(
+  Call<Void> deleteDeviceEnrollment(
     @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
@@ -52,22 +52,22 @@ public interface PublicApiApi {
    * @return Call&lt;EnrollmentIdentity&gt;
    */
   @GET("v3/device-enrollments/{id}")
-  Call<EnrollmentIdentity> v3DeviceEnrollmentsIdGet(
+  Call<EnrollmentIdentity> getDeviceEnrollment(
     @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
-   * Place an enrollment claim for one or several devices.
-   * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
-   * @param enrollmentIdentity  (required)
-   * @return Call&lt;EnrollmentIdentity&gt;
+   * Get enrollment list.
+   * Provides a list of pending and claimed enrollments. Example usage: 
+   * @param limit Number of results to be returned. Between 2 and 1000, inclusive. (optional)
+   * @param after Entity ID to fetch after. (optional)
+   * @param order ASC or DESC (optional, default to ASC)
+   * @param include Comma separate additional data to return. Currently supported: total_count (optional)
+   * @return Call&lt;EnrollmentIdentities&gt;
    */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/device-enrollments")
-  Call<EnrollmentIdentity> v3DeviceEnrollmentsPost(
-    @retrofit2.http.Body EnrollmentId enrollmentIdentity
+  @GET("v3/device-enrollments")
+  Call<EnrollmentIdentities> getDeviceEnrollments(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
 }
