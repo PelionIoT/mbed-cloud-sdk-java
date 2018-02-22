@@ -233,7 +233,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The filter for the devices the campaign will target
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign will target")
   public String getDeviceFilter() {
     return deviceFilter;
   }
