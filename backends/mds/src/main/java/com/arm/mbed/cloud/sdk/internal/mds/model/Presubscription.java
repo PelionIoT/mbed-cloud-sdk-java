@@ -95,7 +95,7 @@ public class Presubscription implements Serializable {
    * Get resourcePath
    * @return resourcePath
   **/
-  @ApiModelProperty(example = "\"/sen/_*\"", value = "")
+  @ApiModelProperty(value = "")
   public List<String> getResourcePath() {
     return resourcePath;
   }

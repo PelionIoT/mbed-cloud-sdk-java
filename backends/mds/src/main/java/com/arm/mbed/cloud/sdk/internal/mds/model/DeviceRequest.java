@@ -55,7 +55,7 @@ public class DeviceRequest implements Serializable {
    * The base64 encoded payload to be sent to the device.
    * @return payloadB64
   **/
-  @ApiModelProperty(example = "dmFsdWUxCg==", value = "The base64 encoded payload to be sent to the device.")
+  @ApiModelProperty(value = "The base64 encoded payload to be sent to the device.")
   public String getPayloadB64() {
     return payloadB64;
   }
