@@ -105,7 +105,7 @@ public class ActiveSession implements Serializable {
    * The UUID of the account.
    * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the account.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
   public String getAccountId() {
     return accountId;
   }
@@ -141,7 +141,7 @@ public class ActiveSession implements Serializable {
    * User Agent header from the login request.
    * @return userAgent
   **/
-  @ApiModelProperty(required = true, value = "User Agent header from the login request.")
+  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
   public String getUserAgent() {
     return userAgent;
   }
@@ -159,7 +159,7 @@ public class ActiveSession implements Serializable {
    * IP address of the client.
    * @return ipAddress
   **/
-  @ApiModelProperty(required = true, value = "IP address of the client.")
+  @ApiModelProperty(example = "127.0.0.1", required = true, value = "IP address of the client.")
   public String getIpAddress() {
     return ipAddress;
   }
@@ -177,7 +177,7 @@ public class ActiveSession implements Serializable {
    * The reference token.
    * @return referenceToken
   **/
-  @ApiModelProperty(required = true, value = "The reference token.")
+  @ApiModelProperty(example = "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk", required = true, value = "The reference token.")
   public String getReferenceToken() {
     return referenceToken;
   }
@@ -195,7 +195,7 @@ public class ActiveSession implements Serializable {
    * The login time of the user.
    * @return loginTime
   **/
-  @ApiModelProperty(required = true, value = "The login time of the user.")
+  @ApiModelProperty(example = "2018-02-14T17:52:07Z", required = true, value = "The login time of the user.")
   public DateTime getLoginTime() {
     return loginTime;
   }
