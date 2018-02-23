@@ -34,6 +34,15 @@ import java.io.Serializable;
 public class GroupSummaryList implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("after")
+  private String after = null;
+
+  @SerializedName("has_more")
+  private Boolean hasMore = null;
+
+  @SerializedName("total_count")
+  private Integer totalCount = null;
+
   /**
    * Entity name: always &#39;list&#39;
    */
@@ -81,15 +90,6 @@ public class GroupSummaryList implements Serializable {
 
   @SerializedName("object")
   private ObjectEnum object = null;
-
-  @SerializedName("has_more")
-  private Boolean hasMore = null;
-
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
-  @SerializedName("after")
-  private String after = null;
 
   @SerializedName("limit")
   private Integer limit = null;
@@ -147,22 +147,22 @@ public class GroupSummaryList implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
-  public GroupSummaryList object(ObjectEnum object) {
-    this.object = object;
+  public GroupSummaryList after(String after) {
+    this.after = after;
     return this;
   }
 
    /**
-   * Entity name: always &#39;list&#39;
-   * @return object
+   * The entity ID to fetch after the given one.
+   * @return after
   **/
-  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
-  public ObjectEnum getObject() {
-    return object;
+  @ApiModelProperty(example = "01619571f3c00242ac12000600000000", value = "The entity ID to fetch after the given one.")
+  public String getAfter() {
+    return after;
   }
 
-  public void setObject(ObjectEnum object) {
-    this.object = object;
+  public void setAfter(String after) {
+    this.after = after;
   }
 
   public GroupSummaryList hasMore(Boolean hasMore) {
@@ -201,22 +201,22 @@ public class GroupSummaryList implements Serializable {
     this.totalCount = totalCount;
   }
 
-  public GroupSummaryList after(String after) {
-    this.after = after;
+  public GroupSummaryList object(ObjectEnum object) {
+    this.object = object;
     return this;
   }
 
    /**
-   * The entity ID to fetch after the given one.
-   * @return after
+   * Entity name: always &#39;list&#39;
+   * @return object
   **/
-  @ApiModelProperty(example = "01619571f3c00242ac12000600000000", value = "The entity ID to fetch after the given one.")
-  public String getAfter() {
-    return after;
+  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
+  public ObjectEnum getObject() {
+    return object;
   }
 
-  public void setAfter(String after) {
-    this.after = after;
+  public void setObject(ObjectEnum object) {
+    this.object = object;
   }
 
   public GroupSummaryList limit(Integer limit) {
@@ -288,10 +288,10 @@ public class GroupSummaryList implements Serializable {
       return false;
     }
     GroupSummaryList groupSummaryList = (GroupSummaryList) o;
-    return Objects.equals(this.object, groupSummaryList.object) &&
+    return Objects.equals(this.after, groupSummaryList.after) &&
         Objects.equals(this.hasMore, groupSummaryList.hasMore) &&
         Objects.equals(this.totalCount, groupSummaryList.totalCount) &&
-        Objects.equals(this.after, groupSummaryList.after) &&
+        Objects.equals(this.object, groupSummaryList.object) &&
         Objects.equals(this.limit, groupSummaryList.limit) &&
         Objects.equals(this.data, groupSummaryList.data) &&
         Objects.equals(this.order, groupSummaryList.order);
@@ -299,7 +299,7 @@ public class GroupSummaryList implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(object, hasMore, totalCount, after, limit, data, order);
+    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
   }
 
 
@@ -308,10 +308,10 @@ public class GroupSummaryList implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class GroupSummaryList {\n");
     
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    after: ").append(toIndentedString(after)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");

@@ -39,8 +39,11 @@ public class UserUpdateReq implements Serializable {
   @SerializedName("phone_number")
   private String phoneNumber = null;
 
-  @SerializedName("status")
-  private String status = null;
+  @SerializedName("username")
+  private String username = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
@@ -51,17 +54,14 @@ public class UserUpdateReq implements Serializable {
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
 
-  @SerializedName("full_name")
-  private String fullName = null;
-
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
 
-  @SerializedName("username")
-  private String username = null;
+  @SerializedName("status")
+  private String status = null;
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+  @SerializedName("full_name")
+  private String fullName = null;
 
   @SerializedName("address")
   private String address = null;
@@ -90,22 +90,48 @@ public class UserUpdateReq implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public UserUpdateReq status(String status) {
-    this.status = status;
+  public UserUpdateReq username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * The status of the user.
-   * @return status
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
+   * @return username
   **/
-  @ApiModelProperty(value = "The status of the user.")
-  public String getStatus() {
-    return status;
+  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  public String getUsername() {
+    return username;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setUsername(String username) {
+    this.username = username;
+  }
+
+  public UserUpdateReq groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public UserUpdateReq addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * A list of group IDs this user belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "A list of group IDs this user belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
   }
 
   public UserUpdateReq isMarketingAccepted(Boolean isMarketingAccepted) {
@@ -170,24 +196,6 @@ public class UserUpdateReq implements Serializable {
     this.isGtcAccepted = isGtcAccepted;
   }
 
-  public UserUpdateReq fullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-   /**
-   * The full name of the user, not longer than 100 characters.
-   * @return fullName
-  **/
-  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
   public UserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
     this.isTotpEnabled = isTotpEnabled;
     return this;
@@ -206,48 +214,40 @@ public class UserUpdateReq implements Serializable {
     this.isTotpEnabled = isTotpEnabled;
   }
 
-  public UserUpdateReq username(String username) {
-    this.username = username;
+  public UserUpdateReq status(String status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
-   * @return username
+   * The status of the user.
+   * @return status
   **/
-  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
-  public String getUsername() {
-    return username;
+  @ApiModelProperty(value = "The status of the user.")
+  public String getStatus() {
+    return status;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setStatus(String status) {
+    this.status = status;
   }
 
-  public UserUpdateReq groups(List<String> groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public UserUpdateReq addGroupsItem(String groupsItem) {
-    if (this.groups == null) {
-      this.groups = new ArrayList<String>();
-    }
-    this.groups.add(groupsItem);
+  public UserUpdateReq fullName(String fullName) {
+    this.fullName = fullName;
     return this;
   }
 
    /**
-   * A list of group IDs this user belongs to.
-   * @return groups
+   * The full name of the user, not longer than 100 characters.
+   * @return fullName
   **/
-  @ApiModelProperty(value = "A list of group IDs this user belongs to.")
-  public List<String> getGroups() {
-    return groups;
+  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
+  public String getFullName() {
+    return fullName;
   }
 
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 
   public UserUpdateReq address(String address) {
@@ -315,14 +315,14 @@ public class UserUpdateReq implements Serializable {
     }
     UserUpdateReq userUpdateReq = (UserUpdateReq) o;
     return Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
-        Objects.equals(this.status, userUpdateReq.status) &&
+        Objects.equals(this.username, userUpdateReq.username) &&
+        Objects.equals(this.groups, userUpdateReq.groups) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.userProperties, userUpdateReq.userProperties) &&
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
-        Objects.equals(this.fullName, userUpdateReq.fullName) &&
         Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
-        Objects.equals(this.username, userUpdateReq.username) &&
-        Objects.equals(this.groups, userUpdateReq.groups) &&
+        Objects.equals(this.status, userUpdateReq.status) &&
+        Objects.equals(this.fullName, userUpdateReq.fullName) &&
         Objects.equals(this.address, userUpdateReq.address) &&
         Objects.equals(this.password, userUpdateReq.password) &&
         Objects.equals(this.email, userUpdateReq.email);
@@ -330,7 +330,7 @@ public class UserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, status, isMarketingAccepted, userProperties, isGtcAccepted, fullName, isTotpEnabled, username, groups, address, password, email);
+    return Objects.hash(phoneNumber, username, groups, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, status, fullName, address, password, email);
   }
 
 
@@ -340,14 +340,14 @@ public class UserUpdateReq implements Serializable {
     sb.append("class UserUpdateReq {\n");
     
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

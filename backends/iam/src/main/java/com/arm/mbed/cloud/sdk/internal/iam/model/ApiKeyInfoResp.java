@@ -35,6 +35,9 @@ import java.io.Serializable;
 public class ApiKeyInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("groups")
+  private List<String> groups = null;
+
   /**
    * The status of the API key.
    */
@@ -85,8 +88,8 @@ public class ApiKeyInfoResp implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
@@ -145,9 +148,6 @@ public class ApiKeyInfoResp implements Serializable {
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("etag")
   private String etag = null;
 
@@ -162,24 +162,6 @@ public class ApiKeyInfoResp implements Serializable {
 
   @SerializedName("last_login_time")
   private Long lastLoginTime = null;
-
-  public ApiKeyInfoResp status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the API key.
-   * @return status
-  **/
-  @ApiModelProperty(example = "ACTIVE", value = "The status of the API key.")
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
 
   public ApiKeyInfoResp groups(List<String> groups) {
     this.groups = groups;
@@ -205,6 +187,42 @@ public class ApiKeyInfoResp implements Serializable {
 
   public void setGroups(List<String> groups) {
     this.groups = groups;
+  }
+
+  public ApiKeyInfoResp status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the API key.
+   * @return status
+  **/
+  @ApiModelProperty(example = "ACTIVE", value = "The status of the API key.")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  public ApiKeyInfoResp name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The display name for the API key.
+   * @return name
+  **/
+  @ApiModelProperty(example = "API key gorgon", required = true, value = "The display name for the API key.")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public ApiKeyInfoResp createdAt(DateTime createdAt) {
@@ -277,24 +295,6 @@ public class ApiKeyInfoResp implements Serializable {
 
   public void setUpdatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
-  }
-
-  public ApiKeyInfoResp name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The display name for the API key.
-   * @return name
-  **/
-  @ApiModelProperty(example = "API key gorgon", required = true, value = "The display name for the API key.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
   }
 
   public ApiKeyInfoResp etag(String etag) {
@@ -397,13 +397,13 @@ public class ApiKeyInfoResp implements Serializable {
       return false;
     }
     ApiKeyInfoResp apiKeyInfoResp = (ApiKeyInfoResp) o;
-    return Objects.equals(this.status, apiKeyInfoResp.status) &&
-        Objects.equals(this.groups, apiKeyInfoResp.groups) &&
+    return Objects.equals(this.groups, apiKeyInfoResp.groups) &&
+        Objects.equals(this.status, apiKeyInfoResp.status) &&
+        Objects.equals(this.name, apiKeyInfoResp.name) &&
         Objects.equals(this.createdAt, apiKeyInfoResp.createdAt) &&
         Objects.equals(this.object, apiKeyInfoResp.object) &&
         Objects.equals(this.creationTime, apiKeyInfoResp.creationTime) &&
         Objects.equals(this.updatedAt, apiKeyInfoResp.updatedAt) &&
-        Objects.equals(this.name, apiKeyInfoResp.name) &&
         Objects.equals(this.etag, apiKeyInfoResp.etag) &&
         Objects.equals(this.key, apiKeyInfoResp.key) &&
         Objects.equals(this.owner, apiKeyInfoResp.owner) &&
@@ -413,7 +413,7 @@ public class ApiKeyInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, groups, createdAt, object, creationTime, updatedAt, name, etag, key, owner, id, lastLoginTime);
+    return Objects.hash(groups, status, name, createdAt, object, creationTime, updatedAt, etag, key, owner, id, lastLoginTime);
   }
 
 
@@ -422,13 +422,13 @@ public class ApiKeyInfoResp implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiKeyInfoResp {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");

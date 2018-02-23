@@ -87,20 +87,17 @@ public class PolicyCreationReq implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("valid_from")
-  private DateTime validFrom = null;
-
-  @SerializedName("error_message")
-  private String errorMessage = null;
-
-  @SerializedName("description")
-  private String description = null;
-
   @SerializedName("valid_until")
   private DateTime validUntil = null;
 
   @SerializedName("grant_expires_in")
   private Integer grantExpiresIn = null;
+
+  @SerializedName("name")
+  private String name = null;
+
+  @SerializedName("error_message")
+  private String errorMessage = null;
 
   @SerializedName("not_resources")
   private List<String> notResources = null;
@@ -111,14 +108,17 @@ public class PolicyCreationReq implements Serializable {
   @SerializedName("not_conditions")
   private List<String> notConditions = null;
 
-  @SerializedName("tag")
-  private String tag = null;
+  @SerializedName("valid_from")
+  private DateTime validFrom = null;
 
   @SerializedName("users")
   private List<String> users = null;
 
   @SerializedName("groups")
   private List<String> groups = null;
+
+  @SerializedName("tag")
+  private String tag = null;
 
   @SerializedName("notActions")
   private List<String> notActions = null;
@@ -132,8 +132,8 @@ public class PolicyCreationReq implements Serializable {
   @SerializedName("resources")
   private List<String> resources = null;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("description")
+  private String description = null;
 
   public PolicyCreationReq status(StatusEnum status) {
     this.status = status;
@@ -151,60 +151,6 @@ public class PolicyCreationReq implements Serializable {
 
   public void setStatus(StatusEnum status) {
     this.status = status;
-  }
-
-  public PolicyCreationReq validFrom(DateTime validFrom) {
-    this.validFrom = validFrom;
-    return this;
-  }
-
-   /**
-   * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. &#39;2018-02-05T09:43:44Z&#39;
-   * @return validFrom
-  **/
-  @ApiModelProperty(value = "Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'")
-  public DateTime getValidFrom() {
-    return validFrom;
-  }
-
-  public void setValidFrom(DateTime validFrom) {
-    this.validFrom = validFrom;
-  }
-
-  public PolicyCreationReq errorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-    return this;
-  }
-
-   /**
-   * Custom error message returned when this policy matches with not allowed result.
-   * @return errorMessage
-  **/
-  @ApiModelProperty(value = "Custom error message returned when this policy matches with not allowed result.")
-  public String getErrorMessage() {
-    return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
-  }
-
-  public PolicyCreationReq description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * The description of this policy, not longer than 500 character.
-   * @return description
-  **/
-  @ApiModelProperty(value = "The description of this policy, not longer than 500 character.")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public PolicyCreationReq validUntil(DateTime validUntil) {
@@ -241,6 +187,42 @@ public class PolicyCreationReq implements Serializable {
 
   public void setGrantExpiresIn(Integer grantExpiresIn) {
     this.grantExpiresIn = grantExpiresIn;
+  }
+
+  public PolicyCreationReq name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of this policy, must be unique and not longer than 100 character.
+   * @return name
+  **/
+  @ApiModelProperty(required = true, value = "The name of this policy, must be unique and not longer than 100 character.")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public PolicyCreationReq errorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
+    return this;
+  }
+
+   /**
+   * Custom error message returned when this policy matches with not allowed result.
+   * @return errorMessage
+  **/
+  @ApiModelProperty(value = "Custom error message returned when this policy matches with not allowed result.")
+  public String getErrorMessage() {
+    return errorMessage;
+  }
+
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
   }
 
   public PolicyCreationReq notResources(List<String> notResources) {
@@ -321,22 +303,22 @@ public class PolicyCreationReq implements Serializable {
     this.notConditions = notConditions;
   }
 
-  public PolicyCreationReq tag(String tag) {
-    this.tag = tag;
+  public PolicyCreationReq validFrom(DateTime validFrom) {
+    this.validFrom = validFrom;
     return this;
   }
 
    /**
-   * Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
-   * @return tag
+   * Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. &#39;2018-02-05T09:43:44Z&#39;
+   * @return validFrom
   **/
-  @ApiModelProperty(value = "Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.")
-  public String getTag() {
-    return tag;
+  @ApiModelProperty(value = "Specifies the date and time when the policy will become valid in UTC time RFC3339. E.g. '2018-02-05T09:43:44Z'")
+  public DateTime getValidFrom() {
+    return validFrom;
   }
 
-  public void setTag(String tag) {
-    this.tag = tag;
+  public void setValidFrom(DateTime validFrom) {
+    this.validFrom = validFrom;
   }
 
   public PolicyCreationReq users(List<String> users) {
@@ -389,6 +371,24 @@ public class PolicyCreationReq implements Serializable {
 
   public void setGroups(List<String> groups) {
     this.groups = groups;
+  }
+
+  public PolicyCreationReq tag(String tag) {
+    this.tag = tag;
+    return this;
+  }
+
+   /**
+   * Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.
+   * @return tag
+  **/
+  @ApiModelProperty(value = "Policy tag that can be used for various purposes to be able to distinguish between policies. Not longer than 100 characters.")
+  public String getTag() {
+    return tag;
+  }
+
+  public void setTag(String tag) {
+    this.tag = tag;
   }
 
   public PolicyCreationReq notActions(List<String> notActions) {
@@ -495,22 +495,22 @@ public class PolicyCreationReq implements Serializable {
     this.resources = resources;
   }
 
-  public PolicyCreationReq name(String name) {
-    this.name = name;
+  public PolicyCreationReq description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * The name of this policy, must be unique and not longer than 100 character.
-   * @return name
+   * The description of this policy, not longer than 500 character.
+   * @return description
   **/
-  @ApiModelProperty(required = true, value = "The name of this policy, must be unique and not longer than 100 character.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(value = "The description of this policy, not longer than 500 character.")
+  public String getDescription() {
+    return description;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
 
@@ -524,27 +524,27 @@ public class PolicyCreationReq implements Serializable {
     }
     PolicyCreationReq policyCreationReq = (PolicyCreationReq) o;
     return Objects.equals(this.status, policyCreationReq.status) &&
-        Objects.equals(this.validFrom, policyCreationReq.validFrom) &&
-        Objects.equals(this.errorMessage, policyCreationReq.errorMessage) &&
-        Objects.equals(this.description, policyCreationReq.description) &&
         Objects.equals(this.validUntil, policyCreationReq.validUntil) &&
         Objects.equals(this.grantExpiresIn, policyCreationReq.grantExpiresIn) &&
+        Objects.equals(this.name, policyCreationReq.name) &&
+        Objects.equals(this.errorMessage, policyCreationReq.errorMessage) &&
         Objects.equals(this.notResources, policyCreationReq.notResources) &&
         Objects.equals(this.actions, policyCreationReq.actions) &&
         Objects.equals(this.notConditions, policyCreationReq.notConditions) &&
-        Objects.equals(this.tag, policyCreationReq.tag) &&
+        Objects.equals(this.validFrom, policyCreationReq.validFrom) &&
         Objects.equals(this.users, policyCreationReq.users) &&
         Objects.equals(this.groups, policyCreationReq.groups) &&
+        Objects.equals(this.tag, policyCreationReq.tag) &&
         Objects.equals(this.notActions, policyCreationReq.notActions) &&
         Objects.equals(this.apikeys, policyCreationReq.apikeys) &&
         Objects.equals(this.conditions, policyCreationReq.conditions) &&
         Objects.equals(this.resources, policyCreationReq.resources) &&
-        Objects.equals(this.name, policyCreationReq.name);
+        Objects.equals(this.description, policyCreationReq.description);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, validFrom, errorMessage, description, validUntil, grantExpiresIn, notResources, actions, notConditions, tag, users, groups, notActions, apikeys, conditions, resources, name);
+    return Objects.hash(status, validUntil, grantExpiresIn, name, errorMessage, notResources, actions, notConditions, validFrom, users, groups, tag, notActions, apikeys, conditions, resources, description);
   }
 
 
@@ -554,22 +554,22 @@ public class PolicyCreationReq implements Serializable {
     sb.append("class PolicyCreationReq {\n");
     
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    validFrom: ").append(toIndentedString(validFrom)).append("\n");
-    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    validUntil: ").append(toIndentedString(validUntil)).append("\n");
     sb.append("    grantExpiresIn: ").append(toIndentedString(grantExpiresIn)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
     sb.append("    notResources: ").append(toIndentedString(notResources)).append("\n");
     sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
     sb.append("    notConditions: ").append(toIndentedString(notConditions)).append("\n");
-    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
+    sb.append("    validFrom: ").append(toIndentedString(validFrom)).append("\n");
     sb.append("    users: ").append(toIndentedString(users)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    notActions: ").append(toIndentedString(notActions)).append("\n");
     sb.append("    apikeys: ").append(toIndentedString(apikeys)).append("\n");
     sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
     sb.append("    resources: ").append(toIndentedString(resources)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("}");
     return sb.toString();
   }

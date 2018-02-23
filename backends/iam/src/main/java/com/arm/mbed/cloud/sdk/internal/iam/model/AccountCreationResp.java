@@ -40,6 +40,9 @@ public class AccountCreationResp implements Serializable {
   @SerializedName("admin_id")
   private String adminId = null;
 
+  @SerializedName("email")
+  private String email = null;
+
   @SerializedName("admin_name")
   private String adminName = null;
 
@@ -70,14 +73,11 @@ public class AccountCreationResp implements Serializable {
   @SerializedName("admin_password")
   private String adminPassword = null;
 
-  @SerializedName("email")
-  private String email = null;
+  @SerializedName("contract_number")
+  private String contractNumber = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
-
-  @SerializedName("contract_number")
-  private String contractNumber = null;
 
   @SerializedName("company")
   private String company = null;
@@ -134,6 +134,24 @@ public class AccountCreationResp implements Serializable {
 
   public void setAdminId(String adminId) {
     this.adminId = adminId;
+  }
+
+  public AccountCreationResp email(String email) {
+    this.email = email;
+    return this;
+  }
+
+   /**
+   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
+   * @return email
+  **/
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
   }
 
   public AccountCreationResp adminName(String adminName) {
@@ -324,22 +342,22 @@ public class AccountCreationResp implements Serializable {
     this.adminPassword = adminPassword;
   }
 
-  public AccountCreationResp email(String email) {
-    this.email = email;
+  public AccountCreationResp contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
     return this;
   }
 
    /**
-   * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
-   * @return email
+   * Contract number of the customer.
+   * @return contractNumber
   **/
-  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
-  public String getEmail() {
-    return email;
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
   }
 
   public AccountCreationResp phoneNumber(String phoneNumber) {
@@ -358,24 +376,6 @@ public class AccountCreationResp implements Serializable {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
-  }
-
-  public AccountCreationResp contractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
-    return this;
-  }
-
-   /**
-   * Contract number of the customer.
-   * @return contractNumber
-  **/
-  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
-  public String getContractNumber() {
-    return contractNumber;
-  }
-
-  public void setContractNumber(String contractNumber) {
-    this.contractNumber = contractNumber;
   }
 
   public AccountCreationResp company(String company) {
@@ -516,6 +516,7 @@ public class AccountCreationResp implements Serializable {
     AccountCreationResp accountCreationResp = (AccountCreationResp) o;
     return Objects.equals(this.endMarket, accountCreationResp.endMarket) &&
         Objects.equals(this.adminId, accountCreationResp.adminId) &&
+        Objects.equals(this.email, accountCreationResp.email) &&
         Objects.equals(this.adminName, accountCreationResp.adminName) &&
         Objects.equals(this.postalCode, accountCreationResp.postalCode) &&
         Objects.equals(this.id, accountCreationResp.id) &&
@@ -526,9 +527,8 @@ public class AccountCreationResp implements Serializable {
         Objects.equals(this.displayName, accountCreationResp.displayName) &&
         Objects.equals(this.state, accountCreationResp.state) &&
         Objects.equals(this.adminPassword, accountCreationResp.adminPassword) &&
-        Objects.equals(this.email, accountCreationResp.email) &&
-        Objects.equals(this.phoneNumber, accountCreationResp.phoneNumber) &&
         Objects.equals(this.contractNumber, accountCreationResp.contractNumber) &&
+        Objects.equals(this.phoneNumber, accountCreationResp.phoneNumber) &&
         Objects.equals(this.company, accountCreationResp.company) &&
         Objects.equals(this.adminKey, accountCreationResp.adminKey) &&
         Objects.equals(this.adminFullName, accountCreationResp.adminFullName) &&
@@ -540,7 +540,7 @@ public class AccountCreationResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, adminId, adminName, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, state, adminPassword, email, phoneNumber, contractNumber, company, adminKey, adminFullName, country, customerNumber, contact, adminEmail);
+    return Objects.hash(endMarket, adminId, email, adminName, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, state, adminPassword, contractNumber, phoneNumber, company, adminKey, adminFullName, country, customerNumber, contact, adminEmail);
   }
 
 
@@ -551,6 +551,7 @@ public class AccountCreationResp implements Serializable {
     
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    adminId: ").append(toIndentedString(adminId)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
@@ -561,9 +562,8 @@ public class AccountCreationResp implements Serializable {
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    adminPassword: ").append(toIndentedString(adminPassword)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    adminKey: ").append(toIndentedString(adminKey)).append("\n");
     sb.append("    adminFullName: ").append(toIndentedString(adminFullName)).append("\n");

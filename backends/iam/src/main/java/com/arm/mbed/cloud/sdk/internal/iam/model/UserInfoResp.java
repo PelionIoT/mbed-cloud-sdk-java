@@ -38,6 +38,42 @@ import java.io.Serializable;
 public class UserInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("username")
+  private String username = null;
+
+  @SerializedName("login_history")
+  private List<LoginHistory> loginHistory = null;
+
+  @SerializedName("creation_time")
+  private Long creationTime = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
+  @SerializedName("full_name")
+  private String fullName = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("last_login_time")
+  private Long lastLoginTime = null;
+
+  @SerializedName("is_gtc_accepted")
+  private Boolean isGtcAccepted = null;
+
+  @SerializedName("etag")
+  private String etag = null;
+
+  @SerializedName("is_marketing_accepted")
+  private Boolean isMarketingAccepted = null;
+
+  @SerializedName("phone_number")
+  private String phoneNumber = null;
+
+  @SerializedName("email")
+  private String email = null;
+
   /**
    * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
    */
@@ -93,39 +129,6 @@ public class UserInfoResp implements Serializable {
 
   @SerializedName("status")
   private StatusEnum status = null;
-
-  @SerializedName("login_history")
-  private List<LoginHistory> loginHistory = null;
-
-  @SerializedName("creation_time")
-  private Long creationTime = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
-  @SerializedName("full_name")
-  private String fullName = null;
-
-  @SerializedName("id")
-  private String id = null;
-
-  @SerializedName("last_login_time")
-  private Long lastLoginTime = null;
-
-  @SerializedName("is_gtc_accepted")
-  private Boolean isGtcAccepted = null;
-
-  @SerializedName("etag")
-  private String etag = null;
-
-  @SerializedName("is_marketing_accepted")
-  private Boolean isMarketingAccepted = null;
-
-  @SerializedName("is_totp_enabled")
-  private Boolean isTotpEnabled = null;
-
-  @SerializedName("phone_number")
-  private String phoneNumber = null;
 
   @SerializedName("account_id")
   private String accountId = null;
@@ -196,31 +199,28 @@ public class UserInfoResp implements Serializable {
   @SerializedName("user_properties")
   private Map<String, Map<String, String>> userProperties = null;
 
-  @SerializedName("email")
-  private String email = null;
-
-  @SerializedName("username")
-  private String username = null;
+  @SerializedName("is_totp_enabled")
+  private Boolean isTotpEnabled = null;
 
   @SerializedName("password_changed_time")
   private Long passwordChangedTime = null;
 
-  public UserInfoResp status(StatusEnum status) {
-    this.status = status;
+  public UserInfoResp username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-   * @return status
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters.
+   * @return username
   **/
-  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
-  public StatusEnum getStatus() {
-    return status;
+  @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
+  public String getUsername() {
+    return username;
   }
 
-  public void setStatus(StatusEnum status) {
-    this.status = status;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public UserInfoResp loginHistory(List<LoginHistory> loginHistory) {
@@ -393,24 +393,6 @@ public class UserInfoResp implements Serializable {
     this.isMarketingAccepted = isMarketingAccepted;
   }
 
-  public UserInfoResp isTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-    return this;
-  }
-
-   /**
-   * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-   * @return isTotpEnabled
-  **/
-  @ApiModelProperty(example = "true", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
-  public Boolean isIsTotpEnabled() {
-    return isTotpEnabled;
-  }
-
-  public void setIsTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-  }
-
   public UserInfoResp phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -427,6 +409,42 @@ public class UserInfoResp implements Serializable {
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public UserInfoResp email(String email) {
+    this.email = email;
+    return this;
+  }
+
+   /**
+   * The email address.
+   * @return email
+  **/
+  @ApiModelProperty(example = "user@arm.com", required = true, value = "The email address.")
+  public String getEmail() {
+    return email;
+  }
+
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public UserInfoResp status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+   * @return status
+  **/
+  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
   }
 
   public UserInfoResp accountId(String accountId) {
@@ -589,40 +607,22 @@ public class UserInfoResp implements Serializable {
     this.userProperties = userProperties;
   }
 
-  public UserInfoResp email(String email) {
-    this.email = email;
+  public UserInfoResp isTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
     return this;
   }
 
    /**
-   * The email address.
-   * @return email
+   * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+   * @return isTotpEnabled
   **/
-  @ApiModelProperty(example = "user@arm.com", required = true, value = "The email address.")
-  public String getEmail() {
-    return email;
+  @ApiModelProperty(example = "true", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+  public Boolean isIsTotpEnabled() {
+    return isTotpEnabled;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserInfoResp username(String username) {
-    this.username = username;
-    return this;
-  }
-
-   /**
-   * A username containing alphanumerical letters and -,._@+&#x3D; characters.
-   * @return username
-  **/
-  @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
-  public String getUsername() {
-    return username;
-  }
-
-  public void setUsername(String username) {
-    this.username = username;
+  public void setIsTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
   }
 
   public UserInfoResp passwordChangedTime(Long passwordChangedTime) {
@@ -653,7 +653,7 @@ public class UserInfoResp implements Serializable {
       return false;
     }
     UserInfoResp userInfoResp = (UserInfoResp) o;
-    return Objects.equals(this.status, userInfoResp.status) &&
+    return Objects.equals(this.username, userInfoResp.username) &&
         Objects.equals(this.loginHistory, userInfoResp.loginHistory) &&
         Objects.equals(this.creationTime, userInfoResp.creationTime) &&
         Objects.equals(this.updatedAt, userInfoResp.updatedAt) &&
@@ -663,8 +663,9 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.isGtcAccepted, userInfoResp.isGtcAccepted) &&
         Objects.equals(this.etag, userInfoResp.etag) &&
         Objects.equals(this.isMarketingAccepted, userInfoResp.isMarketingAccepted) &&
-        Objects.equals(this.isTotpEnabled, userInfoResp.isTotpEnabled) &&
         Objects.equals(this.phoneNumber, userInfoResp.phoneNumber) &&
+        Objects.equals(this.email, userInfoResp.email) &&
+        Objects.equals(this.status, userInfoResp.status) &&
         Objects.equals(this.accountId, userInfoResp.accountId) &&
         Objects.equals(this.object, userInfoResp.object) &&
         Objects.equals(this.groups, userInfoResp.groups) &&
@@ -673,14 +674,13 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.emailVerified, userInfoResp.emailVerified) &&
         Objects.equals(this.createdAt, userInfoResp.createdAt) &&
         Objects.equals(this.userProperties, userInfoResp.userProperties) &&
-        Objects.equals(this.email, userInfoResp.email) &&
-        Objects.equals(this.username, userInfoResp.username) &&
+        Objects.equals(this.isTotpEnabled, userInfoResp.isTotpEnabled) &&
         Objects.equals(this.passwordChangedTime, userInfoResp.passwordChangedTime);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, loginHistory, creationTime, updatedAt, fullName, id, lastLoginTime, isGtcAccepted, etag, isMarketingAccepted, isTotpEnabled, phoneNumber, accountId, object, groups, address, password, emailVerified, createdAt, userProperties, email, username, passwordChangedTime);
+    return Objects.hash(username, loginHistory, creationTime, updatedAt, fullName, id, lastLoginTime, isGtcAccepted, etag, isMarketingAccepted, phoneNumber, email, status, accountId, object, groups, address, password, emailVerified, createdAt, userProperties, isTotpEnabled, passwordChangedTime);
   }
 
 
@@ -689,7 +689,7 @@ public class UserInfoResp implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserInfoResp {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
@@ -699,8 +699,9 @@ public class UserInfoResp implements Serializable {
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
-    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
@@ -709,8 +710,7 @@ public class UserInfoResp implements Serializable {
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -40,8 +40,8 @@ public class PolicyInfo implements Serializable {
   @SerializedName("valid_until")
   private DateTime validUntil = null;
 
-  @SerializedName("error_message")
-  private String errorMessage = null;
+  @SerializedName("grant_expires_in")
+  private Integer grantExpiresIn = null;
 
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
@@ -58,17 +58,17 @@ public class PolicyInfo implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
+  @SerializedName("users")
+  private List<String> users = null;
 
   @SerializedName("valid_from")
   private DateTime validFrom = null;
 
-  @SerializedName("description")
-  private String description = null;
-
   @SerializedName("etag")
   private String etag = null;
+
+  @SerializedName("account_id")
+  private String accountId = null;
 
   @SerializedName("conditions")
   private List<String> conditions = new ArrayList<String>();
@@ -126,8 +126,8 @@ public class PolicyInfo implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("users")
-  private List<String> users = null;
+  @SerializedName("description")
+  private String description = null;
 
   /**
    * Entity name: always &#39;policy&#39;
@@ -192,8 +192,8 @@ public class PolicyInfo implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("grant_expires_in")
-  private Integer grantExpiresIn = null;
+  @SerializedName("error_message")
+  private String errorMessage = null;
 
   @SerializedName("notConditions")
   private List<String> notConditions = new ArrayList<String>();
@@ -216,22 +216,22 @@ public class PolicyInfo implements Serializable {
     this.validUntil = validUntil;
   }
 
-  public PolicyInfo errorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
+  public PolicyInfo grantExpiresIn(Integer grantExpiresIn) {
+    this.grantExpiresIn = grantExpiresIn;
     return this;
   }
 
    /**
-   * Custom error message returned when this policy matches with not allowed result.
-   * @return errorMessage
+   * Specifies the value in seconds for how long an authorization result is valid.
+   * @return grantExpiresIn
   **/
-  @ApiModelProperty(example = "Accessing resource is forbidden.", value = "Custom error message returned when this policy matches with not allowed result.")
-  public String getErrorMessage() {
-    return errorMessage;
+  @ApiModelProperty(example = "3600", value = "Specifies the value in seconds for how long an authorization result is valid.")
+  public Integer getGrantExpiresIn() {
+    return grantExpiresIn;
   }
 
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
+  public void setGrantExpiresIn(Integer grantExpiresIn) {
+    this.grantExpiresIn = grantExpiresIn;
   }
 
   public PolicyInfo updatedAt(DateTime updatedAt) {
@@ -337,22 +337,30 @@ public class PolicyInfo implements Serializable {
     this.id = id;
   }
 
-  public PolicyInfo accountId(String accountId) {
-    this.accountId = accountId;
+  public PolicyInfo users(List<String> users) {
+    this.users = users;
+    return this;
+  }
+
+  public PolicyInfo addUsersItem(String usersItem) {
+    if (this.users == null) {
+      this.users = new ArrayList<String>();
+    }
+    this.users.add(usersItem);
     return this;
   }
 
    /**
-   * The UUID of the account.
-   * @return accountId
+   * List of user IDs this policy is attached to.
+   * @return users
   **/
-  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
-  public String getAccountId() {
-    return accountId;
+  @ApiModelProperty(value = "List of user IDs this policy is attached to.")
+  public List<String> getUsers() {
+    return users;
   }
 
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
+  public void setUsers(List<String> users) {
+    this.users = users;
   }
 
   public PolicyInfo validFrom(DateTime validFrom) {
@@ -373,24 +381,6 @@ public class PolicyInfo implements Serializable {
     this.validFrom = validFrom;
   }
 
-  public PolicyInfo description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * The description of this policy.
-   * @return description
-  **/
-  @ApiModelProperty(example = "Custom policy for the account", value = "The description of this policy.")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
   public PolicyInfo etag(String etag) {
     this.etag = etag;
     return this;
@@ -407,6 +397,24 @@ public class PolicyInfo implements Serializable {
 
   public void setEtag(String etag) {
     this.etag = etag;
+  }
+
+  public PolicyInfo accountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+   /**
+   * The UUID of the account.
+   * @return accountId
+  **/
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
   public PolicyInfo conditions(List<String> conditions) {
@@ -473,30 +481,22 @@ public class PolicyInfo implements Serializable {
     this.status = status;
   }
 
-  public PolicyInfo users(List<String> users) {
-    this.users = users;
-    return this;
-  }
-
-  public PolicyInfo addUsersItem(String usersItem) {
-    if (this.users == null) {
-      this.users = new ArrayList<String>();
-    }
-    this.users.add(usersItem);
+  public PolicyInfo description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * List of user IDs this policy is attached to.
-   * @return users
+   * The description of this policy.
+   * @return description
   **/
-  @ApiModelProperty(value = "List of user IDs this policy is attached to.")
-  public List<String> getUsers() {
-    return users;
+  @ApiModelProperty(example = "Custom policy for the account", value = "The description of this policy.")
+  public String getDescription() {
+    return description;
   }
 
-  public void setUsers(List<String> users) {
-    this.users = users;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public PolicyInfo object(ObjectEnum object) {
@@ -625,22 +625,22 @@ public class PolicyInfo implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public PolicyInfo grantExpiresIn(Integer grantExpiresIn) {
-    this.grantExpiresIn = grantExpiresIn;
+  public PolicyInfo errorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
     return this;
   }
 
    /**
-   * Specifies the value in seconds for how long an authorization result is valid.
-   * @return grantExpiresIn
+   * Custom error message returned when this policy matches with not allowed result.
+   * @return errorMessage
   **/
-  @ApiModelProperty(example = "3600", value = "Specifies the value in seconds for how long an authorization result is valid.")
-  public Integer getGrantExpiresIn() {
-    return grantExpiresIn;
+  @ApiModelProperty(example = "Accessing resource is forbidden.", value = "Custom error message returned when this policy matches with not allowed result.")
+  public String getErrorMessage() {
+    return errorMessage;
   }
 
-  public void setGrantExpiresIn(Integer grantExpiresIn) {
-    this.grantExpiresIn = grantExpiresIn;
+  public void setErrorMessage(String errorMessage) {
+    this.errorMessage = errorMessage;
   }
 
   public PolicyInfo notConditions(List<String> notConditions) {
@@ -677,33 +677,33 @@ public class PolicyInfo implements Serializable {
     }
     PolicyInfo policyInfo = (PolicyInfo) o;
     return Objects.equals(this.validUntil, policyInfo.validUntil) &&
-        Objects.equals(this.errorMessage, policyInfo.errorMessage) &&
+        Objects.equals(this.grantExpiresIn, policyInfo.grantExpiresIn) &&
         Objects.equals(this.updatedAt, policyInfo.updatedAt) &&
         Objects.equals(this.actions, policyInfo.actions) &&
         Objects.equals(this.tag, policyInfo.tag) &&
         Objects.equals(this.apikeys, policyInfo.apikeys) &&
         Objects.equals(this.id, policyInfo.id) &&
-        Objects.equals(this.accountId, policyInfo.accountId) &&
+        Objects.equals(this.users, policyInfo.users) &&
         Objects.equals(this.validFrom, policyInfo.validFrom) &&
-        Objects.equals(this.description, policyInfo.description) &&
         Objects.equals(this.etag, policyInfo.etag) &&
+        Objects.equals(this.accountId, policyInfo.accountId) &&
         Objects.equals(this.conditions, policyInfo.conditions) &&
         Objects.equals(this.resources, policyInfo.resources) &&
         Objects.equals(this.status, policyInfo.status) &&
-        Objects.equals(this.users, policyInfo.users) &&
+        Objects.equals(this.description, policyInfo.description) &&
         Objects.equals(this.object, policyInfo.object) &&
         Objects.equals(this.groups, policyInfo.groups) &&
         Objects.equals(this.notActions, policyInfo.notActions) &&
         Objects.equals(this.notResources, policyInfo.notResources) &&
         Objects.equals(this.name, policyInfo.name) &&
         Objects.equals(this.createdAt, policyInfo.createdAt) &&
-        Objects.equals(this.grantExpiresIn, policyInfo.grantExpiresIn) &&
+        Objects.equals(this.errorMessage, policyInfo.errorMessage) &&
         Objects.equals(this.notConditions, policyInfo.notConditions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(validUntil, errorMessage, updatedAt, actions, tag, apikeys, id, accountId, validFrom, description, etag, conditions, resources, status, users, object, groups, notActions, notResources, name, createdAt, grantExpiresIn, notConditions);
+    return Objects.hash(validUntil, grantExpiresIn, updatedAt, actions, tag, apikeys, id, users, validFrom, etag, accountId, conditions, resources, status, description, object, groups, notActions, notResources, name, createdAt, errorMessage, notConditions);
   }
 
 
@@ -713,27 +713,27 @@ public class PolicyInfo implements Serializable {
     sb.append("class PolicyInfo {\n");
     
     sb.append("    validUntil: ").append(toIndentedString(validUntil)).append("\n");
-    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
+    sb.append("    grantExpiresIn: ").append(toIndentedString(grantExpiresIn)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    actions: ").append(toIndentedString(actions)).append("\n");
     sb.append("    tag: ").append(toIndentedString(tag)).append("\n");
     sb.append("    apikeys: ").append(toIndentedString(apikeys)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    users: ").append(toIndentedString(users)).append("\n");
     sb.append("    validFrom: ").append(toIndentedString(validFrom)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    conditions: ").append(toIndentedString(conditions)).append("\n");
     sb.append("    resources: ").append(toIndentedString(resources)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    users: ").append(toIndentedString(users)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    notActions: ").append(toIndentedString(notActions)).append("\n");
     sb.append("    notResources: ").append(toIndentedString(notResources)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    grantExpiresIn: ").append(toIndentedString(grantExpiresIn)).append("\n");
+    sb.append("    errorMessage: ").append(toIndentedString(errorMessage)).append("\n");
     sb.append("    notConditions: ").append(toIndentedString(notConditions)).append("\n");
     sb.append("}");
     return sb.toString();
