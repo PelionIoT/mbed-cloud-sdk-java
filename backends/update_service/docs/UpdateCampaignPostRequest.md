@@ -21,7 +21,7 @@ DRAFT | &quot;draft&quot;
 SCHEDULED | &quot;scheduled&quot;
 ALLOCATINGQUOTA | &quot;allocatingquota&quot;
 ALLOCATEDQUOTA | &quot;allocatedquota&quot;
-INSUFFICIENTQUOTA | &quot;insufficientquota&quot;
+QUOTAALLOCATIONFAILED | &quot;quotaallocationfailed&quot;
 CHECKINGMANIFEST | &quot;checkingmanifest&quot;
 CHECKEDMANIFEST | &quot;checkedmanifest&quot;
 DEVICEFETCH | &quot;devicefetch&quot;

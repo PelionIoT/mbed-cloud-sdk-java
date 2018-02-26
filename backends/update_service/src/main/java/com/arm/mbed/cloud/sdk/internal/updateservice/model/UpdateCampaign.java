@@ -63,7 +63,7 @@ public class UpdateCampaign implements Serializable {
     
     ALLOCATEDQUOTA("allocatedquota"),
     
-    INSUFFICIENTQUOTA("insufficientquota"),
+    QUOTAALLOCATIONFAILED("quotaallocationfailed"),
     
     CHECKINGMANIFEST("checkingmanifest"),
     
