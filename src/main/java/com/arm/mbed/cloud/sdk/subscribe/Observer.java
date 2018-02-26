@@ -1,14 +1,15 @@
 package com.arm.mbed.cloud.sdk.subscribe;
 
-import java.util.Iterator;
-import java.util.concurrent.Future;
-
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
 
 import io.reactivex.Flowable;
 
 @Preamble(description = "SDK Model object") // extends Serializable, Cloneable
-public interface Observer<T> extends Iterator<Future<T>>, Iterable<Future<T>> {
+public interface Observer<T> {// extends Iterator<Future<T>>, Iterable<Future<T>> {
+    String getId();
 
     void addCallback(NotificationCallback<T> callback);
 
@@ -18,8 +19,12 @@ public interface Observer<T> extends Iterator<Future<T>>, Iterable<Future<T>> {
 
     Flowable<T> flow();
 
-    T one();
+    T one() throws MbedCloudException;
 
-    boolean isCancelled();
+    T one(@Nullable TimePeriod timeout) throws MbedCloudException;
+
+    int numberOfCallbacks();
+
+    boolean isDisposed();
 
 }

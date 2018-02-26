@@ -24,4 +24,12 @@ public class NotificationCallback<T> {
         }
     }
 
+    public void callBack(T value) {
+        callBack(value, null);
+    }
+
+    public void callBack(Throwable throwable) {
+        callBack(null, throwable);
+    }
+
 }
