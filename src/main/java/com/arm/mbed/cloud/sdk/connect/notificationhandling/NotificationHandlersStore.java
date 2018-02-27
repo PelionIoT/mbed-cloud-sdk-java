@@ -172,6 +172,20 @@ public class NotificationHandlersStore {
     }
 
     /**
+     * Creates an observer for resource subscriptions.
+     *
+     * @param resource
+     *            resource to register the callback for.
+     * @param strategy
+     *            backpressure strategy to apply @see {@link BackpressureStrategy}
+     * @return Observable which can be subscribed to. @see {@link Flowable}
+     */
+    public @Nullable Flowable<Object> createResourceSubscriptionObserver(Resource resource,
+            BackpressureStrategy strategy) {
+        return subscriptionHandlers.createResourceSubscriptionEmitter(resource, strategy);
+    }
+
+    /**
      * Deregisters the subscription callback of a resource.
      *
      * @param resource

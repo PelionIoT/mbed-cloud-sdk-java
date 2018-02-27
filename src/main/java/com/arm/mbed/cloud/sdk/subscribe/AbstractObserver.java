@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.subscribe;
 
-import java.util.UUID;
 import java.util.concurrent.Future;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -28,12 +27,12 @@ public abstract class AbstractObserver<T> implements Observer<T> {
     private final String id;
     private volatile boolean isDisposed;
 
-    public AbstractObserver(Flowable<T> flow, SubscriptionManager manager, FilterOptions filter) {
+    public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter) {
         super();
         isDisposed = false;
         this.filter = filter;
         this.composite = new CompositeDisposable();
-        this.id = UUID.randomUUID().toString(); // TODO use the internal generator
+        this.id = id;
         this.flow = flow.observeOn(manager.getObservedOnExecutor()).filter(new Predicate<T>() {
 
             @Override
