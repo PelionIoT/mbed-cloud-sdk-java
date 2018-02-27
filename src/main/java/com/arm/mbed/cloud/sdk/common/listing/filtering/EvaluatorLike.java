@@ -4,6 +4,11 @@ import java.util.Locale;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+
+@Preamble(description = "Evaluates whether a value complies to a LIKE filter")
+@Internal
 public class EvaluatorLike implements FilterEvaluator {
 
     @Override

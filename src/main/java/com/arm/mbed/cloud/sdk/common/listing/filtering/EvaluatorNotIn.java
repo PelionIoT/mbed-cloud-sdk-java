@@ -3,6 +3,11 @@ package com.arm.mbed.cloud.sdk.common.listing.filtering;
 import java.util.Arrays;
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+
+@Preamble(description = "Evaluates whether a value complies to a NOT-IN filter")
+@Internal
 public class EvaluatorNotIn implements FilterEvaluator {
 
     @Override
