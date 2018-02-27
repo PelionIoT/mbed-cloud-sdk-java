@@ -12,7 +12,7 @@ public class EvaluatorNotEqual implements FilterEvaluator {
     }
 
     protected static boolean verify(Object value, final Object filterValue) {
-        return (filterValue == null) ? value != null : !filterValue.equals(value);
+        return !EvaluatorEqual.verify(value, filterValue);
     }
 
 }

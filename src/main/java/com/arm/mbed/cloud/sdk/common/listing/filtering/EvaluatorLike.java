@@ -26,13 +26,15 @@ public class EvaluatorLike implements FilterEvaluator {
             }
             // If filterValue is a Java Regex.
             try {
-                return Pattern.matches(pattern, valueString);
+                if (Pattern.matches(pattern, valueString)) {
+                    return true;
+                }
             } catch (PatternSyntaxException e) {
                 // Nothing to do
             }
             // If filterValue is a SQL like entry i.e.
-            final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("?", ".")
-                    .replace("%", ".*");
+            final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("*", "\\*")
+                    .replace("?", ".").replace("_", ".").replace("%", ".*");
             try {
                 return Pattern.matches(javaPattern, valueString);
             } catch (PatternSyntaxException e) {

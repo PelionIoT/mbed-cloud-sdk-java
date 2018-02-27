@@ -12,7 +12,31 @@ public class EvaluatorEqual implements FilterEvaluator {
     }
 
     protected static boolean verify(Object value, final Object filterValue) {
-        return (filterValue == null) ? value == null : filterValue.equals(value);
+        if (filterValue == null) {
+            return value == null;
+        }
+        if (value == null) {
+            return false;
+        }
+        if (filterValue instanceof Number) {
+            if (!(value instanceof Number)) {
+                return false;
+            }
+            if (filterValue instanceof Long || filterValue instanceof Integer || filterValue instanceof Byte
+                    || filterValue instanceof Short) {
+                if (!(value instanceof Double || value instanceof Float)) {
+                    return Long.valueOf(((Number) filterValue).longValue())
+                            .equals(Long.valueOf(((Number) value).longValue()));
+                }
+                return Double.valueOf(((Number) filterValue).doubleValue())
+                        .equals(Double.valueOf(((Number) value).doubleValue()));
+            }
+            if (filterValue instanceof Double || filterValue instanceof Float) {
+                return Double.valueOf(((Number) filterValue).doubleValue())
+                        .equals(Double.valueOf(((Number) value).doubleValue()));
+            }
+        }
+        return filterValue.equals(value);
     }
 
 }
