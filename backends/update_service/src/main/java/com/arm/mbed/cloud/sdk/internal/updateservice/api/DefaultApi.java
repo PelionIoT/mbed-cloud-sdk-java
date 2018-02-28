@@ -28,7 +28,7 @@ import java.util.Map;
 
 public interface DefaultApi {
   /**
-   * 
+   * Create an image
    * Create firmware image.
    * @param datafile The firmware image file to upload (required)
    * @param name The name of the firmware image (required)
@@ -42,7 +42,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete an image
    * Delete firmware image.
    * @param imageId The firmware image ID (required)
    * @return Call&lt;Void&gt;
@@ -53,7 +53,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List all images
    * List all firmware images.
    * @param limit How many firmware images to retrieve (optional)
    * @param order ASC or DESC (optional)
@@ -68,7 +68,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get an image
    * Retrieve firmware image.
    * @param imageId The firmware image ID (required)
    * @return Call&lt;FirmwareImage&gt;
@@ -79,7 +79,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Create a manifest
    * Create firmware manifest.
    * @param datafile The manifest file to create. The API gateway enforces the account-specific file size. (required)
    * @param name The name of the firmware manifest (required)
@@ -94,7 +94,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete a manifest
    * Delete firmware manifest.
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;Void&gt;
@@ -105,7 +105,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List manifests
    * List firmware manifests.
    * @param limit How many firmware manifests to retrieve (optional)
    * @param order ASC or DESC (optional)
@@ -120,7 +120,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a manifest
    * Retrieve firmware manifest.
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;FirmwareManifest&gt;
@@ -131,7 +131,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Create a campaign
    * Create an update campaign.
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
@@ -142,7 +142,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete a campaign
    * Delete an update campaign.
    * @param campaignId The ID of the update campaign (required)
    * @return Call&lt;Void&gt;
@@ -153,8 +153,8 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
+   * List all campaigns
+   * Get update campaigns for devices specified by a filter.
    * @param limit How many update campaigns to retrieve (optional)
    * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
@@ -168,7 +168,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List all campaign device metadata
    * Get campaign device metadata.
    * @param campaignId The update campaign ID (required)
    * @param limit How many objects to retrieve in the page (optional)
@@ -183,7 +183,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a campaign device metadata
    * Get update campaign metadata.
    * @param campaignId The update campaign ID (required)
    * @param campaignDeviceMetadataId The campaign device metadata ID (required)
@@ -195,7 +195,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Stop a running campaign
    * Stop a running update campaign.
    * @param campaignId The campaign ID (required)
    * @return Call&lt;Void&gt;
@@ -206,7 +206,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a campaign.
    * Get an update campaign.
    * @param campaignId The campaign ID (required)
    * @return Call&lt;UpdateCampaign&gt;
@@ -217,7 +217,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Modify a campaign
    * Modify an update campaign.
    * @param campaignId  (required)
    * @param campaign Update campaign (required)

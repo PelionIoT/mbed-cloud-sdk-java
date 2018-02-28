@@ -4,29 +4,29 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**firmwareImageCreate**](DefaultApi.md#firmwareImageCreate) | **POST** v3/firmware-images/ | 
-[**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** v3/firmware-images/{image_id}/ | 
-[**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** v3/firmware-images/ | 
-[**firmwareImageRetrieve**](DefaultApi.md#firmwareImageRetrieve) | **GET** v3/firmware-images/{image_id}/ | 
-[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** v3/firmware-manifests/ | 
-[**firmwareManifestDestroy**](DefaultApi.md#firmwareManifestDestroy) | **DELETE** v3/firmware-manifests/{manifest_id}/ | 
-[**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** v3/firmware-manifests/ | 
-[**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** v3/firmware-manifests/{manifest_id}/ | 
-[**updateCampaignCreate**](DefaultApi.md#updateCampaignCreate) | **POST** v3/update-campaigns/ | 
-[**updateCampaignDestroy**](DefaultApi.md#updateCampaignDestroy) | **DELETE** v3/update-campaigns/{campaign_id}/ | 
-[**updateCampaignList**](DefaultApi.md#updateCampaignList) | **GET** v3/update-campaigns/ | 
-[**updateCampaignMetadataList**](DefaultApi.md#updateCampaignMetadataList) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | 
-[**updateCampaignMetadataRetrieve**](DefaultApi.md#updateCampaignMetadataRetrieve) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | 
-[**updateCampaignMetadataStop**](DefaultApi.md#updateCampaignMetadataStop) | **POST** v3/update-campaigns/{campaign_id}/stop | 
-[**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | 
-[**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | 
+[**firmwareImageCreate**](DefaultApi.md#firmwareImageCreate) | **POST** v3/firmware-images/ | Create an image
+[**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** v3/firmware-images/{image_id}/ | Delete an image
+[**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** v3/firmware-images/ | List all images
+[**firmwareImageRetrieve**](DefaultApi.md#firmwareImageRetrieve) | **GET** v3/firmware-images/{image_id}/ | Get an image
+[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** v3/firmware-manifests/ | Create a manifest
+[**firmwareManifestDestroy**](DefaultApi.md#firmwareManifestDestroy) | **DELETE** v3/firmware-manifests/{manifest_id}/ | Delete a manifest
+[**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** v3/firmware-manifests/ | List manifests
+[**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** v3/firmware-manifests/{manifest_id}/ | Get a manifest
+[**updateCampaignCreate**](DefaultApi.md#updateCampaignCreate) | **POST** v3/update-campaigns/ | Create a campaign
+[**updateCampaignDestroy**](DefaultApi.md#updateCampaignDestroy) | **DELETE** v3/update-campaigns/{campaign_id}/ | Delete a campaign
+[**updateCampaignList**](DefaultApi.md#updateCampaignList) | **GET** v3/update-campaigns/ | List all campaigns
+[**updateCampaignMetadataList**](DefaultApi.md#updateCampaignMetadataList) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | List all campaign device metadata
+[**updateCampaignMetadataRetrieve**](DefaultApi.md#updateCampaignMetadataRetrieve) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | Get a campaign device metadata
+[**updateCampaignMetadataStop**](DefaultApi.md#updateCampaignMetadataStop) | **POST** v3/update-campaigns/{campaign_id}/stop | Stop a running campaign
+[**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | Get a campaign.
+[**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | Modify a campaign
 
 
 <a name="firmwareImageCreate"></a>
 # **firmwareImageCreate**
 > FirmwareImage firmwareImageCreate(datafile, name, description)
 
-
+Create an image
 
 Create firmware image.
 
@@ -85,7 +85,7 @@ Name | Type | Description  | Notes
 # **firmwareImageDestroy**
 > Void firmwareImageDestroy(imageId)
 
-
+Delete an image
 
 Delete firmware image.
 
@@ -140,7 +140,7 @@ Name | Type | Description  | Notes
 # **firmwareImageList**
 > FirmwareImagePage firmwareImageList(limit, order, after, filter, include)
 
-
+List all images
 
 List all firmware images.
 
@@ -203,7 +203,7 @@ Name | Type | Description  | Notes
 # **firmwareImageRetrieve**
 > FirmwareImage firmwareImageRetrieve(imageId)
 
-
+Get an image
 
 Retrieve firmware image.
 
@@ -258,7 +258,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestCreate**
 > FirmwareManifest firmwareManifestCreate(datafile, name, description, keyTable)
 
-
+Create a manifest
 
 Create firmware manifest.
 
@@ -319,7 +319,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestDestroy**
 > Void firmwareManifestDestroy(manifestId)
 
-
+Delete a manifest
 
 Delete firmware manifest.
 
@@ -374,7 +374,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestList**
 > FirmwareManifestPage firmwareManifestList(limit, order, after, filter, include)
 
-
+List manifests
 
 List firmware manifests.
 
@@ -437,7 +437,7 @@ Name | Type | Description  | Notes
 # **firmwareManifestRetrieve**
 > FirmwareManifest firmwareManifestRetrieve(manifestId)
 
-
+Get a manifest
 
 Retrieve firmware manifest.
 
@@ -492,7 +492,7 @@ Name | Type | Description  | Notes
 # **updateCampaignCreate**
 > UpdateCampaign updateCampaignCreate(campaign)
 
-
+Create a campaign
 
 Create an update campaign.
 
@@ -547,7 +547,7 @@ Name | Type | Description  | Notes
 # **updateCampaignDestroy**
 > Void updateCampaignDestroy(campaignId)
 
-
+Delete a campaign
 
 Delete an update campaign.
 
@@ -602,9 +602,9 @@ Name | Type | Description  | Notes
 # **updateCampaignList**
 > UpdateCampaignPage updateCampaignList(limit, order, after, filter, include)
 
+List all campaigns
 
-
-Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
+Get update campaigns for devices specified by a filter.
 
 ### Example
 ```java
@@ -665,7 +665,7 @@ Name | Type | Description  | Notes
 # **updateCampaignMetadataList**
 > CampaignDeviceMetadataPage updateCampaignMetadataList(campaignId, limit, order, after, include)
 
-
+List all campaign device metadata
 
 Get campaign device metadata.
 
@@ -728,7 +728,7 @@ Name | Type | Description  | Notes
 # **updateCampaignMetadataRetrieve**
 > CampaignDeviceMetadata updateCampaignMetadataRetrieve(campaignId, campaignDeviceMetadataId)
 
-
+Get a campaign device metadata
 
 Get update campaign metadata.
 
@@ -785,7 +785,7 @@ Name | Type | Description  | Notes
 # **updateCampaignMetadataStop**
 > Void updateCampaignMetadataStop(campaignId)
 
-
+Stop a running campaign
 
 Stop a running update campaign.
 
@@ -840,7 +840,7 @@ Name | Type | Description  | Notes
 # **updateCampaignRetrieve**
 > UpdateCampaign updateCampaignRetrieve(campaignId)
 
-
+Get a campaign.
 
 Get an update campaign.
 
@@ -895,7 +895,7 @@ Name | Type | Description  | Notes
 # **updateCampaignUpdate**
 > UpdateCampaign updateCampaignUpdate(campaignId, campaign)
 
-
+Modify a campaign
 
 Modify an update campaign.
 
