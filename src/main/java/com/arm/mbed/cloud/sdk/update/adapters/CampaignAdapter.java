@@ -139,6 +139,8 @@ public final class CampaignAdapter {
                 return CampaignState.ALLOCATED_QUOTA;
             case ALLOCATINGQUOTA:
                 return CampaignState.ALLOCATING_QUOTA;
+            case QUOTAALLOCATIONFAILED:
+                return CampaignState.ALLOCATING_QUOTA_FAILED;
             case AUTOSTOPPED:
                 return CampaignState.AUTO_STOPPED;
             case CHECKEDMANIFEST:
@@ -186,6 +188,8 @@ public final class CampaignAdapter {
                 return UpdateCampaignPostRequest.StateEnum.ALLOCATEDQUOTA;
             case ALLOCATING_QUOTA:
                 return UpdateCampaignPostRequest.StateEnum.ALLOCATINGQUOTA;
+            case ALLOCATING_QUOTA_FAILED:
+                return UpdateCampaignPostRequest.StateEnum.QUOTAALLOCATIONFAILED;
             case AUTO_STOPPED:
                 return UpdateCampaignPostRequest.StateEnum.AUTOSTOPPED;
             case CHECKED_MANIFEST:
@@ -236,6 +240,8 @@ public final class CampaignAdapter {
                 return UpdateCampaignPutRequest.StateEnum.ALLOCATEDQUOTA;
             case ALLOCATING_QUOTA:
                 return UpdateCampaignPutRequest.StateEnum.ALLOCATINGQUOTA;
+            case ALLOCATING_QUOTA_FAILED:
+                return UpdateCampaignPutRequest.StateEnum.QUOTAALLOCATIONFAILED;
             case AUTO_STOPPED:
                 return UpdateCampaignPutRequest.StateEnum.AUTOSTOPPED;
             case CHECKED_MANIFEST:
