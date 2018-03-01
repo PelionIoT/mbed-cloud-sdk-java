@@ -28,7 +28,7 @@ import java.util.Map;
 
 public interface DefaultApi {
   /**
-   * 
+   * Create an image
    * Create firmware image.
    * @param datafile The firmware image file to upload (required)
    * @param name The name of the firmware image (required)
@@ -42,7 +42,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete an image
    * Delete firmware image.
    * @param imageId The firmware image ID (required)
    * @return Call&lt;Void&gt;
@@ -53,12 +53,12 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List all images
    * List all firmware images.
    * @param limit How many firmware images to retrieve (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
-   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |       Field       | &#x3D; / __eq / __neq | __in /  __nin | __lte / __gte | |:-----------------:|:----------------:|:-------------:|:-------------:| |     created_at    |         ✓        |       ✓       |       ✓       | |      datafile     |         ✓        |       ✓       |               | | datafile_checksum |         ✓        |       ✓       |               | |   datafile_size   |         ✓        |       ✓       |               | |    description    |         ✓        |       ✓       |               | |        etag       |         ✓        |       ✓       |       ✓       | |         id        |         ✓        |       ✓       |               | |        name       |         ✓        |       ✓       |               | |     timestamp     |         ✓        |       ✓       |       ✓       | |     updated_at    |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;FirmwareImagePage&gt;
    */
@@ -68,7 +68,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get an image
    * Retrieve firmware image.
    * @param imageId The firmware image ID (required)
    * @return Call&lt;FirmwareImage&gt;
@@ -79,7 +79,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Create a manifest
    * Create firmware manifest.
    * @param datafile The manifest file to create. The API gateway enforces the account-specific file size. (required)
    * @param name The name of the firmware manifest (required)
@@ -94,7 +94,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete a manifest
    * Delete firmware manifest.
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;Void&gt;
@@ -105,12 +105,12 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List manifests
    * List firmware manifests.
    * @param limit How many firmware manifests to retrieve (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page. (optional)
-   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by properties** &#x60;name&#x3D;mymanifest&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name&#x3D;mymanifest&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60; (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The below table lists all the fields that can be filtered on with certain filters:  |     Field     | &#x3D; / __eq / __neq | __in /  __nin | __lte / __gte | |:-------------:|:----------------:|:-------------:|:-------------:| |   created_at  |         ✓        |       ✓       |       ✓       | |    datafile   |         ✓        |       ✓       |               | | datafile_size |         ✓        |       ✓       |               | |  description  |         ✓        |       ✓       |               | |  device_class |         ✓        |       ✓       |               | |      etag     |         ✓        |       ✓       |       ✓       | |       id      |         ✓        |       ✓       |               | |      name     |         ✓        |       ✓       |               | |   timestamp   |         ✓        |       ✓       |       ✓       | |   updated_at  |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1__eq&#x3D;value1&amp;key2__eq&#x3D;value2&amp;key3__eq&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;mymanifest&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;mymanifest&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-manifest1,fw-manifest2&#x60; (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;FirmwareManifestPage&gt;
    */
@@ -120,7 +120,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a manifest
    * Retrieve firmware manifest.
    * @param manifestId The firmware manifest ID (required)
    * @return Call&lt;FirmwareManifest&gt;
@@ -131,7 +131,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Create a campaign
    * Create an update campaign.
    * @param campaign Update campaign (required)
    * @return Call&lt;UpdateCampaign&gt;
@@ -142,7 +142,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Delete a campaign
    * Delete an update campaign.
    * @param campaignId The ID of the update campaign (required)
    * @return Call&lt;Void&gt;
@@ -153,12 +153,12 @@ public interface DefaultApi {
   );
 
   /**
-   * 
-   * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
+   * List all campaigns
+   * Get update campaigns for devices specified by a filter.
    * @param limit How many update campaigns to retrieve (optional)
    * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
-   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1%3Dvalue1%26key2%3Dvalue2%26key3%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;   ###### Filterable fields:    The below table lists all the fields that can be filtered on with certain filters:    |       Field      | &#x3D; / __eq / __neq | __in /  __nin | __lte / __gte |   |:----------------:|:----------------:|:-------------:|:-------------:|   |    created_at    |         ✓        |       ✓       |       ✓       |   |    description   |         ✓        |       ✓       |               |   |   device_filter  |         ✓        |       ✓       |               |   |       etag       |         ✓        |       ✓       |       ✓       |   |     finished     |         ✓        |       ✓       |       ✓       |   |        id        |         ✓        |       ✓       |               |   |       name       |         ✓        |       ✓       |               |   | root_manifest_id |         ✓        |       ✓       |               |   |    started_at    |         ✓        |       ✓       |       ✓       |   |       state      |         ✓        |       ✓       |               |   |    updated_at    |         ✓        |       ✓       |       ✓       |   |       when       |         ✓        |       ✓       |       ✓       |  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1__eq&#x3D;value1&amp;key2__eq&#x3D;value2&amp;key3__eq&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by campaign properties** &#x60;state__eq&#x3D;[draft|scheduled|devicefectch|devicecopy|publishing|deploying|deployed|manifestremoved|expired]&#x60;  &#x60;root_manifest_id__eq&#x3D;43217771234242e594ddb433816c498a&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;state__eq&#x3D;deployed&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: total_count (optional)
    * @return Call&lt;UpdateCampaignPage&gt;
    */
@@ -168,7 +168,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * List all campaign device metadata
    * Get campaign device metadata.
    * @param campaignId The update campaign ID (required)
    * @param limit How many objects to retrieve in the page (optional)
@@ -183,7 +183,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a campaign device metadata
    * Get update campaign metadata.
    * @param campaignId The update campaign ID (required)
    * @param campaignDeviceMetadataId The campaign device metadata ID (required)
@@ -195,7 +195,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Stop a running campaign
    * Stop a running update campaign.
    * @param campaignId The campaign ID (required)
    * @return Call&lt;Void&gt;
@@ -206,7 +206,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Get a campaign.
    * Get an update campaign.
    * @param campaignId The campaign ID (required)
    * @return Call&lt;UpdateCampaign&gt;
@@ -217,7 +217,7 @@ public interface DefaultApi {
   );
 
   /**
-   * 
+   * Modify a campaign
    * Modify an update campaign.
    * @param campaignId  (required)
    * @param campaign Update campaign (required)

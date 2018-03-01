@@ -33,7 +33,7 @@ public class DefaultApiTest {
     }
 
     /**
-     * 
+     * Create an image
      *
      * Create firmware image.
      */
@@ -47,7 +47,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete an image
      *
      * Delete firmware image.
      */
@@ -59,7 +59,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all images
      *
      * List all firmware images.
      */
@@ -75,7 +75,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get an image
      *
      * Retrieve firmware image.
      */
@@ -87,7 +87,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Create a manifest
      *
      * Create firmware manifest.
      */
@@ -102,7 +102,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a manifest
      *
      * Delete firmware manifest.
      */
@@ -114,7 +114,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List manifests
      *
      * List firmware manifests.
      */
@@ -130,7 +130,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a manifest
      *
      * Retrieve firmware manifest.
      */
@@ -142,7 +142,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Create a campaign
      *
      * Create an update campaign.
      */
@@ -154,7 +154,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a campaign
      *
      * Delete an update campaign.
      */
@@ -166,9 +166,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all campaigns
      *
-     * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
+     * Get update campaigns for devices specified by a filter.
      */
     @Test
     public void updateCampaignListTest() {
@@ -182,7 +182,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all campaign device metadata
      *
      * Get campaign device metadata.
      */
@@ -198,7 +198,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a campaign device metadata
      *
      * Get update campaign metadata.
      */
@@ -211,7 +211,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Stop a running campaign
      *
      * Stop a running update campaign.
      */
@@ -223,7 +223,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a campaign.
      *
      * Get an update campaign.
      */
@@ -235,7 +235,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Modify a campaign
      *
      * Modify an update campaign.
      */
