@@ -1,5 +1,5 @@
 
-# DeviceFilter
+# DeviceInNinFilter
 
 ## Properties
 Name | Type | Description | Notes

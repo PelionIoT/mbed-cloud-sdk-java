@@ -26,10 +26,10 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * DeviceEventFilter
+ * DeviceEventEqNeqFilter
  */
 
-public class DeviceEventFilter implements Serializable {
+public class DeviceEventEqNeqFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("date_time")
@@ -50,7 +50,7 @@ public class DeviceEventFilter implements Serializable {
   @SerializedName("event_type")
   private String eventType = null;
 
-  public DeviceEventFilter dateTime(DateTime dateTime) {
+  public DeviceEventEqNeqFilter dateTime(DateTime dateTime) {
     this.dateTime = dateTime;
     return this;
   }
@@ -68,7 +68,7 @@ public class DeviceEventFilter implements Serializable {
     this.dateTime = dateTime;
   }
 
-  public DeviceEventFilter stateChange(Boolean stateChange) {
+  public DeviceEventEqNeqFilter stateChange(Boolean stateChange) {
     this.stateChange = stateChange;
     return this;
   }
@@ -86,7 +86,7 @@ public class DeviceEventFilter implements Serializable {
     this.stateChange = stateChange;
   }
 
-  public DeviceEventFilter description(String description) {
+  public DeviceEventEqNeqFilter description(String description) {
     this.description = description;
     return this;
   }
@@ -104,7 +104,7 @@ public class DeviceEventFilter implements Serializable {
     this.description = description;
   }
 
-  public DeviceEventFilter deviceId(String deviceId) {
+  public DeviceEventEqNeqFilter deviceId(String deviceId) {
     this.deviceId = deviceId;
     return this;
   }
@@ -122,7 +122,7 @@ public class DeviceEventFilter implements Serializable {
     this.deviceId = deviceId;
   }
 
-  public DeviceEventFilter id(String id) {
+  public DeviceEventEqNeqFilter id(String id) {
     this.id = id;
     return this;
   }
@@ -140,7 +140,7 @@ public class DeviceEventFilter implements Serializable {
     this.id = id;
   }
 
-  public DeviceEventFilter eventType(String eventType) {
+  public DeviceEventEqNeqFilter eventType(String eventType) {
     this.eventType = eventType;
     return this;
   }
@@ -167,13 +167,13 @@ public class DeviceEventFilter implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceEventFilter deviceEventFilter = (DeviceEventFilter) o;
-    return Objects.equals(this.dateTime, deviceEventFilter.dateTime) &&
-        Objects.equals(this.stateChange, deviceEventFilter.stateChange) &&
-        Objects.equals(this.description, deviceEventFilter.description) &&
-        Objects.equals(this.deviceId, deviceEventFilter.deviceId) &&
-        Objects.equals(this.id, deviceEventFilter.id) &&
-        Objects.equals(this.eventType, deviceEventFilter.eventType);
+    DeviceEventEqNeqFilter deviceEventEqNeqFilter = (DeviceEventEqNeqFilter) o;
+    return Objects.equals(this.dateTime, deviceEventEqNeqFilter.dateTime) &&
+        Objects.equals(this.stateChange, deviceEventEqNeqFilter.stateChange) &&
+        Objects.equals(this.description, deviceEventEqNeqFilter.description) &&
+        Objects.equals(this.deviceId, deviceEventEqNeqFilter.deviceId) &&
+        Objects.equals(this.id, deviceEventEqNeqFilter.id) &&
+        Objects.equals(this.eventType, deviceEventEqNeqFilter.eventType);
   }
 
   @Override
@@ -185,7 +185,7 @@ public class DeviceEventFilter implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceEventFilter {\n");
+    sb.append("class DeviceEventEqNeqFilter {\n");
     
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
     sb.append("    stateChange: ").append(toIndentedString(stateChange)).append("\n");

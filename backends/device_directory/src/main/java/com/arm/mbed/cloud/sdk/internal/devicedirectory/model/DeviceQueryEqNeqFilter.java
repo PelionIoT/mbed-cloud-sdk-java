@@ -26,10 +26,10 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * DeviceQueryFilter
+ * DeviceQueryEqNeqFilter
  */
 
-public class DeviceQueryFilter implements Serializable {
+public class DeviceQueryEqNeqFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("name")
@@ -50,7 +50,7 @@ public class DeviceQueryFilter implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  public DeviceQueryFilter name(String name) {
+  public DeviceQueryEqNeqFilter name(String name) {
     this.name = name;
     return this;
   }
@@ -68,7 +68,7 @@ public class DeviceQueryFilter implements Serializable {
     this.name = name;
   }
 
-  public DeviceQueryFilter createdAt(DateTime createdAt) {
+  public DeviceQueryEqNeqFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -86,7 +86,7 @@ public class DeviceQueryFilter implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public DeviceQueryFilter updatedAt(DateTime updatedAt) {
+  public DeviceQueryEqNeqFilter updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -104,7 +104,7 @@ public class DeviceQueryFilter implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public DeviceQueryFilter etag(DateTime etag) {
+  public DeviceQueryEqNeqFilter etag(DateTime etag) {
     this.etag = etag;
     return this;
   }
@@ -122,7 +122,7 @@ public class DeviceQueryFilter implements Serializable {
     this.etag = etag;
   }
 
-  public DeviceQueryFilter query(String query) {
+  public DeviceQueryEqNeqFilter query(String query) {
     this.query = query;
     return this;
   }
@@ -140,7 +140,7 @@ public class DeviceQueryFilter implements Serializable {
     this.query = query;
   }
 
-  public DeviceQueryFilter id(String id) {
+  public DeviceQueryEqNeqFilter id(String id) {
     this.id = id;
     return this;
   }
@@ -167,13 +167,13 @@ public class DeviceQueryFilter implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceQueryFilter deviceQueryFilter = (DeviceQueryFilter) o;
-    return Objects.equals(this.name, deviceQueryFilter.name) &&
-        Objects.equals(this.createdAt, deviceQueryFilter.createdAt) &&
-        Objects.equals(this.updatedAt, deviceQueryFilter.updatedAt) &&
-        Objects.equals(this.etag, deviceQueryFilter.etag) &&
-        Objects.equals(this.query, deviceQueryFilter.query) &&
-        Objects.equals(this.id, deviceQueryFilter.id);
+    DeviceQueryEqNeqFilter deviceQueryEqNeqFilter = (DeviceQueryEqNeqFilter) o;
+    return Objects.equals(this.name, deviceQueryEqNeqFilter.name) &&
+        Objects.equals(this.createdAt, deviceQueryEqNeqFilter.createdAt) &&
+        Objects.equals(this.updatedAt, deviceQueryEqNeqFilter.updatedAt) &&
+        Objects.equals(this.etag, deviceQueryEqNeqFilter.etag) &&
+        Objects.equals(this.query, deviceQueryEqNeqFilter.query) &&
+        Objects.equals(this.id, deviceQueryEqNeqFilter.id);
   }
 
   @Override
@@ -185,7 +185,7 @@ public class DeviceQueryFilter implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceQueryFilter {\n");
+    sb.append("class DeviceQueryEqNeqFilter {\n");
     
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");

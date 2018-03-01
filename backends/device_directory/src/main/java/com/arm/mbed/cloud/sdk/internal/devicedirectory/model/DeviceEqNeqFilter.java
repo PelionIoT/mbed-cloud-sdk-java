@@ -29,10 +29,10 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * DeviceFilter
+ * DeviceEqNeqFilter
  */
 
-public class DeviceFilter implements Serializable {
+public class DeviceEqNeqFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("bootstrap_expiration_date")
@@ -125,7 +125,7 @@ public class DeviceFilter implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  public DeviceFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+  public DeviceEqNeqFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
     return this;
   }
@@ -143,7 +143,7 @@ public class DeviceFilter implements Serializable {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
   }
 
-  public DeviceFilter bootstrappedTimestamp(DateTime bootstrappedTimestamp) {
+  public DeviceEqNeqFilter bootstrappedTimestamp(DateTime bootstrappedTimestamp) {
     this.bootstrappedTimestamp = bootstrappedTimestamp;
     return this;
   }
@@ -161,7 +161,7 @@ public class DeviceFilter implements Serializable {
     this.bootstrappedTimestamp = bootstrappedTimestamp;
   }
 
-  public DeviceFilter connectorExpirationDate(DateTime connectorExpirationDate) {
+  public DeviceEqNeqFilter connectorExpirationDate(DateTime connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
     return this;
   }
@@ -179,7 +179,7 @@ public class DeviceFilter implements Serializable {
     this.connectorExpirationDate = connectorExpirationDate;
   }
 
-  public DeviceFilter updatedAt(DateTime updatedAt) {
+  public DeviceEqNeqFilter updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -197,7 +197,7 @@ public class DeviceFilter implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public DeviceFilter caId(String caId) {
+  public DeviceEqNeqFilter caId(String caId) {
     this.caId = caId;
     return this;
   }
@@ -215,7 +215,7 @@ public class DeviceFilter implements Serializable {
     this.caId = caId;
   }
 
-  public DeviceFilter deviceClass(String deviceClass) {
+  public DeviceEqNeqFilter deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
   }
@@ -233,7 +233,7 @@ public class DeviceFilter implements Serializable {
     this.deviceClass = deviceClass;
   }
 
-  public DeviceFilter id(String id) {
+  public DeviceEqNeqFilter id(String id) {
     this.id = id;
     return this;
   }
@@ -251,7 +251,7 @@ public class DeviceFilter implements Serializable {
     this.id = id;
   }
 
-  public DeviceFilter accountId(String accountId) {
+  public DeviceEqNeqFilter accountId(String accountId) {
     this.accountId = accountId;
     return this;
   }
@@ -269,7 +269,7 @@ public class DeviceFilter implements Serializable {
     this.accountId = accountId;
   }
 
-  public DeviceFilter endpointName(String endpointName) {
+  public DeviceEqNeqFilter endpointName(String endpointName) {
     this.endpointName = endpointName;
     return this;
   }
@@ -287,7 +287,7 @@ public class DeviceFilter implements Serializable {
     this.endpointName = endpointName;
   }
 
-  public DeviceFilter autoUpdate(Boolean autoUpdate) {
+  public DeviceEqNeqFilter autoUpdate(Boolean autoUpdate) {
     this.autoUpdate = autoUpdate;
     return this;
   }
@@ -305,7 +305,7 @@ public class DeviceFilter implements Serializable {
     this.autoUpdate = autoUpdate;
   }
 
-  public DeviceFilter hostGateway(String hostGateway) {
+  public DeviceEqNeqFilter hostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
     return this;
   }
@@ -323,7 +323,7 @@ public class DeviceFilter implements Serializable {
     this.hostGateway = hostGateway;
   }
 
-  public DeviceFilter deviceExecutionMode(Integer deviceExecutionMode) {
+  public DeviceEqNeqFilter deviceExecutionMode(Integer deviceExecutionMode) {
     this.deviceExecutionMode = deviceExecutionMode;
     return this;
   }
@@ -341,7 +341,7 @@ public class DeviceFilter implements Serializable {
     this.deviceExecutionMode = deviceExecutionMode;
   }
 
-  public DeviceFilter mechanism(String mechanism) {
+  public DeviceEqNeqFilter mechanism(String mechanism) {
     this.mechanism = mechanism;
     return this;
   }
@@ -359,7 +359,7 @@ public class DeviceFilter implements Serializable {
     this.mechanism = mechanism;
   }
 
-  public DeviceFilter state(String state) {
+  public DeviceEqNeqFilter state(String state) {
     this.state = state;
     return this;
   }
@@ -377,7 +377,7 @@ public class DeviceFilter implements Serializable {
     this.state = state;
   }
 
-  public DeviceFilter etag(DateTime etag) {
+  public DeviceEqNeqFilter etag(DateTime etag) {
     this.etag = etag;
     return this;
   }
@@ -395,7 +395,7 @@ public class DeviceFilter implements Serializable {
     this.etag = etag;
   }
 
-  public DeviceFilter serialNumber(String serialNumber) {
+  public DeviceEqNeqFilter serialNumber(String serialNumber) {
     this.serialNumber = serialNumber;
     return this;
   }
@@ -413,7 +413,7 @@ public class DeviceFilter implements Serializable {
     this.serialNumber = serialNumber;
   }
 
-  public DeviceFilter firmwareChecksum(String firmwareChecksum) {
+  public DeviceEqNeqFilter firmwareChecksum(String firmwareChecksum) {
     this.firmwareChecksum = firmwareChecksum;
     return this;
   }
@@ -431,7 +431,7 @@ public class DeviceFilter implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
-  public DeviceFilter manifestTimestamp(DateTime manifestTimestamp) {
+  public DeviceEqNeqFilter manifestTimestamp(DateTime manifestTimestamp) {
     this.manifestTimestamp = manifestTimestamp;
     return this;
   }
@@ -449,7 +449,7 @@ public class DeviceFilter implements Serializable {
     this.manifestTimestamp = manifestTimestamp;
   }
 
-  public DeviceFilter description(String description) {
+  public DeviceEqNeqFilter description(String description) {
     this.description = description;
     return this;
   }
@@ -467,7 +467,7 @@ public class DeviceFilter implements Serializable {
     this.description = description;
   }
 
-  public DeviceFilter deployedState(String deployedState) {
+  public DeviceEqNeqFilter deployedState(String deployedState) {
     this.deployedState = deployedState;
     return this;
   }
@@ -485,7 +485,7 @@ public class DeviceFilter implements Serializable {
     this.deployedState = deployedState;
   }
 
-  public DeviceFilter vendorId(String vendorId) {
+  public DeviceEqNeqFilter vendorId(String vendorId) {
     this.vendorId = vendorId;
     return this;
   }
@@ -503,7 +503,7 @@ public class DeviceFilter implements Serializable {
     this.vendorId = vendorId;
   }
 
-  public DeviceFilter endpointType(String endpointType) {
+  public DeviceEqNeqFilter endpointType(String endpointType) {
     this.endpointType = endpointType;
     return this;
   }
@@ -521,7 +521,7 @@ public class DeviceFilter implements Serializable {
     this.endpointType = endpointType;
   }
 
-  public DeviceFilter deployment(String deployment) {
+  public DeviceEqNeqFilter deployment(String deployment) {
     this.deployment = deployment;
     return this;
   }
@@ -539,7 +539,7 @@ public class DeviceFilter implements Serializable {
     this.deployment = deployment;
   }
 
-  public DeviceFilter mechanismUrl(String mechanismUrl) {
+  public DeviceEqNeqFilter mechanismUrl(String mechanismUrl) {
     this.mechanismUrl = mechanismUrl;
     return this;
   }
@@ -557,7 +557,7 @@ public class DeviceFilter implements Serializable {
     this.mechanismUrl = mechanismUrl;
   }
 
-  public DeviceFilter name(String name) {
+  public DeviceEqNeqFilter name(String name) {
     this.name = name;
     return this;
   }
@@ -575,7 +575,7 @@ public class DeviceFilter implements Serializable {
     this.name = name;
   }
 
-  public DeviceFilter deviceKey(String deviceKey) {
+  public DeviceEqNeqFilter deviceKey(String deviceKey) {
     this.deviceKey = deviceKey;
     return this;
   }
@@ -593,7 +593,7 @@ public class DeviceFilter implements Serializable {
     this.deviceKey = deviceKey;
   }
 
-  public DeviceFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+  public DeviceEqNeqFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
     this.enrolmentListTimestamp = enrolmentListTimestamp;
     return this;
   }
@@ -611,7 +611,7 @@ public class DeviceFilter implements Serializable {
     this.enrolmentListTimestamp = enrolmentListTimestamp;
   }
 
-  public DeviceFilter manifest(String manifest) {
+  public DeviceEqNeqFilter manifest(String manifest) {
     this.manifest = manifest;
     return this;
   }
@@ -629,12 +629,12 @@ public class DeviceFilter implements Serializable {
     this.manifest = manifest;
   }
 
-  public DeviceFilter customAttributes(Map<String, String> customAttributes) {
+  public DeviceEqNeqFilter customAttributes(Map<String, String> customAttributes) {
     this.customAttributes = customAttributes;
     return this;
   }
 
-  public DeviceFilter putCustomAttributesItem(String key, String customAttributesItem) {
+  public DeviceEqNeqFilter putCustomAttributesItem(String key, String customAttributesItem) {
     if (this.customAttributes == null) {
       this.customAttributes = new HashMap<String, String>();
     }
@@ -655,7 +655,7 @@ public class DeviceFilter implements Serializable {
     this.customAttributes = customAttributes;
   }
 
-  public DeviceFilter createdAt(DateTime createdAt) {
+  public DeviceEqNeqFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -682,37 +682,37 @@ public class DeviceFilter implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceFilter deviceFilter = (DeviceFilter) o;
-    return Objects.equals(this.bootstrapExpirationDate, deviceFilter.bootstrapExpirationDate) &&
-        Objects.equals(this.bootstrappedTimestamp, deviceFilter.bootstrappedTimestamp) &&
-        Objects.equals(this.connectorExpirationDate, deviceFilter.connectorExpirationDate) &&
-        Objects.equals(this.updatedAt, deviceFilter.updatedAt) &&
-        Objects.equals(this.caId, deviceFilter.caId) &&
-        Objects.equals(this.deviceClass, deviceFilter.deviceClass) &&
-        Objects.equals(this.id, deviceFilter.id) &&
-        Objects.equals(this.accountId, deviceFilter.accountId) &&
-        Objects.equals(this.endpointName, deviceFilter.endpointName) &&
-        Objects.equals(this.autoUpdate, deviceFilter.autoUpdate) &&
-        Objects.equals(this.hostGateway, deviceFilter.hostGateway) &&
-        Objects.equals(this.deviceExecutionMode, deviceFilter.deviceExecutionMode) &&
-        Objects.equals(this.mechanism, deviceFilter.mechanism) &&
-        Objects.equals(this.state, deviceFilter.state) &&
-        Objects.equals(this.etag, deviceFilter.etag) &&
-        Objects.equals(this.serialNumber, deviceFilter.serialNumber) &&
-        Objects.equals(this.firmwareChecksum, deviceFilter.firmwareChecksum) &&
-        Objects.equals(this.manifestTimestamp, deviceFilter.manifestTimestamp) &&
-        Objects.equals(this.description, deviceFilter.description) &&
-        Objects.equals(this.deployedState, deviceFilter.deployedState) &&
-        Objects.equals(this.vendorId, deviceFilter.vendorId) &&
-        Objects.equals(this.endpointType, deviceFilter.endpointType) &&
-        Objects.equals(this.deployment, deviceFilter.deployment) &&
-        Objects.equals(this.mechanismUrl, deviceFilter.mechanismUrl) &&
-        Objects.equals(this.name, deviceFilter.name) &&
-        Objects.equals(this.deviceKey, deviceFilter.deviceKey) &&
-        Objects.equals(this.enrolmentListTimestamp, deviceFilter.enrolmentListTimestamp) &&
-        Objects.equals(this.manifest, deviceFilter.manifest) &&
-        Objects.equals(this.customAttributes, deviceFilter.customAttributes) &&
-        Objects.equals(this.createdAt, deviceFilter.createdAt);
+    DeviceEqNeqFilter deviceEqNeqFilter = (DeviceEqNeqFilter) o;
+    return Objects.equals(this.bootstrapExpirationDate, deviceEqNeqFilter.bootstrapExpirationDate) &&
+        Objects.equals(this.bootstrappedTimestamp, deviceEqNeqFilter.bootstrappedTimestamp) &&
+        Objects.equals(this.connectorExpirationDate, deviceEqNeqFilter.connectorExpirationDate) &&
+        Objects.equals(this.updatedAt, deviceEqNeqFilter.updatedAt) &&
+        Objects.equals(this.caId, deviceEqNeqFilter.caId) &&
+        Objects.equals(this.deviceClass, deviceEqNeqFilter.deviceClass) &&
+        Objects.equals(this.id, deviceEqNeqFilter.id) &&
+        Objects.equals(this.accountId, deviceEqNeqFilter.accountId) &&
+        Objects.equals(this.endpointName, deviceEqNeqFilter.endpointName) &&
+        Objects.equals(this.autoUpdate, deviceEqNeqFilter.autoUpdate) &&
+        Objects.equals(this.hostGateway, deviceEqNeqFilter.hostGateway) &&
+        Objects.equals(this.deviceExecutionMode, deviceEqNeqFilter.deviceExecutionMode) &&
+        Objects.equals(this.mechanism, deviceEqNeqFilter.mechanism) &&
+        Objects.equals(this.state, deviceEqNeqFilter.state) &&
+        Objects.equals(this.etag, deviceEqNeqFilter.etag) &&
+        Objects.equals(this.serialNumber, deviceEqNeqFilter.serialNumber) &&
+        Objects.equals(this.firmwareChecksum, deviceEqNeqFilter.firmwareChecksum) &&
+        Objects.equals(this.manifestTimestamp, deviceEqNeqFilter.manifestTimestamp) &&
+        Objects.equals(this.description, deviceEqNeqFilter.description) &&
+        Objects.equals(this.deployedState, deviceEqNeqFilter.deployedState) &&
+        Objects.equals(this.vendorId, deviceEqNeqFilter.vendorId) &&
+        Objects.equals(this.endpointType, deviceEqNeqFilter.endpointType) &&
+        Objects.equals(this.deployment, deviceEqNeqFilter.deployment) &&
+        Objects.equals(this.mechanismUrl, deviceEqNeqFilter.mechanismUrl) &&
+        Objects.equals(this.name, deviceEqNeqFilter.name) &&
+        Objects.equals(this.deviceKey, deviceEqNeqFilter.deviceKey) &&
+        Objects.equals(this.enrolmentListTimestamp, deviceEqNeqFilter.enrolmentListTimestamp) &&
+        Objects.equals(this.manifest, deviceEqNeqFilter.manifest) &&
+        Objects.equals(this.customAttributes, deviceEqNeqFilter.customAttributes) &&
+        Objects.equals(this.createdAt, deviceEqNeqFilter.createdAt);
   }
 
   @Override
@@ -724,7 +724,7 @@ public class DeviceFilter implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceFilter {\n");
+    sb.append("class DeviceEqNeqFilter {\n");
     
     sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
     sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");

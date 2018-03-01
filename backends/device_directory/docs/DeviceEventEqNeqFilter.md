@@ -1,5 +1,5 @@
 
-# DeviceEventFilter
+# DeviceEventEqNeqFilter
 
 ## Properties
 Name | Type | Description | Notes
