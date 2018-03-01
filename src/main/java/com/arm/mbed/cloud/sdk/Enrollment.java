@@ -83,7 +83,7 @@ public class Enrollment extends AbstractApi {
 
                     @Override
                     public Call<EnrollmentIdentities> call() {
-                        return endpoint.getEnrollment().v3DeviceEnrollmentsGet(finalOptions.getLimit(),
+                        return endpoint.getEnrollment().getDeviceEnrollments(finalOptions.getLimit(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude());
                     }
@@ -161,7 +161,7 @@ public class Enrollment extends AbstractApi {
 
                     @Override
                     public Call<EnrollmentIdentity> call() {
-                        return endpoint.getEnrollment().v3DeviceEnrollmentsIdGet(finalId);
+                        return endpoint.getEnrollment().getDeviceEnrollment(finalId);
                     }
 
                 });
@@ -201,7 +201,7 @@ public class Enrollment extends AbstractApi {
 
                     @Override
                     public Call<EnrollmentIdentity> call() {
-                        return endpoint.getEnrollment().v3DeviceEnrollmentsPost(finalEnrollmentId);
+                        return endpoint.getEnrollment().createDeviceEnrollment(finalEnrollmentId);
                     }
 
                 });
@@ -235,7 +235,7 @@ public class Enrollment extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getEnrollment().v3DeviceEnrollmentsIdDelete(finalId);
+                return endpoint.getEnrollment().deleteDeviceEnrollment(finalId);
             }
 
         });

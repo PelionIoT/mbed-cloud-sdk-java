@@ -161,8 +161,6 @@ public final class CampaignAdapter {
                 return CampaignState.DRAFT;
             case EXPIRED:
                 return CampaignState.EXPIRED;
-            case INSUFFICIENTQUOTA:
-                return CampaignState.INSUFFICIENT_QUOTA;
             case MANIFESTREMOVED:
                 return CampaignState.MANIFEST_REMOVED;
             case PUBLISHING:
@@ -210,8 +208,6 @@ public final class CampaignAdapter {
                 return UpdateCampaignPostRequest.StateEnum.DRAFT;
             case EXPIRED:
                 return UpdateCampaignPostRequest.StateEnum.EXPIRED;
-            case INSUFFICIENT_QUOTA:
-                return UpdateCampaignPostRequest.StateEnum.INSUFFICIENTQUOTA;
             case MANIFEST_REMOVED:
                 return UpdateCampaignPostRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
@@ -262,8 +258,6 @@ public final class CampaignAdapter {
                 return UpdateCampaignPutRequest.StateEnum.DRAFT;
             case EXPIRED:
                 return UpdateCampaignPutRequest.StateEnum.EXPIRED;
-            case INSUFFICIENT_QUOTA:
-                return UpdateCampaignPutRequest.StateEnum.INSUFFICIENTQUOTA;
             case MANIFEST_REMOVED:
                 return UpdateCampaignPutRequest.StateEnum.MANIFESTREMOVED;
             case PUBLISHING:
