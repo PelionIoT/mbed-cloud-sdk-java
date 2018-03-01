@@ -233,10 +233,26 @@ public class ApiUtils {
      * @return normalised path
      */
     public static String normalisePath(String path) {
-        if (path != null && !path.isEmpty() && path.charAt(0) == '/') {
+        if (path != null && !path.isEmpty() && path.startsWith("/")) {
             return path.substring(1);
         }
         return path;
+    }
+
+    /**
+     * Normalises resource path.
+     * <p>
+     * Ensures it starts with a forward slash
+     *
+     * @param resourcePath
+     *            resource path string
+     * @return normalised resource path
+     */
+    public static String normaliseResourcePath(String resourcePath) {
+        if (resourcePath != null && !resourcePath.startsWith("/")) {
+            return "/" + resourcePath;
+        }
+        return resourcePath;
     }
 
     /**

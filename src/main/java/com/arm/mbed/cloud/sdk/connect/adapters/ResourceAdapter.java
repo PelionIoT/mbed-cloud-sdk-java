@@ -1,15 +1,25 @@
 package com.arm.mbed.cloud.sdk.connect.adapters;
 
+import java.io.IOException;
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
+import com.arm.mbed.cloud.sdk.internal.mds.model.DeviceRequest;
+
+import okhttp3.Request;
+import retrofit2.Call;
+import retrofit2.Response;
 
 @Preamble(description = "Adapter for resource model")
 public final class ResourceAdapter {
+
+    private static final String RESOURCE_GET_METHOD = "GET";
 
     private ResourceAdapter() {
         super();
@@ -82,6 +92,120 @@ public final class ResourceAdapter {
             }
 
         };
+    }
+
+    /**
+     * Calls get method on a resource.
+     * 
+     * @param resourcePath
+     *            resource to call get method on.
+     * @return Request body.
+     */
+    public static DeviceRequest callGetFunctionOnResource(String resourcePath) {
+        if (resourcePath == null) {
+            return null;
+        }
+        DeviceRequest request = new DeviceRequest();
+        request.setMethod(RESOURCE_GET_METHOD);
+        request.setUri(resourcePath);
+        return request;
+    }
+
+    /**
+     * Converts a call to a resouce into a asynchronous call.
+     * 
+     * @param asyncId
+     *            id of the request
+     * @param call
+     *            call to Mbed Cloud
+     * @return converted call
+     */
+    @Internal
+    public static Call<AsyncID> convertResourceCall(String asyncId, Call<Void> call) {
+        return new AsyncCall(asyncId, call);
+    }
+
+    private static class AsyncCall implements Call<AsyncID> {
+
+        private final String uuid;
+        private final Call<Void> call;
+
+        public AsyncCall(String uuid, Call<Void> call) {
+            super();
+            this.uuid = uuid;
+            this.call = call;
+        }
+
+        // TODO This is a temporary implementation to transform a Response<Void> to Response<AsyncID> and ensure the
+        // error message contained in the body is correctly passed. This may need change/refactoring in the future when
+        // the error message changes
+        @Override
+        public Response<AsyncID> execute() throws IOException {
+            final Response<Void> response = call.execute();
+            if (response.isSuccessful()) {
+                return Response.success(new AsyncID().asyncResponseId(uuid));
+            }
+
+            final StringBuilder errorMessageBuilder = new StringBuilder();
+            errorMessageBuilder.append(response.message());
+            try {
+                final String errorMessage = response.errorBody().string();
+                if (errorMessage != null && !errorMessage.isEmpty()) {
+                    errorMessageBuilder.append(": ").append(errorMessage);
+                }
+            } catch (Exception exception) {
+                // Nothing to do.
+            }
+            return Response.error(response.errorBody(),
+                    response.raw().newBuilder().message(errorMessageBuilder.toString()).build());
+        }
+
+        @Override
+        public void enqueue(retrofit2.Callback<AsyncID> callback) {
+            final Call<AsyncID> thisCall = this;
+            final retrofit2.Callback<AsyncID> finalCallback = callback;
+            call.enqueue(new retrofit2.Callback<Void>() {
+
+                @Override
+                public void onResponse(Call<Void> call0, Response<Void> response) {
+                    finalCallback.onResponse(thisCall, Response.success(new AsyncID().asyncResponseId(uuid)));
+
+                }
+
+                @Override
+                public void onFailure(Call<Void> call0, Throwable throwable) {
+                    finalCallback.onFailure(thisCall, throwable);
+
+                }
+            });
+
+        }
+
+        @Override
+        public boolean isExecuted() {
+            return call.isExecuted();
+        }
+
+        @Override
+        public void cancel() {
+            call.cancel();
+        }
+
+        @Override
+        public boolean isCanceled() {
+            return call.isCanceled();
+        }
+
+        @Override
+        public Call<AsyncID> clone() {
+            return new AsyncCall(uuid, call);
+        }
+
+        @Override
+        public Request request() {
+            return call.request();
+        }
+
     }
 
 }

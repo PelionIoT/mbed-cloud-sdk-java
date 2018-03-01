@@ -31,11 +31,11 @@ import java.io.Serializable;
 public class ResourcesData implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("rt")
+  private String rt = null;
+
   @SerializedName("path")
   private String path = null;
-
-  @SerializedName("rf")
-  private String rf = null;
 
   @SerializedName("ct")
   private String ct = null;
@@ -46,6 +46,24 @@ public class ResourcesData implements Serializable {
   @SerializedName("if")
   private String _if = null;
 
+  public ResourcesData rt(String rt) {
+    this.rt = rt;
+    return this;
+  }
+
+   /**
+   * Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+   * @return rt
+  **/
+  @ApiModelProperty(example = "light_sensor", value = "Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+  public String getRt() {
+    return rt;
+  }
+
+  public void setRt(String rt) {
+    this.rt = rt;
+  }
+
   public ResourcesData path(String path) {
     this.path = path;
     return this;
@@ -55,31 +73,13 @@ public class ResourcesData implements Serializable {
    * Resource&#39;s URI path.
    * @return path
   **/
-  @ApiModelProperty(value = "Resource's URI path.")
+  @ApiModelProperty(example = "/sen/light", value = "Resource's URI path.")
   public String getPath() {
     return path;
   }
 
   public void setPath(String path) {
     this.path = path;
-  }
-
-  public ResourcesData rf(String rf) {
-    this.rf = rf;
-    return this;
-  }
-
-   /**
-   * Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \&quot;speed_sensor\&quot;
-   * @return rf
-  **/
-  @ApiModelProperty(value = "Resource type [created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). For example \"speed_sensor\"")
-  public String getRf() {
-    return rf;
-  }
-
-  public void setRf(String rf) {
-    this.rf = rf;
   }
 
   public ResourcesData ct(String ct) {
@@ -91,7 +91,7 @@ public class ResourcesData implements Serializable {
    * Content type.
    * @return ct
   **/
-  @ApiModelProperty(value = "Content type.")
+  @ApiModelProperty(example = "text/plain", value = "Content type.")
   public String getCt() {
     return ct;
   }
@@ -109,7 +109,7 @@ public class ResourcesData implements Serializable {
    * Whether the resource is observable or not (true/false).
    * @return obs
   **/
-  @ApiModelProperty(value = "Whether the resource is observable or not (true/false).")
+  @ApiModelProperty(example = "true", value = "Whether the resource is observable or not (true/false).")
   public Boolean isObs() {
     return obs;
   }
@@ -124,10 +124,10 @@ public class ResourcesData implements Serializable {
   }
 
    /**
-   * Interface description.
+   * Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \&quot;sensor\&quot;.
    * @return _if
   **/
-  @ApiModelProperty(value = "Interface description.")
+  @ApiModelProperty(example = "sensor", value = "Interface description that defines a name or URI that indicates how to interact with the target resource. It describes a generic interface type, such as a \"sensor\".")
   public String getIf() {
     return _if;
   }
@@ -146,8 +146,8 @@ public class ResourcesData implements Serializable {
       return false;
     }
     ResourcesData resourcesData = (ResourcesData) o;
-    return Objects.equals(this.path, resourcesData.path) &&
-        Objects.equals(this.rf, resourcesData.rf) &&
+    return Objects.equals(this.rt, resourcesData.rt) &&
+        Objects.equals(this.path, resourcesData.path) &&
         Objects.equals(this.ct, resourcesData.ct) &&
         Objects.equals(this.obs, resourcesData.obs) &&
         Objects.equals(this._if, resourcesData._if);
@@ -155,7 +155,7 @@ public class ResourcesData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(path, rf, ct, obs, _if);
+    return Objects.hash(rt, path, ct, obs, _if);
   }
 
 
@@ -164,8 +164,8 @@ public class ResourcesData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourcesData {\n");
     
+    sb.append("    rt: ").append(toIndentedString(rt)).append("\n");
     sb.append("    path: ").append(toIndentedString(path)).append("\n");
-    sb.append("    rf: ").append(toIndentedString(rf)).append("\n");
     sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
     sb.append("    obs: ").append(toIndentedString(obs)).append("\n");
     sb.append("    _if: ").append(toIndentedString(_if)).append("\n");

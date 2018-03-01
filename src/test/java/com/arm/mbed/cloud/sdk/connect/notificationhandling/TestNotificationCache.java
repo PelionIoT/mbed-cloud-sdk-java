@@ -30,7 +30,7 @@ public class TestNotificationCache {
         ScheduledExecutorService executor = null;
         String[] payloads = { "MQ==", "Mg==", "Mw==", "NA==", "NQ==" };
         try {
-            NotificationCache cache = new NotificationCache(null, null, null);
+            NotificationHandlersStore cache = new NotificationHandlersStore(null, null, null);
             List<Integer> receivedNotificationsUsingObservers = new LinkedList<>();
             List<Integer> receivedNotificationsUsingCallbacks = new LinkedList<>();
             List<Throwable> receivedErrorsUsingCallbacks = new LinkedList<>();

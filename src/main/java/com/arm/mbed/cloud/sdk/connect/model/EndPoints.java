@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.mds.api.DefaultApi;
+import com.arm.mbed.cloud.sdk.internal.mds.api.DeviceRequestsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.NotificationsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
 @Internal
 public class EndPoints extends AbstractEndpoints {
 
-    private final DefaultApi webhooks;
+    private final DeviceRequestsApi async;
     private final EndpointsApi endpoint;
     private final NotificationsApi notifications;
     private final ResourcesApi resources;
@@ -41,7 +41,7 @@ public class EndPoints extends AbstractEndpoints {
     public EndPoints(ApiClientWrapper wrapper, boolean autostartNotificationDaemon) {
         super(wrapper);
         this.connectionOptions = wrapper.getConnectionOptions();
-        this.webhooks = initialiseWebhook(wrapper);
+        this.async = initialiseAsync(wrapper);
         this.endpoint = initialiseEndpoint(wrapper);
         this.notifications = initialiseNotification(wrapper);
         this.resources = initialiseResource(wrapper);
@@ -63,8 +63,8 @@ public class EndPoints extends AbstractEndpoints {
 
     }
 
-    private DefaultApi initialiseWebhook(ApiClientWrapper wrapper) {
-        return wrapper.createService(DefaultApi.class);
+    private DeviceRequestsApi initialiseAsync(ApiClientWrapper wrapper) {
+        return wrapper.createService(DeviceRequestsApi.class);
     }
 
     private EndpointsApi initialiseEndpoint(ApiClientWrapper wrapper) {
@@ -91,8 +91,8 @@ public class EndPoints extends AbstractEndpoints {
         return wrapper.createService(SubscriptionsApi.class);
     }
 
-    public DefaultApi getWebhooks() {
-        return webhooks;
+    public DeviceRequestsApi getAsync() {
+        return async;
     }
 
     public EndpointsApi getEndpoints() {

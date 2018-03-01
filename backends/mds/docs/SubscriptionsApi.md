@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2SubscriptionsDelete**](SubscriptionsApi.md#v2SubscriptionsDelete) | **DELETE** v2/subscriptions | Remove all subscriptions
+[**v2SubscriptionsDelete**](SubscriptionsApi.md#v2SubscriptionsDelete) | **DELETE** v2/subscriptions | Remove pre-subscriptions
 [**v2SubscriptionsDeviceIdDelete**](SubscriptionsApi.md#v2SubscriptionsDeviceIdDelete) | **DELETE** v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
 [**v2SubscriptionsDeviceIdGet**](SubscriptionsApi.md#v2SubscriptionsDeviceIdGet) | **GET** v2/subscriptions/{device-id} | Read endpoints subscriptions
 [**v2SubscriptionsDeviceIdResourcePathDelete**](SubscriptionsApi.md#v2SubscriptionsDeviceIdResourcePathDelete) | **DELETE** v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
@@ -18,9 +18,9 @@ Method | HTTP request | Description
 # **v2SubscriptionsDelete**
 > Void v2SubscriptionsDelete()
 
-Remove all subscriptions
+Remove pre-subscriptions
 
-Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
+Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
 
 ### Example
 ```java
@@ -126,7 +126,7 @@ Name | Type | Description  | Notes
 
 Read endpoints subscriptions
 
-Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39;        
+Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
 
 ### Example
 ```java

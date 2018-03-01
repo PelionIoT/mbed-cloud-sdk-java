@@ -19,8 +19,8 @@ import java.util.Map;
 
 public interface SubscriptionsApi {
   /**
-   * Remove all subscriptions
-   * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
+   * Remove pre-subscriptions
+   * Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
    * @return Call&lt;Void&gt;
    */
   @DELETE("v2/subscriptions")
@@ -40,7 +40,7 @@ public interface SubscriptionsApi {
 
   /**
    * Read endpoints subscriptions
-   * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39;        
+   * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
    * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
    * @return Call&lt;String&gt;
    */

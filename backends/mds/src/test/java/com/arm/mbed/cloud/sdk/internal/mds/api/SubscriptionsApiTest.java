@@ -24,9 +24,9 @@ public class SubscriptionsApiTest {
     }
 
     /**
-     * Remove all subscriptions
+     * Remove pre-subscriptions
      *
-     * Removes subscriptions from every endpoint and resource. Note that this does not remove pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
+     * Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39;      
      */
     @Test
     public void v2SubscriptionsDeleteTest() {
@@ -49,7 +49,7 @@ public class SubscriptionsApiTest {
     /**
      * Read endpoints subscriptions
      *
-     * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39;        
+     * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
      */
     @Test
     public void v2SubscriptionsDeviceIdGetTest() {

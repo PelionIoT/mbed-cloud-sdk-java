@@ -4,7 +4,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2EndpointsDeviceIdResourcePathDelete**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathDelete) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource
+[**v2EndpointsDeviceIdResourcePathDelete**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathDelete) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
 [**v2EndpointsDeviceIdResourcePathGet**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathGet) | **GET** v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 [**v2EndpointsDeviceIdResourcePathPost**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPost) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 [**v2EndpointsDeviceIdResourcePathPut**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPut) | **PUT** v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
@@ -14,9 +14,9 @@ Method | HTTP request | Description
 # **v2EndpointsDeviceIdResourcePathDelete**
 > AsyncID v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResp)
 
-Delete a resource
+Delete a resource path
 
-A request to delete a resource must be handled by both Mbed Cloud Client and Mbed Cloud Connect. The resource is not deleted from Mbed Cloud Connect until the request is handled by Mbed Cloud Client.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+A request to delete a resource path must be handled by both Mbed Cloud Client and Mbed Cloud Connect.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
 
 ### Example
 ```java
@@ -197,7 +197,7 @@ Name | Type | Description  | Notes
 
 Write to a resource or use write-attributes for a resource
 
-With this API, you can [write a new value to existing resources](/docs/v1.2/collecting/handling-resources-from-a-web-application.html#the-write-operation) or [use the write-attributes](/docs/v1.2/collecting/subscribing-to-resource-changes-from-a-web-application.html#notification-rules) for a resource.  This API can also be used to transfer files to the device. Mbed Cloud Connect LwM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes. The block size versus transferred file size is something to note in low quality networks. The customer application needs to know what type of file is transferred (for example txt) and the payload can be encrypted by the customer. The maximum size of payload is 1048576 bytes.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**  This example sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml) instance 0, \&quot;On/Off\&quot; boolean resource to &#39;1&#39;.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850 \\       -H &#39;authorization: Bearer {api-key}&#39; -d &#39;1&#39; 
+With this API, you can [write a new value to existing resources](/docs/v1.2/collecting/handling-resources-from-a-web-application.html#the-write-operation) or [use the write-attributes](/docs/v1.2/collecting/subscribing-to-resource-changes-from-a-web-application.html#notification-rules) for a resource.  This API can also be used to transfer files to the device. Mbed Cloud Connect LwM2M server implements the Option 1 from RFC7959. The maximum block size is 1024 bytes. The block size versus transferred file size is something to note in low quality networks. The customer application needs to know what type of file is transferred (for example txt) and the payload can be encrypted by the customer. The maximum size of payload is 1048576 bytes.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  **Example usage:**  This example sets the alarm on a buzzer. The command writes the [Buzzer](http://www.openmobilealliance.org/tech/profiles/lwm2m/3338.xml) instance 0, \&quot;On/Off\&quot; boolean resource to &#39;1&#39;.      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3338/0/5850 -H \&quot;content-type: text/plain\&quot; \\       -H &#39;authorization: Bearer {api-key}&#39; -d &#39;1&#39; 
 
 ### Example
 ```java
