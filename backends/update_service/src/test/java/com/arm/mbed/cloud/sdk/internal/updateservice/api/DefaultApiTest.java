@@ -33,113 +33,7 @@ public class DefaultApiTest {
     }
 
     /**
-     * 
-     *
-     * Create an update campaign.
-     */
-    @Test
-    public void campaignCreateTest() {
-        UpdateCampaignPostRequest campaign = null;
-        // UpdateCampaign response = api.campaignCreate(campaign);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Delete an update campaign.
-     */
-    @Test
-    public void campaignDestroyTest() {
-        String campaignId = null;
-        // Void response = api.campaignDestroy(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get update campaigns for devices specified by a filter.
-     */
-    @Test
-    public void campaignListTest() {
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String filter = null;
-        String include = null;
-        // UpdateCampaignPage response = api.campaignList(limit, order, after, filter, include);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get campaign device metadata.
-     */
-    @Test
-    public void campaignMetadataListTest() {
-        String campaignId = null;
-        Integer limit = null;
-        String order = null;
-        String after = null;
-        String include = null;
-        // CampaignDeviceMetadataPage response = api.campaignMetadataList(campaignId, limit, order, after, include);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get update campaign metadata.
-     */
-    @Test
-    public void campaignMetadataRetreiveTest() {
-        String campaignId = null;
-        String campaignDeviceMetadataId = null;
-        // CampaignDeviceMetadata response = api.campaignMetadataRetreive(campaignId, campaignDeviceMetadataId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Get an update campaign.
-     */
-    @Test
-    public void campaignRetrieveTest() {
-        String campaignId = null;
-        // UpdateCampaign response = api.campaignRetrieve(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Stop a running update campaign.
-     */
-    @Test
-    public void campaignStopTest() {
-        String campaignId = null;
-        // Void response = api.campaignStop(campaignId);
-
-        // TODO: test validations
-    }
-    /**
-     * 
-     *
-     * Modify an update campaign.
-     */
-    @Test
-    public void campaignUpdateTest() {
-        String campaignId = null;
-        UpdateCampaignPutRequest campaign = null;
-        // UpdateCampaign response = api.campaignUpdate(campaignId, campaign);
-
-        // TODO: test validations
-    }
-    /**
-     * 
+     * Create an image
      *
      * Create firmware image.
      */
@@ -153,7 +47,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete an image
      *
      * Delete firmware image.
      */
@@ -165,7 +59,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all images
      *
      * List all firmware images.
      */
@@ -181,7 +75,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get an image
      *
      * Retrieve firmware image.
      */
@@ -193,7 +87,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Create a manifest
      *
      * Create firmware manifest.
      */
@@ -202,12 +96,13 @@ public class DefaultApiTest {
         File datafile = null;
         String name = null;
         String description = null;
-        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description);
+        File keyTable = null;
+        // FirmwareManifest response = api.firmwareManifestCreate(datafile, name, description, keyTable);
 
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a manifest
      *
      * Delete firmware manifest.
      */
@@ -219,7 +114,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List manifests
      *
      * List firmware manifests.
      */
@@ -235,7 +130,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a manifest
      *
      * Retrieve firmware manifest.
      */
@@ -247,7 +142,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Create a campaign
      *
      * Create an update campaign.
      */
@@ -259,7 +154,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a campaign
      *
      * Delete an update campaign.
      */
@@ -271,9 +166,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all campaigns
      *
-     * Get update campaigns for devices specified by a filter. Can also use the &#x60;/campaigns/&#x60; alias.
+     * Get update campaigns for devices specified by a filter.
      */
     @Test
     public void updateCampaignListTest() {
@@ -287,7 +182,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all campaign device metadata
      *
      * Get campaign device metadata.
      */
@@ -303,7 +198,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a campaign device metadata
      *
      * Get update campaign metadata.
      */
@@ -316,7 +211,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Stop a running campaign
      *
      * Stop a running update campaign.
      */
@@ -328,7 +223,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a campaign.
      *
      * Get an update campaign.
      */
@@ -340,7 +235,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Modify a campaign
      *
      * Modify an update campaign.
      */

@@ -44,6 +44,9 @@ public class FeaturePolicy implements Serializable {
   @SerializedName("allow")
   private Boolean allow = null;
 
+  @SerializedName("inherited")
+  private Boolean inherited = null;
+
   public FeaturePolicy action(String action) {
     this.action = action;
     return this;
@@ -53,7 +56,7 @@ public class FeaturePolicy implements Serializable {
    * Comma separated list of actions, empty string represents all actions.
    * @return action
   **/
-  @ApiModelProperty(value = "Comma separated list of actions, empty string represents all actions.")
+  @ApiModelProperty(example = "GET", value = "Comma separated list of actions, empty string represents all actions.")
   public String getAction() {
     return action;
   }
@@ -71,7 +74,7 @@ public class FeaturePolicy implements Serializable {
    * Resource that is protected by this policy.
    * @return resource
   **/
-  @ApiModelProperty(value = "Resource that is protected by this policy.")
+  @ApiModelProperty(example = "/v3/update-campaign", value = "Resource that is protected by this policy.")
   public String getResource() {
     return resource;
   }
@@ -89,7 +92,7 @@ public class FeaturePolicy implements Serializable {
    * Feature name corresponding to this policy.
    * @return feature
   **/
-  @ApiModelProperty(value = "Feature name corresponding to this policy.")
+  @ApiModelProperty(example = "update-campaigns", value = "Feature name corresponding to this policy.")
   public String getFeature() {
     return feature;
   }
@@ -107,13 +110,31 @@ public class FeaturePolicy implements Serializable {
    * True or false controlling whether an action is allowed or not.
    * @return allow
   **/
-  @ApiModelProperty(value = "True or false controlling whether an action is allowed or not.")
+  @ApiModelProperty(example = "true", value = "True or false controlling whether an action is allowed or not.")
   public Boolean isAllow() {
     return allow;
   }
 
   public void setAllow(Boolean allow) {
     this.allow = allow;
+  }
+
+  public FeaturePolicy inherited(Boolean inherited) {
+    this.inherited = inherited;
+    return this;
+  }
+
+   /**
+   * Flag indicating whether this feature is inherited or overwritten specifically.
+   * @return inherited
+  **/
+  @ApiModelProperty(example = "false", value = "Flag indicating whether this feature is inherited or overwritten specifically.")
+  public Boolean isInherited() {
+    return inherited;
+  }
+
+  public void setInherited(Boolean inherited) {
+    this.inherited = inherited;
   }
 
 
@@ -129,12 +150,13 @@ public class FeaturePolicy implements Serializable {
     return Objects.equals(this.action, featurePolicy.action) &&
         Objects.equals(this.resource, featurePolicy.resource) &&
         Objects.equals(this.feature, featurePolicy.feature) &&
-        Objects.equals(this.allow, featurePolicy.allow);
+        Objects.equals(this.allow, featurePolicy.allow) &&
+        Objects.equals(this.inherited, featurePolicy.inherited);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, resource, feature, allow);
+    return Objects.hash(action, resource, feature, allow, inherited);
   }
 
 
@@ -147,6 +169,7 @@ public class FeaturePolicy implements Serializable {
     sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
     sb.append("    allow: ").append(toIndentedString(allow)).append("\n");
+    sb.append("    inherited: ").append(toIndentedString(inherited)).append("\n");
     sb.append("}");
     return sb.toString();
   }

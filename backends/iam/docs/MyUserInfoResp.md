@@ -5,8 +5,10 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. |  [optional]
+**activeSessions** | [**List&lt;ActiveSession&gt;**](ActiveSession.md) | List of active user sessions. |  [optional]
 **loginHistory** | [**List&lt;LoginHistory&gt;**](LoginHistory.md) | Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format. |  [optional]
 **creationTime** | **Long** | A timestamp of the user creation in the storage, in milliseconds. |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
 **fullName** | **String** | The full name of the user. |  [optional]
 **id** | **String** | The UUID of the user. | 
 **lastLoginTime** | **Long** | A timestamp of the latest login of the user, in milliseconds. |  [optional]
@@ -24,6 +26,7 @@ Name | Type | Description | Notes
 **password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **emailVerified** | **Boolean** | A flag indicating whether the user&#39;s email address has been verified or not. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
+**userProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | User&#39;s account specific custom properties. |  [optional]
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. |  [optional]
 **passwordChangedTime** | **Long** | A timestamp of the latest change of the user password, in milliseconds. |  [optional]
 
@@ -44,13 +47,6 @@ INACTIVE | &quot;INACTIVE&quot;
 Name | Value
 ---- | -----
 USER | &quot;user&quot;
-API_KEY | &quot;api-key&quot;
-GROUP | &quot;group&quot;
-ACCOUNT | &quot;account&quot;
-ACCOUNT_TEMPLATE | &quot;account-template&quot;
-TRUSTED_CERT | &quot;trusted-cert&quot;
-LIST | &quot;list&quot;
-ERROR | &quot;error&quot;
 
 
 

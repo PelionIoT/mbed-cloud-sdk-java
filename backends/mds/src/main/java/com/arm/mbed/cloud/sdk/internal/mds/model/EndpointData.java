@@ -58,7 +58,7 @@ public class EndpointData implements Serializable {
    * Queue mode (default value is false).
    * @return q
   **/
-  @ApiModelProperty(value = "Queue mode (default value is false).")
+  @ApiModelProperty(example = "false", value = "Queue mode (default value is false).")
   public Boolean isQ() {
     return q;
   }
@@ -76,7 +76,7 @@ public class EndpointData implements Serializable {
    * Endpoint type.
    * @return ept
   **/
-  @ApiModelProperty(value = "Endpoint type.")
+  @ApiModelProperty(example = "Light", value = "Endpoint type.")
   public String getEpt() {
     return ept;
   }
@@ -91,10 +91,10 @@ public class EndpointData implements Serializable {
   }
 
    /**
-   * In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new Device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in Device Directory for future device registrations so there is no need to do the mapping again.  
+   * In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don&#39;t need to do the mapping again. 
    * @return originalEp
   **/
-  @ApiModelProperty(value = "In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new Device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in Device Directory for future device registrations so there is no need to do the mapping again.  ")
+  @ApiModelProperty(example = "my-device-123", value = "In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. ")
   public String getOriginalEp() {
     return originalEp;
   }
@@ -135,10 +135,10 @@ public class EndpointData implements Serializable {
   }
 
    /**
-   * Unique Mbed Cloud Device ID.
+   * Unique Mbed Cloud device ID.
    * @return ep
   **/
-  @ApiModelProperty(value = "Unique Mbed Cloud Device ID.")
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud device ID.")
   public String getEp() {
     return ep;
   }

@@ -7,11 +7,11 @@ import com.arm.mbed.cloud.sdk.accountmanagement.model.Account;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyListOptions;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Group;
+import com.arm.mbed.cloud.sdk.accountmanagement.model.GroupListOptions;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserListOptions;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.Order;
-import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
@@ -70,7 +70,7 @@ public class AccountManagementExamples extends AbstractExample {
         AccountManagement api = new AccountManagement(config);
         try {
             // Defining query options
-            ListOptions options = new ListOptions();
+            GroupListOptions options = new GroupListOptions();
             options.setLimit(5);
             options.setOrder(Order.DESC);
             // Listing groups.

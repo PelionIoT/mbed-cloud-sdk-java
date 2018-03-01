@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -88,6 +90,9 @@ public class ApiKeyUpdateReq implements Serializable {
   @SerializedName("name")
   private String name = null;
 
+  @SerializedName("groups")
+  private List<String> groups = null;
+
   public ApiKeyUpdateReq owner(String owner) {
     this.owner = owner;
     return this;
@@ -142,6 +147,32 @@ public class ApiKeyUpdateReq implements Serializable {
     this.name = name;
   }
 
+  public ApiKeyUpdateReq groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public ApiKeyUpdateReq addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * A list of group IDs this API key belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -154,12 +185,13 @@ public class ApiKeyUpdateReq implements Serializable {
     ApiKeyUpdateReq apiKeyUpdateReq = (ApiKeyUpdateReq) o;
     return Objects.equals(this.owner, apiKeyUpdateReq.owner) &&
         Objects.equals(this.status, apiKeyUpdateReq.status) &&
-        Objects.equals(this.name, apiKeyUpdateReq.name);
+        Objects.equals(this.name, apiKeyUpdateReq.name) &&
+        Objects.equals(this.groups, apiKeyUpdateReq.groups);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(owner, status, name);
+    return Objects.hash(owner, status, name, groups);
   }
 
 
@@ -171,6 +203,7 @@ public class ApiKeyUpdateReq implements Serializable {
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -356,7 +356,7 @@ public class DeviceData implements Serializable {
    * The certificate issuer&#39;s ID.
    * @return caId
   **/
-  @ApiModelProperty(value = "The certificate issuer's ID.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
   public String getCaId() {
     return caId;
   }
@@ -374,7 +374,7 @@ public class DeviceData implements Serializable {
    * An ID representing the model and hardware revision of the device.
    * @return deviceClass
   **/
-  @ApiModelProperty(value = "An ID representing the model and hardware revision of the device.")
+  @ApiModelProperty(example = "", value = "An ID representing the model and hardware revision of the device.")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -392,7 +392,7 @@ public class DeviceData implements Serializable {
    * The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
    * @return id
   **/
-  @ApiModelProperty(value = "The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.")
   public String getId() {
     return id;
   }
@@ -410,7 +410,7 @@ public class DeviceData implements Serializable {
    * The ID of the associated account.
    * @return accountId
   **/
-  @ApiModelProperty(value = "The ID of the associated account.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The ID of the associated account.")
   public String getAccountId() {
     return accountId;
   }
@@ -428,7 +428,7 @@ public class DeviceData implements Serializable {
    * The endpoint name given to the device.
    * @return endpointName
   **/
-  @ApiModelProperty(value = "The endpoint name given to the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
   }
@@ -464,7 +464,7 @@ public class DeviceData implements Serializable {
    * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
    * @return hostGateway
   **/
-  @ApiModelProperty(value = "The `endpoint_name` of the host gateway, if appropriate.")
+  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
   public String getHostGateway() {
     return hostGateway;
   }
@@ -482,7 +482,7 @@ public class DeviceData implements Serializable {
    * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices
    * @return deviceExecutionMode
   **/
-  @ApiModelProperty(value = "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices")
+  @ApiModelProperty(example = "0", value = "The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted values:   - 0 - unspecified execution mode (default if host_gateway invalid or not set)   - 1 - development devices   - 5 - production devices")
   public Integer getDeviceExecutionMode() {
     return deviceExecutionMode;
   }
@@ -554,7 +554,7 @@ public class DeviceData implements Serializable {
    * The serial number of the device.
    * @return serialNumber
   **/
-  @ApiModelProperty(value = "The serial number of the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The serial number of the device.")
   public String getSerialNumber() {
     return serialNumber;
   }
@@ -572,7 +572,7 @@ public class DeviceData implements Serializable {
    * The SHA256 checksum of the current firmware image.
    * @return firmwareChecksum
   **/
-  @ApiModelProperty(value = "The SHA256 checksum of the current firmware image.")
+  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", value = "The SHA256 checksum of the current firmware image.")
   public String getFirmwareChecksum() {
     return firmwareChecksum;
   }
@@ -608,7 +608,7 @@ public class DeviceData implements Serializable {
    * The device vendor ID.
    * @return vendorId
   **/
-  @ApiModelProperty(value = "The device vendor ID.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The device vendor ID.")
   public String getVendorId() {
     return vendorId;
   }
@@ -626,7 +626,7 @@ public class DeviceData implements Serializable {
    * The description of the device.
    * @return description
   **/
-  @ApiModelProperty(value = "The description of the device.")
+  @ApiModelProperty(example = "description", value = "The description of the device.")
   public String getDescription() {
     return description;
   }
@@ -662,7 +662,7 @@ public class DeviceData implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(value = "The API resource entity.")
+  @ApiModelProperty(example = "device", value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -680,7 +680,7 @@ public class DeviceData implements Serializable {
    * The endpoint type of the device. For example, the device is a gateway.
    * @return endpointType
   **/
-  @ApiModelProperty(value = "The endpoint type of the device. For example, the device is a gateway.")
+  @ApiModelProperty(example = "", value = "The endpoint type of the device. For example, the device is a gateway.")
   public String getEndpointType() {
     return endpointType;
   }
@@ -698,7 +698,7 @@ public class DeviceData implements Serializable {
    * DEPRECATED: The last deployment used on the device.
    * @return deployment
   **/
-  @ApiModelProperty(value = "DEPRECATED: The last deployment used on the device.")
+  @ApiModelProperty(example = "", value = "DEPRECATED: The last deployment used on the device.")
   public String getDeployment() {
     return deployment;
   }
@@ -716,7 +716,7 @@ public class DeviceData implements Serializable {
    * The address of the connector to use.
    * @return mechanismUrl
   **/
-  @ApiModelProperty(value = "The address of the connector to use.")
+  @ApiModelProperty(example = "", value = "The address of the connector to use.")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
@@ -734,7 +734,7 @@ public class DeviceData implements Serializable {
    * The name of the device.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of the device.")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The name of the device.")
   public String getName() {
     return name;
   }
@@ -752,7 +752,7 @@ public class DeviceData implements Serializable {
    * The fingerprint of the device certificate.
    * @return deviceKey
   **/
-  @ApiModelProperty(value = "The fingerprint of the device certificate.")
+  @ApiModelProperty(example = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00", value = "The fingerprint of the device certificate.")
   public String getDeviceKey() {
     return deviceKey;
   }
@@ -788,7 +788,7 @@ public class DeviceData implements Serializable {
    * DEPRECATED: The URL for the current device manifest.
    * @return manifest
   **/
-  @ApiModelProperty(value = "DEPRECATED: The URL for the current device manifest.")
+  @ApiModelProperty(example = "", value = "DEPRECATED: The URL for the current device manifest.")
   public String getManifest() {
     return manifest;
   }
@@ -814,7 +814,7 @@ public class DeviceData implements Serializable {
    * Up to five custom key-value attributes.
    * @return customAttributes
   **/
-  @ApiModelProperty(value = "Up to five custom key-value attributes.")
+  @ApiModelProperty(example = "\"{ 'key': 'value' }\"", value = "Up to five custom key-value attributes.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }

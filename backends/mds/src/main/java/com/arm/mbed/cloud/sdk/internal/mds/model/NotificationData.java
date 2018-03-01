@@ -55,7 +55,7 @@ public class NotificationData implements Serializable {
    * URI path.
    * @return path
   **/
-  @ApiModelProperty(value = "URI path.")
+  @ApiModelProperty(example = "/sen/light", value = "URI path.")
   public String getPath() {
     return path;
   }
@@ -73,7 +73,7 @@ public class NotificationData implements Serializable {
    * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
    * @return maxAge
   **/
-  @ApiModelProperty(value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
+  @ApiModelProperty(example = "60", value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
   public String getMaxAge() {
     return maxAge;
   }
@@ -91,7 +91,7 @@ public class NotificationData implements Serializable {
    * Base64 encoded payload.
    * @return payload
   **/
-  @ApiModelProperty(value = "Base64 encoded payload.")
+  @ApiModelProperty(example = "My4zMQ==", value = "Base64 encoded payload.")
   public String getPayload() {
     return payload;
   }
@@ -109,7 +109,7 @@ public class NotificationData implements Serializable {
    * Mbed Cloud Device ID.
    * @return ep
   **/
-  @ApiModelProperty(value = "Mbed Cloud Device ID.")
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Mbed Cloud Device ID.")
   public String getEp() {
     return ep;
   }
@@ -127,7 +127,7 @@ public class NotificationData implements Serializable {
    * Content type.
    * @return ct
   **/
-  @ApiModelProperty(value = "Content type.")
+  @ApiModelProperty(example = "text/plain", value = "Content type.")
   public String getCt() {
     return ct;
   }

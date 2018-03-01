@@ -43,7 +43,7 @@ public class AsyncID implements Serializable {
    * Asynchronous response unique ID.
    * @return asyncResponseId
   **/
-  @ApiModelProperty(value = "Asynchronous response unique ID.")
+  @ApiModelProperty(example = "9e3c96b8-c4d7-496a-ab90-cc732b9b560e", value = "Asynchronous response unique ID.")
   public String getAsyncResponseId() {
     return asyncResponseId;
   }

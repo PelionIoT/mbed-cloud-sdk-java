@@ -31,9 +31,9 @@ public class DefaultApiTest {
     }
 
     /**
-     * 
+     * Create a device
      *
-     * Create device.
+     * Create a new device.
      */
     @Test
     public void deviceCreateTest() {
@@ -43,7 +43,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a device.
      *
      * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
      */
@@ -55,9 +55,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
-     *
      * List all device events.
+     *
+     * List all device events for an account.
      */
     @Test
     public void deviceEventListTest() {
@@ -71,9 +71,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Retrieve a device event.
      *
-     * Retrieve device event.
+     * Retrieve a specific device event.
      */
     @Test
     public void deviceEventRetrieveTest() {
@@ -83,7 +83,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List all devices.
      *
      * List all devices.
      */
@@ -99,7 +99,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * DEPRECATED: List all device events.
      *
      * DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
      */
@@ -115,7 +115,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * DEPRECATED: Retrieve a device event.
      *
      * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
      */
@@ -127,9 +127,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Create a device query
      *
-     * Create device query.
+     * Create a new device query.
      */
     @Test
     public void deviceQueryCreateTest() {
@@ -139,9 +139,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Delete a device query
      *
-     * Delete device query.
+     * Delete a device query.
      */
     @Test
     public void deviceQueryDestroyTest() {
@@ -151,7 +151,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * List device queries.
      *
      * List all device queries. The result will be paged into pages of 100.
      */
@@ -167,9 +167,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Retrieve a device query.
      *
-     * Retrieve device query.
+     * Retrieve a specific device query.
      */
     @Test
     public void deviceQueryRetrieveTest() {
@@ -179,9 +179,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Update a device query
      *
-     * Update device query.
+     * Update a specifc device query.
      */
     @Test
     public void deviceQueryUpdateTest() {
@@ -192,9 +192,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Get a devices
      *
-     * Retrieve device.
+     * Retrieve information about a specific device.
      */
     @Test
     public void deviceRetrieveTest() {
@@ -204,9 +204,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * 
+     * Update a device
      *
-     * Update device.
+     * Update a specific device.
      */
     @Test
     public void deviceUpdateTest() {

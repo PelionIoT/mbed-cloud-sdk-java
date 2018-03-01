@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**endpointName** | **String** | The Device ID |  [optional]
+**endpointName** | **String** | The device ID. |  [optional]
 **endpointType** | **String** |  |  [optional]
 **resourcePath** | **List&lt;String&gt;** |  |  [optional]
 

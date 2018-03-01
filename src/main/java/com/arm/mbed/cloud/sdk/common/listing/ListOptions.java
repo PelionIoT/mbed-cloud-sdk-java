@@ -333,11 +333,33 @@ public class ListOptions implements Cloneable {
         addFilter(fieldName, FilterOperator.EQUAL, value);
     }
 
+    /**
+     * Adds an "like" filter.
+     * 
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param value
+     *            the value of the filter
+     */
+    public void addLikeFilter(@Nullable String fieldName, @Nullable Object value) {
+        addFilter(fieldName, FilterOperator.LIKE, value);
+    }
+
     protected Object fetchEqualFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
+    }
+
+    protected Object fetchLikeFilterValue(@Nullable String fieldName) {
+        // If no like filter was entered but an equal filter was, equal filter is considered.
+        final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
+        return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
+    }
+
+    protected Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
         if (fieldName == null || filter == null) {
             return null;
         }
-        final List<Filter> list = filter.get(fieldName, FilterOperator.EQUAL);
+        final List<Filter> list = filter.get(fieldName, operator);
         if (list == null || list.isEmpty()) {
             return null;
         }
@@ -360,6 +382,22 @@ public class ListOptions implements Cloneable {
      */
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
         final Object filterObj = fetchEqualFilterValue(fieldName);
+        return encodeSingleFilter(filterObj);
+    }
+
+    /**
+     * Gets a string describing a "like" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleLikeFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchLikeFilterValue(fieldName);
+        return encodeSingleFilter(filterObj);
+    }
+
+    private String encodeSingleFilter(final Object filterObj) {
         return (filterObj == null) ? null : filterObj.toString();
     }
 

@@ -100,8 +100,20 @@ public class AccountInfo implements Serializable {
   @SerializedName("password_policy")
   private PasswordPolicy passwordPolicy = null;
 
+  @SerializedName("sales_contact")
+  private String salesContact = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("account_properties")
+  private Map<String, Map<String, String>> accountProperties = null;
+
+  @SerializedName("customer_number")
+  private String customerNumber = null;
 
   @SerializedName("id")
   private String id = null;
@@ -121,6 +133,56 @@ public class AccountInfo implements Serializable {
   @SerializedName("display_name")
   private String displayName = null;
 
+  /**
+   * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+   */
+  @JsonAdapter(MfaStatusEnum.Adapter.class)
+  public enum MfaStatusEnum {
+    ENFORCED("enforced"),
+    
+    OPTIONAL("optional");
+
+    private String value;
+
+    MfaStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MfaStatusEnum fromValue(String text) {
+      for (MfaStatusEnum b : MfaStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MfaStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MfaStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MfaStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MfaStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("mfa_status")
+  private MfaStatusEnum mfaStatus = null;
+
   @SerializedName("parent_id")
   private String parentId = null;
 
@@ -130,14 +192,14 @@ public class AccountInfo implements Serializable {
   @SerializedName("etag")
   private String etag = null;
 
-  @SerializedName("is_provisioning_allowed")
-  private Boolean isProvisioningAllowed = null;
-
   @SerializedName("email")
   private String email = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
+
+  @SerializedName("reference_note")
+  private String referenceNote = null;
 
   @SerializedName("company")
   private String company = null;
@@ -147,21 +209,7 @@ public class AccountInfo implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error");
+    ACCOUNT("account");
 
     private String value;
 
@@ -228,11 +276,20 @@ public class AccountInfo implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
+  @SerializedName("contract_number")
+  private String contractNumber = null;
+
+  @SerializedName("expiration_warning_threshold")
+  private String expirationWarningThreshold = null;
+
   @SerializedName("contact")
   private String contact = null;
 
   @SerializedName("policies")
   private List<FeaturePolicy> policies = null;
+
+  @SerializedName("notification_emails")
+  private List<String> notificationEmails = null;
 
   @SerializedName("template_id")
   private String templateId = null;
@@ -246,7 +303,7 @@ public class AccountInfo implements Serializable {
    * Account end market.
    * @return endMarket
   **/
-  @ApiModelProperty(required = true, value = "Account end market.")
+  @ApiModelProperty(example = "IT", required = true, value = "Account end market.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -264,7 +321,7 @@ public class AccountInfo implements Serializable {
    * The status of the account.
    * @return status
   **/
-  @ApiModelProperty(required = true, value = "The status of the account.")
+  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the account.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -291,6 +348,42 @@ public class AccountInfo implements Serializable {
     this.passwordPolicy = passwordPolicy;
   }
 
+  public AccountInfo salesContact(String salesContact) {
+    this.salesContact = salesContact;
+    return this;
+  }
+
+   /**
+   * Email address of the sales contact.
+   * @return salesContact
+  **/
+  @ApiModelProperty(example = "sales@arm.com", value = "Email address of the sales contact.")
+  public String getSalesContact() {
+    return salesContact;
+  }
+
+  public void setSalesContact(String salesContact) {
+    this.salesContact = salesContact;
+  }
+
+  public AccountInfo updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
   public AccountInfo postalCode(String postalCode) {
     this.postalCode = postalCode;
     return this;
@@ -300,13 +393,57 @@ public class AccountInfo implements Serializable {
    * The postal code part of the postal address.
    * @return postalCode
   **/
-  @ApiModelProperty(value = "The postal code part of the postal address.")
+  @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address.")
   public String getPostalCode() {
     return postalCode;
   }
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  public AccountInfo accountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+    return this;
+  }
+
+  public AccountInfo putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
+    if (this.accountProperties == null) {
+      this.accountProperties = new HashMap<String, Map<String, String>>();
+    }
+    this.accountProperties.put(key, accountPropertiesItem);
+    return this;
+  }
+
+   /**
+   * Account specific custom properties.
+   * @return accountProperties
+  **/
+  @ApiModelProperty(value = "Account specific custom properties.")
+  public Map<String, Map<String, String>> getAccountProperties() {
+    return accountProperties;
+  }
+
+  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+  }
+
+  public AccountInfo customerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
+    return this;
+  }
+
+   /**
+   * Customer number of the customer.
+   * @return customerNumber
+  **/
+  @ApiModelProperty(example = "1NC25_0001", value = "Customer number of the customer.")
+  public String getCustomerNumber() {
+    return customerNumber;
+  }
+
+  public void setCustomerNumber(String customerNumber) {
+    this.customerNumber = customerNumber;
   }
 
   public AccountInfo id(String id) {
@@ -318,7 +455,7 @@ public class AccountInfo implements Serializable {
    * Account ID.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Account ID.")
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "Account ID.")
   public String getId() {
     return id;
   }
@@ -359,7 +496,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 2.
    * @return addressLine2
   **/
-  @ApiModelProperty(value = "Postal address line 2.")
+  @ApiModelProperty(example = " ", value = "Postal address line 2.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -377,7 +514,7 @@ public class AccountInfo implements Serializable {
    * The city part of the postal address.
    * @return city
   **/
-  @ApiModelProperty(value = "The city part of the postal address.")
+  @ApiModelProperty(example = "Cambridge", value = "The city part of the postal address.")
   public String getCity() {
     return city;
   }
@@ -395,7 +532,7 @@ public class AccountInfo implements Serializable {
    * Postal address line 1.
    * @return addressLine1
   **/
-  @ApiModelProperty(value = "Postal address line 1.")
+  @ApiModelProperty(example = "110 Fulbourn Rd", value = "Postal address line 1.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -413,13 +550,31 @@ public class AccountInfo implements Serializable {
    * The display name for the account.
    * @return displayName
   **/
-  @ApiModelProperty(value = "The display name for the account.")
+  @ApiModelProperty(example = "ARM", value = "The display name for the account.")
   public String getDisplayName() {
     return displayName;
   }
 
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
+  }
+
+  public AccountInfo mfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+    return this;
+  }
+
+   /**
+   * The enforcement status of the multi-factor authentication, either &#39;enforced&#39; or &#39;optional&#39;.
+   * @return mfaStatus
+  **/
+  @ApiModelProperty(value = "The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.")
+  public MfaStatusEnum getMfaStatus() {
+    return mfaStatus;
+  }
+
+  public void setMfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
   }
 
   public AccountInfo parentId(String parentId) {
@@ -431,7 +586,7 @@ public class AccountInfo implements Serializable {
    * The ID of the parent account, if it has any.
    * @return parentId
   **/
-  @ApiModelProperty(value = "The ID of the parent account, if it has any.")
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account, if it has any.")
   public String getParentId() {
     return parentId;
   }
@@ -449,7 +604,7 @@ public class AccountInfo implements Serializable {
    * The state part of the postal address.
    * @return state
   **/
-  @ApiModelProperty(value = "The state part of the postal address.")
+  @ApiModelProperty(example = " ", value = "The state part of the postal address.")
   public String getState() {
     return state;
   }
@@ -467,31 +622,13 @@ public class AccountInfo implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
 
   public void setEtag(String etag) {
     this.etag = etag;
-  }
-
-  public AccountInfo isProvisioningAllowed(Boolean isProvisioningAllowed) {
-    this.isProvisioningAllowed = isProvisioningAllowed;
-    return this;
-  }
-
-   /**
-   * Flag (true/false) indicating whether Factory Tool is allowed to download or not.
-   * @return isProvisioningAllowed
-  **/
-  @ApiModelProperty(required = true, value = "Flag (true/false) indicating whether Factory Tool is allowed to download or not.")
-  public Boolean isIsProvisioningAllowed() {
-    return isProvisioningAllowed;
-  }
-
-  public void setIsProvisioningAllowed(Boolean isProvisioningAllowed) {
-    this.isProvisioningAllowed = isProvisioningAllowed;
   }
 
   public AccountInfo email(String email) {
@@ -503,7 +640,7 @@ public class AccountInfo implements Serializable {
    * The company email address for this account.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account.")
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account.")
   public String getEmail() {
     return email;
   }
@@ -521,13 +658,31 @@ public class AccountInfo implements Serializable {
    * The phone number of a representative of the company.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of a representative of the company.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
 
   public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
+  }
+
+  public AccountInfo referenceNote(String referenceNote) {
+    this.referenceNote = referenceNote;
+    return this;
+  }
+
+   /**
+   * A reference note for updating the status of the account
+   * @return referenceNote
+  **/
+  @ApiModelProperty(example = "ARM-INT-0001", value = "A reference note for updating the status of the account")
+  public String getReferenceNote() {
+    return referenceNote;
+  }
+
+  public void setReferenceNote(String referenceNote) {
+    this.referenceNote = referenceNote;
   }
 
   public AccountInfo company(String company) {
@@ -539,7 +694,7 @@ public class AccountInfo implements Serializable {
    * The name of the company.
    * @return company
   **/
-  @ApiModelProperty(value = "The name of the company.")
+  @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company.")
   public String getCompany() {
     return company;
   }
@@ -575,7 +730,7 @@ public class AccountInfo implements Serializable {
    * A reason note for updating the status of the account
    * @return reason
   **/
-  @ApiModelProperty(value = "A reason note for updating the status of the account")
+  @ApiModelProperty(example = "Subscription paid.", value = "A reason note for updating the status of the account")
   public String getReason() {
     return reason;
   }
@@ -593,7 +748,7 @@ public class AccountInfo implements Serializable {
    * Time when upgraded to commercial account in UTC format RFC3339.
    * @return upgradedAt
   **/
-  @ApiModelProperty(value = "Time when upgraded to commercial account in UTC format RFC3339.")
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Time when upgraded to commercial account in UTC format RFC3339.")
   public DateTime getUpgradedAt() {
     return upgradedAt;
   }
@@ -611,7 +766,7 @@ public class AccountInfo implements Serializable {
    * The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future.
    * @return tier
   **/
-  @ApiModelProperty(required = true, value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
+  @ApiModelProperty(example = "1", required = true, value = "The tier level of the account; '0': free tier, '1': commercial account, '2': partner tier. Other values are reserved for the future.")
   public String getTier() {
     return tier;
   }
@@ -681,7 +836,7 @@ public class AccountInfo implements Serializable {
    * The country part of the postal address.
    * @return country
   **/
-  @ApiModelProperty(value = "The country part of the postal address.")
+  @ApiModelProperty(example = "United Kingdom", value = "The country part of the postal address.")
   public String getCountry() {
     return country;
   }
@@ -699,7 +854,7 @@ public class AccountInfo implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -717,13 +872,49 @@ public class AccountInfo implements Serializable {
    * The reference token expiration time in minutes for this account.
    * @return idleTimeout
   **/
-  @ApiModelProperty(value = "The reference token expiration time in minutes for this account.")
+  @ApiModelProperty(example = "30", value = "The reference token expiration time in minutes for this account.")
   public String getIdleTimeout() {
     return idleTimeout;
   }
 
   public void setIdleTimeout(String idleTimeout) {
     this.idleTimeout = idleTimeout;
+  }
+
+  public AccountInfo contractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+    return this;
+  }
+
+   /**
+   * Contract number of the customer.
+   * @return contractNumber
+  **/
+  @ApiModelProperty(example = "1NX25_0001", value = "Contract number of the customer.")
+  public String getContractNumber() {
+    return contractNumber;
+  }
+
+  public void setContractNumber(String contractNumber) {
+    this.contractNumber = contractNumber;
+  }
+
+  public AccountInfo expirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
+    return this;
+  }
+
+   /**
+   * Indicates how many days (1-180) before account expiration a notification email should be sent.
+   * @return expirationWarningThreshold
+  **/
+  @ApiModelProperty(example = "180", value = "Indicates how many days (1-180) before account expiration a notification email should be sent.")
+  public String getExpirationWarningThreshold() {
+    return expirationWarningThreshold;
+  }
+
+  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
   }
 
   public AccountInfo contact(String contact) {
@@ -735,7 +926,7 @@ public class AccountInfo implements Serializable {
    * The name of the contact person for this account.
    * @return contact
   **/
-  @ApiModelProperty(value = "The name of the contact person for this account.")
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account.")
   public String getContact() {
     return contact;
   }
@@ -770,6 +961,32 @@ public class AccountInfo implements Serializable {
     this.policies = policies;
   }
 
+  public AccountInfo notificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+    return this;
+  }
+
+  public AccountInfo addNotificationEmailsItem(String notificationEmailsItem) {
+    if (this.notificationEmails == null) {
+      this.notificationEmails = new ArrayList<String>();
+    }
+    this.notificationEmails.add(notificationEmailsItem);
+    return this;
+  }
+
+   /**
+   * A list of notification email addresses.
+   * @return notificationEmails
+  **/
+  @ApiModelProperty(value = "A list of notification email addresses.")
+  public List<String> getNotificationEmails() {
+    return notificationEmails;
+  }
+
+  public void setNotificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+  }
+
   public AccountInfo templateId(String templateId) {
     this.templateId = templateId;
     return this;
@@ -779,7 +996,7 @@ public class AccountInfo implements Serializable {
    * Account template ID.
    * @return templateId
   **/
-  @ApiModelProperty(value = "Account template ID.")
+  @ApiModelProperty(example = "01619571e7160242ac12000600000000", value = "Account template ID.")
   public String getTemplateId() {
     return templateId;
   }
@@ -801,19 +1018,24 @@ public class AccountInfo implements Serializable {
     return Objects.equals(this.endMarket, accountInfo.endMarket) &&
         Objects.equals(this.status, accountInfo.status) &&
         Objects.equals(this.passwordPolicy, accountInfo.passwordPolicy) &&
+        Objects.equals(this.salesContact, accountInfo.salesContact) &&
+        Objects.equals(this.updatedAt, accountInfo.updatedAt) &&
         Objects.equals(this.postalCode, accountInfo.postalCode) &&
+        Objects.equals(this.accountProperties, accountInfo.accountProperties) &&
+        Objects.equals(this.customerNumber, accountInfo.customerNumber) &&
         Objects.equals(this.id, accountInfo.id) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
         Objects.equals(this.addressLine2, accountInfo.addressLine2) &&
         Objects.equals(this.city, accountInfo.city) &&
         Objects.equals(this.addressLine1, accountInfo.addressLine1) &&
         Objects.equals(this.displayName, accountInfo.displayName) &&
+        Objects.equals(this.mfaStatus, accountInfo.mfaStatus) &&
         Objects.equals(this.parentId, accountInfo.parentId) &&
         Objects.equals(this.state, accountInfo.state) &&
         Objects.equals(this.etag, accountInfo.etag) &&
-        Objects.equals(this.isProvisioningAllowed, accountInfo.isProvisioningAllowed) &&
         Objects.equals(this.email, accountInfo.email) &&
         Objects.equals(this.phoneNumber, accountInfo.phoneNumber) &&
+        Objects.equals(this.referenceNote, accountInfo.referenceNote) &&
         Objects.equals(this.company, accountInfo.company) &&
         Objects.equals(this.object, accountInfo.object) &&
         Objects.equals(this.reason, accountInfo.reason) &&
@@ -824,14 +1046,17 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.country, accountInfo.country) &&
         Objects.equals(this.createdAt, accountInfo.createdAt) &&
         Objects.equals(this.idleTimeout, accountInfo.idleTimeout) &&
+        Objects.equals(this.contractNumber, accountInfo.contractNumber) &&
+        Objects.equals(this.expirationWarningThreshold, accountInfo.expirationWarningThreshold) &&
         Objects.equals(this.contact, accountInfo.contact) &&
         Objects.equals(this.policies, accountInfo.policies) &&
+        Objects.equals(this.notificationEmails, accountInfo.notificationEmails) &&
         Objects.equals(this.templateId, accountInfo.templateId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endMarket, status, passwordPolicy, postalCode, id, aliases, addressLine2, city, addressLine1, displayName, parentId, state, etag, isProvisioningAllowed, email, phoneNumber, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contact, policies, templateId);
+    return Objects.hash(endMarket, status, passwordPolicy, salesContact, updatedAt, postalCode, accountProperties, customerNumber, id, aliases, addressLine2, city, addressLine1, displayName, mfaStatus, parentId, state, etag, email, phoneNumber, referenceNote, company, object, reason, upgradedAt, tier, subAccounts, limits, country, createdAt, idleTimeout, contractNumber, expirationWarningThreshold, contact, policies, notificationEmails, templateId);
   }
 
 
@@ -843,19 +1068,24 @@ public class AccountInfo implements Serializable {
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
+    sb.append("    salesContact: ").append(toIndentedString(salesContact)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
+    sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
     sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    isProvisioningAllowed: ").append(toIndentedString(isProvisioningAllowed)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    referenceNote: ").append(toIndentedString(referenceNote)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    reason: ").append(toIndentedString(reason)).append("\n");
@@ -866,8 +1096,11 @@ public class AccountInfo implements Serializable {
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
+    sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
+    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    policies: ").append(toIndentedString(policies)).append("\n");
+    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
     sb.append("    templateId: ").append(toIndentedString(templateId)).append("\n");
     sb.append("}");
     return sb.toString();
