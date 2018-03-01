@@ -4,15 +4,180 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v3DeviceEnrollmentsGet**](PublicApiApi.md#v3DeviceEnrollmentsGet) | **GET** v3/device-enrollments | Get enrollment list.
-[**v3DeviceEnrollmentsIdDelete**](PublicApiApi.md#v3DeviceEnrollmentsIdDelete) | **DELETE** v3/device-enrollments/{id} | Delete an enrollment by ID.
-[**v3DeviceEnrollmentsIdGet**](PublicApiApi.md#v3DeviceEnrollmentsIdGet) | **GET** v3/device-enrollments/{id} | Get details of an enrollment by ID.
-[**v3DeviceEnrollmentsPost**](PublicApiApi.md#v3DeviceEnrollmentsPost) | **POST** v3/device-enrollments | Place an enrollment claim for one or several devices.
+[**createDeviceEnrollment**](PublicApiApi.md#createDeviceEnrollment) | **POST** v3/device-enrollments | Place an enrollment claim for one or several devices.
+[**deleteDeviceEnrollment**](PublicApiApi.md#deleteDeviceEnrollment) | **DELETE** v3/device-enrollments/{id} | Delete an enrollment by ID.
+[**getDeviceEnrollment**](PublicApiApi.md#getDeviceEnrollment) | **GET** v3/device-enrollments/{id} | Get details of an enrollment by ID.
+[**getDeviceEnrollments**](PublicApiApi.md#getDeviceEnrollments) | **GET** v3/device-enrollments | Get enrollment list.
 
 
-<a name="v3DeviceEnrollmentsGet"></a>
-# **v3DeviceEnrollmentsGet**
-> EnrollmentIdentities v3DeviceEnrollmentsGet(limit, after, order, include)
+<a name="createDeviceEnrollment"></a>
+# **createDeviceEnrollment**
+> EnrollmentIdentity createDeviceEnrollment(enrollmentIdentity)
+
+Place an enrollment claim for one or several devices.
+
+When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+EnrollmentId enrollmentIdentity = new EnrollmentId(); // EnrollmentId | 
+try {
+    EnrollmentIdentity result = apiInstance.createDeviceEnrollment(enrollmentIdentity);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#createDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enrollmentIdentity** | [**EnrollmentId**](EnrollmentId.md)|  |
+
+### Return type
+
+[**EnrollmentIdentity**](EnrollmentIdentity.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="deleteDeviceEnrollment"></a>
+# **deleteDeviceEnrollment**
+> Void deleteDeviceEnrollment(id)
+
+Delete an enrollment by ID.
+
+To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+String id = "id_example"; // String | Enrollment identity internal id
+try {
+    Void result = apiInstance.deleteDeviceEnrollment(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#deleteDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Enrollment identity internal id |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getDeviceEnrollment"></a>
+# **getDeviceEnrollment**
+> EnrollmentIdentity getDeviceEnrollment(id)
+
+Get details of an enrollment by ID.
+
+To check the enrollment info in detail, for example claming date and expiration date.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+String id = "id_example"; // String | Enrollment identity internal id
+try {
+    EnrollmentIdentity result = apiInstance.getDeviceEnrollment(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#getDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Enrollment identity internal id |
+
+### Return type
+
+[**EnrollmentIdentity**](EnrollmentIdentity.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getDeviceEnrollments"></a>
+# **getDeviceEnrollments**
+> EnrollmentIdentities getDeviceEnrollments(limit, after, order, include)
 
 Get enrollment list.
 
@@ -41,10 +206,10 @@ String after = "after_example"; // String | Entity ID to fetch after.
 String order = "ASC"; // String | ASC or DESC
 String include = "include_example"; // String | Comma separate additional data to return. Currently supported: total_count
 try {
-    EnrollmentIdentities result = apiInstance.v3DeviceEnrollmentsGet(limit, after, order, include);
+    EnrollmentIdentities result = apiInstance.getDeviceEnrollments(limit, after, order, include);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PublicApiApi#v3DeviceEnrollmentsGet");
+    System.err.println("Exception when calling PublicApiApi#getDeviceEnrollments");
     e.printStackTrace();
 }
 ```
@@ -69,170 +234,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v3DeviceEnrollmentsIdDelete"></a>
-# **v3DeviceEnrollmentsIdDelete**
-> Void v3DeviceEnrollmentsIdDelete(id)
-
-Delete an enrollment by ID.
-
-To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-PublicApiApi apiInstance = new PublicApiApi();
-String id = "id_example"; // String | Enrollment identity internal id
-try {
-    Void result = apiInstance.v3DeviceEnrollmentsIdDelete(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling PublicApiApi#v3DeviceEnrollmentsIdDelete");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Enrollment identity internal id |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v3DeviceEnrollmentsIdGet"></a>
-# **v3DeviceEnrollmentsIdGet**
-> EnrollmentIdentity v3DeviceEnrollmentsIdGet(id)
-
-Get details of an enrollment by ID.
-
-To check the enrollment info in detail, for example claming date and expiration date.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-PublicApiApi apiInstance = new PublicApiApi();
-String id = "id_example"; // String | Enrollment identity internal id
-try {
-    EnrollmentIdentity result = apiInstance.v3DeviceEnrollmentsIdGet(id);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling PublicApiApi#v3DeviceEnrollmentsIdGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **String**| Enrollment identity internal id |
-
-### Return type
-
-[**EnrollmentIdentity**](EnrollmentIdentity.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v3DeviceEnrollmentsPost"></a>
-# **v3DeviceEnrollmentsPost**
-> EnrollmentIdentity v3DeviceEnrollmentsPost(enrollmentIdentity)
-
-Place an enrollment claim for one or several devices.
-
-When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-PublicApiApi apiInstance = new PublicApiApi();
-EnrollmentId enrollmentIdentity = new EnrollmentId(); // EnrollmentId | 
-try {
-    EnrollmentIdentity result = apiInstance.v3DeviceEnrollmentsPost(enrollmentIdentity);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling PublicApiApi#v3DeviceEnrollmentsPost");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **enrollmentIdentity** | [**EnrollmentId**](EnrollmentId.md)|  |
-
-### Return type
-
-[**EnrollmentIdentity**](EnrollmentIdentity.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 

@@ -26,17 +26,14 @@ public class PublicApiApiTest {
     }
 
     /**
-     * Get enrollment list.
+     * Place an enrollment claim for one or several devices.
      *
-     * Provides a list of pending and claimed enrollments. Example usage: 
+     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
      */
     @Test
-    public void v3DeviceEnrollmentsGetTest() {
-        Integer limit = null;
-        String after = null;
-        String order = null;
-        String include = null;
-        // EnrollmentIdentities response = api.v3DeviceEnrollmentsGet(limit, after, order, include);
+    public void createDeviceEnrollmentTest() {
+        EnrollmentId enrollmentIdentity = null;
+        // EnrollmentIdentity response = api.createDeviceEnrollment(enrollmentIdentity);
 
         // TODO: test validations
     }
@@ -46,9 +43,9 @@ public class PublicApiApiTest {
      * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
      */
     @Test
-    public void v3DeviceEnrollmentsIdDeleteTest() {
+    public void deleteDeviceEnrollmentTest() {
         String id = null;
-        // Void response = api.v3DeviceEnrollmentsIdDelete(id);
+        // Void response = api.deleteDeviceEnrollment(id);
 
         // TODO: test validations
     }
@@ -58,21 +55,24 @@ public class PublicApiApiTest {
      * To check the enrollment info in detail, for example claming date and expiration date.
      */
     @Test
-    public void v3DeviceEnrollmentsIdGetTest() {
+    public void getDeviceEnrollmentTest() {
         String id = null;
-        // EnrollmentIdentity response = api.v3DeviceEnrollmentsIdGet(id);
+        // EnrollmentIdentity response = api.getDeviceEnrollment(id);
 
         // TODO: test validations
     }
     /**
-     * Place an enrollment claim for one or several devices.
+     * Get enrollment list.
      *
-     * When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+     * Provides a list of pending and claimed enrollments. Example usage: 
      */
     @Test
-    public void v3DeviceEnrollmentsPostTest() {
-        EnrollmentId enrollmentIdentity = null;
-        // EnrollmentIdentity response = api.v3DeviceEnrollmentsPost(enrollmentIdentity);
+    public void getDeviceEnrollmentsTest() {
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // EnrollmentIdentities response = api.getDeviceEnrollments(limit, after, order, include);
 
         // TODO: test validations
     }

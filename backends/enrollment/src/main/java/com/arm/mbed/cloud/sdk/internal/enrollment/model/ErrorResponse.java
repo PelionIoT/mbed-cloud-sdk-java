@@ -228,7 +228,7 @@ public class ErrorResponse implements Serializable {
    * Response code.
    * @return code
   **/
-  @ApiModelProperty(value = "Response code.")
+  @ApiModelProperty(example = "400", value = "Response code.")
   public CodeEnum getCode() {
     return code;
   }
@@ -272,7 +272,7 @@ public class ErrorResponse implements Serializable {
    * Entity name, always &#39;error&#39;.
    * @return object
   **/
-  @ApiModelProperty(value = "Entity name, always 'error'.")
+  @ApiModelProperty(example = "error", value = "Entity name, always 'error'.")
   public ObjectEnum getObject() {
     return object;
   }
@@ -290,7 +290,7 @@ public class ErrorResponse implements Serializable {
    * Request ID (muuid).
    * @return requestId
   **/
-  @ApiModelProperty(value = "Request ID (muuid).")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Request ID (muuid).")
   public String getRequestId() {
     return requestId;
   }
@@ -326,7 +326,7 @@ public class ErrorResponse implements Serializable {
    * Error type.
    * @return type
   **/
-  @ApiModelProperty(value = "Error type.")
+  @ApiModelProperty(example = "validation_error", value = "Error type.")
   public TypeEnum getType() {
     return type;
   }

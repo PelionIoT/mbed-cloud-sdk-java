@@ -152,7 +152,7 @@ public class EnrollmentIdentity implements Serializable {
    * muuid
    * @return accountId
   **/
-  @ApiModelProperty(required = true, value = "muuid")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "muuid")
   public String getAccountId() {
     return accountId;
   }
@@ -224,7 +224,7 @@ public class EnrollmentIdentity implements Serializable {
    * Enrolled device internal ID
    * @return enrolledDeviceId
   **/
-  @ApiModelProperty(value = "Enrolled device internal ID")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Enrolled device internal ID")
   public String getEnrolledDeviceId() {
     return enrolledDeviceId;
   }
@@ -242,7 +242,7 @@ public class EnrollmentIdentity implements Serializable {
    * Get etag
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "7642xfaxz", required = true, value = "")
   public String getEtag() {
     return etag;
   }
@@ -260,7 +260,7 @@ public class EnrollmentIdentity implements Serializable {
    * Enrollment identity internal id
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "Enrollment identity internal id")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Enrollment identity internal id")
   public String getId() {
     return id;
   }
@@ -278,7 +278,7 @@ public class EnrollmentIdentity implements Serializable {
    * The ID of the device in the Device Directory once it has been registered.
    * @return deviceId
   **/
-  @ApiModelProperty(value = "The ID of the device in the Device Directory once it has been registered.")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "The ID of the device in the Device Directory once it has been registered.")
   public String getDeviceId() {
     return deviceId;
   }

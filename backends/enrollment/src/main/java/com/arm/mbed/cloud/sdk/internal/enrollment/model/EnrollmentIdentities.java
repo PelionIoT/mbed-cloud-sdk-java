@@ -156,7 +156,7 @@ public class EnrollmentIdentities implements Serializable {
    * muuid
    * @return after
   **/
-  @ApiModelProperty(example = "2d238a89038b4ddb84699dd36a901063", required = true, value = "muuid")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "muuid")
   public String getAfter() {
     return after;
   }
@@ -231,7 +231,7 @@ public class EnrollmentIdentities implements Serializable {
    * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(example = "20", required = true, value = "Range 2-1000, or default.")
+  @ApiModelProperty(example = "50", required = true, value = "Range 2-1000, or default.")
   public Integer getLimit() {
     return limit;
   }
@@ -272,7 +272,7 @@ public class EnrollmentIdentities implements Serializable {
    * Get order
    * @return order
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "ASC", required = true, value = "")
   public OrderEnum getOrder() {
     return order;
   }
