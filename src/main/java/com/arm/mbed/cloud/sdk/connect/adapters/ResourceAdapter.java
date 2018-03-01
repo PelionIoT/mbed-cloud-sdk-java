@@ -105,7 +105,7 @@ public final class ResourceAdapter {
         if (resourcePath == null) {
             return null;
         }
-        DeviceRequest request = new DeviceRequest();
+        final DeviceRequest request = new DeviceRequest();
         request.setMethod(RESOURCE_GET_METHOD);
         request.setUri(resourcePath);
         return request;

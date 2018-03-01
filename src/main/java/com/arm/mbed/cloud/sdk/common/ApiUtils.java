@@ -233,7 +233,7 @@ public class ApiUtils {
      * @return normalised path
      */
     public static String normalisePath(String path) {
-        if (path != null && !path.isEmpty() && path.startsWith("/")) {
+        if (path != null && !path.isEmpty() && path.charAt(0) == '/') {
             return path.substring(1);
         }
         return path;
@@ -249,7 +249,7 @@ public class ApiUtils {
      * @return normalised resource path
      */
     public static String normaliseResourcePath(String resourcePath) {
-        if (resourcePath != null && !resourcePath.startsWith("/")) {
+        if (resourcePath != null && (resourcePath.isEmpty() || resourcePath.charAt(0) != '/')) {
             return "/" + resourcePath;
         }
         return resourcePath;
