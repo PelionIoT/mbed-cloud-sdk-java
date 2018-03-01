@@ -143,70 +143,6 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("root_manifest_url")
   private String rootManifestUrl = null;
 
-  /**
-   * The phase of the campaign
-   */
-  @JsonAdapter(PhaseEnum.Adapter.class)
-  public enum PhaseEnum {
-    DRAFT("draft"),
-    
-    SETUP("setup"),
-    
-    AWAITING_APPROVAL("awaiting_approval"),
-    
-    TIMED("timed"),
-    
-    STARTING("starting"),
-    
-    ACTIVE("active"),
-    
-    STOPPING("stopping"),
-    
-    STOPPED("stopped"),
-    
-    ARCHIVED("archived");
-
-    private String value;
-
-    PhaseEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static PhaseEnum fromValue(String text) {
-      for (PhaseEnum b : PhaseEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<PhaseEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final PhaseEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public PhaseEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return PhaseEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("phase")
-  private PhaseEnum phase = null;
-
   @SerializedName("started_at")
   private DateTime startedAt = null;
 
@@ -399,24 +335,6 @@ public class UpdateCampaign implements Serializable {
     this.rootManifestUrl = rootManifestUrl;
   }
 
-  public UpdateCampaign phase(PhaseEnum phase) {
-    this.phase = phase;
-    return this;
-  }
-
-   /**
-   * The phase of the campaign
-   * @return phase
-  **/
-  @ApiModelProperty(value = "The phase of the campaign")
-  public PhaseEnum getPhase() {
-    return phase;
-  }
-
-  public void setPhase(PhaseEnum phase) {
-    this.phase = phase;
-  }
-
   public UpdateCampaign startedAt(DateTime startedAt) {
     this.startedAt = startedAt;
     return this;
@@ -509,7 +427,6 @@ public class UpdateCampaign implements Serializable {
         Objects.equals(this.etag, updateCampaign.etag) &&
         Objects.equals(this.finished, updateCampaign.finished) &&
         Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl) &&
-        Objects.equals(this.phase, updateCampaign.phase) &&
         Objects.equals(this.startedAt, updateCampaign.startedAt) &&
         Objects.equals(this.id, updateCampaign.id) &&
         Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
@@ -518,7 +435,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, phase, startedAt, id, deviceFilter, name);
+    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, startedAt, id, deviceFilter, name);
   }
 
 
@@ -537,7 +454,6 @@ public class UpdateCampaign implements Serializable {
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
     sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
-    sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
     sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
