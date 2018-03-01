@@ -16,16 +16,7 @@ Name | Type | Description | Notes
 ## Enum: ObjectEnum
 Name | Value
 ---- | -----
-USER | &quot;user&quot;
-API_KEY | &quot;api-key&quot;
-GROUP | &quot;group&quot;
-ACCOUNT | &quot;account&quot;
-ACCOUNT_TEMPLATE | &quot;account-template&quot;
-TRUSTED_CERT | &quot;trusted-cert&quot;
-LIST | &quot;list&quot;
 ERROR | &quot;error&quot;
-POLICY | &quot;policy&quot;
-IDENTITY_PROVIDER | &quot;identity-provider&quot;
 
 
 <a name="TypeEnum"></a>

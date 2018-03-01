@@ -258,7 +258,7 @@ public class GroupSummary implements Serializable {
    * The name of the group.
    * @return name
   **/
-  @ApiModelProperty(example = "Admoinistrators", required = true, value = "The name of the group.")
+  @ApiModelProperty(example = "Administrators", required = true, value = "The name of the group.")
   public String getName() {
     return name;
   }

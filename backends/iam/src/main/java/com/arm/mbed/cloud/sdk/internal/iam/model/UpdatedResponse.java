@@ -58,7 +58,9 @@ public class UpdatedResponse implements Serializable {
     
     POLICY("policy"),
     
-    IDENTITY_PROVIDER("identity-provider");
+    IDENTITY_PROVIDER("identity-provider"),
+    
+    USER_SESSION("user-session");
 
     private String value;
 
@@ -167,7 +169,7 @@ public class UpdatedResponse implements Serializable {
    * Response code.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Response code.")
+  @ApiModelProperty(example = "200", required = true, value = "Response code.")
   public Integer getCode() {
     return code;
   }
@@ -203,7 +205,7 @@ public class UpdatedResponse implements Serializable {
    * Request ID.
    * @return requestId
   **/
-  @ApiModelProperty(required = true, value = "Request ID.")
+  @ApiModelProperty(example = "0161991d63150242ac12000600000000", required = true, value = "Request ID.")
   public String getRequestId() {
     return requestId;
   }
@@ -221,7 +223,7 @@ public class UpdatedResponse implements Serializable {
    * A human readable message with detailed info.
    * @return message
   **/
-  @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+  @ApiModelProperty(example = "success", required = true, value = "A human readable message with detailed info.")
   public String getMessage() {
     return message;
   }
