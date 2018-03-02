@@ -4,6 +4,8 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**addMeToGroups**](DeveloperApi.md#addMeToGroups) | **POST** v3/users/me/groups | Add user to a list of groupS.
+[**addMyApiKeyToGroups**](DeveloperApi.md#addMyApiKeyToGroups) | **POST** v3/api-keys/me/groups | Add API key to a list of groups.
 [**createApiKey**](DeveloperApi.md#createApiKey) | **POST** v3/api-keys | Create a new API key.
 [**deleteApiKey**](DeveloperApi.md#deleteApiKey) | **DELETE** v3/api-keys/{apiKey} | Delete API key.
 [**deleteCertificate**](DeveloperApi.md#deleteCertificate) | **DELETE** v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -14,15 +16,129 @@ Method | HTTP request | Description
 [**getApiKeysOfGroup**](DeveloperApi.md#getApiKeysOfGroup) | **GET** v3/policy-groups/{groupID}/api-keys | Get the API keys of a group.
 [**getCertificate**](DeveloperApi.md#getCertificate) | **GET** v3/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**getGroupSummary**](DeveloperApi.md#getGroupSummary) | **GET** v3/policy-groups/{groupID} | Get group information.
+[**getGroupsOfMyApiKey**](DeveloperApi.md#getGroupsOfMyApiKey) | **GET** v3/api-keys/me/groups | Get groups of the API key.
 [**getMyAccountInfo**](DeveloperApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account info.
 [**getMyApiKey**](DeveloperApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
+[**getMyGroups**](DeveloperApi.md#getMyGroups) | **GET** v3/users/me/groups | Get groups of the user.
 [**getMyUser**](DeveloperApi.md#getMyUser) | **GET** v3/users/me | Details of the current user.
 [**removeApiKeysFromGroup**](DeveloperApi.md#removeApiKeysFromGroup) | **DELETE** v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
+[**removeMeFromGroups**](DeveloperApi.md#removeMeFromGroups) | **DELETE** v3/users/me/groups | Remove user from a group.
+[**removeMyApiKeyFromGroups**](DeveloperApi.md#removeMyApiKeyFromGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
 [**updateApiKey**](DeveloperApi.md#updateApiKey) | **PUT** v3/api-keys/{apiKey} | Update API key details.
 [**updateCertificate**](DeveloperApi.md#updateCertificate) | **PUT** v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**updateMyApiKey**](DeveloperApi.md#updateMyApiKey) | **PUT** v3/api-keys/me | Update API key details.
 [**updateMyUser**](DeveloperApi.md#updateMyUser) | **PUT** v3/users/me | Update user details.
 
+
+<a name="addMeToGroups"></a>
+# **addMeToGroups**
+> UpdatedResponse addMeToGroups(body)
+
+Add user to a list of groupS.
+
+An endpoint for adding user to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addMeToGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#addMeToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="addMyApiKeyToGroups"></a>
+# **addMyApiKeyToGroups**
+> UpdatedResponse addMyApiKeyToGroups(body)
+
+Add API key to a list of groups.
+
+An endpoint for adding API key to groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.addMyApiKeyToGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#addMyApiKeyToGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="createApiKey"></a>
 # **createApiKey**
@@ -191,7 +307,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllApiKeys"></a>
 # **getAllApiKeys**
-> ApiKeyInfoRespList getAllApiKeys(limit, after, order, include, ownerEq)
+> ApiKeyInfoRespList getAllApiKeys(limit, after, order, include, keyEq, ownerEq)
 
 Get all API keys
 
@@ -219,9 +335,10 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String keyEq = "keyEq_example"; // String | API key filter.
 String ownerEq = "ownerEq_example"; // String | Owner name filter.
 try {
-    ApiKeyInfoRespList result = apiInstance.getAllApiKeys(limit, after, order, include, ownerEq);
+    ApiKeyInfoRespList result = apiInstance.getAllApiKeys(limit, after, order, include, keyEq, ownerEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getAllApiKeys");
@@ -237,6 +354,7 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **keyEq** | **String**| API key filter. | [optional]
  **ownerEq** | **String**| Owner name filter. | [optional]
 
 ### Return type
@@ -254,7 +372,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllCertificates"></a>
 # **getAllCertificates**
-> TrustedCertificateRespList getAllCertificates(limit, after, order, include, serviceEq, expireEq, deviceExecutionModeEq, ownerEq)
+> TrustedCertificateRespList getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, issuerLike, subjectLike)
 
 Get all trusted certificates.
 
@@ -282,12 +400,17 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String nameEq = "nameEq_example"; // String | Filter for certificate name
 String serviceEq = "serviceEq_example"; // String | Service filter, either lwm2m or bootstrap
 Integer expireEq = 56; // Integer | Expire filter in days
 Integer deviceExecutionModeEq = 56; // Integer | Device execution mode, as 1 for developer certificates or as another natural integer value
-String ownerEq = "ownerEq_example"; // String | Owner ID filter
+Integer deviceExecutionModeNeq = 56; // Integer | Device execution mode not equals filter
+String ownerEq = "ownerEq_example"; // String | Owner name filter
+Boolean enrollmentModeEq = true; // Boolean | Enrollment mode filter
+String issuerLike = "issuerLike_example"; // String | Issuer filter
+String subjectLike = "subjectLike_example"; // String | Subject filter
 try {
-    TrustedCertificateRespList result = apiInstance.getAllCertificates(limit, after, order, include, serviceEq, expireEq, deviceExecutionModeEq, ownerEq);
+    TrustedCertificateRespList result = apiInstance.getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, issuerLike, subjectLike);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getAllCertificates");
@@ -303,10 +426,15 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **nameEq** | **String**| Filter for certificate name | [optional]
  **serviceEq** | **String**| Service filter, either lwm2m or bootstrap | [optional]
  **expireEq** | **Integer**| Expire filter in days | [optional]
  **deviceExecutionModeEq** | **Integer**| Device execution mode, as 1 for developer certificates or as another natural integer value | [optional]
- **ownerEq** | **String**| Owner ID filter | [optional]
+ **deviceExecutionModeNeq** | **Integer**| Device execution mode not equals filter | [optional]
+ **ownerEq** | **String**| Owner name filter | [optional]
+ **enrollmentModeEq** | **Boolean**| Enrollment mode filter | [optional]
+ **issuerLike** | **String**| Issuer filter | [optional]
+ **subjectLike** | **String**| Subject filter | [optional]
 
 ### Return type
 
@@ -323,7 +451,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllGroups"></a>
 # **getAllGroups**
-> GroupSummaryList getAllGroups(limit, after, order, include)
+> GroupSummaryList getAllGroups(limit, after, order, include, nameEq)
 
 Get all group information.
 
@@ -351,8 +479,9 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String nameEq = "nameEq_example"; // String | Filter for group name
 try {
-    GroupSummaryList result = apiInstance.getAllGroups(limit, after, order, include);
+    GroupSummaryList result = apiInstance.getAllGroups(limit, after, order, include, nameEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getAllGroups");
@@ -368,6 +497,7 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **nameEq** | **String**| Filter for group name | [optional]
 
 ### Return type
 
@@ -506,7 +636,7 @@ Name | Type | Description  | Notes
 
 Get trusted certificate by ID.
 
-An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -526,7 +656,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperApi apiInstance = new DeveloperApi();
-String certId = "certId_example"; // String | The ID or name of the trusted certificate to be retrieved.
+String certId = "certId_example"; // String | The ID of the trusted certificate to be retrieved.
 try {
     TrustedCertificateResp result = apiInstance.getCertificate(certId);
     System.out.println(result);
@@ -540,7 +670,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **certId** | **String**| The ID or name of the trusted certificate to be retrieved. |
+ **certId** | **String**| The ID of the trusted certificate to be retrieved. |
 
 ### Return type
 
@@ -581,7 +711,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperApi apiInstance = new DeveloperApi();
-String groupID = "groupID_example"; // String | The ID or name of the group to be retrieved.
+String groupID = "groupID_example"; // String | The ID of the group to be retrieved.
 try {
     GroupSummary result = apiInstance.getGroupSummary(groupID);
     System.out.println(result);
@@ -595,7 +725,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **groupID** | **String**| The ID or name of the group to be retrieved. |
+ **groupID** | **String**| The ID of the group to be retrieved. |
 
 ### Return type
 
@@ -610,13 +740,74 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getGroupsOfMyApiKey"></a>
+# **getGroupsOfMyApiKey**
+> GroupSummaryList getGroupsOfMyApiKey(limit, after, order, include)
+
+Get groups of the API key.
+
+An endpoint for retrieving groups of the API key.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getGroupsOfMyApiKey(limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#getGroupsOfMyApiKey");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getMyAccountInfo"></a>
 # **getMyAccountInfo**
-> AccountInfo getMyAccountInfo(include)
+> AccountInfo getMyAccountInfo(include, properties)
 
 Get account info.
 
-Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60; .
+Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/me?include&#x3D;policies -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
 
 ### Example
 ```java
@@ -637,8 +828,9 @@ Bearer.setApiKey("YOUR API KEY");
 
 DeveloperApi apiInstance = new DeveloperApi();
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: limits, policies, sub_accounts.
+String properties = "properties_example"; // String | Property name to be returned from account specific properties.
 try {
-    AccountInfo result = apiInstance.getMyAccountInfo(include);
+    AccountInfo result = apiInstance.getMyAccountInfo(include, properties);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getMyAccountInfo");
@@ -651,6 +843,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **include** | **String**| Comma separated additional data to return. Currently supported: limits, policies, sub_accounts. | [optional]
+ **properties** | **String**| Property name to be returned from account specific properties. | [optional]
 
 ### Return type
 
@@ -716,13 +909,74 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getMyGroups"></a>
+# **getMyGroups**
+> GroupSummaryList getMyGroups(limit, after, order, include)
+
+Get groups of the user.
+
+An endpoint for retrieving groups of the user.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+try {
+    GroupSummaryList result = apiInstance.getMyGroups(limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#getMyGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+
+### Return type
+
+[**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getMyUser"></a>
 # **getMyUser**
-> MyUserInfoResp getMyUser(scratchCodes)
+> MyUserInfoResp getMyUser(scratchCodes, properties, include)
 
 Details of the current user.
 
-An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -743,8 +997,10 @@ Bearer.setApiKey("YOUR API KEY");
 
 DeveloperApi apiInstance = new DeveloperApi();
 String scratchCodes = "scratchCodes_example"; // String | Request to regenerate new emergency scratch codes.
+String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: active_sessions
 try {
-    MyUserInfoResp result = apiInstance.getMyUser(scratchCodes);
+    MyUserInfoResp result = apiInstance.getMyUser(scratchCodes, properties, include);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperApi#getMyUser");
@@ -757,6 +1013,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **scratchCodes** | **String**| Request to regenerate new emergency scratch codes. | [optional]
+ **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
+ **include** | **String**| Comma separated additional data to return. Currently supported: active_sessions | [optional]
 
 ### Return type
 
@@ -814,6 +1072,116 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **groupID** | **String**| The ID of the group whose API keys are removed. |
  **body** | [**SubjectList**](SubjectList.md)| A list of API keys to be removed from the group. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeMeFromGroups"></a>
+# **removeMeFromGroups**
+> UpdatedResponse removeMeFromGroups(body)
+
+Remove user from a group.
+
+An endpoint for removing user from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeMeFromGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#removeMeFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="removeMyApiKeyFromGroups"></a>
+# **removeMyApiKeyFromGroups**
+> UpdatedResponse removeMyApiKeyFromGroups(body)
+
+Remove API key from groups.
+
+An endpoint for removing API key from groups.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
+try {
+    UpdatedResponse result = apiInstance.removeMyApiKeyFromGroups(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#removeMyApiKeyFromGroups");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
 
 ### Return type
 
@@ -891,7 +1259,7 @@ Name | Type | Description  | Notes
 
 Update trusted certificate.
 
-An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+An endpoint for updating existing trusted certificates.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -d {\&quot;description\&quot;: \&quot;very important cert\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1003,7 +1371,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60; 
+An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java

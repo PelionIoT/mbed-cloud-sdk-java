@@ -64,7 +64,7 @@ public class DeviceEventPage implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "list", value = "")
   public String getObject() {
     return object;
   }
@@ -82,7 +82,7 @@ public class DeviceEventPage implements Serializable {
    * Get hasMore
    * @return hasMore
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "false", value = "")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -100,7 +100,7 @@ public class DeviceEventPage implements Serializable {
    * Get totalCount
    * @return totalCount
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "1", value = "")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -136,7 +136,7 @@ public class DeviceEventPage implements Serializable {
    * Get limit
    * @return limit
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "1000", value = "")
   public Integer getLimit() {
     return limit;
   }
@@ -162,7 +162,7 @@ public class DeviceEventPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "\"[]\"", value = "")
   public List<DeviceEventData> getData() {
     return data;
   }
@@ -180,7 +180,7 @@ public class DeviceEventPage implements Serializable {
    * Get order
    * @return order
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "DESC", value = "")
   public String getOrder() {
     return order;
   }

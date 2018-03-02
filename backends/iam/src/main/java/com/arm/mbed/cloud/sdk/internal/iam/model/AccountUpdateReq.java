@@ -24,7 +24,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -47,6 +49,56 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("display_name")
   private String displayName = null;
 
+  /**
+   * The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up the MFA is required after login. &#39;Optional&#39; means that the MFA is not required.
+   */
+  @JsonAdapter(MfaStatusEnum.Adapter.class)
+  public enum MfaStatusEnum {
+    ENFORCED("enforced"),
+    
+    OPTIONAL("optional");
+
+    private String value;
+
+    MfaStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static MfaStatusEnum fromValue(String text) {
+      for (MfaStatusEnum b : MfaStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<MfaStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final MfaStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public MfaStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return MfaStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("mfa_status")
+  private MfaStatusEnum mfaStatus = null;
+
   @SerializedName("country")
   private String country = null;
 
@@ -56,6 +108,9 @@ public class AccountUpdateReq implements Serializable {
   @SerializedName("idle_timeout")
   private String idleTimeout = null;
 
+  @SerializedName("notification_emails")
+  private List<String> notificationEmails = null;
+
   @SerializedName("state")
   private String state = null;
 
@@ -64,6 +119,12 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("postal_code")
   private String postalCode = null;
+
+  @SerializedName("account_properties")
+  private Map<String, Map<String, String>> accountProperties = null;
+
+  @SerializedName("expiration_warning_threshold")
+  private String expirationWarningThreshold = null;
 
   @SerializedName("password_policy")
   private PasswordPolicy passwordPolicy = null;
@@ -89,7 +150,7 @@ public class AccountUpdateReq implements Serializable {
    * Postal address line 2, not longer than 100 characters.
    * @return addressLine2
   **/
-  @ApiModelProperty(value = "Postal address line 2, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "Postal address line 2, not longer than 100 characters.")
   public String getAddressLine2() {
     return addressLine2;
   }
@@ -107,7 +168,7 @@ public class AccountUpdateReq implements Serializable {
    * The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return city
   **/
-  @ApiModelProperty(value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "Cambridge", value = "The city part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCity() {
     return city;
   }
@@ -125,7 +186,7 @@ public class AccountUpdateReq implements Serializable {
    * Postal address line 1, not longer than 100 characters. Required for commercial accounts only.
    * @return addressLine1
   **/
-  @ApiModelProperty(value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "110 Fulbourn Rd", value = "Postal address line 1, not longer than 100 characters. Required for commercial accounts only.")
   public String getAddressLine1() {
     return addressLine1;
   }
@@ -143,13 +204,31 @@ public class AccountUpdateReq implements Serializable {
    * The display name for the account, not longer than 100 characters.
    * @return displayName
   **/
-  @ApiModelProperty(value = "The display name for the account, not longer than 100 characters.")
+  @ApiModelProperty(example = "ARM", value = "The display name for the account, not longer than 100 characters.")
   public String getDisplayName() {
     return displayName;
   }
 
   public void setDisplayName(String displayName) {
     this.displayName = displayName;
+  }
+
+  public AccountUpdateReq mfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
+    return this;
+  }
+
+   /**
+   * The enforcement status of setting up the multi-factor authentication. &#39;Enforced&#39; means that setting up the MFA is required after login. &#39;Optional&#39; means that the MFA is not required.
+   * @return mfaStatus
+  **/
+  @ApiModelProperty(value = "The enforcement status of setting up the multi-factor authentication. 'Enforced' means that setting up the MFA is required after login. 'Optional' means that the MFA is not required.")
+  public MfaStatusEnum getMfaStatus() {
+    return mfaStatus;
+  }
+
+  public void setMfaStatus(MfaStatusEnum mfaStatus) {
+    this.mfaStatus = mfaStatus;
   }
 
   public AccountUpdateReq country(String country) {
@@ -161,7 +240,7 @@ public class AccountUpdateReq implements Serializable {
    * The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.
    * @return country
   **/
-  @ApiModelProperty(value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "United Kingdom", value = "The country part of the postal address, not longer than 100 characters. Required for commercial accounts only.")
   public String getCountry() {
     return country;
   }
@@ -179,7 +258,7 @@ public class AccountUpdateReq implements Serializable {
    * The name of the company, not longer than 100 characters. Required for commercial accounts only.
    * @return company
   **/
-  @ApiModelProperty(value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "ARM Holdings Plc", value = "The name of the company, not longer than 100 characters. Required for commercial accounts only.")
   public String getCompany() {
     return company;
   }
@@ -206,6 +285,32 @@ public class AccountUpdateReq implements Serializable {
     this.idleTimeout = idleTimeout;
   }
 
+  public AccountUpdateReq notificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+    return this;
+  }
+
+  public AccountUpdateReq addNotificationEmailsItem(String notificationEmailsItem) {
+    if (this.notificationEmails == null) {
+      this.notificationEmails = new ArrayList<String>();
+    }
+    this.notificationEmails.add(notificationEmailsItem);
+    return this;
+  }
+
+   /**
+   * A list of notification email addresses.
+   * @return notificationEmails
+  **/
+  @ApiModelProperty(value = "A list of notification email addresses.")
+  public List<String> getNotificationEmails() {
+    return notificationEmails;
+  }
+
+  public void setNotificationEmails(List<String> notificationEmails) {
+    this.notificationEmails = notificationEmails;
+  }
+
   public AccountUpdateReq state(String state) {
     this.state = state;
     return this;
@@ -215,7 +320,7 @@ public class AccountUpdateReq implements Serializable {
    * The state part of the postal address, not longer than 100 characters.
    * @return state
   **/
-  @ApiModelProperty(value = "The state part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = " ", value = "The state part of the postal address, not longer than 100 characters.")
   public String getState() {
     return state;
   }
@@ -233,7 +338,7 @@ public class AccountUpdateReq implements Serializable {
    * The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.
    * @return contact
   **/
-  @ApiModelProperty(value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "J. Doe", value = "The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only.")
   public String getContact() {
     return contact;
   }
@@ -251,13 +356,57 @@ public class AccountUpdateReq implements Serializable {
    * The postal code part of the postal address, not longer than 100 characters.
    * @return postalCode
   **/
-  @ApiModelProperty(value = "The postal code part of the postal address, not longer than 100 characters.")
+  @ApiModelProperty(example = "CB1 9NJ", value = "The postal code part of the postal address, not longer than 100 characters.")
   public String getPostalCode() {
     return postalCode;
   }
 
   public void setPostalCode(String postalCode) {
     this.postalCode = postalCode;
+  }
+
+  public AccountUpdateReq accountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+    return this;
+  }
+
+  public AccountUpdateReq putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
+    if (this.accountProperties == null) {
+      this.accountProperties = new HashMap<String, Map<String, String>>();
+    }
+    this.accountProperties.put(key, accountPropertiesItem);
+    return this;
+  }
+
+   /**
+   * Properties for this account.
+   * @return accountProperties
+  **/
+  @ApiModelProperty(value = "Properties for this account.")
+  public Map<String, Map<String, String>> getAccountProperties() {
+    return accountProperties;
+  }
+
+  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
+    this.accountProperties = accountProperties;
+  }
+
+  public AccountUpdateReq expirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
+    return this;
+  }
+
+   /**
+   * Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.
+   * @return expirationWarningThreshold
+  **/
+  @ApiModelProperty(value = "Indicates how many days before account expiration a notification email should be sent. Valid values are: 1-180.")
+  public String getExpirationWarningThreshold() {
+    return expirationWarningThreshold;
+  }
+
+  public void setExpirationWarningThreshold(String expirationWarningThreshold) {
+    this.expirationWarningThreshold = expirationWarningThreshold;
   }
 
   public AccountUpdateReq passwordPolicy(PasswordPolicy passwordPolicy) {
@@ -287,7 +436,7 @@ public class AccountUpdateReq implements Serializable {
    * The end market for this account, not longer than 100 characters.
    * @return endMarket
   **/
-  @ApiModelProperty(value = "The end market for this account, not longer than 100 characters.")
+  @ApiModelProperty(example = "IT", value = "The end market for this account, not longer than 100 characters.")
   public String getEndMarket() {
     return endMarket;
   }
@@ -305,7 +454,7 @@ public class AccountUpdateReq implements Serializable {
    * The phone number of a representative of the company, not longer than 100 characters.
    * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The phone number of a representative of the company, not longer than 100 characters.")
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "The phone number of a representative of the company, not longer than 100 characters.")
   public String getPhoneNumber() {
     return phoneNumber;
   }
@@ -323,7 +472,7 @@ public class AccountUpdateReq implements Serializable {
    * The company email address for this account, not longer than 254 characters. Required for commercial accounts only.
    * @return email
   **/
-  @ApiModelProperty(value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
+  @ApiModelProperty(example = "info@arm.com", value = "The company email address for this account, not longer than 254 characters. Required for commercial accounts only.")
   public String getEmail() {
     return email;
   }
@@ -372,12 +521,16 @@ public class AccountUpdateReq implements Serializable {
         Objects.equals(this.city, accountUpdateReq.city) &&
         Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
+        Objects.equals(this.mfaStatus, accountUpdateReq.mfaStatus) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
         Objects.equals(this.idleTimeout, accountUpdateReq.idleTimeout) &&
+        Objects.equals(this.notificationEmails, accountUpdateReq.notificationEmails) &&
         Objects.equals(this.state, accountUpdateReq.state) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.postalCode, accountUpdateReq.postalCode) &&
+        Objects.equals(this.accountProperties, accountUpdateReq.accountProperties) &&
+        Objects.equals(this.expirationWarningThreshold, accountUpdateReq.expirationWarningThreshold) &&
         Objects.equals(this.passwordPolicy, accountUpdateReq.passwordPolicy) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
         Objects.equals(this.phoneNumber, accountUpdateReq.phoneNumber) &&
@@ -387,7 +540,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(addressLine2, city, addressLine1, displayName, country, company, idleTimeout, state, contact, postalCode, passwordPolicy, endMarket, phoneNumber, email, aliases);
+    return Objects.hash(addressLine2, city, addressLine1, displayName, mfaStatus, country, company, idleTimeout, notificationEmails, state, contact, postalCode, accountProperties, expirationWarningThreshold, passwordPolicy, endMarket, phoneNumber, email, aliases);
   }
 
 
@@ -400,12 +553,16 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    city: ").append(toIndentedString(city)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
+    sb.append("    mfaStatus: ").append(toIndentedString(mfaStatus)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    idleTimeout: ").append(toIndentedString(idleTimeout)).append("\n");
+    sb.append("    notificationEmails: ").append(toIndentedString(notificationEmails)).append("\n");
     sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    postalCode: ").append(toIndentedString(postalCode)).append("\n");
+    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
+    sb.append("    expirationWarningThreshold: ").append(toIndentedString(expirationWarningThreshold)).append("\n");
     sb.append("    passwordPolicy: ").append(toIndentedString(passwordPolicy)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");

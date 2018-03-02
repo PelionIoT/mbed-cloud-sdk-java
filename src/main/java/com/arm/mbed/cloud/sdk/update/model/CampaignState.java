@@ -7,12 +7,12 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 public enum CampaignState implements SdkEnum {
 
     DRAFT("draft"), DEVICE_CHECK("devicecheck"), AUTO_STOPPED("autostopped"), SCHEDULED("scheduled"), DEVICE_FETCH(
-            "devicefetch"), DEVICE_COPY("devicecopy"), PUBLISHING("publishing"), DEPLOYING("deploying"), DEPLOYED(
-                    "deployed"), MANIFEST_REMOVED("manifestremoved"), EXPIRED("expired"), STOPPING(
-                            "stopping"), USER_STOPPED("userstopped"), ALLOCATED_QUOTA(
-                                    "allocatedquota"), ALLOCATING_QUOTA(
-                                            "allocatingquota"), INSUFFICIENT_QUOTA("insufficientquota"), CONFLICT(
-                                                    "conflict"), CHECKED_MANIFEST("checkedmanifest"), CHECKING_MANIFEST(
+            "devicefetch"), DEVICE_COPY("devicecopy"), PUBLISHING("publishing"), DEPLOYING(
+                    "deploying"), DEPLOYED("deployed"), MANIFEST_REMOVED("manifestremoved"), EXPIRED(
+                            "expired"), STOPPING("stopping"), USER_STOPPED("userstopped"), ALLOCATED_QUOTA(
+                                    "allocatedquota"), ALLOCATING_QUOTA("allocatingquota"), ALLOCATING_QUOTA_FAILED(
+                                            "quotaallocationfailed"), CONFLICT("conflict"), CHECKED_MANIFEST(
+                                                    "checkedmanifest"), CHECKING_MANIFEST(
                                                             "checkingmanifest"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;

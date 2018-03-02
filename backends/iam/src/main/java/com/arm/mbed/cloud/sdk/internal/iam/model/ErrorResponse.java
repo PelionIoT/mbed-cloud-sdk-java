@@ -46,20 +46,6 @@ public class ErrorResponse implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
     ERROR("error");
 
     private String value;
@@ -202,7 +188,7 @@ public class ErrorResponse implements Serializable {
    * Response code.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Response code.")
+  @ApiModelProperty(example = "400", required = true, value = "Response code.")
   public Integer getCode() {
     return code;
   }
@@ -264,7 +250,7 @@ public class ErrorResponse implements Serializable {
    * Request ID.
    * @return requestId
   **/
-  @ApiModelProperty(required = true, value = "Request ID.")
+  @ApiModelProperty(example = "0161991d63150242ac12000600000000", required = true, value = "Request ID.")
   public String getRequestId() {
     return requestId;
   }
@@ -282,7 +268,7 @@ public class ErrorResponse implements Serializable {
    * A human readable message with detailed info.
    * @return message
   **/
-  @ApiModelProperty(required = true, value = "A human readable message with detailed info.")
+  @ApiModelProperty(example = "Validation error", required = true, value = "A human readable message with detailed info.")
   public String getMessage() {
     return message;
   }
@@ -300,7 +286,7 @@ public class ErrorResponse implements Serializable {
    * Error type.
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Error type.")
+  @ApiModelProperty(example = "validation_error", required = true, value = "Error type.")
   public TypeEnum getType() {
     return type;
   }

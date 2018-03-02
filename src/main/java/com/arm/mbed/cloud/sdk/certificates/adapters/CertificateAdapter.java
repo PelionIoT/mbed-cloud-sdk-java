@@ -50,7 +50,8 @@ public final class CertificateAdapter {
         certificate.setName(iamCertificate.getName());
         certificate.setStatus(toStatus(iamCertificate.getStatus()));
         certificate.setType(toType(iamCertificate.getDeviceExecutionMode(), iamCertificate.getService()));
-
+        certificate.setEnrollmentMode(
+                TranslationUtils.toBool(iamCertificate.isEnrollmentMode(), Certificate.DEFAULT_ENROLMENT_MODE));
         return certificate;
     }
 
@@ -140,6 +141,7 @@ public final class CertificateAdapter {
      *            certificate to add.
      * @return a new certificate request.
      */
+    @SuppressWarnings("boxing")
     public static TrustedCertificateReq reverseMapAdd(Certificate certificate) {
         if (certificate == null) {
             return null;
@@ -151,6 +153,7 @@ public final class CertificateAdapter {
         request.setStatus(reverseAddRequestStatus(certificate.getStatus()));
         request.setSignature(certificate.getSignature());
         request.setDescription(certificate.getDescription());
+        request.setEnrollmentMode(certificate.isEnrollmentMode());
         return request;
     }
 
@@ -161,6 +164,7 @@ public final class CertificateAdapter {
      *            certificate to update.
      * @return a certificate update request.
      */
+    @SuppressWarnings("boxing")
     public static TrustedCertificateUpdateReq reverseMapUpdate(Certificate certificate) {
         if (certificate == null) {
             return null;
@@ -178,6 +182,7 @@ public final class CertificateAdapter {
         }
         request.setSignature(certificate.getSignature());
         request.setDescription(certificate.getDescription());
+        request.setEnrollmentMode(certificate.isEnrollmentMode());
         return request;
     }
 

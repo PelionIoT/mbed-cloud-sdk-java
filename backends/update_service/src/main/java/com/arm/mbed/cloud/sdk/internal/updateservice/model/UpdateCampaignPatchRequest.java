@@ -57,7 +57,7 @@ public class UpdateCampaignPatchRequest implements Serializable {
     
     ALLOCATEDQUOTA("allocatedquota"),
     
-    INSUFFICIENTQUOTA("insufficientquota"),
+    QUOTAALLOCATIONFAILED("quotaallocationfailed"),
     
     CHECKINGMANIFEST("checkingmanifest"),
     

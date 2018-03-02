@@ -240,6 +240,22 @@ public class ApiUtils {
     }
 
     /**
+     * Normalises resource path.
+     * <p>
+     * Ensures it starts with a forward slash
+     *
+     * @param resourcePath
+     *            resource path string
+     * @return normalised resource path
+     */
+    public static String normaliseResourcePath(String resourcePath) {
+        if (resourcePath != null && (resourcePath.isEmpty() || resourcePath.charAt(0) != '/')) {
+            return "/" + resourcePath;
+        }
+        return resourcePath;
+    }
+
+    /**
      * Compares two URL paths.
      *
      * @param path1

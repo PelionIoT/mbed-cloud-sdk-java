@@ -157,16 +157,20 @@ public class Certificates extends AbstractApi {
                 : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
         return CloudCaller.call(this, "listCertificates()", CertificateAdapter.getListMapper(),
                 new CloudCall<TrustedCertificateRespList>() {
-
                     @Override
                     public Call<TrustedCertificateRespList> call() {
-                        return endpoint.getAccountDeveloper()
-                                .getAllCertificates(finalOptions.getLimit(), finalOptions.getAfter(),
-                                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(), serviceEq,
-                                        TranslationUtils.convertToInteger(finalOptions
-                                                .encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER), null),
-                                        finalOptions.getExecutionModeFilter(),
-                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER));
+                        return endpoint.getAccountDeveloper().getAllCertificates(finalOptions.getLimit(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude(),
+                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER), serviceEq,
+                                TranslationUtils.convertToInteger(
+                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
+                                        null),
+                                finalOptions.getExecutionModeFilter(), finalOptions.getExecutionModeNotEqualFilter(),
+                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
+                                finalOptions.getEnrollmentFilter(),
+                                finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
+                                finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
                     }
                 });
     }

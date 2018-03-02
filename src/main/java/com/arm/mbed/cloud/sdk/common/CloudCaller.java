@@ -261,7 +261,14 @@ public class CloudCaller<T, U> {
     }
 
     private Error generateErrorFromResponse(Response<T> response) {
-        return new Error(response.code(), "Mbed Cloud call", response.message(), fetchRequestUrlString(response));
+        final String messageFromBody = retrieveErrorMessage(response);
+        final StringBuilder errorMessageBuilder = new StringBuilder();
+        errorMessageBuilder.append(response.message());
+        if (messageFromBody != null && !messageFromBody.isEmpty()) {
+            errorMessageBuilder.append(": ").append(messageFromBody);
+        }
+        return new Error(response.code(), "Mbed Cloud call", errorMessageBuilder.toString(),
+                fetchRequestUrlString(response));
     }
 
     private String fetchRequestUrlString(Response<T> response) {

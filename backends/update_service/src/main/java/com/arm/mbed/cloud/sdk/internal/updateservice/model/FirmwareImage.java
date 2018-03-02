@@ -71,7 +71,7 @@ public class FirmwareImage implements Serializable {
    * The firmware image file URL
    * @return datafile
   **/
-  @ApiModelProperty(required = true, value = "The firmware image file URL")
+  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", required = true, value = "The firmware image file URL")
   public String getDatafile() {
     return datafile;
   }
@@ -89,7 +89,7 @@ public class FirmwareImage implements Serializable {
    * The description of the object
    * @return description
   **/
-  @ApiModelProperty(required = true, value = "The description of the object")
+  @ApiModelProperty(example = "", required = true, value = "The description of the object")
   public String getDescription() {
     return description;
   }
@@ -125,7 +125,7 @@ public class FirmwareImage implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "The API resource entity")
+  @ApiModelProperty(example = "firmware-image", required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -179,7 +179,7 @@ public class FirmwareImage implements Serializable {
    * Checksum (sha256) generated for the datafile
    * @return datafileChecksum
   **/
-  @ApiModelProperty(required = true, value = "Checksum (sha256) generated for the datafile")
+  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", required = true, value = "Checksum (sha256) generated for the datafile")
   public String getDatafileChecksum() {
     return datafileChecksum;
   }
@@ -215,7 +215,7 @@ public class FirmwareImage implements Serializable {
    * The firmware image ID
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The firmware image ID")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The firmware image ID")
   public String getId() {
     return id;
   }
@@ -233,7 +233,7 @@ public class FirmwareImage implements Serializable {
    * The firmware image name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The firmware image name")
+  @ApiModelProperty(example = "", required = true, value = "The firmware image name")
   public String getName() {
     return name;
   }

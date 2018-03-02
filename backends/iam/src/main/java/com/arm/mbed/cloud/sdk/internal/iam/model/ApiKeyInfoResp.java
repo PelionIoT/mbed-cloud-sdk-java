@@ -99,21 +99,7 @@ public class ApiKeyInfoResp implements Serializable {
    */
   @JsonAdapter(ObjectEnum.Adapter.class)
   public enum ObjectEnum {
-    USER("user"),
-    
-    API_KEY("api-key"),
-    
-    GROUP("group"),
-    
-    ACCOUNT("account"),
-    
-    ACCOUNT_TEMPLATE("account-template"),
-    
-    TRUSTED_CERT("trusted-cert"),
-    
-    LIST("list"),
-    
-    ERROR("error");
+    KEY("api-key");
 
     private String value;
 
@@ -158,6 +144,9 @@ public class ApiKeyInfoResp implements Serializable {
 
   @SerializedName("creation_time")
   private Long creationTime = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private String etag = null;
@@ -209,7 +198,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The status of the API key.
    * @return status
   **/
-  @ApiModelProperty(value = "The status of the API key.")
+  @ApiModelProperty(example = "ACTIVE", value = "The status of the API key.")
   public StatusEnum getStatus() {
     return status;
   }
@@ -227,7 +216,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The display name for the API key.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The display name for the API key.")
+  @ApiModelProperty(example = "API key gorgon", required = true, value = "The display name for the API key.")
   public String getName() {
     return name;
   }
@@ -245,7 +234,7 @@ public class ApiKeyInfoResp implements Serializable {
    * Creation UTC time RFC3339.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "Creation UTC time RFC3339.")
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -281,13 +270,31 @@ public class ApiKeyInfoResp implements Serializable {
    * The timestamp of the API key creation in the storage, in milliseconds.
    * @return creationTime
   **/
-  @ApiModelProperty(value = "The timestamp of the API key creation in the storage, in milliseconds.")
+  @ApiModelProperty(example = "1518630727683", value = "The timestamp of the API key creation in the storage, in milliseconds.")
   public Long getCreationTime() {
     return creationTime;
   }
 
   public void setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
+  }
+
+  public ApiKeyInfoResp updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public ApiKeyInfoResp etag(String etag) {
@@ -299,7 +306,7 @@ public class ApiKeyInfoResp implements Serializable {
    * API resource entity version.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "API resource entity version.")
+  @ApiModelProperty(example = "1", required = true, value = "API resource entity version.")
   public String getEtag() {
     return etag;
   }
@@ -317,7 +324,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The API key.
    * @return key
   **/
-  @ApiModelProperty(required = true, value = "The API key.")
+  @ApiModelProperty(example = "ak_1MDE2MTk1NzFmNmU4MDI0MmFjMTIwMDA2MDAwMDAwMDA01619571f7020242ac12000600000000", required = true, value = "The API key.")
   public String getKey() {
     return key;
   }
@@ -332,10 +339,10 @@ public class ApiKeyInfoResp implements Serializable {
   }
 
    /**
-   * The owner of this API key.
+   * The owner of this API key, who is the creator by default.
    * @return owner
   **/
-  @ApiModelProperty(value = "The owner of this API key.")
+  @ApiModelProperty(example = "01619571e2e89242ac12000600000000", value = "The owner of this API key, who is the creator by default.")
   public String getOwner() {
     return owner;
   }
@@ -353,7 +360,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The UUID of the API key.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The UUID of the API key.")
+  @ApiModelProperty(example = "01619571f7020242ac12000600000000", required = true, value = "The UUID of the API key.")
   public String getId() {
     return id;
   }
@@ -371,7 +378,7 @@ public class ApiKeyInfoResp implements Serializable {
    * The timestamp of the latest API key usage, in milliseconds.
    * @return lastLoginTime
   **/
-  @ApiModelProperty(value = "The timestamp of the latest API key usage, in milliseconds.")
+  @ApiModelProperty(example = "1518630727688", value = "The timestamp of the latest API key usage, in milliseconds.")
   public Long getLastLoginTime() {
     return lastLoginTime;
   }
@@ -396,6 +403,7 @@ public class ApiKeyInfoResp implements Serializable {
         Objects.equals(this.createdAt, apiKeyInfoResp.createdAt) &&
         Objects.equals(this.object, apiKeyInfoResp.object) &&
         Objects.equals(this.creationTime, apiKeyInfoResp.creationTime) &&
+        Objects.equals(this.updatedAt, apiKeyInfoResp.updatedAt) &&
         Objects.equals(this.etag, apiKeyInfoResp.etag) &&
         Objects.equals(this.key, apiKeyInfoResp.key) &&
         Objects.equals(this.owner, apiKeyInfoResp.owner) &&
@@ -405,7 +413,7 @@ public class ApiKeyInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(groups, status, name, createdAt, object, creationTime, etag, key, owner, id, lastLoginTime);
+    return Objects.hash(groups, status, name, createdAt, object, creationTime, updatedAt, etag, key, owner, id, lastLoginTime);
   }
 
 
@@ -420,6 +428,7 @@ public class ApiKeyInfoResp implements Serializable {
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    key: ").append(toIndentedString(key)).append("\n");
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");

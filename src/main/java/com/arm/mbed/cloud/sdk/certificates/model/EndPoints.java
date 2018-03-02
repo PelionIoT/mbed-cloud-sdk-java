@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.certificates.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
@@ -10,7 +11,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
 @Preamble(description = "Endpoint for Certificates")
 @Internal
-public class EndPoints {
+public class EndPoints extends AbstractEndpoints {
 
     private final DeveloperApi accountDeveloper;
     private final AccountAdminApi admin;
@@ -23,7 +24,7 @@ public class EndPoints {
      *            API client {@link ApiClientWrapper}.
      */
     public EndPoints(ApiClientWrapper wrapper) {
-        super();
+        super(wrapper);
         this.accountDeveloper = initialiseDeveloper(wrapper);
         this.admin = initialiseAdmin(wrapper);
         this.connector = initialiseConnector(wrapper);

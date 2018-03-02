@@ -53,6 +53,9 @@ public class FirmwareManifest implements Serializable {
   @SerializedName("etag")
   private DateTime etag = null;
 
+  @SerializedName("key_table")
+  private String keyTable = null;
+
   @SerializedName("device_class")
   private String deviceClass = null;
 
@@ -74,7 +77,7 @@ public class FirmwareManifest implements Serializable {
    * The URL of the firmware manifest binary
    * @return datafile
   **/
-  @ApiModelProperty(required = true, value = "The URL of the firmware manifest binary")
+  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", required = true, value = "The URL of the firmware manifest binary")
   public String getDatafile() {
     return datafile;
   }
@@ -92,7 +95,7 @@ public class FirmwareManifest implements Serializable {
    * The description of the firmware manifest
    * @return description
   **/
-  @ApiModelProperty(required = true, value = "The description of the firmware manifest")
+  @ApiModelProperty(example = "", required = true, value = "The description of the firmware manifest")
   public String getDescription() {
     return description;
   }
@@ -146,7 +149,7 @@ public class FirmwareManifest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "The API resource entity")
+  @ApiModelProperty(example = "firmware-manifest", required = true, value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -191,6 +194,24 @@ public class FirmwareManifest implements Serializable {
     this.etag = etag;
   }
 
+  public FirmwareManifest keyTable(String keyTable) {
+    this.keyTable = keyTable;
+    return this;
+  }
+
+   /**
+   * The key table of pre-shared keys for devices
+   * @return keyTable
+  **/
+  @ApiModelProperty(example = "http://example.com", value = "The key table of pre-shared keys for devices")
+  public String getKeyTable() {
+    return keyTable;
+  }
+
+  public void setKeyTable(String keyTable) {
+    this.keyTable = keyTable;
+  }
+
   public FirmwareManifest deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
@@ -200,7 +221,7 @@ public class FirmwareManifest implements Serializable {
    * The class of the device
    * @return deviceClass
   **/
-  @ApiModelProperty(required = true, value = "The class of the device")
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", required = true, value = "The class of the device")
   public String getDeviceClass() {
     return deviceClass;
   }
@@ -236,7 +257,7 @@ public class FirmwareManifest implements Serializable {
    * The firmware manifest ID
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The firmware manifest ID")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The firmware manifest ID")
   public String getId() {
     return id;
   }
@@ -254,7 +275,7 @@ public class FirmwareManifest implements Serializable {
    * The name of the object
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the object")
+  @ApiModelProperty(example = "", required = true, value = "The name of the object")
   public String getName() {
     return name;
   }
@@ -280,6 +301,7 @@ public class FirmwareManifest implements Serializable {
         Objects.equals(this.object, firmwareManifest.object) &&
         Objects.equals(this.updatedAt, firmwareManifest.updatedAt) &&
         Objects.equals(this.etag, firmwareManifest.etag) &&
+        Objects.equals(this.keyTable, firmwareManifest.keyTable) &&
         Objects.equals(this.deviceClass, firmwareManifest.deviceClass) &&
         Objects.equals(this.datafileSize, firmwareManifest.datafileSize) &&
         Objects.equals(this.id, firmwareManifest.id) &&
@@ -288,7 +310,7 @@ public class FirmwareManifest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, deviceClass, datafileSize, id, name);
+    return Objects.hash(datafile, description, timestamp, createdAt, object, updatedAt, etag, keyTable, deviceClass, datafileSize, id, name);
   }
 
 
@@ -304,6 +326,7 @@ public class FirmwareManifest implements Serializable {
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    keyTable: ").append(toIndentedString(keyTable)).append("\n");
     sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
     sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");

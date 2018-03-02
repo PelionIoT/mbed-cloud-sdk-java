@@ -104,7 +104,7 @@ public class DeviceEventData implements Serializable {
    * Get description
    * @return description
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "Device record created", value = "")
   public String getDescription() {
     return description;
   }
@@ -122,7 +122,7 @@ public class DeviceEventData implements Serializable {
    * Get changes
    * @return changes
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "\"device-events\"", value = "")
   public Object getChanges() {
     return changes;
   }
@@ -140,7 +140,7 @@ public class DeviceEventData implements Serializable {
    * Get eventTypeDescription
    * @return eventTypeDescription
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "Device record created", value = "")
   public String getEventTypeDescription() {
     return eventTypeDescription;
   }
@@ -158,7 +158,7 @@ public class DeviceEventData implements Serializable {
    * Get eventType
    * @return eventType
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "update.device.device-created", value = "")
   public String getEventType() {
     return eventType;
   }
@@ -176,7 +176,7 @@ public class DeviceEventData implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "\"{ device object }\"", value = "")
   public Object getData() {
     return data;
   }
@@ -194,7 +194,7 @@ public class DeviceEventData implements Serializable {
    * Get id
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
   public String getId() {
     return id;
   }
@@ -212,7 +212,7 @@ public class DeviceEventData implements Serializable {
    * Get deviceId
    * @return deviceId
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
   public String getDeviceId() {
     return deviceId;
   }
