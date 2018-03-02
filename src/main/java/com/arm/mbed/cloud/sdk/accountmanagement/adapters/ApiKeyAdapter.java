@@ -95,6 +95,7 @@ public final class ApiKeyAdapter {
         apiKeyUpdate.setName(apiKey.getName());
         apiKeyUpdate.setOwner(apiKey.getOwnerId());
         apiKeyUpdate.setStatus(reverseUpdateRequestStatus(apiKey.getStatus()));
+        apiKeyUpdate.setGroups(apiKey.getGroups());
         return apiKeyUpdate;
     }
 

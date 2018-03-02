@@ -43,7 +43,7 @@ public class PasswordPolicy implements Serializable {
    * Minimum length for the password. A number between 8 and 512.
    * @return minimumLength
   **/
-  @ApiModelProperty(required = true, value = "Minimum length for the password. A number between 8 and 512.")
+  @ApiModelProperty(example = "8", required = true, value = "Minimum length for the password. A number between 8 and 512.")
   public String getMinimumLength() {
     return minimumLength;
   }

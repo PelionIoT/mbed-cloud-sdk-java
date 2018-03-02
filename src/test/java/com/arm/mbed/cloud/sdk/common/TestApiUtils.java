@@ -216,6 +216,17 @@ public class TestApiUtils {
     }
 
     @Test
+    public final void testNormaliseResourcePath() {
+        assertNull(ApiUtils.normaliseResourcePath(null));
+        assertTrue(ApiUtils.normaliseResourcePath("").equals("/"));
+        assertTrue(ApiUtils.normaliseResourcePath("/").equals("/"));
+        String path = "test/path";
+        assertNotEquals(path, ApiUtils.normaliseResourcePath(path));
+        String path2 = "/" + path;
+        assertEquals(path2, ApiUtils.normaliseResourcePath(path2));
+    }
+
+    @Test
     public final void testComparePaths() {
         assertTrue(ApiUtils.comparePaths(null, null));
         assertFalse(ApiUtils.comparePaths(null, ""));

@@ -62,7 +62,7 @@ public class DeviceQuery implements Serializable {
    * The name of the query.
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the query.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The name of the query.")
   public String getName() {
     return name;
   }
@@ -98,7 +98,7 @@ public class DeviceQuery implements Serializable {
    * The API resource entity.
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "The API resource entity.")
+  @ApiModelProperty(example = "device-query", required = true, value = "The API resource entity.")
   public String getObject() {
     return object;
   }
@@ -152,7 +152,7 @@ public class DeviceQuery implements Serializable {
    * The device query.
    * @return query
   **/
-  @ApiModelProperty(required = true, value = "The device query.")
+  @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The device query.")
   public String getQuery() {
     return query;
   }
@@ -170,7 +170,7 @@ public class DeviceQuery implements Serializable {
    * The ID of the query.
    * @return id
   **/
-  @ApiModelProperty(required = true, value = "The ID of the query.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The ID of the query.")
   public String getId() {
     return id;
   }

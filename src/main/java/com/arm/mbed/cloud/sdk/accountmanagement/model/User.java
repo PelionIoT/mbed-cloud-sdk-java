@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -106,6 +107,10 @@ public class User implements SdkModel {
      * A timestamp of the latest login of the user, in milliseconds.
      */
     private final long lastLoginTime;
+    /**
+     * User's account specific custom properties.
+     */
+    private Map<String, Map<String, String>> customProperties;
 
     /**
      * Internal constructor.
@@ -140,7 +145,7 @@ public class User implements SdkModel {
             Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
         this(id, accountId, null, null, null, null, null, null, true, true, groups, status, isEmailVerified, createdAt,
-                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime);
+                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime, null);
     }
 
     /**
@@ -186,13 +191,15 @@ public class User implements SdkModel {
      *            passwordChangedTime
      * @param lastLoginTime
      *            lastLoginTime
+     * @param customProperties
+     *            customProperties
      */
     @Internal
     protected User(String id, String accountId, String fullName, String username, String password, String email,
             String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
             List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
-            long passwordChangedTime, long lastLoginTime) {
+            long passwordChangedTime, long lastLoginTime, Map<String, Map<String, String>> customProperties) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -213,6 +220,7 @@ public class User implements SdkModel {
         setAddress(address);
         setTermsAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
+        setCustomProperties(customProperties);
         hasEmailBeenUpdated = false;
     }
 
@@ -542,6 +550,25 @@ public class User implements SdkModel {
     }
 
     /**
+     * Gets account custom properties.
+     * 
+     * @return the customProperties
+     */
+    public Map<String, Map<String, String>> getCustomProperties() {
+        return customProperties;
+    }
+
+    /**
+     * Sets account custom properties.
+     * 
+     * @param customProperties
+     *            the customProperties to set
+     */
+    public void setCustomProperties(Map<String, Map<String, String>> customProperties) {
+        this.customProperties = customProperties;
+    }
+
+    /**
      * Gets a clone.
      *
      * @return a clone.
@@ -551,7 +578,7 @@ public class User implements SdkModel {
     public User clone() {
         return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
                 isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
-                creationTime, passwordChangedTime, lastLoginTime);
+                creationTime, passwordChangedTime, lastLoginTime, customProperties);
     }
 
     /**
@@ -566,7 +593,7 @@ public class User implements SdkModel {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
@@ -577,7 +604,7 @@ public class User implements SdkModel {
                 + ", groups=" + groups + ", status=" + status + ", isEmailVerified=" + isEmailVerified + ", createdAt="
                 + createdAt + ", twoFactorAuthentication=" + twoFactorAuthentication + ", loginHistory=" + loginHistory
                 + ", creationTime=" + creationTime + ", passwordChangedTime=" + passwordChangedTime + ", lastLoginTime="
-                + lastLoginTime + "]";
+                + lastLoginTime + ", customProperties=" + customProperties + "]";
     }
 
 }

@@ -111,7 +111,7 @@ public class FirmwareImagePage implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "list", value = "")
   public String getObject() {
     return object;
   }
@@ -209,7 +209,7 @@ public class FirmwareImagePage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "\"[]\"", value = "")
   public List<FirmwareImage> getData() {
     return data;
   }

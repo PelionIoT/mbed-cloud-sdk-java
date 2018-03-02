@@ -10,6 +10,10 @@ public class UserListOptions extends ListOptions {
      * Tag of filter by status.
      */
     public static final String STATUS_FILTER = "status";
+    /**
+     * Tag of filter by email.
+     */
+    public static final String EMAIL_FILTER = "email";
 
     /**
      * Constructor.
@@ -35,6 +39,25 @@ public class UserListOptions extends ListOptions {
      */
     public void setStatusFilter(@Nullable UserStatus statusFilter) {
         addEqualFilter(STATUS_FILTER, statusFilter);
+    }
+
+    /**
+     * Gets the filter related to user email.
+     * 
+     * @return the email filter.
+     */
+    public @Nullable UserStatus getEmailFilter() {
+        return (UserStatus) fetchEqualFilterValue(EMAIL_FILTER);
+    }
+
+    /**
+     * Sets the filter related to user email.
+     * 
+     * @param emailFilter
+     *            the emailFilter to set.
+     */
+    public void setEmailFilter(@Nullable UserStatus emailFilter) {
+        addEqualFilter(EMAIL_FILTER, emailFilter);
     }
 
     /*

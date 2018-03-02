@@ -64,7 +64,7 @@ public class DeviceQueryPage implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "list", required = true, value = "")
   public String getObject() {
     return object;
   }
@@ -82,7 +82,7 @@ public class DeviceQueryPage implements Serializable {
    * Get hasMore
    * @return hasMore
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "false", required = true, value = "")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -100,7 +100,7 @@ public class DeviceQueryPage implements Serializable {
    * Get totalCount
    * @return totalCount
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "1", required = true, value = "")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -136,7 +136,7 @@ public class DeviceQueryPage implements Serializable {
    * Get limit
    * @return limit
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "1000", required = true, value = "")
   public Integer getLimit() {
     return limit;
   }
@@ -159,7 +159,7 @@ public class DeviceQueryPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "\"[]\"", required = true, value = "")
   public List<DeviceQuery> getData() {
     return data;
   }
@@ -177,7 +177,7 @@ public class DeviceQueryPage implements Serializable {
    * Get order
    * @return order
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "DESC", required = true, value = "")
   public String getOrder() {
     return order;
   }

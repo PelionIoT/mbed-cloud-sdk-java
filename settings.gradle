@@ -14,6 +14,7 @@ include 'backends:iam'
 include 'backends:mds'
 include 'backends:statistics'
 include 'backends:update_service'
+include 'backends:enrollment'
 
 /*
  * Project properties

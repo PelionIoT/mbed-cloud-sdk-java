@@ -297,7 +297,7 @@ public class ConnectExamples extends AbstractExample {
      */
     @SuppressWarnings({ "boxing", "null" })
     @Example
-    public void subscribeResourcesWithCallbacks() {
+    public void subscribeToResourcesWithCallbacks() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         try {
@@ -367,7 +367,7 @@ public class ConnectExamples extends AbstractExample {
      */
     @SuppressWarnings({ "boxing", "null" })
     @Example
-    public void subscribeResourcesWithObservableStreams() {
+    public void subscribeToResourcesWithObservableStreams() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         try {
@@ -518,7 +518,7 @@ public class ConnectExamples extends AbstractExample {
      * Switches between notification channels.
      */
     @Example
-    public void testNotificationChannelSwitch() {
+    public void switchNotificationChannel() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         try {
@@ -560,7 +560,7 @@ public class ConnectExamples extends AbstractExample {
      * forceClear parameter forces a notification channel to stop before a new one is started.
      */
     @Example
-    public void testNotificationChannelSwitchWithForceClear() {
+    public void switchNotificationChannelWithForceClear() {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         try {

@@ -18,6 +18,22 @@ public class CertificateListOptions extends ListOptions {
      * Tag of filter by type.
      */
     public static final String TYPE_FILTER = "type";
+    /**
+     * Tag of filter by enrolment mode.
+     */
+    public static final String ENROLLMENT_MODE_FILTER = "enrollment_mode";
+    /**
+     * Tag of filter by name.
+     */
+    public static final String NAME_FILTER = "name";
+    /**
+     * Tag of filter by subject.
+     */
+    public static final String SUBJECT_FILTER = "subject";
+    /**
+     * Tag of filter by issuer.
+     */
+    public static final String ISSUER_FILTER = "issuer";
 
     /**
      * Constructor.
@@ -36,6 +52,43 @@ public class CertificateListOptions extends ListOptions {
     }
 
     /**
+     * Gets the filter related to certificate name.
+     * 
+     * @return the name filter
+     */
+    public @Nullable Object getNameFilter() {
+        return fetchEqualFilterValue(NAME_FILTER);
+    }
+
+    /**
+     * Gets the filter related to subject.
+     * 
+     * @return the subject filter
+     */
+    public @Nullable Object getSubjectFilter() {
+        return fetchLikeFilterValue(SUBJECT_FILTER);
+    }
+
+    /**
+     * Gets the filter related to issuer.
+     * 
+     * @return the issuer filter
+     */
+    public @Nullable Object getIssuerFilter() {
+        return fetchLikeFilterValue(ISSUER_FILTER);
+    }
+
+    /**
+     * Gets the filter related to enrolment mode.
+     * 
+     * @return enrolment mode filter
+     */
+    public @Nullable Boolean getEnrollmentFilter() {
+        final Object value = fetchEqualFilterValue(ENROLLMENT_MODE_FILTER);
+        return (value == null) ? null : (Boolean) value;
+    }
+
+    /**
      * Gets the filter related to the certificate type.
      * 
      * @return the type filter
@@ -49,7 +102,6 @@ public class CertificateListOptions extends ListOptions {
             return (CertificateType) typeFilterValue;
         }
         return CertificateType.getType(typeFilterValue.toString());
-
     }
 
     /**
@@ -72,6 +124,46 @@ public class CertificateListOptions extends ListOptions {
     }
 
     /**
+     * Sets the filter related to certificate name.
+     * 
+     * @param nameFilter
+     *            the nameFilter to set
+     */
+    public void setNameFilter(String nameFilter) {
+        addEqualFilter(NAME_FILTER, nameFilter);
+    }
+
+    /**
+     * Sets the filter related to subject.
+     * 
+     * @param subjectFilter
+     *            the subjectFilter to set
+     */
+    public void setSubjectFilter(String subjectFilter) {
+        addLikeFilter(SUBJECT_FILTER, subjectFilter);
+    }
+
+    /**
+     * Sets the filter related to issuer.
+     * 
+     * @param issuerFilter
+     *            the issuerFilter to set
+     */
+    public void setIssuerFilter(String issuerFilter) {
+        addLikeFilter(ISSUER_FILTER, issuerFilter);
+    }
+
+    /**
+     * Sets the filter related to enrolment mode.
+     * 
+     * @param enrollmentFilter
+     *            the enrollmentFilter to set
+     */
+    public void setEnrollmentFilter(boolean enrollmentFilter) {
+        addEqualFilter(ENROLLMENT_MODE_FILTER, Boolean.valueOf(enrollmentFilter));
+    }
+
+    /**
      * Sets the filter related to the certificate type.
      * 
      * @param typeFilter
@@ -87,23 +179,34 @@ public class CertificateListOptions extends ListOptions {
      * @param expiresfilter
      *            the expiresfilter (in days) to set
      */
-    @SuppressWarnings("boxing")
     public void setExpiresFilter(int expiresfilter) {
-        addEqualFilter(EXPIRES_FILTER, expiresfilter);
+        addEqualFilter(EXPIRES_FILTER, Integer.valueOf(expiresfilter));
     }
 
     /**
-     * Gets the filter related to execution mode.
+     * Gets the filter related to execution mode (equal).
      * 
-     * @return execution mode filter.
+     * @return execution mode filter (equal).
      */
-    @SuppressWarnings("boxing")
     public Integer getExecutionModeFilter() {
         final CertificateType type = getTypeFilter();
         if (type == null) {
             return null;
         }
-        return (type == CertificateType.DEVELOPER) ? 1 : null;
+        return (type == CertificateType.DEVELOPER) ? Integer.valueOf(1) : null;
+    }
+
+    /**
+     * Gets the filter related to execution mode (not equal).
+     * 
+     * @return execution mode filter (not equal).
+     */
+    public Integer getExecutionModeNotEqualFilter() {
+        final CertificateType type = getTypeFilter();
+        if (type == null) {
+            return null;
+        }
+        return (type == CertificateType.DEVELOPER) ? null : Integer.valueOf(1);
     }
 
     /*

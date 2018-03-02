@@ -11,6 +11,10 @@ public class ApiKeyListOptions extends ListOptions {
      * Tag of filter by owner id.
      */
     public static final String OWNER_ID_FILTER = "ownerId";
+    /**
+     * Tag of filter by key.
+     */
+    public static final String KEY_FILTER = "key";
 
     /**
      * Constructor.
@@ -29,6 +33,15 @@ public class ApiKeyListOptions extends ListOptions {
     }
 
     /**
+     * Gets filter related to key.
+     * 
+     * @return the keyFilter.
+     */
+    public @Nullable Object getKeyFilter() {
+        return fetchEqualFilterValue(KEY_FILTER);
+    }
+
+    /**
      * Sets filter related to owner id.
      * 
      * @param ownerIdFilter
@@ -36,6 +49,16 @@ public class ApiKeyListOptions extends ListOptions {
      */
     public void setOwnerIdFilter(@Nullable String ownerIdFilter) {
         addEqualFilter(OWNER_ID_FILTER, ownerIdFilter);
+    }
+
+    /**
+     * Sets filter related to key.
+     * 
+     * @param keyFilter
+     *            the keyFilter to set
+     */
+    public void setKeyFilter(@Nullable String keyFilter) {
+        addEqualFilter(KEY_FILTER, keyFilter);
     }
 
     /*

@@ -21,9 +21,13 @@ public class FirmwareManifest implements SdkModel {
      */
     private String id;
     /**
-     * The URL of the firmware manifest.
+     * The URL to the firmware manifest online.
      */
     private final URL url;
+    /**
+     * The URL to the decryption keys.
+     */
+    private final URL decryptionKeysUrl;
     /**
      * The class of device.
      */
@@ -63,6 +67,10 @@ public class FirmwareManifest implements SdkModel {
      */
     @Required
     private DataFile dataFile;
+    /**
+     * The file containing all decryption keys.
+     */
+    private DataFile decryptionKeysFile;
 
     /**
      * Internal constructor.
@@ -83,11 +91,13 @@ public class FirmwareManifest implements SdkModel {
      *            updatedAt
      * @param timestamp
      *            timestamp
+     * @param keyTableUrl
+     *            url
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, long datafileSize, Date createdAt, Date updatedAt,
-            Date timestamp) {
-        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, null);
+            Date timestamp, URL keyTableUrl) {
+        this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, null, null, keyTableUrl);
     }
 
     /**
@@ -115,10 +125,15 @@ public class FirmwareManifest implements SdkModel {
      *            file size
      * @param dataFile
      *            file
+     * @param keyTableFile
+     *            key table file
+     * @param keyTableUrl
+     *            key table url
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
-            String name, String description, long datafileSize, DataFile dataFile) {
+            String name, String description, long datafileSize, DataFile dataFile, DataFile keyTableFile,
+            URL keyTableUrl) {
         super();
         setId(id);
         this.url = url;
@@ -127,16 +142,18 @@ public class FirmwareManifest implements SdkModel {
         this.updatedAt = updatedAt;
         this.timestamp = timestamp;
         this.datafileSize = datafileSize;
+        this.decryptionKeysUrl = keyTableUrl;
         setName(name);
         setDescription(description);
         setDataFile(dataFile);
+        setDecryptionKeysFile(keyTableFile);
     }
 
     /**
      * Constructor.
      */
     public FirmwareManifest() {
-        this(null, null, null, 0, new Date(), new Date(), new Date());
+        this(null, null, null, 0, new Date(), new Date(), new Date(), null);
     }
 
     /**
@@ -253,7 +270,7 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the URL.
+     * Gets the URL to the file online.
      *
      * @return the url
      */
@@ -289,12 +306,51 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
-     * Gets the timestamp.
+     * Gets the version of the firmware manifest (as a timestamp).
      *
      * @return the timestamp
      */
     public Date getTimestamp() {
         return timestamp;
+    }
+
+    /**
+     * Gets the file describing decryption keys.
+     * 
+     * @return the decryptionKeysFile
+     */
+    public DataFile getDecryptionKeysFile() {
+        return decryptionKeysFile;
+    }
+
+    /**
+     * Sets the file containing decryption keys.
+     * 
+     * @param decryptionKeysFile
+     *            the file to set
+     */
+    public void setDecryptionKeysFile(DataFile decryptionKeysFile) {
+        this.decryptionKeysFile = decryptionKeysFile;
+    }
+
+    /**
+     * Sets decryption keys from a path.
+     *
+     * @param keyTablePath
+     *            the path to the key table.
+     */
+    @Required
+    public void setDecryptionKeysFromPath(String keyTablePath) {
+        setDecryptionKeysFile(new DataFile(keyTablePath));
+    }
+
+    /**
+     * Gets the URL to the decryption key table.
+     * 
+     * @return the decryptionKeysUrl
+     */
+    public URL getDecryptionKeysUrl() {
+        return decryptionKeysUrl;
     }
 
     /**
@@ -306,8 +362,8 @@ public class FirmwareManifest implements SdkModel {
      */
     @Override
     public FirmwareManifest clone() {
-        return new FirmwareManifest(id, url, deviceClass, createdAt, updatedAt, timestamp, name, description,
-                datafileSize, dataFile);
+        return new FirmwareManifest(id, decryptionKeysUrl, deviceClass, createdAt, updatedAt, timestamp, name,
+                description, datafileSize, dataFile, decryptionKeysFile, decryptionKeysUrl);
     }
 
     /**
@@ -322,14 +378,15 @@ public class FirmwareManifest implements SdkModel {
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "FirmwareManifest [id=" + id + ", url=" + url + ", deviceClass=" + deviceClass + ", createdAt="
-                + createdAt + ", updatedAt=" + updatedAt + ", timestamp=" + timestamp + ", name=" + name
-                + ", description=" + description + ", datafileSize=" + datafileSize + ", dataFile=" + dataFile + "]";
+        return "FirmwareManifest [id=" + id + ", url=" + url + ", decryptionKeysUrl=" + decryptionKeysUrl
+                + ", deviceClass=" + deviceClass + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+                + ", timestamp=" + timestamp + ", name=" + name + ", description=" + description + ", datafileSize="
+                + datafileSize + ", dataFile=" + dataFile + ", decryptionKeysFile=" + decryptionKeysFile + "]";
     }
 
 }

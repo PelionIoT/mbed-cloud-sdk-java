@@ -108,6 +108,28 @@ public final class TranslationUtils {
         return (longE == null) ? 0 : longE.longValue();
     }
 
+    /**
+     * Converts string to a long value.
+     * 
+     * @param stringContainingANumber
+     *            string containing a number
+     * @param defaultValue
+     *            default long value to consider if string parsing failed
+     * @return long contained in string or default value if parsing failed
+     */
+    public static long toLong(String stringContainingANumber, long defaultValue) {
+        if (stringContainingANumber == null) {
+            return defaultValue;
+        }
+        try {
+            return Long.parseLong(stringContainingANumber);
+        } catch (NumberFormatException exception) {
+            SdkLogger.getLogger().logError("Error occurred when parsing the string containing a long number ["
+                    + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
+            return defaultValue;
+        }
+    }
+
     public static int toInt(Integer integer) {
         return toInt(integer, 0);
     }

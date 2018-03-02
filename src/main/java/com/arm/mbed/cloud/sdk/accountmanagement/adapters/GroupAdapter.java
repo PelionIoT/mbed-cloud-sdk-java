@@ -36,8 +36,7 @@ public final class GroupAdapter {
                 TranslationUtils.toInt(groupSummary.getUserCount()),
                 TranslationUtils.toInt(groupSummary.getApikeyCount()),
                 TranslationUtils.toDate(groupSummary.getCreatedAt()),
-                TranslationUtils.toTimeStamp(groupSummary.getCreationTime()),
-                TranslationUtils.toTimeStamp(groupSummary.getLastUpdateTime()));
+                TranslationUtils.toDate(groupSummary.getUpdatedAt()));
     }
 
     /**

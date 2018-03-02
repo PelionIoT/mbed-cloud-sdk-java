@@ -54,7 +54,7 @@ public class LoginHistory implements Serializable {
    * UTC time RFC3339 for this login attempt.
    * @return date
   **/
-  @ApiModelProperty(required = true, value = "UTC time RFC3339 for this login attempt.")
+  @ApiModelProperty(example = "2018-02-14T17:52:07Z", required = true, value = "UTC time RFC3339 for this login attempt.")
   public DateTime getDate() {
     return date;
   }
@@ -72,7 +72,7 @@ public class LoginHistory implements Serializable {
    * IP address of the client.
    * @return ipAddress
   **/
-  @ApiModelProperty(required = true, value = "IP address of the client.")
+  @ApiModelProperty(example = "127.0.0.1", required = true, value = "IP address of the client.")
   public String getIpAddress() {
     return ipAddress;
   }
@@ -90,7 +90,7 @@ public class LoginHistory implements Serializable {
    * User Agent header from the login request.
    * @return userAgent
   **/
-  @ApiModelProperty(required = true, value = "User Agent header from the login request.")
+  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
   public String getUserAgent() {
     return userAgent;
   }
@@ -108,7 +108,7 @@ public class LoginHistory implements Serializable {
    * Flag indicating whether login attempt was successful or not.
    * @return success
   **/
-  @ApiModelProperty(required = true, value = "Flag indicating whether login attempt was successful or not.")
+  @ApiModelProperty(example = "true", required = true, value = "Flag indicating whether login attempt was successful or not.")
   public Boolean isSuccess() {
     return success;
   }
