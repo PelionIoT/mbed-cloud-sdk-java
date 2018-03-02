@@ -6,7 +6,6 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**addMeToGroups**](DeveloperApi.md#addMeToGroups) | **POST** v3/users/me/groups | Add user to a list of groupS.
 [**addMyApiKeyToGroups**](DeveloperApi.md#addMyApiKeyToGroups) | **POST** v3/api-keys/me/groups | Add API key to a list of groups.
-[**changeMySession**](DeveloperApi.md#changeMySession) | **POST** v3/users/me/accounts | Change login session to another account.
 [**createApiKey**](DeveloperApi.md#createApiKey) | **POST** v3/api-keys | Create a new API key.
 [**deleteApiKey**](DeveloperApi.md#deleteApiKey) | **DELETE** v3/api-keys/{apiKey} | Delete API key.
 [**deleteCertificate**](DeveloperApi.md#deleteCertificate) | **DELETE** v3/trusted-certificates/{cert-id} | Delete a trusted certificate by ID.
@@ -140,61 +139,6 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="changeMySession"></a>
-# **changeMySession**
-> ChangeLoginSessionResp changeMySession(body)
-
-Change login session to another account.
-
-An endpoint for changing the current user login session to another account.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-ChangeLoginSessionReq body = new ChangeLoginSessionReq(); // ChangeLoginSessionReq | ID of the account where the current user login session is changed to.
-try {
-    ChangeLoginSessionResp result = apiInstance.changeMySession(body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#changeMySession");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**ChangeLoginSessionReq**](ChangeLoginSessionReq.md)| ID of the account where the current user login session is changed to. |
-
-### Return type
-
-[**ChangeLoginSessionResp**](ChangeLoginSessionResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="createApiKey"></a>

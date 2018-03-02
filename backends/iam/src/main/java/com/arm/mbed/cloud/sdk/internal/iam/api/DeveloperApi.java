@@ -15,8 +15,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
@@ -61,17 +59,6 @@ public interface DeveloperApi {
   @POST("v3/api-keys/me/groups")
   Call<UpdatedResponse> addMyApiKeyToGroups(
     @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Change login session to another account.
-   * An endpoint for changing the current user login session to another account.
-   * @param body ID of the account where the current user login session is changed to. (required)
-   * @return Call&lt;ChangeLoginSessionResp&gt;
-   */
-  @POST("v3/users/me/accounts")
-  Call<ChangeLoginSessionResp> changeMySession(
-    @retrofit2.http.Body ChangeLoginSessionReq body
   );
 
   /**
