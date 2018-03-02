@@ -10,10 +10,13 @@ import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
@@ -58,6 +61,17 @@ public interface DeveloperApi {
   @POST("v3/api-keys/me/groups")
   Call<UpdatedResponse> addMyApiKeyToGroups(
     @retrofit2.http.Body List<String> body
+  );
+
+  /**
+   * Change login session to another account.
+   * An endpoint for changing the current user login session to another account.
+   * @param body ID of the account where the current user login session is changed to. (required)
+   * @return Call&lt;ChangeLoginSessionResp&gt;
+   */
+  @POST("v3/users/me/accounts")
+  Call<ChangeLoginSessionResp> changeMySession(
+    @retrofit2.http.Body ChangeLoginSessionReq body
   );
 
   /**
@@ -126,8 +140,8 @@ public interface DeveloperApi {
    * @param deviceExecutionModeNeq Device execution mode not equals filter (optional)
    * @param ownerEq Owner name filter (optional)
    * @param enrollmentModeEq Enrollment mode filter (optional)
-   * @param issuerLike Issuer filter (optional)
-   * @param subjectLike Subject filter (optional)
+   * @param issuerLike Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. (optional)
+   * @param subjectLike Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. (optional)
    * @return Call&lt;TrustedCertificateRespList&gt;
    */
   @GET("v3/trusted-certificates")
@@ -223,6 +237,15 @@ public interface DeveloperApi {
   Call<AccountInfo> getMyAccountInfo(
     @retrofit2.http.Query("include") String include, @retrofit2.http.Query("properties") String properties
   );
+
+  /**
+   * Get accounts of the user.
+   * An endpoint for retrieving the accounts of the logged in user.
+   * @return Call&lt;AccountResponseList&gt;
+   */
+  @GET("v3/users/me/accounts")
+  Call<AccountResponseList> getMyAccounts();
+    
 
   /**
    * Get API key details.

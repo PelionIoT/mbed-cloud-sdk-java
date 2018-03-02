@@ -2,10 +2,13 @@ package com.arm.mbed.cloud.sdk.internal.iam.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.ChangeLoginSessionResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
@@ -58,6 +61,18 @@ public class DeveloperApiTest {
     public void addMyApiKeyToGroupsTest() {
         List<String> body = null;
         // UpdatedResponse response = api.addMyApiKeyToGroups(body);
+
+        // TODO: test validations
+    }
+    /**
+     * Change login session to another account.
+     *
+     * An endpoint for changing the current user login session to another account.
+     */
+    @Test
+    public void changeMySessionTest() {
+        ChangeLoginSessionReq body = null;
+        // ChangeLoginSessionResp response = api.changeMySession(body);
 
         // TODO: test validations
     }
@@ -231,6 +246,17 @@ public class DeveloperApiTest {
         String include = null;
         String properties = null;
         // AccountInfo response = api.getMyAccountInfo(include, properties);
+
+        // TODO: test validations
+    }
+    /**
+     * Get accounts of the user.
+     *
+     * An endpoint for retrieving the accounts of the logged in user.
+     */
+    @Test
+    public void getMyAccountsTest() {
+        // AccountResponseList response = api.getMyAccounts();
 
         // TODO: test validations
     }
