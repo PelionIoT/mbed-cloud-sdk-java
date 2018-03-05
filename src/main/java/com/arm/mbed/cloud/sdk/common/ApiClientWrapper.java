@@ -1,16 +1,25 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.IOException;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 
+import okhttp3.Interceptor;
+import okhttp3.Request;
+import okhttp3.Response;
 import okhttp3.logging.HttpLoggingInterceptor;
 
 @Preamble(description = "Client wrapper")
 @Internal
 public class ApiClientWrapper {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
+    private UserAgent userAgent;
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
@@ -25,6 +34,7 @@ public class ApiClientWrapper {
         this.client = createClient(options);
         setLogging(options.getClientLogLevel());
         setRequestTimeout(options.getRequestTimeout());
+        setUserAgent(new UserAgent());
         this.connectionOptions = options;
     }
 
@@ -72,6 +82,20 @@ public class ApiClientWrapper {
         this.client.getOkBuilder().readTimeout(timeout.getDuration(), timeout.getUnit());
     }
 
+    /**
+     * Gets the http user agent in place.
+     * 
+     * @return the userAgent
+     */
+    public UserAgent getUserAgent() {
+        return userAgent;
+    }
+
+    private void setUserAgent(UserAgent userAgent) {
+        this.userAgent = userAgent;
+        this.client.getOkBuilder().addInterceptor(new UserAgentInterceptor(this.userAgent));
+    }
+
     public <S> S createService(Class<S> serviceClass) {
         return client.createService(serviceClass);
     }
@@ -96,6 +120,96 @@ public class ApiClientWrapper {
 
     private String formatApiKey(String apiKey) {
         return DEFAULT_AUTH_NAME + " " + apiKey;
+    }
+
+    public static final class UserAgent {
+
+        public static final String MBED_CLOUD_SDK_IDENTIFIER = "mbed-cloud-sdk-java";
+        private final SdkInformation defaultInformation;
+        private final Map<String, String> extensions;
+        private boolean regenerate;
+        private String userAgentString;
+
+        private UserAgent() {
+            super();
+            defaultInformation = SdkInformation.getInstance();
+            extensions = new LinkedHashMap<>();
+            regenerate = true;
+            userAgentString = null;
+        }
+
+        public void addExtension(String name, String version) {
+            final String finalVersion = version == null ? "0.0" : version;
+            extensions.put(name, finalVersion);
+            regenerate = true;
+        }
+
+        public void clear() {
+            extensions.clear();
+            regenerate = true;
+        }
+
+        public String getUserAgentString() {
+            if (regenerate) {
+                userAgentString = generateUserAgent();
+            }
+            return userAgentString;
+        }
+
+        public String generateUserAgent() {
+            StringBuilder builder = new StringBuilder();
+            builder.append(MBED_CLOUD_SDK_IDENTIFIER).append("/");
+            if (defaultInformation.getSdkVersion() == null) {
+                builder.append("unknown-version");
+            } else {
+                builder.append(defaultInformation.getSdkVersion());
+            }
+            builder.append(" (").append(defaultInformation.getOs()).append("; ")
+                    .append(defaultInformation.getOsVersion()).append("; ")
+                    .append(defaultInformation.getOsArchitecture()).append("; ").append(defaultInformation.getLocale())
+                    .append(")");
+
+            builder.append(" Java/").append(defaultInformation.getJavaVersion());
+            builder.append(" (").append(defaultInformation.getJavaVendor()).append("; ")
+                    .append(defaultInformation.getJavaVendorURL()).append("; ")
+                    .append(defaultInformation.getSdkDescription()).append("; ")
+                    .append(defaultInformation.getSdkLicence()).append(")");
+
+            if (!extensions.isEmpty()) {
+                for (Entry<String, String> entry : extensions.entrySet()) {
+                    builder.append(" ").append(entry.getKey()).append("/").append(entry.getValue());
+                }
+            }
+            regenerate = false;
+            return builder.toString();
+        }
+
+    }
+
+    private static class UserAgentInterceptor implements Interceptor {
+
+        private static final String USER_AGENT_HEADER = "User-Agent";
+        private final UserAgent userAgent;
+
+        public UserAgentInterceptor(UserAgent userAgent) {
+            super();
+            this.userAgent = userAgent;
+        }
+
+        @Override
+        public Response intercept(Chain chain) throws IOException {
+            final Request originRequest = chain.request();
+            final Request requestWithUserAgent = userAgent != null
+                    ? originRequest.newBuilder().addHeader(USER_AGENT_HEADER, generateUserAgent()).build()
+                    : originRequest.newBuilder().build();
+
+            return chain.proceed(requestWithUserAgent);
+        }
+
+        private String generateUserAgent() {
+            return userAgent.getUserAgentString();
+        }
+
     }
 
 }
