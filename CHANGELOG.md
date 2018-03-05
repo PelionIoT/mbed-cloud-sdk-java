@@ -1,4 +1,34 @@
 # Changelog
+
+## 1.2.6
+![Status](https://img.shields.io/badge/status-beta-orange.svg)
+### Deliverables
+The application source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
+Built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
+
+### Changes
+- REST API changes:
+  - Device Directory
+  - Update
+  - Account Management
+  - Enrollment (First to claim) was introduced
+    - Account admin can upload a list of devices to claim and view the status of claimed devices
+  - Connect
+    - A new endpoint was introduced for retrieving resource values.
+- Bug fixes and improvements:
+  - Get resource value bug listed in previous releases was fixed
+  - Added states to upload campaigns
+  - File upload to the cloud (correct filename)
+  - Bug regarding exceptions thrown when empty lists were retrieved
+  - Connect - deleteSubscriptions()
+- Environments supported:
+  - Java > 1.7
+
+### Known Issues
+- The Java SDK cannot currently be used on Android because of the following error.
+```java
+  com.android.build.api.transform.TransformException: com.android.dex.DexException: Multiple dex files define Lcom/arm/mbed/cloud/sdk/internal/JSON$1;
+```
 ## 1.2.5
 ![Status](https://img.shields.io/badge/status-beta-orange.svg)
 ### Deliverables
@@ -7,7 +37,7 @@ Built artefacts can be retrieved using any Java package manager (e.g. Gradle, An
 
 ### Changes
 - REST API changes:
-  - Device Diectory
+  - Device Directory
   - Update
 - Bug fixes and improvements:
   - Swagger codegen upgrade
@@ -39,7 +69,7 @@ Built artefacts can be retrieved using any Java package manager (e.g. Gradle, An
   - Account Management
   - Certificates
   - Connect
-  - Device Diectory
+  - Device Directory
   - Update
 - Environments supported:
   - Java > 1.7

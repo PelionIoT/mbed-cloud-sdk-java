@@ -1504,7 +1504,10 @@ public class Connect extends AbstractApi {
      * <p>
      * Note: this method will deregister all subscription callbacks or observers if any.
      * <p>
-     * Please note that this operation is potentially really expensive and hence, use wisely.
+     * Warning: Please note that this operation is potentially really expensive and hence, use wisely.
+     * <p>
+     * It could be slow for large numbers of connected devices. If possible, explicitly delete subscriptions known to
+     * have been created.
      * <p>
      * Example:
      * 
@@ -1524,6 +1527,8 @@ public class Connect extends AbstractApi {
     @API
     public void deleteSubscriptions() throws MbedCloudException {
         // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
+        logger.logWarn("deleteSubscriptions() could be slow for large numbers of connected devices. "
+                + "If possible, explicitly delete subscriptions known to have been created.");
         final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
         if (connectedDevices != null) {
             for (final Device connectedDevice : connectedDevices) {
@@ -1570,7 +1575,11 @@ public class Connect extends AbstractApi {
     /**
      * Lists all subscriptions.
      * <p>
-     * Note: Please note that this operation is potentially really expensive and hence, use wisely. Example:
+     * Warning: Please note that this operation is potentially really expensive and hence, use wisely.
+     * <p>
+     * It could be slow for large numbers of connected devices.
+     * <p>
+     * Example:
      * 
      * <pre>
      * {@code
@@ -1592,6 +1601,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable List<Subscription> listSubscriptions() throws MbedCloudException {
+        logger.logWarn("listSubscriptions() could be slow for large numbers of connected devices.");
         final List<Subscription> subscriptions = new LinkedList<>();
         // The following is a workaround until there is a Mbed Cloud endpoint providing such an action.
         final Paginator<Device> connectedDevices = listAllConnectedDevices(null);
