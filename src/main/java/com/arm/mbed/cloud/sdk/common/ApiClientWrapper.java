@@ -19,7 +19,7 @@ import okhttp3.logging.HttpLoggingInterceptor;
 @Internal
 public class ApiClientWrapper {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
-    private UserAgent userAgent;
+    private final UserAgent userAgent;
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
@@ -34,7 +34,8 @@ public class ApiClientWrapper {
         this.client = createClient(options);
         setLogging(options.getClientLogLevel());
         setRequestTimeout(options.getRequestTimeout());
-        setUserAgent(new UserAgent());
+        this.userAgent = new UserAgent();
+        setUserAgent();
         this.connectionOptions = options;
     }
 
@@ -91,11 +92,19 @@ public class ApiClientWrapper {
         return userAgent;
     }
 
-    private void setUserAgent(UserAgent userAgent) {
-        this.userAgent = userAgent;
+    private void setUserAgent() {
         this.client.getOkBuilder().addInterceptor(new UserAgentInterceptor(this.userAgent));
     }
 
+    /**
+     * Creates a service.
+     * 
+     * @param serviceClass
+     *            class of the service.
+     * @param <S>
+     *            service type
+     * @return corresponding service.
+     */
     public <S> S createService(Class<S> serviceClass) {
         return client.createService(serviceClass);
     }
@@ -109,7 +118,7 @@ public class ApiClientWrapper {
         return connectionOptions;
     }
 
-    private ApiClient createClient(ConnectionOptions options) {
+    private static ApiClient createClient(ConnectionOptions options) {
         final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
                 : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
         if (!options.isHostEmpty()) {
@@ -118,10 +127,14 @@ public class ApiClientWrapper {
         return apiClient;
     }
 
-    private String formatApiKey(String apiKey) {
+    private static String formatApiKey(String apiKey) {
         return DEFAULT_AUTH_NAME + " " + apiKey;
     }
 
+    /**
+     * User Agent.
+     */
+    @Preamble(description = "User Agent")
     public static final class UserAgent {
 
         public static final String MBED_CLOUD_SDK_IDENTIFIER = "mbed-cloud-sdk-java";
@@ -130,7 +143,10 @@ public class ApiClientWrapper {
         private boolean regenerate;
         private String userAgentString;
 
-        private UserAgent() {
+        /**
+         * Constructor.
+         */
+        public UserAgent() {
             super();
             defaultInformation = SdkInformation.getInstance();
             extensions = new LinkedHashMap<>();
@@ -138,17 +154,33 @@ public class ApiClientWrapper {
             userAgentString = null;
         }
 
+        /**
+         * Adds an extension to the user agent.
+         * 
+         * @param name
+         *            product name.
+         * @param version
+         *            product version.
+         */
         public void addExtension(String name, String version) {
             final String finalVersion = version == null ? "0.0" : version;
             extensions.put(name, finalVersion);
             regenerate = true;
         }
 
+        /**
+         * Clears user agent extension.
+         */
         public void clear() {
             extensions.clear();
             regenerate = true;
         }
 
+        /**
+         * Gets user agent string.
+         * 
+         * @return string describing user agent header.
+         */
         public String getUserAgentString() {
             if (regenerate) {
                 userAgentString = generateUserAgent();
@@ -156,9 +188,9 @@ public class ApiClientWrapper {
             return userAgentString;
         }
 
-        public String generateUserAgent() {
-            StringBuilder builder = new StringBuilder();
-            builder.append(MBED_CLOUD_SDK_IDENTIFIER).append("/");
+        private String generateUserAgent() {
+            final StringBuilder builder = new StringBuilder(50);
+            builder.append(MBED_CLOUD_SDK_IDENTIFIER).append('/');
             if (defaultInformation.getSdkVersion() == null) {
                 builder.append("unknown-version");
             } else {
@@ -167,17 +199,15 @@ public class ApiClientWrapper {
             builder.append(" (").append(defaultInformation.getOs()).append("; ")
                     .append(defaultInformation.getOsVersion()).append("; ")
                     .append(defaultInformation.getOsArchitecture()).append("; ").append(defaultInformation.getLocale())
-                    .append(")");
-
-            builder.append(" Java/").append(defaultInformation.getJavaVersion());
+                    .append(") Java/").append(defaultInformation.getJavaVersion());
             builder.append(" (").append(defaultInformation.getJavaVendor()).append("; ")
-                    .append(defaultInformation.getJavaVendorURL()).append("; ")
+                    .append(defaultInformation.getJavaVendorUrl()).append("; ")
                     .append(defaultInformation.getSdkDescription()).append("; ")
-                    .append(defaultInformation.getSdkLicence()).append(")");
+                    .append(defaultInformation.getSdkLicence()).append(')');
 
             if (!extensions.isEmpty()) {
-                for (Entry<String, String> entry : extensions.entrySet()) {
-                    builder.append(" ").append(entry.getKey()).append("/").append(entry.getValue());
+                for (final Entry<String, String> entry : extensions.entrySet()) {
+                    builder.append(' ').append(entry.getKey()).append('/').append(entry.getValue());
                 }
             }
             regenerate = false;
@@ -199,9 +229,8 @@ public class ApiClientWrapper {
         @Override
         public Response intercept(Chain chain) throws IOException {
             final Request originRequest = chain.request();
-            final Request requestWithUserAgent = userAgent != null
-                    ? originRequest.newBuilder().addHeader(USER_AGENT_HEADER, generateUserAgent()).build()
-                    : originRequest.newBuilder().build();
+            final Request requestWithUserAgent = userAgent == null ? originRequest.newBuilder().build()
+                    : originRequest.newBuilder().addHeader(USER_AGENT_HEADER, generateUserAgent()).build();
 
             return chain.proceed(requestWithUserAgent);
         }
