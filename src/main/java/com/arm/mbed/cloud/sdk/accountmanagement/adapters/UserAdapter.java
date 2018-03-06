@@ -93,7 +93,8 @@ public final class UserAdapter {
         userInfo.setAddress(user.getAddress());
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
-        // TODO add custom properties
+        userInfo.setGroups(user.getGroups());
+        userInfo.setUserProperties(user.getCustomProperties());
         return userInfo;
     }
 
@@ -117,6 +118,7 @@ public final class UserAdapter {
         userUpdate.setAddress(user.getAddress());
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
+        userUpdate.setGroups(user.getGroups());
         userUpdate.setUserProperties(user.getCustomProperties());
         return userUpdate;
     }

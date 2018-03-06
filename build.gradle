@@ -103,9 +103,15 @@ allprojects {
             manifest {
                 attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
                         'Implementation-Version': project.version,
+                        'MbedCloudSdk-Version': project.version,
                         'Implementation-Vendor': 'Arm Limited',
                         'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
-                        'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt')
+                        'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                        'Built-JDK': System.getProperty('java.version'),
+                        'Source-Compatibility': project.sourceCompatibility,
+                        'Target-Compatibility': project.targetCompatibility,
+                        'Built-By': System.getProperty('user.name')
+                        )
             }
             doLast {
                 if (project == rootProject){
@@ -249,9 +255,11 @@ dependencies {
     compile project(':backends:enrollment')
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
+    compile 'com.jcabi:jcabi-manifests:1.1'
     testCompile 'io.vertx:vertx-web:3.5.0'
     testCompile 'org.reflections:reflections:0.9.10'
     testCompile 'org.slf4j:slf4j-simple:1.7.7'
+    testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
     //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
@@ -432,10 +440,18 @@ shadowJar {
 task testJar(type: Jar) {
     dependsOn compileTestJava, jar
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                'Implementation-Version': project.version,
-                'Implementation-Vendor': 'Arm Limited',
-                'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
+        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+                    'Implementation-Version': project.version,
+                    'MbedCloudSdk-Version': project.version,
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                    'Built-JDK': System.getProperty('java.version'),
+                    'Source-Compatibility': project.sourceCompatibility,
+                    'Target-Compatibility': project.targetCompatibility,
+                    'Built-By': System.getProperty('user.name'),
+                    'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer'
+                    )
     }
     baseName = project.name + '-test'
     from sourceSets.test.output + sourceSets.test.allSource
@@ -449,10 +465,18 @@ task shadowTestJar(type: Jar) {
     group 'Verification'
     dependsOn testJar, shadowJar
     manifest {
-        attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                'Implementation-Version': project.version,
-                'Implementation-Vendor': 'Arm Limited',
-                'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer')
+        attributes( 'Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+                    'Implementation-Version': project.version,
+                    'MbedCloudSdk-Version': project.version,
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                    'Built-JDK': System.getProperty('java.version'),
+                    'Source-Compatibility': project.sourceCompatibility,
+                    'Target-Compatibility': project.targetCompatibility,
+                    'Built-By': System.getProperty('user.name'),
+                    'Main-Class': 'com.arm.mbed.cloud.sdk.TestServer'
+                    )
     }
     baseName = project.name + '-test-full'
     from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
