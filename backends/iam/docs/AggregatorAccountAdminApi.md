@@ -1806,8 +1806,8 @@ Integer deviceExecutionModeEq = 56; // Integer | Filter for developer certificat
 Integer deviceExecutionModeNeq = 56; // Integer | Filter for not developer certificates
 String ownerEq = "ownerEq_example"; // String | Owner name filter
 Boolean enrollmentModeEq = true; // Boolean | Enrollment mode filter
-String issuerLike = "issuerLike_example"; // String | Filter for issuer
-String subjectLike = "subjectLike_example"; // String | Filter for subject
+String issuerLike = "issuerLike_example"; // String | Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+String subjectLike = "subjectLike_example"; // String | Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
 try {
     TrustedCertificateInternalRespList result = apiInstance.getAllAccountCertificates(accountID, limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, issuerLike, subjectLike);
     System.out.println(result);
@@ -1833,8 +1833,8 @@ Name | Type | Description  | Notes
  **deviceExecutionModeNeq** | **Integer**| Filter for not developer certificates | [optional]
  **ownerEq** | **String**| Owner name filter | [optional]
  **enrollmentModeEq** | **Boolean**| Enrollment mode filter | [optional]
- **issuerLike** | **String**| Filter for issuer | [optional]
- **subjectLike** | **String**| Filter for subject | [optional]
+ **issuerLike** | **String**| Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional]
+ **subjectLike** | **String**| Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional]
 
 ### Return type
 
@@ -2086,7 +2086,7 @@ String statusEq = "statusEq_example"; // String | An optional filter for account
 String tierEq = "tierEq_example"; // String | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
 String parentEq = "parentEq_example"; // String | An optional filter for parent account ID.
 String endMarketEq = "endMarketEq_example"; // String | An optional filter for account end market.
-String countryLike = "countryLike_example"; // String | An optional filter for account country.
+String countryLike = "countryLike_example"; // String | An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like=LAND matches Ireland.
 Integer limit = 1000; // Integer | The number of results to return (2-1000), default is 1000.
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC. Default value is ASC
@@ -2110,7 +2110,7 @@ Name | Type | Description  | Notes
  **tierEq** | **String**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional]
  **parentEq** | **String**| An optional filter for parent account ID. | [optional]
  **endMarketEq** | **String**| An optional filter for account end market. | [optional]
- **countryLike** | **String**| An optional filter for account country. | [optional]
+ **countryLike** | **String**| An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland. | [optional]
  **limit** | **Integer**| The number of results to return (2-1000), default is 1000. | [optional] [default to 1000]
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC. Default value is ASC | [optional] [default to ASC]
