@@ -11,6 +11,7 @@ import com.jcabi.manifests.Manifests;
 public class SdkInformation implements Serializable {
 
     private static final String MBED_IDENTIFIER = "mbed";
+    private static final String DEFAULT_VERSION = "unknown_dev";
     private static final String LICENCE_URL_ATTRIBUTE = "Bundle-License";
     private static final String DEFAULT_DESCRIPTION = "Arm Mbed Cloud SDK for Java";
     private static final String IMPLEMENTATION_TITLE_ATTRIBUTE = "Implementation-Title";
@@ -46,9 +47,11 @@ public class SdkInformation implements Serializable {
         setOs(System.getProperty("os.name"));
         setOsVersion(System.getProperty("os.version"));
         setOsArchitecture(System.getProperty("os.arch"));
+        boolean foundCorrectInformationInManifest = false;
         if (Manifests.exists(IMPLEMENTATION_TITLE_ATTRIBUTE)) {
             final String description = Manifests.read(IMPLEMENTATION_TITLE_ATTRIBUTE);
             if (description.toLowerCase(Locale.getDefault()).contains(MBED_IDENTIFIER)) {
+                foundCorrectInformationInManifest = true;
                 setSdkDescription(description);
             } else {
                 setSdkDescription(DEFAULT_DESCRIPTION);
@@ -60,9 +63,13 @@ public class SdkInformation implements Serializable {
             setSdkVersion(Manifests.read(MBED_CLOUD_SDK_VERSION_SPECIFIC_ATTRIBUTE));
         } else {
             if (Manifests.exists(IMPLEMENTATION_VERSION_ATTRIBUTE)) {
-                setSdkVersion(Manifests.read(IMPLEMENTATION_VERSION_ATTRIBUTE));
+                if (foundCorrectInformationInManifest) {
+                    setSdkVersion(Manifests.read(IMPLEMENTATION_VERSION_ATTRIBUTE));
+                } else {
+                    setSdkVersion(DEFAULT_VERSION);
+                }
             } else {
-                setSdkVersion(null);
+                setSdkVersion(DEFAULT_VERSION);
             }
         }
         if (Manifests.exists(LICENCE_URL_ATTRIBUTE)) {
