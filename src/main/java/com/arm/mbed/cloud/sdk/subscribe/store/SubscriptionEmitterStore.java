@@ -1,44 +1,62 @@
-package com.arm.mbed.cloud.sdk.connect.notificationhandling;
+package com.arm.mbed.cloud.sdk.subscribe.store;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 
-public class DeviceStateSubscriptionHandlerStore<T extends DeviceStateNotification> {
+public class SubscriptionEmitterStore<T extends NotificationMessageValue> {
     private static final int STORE_INITIAL_CAPACITY = 10;
-    private final ConcurrentMap<String, NotificationEmitter> store = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
+    private final ConcurrentMap<String, NotificationEmitter<T>> store = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
 
-    public void handleNotification(DeviceStateNotification notification, Throwable throwable) {
-        // if (deviceId == null) {
-        // return;
-        // }
-        // final DeviceSubscriptionStore deviceStore = store.get(deviceId);
-        // if (deviceStore != null) {
-        // deviceStore.handleNotification(resourcePath, notification, throwable);
-        // }
+    public void handleNotification(T notification, Throwable throwable) {
+        for (final NotificationEmitter<T> emitter : store.values()) {
+            @SuppressWarnings("unchecked")
+            final T notificationClone = (notification == null) ? null : (T) notification.clone();
+            emitter.emit(notificationClone, throwable);
+        }
     }
 
-    public Flowable<DeviceStateNotification> getOrCreateSubscriptionChannel(String id, BackpressureStrategy strategy) {
+    public void handleNotification(String id, T notification, Throwable throwable) {
+        final NotificationEmitter<T> emitter = fetchSubscriptionChannel(id);
+        if (emitter != null) {
+            emitter.emit(notification, throwable);
+        }
+    }
+
+    public void complete(String id) {
+        final NotificationEmitter<T> emitter = fetchSubscriptionChannel(id);
+        if (emitter != null) {
+            emitter.complete();
+        }
+    }
+
+    public void completeAll() {
+        for (final NotificationEmitter<T> emitter : store.values()) {
+            emitter.complete();
+        }
+    }
+
+    public Flowable<T> createSubscriptionChannel(String id, BackpressureStrategy strategy) {
         if (id == null) {
             return null;
         }
-        Flowable<DeviceStateNotification> channel = new DeviceSubscriptionStore();
-        final Flowable<DeviceStateNotification> formerChannel = store.putIfAbsent(id, channel);
+        NotificationEmitter<T> channel = new NotificationEmitter<>();
+        final NotificationEmitter<T> formerChannel = store.putIfAbsent(id, channel);
         if (formerChannel != null) {
             channel = formerChannel;
         }
-        return channel;
+        return channel.create(strategy);
     }
 
-    public Flowable<DeviceStateNotification> fetchSubscriptionChannel(String id) {
+    protected NotificationEmitter<T> fetchSubscriptionChannel(String id) {
         if (id == null) {
             return null;
         }
@@ -56,7 +74,7 @@ public class DeviceStateSubscriptionHandlerStore<T extends DeviceStateNotificati
         store.clear();
     }
 
-    private static class NotificationEmitter<T> {
+    private static class NotificationEmitter<T extends NotificationMessageValue> {
 
         private final List<FlowableEmitter<T>> emitters = new LinkedList<>();
 
@@ -73,8 +91,17 @@ public class DeviceStateSubscriptionHandlerStore<T extends DeviceStateNotificati
             return Flowable.create(source, strategy);
         }
 
+        public void complete() {
+            for (final FlowableEmitter<T> emitter : emitters) {
+                emitter.onComplete();
+            }
+        }
+
         public void emit(T notification, Throwable throwable) {
             if (throwable == null) {
+                if (notification == null) {
+                    return;
+                }
                 for (final FlowableEmitter<T> emitter : emitters) {
                     emitter.onNext(notification);
                 }
