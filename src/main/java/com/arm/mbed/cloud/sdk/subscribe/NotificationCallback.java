@@ -2,7 +2,7 @@ package com.arm.mbed.cloud.sdk.subscribe;
 
 import com.arm.mbed.cloud.sdk.common.Callback;
 
-public class NotificationCallback<T> {
+public class NotificationCallback<T extends NotificationMessageValue> {
     private final Callback<T> onSuccess;
     private final Callback<Throwable> onFailure;
 
@@ -10,6 +10,13 @@ public class NotificationCallback<T> {
         super();
         this.onSuccess = onSuccess;
         this.onFailure = onFailure;
+    }
+
+    public void callBack(NotificationMessage<T> message) {
+        if (message == null) {
+            return;
+        }
+        callBack(message.getValue(), message.getException());
     }
 
     public void callBack(T value, Throwable throwable) {

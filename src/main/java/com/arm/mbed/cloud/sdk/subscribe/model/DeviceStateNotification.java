@@ -1,12 +1,10 @@
 package com.arm.mbed.cloud.sdk.subscribe.model;
 
-import java.util.UUID;
-
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 
 @Preamble(description = "Java bean describing a device state change")
-public class DeviceStateNotification implements SdkModel {
+public class DeviceStateNotification implements NotificationMessageValue {
     /**
      * 
      */
@@ -91,27 +89,6 @@ public class DeviceStateNotification implements SdkModel {
         if (state != other.state)
             return false;
         return true;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.arm.mbed.cloud.sdk.common.SdkModel#isValid()
-     */
-    @Override
-    public boolean isValid() {
-        return state != null && deviceId != null;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.arm.mbed.cloud.sdk.common.SdkModel#getId()
-     */
-    @Override
-    public String getId() {
-        // TODO Replace by internal generator
-        return UUID.randomUUID().toString();
     }
 
     /*

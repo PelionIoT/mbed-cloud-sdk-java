@@ -36,32 +36,61 @@ public class DeviceStateFilterOptions extends FilterOptions {
      *            the filter to set
      */
     public DeviceStateFilterOptions(Filters filter) {
-        super();
-        this.filter = filter;
+        super(filter);
     }
 
     public void addLikeDeviceFilter(@Nullable String deviceIdlike) {
         addLikeFilter(DEVICE_ID_FILTER, deviceIdlike == null ? null : deviceIdlike);
     }
 
+    public DeviceStateFilterOptions likeDevice(@Nullable String deviceIdlike) {
+        addLikeDeviceFilter(deviceIdlike);
+        return this;
+    }
+
     public void addEqualDeviceFilter(@Nullable String deviceId) {
         addEqualFilter(DEVICE_ID_FILTER, deviceId == null ? null : deviceId);
+    }
+
+    public DeviceStateFilterOptions equalDevice(@Nullable String deviceId) {
+        addEqualDeviceFilter(deviceId);
+        return this;
     }
 
     public void addEqualDeviceFilter(@Nullable Device value) {
         addEqualDeviceFilter(value == null ? null : value.getId());
     }
 
+    public DeviceStateFilterOptions equalDevice(@Nullable Device value) {
+        addEqualDeviceFilter(value);
+        return this;
+    }
+
     public void addNotEqualDeviceFilter(@Nullable String deviceId) {
         addNotEqualFilter(DEVICE_ID_FILTER, deviceId == null ? null : deviceId);
+    }
+
+    public DeviceStateFilterOptions notEqualDevice(@Nullable String deviceId) {
+        addNotEqualDeviceFilter(deviceId);
+        return this;
     }
 
     public void addNotEqualDeviceFilter(@Nullable Device value) {
         addNotEqualDeviceFilter(value == null ? null : value.getId());
     }
 
+    public DeviceStateFilterOptions notEqualDevice(@Nullable Device value) {
+        addNotEqualDeviceFilter(value);
+        return this;
+    }
+
     public void addInDeviceFilter(@NonNull List<String> deviceIds) {
         addInFilter(DEVICE_ID_FILTER, deviceIds);
+    }
+
+    public DeviceStateFilterOptions inDevice(@NonNull List<String> deviceIds) {
+        addInDeviceFilter(deviceIds);
+        return this;
     }
 
     public void addInDevicesFilter(@NonNull List<Device> devices) {
@@ -75,12 +104,27 @@ public class DeviceStateFilterOptions extends FilterOptions {
         addInDeviceFilter(values);
     }
 
-    public void addInDeviceFilter(@NonNull String deviceIds) {
+    public DeviceStateFilterOptions inDevices(@NonNull List<Device> devices) {
+        addInDevicesFilter(devices);
+        return this;
+    }
+
+    public void addInDevicesFilter(@NonNull String deviceIds) {
         addInFilter(DEVICE_ID_FILTER, deviceIds);
+    }
+
+    public DeviceStateFilterOptions inDevices(@NonNull String deviceIds) {
+        addInDevicesFilter(deviceIds);
+        return this;
     }
 
     public void addNotInDeviceFilter(@NonNull List<String> deviceIds) {
         addNotInFilter(DEVICE_ID_FILTER, deviceIds);
+    }
+
+    public DeviceStateFilterOptions notInDevice(@NonNull List<String> deviceIds) {
+        addNotInDeviceFilter(deviceIds);
+        return this;
     }
 
     public void addNotInDevicesFilter(@NonNull List<Device> devices) {
@@ -94,24 +138,54 @@ public class DeviceStateFilterOptions extends FilterOptions {
         addNotInDeviceFilter(values);
     }
 
-    public void addNotInDeviceFilter(@NonNull String deviceIds) {
+    public DeviceStateFilterOptions notInDevices(@NonNull List<Device> devices) {
+        addNotInDevicesFilter(devices);
+        return this;
+    }
+
+    public void addNotInDevicesFilter(@NonNull String deviceIds) {
         addNotInFilter(DEVICE_ID_FILTER, deviceIds);
+    }
+
+    public DeviceStateFilterOptions notInDevices(@NonNull String deviceIds) {
+        addNotInDevicesFilter(deviceIds);
+        return this;
     }
 
     public void addEqualDeviceStateFilter(@NonNull DeviceState state) {
         addEqualFilter(DEVICE_STATE_FILTER, state);
     }
 
+    public DeviceStateFilterOptions equalDeviceState(@NonNull DeviceState state) {
+        addEqualDeviceStateFilter(state);
+        return this;
+    }
+
     public void addNotEqualDeviceStateFilter(@NonNull DeviceState state) {
         addNotEqualFilter(DEVICE_STATE_FILTER, state);
     }
 
-    public void addInDeviceStateFilter(@NonNull List<DeviceState> states) {
+    public DeviceStateFilterOptions notEqualDeviceState(@NonNull DeviceState state) {
+        addNotEqualDeviceStateFilter(state);
+        return this;
+    }
+
+    public void addInDeviceStatesFilter(@NonNull List<DeviceState> states) {
         addInFilter(DEVICE_STATE_FILTER, states);
     }
 
-    public void addNotInDeviceStateFilter(@NonNull List<DeviceState> states) {
+    public DeviceStateFilterOptions inDeviceStates(@NonNull List<DeviceState> states) {
+        addInDeviceStatesFilter(states);
+        return this;
+    }
+
+    public void addNotInDeviceStatesFilter(@NonNull List<DeviceState> states) {
         addNotInFilter(DEVICE_STATE_FILTER, states);
+    }
+
+    public DeviceStateFilterOptions notInDeviceStates(@NonNull List<DeviceState> states) {
+        addNotInDeviceStatesFilter(states);
+        return this;
     }
 
     public boolean isVerified(DeviceStateNotification notification) {

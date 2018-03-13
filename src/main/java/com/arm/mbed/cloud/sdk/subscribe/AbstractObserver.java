@@ -13,12 +13,13 @@ import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 
 @Preamble(description = "Abstract subscription observer")
 @Internal
-public abstract class AbstractObserver<T> implements Observer<T> {
+public abstract class AbstractObserver<T extends NotificationMessageValue> implements Observer<T> {
 
     private final Flowable<T> flow;
     private final SubscriptionManager manager;
@@ -27,12 +28,14 @@ public abstract class AbstractObserver<T> implements Observer<T> {
     private final String id;
     private volatile boolean isDisposed;
 
-    public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter) {
+    public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter,
+            boolean unsubscribeOnCompletion) {
         super();
         isDisposed = false;
         this.filter = filter;
         this.composite = new CompositeDisposable();
         this.id = id;
+        final boolean mustUnsubscribeOnCompletion = unsubscribeOnCompletion;
         this.flow = flow.observeOn(manager.getObservedOnExecutor()).filter(new Predicate<T>() {
 
             @Override
@@ -40,25 +43,32 @@ public abstract class AbstractObserver<T> implements Observer<T> {
                 return verifiesFilter(t);
             }
 
+        }).doOnTerminate(new Action() {
+
+            @Override
+            public void run() throws Exception {
+                if (mustUnsubscribeOnCompletion) {
+                    unsubscribe();
+                }
+            }
         });
         this.manager = manager;
 
     }
 
-    protected abstract boolean verifiesFilter(T t);
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see com.arm.mbed.cloud.sdk.subscribe.Observer#notify(java.lang.Object)
-     */
     @Override
     public void notify(@NonNull T data) throws MbedCloudException {
+        final NotificationMessage<T> message = new NotificationMessage<>(data, null);
+        notify(message);
+    }
+
+    @Override
+    public void notify(@NonNull NotificationMessage<T> message) throws MbedCloudException {
         if (isDisposed) {
             throw new MbedCloudException("The subscription channel has been disposed");
         }
-        if (data != null) {
-            manager.notify(getId(), data);
+        if (message != null) {
+            manager.notify(getSubscriptionType(), getId(), message);
         }
     }
 
@@ -177,4 +187,5 @@ public abstract class AbstractObserver<T> implements Observer<T> {
         return composite;
     }
 
+    protected abstract boolean verifiesFilter(T t);
 }

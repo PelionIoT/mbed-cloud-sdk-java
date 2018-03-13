@@ -9,11 +9,13 @@ import com.arm.mbed.cloud.sdk.common.TimePeriod;
 
 import io.reactivex.Flowable;
 
-@Preamble(description = "SDK Model object") // extends Serializable, Cloneable
-public interface Observer<T> {// extends Iterator<Future<T>>, Iterable<Future<T>> {
+@Preamble(description = "SDK Model object")
+public interface Observer<T extends NotificationMessageValue> {
     String getId();
 
     void addCallback(NotificationCallback<T> callback);
+
+    void notify(NotificationMessage<T> message) throws MbedCloudException;
 
     void notify(T data) throws MbedCloudException;
 
@@ -36,4 +38,6 @@ public interface Observer<T> {// extends Iterator<Future<T>>, Iterable<Future<T>
     int numberOfCallbacks();
 
     boolean isDisposed();
+
+    SubscriptionType getSubscriptionType();
 }
