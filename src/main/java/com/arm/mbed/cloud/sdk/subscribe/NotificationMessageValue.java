@@ -4,4 +4,6 @@ import java.io.Serializable;
 
 public interface NotificationMessageValue extends Cloneable, Serializable {
     NotificationMessageValue clone();
+
+    Object getRawValue();
 }

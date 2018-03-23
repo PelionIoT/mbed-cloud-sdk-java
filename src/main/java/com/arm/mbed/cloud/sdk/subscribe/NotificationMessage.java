@@ -10,7 +10,7 @@ public class NotificationMessage<T extends NotificationMessageValue> implements 
     private final T value;
     private final Throwable exception;
 
-    protected NotificationMessage(T value, Throwable ec) {
+    public NotificationMessage(T value, Throwable ec) {
         super();
         this.value = value;
         this.exception = ec;
@@ -39,6 +39,16 @@ public class NotificationMessage<T extends NotificationMessageValue> implements 
     @Override
     public NotificationMessage<T> clone() {
         return new NotificationMessage((value == null) ? null : value.clone(), exception);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "NotificationMessage [value=" + value + ", exception=" + exception + "]";
     };
 
 }

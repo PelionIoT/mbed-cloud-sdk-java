@@ -75,18 +75,19 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     @Override
     public void addCallback(NotificationCallback<T> callback) {
         if (callback != null) {
+            final NotificationCallback<T> immutableCallback = callback;
             composite.add(flow.subscribe(new Consumer<T>() {
 
                 @Override
                 public void accept(T value) throws Exception {
-                    callback.callBack(value);
+                    immutableCallback.callBack(value);
 
                 }
             }, new Consumer<Throwable>() {
 
                 @Override
                 public void accept(Throwable throwable) throws Exception {
-                    callback.callBack(throwable);
+                    immutableCallback.callBack(throwable);
 
                 }
             }));
@@ -112,7 +113,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.subscribe.Observer#futureOne()
      */
     @Override
@@ -122,7 +123,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.subscribe.Observer#futureOne(com.arm.mbed.cloud.sdk.common.TimePeriod)
      */
     @Override
@@ -137,13 +138,15 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.subscribe.Observer#one(com.arm.mbed.cloud.sdk.common.TimePeriod)
      */
     @Override
     public T one(@Nullable TimePeriod timeout) throws MbedCloudException {
         try {
-            return fetchSingle(timeout).blockingGet();
+            final T value = fetchSingle(timeout).blockingGet();
+            unsubscribe();
+            return value;
         } catch (Exception exception) {
             throw new MbedCloudException("The value could not be retrieved", exception);
         }
@@ -152,7 +155,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     protected Single<T> fetchSingle(TimePeriod timeout) throws MbedCloudException {
         try {
             Flowable<T> oneItemFlow = (timeout == null) ? flow : flow.timeout(timeout.getDuration(), timeout.getUnit());
-            return oneItemFlow.lastOrError();
+            return oneItemFlow.firstOrError();
         } catch (Exception exception) {
             throw new MbedCloudException("The value could not be retrieved", exception);
         }
@@ -188,4 +191,5 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     }
 
     protected abstract boolean verifiesFilter(T t);
+
 }

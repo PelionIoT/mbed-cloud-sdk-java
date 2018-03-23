@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
@@ -38,7 +38,8 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
 
     @Override
     public @Nullable List<Observer<?>> listAll() {
-        return (observerStore.isEmpty()) ? null : new ArrayList<>(observerStore.values());
+        return (observerStore.isEmpty()) ? null
+                : Arrays.asList(observerStore.values().toArray(new Observer<?>[observerStore.values().size()]));
     }
 
     @Override
@@ -49,9 +50,49 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         return listAll();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll()
+     */
+    @Override
+    public void completeAll() {
+        emitterStore.completeAll();
+
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
+     * SubscriptionType)
+     */
+    @Override
+    public void completeAll(SubscriptionType subscriptionType) {
+        if (subscriptionType == null || subscriptionType != this.type) {
+            return;
+        }
+        completeAll();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
+     * java.lang.String)
+     */
+    @Override
+    public void complete(SubscriptionType subscriptionType, String observerId) {
+        if (subscriptionType == null || subscriptionType != this.type || observerId == null) {
+            return;
+        }
+        emitterStore.complete(observerId);
+    }
+
     @Override
     public void unsubscribeAll() {
-        emitterStore.completeAll();
+        completeAll();
         emitterStore.clear();
         observerStore.clear();
     }
@@ -69,7 +110,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         if (subscriptionType == null || subscriptionType != this.type || observerId == null) {
             return;
         }
-        emitterStore.complete(observerId);
+        complete(subscriptionType, observerId);
         emitterStore.removeSubscriptionChannel(observerId);
         observerStore.remove(observerId);
     }
@@ -101,6 +142,19 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         return scheduler;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see
+     * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#notify(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
+     * com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
+     */
+    @Override
+    public <T extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, T value)
+            throws MbedCloudException {
+        notify(subscriptionType, new NotificationMessage<>(value, null));
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType,
@@ -115,6 +169,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
             BackpressureStrategy strategy) {
@@ -123,7 +178,67 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         }
         final String channelId = this.type.toString() + UuidGenerator.generate();
         final Flowable<T> flow = emitterStore.createSubscriptionChannel(channelId, strategy);
-        return buildObserver(channelId, flow, filter);
+        final Observer<?> obs = buildObserver(channelId, flow, filter);
+        storeObserver((Observer<T>) obs);
+        return obs;
+    }
+
+    private void storeObserver(Observer<T> observer) {
+        if (observer == null) {
+            return;
+        }
+        observerStore.put(observer.getId(), observer);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObservers()
+     */
+    @Override
+    public boolean hasObservers() {
+        return !observerStore.isEmpty();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObservers(com.arm.mbed.cloud.sdk.subscribe.
+     * SubscriptionType)
+     */
+    @Override
+    public boolean hasObservers(SubscriptionType subscriptionType) {
+        if (subscriptionType == null || subscriptionType != this.type) {
+            return false;
+        }
+        return hasObservers();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObserver(com.arm.mbed.cloud.sdk.subscribe.
+     * SubscriptionType, java.lang.String)
+     */
+    @Override
+    public boolean hasObserver(SubscriptionType subscriptionType, String observerId) {
+        if (subscriptionType == null || subscriptionType != this.type) {
+            return false;
+        }
+        return observerStore.containsKey(observerId);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObserver(com.arm.mbed.cloud.sdk.subscribe.Observer)
+     */
+    @Override
+    public boolean hasObserver(Observer<?> observer) {
+        if (observer == null) {
+            return false;
+        }
+        return hasObserver(observer.getSubscriptionType(), observer.getId());
     }
 
     protected abstract Observer<?> buildObserver(String channelId, Flowable<T> flow, FilterOptions filter);

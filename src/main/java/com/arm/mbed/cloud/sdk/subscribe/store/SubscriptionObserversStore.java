@@ -8,24 +8,27 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
+import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Scheduler;
 
-public class SubscriptionObserversStore implements SubscriptionManager {
+public class SubscriptionObserversStore implements CloudSubscriptionManager {
     private final Map<SubscriptionType, SubscriptionManager> store;
     private final Scheduler scheduler;
 
-    private SubscriptionObserversStore(Scheduler scheduler) {
+    public SubscriptionObserversStore(Scheduler scheduler) {
         super();
         this.scheduler = scheduler;
         store = new HashMap<>(3);
-        store.put(SubscriptionType.DEVICE_STATE_CHANGE, new DeviceStateChangeSubscriptionObserverStore(scheduler));
+        store.put(SubscriptionType.DEVICE_STATE_CHANGE, new DeviceStateChangeSubscriptionObserverStore(this.scheduler));
     }
 
     @Override
@@ -78,10 +81,63 @@ public class SubscriptionObserversStore implements SubscriptionManager {
         unsubscribe(observer.getSubscriptionType(), observer.getId());
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll()
+     */
+    @Override
+    public void completeAll() {
+        for (final SubscriptionManager substore : store.values()) {
+            substore.completeAll();
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
+     * SubscriptionType)
+     */
+    @Override
+    public void completeAll(SubscriptionType type) {
+        final SubscriptionManager substore = store.get(type);
+        if (substore != null) {
+            substore.completeAll(type);
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
+     * java.lang.String)
+     */
+    @Override
+    public void complete(SubscriptionType type, String observerId) {
+        final SubscriptionManager substore = store.get(type);
+        if (substore != null) {
+            substore.complete(type, observerId);
+        }
+    }
+
     @Override
     public Observer<?> createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
         final SubscriptionManager substore = store.get(type);
         return (substore == null) ? null : substore.createObserver(type, filter, strategy);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#notify(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
+     * com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
+     */
+    @Override
+    public <T extends NotificationMessageValue> void notify(SubscriptionType type, T value) throws MbedCloudException {
+        notify(type, new NotificationMessage<>(value, null));
     }
 
     @Override
@@ -105,6 +161,38 @@ public class SubscriptionObserversStore implements SubscriptionManager {
     @Override
     public Scheduler getObservedOnExecutor() {
         return scheduler;
+    }
+
+    @Override
+    public boolean hasObservers() {
+        for (final SubscriptionManager substore : store.values()) {
+            if (substore.hasObservers()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean hasObservers(SubscriptionType type) {
+        final SubscriptionManager substore = store.get(type);
+        return (substore == null) ? false : substore.hasObservers(type);
+    }
+
+    @Override
+    public boolean hasObserver(SubscriptionType type, String observerId) {
+        final SubscriptionManager substore = store.get(type);
+        return (substore == null) ? false : substore.hasObserver(type, observerId);
+    }
+
+    @Override
+    public boolean hasObserver(Observer<?> observer) {
+        return (observer == null) ? false : hasObserver(observer.getSubscriptionType(), observer.getId());
+    }
+
+    @Override
+    public DeviceStateObserver deviceState(DeviceStateFilterOptions filter, BackpressureStrategy strategy) {
+        return (DeviceStateObserver) createObserver(SubscriptionType.DEVICE_STATE_CHANGE, filter, strategy);
     }
 
 }

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.connect.notificationhandling;
+package com.arm.mbed.cloud.sdk.subscribe;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,7 +8,7 @@ import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
 
-public class NotificationEmitter<T> {
+public class NotificationEmitter<T extends NotificationMessageValue> {
 
     private final List<FlowableEmitter<T>> emitters = new LinkedList<>();
 
@@ -25,8 +25,17 @@ public class NotificationEmitter<T> {
         return Flowable.create(source, strategy);
     }
 
+    public void complete() {
+        for (final FlowableEmitter<T> emitter : emitters) {
+            emitter.onComplete();
+        }
+    }
+
     public void emit(T notification, Throwable throwable) {
         if (throwable == null) {
+            if (notification == null) {
+                return;
+            }
             for (final FlowableEmitter<T> emitter : emitters) {
                 emitter.onNext(notification);
             }

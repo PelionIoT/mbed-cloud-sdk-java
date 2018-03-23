@@ -17,16 +17,32 @@ public interface SubscriptionManager {
     @Nullable
     List<Observer<?>> listAll(@NonNull SubscriptionType type);
 
+    boolean hasObservers();
+
+    boolean hasObservers(@NonNull SubscriptionType type);
+
+    boolean hasObserver(@NonNull SubscriptionType type, String observerId);
+
+    boolean hasObserver(Observer<?> observer);
+
+    void completeAll();
+
     void unsubscribeAll();
 
     void unsubscribeAll(SubscriptionType type);
 
+    void completeAll(SubscriptionType type);
+
     void unsubscribe(SubscriptionType type, String observerId);
+
+    void complete(SubscriptionType type, String observerId);
 
     void unsubscribe(Observer<?> observer);
 
     @Nullable
     Observer<?> createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy);
+
+    <T extends NotificationMessageValue> void notify(SubscriptionType type, T value) throws MbedCloudException;
 
     <T extends NotificationMessageValue> void notify(SubscriptionType type, NotificationMessage<T> message)
             throws MbedCloudException;

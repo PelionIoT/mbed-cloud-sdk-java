@@ -1,16 +1,13 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.arm.mbed.cloud.sdk.subscribe.NotificationEmitter;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
 
 public class SubscriptionEmitterStore<T extends NotificationMessageValue> {
     private static final int STORE_INITIAL_CAPACITY = 10;
@@ -18,9 +15,14 @@ public class SubscriptionEmitterStore<T extends NotificationMessageValue> {
 
     public void handleNotification(T notification, Throwable throwable) {
         for (final NotificationEmitter<T> emitter : store.values()) {
-            @SuppressWarnings("unchecked")
-            final T notificationClone = (notification == null) ? null : (T) notification.clone();
-            emitter.emit(notificationClone, throwable);
+            try {
+                @SuppressWarnings("unchecked")
+                final T notificationClone = (notification == null) ? null : (T) notification.clone();
+                emitter.emit(notificationClone, throwable);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
@@ -74,42 +76,4 @@ public class SubscriptionEmitterStore<T extends NotificationMessageValue> {
         store.clear();
     }
 
-    private static class NotificationEmitter<T extends NotificationMessageValue> {
-
-        private final List<FlowableEmitter<T>> emitters = new LinkedList<>();
-
-        public Flowable<T> create(BackpressureStrategy strategy) {
-
-            final FlowableOnSubscribe<T> source = new FlowableOnSubscribe<T>() {
-
-                @Override
-                public void subscribe(FlowableEmitter<T> emitter) {
-                    emitters.add(emitter);
-
-                }
-            };
-            return Flowable.create(source, strategy);
-        }
-
-        public void complete() {
-            for (final FlowableEmitter<T> emitter : emitters) {
-                emitter.onComplete();
-            }
-        }
-
-        public void emit(T notification, Throwable throwable) {
-            if (throwable == null) {
-                if (notification == null) {
-                    return;
-                }
-                for (final FlowableEmitter<T> emitter : emitters) {
-                    emitter.onNext(notification);
-                }
-            } else {
-                for (final FlowableEmitter<T> emitter : emitters) {
-                    emitter.onError(throwable);
-                }
-            }
-        }
-    }
 }

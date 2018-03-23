@@ -15,6 +15,8 @@ include 'lwm2m'
 project(':lwm2m').projectDir = file('../lwm2m')
 include 'backends:connector_ca'
 project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
+include 'backends:enrollment'
+project(':backends:enrollment').projectDir = file('../backends/enrollment')
 include 'backends:device_directory'
 project(':backends:device_directory').projectDir = file('../backends/device_directory')
 include 'backends:iam'
