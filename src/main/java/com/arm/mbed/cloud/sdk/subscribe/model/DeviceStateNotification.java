@@ -21,7 +21,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Constructor.
-     * 
+     *
      * @param state
      *            device state.
      * @param deviceId
@@ -41,7 +41,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Gets device state.
-     * 
+     *
      * @return the state
      */
     public DeviceState getState() {
@@ -50,7 +50,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Gets device Id.
-     * 
+     *
      * @return the deviceId
      */
     public String getDeviceId() {
@@ -59,7 +59,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Gets resources.
-     * 
+     *
      * @return the resources
      */
     public List<Resource> getResources() {
@@ -68,7 +68,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Sets resources.
-     * 
+     *
      * @param resources
      *            the resources to set
      */
@@ -78,7 +78,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Gets device type.
-     * 
+     *
      * @return the deviceType.
      */
     public String getDeviceType() {
@@ -87,7 +87,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /**
      * Sets device type.
-     * 
+     *
      * @param deviceType
      *            the deviceType to set
      */
@@ -95,6 +95,12 @@ public class DeviceStateNotification implements NotificationMessageValue {
         this.deviceType = deviceType;
     }
 
+    /**
+     * Adds a device resource.
+     *
+     * @param resource
+     *            resource
+     */
     public void addResource(Resource resource) {
         if (resource == null) {
             return;
@@ -107,7 +113,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -123,7 +129,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -137,7 +143,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        DeviceStateNotification other = (DeviceStateNotification) obj;
+        final DeviceStateNotification other = (DeviceStateNotification) obj;
         if (deviceId == null) {
             if (other.deviceId != null) {
                 return false;
@@ -167,12 +173,12 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
     public DeviceStateNotification clone() {
-        DeviceStateNotification notification = new DeviceStateNotification(state, deviceId);
+        final DeviceStateNotification notification = new DeviceStateNotification(state, deviceId);
         notification.setDeviceType(deviceType);
         notification.setResources((resources == null) ? null : new ArrayList<>(resources));
         return notification;
@@ -185,7 +191,7 @@ public class DeviceStateNotification implements NotificationMessageValue {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

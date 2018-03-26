@@ -20,7 +20,7 @@ public class EvaluatorLike implements FilterEvaluator {
         if (EvaluatorEqual.verify(value, filterValue)) {
             return true;
         }
-        if ((value == null && filterValue != null) || (value != null && filterValue == null)) {
+        if (value == null && filterValue != null || value != null && filterValue == null) {
             return false;
         }
         if (filterValue instanceof String || filterValue instanceof CharSequence) {
@@ -34,7 +34,7 @@ public class EvaluatorLike implements FilterEvaluator {
                 if (Pattern.matches(pattern, valueString)) {
                     return true;
                 }
-            } catch (PatternSyntaxException e) {
+            } catch (PatternSyntaxException exception) {
                 // Nothing to do
             }
             // If filterValue is a SQL like entry i.e.
@@ -42,7 +42,7 @@ public class EvaluatorLike implements FilterEvaluator {
                     .replace("?", ".").replace("_", ".").replace("%", ".*");
             try {
                 return Pattern.matches(javaPattern, valueString);
-            } catch (PatternSyntaxException e) {
+            } catch (PatternSyntaxException exception) {
                 return false;
             }
         }

@@ -16,6 +16,7 @@ public class EvaluatorEqual implements FilterEvaluator {
         return verify(value, filterValue);
     }
 
+    @SuppressWarnings("PMD.AvoidDeeplyNestedIfStmts")
     protected static boolean verify(Object value, final Object filterValue) {
         if (filterValue == null) {
             return value == null;

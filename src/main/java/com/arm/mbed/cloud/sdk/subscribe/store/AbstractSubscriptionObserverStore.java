@@ -5,8 +5,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
@@ -20,6 +22,8 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 
+@Preamble(description = "Abstract store for subscription observers")
+@Internal
 public abstract class AbstractSubscriptionObserverStore<T extends NotificationMessageValue>
         implements SubscriptionManager {
     private final SubscriptionEmitterStore<T> emitterStore;
@@ -28,6 +32,14 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
     private final SubscriptionType type;
     private final Scheduler scheduler;
 
+    /**
+     * Constructor.
+     *
+     * @param type
+     *            type of subscription.
+     * @param scheduler
+     *            scheduler to use for notification consumption.
+     */
     public AbstractSubscriptionObserverStore(SubscriptionType type, Scheduler scheduler) {
         super();
         this.type = type;
@@ -38,7 +50,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
 
     @Override
     public @Nullable List<Observer<?>> listAll() {
-        return (observerStore.isEmpty()) ? null
+        return observerStore.isEmpty() ? null
                 : Arrays.asList(observerStore.values().toArray(new Observer<?>[observerStore.values().size()]));
     }
 
@@ -123,6 +135,11 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         unsubscribe(observer.getSubscriptionType(), observer.getId());
     }
 
+    @Override
+    public Scheduler getObservedOnExecutor() {
+        return scheduler;
+    }
+
     @SuppressWarnings("unchecked")
     @Override
     public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, String channelId,
@@ -135,11 +152,6 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         } catch (ClassCastException exception) {
             // Nothing to do;
         }
-    }
-
-    @Override
-    public Scheduler getObservedOnExecutor() {
-        return scheduler;
     }
 
     /*

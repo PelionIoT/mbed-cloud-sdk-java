@@ -28,6 +28,21 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     private final String id;
     private volatile boolean isDisposed;
 
+    /**
+     * Constructor.
+     *
+     * @param manager
+     *            subscription manager.
+     * @param id
+     *            observer id.
+     * @param flow
+     *            communication channel. @see
+     *            <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html">RxJava Flowable</a>
+     * @param filter
+     *            filter to apply
+     * @param unsubscribeOnCompletion
+     *            states whether the manager should unsubscribe the observer when the communication channel is closed.
+     */
     public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter,
             boolean unsubscribeOnCompletion) {
         super();
@@ -39,11 +54,17 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
         this.flow = flow.observeOn(manager.getObservedOnExecutor()).filter(new Predicate<T>() {
 
             @Override
-            public boolean test(T t) throws Exception {
-                return verifiesFilter(t);
+            public boolean test(T value) throws Exception {
+                return verifiesFilter(value);
             }
 
-        }).doOnTerminate(new Action() {
+        }).doOnTerminate(createTerminationAction(mustUnsubscribeOnCompletion));
+        this.manager = manager;
+
+    }
+
+    private Action createTerminationAction(final boolean mustUnsubscribeOnCompletion) {
+        return new Action() {
 
             @Override
             public void run() throws Exception {
@@ -51,9 +72,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
                     unsubscribe();
                 }
             }
-        });
-        this.manager = manager;
-
+        };
     }
 
     @Override
@@ -154,7 +173,8 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
 
     protected Single<T> fetchSingle(TimePeriod timeout) throws MbedCloudException {
         try {
-            Flowable<T> oneItemFlow = (timeout == null) ? flow : flow.timeout(timeout.getDuration(), timeout.getUnit());
+            final Flowable<T> oneItemFlow = (timeout == null) ? flow
+                    : flow.timeout(timeout.getDuration(), timeout.getUnit());
             return oneItemFlow.firstOrError();
         } catch (Exception exception) {
             throw new MbedCloudException("The value could not be retrieved", exception);
@@ -177,6 +197,8 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     }
 
     /**
+     * Gets the filter applied to this channel.
+     *
      * @return the filter
      */
     public FilterOptions getFilter() {
@@ -184,12 +206,21 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     }
 
     /**
+     * Gets the callbacks applied to this channel.
+     *
      * @return callbacks
      */
     public CompositeDisposable getCallbacks() {
         return composite;
     }
 
-    protected abstract boolean verifiesFilter(T t);
+    /**
+     * Tests whether the value complies with the filter or not.
+     *
+     * @param value
+     *            notification values
+     * @return true if the notification value verifies the filter. False otherwise.
+     */
+    protected abstract boolean verifiesFilter(T value);
 
 }

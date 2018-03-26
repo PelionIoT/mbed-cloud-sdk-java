@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
@@ -20,10 +21,17 @@ import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Scheduler;
 
+@Preamble(description = "Store of all subscription observers")
 public class SubscriptionObserversStore implements CloudSubscriptionManager {
     private final Map<SubscriptionType, SubscriptionManager> store;
     private final Scheduler scheduler;
 
+    /**
+     * Constructor.
+     *
+     * @param scheduler
+     *            scheduler {@link Scheduler} the observers should use.
+     */
     public SubscriptionObserversStore(Scheduler scheduler) {
         super();
         this.scheduler = scheduler;
@@ -40,7 +48,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
                 list.addAll(sublist);
             }
         }
-        return (list.isEmpty()) ? null : list;
+        return list.isEmpty() ? null : list;
 
     }
 
@@ -83,7 +91,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll()
      */
     @Override
@@ -95,7 +103,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
      * SubscriptionType)
      */
@@ -109,7 +117,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
      * java.lang.String)
@@ -130,7 +138,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#notify(com.arm.mbed.cloud.sdk.subscribe.SubscriptionType,
      * com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)

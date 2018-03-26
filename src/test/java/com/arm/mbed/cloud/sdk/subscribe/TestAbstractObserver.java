@@ -141,7 +141,7 @@ public class TestAbstractObserver {
             assertEquals(0, obs1.numberOfCallbacks());
             assertTrue(manager.hasObservers());
             executor = Executors.newScheduledThreadPool(1);
-            int Interval = 200;
+            int Interval = 400;
             handle = executor.scheduleWithFixedDelay(new Runnable() {
 
                 private int i = 0;
@@ -228,7 +228,7 @@ public class TestAbstractObserver {
                 }
             });
             executor = Executors.newScheduledThreadPool(1);
-            int Interval = 200;
+            int Interval = 300;
             handle = executor.scheduleWithFixedDelay(new Runnable() {
 
                 private int i = 0;
@@ -493,7 +493,7 @@ public class TestAbstractObserver {
     private static class NotificationTestMessageValue implements NotificationMessageValue {
 
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 7830585451465562472L;
 
@@ -511,7 +511,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#clone()
          */
         @Override
@@ -521,7 +521,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override
@@ -617,7 +617,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObservers()
          */
         @Override
@@ -627,7 +627,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObservers(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType)
          */
@@ -639,7 +639,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObserver(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType, java.lang.String)
          */
@@ -650,7 +650,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see
          * com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#hasObserver(com.arm.mbed.cloud.sdk.subscribe.Observer)
          */
@@ -661,7 +661,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#notify(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType, com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
          */
@@ -706,7 +706,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll()
          */
         @Override
@@ -717,7 +717,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType)
          */
@@ -729,7 +729,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType, java.lang.String)
          */
@@ -771,7 +771,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll()
          */
         @Override
@@ -782,7 +782,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType)
          */
@@ -794,7 +794,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType, java.lang.String)
          */
@@ -849,7 +849,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#completeAll(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType)
          */
@@ -861,7 +861,7 @@ public class TestAbstractObserver {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#complete(com.arm.mbed.cloud.sdk.subscribe.
          * SubscriptionType, java.lang.String)
          */

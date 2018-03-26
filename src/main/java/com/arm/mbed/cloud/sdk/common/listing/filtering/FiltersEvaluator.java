@@ -11,6 +11,17 @@ public final class FiltersEvaluator {
         super();
     }
 
+    /**
+     * States whether a specific field filter is verifier by the value.
+     *
+     * @param filters
+     *            filters to consider.
+     * @param fieldName
+     *            field name on which the filter would be evaluated.
+     * @param value
+     *            value to consider.
+     * @return true if the value verifies the filter corresponding to the specified field name. False otherwise.
+     */
     public static boolean isVerified(Filters filters, String fieldName, Object value) {
         if (fieldName == null) {
             return false;
@@ -23,7 +34,7 @@ public final class FiltersEvaluator {
             return true;
         }
         boolean isVerified = true;
-        for (Filter filter : filterList) {
+        for (final Filter filter : filterList) {
             isVerified &= FilterEvaluatorFactory.isVerified(filter, value);
         }
         return isVerified;

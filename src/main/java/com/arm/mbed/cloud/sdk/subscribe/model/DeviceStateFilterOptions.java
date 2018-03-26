@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FiltersEvaluator;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 
-@Preamble(description = "Options to filter device state subscription")
+@Preamble(description = "Options to filter device state changes")
 public class DeviceStateFilterOptions extends FilterOptions {
     /**
      * Tag of filter by device id.
@@ -22,6 +22,11 @@ public class DeviceStateFilterOptions extends FilterOptions {
      */
     public static final String DEVICE_STATE_FILTER = "deviceState";
 
+    /**
+     * Creates a new filter.
+     *
+     * @return a newly created filter.
+     */
     public static DeviceStateFilterOptions newFilter() {
         return new DeviceStateFilterOptions();
     }
@@ -88,21 +93,39 @@ public class DeviceStateFilterOptions extends FilterOptions {
         return this;
     }
 
+    /**
+     * Adds an "In" filter related to device ids.
+     *
+     * @param deviceIds
+     *            device ids to consider.
+     */
     public void addInDeviceFilter(@NonNull List<String> deviceIds) {
         addInFilter(DEVICE_ID_FILTER, deviceIds);
     }
 
+    /**
+     * Adds an "In" filter related to devices.
+     *
+     * @param devices
+     *            devices to consider.
+     */
     public void addInDevicesFilter(@NonNull List<Device> devices) {
         if (devices == null) {
             return;
         }
         final List<String> values = new LinkedList<>();
-        for (Device device : devices) {
+        for (final Device device : devices) {
             values.add(device.getId());
         }
         addInDeviceFilter(values);
     }
 
+    /**
+     * Adds an "In" filter related to device ids.
+     *
+     * @param deviceIds
+     *            comma separated list of device ids.
+     */
     public void addInDevicesFilter(@NonNull String deviceIds) {
         addInFilter(DEVICE_ID_FILTER, deviceIds);
     }
@@ -122,21 +145,39 @@ public class DeviceStateFilterOptions extends FilterOptions {
         return this;
     }
 
+    /**
+     * Adds a "Not in" filter related to device ids.
+     *
+     * @param deviceIds
+     *            device ids to consider.
+     */
     public void addNotInDeviceFilter(@NonNull List<String> deviceIds) {
         addNotInFilter(DEVICE_ID_FILTER, deviceIds);
     }
 
+    /**
+     * Adds a "Not in" filter related to devices.
+     *
+     * @param devices
+     *            devices to consider.
+     */
     public void addNotInDevicesFilter(@NonNull List<Device> devices) {
         if (devices == null) {
             return;
         }
         final List<String> values = new LinkedList<>();
-        for (Device device : devices) {
+        for (final Device device : devices) {
             values.add(device.getId());
         }
         addNotInDeviceFilter(values);
     }
 
+    /**
+     * Adds a "Not in" filter related to devices.
+     *
+     * @param deviceIds
+     *            deviceIds comma separated list of device ids.
+     */
     public void addNotInDevicesFilter(@NonNull String deviceIds) {
         addNotInFilter(DEVICE_ID_FILTER, deviceIds);
     }
@@ -192,6 +233,13 @@ public class DeviceStateFilterOptions extends FilterOptions {
         return this;
     }
 
+    /**
+     * States whether the notification message verifies the filter created or not.
+     *
+     * @param notification
+     *            a notification.
+     * @return True if the filter is verified by this notification. False otherwise.
+     */
     public boolean isVerified(DeviceStateNotification notification) {
         if (notification == null) {
             return false;

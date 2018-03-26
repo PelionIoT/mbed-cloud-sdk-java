@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing.filtering;
 
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Filter evaluator factory")
@@ -9,7 +10,16 @@ public final class FilterEvaluatorFactory {
         super();
     }
 
-    public static boolean isVerified(Filter filter, Object value) {
+    /**
+     * States whether a value verifies the filter condition.
+     *
+     * @param filter
+     *            to consider.
+     * @param value
+     *            to consider.
+     * @return True if the value verifies the filter condition. False otherwise.
+     */
+    public static boolean isVerified(@Nullable Filter filter, @Nullable Object value) {
         if (filter == null) {
             return true;
         }

@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
@@ -10,6 +12,8 @@ import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 
+@Preamble(description = "Store for device state changes observers")
+@Internal
 public class DeviceStateChangeSubscriptionObserverStore
         extends AbstractSubscriptionObserverStore<DeviceStateNotification> {
 

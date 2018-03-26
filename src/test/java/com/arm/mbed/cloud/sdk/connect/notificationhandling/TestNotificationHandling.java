@@ -71,7 +71,7 @@ public class TestNotificationHandling {
             store.deregisterNotificationSubscriptionCallback(new Resource(deviceId, "/3200/0/5502"));
             store.removeResourceSubscriptionObserver(new Resource(deviceId, "/3200/0/5503"));
 
-            int Interval = 50;
+            int Interval = 100;
             handle = executor.scheduleWithFixedDelay(new Runnable() {
                 List<String> payloadList = Arrays.asList(payloads);
                 private int i = 0;
@@ -164,7 +164,7 @@ public class TestNotificationHandling {
                     receivedNotifications.add(arg);
                 }
             }, null));
-            int Interval = 200;
+            int Interval = 300;
             handle = executor.scheduleWithFixedDelay(new Runnable() {
 
                 private int i = 0;

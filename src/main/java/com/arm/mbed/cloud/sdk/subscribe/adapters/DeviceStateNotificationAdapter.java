@@ -190,7 +190,7 @@ public final class DeviceStateNotificationAdapter {
         if (sublist != null) {
             deviceStateNotifications.addAll(sublist);
         }
-        return (deviceStateNotifications.isEmpty()) ? null : deviceStateNotifications;
+        return deviceStateNotifications.isEmpty() ? null : deviceStateNotifications;
     }
 
     /**

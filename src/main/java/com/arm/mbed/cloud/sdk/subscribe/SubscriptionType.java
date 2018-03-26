@@ -4,6 +4,17 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Type of subscription")
 public enum SubscriptionType {
-    DEVICE_STATE_CHANGE, NOTIFICATION, ASYNCHRONOUS_RESPONSE
+    /**
+     * Subscription to notifications related to device state changes.
+     */
+    DEVICE_STATE_CHANGE,
+    /**
+     * Subscription to notifications related to sensor value changes.
+     */
+    NOTIFICATION,
+    /**
+     * Subscription to Cloud asynchronous responses such as sensor current value.
+     */
+    ASYNCHRONOUS_RESPONSE
 
 }

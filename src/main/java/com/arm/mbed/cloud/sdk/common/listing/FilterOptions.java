@@ -28,7 +28,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param filter
      *            to set
      */
@@ -40,7 +40,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Gets the filter.
-     * 
+     *
      * @return the filters
      */
     public Filters getFilter() {
@@ -49,7 +49,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Sets the filters.
-     * 
+     *
      * @param filters
      *            the filters to set
      */
@@ -61,7 +61,7 @@ public class FilterOptions implements Cloneable {
      * Sets the filters.
      * <p>
      * Prefer using {@link #setFilters(Filters)} or {@link #setFiltersFromJson(String)} to set filters.
-     * 
+     *
      * @param filter
      *            filters expressed as a Json hashtable (key,value)
      */
@@ -72,7 +72,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Sets the filter from a Json string.
-     * 
+     *
      * @see FilterMarshaller#fromJson(String) for more information regarding Json accepted format
      * @param jsonString
      *            Json string defining filters
@@ -83,7 +83,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Gets the filter as Json String.
-     * 
+     *
      * @see FilterMarshaller#toJson(Filters) for more information regarding Json filter format
      * @return the filter as a Json string
      */
@@ -93,7 +93,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a filter to the query.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param operator
@@ -107,7 +107,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a filter to the query.
-     * 
+     *
      * @param subfilter
      *            filter to apply.
      */
@@ -123,7 +123,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a custom filter to the query.
-     * 
+     *
      * @param customAttribute
      *            custom attribute to apply the filter on
      * @param operator
@@ -155,7 +155,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Clones the options.
-     * 
+     *
      * @return a clone.
      */
     @Override
@@ -165,7 +165,7 @@ public class FilterOptions implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -175,7 +175,7 @@ public class FilterOptions implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -188,7 +188,7 @@ public class FilterOptions implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -202,7 +202,7 @@ public class FilterOptions implements Cloneable {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        FilterOptions other = (FilterOptions) obj;
+        final FilterOptions other = (FilterOptions) obj;
         if (filter == null) {
             if (other.filter != null) {
                 return false;
@@ -215,7 +215,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "like" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param value
@@ -227,7 +227,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "not equal" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param value
@@ -239,7 +239,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds an "in" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param values
@@ -253,7 +253,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds an "in" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param values
@@ -265,7 +265,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "not in" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param values
@@ -279,7 +279,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "not in" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param values
@@ -291,7 +291,7 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds an "equal" filter.
-     * 
+     *
      * @param fieldName
      *            field name to apply the filter on
      * @param value

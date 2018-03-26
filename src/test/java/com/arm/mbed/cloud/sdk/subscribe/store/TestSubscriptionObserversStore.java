@@ -77,7 +77,7 @@ public class TestSubscriptionObserversStore {
                 }
             }, null));
             executor = Executors.newScheduledThreadPool(1);
-            int Interval = 100;
+            int Interval = 300;
             handle = executor.scheduleWithFixedDelay(new Runnable() {
 
                 private int i = 0;
