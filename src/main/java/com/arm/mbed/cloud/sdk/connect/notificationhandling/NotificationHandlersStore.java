@@ -577,7 +577,7 @@ public class NotificationHandlersStore {
         }
 
         public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(BackpressureStrategy strategy) {
-            emitter = new NotificationEmitter();
+            emitter = new NotificationEmitter<>();
             return emitter.create(strategy);
         }
 

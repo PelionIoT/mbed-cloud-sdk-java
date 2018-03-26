@@ -162,7 +162,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
      * com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
      */
     @Override
-    public <T extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, T value)
+    public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, U value)
             throws MbedCloudException {
         notify(subscriptionType, new NotificationMessage<>(value, null));
     }
