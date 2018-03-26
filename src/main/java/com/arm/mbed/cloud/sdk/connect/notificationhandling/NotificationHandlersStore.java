@@ -22,6 +22,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
@@ -48,6 +49,8 @@ import retrofit2.Call;
 @Preamble(description = "Internal store for notification handlers")
 @Internal
 public class NotificationHandlersStore {
+
+    private static final int IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS = 50;
 
     private static final TimePeriod REQUEST_TIMEOUT = new TimePeriod(50);
 
@@ -110,8 +113,8 @@ public class NotificationHandlersStore {
         final Runnable cachingSingleAction = createCachingSingleAction();
         pullHandle = null;
         if (pullThreads instanceof ScheduledExecutorService) {
-            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(cachingSingleAction, 0, 50,
-                    TimeUnit.MILLISECONDS);
+            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(cachingSingleAction, 0,
+                    IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS, TimeUnit.MILLISECONDS);
         } else {
             pullHandle = pullThreads.submit(new Runnable() {
 
@@ -119,6 +122,12 @@ public class NotificationHandlersStore {
                 public void run() {
                     while (true) {
                         cachingSingleAction.run();
+                        try {
+                            // Sleeping between calls
+                            Thread.sleep(IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS);
+                        } catch (InterruptedException exception) {
+                            logPullError(exception);
+                        }
                     }
 
                 }
@@ -313,6 +322,8 @@ public class NotificationHandlersStore {
 
     private Runnable createCachingSingleAction() {
         return new Runnable() {
+            private final ExponentialBackoff backoffPolicy = new ExponentialBackoff(api.getLogger());
+
             @Override
             public void run() {
                 try {
@@ -336,11 +347,62 @@ public class NotificationHandlersStore {
                     handleDeviceStateChanges(notificationMessage);
 
                 } catch (MbedCloudException exception) {
+                    backoffPolicy.backoff();
                     logPullError(exception);
                 }
             }
 
         };
+    }
+
+    /**
+     * BackOff that increases the back off period for each retry attempt using a randomization function that grows
+     * exponentially.
+     *
+     * @see https://developers.google.com/api-client-library/java/google-http-java-client/reference/1.20.0/com/google/api/client/util/ExponentialBackOff
+     *
+     */
+    private static class ExponentialBackoff {
+        private static final double RANDOMISATION_FACTOR = 0.5d;
+        private static final double MULTIPLIER = 1.5d;
+        private volatile int i;
+        private volatile double currentIntervalCentre;
+        private final SdkLogger logger;
+
+        public ExponentialBackoff(SdkLogger logger) {
+            super();
+            reset();
+            this.logger = logger;
+        }
+
+        public void reset() {
+            i = 0;
+            currentIntervalCentre = 500;
+        }
+
+        public void backoff() {
+            if (i == 0) {
+                i++;
+                return;
+            }
+            if (i > 10) {
+                // Start over.
+                reset();
+            }
+            double delta = RANDOMISATION_FACTOR * currentIntervalCentre;
+            double minInterval = currentIntervalCentre - delta;
+            double maxInterval = currentIntervalCentre + delta;
+            currentIntervalCentre *= MULTIPLIER;
+            long currentIdleTime = (long) (minInterval + (Math.random() * (maxInterval - minInterval + 1)));
+            logger.logInfo("Backoff policy: Waiting [" + currentIdleTime + " ms] before next call");
+            try {
+                Thread.sleep(currentIdleTime);
+            } catch (InterruptedException exception) {
+                logger.logError("An error occurred during Notification pull", exception);
+            }
+            i++;
+        }
+
     }
 
     private void clearStores() {
