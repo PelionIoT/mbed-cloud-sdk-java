@@ -48,7 +48,7 @@
 <span class="sourceLineNo">040</span>            String certificateFingerprint = UUID.randomUUID().toString();<a name="line.40"></a>
 <span class="sourceLineNo">041</span>            log("Certificate Fingerprint", certificateFingerprint);<a name="line.41"></a>
 <span class="sourceLineNo">042</span>            Device myDevice = new Device(certificateIssuerId, certificateFingerprint);<a name="line.42"></a>
-<span class="sourceLineNo">043</span>            myDevice.setName("my-test-device");<a name="line.43"></a>
+<span class="sourceLineNo">043</span>            myDevice.setName("my-test-device-" + UUID.randomUUID().toString());<a name="line.43"></a>
 <span class="sourceLineNo">044</span>            myDevice.setDeviceExecutionMode(1);<a name="line.44"></a>
 <span class="sourceLineNo">045</span>            // Adding the device.<a name="line.45"></a>
 <span class="sourceLineNo">046</span>            myDevice = api.addDevice(myDevice);<a name="line.46"></a>
@@ -111,7 +111,7 @@
 <span class="sourceLineNo">103</span>            log("Retrieved query", myQuery);<a name="line.103"></a>
 <span class="sourceLineNo">104</span>            // Finding the first 5 devices corresponding to the query.<a name="line.104"></a>
 <span class="sourceLineNo">105</span>            DeviceListOptions options = new DeviceListOptions();<a name="line.105"></a>
-<span class="sourceLineNo">106</span>            options.setFilter(myQuery.fetchFilter());<a name="line.106"></a>
+<span class="sourceLineNo">106</span>            options.setFilters(myQuery.fetchFilters());<a name="line.106"></a>
 <span class="sourceLineNo">107</span>            options.setLimit(5);<a name="line.107"></a>
 <span class="sourceLineNo">108</span>            ListResponse&lt;Device&gt; matchingDevices = api.listDevices(options);<a name="line.108"></a>
 <span class="sourceLineNo">109</span>            for (Device device : matchingDevices.getData()) {<a name="line.109"></a>
@@ -219,7 +219,7 @@
 <span class="sourceLineNo">211</span>            // Defining query options.<a name="line.211"></a>
 <span class="sourceLineNo">212</span>            DeviceEventListOptions options = new DeviceEventListOptions();<a name="line.212"></a>
 <span class="sourceLineNo">213</span>            options.setLimit(5);<a name="line.213"></a>
-<span class="sourceLineNo">214</span>            // Listing device events.<a name="line.214"></a>
+<span class="sourceLineNo">214</span>            // Listing device events in a page.<a name="line.214"></a>
 <span class="sourceLineNo">215</span>            ListResponse&lt;DeviceEvent&gt; events = api.listDeviceEvents(options);<a name="line.215"></a>
 <span class="sourceLineNo">216</span>            for (DeviceEvent event : events.getData()) {<a name="line.216"></a>
 <span class="sourceLineNo">217</span>                log("Device event", event);<a name="line.217"></a>

@@ -1,0 +1,1 @@
+Exponential backoff in case of request call failure during notification pull was implemented.

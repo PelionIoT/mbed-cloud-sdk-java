@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.internal.iam.api;
 
 import com.arm.mbed.cloud.sdk.internal.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -231,6 +232,17 @@ public class DeveloperApiTest {
         String include = null;
         String properties = null;
         // AccountInfo response = api.getMyAccountInfo(include, properties);
+
+        // TODO: test validations
+    }
+    /**
+     * Get accounts of the user.
+     *
+     * An endpoint for retrieving the accounts of the logged in user.
+     */
+    @Test
+    public void getMyAccountsTest() {
+        // AccountResponseList response = api.getMyAccounts();
 
         // TODO: test validations
     }
