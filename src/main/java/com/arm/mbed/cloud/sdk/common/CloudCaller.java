@@ -54,7 +54,7 @@ public class CloudCaller<T, U> {
      * Executes a call to Arm Mbed Cloud.
      * <p>
      * Note: call metadata are recorded
-     * 
+     *
      * @param module
      *            API module
      * @param functionName
@@ -63,7 +63,7 @@ public class CloudCaller<T, U> {
      *            object mapper
      * @param caller
      *            request
-     * 
+     *
      * @param <T>
      *            type of HTTP response object.
      * @param <U>
@@ -81,7 +81,7 @@ public class CloudCaller<T, U> {
      * Executes a call to Arm Mbed Cloud.
      * <p>
      * Note: call metadata are recorded
-     * 
+     *
      * @param module
      *            API module
      * @param functionName
@@ -107,7 +107,7 @@ public class CloudCaller<T, U> {
 
     /**
      * Executes a call to Arm Mbed Cloud.
-     * 
+     *
      * @param module
      *            API module
      * @param functionName
@@ -136,7 +136,7 @@ public class CloudCaller<T, U> {
 
     /**
      * Executes a call to Arm Mbed Cloud.
-     * 
+     *
      * @param module
      *            API module
      * @param functionName
@@ -165,7 +165,7 @@ public class CloudCaller<T, U> {
 
     /**
      * Stores API Metadata to the module.
-     * 
+     *
      * @param module
      *            module.
      * @param metadata
@@ -177,16 +177,18 @@ public class CloudCaller<T, U> {
 
     /**
      * Executes a call to Arm Mbed Cloud.
-     * 
+     *
      * @return result objects of type U
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
     public CallFeedback<U> execute() throws MbedCloudException {
+        Call<T> call = null;
         try {
             logger.logInfo("Calling Arm Mbed Cloud API: " + apiName);
             clearPreviousApiMetadata();
-            final Response<T> response = caller.call().execute();
+            call = caller.call();
+            final Response<T> response = call.execute();
             final CallFeedback<U> comms = new CallFeedback<>(logger);
             comms.setMetadataFromResponse(response);
             if (storeMetadata) {
@@ -196,14 +198,22 @@ public class CloudCaller<T, U> {
             comms.setResultFromResponse(mapper, response);
             return comms;
         } catch (Exception exception) {
-            logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]", exception);
+            Exception detailedException = exception;
+            if (call != null) {
+                if (call.isCanceled()) {
+                    detailedException = new Exception("the call to Mbed Cloud has been cancelled.", exception);
+                }
+                call.cancel();
+            }
+            logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]",
+                    detailedException);
         }
         return null;
     }
 
     /**
      * Stores API metadata.
-     * 
+     *
      * @param metadata
      *            API metadata
      */
@@ -301,9 +311,9 @@ public class CloudCaller<T, U> {
     }
 
     /**
-     * 
+     *
      * Defines a call (Metadata + response) of a call to Arm Mbed Cloud.
-     * 
+     *
      * @param <U>
      *            type of the result object
      */
@@ -314,7 +324,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Constructor.
-         * 
+         *
          * @param logger
          *            logger
          */
@@ -325,7 +335,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Gets call metadata.
-         * 
+         *
          * @see ApiMetadata
          * @return the metadata
          */
@@ -335,7 +345,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Gets call result.
-         * 
+         *
          * @return the result
          */
         public U getResult() {
@@ -344,7 +354,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Sets call metadata.
-         * 
+         *
          * @see ApiMetadata
          * @param metadata
          *            the metadata to set
@@ -355,7 +365,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Sets call result.
-         * 
+         *
          * @param result
          *            the result to set
          */
@@ -365,7 +375,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Sets result from an HTTP response.
-         * 
+         *
          * @param mapper
          *            object mapper
          * @param <T>
@@ -379,7 +389,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Sets metadata from an HTTP response.
-         * 
+         *
          * @param <T>
          *            type of the result
          * @param response
@@ -391,7 +401,7 @@ public class CloudCaller<T, U> {
 
         /**
          * Sets error message.
-         * 
+         *
          * @param error
          *            error message @see Error
          */
