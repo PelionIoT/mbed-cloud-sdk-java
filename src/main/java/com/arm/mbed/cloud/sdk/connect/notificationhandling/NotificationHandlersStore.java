@@ -365,7 +365,7 @@ public class NotificationHandlersStore {
     private static class ExponentialBackoff {
         private static final double RANDOMISATION_FACTOR = 0.5d;
         private static final double MULTIPLIER = 1.5d;
-        private volatile int i;
+        private volatile int callIndex;
         private volatile double currentIntervalCentre;
         private final SdkLogger logger;
 
@@ -376,31 +376,31 @@ public class NotificationHandlersStore {
         }
 
         public void reset() {
-            i = 0;
+            callIndex = 0;
             currentIntervalCentre = 500;
         }
 
         public void backoff() {
-            if (i == 0) {
-                i++;
+            if (callIndex == 0) {
+                callIndex++;
                 return;
             }
-            if (i > 10) {
+            if (callIndex > 10) {
                 // Start over.
                 reset();
             }
-            double delta = RANDOMISATION_FACTOR * currentIntervalCentre;
-            double minInterval = currentIntervalCentre - delta;
-            double maxInterval = currentIntervalCentre + delta;
+            final double delta = RANDOMISATION_FACTOR * currentIntervalCentre;
+            final double minInterval = currentIntervalCentre - delta;
+            final double maxInterval = currentIntervalCentre + delta;
             currentIntervalCentre *= MULTIPLIER;
-            long currentIdleTime = (long) (minInterval + (Math.random() * (maxInterval - minInterval + 1)));
+            final long currentIdleTime = (long) (minInterval + Math.random() * (maxInterval - minInterval + 1));
             logger.logInfo("Backoff policy: Waiting [" + currentIdleTime + " ms] before next call");
             try {
                 Thread.sleep(currentIdleTime);
             } catch (InterruptedException exception) {
                 logger.logError("An error occurred during Notification pull", exception);
             }
-            i++;
+            callIndex++;
         }
 
     }
