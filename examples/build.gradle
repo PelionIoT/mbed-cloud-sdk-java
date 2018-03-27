@@ -34,8 +34,8 @@ dependencies {
 }
 compileJava {
     // Java SDK compatibility
-    sourceCompatibility JavaVersion.VERSION_1_7.toString()
-    targetCompatibility JavaVersion.VERSION_1_7.toString()
+    sourceCompatibility JavaVersion.VERSION_1_8.toString()
+    targetCompatibility JavaVersion.VERSION_1_8.toString()
 
     options.compilerArgs += ["-deprecation", "-parameters"]
     options.fork = true

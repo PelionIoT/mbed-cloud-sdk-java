@@ -15,11 +15,11 @@
 <span class="sourceLineNo">007</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKey;<a name="line.7"></a>
 <span class="sourceLineNo">008</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.ApiKeyListOptions;<a name="line.8"></a>
 <span class="sourceLineNo">009</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.Group;<a name="line.9"></a>
-<span class="sourceLineNo">010</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.User;<a name="line.10"></a>
-<span class="sourceLineNo">011</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.UserListOptions;<a name="line.11"></a>
-<span class="sourceLineNo">012</span>import com.arm.mbed.cloud.sdk.common.ConnectionOptions;<a name="line.12"></a>
-<span class="sourceLineNo">013</span>import com.arm.mbed.cloud.sdk.common.Order;<a name="line.13"></a>
-<span class="sourceLineNo">014</span>import com.arm.mbed.cloud.sdk.common.listing.ListOptions;<a name="line.14"></a>
+<span class="sourceLineNo">010</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.GroupListOptions;<a name="line.10"></a>
+<span class="sourceLineNo">011</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.User;<a name="line.11"></a>
+<span class="sourceLineNo">012</span>import com.arm.mbed.cloud.sdk.accountmanagement.model.UserListOptions;<a name="line.12"></a>
+<span class="sourceLineNo">013</span>import com.arm.mbed.cloud.sdk.common.ConnectionOptions;<a name="line.13"></a>
+<span class="sourceLineNo">014</span>import com.arm.mbed.cloud.sdk.common.Order;<a name="line.14"></a>
 <span class="sourceLineNo">015</span>import com.arm.mbed.cloud.sdk.common.listing.ListResponse;<a name="line.15"></a>
 <span class="sourceLineNo">016</span>import com.arm.mbed.cloud.sdk.common.listing.Paginator;<a name="line.16"></a>
 <span class="sourceLineNo">017</span><a name="line.17"></a>
@@ -58,8 +58,8 @@
 <span class="sourceLineNo">050</span>            ApiKeyListOptions options = new ApiKeyListOptions();<a name="line.50"></a>
 <span class="sourceLineNo">051</span>            options.setLimit(5);<a name="line.51"></a>
 <span class="sourceLineNo">052</span>            // Listing API keys.<a name="line.52"></a>
-<span class="sourceLineNo">053</span>            ListResponse&lt;ApiKey&gt; apikeys = api.listApiKeys(options);<a name="line.53"></a>
-<span class="sourceLineNo">054</span>            for (ApiKey apiKey : apikeys.getData()) {<a name="line.54"></a>
+<span class="sourceLineNo">053</span>            Paginator&lt;ApiKey&gt; apikeys = api.listAllApiKeys(options);<a name="line.53"></a>
+<span class="sourceLineNo">054</span>            for (ApiKey apiKey : apikeys) {<a name="line.54"></a>
 <span class="sourceLineNo">055</span>                log("API key", apiKey);<a name="line.55"></a>
 <span class="sourceLineNo">056</span>            }<a name="line.56"></a>
 <span class="sourceLineNo">057</span>        } catch (Exception e) {<a name="line.57"></a>
@@ -78,7 +78,7 @@
 <span class="sourceLineNo">070</span>        AccountManagement api = new AccountManagement(config);<a name="line.70"></a>
 <span class="sourceLineNo">071</span>        try {<a name="line.71"></a>
 <span class="sourceLineNo">072</span>            // Defining query options<a name="line.72"></a>
-<span class="sourceLineNo">073</span>            ListOptions options = new ListOptions();<a name="line.73"></a>
+<span class="sourceLineNo">073</span>            GroupListOptions options = new GroupListOptions();<a name="line.73"></a>
 <span class="sourceLineNo">074</span>            options.setLimit(5);<a name="line.74"></a>
 <span class="sourceLineNo">075</span>            options.setOrder(Order.DESC);<a name="line.75"></a>
 <span class="sourceLineNo">076</span>            // Listing groups.<a name="line.76"></a>
@@ -113,8 +113,8 @@
 <span class="sourceLineNo">105</span>            UserListOptions options = new UserListOptions();<a name="line.105"></a>
 <span class="sourceLineNo">106</span>            options.setLimit(5);<a name="line.106"></a>
 <span class="sourceLineNo">107</span>            // Listing users.<a name="line.107"></a>
-<span class="sourceLineNo">108</span>            ListResponse&lt;User&gt; users = api.listUsers(options);<a name="line.108"></a>
-<span class="sourceLineNo">109</span>            for (User user : users.getData()) {<a name="line.109"></a>
+<span class="sourceLineNo">108</span>            Paginator&lt;User&gt; users = api.listAllUsers(options);<a name="line.108"></a>
+<span class="sourceLineNo">109</span>            for (User user : users) {<a name="line.109"></a>
 <span class="sourceLineNo">110</span>                log("User", user);<a name="line.110"></a>
 <span class="sourceLineNo">111</span>            }<a name="line.111"></a>
 <span class="sourceLineNo">112</span>        } catch (Exception e) {<a name="line.112"></a>
