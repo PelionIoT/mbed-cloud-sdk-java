@@ -25,6 +25,9 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
+import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.functions.Consumer;
@@ -395,6 +398,49 @@ public class ConnectExamples extends AbstractExample {
             // Listening to notifications for 2 minutes.
             api.startNotifications();
             Thread.sleep(120000);
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logError("last API Metadata", api.getLastApiMetadata());
+            try {
+                api.stopNotifications();
+                Thread.sleep(100);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            api.shutdownConnectService();
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Subscribes to device state changes.
+     * <p>
+     * Note: This example introduces new high level abstraction objects such as Observer
+     */
+
+    @Example
+    public void subscribeToDeviceStateChanges() {
+        ConnectionOptions config = Configuration.get();
+        Connect api = new Connect(config);
+        try {
+            // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
+            // devices which are newly registered or expired.
+            // For more information about backpressure strategies, please have a look at related documentation:
+            // https://github.com/ReactiveX/RxJava/wiki/Backpressure
+            DeviceStateObserver observer = api.subscribe().deviceState(
+                    DeviceStateFilterOptions.newFilter().likeDevice("016%")
+                            .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION, DeviceState.EXPIRED_REGISTRATION)),
+                    BackpressureStrategy.BUFFER);
+            // Printing device changes when they happen.
+            observer.flow().subscribe(System.out::println);
+            // Listening to device state changes for 2 minutes.
+            Thread.sleep(120000);
+
             // Stopping notification pull channel.
             api.stopNotifications();
             Thread.sleep(100);

@@ -44,9 +44,11 @@
         <properties>
             <!-- ignore this run on methods: equals and hashCode and mapList -->
             <property name="violationSuppressXPath"
-                value="./MethodDeclarator[@Image='hashCode' or @Image='equals' or @Image='mapList']" />
+                value="./MethodDeclarator[@Image='hashCode' or @Image='equals' or @Image='mapList' or @Image='isVerified']" />
         </properties>
     </rule>
+
+
 
     <rule ref="rulesets/java/design.xml">
         <exclude name="AvoidSynchronizedAtMethodLevel" />
@@ -55,6 +57,7 @@
         <exclude name="ConstructorCallsOverridableMethod" />
     </rule>
     <rule ref="rulesets/java/migrating.xml">
+        <exclude name="JUnit4TestShouldUseTestAnnotation" />
     </rule>
     <rule ref="rulesets/java/naming.xml">
         <exclude name="AvoidFieldNameMatchingMethodName" />
@@ -67,6 +70,7 @@
         <exclude name="MethodArgumentCouldBeFinal" />
     </rule>
     <rule ref="rulesets/java/strictexception.xml">
+        <exclude name="SignatureDeclareThrowsException"/>
         <exclude name="AvoidCatchingGenericException" />
         <exclude name="AvoidThrowingRawExceptionTypes" />
     </rule>

@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.connect.notificationhandling;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
@@ -31,17 +30,22 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncIDResponse;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationEmitter;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
+import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
 import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
 import com.mbed.lwm2m.base64.Base64Decoder;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
-import io.reactivex.FlowableEmitter;
-import io.reactivex.FlowableOnSubscribe;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
-@Preamble(description = "Internal store for notifications")
+@Preamble(description = "Internal store for notification handlers")
 @Internal
 public class NotificationHandlersStore {
 
@@ -55,6 +59,7 @@ public class NotificationHandlersStore {
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseStore;
     private final DevicesSubscriptionHandlers subscriptionHandlers;
+    private final SubscriptionObserversStore observerStore;
 
     /**
      * Notification store constructor.
@@ -65,8 +70,11 @@ public class NotificationHandlersStore {
      *            thread pool
      * @param endpoint
      *            endpoint
+     * @param subscriptionHandlingExecutor
+     *            subscription handling executor
      */
-    public NotificationHandlersStore(AbstractApi api, ExecutorService pullingThread, EndPoints endpoint) {
+    public NotificationHandlersStore(AbstractApi api, ExecutorService pullingThread,
+            ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);
@@ -74,6 +82,8 @@ public class NotificationHandlersStore {
         pullHandle = null;
         responseStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
         subscriptionHandlers = new DevicesSubscriptionHandlers();
+        observerStore = new SubscriptionObserversStore((subscriptionHandlingExecutor == null) ? Schedulers.computation()
+                : Schedulers.from(subscriptionHandlingExecutor));
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -83,6 +93,10 @@ public class NotificationHandlersStore {
         final ConnectionOptions options = endpoint2.getConnectionOptions();
         options.setRequestTimeout(REQUEST_TIMEOUT);
         return new EndPoints(options);
+    }
+
+    public CloudSubscriptionManager getSubscriptionManager() {
+        return observerStore;
     }
 
     /**
@@ -166,7 +180,7 @@ public class NotificationHandlersStore {
      *            backpressure strategy to apply @see {@link BackpressureStrategy}
      * @return Observable which can be subscribed to. @see {@link Flowable}
      */
-    public @Nullable Flowable<Object> createResourceSubscriptionObserver(Resource resource,
+    public @Nullable Flowable<NotificationMessageValue> createResourceSubscriptionObserver(Resource resource,
             BackpressureStrategy strategy) {
         return subscriptionHandlers.createResourceSubscriptionEmitter(resource, strategy);
     }
@@ -219,7 +233,9 @@ public class NotificationHandlersStore {
         if (data == null) {
             return;
         }
+        storeResponses(data.getAsyncResponses());
         handleSubscriptions(data.getNotifications());
+        handleDeviceStateChanges(data);
     }
 
     /**
@@ -317,17 +333,43 @@ public class NotificationHandlersStore {
                     }
                     storeResponses(notificationMessage.getAsyncResponses());
                     handleSubscriptions(notificationMessage.getNotifications());
+                    handleDeviceStateChanges(notificationMessage);
 
                 } catch (MbedCloudException exception) {
                     logPullError(exception);
                 }
             }
+
         };
     }
 
     private void clearStores() {
         responseStore.clear();
         subscriptionHandlers.clear();
+    }
+
+    private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
+        handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notificationMessage,
+                DeviceStateNotificationAdapter.getNotificationMessageMapper());
+    }
+
+    private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
+            NotificationMessage message, Mapper<NotificationMessage, List<T>> mapper) {
+        if (message == null || mapper == null || type == null) {
+            return;
+        }
+        final List<T> notifications = mapper.map(message);
+        if (notifications == null) {
+            return;
+        }
+        for (final T notification : notifications) {
+            try {
+                observerStore.notify(type, notification);
+            } catch (MbedCloudException exception) {
+                logNotificationError(exception);
+
+            }
+        }
     }
 
     private void handleSubscriptions(List<NotificationData> notifications) {
@@ -515,39 +557,9 @@ public class NotificationHandlersStore {
 
     }
 
-    private static class NotificationEmitter {
-
-        private final List<FlowableEmitter<Object>> emitters = new LinkedList<>();
-
-        public Flowable<Object> create(BackpressureStrategy strategy) {
-
-            final FlowableOnSubscribe<Object> source = new FlowableOnSubscribe<Object>() {
-
-                @Override
-                public void subscribe(FlowableEmitter<Object> emitter) {
-                    emitters.add(emitter);
-
-                }
-            };
-            return Flowable.create(source, strategy);
-        }
-
-        public void emit(Object notification, Throwable throwable) {
-            if (throwable == null) {
-                for (final FlowableEmitter<Object> emitter : emitters) {
-                    emitter.onNext(notification);
-                }
-            } else {
-                for (final FlowableEmitter<Object> emitter : emitters) {
-                    emitter.onError(throwable);
-                }
-            }
-        }
-    }
-
     private static class NotificationHandler {
         private NotificationCallBack callback;
-        private NotificationEmitter emitter;
+        private NotificationEmitter<NotificationMessageValue> emitter;
 
         public NotificationHandler() {
             super();
@@ -564,8 +576,8 @@ public class NotificationHandlersStore {
             callback = null;
         }
 
-        public Flowable<Object> createResourceSubscriptionEmitter(BackpressureStrategy strategy) {
-            emitter = new NotificationEmitter();
+        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(BackpressureStrategy strategy) {
+            emitter = new NotificationEmitter<>();
             return emitter.create(strategy);
         }
 
@@ -581,7 +593,7 @@ public class NotificationHandlersStore {
             }
             synchronized (this) {
                 if (emitter != null) {
-                    emitter.emit(notification, throwable);
+                    emitter.emit(new NotificationValue(notification), throwable);
                 }
             }
         }
@@ -627,7 +639,8 @@ public class NotificationHandlersStore {
 
         }
 
-        public Flowable<Object> createResourceSubscriptionEmitter(String resourcePath, BackpressureStrategy strategy) {
+        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(String resourcePath,
+                BackpressureStrategy strategy) {
             if (resourcePath == null) {
                 return null;
             }
@@ -712,7 +725,8 @@ public class NotificationHandlersStore {
 
         }
 
-        public Flowable<Object> createResourceSubscriptionEmitter(Resource resource, BackpressureStrategy strategy) {
+        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(Resource resource,
+                BackpressureStrategy strategy) {
             if (resource == null || !resource.isValid()) {
                 return null;
             }
@@ -753,4 +767,5 @@ public class NotificationHandlersStore {
             store.clear();
         }
     }
+
 }
