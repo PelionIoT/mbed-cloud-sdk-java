@@ -1,5 +1,13 @@
 # Changelog
 
+The SDK source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
+
+This news file contains a log of notable changes to the SDK. Built artefacts, including previous versions, can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
+
+[//]: # (begin_release_notes)
+
+# Older Releases:
+
 ## 1.2.6
 ![Status](https://img.shields.io/badge/status-beta-orange.svg)
 ### Deliverables
