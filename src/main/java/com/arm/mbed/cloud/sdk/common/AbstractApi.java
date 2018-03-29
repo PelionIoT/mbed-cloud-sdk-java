@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.util.Map;
+
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -15,13 +17,25 @@ public abstract class AbstractApi {
 
     /**
      * Constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}
      */
     public AbstractApi(ConnectionOptions options) {
+        this(options, null);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param options
+     *            connection options @see {@link ConnectionOptions}
+     * @param userAgentExtension
+     *            extension list for the user agent: module name -> module version
+     */
+    public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
         super();
-        this.client = new ApiClientWrapper(options);
+        this.client = new ApiClientWrapper(options, userAgentExtension);
         logger = new SdkLogger();
         metadataCache = new ApiMetadataCache();
     }
@@ -38,7 +52,7 @@ public abstract class AbstractApi {
 
     /**
      * Gets SDK logger.
-     * 
+     *
      * @see SdkLogger
      * @return the logger.
      */
@@ -48,7 +62,7 @@ public abstract class AbstractApi {
 
     /**
      * Gets meta data for the last Arm Mbed Cloud API call.
-     * 
+     *
      * @see ApiMetadata
      * @return metadata
      */
@@ -69,7 +83,7 @@ public abstract class AbstractApi {
 
     /**
      * Gets the SDK module name.
-     * 
+     *
      * @return module name.
      */
     public abstract String getModuleName();

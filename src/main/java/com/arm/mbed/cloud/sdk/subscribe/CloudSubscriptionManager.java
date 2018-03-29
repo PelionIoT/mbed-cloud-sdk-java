@@ -15,7 +15,7 @@ public interface CloudSubscriptionManager extends SubscriptionManager {
      * Creates an observer {@link Observer } which listens to device state changes that verify the filter.
      *
      * @param filter
-     *            to apply for this channel.
+     *            filter to apply for this channel.
      * @param strategy
      *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
      * @return a registered observer which listens to some device state changes.
