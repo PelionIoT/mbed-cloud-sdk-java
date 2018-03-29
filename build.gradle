@@ -480,6 +480,7 @@ task shadowTestJar(type: Jar) {
     }
     baseName = project.name + '-test-full'
     from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     from sourceSets.test.output
     with jar
     doLast {
