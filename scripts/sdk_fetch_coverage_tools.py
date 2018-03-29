@@ -38,7 +38,7 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
         return self.check_whether_coverage_result_folder_has_been_created() and self.check_whether_tools_have_been_copied()
 
     def determine_cli_tool_url(self):
-        snapshot_url = 'https://oss.sonatype.org/content/repositories/snapshots/org/jacoco/org.jacoco.cli/0.7.10-SNAPSHOT/'
+        snapshot_url = 'http://central.maven.org/maven2/org/jacoco/org.jacoco.cli/0.8.1/'
         res = requests.get(snapshot_url)
         if res.status_code != requests.codes.ok:
             return None
@@ -53,19 +53,19 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
                 self.log_info("Retrieving code coverage tools")
                 if not self.has_already_been_run():
                     self.execute_gradle_task("copyCoverageAgent")
-                    # TODO the following should be removed when jacoco cli is actually available on official Maven central
-                    self.log_info("Fetching Jacoco CLI")
-                    code_coverage_tools_dir = self.retrieve_folder_location('SDK_COVERAGE_TOOLS_DIR')
-                    jacococli_path = os.path.join(code_coverage_tools_dir, self.jacoco_cli_name)
-                    if not os.path.exists(jacococli_path):
-                        cli_url = self.determine_cli_tool_url()
-                        if not cli_url:
-                            cli_url = 'https://oss.sonatype.org/content/repositories/snapshots/org/jacoco/org.jacoco.cli/0.7.10-SNAPSHOT/org.jacoco.cli-0.7.10-20171021.210044-41-nodeps.jar'
-                        arguments = ['wget', cli_url, '--no-check-certificate', '-O', self.jacoco_cli_name]
-                        return_code = self.call_command(arguments)
-                        if return_code != 0:
-                            raise Exception('Error code', return_code)
-                        shutil.move(self.jacoco_cli_name, code_coverage_tools_dir)
+                    # # TODO the following should be removed when jacoco cli is actually available on official Maven central
+                    # self.log_info("Fetching Jacoco CLI")
+                    # code_coverage_tools_dir = self.retrieve_folder_location('SDK_COVERAGE_TOOLS_DIR')
+                    # jacococli_path = os.path.join(code_coverage_tools_dir, self.jacoco_cli_name)
+                    # if not os.path.exists(jacococli_path):
+                    #     cli_url = self.determine_cli_tool_url()
+                    #     if not cli_url:
+                    #         cli_url = 'http://central.maven.org/maven2/org/jacoco/org.jacoco.cli/0.8.1/org.jacoco.cli-0.8.1-nodeps.jar'
+                    #     arguments = ['wget', cli_url, '--no-check-certificate', '-O', self.jacoco_cli_name]
+                    #     return_code = self.call_command(arguments)
+                    #     if return_code != 0:
+                    #         raise Exception('Error code', return_code)
+                    #     shutil.move(self.jacoco_cli_name, code_coverage_tools_dir)
                 else:
                     self.log_info("Tools are already present.")
 
