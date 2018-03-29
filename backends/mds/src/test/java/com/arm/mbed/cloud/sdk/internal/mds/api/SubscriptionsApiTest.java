@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.mds.api;
 
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import org.junit.Before;
