@@ -37,14 +37,14 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
     def has_already_been_run(self):
         return self.check_whether_coverage_result_folder_has_been_created() and self.check_whether_tools_have_been_copied()
 
-    def determine_cli_tool_url(self):
-        snapshot_url = 'http://central.maven.org/maven2/org/jacoco/org.jacoco.cli/0.8.1/'
-        res = requests.get(snapshot_url)
-        if res.status_code != requests.codes.ok:
-            return None
-        pattern = "(" + snapshot_url + "[\\w\\\/.-]*jacoco.cli[\\w\\\/.-]*-nodeps.jar)"
-        m = re.search(pattern, res.text)
-        return m.group(0) if m else None
+    # def determine_cli_tool_url(self):
+    #     snapshot_url = 'http://central.maven.org/maven2/org/jacoco/org.jacoco.cli/0.8.1/'
+    #     res = requests.get(snapshot_url)
+    #     if res.status_code != requests.codes.ok:
+    #         return None
+    #     pattern = "(" + snapshot_url + "[\\w\\\/.-]*jacoco.cli[\\w\\\/.-]*-nodeps.jar)"
+    #     m = re.search(pattern, res.text)
+    #     return m.group(0) if m else None
 
     def execute(self):
         self.print_title()
