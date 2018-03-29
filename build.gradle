@@ -262,7 +262,7 @@ dependencies {
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
-    //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
+    coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
 }
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
@@ -480,6 +480,7 @@ task shadowTestJar(type: Jar) {
     }
     baseName = project.name + '-test-full'
     from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     from sourceSets.test.output
     with jar
     doLast {
