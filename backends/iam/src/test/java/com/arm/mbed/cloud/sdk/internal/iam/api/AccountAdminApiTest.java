@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;

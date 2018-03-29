@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
-import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.iam.CollectionFormats.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;

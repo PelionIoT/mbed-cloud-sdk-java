@@ -36,10 +36,10 @@ An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POS
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -93,10 +93,10 @@ An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;c
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -148,10 +148,10 @@ An endpoint for adding users and API keys to a group.   **Example usage:** &#x60
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -205,10 +205,10 @@ An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST h
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -262,10 +262,10 @@ An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST ht
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -317,10 +317,10 @@ An endpoint for creating or inviting a new user to the account. In case of invit
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -374,10 +374,10 @@ An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE http
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -429,10 +429,10 @@ An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -484,10 +484,10 @@ An endpoint for retrieving the details of all users.   **Example usage:** &#x60;
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -549,10 +549,10 @@ An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;cur
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -612,10 +612,10 @@ An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl h
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -675,10 +675,10 @@ An endpoint for retrieving the details of a user.   **Example usage:** &#x60;cur
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -732,10 +732,10 @@ An endpoint for listing the users of a group with details.   **Example usage:** 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -795,10 +795,10 @@ An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -852,10 +852,10 @@ An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DE
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -909,10 +909,10 @@ An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X D
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -966,10 +966,10 @@ An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT ht
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1023,10 +1023,10 @@ An endpoint for updating the account.   **Example usage:** &#x60;curl -X PUT htt
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1078,10 +1078,10 @@ An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT ht
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

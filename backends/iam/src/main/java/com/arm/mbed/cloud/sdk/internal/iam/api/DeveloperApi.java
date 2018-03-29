@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
-import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.iam.CollectionFormats.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -230,7 +230,7 @@ public interface DeveloperApi {
    * An endpoint for retrieving the accounts of the logged in user.
    * @return Call&lt;AccountResponseList&gt;
    */
-  @GET("v3/users/me/accounts")
+  @GET("v3/users/me/team-accounts")
   Call<AccountResponseList> getMyAccounts();
     
 
