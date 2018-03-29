@@ -14,6 +14,7 @@ Name | Type | Description | Notes
 **etag** | **String** | The entity instance signature |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
 **rootManifestUrl** | **String** |  |  [optional]
+**phase** | **String** | The current phase of the campaign. |  [optional]
 **startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **id** | **String** | The campaign ID |  [optional]
 **deviceFilter** | **String** | The filter for the devices the campaign will target |  [optional]
