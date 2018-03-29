@@ -11,7 +11,7 @@
  */
 
 
-package com.arm.mbed.cloud.sdk.internal.auth;
+package com.arm.mbed.cloud.sdk.internal.devicedirectory.auth;
 
 public enum OAuthFlow {
     accessCode, implicit, password, application
