@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.internal.auth;
+package com.arm.mbed.cloud.sdk.internal.connectorca.auth;
 
 import static java.net.HttpURLConnection.HTTP_UNAUTHORIZED;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
