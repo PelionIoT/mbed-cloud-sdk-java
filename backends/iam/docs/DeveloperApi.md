@@ -18,6 +18,7 @@ Method | HTTP request | Description
 [**getGroupSummary**](DeveloperApi.md#getGroupSummary) | **GET** v3/policy-groups/{groupID} | Get group information.
 [**getGroupsOfMyApiKey**](DeveloperApi.md#getGroupsOfMyApiKey) | **GET** v3/api-keys/me/groups | Get groups of the API key.
 [**getMyAccountInfo**](DeveloperApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account info.
+[**getMyAccounts**](DeveloperApi.md#getMyAccounts) | **GET** v3/users/me/accounts | Get accounts of the user.
 [**getMyApiKey**](DeveloperApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
 [**getMyGroups**](DeveloperApi.md#getMyGroups) | **GET** v3/users/me/groups | Get groups of the user.
 [**getMyUser**](DeveloperApi.md#getMyUser) | **GET** v3/users/me | Details of the current user.
@@ -407,8 +408,8 @@ Integer deviceExecutionModeEq = 56; // Integer | Device execution mode, as 1 for
 Integer deviceExecutionModeNeq = 56; // Integer | Device execution mode not equals filter
 String ownerEq = "ownerEq_example"; // String | Owner name filter
 Boolean enrollmentModeEq = true; // Boolean | Enrollment mode filter
-String issuerLike = "issuerLike_example"; // String | Issuer filter
-String subjectLike = "subjectLike_example"; // String | Subject filter
+String issuerLike = "issuerLike_example"; // String | Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
+String subjectLike = "subjectLike_example"; // String | Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
 try {
     TrustedCertificateRespList result = apiInstance.getAllCertificates(limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, issuerLike, subjectLike);
     System.out.println(result);
@@ -433,8 +434,8 @@ Name | Type | Description  | Notes
  **deviceExecutionModeNeq** | **Integer**| Device execution mode not equals filter | [optional]
  **ownerEq** | **String**| Owner name filter | [optional]
  **enrollmentModeEq** | **Boolean**| Enrollment mode filter | [optional]
- **issuerLike** | **String**| Issuer filter | [optional]
- **subjectLike** | **String**| Subject filter | [optional]
+ **issuerLike** | **String**| Issuer filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. | [optional]
+ **subjectLike** | **String**| Subject filter. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. | [optional]
 
 ### Return type
 
@@ -848,6 +849,57 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**AccountInfo**](AccountInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getMyAccounts"></a>
+# **getMyAccounts**
+> AccountResponseList getMyAccounts()
+
+Get accounts of the user.
+
+An endpoint for retrieving the accounts of the logged in user.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DeveloperApi apiInstance = new DeveloperApi();
+try {
+    AccountResponseList result = apiInstance.getMyAccounts();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DeveloperApi#getMyAccounts");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**AccountResponseList**](AccountResponseList.md)
 
 ### Authorization
 

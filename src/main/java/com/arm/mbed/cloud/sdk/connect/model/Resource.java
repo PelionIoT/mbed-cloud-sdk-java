@@ -32,6 +32,11 @@ public class Resource implements SdkModel {
      */
     private final String contentType;
     /**
+     * Interface description that defines a name or URI that indicates how to interact with the target resource. It
+     * describes a generic interface type, such as a "sensor".
+     */
+    private final String interfaceDescription;
+    /**
      * Whether you can subscribe to changes for this resource.
      */
     @DefaultValue(value = "false")
@@ -52,15 +57,19 @@ public class Resource implements SdkModel {
      *            content type
      * @param observable
      *            observable
+     * @param interfaceDescription
+     *            interface description
      */
     @Internal
-    public Resource(String deviceId, String path, String type, String contentType, boolean observable) {
+    public Resource(String deviceId, String path, String type, String contentType, boolean observable,
+            String interfaceDescription) {
         super();
         setDeviceId(deviceId);
         setPath(path);
         this.type = type;
         this.contentType = contentType;
         this.observable = observable;
+        this.interfaceDescription = interfaceDescription;
     }
 
     /**
@@ -79,12 +88,7 @@ public class Resource implements SdkModel {
      */
     @Internal
     public Resource(String deviceId, String path, String type, String contentType) {
-        super();
-        setDeviceId(deviceId);
-        setPath(path);
-        this.type = type;
-        this.contentType = contentType;
-        this.observable = false;
+        this(deviceId, path, type, contentType, false, null);
     }
 
     /**
@@ -129,7 +133,7 @@ public class Resource implements SdkModel {
 
     /**
      * Gets resource Id.
-     * 
+     *
      * @return resource Id.
      */
     @Internal
@@ -210,6 +214,18 @@ public class Resource implements SdkModel {
     }
 
     /**
+     * Gets the interface description that defines a name or URI that indicates how to interact with the target
+     * resource.
+     * <p>
+     * It describes a generic interface type, such as a "sensor".
+     *
+     * @return the interface description
+     */
+    public String getInterfaceDescription() {
+        return interfaceDescription;
+    }
+
+    /**
      * Gets a clone.
      *
      * @return a clone
@@ -218,7 +234,7 @@ public class Resource implements SdkModel {
      */
     @Override
     public Resource clone() {
-        return new Resource(deviceId, path, type, contentType, observable);
+        return new Resource(deviceId, path, type, contentType, observable, interfaceDescription);
     }
 
     /**
@@ -239,7 +255,7 @@ public class Resource implements SdkModel {
     @Override
     public String toString() {
         return "Resource [deviceId=" + deviceId + ", path=" + path + ", type=" + type + ", contentType=" + contentType
-                + ", observable=" + observable + "]";
+                + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
     }
 
 }

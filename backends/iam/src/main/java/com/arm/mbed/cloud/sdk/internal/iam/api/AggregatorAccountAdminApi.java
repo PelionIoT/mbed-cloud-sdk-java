@@ -480,8 +480,8 @@ public interface AggregatorAccountAdminApi {
    * @param deviceExecutionModeNeq Filter for not developer certificates (optional)
    * @param ownerEq Owner name filter (optional)
    * @param enrollmentModeEq Enrollment mode filter (optional)
-   * @param issuerLike Filter for issuer (optional)
-   * @param subjectLike Filter for subject (optional)
+   * @param issuerLike Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like&#x3D;cn&#x3D;iss matches CN&#x3D;issuer. (optional)
+   * @param subjectLike Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. (optional)
    * @return Call&lt;TrustedCertificateInternalRespList&gt;
    */
   @GET("v3/accounts/{accountID}/trusted-certificates")
@@ -550,7 +550,7 @@ public interface AggregatorAccountAdminApi {
    * @param tierEq An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
    * @param parentEq An optional filter for parent account ID. (optional)
    * @param endMarketEq An optional filter for account end market. (optional)
-   * @param countryLike An optional filter for account country. (optional)
+   * @param countryLike An optional filter for account country. Finds all matches where the filter value is a case insensitive substring of the result. Example: country__like&#x3D;LAND matches Ireland. (optional)
    * @param limit The number of results to return (2-1000), default is 1000. (optional, default to 1000)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC. Default value is ASC (optional, default to ASC)
