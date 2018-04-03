@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.internal;
+package com.arm.mbed.cloud.sdk.internal.iam;
 
 import java.util.Arrays;
 import java.util.List;
