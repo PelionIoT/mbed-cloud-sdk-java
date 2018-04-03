@@ -32,8 +32,32 @@ import java.io.Serializable;
 public class EnrollmentIdentity implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("account_id")
+  private String accountId = null;
+
+  @SerializedName("claimed_at")
+  private DateTime claimedAt = null;
+
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
+
+  @SerializedName("device_id")
+  private String deviceId = null;
+
+  @SerializedName("enrolled_device_id")
+  private String enrolledDeviceId = null;
+
   @SerializedName("enrollment_identity")
   private String enrollmentIdentity = null;
+
+  @SerializedName("etag")
+  private String etag = null;
+
+  @SerializedName("expires_at")
+  private DateTime expiresAt = null;
+
+  @SerializedName("id")
+  private String id = null;
 
   /**
    * Gets or Sets object
@@ -83,66 +107,6 @@ public class EnrollmentIdentity implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
-
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
-
-  @SerializedName("claimed_at")
-  private DateTime claimedAt = null;
-
-  @SerializedName("expires_at")
-  private DateTime expiresAt = null;
-
-  @SerializedName("enrolled_device_id")
-  private String enrolledDeviceId = null;
-
-  @SerializedName("etag")
-  private String etag = null;
-
-  @SerializedName("id")
-  private String id = null;
-
-  @SerializedName("device_id")
-  private String deviceId = null;
-
-  public EnrollmentIdentity enrollmentIdentity(String enrollmentIdentity) {
-    this.enrollmentIdentity = enrollmentIdentity;
-    return this;
-  }
-
-   /**
-   * Enrollment identity.
-   * @return enrollmentIdentity
-  **/
-  @ApiModelProperty(example = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5", value = "Enrollment identity.")
-  public String getEnrollmentIdentity() {
-    return enrollmentIdentity;
-  }
-
-  public void setEnrollmentIdentity(String enrollmentIdentity) {
-    this.enrollmentIdentity = enrollmentIdentity;
-  }
-
-  public EnrollmentIdentity object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Get object
-   * @return object
-  **/
-  @ApiModelProperty(example = "enrollment", value = "")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
-  }
-
   public EnrollmentIdentity accountId(String accountId) {
     this.accountId = accountId;
     return this;
@@ -159,24 +123,6 @@ public class EnrollmentIdentity implements Serializable {
 
   public void setAccountId(String accountId) {
     this.accountId = accountId;
-  }
-
-  public EnrollmentIdentity createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * The time of the enrollment identity creation.
-   * @return createdAt
-  **/
-  @ApiModelProperty(required = true, value = "The time of the enrollment identity creation.")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
   }
 
   public EnrollmentIdentity claimedAt(DateTime claimedAt) {
@@ -197,76 +143,22 @@ public class EnrollmentIdentity implements Serializable {
     this.claimedAt = claimedAt;
   }
 
-  public EnrollmentIdentity expiresAt(DateTime expiresAt) {
-    this.expiresAt = expiresAt;
+  public EnrollmentIdentity createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
    /**
-   * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
-   * @return expiresAt
+   * The time of the enrollment identity creation.
+   * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice")
-  public DateTime getExpiresAt() {
-    return expiresAt;
+  @ApiModelProperty(required = true, value = "The time of the enrollment identity creation.")
+  public DateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setExpiresAt(DateTime expiresAt) {
-    this.expiresAt = expiresAt;
-  }
-
-  public EnrollmentIdentity enrolledDeviceId(String enrolledDeviceId) {
-    this.enrolledDeviceId = enrolledDeviceId;
-    return this;
-  }
-
-   /**
-   * Enrolled device internal ID
-   * @return enrolledDeviceId
-  **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Enrolled device internal ID")
-  public String getEnrolledDeviceId() {
-    return enrolledDeviceId;
-  }
-
-  public void setEnrolledDeviceId(String enrolledDeviceId) {
-    this.enrolledDeviceId = enrolledDeviceId;
-  }
-
-  public EnrollmentIdentity etag(String etag) {
-    this.etag = etag;
-    return this;
-  }
-
-   /**
-   * Get etag
-   * @return etag
-  **/
-  @ApiModelProperty(example = "7642xfaxz", required = true, value = "")
-  public String getEtag() {
-    return etag;
-  }
-
-  public void setEtag(String etag) {
-    this.etag = etag;
-  }
-
-  public EnrollmentIdentity id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Enrollment identity internal id
-   * @return id
-  **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Enrollment identity internal id")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public EnrollmentIdentity deviceId(String deviceId) {
@@ -287,6 +179,114 @@ public class EnrollmentIdentity implements Serializable {
     this.deviceId = deviceId;
   }
 
+  public EnrollmentIdentity enrolledDeviceId(String enrolledDeviceId) {
+    this.enrolledDeviceId = enrolledDeviceId;
+    return this;
+  }
+
+   /**
+   * Enrolled device internal ID
+   * @return enrolledDeviceId
+  **/
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Enrolled device internal ID")
+  public String getEnrolledDeviceId() {
+    return enrolledDeviceId;
+  }
+
+  public void setEnrolledDeviceId(String enrolledDeviceId) {
+    this.enrolledDeviceId = enrolledDeviceId;
+  }
+
+  public EnrollmentIdentity enrollmentIdentity(String enrollmentIdentity) {
+    this.enrollmentIdentity = enrollmentIdentity;
+    return this;
+  }
+
+   /**
+   * Enrollment identity.
+   * @return enrollmentIdentity
+  **/
+  @ApiModelProperty(example = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5", value = "Enrollment identity.")
+  public String getEnrollmentIdentity() {
+    return enrollmentIdentity;
+  }
+
+  public void setEnrollmentIdentity(String enrollmentIdentity) {
+    this.enrollmentIdentity = enrollmentIdentity;
+  }
+
+  public EnrollmentIdentity etag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * Get etag
+   * @return etag
+  **/
+  @ApiModelProperty(example = "7642xfaxz", required = true, value = "")
+  public String getEtag() {
+    return etag;
+  }
+
+  public void setEtag(String etag) {
+    this.etag = etag;
+  }
+
+  public EnrollmentIdentity expiresAt(DateTime expiresAt) {
+    this.expiresAt = expiresAt;
+    return this;
+  }
+
+   /**
+   * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+   * @return expiresAt
+  **/
+  @ApiModelProperty(required = true, value = "The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice")
+  public DateTime getExpiresAt() {
+    return expiresAt;
+  }
+
+  public void setExpiresAt(DateTime expiresAt) {
+    this.expiresAt = expiresAt;
+  }
+
+  public EnrollmentIdentity id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Enrollment identity internal id
+   * @return id
+  **/
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Enrollment identity internal id")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public EnrollmentIdentity object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Get object
+   * @return object
+  **/
+  @ApiModelProperty(example = "enrollment", value = "")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -297,21 +297,21 @@ public class EnrollmentIdentity implements Serializable {
       return false;
     }
     EnrollmentIdentity enrollmentIdentity = (EnrollmentIdentity) o;
-    return Objects.equals(this.enrollmentIdentity, enrollmentIdentity.enrollmentIdentity) &&
-        Objects.equals(this.object, enrollmentIdentity.object) &&
-        Objects.equals(this.accountId, enrollmentIdentity.accountId) &&
-        Objects.equals(this.createdAt, enrollmentIdentity.createdAt) &&
+    return Objects.equals(this.accountId, enrollmentIdentity.accountId) &&
         Objects.equals(this.claimedAt, enrollmentIdentity.claimedAt) &&
-        Objects.equals(this.expiresAt, enrollmentIdentity.expiresAt) &&
+        Objects.equals(this.createdAt, enrollmentIdentity.createdAt) &&
+        Objects.equals(this.deviceId, enrollmentIdentity.deviceId) &&
         Objects.equals(this.enrolledDeviceId, enrollmentIdentity.enrolledDeviceId) &&
+        Objects.equals(this.enrollmentIdentity, enrollmentIdentity.enrollmentIdentity) &&
         Objects.equals(this.etag, enrollmentIdentity.etag) &&
+        Objects.equals(this.expiresAt, enrollmentIdentity.expiresAt) &&
         Objects.equals(this.id, enrollmentIdentity.id) &&
-        Objects.equals(this.deviceId, enrollmentIdentity.deviceId);
+        Objects.equals(this.object, enrollmentIdentity.object);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(enrollmentIdentity, object, accountId, createdAt, claimedAt, expiresAt, enrolledDeviceId, etag, id, deviceId);
+    return Objects.hash(accountId, claimedAt, createdAt, deviceId, enrolledDeviceId, enrollmentIdentity, etag, expiresAt, id, object);
   }
 
 
@@ -320,16 +320,16 @@ public class EnrollmentIdentity implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class EnrollmentIdentity {\n");
     
-    sb.append("    enrollmentIdentity: ").append(toIndentedString(enrollmentIdentity)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    claimedAt: ").append(toIndentedString(claimedAt)).append("\n");
-    sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
-    sb.append("    enrolledDeviceId: ").append(toIndentedString(enrolledDeviceId)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
+    sb.append("    enrolledDeviceId: ").append(toIndentedString(enrolledDeviceId)).append("\n");
+    sb.append("    enrollmentIdentity: ").append(toIndentedString(enrollmentIdentity)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    expiresAt: ").append(toIndentedString(expiresAt)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("}");
     return sb.toString();
   }

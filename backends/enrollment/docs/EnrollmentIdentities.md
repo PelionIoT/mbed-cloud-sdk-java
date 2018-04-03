@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **after** | **String** | muuid | 
-**hasMore** | **Boolean** |  | 
-**totalCount** | **Integer** |  | 
-**object** | [**ObjectEnum**](#ObjectEnum) |  | 
-**limit** | **Integer** | Range 2-1000, or default. | 
 **data** | [**List&lt;EnrollmentIdentity&gt;**](EnrollmentIdentity.md) |  | 
+**hasMore** | **Boolean** |  | 
+**limit** | **Integer** | Range 2-1000, or default. | 
+**object** | [**ObjectEnum**](#ObjectEnum) |  | 
 **order** | [**OrderEnum**](#OrderEnum) |  | 
+**totalCount** | **Integer** |  | 
 
 
 <a name="ObjectEnum"></a>
