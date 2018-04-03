@@ -34,8 +34,8 @@ import java.io.Serializable;
 public class EndpointData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("q")
-  private Boolean q = null;
+  @SerializedName("ep")
+  private String ep = null;
 
   @SerializedName("ept")
   private String ept = null;
@@ -43,28 +43,28 @@ public class EndpointData implements Serializable {
   @SerializedName("original-ep")
   private String originalEp = null;
 
+  @SerializedName("q")
+  private Boolean q = null;
+
   @SerializedName("resources")
   private List<ResourcesData> resources = null;
 
-  @SerializedName("ep")
-  private String ep = null;
-
-  public EndpointData q(Boolean q) {
-    this.q = q;
+  public EndpointData ep(String ep) {
+    this.ep = ep;
     return this;
   }
 
    /**
-   * Queue mode (default value is false).
-   * @return q
+   * Unique Mbed Cloud device ID.
+   * @return ep
   **/
-  @ApiModelProperty(example = "false", value = "Queue mode (default value is false).")
-  public Boolean isQ() {
-    return q;
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud device ID.")
+  public String getEp() {
+    return ep;
   }
 
-  public void setQ(Boolean q) {
-    this.q = q;
+  public void setEp(String ep) {
+    this.ep = ep;
   }
 
   public EndpointData ept(String ept) {
@@ -103,6 +103,24 @@ public class EndpointData implements Serializable {
     this.originalEp = originalEp;
   }
 
+  public EndpointData q(Boolean q) {
+    this.q = q;
+    return this;
+  }
+
+   /**
+   * Queue mode (default value is false).
+   * @return q
+  **/
+  @ApiModelProperty(example = "false", value = "Queue mode (default value is false).")
+  public Boolean isQ() {
+    return q;
+  }
+
+  public void setQ(Boolean q) {
+    this.q = q;
+  }
+
   public EndpointData resources(List<ResourcesData> resources) {
     this.resources = resources;
     return this;
@@ -129,24 +147,6 @@ public class EndpointData implements Serializable {
     this.resources = resources;
   }
 
-  public EndpointData ep(String ep) {
-    this.ep = ep;
-    return this;
-  }
-
-   /**
-   * Unique Mbed Cloud device ID.
-   * @return ep
-  **/
-  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud device ID.")
-  public String getEp() {
-    return ep;
-  }
-
-  public void setEp(String ep) {
-    this.ep = ep;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -157,16 +157,16 @@ public class EndpointData implements Serializable {
       return false;
     }
     EndpointData endpointData = (EndpointData) o;
-    return Objects.equals(this.q, endpointData.q) &&
+    return Objects.equals(this.ep, endpointData.ep) &&
         Objects.equals(this.ept, endpointData.ept) &&
         Objects.equals(this.originalEp, endpointData.originalEp) &&
-        Objects.equals(this.resources, endpointData.resources) &&
-        Objects.equals(this.ep, endpointData.ep);
+        Objects.equals(this.q, endpointData.q) &&
+        Objects.equals(this.resources, endpointData.resources);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(q, ept, originalEp, resources, ep);
+    return Objects.hash(ep, ept, originalEp, q, resources);
   }
 
 
@@ -175,11 +175,11 @@ public class EndpointData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class EndpointData {\n");
     
-    sb.append("    q: ").append(toIndentedString(q)).append("\n");
+    sb.append("    ep: ").append(toIndentedString(ep)).append("\n");
     sb.append("    ept: ").append(toIndentedString(ept)).append("\n");
     sb.append("    originalEp: ").append(toIndentedString(originalEp)).append("\n");
+    sb.append("    q: ").append(toIndentedString(q)).append("\n");
     sb.append("    resources: ").append(toIndentedString(resources)).append("\n");
-    sb.append("    ep: ").append(toIndentedString(ep)).append("\n");
     sb.append("}");
     return sb.toString();
   }

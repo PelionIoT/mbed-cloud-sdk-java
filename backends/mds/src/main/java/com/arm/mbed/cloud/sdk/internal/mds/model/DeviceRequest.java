@@ -31,8 +31,8 @@ import java.io.Serializable;
 public class DeviceRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("payload-b64")
-  private String payloadB64 = null;
+  @SerializedName("accept")
+  private String accept = null;
 
   @SerializedName("content-type")
   private String contentType = null;
@@ -40,28 +40,28 @@ public class DeviceRequest implements Serializable {
   @SerializedName("method")
   private String method = null;
 
-  @SerializedName("accept")
-  private String accept = null;
+  @SerializedName("payload-b64")
+  private String payloadB64 = null;
 
   @SerializedName("uri")
   private String uri = null;
 
-  public DeviceRequest payloadB64(String payloadB64) {
-    this.payloadB64 = payloadB64;
+  public DeviceRequest accept(String accept) {
+    this.accept = accept;
     return this;
   }
 
    /**
-   * The base64 encoded payload to be sent to the device.
-   * @return payloadB64
+   * The content type of an accepted response.
+   * @return accept
   **/
-  @ApiModelProperty(example = "dmFsdWUxCg==", value = "The base64 encoded payload to be sent to the device.")
-  public String getPayloadB64() {
-    return payloadB64;
+  @ApiModelProperty(example = "text/plain", value = "The content type of an accepted response.")
+  public String getAccept() {
+    return accept;
   }
 
-  public void setPayloadB64(String payloadB64) {
-    this.payloadB64 = payloadB64;
+  public void setAccept(String accept) {
+    this.accept = accept;
   }
 
   public DeviceRequest contentType(String contentType) {
@@ -100,22 +100,22 @@ public class DeviceRequest implements Serializable {
     this.method = method;
   }
 
-  public DeviceRequest accept(String accept) {
-    this.accept = accept;
+  public DeviceRequest payloadB64(String payloadB64) {
+    this.payloadB64 = payloadB64;
     return this;
   }
 
    /**
-   * The content type of an accepted response.
-   * @return accept
+   * The base64 encoded payload to be sent to the device.
+   * @return payloadB64
   **/
-  @ApiModelProperty(example = "text/plain", value = "The content type of an accepted response.")
-  public String getAccept() {
-    return accept;
+  @ApiModelProperty(example = "dmFsdWUxCg==", value = "The base64 encoded payload to be sent to the device.")
+  public String getPayloadB64() {
+    return payloadB64;
   }
 
-  public void setAccept(String accept) {
-    this.accept = accept;
+  public void setPayloadB64(String payloadB64) {
+    this.payloadB64 = payloadB64;
   }
 
   public DeviceRequest uri(String uri) {
@@ -146,16 +146,16 @@ public class DeviceRequest implements Serializable {
       return false;
     }
     DeviceRequest deviceRequest = (DeviceRequest) o;
-    return Objects.equals(this.payloadB64, deviceRequest.payloadB64) &&
+    return Objects.equals(this.accept, deviceRequest.accept) &&
         Objects.equals(this.contentType, deviceRequest.contentType) &&
         Objects.equals(this.method, deviceRequest.method) &&
-        Objects.equals(this.accept, deviceRequest.accept) &&
+        Objects.equals(this.payloadB64, deviceRequest.payloadB64) &&
         Objects.equals(this.uri, deviceRequest.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(payloadB64, contentType, method, accept, uri);
+    return Objects.hash(accept, contentType, method, payloadB64, uri);
   }
 
 
@@ -164,10 +164,10 @@ public class DeviceRequest implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceRequest {\n");
     
-    sb.append("    payloadB64: ").append(toIndentedString(payloadB64)).append("\n");
+    sb.append("    accept: ").append(toIndentedString(accept)).append("\n");
     sb.append("    contentType: ").append(toIndentedString(contentType)).append("\n");
     sb.append("    method: ").append(toIndentedString(method)).append("\n");
-    sb.append("    accept: ").append(toIndentedString(accept)).append("\n");
+    sb.append("    payloadB64: ").append(toIndentedString(payloadB64)).append("\n");
     sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
     sb.append("}");
     return sb.toString();

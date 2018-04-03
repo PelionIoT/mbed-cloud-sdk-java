@@ -31,56 +31,20 @@ import java.io.Serializable;
 public class ResourcesData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("rt")
-  private String rt = null;
-
-  @SerializedName("path")
-  private String path = null;
-
   @SerializedName("ct")
   private String ct = null;
-
-  @SerializedName("obs")
-  private Boolean obs = null;
 
   @SerializedName("if")
   private String _if = null;
 
-  public ResourcesData rt(String rt) {
-    this.rt = rt;
-    return this;
-  }
+  @SerializedName("obs")
+  private Boolean obs = null;
 
-   /**
-   * Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
-   * @return rt
-  **/
-  @ApiModelProperty(example = "light_sensor", value = "Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
-  public String getRt() {
-    return rt;
-  }
+  @SerializedName("path")
+  private String path = null;
 
-  public void setRt(String rt) {
-    this.rt = rt;
-  }
-
-  public ResourcesData path(String path) {
-    this.path = path;
-    return this;
-  }
-
-   /**
-   * Resource&#39;s URI path.
-   * @return path
-  **/
-  @ApiModelProperty(example = "/sen/light", value = "Resource's URI path.")
-  public String getPath() {
-    return path;
-  }
-
-  public void setPath(String path) {
-    this.path = path;
-  }
+  @SerializedName("rt")
+  private String rt = null;
 
   public ResourcesData ct(String ct) {
     this.ct = ct;
@@ -98,24 +62,6 @@ public class ResourcesData implements Serializable {
 
   public void setCt(String ct) {
     this.ct = ct;
-  }
-
-  public ResourcesData obs(Boolean obs) {
-    this.obs = obs;
-    return this;
-  }
-
-   /**
-   * Whether the resource is observable or not (true/false).
-   * @return obs
-  **/
-  @ApiModelProperty(example = "true", value = "Whether the resource is observable or not (true/false).")
-  public Boolean isObs() {
-    return obs;
-  }
-
-  public void setObs(Boolean obs) {
-    this.obs = obs;
   }
 
   public ResourcesData _if(String _if) {
@@ -136,6 +82,60 @@ public class ResourcesData implements Serializable {
     this._if = _if;
   }
 
+  public ResourcesData obs(Boolean obs) {
+    this.obs = obs;
+    return this;
+  }
+
+   /**
+   * Whether the resource is observable or not (true/false).
+   * @return obs
+  **/
+  @ApiModelProperty(example = "true", value = "Whether the resource is observable or not (true/false).")
+  public Boolean isObs() {
+    return obs;
+  }
+
+  public void setObs(Boolean obs) {
+    this.obs = obs;
+  }
+
+  public ResourcesData path(String path) {
+    this.path = path;
+    return this;
+  }
+
+   /**
+   * Resource&#39;s URI path.
+   * @return path
+  **/
+  @ApiModelProperty(example = "/sen/light", value = "Resource's URI path.")
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  public ResourcesData rt(String rt) {
+    this.rt = rt;
+    return this;
+  }
+
+   /**
+   * Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+   * @return rt
+  **/
+  @ApiModelProperty(example = "light_sensor", value = "Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+  public String getRt() {
+    return rt;
+  }
+
+  public void setRt(String rt) {
+    this.rt = rt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -146,16 +146,16 @@ public class ResourcesData implements Serializable {
       return false;
     }
     ResourcesData resourcesData = (ResourcesData) o;
-    return Objects.equals(this.rt, resourcesData.rt) &&
-        Objects.equals(this.path, resourcesData.path) &&
-        Objects.equals(this.ct, resourcesData.ct) &&
+    return Objects.equals(this.ct, resourcesData.ct) &&
+        Objects.equals(this._if, resourcesData._if) &&
         Objects.equals(this.obs, resourcesData.obs) &&
-        Objects.equals(this._if, resourcesData._if);
+        Objects.equals(this.path, resourcesData.path) &&
+        Objects.equals(this.rt, resourcesData.rt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rt, path, ct, obs, _if);
+    return Objects.hash(ct, _if, obs, path, rt);
   }
 
 
@@ -164,11 +164,11 @@ public class ResourcesData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ResourcesData {\n");
     
-    sb.append("    rt: ").append(toIndentedString(rt)).append("\n");
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
     sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
-    sb.append("    obs: ").append(toIndentedString(obs)).append("\n");
     sb.append("    _if: ").append(toIndentedString(_if)).append("\n");
+    sb.append("    obs: ").append(toIndentedString(obs)).append("\n");
+    sb.append("    path: ").append(toIndentedString(path)).append("\n");
+    sb.append("    rt: ").append(toIndentedString(rt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

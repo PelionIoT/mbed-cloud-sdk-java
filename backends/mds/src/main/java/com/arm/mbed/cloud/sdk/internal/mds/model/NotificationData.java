@@ -31,73 +31,37 @@ import java.io.Serializable;
 public class NotificationData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("path")
-  private String path = null;
-
-  @SerializedName("max-age")
-  private String maxAge = null;
-
-  @SerializedName("payload")
-  private String payload = null;
+  @SerializedName("ct")
+  private String ct = null;
 
   @SerializedName("ep")
   private String ep = null;
 
-  @SerializedName("ct")
-  private String ct = null;
+  @SerializedName("max-age")
+  private String maxAge = null;
 
-  public NotificationData path(String path) {
-    this.path = path;
+  @SerializedName("path")
+  private String path = null;
+
+  @SerializedName("payload")
+  private String payload = null;
+
+  public NotificationData ct(String ct) {
+    this.ct = ct;
     return this;
   }
 
    /**
-   * URI path.
-   * @return path
+   * Content type.
+   * @return ct
   **/
-  @ApiModelProperty(example = "/sen/light", value = "URI path.")
-  public String getPath() {
-    return path;
+  @ApiModelProperty(example = "text/plain", value = "Content type.")
+  public String getCt() {
+    return ct;
   }
 
-  public void setPath(String path) {
-    this.path = path;
-  }
-
-  public NotificationData maxAge(String maxAge) {
-    this.maxAge = maxAge;
-    return this;
-  }
-
-   /**
-   * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
-   * @return maxAge
-  **/
-  @ApiModelProperty(example = "60", value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
-  public String getMaxAge() {
-    return maxAge;
-  }
-
-  public void setMaxAge(String maxAge) {
-    this.maxAge = maxAge;
-  }
-
-  public NotificationData payload(String payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * Base64 encoded payload.
-   * @return payload
-  **/
-  @ApiModelProperty(example = "My4zMQ==", value = "Base64 encoded payload.")
-  public String getPayload() {
-    return payload;
-  }
-
-  public void setPayload(String payload) {
-    this.payload = payload;
+  public void setCt(String ct) {
+    this.ct = ct;
   }
 
   public NotificationData ep(String ep) {
@@ -118,22 +82,58 @@ public class NotificationData implements Serializable {
     this.ep = ep;
   }
 
-  public NotificationData ct(String ct) {
-    this.ct = ct;
+  public NotificationData maxAge(String maxAge) {
+    this.maxAge = maxAge;
     return this;
   }
 
    /**
-   * Content type.
-   * @return ct
+   * Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. 
+   * @return maxAge
   **/
-  @ApiModelProperty(example = "text/plain", value = "Content type.")
-  public String getCt() {
-    return ct;
+  @ApiModelProperty(example = "60", value = "Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is limited to 3 days. A default value of 60 seconds is assumed in the absence of the option. ")
+  public String getMaxAge() {
+    return maxAge;
   }
 
-  public void setCt(String ct) {
-    this.ct = ct;
+  public void setMaxAge(String maxAge) {
+    this.maxAge = maxAge;
+  }
+
+  public NotificationData path(String path) {
+    this.path = path;
+    return this;
+  }
+
+   /**
+   * URI path.
+   * @return path
+  **/
+  @ApiModelProperty(example = "/sen/light", value = "URI path.")
+  public String getPath() {
+    return path;
+  }
+
+  public void setPath(String path) {
+    this.path = path;
+  }
+
+  public NotificationData payload(String payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Base64 encoded payload.
+   * @return payload
+  **/
+  @ApiModelProperty(example = "My4zMQ==", value = "Base64 encoded payload.")
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
   }
 
 
@@ -146,16 +146,16 @@ public class NotificationData implements Serializable {
       return false;
     }
     NotificationData notificationData = (NotificationData) o;
-    return Objects.equals(this.path, notificationData.path) &&
-        Objects.equals(this.maxAge, notificationData.maxAge) &&
-        Objects.equals(this.payload, notificationData.payload) &&
+    return Objects.equals(this.ct, notificationData.ct) &&
         Objects.equals(this.ep, notificationData.ep) &&
-        Objects.equals(this.ct, notificationData.ct);
+        Objects.equals(this.maxAge, notificationData.maxAge) &&
+        Objects.equals(this.path, notificationData.path) &&
+        Objects.equals(this.payload, notificationData.payload);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(path, maxAge, payload, ep, ct);
+    return Objects.hash(ct, ep, maxAge, path, payload);
   }
 
 
@@ -164,11 +164,11 @@ public class NotificationData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class NotificationData {\n");
     
-    sb.append("    path: ").append(toIndentedString(path)).append("\n");
-    sb.append("    maxAge: ").append(toIndentedString(maxAge)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    ep: ").append(toIndentedString(ep)).append("\n");
     sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
+    sb.append("    ep: ").append(toIndentedString(ep)).append("\n");
+    sb.append("    maxAge: ").append(toIndentedString(maxAge)).append("\n");
+    sb.append("    path: ").append(toIndentedString(path)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
     sb.append("}");
     return sb.toString();
   }
