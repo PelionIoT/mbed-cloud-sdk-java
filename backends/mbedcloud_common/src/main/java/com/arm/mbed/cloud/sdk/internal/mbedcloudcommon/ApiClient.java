@@ -43,7 +43,14 @@ public class ApiClient {
   public ApiClient(String[] authNames) {
     this();
     for(String authName : authNames) {
-      throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      Interceptor auth;
+      if ("Bearer".equals(authName)) {
+        auth = new ApiKeyAuth("header", "Authorization");
+      } else {
+        throw new RuntimeException("auth name \"" + authName + "\" not found in available auth names");
+      }
+
+      addAuthorization(authName, auth);
     }
   }
 
