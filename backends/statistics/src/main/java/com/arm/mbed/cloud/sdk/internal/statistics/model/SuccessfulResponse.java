@@ -37,20 +37,20 @@ public class SuccessfulResponse implements Serializable {
   @SerializedName("after")
   private String after = null;
 
+  @SerializedName("data")
+  private List<Metric> data = null;
+
   @SerializedName("has_more")
   private Boolean hasMore = null;
-
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
-  @SerializedName("object")
-  private String object = null;
 
   @SerializedName("limit")
   private Integer limit = null;
 
-  @SerializedName("data")
-  private List<Metric> data = null;
+  @SerializedName("object")
+  private String object = null;
+
+  @SerializedName("total_count")
+  private Integer totalCount = null;
 
   public SuccessfulResponse after(String after) {
     this.after = after;
@@ -68,78 +68,6 @@ public class SuccessfulResponse implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public SuccessfulResponse hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Indicates whether there are more results for you to fetch in the next page.
-   * @return hasMore
-  **/
-  @ApiModelProperty(value = "Indicates whether there are more results for you to fetch in the next page.")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public SuccessfulResponse totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * The total number of records available.
-   * @return totalCount
-  **/
-  @ApiModelProperty(value = "The total number of records available.")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
-
-  public SuccessfulResponse object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * API resource name.
-   * @return object
-  **/
-  @ApiModelProperty(value = "API resource name.")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public SuccessfulResponse limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * The limit used in the request to retrieve the results.
-   * @return limit
-  **/
-  @ApiModelProperty(value = "The limit used in the request to retrieve the results.")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public SuccessfulResponse data(List<Metric> data) {
@@ -168,6 +96,78 @@ public class SuccessfulResponse implements Serializable {
     this.data = data;
   }
 
+  public SuccessfulResponse hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Indicates whether there are more results for you to fetch in the next page.
+   * @return hasMore
+  **/
+  @ApiModelProperty(value = "Indicates whether there are more results for you to fetch in the next page.")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public SuccessfulResponse limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * The limit used in the request to retrieve the results.
+   * @return limit
+  **/
+  @ApiModelProperty(value = "The limit used in the request to retrieve the results.")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public SuccessfulResponse object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * API resource name.
+   * @return object
+  **/
+  @ApiModelProperty(value = "API resource name.")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
+  public SuccessfulResponse totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * The total number of records available.
+   * @return totalCount
+  **/
+  @ApiModelProperty(value = "The total number of records available.")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -179,16 +179,16 @@ public class SuccessfulResponse implements Serializable {
     }
     SuccessfulResponse successfulResponse = (SuccessfulResponse) o;
     return Objects.equals(this.after, successfulResponse.after) &&
+        Objects.equals(this.data, successfulResponse.data) &&
         Objects.equals(this.hasMore, successfulResponse.hasMore) &&
-        Objects.equals(this.totalCount, successfulResponse.totalCount) &&
-        Objects.equals(this.object, successfulResponse.object) &&
         Objects.equals(this.limit, successfulResponse.limit) &&
-        Objects.equals(this.data, successfulResponse.data);
+        Objects.equals(this.object, successfulResponse.object) &&
+        Objects.equals(this.totalCount, successfulResponse.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data);
+    return Objects.hash(after, data, hasMore, limit, object, totalCount);
   }
 
 
@@ -198,11 +198,11 @@ public class SuccessfulResponse implements Serializable {
     sb.append("class SuccessfulResponse {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }
