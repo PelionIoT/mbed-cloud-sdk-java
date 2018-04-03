@@ -4,21 +4,21 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** | The optional description of the campaign |  [optional]
-**rootManifestId** | **String** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The time the update campaign was created |  [optional]
-**object** | **String** | The API resource entity |  [optional]
-**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign |  [optional]
-**updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**description** | **String** | The optional description of the campaign |  [optional]
+**deviceFilter** | **String** | The filter for the devices the campaign will target |  [optional]
 **etag** | **String** | The entity instance signature |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
-**rootManifestUrl** | **String** |  |  [optional]
-**phase** | **String** | The current phase of the campaign. |  [optional]
-**startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **id** | **String** | The campaign ID |  [optional]
-**deviceFilter** | **String** | The filter for the devices the campaign will target |  [optional]
 **name** | **String** | The campaign name |  [optional]
+**object** | **String** | The API resource entity |  [optional]
+**phase** | **String** | The current phase of the campaign. |  [optional]
+**rootManifestId** | **String** |  |  [optional]
+**rootManifestUrl** | **String** |  |  [optional]
+**startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
+**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign |  [optional]
 
 
 <a name="StateEnum"></a>

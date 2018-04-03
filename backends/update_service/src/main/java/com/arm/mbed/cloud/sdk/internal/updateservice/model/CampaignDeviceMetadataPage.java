@@ -37,20 +37,17 @@ public class CampaignDeviceMetadataPage implements Serializable {
   @SerializedName("after")
   private String after = null;
 
+  @SerializedName("data")
+  private List<CampaignDeviceMetadata> data = null;
+
   @SerializedName("has_more")
   private Boolean hasMore = null;
-
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
-  @SerializedName("object")
-  private String object = null;
 
   @SerializedName("limit")
   private Integer limit = null;
 
-  @SerializedName("data")
-  private List<CampaignDeviceMetadata> data = null;
+  @SerializedName("object")
+  private String object = null;
 
   /**
    * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
@@ -102,6 +99,9 @@ public class CampaignDeviceMetadataPage implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
+  @SerializedName("total_count")
+  private Integer totalCount = null;
+
   public CampaignDeviceMetadataPage after(String after) {
     this.after = after;
     return this;
@@ -118,78 +118,6 @@ public class CampaignDeviceMetadataPage implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public CampaignDeviceMetadataPage hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Flag indicating whether there are more results
-   * @return hasMore
-  **/
-  @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public CampaignDeviceMetadataPage totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * The total number or records, if requested. It might be returned also for small lists.
-   * @return totalCount
-  **/
-  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It might be returned also for small lists.")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
-
-  public CampaignDeviceMetadataPage object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Entity name: always &#39;list&#39;
-   * @return object
-  **/
-  @ApiModelProperty(example = "list", value = "Entity name: always 'list'")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public CampaignDeviceMetadataPage limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * The number of results to return, (range: 2-1000), or equals to total_count
-   * @return limit
-  **/
-  @ApiModelProperty(example = "50", value = "The number of results to return, (range: 2-1000), or equals to total_count")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public CampaignDeviceMetadataPage data(List<CampaignDeviceMetadata> data) {
@@ -218,6 +146,60 @@ public class CampaignDeviceMetadataPage implements Serializable {
     this.data = data;
   }
 
+  public CampaignDeviceMetadataPage hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Flag indicating whether there are more results
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public CampaignDeviceMetadataPage limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * The number of results to return, (range: 2-1000), or equals to total_count
+   * @return limit
+  **/
+  @ApiModelProperty(example = "50", value = "The number of results to return, (range: 2-1000), or equals to total_count")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public CampaignDeviceMetadataPage object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;list&#39;
+   * @return object
+  **/
+  @ApiModelProperty(example = "list", value = "Entity name: always 'list'")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
   public CampaignDeviceMetadataPage order(OrderEnum order) {
     this.order = order;
     return this;
@@ -236,6 +218,24 @@ public class CampaignDeviceMetadataPage implements Serializable {
     this.order = order;
   }
 
+  public CampaignDeviceMetadataPage totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * The total number or records, if requested. It might be returned also for small lists.
+   * @return totalCount
+  **/
+  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It might be returned also for small lists.")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -247,17 +247,17 @@ public class CampaignDeviceMetadataPage implements Serializable {
     }
     CampaignDeviceMetadataPage campaignDeviceMetadataPage = (CampaignDeviceMetadataPage) o;
     return Objects.equals(this.after, campaignDeviceMetadataPage.after) &&
-        Objects.equals(this.hasMore, campaignDeviceMetadataPage.hasMore) &&
-        Objects.equals(this.totalCount, campaignDeviceMetadataPage.totalCount) &&
-        Objects.equals(this.object, campaignDeviceMetadataPage.object) &&
-        Objects.equals(this.limit, campaignDeviceMetadataPage.limit) &&
         Objects.equals(this.data, campaignDeviceMetadataPage.data) &&
-        Objects.equals(this.order, campaignDeviceMetadataPage.order);
+        Objects.equals(this.hasMore, campaignDeviceMetadataPage.hasMore) &&
+        Objects.equals(this.limit, campaignDeviceMetadataPage.limit) &&
+        Objects.equals(this.object, campaignDeviceMetadataPage.object) &&
+        Objects.equals(this.order, campaignDeviceMetadataPage.order) &&
+        Objects.equals(this.totalCount, campaignDeviceMetadataPage.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -267,12 +267,12 @@ public class CampaignDeviceMetadataPage implements Serializable {
     sb.append("class CampaignDeviceMetadataPage {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

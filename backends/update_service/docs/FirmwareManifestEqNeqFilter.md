@@ -4,16 +4,16 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
-**timestamp** | [**DateTime**](DateTime.md) |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**updatedAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**etag** | [**DateTime**](DateTime.md) |  |  [optional]
-**deviceClass** | **String** |  |  [optional]
+**datafile** | **String** |  |  [optional]
 **datafileSize** | **Integer** |  |  [optional]
+**description** | **String** |  |  [optional]
+**deviceClass** | **String** |  |  [optional]
+**etag** | [**DateTime**](DateTime.md) |  |  [optional]
 **id** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]
+**timestamp** | [**DateTime**](DateTime.md) |  |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 
