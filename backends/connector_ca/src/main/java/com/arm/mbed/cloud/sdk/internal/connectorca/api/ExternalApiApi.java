@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 
-import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.connectorca.CollectionFormats.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;

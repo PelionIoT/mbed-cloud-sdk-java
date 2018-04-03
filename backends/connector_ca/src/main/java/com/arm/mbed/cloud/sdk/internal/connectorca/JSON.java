@@ -11,7 +11,7 @@
  */
 
 
-package com.arm.mbed.cloud.sdk.internal;
+package com.arm.mbed.cloud.sdk.internal.connectorca;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.internal;
+package com.arm.mbed.cloud.sdk.internal.connectorca;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
@@ -14,11 +14,11 @@ import retrofit2.Converter;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.converter.scalars.ScalarsConverterFactory;
-import com.arm.mbed.cloud.sdk.internal.auth.HttpBasicAuth;
-import com.arm.mbed.cloud.sdk.internal.auth.ApiKeyAuth;
-import com.arm.mbed.cloud.sdk.internal.auth.OAuth;
-import com.arm.mbed.cloud.sdk.internal.auth.OAuth.AccessTokenListener;
-import com.arm.mbed.cloud.sdk.internal.auth.OAuthFlow;
+import com.arm.mbed.cloud.sdk.internal.connectorca.auth.HttpBasicAuth;
+import com.arm.mbed.cloud.sdk.internal.connectorca.auth.ApiKeyAuth;
+import com.arm.mbed.cloud.sdk.internal.connectorca.auth.OAuth;
+import com.arm.mbed.cloud.sdk.internal.connectorca.auth.OAuth.AccessTokenListener;
+import com.arm.mbed.cloud.sdk.internal.connectorca.auth.OAuthFlow;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
