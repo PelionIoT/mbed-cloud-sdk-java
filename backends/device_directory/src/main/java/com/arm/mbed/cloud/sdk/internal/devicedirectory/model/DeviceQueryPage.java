@@ -34,80 +34,26 @@ import java.io.Serializable;
 public class DeviceQueryPage implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("object")
-  private String object = null;
-
-  @SerializedName("has_more")
-  private Boolean hasMore = null;
-
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
   @SerializedName("after")
   private String after = null;
-
-  @SerializedName("limit")
-  private Integer limit = null;
 
   @SerializedName("data")
   private List<DeviceQuery> data = new ArrayList<DeviceQuery>();
 
+  @SerializedName("has_more")
+  private Boolean hasMore = null;
+
+  @SerializedName("limit")
+  private Integer limit = null;
+
+  @SerializedName("object")
+  private String object = null;
+
   @SerializedName("order")
   private String order = null;
 
-  public DeviceQueryPage object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Get object
-   * @return object
-  **/
-  @ApiModelProperty(example = "list", required = true, value = "")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public DeviceQueryPage hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Get hasMore
-   * @return hasMore
-  **/
-  @ApiModelProperty(example = "false", required = true, value = "")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public DeviceQueryPage totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * Get totalCount
-   * @return totalCount
-  **/
-  @ApiModelProperty(example = "1", required = true, value = "")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
+  @SerializedName("total_count")
+  private Integer totalCount = null;
 
   public DeviceQueryPage after(String after) {
     this.after = after;
@@ -125,24 +71,6 @@ public class DeviceQueryPage implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public DeviceQueryPage limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * Get limit
-   * @return limit
-  **/
-  @ApiModelProperty(example = "1000", required = true, value = "")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public DeviceQueryPage data(List<DeviceQuery> data) {
@@ -168,6 +96,60 @@ public class DeviceQueryPage implements Serializable {
     this.data = data;
   }
 
+  public DeviceQueryPage hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Get hasMore
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "false", required = true, value = "")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public DeviceQueryPage limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * Get limit
+   * @return limit
+  **/
+  @ApiModelProperty(example = "1000", required = true, value = "")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public DeviceQueryPage object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Get object
+   * @return object
+  **/
+  @ApiModelProperty(example = "list", required = true, value = "")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
   public DeviceQueryPage order(String order) {
     this.order = order;
     return this;
@@ -186,6 +168,24 @@ public class DeviceQueryPage implements Serializable {
     this.order = order;
   }
 
+  public DeviceQueryPage totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * @return totalCount
+  **/
+  @ApiModelProperty(example = "1", required = true, value = "")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -196,18 +196,18 @@ public class DeviceQueryPage implements Serializable {
       return false;
     }
     DeviceQueryPage deviceQueryPage = (DeviceQueryPage) o;
-    return Objects.equals(this.object, deviceQueryPage.object) &&
-        Objects.equals(this.hasMore, deviceQueryPage.hasMore) &&
-        Objects.equals(this.totalCount, deviceQueryPage.totalCount) &&
-        Objects.equals(this.after, deviceQueryPage.after) &&
-        Objects.equals(this.limit, deviceQueryPage.limit) &&
+    return Objects.equals(this.after, deviceQueryPage.after) &&
         Objects.equals(this.data, deviceQueryPage.data) &&
-        Objects.equals(this.order, deviceQueryPage.order);
+        Objects.equals(this.hasMore, deviceQueryPage.hasMore) &&
+        Objects.equals(this.limit, deviceQueryPage.limit) &&
+        Objects.equals(this.object, deviceQueryPage.object) &&
+        Objects.equals(this.order, deviceQueryPage.order) &&
+        Objects.equals(this.totalCount, deviceQueryPage.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(object, hasMore, totalCount, after, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -216,13 +216,13 @@ public class DeviceQueryPage implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQueryPage {\n");
     
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }
