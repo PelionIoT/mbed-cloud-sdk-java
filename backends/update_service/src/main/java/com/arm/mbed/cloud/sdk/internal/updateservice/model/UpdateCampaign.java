@@ -32,23 +32,41 @@ import java.io.Serializable;
 public class UpdateCampaign implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
+
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("root_manifest_id")
-  private String rootManifestId = null;
+  @SerializedName("device_filter")
+  private String deviceFilter = null;
 
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
+  @SerializedName("etag")
+  private String etag = null;
+
+  @SerializedName("finished")
+  private DateTime finished = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("object")
   private String object = null;
 
-  @SerializedName("when")
-  private DateTime when = null;
+  @SerializedName("phase")
+  private String phase = null;
 
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
+  @SerializedName("root_manifest_id")
+  private String rootManifestId = null;
+
+  @SerializedName("root_manifest_url")
+  private String rootManifestUrl = null;
+
+  @SerializedName("started_at")
+  private DateTime startedAt = null;
 
   /**
    * The state of the campaign
@@ -134,65 +152,11 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("state")
   private StateEnum state = null;
 
-  @SerializedName("etag")
-  private String etag = null;
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
-  @SerializedName("finished")
-  private DateTime finished = null;
-
-  @SerializedName("root_manifest_url")
-  private String rootManifestUrl = null;
-
-  @SerializedName("phase")
-  private String phase = null;
-
-  @SerializedName("started_at")
-  private DateTime startedAt = null;
-
-  @SerializedName("id")
-  private String id = null;
-
-  @SerializedName("device_filter")
-  private String deviceFilter = null;
-
-  @SerializedName("name")
-  private String name = null;
-
-  public UpdateCampaign description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * The optional description of the campaign
-   * @return description
-  **/
-  @ApiModelProperty(example = "", value = "The optional description of the campaign")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public UpdateCampaign rootManifestId(String rootManifestId) {
-    this.rootManifestId = rootManifestId;
-    return this;
-  }
-
-   /**
-   * Get rootManifestId
-   * @return rootManifestId
-  **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
-  public String getRootManifestId() {
-    return rootManifestId;
-  }
-
-  public void setRootManifestId(String rootManifestId) {
-    this.rootManifestId = rootManifestId;
-  }
+  @SerializedName("when")
+  private DateTime when = null;
 
   public UpdateCampaign createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -212,76 +176,40 @@ public class UpdateCampaign implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public UpdateCampaign object(String object) {
-    this.object = object;
+  public UpdateCampaign description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * The API resource entity
-   * @return object
+   * The optional description of the campaign
+   * @return description
   **/
-  @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
-  public String getObject() {
-    return object;
+  @ApiModelProperty(example = "", value = "The optional description of the campaign")
+  public String getDescription() {
+    return description;
   }
 
-  public void setObject(String object) {
-    this.object = object;
+  public void setDescription(String description) {
+    this.description = description;
   }
 
-  public UpdateCampaign when(DateTime when) {
-    this.when = when;
+  public UpdateCampaign deviceFilter(String deviceFilter) {
+    this.deviceFilter = deviceFilter;
     return this;
   }
 
    /**
-   * The scheduled start time for the update campaign
-   * @return when
+   * The filter for the devices the campaign will target
+   * @return deviceFilter
   **/
-  @ApiModelProperty(value = "The scheduled start time for the update campaign")
-  public DateTime getWhen() {
-    return when;
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign will target")
+  public String getDeviceFilter() {
+    return deviceFilter;
   }
 
-  public void setWhen(DateTime when) {
-    this.when = when;
-  }
-
-  public UpdateCampaign updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The time the object was updated
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "The time the object was updated")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public UpdateCampaign state(StateEnum state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * The state of the campaign
-   * @return state
-  **/
-  @ApiModelProperty(value = "The state of the campaign")
-  public StateEnum getState() {
-    return state;
-  }
-
-  public void setState(StateEnum state) {
-    this.state = state;
+  public void setDeviceFilter(String deviceFilter) {
+    this.deviceFilter = deviceFilter;
   }
 
   public UpdateCampaign etag(String etag) {
@@ -320,51 +248,6 @@ public class UpdateCampaign implements Serializable {
     this.finished = finished;
   }
 
-  public UpdateCampaign rootManifestUrl(String rootManifestUrl) {
-    this.rootManifestUrl = rootManifestUrl;
-    return this;
-  }
-
-   /**
-   * Get rootManifestUrl
-   * @return rootManifestUrl
-  **/
-  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", value = "")
-  public String getRootManifestUrl() {
-    return rootManifestUrl;
-  }
-
-  public void setRootManifestUrl(String rootManifestUrl) {
-    this.rootManifestUrl = rootManifestUrl;
-  }
-
-   /**
-   * The current phase of the campaign.
-   * @return phase
-  **/
-  @ApiModelProperty(value = "The current phase of the campaign.")
-  public String getPhase() {
-    return phase;
-  }
-
-  public UpdateCampaign startedAt(DateTime startedAt) {
-    this.startedAt = startedAt;
-    return this;
-  }
-
-   /**
-   * Get startedAt
-   * @return startedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getStartedAt() {
-    return startedAt;
-  }
-
-  public void setStartedAt(DateTime startedAt) {
-    this.startedAt = startedAt;
-  }
-
   public UpdateCampaign id(String id) {
     this.id = id;
     return this;
@@ -381,24 +264,6 @@ public class UpdateCampaign implements Serializable {
 
   public void setId(String id) {
     this.id = id;
-  }
-
-  public UpdateCampaign deviceFilter(String deviceFilter) {
-    this.deviceFilter = deviceFilter;
-    return this;
-  }
-
-   /**
-   * The filter for the devices the campaign will target
-   * @return deviceFilter
-  **/
-  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign will target")
-  public String getDeviceFilter() {
-    return deviceFilter;
-  }
-
-  public void setDeviceFilter(String deviceFilter) {
-    this.deviceFilter = deviceFilter;
   }
 
   public UpdateCampaign name(String name) {
@@ -419,6 +284,141 @@ public class UpdateCampaign implements Serializable {
     this.name = name;
   }
 
+  public UpdateCampaign object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * The API resource entity
+   * @return object
+  **/
+  @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
+   /**
+   * The current phase of the campaign.
+   * @return phase
+  **/
+  @ApiModelProperty(value = "The current phase of the campaign.")
+  public String getPhase() {
+    return phase;
+  }
+
+  public UpdateCampaign rootManifestId(String rootManifestId) {
+    this.rootManifestId = rootManifestId;
+    return this;
+  }
+
+   /**
+   * Get rootManifestId
+   * @return rootManifestId
+  **/
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+  public String getRootManifestId() {
+    return rootManifestId;
+  }
+
+  public void setRootManifestId(String rootManifestId) {
+    this.rootManifestId = rootManifestId;
+  }
+
+  public UpdateCampaign rootManifestUrl(String rootManifestUrl) {
+    this.rootManifestUrl = rootManifestUrl;
+    return this;
+  }
+
+   /**
+   * Get rootManifestUrl
+   * @return rootManifestUrl
+  **/
+  @ApiModelProperty(example = "http://example.com/00000000000000000000000000000000", value = "")
+  public String getRootManifestUrl() {
+    return rootManifestUrl;
+  }
+
+  public void setRootManifestUrl(String rootManifestUrl) {
+    this.rootManifestUrl = rootManifestUrl;
+  }
+
+  public UpdateCampaign startedAt(DateTime startedAt) {
+    this.startedAt = startedAt;
+    return this;
+  }
+
+   /**
+   * Get startedAt
+   * @return startedAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getStartedAt() {
+    return startedAt;
+  }
+
+  public void setStartedAt(DateTime startedAt) {
+    this.startedAt = startedAt;
+  }
+
+  public UpdateCampaign state(StateEnum state) {
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state of the campaign
+   * @return state
+  **/
+  @ApiModelProperty(value = "The state of the campaign")
+  public StateEnum getState() {
+    return state;
+  }
+
+  public void setState(StateEnum state) {
+    this.state = state;
+  }
+
+  public UpdateCampaign updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The time the object was updated
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "The time the object was updated")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  public UpdateCampaign when(DateTime when) {
+    this.when = when;
+    return this;
+  }
+
+   /**
+   * The scheduled start time for the update campaign
+   * @return when
+  **/
+  @ApiModelProperty(value = "The scheduled start time for the update campaign")
+  public DateTime getWhen() {
+    return when;
+  }
+
+  public void setWhen(DateTime when) {
+    this.when = when;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -429,26 +429,26 @@ public class UpdateCampaign implements Serializable {
       return false;
     }
     UpdateCampaign updateCampaign = (UpdateCampaign) o;
-    return Objects.equals(this.description, updateCampaign.description) &&
-        Objects.equals(this.rootManifestId, updateCampaign.rootManifestId) &&
-        Objects.equals(this.createdAt, updateCampaign.createdAt) &&
-        Objects.equals(this.object, updateCampaign.object) &&
-        Objects.equals(this.when, updateCampaign.when) &&
-        Objects.equals(this.updatedAt, updateCampaign.updatedAt) &&
-        Objects.equals(this.state, updateCampaign.state) &&
+    return Objects.equals(this.createdAt, updateCampaign.createdAt) &&
+        Objects.equals(this.description, updateCampaign.description) &&
+        Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
         Objects.equals(this.etag, updateCampaign.etag) &&
         Objects.equals(this.finished, updateCampaign.finished) &&
-        Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl) &&
-        Objects.equals(this.phase, updateCampaign.phase) &&
-        Objects.equals(this.startedAt, updateCampaign.startedAt) &&
         Objects.equals(this.id, updateCampaign.id) &&
-        Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
-        Objects.equals(this.name, updateCampaign.name);
+        Objects.equals(this.name, updateCampaign.name) &&
+        Objects.equals(this.object, updateCampaign.object) &&
+        Objects.equals(this.phase, updateCampaign.phase) &&
+        Objects.equals(this.rootManifestId, updateCampaign.rootManifestId) &&
+        Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl) &&
+        Objects.equals(this.startedAt, updateCampaign.startedAt) &&
+        Objects.equals(this.state, updateCampaign.state) &&
+        Objects.equals(this.updatedAt, updateCampaign.updatedAt) &&
+        Objects.equals(this.when, updateCampaign.when);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, phase, startedAt, id, deviceFilter, name);
+    return Objects.hash(createdAt, description, deviceFilter, etag, finished, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
   }
 
 
@@ -457,21 +457,21 @@ public class UpdateCampaign implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateCampaign {\n");
     
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    when: ").append(toIndentedString(when)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
-    sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
-    sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
-    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
+    sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
+    sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
+    sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("}");
     return sb.toString();
   }
