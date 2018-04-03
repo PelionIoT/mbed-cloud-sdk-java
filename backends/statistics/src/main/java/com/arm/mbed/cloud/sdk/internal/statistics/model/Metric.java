@@ -32,44 +32,23 @@ import java.io.Serializable;
 public class Metric implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("registration_updates")
-  private Long registrationUpdates = null;
-
-  @SerializedName("connect_rest_api_success")
-  private Long connectRestApiSuccess = null;
-
   @SerializedName("bootstraps_failed")
   private Long bootstrapsFailed = null;
-
-  @SerializedName("transactions")
-  private Long transactions = null;
-
-  @SerializedName("timestamp")
-  private DateTime timestamp = null;
-
-  @SerializedName("device_subscription_request_error")
-  private Long deviceSubscriptionRequestError = null;
 
   @SerializedName("bootstraps_pending")
   private Long bootstrapsPending = null;
 
-  @SerializedName("device_proxy_request_success")
-  private Long deviceProxyRequestSuccess = null;
-
   @SerializedName("bootstraps_successful")
   private Long bootstrapsSuccessful = null;
 
-  @SerializedName("full_registrations")
-  private Long fullRegistrations = null;
+  @SerializedName("connect_rest_api_error")
+  private Long connectRestApiError = null;
 
-  @SerializedName("device_subscription_request_success")
-  private Long deviceSubscriptionRequestSuccess = null;
+  @SerializedName("connect_rest_api_success")
+  private Long connectRestApiSuccess = null;
 
-  @SerializedName("expired_registrations")
-  private Long expiredRegistrations = null;
-
-  @SerializedName("handshakes_successful")
-  private Long handshakesSuccessful = null;
+  @SerializedName("deleted_registrations")
+  private Long deletedRegistrations = null;
 
   @SerializedName("device_observations")
   private Long deviceObservations = null;
@@ -77,50 +56,35 @@ public class Metric implements Serializable {
   @SerializedName("device_proxy_request_error")
   private Long deviceProxyRequestError = null;
 
-  @SerializedName("deleted_registrations")
-  private Long deletedRegistrations = null;
+  @SerializedName("device_proxy_request_success")
+  private Long deviceProxyRequestSuccess = null;
 
-  @SerializedName("connect_rest_api_error")
-  private Long connectRestApiError = null;
+  @SerializedName("device_subscription_request_error")
+  private Long deviceSubscriptionRequestError = null;
+
+  @SerializedName("device_subscription_request_success")
+  private Long deviceSubscriptionRequestSuccess = null;
+
+  @SerializedName("expired_registrations")
+  private Long expiredRegistrations = null;
+
+  @SerializedName("full_registrations")
+  private Long fullRegistrations = null;
+
+  @SerializedName("handshakes_successful")
+  private Long handshakesSuccessful = null;
 
   @SerializedName("id")
   private String id = null;
 
-  public Metric registrationUpdates(Long registrationUpdates) {
-    this.registrationUpdates = registrationUpdates;
-    return this;
-  }
+  @SerializedName("registration_updates")
+  private Long registrationUpdates = null;
 
-   /**
-   * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
-   * @return registrationUpdates
-  **/
-  @ApiModelProperty(value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
-  public Long getRegistrationUpdates() {
-    return registrationUpdates;
-  }
+  @SerializedName("timestamp")
+  private DateTime timestamp = null;
 
-  public void setRegistrationUpdates(Long registrationUpdates) {
-    this.registrationUpdates = registrationUpdates;
-  }
-
-  public Metric connectRestApiSuccess(Long connectRestApiSuccess) {
-    this.connectRestApiSuccess = connectRestApiSuccess;
-    return this;
-  }
-
-   /**
-   * The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
-   * @return connectRestApiSuccess
-  **/
-  @ApiModelProperty(value = "The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
-  public Long getConnectRestApiSuccess() {
-    return connectRestApiSuccess;
-  }
-
-  public void setConnectRestApiSuccess(Long connectRestApiSuccess) {
-    this.connectRestApiSuccess = connectRestApiSuccess;
-  }
+  @SerializedName("transactions")
+  private Long transactions = null;
 
   public Metric bootstrapsFailed(Long bootstrapsFailed) {
     this.bootstrapsFailed = bootstrapsFailed;
@@ -138,60 +102,6 @@ public class Metric implements Serializable {
 
   public void setBootstrapsFailed(Long bootstrapsFailed) {
     this.bootstrapsFailed = bootstrapsFailed;
-  }
-
-  public Metric transactions(Long transactions) {
-    this.transactions = transactions;
-    return this;
-  }
-
-   /**
-   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --&gt; Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --&gt; device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.
-   * @return transactions
-  **/
-  @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --> Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.")
-  public Long getTransactions() {
-    return transactions;
-  }
-
-  public void setTransactions(Long transactions) {
-    this.transactions = transactions;
-  }
-
-  public Metric timestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval&#39;s starting point.
-   * @return timestamp
-  **/
-  @ApiModelProperty(value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
-  public DateTime getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public Metric deviceSubscriptionRequestError(Long deviceSubscriptionRequestError) {
-    this.deviceSubscriptionRequestError = deviceSubscriptionRequestError;
-    return this;
-  }
-
-   /**
-   * **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
-   * @return deviceSubscriptionRequestError
-  **/
-  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
-  public Long getDeviceSubscriptionRequestError() {
-    return deviceSubscriptionRequestError;
-  }
-
-  public void setDeviceSubscriptionRequestError(Long deviceSubscriptionRequestError) {
-    this.deviceSubscriptionRequestError = deviceSubscriptionRequestError;
   }
 
   public Metric bootstrapsPending(Long bootstrapsPending) {
@@ -212,24 +122,6 @@ public class Metric implements Serializable {
     this.bootstrapsPending = bootstrapsPending;
   }
 
-  public Metric deviceProxyRequestSuccess(Long deviceProxyRequestSuccess) {
-    this.deviceProxyRequestSuccess = deviceProxyRequestSuccess;
-    return this;
-  }
-
-   /**
-   * **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
-   * @return deviceProxyRequestSuccess
-  **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
-  public Long getDeviceProxyRequestSuccess() {
-    return deviceProxyRequestSuccess;
-  }
-
-  public void setDeviceProxyRequestSuccess(Long deviceProxyRequestSuccess) {
-    this.deviceProxyRequestSuccess = deviceProxyRequestSuccess;
-  }
-
   public Metric bootstrapsSuccessful(Long bootstrapsSuccessful) {
     this.bootstrapsSuccessful = bootstrapsSuccessful;
     return this;
@@ -248,76 +140,58 @@ public class Metric implements Serializable {
     this.bootstrapsSuccessful = bootstrapsSuccessful;
   }
 
-  public Metric fullRegistrations(Long fullRegistrations) {
-    this.fullRegistrations = fullRegistrations;
+  public Metric connectRestApiError(Long connectRestApiError) {
+    this.connectRestApiError = connectRestApiError;
     return this;
   }
 
    /**
-   * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
-   * @return fullRegistrations
+   * The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
+   * @return connectRestApiError
   **/
-  @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
-  public Long getFullRegistrations() {
-    return fullRegistrations;
+  @ApiModelProperty(value = "The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
+  public Long getConnectRestApiError() {
+    return connectRestApiError;
   }
 
-  public void setFullRegistrations(Long fullRegistrations) {
-    this.fullRegistrations = fullRegistrations;
+  public void setConnectRestApiError(Long connectRestApiError) {
+    this.connectRestApiError = connectRestApiError;
   }
 
-  public Metric deviceSubscriptionRequestSuccess(Long deviceSubscriptionRequestSuccess) {
-    this.deviceSubscriptionRequestSuccess = deviceSubscriptionRequestSuccess;
+  public Metric connectRestApiSuccess(Long connectRestApiSuccess) {
+    this.connectRestApiSuccess = connectRestApiSuccess;
     return this;
   }
 
    /**
-   * **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
-   * @return deviceSubscriptionRequestSuccess
+   * The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
+   * @return connectRestApiSuccess
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
-  public Long getDeviceSubscriptionRequestSuccess() {
-    return deviceSubscriptionRequestSuccess;
+  @ApiModelProperty(value = "The number of successful [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
+  public Long getConnectRestApiSuccess() {
+    return connectRestApiSuccess;
   }
 
-  public void setDeviceSubscriptionRequestSuccess(Long deviceSubscriptionRequestSuccess) {
-    this.deviceSubscriptionRequestSuccess = deviceSubscriptionRequestSuccess;
+  public void setConnectRestApiSuccess(Long connectRestApiSuccess) {
+    this.connectRestApiSuccess = connectRestApiSuccess;
   }
 
-  public Metric expiredRegistrations(Long expiredRegistrations) {
-    this.expiredRegistrations = expiredRegistrations;
+  public Metric deletedRegistrations(Long deletedRegistrations) {
+    this.deletedRegistrations = deletedRegistrations;
     return this;
   }
 
    /**
-   * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
-   * @return expiredRegistrations
+   * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
+   * @return deletedRegistrations
   **/
-  @ApiModelProperty(value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
-  public Long getExpiredRegistrations() {
-    return expiredRegistrations;
+  @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
+  public Long getDeletedRegistrations() {
+    return deletedRegistrations;
   }
 
-  public void setExpiredRegistrations(Long expiredRegistrations) {
-    this.expiredRegistrations = expiredRegistrations;
-  }
-
-  public Metric handshakesSuccessful(Long handshakesSuccessful) {
-    this.handshakesSuccessful = handshakesSuccessful;
-    return this;
-  }
-
-   /**
-   * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
-   * @return handshakesSuccessful
-  **/
-  @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
-  public Long getHandshakesSuccessful() {
-    return handshakesSuccessful;
-  }
-
-  public void setHandshakesSuccessful(Long handshakesSuccessful) {
-    this.handshakesSuccessful = handshakesSuccessful;
+  public void setDeletedRegistrations(Long deletedRegistrations) {
+    this.deletedRegistrations = deletedRegistrations;
   }
 
   public Metric deviceObservations(Long deviceObservations) {
@@ -356,40 +230,112 @@ public class Metric implements Serializable {
     this.deviceProxyRequestError = deviceProxyRequestError;
   }
 
-  public Metric deletedRegistrations(Long deletedRegistrations) {
-    this.deletedRegistrations = deletedRegistrations;
+  public Metric deviceProxyRequestSuccess(Long deviceProxyRequestSuccess) {
+    this.deviceProxyRequestSuccess = deviceProxyRequestSuccess;
     return this;
   }
 
    /**
-   * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
-   * @return deletedRegistrations
+   * **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
+   * @return deviceProxyRequestSuccess
   **/
-  @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
-  public Long getDeletedRegistrations() {
-    return deletedRegistrations;
+  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
+  public Long getDeviceProxyRequestSuccess() {
+    return deviceProxyRequestSuccess;
   }
 
-  public void setDeletedRegistrations(Long deletedRegistrations) {
-    this.deletedRegistrations = deletedRegistrations;
+  public void setDeviceProxyRequestSuccess(Long deviceProxyRequestSuccess) {
+    this.deviceProxyRequestSuccess = deviceProxyRequestSuccess;
   }
 
-  public Metric connectRestApiError(Long connectRestApiError) {
-    this.connectRestApiError = connectRestApiError;
+  public Metric deviceSubscriptionRequestError(Long deviceSubscriptionRequestError) {
+    this.deviceSubscriptionRequestError = deviceSubscriptionRequestError;
     return this;
   }
 
    /**
-   * The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
-   * @return connectRestApiError
+   * **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
+   * @return deviceSubscriptionRequestError
   **/
-  @ApiModelProperty(value = "The number of failed [Connect API](/docs/v1.2/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
-  public Long getConnectRestApiError() {
-    return connectRestApiError;
+  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
+  public Long getDeviceSubscriptionRequestError() {
+    return deviceSubscriptionRequestError;
   }
 
-  public void setConnectRestApiError(Long connectRestApiError) {
-    this.connectRestApiError = connectRestApiError;
+  public void setDeviceSubscriptionRequestError(Long deviceSubscriptionRequestError) {
+    this.deviceSubscriptionRequestError = deviceSubscriptionRequestError;
+  }
+
+  public Metric deviceSubscriptionRequestSuccess(Long deviceSubscriptionRequestSuccess) {
+    this.deviceSubscriptionRequestSuccess = deviceSubscriptionRequestSuccess;
+    return this;
+  }
+
+   /**
+   * **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. 
+   * @return deviceSubscriptionRequestSuccess
+  **/
+  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/service-api-references/connect-api.html) endpoints. ")
+  public Long getDeviceSubscriptionRequestSuccess() {
+    return deviceSubscriptionRequestSuccess;
+  }
+
+  public void setDeviceSubscriptionRequestSuccess(Long deviceSubscriptionRequestSuccess) {
+    this.deviceSubscriptionRequestSuccess = deviceSubscriptionRequestSuccess;
+  }
+
+  public Metric expiredRegistrations(Long expiredRegistrations) {
+    this.expiredRegistrations = expiredRegistrations;
+    return this;
+  }
+
+   /**
+   * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+   * @return expiredRegistrations
+  **/
+  @ApiModelProperty(value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
+  public Long getExpiredRegistrations() {
+    return expiredRegistrations;
+  }
+
+  public void setExpiredRegistrations(Long expiredRegistrations) {
+    this.expiredRegistrations = expiredRegistrations;
+  }
+
+  public Metric fullRegistrations(Long fullRegistrations) {
+    this.fullRegistrations = fullRegistrations;
+    return this;
+  }
+
+   /**
+   * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+   * @return fullRegistrations
+  **/
+  @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
+  public Long getFullRegistrations() {
+    return fullRegistrations;
+  }
+
+  public void setFullRegistrations(Long fullRegistrations) {
+    this.fullRegistrations = fullRegistrations;
+  }
+
+  public Metric handshakesSuccessful(Long handshakesSuccessful) {
+    this.handshakesSuccessful = handshakesSuccessful;
+    return this;
+  }
+
+   /**
+   * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+   * @return handshakesSuccessful
+  **/
+  @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
+  public Long getHandshakesSuccessful() {
+    return handshakesSuccessful;
+  }
+
+  public void setHandshakesSuccessful(Long handshakesSuccessful) {
+    this.handshakesSuccessful = handshakesSuccessful;
   }
 
   public Metric id(String id) {
@@ -410,6 +356,60 @@ public class Metric implements Serializable {
     this.id = id;
   }
 
+  public Metric registrationUpdates(Long registrationUpdates) {
+    this.registrationUpdates = registrationUpdates;
+    return this;
+  }
+
+   /**
+   * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
+   * @return registrationUpdates
+  **/
+  @ApiModelProperty(value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
+  public Long getRegistrationUpdates() {
+    return registrationUpdates;
+  }
+
+  public void setRegistrationUpdates(Long registrationUpdates) {
+    this.registrationUpdates = registrationUpdates;
+  }
+
+  public Metric timestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval&#39;s starting point.
+   * @return timestamp
+  **/
+  @ApiModelProperty(value = "UTC time in RFC3339 format. The timestamp is the starting point of the interval for which the data is aggregated. Each interval includes data for the time greater than or equal to the timestamp and less than the next interval's starting point.")
+  public DateTime getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public Metric transactions(Long transactions) {
+    this.transactions = transactions;
+    return this;
+  }
+
+   /**
+   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --&gt; Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --&gt; device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.
+   * @return transactions
+  **/
+  @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Mbed Cloud Connect. It can be either sent by the device (device --> Mbed Cloud Connect) or received by the device (Mbed Cloud Connect --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers). The Registration (full registration or registration update) and Deregistration events from device to Mbed Cloud Connect are not counted as a transaction. The observation event (resource change notifications) from device to Mbed Cloud Connect is counted as a transaction. The proxy and subscription request from Mbed Cloud Connect to the device is counted as a transaction and the access to Mbed Cloud Connect cache without contacting the actual device may also add to transaction count.")
+  public Long getTransactions() {
+    return transactions;
+  }
+
+  public void setTransactions(Long transactions) {
+    this.transactions = transactions;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -420,29 +420,29 @@ public class Metric implements Serializable {
       return false;
     }
     Metric metric = (Metric) o;
-    return Objects.equals(this.registrationUpdates, metric.registrationUpdates) &&
-        Objects.equals(this.connectRestApiSuccess, metric.connectRestApiSuccess) &&
-        Objects.equals(this.bootstrapsFailed, metric.bootstrapsFailed) &&
-        Objects.equals(this.transactions, metric.transactions) &&
-        Objects.equals(this.timestamp, metric.timestamp) &&
-        Objects.equals(this.deviceSubscriptionRequestError, metric.deviceSubscriptionRequestError) &&
+    return Objects.equals(this.bootstrapsFailed, metric.bootstrapsFailed) &&
         Objects.equals(this.bootstrapsPending, metric.bootstrapsPending) &&
-        Objects.equals(this.deviceProxyRequestSuccess, metric.deviceProxyRequestSuccess) &&
         Objects.equals(this.bootstrapsSuccessful, metric.bootstrapsSuccessful) &&
-        Objects.equals(this.fullRegistrations, metric.fullRegistrations) &&
-        Objects.equals(this.deviceSubscriptionRequestSuccess, metric.deviceSubscriptionRequestSuccess) &&
-        Objects.equals(this.expiredRegistrations, metric.expiredRegistrations) &&
-        Objects.equals(this.handshakesSuccessful, metric.handshakesSuccessful) &&
+        Objects.equals(this.connectRestApiError, metric.connectRestApiError) &&
+        Objects.equals(this.connectRestApiSuccess, metric.connectRestApiSuccess) &&
+        Objects.equals(this.deletedRegistrations, metric.deletedRegistrations) &&
         Objects.equals(this.deviceObservations, metric.deviceObservations) &&
         Objects.equals(this.deviceProxyRequestError, metric.deviceProxyRequestError) &&
-        Objects.equals(this.deletedRegistrations, metric.deletedRegistrations) &&
-        Objects.equals(this.connectRestApiError, metric.connectRestApiError) &&
-        Objects.equals(this.id, metric.id);
+        Objects.equals(this.deviceProxyRequestSuccess, metric.deviceProxyRequestSuccess) &&
+        Objects.equals(this.deviceSubscriptionRequestError, metric.deviceSubscriptionRequestError) &&
+        Objects.equals(this.deviceSubscriptionRequestSuccess, metric.deviceSubscriptionRequestSuccess) &&
+        Objects.equals(this.expiredRegistrations, metric.expiredRegistrations) &&
+        Objects.equals(this.fullRegistrations, metric.fullRegistrations) &&
+        Objects.equals(this.handshakesSuccessful, metric.handshakesSuccessful) &&
+        Objects.equals(this.id, metric.id) &&
+        Objects.equals(this.registrationUpdates, metric.registrationUpdates) &&
+        Objects.equals(this.timestamp, metric.timestamp) &&
+        Objects.equals(this.transactions, metric.transactions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(registrationUpdates, connectRestApiSuccess, bootstrapsFailed, transactions, timestamp, deviceSubscriptionRequestError, bootstrapsPending, deviceProxyRequestSuccess, bootstrapsSuccessful, fullRegistrations, deviceSubscriptionRequestSuccess, expiredRegistrations, handshakesSuccessful, deviceObservations, deviceProxyRequestError, deletedRegistrations, connectRestApiError, id);
+    return Objects.hash(bootstrapsFailed, bootstrapsPending, bootstrapsSuccessful, connectRestApiError, connectRestApiSuccess, deletedRegistrations, deviceObservations, deviceProxyRequestError, deviceProxyRequestSuccess, deviceSubscriptionRequestError, deviceSubscriptionRequestSuccess, expiredRegistrations, fullRegistrations, handshakesSuccessful, id, registrationUpdates, timestamp, transactions);
   }
 
 
@@ -451,24 +451,24 @@ public class Metric implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class Metric {\n");
     
-    sb.append("    registrationUpdates: ").append(toIndentedString(registrationUpdates)).append("\n");
-    sb.append("    connectRestApiSuccess: ").append(toIndentedString(connectRestApiSuccess)).append("\n");
     sb.append("    bootstrapsFailed: ").append(toIndentedString(bootstrapsFailed)).append("\n");
-    sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
-    sb.append("    deviceSubscriptionRequestError: ").append(toIndentedString(deviceSubscriptionRequestError)).append("\n");
     sb.append("    bootstrapsPending: ").append(toIndentedString(bootstrapsPending)).append("\n");
-    sb.append("    deviceProxyRequestSuccess: ").append(toIndentedString(deviceProxyRequestSuccess)).append("\n");
     sb.append("    bootstrapsSuccessful: ").append(toIndentedString(bootstrapsSuccessful)).append("\n");
-    sb.append("    fullRegistrations: ").append(toIndentedString(fullRegistrations)).append("\n");
-    sb.append("    deviceSubscriptionRequestSuccess: ").append(toIndentedString(deviceSubscriptionRequestSuccess)).append("\n");
-    sb.append("    expiredRegistrations: ").append(toIndentedString(expiredRegistrations)).append("\n");
-    sb.append("    handshakesSuccessful: ").append(toIndentedString(handshakesSuccessful)).append("\n");
+    sb.append("    connectRestApiError: ").append(toIndentedString(connectRestApiError)).append("\n");
+    sb.append("    connectRestApiSuccess: ").append(toIndentedString(connectRestApiSuccess)).append("\n");
+    sb.append("    deletedRegistrations: ").append(toIndentedString(deletedRegistrations)).append("\n");
     sb.append("    deviceObservations: ").append(toIndentedString(deviceObservations)).append("\n");
     sb.append("    deviceProxyRequestError: ").append(toIndentedString(deviceProxyRequestError)).append("\n");
-    sb.append("    deletedRegistrations: ").append(toIndentedString(deletedRegistrations)).append("\n");
-    sb.append("    connectRestApiError: ").append(toIndentedString(connectRestApiError)).append("\n");
+    sb.append("    deviceProxyRequestSuccess: ").append(toIndentedString(deviceProxyRequestSuccess)).append("\n");
+    sb.append("    deviceSubscriptionRequestError: ").append(toIndentedString(deviceSubscriptionRequestError)).append("\n");
+    sb.append("    deviceSubscriptionRequestSuccess: ").append(toIndentedString(deviceSubscriptionRequestSuccess)).append("\n");
+    sb.append("    expiredRegistrations: ").append(toIndentedString(expiredRegistrations)).append("\n");
+    sb.append("    fullRegistrations: ").append(toIndentedString(fullRegistrations)).append("\n");
+    sb.append("    handshakesSuccessful: ").append(toIndentedString(handshakesSuccessful)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    registrationUpdates: ").append(toIndentedString(registrationUpdates)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    transactions: ").append(toIndentedString(transactions)).append("\n");
     sb.append("}");
     return sb.toString();
   }
