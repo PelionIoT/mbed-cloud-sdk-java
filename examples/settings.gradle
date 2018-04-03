@@ -13,6 +13,8 @@ include 'support-annotations'
 project(':support-annotations').projectDir = file('../support-annotations')
 include 'lwm2m'
 project(':lwm2m').projectDir = file('../lwm2m')
+include 'backends:mbedcloud_common'
+project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
 include 'backends:connector_ca'
 project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
 include 'backends:enrollment'

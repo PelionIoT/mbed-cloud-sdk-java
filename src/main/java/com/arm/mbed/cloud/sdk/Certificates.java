@@ -41,7 +41,7 @@ public class Certificates extends AbstractApi {
 
     /**
      * Certificates module constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -64,7 +64,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getConnector().v3ServerCredentialsBootstrapGet(null);
+                        return endpoint.getServerCredentials().getBootstrapServerCredentials(null);
                     }
 
                 };
@@ -74,7 +74,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getConnector().v3ServerCredentialsLwm2mGet(null);
+                        return endpoint.getServerCredentials().getL2M2MServerCredentials(null);
                     }
 
                 };
@@ -85,7 +85,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getConnector().v3DeveloperCertificatesMuuidGet(finalCertificateId, null);
+                        return endpoint.getCertDeveloper().getDeveloperCertificate(finalCertificateId, null);
                     }
 
                 };
@@ -122,7 +122,7 @@ public class Certificates extends AbstractApi {
      * In order to see the full information about a particular certificate, use {@link #getCertificate(String)} instead.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -130,7 +130,7 @@ public class Certificates extends AbstractApi {
      *     String ownerId = "015f4ac587f500000000000100100249";
      *     options.setOwnerIdFilter(ownerId);
      *     options.setTypeFilter(CertificateType.DEVELOPER);
-     * 
+     *
      *     ListResponse<Certificate> certificates = certificateApi.listCertificates(options);
      *     for (Certificate certificate : certificates) {
      *         System.out.println("Certificate name: " + certificate.getName());
@@ -141,7 +141,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of certificates corresponding to filter options (One page).
@@ -179,7 +179,7 @@ public class Certificates extends AbstractApi {
      * Gets an iterator over all certificates according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -199,7 +199,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of certificates corresponding to filter options.
@@ -223,7 +223,7 @@ public class Certificates extends AbstractApi {
      * Gets details of a certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -236,7 +236,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificateId
      *            The certificate ID.
      * @return certificate.
@@ -260,7 +260,7 @@ public class Certificates extends AbstractApi {
      * Adds a new certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -277,7 +277,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificate
      *            Certificate request.
      * @return added certificate.
@@ -302,7 +302,7 @@ public class Certificates extends AbstractApi {
      * Adds a new developer certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -320,7 +320,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificate
      *            certificate Certificate request.
      * @return added certificate.
@@ -339,7 +339,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getConnector().v3DeveloperCertificatesPost(null,
+                        return endpoint.getCertDeveloper().createDeveloperCertificate(null,
                                 CertificateAdapter.reverseDeveloperMap(finalCertificate));
                     }
                 });
@@ -361,7 +361,7 @@ public class Certificates extends AbstractApi {
      * Updates a certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -374,13 +374,13 @@ public class Certificates extends AbstractApi {
      *     Certificate newCertificate = certificateApi.updateCertificate(certificate);
      *     System.out.println("New cert name: " + newCertificate.getName());
      *     assert certificateId == newCertificate.getId();
-     *     
+     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificate
      *            certificate to update.
      * @return updated certificate.
@@ -407,7 +407,7 @@ public class Certificates extends AbstractApi {
      * Deletes a certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -418,7 +418,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificateId
      *            The certificate ID.
      * @throws MbedCloudException
@@ -441,7 +441,7 @@ public class Certificates extends AbstractApi {
      * Deletes a certificate.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -454,7 +454,7 @@ public class Certificates extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param certificate
      *            The certificate to delete.
      * @throws MbedCloudException
@@ -468,7 +468,7 @@ public class Certificates extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override
