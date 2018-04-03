@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.internal.auth;
+package com.arm.mbed.cloud.sdk.internal.enrollment.auth;
 
 import java.io.IOException;
 import java.net.URI;

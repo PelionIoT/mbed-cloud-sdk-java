@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.enrollment.api;
 
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentId;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentities;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
