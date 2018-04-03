@@ -31,6 +31,9 @@ import java.io.Serializable;
 public class Resource implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("obs")
+  private Boolean obs = null;
+
   @SerializedName("rt")
   private String rt = null;
 
@@ -40,8 +43,23 @@ public class Resource implements Serializable {
   @SerializedName("uri")
   private String uri = null;
 
-  @SerializedName("obs")
-  private Boolean obs = null;
+  public Resource obs(Boolean obs) {
+    this.obs = obs;
+    return this;
+  }
+
+   /**
+   * Observable determines whether you can subscribe to changes for this resource. It can have values \&quot;true\&quot; or \&quot;false\&quot;. 
+   * @return obs
+  **/
+  @ApiModelProperty(example = "true", value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
+  public Boolean isObs() {
+    return obs;
+  }
+
+  public void setObs(Boolean obs) {
+    this.obs = obs;
+  }
 
   public Resource rt(String rt) {
     this.rt = rt;
@@ -97,24 +115,6 @@ public class Resource implements Serializable {
     this.uri = uri;
   }
 
-  public Resource obs(Boolean obs) {
-    this.obs = obs;
-    return this;
-  }
-
-   /**
-   * Observable determines whether you can subscribe to changes for this resource. It can have values \&quot;true\&quot; or \&quot;false\&quot;. 
-   * @return obs
-  **/
-  @ApiModelProperty(example = "true", value = "Observable determines whether you can subscribe to changes for this resource. It can have values \"true\" or \"false\". ")
-  public Boolean isObs() {
-    return obs;
-  }
-
-  public void setObs(Boolean obs) {
-    this.obs = obs;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -125,15 +125,15 @@ public class Resource implements Serializable {
       return false;
     }
     Resource resource = (Resource) o;
-    return Objects.equals(this.rt, resource.rt) &&
+    return Objects.equals(this.obs, resource.obs) &&
+        Objects.equals(this.rt, resource.rt) &&
         Objects.equals(this.type, resource.type) &&
-        Objects.equals(this.uri, resource.uri) &&
-        Objects.equals(this.obs, resource.obs);
+        Objects.equals(this.uri, resource.uri);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(rt, type, uri, obs);
+    return Objects.hash(obs, rt, type, uri);
   }
 
 
@@ -142,10 +142,10 @@ public class Resource implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class Resource {\n");
     
+    sb.append("    obs: ").append(toIndentedString(obs)).append("\n");
     sb.append("    rt: ").append(toIndentedString(rt)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    uri: ").append(toIndentedString(uri)).append("\n");
-    sb.append("    obs: ").append(toIndentedString(obs)).append("\n");
     sb.append("}");
     return sb.toString();
   }

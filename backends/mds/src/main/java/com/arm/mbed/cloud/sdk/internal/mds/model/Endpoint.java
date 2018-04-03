@@ -31,34 +31,34 @@ import java.io.Serializable;
 public class Endpoint implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("status")
-  private String status = null;
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("q")
   private Boolean q = null;
 
+  @SerializedName("status")
+  private String status = null;
+
   @SerializedName("type")
   private String type = null;
 
-  @SerializedName("name")
-  private String name = null;
-
-  public Endpoint status(String status) {
-    this.status = status;
+  public Endpoint name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
-   * @return status
+   * Unique Mbed Cloud Device ID representing the endpoint.
+   * @return name
   **/
-  @ApiModelProperty(example = "ACTIVE", value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
-  public String getStatus() {
-    return status;
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud Device ID representing the endpoint.")
+  public String getName() {
+    return name;
   }
 
-  public void setStatus(String status) {
-    this.status = status;
+  public void setName(String name) {
+    this.name = name;
   }
 
   public Endpoint q(Boolean q) {
@@ -79,6 +79,24 @@ public class Endpoint implements Serializable {
     this.q = q;
   }
 
+  public Endpoint status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.
+   * @return status
+  **/
+  @ApiModelProperty(example = "ACTIVE", value = "Deprecated and the value is always ACTIVE. Only used for API backwards compatibility reasons.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
   public Endpoint type(String type) {
     this.type = type;
     return this;
@@ -97,24 +115,6 @@ public class Endpoint implements Serializable {
     this.type = type;
   }
 
-  public Endpoint name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Unique Mbed Cloud Device ID representing the endpoint.
-   * @return name
-  **/
-  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud Device ID representing the endpoint.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -125,15 +125,15 @@ public class Endpoint implements Serializable {
       return false;
     }
     Endpoint endpoint = (Endpoint) o;
-    return Objects.equals(this.status, endpoint.status) &&
+    return Objects.equals(this.name, endpoint.name) &&
         Objects.equals(this.q, endpoint.q) &&
-        Objects.equals(this.type, endpoint.type) &&
-        Objects.equals(this.name, endpoint.name);
+        Objects.equals(this.status, endpoint.status) &&
+        Objects.equals(this.type, endpoint.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, q, type, name);
+    return Objects.hash(name, q, status, type);
   }
 
 
@@ -142,10 +142,10 @@ public class Endpoint implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class Endpoint {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    q: ").append(toIndentedString(q)).append("\n");
-    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    q: ").append(toIndentedString(q)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();
   }
