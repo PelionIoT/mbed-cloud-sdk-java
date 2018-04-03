@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **code** | **Integer** | Response code. | 
 **fields** | [**List&lt;Field&gt;**](Field.md) | Failed input fields during request object validation. |  [optional]
+**message** | **String** | A human readable message with detailed info. | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name, always &#39;error&#39;. | 
 **requestId** | **String** | Request ID. | 
-**message** | **String** | A human readable message with detailed info. | 
 **type** | [**TypeEnum**](#TypeEnum) | Error type. | 
 
 

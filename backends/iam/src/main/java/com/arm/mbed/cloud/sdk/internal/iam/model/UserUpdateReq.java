@@ -36,76 +36,94 @@ import java.io.Serializable;
 public class UserUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("phone_number")
-  private String phoneNumber = null;
-
-  @SerializedName("username")
-  private String username = null;
-
-  @SerializedName("groups")
-  private List<String> groups = null;
-
-  @SerializedName("is_marketing_accepted")
-  private Boolean isMarketingAccepted = null;
-
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
-  @SerializedName("is_gtc_accepted")
-  private Boolean isGtcAccepted = null;
-
-  @SerializedName("is_totp_enabled")
-  private Boolean isTotpEnabled = null;
-
-  @SerializedName("status")
-  private String status = null;
-
-  @SerializedName("full_name")
-  private String fullName = null;
-
   @SerializedName("address")
   private String address = null;
-
-  @SerializedName("password")
-  private String password = null;
 
   @SerializedName("email")
   private String email = null;
 
-  public UserUpdateReq phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  @SerializedName("full_name")
+  private String fullName = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
+
+  @SerializedName("is_gtc_accepted")
+  private Boolean isGtcAccepted = null;
+
+  @SerializedName("is_marketing_accepted")
+  private Boolean isMarketingAccepted = null;
+
+  @SerializedName("is_totp_enabled")
+  private Boolean isTotpEnabled = null;
+
+  @SerializedName("password")
+  private String password = null;
+
+  @SerializedName("phone_number")
+  private String phoneNumber = null;
+
+  @SerializedName("status")
+  private String status = null;
+
+  @SerializedName("user_properties")
+  private Map<String, Map<String, String>> userProperties = null;
+
+  @SerializedName("username")
+  private String username = null;
+
+  public UserUpdateReq address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Phone number, not longer than 100 characters.
-   * @return phoneNumber
+   * Address, not longer than 100 characters.
+   * @return address
   **/
-  @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
-  public String getPhoneNumber() {
-    return phoneNumber;
+  @ApiModelProperty(value = "Address, not longer than 100 characters.")
+  public String getAddress() {
+    return address;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
-  public UserUpdateReq username(String username) {
-    this.username = username;
+  public UserUpdateReq email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
-   * @return username
+   * The email address, not longer than 254 characters.
+   * @return email
   **/
-  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
-  public String getUsername() {
-    return username;
+  @ApiModelProperty(value = "The email address, not longer than 254 characters.")
+  public String getEmail() {
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public UserUpdateReq fullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+   /**
+   * The full name of the user, not longer than 100 characters.
+   * @return fullName
+  **/
+  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 
   public UserUpdateReq groups(List<String> groups) {
@@ -134,6 +152,24 @@ public class UserUpdateReq implements Serializable {
     this.groups = groups;
   }
 
+  public UserUpdateReq isGtcAccepted(Boolean isGtcAccepted) {
+    this.isGtcAccepted = isGtcAccepted;
+    return this;
+  }
+
+   /**
+   * A flag indicating that the General Terms and Conditions has been accepted.
+   * @return isGtcAccepted
+  **/
+  @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
+  public Boolean isIsGtcAccepted() {
+    return isGtcAccepted;
+  }
+
+  public void setIsGtcAccepted(Boolean isGtcAccepted) {
+    this.isGtcAccepted = isGtcAccepted;
+  }
+
   public UserUpdateReq isMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
     return this;
@@ -150,6 +186,78 @@ public class UserUpdateReq implements Serializable {
 
   public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
+  }
+
+  public UserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+    return this;
+  }
+
+   /**
+   * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
+   * @return isTotpEnabled
+  **/
+  @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
+  public Boolean isIsTotpEnabled() {
+    return isTotpEnabled;
+  }
+
+  public void setIsTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+  }
+
+  public UserUpdateReq password(String password) {
+    this.password = password;
+    return this;
+  }
+
+   /**
+   * The password when creating a new user. It will be generated when not present in the request.
+   * @return password
+  **/
+  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
+  }
+
+  public UserUpdateReq phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+    return this;
+  }
+
+   /**
+   * Phone number, not longer than 100 characters.
+   * @return phoneNumber
+  **/
+  @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
+  public String getPhoneNumber() {
+    return phoneNumber;
+  }
+
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public UserUpdateReq status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the user.
+   * @return status
+  **/
+  @ApiModelProperty(value = "The status of the user.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
   }
 
   public UserUpdateReq userProperties(Map<String, Map<String, String>> userProperties) {
@@ -178,130 +286,22 @@ public class UserUpdateReq implements Serializable {
     this.userProperties = userProperties;
   }
 
-  public UserUpdateReq isGtcAccepted(Boolean isGtcAccepted) {
-    this.isGtcAccepted = isGtcAccepted;
+  public UserUpdateReq username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * A flag indicating that the General Terms and Conditions has been accepted.
-   * @return isGtcAccepted
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
+   * @return username
   **/
-  @ApiModelProperty(value = "A flag indicating that the General Terms and Conditions has been accepted.")
-  public Boolean isIsGtcAccepted() {
-    return isGtcAccepted;
+  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  public String getUsername() {
+    return username;
   }
 
-  public void setIsGtcAccepted(Boolean isGtcAccepted) {
-    this.isGtcAccepted = isGtcAccepted;
-  }
-
-  public UserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-    return this;
-  }
-
-   /**
-   * A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.
-   * @return isTotpEnabled
-  **/
-  @ApiModelProperty(value = "A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled.")
-  public Boolean isIsTotpEnabled() {
-    return isTotpEnabled;
-  }
-
-  public void setIsTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-  }
-
-  public UserUpdateReq status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the user.
-   * @return status
-  **/
-  @ApiModelProperty(value = "The status of the user.")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public UserUpdateReq fullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-   /**
-   * The full name of the user, not longer than 100 characters.
-   * @return fullName
-  **/
-  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public UserUpdateReq address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Address, not longer than 100 characters.
-   * @return address
-  **/
-  @ApiModelProperty(value = "Address, not longer than 100 characters.")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
-  public UserUpdateReq password(String password) {
-    this.password = password;
-    return this;
-  }
-
-   /**
-   * The password when creating a new user. It will be generated when not present in the request.
-   * @return password
-  **/
-  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
-  public UserUpdateReq email(String email) {
-    this.email = email;
-    return this;
-  }
-
-   /**
-   * The email address, not longer than 254 characters.
-   * @return email
-  **/
-  @ApiModelProperty(value = "The email address, not longer than 254 characters.")
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
 
@@ -314,23 +314,23 @@ public class UserUpdateReq implements Serializable {
       return false;
     }
     UserUpdateReq userUpdateReq = (UserUpdateReq) o;
-    return Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
-        Objects.equals(this.username, userUpdateReq.username) &&
-        Objects.equals(this.groups, userUpdateReq.groups) &&
-        Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
-        Objects.equals(this.userProperties, userUpdateReq.userProperties) &&
-        Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
-        Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
-        Objects.equals(this.status, userUpdateReq.status) &&
+    return Objects.equals(this.address, userUpdateReq.address) &&
+        Objects.equals(this.email, userUpdateReq.email) &&
         Objects.equals(this.fullName, userUpdateReq.fullName) &&
-        Objects.equals(this.address, userUpdateReq.address) &&
+        Objects.equals(this.groups, userUpdateReq.groups) &&
+        Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
+        Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
+        Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
         Objects.equals(this.password, userUpdateReq.password) &&
-        Objects.equals(this.email, userUpdateReq.email);
+        Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
+        Objects.equals(this.status, userUpdateReq.status) &&
+        Objects.equals(this.userProperties, userUpdateReq.userProperties) &&
+        Objects.equals(this.username, userUpdateReq.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, groups, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, status, fullName, address, password, email);
+    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, password, phoneNumber, status, userProperties, username);
   }
 
 
@@ -339,18 +339,18 @@ public class UserUpdateReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserUpdateReq {\n");
     
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
-    sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
-    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
+    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
+    sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();
   }

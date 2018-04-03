@@ -34,6 +34,12 @@ import java.io.Serializable;
 public class ApiKeyInfoReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("groups")
+  private List<String> groups = null;
+
+  @SerializedName("name")
+  private String name = null;
+
   @SerializedName("owner")
   private String owner = null;
 
@@ -87,11 +93,49 @@ public class ApiKeyInfoReq implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("name")
-  private String name = null;
+  public ApiKeyInfoReq groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+  public ApiKeyInfoReq addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * A list of group IDs this API key belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
+  public ApiKeyInfoReq name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The display name for the API key, not longer than 100 characters.
+   * @return name
+  **/
+  @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
 
   public ApiKeyInfoReq owner(String owner) {
     this.owner = owner;
@@ -129,50 +173,6 @@ public class ApiKeyInfoReq implements Serializable {
     this.status = status;
   }
 
-  public ApiKeyInfoReq name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The display name for the API key, not longer than 100 characters.
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ApiKeyInfoReq groups(List<String> groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public ApiKeyInfoReq addGroupsItem(String groupsItem) {
-    if (this.groups == null) {
-      this.groups = new ArrayList<String>();
-    }
-    this.groups.add(groupsItem);
-    return this;
-  }
-
-   /**
-   * A list of group IDs this API key belongs to.
-   * @return groups
-  **/
-  @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
-  public List<String> getGroups() {
-    return groups;
-  }
-
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -183,15 +183,15 @@ public class ApiKeyInfoReq implements Serializable {
       return false;
     }
     ApiKeyInfoReq apiKeyInfoReq = (ApiKeyInfoReq) o;
-    return Objects.equals(this.owner, apiKeyInfoReq.owner) &&
-        Objects.equals(this.status, apiKeyInfoReq.status) &&
+    return Objects.equals(this.groups, apiKeyInfoReq.groups) &&
         Objects.equals(this.name, apiKeyInfoReq.name) &&
-        Objects.equals(this.groups, apiKeyInfoReq.groups);
+        Objects.equals(this.owner, apiKeyInfoReq.owner) &&
+        Objects.equals(this.status, apiKeyInfoReq.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(owner, status, name, groups);
+    return Objects.hash(groups, name, owner, status);
   }
 
 
@@ -200,10 +200,10 @@ public class ApiKeyInfoReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class ApiKeyInfoReq {\n");
     
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("}");
     return sb.toString();
   }

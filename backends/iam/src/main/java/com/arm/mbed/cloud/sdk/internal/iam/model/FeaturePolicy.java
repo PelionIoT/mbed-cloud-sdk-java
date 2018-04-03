@@ -35,17 +35,17 @@ public class FeaturePolicy implements Serializable {
   @SerializedName("action")
   private String action = null;
 
-  @SerializedName("resource")
-  private String resource = null;
+  @SerializedName("allow")
+  private Boolean allow = null;
 
   @SerializedName("feature")
   private String feature = null;
 
-  @SerializedName("allow")
-  private Boolean allow = null;
-
   @SerializedName("inherited")
   private Boolean inherited = null;
+
+  @SerializedName("resource")
+  private String resource = null;
 
   public FeaturePolicy action(String action) {
     this.action = action;
@@ -63,42 +63,6 @@ public class FeaturePolicy implements Serializable {
 
   public void setAction(String action) {
     this.action = action;
-  }
-
-  public FeaturePolicy resource(String resource) {
-    this.resource = resource;
-    return this;
-  }
-
-   /**
-   * Resource that is protected by this policy.
-   * @return resource
-  **/
-  @ApiModelProperty(example = "/v3/update-campaign", value = "Resource that is protected by this policy.")
-  public String getResource() {
-    return resource;
-  }
-
-  public void setResource(String resource) {
-    this.resource = resource;
-  }
-
-  public FeaturePolicy feature(String feature) {
-    this.feature = feature;
-    return this;
-  }
-
-   /**
-   * Feature name corresponding to this policy.
-   * @return feature
-  **/
-  @ApiModelProperty(example = "update-campaigns", value = "Feature name corresponding to this policy.")
-  public String getFeature() {
-    return feature;
-  }
-
-  public void setFeature(String feature) {
-    this.feature = feature;
   }
 
   public FeaturePolicy allow(Boolean allow) {
@@ -119,6 +83,24 @@ public class FeaturePolicy implements Serializable {
     this.allow = allow;
   }
 
+  public FeaturePolicy feature(String feature) {
+    this.feature = feature;
+    return this;
+  }
+
+   /**
+   * Feature name corresponding to this policy.
+   * @return feature
+  **/
+  @ApiModelProperty(example = "update-campaigns", value = "Feature name corresponding to this policy.")
+  public String getFeature() {
+    return feature;
+  }
+
+  public void setFeature(String feature) {
+    this.feature = feature;
+  }
+
   public FeaturePolicy inherited(Boolean inherited) {
     this.inherited = inherited;
     return this;
@@ -137,6 +119,24 @@ public class FeaturePolicy implements Serializable {
     this.inherited = inherited;
   }
 
+  public FeaturePolicy resource(String resource) {
+    this.resource = resource;
+    return this;
+  }
+
+   /**
+   * Resource that is protected by this policy.
+   * @return resource
+  **/
+  @ApiModelProperty(example = "/v3/update-campaign", value = "Resource that is protected by this policy.")
+  public String getResource() {
+    return resource;
+  }
+
+  public void setResource(String resource) {
+    this.resource = resource;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -148,15 +148,15 @@ public class FeaturePolicy implements Serializable {
     }
     FeaturePolicy featurePolicy = (FeaturePolicy) o;
     return Objects.equals(this.action, featurePolicy.action) &&
-        Objects.equals(this.resource, featurePolicy.resource) &&
-        Objects.equals(this.feature, featurePolicy.feature) &&
         Objects.equals(this.allow, featurePolicy.allow) &&
-        Objects.equals(this.inherited, featurePolicy.inherited);
+        Objects.equals(this.feature, featurePolicy.feature) &&
+        Objects.equals(this.inherited, featurePolicy.inherited) &&
+        Objects.equals(this.resource, featurePolicy.resource);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(action, resource, feature, allow, inherited);
+    return Objects.hash(action, allow, feature, inherited, resource);
   }
 
 
@@ -166,10 +166,10 @@ public class FeaturePolicy implements Serializable {
     sb.append("class FeaturePolicy {\n");
     
     sb.append("    action: ").append(toIndentedString(action)).append("\n");
-    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
-    sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
     sb.append("    allow: ").append(toIndentedString(allow)).append("\n");
+    sb.append("    feature: ").append(toIndentedString(feature)).append("\n");
     sb.append("    inherited: ").append(toIndentedString(inherited)).append("\n");
+    sb.append("    resource: ").append(toIndentedString(resource)).append("\n");
     sb.append("}");
     return sb.toString();
   }
