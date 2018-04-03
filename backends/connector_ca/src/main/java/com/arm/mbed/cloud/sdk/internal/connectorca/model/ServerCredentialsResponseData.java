@@ -1,6 +1,6 @@
 /*
  * Connect CA API
- * Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+ * mbed Cloud Connect CA API allows services to get device credentials.
  *
  * OpenAPI spec version: 3
  * 
@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -35,7 +36,7 @@ public class ServerCredentialsResponseData implements Serializable {
   private String serverUri = null;
 
   @SerializedName("created_at")
-  private String createdAt = null;
+  private DateTime createdAt = null;
 
   @SerializedName("object")
   private String object = null;
@@ -55,10 +56,10 @@ public class ServerCredentialsResponseData implements Serializable {
   }
 
    /**
-   * The server URI to which the client needs to connect to.
+   * Server URI to which the client needs to connect to.
    * @return serverUri
   **/
-  @ApiModelProperty(value = "The server URI to which the client needs to connect to.")
+  @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
   public String getServerUri() {
     return serverUri;
   }
@@ -67,7 +68,7 @@ public class ServerCredentialsResponseData implements Serializable {
     this.serverUri = serverUri;
   }
 
-  public ServerCredentialsResponseData createdAt(String createdAt) {
+  public ServerCredentialsResponseData createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -77,11 +78,11 @@ public class ServerCredentialsResponseData implements Serializable {
    * @return createdAt
   **/
   @ApiModelProperty(value = "Creation UTC time RFC3339.")
-  public String getCreatedAt() {
+  public DateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -91,10 +92,10 @@ public class ServerCredentialsResponseData implements Serializable {
   }
 
    /**
-   * The entity name, always &#x60;server-credentials&#x60;.
+   * Entity name, always &#39;server-credentials&#39;
    * @return object
   **/
-  @ApiModelProperty(value = "The entity name, always `server-credentials`.")
+  @ApiModelProperty(value = "Entity name, always 'server-credentials'")
   public String getObject() {
     return object;
   }
@@ -109,10 +110,10 @@ public class ServerCredentialsResponseData implements Serializable {
   }
 
    /**
-   * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
+   * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
    * @return serverCertificate
   **/
-  @ApiModelProperty(value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
+  @ApiModelProperty(value = "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.")
   public String getServerCertificate() {
     return serverCertificate;
   }
@@ -145,10 +146,10 @@ public class ServerCredentialsResponseData implements Serializable {
   }
 
    /**
-   * The mUUID that uniquely identifies the entity.
+   * mUUID that uniquely identifies the entity.
    * @return id
   **/
-  @ApiModelProperty(value = "The mUUID that uniquely identifies the entity.")
+  @ApiModelProperty(value = "mUUID that uniquely identifies the entity.")
   public String getId() {
     return id;
   }

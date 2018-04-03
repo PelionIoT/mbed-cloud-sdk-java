@@ -1,6 +1,6 @@
 /*
  * Connect CA API
- * Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+ * mbed Cloud Connect CA API allows services to get device credentials.
  *
  * OpenAPI spec version: 3
  * 
@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -43,20 +44,14 @@ public class DeveloperCertificateResponseData implements Serializable {
   @SerializedName("developer_certificate")
   private String developerCertificate = null;
 
-  @SerializedName("server_uri")
-  private String serverUri = null;
-
   @SerializedName("created_at")
-  private String createdAt = null;
+  private DateTime createdAt = null;
 
   @SerializedName("object")
   private String object = null;
 
   @SerializedName("developer_private_key")
   private String developerPrivateKey = null;
-
-  @SerializedName("server_certificate")
-  private String serverCertificate = null;
 
   @SerializedName("etag")
   private String etag = null;
@@ -73,10 +68,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The content of the &#x60;security.c&#x60; file that is flashed into the device to provide the security credentials
+   * Content of the security.c file that will be flashed into the device to provide the security credentials
    * @return securityFileContent
   **/
-  @ApiModelProperty(value = "The content of the `security.c` file that is flashed into the device to provide the security credentials")
+  @ApiModelProperty(value = "Content of the security.c file that will be flashed into the device to provide the security credentials")
   public String getSecurityFileContent() {
     return securityFileContent;
   }
@@ -109,10 +104,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The name of the developer certificate.
+   * Name of the developer certificate.
    * @return name
   **/
-  @ApiModelProperty(value = "The name of the developer certificate.")
+  @ApiModelProperty(value = "Name of the developer certificate.")
   public String getName() {
     return name;
   }
@@ -127,10 +122,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The PEM format X.509 developer certificate.
+   * PEM format X.509 developer certificate.
    * @return developerCertificate
   **/
-  @ApiModelProperty(value = "The PEM format X.509 developer certificate.")
+  @ApiModelProperty(value = "PEM format X.509 developer certificate.")
   public String getDeveloperCertificate() {
     return developerCertificate;
   }
@@ -139,25 +134,7 @@ public class DeveloperCertificateResponseData implements Serializable {
     this.developerCertificate = developerCertificate;
   }
 
-  public DeveloperCertificateResponseData serverUri(String serverUri) {
-    this.serverUri = serverUri;
-    return this;
-  }
-
-   /**
-   * The URI to which the client needs to connect to.
-   * @return serverUri
-  **/
-  @ApiModelProperty(value = "The URI to which the client needs to connect to.")
-  public String getServerUri() {
-    return serverUri;
-  }
-
-  public void setServerUri(String serverUri) {
-    this.serverUri = serverUri;
-  }
-
-  public DeveloperCertificateResponseData createdAt(String createdAt) {
+  public DeveloperCertificateResponseData createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -167,11 +144,11 @@ public class DeveloperCertificateResponseData implements Serializable {
    * @return createdAt
   **/
   @ApiModelProperty(value = "Creation UTC time RFC3339.")
-  public String getCreatedAt() {
+  public DateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -181,10 +158,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * Entity name, always &#x60;trusted-cert&#x60;.
+   * Entity name, always &#39;trusted-cert&#39;
    * @return object
   **/
-  @ApiModelProperty(value = "Entity name, always `trusted-cert`.")
+  @ApiModelProperty(value = "Entity name, always 'trusted-cert'")
   public String getObject() {
     return object;
   }
@@ -199,34 +176,16 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The PEM format developer private key associated to the certificate.
+   * PEM format developer private key associated to the certificate.
    * @return developerPrivateKey
   **/
-  @ApiModelProperty(value = "The PEM format developer private key associated to the certificate.")
+  @ApiModelProperty(value = "PEM format developer private key associated to the certificate.")
   public String getDeveloperPrivateKey() {
     return developerPrivateKey;
   }
 
   public void setDeveloperPrivateKey(String developerPrivateKey) {
     this.developerPrivateKey = developerPrivateKey;
-  }
-
-  public DeveloperCertificateResponseData serverCertificate(String serverCertificate) {
-    this.serverCertificate = serverCertificate;
-    return this;
-  }
-
-   /**
-   * The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.
-   * @return serverCertificate
-  **/
-  @ApiModelProperty(value = "The PEM format X.509 server certificate that is used to validate the server certificate that is received during the TLS/DTLS handshake.")
-  public String getServerCertificate() {
-    return serverCertificate;
-  }
-
-  public void setServerCertificate(String serverCertificate) {
-    this.serverCertificate = serverCertificate;
   }
 
   public DeveloperCertificateResponseData etag(String etag) {
@@ -253,10 +212,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The mUUID that uniquely identifies the developer certificate.
+   * mUUID that uniquely identifies the developer certificate.
    * @return id
   **/
-  @ApiModelProperty(value = "The mUUID that uniquely identifies the developer certificate.")
+  @ApiModelProperty(value = "mUUID that uniquely identifies the developer certificate.")
   public String getId() {
     return id;
   }
@@ -271,10 +230,10 @@ public class DeveloperCertificateResponseData implements Serializable {
   }
 
    /**
-   * The account to which the developer certificate belongs.
+   * account to which the developer certificate belongs
    * @return accountId
   **/
-  @ApiModelProperty(value = "The account to which the developer certificate belongs.")
+  @ApiModelProperty(value = "account to which the developer certificate belongs")
   public String getAccountId() {
     return accountId;
   }
@@ -297,11 +256,9 @@ public class DeveloperCertificateResponseData implements Serializable {
         Objects.equals(this.description, developerCertificateResponseData.description) &&
         Objects.equals(this.name, developerCertificateResponseData.name) &&
         Objects.equals(this.developerCertificate, developerCertificateResponseData.developerCertificate) &&
-        Objects.equals(this.serverUri, developerCertificateResponseData.serverUri) &&
         Objects.equals(this.createdAt, developerCertificateResponseData.createdAt) &&
         Objects.equals(this.object, developerCertificateResponseData.object) &&
         Objects.equals(this.developerPrivateKey, developerCertificateResponseData.developerPrivateKey) &&
-        Objects.equals(this.serverCertificate, developerCertificateResponseData.serverCertificate) &&
         Objects.equals(this.etag, developerCertificateResponseData.etag) &&
         Objects.equals(this.id, developerCertificateResponseData.id) &&
         Objects.equals(this.accountId, developerCertificateResponseData.accountId);
@@ -309,7 +266,7 @@ public class DeveloperCertificateResponseData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(securityFileContent, description, name, developerCertificate, serverUri, createdAt, object, developerPrivateKey, serverCertificate, etag, id, accountId);
+    return Objects.hash(securityFileContent, description, name, developerCertificate, createdAt, object, developerPrivateKey, etag, id, accountId);
   }
 
 
@@ -322,11 +279,9 @@ public class DeveloperCertificateResponseData implements Serializable {
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    developerCertificate: ").append(toIndentedString(developerCertificate)).append("\n");
-    sb.append("    serverUri: ").append(toIndentedString(serverUri)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    developerPrivateKey: ").append(toIndentedString(developerPrivateKey)).append("\n");
-    sb.append("    serverCertificate: ").append(toIndentedString(serverCertificate)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");

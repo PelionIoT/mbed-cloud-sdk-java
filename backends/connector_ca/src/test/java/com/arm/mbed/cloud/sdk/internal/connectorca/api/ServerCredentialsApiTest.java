@@ -1,6 +1,8 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 
 import com.arm.mbed.cloud.sdk.internal.connectorca.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.connectorca.model.AllServerCredentialsResponseData;
+import com.arm.mbed.cloud.sdk.internal.connectorca.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,26 +25,38 @@ public class ServerCredentialsApiTest {
     }
 
     /**
-     * Fetch bootstrap server credentials.
+     * Fetch all (Bootstrap and LWM2M) server credentials.
      *
-     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they need to use with their clients to connect to bootstrap server. 
+     * This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot;         
      */
     @Test
-    public void v3ServerCredentialsBootstrapGetTest() {
+    public void getAllServerCredentialsTest() {
         String authorization = null;
-        // ServerCredentialsResponseData response = api.v3ServerCredentialsBootstrapGet(authorization);
+        // AllServerCredentialsResponseData response = api.getAllServerCredentials(authorization);
+
+        // TODO: test validations
+    }
+    /**
+     * Fetch bootstrap server credentials.
+     *
+     * This REST API is intended to be used by customers to fetch bootstrap server credentials that they will need to use with their clients to connect to bootstrap server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/bootstrap\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
+     */
+    @Test
+    public void getBootstrapServerCredentialsTest() {
+        String authorization = null;
+        // ServerCredentialsResponseData response = api.getBootstrapServerCredentials(authorization);
 
         // TODO: test validations
     }
     /**
      * Fetch LWM2M server credentials.
      *
-     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they need to use with their clients to connect to LWM2M server. 
+     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
      */
     @Test
-    public void v3ServerCredentialsLwm2mGetTest() {
+    public void getL2M2MServerCredentialsTest() {
         String authorization = null;
-        // ServerCredentialsResponseData response = api.v3ServerCredentialsLwm2mGet(authorization);
+        // ServerCredentialsResponseData response = api.getL2M2MServerCredentials(authorization);
 
         // TODO: test validations
     }

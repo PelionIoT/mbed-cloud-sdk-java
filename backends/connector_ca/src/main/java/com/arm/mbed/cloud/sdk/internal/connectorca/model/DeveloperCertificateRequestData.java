@@ -1,6 +1,6 @@
 /*
  * Connect CA API
- * Connect CA API provides methods to create and get Developer certificate. Also Connect CA provides server-credentials for Bootstarp and LWM2M Server.
+ * mbed Cloud Connect CA API allows services to get device credentials.
  *
  * OpenAPI spec version: 3
  * 
@@ -43,10 +43,10 @@ public class DeveloperCertificateRequestData implements Serializable {
   }
 
    /**
-   * The name of the developer certificate, must be unique.
+   * Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the developer certificate, must be unique.")
+  @ApiModelProperty(required = true, value = "Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)")
   public String getName() {
     return name;
   }
@@ -61,10 +61,10 @@ public class DeveloperCertificateRequestData implements Serializable {
   }
 
    /**
-   * A description for the developer certificate.
+   * Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)
    * @return description
   **/
-  @ApiModelProperty(value = "A description for the developer certificate.")
+  @ApiModelProperty(value = "Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/v1.2/api-references/account-management-api.html#trustedcertificatereq)")
   public String getDescription() {
     return description;
   }
