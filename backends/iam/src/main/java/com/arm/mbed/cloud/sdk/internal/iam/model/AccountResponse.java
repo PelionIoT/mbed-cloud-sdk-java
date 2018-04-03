@@ -32,9 +32,6 @@ import java.io.Serializable;
 public class AccountResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("status")
-  private String status = null;
-
   @SerializedName("alias")
   private String alias = null;
 
@@ -47,23 +44,8 @@ public class AccountResponse implements Serializable {
   @SerializedName("parentId")
   private String parentId = null;
 
-  public AccountResponse status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the account.
-   * @return status
-  **/
-  @ApiModelProperty(required = true, value = "The status of the account.")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
+  @SerializedName("status")
+  private String status = null;
 
   public AccountResponse alias(String alias) {
     this.alias = alias;
@@ -137,6 +119,24 @@ public class AccountResponse implements Serializable {
     this.parentId = parentId;
   }
 
+  public AccountResponse status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the account.
+   * @return status
+  **/
+  @ApiModelProperty(required = true, value = "The status of the account.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -147,16 +147,16 @@ public class AccountResponse implements Serializable {
       return false;
     }
     AccountResponse accountResponse = (AccountResponse) o;
-    return Objects.equals(this.status, accountResponse.status) &&
-        Objects.equals(this.alias, accountResponse.alias) &&
+    return Objects.equals(this.alias, accountResponse.alias) &&
         Objects.equals(this.displayName, accountResponse.displayName) &&
         Objects.equals(this.id, accountResponse.id) &&
-        Objects.equals(this.parentId, accountResponse.parentId);
+        Objects.equals(this.parentId, accountResponse.parentId) &&
+        Objects.equals(this.status, accountResponse.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, alias, displayName, id, parentId);
+    return Objects.hash(alias, displayName, id, parentId, status);
   }
 
 
@@ -165,11 +165,11 @@ public class AccountResponse implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountResponse {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    alias: ").append(toIndentedString(alias)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    parentId: ").append(toIndentedString(parentId)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }
