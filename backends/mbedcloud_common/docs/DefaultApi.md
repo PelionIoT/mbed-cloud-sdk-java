@@ -16,9 +16,19 @@ Method | HTTP request | Description
 ### Example
 ```java
 // Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
 //import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.api.DefaultApi;
 
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
 try {
@@ -39,10 +49,10 @@ This endpoint does not need any parameter.
 
 ### Authorization
 
-No authorization required
+[Bearer](../README.md#Bearer)
 
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: Not defined
+ - **Accept**: application/json
 
