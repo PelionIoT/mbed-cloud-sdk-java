@@ -31,29 +31,11 @@ import java.io.Serializable;
 public class CredentialsResponseData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("url")
-  private String url = null;
-
   @SerializedName("certificate")
   private String certificate = null;
 
-  public CredentialsResponseData url(String url) {
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Server URI to which the client needs to connect to.
-   * @return url
-  **/
-  @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
+  @SerializedName("url")
+  private String url = null;
 
   public CredentialsResponseData certificate(String certificate) {
     this.certificate = certificate;
@@ -73,6 +55,24 @@ public class CredentialsResponseData implements Serializable {
     this.certificate = certificate;
   }
 
+  public CredentialsResponseData url(String url) {
+    this.url = url;
+    return this;
+  }
+
+   /**
+   * Server URI to which the client needs to connect to.
+   * @return url
+  **/
+  @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,13 +83,13 @@ public class CredentialsResponseData implements Serializable {
       return false;
     }
     CredentialsResponseData credentialsResponseData = (CredentialsResponseData) o;
-    return Objects.equals(this.url, credentialsResponseData.url) &&
-        Objects.equals(this.certificate, credentialsResponseData.certificate);
+    return Objects.equals(this.certificate, credentialsResponseData.certificate) &&
+        Objects.equals(this.url, credentialsResponseData.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, certificate);
+    return Objects.hash(certificate, url);
   }
 
 
@@ -98,8 +98,8 @@ public class CredentialsResponseData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class CredentialsResponseData {\n");
     
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");
     return sb.toString();
   }

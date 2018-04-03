@@ -32,29 +32,11 @@ import java.io.Serializable;
 public class AllServerCredentialsResponseData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("lwm2m")
-  private CredentialsResponseData lwm2m = null;
-
   @SerializedName("bootstrap")
   private CredentialsResponseData bootstrap = null;
 
-  public AllServerCredentialsResponseData lwm2m(CredentialsResponseData lwm2m) {
-    this.lwm2m = lwm2m;
-    return this;
-  }
-
-   /**
-   * Get lwm2m
-   * @return lwm2m
-  **/
-  @ApiModelProperty(value = "")
-  public CredentialsResponseData getLwm2m() {
-    return lwm2m;
-  }
-
-  public void setLwm2m(CredentialsResponseData lwm2m) {
-    this.lwm2m = lwm2m;
-  }
+  @SerializedName("lwm2m")
+  private CredentialsResponseData lwm2m = null;
 
   public AllServerCredentialsResponseData bootstrap(CredentialsResponseData bootstrap) {
     this.bootstrap = bootstrap;
@@ -74,6 +56,24 @@ public class AllServerCredentialsResponseData implements Serializable {
     this.bootstrap = bootstrap;
   }
 
+  public AllServerCredentialsResponseData lwm2m(CredentialsResponseData lwm2m) {
+    this.lwm2m = lwm2m;
+    return this;
+  }
+
+   /**
+   * Get lwm2m
+   * @return lwm2m
+  **/
+  @ApiModelProperty(value = "")
+  public CredentialsResponseData getLwm2m() {
+    return lwm2m;
+  }
+
+  public void setLwm2m(CredentialsResponseData lwm2m) {
+    this.lwm2m = lwm2m;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -84,13 +84,13 @@ public class AllServerCredentialsResponseData implements Serializable {
       return false;
     }
     AllServerCredentialsResponseData allServerCredentialsResponseData = (AllServerCredentialsResponseData) o;
-    return Objects.equals(this.lwm2m, allServerCredentialsResponseData.lwm2m) &&
-        Objects.equals(this.bootstrap, allServerCredentialsResponseData.bootstrap);
+    return Objects.equals(this.bootstrap, allServerCredentialsResponseData.bootstrap) &&
+        Objects.equals(this.lwm2m, allServerCredentialsResponseData.lwm2m);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(lwm2m, bootstrap);
+    return Objects.hash(bootstrap, lwm2m);
   }
 
 
@@ -99,8 +99,8 @@ public class AllServerCredentialsResponseData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AllServerCredentialsResponseData {\n");
     
-    sb.append("    lwm2m: ").append(toIndentedString(lwm2m)).append("\n");
     sb.append("    bootstrap: ").append(toIndentedString(bootstrap)).append("\n");
+    sb.append("    lwm2m: ").append(toIndentedString(lwm2m)).append("\n");
     sb.append("}");
     return sb.toString();
   }

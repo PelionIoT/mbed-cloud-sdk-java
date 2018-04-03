@@ -32,23 +32,17 @@ import java.io.Serializable;
 public class DeveloperCertificateResponseData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("security_file_content")
-  private String securityFileContent = null;
-
-  @SerializedName("description")
-  private String description = null;
-
-  @SerializedName("name")
-  private String name = null;
-
-  @SerializedName("developer_certificate")
-  private String developerCertificate = null;
+  @SerializedName("account_id")
+  private String accountId = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("object")
-  private String object = null;
+  @SerializedName("description")
+  private String description = null;
+
+  @SerializedName("developer_certificate")
+  private String developerCertificate = null;
 
   @SerializedName("developer_private_key")
   private String developerPrivateKey = null;
@@ -59,79 +53,31 @@ public class DeveloperCertificateResponseData implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
+  @SerializedName("name")
+  private String name = null;
 
-  public DeveloperCertificateResponseData securityFileContent(String securityFileContent) {
-    this.securityFileContent = securityFileContent;
+  @SerializedName("object")
+  private String object = null;
+
+  @SerializedName("security_file_content")
+  private String securityFileContent = null;
+
+  public DeveloperCertificateResponseData accountId(String accountId) {
+    this.accountId = accountId;
     return this;
   }
 
    /**
-   * Content of the security.c file that will be flashed into the device to provide the security credentials
-   * @return securityFileContent
+   * account to which the developer certificate belongs
+   * @return accountId
   **/
-  @ApiModelProperty(value = "Content of the security.c file that will be flashed into the device to provide the security credentials")
-  public String getSecurityFileContent() {
-    return securityFileContent;
+  @ApiModelProperty(value = "account to which the developer certificate belongs")
+  public String getAccountId() {
+    return accountId;
   }
 
-  public void setSecurityFileContent(String securityFileContent) {
-    this.securityFileContent = securityFileContent;
-  }
-
-  public DeveloperCertificateResponseData description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Description for the developer certificate.
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description for the developer certificate.")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public DeveloperCertificateResponseData name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of the developer certificate.
-   * @return name
-  **/
-  @ApiModelProperty(value = "Name of the developer certificate.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public DeveloperCertificateResponseData developerCertificate(String developerCertificate) {
-    this.developerCertificate = developerCertificate;
-    return this;
-  }
-
-   /**
-   * PEM format X.509 developer certificate.
-   * @return developerCertificate
-  **/
-  @ApiModelProperty(value = "PEM format X.509 developer certificate.")
-  public String getDeveloperCertificate() {
-    return developerCertificate;
-  }
-
-  public void setDeveloperCertificate(String developerCertificate) {
-    this.developerCertificate = developerCertificate;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
   public DeveloperCertificateResponseData createdAt(DateTime createdAt) {
@@ -152,22 +98,40 @@ public class DeveloperCertificateResponseData implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public DeveloperCertificateResponseData object(String object) {
-    this.object = object;
+  public DeveloperCertificateResponseData description(String description) {
+    this.description = description;
     return this;
   }
 
    /**
-   * Entity name, always &#39;trusted-cert&#39;
-   * @return object
+   * Description for the developer certificate.
+   * @return description
   **/
-  @ApiModelProperty(value = "Entity name, always 'trusted-cert'")
-  public String getObject() {
-    return object;
+  @ApiModelProperty(value = "Description for the developer certificate.")
+  public String getDescription() {
+    return description;
   }
 
-  public void setObject(String object) {
-    this.object = object;
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public DeveloperCertificateResponseData developerCertificate(String developerCertificate) {
+    this.developerCertificate = developerCertificate;
+    return this;
+  }
+
+   /**
+   * PEM format X.509 developer certificate.
+   * @return developerCertificate
+  **/
+  @ApiModelProperty(value = "PEM format X.509 developer certificate.")
+  public String getDeveloperCertificate() {
+    return developerCertificate;
+  }
+
+  public void setDeveloperCertificate(String developerCertificate) {
+    this.developerCertificate = developerCertificate;
   }
 
   public DeveloperCertificateResponseData developerPrivateKey(String developerPrivateKey) {
@@ -224,22 +188,58 @@ public class DeveloperCertificateResponseData implements Serializable {
     this.id = id;
   }
 
-  public DeveloperCertificateResponseData accountId(String accountId) {
-    this.accountId = accountId;
+  public DeveloperCertificateResponseData name(String name) {
+    this.name = name;
     return this;
   }
 
    /**
-   * account to which the developer certificate belongs
-   * @return accountId
+   * Name of the developer certificate.
+   * @return name
   **/
-  @ApiModelProperty(value = "account to which the developer certificate belongs")
-  public String getAccountId() {
-    return accountId;
+  @ApiModelProperty(value = "Name of the developer certificate.")
+  public String getName() {
+    return name;
   }
 
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public DeveloperCertificateResponseData object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name, always &#39;trusted-cert&#39;
+   * @return object
+  **/
+  @ApiModelProperty(value = "Entity name, always 'trusted-cert'")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
+  public DeveloperCertificateResponseData securityFileContent(String securityFileContent) {
+    this.securityFileContent = securityFileContent;
+    return this;
+  }
+
+   /**
+   * Content of the security.c file that will be flashed into the device to provide the security credentials
+   * @return securityFileContent
+  **/
+  @ApiModelProperty(value = "Content of the security.c file that will be flashed into the device to provide the security credentials")
+  public String getSecurityFileContent() {
+    return securityFileContent;
+  }
+
+  public void setSecurityFileContent(String securityFileContent) {
+    this.securityFileContent = securityFileContent;
   }
 
 
@@ -252,21 +252,21 @@ public class DeveloperCertificateResponseData implements Serializable {
       return false;
     }
     DeveloperCertificateResponseData developerCertificateResponseData = (DeveloperCertificateResponseData) o;
-    return Objects.equals(this.securityFileContent, developerCertificateResponseData.securityFileContent) &&
-        Objects.equals(this.description, developerCertificateResponseData.description) &&
-        Objects.equals(this.name, developerCertificateResponseData.name) &&
-        Objects.equals(this.developerCertificate, developerCertificateResponseData.developerCertificate) &&
+    return Objects.equals(this.accountId, developerCertificateResponseData.accountId) &&
         Objects.equals(this.createdAt, developerCertificateResponseData.createdAt) &&
-        Objects.equals(this.object, developerCertificateResponseData.object) &&
+        Objects.equals(this.description, developerCertificateResponseData.description) &&
+        Objects.equals(this.developerCertificate, developerCertificateResponseData.developerCertificate) &&
         Objects.equals(this.developerPrivateKey, developerCertificateResponseData.developerPrivateKey) &&
         Objects.equals(this.etag, developerCertificateResponseData.etag) &&
         Objects.equals(this.id, developerCertificateResponseData.id) &&
-        Objects.equals(this.accountId, developerCertificateResponseData.accountId);
+        Objects.equals(this.name, developerCertificateResponseData.name) &&
+        Objects.equals(this.object, developerCertificateResponseData.object) &&
+        Objects.equals(this.securityFileContent, developerCertificateResponseData.securityFileContent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(securityFileContent, description, name, developerCertificate, createdAt, object, developerPrivateKey, etag, id, accountId);
+    return Objects.hash(accountId, createdAt, description, developerCertificate, developerPrivateKey, etag, id, name, object, securityFileContent);
   }
 
 
@@ -275,16 +275,16 @@ public class DeveloperCertificateResponseData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeveloperCertificateResponseData {\n");
     
-    sb.append("    securityFileContent: ").append(toIndentedString(securityFileContent)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    developerCertificate: ").append(toIndentedString(developerCertificate)).append("\n");
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    developerCertificate: ").append(toIndentedString(developerCertificate)).append("\n");
     sb.append("    developerPrivateKey: ").append(toIndentedString(developerPrivateKey)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    securityFileContent: ").append(toIndentedString(securityFileContent)).append("\n");
     sb.append("}");
     return sb.toString();
   }
