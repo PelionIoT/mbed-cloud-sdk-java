@@ -143,6 +143,9 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("root_manifest_url")
   private String rootManifestUrl = null;
 
+  @SerializedName("phase")
+  private String phase = null;
+
   @SerializedName("started_at")
   private DateTime startedAt = null;
 
@@ -335,6 +338,15 @@ public class UpdateCampaign implements Serializable {
     this.rootManifestUrl = rootManifestUrl;
   }
 
+   /**
+   * The current phase of the campaign.
+   * @return phase
+  **/
+  @ApiModelProperty(value = "The current phase of the campaign.")
+  public String getPhase() {
+    return phase;
+  }
+
   public UpdateCampaign startedAt(DateTime startedAt) {
     this.startedAt = startedAt;
     return this;
@@ -427,6 +439,7 @@ public class UpdateCampaign implements Serializable {
         Objects.equals(this.etag, updateCampaign.etag) &&
         Objects.equals(this.finished, updateCampaign.finished) &&
         Objects.equals(this.rootManifestUrl, updateCampaign.rootManifestUrl) &&
+        Objects.equals(this.phase, updateCampaign.phase) &&
         Objects.equals(this.startedAt, updateCampaign.startedAt) &&
         Objects.equals(this.id, updateCampaign.id) &&
         Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
@@ -435,7 +448,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, startedAt, id, deviceFilter, name);
+    return Objects.hash(description, rootManifestId, createdAt, object, when, updatedAt, state, etag, finished, rootManifestUrl, phase, startedAt, id, deviceFilter, name);
   }
 
 
@@ -454,6 +467,7 @@ public class UpdateCampaign implements Serializable {
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
     sb.append("    rootManifestUrl: ").append(toIndentedString(rootManifestUrl)).append("\n");
+    sb.append("    phase: ").append(toIndentedString(phase)).append("\n");
     sb.append("    startedAt: ").append(toIndentedString(startedAt)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
