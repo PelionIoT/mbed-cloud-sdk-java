@@ -32,61 +32,14 @@ import java.io.Serializable;
 public class TrustedCertificateUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  /**
-   * Status of the certificate.
-   */
-  @JsonAdapter(StatusEnum.Adapter.class)
-  public enum StatusEnum {
-    ACTIVE("ACTIVE"),
-    
-    INACTIVE("INACTIVE");
+  @SerializedName("certificate")
+  private String certificate = null;
 
-    private String value;
-
-    StatusEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<StatusEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public StatusEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return StatusEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("status")
-  private StatusEnum status = null;
+  @SerializedName("description")
+  private String description = null;
 
   @SerializedName("enrollment_mode")
   private Boolean enrollmentMode = null;
-
-  @SerializedName("certificate")
-  private String certificate = null;
 
   @SerializedName("name")
   private String name = null;
@@ -144,25 +97,90 @@ public class TrustedCertificateUpdateReq implements Serializable {
   @SerializedName("signature")
   private String signature = null;
 
-  @SerializedName("description")
-  private String description = null;
+  /**
+   * Status of the certificate.
+   */
+  @JsonAdapter(StatusEnum.Adapter.class)
+  public enum StatusEnum {
+    ACTIVE("ACTIVE"),
+    
+    INACTIVE("INACTIVE");
 
-  public TrustedCertificateUpdateReq status(StatusEnum status) {
-    this.status = status;
+    private String value;
+
+    StatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static StatusEnum fromValue(String text) {
+      for (StatusEnum b : StatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<StatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public StatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return StatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("status")
+  private StatusEnum status = null;
+
+  public TrustedCertificateUpdateReq certificate(String certificate) {
+    this.certificate = certificate;
     return this;
   }
 
    /**
-   * Status of the certificate.
-   * @return status
+   * X509.v3 trusted certificate in PEM format.
+   * @return certificate
   **/
-  @ApiModelProperty(value = "Status of the certificate.")
-  public StatusEnum getStatus() {
-    return status;
+  @ApiModelProperty(value = "X509.v3 trusted certificate in PEM format.")
+  public String getCertificate() {
+    return certificate;
   }
 
-  public void setStatus(StatusEnum status) {
-    this.status = status;
+  public void setCertificate(String certificate) {
+    this.certificate = certificate;
+  }
+
+  public TrustedCertificateUpdateReq description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Human readable description of this certificate, not longer than 500 characters.
+   * @return description
+  **/
+  @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
   }
 
   public TrustedCertificateUpdateReq enrollmentMode(Boolean enrollmentMode) {
@@ -181,24 +199,6 @@ public class TrustedCertificateUpdateReq implements Serializable {
 
   public void setEnrollmentMode(Boolean enrollmentMode) {
     this.enrollmentMode = enrollmentMode;
-  }
-
-  public TrustedCertificateUpdateReq certificate(String certificate) {
-    this.certificate = certificate;
-    return this;
-  }
-
-   /**
-   * X509.v3 trusted certificate in PEM format.
-   * @return certificate
-  **/
-  @ApiModelProperty(value = "X509.v3 trusted certificate in PEM format.")
-  public String getCertificate() {
-    return certificate;
-  }
-
-  public void setCertificate(String certificate) {
-    this.certificate = certificate;
   }
 
   public TrustedCertificateUpdateReq name(String name) {
@@ -255,22 +255,22 @@ public class TrustedCertificateUpdateReq implements Serializable {
     this.signature = signature;
   }
 
-  public TrustedCertificateUpdateReq description(String description) {
-    this.description = description;
+  public TrustedCertificateUpdateReq status(StatusEnum status) {
+    this.status = status;
     return this;
   }
 
    /**
-   * Human readable description of this certificate, not longer than 500 characters.
-   * @return description
+   * Status of the certificate.
+   * @return status
   **/
-  @ApiModelProperty(value = "Human readable description of this certificate, not longer than 500 characters.")
-  public String getDescription() {
-    return description;
+  @ApiModelProperty(value = "Status of the certificate.")
+  public StatusEnum getStatus() {
+    return status;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setStatus(StatusEnum status) {
+    this.status = status;
   }
 
 
@@ -283,18 +283,18 @@ public class TrustedCertificateUpdateReq implements Serializable {
       return false;
     }
     TrustedCertificateUpdateReq trustedCertificateUpdateReq = (TrustedCertificateUpdateReq) o;
-    return Objects.equals(this.status, trustedCertificateUpdateReq.status) &&
+    return Objects.equals(this.certificate, trustedCertificateUpdateReq.certificate) &&
+        Objects.equals(this.description, trustedCertificateUpdateReq.description) &&
         Objects.equals(this.enrollmentMode, trustedCertificateUpdateReq.enrollmentMode) &&
-        Objects.equals(this.certificate, trustedCertificateUpdateReq.certificate) &&
         Objects.equals(this.name, trustedCertificateUpdateReq.name) &&
         Objects.equals(this.service, trustedCertificateUpdateReq.service) &&
         Objects.equals(this.signature, trustedCertificateUpdateReq.signature) &&
-        Objects.equals(this.description, trustedCertificateUpdateReq.description);
+        Objects.equals(this.status, trustedCertificateUpdateReq.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, enrollmentMode, certificate, name, service, signature, description);
+    return Objects.hash(certificate, description, enrollmentMode, name, service, signature, status);
   }
 
 
@@ -303,13 +303,13 @@ public class TrustedCertificateUpdateReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class TrustedCertificateUpdateReq {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    enrollmentMode: ").append(toIndentedString(enrollmentMode)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    service: ").append(toIndentedString(service)).append("\n");
     sb.append("    signature: ").append(toIndentedString(signature)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

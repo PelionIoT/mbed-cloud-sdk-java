@@ -4,15 +4,15 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**dateTime** | [**DateTime**](DateTime.md) |  | 
-**stateChange** | **Boolean** |  |  [optional]
-**description** | **String** |  |  [optional]
 **changes** | **Object** |  |  [optional]
-**eventTypeDescription** | **String** |  |  [optional]
-**eventType** | **String** |  |  [optional]
 **data** | **Object** |  |  [optional]
-**id** | **String** |  | 
+**dateTime** | [**DateTime**](DateTime.md) |  | 
+**description** | **String** |  |  [optional]
 **deviceId** | **String** |  |  [optional]
+**eventType** | **String** |  |  [optional]
+**eventTypeDescription** | **String** |  |  [optional]
+**id** | **String** |  | 
+**stateChange** | **Boolean** |  |  [optional]
 
 
 

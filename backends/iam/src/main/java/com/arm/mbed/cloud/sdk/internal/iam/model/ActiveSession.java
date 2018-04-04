@@ -36,6 +36,12 @@ public class ActiveSession implements Serializable {
   @SerializedName("account_id")
   private String accountId = null;
 
+  @SerializedName("ip_address")
+  private String ipAddress = null;
+
+  @SerializedName("login_time")
+  private DateTime loginTime = null;
+
   /**
    * Entity name: always &#39;user-session&#39;
    */
@@ -84,17 +90,11 @@ public class ActiveSession implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
-  @SerializedName("user_agent")
-  private String userAgent = null;
-
-  @SerializedName("ip_address")
-  private String ipAddress = null;
-
   @SerializedName("reference_token")
   private String referenceToken = null;
 
-  @SerializedName("login_time")
-  private DateTime loginTime = null;
+  @SerializedName("user_agent")
+  private String userAgent = null;
 
   public ActiveSession accountId(String accountId) {
     this.accountId = accountId;
@@ -112,42 +112,6 @@ public class ActiveSession implements Serializable {
 
   public void setAccountId(String accountId) {
     this.accountId = accountId;
-  }
-
-  public ActiveSession object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Entity name: always &#39;user-session&#39;
-   * @return object
-  **/
-  @ApiModelProperty(required = true, value = "Entity name: always 'user-session'")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
-  }
-
-  public ActiveSession userAgent(String userAgent) {
-    this.userAgent = userAgent;
-    return this;
-  }
-
-   /**
-   * User Agent header from the login request.
-   * @return userAgent
-  **/
-  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
-  public String getUserAgent() {
-    return userAgent;
-  }
-
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
   }
 
   public ActiveSession ipAddress(String ipAddress) {
@@ -168,24 +132,6 @@ public class ActiveSession implements Serializable {
     this.ipAddress = ipAddress;
   }
 
-  public ActiveSession referenceToken(String referenceToken) {
-    this.referenceToken = referenceToken;
-    return this;
-  }
-
-   /**
-   * The reference token.
-   * @return referenceToken
-  **/
-  @ApiModelProperty(example = "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk", required = true, value = "The reference token.")
-  public String getReferenceToken() {
-    return referenceToken;
-  }
-
-  public void setReferenceToken(String referenceToken) {
-    this.referenceToken = referenceToken;
-  }
-
   public ActiveSession loginTime(DateTime loginTime) {
     this.loginTime = loginTime;
     return this;
@@ -204,6 +150,60 @@ public class ActiveSession implements Serializable {
     this.loginTime = loginTime;
   }
 
+  public ActiveSession object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;user-session&#39;
+   * @return object
+  **/
+  @ApiModelProperty(required = true, value = "Entity name: always 'user-session'")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
+
+  public ActiveSession referenceToken(String referenceToken) {
+    this.referenceToken = referenceToken;
+    return this;
+  }
+
+   /**
+   * The reference token.
+   * @return referenceToken
+  **/
+  @ApiModelProperty(example = "rt_CI6+5hS8p9DrCmkRyS6u4doUdiXr71dX7MqD+g0327hYQthEkYTxMMnCwHyf1rDdk", required = true, value = "The reference token.")
+  public String getReferenceToken() {
+    return referenceToken;
+  }
+
+  public void setReferenceToken(String referenceToken) {
+    this.referenceToken = referenceToken;
+  }
+
+  public ActiveSession userAgent(String userAgent) {
+    this.userAgent = userAgent;
+    return this;
+  }
+
+   /**
+   * User Agent header from the login request.
+   * @return userAgent
+  **/
+  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
+  public String getUserAgent() {
+    return userAgent;
+  }
+
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -215,16 +215,16 @@ public class ActiveSession implements Serializable {
     }
     ActiveSession activeSession = (ActiveSession) o;
     return Objects.equals(this.accountId, activeSession.accountId) &&
-        Objects.equals(this.object, activeSession.object) &&
-        Objects.equals(this.userAgent, activeSession.userAgent) &&
         Objects.equals(this.ipAddress, activeSession.ipAddress) &&
+        Objects.equals(this.loginTime, activeSession.loginTime) &&
+        Objects.equals(this.object, activeSession.object) &&
         Objects.equals(this.referenceToken, activeSession.referenceToken) &&
-        Objects.equals(this.loginTime, activeSession.loginTime);
+        Objects.equals(this.userAgent, activeSession.userAgent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, object, userAgent, ipAddress, referenceToken, loginTime);
+    return Objects.hash(accountId, ipAddress, loginTime, object, referenceToken, userAgent);
   }
 
 
@@ -234,11 +234,11 @@ public class ActiveSession implements Serializable {
     sb.append("class ActiveSession {\n");
     
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("    referenceToken: ").append(toIndentedString(referenceToken)).append("\n");
     sb.append("    loginTime: ").append(toIndentedString(loginTime)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    referenceToken: ").append(toIndentedString(referenceToken)).append("\n");
+    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

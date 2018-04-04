@@ -32,35 +32,53 @@ import java.io.Serializable;
 public class FirmwareManifestInNinFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
+
   @SerializedName("datafile")
   private String datafile = null;
+
+  @SerializedName("datafile_size")
+  private Integer datafileSize = null;
 
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("timestamp")
-  private DateTime timestamp = null;
-
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
-  @SerializedName("etag")
-  private DateTime etag = null;
-
   @SerializedName("device_class")
   private String deviceClass = null;
 
-  @SerializedName("datafile_size")
-  private Integer datafileSize = null;
+  @SerializedName("etag")
+  private DateTime etag = null;
 
   @SerializedName("id")
   private String id = null;
 
   @SerializedName("name")
   private String name = null;
+
+  @SerializedName("timestamp")
+  private DateTime timestamp = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
+  public FirmwareManifestInNinFilter createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+  }
 
   public FirmwareManifestInNinFilter datafile(String datafile) {
     this.datafile = datafile;
@@ -78,6 +96,24 @@ public class FirmwareManifestInNinFilter implements Serializable {
 
   public void setDatafile(String datafile) {
     this.datafile = datafile;
+  }
+
+  public FirmwareManifestInNinFilter datafileSize(Integer datafileSize) {
+    this.datafileSize = datafileSize;
+    return this;
+  }
+
+   /**
+   * Get datafileSize
+   * @return datafileSize
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getDatafileSize() {
+    return datafileSize;
+  }
+
+  public void setDatafileSize(Integer datafileSize) {
+    this.datafileSize = datafileSize;
   }
 
   public FirmwareManifestInNinFilter description(String description) {
@@ -98,78 +134,6 @@ public class FirmwareManifestInNinFilter implements Serializable {
     this.description = description;
   }
 
-  public FirmwareManifestInNinFilter timestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * Get timestamp
-   * @return timestamp
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-  }
-
-  public FirmwareManifestInNinFilter createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public FirmwareManifestInNinFilter updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public FirmwareManifestInNinFilter etag(DateTime etag) {
-    this.etag = etag;
-    return this;
-  }
-
-   /**
-   * Get etag
-   * @return etag
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getEtag() {
-    return etag;
-  }
-
-  public void setEtag(DateTime etag) {
-    this.etag = etag;
-  }
-
   public FirmwareManifestInNinFilter deviceClass(String deviceClass) {
     this.deviceClass = deviceClass;
     return this;
@@ -188,22 +152,22 @@ public class FirmwareManifestInNinFilter implements Serializable {
     this.deviceClass = deviceClass;
   }
 
-  public FirmwareManifestInNinFilter datafileSize(Integer datafileSize) {
-    this.datafileSize = datafileSize;
+  public FirmwareManifestInNinFilter etag(DateTime etag) {
+    this.etag = etag;
     return this;
   }
 
    /**
-   * Get datafileSize
-   * @return datafileSize
+   * Get etag
+   * @return etag
   **/
   @ApiModelProperty(value = "")
-  public Integer getDatafileSize() {
-    return datafileSize;
+  public DateTime getEtag() {
+    return etag;
   }
 
-  public void setDatafileSize(Integer datafileSize) {
-    this.datafileSize = datafileSize;
+  public void setEtag(DateTime etag) {
+    this.etag = etag;
   }
 
   public FirmwareManifestInNinFilter id(String id) {
@@ -242,6 +206,42 @@ public class FirmwareManifestInNinFilter implements Serializable {
     this.name = name;
   }
 
+  public FirmwareManifestInNinFilter timestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * Get timestamp
+   * @return timestamp
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+  }
+
+  public FirmwareManifestInNinFilter updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -252,21 +252,21 @@ public class FirmwareManifestInNinFilter implements Serializable {
       return false;
     }
     FirmwareManifestInNinFilter firmwareManifestInNinFilter = (FirmwareManifestInNinFilter) o;
-    return Objects.equals(this.datafile, firmwareManifestInNinFilter.datafile) &&
-        Objects.equals(this.description, firmwareManifestInNinFilter.description) &&
-        Objects.equals(this.timestamp, firmwareManifestInNinFilter.timestamp) &&
-        Objects.equals(this.createdAt, firmwareManifestInNinFilter.createdAt) &&
-        Objects.equals(this.updatedAt, firmwareManifestInNinFilter.updatedAt) &&
-        Objects.equals(this.etag, firmwareManifestInNinFilter.etag) &&
-        Objects.equals(this.deviceClass, firmwareManifestInNinFilter.deviceClass) &&
+    return Objects.equals(this.createdAt, firmwareManifestInNinFilter.createdAt) &&
+        Objects.equals(this.datafile, firmwareManifestInNinFilter.datafile) &&
         Objects.equals(this.datafileSize, firmwareManifestInNinFilter.datafileSize) &&
+        Objects.equals(this.description, firmwareManifestInNinFilter.description) &&
+        Objects.equals(this.deviceClass, firmwareManifestInNinFilter.deviceClass) &&
+        Objects.equals(this.etag, firmwareManifestInNinFilter.etag) &&
         Objects.equals(this.id, firmwareManifestInNinFilter.id) &&
-        Objects.equals(this.name, firmwareManifestInNinFilter.name);
+        Objects.equals(this.name, firmwareManifestInNinFilter.name) &&
+        Objects.equals(this.timestamp, firmwareManifestInNinFilter.timestamp) &&
+        Objects.equals(this.updatedAt, firmwareManifestInNinFilter.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(datafile, description, timestamp, createdAt, updatedAt, etag, deviceClass, datafileSize, id, name);
+    return Objects.hash(createdAt, datafile, datafileSize, description, deviceClass, etag, id, name, timestamp, updatedAt);
   }
 
 
@@ -275,16 +275,16 @@ public class FirmwareManifestInNinFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class FirmwareManifestInNinFilter {\n");
     
-    sb.append("    datafile: ").append(toIndentedString(datafile)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
+    sb.append("    datafile: ").append(toIndentedString(datafile)).append("\n");
     sb.append("    datafileSize: ").append(toIndentedString(datafileSize)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

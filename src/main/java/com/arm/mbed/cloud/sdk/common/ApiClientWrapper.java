@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -25,7 +25,7 @@ public class ApiClientWrapper {
 
     /**
      * Arm Mbed Cloud client constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}
      */
@@ -41,7 +41,7 @@ public class ApiClientWrapper {
 
     /**
      * Sets logging level to apply.
-     * 
+     *
      * @param level
      *            logging level @see {@link CallLogLevel}
      */
@@ -72,7 +72,7 @@ public class ApiClientWrapper {
 
     /**
      * Sets the http request timeout.
-     * 
+     *
      * @param timeout
      *            request timeout. By default, retrofit2 default setting is used.
      */
@@ -85,7 +85,7 @@ public class ApiClientWrapper {
 
     /**
      * Gets the http user agent in place.
-     * 
+     *
      * @return the userAgent
      */
     public UserAgent getUserAgent() {
@@ -98,7 +98,7 @@ public class ApiClientWrapper {
 
     /**
      * Creates a service.
-     * 
+     *
      * @param serviceClass
      *            class of the service.
      * @param <S>
@@ -111,7 +111,7 @@ public class ApiClientWrapper {
 
     /**
      * Gets the connection options used.
-     * 
+     *
      * @return the connectionOptions.
      */
     public ConnectionOptions getConnectionOptions() {
@@ -156,7 +156,7 @@ public class ApiClientWrapper {
 
         /**
          * Adds an extension to the user agent.
-         * 
+         *
          * @param name
          *            product name.
          * @param version
@@ -178,7 +178,7 @@ public class ApiClientWrapper {
 
         /**
          * Gets user agent string.
-         * 
+         *
          * @return string describing user agent header.
          */
         public String getUserAgentString() {

@@ -4,13 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**object** | **String** |  |  [optional]
-**hasMore** | **Boolean** |  |  [optional]
-**totalCount** | **Integer** |  |  [optional]
 **after** | **String** |  |  [optional]
-**limit** | **Integer** |  |  [optional]
 **data** | [**List&lt;FirmwareManifest&gt;**](FirmwareManifest.md) |  |  [optional]
+**hasMore** | **Boolean** |  |  [optional]
+**limit** | **Integer** |  |  [optional]
+**object** | **String** |  |  [optional]
 **order** | [**OrderEnum**](#OrderEnum) | The order of the records to return. Acceptable values: ASC, DESC. Default: ASC |  [optional]
+**totalCount** | **Integer** |  |  [optional]
 
 
 <a name="OrderEnum"></a>

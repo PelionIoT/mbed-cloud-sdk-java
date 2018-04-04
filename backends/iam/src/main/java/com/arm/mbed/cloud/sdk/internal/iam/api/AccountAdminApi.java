@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
-import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.iam.CollectionFormats.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -33,7 +33,7 @@ import java.util.Map;
 public interface AccountAdminApi {
   /**
    * Add API key to a list of groups.
-   * An endpoint for adding API key to groups.
+   * An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param apiKey The ID of the API key to be added to the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -48,7 +48,7 @@ public interface AccountAdminApi {
 
   /**
    * Upload a new trusted certificate.
-   * An endpoint for uploading new trusted certificates.
+   * An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\&quot;name\&quot;: \&quot;myCert1\&quot;, \&quot;description\&quot;: \&quot;very important cert\&quot;, \&quot;certificate\&quot;: \&quot;certificate_data\&quot;, \&quot;service\&quot;: \&quot;lwm2m\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body A trusted certificate object with attributes. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
    */
@@ -62,7 +62,7 @@ public interface AccountAdminApi {
 
   /**
    * Add members to a group.
-   * An endpoint for adding users and API keys to groups.
+   * An endpoint for adding users and API keys to a group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d &#39;{\&quot;users\&quot;: [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param groupID The ID of the group to be updated. (required)
    * @param body A list of users and API keys to be added to the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -77,7 +77,7 @@ public interface AccountAdminApi {
 
   /**
    * Add user to a list of groups.
-   * An endpoint for adding user to groups.
+   * An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user to be added to the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -92,7 +92,7 @@ public interface AccountAdminApi {
 
   /**
    * Create a new group.
-   * An endpoint for creating a new group.
+   * An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body Details of the group to be created. (required)
    * @return Call&lt;GroupSummary&gt;
    */
@@ -106,7 +106,7 @@ public interface AccountAdminApi {
 
   /**
    * Create a new user.
-   * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+   * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body A user object with attributes. (required)
    * @param action Action, either &#39;create&#39; or &#39;invite&#39;. (optional, default to create)
    * @return Call&lt;UserInfoResp&gt;
@@ -121,7 +121,7 @@ public interface AccountAdminApi {
 
   /**
    * Delete a group.
-   * An endpoint for deleting a group.
+   * An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param groupID The ID of the group to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
@@ -132,7 +132,7 @@ public interface AccountAdminApi {
 
   /**
    * Delete a user.
-   * An endpoint for deleting a user.
+   * An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
@@ -143,7 +143,7 @@ public interface AccountAdminApi {
 
   /**
    * Get the details of all users.
-   * An endpoint for retrieving the details of all users.
+   * An endpoint for retrieving the details of all users.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
@@ -159,7 +159,7 @@ public interface AccountAdminApi {
 
   /**
    * Get groups of the API key.
-   * An endpoint for retrieving groups of the API key.
+   * An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param apiKey The ID of the API key whose details are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -174,7 +174,7 @@ public interface AccountAdminApi {
 
   /**
    * Get groups of the user.
-   * An endpoint for retrieving groups of the user.
+   * An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user whose details are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -189,7 +189,7 @@ public interface AccountAdminApi {
 
   /**
    * Details of a user.
-   * An endpoint for retrieving the details of a user.
+   * An endpoint for retrieving the details of a user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user whose details are retrieved. (required)
    * @param properties Request to return account specific user property values according to the given property name. (optional)
    * @return Call&lt;UserInfoResp&gt;
@@ -201,7 +201,7 @@ public interface AccountAdminApi {
 
   /**
    * Get users of a group.
-   * An endpoint for listing the users of a group with details.
+   * An endpoint for listing the users of a group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param groupID The ID of the group whose users are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -216,7 +216,7 @@ public interface AccountAdminApi {
 
   /**
    * Remove API key from groups.
-   * An endpoint for removing API key from groups.
+   * An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param apiKey The ID of the API key to be removed from the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -231,7 +231,7 @@ public interface AccountAdminApi {
 
   /**
    * Remove user from groups.
-   * An endpoint for removing user from groups.
+   * An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user to be removed from the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -246,7 +246,7 @@ public interface AccountAdminApi {
 
   /**
    * Remove users from a group.
-   * An endpoint for removing users from groups.
+   * An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param groupID The ID of the group whose users are removed. (required)
    * @param body A list of users to be removed from the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -261,7 +261,7 @@ public interface AccountAdminApi {
 
   /**
    * Update the group name.
-   * An endpoint for updating a group name.
+   * An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param groupID The ID of the group to be updated. (required)
    * @param body Details of the group to be created. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -290,7 +290,7 @@ public interface AccountAdminApi {
 
   /**
    * Update user details.
-   * An endpoint for updating user details.
+   * An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user whose details are updated. (required)
    * @param body A user object with attributes. (required)
    * @return Call&lt;UserInfoResp&gt;

@@ -35,74 +35,77 @@ import java.io.Serializable;
 public class DeviceEqNeqFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("account_id")
+  private String accountId = null;
+
+  @SerializedName("auto_update")
+  private Boolean autoUpdate = null;
+
   @SerializedName("bootstrap_expiration_date")
   private DateTime bootstrapExpirationDate = null;
 
   @SerializedName("bootstrapped_timestamp")
   private DateTime bootstrappedTimestamp = null;
 
-  @SerializedName("connector_expiration_date")
-  private DateTime connectorExpirationDate = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
   @SerializedName("ca_id")
   private String caId = null;
 
-  @SerializedName("device_class")
-  private String deviceClass = null;
+  @SerializedName("connector_expiration_date")
+  private DateTime connectorExpirationDate = null;
 
-  @SerializedName("id")
-  private String id = null;
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
-
-  @SerializedName("endpoint_name")
-  private String endpointName = null;
-
-  @SerializedName("auto_update")
-  private Boolean autoUpdate = null;
-
-  @SerializedName("host_gateway")
-  private String hostGateway = null;
-
-  @SerializedName("device_execution_mode")
-  private Integer deviceExecutionMode = null;
-
-  @SerializedName("mechanism")
-  private String mechanism = null;
-
-  @SerializedName("state")
-  private String state = null;
-
-  @SerializedName("etag")
-  private DateTime etag = null;
-
-  @SerializedName("serial_number")
-  private String serialNumber = null;
-
-  @SerializedName("firmware_checksum")
-  private String firmwareChecksum = null;
-
-  @SerializedName("manifest_timestamp")
-  private DateTime manifestTimestamp = null;
-
-  @SerializedName("description")
-  private String description = null;
+  @SerializedName("custom_attributes")
+  private Map<String, String> customAttributes = null;
 
   @SerializedName("deployed_state")
   private String deployedState = null;
 
-  @SerializedName("vendor_id")
-  private String vendorId = null;
+  @SerializedName("deployment")
+  private String deployment = null;
+
+  @SerializedName("description")
+  private String description = null;
+
+  @SerializedName("device_class")
+  private String deviceClass = null;
+
+  @SerializedName("device_execution_mode")
+  private Integer deviceExecutionMode = null;
+
+  @SerializedName("device_key")
+  private String deviceKey = null;
+
+  @SerializedName("endpoint_name")
+  private String endpointName = null;
 
   @SerializedName("endpoint_type")
   private String endpointType = null;
 
-  @SerializedName("deployment")
-  private String deployment = null;
+  @SerializedName("enrolment_list_timestamp")
+  private DateTime enrolmentListTimestamp = null;
+
+  @SerializedName("etag")
+  private DateTime etag = null;
+
+  @SerializedName("firmware_checksum")
+  private String firmwareChecksum = null;
+
+  @SerializedName("host_gateway")
+  private String hostGateway = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("manifest")
+  private String manifest = null;
+
+  @SerializedName("manifest_timestamp")
+  private DateTime manifestTimestamp = null;
+
+  @SerializedName("mechanism")
+  private String mechanism = null;
 
   @SerializedName("mechanism_url")
   private String mechanismUrl = null;
@@ -110,20 +113,53 @@ public class DeviceEqNeqFilter implements Serializable {
   @SerializedName("name")
   private String name = null;
 
-  @SerializedName("device_key")
-  private String deviceKey = null;
+  @SerializedName("serial_number")
+  private String serialNumber = null;
 
-  @SerializedName("enrolment_list_timestamp")
-  private DateTime enrolmentListTimestamp = null;
+  @SerializedName("state")
+  private String state = null;
 
-  @SerializedName("manifest")
-  private String manifest = null;
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
-  @SerializedName("custom_attributes")
-  private Map<String, String> customAttributes = null;
+  @SerializedName("vendor_id")
+  private String vendorId = null;
 
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
+  public DeviceEqNeqFilter accountId(String accountId) {
+    this.accountId = accountId;
+    return this;
+  }
+
+   /**
+   * Get accountId
+   * @return accountId
+  **/
+  @ApiModelProperty(value = "")
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
+  }
+
+  public DeviceEqNeqFilter autoUpdate(Boolean autoUpdate) {
+    this.autoUpdate = autoUpdate;
+    return this;
+  }
+
+   /**
+   * Get autoUpdate
+   * @return autoUpdate
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isAutoUpdate() {
+    return autoUpdate;
+  }
+
+  public void setAutoUpdate(Boolean autoUpdate) {
+    this.autoUpdate = autoUpdate;
+  }
 
   public DeviceEqNeqFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -161,42 +197,6 @@ public class DeviceEqNeqFilter implements Serializable {
     this.bootstrappedTimestamp = bootstrappedTimestamp;
   }
 
-  public DeviceEqNeqFilter connectorExpirationDate(DateTime connectorExpirationDate) {
-    this.connectorExpirationDate = connectorExpirationDate;
-    return this;
-  }
-
-   /**
-   * Get connectorExpirationDate
-   * @return connectorExpirationDate
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getConnectorExpirationDate() {
-    return connectorExpirationDate;
-  }
-
-  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
-    this.connectorExpirationDate = connectorExpirationDate;
-  }
-
-  public DeviceEqNeqFilter updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
   public DeviceEqNeqFilter caId(String caId) {
     this.caId = caId;
     return this;
@@ -215,256 +215,66 @@ public class DeviceEqNeqFilter implements Serializable {
     this.caId = caId;
   }
 
-  public DeviceEqNeqFilter deviceClass(String deviceClass) {
-    this.deviceClass = deviceClass;
+  public DeviceEqNeqFilter connectorExpirationDate(DateTime connectorExpirationDate) {
+    this.connectorExpirationDate = connectorExpirationDate;
     return this;
   }
 
    /**
-   * Get deviceClass
-   * @return deviceClass
+   * Get connectorExpirationDate
+   * @return connectorExpirationDate
   **/
   @ApiModelProperty(value = "")
-  public String getDeviceClass() {
-    return deviceClass;
+  public DateTime getConnectorExpirationDate() {
+    return connectorExpirationDate;
   }
 
-  public void setDeviceClass(String deviceClass) {
-    this.deviceClass = deviceClass;
+  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+    this.connectorExpirationDate = connectorExpirationDate;
   }
 
-  public DeviceEqNeqFilter id(String id) {
-    this.id = id;
+  public DeviceEqNeqFilter createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
    /**
-   * Get id
-   * @return id
+   * Get createdAt
+   * @return createdAt
   **/
   @ApiModelProperty(value = "")
-  public String getId() {
-    return id;
+  public DateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setId(String id) {
-    this.id = id;
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public DeviceEqNeqFilter accountId(String accountId) {
-    this.accountId = accountId;
+  public DeviceEqNeqFilter customAttributes(Map<String, String> customAttributes) {
+    this.customAttributes = customAttributes;
+    return this;
+  }
+
+  public DeviceEqNeqFilter putCustomAttributesItem(String key, String customAttributesItem) {
+    if (this.customAttributes == null) {
+      this.customAttributes = new HashMap<String, String>();
+    }
+    this.customAttributes.put(key, customAttributesItem);
     return this;
   }
 
    /**
-   * Get accountId
-   * @return accountId
+   * Get customAttributes
+   * @return customAttributes
   **/
   @ApiModelProperty(value = "")
-  public String getAccountId() {
-    return accountId;
+  public Map<String, String> getCustomAttributes() {
+    return customAttributes;
   }
 
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-  public DeviceEqNeqFilter endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
-   /**
-   * Get endpointName
-   * @return endpointName
-  **/
-  @ApiModelProperty(value = "")
-  public String getEndpointName() {
-    return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
-  }
-
-  public DeviceEqNeqFilter autoUpdate(Boolean autoUpdate) {
-    this.autoUpdate = autoUpdate;
-    return this;
-  }
-
-   /**
-   * Get autoUpdate
-   * @return autoUpdate
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isAutoUpdate() {
-    return autoUpdate;
-  }
-
-  public void setAutoUpdate(Boolean autoUpdate) {
-    this.autoUpdate = autoUpdate;
-  }
-
-  public DeviceEqNeqFilter hostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
-    return this;
-  }
-
-   /**
-   * Get hostGateway
-   * @return hostGateway
-  **/
-  @ApiModelProperty(value = "")
-  public String getHostGateway() {
-    return hostGateway;
-  }
-
-  public void setHostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
-  }
-
-  public DeviceEqNeqFilter deviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
-    return this;
-  }
-
-   /**
-   * Get deviceExecutionMode
-   * @return deviceExecutionMode
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getDeviceExecutionMode() {
-    return deviceExecutionMode;
-  }
-
-  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
-  }
-
-  public DeviceEqNeqFilter mechanism(String mechanism) {
-    this.mechanism = mechanism;
-    return this;
-  }
-
-   /**
-   * Get mechanism
-   * @return mechanism
-  **/
-  @ApiModelProperty(value = "")
-  public String getMechanism() {
-    return mechanism;
-  }
-
-  public void setMechanism(String mechanism) {
-    this.mechanism = mechanism;
-  }
-
-  public DeviceEqNeqFilter state(String state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * Get state
-   * @return state
-  **/
-  @ApiModelProperty(value = "")
-  public String getState() {
-    return state;
-  }
-
-  public void setState(String state) {
-    this.state = state;
-  }
-
-  public DeviceEqNeqFilter etag(DateTime etag) {
-    this.etag = etag;
-    return this;
-  }
-
-   /**
-   * Get etag
-   * @return etag
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getEtag() {
-    return etag;
-  }
-
-  public void setEtag(DateTime etag) {
-    this.etag = etag;
-  }
-
-  public DeviceEqNeqFilter serialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-    return this;
-  }
-
-   /**
-   * Get serialNumber
-   * @return serialNumber
-  **/
-  @ApiModelProperty(value = "")
-  public String getSerialNumber() {
-    return serialNumber;
-  }
-
-  public void setSerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
-
-  public DeviceEqNeqFilter firmwareChecksum(String firmwareChecksum) {
-    this.firmwareChecksum = firmwareChecksum;
-    return this;
-  }
-
-   /**
-   * Get firmwareChecksum
-   * @return firmwareChecksum
-  **/
-  @ApiModelProperty(value = "")
-  public String getFirmwareChecksum() {
-    return firmwareChecksum;
-  }
-
-  public void setFirmwareChecksum(String firmwareChecksum) {
-    this.firmwareChecksum = firmwareChecksum;
-  }
-
-  public DeviceEqNeqFilter manifestTimestamp(DateTime manifestTimestamp) {
-    this.manifestTimestamp = manifestTimestamp;
-    return this;
-  }
-
-   /**
-   * Get manifestTimestamp
-   * @return manifestTimestamp
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getManifestTimestamp() {
-    return manifestTimestamp;
-  }
-
-  public void setManifestTimestamp(DateTime manifestTimestamp) {
-    this.manifestTimestamp = manifestTimestamp;
-  }
-
-  public DeviceEqNeqFilter description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @ApiModelProperty(value = "")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
+  public void setCustomAttributes(Map<String, String> customAttributes) {
+    this.customAttributes = customAttributes;
   }
 
   public DeviceEqNeqFilter deployedState(String deployedState) {
@@ -485,22 +295,112 @@ public class DeviceEqNeqFilter implements Serializable {
     this.deployedState = deployedState;
   }
 
-  public DeviceEqNeqFilter vendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public DeviceEqNeqFilter deployment(String deployment) {
+    this.deployment = deployment;
     return this;
   }
 
    /**
-   * Get vendorId
-   * @return vendorId
+   * Get deployment
+   * @return deployment
   **/
   @ApiModelProperty(value = "")
-  public String getVendorId() {
-    return vendorId;
+  public String getDeployment() {
+    return deployment;
   }
 
-  public void setVendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public void setDeployment(String deployment) {
+    this.deployment = deployment;
+  }
+
+  public DeviceEqNeqFilter description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Get description
+   * @return description
+  **/
+  @ApiModelProperty(value = "")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public DeviceEqNeqFilter deviceClass(String deviceClass) {
+    this.deviceClass = deviceClass;
+    return this;
+  }
+
+   /**
+   * Get deviceClass
+   * @return deviceClass
+  **/
+  @ApiModelProperty(value = "")
+  public String getDeviceClass() {
+    return deviceClass;
+  }
+
+  public void setDeviceClass(String deviceClass) {
+    this.deviceClass = deviceClass;
+  }
+
+  public DeviceEqNeqFilter deviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+    return this;
+  }
+
+   /**
+   * Get deviceExecutionMode
+   * @return deviceExecutionMode
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getDeviceExecutionMode() {
+    return deviceExecutionMode;
+  }
+
+  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+  }
+
+  public DeviceEqNeqFilter deviceKey(String deviceKey) {
+    this.deviceKey = deviceKey;
+    return this;
+  }
+
+   /**
+   * Get deviceKey
+   * @return deviceKey
+  **/
+  @ApiModelProperty(value = "")
+  public String getDeviceKey() {
+    return deviceKey;
+  }
+
+  public void setDeviceKey(String deviceKey) {
+    this.deviceKey = deviceKey;
+  }
+
+  public DeviceEqNeqFilter endpointName(String endpointName) {
+    this.endpointName = endpointName;
+    return this;
+  }
+
+   /**
+   * Get endpointName
+   * @return endpointName
+  **/
+  @ApiModelProperty(value = "")
+  public String getEndpointName() {
+    return endpointName;
+  }
+
+  public void setEndpointName(String endpointName) {
+    this.endpointName = endpointName;
   }
 
   public DeviceEqNeqFilter endpointType(String endpointType) {
@@ -521,22 +421,148 @@ public class DeviceEqNeqFilter implements Serializable {
     this.endpointType = endpointType;
   }
 
-  public DeviceEqNeqFilter deployment(String deployment) {
-    this.deployment = deployment;
+  public DeviceEqNeqFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
     return this;
   }
 
    /**
-   * Get deployment
-   * @return deployment
+   * Get enrolmentListTimestamp
+   * @return enrolmentListTimestamp
   **/
   @ApiModelProperty(value = "")
-  public String getDeployment() {
-    return deployment;
+  public DateTime getEnrolmentListTimestamp() {
+    return enrolmentListTimestamp;
   }
 
-  public void setDeployment(String deployment) {
-    this.deployment = deployment;
+  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  }
+
+  public DeviceEqNeqFilter etag(DateTime etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * Get etag
+   * @return etag
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getEtag() {
+    return etag;
+  }
+
+  public void setEtag(DateTime etag) {
+    this.etag = etag;
+  }
+
+  public DeviceEqNeqFilter firmwareChecksum(String firmwareChecksum) {
+    this.firmwareChecksum = firmwareChecksum;
+    return this;
+  }
+
+   /**
+   * Get firmwareChecksum
+   * @return firmwareChecksum
+  **/
+  @ApiModelProperty(value = "")
+  public String getFirmwareChecksum() {
+    return firmwareChecksum;
+  }
+
+  public void setFirmwareChecksum(String firmwareChecksum) {
+    this.firmwareChecksum = firmwareChecksum;
+  }
+
+  public DeviceEqNeqFilter hostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
+    return this;
+  }
+
+   /**
+   * Get hostGateway
+   * @return hostGateway
+  **/
+  @ApiModelProperty(value = "")
+  public String getHostGateway() {
+    return hostGateway;
+  }
+
+  public void setHostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
+  }
+
+  public DeviceEqNeqFilter id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public DeviceEqNeqFilter manifest(String manifest) {
+    this.manifest = manifest;
+    return this;
+  }
+
+   /**
+   * Get manifest
+   * @return manifest
+  **/
+  @ApiModelProperty(value = "")
+  public String getManifest() {
+    return manifest;
+  }
+
+  public void setManifest(String manifest) {
+    this.manifest = manifest;
+  }
+
+  public DeviceEqNeqFilter manifestTimestamp(DateTime manifestTimestamp) {
+    this.manifestTimestamp = manifestTimestamp;
+    return this;
+  }
+
+   /**
+   * Get manifestTimestamp
+   * @return manifestTimestamp
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getManifestTimestamp() {
+    return manifestTimestamp;
+  }
+
+  public void setManifestTimestamp(DateTime manifestTimestamp) {
+    this.manifestTimestamp = manifestTimestamp;
+  }
+
+  public DeviceEqNeqFilter mechanism(String mechanism) {
+    this.mechanism = mechanism;
+    return this;
+  }
+
+   /**
+   * Get mechanism
+   * @return mechanism
+  **/
+  @ApiModelProperty(value = "")
+  public String getMechanism() {
+    return mechanism;
+  }
+
+  public void setMechanism(String mechanism) {
+    this.mechanism = mechanism;
   }
 
   public DeviceEqNeqFilter mechanismUrl(String mechanismUrl) {
@@ -575,102 +601,76 @@ public class DeviceEqNeqFilter implements Serializable {
     this.name = name;
   }
 
-  public DeviceEqNeqFilter deviceKey(String deviceKey) {
-    this.deviceKey = deviceKey;
+  public DeviceEqNeqFilter serialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
     return this;
   }
 
    /**
-   * Get deviceKey
-   * @return deviceKey
+   * Get serialNumber
+   * @return serialNumber
   **/
   @ApiModelProperty(value = "")
-  public String getDeviceKey() {
-    return deviceKey;
+  public String getSerialNumber() {
+    return serialNumber;
   }
 
-  public void setDeviceKey(String deviceKey) {
-    this.deviceKey = deviceKey;
+  public void setSerialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
   }
 
-  public DeviceEqNeqFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  public DeviceEqNeqFilter state(String state) {
+    this.state = state;
     return this;
   }
 
    /**
-   * Get enrolmentListTimestamp
-   * @return enrolmentListTimestamp
+   * Get state
+   * @return state
   **/
   @ApiModelProperty(value = "")
-  public DateTime getEnrolmentListTimestamp() {
-    return enrolmentListTimestamp;
+  public String getState() {
+    return state;
   }
 
-  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  public void setState(String state) {
+    this.state = state;
   }
 
-  public DeviceEqNeqFilter manifest(String manifest) {
-    this.manifest = manifest;
+  public DeviceEqNeqFilter updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * Get manifest
-   * @return manifest
+   * Get updatedAt
+   * @return updatedAt
   **/
   @ApiModelProperty(value = "")
-  public String getManifest() {
-    return manifest;
+  public DateTime getUpdatedAt() {
+    return updatedAt;
   }
 
-  public void setManifest(String manifest) {
-    this.manifest = manifest;
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
-  public DeviceEqNeqFilter customAttributes(Map<String, String> customAttributes) {
-    this.customAttributes = customAttributes;
-    return this;
-  }
-
-  public DeviceEqNeqFilter putCustomAttributesItem(String key, String customAttributesItem) {
-    if (this.customAttributes == null) {
-      this.customAttributes = new HashMap<String, String>();
-    }
-    this.customAttributes.put(key, customAttributesItem);
+  public DeviceEqNeqFilter vendorId(String vendorId) {
+    this.vendorId = vendorId;
     return this;
   }
 
    /**
-   * Get customAttributes
-   * @return customAttributes
+   * Get vendorId
+   * @return vendorId
   **/
   @ApiModelProperty(value = "")
-  public Map<String, String> getCustomAttributes() {
-    return customAttributes;
+  public String getVendorId() {
+    return vendorId;
   }
 
-  public void setCustomAttributes(Map<String, String> customAttributes) {
-    this.customAttributes = customAttributes;
-  }
-
-  public DeviceEqNeqFilter createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
+  public void setVendorId(String vendorId) {
+    this.vendorId = vendorId;
   }
 
 
@@ -683,41 +683,41 @@ public class DeviceEqNeqFilter implements Serializable {
       return false;
     }
     DeviceEqNeqFilter deviceEqNeqFilter = (DeviceEqNeqFilter) o;
-    return Objects.equals(this.bootstrapExpirationDate, deviceEqNeqFilter.bootstrapExpirationDate) &&
-        Objects.equals(this.bootstrappedTimestamp, deviceEqNeqFilter.bootstrappedTimestamp) &&
-        Objects.equals(this.connectorExpirationDate, deviceEqNeqFilter.connectorExpirationDate) &&
-        Objects.equals(this.updatedAt, deviceEqNeqFilter.updatedAt) &&
-        Objects.equals(this.caId, deviceEqNeqFilter.caId) &&
-        Objects.equals(this.deviceClass, deviceEqNeqFilter.deviceClass) &&
-        Objects.equals(this.id, deviceEqNeqFilter.id) &&
-        Objects.equals(this.accountId, deviceEqNeqFilter.accountId) &&
-        Objects.equals(this.endpointName, deviceEqNeqFilter.endpointName) &&
+    return Objects.equals(this.accountId, deviceEqNeqFilter.accountId) &&
         Objects.equals(this.autoUpdate, deviceEqNeqFilter.autoUpdate) &&
-        Objects.equals(this.hostGateway, deviceEqNeqFilter.hostGateway) &&
-        Objects.equals(this.deviceExecutionMode, deviceEqNeqFilter.deviceExecutionMode) &&
-        Objects.equals(this.mechanism, deviceEqNeqFilter.mechanism) &&
-        Objects.equals(this.state, deviceEqNeqFilter.state) &&
-        Objects.equals(this.etag, deviceEqNeqFilter.etag) &&
-        Objects.equals(this.serialNumber, deviceEqNeqFilter.serialNumber) &&
-        Objects.equals(this.firmwareChecksum, deviceEqNeqFilter.firmwareChecksum) &&
-        Objects.equals(this.manifestTimestamp, deviceEqNeqFilter.manifestTimestamp) &&
-        Objects.equals(this.description, deviceEqNeqFilter.description) &&
+        Objects.equals(this.bootstrapExpirationDate, deviceEqNeqFilter.bootstrapExpirationDate) &&
+        Objects.equals(this.bootstrappedTimestamp, deviceEqNeqFilter.bootstrappedTimestamp) &&
+        Objects.equals(this.caId, deviceEqNeqFilter.caId) &&
+        Objects.equals(this.connectorExpirationDate, deviceEqNeqFilter.connectorExpirationDate) &&
+        Objects.equals(this.createdAt, deviceEqNeqFilter.createdAt) &&
+        Objects.equals(this.customAttributes, deviceEqNeqFilter.customAttributes) &&
         Objects.equals(this.deployedState, deviceEqNeqFilter.deployedState) &&
-        Objects.equals(this.vendorId, deviceEqNeqFilter.vendorId) &&
-        Objects.equals(this.endpointType, deviceEqNeqFilter.endpointType) &&
         Objects.equals(this.deployment, deviceEqNeqFilter.deployment) &&
+        Objects.equals(this.description, deviceEqNeqFilter.description) &&
+        Objects.equals(this.deviceClass, deviceEqNeqFilter.deviceClass) &&
+        Objects.equals(this.deviceExecutionMode, deviceEqNeqFilter.deviceExecutionMode) &&
+        Objects.equals(this.deviceKey, deviceEqNeqFilter.deviceKey) &&
+        Objects.equals(this.endpointName, deviceEqNeqFilter.endpointName) &&
+        Objects.equals(this.endpointType, deviceEqNeqFilter.endpointType) &&
+        Objects.equals(this.enrolmentListTimestamp, deviceEqNeqFilter.enrolmentListTimestamp) &&
+        Objects.equals(this.etag, deviceEqNeqFilter.etag) &&
+        Objects.equals(this.firmwareChecksum, deviceEqNeqFilter.firmwareChecksum) &&
+        Objects.equals(this.hostGateway, deviceEqNeqFilter.hostGateway) &&
+        Objects.equals(this.id, deviceEqNeqFilter.id) &&
+        Objects.equals(this.manifest, deviceEqNeqFilter.manifest) &&
+        Objects.equals(this.manifestTimestamp, deviceEqNeqFilter.manifestTimestamp) &&
+        Objects.equals(this.mechanism, deviceEqNeqFilter.mechanism) &&
         Objects.equals(this.mechanismUrl, deviceEqNeqFilter.mechanismUrl) &&
         Objects.equals(this.name, deviceEqNeqFilter.name) &&
-        Objects.equals(this.deviceKey, deviceEqNeqFilter.deviceKey) &&
-        Objects.equals(this.enrolmentListTimestamp, deviceEqNeqFilter.enrolmentListTimestamp) &&
-        Objects.equals(this.manifest, deviceEqNeqFilter.manifest) &&
-        Objects.equals(this.customAttributes, deviceEqNeqFilter.customAttributes) &&
-        Objects.equals(this.createdAt, deviceEqNeqFilter.createdAt);
+        Objects.equals(this.serialNumber, deviceEqNeqFilter.serialNumber) &&
+        Objects.equals(this.state, deviceEqNeqFilter.state) &&
+        Objects.equals(this.updatedAt, deviceEqNeqFilter.updatedAt) &&
+        Objects.equals(this.vendorId, deviceEqNeqFilter.vendorId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, updatedAt, caId, deviceClass, id, accountId, endpointName, autoUpdate, hostGateway, deviceExecutionMode, mechanism, state, etag, serialNumber, firmwareChecksum, manifestTimestamp, description, deployedState, vendorId, endpointType, deployment, mechanismUrl, name, deviceKey, enrolmentListTimestamp, manifest, customAttributes, createdAt);
+    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, hostGateway, id, manifest, manifestTimestamp, mechanism, mechanismUrl, name, serialNumber, state, updatedAt, vendorId);
   }
 
 
@@ -726,36 +726,36 @@ public class DeviceEqNeqFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceEqNeqFilter {\n");
     
+    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
+    sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
     sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
     sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
-    sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
-    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
-    sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
-    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
-    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
-    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
-    sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
-    sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
     sb.append("    deployedState: ").append(toIndentedString(deployedState)).append("\n");
-    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
-    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    deployment: ").append(toIndentedString(deployment)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
+    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
+    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
+    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
+    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
+    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+    sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
+    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
-    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
-    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
-    sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
     sb.append("}");
     return sb.toString();
   }
