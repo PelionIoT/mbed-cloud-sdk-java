@@ -34,13 +34,13 @@ public interface DeveloperCertificateApi {
   /**
    * Fetch an existing developer certificate to connect to the bootstrap server.
    * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
-   * @param muuid A unique identifier for the developer certificate.  (required)
+   * @param developerCertificateId A unique identifier for the developer certificate.  (required)
    * @param authorization Bearer {Access Token}.  (required)
    * @return Call&lt;DeveloperCertificateResponseData&gt;
    */
-  @GET("v3/developer-certificates/{developer-certificate-id}")
+  @GET("v3/developer-certificates/{developerCertificateId}")
   Call<DeveloperCertificateResponseData> getDeveloperCertificate(
-    @retrofit2.http.Path(value = "muuid", encoded = true) String muuid, @retrofit2.http.Header("Authorization") String authorization
+    @retrofit2.http.Path(value = "developerCertificateId", encoded = true) String developerCertificateId, @retrofit2.http.Header("Authorization") String authorization
   );
 
 }
