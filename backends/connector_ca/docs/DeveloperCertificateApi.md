@@ -5,7 +5,7 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createDeveloperCertificate**](DeveloperCertificateApi.md#createDeveloperCertificate) | **POST** v3/developer-certificates | Create a new developer certificate to connect to the bootstrap server.
-[**getDeveloperCertificate**](DeveloperCertificateApi.md#getDeveloperCertificate) | **GET** v3/developer-certificates/{developer-certificate-id} | Fetch an existing developer certificate to connect to the bootstrap server.
+[**getDeveloperCertificate**](DeveloperCertificateApi.md#getDeveloperCertificate) | **GET** v3/developer-certificates/{developerCertificateId} | Fetch an existing developer certificate to connect to the bootstrap server.
 
 
 <a name="createDeveloperCertificate"></a>
@@ -67,7 +67,7 @@ Name | Type | Description  | Notes
 
 <a name="getDeveloperCertificate"></a>
 # **getDeveloperCertificate**
-> DeveloperCertificateResponseData getDeveloperCertificate(muuid, authorization)
+> DeveloperCertificateResponseData getDeveloperCertificate(developerCertificateId, authorization)
 
 Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -91,10 +91,10 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperCertificateApi apiInstance = new DeveloperCertificateApi();
-String muuid = "muuid_example"; // String | A unique identifier for the developer certificate. 
+String developerCertificateId = "developerCertificateId_example"; // String | A unique identifier for the developer certificate. 
 String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    DeveloperCertificateResponseData result = apiInstance.getDeveloperCertificate(muuid, authorization);
+    DeveloperCertificateResponseData result = apiInstance.getDeveloperCertificate(developerCertificateId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperCertificateApi#getDeveloperCertificate");
@@ -106,7 +106,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **muuid** | **String**| A unique identifier for the developer certificate.  |
+ **developerCertificateId** | **String**| A unique identifier for the developer certificate.  |
  **authorization** | **String**| Bearer {Access Token}.  |
 
 ### Return type

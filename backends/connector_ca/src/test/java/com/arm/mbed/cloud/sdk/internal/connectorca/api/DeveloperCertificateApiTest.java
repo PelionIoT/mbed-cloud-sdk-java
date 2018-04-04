@@ -44,9 +44,9 @@ public class DeveloperCertificateApiTest {
      */
     @Test
     public void getDeveloperCertificateTest() {
-        String muuid = null;
+        String developerCertificateId = null;
         String authorization = null;
-        // DeveloperCertificateResponseData response = api.getDeveloperCertificate(muuid, authorization);
+        // DeveloperCertificateResponseData response = api.getDeveloperCertificate(developerCertificateId, authorization);
 
         // TODO: test validations
     }
