@@ -21,10 +21,10 @@ When the device connects to the bootstrap server and provides the enrollment ID,
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -76,10 +76,10 @@ To free a device from your account you can delete the enrollment claim. To bypas
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -131,10 +131,10 @@ To check the enrollment info in detail, for example claming date and expiration 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -186,10 +186,10 @@ Provides a list of pending and claimed enrollments. Example usage:
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

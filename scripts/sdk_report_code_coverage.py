@@ -12,8 +12,8 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
         self.coverage_tools = sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger)
         self.artifacts_parser = sdk_common.PropertyFileParser(self,
                                                               self.common_config.get_config().get_sdk_top_directory(),
-                                                              "artifacts.properties", "=", "#")
-        self.jacoco_cli_name = 'jacococli.jar'
+                                                              'artifacts.properties', '=', '#')
+        self.jacoco_cli_names = ['jacococli.jar', 'org.jacoco.cli']
         self.report_name = "\"" + 'Java SDK Code coverage' + "\""
 
     def _generate_argument_from_string(self, key, argument_option):
@@ -53,8 +53,9 @@ class SDKCoverageReporter(sdk_common.BuildStepUsingGradle):
             return None
         cli_jar = None
         for file in os.listdir(code_coverage_tools):
-            if self.jacoco_cli_name in file:
-                cli_jar = file
+            for potential_name in self.jacoco_cli_names:
+                if potential_name in file:
+                    cli_jar = file
         if not cli_jar:
             self.log_error_without_getting_cause(
                 "Jacoco CLI could not be found. No code coverage reporting will be done.")

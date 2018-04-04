@@ -8,34 +8,21 @@ Method | HTTP request | Description
 [**addAccountCertificate**](AggregatorAccountAdminApi.md#addAccountCertificate) | **POST** v3/accounts/{accountID}/trusted-certificates | Upload new trusted certificate.
 [**addAccountUserToGroups**](AggregatorAccountAdminApi.md#addAccountUserToGroups) | **POST** v3/accounts/{accountID}/users/{user-id}/groups | Add user to a list of groups.
 [**addSubjectsToAccountGroup**](AggregatorAccountAdminApi.md#addSubjectsToAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups/{groupID} | Add members to a group.
-[**attachAccountPolicyToApikeys**](AggregatorAccountAdminApi.md#attachAccountPolicyToApikeys) | **POST** v3/accounts/{accountID}/policies/{policy-id}/api-keys | Attach a policy to API keys.
-[**attachAccountPolicyToGroup**](AggregatorAccountAdminApi.md#attachAccountPolicyToGroup) | **POST** v3/accounts/{accountID}/policies/{policy-id}/groups | Attach a policy to groups.
-[**attachAccountPolicyToUsers**](AggregatorAccountAdminApi.md#attachAccountPolicyToUsers) | **POST** v3/accounts/{accountID}/policies/{policy-id}/users | Attach a policy to users.
 [**checkAccountApiKey**](AggregatorAccountAdminApi.md#checkAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 [**createAccount**](AggregatorAccountAdminApi.md#createAccount) | **POST** v3/accounts | Create a new account.
 [**createAccountApiKey**](AggregatorAccountAdminApi.md#createAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys | Create a new API key.
-[**createAccountPolicy**](AggregatorAccountAdminApi.md#createAccountPolicy) | **POST** v3/accounts/{accountID}/policies | Create a policy.
 [**createAccountUser**](AggregatorAccountAdminApi.md#createAccountUser) | **POST** v3/accounts/{accountID}/users | Create a new user.
 [**deleteAccountApiKey**](AggregatorAccountAdminApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**deleteAccountCertificate**](AggregatorAccountAdminApi.md#deleteAccountCertificate) | **DELETE** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
-[**deleteAccountPolicy**](AggregatorAccountAdminApi.md#deleteAccountPolicy) | **DELETE** v3/accounts/{accountID}/policies/{policy-id} | Delete policy.
 [**deleteAccountUser**](AggregatorAccountAdminApi.md#deleteAccountUser) | **DELETE** v3/accounts/{accountID}/users/{user-id} | Delete a user.
-[**detachAccountPolicyFromApikeys**](AggregatorAccountAdminApi.md#detachAccountPolicyFromApikeys) | **DELETE** v3/accounts/{accountID}/policies/{policy-id}/api-keys | Detach a policy from API keys.
-[**detachAccountPolicyFromUsers**](AggregatorAccountAdminApi.md#detachAccountPolicyFromUsers) | **DELETE** v3/accounts/{accountID}/policies/{policy-id}/users | Detach a policy from users.
-[**detachAccountPolicyToGroup**](AggregatorAccountAdminApi.md#detachAccountPolicyToGroup) | **DELETE** v3/accounts/{accountID}/policies/{policy-id}/groups | Detach a policy to groups.
 [**getAccountApiKey**](AggregatorAccountAdminApi.md#getAccountApiKey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**getAccountCertificate**](AggregatorAccountAdminApi.md#getAccountCertificate) | **GET** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**getAccountGroupSummary**](AggregatorAccountAdminApi.md#getAccountGroupSummary) | **GET** v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
 [**getAccountInfo**](AggregatorAccountAdminApi.md#getAccountInfo) | **GET** v3/accounts/{accountID} | Get account info.
-[**getAccountPolicy**](AggregatorAccountAdminApi.md#getAccountPolicy) | **GET** v3/accounts/{accountID}/policies/{policy-id} | Get policy by ID.
-[**getAccountPolicyApikeys**](AggregatorAccountAdminApi.md#getAccountPolicyApikeys) | **GET** v3/accounts/{accountID}/policies/{policy-id}/api-keys | Fetch details of policy&#39;s API keys.
-[**getAccountPolicyGroups**](AggregatorAccountAdminApi.md#getAccountPolicyGroups) | **GET** v3/accounts/{accountID}/policies/{policy-id}/groups | Fetch details of policy&#39;s groups.
-[**getAccountPolicyUsers**](AggregatorAccountAdminApi.md#getAccountPolicyUsers) | **GET** v3/accounts/{accountID}/policies/{policy-id}/users | Fetch details of policy&#39;s users.
 [**getAccountUser**](AggregatorAccountAdminApi.md#getAccountUser) | **GET** v3/accounts/{accountID}/users/{user-id} | Details of the user.
 [**getAllAccountApiKeys**](AggregatorAccountAdminApi.md#getAllAccountApiKeys) | **GET** v3/accounts/{accountID}/api-keys | Get all API keys.
 [**getAllAccountCertificates**](AggregatorAccountAdminApi.md#getAllAccountCertificates) | **GET** v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 [**getAllAccountGroups**](AggregatorAccountAdminApi.md#getAllAccountGroups) | **GET** v3/accounts/{accountID}/policy-groups | Get all group information.
-[**getAllAccountPolicies**](AggregatorAccountAdminApi.md#getAllAccountPolicies) | **GET** v3/accounts/{accountID}/policies | Get all policies.
 [**getAllAccountUsers**](AggregatorAccountAdminApi.md#getAllAccountUsers) | **GET** v3/accounts/{accountID}/users | Get all user details.
 [**getAllAccounts**](AggregatorAccountAdminApi.md#getAllAccounts) | **GET** v3/accounts | Get all accounts.
 [**getApiKeysOfAccountGroup**](AggregatorAccountAdminApi.md#getApiKeysOfAccountGroup) | **GET** v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
@@ -50,7 +37,6 @@ Method | HTTP request | Description
 [**updateAccount**](AggregatorAccountAdminApi.md#updateAccount) | **PUT** v3/accounts/{accountID} | Update attributes of an existing account.
 [**updateAccountApiKey**](AggregatorAccountAdminApi.md#updateAccountApiKey) | **PUT** v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**updateAccountCertificate**](AggregatorAccountAdminApi.md#updateAccountCertificate) | **PUT** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
-[**updateAccountPolicy**](AggregatorAccountAdminApi.md#updateAccountPolicy) | **PUT** v3/accounts/{accountID}/policies/{policy-id} | Update a policy.
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -66,10 +52,10 @@ An endpoint for adding API key to groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -125,10 +111,10 @@ An endpoint for uploading new trusted certificates.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -182,10 +168,10 @@ An endpoint for adding user to groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -241,10 +227,10 @@ An endpoint for adding users and API keys to groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -289,183 +275,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="attachAccountPolicyToApikeys"></a>
-# **attachAccountPolicyToApikeys**
-> UpdatedResponse attachAccountPolicyToApikeys(accountID, policyId, body)
-
-Attach a policy to API keys.
-
-An endpoint for attaching policy to API keys.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be attached to API keys.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of API key IDs.
-try {
-    UpdatedResponse result = apiInstance.attachAccountPolicyToApikeys(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#attachAccountPolicyToApikeys");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be attached to API keys. |
- **body** | **List&lt;String&gt;**| List of API key IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="attachAccountPolicyToGroup"></a>
-# **attachAccountPolicyToGroup**
-> UpdatedResponse attachAccountPolicyToGroup(accountID, policyId, body)
-
-Attach a policy to groups.
-
-An endpoint for attaching policy to groups.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be attached to groups.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of groups IDs.
-try {
-    UpdatedResponse result = apiInstance.attachAccountPolicyToGroup(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#attachAccountPolicyToGroup");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be attached to groups. |
- **body** | **List&lt;String&gt;**| List of groups IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="attachAccountPolicyToUsers"></a>
-# **attachAccountPolicyToUsers**
-> UpdatedResponse attachAccountPolicyToUsers(accountID, policyId, body)
-
-Attach a policy to users.
-
-An endpoint for attaching policy to users.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be attached to users.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of user IDs.
-try {
-    UpdatedResponse result = apiInstance.attachAccountPolicyToUsers(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#attachAccountPolicyToUsers");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be attached to users. |
- **body** | **List&lt;String&gt;**| List of user IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="checkAccountApiKey"></a>
 # **checkAccountApiKey**
 > Void checkAccountApiKey(accountID, apiKey)
@@ -477,10 +286,10 @@ An endpoint for checking API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -534,10 +343,10 @@ An endpoint for creating a new account.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -591,10 +400,10 @@ An endpoint for creating a new API key. There is no default value for the owner 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -637,63 +446,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="createAccountPolicy"></a>
-# **createAccountPolicy**
-> PolicyInfo createAccountPolicy(accountID, body)
-
-Create a policy.
-
-An endpoint for creating a new policy.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-PolicyCreationReq body = new PolicyCreationReq(); // PolicyCreationReq | The details of the policy to be created.
-try {
-    PolicyInfo result = apiInstance.createAccountPolicy(accountID, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#createAccountPolicy");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **body** | [**PolicyCreationReq**](PolicyCreationReq.md)| The details of the policy to be created. |
-
-### Return type
-
-[**PolicyInfo**](PolicyInfo.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="createAccountUser"></a>
 # **createAccountUser**
 > UserInfoResp createAccountUser(accountID, body, action)
@@ -705,10 +457,10 @@ An endpoint for creating or inviting a new user to the account. In case of invit
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -764,10 +516,10 @@ An endpoint for deleting an API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -821,10 +573,10 @@ An endpoint for deleting the trusted certificate.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -867,63 +619,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="deleteAccountPolicy"></a>
-# **deleteAccountPolicy**
-> Void deleteAccountPolicy(accountID, policyId)
-
-Delete policy.
-
-An endpoint for deleting a policy.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be deleted.
-try {
-    Void result = apiInstance.deleteAccountPolicy(accountID, policyId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#deleteAccountPolicy");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be deleted. |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="deleteAccountUser"></a>
 # **deleteAccountUser**
 > Void deleteAccountUser(accountID, userId)
@@ -935,10 +630,10 @@ An endpoint for deleting a user.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -981,183 +676,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="detachAccountPolicyFromApikeys"></a>
-# **detachAccountPolicyFromApikeys**
-> UpdatedResponse detachAccountPolicyFromApikeys(accountID, policyId, body)
-
-Detach a policy from API keys.
-
-An endpoint for detaching policy from API keys.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be detached from API keys.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of API key IDs.
-try {
-    UpdatedResponse result = apiInstance.detachAccountPolicyFromApikeys(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#detachAccountPolicyFromApikeys");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be detached from API keys. |
- **body** | **List&lt;String&gt;**| List of API key IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="detachAccountPolicyFromUsers"></a>
-# **detachAccountPolicyFromUsers**
-> UpdatedResponse detachAccountPolicyFromUsers(accountID, policyId, body)
-
-Detach a policy from users.
-
-An endpoint for detaching policy from users.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be detached from users.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of user IDs.
-try {
-    UpdatedResponse result = apiInstance.detachAccountPolicyFromUsers(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#detachAccountPolicyFromUsers");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be detached from users. |
- **body** | **List&lt;String&gt;**| List of user IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
-<a name="detachAccountPolicyToGroup"></a>
-# **detachAccountPolicyToGroup**
-> UpdatedResponse detachAccountPolicyToGroup(accountID, policyId, body)
-
-Detach a policy to groups.
-
-An endpoint for detaching policy to groups.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID of the policy to be detached from groups.
-List<String> body = Arrays.asList(new List<String>()); // List<String> | List of groups IDs.
-try {
-    UpdatedResponse result = apiInstance.detachAccountPolicyToGroup(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#detachAccountPolicyToGroup");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID of the policy to be detached from groups. |
- **body** | **List&lt;String&gt;**| List of groups IDs. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="getAccountApiKey"></a>
 # **getAccountApiKey**
 > ApiKeyInfoResp getAccountApiKey(accountID, apiKey)
@@ -1169,10 +687,10 @@ An endpoint for retrieving API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1226,10 +744,10 @@ An endpoint for retrieving a trusted certificate by ID.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1283,10 +801,10 @@ An endpoint for getting general information about the group.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1340,10 +858,10 @@ Returns detailed information about the account.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1388,258 +906,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getAccountPolicy"></a>
-# **getAccountPolicy**
-> PolicyInfo getAccountPolicy(accountID, policyId)
-
-Get policy by ID.
-
-An endpoint for retrieving a policy by ID.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID the policy to be retrieved.
-try {
-    PolicyInfo result = apiInstance.getAccountPolicy(accountID, policyId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountPolicy");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID the policy to be retrieved. |
-
-### Return type
-
-[**PolicyInfo**](PolicyInfo.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="getAccountPolicyApikeys"></a>
-# **getAccountPolicyApikeys**
-> ApiKeyInfoRespList getAccountPolicyApikeys(accountID, policyId, limit, after, order, include)
-
-Fetch details of policy&#39;s API keys.
-
-An endpoint for fetching detailed information about API keys this policy is attached to.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID the policy whose API keys to be retrieved.
-Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
-try {
-    ApiKeyInfoRespList result = apiInstance.getAccountPolicyApikeys(accountID, policyId, limit, after, order, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountPolicyApikeys");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID the policy whose API keys to be retrieved. |
- **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
-
-### Return type
-
-[**ApiKeyInfoRespList**](ApiKeyInfoRespList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="getAccountPolicyGroups"></a>
-# **getAccountPolicyGroups**
-> GroupSummaryList getAccountPolicyGroups(accountID, policyId, limit, after, order, include)
-
-Fetch details of policy&#39;s groups.
-
-An endpoint for fetching detailed information about groups this policy is attached to.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID the policy whose API keys to be retrieved.
-Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
-try {
-    GroupSummaryList result = apiInstance.getAccountPolicyGroups(accountID, policyId, limit, after, order, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountPolicyGroups");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID the policy whose API keys to be retrieved. |
- **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
-
-### Return type
-
-[**GroupSummaryList**](GroupSummaryList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="getAccountPolicyUsers"></a>
-# **getAccountPolicyUsers**
-> UserInfoRespList getAccountPolicyUsers(accountID, policyId, limit, after, order, include)
-
-Fetch details of policy&#39;s users.
-
-An endpoint for fetching detailed information about users this policy is attached to.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID the policy whose users to be retrieved.
-Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
-try {
-    UserInfoRespList result = apiInstance.getAccountPolicyUsers(accountID, policyId, limit, after, order, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountPolicyUsers");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID the policy whose users to be retrieved. |
- **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
-
-### Return type
-
-[**UserInfoRespList**](UserInfoRespList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="getAccountUser"></a>
 # **getAccountUser**
 > MyUserInfoResp getAccountUser(accountID, userId, scratchCodes, properties)
@@ -1651,10 +917,10 @@ An endpoint for retrieving details of the user.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1712,10 +978,10 @@ An endpoint for retrieving the API keys in an array, optionally filtered by the 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1779,10 +1045,10 @@ An endpoint for retrieving trusted certificates in an array.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1860,10 +1126,10 @@ An endpoint for retrieving all group information.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -1914,81 +1180,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getAllAccountPolicies"></a>
-# **getAllAccountPolicies**
-> PolicyInfoList getAllAccountPolicies(accountID, limit, after, order, nameEq, statusEq, tagEq, userIdEq, apikeyIdEq, groupIdEq, unbounded)
-
-Get all policies.
-
-An endpoint for retrieving all policies in the account.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
-String nameEq = "nameEq_example"; // String | Filter result by policy name.
-String statusEq = "statusEq_example"; // String | Filter for status, ACTIVE or INACTIVE.
-String tagEq = "tagEq_example"; // String | Filter results for tag.
-String userIdEq = "userIdEq_example"; // String | Retrieve policies attached to a certain user ID.
-String apikeyIdEq = "apikeyIdEq_example"; // String | Retrieve policies attached to a certain API key ID.
-String groupIdEq = "groupIdEq_example"; // String | Retrieve policies attached to a certain group ID.
-String unbounded = "unbounded_example"; // String | Retrieve policies not attached to any subject in the account.
-try {
-    PolicyInfoList result = apiInstance.getAllAccountPolicies(accountID, limit, after, order, nameEq, statusEq, tagEq, userIdEq, apikeyIdEq, groupIdEq, unbounded);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountPolicies");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **nameEq** | **String**| Filter result by policy name. | [optional]
- **statusEq** | **String**| Filter for status, ACTIVE or INACTIVE. | [optional]
- **tagEq** | **String**| Filter results for tag. | [optional]
- **userIdEq** | **String**| Retrieve policies attached to a certain user ID. | [optional]
- **apikeyIdEq** | **String**| Retrieve policies attached to a certain API key ID. | [optional]
- **groupIdEq** | **String**| Retrieve policies attached to a certain group ID. | [optional]
- **unbounded** | **String**| Retrieve policies not attached to any subject in the account. | [optional]
-
-### Return type
-
-[**PolicyInfoList**](PolicyInfoList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="getAllAccountUsers"></a>
 # **getAllAccountUsers**
 > UserInfoRespList getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq)
@@ -2000,10 +1191,10 @@ An endpoint for retrieving details of all users.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2067,10 +1258,10 @@ Returns an array of account objects, optionally filtered by status and tier leve
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2142,10 +1333,10 @@ An endpoint for listing the API keys of the group with details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2207,10 +1398,10 @@ An endpoint for retrieving groups of the API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2272,10 +1463,10 @@ An endpoint for retrieving groups of the user.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2337,10 +1528,10 @@ An endpoint for listing users of the group with details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2402,10 +1593,10 @@ An endpoint for removing API key from groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2461,10 +1652,10 @@ An endpoint for removing user from groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2520,10 +1711,10 @@ An endpoint for removing API keys from groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2579,10 +1770,10 @@ An endpoint for removing users from groups.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2638,10 +1829,10 @@ An endpoint for resetting the secret key of the API key.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2695,10 +1886,10 @@ An endpoint for updating an account.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2752,10 +1943,10 @@ An endpoint for updating API key details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2811,10 +2002,10 @@ An endpoint for updating existing trusted certificates.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2859,65 +2050,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="updateAccountPolicy"></a>
-# **updateAccountPolicy**
-> PolicyInfo updateAccountPolicy(accountID, policyId, body)
-
-Update a policy.
-
-An endpoint for updating a policy.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
-String accountID = "accountID_example"; // String | Account ID.
-String policyId = "policyId_example"; // String | The ID the policy to be retrieved.
-PolicyUpdateReq body = new PolicyUpdateReq(); // PolicyUpdateReq | The details of the policy to be updated.
-try {
-    PolicyInfo result = apiInstance.updateAccountPolicy(accountID, policyId, body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountPolicy");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **accountID** | **String**| Account ID. |
- **policyId** | **String**| The ID the policy to be retrieved. |
- **body** | [**PolicyUpdateReq**](PolicyUpdateReq.md)| The details of the policy to be updated. |
-
-### Return type
-
-[**PolicyInfo**](PolicyInfo.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="updateAccountUser"></a>
 # **updateAccountUser**
 > UserUpdateResp updateAccountUser(accountID, userId, body)
@@ -2929,10 +2061,10 @@ An endpoint for updating user details.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -2988,10 +2120,10 @@ An endpoint for validating the user email.
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

@@ -246,6 +246,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
+    compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:device_directory')
     compile project(':backends:iam')
@@ -253,6 +254,7 @@ dependencies {
     compile project(':backends:statistics')
     compile project(':backends:update_service')
     compile project(':backends:enrollment')
+    compile project(':backends:mbedcloud_common')
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'
@@ -262,7 +264,7 @@ dependencies {
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
-    //coverage 'org.jacoco:org.jacoco.cli:0.7.10:nodeps@jar' //TODO use this dependency when released on Maven Central
+    coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
 }
 
 //Disable javadoc step as comment formatting is incorrect in parts of the project (e.g. Endpoint or Resource)
@@ -480,6 +482,7 @@ task shadowTestJar(type: Jar) {
     }
     baseName = project.name + '-test-full'
     from { configurations.testRuntime.collect { it.isDirectory() ? it : zipTree(it) } }
+    exclude 'META-INF/*.RSA', 'META-INF/*.SF','META-INF/*.DSA'
     from sourceSets.test.output
     with jar
     doLast {

@@ -35,14 +35,53 @@ import java.io.Serializable;
 public class DeviceDataPostRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("auto_update")
+  private Boolean autoUpdate = null;
+
   @SerializedName("bootstrap_expiration_date")
   private DateTime bootstrapExpirationDate = null;
 
   @SerializedName("bootstrapped_timestamp")
   private DateTime bootstrappedTimestamp = null;
 
+  @SerializedName("ca_id")
+  private String caId = null;
+
   @SerializedName("connector_expiration_date")
   private DateTime connectorExpirationDate = null;
+
+  @SerializedName("custom_attributes")
+  private Map<String, String> customAttributes = null;
+
+  @SerializedName("deployment")
+  private String deployment = null;
+
+  @SerializedName("description")
+  private String description = null;
+
+  @SerializedName("device_class")
+  private String deviceClass = null;
+
+  @SerializedName("device_execution_mode")
+  private Integer deviceExecutionMode = null;
+
+  @SerializedName("device_key")
+  private String deviceKey = null;
+
+  @SerializedName("endpoint_name")
+  private String endpointName = null;
+
+  @SerializedName("endpoint_type")
+  private String endpointType = null;
+
+  @SerializedName("firmware_checksum")
+  private String firmwareChecksum = null;
+
+  @SerializedName("host_gateway")
+  private String hostGateway = null;
+
+  @SerializedName("manifest")
+  private String manifest = null;
 
   /**
    * The ID of the channel used to communicate with the device.
@@ -94,23 +133,17 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("mechanism")
   private MechanismEnum mechanism = null;
 
-  @SerializedName("device_class")
-  private String deviceClass = null;
+  @SerializedName("mechanism_url")
+  private String mechanismUrl = null;
 
-  @SerializedName("endpoint_name")
-  private String endpointName = null;
+  @SerializedName("name")
+  private String name = null;
 
-  @SerializedName("auto_update")
-  private Boolean autoUpdate = null;
+  @SerializedName("object")
+  private String object = null;
 
-  @SerializedName("host_gateway")
-  private String hostGateway = null;
-
-  @SerializedName("device_execution_mode")
-  private Integer deviceExecutionMode = null;
-
-  @SerializedName("custom_attributes")
-  private Map<String, String> customAttributes = null;
+  @SerializedName("serial_number")
+  private String serialNumber = null;
 
   /**
    * The current state of the device.
@@ -168,41 +201,26 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("state")
   private StateEnum state = null;
 
-  @SerializedName("serial_number")
-  private String serialNumber = null;
-
-  @SerializedName("firmware_checksum")
-  private String firmwareChecksum = null;
-
-  @SerializedName("object")
-  private String object = null;
-
-  @SerializedName("description")
-  private String description = null;
-
   @SerializedName("vendor_id")
   private String vendorId = null;
 
-  @SerializedName("endpoint_type")
-  private String endpointType = null;
+  public DeviceDataPostRequest autoUpdate(Boolean autoUpdate) {
+    this.autoUpdate = autoUpdate;
+    return this;
+  }
 
-  @SerializedName("deployment")
-  private String deployment = null;
+   /**
+   * DEPRECATED: Mark this device for automatic firmware update.
+   * @return autoUpdate
+  **/
+  @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
+  public Boolean isAutoUpdate() {
+    return autoUpdate;
+  }
 
-  @SerializedName("mechanism_url")
-  private String mechanismUrl = null;
-
-  @SerializedName("name")
-  private String name = null;
-
-  @SerializedName("device_key")
-  private String deviceKey = null;
-
-  @SerializedName("manifest")
-  private String manifest = null;
-
-  @SerializedName("ca_id")
-  private String caId = null;
+  public void setAutoUpdate(Boolean autoUpdate) {
+    this.autoUpdate = autoUpdate;
+  }
 
   public DeviceDataPostRequest bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -240,6 +258,24 @@ public class DeviceDataPostRequest implements Serializable {
     this.bootstrappedTimestamp = bootstrappedTimestamp;
   }
 
+  public DeviceDataPostRequest caId(String caId) {
+    this.caId = caId;
+    return this;
+  }
+
+   /**
+   * The certificate issuer&#39;s ID.
+   * @return caId
+  **/
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
+  public String getCaId() {
+    return caId;
+  }
+
+  public void setCaId(String caId) {
+    this.caId = caId;
+  }
+
   public DeviceDataPostRequest connectorExpirationDate(DateTime connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
     return this;
@@ -256,114 +292,6 @@ public class DeviceDataPostRequest implements Serializable {
 
   public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
-  }
-
-  public DeviceDataPostRequest mechanism(MechanismEnum mechanism) {
-    this.mechanism = mechanism;
-    return this;
-  }
-
-   /**
-   * The ID of the channel used to communicate with the device.
-   * @return mechanism
-  **/
-  @ApiModelProperty(value = "The ID of the channel used to communicate with the device.")
-  public MechanismEnum getMechanism() {
-    return mechanism;
-  }
-
-  public void setMechanism(MechanismEnum mechanism) {
-    this.mechanism = mechanism;
-  }
-
-  public DeviceDataPostRequest deviceClass(String deviceClass) {
-    this.deviceClass = deviceClass;
-    return this;
-  }
-
-   /**
-   * An ID representing the model and hardware revision of the device.
-   * @return deviceClass
-  **/
-  @ApiModelProperty(value = "An ID representing the model and hardware revision of the device.")
-  public String getDeviceClass() {
-    return deviceClass;
-  }
-
-  public void setDeviceClass(String deviceClass) {
-    this.deviceClass = deviceClass;
-  }
-
-  public DeviceDataPostRequest endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
-   /**
-   * The endpoint name given to the device.
-   * @return endpointName
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
-  public String getEndpointName() {
-    return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
-  }
-
-  public DeviceDataPostRequest autoUpdate(Boolean autoUpdate) {
-    this.autoUpdate = autoUpdate;
-    return this;
-  }
-
-   /**
-   * DEPRECATED: Mark this device for automatic firmware update.
-   * @return autoUpdate
-  **/
-  @ApiModelProperty(value = "DEPRECATED: Mark this device for automatic firmware update.")
-  public Boolean isAutoUpdate() {
-    return autoUpdate;
-  }
-
-  public void setAutoUpdate(Boolean autoUpdate) {
-    this.autoUpdate = autoUpdate;
-  }
-
-  public DeviceDataPostRequest hostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
-    return this;
-  }
-
-   /**
-   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
-   * @return hostGateway
-  **/
-  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
-  public String getHostGateway() {
-    return hostGateway;
-  }
-
-  public void setHostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
-  }
-
-  public DeviceDataPostRequest deviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
-    return this;
-  }
-
-   /**
-   * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
-   * @return deviceExecutionMode
-  **/
-  @ApiModelProperty(value = "The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices")
-  public Integer getDeviceExecutionMode() {
-    return deviceExecutionMode;
-  }
-
-  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
-    this.deviceExecutionMode = deviceExecutionMode;
   }
 
   public DeviceDataPostRequest customAttributes(Map<String, String> customAttributes) {
@@ -392,76 +320,22 @@ public class DeviceDataPostRequest implements Serializable {
     this.customAttributes = customAttributes;
   }
 
-  public DeviceDataPostRequest state(StateEnum state) {
-    this.state = state;
+  public DeviceDataPostRequest deployment(String deployment) {
+    this.deployment = deployment;
     return this;
   }
 
    /**
-   * The current state of the device.
-   * @return state
+   * DEPRECATED: The last deployment used on the device.
+   * @return deployment
   **/
-  @ApiModelProperty(value = "The current state of the device.")
-  public StateEnum getState() {
-    return state;
+  @ApiModelProperty(example = "", value = "DEPRECATED: The last deployment used on the device.")
+  public String getDeployment() {
+    return deployment;
   }
 
-  public void setState(StateEnum state) {
-    this.state = state;
-  }
-
-  public DeviceDataPostRequest serialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-    return this;
-  }
-
-   /**
-   * The serial number of the device.
-   * @return serialNumber
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The serial number of the device.")
-  public String getSerialNumber() {
-    return serialNumber;
-  }
-
-  public void setSerialNumber(String serialNumber) {
-    this.serialNumber = serialNumber;
-  }
-
-  public DeviceDataPostRequest firmwareChecksum(String firmwareChecksum) {
-    this.firmwareChecksum = firmwareChecksum;
-    return this;
-  }
-
-   /**
-   * The SHA256 checksum of the current firmware image.
-   * @return firmwareChecksum
-  **/
-  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", value = "The SHA256 checksum of the current firmware image.")
-  public String getFirmwareChecksum() {
-    return firmwareChecksum;
-  }
-
-  public void setFirmwareChecksum(String firmwareChecksum) {
-    this.firmwareChecksum = firmwareChecksum;
-  }
-
-  public DeviceDataPostRequest object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity.
-   * @return object
-  **/
-  @ApiModelProperty(example = "device", value = "The API resource entity.")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
+  public void setDeployment(String deployment) {
+    this.deployment = deployment;
   }
 
   public DeviceDataPostRequest description(String description) {
@@ -482,22 +356,76 @@ public class DeviceDataPostRequest implements Serializable {
     this.description = description;
   }
 
-  public DeviceDataPostRequest vendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public DeviceDataPostRequest deviceClass(String deviceClass) {
+    this.deviceClass = deviceClass;
     return this;
   }
 
    /**
-   * The device vendor ID.
-   * @return vendorId
+   * An ID representing the model and hardware revision of the device.
+   * @return deviceClass
   **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The device vendor ID.")
-  public String getVendorId() {
-    return vendorId;
+  @ApiModelProperty(value = "An ID representing the model and hardware revision of the device.")
+  public String getDeviceClass() {
+    return deviceClass;
   }
 
-  public void setVendorId(String vendorId) {
-    this.vendorId = vendorId;
+  public void setDeviceClass(String deviceClass) {
+    this.deviceClass = deviceClass;
+  }
+
+  public DeviceDataPostRequest deviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+    return this;
+  }
+
+   /**
+   * The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices
+   * @return deviceExecutionMode
+  **/
+  @ApiModelProperty(value = "The execution mode from the certificate of the device. Permitted values:   - 0 - unspecified execution mode (default)   - 1 - development devices   - 5 - production devices")
+  public Integer getDeviceExecutionMode() {
+    return deviceExecutionMode;
+  }
+
+  public void setDeviceExecutionMode(Integer deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+  }
+
+  public DeviceDataPostRequest deviceKey(String deviceKey) {
+    this.deviceKey = deviceKey;
+    return this;
+  }
+
+   /**
+   * The fingerprint of the device certificate.
+   * @return deviceKey
+  **/
+  @ApiModelProperty(example = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00", value = "The fingerprint of the device certificate.")
+  public String getDeviceKey() {
+    return deviceKey;
+  }
+
+  public void setDeviceKey(String deviceKey) {
+    this.deviceKey = deviceKey;
+  }
+
+  public DeviceDataPostRequest endpointName(String endpointName) {
+    this.endpointName = endpointName;
+    return this;
+  }
+
+   /**
+   * The endpoint name given to the device.
+   * @return endpointName
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
+  public String getEndpointName() {
+    return endpointName;
+  }
+
+  public void setEndpointName(String endpointName) {
+    this.endpointName = endpointName;
   }
 
   public DeviceDataPostRequest endpointType(String endpointType) {
@@ -518,22 +446,76 @@ public class DeviceDataPostRequest implements Serializable {
     this.endpointType = endpointType;
   }
 
-  public DeviceDataPostRequest deployment(String deployment) {
-    this.deployment = deployment;
+  public DeviceDataPostRequest firmwareChecksum(String firmwareChecksum) {
+    this.firmwareChecksum = firmwareChecksum;
     return this;
   }
 
    /**
-   * DEPRECATED: The last deployment used on the device.
-   * @return deployment
+   * The SHA256 checksum of the current firmware image.
+   * @return firmwareChecksum
   **/
-  @ApiModelProperty(example = "", value = "DEPRECATED: The last deployment used on the device.")
-  public String getDeployment() {
-    return deployment;
+  @ApiModelProperty(example = "0000000000000000000000000000000000000000000000000000000000000000", value = "The SHA256 checksum of the current firmware image.")
+  public String getFirmwareChecksum() {
+    return firmwareChecksum;
   }
 
-  public void setDeployment(String deployment) {
-    this.deployment = deployment;
+  public void setFirmwareChecksum(String firmwareChecksum) {
+    this.firmwareChecksum = firmwareChecksum;
+  }
+
+  public DeviceDataPostRequest hostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
+    return this;
+  }
+
+   /**
+   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
+   * @return hostGateway
+  **/
+  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
+  public String getHostGateway() {
+    return hostGateway;
+  }
+
+  public void setHostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
+  }
+
+  public DeviceDataPostRequest manifest(String manifest) {
+    this.manifest = manifest;
+    return this;
+  }
+
+   /**
+   * DEPRECATED: The URL for the current device manifest.
+   * @return manifest
+  **/
+  @ApiModelProperty(example = "", value = "DEPRECATED: The URL for the current device manifest.")
+  public String getManifest() {
+    return manifest;
+  }
+
+  public void setManifest(String manifest) {
+    this.manifest = manifest;
+  }
+
+  public DeviceDataPostRequest mechanism(MechanismEnum mechanism) {
+    this.mechanism = mechanism;
+    return this;
+  }
+
+   /**
+   * The ID of the channel used to communicate with the device.
+   * @return mechanism
+  **/
+  @ApiModelProperty(value = "The ID of the channel used to communicate with the device.")
+  public MechanismEnum getMechanism() {
+    return mechanism;
+  }
+
+  public void setMechanism(MechanismEnum mechanism) {
+    this.mechanism = mechanism;
   }
 
   public DeviceDataPostRequest mechanismUrl(String mechanismUrl) {
@@ -572,58 +554,76 @@ public class DeviceDataPostRequest implements Serializable {
     this.name = name;
   }
 
-  public DeviceDataPostRequest deviceKey(String deviceKey) {
-    this.deviceKey = deviceKey;
+  public DeviceDataPostRequest object(String object) {
+    this.object = object;
     return this;
   }
 
    /**
-   * The fingerprint of the device certificate.
-   * @return deviceKey
+   * The API resource entity.
+   * @return object
   **/
-  @ApiModelProperty(example = "00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00", value = "The fingerprint of the device certificate.")
-  public String getDeviceKey() {
-    return deviceKey;
+  @ApiModelProperty(example = "device", value = "The API resource entity.")
+  public String getObject() {
+    return object;
   }
 
-  public void setDeviceKey(String deviceKey) {
-    this.deviceKey = deviceKey;
+  public void setObject(String object) {
+    this.object = object;
   }
 
-  public DeviceDataPostRequest manifest(String manifest) {
-    this.manifest = manifest;
+  public DeviceDataPostRequest serialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
     return this;
   }
 
    /**
-   * DEPRECATED: The URL for the current device manifest.
-   * @return manifest
+   * The serial number of the device.
+   * @return serialNumber
   **/
-  @ApiModelProperty(example = "", value = "DEPRECATED: The URL for the current device manifest.")
-  public String getManifest() {
-    return manifest;
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The serial number of the device.")
+  public String getSerialNumber() {
+    return serialNumber;
   }
 
-  public void setManifest(String manifest) {
-    this.manifest = manifest;
+  public void setSerialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
   }
 
-  public DeviceDataPostRequest caId(String caId) {
-    this.caId = caId;
+  public DeviceDataPostRequest state(StateEnum state) {
+    this.state = state;
     return this;
   }
 
    /**
-   * The certificate issuer&#39;s ID.
-   * @return caId
+   * The current state of the device.
+   * @return state
   **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
-  public String getCaId() {
-    return caId;
+  @ApiModelProperty(value = "The current state of the device.")
+  public StateEnum getState() {
+    return state;
   }
 
-  public void setCaId(String caId) {
-    this.caId = caId;
+  public void setState(StateEnum state) {
+    this.state = state;
+  }
+
+  public DeviceDataPostRequest vendorId(String vendorId) {
+    this.vendorId = vendorId;
+    return this;
+  }
+
+   /**
+   * The device vendor ID.
+   * @return vendorId
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The device vendor ID.")
+  public String getVendorId() {
+    return vendorId;
+  }
+
+  public void setVendorId(String vendorId) {
+    this.vendorId = vendorId;
   }
 
 
@@ -636,34 +636,34 @@ public class DeviceDataPostRequest implements Serializable {
       return false;
     }
     DeviceDataPostRequest deviceDataPostRequest = (DeviceDataPostRequest) o;
-    return Objects.equals(this.bootstrapExpirationDate, deviceDataPostRequest.bootstrapExpirationDate) &&
+    return Objects.equals(this.autoUpdate, deviceDataPostRequest.autoUpdate) &&
+        Objects.equals(this.bootstrapExpirationDate, deviceDataPostRequest.bootstrapExpirationDate) &&
         Objects.equals(this.bootstrappedTimestamp, deviceDataPostRequest.bootstrappedTimestamp) &&
+        Objects.equals(this.caId, deviceDataPostRequest.caId) &&
         Objects.equals(this.connectorExpirationDate, deviceDataPostRequest.connectorExpirationDate) &&
-        Objects.equals(this.mechanism, deviceDataPostRequest.mechanism) &&
-        Objects.equals(this.deviceClass, deviceDataPostRequest.deviceClass) &&
-        Objects.equals(this.endpointName, deviceDataPostRequest.endpointName) &&
-        Objects.equals(this.autoUpdate, deviceDataPostRequest.autoUpdate) &&
-        Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway) &&
-        Objects.equals(this.deviceExecutionMode, deviceDataPostRequest.deviceExecutionMode) &&
         Objects.equals(this.customAttributes, deviceDataPostRequest.customAttributes) &&
-        Objects.equals(this.state, deviceDataPostRequest.state) &&
-        Objects.equals(this.serialNumber, deviceDataPostRequest.serialNumber) &&
-        Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum) &&
-        Objects.equals(this.object, deviceDataPostRequest.object) &&
-        Objects.equals(this.description, deviceDataPostRequest.description) &&
-        Objects.equals(this.vendorId, deviceDataPostRequest.vendorId) &&
-        Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
         Objects.equals(this.deployment, deviceDataPostRequest.deployment) &&
+        Objects.equals(this.description, deviceDataPostRequest.description) &&
+        Objects.equals(this.deviceClass, deviceDataPostRequest.deviceClass) &&
+        Objects.equals(this.deviceExecutionMode, deviceDataPostRequest.deviceExecutionMode) &&
+        Objects.equals(this.deviceKey, deviceDataPostRequest.deviceKey) &&
+        Objects.equals(this.endpointName, deviceDataPostRequest.endpointName) &&
+        Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
+        Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum) &&
+        Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway) &&
+        Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
+        Objects.equals(this.mechanism, deviceDataPostRequest.mechanism) &&
         Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl) &&
         Objects.equals(this.name, deviceDataPostRequest.name) &&
-        Objects.equals(this.deviceKey, deviceDataPostRequest.deviceKey) &&
-        Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
-        Objects.equals(this.caId, deviceDataPostRequest.caId);
+        Objects.equals(this.object, deviceDataPostRequest.object) &&
+        Objects.equals(this.serialNumber, deviceDataPostRequest.serialNumber) &&
+        Objects.equals(this.state, deviceDataPostRequest.state) &&
+        Objects.equals(this.vendorId, deviceDataPostRequest.vendorId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, mechanism, deviceClass, endpointName, autoUpdate, hostGateway, deviceExecutionMode, customAttributes, state, serialNumber, firmwareChecksum, object, description, vendorId, endpointType, deployment, mechanismUrl, name, deviceKey, manifest, caId);
+    return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, firmwareChecksum, hostGateway, manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
   }
 
 
@@ -672,29 +672,29 @@ public class DeviceDataPostRequest implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceDataPostRequest {\n");
     
+    sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
     sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
     sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
+    sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
     sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
-    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
-    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
-    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
-    sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
-    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
-    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
     sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
-    sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
-    sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
-    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    deployment: ").append(toIndentedString(deployment)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceClass: ").append(toIndentedString(deviceClass)).append("\n");
+    sb.append("    deviceExecutionMode: ").append(toIndentedString(deviceExecutionMode)).append("\n");
+    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
+    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
+    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
+    sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
+    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
+    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
-    sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
-    sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    serialNumber: ").append(toIndentedString(serialNumber)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    vendorId: ").append(toIndentedString(vendorId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

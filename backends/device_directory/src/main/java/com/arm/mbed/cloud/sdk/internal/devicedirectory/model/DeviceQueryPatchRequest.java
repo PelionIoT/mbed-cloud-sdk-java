@@ -31,29 +31,11 @@ import java.io.Serializable;
 public class DeviceQueryPatchRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("query")
-  private String query = null;
-
   @SerializedName("name")
   private String name = null;
 
-  public DeviceQueryPatchRequest query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * The device query.
-   * @return query
-  **/
-  @ApiModelProperty(value = "The device query.")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
-  }
+  @SerializedName("query")
+  private String query = null;
 
   public DeviceQueryPatchRequest name(String name) {
     this.name = name;
@@ -73,6 +55,24 @@ public class DeviceQueryPatchRequest implements Serializable {
     this.name = name;
   }
 
+  public DeviceQueryPatchRequest query(String query) {
+    this.query = query;
+    return this;
+  }
+
+   /**
+   * The device query.
+   * @return query
+  **/
+  @ApiModelProperty(value = "The device query.")
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,13 +83,13 @@ public class DeviceQueryPatchRequest implements Serializable {
       return false;
     }
     DeviceQueryPatchRequest deviceQueryPatchRequest = (DeviceQueryPatchRequest) o;
-    return Objects.equals(this.query, deviceQueryPatchRequest.query) &&
-        Objects.equals(this.name, deviceQueryPatchRequest.name);
+    return Objects.equals(this.name, deviceQueryPatchRequest.name) &&
+        Objects.equals(this.query, deviceQueryPatchRequest.query);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(query, name);
+    return Objects.hash(name, query);
   }
 
 
@@ -98,8 +98,8 @@ public class DeviceQueryPatchRequest implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQueryPatchRequest {\n");
     
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("}");
     return sb.toString();
   }

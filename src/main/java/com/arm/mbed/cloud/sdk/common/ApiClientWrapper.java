@@ -8,7 +8,7 @@ import java.util.Map.Entry;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.mbedcloudcommon.ApiClient;
 
 import okhttp3.Interceptor;
 import okhttp3.Request;
