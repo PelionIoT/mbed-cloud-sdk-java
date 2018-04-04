@@ -149,7 +149,9 @@ public class AccountAdminApiTest {
         String include = null;
         String emailEq = null;
         String statusEq = null;
-        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, emailEq, statusEq);
+        String statusIn = null;
+        String statusNin = null;
+        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
 
         // TODO: test validations
     }
