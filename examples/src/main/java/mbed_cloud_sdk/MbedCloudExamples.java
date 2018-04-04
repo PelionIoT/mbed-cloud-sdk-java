@@ -25,7 +25,7 @@ public class MbedCloudExamples extends AbstractExample {
     @Example
     public void subscribeToDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        MbedCloud sdk = new MbedCloud(config);
+        MbedCloud sdk = MbedCloud.createSdk(config);
         try {
             // an example: subscribing to device state changes
             // Creating an Observer listening to device state changes for devices whose ids start with 016 and for

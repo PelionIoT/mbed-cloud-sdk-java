@@ -39,6 +39,17 @@ public class MbedCloud extends AbstractApi {
         connectApi = new Connect(options);
     }
 
+    /**
+     * Creates a new Mbed Cloud SDK instance.
+     *
+     * @param options
+     *            connection options @see {@link ConnectionOptions}.
+     * @return an instance of the SDK.
+     */
+    public static MbedCloud createSdk(ConnectionOptions options) {
+        return new MbedCloud(options);
+    }
+
     private static Map<String, String> extendUserAgent() {
         Map<String, String> extension = new HashMap<>(1);
         extension.put("HLA", "1.0.0-experimental");
