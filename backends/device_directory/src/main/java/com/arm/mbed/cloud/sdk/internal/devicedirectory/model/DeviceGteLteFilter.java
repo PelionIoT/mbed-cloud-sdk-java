@@ -32,47 +32,29 @@ import java.io.Serializable;
 public class DeviceGteLteFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("manifest_timestamp")
-  private DateTime manifestTimestamp = null;
-
   @SerializedName("bootstrap_expiration_date")
   private DateTime bootstrapExpirationDate = null;
-
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
-
-  @SerializedName("connector_expiration_date")
-  private DateTime connectorExpirationDate = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
-  @SerializedName("etag")
-  private DateTime etag = null;
-
-  @SerializedName("enrolment_list_timestamp")
-  private DateTime enrolmentListTimestamp = null;
 
   @SerializedName("bootstrapped_timestamp")
   private DateTime bootstrappedTimestamp = null;
 
-  public DeviceGteLteFilter manifestTimestamp(DateTime manifestTimestamp) {
-    this.manifestTimestamp = manifestTimestamp;
-    return this;
-  }
+  @SerializedName("connector_expiration_date")
+  private DateTime connectorExpirationDate = null;
 
-   /**
-   * Get manifestTimestamp
-   * @return manifestTimestamp
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getManifestTimestamp() {
-    return manifestTimestamp;
-  }
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
 
-  public void setManifestTimestamp(DateTime manifestTimestamp) {
-    this.manifestTimestamp = manifestTimestamp;
-  }
+  @SerializedName("enrolment_list_timestamp")
+  private DateTime enrolmentListTimestamp = null;
+
+  @SerializedName("etag")
+  private DateTime etag = null;
+
+  @SerializedName("manifest_timestamp")
+  private DateTime manifestTimestamp = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   public DeviceGteLteFilter bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
@@ -90,96 +72,6 @@ public class DeviceGteLteFilter implements Serializable {
 
   public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
-  }
-
-  public DeviceGteLteFilter createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public DeviceGteLteFilter connectorExpirationDate(DateTime connectorExpirationDate) {
-    this.connectorExpirationDate = connectorExpirationDate;
-    return this;
-  }
-
-   /**
-   * Get connectorExpirationDate
-   * @return connectorExpirationDate
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getConnectorExpirationDate() {
-    return connectorExpirationDate;
-  }
-
-  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
-    this.connectorExpirationDate = connectorExpirationDate;
-  }
-
-  public DeviceGteLteFilter updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  public DeviceGteLteFilter etag(DateTime etag) {
-    this.etag = etag;
-    return this;
-  }
-
-   /**
-   * Get etag
-   * @return etag
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getEtag() {
-    return etag;
-  }
-
-  public void setEtag(DateTime etag) {
-    this.etag = etag;
-  }
-
-  public DeviceGteLteFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
-    return this;
-  }
-
-   /**
-   * Get enrolmentListTimestamp
-   * @return enrolmentListTimestamp
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getEnrolmentListTimestamp() {
-    return enrolmentListTimestamp;
-  }
-
-  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
-    this.enrolmentListTimestamp = enrolmentListTimestamp;
   }
 
   public DeviceGteLteFilter bootstrappedTimestamp(DateTime bootstrappedTimestamp) {
@@ -200,6 +92,114 @@ public class DeviceGteLteFilter implements Serializable {
     this.bootstrappedTimestamp = bootstrappedTimestamp;
   }
 
+  public DeviceGteLteFilter connectorExpirationDate(DateTime connectorExpirationDate) {
+    this.connectorExpirationDate = connectorExpirationDate;
+    return this;
+  }
+
+   /**
+   * Get connectorExpirationDate
+   * @return connectorExpirationDate
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getConnectorExpirationDate() {
+    return connectorExpirationDate;
+  }
+
+  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+    this.connectorExpirationDate = connectorExpirationDate;
+  }
+
+  public DeviceGteLteFilter createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Get createdAt
+   * @return createdAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public DeviceGteLteFilter enrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+    return this;
+  }
+
+   /**
+   * Get enrolmentListTimestamp
+   * @return enrolmentListTimestamp
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getEnrolmentListTimestamp() {
+    return enrolmentListTimestamp;
+  }
+
+  public void setEnrolmentListTimestamp(DateTime enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  }
+
+  public DeviceGteLteFilter etag(DateTime etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * Get etag
+   * @return etag
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getEtag() {
+    return etag;
+  }
+
+  public void setEtag(DateTime etag) {
+    this.etag = etag;
+  }
+
+  public DeviceGteLteFilter manifestTimestamp(DateTime manifestTimestamp) {
+    this.manifestTimestamp = manifestTimestamp;
+    return this;
+  }
+
+   /**
+   * Get manifestTimestamp
+   * @return manifestTimestamp
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getManifestTimestamp() {
+    return manifestTimestamp;
+  }
+
+  public void setManifestTimestamp(DateTime manifestTimestamp) {
+    this.manifestTimestamp = manifestTimestamp;
+  }
+
+  public DeviceGteLteFilter updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -210,19 +210,19 @@ public class DeviceGteLteFilter implements Serializable {
       return false;
     }
     DeviceGteLteFilter deviceGteLteFilter = (DeviceGteLteFilter) o;
-    return Objects.equals(this.manifestTimestamp, deviceGteLteFilter.manifestTimestamp) &&
-        Objects.equals(this.bootstrapExpirationDate, deviceGteLteFilter.bootstrapExpirationDate) &&
-        Objects.equals(this.createdAt, deviceGteLteFilter.createdAt) &&
+    return Objects.equals(this.bootstrapExpirationDate, deviceGteLteFilter.bootstrapExpirationDate) &&
+        Objects.equals(this.bootstrappedTimestamp, deviceGteLteFilter.bootstrappedTimestamp) &&
         Objects.equals(this.connectorExpirationDate, deviceGteLteFilter.connectorExpirationDate) &&
-        Objects.equals(this.updatedAt, deviceGteLteFilter.updatedAt) &&
-        Objects.equals(this.etag, deviceGteLteFilter.etag) &&
+        Objects.equals(this.createdAt, deviceGteLteFilter.createdAt) &&
         Objects.equals(this.enrolmentListTimestamp, deviceGteLteFilter.enrolmentListTimestamp) &&
-        Objects.equals(this.bootstrappedTimestamp, deviceGteLteFilter.bootstrappedTimestamp);
+        Objects.equals(this.etag, deviceGteLteFilter.etag) &&
+        Objects.equals(this.manifestTimestamp, deviceGteLteFilter.manifestTimestamp) &&
+        Objects.equals(this.updatedAt, deviceGteLteFilter.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(manifestTimestamp, bootstrapExpirationDate, createdAt, connectorExpirationDate, updatedAt, etag, enrolmentListTimestamp, bootstrappedTimestamp);
+    return Objects.hash(bootstrapExpirationDate, bootstrappedTimestamp, connectorExpirationDate, createdAt, enrolmentListTimestamp, etag, manifestTimestamp, updatedAt);
   }
 
 
@@ -231,14 +231,14 @@ public class DeviceGteLteFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceGteLteFilter {\n");
     
-    sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
     sb.append("    bootstrapExpirationDate: ").append(toIndentedString(bootstrapExpirationDate)).append("\n");
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    bootstrappedTimestamp: ").append(toIndentedString(bootstrappedTimestamp)).append("\n");
+    sb.append("    connectorExpirationDate: ").append(toIndentedString(connectorExpirationDate)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -5,7 +5,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.internal.connectorca.api.ExternalApiApi;
+import com.arm.mbed.cloud.sdk.internal.connectorca.api.DeveloperCertificateApi;
+import com.arm.mbed.cloud.sdk.internal.connectorca.api.ServerCredentialsApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
@@ -15,11 +16,12 @@ public class EndPoints extends AbstractEndpoints {
 
     private final DeveloperApi accountDeveloper;
     private final AccountAdminApi admin;
-    private final ExternalApiApi connector;
+    private final ServerCredentialsApi server;
+    private final DeveloperCertificateApi certDeveloper;
 
     /**
      * Constructor.
-     * 
+     *
      * @param wrapper
      *            API client {@link ApiClientWrapper}.
      */
@@ -27,12 +29,13 @@ public class EndPoints extends AbstractEndpoints {
         super(wrapper);
         this.accountDeveloper = initialiseDeveloper(wrapper);
         this.admin = initialiseAdmin(wrapper);
-        this.connector = initialiseConnector(wrapper);
+        this.server = initialiseServer(wrapper);
+        this.certDeveloper = initialiseCertDeveloper(wrapper);
     }
 
     /**
      * Constructor.
-     * 
+     *
      * @param options
      *            connection options {@link ConnectionOptions}.
      */
@@ -48,8 +51,12 @@ public class EndPoints extends AbstractEndpoints {
         return wrapper.createService(DeveloperApi.class);
     }
 
-    private ExternalApiApi initialiseConnector(ApiClientWrapper wrapper) {
-        return wrapper.createService(ExternalApiApi.class);
+    private DeveloperCertificateApi initialiseCertDeveloper(ApiClientWrapper wrapper) {
+        return wrapper.createService(DeveloperCertificateApi.class);
+    }
+
+    private ServerCredentialsApi initialiseServer(ApiClientWrapper wrapper) {
+        return wrapper.createService(ServerCredentialsApi.class);
     }
 
     public DeveloperApi getAccountDeveloper() {
@@ -60,8 +67,12 @@ public class EndPoints extends AbstractEndpoints {
         return admin;
     }
 
-    public ExternalApiApi getConnector() {
-        return connector;
+    public ServerCredentialsApi getServerCredentials() {
+        return server;
+    }
+
+    public DeveloperCertificateApi getCertDeveloper() {
+        return certDeveloper;
     }
 
 }

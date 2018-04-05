@@ -246,6 +246,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
+    compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:device_directory')
     compile project(':backends:iam')
@@ -253,6 +254,7 @@ dependencies {
     compile project(':backends:statistics')
     compile project(':backends:update_service')
     compile project(':backends:enrollment')
+    compile project(':backends:mbedcloud_common')
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'

@@ -35,6 +35,12 @@ public class UpdatedResponse implements Serializable {
   @SerializedName("code")
   private Integer code = null;
 
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("message")
+  private String message = null;
+
   /**
    * Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;.
    */
@@ -106,9 +112,6 @@ public class UpdatedResponse implements Serializable {
   @SerializedName("request_id")
   private String requestId = null;
 
-  @SerializedName("message")
-  private String message = null;
-
   /**
    * Response type: success.
    */
@@ -157,9 +160,6 @@ public class UpdatedResponse implements Serializable {
   @SerializedName("type")
   private TypeEnum type = null;
 
-  @SerializedName("id")
-  private String id = null;
-
   public UpdatedResponse code(Integer code) {
     this.code = code;
     return this;
@@ -176,6 +176,42 @@ public class UpdatedResponse implements Serializable {
 
   public void setCode(Integer code) {
     this.code = code;
+  }
+
+  public UpdatedResponse id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Entity ID.
+   * @return id
+  **/
+  @ApiModelProperty(example = "01619571dad80242ac12000600000000", required = true, value = "Entity ID.")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public UpdatedResponse message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * A human readable message with detailed info.
+   * @return message
+  **/
+  @ApiModelProperty(example = "success", required = true, value = "A human readable message with detailed info.")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
   }
 
   public UpdatedResponse object(ObjectEnum object) {
@@ -214,24 +250,6 @@ public class UpdatedResponse implements Serializable {
     this.requestId = requestId;
   }
 
-  public UpdatedResponse message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * A human readable message with detailed info.
-   * @return message
-  **/
-  @ApiModelProperty(example = "success", required = true, value = "A human readable message with detailed info.")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
   public UpdatedResponse type(TypeEnum type) {
     this.type = type;
     return this;
@@ -250,24 +268,6 @@ public class UpdatedResponse implements Serializable {
     this.type = type;
   }
 
-  public UpdatedResponse id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Entity ID.
-   * @return id
-  **/
-  @ApiModelProperty(example = "01619571dad80242ac12000600000000", required = true, value = "Entity ID.")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -279,16 +279,16 @@ public class UpdatedResponse implements Serializable {
     }
     UpdatedResponse updatedResponse = (UpdatedResponse) o;
     return Objects.equals(this.code, updatedResponse.code) &&
+        Objects.equals(this.id, updatedResponse.id) &&
+        Objects.equals(this.message, updatedResponse.message) &&
         Objects.equals(this.object, updatedResponse.object) &&
         Objects.equals(this.requestId, updatedResponse.requestId) &&
-        Objects.equals(this.message, updatedResponse.message) &&
-        Objects.equals(this.type, updatedResponse.type) &&
-        Objects.equals(this.id, updatedResponse.id);
+        Objects.equals(this.type, updatedResponse.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, object, requestId, message, type, id);
+    return Objects.hash(code, id, message, object, requestId, type);
   }
 
 
@@ -298,11 +298,11 @@ public class UpdatedResponse implements Serializable {
     sb.append("class UpdatedResponse {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("}");
     return sb.toString();
   }

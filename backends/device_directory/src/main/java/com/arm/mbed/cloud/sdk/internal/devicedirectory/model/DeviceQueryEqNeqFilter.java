@@ -32,41 +32,23 @@ import java.io.Serializable;
 public class DeviceQueryEqNeqFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("created_at")
   private DateTime createdAt = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
 
-  @SerializedName("query")
-  private String query = null;
-
   @SerializedName("id")
   private String id = null;
 
-  public DeviceQueryEqNeqFilter name(String name) {
-    this.name = name;
-    return this;
-  }
+  @SerializedName("name")
+  private String name = null;
 
-   /**
-   * Get name
-   * @return name
-  **/
-  @ApiModelProperty(value = "")
-  public String getName() {
-    return name;
-  }
+  @SerializedName("query")
+  private String query = null;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   public DeviceQueryEqNeqFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -84,24 +66,6 @@ public class DeviceQueryEqNeqFilter implements Serializable {
 
   public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
-  }
-
-  public DeviceQueryEqNeqFilter updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
   }
 
   public DeviceQueryEqNeqFilter etag(DateTime etag) {
@@ -122,24 +86,6 @@ public class DeviceQueryEqNeqFilter implements Serializable {
     this.etag = etag;
   }
 
-  public DeviceQueryEqNeqFilter query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * Get query
-   * @return query
-  **/
-  @ApiModelProperty(value = "")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
-  }
-
   public DeviceQueryEqNeqFilter id(String id) {
     this.id = id;
     return this;
@@ -158,6 +104,60 @@ public class DeviceQueryEqNeqFilter implements Serializable {
     this.id = id;
   }
 
+  public DeviceQueryEqNeqFilter name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public DeviceQueryEqNeqFilter query(String query) {
+    this.query = query;
+    return this;
+  }
+
+   /**
+   * Get query
+   * @return query
+  **/
+  @ApiModelProperty(value = "")
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
+  public DeviceQueryEqNeqFilter updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -168,17 +168,17 @@ public class DeviceQueryEqNeqFilter implements Serializable {
       return false;
     }
     DeviceQueryEqNeqFilter deviceQueryEqNeqFilter = (DeviceQueryEqNeqFilter) o;
-    return Objects.equals(this.name, deviceQueryEqNeqFilter.name) &&
-        Objects.equals(this.createdAt, deviceQueryEqNeqFilter.createdAt) &&
-        Objects.equals(this.updatedAt, deviceQueryEqNeqFilter.updatedAt) &&
+    return Objects.equals(this.createdAt, deviceQueryEqNeqFilter.createdAt) &&
         Objects.equals(this.etag, deviceQueryEqNeqFilter.etag) &&
+        Objects.equals(this.id, deviceQueryEqNeqFilter.id) &&
+        Objects.equals(this.name, deviceQueryEqNeqFilter.name) &&
         Objects.equals(this.query, deviceQueryEqNeqFilter.query) &&
-        Objects.equals(this.id, deviceQueryEqNeqFilter.id);
+        Objects.equals(this.updatedAt, deviceQueryEqNeqFilter.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, createdAt, updatedAt, etag, query, id);
+    return Objects.hash(createdAt, etag, id, name, query, updatedAt);
   }
 
 
@@ -187,12 +187,12 @@ public class DeviceQueryEqNeqFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQueryEqNeqFilter {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }
