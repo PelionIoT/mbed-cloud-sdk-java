@@ -34,71 +34,35 @@ import java.io.Serializable;
 public class DeviceDataPatchRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("description")
-  private String description = null;
-
-  @SerializedName("endpoint_name")
-  private String endpointName = null;
-
   @SerializedName("auto_update")
   private Boolean autoUpdate = null;
-
-  @SerializedName("host_gateway")
-  private String hostGateway = null;
-
-  @SerializedName("object")
-  private String object = null;
-
-  @SerializedName("custom_attributes")
-  private Map<String, String> customAttributes = null;
-
-  @SerializedName("device_key")
-  private String deviceKey = null;
-
-  @SerializedName("endpoint_type")
-  private String endpointType = null;
 
   @SerializedName("ca_id")
   private String caId = null;
 
+  @SerializedName("custom_attributes")
+  private Map<String, String> customAttributes = null;
+
+  @SerializedName("description")
+  private String description = null;
+
+  @SerializedName("device_key")
+  private String deviceKey = null;
+
+  @SerializedName("endpoint_name")
+  private String endpointName = null;
+
+  @SerializedName("endpoint_type")
+  private String endpointType = null;
+
+  @SerializedName("host_gateway")
+  private String hostGateway = null;
+
   @SerializedName("name")
   private String name = null;
 
-  public DeviceDataPatchRequest description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * The description of the device.
-   * @return description
-  **/
-  @ApiModelProperty(example = "", value = "The description of the device.")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public DeviceDataPatchRequest endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
-   /**
-   * The endpoint name given to the device.
-   * @return endpointName
-  **/
-  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
-  public String getEndpointName() {
-    return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
-  }
+  @SerializedName("object")
+  private String object = null;
 
   public DeviceDataPatchRequest autoUpdate(Boolean autoUpdate) {
     this.autoUpdate = autoUpdate;
@@ -118,40 +82,22 @@ public class DeviceDataPatchRequest implements Serializable {
     this.autoUpdate = autoUpdate;
   }
 
-  public DeviceDataPatchRequest hostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
+  public DeviceDataPatchRequest caId(String caId) {
+    this.caId = caId;
     return this;
   }
 
    /**
-   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
-   * @return hostGateway
+   * The certificate issuer&#39;s ID.
+   * @return caId
   **/
-  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
-  public String getHostGateway() {
-    return hostGateway;
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
+  public String getCaId() {
+    return caId;
   }
 
-  public void setHostGateway(String hostGateway) {
-    this.hostGateway = hostGateway;
-  }
-
-  public DeviceDataPatchRequest object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity.
-   * @return object
-  **/
-  @ApiModelProperty(example = "device", value = "The API resource entity.")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
+  public void setCaId(String caId) {
+    this.caId = caId;
   }
 
   public DeviceDataPatchRequest customAttributes(Map<String, String> customAttributes) {
@@ -180,6 +126,24 @@ public class DeviceDataPatchRequest implements Serializable {
     this.customAttributes = customAttributes;
   }
 
+  public DeviceDataPatchRequest description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * The description of the device.
+   * @return description
+  **/
+  @ApiModelProperty(example = "", value = "The description of the device.")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
   public DeviceDataPatchRequest deviceKey(String deviceKey) {
     this.deviceKey = deviceKey;
     return this;
@@ -196,6 +160,24 @@ public class DeviceDataPatchRequest implements Serializable {
 
   public void setDeviceKey(String deviceKey) {
     this.deviceKey = deviceKey;
+  }
+
+  public DeviceDataPatchRequest endpointName(String endpointName) {
+    this.endpointName = endpointName;
+    return this;
+  }
+
+   /**
+   * The endpoint name given to the device.
+   * @return endpointName
+  **/
+  @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
+  public String getEndpointName() {
+    return endpointName;
+  }
+
+  public void setEndpointName(String endpointName) {
+    this.endpointName = endpointName;
   }
 
   public DeviceDataPatchRequest endpointType(String endpointType) {
@@ -216,22 +198,22 @@ public class DeviceDataPatchRequest implements Serializable {
     this.endpointType = endpointType;
   }
 
-  public DeviceDataPatchRequest caId(String caId) {
-    this.caId = caId;
+  public DeviceDataPatchRequest hostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
     return this;
   }
 
    /**
-   * The certificate issuer&#39;s ID.
-   * @return caId
+   * The &#x60;endpoint_name&#x60; of the host gateway, if appropriate.
+   * @return hostGateway
   **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The certificate issuer's ID.")
-  public String getCaId() {
-    return caId;
+  @ApiModelProperty(example = "", value = "The `endpoint_name` of the host gateway, if appropriate.")
+  public String getHostGateway() {
+    return hostGateway;
   }
 
-  public void setCaId(String caId) {
-    this.caId = caId;
+  public void setHostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
   }
 
   public DeviceDataPatchRequest name(String name) {
@@ -252,6 +234,24 @@ public class DeviceDataPatchRequest implements Serializable {
     this.name = name;
   }
 
+  public DeviceDataPatchRequest object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * The API resource entity.
+   * @return object
+  **/
+  @ApiModelProperty(example = "device", value = "The API resource entity.")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -262,21 +262,21 @@ public class DeviceDataPatchRequest implements Serializable {
       return false;
     }
     DeviceDataPatchRequest deviceDataPatchRequest = (DeviceDataPatchRequest) o;
-    return Objects.equals(this.description, deviceDataPatchRequest.description) &&
-        Objects.equals(this.endpointName, deviceDataPatchRequest.endpointName) &&
-        Objects.equals(this.autoUpdate, deviceDataPatchRequest.autoUpdate) &&
-        Objects.equals(this.hostGateway, deviceDataPatchRequest.hostGateway) &&
-        Objects.equals(this.object, deviceDataPatchRequest.object) &&
-        Objects.equals(this.customAttributes, deviceDataPatchRequest.customAttributes) &&
-        Objects.equals(this.deviceKey, deviceDataPatchRequest.deviceKey) &&
-        Objects.equals(this.endpointType, deviceDataPatchRequest.endpointType) &&
+    return Objects.equals(this.autoUpdate, deviceDataPatchRequest.autoUpdate) &&
         Objects.equals(this.caId, deviceDataPatchRequest.caId) &&
-        Objects.equals(this.name, deviceDataPatchRequest.name);
+        Objects.equals(this.customAttributes, deviceDataPatchRequest.customAttributes) &&
+        Objects.equals(this.description, deviceDataPatchRequest.description) &&
+        Objects.equals(this.deviceKey, deviceDataPatchRequest.deviceKey) &&
+        Objects.equals(this.endpointName, deviceDataPatchRequest.endpointName) &&
+        Objects.equals(this.endpointType, deviceDataPatchRequest.endpointType) &&
+        Objects.equals(this.hostGateway, deviceDataPatchRequest.hostGateway) &&
+        Objects.equals(this.name, deviceDataPatchRequest.name) &&
+        Objects.equals(this.object, deviceDataPatchRequest.object);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, endpointName, autoUpdate, hostGateway, object, customAttributes, deviceKey, endpointType, caId, name);
+    return Objects.hash(autoUpdate, caId, customAttributes, description, deviceKey, endpointName, endpointType, hostGateway, name, object);
   }
 
 
@@ -285,16 +285,16 @@ public class DeviceDataPatchRequest implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceDataPatchRequest {\n");
     
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("    autoUpdate: ").append(toIndentedString(autoUpdate)).append("\n");
-    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
-    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
-    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    caId: ").append(toIndentedString(caId)).append("\n");
+    sb.append("    customAttributes: ").append(toIndentedString(customAttributes)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
+    sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
+    sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
+    sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("}");
     return sb.toString();
   }

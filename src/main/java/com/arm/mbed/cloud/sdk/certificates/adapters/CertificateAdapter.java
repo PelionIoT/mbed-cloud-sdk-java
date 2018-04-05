@@ -32,7 +32,7 @@ public final class CertificateAdapter {
 
     /**
      * Maps certificate.
-     * 
+     *
      * @param iamCertificate
      *            response from Mbed Cloud.
      * @return a partial certificate.
@@ -57,7 +57,7 @@ public final class CertificateAdapter {
 
     /**
      * Maps data regarding server credentials.
-     * 
+     *
      * @param serverResponse
      *            response from Mbed Cloud.
      * @return a partial certificate.
@@ -72,7 +72,7 @@ public final class CertificateAdapter {
 
     /**
      * Maps a developer certificate.
-     * 
+     *
      * @param developerData
      *            response from Mbed Cloud.
      * @return a partial certificate.
@@ -81,14 +81,14 @@ public final class CertificateAdapter {
         if (developerData == null) {
             return null;
         }
-        return new Certificate(developerData.getId(), null, null, null, null, null, developerData.getServerUri(),
-                developerData.getServerCertificate(), developerData.getSecurityFileContent(),
-                developerData.getDeveloperCertificate(), developerData.getDeveloperPrivateKey(), null);
+        return new Certificate(developerData.getId(), null, null, null, null, null, null, null,
+                developerData.getSecurityFileContent(), developerData.getDeveloperCertificate(),
+                developerData.getDeveloperPrivateKey(), null);
     }
 
     /**
      * Gets a mapper.
-     * 
+     *
      * @return a mapper.
      */
     public static Mapper<TrustedCertificateResp, Certificate> getMapper() {
@@ -104,7 +104,7 @@ public final class CertificateAdapter {
 
     /**
      * Gets a mapper for server data.
-     * 
+     *
      * @return a mapper.
      */
     public static Mapper<ServerCredentialsResponseData, Certificate> getServerMapper() {
@@ -120,7 +120,7 @@ public final class CertificateAdapter {
 
     /**
      * Gets a mapper for developer data.
-     * 
+     *
      * @return a mapper.
      */
     public static Mapper<DeveloperCertificateResponseData, Certificate> getDeveloperMapper() {
@@ -136,7 +136,7 @@ public final class CertificateAdapter {
 
     /**
      * Reverses mapping for a new certificate.
-     * 
+     *
      * @param certificate
      *            certificate to add.
      * @return a new certificate request.
@@ -159,7 +159,7 @@ public final class CertificateAdapter {
 
     /**
      * Reverses mapping for updating a certificate.
-     * 
+     *
      * @param certificate
      *            certificate to update.
      * @return a certificate update request.
@@ -188,7 +188,7 @@ public final class CertificateAdapter {
 
     /**
      * Reverses mapping for a new developer certificate.
-     * 
+     *
      * @param certificate
      *            certificate to add.
      * @return a new certificate request.
@@ -292,7 +292,7 @@ public final class CertificateAdapter {
 
     /**
      * Maps list of certificates.
-     * 
+     *
      * @param list
      *            certificate list to map.
      * @return a list of mapped certificates.
@@ -337,7 +337,7 @@ public final class CertificateAdapter {
 
     /**
      * Gets a list mapper.
-     * 
+     *
      * @return a list mapper.
      */
     public static Mapper<TrustedCertificateRespList, ListResponse<Certificate>> getListMapper() {

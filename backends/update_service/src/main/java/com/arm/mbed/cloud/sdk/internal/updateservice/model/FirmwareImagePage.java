@@ -34,23 +34,20 @@ import java.io.Serializable;
 public class FirmwareImagePage implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("object")
-  private String object = null;
+  @SerializedName("after")
+  private String after = null;
+
+  @SerializedName("data")
+  private List<FirmwareImage> data = null;
 
   @SerializedName("has_more")
   private Boolean hasMore = null;
 
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
-  @SerializedName("after")
-  private String after = null;
-
   @SerializedName("limit")
   private Integer limit = null;
 
-  @SerializedName("data")
-  private List<FirmwareImage> data = null;
+  @SerializedName("object")
+  private String object = null;
 
   /**
    * The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;.
@@ -102,59 +99,8 @@ public class FirmwareImagePage implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
-  public FirmwareImagePage object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Get object
-   * @return object
-  **/
-  @ApiModelProperty(example = "list", value = "")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public FirmwareImagePage hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Get hasMore
-   * @return hasMore
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public FirmwareImagePage totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * Get totalCount
-   * @return totalCount
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
+  @SerializedName("total_count")
+  private Integer totalCount = null;
 
   public FirmwareImagePage after(String after) {
     this.after = after;
@@ -172,24 +118,6 @@ public class FirmwareImagePage implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public FirmwareImagePage limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * Get limit
-   * @return limit
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public FirmwareImagePage data(List<FirmwareImage> data) {
@@ -218,6 +146,60 @@ public class FirmwareImagePage implements Serializable {
     this.data = data;
   }
 
+  public FirmwareImagePage hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Get hasMore
+   * @return hasMore
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public FirmwareImagePage limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * Get limit
+   * @return limit
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public FirmwareImagePage object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Get object
+   * @return object
+  **/
+  @ApiModelProperty(example = "list", value = "")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
   public FirmwareImagePage order(OrderEnum order) {
     this.order = order;
     return this;
@@ -236,6 +218,24 @@ public class FirmwareImagePage implements Serializable {
     this.order = order;
   }
 
+  public FirmwareImagePage totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * @return totalCount
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -246,18 +246,18 @@ public class FirmwareImagePage implements Serializable {
       return false;
     }
     FirmwareImagePage firmwareImagePage = (FirmwareImagePage) o;
-    return Objects.equals(this.object, firmwareImagePage.object) &&
-        Objects.equals(this.hasMore, firmwareImagePage.hasMore) &&
-        Objects.equals(this.totalCount, firmwareImagePage.totalCount) &&
-        Objects.equals(this.after, firmwareImagePage.after) &&
-        Objects.equals(this.limit, firmwareImagePage.limit) &&
+    return Objects.equals(this.after, firmwareImagePage.after) &&
         Objects.equals(this.data, firmwareImagePage.data) &&
-        Objects.equals(this.order, firmwareImagePage.order);
+        Objects.equals(this.hasMore, firmwareImagePage.hasMore) &&
+        Objects.equals(this.limit, firmwareImagePage.limit) &&
+        Objects.equals(this.object, firmwareImagePage.object) &&
+        Objects.equals(this.order, firmwareImagePage.order) &&
+        Objects.equals(this.totalCount, firmwareImagePage.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(object, hasMore, totalCount, after, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -266,13 +266,13 @@ public class FirmwareImagePage implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class FirmwareImagePage {\n");
     
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

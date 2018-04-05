@@ -32,41 +32,23 @@ import java.io.Serializable;
 public class DeviceQueryInNinFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("created_at")
   private DateTime createdAt = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
 
-  @SerializedName("query")
-  private String query = null;
-
   @SerializedName("id")
   private String id = null;
 
-  public DeviceQueryInNinFilter name(String name) {
-    this.name = name;
-    return this;
-  }
+  @SerializedName("name")
+  private String name = null;
 
-   /**
-   * Get name
-   * @return name
-  **/
-  @ApiModelProperty(value = "")
-  public String getName() {
-    return name;
-  }
+  @SerializedName("query")
+  private String query = null;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   public DeviceQueryInNinFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -84,24 +66,6 @@ public class DeviceQueryInNinFilter implements Serializable {
 
   public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
-  }
-
-  public DeviceQueryInNinFilter updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * Get updatedAt
-   * @return updatedAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
   }
 
   public DeviceQueryInNinFilter etag(DateTime etag) {
@@ -122,24 +86,6 @@ public class DeviceQueryInNinFilter implements Serializable {
     this.etag = etag;
   }
 
-  public DeviceQueryInNinFilter query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * Get query
-   * @return query
-  **/
-  @ApiModelProperty(value = "")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
-  }
-
   public DeviceQueryInNinFilter id(String id) {
     this.id = id;
     return this;
@@ -158,6 +104,60 @@ public class DeviceQueryInNinFilter implements Serializable {
     this.id = id;
   }
 
+  public DeviceQueryInNinFilter name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * Get name
+   * @return name
+  **/
+  @ApiModelProperty(value = "")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public DeviceQueryInNinFilter query(String query) {
+    this.query = query;
+    return this;
+  }
+
+   /**
+   * Get query
+   * @return query
+  **/
+  @ApiModelProperty(value = "")
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
+  public DeviceQueryInNinFilter updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Get updatedAt
+   * @return updatedAt
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -168,17 +168,17 @@ public class DeviceQueryInNinFilter implements Serializable {
       return false;
     }
     DeviceQueryInNinFilter deviceQueryInNinFilter = (DeviceQueryInNinFilter) o;
-    return Objects.equals(this.name, deviceQueryInNinFilter.name) &&
-        Objects.equals(this.createdAt, deviceQueryInNinFilter.createdAt) &&
-        Objects.equals(this.updatedAt, deviceQueryInNinFilter.updatedAt) &&
+    return Objects.equals(this.createdAt, deviceQueryInNinFilter.createdAt) &&
         Objects.equals(this.etag, deviceQueryInNinFilter.etag) &&
+        Objects.equals(this.id, deviceQueryInNinFilter.id) &&
+        Objects.equals(this.name, deviceQueryInNinFilter.name) &&
         Objects.equals(this.query, deviceQueryInNinFilter.query) &&
-        Objects.equals(this.id, deviceQueryInNinFilter.id);
+        Objects.equals(this.updatedAt, deviceQueryInNinFilter.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, createdAt, updatedAt, etag, query, id);
+    return Objects.hash(createdAt, etag, id, name, query, updatedAt);
   }
 
 
@@ -187,12 +187,12 @@ public class DeviceQueryInNinFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQueryInNinFilter {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

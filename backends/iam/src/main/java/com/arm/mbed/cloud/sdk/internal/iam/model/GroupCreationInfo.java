@@ -33,29 +33,11 @@ import java.io.Serializable;
 public class GroupCreationInfo implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("members")
   private SubjectList members = null;
 
-  public GroupCreationInfo name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The group name, not longer than 100 characters.
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "The group name, not longer than 100 characters.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
+  @SerializedName("name")
+  private String name = null;
 
   public GroupCreationInfo members(SubjectList members) {
     this.members = members;
@@ -75,6 +57,24 @@ public class GroupCreationInfo implements Serializable {
     this.members = members;
   }
 
+  public GroupCreationInfo name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The group name, not longer than 100 characters.
+   * @return name
+  **/
+  @ApiModelProperty(required = true, value = "The group name, not longer than 100 characters.")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -85,13 +85,13 @@ public class GroupCreationInfo implements Serializable {
       return false;
     }
     GroupCreationInfo groupCreationInfo = (GroupCreationInfo) o;
-    return Objects.equals(this.name, groupCreationInfo.name) &&
-        Objects.equals(this.members, groupCreationInfo.members);
+    return Objects.equals(this.members, groupCreationInfo.members) &&
+        Objects.equals(this.name, groupCreationInfo.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, members);
+    return Objects.hash(members, name);
   }
 
 
@@ -100,8 +100,8 @@ public class GroupCreationInfo implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class GroupCreationInfo {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    members: ").append(toIndentedString(members)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -19,6 +19,7 @@ changes.
   style. _Code style checks and static analysis are performed during build._
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
   and be sure to mention the issue if contributing a bug fix.
+- Write a news fragment for any non-trivial changes as a new file in `docs/news`  e.g. `123.feature`. (see [towncrier](https://github.com/hawkowl/towncrier#news-fragments) for more fragment types).
 - Push to your fork.
 - Submit a pull request.
 

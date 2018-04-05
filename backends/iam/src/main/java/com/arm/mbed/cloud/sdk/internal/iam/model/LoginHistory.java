@@ -39,11 +39,11 @@ public class LoginHistory implements Serializable {
   @SerializedName("ip_address")
   private String ipAddress = null;
 
-  @SerializedName("user_agent")
-  private String userAgent = null;
-
   @SerializedName("success")
   private Boolean success = null;
+
+  @SerializedName("user_agent")
+  private String userAgent = null;
 
   public LoginHistory date(DateTime date) {
     this.date = date;
@@ -81,24 +81,6 @@ public class LoginHistory implements Serializable {
     this.ipAddress = ipAddress;
   }
 
-  public LoginHistory userAgent(String userAgent) {
-    this.userAgent = userAgent;
-    return this;
-  }
-
-   /**
-   * User Agent header from the login request.
-   * @return userAgent
-  **/
-  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
-  public String getUserAgent() {
-    return userAgent;
-  }
-
-  public void setUserAgent(String userAgent) {
-    this.userAgent = userAgent;
-  }
-
   public LoginHistory success(Boolean success) {
     this.success = success;
     return this;
@@ -117,6 +99,24 @@ public class LoginHistory implements Serializable {
     this.success = success;
   }
 
+  public LoginHistory userAgent(String userAgent) {
+    this.userAgent = userAgent;
+    return this;
+  }
+
+   /**
+   * User Agent header from the login request.
+   * @return userAgent
+  **/
+  @ApiModelProperty(example = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2227.1 Safari/537.36", required = true, value = "User Agent header from the login request.")
+  public String getUserAgent() {
+    return userAgent;
+  }
+
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -129,13 +129,13 @@ public class LoginHistory implements Serializable {
     LoginHistory loginHistory = (LoginHistory) o;
     return Objects.equals(this.date, loginHistory.date) &&
         Objects.equals(this.ipAddress, loginHistory.ipAddress) &&
-        Objects.equals(this.userAgent, loginHistory.userAgent) &&
-        Objects.equals(this.success, loginHistory.success);
+        Objects.equals(this.success, loginHistory.success) &&
+        Objects.equals(this.userAgent, loginHistory.userAgent);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(date, ipAddress, userAgent, success);
+    return Objects.hash(date, ipAddress, success, userAgent);
   }
 
 
@@ -146,8 +146,8 @@ public class LoginHistory implements Serializable {
     
     sb.append("    date: ").append(toIndentedString(date)).append("\n");
     sb.append("    ipAddress: ").append(toIndentedString(ipAddress)).append("\n");
-    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("    success: ").append(toIndentedString(success)).append("\n");
+    sb.append("    userAgent: ").append(toIndentedString(userAgent)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -37,11 +37,14 @@ public class AccountInfoList implements Serializable {
   @SerializedName("after")
   private String after = null;
 
+  @SerializedName("data")
+  private List<AccountInfo> data = new ArrayList<AccountInfo>();
+
   @SerializedName("has_more")
   private Boolean hasMore = null;
 
-  @SerializedName("total_count")
-  private Integer totalCount = null;
+  @SerializedName("limit")
+  private Integer limit = null;
 
   /**
    * Entity name: always &#39;list&#39;
@@ -90,12 +93,6 @@ public class AccountInfoList implements Serializable {
 
   @SerializedName("object")
   private ObjectEnum object = null;
-
-  @SerializedName("limit")
-  private Integer limit = null;
-
-  @SerializedName("data")
-  private List<AccountInfo> data = new ArrayList<AccountInfo>();
 
   /**
    * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
@@ -147,6 +144,9 @@ public class AccountInfoList implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
+  @SerializedName("total_count")
+  private Integer totalCount = null;
+
   public AccountInfoList after(String after) {
     this.after = after;
     return this;
@@ -163,78 +163,6 @@ public class AccountInfoList implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public AccountInfoList hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Flag indicating whether there is more results.
-   * @return hasMore
-  **/
-  @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public AccountInfoList totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * The total number or records, if requested. It might be returned also for small lists.
-   * @return totalCount
-  **/
-  @ApiModelProperty(example = "20", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
-
-  public AccountInfoList object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Entity name: always &#39;list&#39;
-   * @return object
-  **/
-  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
-  }
-
-  public AccountInfoList limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
-   * @return limit
-  **/
-  @ApiModelProperty(example = "50", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public AccountInfoList data(List<AccountInfo> data) {
@@ -260,6 +188,60 @@ public class AccountInfoList implements Serializable {
     this.data = data;
   }
 
+  public AccountInfoList hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Flag indicating whether there is more results.
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public AccountInfoList limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
+   * @return limit
+  **/
+  @ApiModelProperty(example = "50", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public AccountInfoList object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;list&#39;
+   * @return object
+  **/
+  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
+
   public AccountInfoList order(OrderEnum order) {
     this.order = order;
     return this;
@@ -278,6 +260,24 @@ public class AccountInfoList implements Serializable {
     this.order = order;
   }
 
+  public AccountInfoList totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * The total number or records, if requested. It might be returned also for small lists.
+   * @return totalCount
+  **/
+  @ApiModelProperty(example = "20", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -289,17 +289,17 @@ public class AccountInfoList implements Serializable {
     }
     AccountInfoList accountInfoList = (AccountInfoList) o;
     return Objects.equals(this.after, accountInfoList.after) &&
-        Objects.equals(this.hasMore, accountInfoList.hasMore) &&
-        Objects.equals(this.totalCount, accountInfoList.totalCount) &&
-        Objects.equals(this.object, accountInfoList.object) &&
-        Objects.equals(this.limit, accountInfoList.limit) &&
         Objects.equals(this.data, accountInfoList.data) &&
-        Objects.equals(this.order, accountInfoList.order);
+        Objects.equals(this.hasMore, accountInfoList.hasMore) &&
+        Objects.equals(this.limit, accountInfoList.limit) &&
+        Objects.equals(this.object, accountInfoList.object) &&
+        Objects.equals(this.order, accountInfoList.order) &&
+        Objects.equals(this.totalCount, accountInfoList.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -309,12 +309,12 @@ public class AccountInfoList implements Serializable {
     sb.append("class AccountInfoList {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

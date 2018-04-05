@@ -34,23 +34,20 @@ import java.io.Serializable;
 public class UpdateCampaignPage implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("object")
-  private String object = null;
+  @SerializedName("after")
+  private String after = null;
+
+  @SerializedName("data")
+  private List<UpdateCampaign> data = null;
 
   @SerializedName("has_more")
   private Boolean hasMore = null;
 
-  @SerializedName("total_count")
-  private Integer totalCount = null;
-
-  @SerializedName("after")
-  private String after = null;
-
   @SerializedName("limit")
   private Integer limit = null;
 
-  @SerializedName("data")
-  private List<UpdateCampaign> data = null;
+  @SerializedName("object")
+  private String object = null;
 
   /**
    * The order of the records to return. Acceptable values: ASC, DESC. Default: ASC
@@ -102,59 +99,8 @@ public class UpdateCampaignPage implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
-  public UpdateCampaignPage object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Get object
-   * @return object
-  **/
-  @ApiModelProperty(example = "list", value = "")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public UpdateCampaignPage hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Get hasMore
-   * @return hasMore
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public UpdateCampaignPage totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * Get totalCount
-   * @return totalCount
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
+  @SerializedName("total_count")
+  private Integer totalCount = null;
 
   public UpdateCampaignPage after(String after) {
     this.after = after;
@@ -172,24 +118,6 @@ public class UpdateCampaignPage implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public UpdateCampaignPage limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * Get limit
-   * @return limit
-  **/
-  @ApiModelProperty(value = "")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public UpdateCampaignPage data(List<UpdateCampaign> data) {
@@ -218,6 +146,60 @@ public class UpdateCampaignPage implements Serializable {
     this.data = data;
   }
 
+  public UpdateCampaignPage hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Get hasMore
+   * @return hasMore
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public UpdateCampaignPage limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * Get limit
+   * @return limit
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public UpdateCampaignPage object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Get object
+   * @return object
+  **/
+  @ApiModelProperty(example = "list", value = "")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
   public UpdateCampaignPage order(OrderEnum order) {
     this.order = order;
     return this;
@@ -236,6 +218,24 @@ public class UpdateCampaignPage implements Serializable {
     this.order = order;
   }
 
+  public UpdateCampaignPage totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * @return totalCount
+  **/
+  @ApiModelProperty(value = "")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -246,18 +246,18 @@ public class UpdateCampaignPage implements Serializable {
       return false;
     }
     UpdateCampaignPage updateCampaignPage = (UpdateCampaignPage) o;
-    return Objects.equals(this.object, updateCampaignPage.object) &&
-        Objects.equals(this.hasMore, updateCampaignPage.hasMore) &&
-        Objects.equals(this.totalCount, updateCampaignPage.totalCount) &&
-        Objects.equals(this.after, updateCampaignPage.after) &&
-        Objects.equals(this.limit, updateCampaignPage.limit) &&
+    return Objects.equals(this.after, updateCampaignPage.after) &&
         Objects.equals(this.data, updateCampaignPage.data) &&
-        Objects.equals(this.order, updateCampaignPage.order);
+        Objects.equals(this.hasMore, updateCampaignPage.hasMore) &&
+        Objects.equals(this.limit, updateCampaignPage.limit) &&
+        Objects.equals(this.object, updateCampaignPage.object) &&
+        Objects.equals(this.order, updateCampaignPage.order) &&
+        Objects.equals(this.totalCount, updateCampaignPage.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(object, hasMore, totalCount, after, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -266,13 +266,13 @@ public class UpdateCampaignPage implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateCampaignPage {\n");
     
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

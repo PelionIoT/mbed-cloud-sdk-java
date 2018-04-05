@@ -1,3 +1,3 @@
-<manifest package="com.arm.mbed.cloud.sdk.internal" xmlns:android="http://schemas.android.com/apk/res/android">
+<manifest package="com.arm.mbed.cloud.sdk.internal.devicedirectory" xmlns:android="http://schemas.android.com/apk/res/android">
     <application />
 </manifest>

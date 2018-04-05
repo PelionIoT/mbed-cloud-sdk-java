@@ -40,14 +40,14 @@ public class ErrorResponse implements Serializable {
   @SerializedName("fields")
   private List<Fields> fields = null;
 
+  @SerializedName("message")
+  private String message = null;
+
   @SerializedName("object")
   private String object = null;
 
   @SerializedName("request_id")
   private String requestId = null;
-
-  @SerializedName("message")
-  private String message = null;
 
   @SerializedName("type")
   private String type = null;
@@ -96,6 +96,24 @@ public class ErrorResponse implements Serializable {
     this.fields = fields;
   }
 
+  public ErrorResponse message(String message) {
+    this.message = message;
+    return this;
+  }
+
+   /**
+   * Description of the error.
+   * @return message
+  **/
+  @ApiModelProperty(value = "Description of the error.")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
   public ErrorResponse object(String object) {
     this.object = object;
     return this;
@@ -132,24 +150,6 @@ public class ErrorResponse implements Serializable {
     this.requestId = requestId;
   }
 
-  public ErrorResponse message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Description of the error.
-   * @return message
-  **/
-  @ApiModelProperty(value = "Description of the error.")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
   public ErrorResponse type(String type) {
     this.type = type;
     return this;
@@ -180,15 +180,15 @@ public class ErrorResponse implements Serializable {
     ErrorResponse errorResponse = (ErrorResponse) o;
     return Objects.equals(this.code, errorResponse.code) &&
         Objects.equals(this.fields, errorResponse.fields) &&
+        Objects.equals(this.message, errorResponse.message) &&
         Objects.equals(this.object, errorResponse.object) &&
         Objects.equals(this.requestId, errorResponse.requestId) &&
-        Objects.equals(this.message, errorResponse.message) &&
         Objects.equals(this.type, errorResponse.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, fields, object, requestId, message, type);
+    return Objects.hash(code, fields, message, object, requestId, type);
   }
 
 
@@ -199,9 +199,9 @@ public class ErrorResponse implements Serializable {
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    type: ").append(toIndentedString(type)).append("\n");
     sb.append("}");
     return sb.toString();

@@ -37,11 +37,14 @@ public class TrustedCertificateRespList implements Serializable {
   @SerializedName("after")
   private String after = null;
 
+  @SerializedName("data")
+  private List<TrustedCertificateResp> data = new ArrayList<TrustedCertificateResp>();
+
   @SerializedName("has_more")
   private Boolean hasMore = null;
 
-  @SerializedName("total_count")
-  private Integer totalCount = null;
+  @SerializedName("limit")
+  private Integer limit = null;
 
   /**
    * Entity name: always &#39;list&#39;
@@ -90,12 +93,6 @@ public class TrustedCertificateRespList implements Serializable {
 
   @SerializedName("object")
   private ObjectEnum object = null;
-
-  @SerializedName("limit")
-  private Integer limit = null;
-
-  @SerializedName("data")
-  private List<TrustedCertificateResp> data = new ArrayList<TrustedCertificateResp>();
 
   /**
    * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
@@ -147,6 +144,9 @@ public class TrustedCertificateRespList implements Serializable {
   @SerializedName("order")
   private OrderEnum order = null;
 
+  @SerializedName("total_count")
+  private Integer totalCount = null;
+
   public TrustedCertificateRespList after(String after) {
     this.after = after;
     return this;
@@ -163,78 +163,6 @@ public class TrustedCertificateRespList implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public TrustedCertificateRespList hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Flag indicating whether there is more results.
-   * @return hasMore
-  **/
-  @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public TrustedCertificateRespList totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * The total number or records, if requested. It might be returned also for small lists.
-   * @return totalCount
-  **/
-  @ApiModelProperty(example = "20", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
-
-  public TrustedCertificateRespList object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Entity name: always &#39;list&#39;
-   * @return object
-  **/
-  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
-  }
-
-  public TrustedCertificateRespList limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
-   * @return limit
-  **/
-  @ApiModelProperty(example = "50", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public TrustedCertificateRespList data(List<TrustedCertificateResp> data) {
@@ -260,6 +188,60 @@ public class TrustedCertificateRespList implements Serializable {
     this.data = data;
   }
 
+  public TrustedCertificateRespList hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Flag indicating whether there is more results.
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public TrustedCertificateRespList limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
+   * @return limit
+  **/
+  @ApiModelProperty(example = "50", required = true, value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public TrustedCertificateRespList object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;list&#39;
+   * @return object
+  **/
+  @ApiModelProperty(required = true, value = "Entity name: always 'list'")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
+
   public TrustedCertificateRespList order(OrderEnum order) {
     this.order = order;
     return this;
@@ -278,6 +260,24 @@ public class TrustedCertificateRespList implements Serializable {
     this.order = order;
   }
 
+  public TrustedCertificateRespList totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * The total number or records, if requested. It might be returned also for small lists.
+   * @return totalCount
+  **/
+  @ApiModelProperty(example = "20", required = true, value = "The total number or records, if requested. It might be returned also for small lists.")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -289,17 +289,17 @@ public class TrustedCertificateRespList implements Serializable {
     }
     TrustedCertificateRespList trustedCertificateRespList = (TrustedCertificateRespList) o;
     return Objects.equals(this.after, trustedCertificateRespList.after) &&
-        Objects.equals(this.hasMore, trustedCertificateRespList.hasMore) &&
-        Objects.equals(this.totalCount, trustedCertificateRespList.totalCount) &&
-        Objects.equals(this.object, trustedCertificateRespList.object) &&
-        Objects.equals(this.limit, trustedCertificateRespList.limit) &&
         Objects.equals(this.data, trustedCertificateRespList.data) &&
-        Objects.equals(this.order, trustedCertificateRespList.order);
+        Objects.equals(this.hasMore, trustedCertificateRespList.hasMore) &&
+        Objects.equals(this.limit, trustedCertificateRespList.limit) &&
+        Objects.equals(this.object, trustedCertificateRespList.object) &&
+        Objects.equals(this.order, trustedCertificateRespList.order) &&
+        Objects.equals(this.totalCount, trustedCertificateRespList.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -309,12 +309,12 @@ public class TrustedCertificateRespList implements Serializable {
     sb.append("class TrustedCertificateRespList {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

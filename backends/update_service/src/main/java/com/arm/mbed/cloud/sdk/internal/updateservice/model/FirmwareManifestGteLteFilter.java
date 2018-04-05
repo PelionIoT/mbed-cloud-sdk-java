@@ -32,35 +32,17 @@ import java.io.Serializable;
 public class FirmwareManifestGteLteFilter implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("timestamp")
-  private DateTime timestamp = null;
-
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
 
+  @SerializedName("timestamp")
+  private DateTime timestamp = null;
+
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
-
-  public FirmwareManifestGteLteFilter timestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-    return this;
-  }
-
-   /**
-   * Get timestamp
-   * @return timestamp
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getTimestamp() {
-    return timestamp;
-  }
-
-  public void setTimestamp(DateTime timestamp) {
-    this.timestamp = timestamp;
-  }
 
   public FirmwareManifestGteLteFilter createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -98,6 +80,24 @@ public class FirmwareManifestGteLteFilter implements Serializable {
     this.etag = etag;
   }
 
+  public FirmwareManifestGteLteFilter timestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+    return this;
+  }
+
+   /**
+   * Get timestamp
+   * @return timestamp
+  **/
+  @ApiModelProperty(value = "")
+  public DateTime getTimestamp() {
+    return timestamp;
+  }
+
+  public void setTimestamp(DateTime timestamp) {
+    this.timestamp = timestamp;
+  }
+
   public FirmwareManifestGteLteFilter updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
@@ -126,15 +126,15 @@ public class FirmwareManifestGteLteFilter implements Serializable {
       return false;
     }
     FirmwareManifestGteLteFilter firmwareManifestGteLteFilter = (FirmwareManifestGteLteFilter) o;
-    return Objects.equals(this.timestamp, firmwareManifestGteLteFilter.timestamp) &&
-        Objects.equals(this.createdAt, firmwareManifestGteLteFilter.createdAt) &&
+    return Objects.equals(this.createdAt, firmwareManifestGteLteFilter.createdAt) &&
         Objects.equals(this.etag, firmwareManifestGteLteFilter.etag) &&
+        Objects.equals(this.timestamp, firmwareManifestGteLteFilter.timestamp) &&
         Objects.equals(this.updatedAt, firmwareManifestGteLteFilter.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(timestamp, createdAt, etag, updatedAt);
+    return Objects.hash(createdAt, etag, timestamp, updatedAt);
   }
 
 
@@ -143,9 +143,9 @@ public class FirmwareManifestGteLteFilter implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class FirmwareManifestGteLteFilter {\n");
     
-    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    timestamp: ").append(toIndentedString(timestamp)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();

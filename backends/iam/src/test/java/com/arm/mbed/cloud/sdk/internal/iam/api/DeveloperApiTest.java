@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.iam.api;
 
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
@@ -53,7 +53,7 @@ public class DeveloperApiTest {
     /**
      * Add API key to a list of groups.
      *
-     * An endpoint for adding API key to groups.
+     * An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void addMyApiKeyToGroupsTest() {
@@ -89,7 +89,7 @@ public class DeveloperApiTest {
     /**
      * Delete a trusted certificate by ID.
      *
-     * An endpoint for deleting a trusted certificate.
+     * An endpoint for deleting a trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void deleteCertificateTest() {
@@ -118,7 +118,7 @@ public class DeveloperApiTest {
     /**
      * Get all trusted certificates.
      *
-     * An endpoint for retrieving trusted certificates in an array.
+     * An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllCertificatesTest() {
@@ -142,7 +142,7 @@ public class DeveloperApiTest {
     /**
      * Get all group information.
      *
-     * An endpoint for retrieving all group information.
+     * An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllGroupsTest() {
@@ -158,7 +158,7 @@ public class DeveloperApiTest {
     /**
      * Get API key details.
      *
-     * An endpoint for retrieving API key details.
+     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getApiKeyTest() {
@@ -170,7 +170,7 @@ public class DeveloperApiTest {
     /**
      * Get the API keys of a group.
      *
-     * An endpoint for listing the API keys of the group with details.
+     * An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getApiKeysOfGroupTest() {
@@ -198,7 +198,7 @@ public class DeveloperApiTest {
     /**
      * Get group information.
      *
-     * An endpoint for getting general information about the group.
+     * An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getGroupSummaryTest() {
@@ -210,7 +210,7 @@ public class DeveloperApiTest {
     /**
      * Get groups of the API key.
      *
-     * An endpoint for retrieving groups of the API key.
+     * An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getGroupsOfMyApiKeyTest() {
@@ -289,7 +289,7 @@ public class DeveloperApiTest {
     /**
      * Remove API keys from a group.
      *
-     * An endpoint for removing API keys from groups.
+     * An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeApiKeysFromGroupTest() {
@@ -314,7 +314,7 @@ public class DeveloperApiTest {
     /**
      * Remove API key from groups.
      *
-     * An endpoint for removing API key from groups.
+     * An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeMyApiKeyFromGroupsTest() {
@@ -326,7 +326,7 @@ public class DeveloperApiTest {
     /**
      * Update API key details.
      *
-     * An endpoint for updating API key details.
+     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void updateApiKeyTest() {
