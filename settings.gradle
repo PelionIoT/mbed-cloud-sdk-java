@@ -16,6 +16,7 @@ include 'backends:statistics'
 include 'backends:update_service'
 include 'backends:enrollment'
 include 'backends:mbedcloud_common'
+include 'backends:connector_bootstrap'
 
 /*
  * Project properties
