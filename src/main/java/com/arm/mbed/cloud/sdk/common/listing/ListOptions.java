@@ -2,45 +2,36 @@ package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
-import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
-public class ListOptions implements Cloneable {
+public class ListOptions extends FilterOptions {
 
     /**
      * how many objects to retrieve in the page.
      */
     @DefaultValue(value = "default")
-    private Integer limit;
+    Integer limit;
     /**
      * Sorting order. ASC or DESC
      */
     @DefaultValue(value = "ASC")
-    private Order order;
+    Order order;
     /**
      * the ID of the the item after which to retrieve the next page.
      */
-    private String after;
+    String after;
     /**
      * Optional fields to include.
      */
-    private List<IncludeField> include;
-
-    /**
-     * Optional filters.
-     */
-    private Filters filter;
+    List<IncludeField> include;
 
     /**
      * Constructor.
@@ -224,127 +215,6 @@ public class ListOptions implements Cloneable {
         addInclude(IncludeField.TOTAL_COUNT);
     }
 
-    /**
-     * Gets the filter.
-     * 
-     * @return the filters
-     */
-    public Filters getFilter() {
-        return filter;
-    }
-
-    /**
-     * Sets the filters.
-     * 
-     * @param filters
-     *            the filters to set
-     */
-    public void setFilters(Filters filters) {
-        this.filter = filters;
-    }
-
-    /**
-     * Sets the filters.
-     * <p>
-     * Prefer using {@link #setFilters(Filters)} or {@link #setFiltersFromJson(String)} to set filters.
-     * 
-     * @param filter
-     *            filters expressed as a Json hashtable (key,value)
-     */
-    @Internal
-    public void setFilter(Map<String, Object> filter) {
-        setFilters(FilterMarshaller.fromJsonObject(filter));
-    }
-
-    /**
-     * Sets the filter from a Json string.
-     * 
-     * @see FilterMarshaller#fromJson(String) for more information regarding Json accepted format
-     * @param jsonString
-     *            Json string defining filters
-     */
-    public void setFiltersFromJson(String jsonString) {
-        setFilters(FilterMarshaller.fromJson(jsonString));
-    }
-
-    /**
-     * Gets the filter as Json String.
-     * 
-     * @see FilterMarshaller#toJson(Filters) for more information regarding Json filter format
-     * @return the filter as a Json string
-     */
-    public String retrieveFilterAsJson() {
-        return FilterMarshaller.toJson(getFilter());
-    }
-
-    /**
-     * Adds a filter to the query.
-     * 
-     * @param fieldName
-     *            field name to apply the filter on
-     * @param operator
-     *            the filter operator to apply
-     * @param value
-     *            the value of the filter
-     */
-    public void addFilter(@Nullable String fieldName, FilterOperator operator, @Nullable Object value) {
-        addFilter(new Filter(fieldName, operator, value));
-    }
-
-    /**
-     * Adds a filter to the query.
-     * 
-     * @param subfilter
-     *            filter to apply.
-     */
-    public void addFilter(Filter subfilter) {
-        if (subfilter == null || !subfilter.isValid()) {
-            return;
-        }
-        if (filter == null) {
-            filter = new Filters();
-        }
-        filter.add(subfilter);
-    }
-
-    /**
-     * Adds a custom filter to the query.
-     * 
-     * @param customAttribute
-     *            custom attribute to apply the filter on
-     * @param operator
-     *            the filter operator to apply
-     * @param value
-     *            the value of the filter
-     */
-    public void addCustomFilter(@Nullable String customAttribute, FilterOperator operator, @Nullable Object value) {
-        addFilter(new CustomFilter(customAttribute, operator, value));
-    }
-
-    /**
-     * Adds an "equal" filter.
-     * 
-     * @param fieldName
-     *            field name to apply the filter on
-     * @param value
-     *            the value of the filter
-     */
-    public void addEqualFilter(@Nullable String fieldName, @Nullable Object value) {
-        addFilter(fieldName, FilterOperator.EQUAL, value);
-    }
-
-    /**
-     * Adds an "like" filter.
-     * 
-     * @param fieldName
-     *            field name to apply the filter on
-     * @param value
-     *            the value of the filter
-     */
-    public void addLikeFilter(@Nullable String fieldName, @Nullable Object value) {
-        addFilter(fieldName, FilterOperator.LIKE, value);
-    }
-
     protected Object fetchEqualFilterValue(@Nullable String fieldName) {
         return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
     }
@@ -353,24 +223,6 @@ public class ListOptions implements Cloneable {
         // If no like filter was entered but an equal filter was, equal filter is considered.
         final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
         return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
-    }
-
-    protected Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
-        if (fieldName == null || filter == null) {
-            return null;
-        }
-        final List<Filter> list = filter.get(fieldName, operator);
-        if (list == null || list.isEmpty()) {
-            return null;
-        }
-        return list.get(0).getValue();
-    }
-
-    protected List<Filter> fetchFilters(@Nullable String fieldName) {
-        if (fieldName == null || filter == null) {
-            return null;
-        }
-        return filter.get(fieldName);
     }
 
     /**

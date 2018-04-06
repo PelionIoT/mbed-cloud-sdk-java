@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -31,14 +31,8 @@ import java.io.Serializable;
 public class AsyncIDResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("status")
-  private Integer status = null;
-
-  @SerializedName("payload")
-  private String payload = null;
-
-  @SerializedName("max-age")
-  private String maxAge = null;
+  @SerializedName("ct")
+  private String ct = null;
 
   @SerializedName("error")
   private String error = null;
@@ -46,61 +40,31 @@ public class AsyncIDResponse implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("ct")
-  private String ct = null;
+  @SerializedName("max-age")
+  private String maxAge = null;
 
-  public AsyncIDResponse status(Integer status) {
-    this.status = status;
+  @SerializedName("payload")
+  private String payload = null;
+
+  @SerializedName("status")
+  private Integer status = null;
+
+  public AsyncIDResponse ct(String ct) {
+    this.ct = ct;
     return this;
   }
 
    /**
-   * The asynchronous response status code for a device operation related to a proxy request or manual subscription.
-   * @return status
+   * The content type.
+   * @return ct
   **/
-  @ApiModelProperty(example = "200", value = "The asynchronous response status code for a device operation related to a proxy request or manual subscription.")
-  public Integer getStatus() {
-    return status;
+  @ApiModelProperty(example = "text/plain", value = "The content type.")
+  public String getCt() {
+    return ct;
   }
 
-  public void setStatus(Integer status) {
-    this.status = status;
-  }
-
-  public AsyncIDResponse payload(String payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * Requested data, base64 encoded.
-   * @return payload
-  **/
-  @ApiModelProperty(example = "My4zMQ==", value = "Requested data, base64 encoded.")
-  public String getPayload() {
-    return payload;
-  }
-
-  public void setPayload(String payload) {
-    this.payload = payload;
-  }
-
-  public AsyncIDResponse maxAge(String maxAge) {
-    this.maxAge = maxAge;
-    return this;
-  }
-
-   /**
-   * Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
-   * @return maxAge
-  **/
-  @ApiModelProperty(example = "60", value = "Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.")
-  public String getMaxAge() {
-    return maxAge;
-  }
-
-  public void setMaxAge(String maxAge) {
-    this.maxAge = maxAge;
+  public void setCt(String ct) {
+    this.ct = ct;
   }
 
   public AsyncIDResponse error(String error) {
@@ -139,22 +103,58 @@ public class AsyncIDResponse implements Serializable {
     this.id = id;
   }
 
-  public AsyncIDResponse ct(String ct) {
-    this.ct = ct;
+  public AsyncIDResponse maxAge(String maxAge) {
+    this.maxAge = maxAge;
     return this;
   }
 
    /**
-   * The content type.
-   * @return ct
+   * Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.
+   * @return maxAge
   **/
-  @ApiModelProperty(example = "text/plain", value = "The content type.")
-  public String getCt() {
-    return ct;
+  @ApiModelProperty(example = "60", value = "Determines how long this value stays valid in the cache, in seconds. 0 means that the value is not stored in the cache.")
+  public String getMaxAge() {
+    return maxAge;
   }
 
-  public void setCt(String ct) {
-    this.ct = ct;
+  public void setMaxAge(String maxAge) {
+    this.maxAge = maxAge;
+  }
+
+  public AsyncIDResponse payload(String payload) {
+    this.payload = payload;
+    return this;
+  }
+
+   /**
+   * Requested data, base64 encoded.
+   * @return payload
+  **/
+  @ApiModelProperty(example = "My4zMQ==", value = "Requested data, base64 encoded.")
+  public String getPayload() {
+    return payload;
+  }
+
+  public void setPayload(String payload) {
+    this.payload = payload;
+  }
+
+  public AsyncIDResponse status(Integer status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The asynchronous response status code for a device operation related to a proxy request or manual subscription.
+   * @return status
+  **/
+  @ApiModelProperty(example = "200", value = "The asynchronous response status code for a device operation related to a proxy request or manual subscription.")
+  public Integer getStatus() {
+    return status;
+  }
+
+  public void setStatus(Integer status) {
+    this.status = status;
   }
 
 
@@ -167,17 +167,17 @@ public class AsyncIDResponse implements Serializable {
       return false;
     }
     AsyncIDResponse asyncIDResponse = (AsyncIDResponse) o;
-    return Objects.equals(this.status, asyncIDResponse.status) &&
-        Objects.equals(this.payload, asyncIDResponse.payload) &&
-        Objects.equals(this.maxAge, asyncIDResponse.maxAge) &&
+    return Objects.equals(this.ct, asyncIDResponse.ct) &&
         Objects.equals(this.error, asyncIDResponse.error) &&
         Objects.equals(this.id, asyncIDResponse.id) &&
-        Objects.equals(this.ct, asyncIDResponse.ct);
+        Objects.equals(this.maxAge, asyncIDResponse.maxAge) &&
+        Objects.equals(this.payload, asyncIDResponse.payload) &&
+        Objects.equals(this.status, asyncIDResponse.status);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(status, payload, maxAge, error, id, ct);
+    return Objects.hash(ct, error, id, maxAge, payload, status);
   }
 
 
@@ -186,12 +186,12 @@ public class AsyncIDResponse implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AsyncIDResponse {\n");
     
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("    maxAge: ").append(toIndentedString(maxAge)).append("\n");
+    sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
     sb.append("    error: ").append(toIndentedString(error)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    ct: ").append(toIndentedString(ct)).append("\n");
+    sb.append("    maxAge: ").append(toIndentedString(maxAge)).append("\n");
+    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("}");
     return sb.toString();
   }

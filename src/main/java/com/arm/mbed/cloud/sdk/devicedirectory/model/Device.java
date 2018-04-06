@@ -50,10 +50,14 @@ public class Device implements SdkModel {
     private final Date manifestTimestamp;
     /**
      * ID of the issuer of the certificate.
+     * <p>
+     * This is the value of the CN field (in the Subject) of the Issuer of the certificate.
      */
     private String certificateIssuerId;
     /**
      * Fingerprint of the device certificate.
+     * <p>
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      */
     private String certificateFingerprint;
     /**
@@ -319,6 +323,8 @@ public class Device implements SdkModel {
 
     /**
      * Gets certificate issuer id.
+     * <p>
+     * This is the value of the CN field (in the Subject) of the Issuer of the certificate.
      *
      * @return the certificateIssuerId
      */
@@ -328,6 +334,8 @@ public class Device implements SdkModel {
 
     /**
      * Sets certificate issuer id.
+     * <p>
+     * This is the value of the CN field (in the Subject) of the Issuer of the certificate.
      *
      * @param certificateIssuerId
      *            the certificateIssuerId to set
@@ -338,6 +346,8 @@ public class Device implements SdkModel {
 
     /**
      * Gets certificate fingerprint.
+     * <p>
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      *
      * @return the certificateFingerprint
      */
@@ -347,6 +357,8 @@ public class Device implements SdkModel {
 
     /**
      * Sets certificate fingerprint.
+     * <p>
+     * This is not part of the certificate but rather the SH-256 hash of the certificate.
      *
      * @param certificateFingerprint
      *            the certificateFingerprint to set

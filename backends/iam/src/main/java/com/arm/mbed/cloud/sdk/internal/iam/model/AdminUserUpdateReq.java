@@ -36,23 +36,23 @@ import java.io.Serializable;
 public class AdminUserUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("phone_number")
-  private String phoneNumber = null;
+  @SerializedName("address")
+  private String address = null;
 
-  @SerializedName("username")
-  private String username = null;
+  @SerializedName("email")
+  private String email = null;
+
+  @SerializedName("full_name")
+  private String fullName = null;
 
   @SerializedName("groups")
   private List<String> groups = null;
 
-  @SerializedName("is_marketing_accepted")
-  private Boolean isMarketingAccepted = null;
-
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
   @SerializedName("is_gtc_accepted")
   private Boolean isGtcAccepted = null;
+
+  @SerializedName("is_marketing_accepted")
+  private Boolean isMarketingAccepted = null;
 
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
@@ -60,55 +60,73 @@ public class AdminUserUpdateReq implements Serializable {
   @SerializedName("notification_properties")
   private Map<String, String> notificationProperties = null;
 
-  @SerializedName("status")
-  private String status = null;
-
-  @SerializedName("full_name")
-  private String fullName = null;
-
-  @SerializedName("address")
-  private String address = null;
-
   @SerializedName("password")
   private String password = null;
 
-  @SerializedName("email")
-  private String email = null;
+  @SerializedName("phone_number")
+  private String phoneNumber = null;
 
-  public AdminUserUpdateReq phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  @SerializedName("status")
+  private String status = null;
+
+  @SerializedName("user_properties")
+  private Map<String, Map<String, String>> userProperties = null;
+
+  @SerializedName("username")
+  private String username = null;
+
+  public AdminUserUpdateReq address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Phone number, not longer than 100 characters.
-   * @return phoneNumber
+   * Address, not longer than 100 characters.
+   * @return address
   **/
-  @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
-  public String getPhoneNumber() {
-    return phoneNumber;
+  @ApiModelProperty(value = "Address, not longer than 100 characters.")
+  public String getAddress() {
+    return address;
   }
 
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
+  public void setAddress(String address) {
+    this.address = address;
   }
 
-  public AdminUserUpdateReq username(String username) {
-    this.username = username;
+  public AdminUserUpdateReq email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
-   * @return username
+   * The email address, not longer than 254 characters.
+   * @return email
   **/
-  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
-  public String getUsername() {
-    return username;
+  @ApiModelProperty(value = "The email address, not longer than 254 characters.")
+  public String getEmail() {
+    return email;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setEmail(String email) {
+    this.email = email;
+  }
+
+  public AdminUserUpdateReq fullName(String fullName) {
+    this.fullName = fullName;
+    return this;
+  }
+
+   /**
+   * The full name of the user, not longer than 100 characters.
+   * @return fullName
+  **/
+  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
+  public String getFullName() {
+    return fullName;
+  }
+
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 
   public AdminUserUpdateReq groups(List<String> groups) {
@@ -137,50 +155,6 @@ public class AdminUserUpdateReq implements Serializable {
     this.groups = groups;
   }
 
-  public AdminUserUpdateReq isMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
-    return this;
-  }
-
-   /**
-   * A flag indicating that receiving marketing information has been accepted.
-   * @return isMarketingAccepted
-  **/
-  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
-  public Boolean isIsMarketingAccepted() {
-    return isMarketingAccepted;
-  }
-
-  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
-  }
-
-  public AdminUserUpdateReq userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public AdminUserUpdateReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-  }
-
   public AdminUserUpdateReq isGtcAccepted(Boolean isGtcAccepted) {
     this.isGtcAccepted = isGtcAccepted;
     return this;
@@ -197,6 +171,24 @@ public class AdminUserUpdateReq implements Serializable {
 
   public void setIsGtcAccepted(Boolean isGtcAccepted) {
     this.isGtcAccepted = isGtcAccepted;
+  }
+
+  public AdminUserUpdateReq isMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
+    return this;
+  }
+
+   /**
+   * A flag indicating that receiving marketing information has been accepted.
+   * @return isMarketingAccepted
+  **/
+  @ApiModelProperty(value = "A flag indicating that receiving marketing information has been accepted.")
+  public Boolean isIsMarketingAccepted() {
+    return isMarketingAccepted;
+  }
+
+  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
   }
 
   public AdminUserUpdateReq isTotpEnabled(Boolean isTotpEnabled) {
@@ -243,60 +235,6 @@ public class AdminUserUpdateReq implements Serializable {
     this.notificationProperties = notificationProperties;
   }
 
-  public AdminUserUpdateReq status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the user.
-   * @return status
-  **/
-  @ApiModelProperty(value = "The status of the user.")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
-  public AdminUserUpdateReq fullName(String fullName) {
-    this.fullName = fullName;
-    return this;
-  }
-
-   /**
-   * The full name of the user, not longer than 100 characters.
-   * @return fullName
-  **/
-  @ApiModelProperty(value = "The full name of the user, not longer than 100 characters.")
-  public String getFullName() {
-    return fullName;
-  }
-
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public AdminUserUpdateReq address(String address) {
-    this.address = address;
-    return this;
-  }
-
-   /**
-   * Address, not longer than 100 characters.
-   * @return address
-  **/
-  @ApiModelProperty(value = "Address, not longer than 100 characters.")
-  public String getAddress() {
-    return address;
-  }
-
-  public void setAddress(String address) {
-    this.address = address;
-  }
-
   public AdminUserUpdateReq password(String password) {
     this.password = password;
     return this;
@@ -315,22 +253,84 @@ public class AdminUserUpdateReq implements Serializable {
     this.password = password;
   }
 
-  public AdminUserUpdateReq email(String email) {
-    this.email = email;
+  public AdminUserUpdateReq phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
     return this;
   }
 
    /**
-   * The email address, not longer than 254 characters.
-   * @return email
+   * Phone number, not longer than 100 characters.
+   * @return phoneNumber
   **/
-  @ApiModelProperty(value = "The email address, not longer than 254 characters.")
-  public String getEmail() {
-    return email;
+  @ApiModelProperty(value = "Phone number, not longer than 100 characters.")
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 
-  public void setEmail(String email) {
-    this.email = email;
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public AdminUserUpdateReq status(String status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the user.
+   * @return status
+  **/
+  @ApiModelProperty(value = "The status of the user.")
+  public String getStatus() {
+    return status;
+  }
+
+  public void setStatus(String status) {
+    this.status = status;
+  }
+
+  public AdminUserUpdateReq userProperties(Map<String, Map<String, String>> userProperties) {
+    this.userProperties = userProperties;
+    return this;
+  }
+
+  public AdminUserUpdateReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
+    if (this.userProperties == null) {
+      this.userProperties = new HashMap<String, Map<String, String>>();
+    }
+    this.userProperties.put(key, userPropertiesItem);
+    return this;
+  }
+
+   /**
+   * User&#39;s account specific custom properties.
+   * @return userProperties
+  **/
+  @ApiModelProperty(value = "User's account specific custom properties.")
+  public Map<String, Map<String, String>> getUserProperties() {
+    return userProperties;
+  }
+
+  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
+    this.userProperties = userProperties;
+  }
+
+  public AdminUserUpdateReq username(String username) {
+    this.username = username;
+    return this;
+  }
+
+   /**
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long.
+   * @return username
+  **/
+  @ApiModelProperty(value = "A username containing alphanumerical letters and -,._@+= characters. It must be at least 4 but not more than 30 character long.")
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
   }
 
 
@@ -343,24 +343,24 @@ public class AdminUserUpdateReq implements Serializable {
       return false;
     }
     AdminUserUpdateReq adminUserUpdateReq = (AdminUserUpdateReq) o;
-    return Objects.equals(this.phoneNumber, adminUserUpdateReq.phoneNumber) &&
-        Objects.equals(this.username, adminUserUpdateReq.username) &&
+    return Objects.equals(this.address, adminUserUpdateReq.address) &&
+        Objects.equals(this.email, adminUserUpdateReq.email) &&
+        Objects.equals(this.fullName, adminUserUpdateReq.fullName) &&
         Objects.equals(this.groups, adminUserUpdateReq.groups) &&
-        Objects.equals(this.isMarketingAccepted, adminUserUpdateReq.isMarketingAccepted) &&
-        Objects.equals(this.userProperties, adminUserUpdateReq.userProperties) &&
         Objects.equals(this.isGtcAccepted, adminUserUpdateReq.isGtcAccepted) &&
+        Objects.equals(this.isMarketingAccepted, adminUserUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.isTotpEnabled, adminUserUpdateReq.isTotpEnabled) &&
         Objects.equals(this.notificationProperties, adminUserUpdateReq.notificationProperties) &&
-        Objects.equals(this.status, adminUserUpdateReq.status) &&
-        Objects.equals(this.fullName, adminUserUpdateReq.fullName) &&
-        Objects.equals(this.address, adminUserUpdateReq.address) &&
         Objects.equals(this.password, adminUserUpdateReq.password) &&
-        Objects.equals(this.email, adminUserUpdateReq.email);
+        Objects.equals(this.phoneNumber, adminUserUpdateReq.phoneNumber) &&
+        Objects.equals(this.status, adminUserUpdateReq.status) &&
+        Objects.equals(this.userProperties, adminUserUpdateReq.userProperties) &&
+        Objects.equals(this.username, adminUserUpdateReq.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(phoneNumber, username, groups, isMarketingAccepted, userProperties, isGtcAccepted, isTotpEnabled, notificationProperties, status, fullName, address, password, email);
+    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, notificationProperties, password, phoneNumber, status, userProperties, username);
   }
 
 
@@ -369,19 +369,19 @@ public class AdminUserUpdateReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AdminUserUpdateReq {\n");
     
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
+    sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
+    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    notificationProperties: ").append(toIndentedString(notificationProperties)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
-    sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();
   }

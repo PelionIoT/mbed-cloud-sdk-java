@@ -35,14 +35,17 @@ public class UpdateCampaignPutRequest implements Serializable {
   @SerializedName("description")
   private String description = null;
 
-  @SerializedName("root_manifest_id")
-  private String rootManifestId = null;
+  @SerializedName("device_filter")
+  private String deviceFilter = null;
+
+  @SerializedName("name")
+  private String name = null;
 
   @SerializedName("object")
   private String object = null;
 
-  @SerializedName("when")
-  private DateTime when = null;
+  @SerializedName("root_manifest_id")
+  private String rootManifestId = null;
 
   /**
    * The state of the campaign
@@ -128,11 +131,8 @@ public class UpdateCampaignPutRequest implements Serializable {
   @SerializedName("state")
   private StateEnum state = null;
 
-  @SerializedName("device_filter")
-  private String deviceFilter = null;
-
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("when")
+  private DateTime when = null;
 
   public UpdateCampaignPutRequest description(String description) {
     this.description = description;
@@ -150,78 +150,6 @@ public class UpdateCampaignPutRequest implements Serializable {
 
   public void setDescription(String description) {
     this.description = description;
-  }
-
-  public UpdateCampaignPutRequest rootManifestId(String rootManifestId) {
-    this.rootManifestId = rootManifestId;
-    return this;
-  }
-
-   /**
-   * Get rootManifestId
-   * @return rootManifestId
-  **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
-  public String getRootManifestId() {
-    return rootManifestId;
-  }
-
-  public void setRootManifestId(String rootManifestId) {
-    this.rootManifestId = rootManifestId;
-  }
-
-  public UpdateCampaignPutRequest object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity
-   * @return object
-  **/
-  @ApiModelProperty(example = "update-campaign", required = true, value = "The API resource entity")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public UpdateCampaignPutRequest when(DateTime when) {
-    this.when = when;
-    return this;
-  }
-
-   /**
-   * The scheduled start time for the update campaign
-   * @return when
-  **/
-  @ApiModelProperty(required = true, value = "The scheduled start time for the update campaign")
-  public DateTime getWhen() {
-    return when;
-  }
-
-  public void setWhen(DateTime when) {
-    this.when = when;
-  }
-
-  public UpdateCampaignPutRequest state(StateEnum state) {
-    this.state = state;
-    return this;
-  }
-
-   /**
-   * The state of the campaign
-   * @return state
-  **/
-  @ApiModelProperty(required = true, value = "The state of the campaign")
-  public StateEnum getState() {
-    return state;
-  }
-
-  public void setState(StateEnum state) {
-    this.state = state;
   }
 
   public UpdateCampaignPutRequest deviceFilter(String deviceFilter) {
@@ -260,6 +188,78 @@ public class UpdateCampaignPutRequest implements Serializable {
     this.name = name;
   }
 
+  public UpdateCampaignPutRequest object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * The API resource entity
+   * @return object
+  **/
+  @ApiModelProperty(example = "update-campaign", required = true, value = "The API resource entity")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
+  public UpdateCampaignPutRequest rootManifestId(String rootManifestId) {
+    this.rootManifestId = rootManifestId;
+    return this;
+  }
+
+   /**
+   * Get rootManifestId
+   * @return rootManifestId
+  **/
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
+  public String getRootManifestId() {
+    return rootManifestId;
+  }
+
+  public void setRootManifestId(String rootManifestId) {
+    this.rootManifestId = rootManifestId;
+  }
+
+  public UpdateCampaignPutRequest state(StateEnum state) {
+    this.state = state;
+    return this;
+  }
+
+   /**
+   * The state of the campaign
+   * @return state
+  **/
+  @ApiModelProperty(required = true, value = "The state of the campaign")
+  public StateEnum getState() {
+    return state;
+  }
+
+  public void setState(StateEnum state) {
+    this.state = state;
+  }
+
+  public UpdateCampaignPutRequest when(DateTime when) {
+    this.when = when;
+    return this;
+  }
+
+   /**
+   * The scheduled start time for the update campaign
+   * @return when
+  **/
+  @ApiModelProperty(required = true, value = "The scheduled start time for the update campaign")
+  public DateTime getWhen() {
+    return when;
+  }
+
+  public void setWhen(DateTime when) {
+    this.when = when;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -271,17 +271,17 @@ public class UpdateCampaignPutRequest implements Serializable {
     }
     UpdateCampaignPutRequest updateCampaignPutRequest = (UpdateCampaignPutRequest) o;
     return Objects.equals(this.description, updateCampaignPutRequest.description) &&
-        Objects.equals(this.rootManifestId, updateCampaignPutRequest.rootManifestId) &&
-        Objects.equals(this.object, updateCampaignPutRequest.object) &&
-        Objects.equals(this.when, updateCampaignPutRequest.when) &&
-        Objects.equals(this.state, updateCampaignPutRequest.state) &&
         Objects.equals(this.deviceFilter, updateCampaignPutRequest.deviceFilter) &&
-        Objects.equals(this.name, updateCampaignPutRequest.name);
+        Objects.equals(this.name, updateCampaignPutRequest.name) &&
+        Objects.equals(this.object, updateCampaignPutRequest.object) &&
+        Objects.equals(this.rootManifestId, updateCampaignPutRequest.rootManifestId) &&
+        Objects.equals(this.state, updateCampaignPutRequest.state) &&
+        Objects.equals(this.when, updateCampaignPutRequest.when);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, rootManifestId, object, when, state, deviceFilter, name);
+    return Objects.hash(description, deviceFilter, name, object, rootManifestId, state, when);
   }
 
 
@@ -291,12 +291,12 @@ public class UpdateCampaignPutRequest implements Serializable {
     sb.append("class UpdateCampaignPutRequest {\n");
     
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    when: ").append(toIndentedString(when)).append("\n");
-    sb.append("    state: ").append(toIndentedString(state)).append("\n");
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    rootManifestId: ").append(toIndentedString(rootManifestId)).append("\n");
+    sb.append("    state: ").append(toIndentedString(state)).append("\n");
+    sb.append("    when: ").append(toIndentedString(when)).append("\n");
     sb.append("}");
     return sb.toString();
   }

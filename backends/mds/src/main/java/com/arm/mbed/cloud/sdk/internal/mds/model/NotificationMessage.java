@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -42,14 +42,14 @@ public class NotificationMessage implements Serializable {
   @SerializedName("de-registrations")
   private List<String> deRegistrations = null;
 
+  @SerializedName("notifications")
+  private List<NotificationData> notifications = null;
+
   @SerializedName("reg-updates")
   private List<EndpointData> regUpdates = null;
 
   @SerializedName("registrations")
   private List<EndpointData> registrations = null;
-
-  @SerializedName("notifications")
-  private List<NotificationData> notifications = null;
 
   @SerializedName("registrations-expired")
   private List<String> registrationsExpired = null;
@@ -106,6 +106,32 @@ public class NotificationMessage implements Serializable {
     this.deRegistrations = deRegistrations;
   }
 
+  public NotificationMessage notifications(List<NotificationData> notifications) {
+    this.notifications = notifications;
+    return this;
+  }
+
+  public NotificationMessage addNotificationsItem(NotificationData notificationsItem) {
+    if (this.notifications == null) {
+      this.notifications = new ArrayList<NotificationData>();
+    }
+    this.notifications.add(notificationsItem);
+    return this;
+  }
+
+   /**
+   * Get notifications
+   * @return notifications
+  **/
+  @ApiModelProperty(value = "")
+  public List<NotificationData> getNotifications() {
+    return notifications;
+  }
+
+  public void setNotifications(List<NotificationData> notifications) {
+    this.notifications = notifications;
+  }
+
   public NotificationMessage regUpdates(List<EndpointData> regUpdates) {
     this.regUpdates = regUpdates;
     return this;
@@ -158,32 +184,6 @@ public class NotificationMessage implements Serializable {
     this.registrations = registrations;
   }
 
-  public NotificationMessage notifications(List<NotificationData> notifications) {
-    this.notifications = notifications;
-    return this;
-  }
-
-  public NotificationMessage addNotificationsItem(NotificationData notificationsItem) {
-    if (this.notifications == null) {
-      this.notifications = new ArrayList<NotificationData>();
-    }
-    this.notifications.add(notificationsItem);
-    return this;
-  }
-
-   /**
-   * Get notifications
-   * @return notifications
-  **/
-  @ApiModelProperty(value = "")
-  public List<NotificationData> getNotifications() {
-    return notifications;
-  }
-
-  public void setNotifications(List<NotificationData> notifications) {
-    this.notifications = notifications;
-  }
-
   public NotificationMessage registrationsExpired(List<String> registrationsExpired) {
     this.registrationsExpired = registrationsExpired;
     return this;
@@ -222,15 +222,15 @@ public class NotificationMessage implements Serializable {
     NotificationMessage notificationMessage = (NotificationMessage) o;
     return Objects.equals(this.asyncResponses, notificationMessage.asyncResponses) &&
         Objects.equals(this.deRegistrations, notificationMessage.deRegistrations) &&
+        Objects.equals(this.notifications, notificationMessage.notifications) &&
         Objects.equals(this.regUpdates, notificationMessage.regUpdates) &&
         Objects.equals(this.registrations, notificationMessage.registrations) &&
-        Objects.equals(this.notifications, notificationMessage.notifications) &&
         Objects.equals(this.registrationsExpired, notificationMessage.registrationsExpired);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(asyncResponses, deRegistrations, regUpdates, registrations, notifications, registrationsExpired);
+    return Objects.hash(asyncResponses, deRegistrations, notifications, regUpdates, registrations, registrationsExpired);
   }
 
 
@@ -241,9 +241,9 @@ public class NotificationMessage implements Serializable {
     
     sb.append("    asyncResponses: ").append(toIndentedString(asyncResponses)).append("\n");
     sb.append("    deRegistrations: ").append(toIndentedString(deRegistrations)).append("\n");
+    sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    regUpdates: ").append(toIndentedString(regUpdates)).append("\n");
     sb.append("    registrations: ").append(toIndentedString(registrations)).append("\n");
-    sb.append("    notifications: ").append(toIndentedString(notifications)).append("\n");
     sb.append("    registrationsExpired: ").append(toIndentedString(registrationsExpired)).append("\n");
     sb.append("}");
     return sb.toString();

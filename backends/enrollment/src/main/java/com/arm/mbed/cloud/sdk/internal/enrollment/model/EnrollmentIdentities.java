@@ -37,11 +37,14 @@ public class EnrollmentIdentities implements Serializable {
   @SerializedName("after")
   private String after = null;
 
+  @SerializedName("data")
+  private List<EnrollmentIdentity> data = new ArrayList<EnrollmentIdentity>();
+
   @SerializedName("has_more")
   private Boolean hasMore = null;
 
-  @SerializedName("total_count")
-  private Integer totalCount = null;
+  @SerializedName("limit")
+  private Integer limit = null;
 
   /**
    * Gets or Sets object
@@ -90,12 +93,6 @@ public class EnrollmentIdentities implements Serializable {
 
   @SerializedName("object")
   private ObjectEnum object = null;
-
-  @SerializedName("limit")
-  private Integer limit = null;
-
-  @SerializedName("data")
-  private List<EnrollmentIdentity> data = new ArrayList<EnrollmentIdentity>();
 
   /**
    * Gets or Sets order
@@ -147,6 +144,9 @@ public class EnrollmentIdentities implements Serializable {
   @SerializedName("order")
   private OrderEnum order = OrderEnum.ASC;
 
+  @SerializedName("total_count")
+  private Integer totalCount = null;
+
   public EnrollmentIdentities after(String after) {
     this.after = after;
     return this;
@@ -163,81 +163,6 @@ public class EnrollmentIdentities implements Serializable {
 
   public void setAfter(String after) {
     this.after = after;
-  }
-
-  public EnrollmentIdentities hasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-    return this;
-  }
-
-   /**
-   * Get hasMore
-   * @return hasMore
-  **/
-  @ApiModelProperty(example = "true", required = true, value = "")
-  public Boolean isHasMore() {
-    return hasMore;
-  }
-
-  public void setHasMore(Boolean hasMore) {
-    this.hasMore = hasMore;
-  }
-
-  public EnrollmentIdentities totalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-    return this;
-  }
-
-   /**
-   * Get totalCount
-   * minimum: 1
-   * @return totalCount
-  **/
-  @ApiModelProperty(example = "100", required = true, value = "")
-  public Integer getTotalCount() {
-    return totalCount;
-  }
-
-  public void setTotalCount(Integer totalCount) {
-    this.totalCount = totalCount;
-  }
-
-  public EnrollmentIdentities object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Get object
-   * @return object
-  **/
-  @ApiModelProperty(example = "list", required = true, value = "")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
-  }
-
-  public EnrollmentIdentities limit(Integer limit) {
-    this.limit = limit;
-    return this;
-  }
-
-   /**
-   * Range 2-1000, or default.
-   * minimum: 2
-   * maximum: 1000
-   * @return limit
-  **/
-  @ApiModelProperty(example = "50", required = true, value = "Range 2-1000, or default.")
-  public Integer getLimit() {
-    return limit;
-  }
-
-  public void setLimit(Integer limit) {
-    this.limit = limit;
   }
 
   public EnrollmentIdentities data(List<EnrollmentIdentity> data) {
@@ -263,6 +188,62 @@ public class EnrollmentIdentities implements Serializable {
     this.data = data;
   }
 
+  public EnrollmentIdentities hasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+    return this;
+  }
+
+   /**
+   * Get hasMore
+   * @return hasMore
+  **/
+  @ApiModelProperty(example = "true", required = true, value = "")
+  public Boolean isHasMore() {
+    return hasMore;
+  }
+
+  public void setHasMore(Boolean hasMore) {
+    this.hasMore = hasMore;
+  }
+
+  public EnrollmentIdentities limit(Integer limit) {
+    this.limit = limit;
+    return this;
+  }
+
+   /**
+   * Range 2-1000, or default.
+   * minimum: 2
+   * maximum: 1000
+   * @return limit
+  **/
+  @ApiModelProperty(example = "50", required = true, value = "Range 2-1000, or default.")
+  public Integer getLimit() {
+    return limit;
+  }
+
+  public void setLimit(Integer limit) {
+    this.limit = limit;
+  }
+
+  public EnrollmentIdentities object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Get object
+   * @return object
+  **/
+  @ApiModelProperty(example = "list", required = true, value = "")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
+  }
+
   public EnrollmentIdentities order(OrderEnum order) {
     this.order = order;
     return this;
@@ -281,6 +262,25 @@ public class EnrollmentIdentities implements Serializable {
     this.order = order;
   }
 
+  public EnrollmentIdentities totalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+    return this;
+  }
+
+   /**
+   * Get totalCount
+   * minimum: 1
+   * @return totalCount
+  **/
+  @ApiModelProperty(example = "100", required = true, value = "")
+  public Integer getTotalCount() {
+    return totalCount;
+  }
+
+  public void setTotalCount(Integer totalCount) {
+    this.totalCount = totalCount;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -292,17 +292,17 @@ public class EnrollmentIdentities implements Serializable {
     }
     EnrollmentIdentities enrollmentIdentities = (EnrollmentIdentities) o;
     return Objects.equals(this.after, enrollmentIdentities.after) &&
-        Objects.equals(this.hasMore, enrollmentIdentities.hasMore) &&
-        Objects.equals(this.totalCount, enrollmentIdentities.totalCount) &&
-        Objects.equals(this.object, enrollmentIdentities.object) &&
-        Objects.equals(this.limit, enrollmentIdentities.limit) &&
         Objects.equals(this.data, enrollmentIdentities.data) &&
-        Objects.equals(this.order, enrollmentIdentities.order);
+        Objects.equals(this.hasMore, enrollmentIdentities.hasMore) &&
+        Objects.equals(this.limit, enrollmentIdentities.limit) &&
+        Objects.equals(this.object, enrollmentIdentities.object) &&
+        Objects.equals(this.order, enrollmentIdentities.order) &&
+        Objects.equals(this.totalCount, enrollmentIdentities.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(after, hasMore, totalCount, object, limit, data, order);
+    return Objects.hash(after, data, hasMore, limit, object, order, totalCount);
   }
 
 
@@ -312,12 +312,12 @@ public class EnrollmentIdentities implements Serializable {
     sb.append("class EnrollmentIdentities {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
-    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
-    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
+    sb.append("    hasMore: ").append(toIndentedString(hasMore)).append("\n");
+    sb.append("    limit: ").append(toIndentedString(limit)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    order: ").append(toIndentedString(order)).append("\n");
+    sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");
     return sb.toString();
   }

@@ -31,29 +31,11 @@ import java.io.Serializable;
 public class DeviceQueryPostPutRequest implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("query")
-  private String query = null;
-
   @SerializedName("name")
   private String name = null;
 
-  public DeviceQueryPostPutRequest query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * The device query.
-   * @return query
-  **/
-  @ApiModelProperty(required = true, value = "The device query.")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
-  }
+  @SerializedName("query")
+  private String query = null;
 
   public DeviceQueryPostPutRequest name(String name) {
     this.name = name;
@@ -73,6 +55,24 @@ public class DeviceQueryPostPutRequest implements Serializable {
     this.name = name;
   }
 
+  public DeviceQueryPostPutRequest query(String query) {
+    this.query = query;
+    return this;
+  }
+
+   /**
+   * The device query.
+   * @return query
+  **/
+  @ApiModelProperty(required = true, value = "The device query.")
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -83,13 +83,13 @@ public class DeviceQueryPostPutRequest implements Serializable {
       return false;
     }
     DeviceQueryPostPutRequest deviceQueryPostPutRequest = (DeviceQueryPostPutRequest) o;
-    return Objects.equals(this.query, deviceQueryPostPutRequest.query) &&
-        Objects.equals(this.name, deviceQueryPostPutRequest.name);
+    return Objects.equals(this.name, deviceQueryPostPutRequest.name) &&
+        Objects.equals(this.query, deviceQueryPostPutRequest.query);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(query, name);
+    return Objects.hash(name, query);
   }
 
 
@@ -98,8 +98,8 @@ public class DeviceQueryPostPutRequest implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQueryPostPutRequest {\n");
     
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("}");
     return sb.toString();
   }

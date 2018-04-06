@@ -18,7 +18,7 @@
 <span class="sourceLineNo">010</span>import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;<a name="line.10"></a>
 <span class="sourceLineNo">011</span>import com.arm.mbed.cloud.sdk.common.ConnectionOptions;<a name="line.11"></a>
 <span class="sourceLineNo">012</span>import com.arm.mbed.cloud.sdk.common.MbedCloudException;<a name="line.12"></a>
-<span class="sourceLineNo">013</span>import com.arm.mbed.cloud.sdk.common.listing.ListResponse;<a name="line.13"></a>
+<span class="sourceLineNo">013</span>import com.arm.mbed.cloud.sdk.common.listing.Paginator;<a name="line.13"></a>
 <span class="sourceLineNo">014</span><a name="line.14"></a>
 <span class="sourceLineNo">015</span>import utils.AbstractExample;<a name="line.15"></a>
 <span class="sourceLineNo">016</span>import utils.Configuration;<a name="line.16"></a>
@@ -38,7 +38,7 @@
 <span class="sourceLineNo">030</span>            log("Certificate Name", certificateName);<a name="line.30"></a>
 <span class="sourceLineNo">031</span>            // Creating and adding a certificate<a name="line.31"></a>
 <span class="sourceLineNo">032</span>            Certificate myCertificate = api<a name="line.32"></a>
-<span class="sourceLineNo">033</span>                    .addDeveloperCertificate(new Certificate(certificateName, CertificateType.DEVELOPER));<a name="line.33"></a>
+<span class="sourceLineNo">033</span>                    .addDeveloperCertificate(new Certificate(certificateName, CertificateType.DEVELOPER, false));<a name="line.33"></a>
 <span class="sourceLineNo">034</span>            log("Created developer certificate", myCertificate);<a name="line.34"></a>
 <span class="sourceLineNo">035</span>            certificateId = myCertificate.getId();<a name="line.35"></a>
 <span class="sourceLineNo">036</span>            String newName = generateCertificateName();<a name="line.36"></a>
@@ -71,8 +71,8 @@
 <span class="sourceLineNo">063</span>            CertificateListOptions options = new CertificateListOptions();<a name="line.63"></a>
 <span class="sourceLineNo">064</span>            options.setLimit(5);<a name="line.64"></a>
 <span class="sourceLineNo">065</span>            // Listing certificates.<a name="line.65"></a>
-<span class="sourceLineNo">066</span>            ListResponse&lt;Certificate&gt; certificates = api.listCertificates(options);<a name="line.66"></a>
-<span class="sourceLineNo">067</span>            for (Certificate certificate : certificates.getData()) {<a name="line.67"></a>
+<span class="sourceLineNo">066</span>            Paginator&lt;Certificate&gt; certificates = api.listAllCertificates(options);<a name="line.66"></a>
+<span class="sourceLineNo">067</span>            for (Certificate certificate : certificates) {<a name="line.67"></a>
 <span class="sourceLineNo">068</span>                log("Certificate", certificate);<a name="line.68"></a>
 <span class="sourceLineNo">069</span>            }<a name="line.69"></a>
 <span class="sourceLineNo">070</span>        } catch (Exception e) {<a name="line.70"></a>

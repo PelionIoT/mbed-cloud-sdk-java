@@ -344,6 +344,19 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Sets the id.
+     * <p>
+     * Similar to {@link #setId(String)}.
+     *
+     * @param id
+     *            the id to set.
+     */
+    @Internal
+    public void setCampaignId(String id) {
+        setId(id);
+    }
+
+    /**
      * Gets the campaign state.
      *
      * @see CampaignState

@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -34,29 +34,11 @@ import java.io.Serializable;
 public class Webhook implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("url")
-  private String url = null;
-
   @SerializedName("headers")
   private Map<String, String> headers = null;
 
-  public Webhook url(String url) {
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
-   * @return url
-  **/
-  @ApiModelProperty(example = "https://www.example.com/my-webhook", required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
+  @SerializedName("url")
+  private String url = null;
 
   public Webhook headers(Map<String, String> headers) {
     this.headers = headers;
@@ -84,6 +66,24 @@ public class Webhook implements Serializable {
     this.headers = headers;
   }
 
+  public Webhook url(String url) {
+    this.url = url;
+    return this;
+  }
+
+   /**
+   * The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.
+   * @return url
+  **/
+  @ApiModelProperty(example = "https://www.example.com/my-webhook", required = true, value = "The URL to which the notifications are sent. We recommend that you serve this URL over HTTPS.")
+  public String getUrl() {
+    return url;
+  }
+
+  public void setUrl(String url) {
+    this.url = url;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -94,13 +94,13 @@ public class Webhook implements Serializable {
       return false;
     }
     Webhook webhook = (Webhook) o;
-    return Objects.equals(this.url, webhook.url) &&
-        Objects.equals(this.headers, webhook.headers);
+    return Objects.equals(this.headers, webhook.headers) &&
+        Objects.equals(this.url, webhook.url);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(url, headers);
+    return Objects.hash(headers, url);
   }
 
 
@@ -109,8 +109,8 @@ public class Webhook implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class Webhook {\n");
     
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("    headers: ").append(toIndentedString(headers)).append("\n");
+    sb.append("    url: ").append(toIndentedString(url)).append("\n");
     sb.append("}");
     return sb.toString();
   }

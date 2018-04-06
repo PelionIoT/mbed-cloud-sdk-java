@@ -56,6 +56,8 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
@@ -129,7 +131,7 @@ public class Connect extends AbstractApi {
         this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
                 : notificationHandlingThreadPool;
         this.handlersStore = new NotificationHandlersStore(this, (notificationPullingThreadPool == null)
-                ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, endpoint);
+                ? createDefaultDaemonThreadPool() : notificationPullingThreadPool, this.threadPool, endpoint);
 
     }
 
@@ -498,6 +500,19 @@ public class Connect extends AbstractApi {
                         return endpoint.getSubscriptions().v2SubscriptionsDeviceIdGet(finalDeviceId);
                     }
                 });
+    }
+
+    /**
+     * Gets the subscribe module.
+     * 
+     * @return subscribe module.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public CloudSubscriptionManager subscribe() throws MbedCloudException {
+        autostartDaemonIfNeeded();
+        return this.handlersStore.getSubscriptionManager();
     }
 
     /**
@@ -1935,9 +1950,9 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Flowable<Object> addResourceSubscription(@NonNull Resource resource,
+    public @Nullable Flowable<NotificationMessageValue> addResourceSubscription(@NonNull Resource resource,
             @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
-        final Flowable<Object> observer = createResourceSubscriptionObserver(resource, strategy);
+        final Flowable<NotificationMessageValue> observer = createResourceSubscriptionObserver(resource, strategy);
         addResourceSubscription(resource);
         return observer;
     }
@@ -2041,7 +2056,7 @@ public class Connect extends AbstractApi {
      *             if an error occurred in the process.
      */
     @API
-    public @Nullable Flowable<Object> createResourceSubscriptionObserver(@NonNull Resource resource,
+    public @Nullable Flowable<NotificationMessageValue> createResourceSubscriptionObserver(@NonNull Resource resource,
             @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);

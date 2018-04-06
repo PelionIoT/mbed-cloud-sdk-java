@@ -19,10 +19,10 @@ The list of resources is cached by Mbed Cloud Connect, so this call does not cre
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();
@@ -69,15 +69,15 @@ Name | Type | Description  | Notes
 
 (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 
-Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API [&#39;/v3/devices/&#x60;](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [&#x60;/v3/devices/&#x60;](/docs/v1.2/service-api-references/device-directory-api.html#v3-devices). To list only the registered devices, use filter &#x60;/v3/devices/?filter&#x3D;state%3Dregistered&#x60;.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H &#39;authorization: Bearer {api-key}&#39;      
+Endpoints are physical devices having valid registration to Mbed Cloud Connect. All devices regardless of registration status can be requested from Device Directory API [&#39;/v3/devices/&#x60;](/docs/current/service-api-references/device-directory.html).  **Note:** This endpoint is deprecated and will be removed 1Q/18. You should use the Device Directory API [&#x60;/v3/devices/&#x60;](/docs/current/service-api-references/device-directory.html). To list only the registered devices, use filter &#x60;/v3/devices/?filter&#x3D;state%3Dregistered&#x60;.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints -H &#39;authorization: Bearer {api-key}&#39;      
 
 ### Example
 ```java
 // Import classes:
-//import com.arm.mbed.cloud.sdk.internal.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
 //import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 
 ApiClient defaultClient = Configuration.getDefaultApiClient();

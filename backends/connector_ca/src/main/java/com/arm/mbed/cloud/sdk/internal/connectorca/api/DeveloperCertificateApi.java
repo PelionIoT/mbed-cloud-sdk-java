@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.connectorca.api;
 
-import com.arm.mbed.cloud.sdk.internal.CollectionFormats.*;
+import com.arm.mbed.cloud.sdk.internal.connectorca.CollectionFormats.*;
 
 import retrofit2.Call;
 import retrofit2.http.*;
@@ -11,6 +11,7 @@ import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
 import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
+import com.arm.mbed.cloud.sdk.internal.connectorca.model.ErrorResponse;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,27 +20,27 @@ import java.util.Map;
 
 public interface DeveloperCertificateApi {
   /**
-   * Fetch an existing developer certificate to connect to the bootstrap server.
-   * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server). 
-   * @param muuid A unique identifier for the developer certificate.  (required)
-   * @param authorization Bearer {Access Token}.  (required)
-   * @return Call&lt;DeveloperCertificateResponseData&gt;
-   */
-  @GET("v3/developer-certificates/{muuid}")
-  Call<DeveloperCertificateResponseData> v3DeveloperCertificatesMuuidGet(
-    @retrofit2.http.Path(value = "muuid", encoded = true) String muuid, @retrofit2.http.Header("Authorization") String authorization
-  );
-
-  /**
    * Create a new developer certificate to connect to the bootstrap server.
-   * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  Limitations:    - One developer certificate allows up to 100 devices to connect to bootstrap server.   - Only 10 developer certificates are allowed per account. 
+   * This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/v1.2/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \&quot;http://api.us-east-1.mbedcloud.com/v3/developer-certificates\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; -H \&quot;content-type: application/json\&quot; -d \&quot;{ \\\&quot;name\\\&quot;: \\\&quot;THE_CERTIFICATE_NAME\\\&quot;, \\\&quot;description\\\&quot;: \\\&quot;THE_CERTIFICATE_DESCRIPTION\\\&quot;}\&quot;         
    * @param authorization Bearer {Access Token}.  (required)
    * @param body  (required)
    * @return Call&lt;DeveloperCertificateResponseData&gt;
    */
   @POST("v3/developer-certificates")
-  Call<DeveloperCertificateResponseData> v3DeveloperCertificatesPost(
+  Call<DeveloperCertificateResponseData> createDeveloperCertificate(
     @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body DeveloperCertificateRequestData body
+  );
+
+  /**
+   * Fetch an existing developer certificate to connect to the bootstrap server.
+   * This REST API is intended to be used by customers to fetch an existing developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/developer-certificates/THE_CERTIFICATE_ID\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
+   * @param developerCertificateId A unique identifier for the developer certificate.  (required)
+   * @param authorization Bearer {Access Token}.  (required)
+   * @return Call&lt;DeveloperCertificateResponseData&gt;
+   */
+  @GET("v3/developer-certificates/{developerCertificateId}")
+  Call<DeveloperCertificateResponseData> getDeveloperCertificate(
+    @retrofit2.http.Path(value = "developerCertificateId", encoded = true) String developerCertificateId, @retrofit2.http.Header("Authorization") String authorization
   );
 
 }

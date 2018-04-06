@@ -32,44 +32,26 @@ import java.io.Serializable;
 public class DeviceQuery implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("name")
-  private String name = null;
-
   @SerializedName("created_at")
   private DateTime createdAt = null;
-
-  @SerializedName("object")
-  private String object = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
 
   @SerializedName("etag")
   private DateTime etag = null;
 
-  @SerializedName("query")
-  private String query = null;
-
   @SerializedName("id")
   private String id = null;
 
-  public DeviceQuery name(String name) {
-    this.name = name;
-    return this;
-  }
+  @SerializedName("name")
+  private String name = null;
 
-   /**
-   * The name of the query.
-   * @return name
-  **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The name of the query.")
-  public String getName() {
-    return name;
-  }
+  @SerializedName("object")
+  private String object = null;
 
-  public void setName(String name) {
-    this.name = name;
-  }
+  @SerializedName("query")
+  private String query = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   public DeviceQuery createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -87,42 +69,6 @@ public class DeviceQuery implements Serializable {
 
   public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
-  }
-
-  public DeviceQuery object(String object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * The API resource entity.
-   * @return object
-  **/
-  @ApiModelProperty(example = "device-query", required = true, value = "The API resource entity.")
-  public String getObject() {
-    return object;
-  }
-
-  public void setObject(String object) {
-    this.object = object;
-  }
-
-  public DeviceQuery updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
-    return this;
-  }
-
-   /**
-   * The time the object was updated.
-   * @return updatedAt
-  **/
-  @ApiModelProperty(required = true, value = "The time the object was updated.")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
-  }
-
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
   }
 
   public DeviceQuery etag(DateTime etag) {
@@ -143,24 +89,6 @@ public class DeviceQuery implements Serializable {
     this.etag = etag;
   }
 
-  public DeviceQuery query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * The device query.
-   * @return query
-  **/
-  @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The device query.")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
-  }
-
   public DeviceQuery id(String id) {
     this.id = id;
     return this;
@@ -179,6 +107,78 @@ public class DeviceQuery implements Serializable {
     this.id = id;
   }
 
+  public DeviceQuery name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The name of the query.
+   * @return name
+  **/
+  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "The name of the query.")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public DeviceQuery object(String object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * The API resource entity.
+   * @return object
+  **/
+  @ApiModelProperty(example = "device-query", required = true, value = "The API resource entity.")
+  public String getObject() {
+    return object;
+  }
+
+  public void setObject(String object) {
+    this.object = object;
+  }
+
+  public DeviceQuery query(String query) {
+    this.query = query;
+    return this;
+  }
+
+   /**
+   * The device query.
+   * @return query
+  **/
+  @ApiModelProperty(example = "id=00000000000000000000000000000000", required = true, value = "The device query.")
+  public String getQuery() {
+    return query;
+  }
+
+  public void setQuery(String query) {
+    this.query = query;
+  }
+
+  public DeviceQuery updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * The time the object was updated.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(required = true, value = "The time the object was updated.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -189,18 +189,18 @@ public class DeviceQuery implements Serializable {
       return false;
     }
     DeviceQuery deviceQuery = (DeviceQuery) o;
-    return Objects.equals(this.name, deviceQuery.name) &&
-        Objects.equals(this.createdAt, deviceQuery.createdAt) &&
-        Objects.equals(this.object, deviceQuery.object) &&
-        Objects.equals(this.updatedAt, deviceQuery.updatedAt) &&
+    return Objects.equals(this.createdAt, deviceQuery.createdAt) &&
         Objects.equals(this.etag, deviceQuery.etag) &&
+        Objects.equals(this.id, deviceQuery.id) &&
+        Objects.equals(this.name, deviceQuery.name) &&
+        Objects.equals(this.object, deviceQuery.object) &&
         Objects.equals(this.query, deviceQuery.query) &&
-        Objects.equals(this.id, deviceQuery.id);
+        Objects.equals(this.updatedAt, deviceQuery.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, createdAt, object, updatedAt, etag, query, id);
+    return Objects.hash(createdAt, etag, id, name, object, query, updatedAt);
   }
 
 
@@ -209,13 +209,13 @@ public class DeviceQuery implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceQuery {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    query: ").append(toIndentedString(query)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

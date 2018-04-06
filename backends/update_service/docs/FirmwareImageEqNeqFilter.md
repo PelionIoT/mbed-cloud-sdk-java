@@ -4,15 +4,15 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**datafile** | **String** |  |  [optional]
-**description** | **String** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**updatedAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**etag** | [**DateTime**](DateTime.md) |  |  [optional]
+**datafile** | **String** |  |  [optional]
 **datafileChecksum** | **String** |  |  [optional]
 **datafileSize** | **Integer** |  |  [optional]
+**description** | **String** |  |  [optional]
+**etag** | [**DateTime**](DateTime.md) |  |  [optional]
 **id** | **String** |  |  [optional]
 **name** | **String** |  |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) |  |  [optional]
 
 
 

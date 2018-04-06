@@ -35,20 +35,20 @@ public class DeviceEventEqNeqFilter implements Serializable {
   @SerializedName("date_time")
   private DateTime dateTime = null;
 
-  @SerializedName("state_change")
-  private Boolean stateChange = null;
-
   @SerializedName("description")
   private String description = null;
 
   @SerializedName("device_id")
   private String deviceId = null;
 
+  @SerializedName("event_type")
+  private String eventType = null;
+
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("event_type")
-  private String eventType = null;
+  @SerializedName("state_change")
+  private Boolean stateChange = null;
 
   public DeviceEventEqNeqFilter dateTime(DateTime dateTime) {
     this.dateTime = dateTime;
@@ -66,24 +66,6 @@ public class DeviceEventEqNeqFilter implements Serializable {
 
   public void setDateTime(DateTime dateTime) {
     this.dateTime = dateTime;
-  }
-
-  public DeviceEventEqNeqFilter stateChange(Boolean stateChange) {
-    this.stateChange = stateChange;
-    return this;
-  }
-
-   /**
-   * Get stateChange
-   * @return stateChange
-  **/
-  @ApiModelProperty(value = "")
-  public Boolean isStateChange() {
-    return stateChange;
-  }
-
-  public void setStateChange(Boolean stateChange) {
-    this.stateChange = stateChange;
   }
 
   public DeviceEventEqNeqFilter description(String description) {
@@ -122,24 +104,6 @@ public class DeviceEventEqNeqFilter implements Serializable {
     this.deviceId = deviceId;
   }
 
-  public DeviceEventEqNeqFilter id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * Get id
-   * @return id
-  **/
-  @ApiModelProperty(value = "")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
   public DeviceEventEqNeqFilter eventType(String eventType) {
     this.eventType = eventType;
     return this;
@@ -158,6 +122,42 @@ public class DeviceEventEqNeqFilter implements Serializable {
     this.eventType = eventType;
   }
 
+  public DeviceEventEqNeqFilter id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * Get id
+   * @return id
+  **/
+  @ApiModelProperty(value = "")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public DeviceEventEqNeqFilter stateChange(Boolean stateChange) {
+    this.stateChange = stateChange;
+    return this;
+  }
+
+   /**
+   * Get stateChange
+   * @return stateChange
+  **/
+  @ApiModelProperty(value = "")
+  public Boolean isStateChange() {
+    return stateChange;
+  }
+
+  public void setStateChange(Boolean stateChange) {
+    this.stateChange = stateChange;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -169,16 +169,16 @@ public class DeviceEventEqNeqFilter implements Serializable {
     }
     DeviceEventEqNeqFilter deviceEventEqNeqFilter = (DeviceEventEqNeqFilter) o;
     return Objects.equals(this.dateTime, deviceEventEqNeqFilter.dateTime) &&
-        Objects.equals(this.stateChange, deviceEventEqNeqFilter.stateChange) &&
         Objects.equals(this.description, deviceEventEqNeqFilter.description) &&
         Objects.equals(this.deviceId, deviceEventEqNeqFilter.deviceId) &&
+        Objects.equals(this.eventType, deviceEventEqNeqFilter.eventType) &&
         Objects.equals(this.id, deviceEventEqNeqFilter.id) &&
-        Objects.equals(this.eventType, deviceEventEqNeqFilter.eventType);
+        Objects.equals(this.stateChange, deviceEventEqNeqFilter.stateChange);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(dateTime, stateChange, description, deviceId, id, eventType);
+    return Objects.hash(dateTime, description, deviceId, eventType, id, stateChange);
   }
 
 
@@ -188,11 +188,11 @@ public class DeviceEventEqNeqFilter implements Serializable {
     sb.append("class DeviceEventEqNeqFilter {\n");
     
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
-    sb.append("    stateChange: ").append(toIndentedString(stateChange)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    stateChange: ").append(toIndentedString(stateChange)).append("\n");
     sb.append("}");
     return sb.toString();
   }

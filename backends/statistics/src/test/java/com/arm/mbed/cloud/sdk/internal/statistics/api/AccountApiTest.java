@@ -1,6 +1,6 @@
 package com.arm.mbed.cloud.sdk.internal.statistics.api;
 
-import com.arm.mbed.cloud.sdk.internal.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.statistics.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.ErrorResponse;
 import org.joda.time.LocalDate;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;

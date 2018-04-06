@@ -32,32 +32,11 @@ import java.io.Serializable;
 public class CampaignDeviceMetadata implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("description")
-  private String description = null;
-
   @SerializedName("campaign")
   private String campaign = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
-
-  @SerializedName("object")
-  private String object = null;
-
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
-
-  @SerializedName("mechanism")
-  private String mechanism = null;
-
-  @SerializedName("name")
-  private String name = null;
-
-  @SerializedName("etag")
-  private String etag = null;
-
-  @SerializedName("mechanism_url")
-  private String mechanismUrl = null;
 
   /**
    * The state of the update campaign on the device
@@ -117,29 +96,32 @@ public class CampaignDeviceMetadata implements Serializable {
   @SerializedName("deployment_state")
   private DeploymentStateEnum deploymentState = null;
 
-  @SerializedName("id")
-  private String id = null;
+  @SerializedName("description")
+  private String description = null;
 
   @SerializedName("device_id")
   private String deviceId = null;
 
-  public CampaignDeviceMetadata description(String description) {
-    this.description = description;
-    return this;
-  }
+  @SerializedName("etag")
+  private String etag = null;
 
-   /**
-   * Description
-   * @return description
-  **/
-  @ApiModelProperty(example = "", value = "Description")
-  public String getDescription() {
-    return description;
-  }
+  @SerializedName("id")
+  private String id = null;
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+  @SerializedName("mechanism")
+  private String mechanism = null;
+
+  @SerializedName("mechanism_url")
+  private String mechanismUrl = null;
+
+  @SerializedName("name")
+  private String name = null;
+
+  @SerializedName("object")
+  private String object = null;
+
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   public CampaignDeviceMetadata campaign(String campaign) {
     this.campaign = campaign;
@@ -175,6 +157,150 @@ public class CampaignDeviceMetadata implements Serializable {
 
   public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public CampaignDeviceMetadata deploymentState(DeploymentStateEnum deploymentState) {
+    this.deploymentState = deploymentState;
+    return this;
+  }
+
+   /**
+   * The state of the update campaign on the device
+   * @return deploymentState
+  **/
+  @ApiModelProperty(value = "The state of the update campaign on the device")
+  public DeploymentStateEnum getDeploymentState() {
+    return deploymentState;
+  }
+
+  public void setDeploymentState(DeploymentStateEnum deploymentState) {
+    this.deploymentState = deploymentState;
+  }
+
+  public CampaignDeviceMetadata description(String description) {
+    this.description = description;
+    return this;
+  }
+
+   /**
+   * Description
+   * @return description
+  **/
+  @ApiModelProperty(example = "", value = "Description")
+  public String getDescription() {
+    return description;
+  }
+
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  public CampaignDeviceMetadata deviceId(String deviceId) {
+    this.deviceId = deviceId;
+    return this;
+  }
+
+   /**
+   * The device ID
+   * @return deviceId
+  **/
+  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The device ID")
+  public String getDeviceId() {
+    return deviceId;
+  }
+
+  public void setDeviceId(String deviceId) {
+    this.deviceId = deviceId;
+  }
+
+  public CampaignDeviceMetadata etag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * API resource entity version
+   * @return etag
+  **/
+  @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
+  public String getEtag() {
+    return etag;
+  }
+
+  public void setEtag(String etag) {
+    this.etag = etag;
+  }
+
+  public CampaignDeviceMetadata id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * The metadata record ID
+   * @return id
+  **/
+  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The metadata record ID")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public CampaignDeviceMetadata mechanism(String mechanism) {
+    this.mechanism = mechanism;
+    return this;
+  }
+
+   /**
+   * How the firmware is delivered (connector or direct)
+   * @return mechanism
+  **/
+  @ApiModelProperty(example = "connector", value = "How the firmware is delivered (connector or direct)")
+  public String getMechanism() {
+    return mechanism;
+  }
+
+  public void setMechanism(String mechanism) {
+    this.mechanism = mechanism;
+  }
+
+  public CampaignDeviceMetadata mechanismUrl(String mechanismUrl) {
+    this.mechanismUrl = mechanismUrl;
+    return this;
+  }
+
+   /**
+   * The Cloud Connect URL
+   * @return mechanismUrl
+  **/
+  @ApiModelProperty(example = "", value = "The Cloud Connect URL")
+  public String getMechanismUrl() {
+    return mechanismUrl;
+  }
+
+  public void setMechanismUrl(String mechanismUrl) {
+    this.mechanismUrl = mechanismUrl;
+  }
+
+  public CampaignDeviceMetadata name(String name) {
+    this.name = name;
+    return this;
+  }
+
+   /**
+   * The record name
+   * @return name
+  **/
+  @ApiModelProperty(example = "default_object_name", value = "The record name")
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public CampaignDeviceMetadata object(String object) {
@@ -213,132 +339,6 @@ public class CampaignDeviceMetadata implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public CampaignDeviceMetadata mechanism(String mechanism) {
-    this.mechanism = mechanism;
-    return this;
-  }
-
-   /**
-   * How the firmware is delivered (connector or direct)
-   * @return mechanism
-  **/
-  @ApiModelProperty(example = "connector", value = "How the firmware is delivered (connector or direct)")
-  public String getMechanism() {
-    return mechanism;
-  }
-
-  public void setMechanism(String mechanism) {
-    this.mechanism = mechanism;
-  }
-
-  public CampaignDeviceMetadata name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The record name
-   * @return name
-  **/
-  @ApiModelProperty(example = "default_object_name", value = "The record name")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public CampaignDeviceMetadata etag(String etag) {
-    this.etag = etag;
-    return this;
-  }
-
-   /**
-   * API resource entity version
-   * @return etag
-  **/
-  @ApiModelProperty(example = "2017-05-22T12:37:58.753425Z", value = "API resource entity version")
-  public String getEtag() {
-    return etag;
-  }
-
-  public void setEtag(String etag) {
-    this.etag = etag;
-  }
-
-  public CampaignDeviceMetadata mechanismUrl(String mechanismUrl) {
-    this.mechanismUrl = mechanismUrl;
-    return this;
-  }
-
-   /**
-   * The Cloud Connect URL
-   * @return mechanismUrl
-  **/
-  @ApiModelProperty(example = "", value = "The Cloud Connect URL")
-  public String getMechanismUrl() {
-    return mechanismUrl;
-  }
-
-  public void setMechanismUrl(String mechanismUrl) {
-    this.mechanismUrl = mechanismUrl;
-  }
-
-  public CampaignDeviceMetadata deploymentState(DeploymentStateEnum deploymentState) {
-    this.deploymentState = deploymentState;
-    return this;
-  }
-
-   /**
-   * The state of the update campaign on the device
-   * @return deploymentState
-  **/
-  @ApiModelProperty(value = "The state of the update campaign on the device")
-  public DeploymentStateEnum getDeploymentState() {
-    return deploymentState;
-  }
-
-  public void setDeploymentState(DeploymentStateEnum deploymentState) {
-    this.deploymentState = deploymentState;
-  }
-
-  public CampaignDeviceMetadata id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The metadata record ID
-   * @return id
-  **/
-  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The metadata record ID")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public CampaignDeviceMetadata deviceId(String deviceId) {
-    this.deviceId = deviceId;
-    return this;
-  }
-
-   /**
-   * The device ID
-   * @return deviceId
-  **/
-  @ApiModelProperty(example = "015c2fec9bba0000000000010010036f", value = "The device ID")
-  public String getDeviceId() {
-    return deviceId;
-  }
-
-  public void setDeviceId(String deviceId) {
-    this.deviceId = deviceId;
-  }
-
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -349,23 +349,23 @@ public class CampaignDeviceMetadata implements Serializable {
       return false;
     }
     CampaignDeviceMetadata campaignDeviceMetadata = (CampaignDeviceMetadata) o;
-    return Objects.equals(this.description, campaignDeviceMetadata.description) &&
-        Objects.equals(this.campaign, campaignDeviceMetadata.campaign) &&
+    return Objects.equals(this.campaign, campaignDeviceMetadata.campaign) &&
         Objects.equals(this.createdAt, campaignDeviceMetadata.createdAt) &&
-        Objects.equals(this.object, campaignDeviceMetadata.object) &&
-        Objects.equals(this.updatedAt, campaignDeviceMetadata.updatedAt) &&
-        Objects.equals(this.mechanism, campaignDeviceMetadata.mechanism) &&
-        Objects.equals(this.name, campaignDeviceMetadata.name) &&
-        Objects.equals(this.etag, campaignDeviceMetadata.etag) &&
-        Objects.equals(this.mechanismUrl, campaignDeviceMetadata.mechanismUrl) &&
         Objects.equals(this.deploymentState, campaignDeviceMetadata.deploymentState) &&
+        Objects.equals(this.description, campaignDeviceMetadata.description) &&
+        Objects.equals(this.deviceId, campaignDeviceMetadata.deviceId) &&
+        Objects.equals(this.etag, campaignDeviceMetadata.etag) &&
         Objects.equals(this.id, campaignDeviceMetadata.id) &&
-        Objects.equals(this.deviceId, campaignDeviceMetadata.deviceId);
+        Objects.equals(this.mechanism, campaignDeviceMetadata.mechanism) &&
+        Objects.equals(this.mechanismUrl, campaignDeviceMetadata.mechanismUrl) &&
+        Objects.equals(this.name, campaignDeviceMetadata.name) &&
+        Objects.equals(this.object, campaignDeviceMetadata.object) &&
+        Objects.equals(this.updatedAt, campaignDeviceMetadata.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(description, campaign, createdAt, object, updatedAt, mechanism, name, etag, mechanismUrl, deploymentState, id, deviceId);
+    return Objects.hash(campaign, createdAt, deploymentState, description, deviceId, etag, id, mechanism, mechanismUrl, name, object, updatedAt);
   }
 
 
@@ -374,18 +374,18 @@ public class CampaignDeviceMetadata implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class CampaignDeviceMetadata {\n");
     
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    campaign: ").append(toIndentedString(campaign)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    deploymentState: ").append(toIndentedString(deploymentState)).append("\n");
+    sb.append("    description: ").append(toIndentedString(description)).append("\n");
+    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
+    sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
+    sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");
-    sb.append("    deploymentState: ").append(toIndentedString(deploymentState)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

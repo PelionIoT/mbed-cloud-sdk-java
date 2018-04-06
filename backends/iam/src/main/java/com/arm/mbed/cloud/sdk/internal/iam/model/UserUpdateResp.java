@@ -39,44 +39,110 @@ import java.io.Serializable;
 public class UserUpdateResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("username")
-  private String username = null;
+  @SerializedName("account_id")
+  private String accountId = null;
 
   @SerializedName("active_sessions")
   private List<ActiveSession> activeSessions = null;
 
-  @SerializedName("login_history")
-  private List<LoginHistory> loginHistory = null;
+  @SerializedName("address")
+  private String address = null;
+
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
 
   @SerializedName("creation_time")
   private Long creationTime = null;
 
-  @SerializedName("updated_at")
-  private DateTime updatedAt = null;
+  @SerializedName("email")
+  private String email = null;
 
-  @SerializedName("full_name")
-  private String fullName = null;
-
-  @SerializedName("id")
-  private String id = null;
-
-  @SerializedName("last_login_time")
-  private Long lastLoginTime = null;
-
-  @SerializedName("is_gtc_accepted")
-  private Boolean isGtcAccepted = null;
+  @SerializedName("email_verified")
+  private Boolean emailVerified = null;
 
   @SerializedName("etag")
   private String etag = null;
 
+  @SerializedName("full_name")
+  private String fullName = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("is_gtc_accepted")
+  private Boolean isGtcAccepted = null;
+
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
 
+  @SerializedName("is_totp_enabled")
+  private Boolean isTotpEnabled = null;
+
+  @SerializedName("last_login_time")
+  private Long lastLoginTime = null;
+
+  @SerializedName("login_history")
+  private List<LoginHistory> loginHistory = null;
+
+  /**
+   * Entity name: always &#39;user&#39;
+   */
+  @JsonAdapter(ObjectEnum.Adapter.class)
+  public enum ObjectEnum {
+    USER("user");
+
+    private String value;
+
+    ObjectEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static ObjectEnum fromValue(String text) {
+      for (ObjectEnum b : ObjectEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<ObjectEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return ObjectEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("object")
+  private ObjectEnum object = null;
+
+  @SerializedName("password")
+  private String password = null;
+
+  @SerializedName("password_changed_time")
+  private Long passwordChangedTime = null;
+
   @SerializedName("phone_number")
   private String phoneNumber = null;
-
-  @SerializedName("email")
-  private String email = null;
 
   /**
    * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
@@ -134,103 +200,37 @@ public class UserUpdateResp implements Serializable {
   @SerializedName("status")
   private StatusEnum status = null;
 
-  @SerializedName("account_id")
-  private String accountId = null;
-
   @SerializedName("totp_scratch_codes")
   private List<String> totpScratchCodes = null;
-
-  /**
-   * Entity name: always &#39;user&#39;
-   */
-  @JsonAdapter(ObjectEnum.Adapter.class)
-  public enum ObjectEnum {
-    USER("user");
-
-    private String value;
-
-    ObjectEnum(String value) {
-      this.value = value;
-    }
-
-    public String getValue() {
-      return value;
-    }
-
-    @Override
-    public String toString() {
-      return String.valueOf(value);
-    }
-
-    public static ObjectEnum fromValue(String text) {
-      for (ObjectEnum b : ObjectEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
-        }
-      }
-      return null;
-    }
-
-    public static class Adapter extends TypeAdapter<ObjectEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public ObjectEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return ObjectEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("object")
-  private ObjectEnum object = null;
-
-  @SerializedName("groups")
-  private List<String> groups = null;
-
-  @SerializedName("address")
-  private String address = null;
 
   @SerializedName("totp_secret")
   private String totpSecret = null;
 
-  @SerializedName("password")
-  private String password = null;
-
-  @SerializedName("email_verified")
-  private Boolean emailVerified = null;
-
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
 
   @SerializedName("user_properties")
   private Map<String, Map<String, String>> userProperties = null;
 
-  @SerializedName("is_totp_enabled")
-  private Boolean isTotpEnabled = null;
+  @SerializedName("username")
+  private String username = null;
 
-  @SerializedName("password_changed_time")
-  private Long passwordChangedTime = null;
-
-  public UserUpdateResp username(String username) {
-    this.username = username;
+  public UserUpdateResp accountId(String accountId) {
+    this.accountId = accountId;
     return this;
   }
 
    /**
-   * A username containing alphanumerical letters and -,._@+&#x3D; characters.
-   * @return username
+   * The UUID of the account.
+   * @return accountId
   **/
-  @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
-  public String getUsername() {
-    return username;
+  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
+  public String getAccountId() {
+    return accountId;
   }
 
-  public void setUsername(String username) {
-    this.username = username;
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
   }
 
   public UserUpdateResp activeSessions(List<ActiveSession> activeSessions) {
@@ -259,30 +259,40 @@ public class UserUpdateResp implements Serializable {
     this.activeSessions = activeSessions;
   }
 
-  public UserUpdateResp loginHistory(List<LoginHistory> loginHistory) {
-    this.loginHistory = loginHistory;
-    return this;
-  }
-
-  public UserUpdateResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
-    if (this.loginHistory == null) {
-      this.loginHistory = new ArrayList<LoginHistory>();
-    }
-    this.loginHistory.add(loginHistoryItem);
+  public UserUpdateResp address(String address) {
+    this.address = address;
     return this;
   }
 
    /**
-   * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
-   * @return loginHistory
+   * Address.
+   * @return address
   **/
-  @ApiModelProperty(value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
-  public List<LoginHistory> getLoginHistory() {
-    return loginHistory;
+  @ApiModelProperty(example = "110 Fulbourn Rd, Cambridge, United Kingdom", value = "Address.")
+  public String getAddress() {
+    return address;
   }
 
-  public void setLoginHistory(List<LoginHistory> loginHistory) {
-    this.loginHistory = loginHistory;
+  public void setAddress(String address) {
+    this.address = address;
+  }
+
+  public UserUpdateResp createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Creation UTC time RFC3339.
+   * @return createdAt
+  **/
+  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public UserUpdateResp creationTime(Long creationTime) {
@@ -303,94 +313,40 @@ public class UserUpdateResp implements Serializable {
     this.creationTime = creationTime;
   }
 
-  public UserUpdateResp updatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public UserUpdateResp email(String email) {
+    this.email = email;
     return this;
   }
 
    /**
-   * Last update UTC time RFC3339.
-   * @return updatedAt
+   * The email address.
+   * @return email
   **/
-  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
-  public DateTime getUpdatedAt() {
-    return updatedAt;
+  @ApiModelProperty(example = "user@arm.com", required = true, value = "The email address.")
+  public String getEmail() {
+    return email;
   }
 
-  public void setUpdatedAt(DateTime updatedAt) {
-    this.updatedAt = updatedAt;
+  public void setEmail(String email) {
+    this.email = email;
   }
 
-  public UserUpdateResp fullName(String fullName) {
-    this.fullName = fullName;
+  public UserUpdateResp emailVerified(Boolean emailVerified) {
+    this.emailVerified = emailVerified;
     return this;
   }
 
    /**
-   * The full name of the user.
-   * @return fullName
+   * A flag indicating whether the user&#39;s email address has been verified or not.
+   * @return emailVerified
   **/
-  @ApiModelProperty(example = "User Doe", value = "The full name of the user.")
-  public String getFullName() {
-    return fullName;
+  @ApiModelProperty(example = "true", value = "A flag indicating whether the user's email address has been verified or not.")
+  public Boolean isEmailVerified() {
+    return emailVerified;
   }
 
-  public void setFullName(String fullName) {
-    this.fullName = fullName;
-  }
-
-  public UserUpdateResp id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The UUID of the user.
-   * @return id
-  **/
-  @ApiModelProperty(example = "01619571e2e89242ac12000600000000", required = true, value = "The UUID of the user.")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  public UserUpdateResp lastLoginTime(Long lastLoginTime) {
-    this.lastLoginTime = lastLoginTime;
-    return this;
-  }
-
-   /**
-   * A timestamp of the latest login of the user, in milliseconds.
-   * @return lastLoginTime
-  **/
-  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest login of the user, in milliseconds.")
-  public Long getLastLoginTime() {
-    return lastLoginTime;
-  }
-
-  public void setLastLoginTime(Long lastLoginTime) {
-    this.lastLoginTime = lastLoginTime;
-  }
-
-  public UserUpdateResp isGtcAccepted(Boolean isGtcAccepted) {
-    this.isGtcAccepted = isGtcAccepted;
-    return this;
-  }
-
-   /**
-   * A flag indicating that the General Terms and Conditions has been accepted.
-   * @return isGtcAccepted
-  **/
-  @ApiModelProperty(example = "true", value = "A flag indicating that the General Terms and Conditions has been accepted.")
-  public Boolean isIsGtcAccepted() {
-    return isGtcAccepted;
-  }
-
-  public void setIsGtcAccepted(Boolean isGtcAccepted) {
-    this.isGtcAccepted = isGtcAccepted;
+  public void setEmailVerified(Boolean emailVerified) {
+    this.emailVerified = emailVerified;
   }
 
   public UserUpdateResp etag(String etag) {
@@ -411,138 +367,22 @@ public class UserUpdateResp implements Serializable {
     this.etag = etag;
   }
 
-  public UserUpdateResp isMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
+  public UserUpdateResp fullName(String fullName) {
+    this.fullName = fullName;
     return this;
   }
 
    /**
-   * A flag indicating that receiving marketing information has been accepted.
-   * @return isMarketingAccepted
+   * The full name of the user.
+   * @return fullName
   **/
-  @ApiModelProperty(example = "true", value = "A flag indicating that receiving marketing information has been accepted.")
-  public Boolean isIsMarketingAccepted() {
-    return isMarketingAccepted;
+  @ApiModelProperty(example = "User Doe", value = "The full name of the user.")
+  public String getFullName() {
+    return fullName;
   }
 
-  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
-    this.isMarketingAccepted = isMarketingAccepted;
-  }
-
-  public UserUpdateResp phoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-    return this;
-  }
-
-   /**
-   * Phone number.
-   * @return phoneNumber
-  **/
-  @ApiModelProperty(example = "+44 (1223) 400 400", value = "Phone number.")
-  public String getPhoneNumber() {
-    return phoneNumber;
-  }
-
-  public void setPhoneNumber(String phoneNumber) {
-    this.phoneNumber = phoneNumber;
-  }
-
-  public UserUpdateResp email(String email) {
-    this.email = email;
-    return this;
-  }
-
-   /**
-   * The email address.
-   * @return email
-  **/
-  @ApiModelProperty(example = "user@arm.com", required = true, value = "The email address.")
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserUpdateResp status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
-   * @return status
-  **/
-  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-  public UserUpdateResp accountId(String accountId) {
-    this.accountId = accountId;
-    return this;
-  }
-
-   /**
-   * The UUID of the account.
-   * @return accountId
-  **/
-  @ApiModelProperty(example = "01619571e2e90242ac12000600000000", required = true, value = "The UUID of the account.")
-  public String getAccountId() {
-    return accountId;
-  }
-
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-  public UserUpdateResp totpScratchCodes(List<String> totpScratchCodes) {
-    this.totpScratchCodes = totpScratchCodes;
-    return this;
-  }
-
-  public UserUpdateResp addTotpScratchCodesItem(String totpScratchCodesItem) {
-    if (this.totpScratchCodes == null) {
-      this.totpScratchCodes = new ArrayList<String>();
-    }
-    this.totpScratchCodes.add(totpScratchCodesItem);
-    return this;
-  }
-
-   /**
-   * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.
-   * @return totpScratchCodes
-  **/
-  @ApiModelProperty(value = "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.")
-  public List<String> getTotpScratchCodes() {
-    return totpScratchCodes;
-  }
-
-  public void setTotpScratchCodes(List<String> totpScratchCodes) {
-    this.totpScratchCodes = totpScratchCodes;
-  }
-
-  public UserUpdateResp object(ObjectEnum object) {
-    this.object = object;
-    return this;
-  }
-
-   /**
-   * Entity name: always &#39;user&#39;
-   * @return object
-  **/
-  @ApiModelProperty(required = true, value = "Entity name: always 'user'")
-  public ObjectEnum getObject() {
-    return object;
-  }
-
-  public void setObject(ObjectEnum object) {
-    this.object = object;
+  public void setFullName(String fullName) {
+    this.fullName = fullName;
   }
 
   public UserUpdateResp groups(List<String> groups) {
@@ -571,40 +411,138 @@ public class UserUpdateResp implements Serializable {
     this.groups = groups;
   }
 
-  public UserUpdateResp address(String address) {
-    this.address = address;
+  public UserUpdateResp id(String id) {
+    this.id = id;
     return this;
   }
 
    /**
-   * Address.
-   * @return address
+   * The UUID of the user.
+   * @return id
   **/
-  @ApiModelProperty(example = "110 Fulbourn Rd, Cambridge, United Kingdom", value = "Address.")
-  public String getAddress() {
-    return address;
+  @ApiModelProperty(example = "01619571e2e89242ac12000600000000", required = true, value = "The UUID of the user.")
+  public String getId() {
+    return id;
   }
 
-  public void setAddress(String address) {
-    this.address = address;
+  public void setId(String id) {
+    this.id = id;
   }
 
-  public UserUpdateResp totpSecret(String totpSecret) {
-    this.totpSecret = totpSecret;
+  public UserUpdateResp isGtcAccepted(Boolean isGtcAccepted) {
+    this.isGtcAccepted = isGtcAccepted;
     return this;
   }
 
    /**
-   * Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.
-   * @return totpSecret
+   * A flag indicating that the General Terms and Conditions has been accepted.
+   * @return isGtcAccepted
   **/
-  @ApiModelProperty(example = "OZAMCDB7VRJSEHL2", value = "Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.")
-  public String getTotpSecret() {
-    return totpSecret;
+  @ApiModelProperty(example = "true", value = "A flag indicating that the General Terms and Conditions has been accepted.")
+  public Boolean isIsGtcAccepted() {
+    return isGtcAccepted;
   }
 
-  public void setTotpSecret(String totpSecret) {
-    this.totpSecret = totpSecret;
+  public void setIsGtcAccepted(Boolean isGtcAccepted) {
+    this.isGtcAccepted = isGtcAccepted;
+  }
+
+  public UserUpdateResp isMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
+    return this;
+  }
+
+   /**
+   * A flag indicating that receiving marketing information has been accepted.
+   * @return isMarketingAccepted
+  **/
+  @ApiModelProperty(example = "true", value = "A flag indicating that receiving marketing information has been accepted.")
+  public Boolean isIsMarketingAccepted() {
+    return isMarketingAccepted;
+  }
+
+  public void setIsMarketingAccepted(Boolean isMarketingAccepted) {
+    this.isMarketingAccepted = isMarketingAccepted;
+  }
+
+  public UserUpdateResp isTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+    return this;
+  }
+
+   /**
+   * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
+   * @return isTotpEnabled
+  **/
+  @ApiModelProperty(example = "true", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
+  public Boolean isIsTotpEnabled() {
+    return isTotpEnabled;
+  }
+
+  public void setIsTotpEnabled(Boolean isTotpEnabled) {
+    this.isTotpEnabled = isTotpEnabled;
+  }
+
+  public UserUpdateResp lastLoginTime(Long lastLoginTime) {
+    this.lastLoginTime = lastLoginTime;
+    return this;
+  }
+
+   /**
+   * A timestamp of the latest login of the user, in milliseconds.
+   * @return lastLoginTime
+  **/
+  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest login of the user, in milliseconds.")
+  public Long getLastLoginTime() {
+    return lastLoginTime;
+  }
+
+  public void setLastLoginTime(Long lastLoginTime) {
+    this.lastLoginTime = lastLoginTime;
+  }
+
+  public UserUpdateResp loginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
+    return this;
+  }
+
+  public UserUpdateResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
+    if (this.loginHistory == null) {
+      this.loginHistory = new ArrayList<LoginHistory>();
+    }
+    this.loginHistory.add(loginHistoryItem);
+    return this;
+  }
+
+   /**
+   * Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.
+   * @return loginHistory
+  **/
+  @ApiModelProperty(value = "Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format.")
+  public List<LoginHistory> getLoginHistory() {
+    return loginHistory;
+  }
+
+  public void setLoginHistory(List<LoginHistory> loginHistory) {
+    this.loginHistory = loginHistory;
+  }
+
+  public UserUpdateResp object(ObjectEnum object) {
+    this.object = object;
+    return this;
+  }
+
+   /**
+   * Entity name: always &#39;user&#39;
+   * @return object
+  **/
+  @ApiModelProperty(required = true, value = "Entity name: always 'user'")
+  public ObjectEnum getObject() {
+    return object;
+  }
+
+  public void setObject(ObjectEnum object) {
+    this.object = object;
   }
 
   public UserUpdateResp password(String password) {
@@ -625,40 +563,120 @@ public class UserUpdateResp implements Serializable {
     this.password = password;
   }
 
-  public UserUpdateResp emailVerified(Boolean emailVerified) {
-    this.emailVerified = emailVerified;
+  public UserUpdateResp passwordChangedTime(Long passwordChangedTime) {
+    this.passwordChangedTime = passwordChangedTime;
     return this;
   }
 
    /**
-   * A flag indicating whether the user&#39;s email address has been verified or not.
-   * @return emailVerified
+   * A timestamp of the latest change of the user password, in milliseconds.
+   * @return passwordChangedTime
   **/
-  @ApiModelProperty(example = "true", value = "A flag indicating whether the user's email address has been verified or not.")
-  public Boolean isEmailVerified() {
-    return emailVerified;
+  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest change of the user password, in milliseconds.")
+  public Long getPasswordChangedTime() {
+    return passwordChangedTime;
   }
 
-  public void setEmailVerified(Boolean emailVerified) {
-    this.emailVerified = emailVerified;
+  public void setPasswordChangedTime(Long passwordChangedTime) {
+    this.passwordChangedTime = passwordChangedTime;
   }
 
-  public UserUpdateResp createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
+  public UserUpdateResp phoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
     return this;
   }
 
    /**
-   * Creation UTC time RFC3339.
-   * @return createdAt
+   * Phone number.
+   * @return phoneNumber
   **/
-  @ApiModelProperty(example = "2018-02-13T09:35:20Z", value = "Creation UTC time RFC3339.")
-  public DateTime getCreatedAt() {
-    return createdAt;
+  @ApiModelProperty(example = "+44 (1223) 400 400", value = "Phone number.")
+  public String getPhoneNumber() {
+    return phoneNumber;
   }
 
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
+  public void setPhoneNumber(String phoneNumber) {
+    this.phoneNumber = phoneNumber;
+  }
+
+  public UserUpdateResp status(StatusEnum status) {
+    this.status = status;
+    return this;
+  }
+
+   /**
+   * The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.
+   * @return status
+  **/
+  @ApiModelProperty(example = "ACTIVE", required = true, value = "The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system.")
+  public StatusEnum getStatus() {
+    return status;
+  }
+
+  public void setStatus(StatusEnum status) {
+    this.status = status;
+  }
+
+  public UserUpdateResp totpScratchCodes(List<String> totpScratchCodes) {
+    this.totpScratchCodes = totpScratchCodes;
+    return this;
+  }
+
+  public UserUpdateResp addTotpScratchCodesItem(String totpScratchCodesItem) {
+    if (this.totpScratchCodes == null) {
+      this.totpScratchCodes = new ArrayList<String>();
+    }
+    this.totpScratchCodes.add(totpScratchCodesItem);
+    return this;
+  }
+
+   /**
+   * A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.
+   * @return totpScratchCodes
+  **/
+  @ApiModelProperty(value = "A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated.")
+  public List<String> getTotpScratchCodes() {
+    return totpScratchCodes;
+  }
+
+  public void setTotpScratchCodes(List<String> totpScratchCodes) {
+    this.totpScratchCodes = totpScratchCodes;
+  }
+
+  public UserUpdateResp totpSecret(String totpSecret) {
+    this.totpSecret = totpSecret;
+    return this;
+  }
+
+   /**
+   * Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.
+   * @return totpSecret
+  **/
+  @ApiModelProperty(example = "OZAMCDB7VRJSEHL2", value = "Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.")
+  public String getTotpSecret() {
+    return totpSecret;
+  }
+
+  public void setTotpSecret(String totpSecret) {
+    this.totpSecret = totpSecret;
+  }
+
+  public UserUpdateResp updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Last update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(example = "2018-02-14T15:24:14Z", value = "Last update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
   }
 
   public UserUpdateResp userProperties(Map<String, Map<String, String>> userProperties) {
@@ -687,40 +705,22 @@ public class UserUpdateResp implements Serializable {
     this.userProperties = userProperties;
   }
 
-  public UserUpdateResp isTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
+  public UserUpdateResp username(String username) {
+    this.username = username;
     return this;
   }
 
    /**
-   * A flag indicating whether 2-factor authentication (TOTP) has been enabled.
-   * @return isTotpEnabled
+   * A username containing alphanumerical letters and -,._@+&#x3D; characters.
+   * @return username
   **/
-  @ApiModelProperty(example = "true", value = "A flag indicating whether 2-factor authentication (TOTP) has been enabled.")
-  public Boolean isIsTotpEnabled() {
-    return isTotpEnabled;
+  @ApiModelProperty(example = "admin", value = "A username containing alphanumerical letters and -,._@+= characters.")
+  public String getUsername() {
+    return username;
   }
 
-  public void setIsTotpEnabled(Boolean isTotpEnabled) {
-    this.isTotpEnabled = isTotpEnabled;
-  }
-
-  public UserUpdateResp passwordChangedTime(Long passwordChangedTime) {
-    this.passwordChangedTime = passwordChangedTime;
-    return this;
-  }
-
-   /**
-   * A timestamp of the latest change of the user password, in milliseconds.
-   * @return passwordChangedTime
-  **/
-  @ApiModelProperty(example = "1518630727688", value = "A timestamp of the latest change of the user password, in milliseconds.")
-  public Long getPasswordChangedTime() {
-    return passwordChangedTime;
-  }
-
-  public void setPasswordChangedTime(Long passwordChangedTime) {
-    this.passwordChangedTime = passwordChangedTime;
+  public void setUsername(String username) {
+    this.username = username;
   }
 
 
@@ -733,37 +733,37 @@ public class UserUpdateResp implements Serializable {
       return false;
     }
     UserUpdateResp userUpdateResp = (UserUpdateResp) o;
-    return Objects.equals(this.username, userUpdateResp.username) &&
+    return Objects.equals(this.accountId, userUpdateResp.accountId) &&
         Objects.equals(this.activeSessions, userUpdateResp.activeSessions) &&
-        Objects.equals(this.loginHistory, userUpdateResp.loginHistory) &&
-        Objects.equals(this.creationTime, userUpdateResp.creationTime) &&
-        Objects.equals(this.updatedAt, userUpdateResp.updatedAt) &&
-        Objects.equals(this.fullName, userUpdateResp.fullName) &&
-        Objects.equals(this.id, userUpdateResp.id) &&
-        Objects.equals(this.lastLoginTime, userUpdateResp.lastLoginTime) &&
-        Objects.equals(this.isGtcAccepted, userUpdateResp.isGtcAccepted) &&
-        Objects.equals(this.etag, userUpdateResp.etag) &&
-        Objects.equals(this.isMarketingAccepted, userUpdateResp.isMarketingAccepted) &&
-        Objects.equals(this.phoneNumber, userUpdateResp.phoneNumber) &&
-        Objects.equals(this.email, userUpdateResp.email) &&
-        Objects.equals(this.status, userUpdateResp.status) &&
-        Objects.equals(this.accountId, userUpdateResp.accountId) &&
-        Objects.equals(this.totpScratchCodes, userUpdateResp.totpScratchCodes) &&
-        Objects.equals(this.object, userUpdateResp.object) &&
-        Objects.equals(this.groups, userUpdateResp.groups) &&
         Objects.equals(this.address, userUpdateResp.address) &&
-        Objects.equals(this.totpSecret, userUpdateResp.totpSecret) &&
-        Objects.equals(this.password, userUpdateResp.password) &&
-        Objects.equals(this.emailVerified, userUpdateResp.emailVerified) &&
         Objects.equals(this.createdAt, userUpdateResp.createdAt) &&
-        Objects.equals(this.userProperties, userUpdateResp.userProperties) &&
+        Objects.equals(this.creationTime, userUpdateResp.creationTime) &&
+        Objects.equals(this.email, userUpdateResp.email) &&
+        Objects.equals(this.emailVerified, userUpdateResp.emailVerified) &&
+        Objects.equals(this.etag, userUpdateResp.etag) &&
+        Objects.equals(this.fullName, userUpdateResp.fullName) &&
+        Objects.equals(this.groups, userUpdateResp.groups) &&
+        Objects.equals(this.id, userUpdateResp.id) &&
+        Objects.equals(this.isGtcAccepted, userUpdateResp.isGtcAccepted) &&
+        Objects.equals(this.isMarketingAccepted, userUpdateResp.isMarketingAccepted) &&
         Objects.equals(this.isTotpEnabled, userUpdateResp.isTotpEnabled) &&
-        Objects.equals(this.passwordChangedTime, userUpdateResp.passwordChangedTime);
+        Objects.equals(this.lastLoginTime, userUpdateResp.lastLoginTime) &&
+        Objects.equals(this.loginHistory, userUpdateResp.loginHistory) &&
+        Objects.equals(this.object, userUpdateResp.object) &&
+        Objects.equals(this.password, userUpdateResp.password) &&
+        Objects.equals(this.passwordChangedTime, userUpdateResp.passwordChangedTime) &&
+        Objects.equals(this.phoneNumber, userUpdateResp.phoneNumber) &&
+        Objects.equals(this.status, userUpdateResp.status) &&
+        Objects.equals(this.totpScratchCodes, userUpdateResp.totpScratchCodes) &&
+        Objects.equals(this.totpSecret, userUpdateResp.totpSecret) &&
+        Objects.equals(this.updatedAt, userUpdateResp.updatedAt) &&
+        Objects.equals(this.userProperties, userUpdateResp.userProperties) &&
+        Objects.equals(this.username, userUpdateResp.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(username, activeSessions, loginHistory, creationTime, updatedAt, fullName, id, lastLoginTime, isGtcAccepted, etag, isMarketingAccepted, phoneNumber, email, status, accountId, totpScratchCodes, object, groups, address, totpSecret, password, emailVerified, createdAt, userProperties, isTotpEnabled, passwordChangedTime);
+    return Objects.hash(accountId, activeSessions, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, totpScratchCodes, totpSecret, updatedAt, userProperties, username);
   }
 
 
@@ -772,32 +772,32 @@ public class UserUpdateResp implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UserUpdateResp {\n");
     
-    sb.append("    username: ").append(toIndentedString(username)).append("\n");
-    sb.append("    activeSessions: ").append(toIndentedString(activeSessions)).append("\n");
-    sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
-    sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
-    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    lastLoginTime: ").append(toIndentedString(lastLoginTime)).append("\n");
-    sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
-    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
-    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
-    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
-    sb.append("    totpScratchCodes: ").append(toIndentedString(totpScratchCodes)).append("\n");
-    sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    activeSessions: ").append(toIndentedString(activeSessions)).append("\n");
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    totpSecret: ").append(toIndentedString(totpSecret)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
-    sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
+    sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
+    sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
+    sb.append("    lastLoginTime: ").append(toIndentedString(lastLoginTime)).append("\n");
+    sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");
+    sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
+    sb.append("    status: ").append(toIndentedString(status)).append("\n");
+    sb.append("    totpScratchCodes: ").append(toIndentedString(totpScratchCodes)).append("\n");
+    sb.append("    totpSecret: ").append(toIndentedString(totpSecret)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
+    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
+    sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();
   }

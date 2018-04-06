@@ -1,7 +1,15 @@
 # Changelog
 
+The SDK source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
+
+This news file contains a log of notable changes to the SDK. Built artefacts, including previous versions, can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
+
+[//]: # (begin_release_notes)
+
+# Older Releases:
+
 ## 1.2.6
-![Status](https://img.shields.io/badge/status-beta-orange.svg)
+
 ### Deliverables
 The application source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
 Built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
@@ -30,7 +38,7 @@ Built artefacts can be retrieved using any Java package manager (e.g. Gradle, An
   com.android.build.api.transform.TransformException: com.android.dex.DexException: Multiple dex files define Lcom/arm/mbed/cloud/sdk/internal/JSON$1;
 ```
 ## 1.2.5
-![Status](https://img.shields.io/badge/status-beta-orange.svg)
+
 ### Deliverables
 The application source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
 Built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
@@ -58,7 +66,7 @@ through an open notification channel. This affects all previous versions.
   - Reducing [the configured TTL](https://cloud.mbed.com/docs/latest/collecting/handle-resources.html#working-with-the-server-cache) on the cloud client image on the device
 
 ## 1.2.4
-![Status](https://img.shields.io/badge/status-beta-orange.svg)
+
 ### Deliverables
 The application source code is hosted on GitHub at https://github.com/ARMmbed/mbed-cloud-sdk-java
 Built artefacts can be retrieved using any Java package manager (e.g. Gradle, Ant/Ivy, Maven) from [Jcenter](https://bintray.com/armmbed/mbed-cloud-sdk) or [Maven Central](https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk).
