@@ -86,7 +86,7 @@ deployment:
     commands:
       - git add CHANGELOG.md docs/news/*
       - git commit -m "Updated changelog file [skip ci]"
-      - git push
+      - git push --set-upstream origin ${CIRCLE_BRANCH}
       - echo Tagging $PROJECT_NAME in GitHub...
       - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
       - git push --tags
