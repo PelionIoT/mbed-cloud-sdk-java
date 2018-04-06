@@ -39,14 +39,14 @@ implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html):
 1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
 2. Import the SDK to your project using one of the packages listed above.
-2. Create a configuration object:
+3. Create a configuration object:
     ```java
         String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
         String apiKey = "<apikey>"; //API key to use for contacting Mbed Cloud.
         ConnectionOptions config = new ConnectionOptions(apiKey);
         config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
     ```
-3. You are ready to go.
+4. You are ready to go.
     ```java
         DeviceDirectory deviceApi = new DeviceDirectory(config);
         try {
