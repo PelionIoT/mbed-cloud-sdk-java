@@ -85,7 +85,7 @@ deployment:
     branch: /[0-9]+\.[0-9]+.*/
     commands:
       - git add CHANGELOG.md docs/news/*
-      - git commit -m ":newspaper: Hear yea, hear yea. News O'Clock. [skip ci]"
+      - git commit -m "Updated changelog file [skip ci]"
       - git push
       - echo Tagging $PROJECT_NAME in GitHub...
       - python ${SCRIPTS_DIR}/sdk.py version | xargs git tag 
