@@ -4,14 +4,14 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**deleteAPreSharedKey**](PreSharedKeysApi.md#deleteAPreSharedKey) | **DELETE** v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
-[**getAPreSharedKey**](PreSharedKeysApi.md#getAPreSharedKey) | **GET** v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
-[**uploadAPreSharedKey**](PreSharedKeysApi.md#uploadAPreSharedKey) | **POST** v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
+[**deletePreSharedKey**](PreSharedKeysApi.md#deletePreSharedKey) | **DELETE** v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
+[**getPreSharedKey**](PreSharedKeysApi.md#getPreSharedKey) | **GET** v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
+[**uploadPreSharedKey**](PreSharedKeysApi.md#uploadPreSharedKey) | **POST** v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
 
 
-<a name="deleteAPreSharedKey"></a>
-# **deleteAPreSharedKey**
-> Void deleteAPreSharedKey(endpointName)
+<a name="deletePreSharedKey"></a>
+# **deletePreSharedKey**
+> Void deletePreSharedKey(endpointName)
 
 Remove a pre-shared key.
 
@@ -35,12 +35,12 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 PreSharedKeysApi apiInstance = new PreSharedKeysApi();
-String endpointName = "endpointName_example"; // String | The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+String endpointName = "endpointName_example"; // String | The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
 try {
-    Void result = apiInstance.deleteAPreSharedKey(endpointName);
+    Void result = apiInstance.deletePreSharedKey(endpointName);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PreSharedKeysApi#deleteAPreSharedKey");
+    System.err.println("Exception when calling PreSharedKeysApi#deletePreSharedKey");
     e.printStackTrace();
 }
 ```
@@ -49,7 +49,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endpointName** | **String**| The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. |
+ **endpointName** | **String**| The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. |
 
 ### Return type
 
@@ -64,9 +64,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="getAPreSharedKey"></a>
-# **getAPreSharedKey**
-> PreSharedKeyWithoutSecret getAPreSharedKey(endpointName)
+<a name="getPreSharedKey"></a>
+# **getPreSharedKey**
+> PreSharedKeyWithoutSecret getPreSharedKey(endpointName)
 
 Get a pre-shared key.
 
@@ -90,12 +90,12 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 PreSharedKeysApi apiInstance = new PreSharedKeysApi();
-String endpointName = "endpointName_example"; // String | The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
+String endpointName = "endpointName_example"; // String | The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded.
 try {
-    PreSharedKeyWithoutSecret result = apiInstance.getAPreSharedKey(endpointName);
+    PreSharedKeyWithoutSecret result = apiInstance.getPreSharedKey(endpointName);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PreSharedKeysApi#getAPreSharedKey");
+    System.err.println("Exception when calling PreSharedKeysApi#getPreSharedKey");
     e.printStackTrace();
 }
 ```
@@ -104,7 +104,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **endpointName** | **String**| The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. |
+ **endpointName** | **String**| The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. |
 
 ### Return type
 
@@ -119,9 +119,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="uploadAPreSharedKey"></a>
-# **uploadAPreSharedKey**
-> Void uploadAPreSharedKey(body)
+<a name="uploadPreSharedKey"></a>
+# **uploadPreSharedKey**
+> Void uploadPreSharedKey(body)
 
 Upload a pre-shared key to Mbed Cloud.
 
@@ -147,10 +147,10 @@ Bearer.setApiKey("YOUR API KEY");
 PreSharedKeysApi apiInstance = new PreSharedKeysApi();
 PreSharedKey body = new PreSharedKey(); // PreSharedKey | Pre-shared key to be uploaded.
 try {
-    Void result = apiInstance.uploadAPreSharedKey(body);
+    Void result = apiInstance.uploadPreSharedKey(body);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling PreSharedKeysApi#uploadAPreSharedKey");
+    System.err.println("Exception when calling PreSharedKeysApi#uploadPreSharedKey");
     e.printStackTrace();
 }
 ```
