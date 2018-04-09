@@ -6,6 +6,29 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+1.2.7 (2018-04-09)
+==================
+
+### Features
+
+- Exponential backoff in case of request call failure during notification pull
+  was implemented. (J1065)
+
+- Specified User Agent header when sending requests to Mbed Cloud (J634)
+
+- Notification channels for device registration status notifications (4 events)
+  were added. (J722)
+
+### Bugfixes
+
+- Updated Connector CA schema (J1081)
+
+- Updated contribution guidelines (J729)
+
+- Modified backends to avoid duplicate code leading to Android compilation
+  issue (J976)
+
+
 # Older Releases:
 
 ## 1.2.6
