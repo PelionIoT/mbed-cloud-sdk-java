@@ -1,1 +1,0 @@
-Specified User Agent header when sending requests to Mbed Cloud

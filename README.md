@@ -27,17 +27,26 @@ For example, if using Gradle, add the following compile dependency to build.grad
 ```java
 compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
 ```
+Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, oltu dependency will have to be excluded to remove any compilation issue (e.g. Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials).
+To do so, import the SDK in the gradle file, as follows:
+```java
+implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
+    // Excluding a particular transitive dependency:
+    exclude group: 'org.apache.oltu.oauth2'
+}
+```
 ## Usage
 These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html):
 1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
-2. Create a configuration object:
+2. Import the SDK to your project using one of the packages listed above.
+3. Create a configuration object:
     ```java
         String logLevel = "BODY"; //Defines the logging level of HTTP communications. See CallLogLevel for more information.
         String apiKey = "<apikey>"; //API key to use for contacting Mbed Cloud.
         ConnectionOptions config = new ConnectionOptions(apiKey);
         config.setClientLogLevel(CallLogLevel.getLevel(logLevel));
     ```
-3. Import SDK using one of the packages listed above and you are ready to go.
+4. You are ready to go.
     ```java
         DeviceDirectory deviceApi = new DeviceDirectory(config);
         try {
