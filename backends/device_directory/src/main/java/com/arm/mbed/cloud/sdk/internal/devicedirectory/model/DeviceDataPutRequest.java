@@ -114,10 +114,10 @@ public class DeviceDataPutRequest implements Serializable {
   }
 
    /**
-   * Up to five custom key-value attributes. Note that keys cannot start with a number.
+   * Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "\"{ 'key': 'value' }\"", value = "Up to five custom key-value attributes. Note that keys cannot start with a number.")
+  @ApiModelProperty(example = "\"{ 'key': 'value' }\"", value = "Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
