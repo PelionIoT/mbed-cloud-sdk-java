@@ -12,25 +12,40 @@ import okhttp3.RequestBody;
 @Internal
 public final class DataFileAdapter {
 
+    private static final String DEFAULT_PART_NAME = "datafile";
+
     private DataFileAdapter() {
         super();
     }
 
     /**
      * Reverses mapping of data file.
-     * 
+     *
      * @param dataFile
      *            new data file
      * @return new data file request
      */
     public static MultipartBody.Part reverseMap(DataFile dataFile) {
+        return reverseMap(DEFAULT_PART_NAME, dataFile);
+    }
+
+    /**
+     * Reverses mapping of data file.
+     *
+     * @param partName
+     *            name of the part to send
+     * @param dataFile
+     *            new data file
+     * @return new data file request
+     */
+    public static MultipartBody.Part reverseMap(String partName, DataFile dataFile) {
         if (dataFile == null) {
             return null;
         }
         final MediaType contentType = MediaType.parse(dataFile.getContentType());
         final RequestBody body = RequestBody.create(contentType, dataFile.getFile());
 
-        return MultipartBody.Part.createFormData("datafile", dataFile.getFileName(), body);
+        return MultipartBody.Part.createFormData(partName, dataFile.getFileName(), body);
     }
 
 }
