@@ -21,22 +21,22 @@ public interface PreSharedKeysApi {
   /**
    * Remove a pre-shared key.
    * Remove a pre-shared key.
-   * @param endpointName The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+   * @param endpointName The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
    * @return Call&lt;Void&gt;
    */
   @DELETE("v2/device-shared-keys/{endpoint_name}")
-  Call<Void> deleteAPreSharedKey(
+  Call<Void> deletePreSharedKey(
     @retrofit2.http.Path(value = "endpoint_name", encoded = true) String endpointName
   );
 
   /**
    * Get a pre-shared key.
    * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
-   * @param endpointName The endpoint name. A unique identifier of the pre-shared key. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
+   * @param endpointName The unique endpoint identifier that this pre-shared key applies to. [Reserved characters](https://en.wikipedia.org/wiki/Percent-encoding#Percent-encoding_reserved_characters) must be percent-encoded. (required)
    * @return Call&lt;PreSharedKeyWithoutSecret&gt;
    */
   @GET("v2/device-shared-keys/{endpoint_name}")
-  Call<PreSharedKeyWithoutSecret> getAPreSharedKey(
+  Call<PreSharedKeyWithoutSecret> getPreSharedKey(
     @retrofit2.http.Path(value = "endpoint_name", encoded = true) String endpointName
   );
 
@@ -50,7 +50,7 @@ public interface PreSharedKeysApi {
     "Content-Type:application/json"
   })
   @POST("v2/device-shared-keys")
-  Call<Void> uploadAPreSharedKey(
+  Call<Void> uploadPreSharedKey(
     @retrofit2.http.Body PreSharedKey body
   );
 

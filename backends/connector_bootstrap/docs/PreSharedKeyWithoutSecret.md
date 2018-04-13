@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**endpointName** | **String** | Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters. | 
+**endpointName** | **String** | The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters. | 
 
 
 

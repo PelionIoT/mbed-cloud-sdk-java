@@ -127,9 +127,17 @@ public class Campaign implements SdkModel {
      */
     public static final String FILTER_HOST_GATEWAY = "hostGateway";
     /**
+     * Tag of filter by phase.
+     */
+    public static final String FILTER_PHASE = "phase";
+    /**
      * The ID of the campaign.
      */
     private String id;
+    /**
+     * The current phase of the campaign.
+     */
+    private final String phase;
     /**
      * The state of the campaign.
      */
@@ -191,6 +199,8 @@ public class Campaign implements SdkModel {
      *
      * @param id
      *            id
+     * @param phase
+     *            phase
      * @param manifestUrl
      *            manifest URL
      * @param createdAt
@@ -203,9 +213,10 @@ public class Campaign implements SdkModel {
      *            date when campaign was updated.
      */
     @Internal
-    public Campaign(String id, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt, Date updatedAt) {
-        this(id, CampaignState.getDefault(), manifestUrl, createdAt, startedAt, finishedAt, updatedAt, null, null, null,
-                null, null);
+    public Campaign(String id, String phase, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
+            Date updatedAt) {
+        this(id, CampaignState.getDefault(), phase, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, null,
+                null, null, null, null);
 
     }
 
@@ -218,6 +229,8 @@ public class Campaign implements SdkModel {
      *            id
      * @param state
      *            state
+     * @param phase
+     *            phase
      * @param manifestUrl
      *            manifest URL
      * @param createdAt
@@ -240,11 +253,12 @@ public class Campaign implements SdkModel {
      *            device filter
      */
     @Internal
-    public Campaign(String id, CampaignState state, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
-            Date updatedAt, String name, String description, String manifestId, Date scheduledAt,
+    public Campaign(String id, CampaignState state, String phase, URL manifestUrl, Date createdAt, Date startedAt,
+            Date finishedAt, Date updatedAt, String name, String description, String manifestId, Date scheduledAt,
             Filters deviceFilter) {
         super();
         setId(id);
+        this.phase = phase;
         this.manifestUrl = manifestUrl;
         this.createdAt = createdAt;
         this.startedAt = startedAt;
@@ -268,7 +282,7 @@ public class Campaign implements SdkModel {
      */
     @Internal
     public Campaign(String id) {
-        this(id, null, new Date(), new Date(), new Date(), new Date());
+        this(id, null, null, new Date(), new Date(), new Date(), new Date());
     }
 
     /**
@@ -381,7 +395,7 @@ public class Campaign implements SdkModel {
      * Sets the campaign state.
      * <p>
      * Similar to {@link #setState(CampaignState)}
-     * 
+     *
      * @param state
      *            the state as string to set
      */
@@ -514,6 +528,15 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Gets the current phase of the campaign.
+     *
+     * @return the phase
+     */
+    public String getPhase() {
+        return phase;
+    }
+
+    /**
      * Gets the filter.
      *
      * @return the filters
@@ -547,7 +570,7 @@ public class Campaign implements SdkModel {
      * Sets the filters.
      * <p>
      * Prefer using {@link #setDeviceFilters(Filters)} or {@link #setDeviceFilterFromJson(String)} to set filters.
-     * 
+     *
      * @param filter
      *            filters expressed as a Json hashtable (key,value)
      */
@@ -558,9 +581,9 @@ public class Campaign implements SdkModel {
 
     /**
      * Sets the device filter from a Json string.
-     * 
+     *
      * @see FilterMarshaller#fromJson(String)
-     * 
+     *
      * @param jsonString
      *            Json string defining the device filter to set
      */
@@ -570,9 +593,9 @@ public class Campaign implements SdkModel {
 
     /**
      * Gets the device filter as Json String.
-     * 
+     *
      * @see FilterMarshaller#toJson(Filters)
-     * 
+     *
      * @return the filters as a Json string
      */
     public String retrieveDeviceFilterAsJson() {
@@ -895,6 +918,18 @@ public class Campaign implements SdkModel {
         addDeviceFilter(FILTER_HOST_GATEWAY, operator, hostGateway);
     }
 
+    /**
+     * Adds a device filter based on phase type field.
+     *
+     * @param phaseFilter
+     *            filter on phase to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addPhaseFilter(String phaseFilter, FilterOperator operator) {
+        addDeviceFilter(FILTER_PHASE, operator, phaseFilter);
+    }
+
     private void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {
         addDeviceFilter(new Filter(fieldName, operator, value));
     }
@@ -918,8 +953,8 @@ public class Campaign implements SdkModel {
      */
     @Override
     public Campaign clone() {
-        return new Campaign(id, state, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name, description,
-                manifestId, scheduledAt, deviceFilter);
+        return new Campaign(id, state, phase, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name,
+                description, manifestId, scheduledAt, deviceFilter);
     }
 
     /**
@@ -939,10 +974,10 @@ public class Campaign implements SdkModel {
      */
     @Override
     public String toString() {
-        return "Campaign [id=" + id + ", state=" + state + ", manifestUrl=" + manifestUrl + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + ", startedAt=" + startedAt + ", finishedAt=" + finishedAt + ", name="
-                + name + ", description=" + description + ", manifestId=" + manifestId + ", scheduledAt=" + scheduledAt
-                + ", deviceFilter=" + deviceFilter + "]";
+        return "Campaign [id=" + id + ", phase=" + phase + ", state=" + state + ", manifestUrl=" + manifestUrl
+                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startedAt=" + startedAt + ", finishedAt="
+                + finishedAt + ", name=" + name + ", description=" + description + ", manifestId=" + manifestId
+                + ", scheduledAt=" + scheduledAt + ", deviceFilter=" + deviceFilter + "]";
     }
 
 }

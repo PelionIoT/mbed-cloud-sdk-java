@@ -40,10 +40,10 @@ public class PreSharedKeyWithoutSecret implements Serializable {
   }
 
    /**
-   * Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.
+   * The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.
    * @return endpointName
   **/
-  @ApiModelProperty(example = "myEndpoint", required = true, value = "Endpoint name is the unique ID of the pre-shared key. 16-64 printable (non-control) ASCII characters.")
+  @ApiModelProperty(example = "myEndpoint.host.com", required = true, value = "The unique endpoint identifier that this pre-shared key applies to. 16-64 [printable](https://en.wikipedia.org/wiki/ASCII#Printable_characters) (non-control) ASCII characters.")
   public String getEndpointName() {
     return endpointName;
   }
