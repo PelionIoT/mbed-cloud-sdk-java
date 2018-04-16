@@ -74,12 +74,12 @@ public class Bootstrap extends AbstractApi {
      *             if an error occurred during the process
      */
     @API
-    public boolean checkIfThePreSharedKeyExists(@NonNull PreSharedKey key) throws MbedCloudException {
+    public boolean checkIfPreSharedKeyExists(@NonNull PreSharedKey key) throws MbedCloudException {
         checkNotNull(key, TAG_KEY);
         checkModelValidity(key, TAG_KEY);
         final PreSharedKey finalkey = key;
         try {
-            CloudCaller.call(this, "checkIfThePreSharedKeyExists()", null, new CloudCall<Void>() {
+            CloudCaller.call(this, "checkIfPreSharedKeyExists()", null, new CloudCall<Void>() {
 
                 @Override
                 public Call<Void> call() {
