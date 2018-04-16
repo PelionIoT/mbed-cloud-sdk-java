@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
 
 import retrofit2.Call;
 
@@ -79,12 +80,11 @@ public class Bootstrap extends AbstractApi {
         checkModelValidity(key, TAG_KEY);
         final PreSharedKey finalkey = key;
         try {
-            CloudCaller.call(this, "checkIfPreSharedKeyExists()", null, new CloudCall<Void>() {
+            CloudCaller.call(this, "checkIfPreSharedKeyExists()", null, new CloudCall<PreSharedKeyWithoutSecret>() {
 
                 @Override
-                public Call<Void> call() {
-                    endpoint.getPresharedKeys().getPreSharedKey(finalkey.getId());
-                    return null;
+                public Call<PreSharedKeyWithoutSecret> call() {
+                    return endpoint.getPresharedKeys().getPreSharedKey(finalkey.getId());
                 }
             }, true);
             return true;
