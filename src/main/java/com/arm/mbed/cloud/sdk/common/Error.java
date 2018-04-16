@@ -1,12 +1,18 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Serializable;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Error object sent back from Arm Mbed Cloud in case of errors")
-public class Error {
+public class Error implements SdkModel {
 
+    private static final String DEFAULT_OBJECT = "error";
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = 8022558248605031676L;
     private String object;
     private int code;
     private String type;
@@ -25,8 +31,8 @@ public class Error {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Error()} instead.
-     * 
-     * 
+     *
+     *
      * @param code
      *            code.
      * @param type
@@ -37,14 +43,14 @@ public class Error {
      *            requestId.
      */
     public Error(int code, String type, String message, String requestId) {
-        this(null, code, type, message, requestId, null);
+        this(DEFAULT_OBJECT, code, type, message, requestId, null);
     }
 
     /**
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Error()} instead.
-     * 
+     *
      * @param object
      *            object.
      * @param code
@@ -71,7 +77,7 @@ public class Error {
 
     /**
      * Gets the object.
-     * 
+     *
      * @return the object
      */
     public String getObject() {
@@ -80,7 +86,7 @@ public class Error {
 
     /**
      * Sets the object.
-     * 
+     *
      * @param object
      *            the object to set
      */
@@ -90,7 +96,7 @@ public class Error {
 
     /**
      * Gets the error code.
-     * 
+     *
      * @return the code
      */
     public int getCode() {
@@ -99,7 +105,7 @@ public class Error {
 
     /**
      * Sets the error code.
-     * 
+     *
      * @param code
      *            the code to set
      */
@@ -109,7 +115,7 @@ public class Error {
 
     /**
      * Gets the error type.
-     * 
+     *
      * @return the type
      */
     public String getType() {
@@ -118,7 +124,7 @@ public class Error {
 
     /**
      * Sets the error type.
-     * 
+     *
      * @param type
      *            the type to set
      */
@@ -128,7 +134,7 @@ public class Error {
 
     /**
      * Gets the error message.
-     * 
+     *
      * @return the message
      */
     public String getMessage() {
@@ -137,7 +143,7 @@ public class Error {
 
     /**
      * Sets the error message.
-     * 
+     *
      * @param message
      *            the message to set
      */
@@ -147,7 +153,7 @@ public class Error {
 
     /**
      * Gets the request id.
-     * 
+     *
      * @return the request_id
      */
     public String getRequestId() {
@@ -156,7 +162,7 @@ public class Error {
 
     /**
      * Sets the request id.
-     * 
+     *
      * @param requestId
      *            the request_id to set
      */
@@ -166,7 +172,7 @@ public class Error {
 
     /**
      * Gets all the fields containing errors.
-     * 
+     *
      * @return the fields
      */
     public List<Field> getFields() {
@@ -175,7 +181,7 @@ public class Error {
 
     /**
      * Sets all the fields containing errors.
-     * 
+     *
      * @param fields
      *            the fields to set
      */
@@ -185,7 +191,7 @@ public class Error {
 
     /**
      * toString.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -196,15 +202,43 @@ public class Error {
 
     /**
      * Generates a pretty string representation.
-     * 
+     *
      * @return string representation of the error.
      */
     public String toPrettyString() {
         return type + " (" + requestId + "). Status code: " + code + ". Object: " + object + ". Message: " + message;
     }
 
+    /**
+     * Clones the error.
+     */
+    @Override
+    public Error clone() {
+        return new Error(object, code, type, message, requestId, fields);
+    }
+
+    /**
+     * Checks whether the error is valid or not.
+     */
+    @Override
+    public boolean isValid() {
+        return getCode() != 0;
+    }
+
+    /**
+     * Gets error id.
+     */
+    @Override
+    public String getId() {
+        return getCode() + "-" + getRequestId();
+    }
+
     @Preamble(description = "Request field in which there is an error")
-    public static class Field {
+    public static class Field implements Serializable {
+        /**
+         * Serialisation id.
+         */
+        private static final long serialVersionUID = -3457278683653766424L;
         private String name;
         private String message;
 
@@ -219,7 +253,7 @@ public class Error {
 
         /**
          * Gets field name.
-         * 
+         *
          * @return the name
          */
         public String getName() {
@@ -228,7 +262,7 @@ public class Error {
 
         /**
          * Sets field name.
-         * 
+         *
          * @param name
          *            the name to set
          */
@@ -238,7 +272,7 @@ public class Error {
 
         /**
          * Gets field message.
-         * 
+         *
          * @return the message
          */
         public String getMessage() {
@@ -247,7 +281,7 @@ public class Error {
 
         /**
          * Sets field message.
-         * 
+         *
          * @param message
          *            the message to set
          */
@@ -257,7 +291,7 @@ public class Error {
 
         /**
          * toString.
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override

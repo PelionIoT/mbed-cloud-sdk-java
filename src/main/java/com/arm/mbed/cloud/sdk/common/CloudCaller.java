@@ -12,7 +12,6 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 
 import okhttp3.Headers;
 import okhttp3.Request;
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
@@ -20,6 +19,7 @@ import retrofit2.Response;
 @Internal
 public class CloudCaller<T, U> {
 
+    protected static final String REQUEST_ID_HEADER = "X-Request-ID";
     private final CloudCall<T> caller;
     private final Mapper<T, U> mapper;
     private final SdkLogger logger;
@@ -235,11 +235,12 @@ public class CloudCaller<T, U> {
             if (response.code() == 404 && !throwExceptionOnNotFound) {
                 return;
             }
-            final Error error = retrieveErrorDetails(response);
+            final String errorMessage = retrieveErrorMessageFromBody(response);
+            final Error error = retrieveErrorDetails(errorMessage, response);
             if (comms != null) {
                 comms.setErrorMessage(error);
             }
-            final String errorMessage = retrieveErrorMessage(response);
+
             logger.throwSdkException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
                     error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
@@ -247,7 +248,7 @@ public class CloudCaller<T, U> {
         }
     }
 
-    private String retrieveErrorMessage(Response<T> response) {
+    protected static <T> String retrieveErrorMessageFromBody(Response<T> response) {
         String errorMessage = null;
         try {
             errorMessage = response.errorBody().string();
@@ -257,31 +258,35 @@ public class CloudCaller<T, U> {
         return errorMessage;
     }
 
-    private Error retrieveErrorDetails(Response<T> response) {
+    protected static <T> Error retrieveErrorDetails(String errorMessageFromBody, Response<T> response) {
         Error error = null;
         try {
-            error = ErrorJsonConverter.INSTANCE.convert(response.errorBody());
+            error = ErrorJsonConverter.INSTANCE.convert(errorMessageFromBody);
         } catch (Exception exception) {
             // Nothing to do
         }
         if (error == null) {
-            error = generateErrorFromResponse(response);
+            error = generateErrorFromResponse(errorMessageFromBody, response);
         }
         return error;
     }
 
-    private Error generateErrorFromResponse(Response<T> response) {
-        final String messageFromBody = retrieveErrorMessage(response);
+    private static <T> Error generateErrorFromResponse(String errorMessageFromBody, Response<T> response) {
         final StringBuilder errorMessageBuilder = new StringBuilder();
         errorMessageBuilder.append(response.message());
-        if (messageFromBody != null && !messageFromBody.isEmpty()) {
-            errorMessageBuilder.append(": ").append(messageFromBody);
+        if (errorMessageFromBody != null && !errorMessageFromBody.isEmpty()) {
+            errorMessageBuilder.append(": ").append(errorMessageFromBody);
         }
         return new Error(response.code(), "Mbed Cloud call", errorMessageBuilder.toString(),
-                fetchRequestUrlString(response));
+                retrieveRequestId(response));
     }
 
-    private String fetchRequestUrlString(Response<T> response) {
+    public static <T> String retrieveRequestId(Response<T> response) {
+        String requestId = response.headers().get(REQUEST_ID_HEADER);
+        return (requestId == null || requestId.isEmpty()) ? fetchRequestUrlString(response) : requestId;
+    }
+
+    private static <T> String fetchRequestUrlString(Response<T> response) {
         final URL url = fetchRequestUrl(fetchRequest(response));
         return (url == null) ? null : url.toString();
     }
@@ -297,16 +302,38 @@ public class CloudCaller<T, U> {
         return response.raw().request();
     }
 
-    private static class ErrorJsonConverter {
+    protected static class ErrorJsonConverter {
         private final JsonSerialiser jsonSerialiser = new JsonSerialiser();
         public static final ErrorJsonConverter INSTANCE = new ErrorJsonConverter();
 
-        private Error convert(ResponseBody value) {
-            if (value == null) {
+        public Error convert(String body) {
+            if (body == null) {
                 return null;
             }
-            return jsonSerialiser.fromJson(value.charStream(), Error.class);
+            return jsonSerialiser.fromJson(body, ErrorHack.class).getError();
 
+        }
+    }
+
+    /**
+     * Workaroud to handle the fact that request id is snake case.
+     */
+    private static class ErrorHack extends Error {
+        /**
+         * Serialisation Id.
+         */
+        private static final long serialVersionUID = 4818490051889482443L;
+        private String request_id;
+
+        /**
+         * Gets the underlying error.
+         *
+         * @return the underlying error.
+         */
+        public Error getError() {
+            Error error = clone();
+            error.setRequestId(request_id);
+            return error;
         }
     }
 
