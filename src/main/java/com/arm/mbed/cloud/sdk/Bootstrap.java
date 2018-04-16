@@ -103,9 +103,9 @@ public class Bootstrap extends AbstractApi {
      *             if an error occurred during the process
      */
     @API
-    public boolean checkIfThePreSharedKeyExists(@NonNull String key) throws MbedCloudException {
+    public boolean checkIfPreSharedKeyExists(@NonNull String key) throws MbedCloudException {
         checkNotNull(key, TAG_KEY_ID);
-        return checkIfThePreSharedKeyExists(new PreSharedKey(key));
+        return checkIfPreSharedKeyExists(new PreSharedKey(key));
     }
 
     /**
