@@ -86,7 +86,7 @@ public class ApiMetadata {
 
     /**
      * Gets the date.
-     * 
+     *
      * @return the date
      */
     public Date getDate() {
@@ -95,21 +95,28 @@ public class ApiMetadata {
 
     /**
      * Sets the date from a string representation.
-     * 
+     *
      * @param dateString
      *            the date to set
      * @throws MbedCloudException
      *             if string cannot be interpreted as a date
      */
-    public synchronized void setDateFromString(String dateString) throws MbedCloudException {
+    public void setDateFromString(String dateString) throws MbedCloudException {
+        if (dateString == null || dateString.isEmpty()) {
+            throw new MbedCloudException("Error occurred when parsing timestamp as it is missing.");
+        }
         final DateFormat format = REQUEST_DATE_FORMAT;
         format.setLenient(true);
-        setDate(TranslationUtils.convertTimestamp(dateString, format));
+        final Date requestDate = TranslationUtils.convertTimestamp(dateString, format);
+        if (requestDate == null) {
+            throw new MbedCloudException("Error occurred when parsing timestamp [" + dateString + "]");
+        }
+        setDate(requestDate);
     }
 
     /**
      * Sets the date.
-     * 
+     *
      * @param date
      *            the date to set
      */
@@ -119,7 +126,7 @@ public class ApiMetadata {
 
     /**
      * Gets the HTTP headers.
-     * 
+     *
      * @return the headers
      */
     public Map<String, List<String>> getHeaders() {
@@ -128,7 +135,7 @@ public class ApiMetadata {
 
     /**
      * Sets the HTTP headers.
-     * 
+     *
      * @param headers
      *            the headers to set
      */
@@ -138,7 +145,7 @@ public class ApiMetadata {
 
     /**
      * Gets the URL used.
-     * 
+     *
      * @return the url
      */
     public URL getUrl() {
@@ -147,7 +154,7 @@ public class ApiMetadata {
 
     /**
      * Sets the URL.
-     * 
+     *
      * @param url
      *            the url to set
      */
@@ -157,7 +164,7 @@ public class ApiMetadata {
 
     /**
      * Gets the method name.
-     * 
+     *
      * @return the method
      */
     public String getMethod() {
@@ -166,7 +173,7 @@ public class ApiMetadata {
 
     /**
      * Sets the method name.
-     * 
+     *
      * @param method
      *            the method to set
      */
@@ -176,7 +183,7 @@ public class ApiMetadata {
 
     /**
      * Gets the status code.
-     * 
+     *
      * @return the statusCode
      */
     public int getStatusCode() {
@@ -185,7 +192,7 @@ public class ApiMetadata {
 
     /**
      * Sets the status code.
-     * 
+     *
      * @param statusCode
      *            the statusCode to set
      */
@@ -195,7 +202,7 @@ public class ApiMetadata {
 
     /**
      * Gets the request id.
-     * 
+     *
      * @return the requestId
      */
     public String getRequestId() {
@@ -204,7 +211,7 @@ public class ApiMetadata {
 
     /**
      * Sets the request id.
-     * 
+     *
      * @param requestId
      *            the requestId to set
      */
@@ -213,8 +220,17 @@ public class ApiMetadata {
     }
 
     /**
+     * Checks whether the meta-data contains the request Id or not.
+     *
+     * @return True if request Id is specified. False otherwise.
+     */
+    public boolean hasRequestId() {
+        return requestId != null && !requestId.isEmpty();
+    }
+
+    /**
      * Gets the object.
-     * 
+     *
      * @return the object
      */
     public Class<?> getObject() {
@@ -223,7 +239,7 @@ public class ApiMetadata {
 
     /**
      * Sets the object.
-     * 
+     *
      * @param object
      *            the object to set
      */
@@ -233,7 +249,7 @@ public class ApiMetadata {
 
     /**
      * Gets the etag.
-     * 
+     *
      * @return the etag
      */
     public String getEtag() {
@@ -242,7 +258,7 @@ public class ApiMetadata {
 
     /**
      * Sets the etag.
-     * 
+     *
      * @param etag
      *            the etag to set
      */
@@ -252,7 +268,7 @@ public class ApiMetadata {
 
     /**
      * Gets error message.
-     * 
+     *
      * @see Error
      * @return the error message
      */
@@ -262,7 +278,7 @@ public class ApiMetadata {
 
     /**
      * Sets error message.
-     * 
+     *
      * @see Error
      * @param errorMessage
      *            the errorMessage to set
@@ -272,8 +288,26 @@ public class ApiMetadata {
     }
 
     /**
+     * Sets error.
+     *
+     * @see Error
+     * @param error
+     *            the errorMessage to set
+     */
+    @Internal
+    public void setError(Error error) {
+        setErrorMessage(error);
+        if (requestId == null && error != null) {
+            setRequestId(error.getRequestId());
+        }
+        if (object == null) {
+            setObject(Error.class);
+        }
+    }
+
+    /**
      * toString.
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -286,7 +320,7 @@ public class ApiMetadata {
 
     /**
      * Generates API metadata.
-     * 
+     *
      * @param method
      *            method name.
      * @param error
