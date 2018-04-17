@@ -18,8 +18,10 @@ import retrofit2.Response;
 @Preamble(description = "Utility in charge of calling Arm Mbed Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
-
+    protected static final String DATE_HEADER = "Date";
+    protected static final String DATE_HEADER_LOWERCASE = "date";
     protected static final String REQUEST_ID_HEADER = "X-Request-ID";
+    protected static final String REQUEST_ID_HEADER_LOWERCASE = "x-request-id";
     private final CloudCall<T> caller;
     private final Mapper<T, U> mapper;
     private final SdkLogger logger;
@@ -230,15 +232,16 @@ public class CloudCaller<T, U> {
             logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
         if (response != null && !response.isSuccessful()) {
-            // In the case of a 404 Not found error, consider that the request result is actually NULL and not
-            // erroneous.
-            if (response.code() == 404 && !throwExceptionOnNotFound) {
-                return;
-            }
+
             final String errorMessage = retrieveErrorMessageFromBody(response);
             final Error error = retrieveErrorDetails(errorMessage, response);
             if (comms != null) {
                 comms.setErrorMessage(error);
+            }
+            // In the case of a 404 Not found error, consider that the request result is actually NULL and not
+            // erroneous.
+            if (response.code() == 404 && !throwExceptionOnNotFound) {
+                return;
             }
 
             logger.throwSdkException(
@@ -282,8 +285,8 @@ public class CloudCaller<T, U> {
     }
 
     public static <T> String retrieveRequestId(Response<T> response) {
-        String requestId = response.headers().get(REQUEST_ID_HEADER);
-        return (requestId == null || requestId.isEmpty()) ? fetchRequestUrlString(response) : requestId;
+        final String requestId = response.headers().get(REQUEST_ID_HEADER);
+        return requestId == null || requestId.isEmpty() ? fetchRequestUrlString(response) : requestId;
     }
 
     private static <T> String fetchRequestUrlString(Response<T> response) {
@@ -318,11 +321,13 @@ public class CloudCaller<T, U> {
     /**
      * Workaroud to handle the fact that request id is snake case.
      */
+    @SuppressWarnings("PMD.DoNotExtendJavaLangError")
     private static class ErrorHack extends Error {
         /**
          * Serialisation Id.
          */
         private static final long serialVersionUID = 4818490051889482443L;
+        @SuppressWarnings({ "checkstyle:membername", "PMD.VariableNamingConventions" })
         private String request_id;
 
         /**
@@ -331,7 +336,7 @@ public class CloudCaller<T, U> {
          * @return the underlying error.
          */
         public Error getError() {
-            Error error = clone();
+            final Error error = clone();
             error.setRequestId(request_id);
             return error;
         }
@@ -434,7 +439,7 @@ public class CloudCaller<T, U> {
          */
         public void setErrorMessage(Error error) {
             if (metadata != null) {
-                metadata.setErrorMessage(error);
+                metadata.setError(error);
             }
         }
 
@@ -454,11 +459,19 @@ public class CloudCaller<T, U> {
             final Headers headers = response.headers();
             if (headers != null) {
                 callMetadata.setHeaders(headers.toMultimap());
-                callMetadata.setRequestId(headers.get("x-request-id"));
+
+                callMetadata.setRequestId(headers.get(REQUEST_ID_HEADER_LOWERCASE));
+                if (!callMetadata.hasRequestId()) {
+                    callMetadata.setRequestId(headers.get(REQUEST_ID_HEADER));
+                }
                 try {
-                    callMetadata.setDateFromString(headers.get("date"));
+                    String dateHeader = headers.get(DATE_HEADER);
+                    if (dateHeader == null) {
+                        dateHeader = headers.get(DATE_HEADER_LOWERCASE);
+                    }
+                    callMetadata.setDateFromString(dateHeader);
                 } catch (Exception exception) {
-                    logger.logError("Error occurred when trying to fetch server date from API metadata", exception);
+                    logger.logWarn("An error occurred when trying to fetch server date from API metadata", exception);
                     callMetadata.setDate(new Date());
                 }
             }

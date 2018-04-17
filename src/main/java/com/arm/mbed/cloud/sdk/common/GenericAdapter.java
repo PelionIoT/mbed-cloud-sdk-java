@@ -30,10 +30,27 @@ public class GenericAdapter {
     }
 
     /**
+     * Gets an Identity mapper.
+     *
+     * @param <T>
+     *            Type of the object to convert from/to.
+     * @return a mapper which maps an object to itself.
+     */
+    public static <T> Mapper<T, T> identityMapper() {
+        return new Mapper<T, T>() {
+
+            @Override
+            public T map(T toBeMapped) {
+                return toBeMapped;
+            }
+        };
+    }
+
+    /**
      * Paginated response from the server.
      * <p>
      * A typical page returned from server when listing objects.
-     * 
+     *
      * @param <U>
      *            type of objects listed
      */
@@ -53,7 +70,7 @@ public class GenericAdapter {
 
     /**
      * Maps a page of objects U into a list of object T.
-     * 
+     *
      * @param respList
      *            page (i.e. paginated response from server)
      * @param mapper
@@ -84,7 +101,7 @@ public class GenericAdapter {
 
     /**
      * Maps a list of objects U into a list of object T.
-     * 
+     *
      * @param list
      *            to map.
      * @param mapper
@@ -104,7 +121,7 @@ public class GenericAdapter {
 
     /**
      * Maps a list of objects U into a list of object T.
-     * 
+     *
      * @param list
      *            to map.
      * @param mappedList
