@@ -2,11 +2,18 @@ package com.arm.mbed.cloud.sdk.bootstrap.adapters;
 
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKey;
 
-public class PreSharedKeyAdapter {
+public final class PreSharedKeyAdapter {
+
+    private PreSharedKeyAdapter() {
+        super();
+
+    }
+
     /**
      * Reverses mapping.
      *
      * @param key
+     *            key.
      * @return a preshared key
      */
     public static com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey reverseMap(PreSharedKey key) {

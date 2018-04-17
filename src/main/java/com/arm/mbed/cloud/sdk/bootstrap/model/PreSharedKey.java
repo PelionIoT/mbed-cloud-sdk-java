@@ -14,12 +14,12 @@ public class PreSharedKey implements SdkModel {
      */
     private static final long serialVersionUID = 2961850962679799165L;
     /**
-     * The unique identifier that this pre-shared key applies to
+     * The unique identifier that this pre-shared key applies to.
      */
     @Required
     private String id;
     /**
-     * The secret of the pre-shared key in hexadecimal
+     * The secret of the pre-shared key in hexadecimal.
      */
     private String secret;
 
@@ -58,7 +58,9 @@ public class PreSharedKey implements SdkModel {
     }
 
     /**
-     * @return the secret
+     * Gets PSK secret.
+     *
+     * @return the secret.
      */
     public String getSecret() {
         return secret;
