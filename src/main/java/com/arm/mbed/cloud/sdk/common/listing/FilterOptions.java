@@ -215,11 +215,23 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "like" filter.
+     * <p>
+     * Note:
+     * <p>
+     * - if the value is not a String or a list/array, then the "like" filter behaves like the "equal" filter. Similar
+     * to {@link #addEqualFilter(String, Object)}
+     * <p>
+     * - if the value is a String, it can be either a substring, a Java Regex or an
+     * <a href="https://www.w3schools.com/sql/sql_like.asp">SQL like entry</a>
+     * <p>
+     * - if the value is a list/array, the filter checks if any element of the list is verified (equivalent of an OR of
+     * LIKE filters).
      *
      * @param fieldName
      *            field name to apply the filter on
      * @param value
      *            the value of the filter
+     *
      */
     public void addLikeFilter(@Nullable String fieldName, @Nullable Object value) {
         addFilter(fieldName, FilterOperator.LIKE, value);

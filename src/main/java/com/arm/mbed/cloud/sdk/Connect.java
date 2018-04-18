@@ -75,6 +75,7 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractApi {
+    private static final String TAG_PRESUBSCRIPTION = "presubscription";
     private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
     private static final String TAG_WEBHOOK = "webhook";
     private static final Filter CONNECTED_DEVICES_FILTER = new Filter("state", FilterOperator.EQUAL,
@@ -98,7 +99,7 @@ public class Connect extends AbstractApi {
      * <p>
      * By default, the executor services in charge are defined and managed internally. It is however possible to specify
      * your own executors @see #Connect(ConnectionOptions, ExecutorService, ExecutorService).
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -111,7 +112,7 @@ public class Connect extends AbstractApi {
      * <p>
      * As opposed to {@link #Connect(ConnectionOptions)} which uses default thread pools for retrieving notifications,
      * this constructor lets you the possibility to specify the executor services to use.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      *
@@ -137,7 +138,7 @@ public class Connect extends AbstractApi {
 
     /**
      * Creates a default thread pool in case none was specified.
-     * 
+     *
      * @return thread pool
      */
     private static ScheduledExecutorService createDefaultDaemonThreadPool() {
@@ -160,13 +161,13 @@ public class Connect extends AbstractApi {
      * default.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * connectApi.startNotifications();
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during the process.
      */
@@ -203,13 +204,13 @@ public class Connect extends AbstractApi {
      * Stops notification pull for notifications.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * connectApi.stopNotifications();
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during the process.
      */
@@ -230,7 +231,7 @@ public class Connect extends AbstractApi {
      * Shuts down all daemon services.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * connectApi.shutdownConnectService();
@@ -248,7 +249,7 @@ public class Connect extends AbstractApi {
      * Lists connected devices (One page).
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -256,7 +257,7 @@ public class Connect extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     ListResponse<Device> devices = connectApi.listConnectedDevices(options);
@@ -268,7 +269,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options
      * @return the list of connected devices (One page).
@@ -284,7 +285,7 @@ public class Connect extends AbstractApi {
      * Gets an iterator over all connected devices according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -292,7 +293,7 @@ public class Connect extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     Paginator<Device> devices = connectApi.listAllDevices(options);
@@ -305,7 +306,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
@@ -328,7 +329,7 @@ public class Connect extends AbstractApi {
      * Lists device's resources.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -344,7 +345,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            Device.
      * @return list of resources present on a device.
@@ -369,11 +370,11 @@ public class Connect extends AbstractApi {
 
     /**
      * Lists device's observable resources.
-     * 
+     *
      * @see Resource#isObservable()
      *      <p>
      *      Example:
-     * 
+     *
      *      <pre>
      * {@code
      * try {
@@ -389,7 +390,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      *      </pre>
-     * 
+     *
      * @param device
      *            Device.
      * @return list of observable resources present on a device.
@@ -415,7 +416,7 @@ public class Connect extends AbstractApi {
      * Gets device's resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -432,7 +433,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            Device.
      * @param resourcePath
@@ -463,7 +464,7 @@ public class Connect extends AbstractApi {
      * Lists a device's subscriptions.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -504,7 +505,7 @@ public class Connect extends AbstractApi {
 
     /**
      * Gets the subscribe module.
-     * 
+     *
      * @return subscribe module.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -519,13 +520,13 @@ public class Connect extends AbstractApi {
      * Lists metrics.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
      *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
-     * 
+     *
      *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
      *     listOptions.setStart(startDate.getTime());
      *     listOptions.setEnd(endDate.getTime());
@@ -544,7 +545,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            metrics options.
      * @param <T>
@@ -584,13 +585,13 @@ public class Connect extends AbstractApi {
      * Gets an iterator over all metrics according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     Calendar startDate = GregorianCalendar(2017,10,30,10,20,56);
      *     Calendar endDate = GregorianCalendar(2017,11,31,10,20,56);
-     * 
+     *
      *     MetricsStartEndListOptions listOptions = new MetricsStartEndListOptions();
      *     listOptions.setStart(startDate.getTime());
      *     listOptions.setEnd(endDate.getTime());
@@ -609,7 +610,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @param <T>
@@ -636,7 +637,7 @@ public class Connect extends AbstractApi {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -650,7 +651,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -675,7 +676,7 @@ public class Connect extends AbstractApi {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -689,7 +690,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -725,15 +726,15 @@ public class Connect extends AbstractApi {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");     
+     *     device.setId("015f4ac587f500000000000100100249");
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = connectApi.getResource(device, resourcePath);
-    
+
      *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource, false, false);
      *     String ledPattern = (String)futureLedPattern.get();
      *     System.out.println("LED pattern from device: " + ledPattern);
@@ -742,7 +743,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to get the value of.
      * @param cacheOnly
@@ -767,15 +768,15 @@ public class Connect extends AbstractApi {
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     Device device = new Device();
-     *     device.setId("015f4ac587f500000000000100100249");     
+     *     device.setId("015f4ac587f500000000000100100249");
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = connectApi.getResource(device, resourcePath);
-    
+
      *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource);
      *     String ledPattern = (String)futureLedPattern.get();
      *     System.out.println("LED pattern from device: " + ledPattern);
@@ -784,7 +785,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to get the value of.
      * @return A Future from which it is possible to obtain resource value.
@@ -804,7 +805,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -817,7 +818,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -846,7 +847,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -859,7 +860,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -895,7 +896,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -909,7 +910,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to get the value of.
      * @param cacheOnly
@@ -937,7 +938,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -951,8 +952,8 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
-     * 
+     *
+     *
      * @param resource
      *            The resource path to get the value of.
      * @param timeout
@@ -972,14 +973,14 @@ public class Connect extends AbstractApi {
      * Sets the value of a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
      *     String resourceValue = "500:500:500";
-     * 
+     *
      *     Future<Object> futureLedPattern = connectApi.setResourceValueAsync(deviceId, resourcePath, resourceValue, false);
      *     String setValue = (String)futureLedPattern.get();
      *     assert setValue == resourceValue;
@@ -988,7 +989,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -1026,7 +1027,7 @@ public class Connect extends AbstractApi {
      * Sets the value of a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1042,7 +1043,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to set the value of.
      * @param resourceValue
@@ -1066,14 +1067,14 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
      *     String resourceValue = "500:500:500";
-     * 
+     *
      *     Object resultObject = connectApi.setResourceValue(deviceId, resourcePath, resourceValue, false, new TimePeriod(5));
      *     String setValue = (String)resultObject;
      *     assert setValue == resourceValue;
@@ -1082,7 +1083,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -1125,7 +1126,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1133,7 +1134,7 @@ public class Connect extends AbstractApi {
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = new Resource(deviceId, resourcePath);
      *     String resourceValue = "500:500:500";
-     * 
+     *
      *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
      *     String setValue = (String)resultObject;
      *     assert setValue == resourceValue;
@@ -1142,7 +1143,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to set the value of.
      * @param resourceValue
@@ -1168,7 +1169,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1176,7 +1177,7 @@ public class Connect extends AbstractApi {
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = new Resource(deviceId, resourcePath);
      *     String resourceValue = "500:500:500";
-     * 
+     *
      *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
      *     String setValue = (String)resultObject;
      *     assert setValue == resourceValue;
@@ -1185,7 +1186,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to set the value of.
      * @param resourceValue
@@ -1206,14 +1207,14 @@ public class Connect extends AbstractApi {
      * Executes a function on a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
      *     String functionName = null;
-     * 
+     *
      *     Future<Object> resultObject = connectApi.executeResourceAsync(deviceId, resourcePath, functionName, false);
      *     String resultValue = (String)resultObject.get();
      *     System.out.println("Result from the function executed: " + resultValue);
@@ -1222,7 +1223,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -1261,7 +1262,7 @@ public class Connect extends AbstractApi {
      * Executes a function on a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1269,7 +1270,7 @@ public class Connect extends AbstractApi {
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = new Resource(deviceId, resourcePath);
      *     String functionName = null;
-     * 
+     *
      *     Future<Object> resultObject = connectApi.executeResourceAsync(resource, functionName, false);
      *     String resultValue = (String)resultObject.get();
      *     System.out.println("Result from the function executed: " + resultValue);
@@ -1278,7 +1279,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource to execute the function on.
      * @param functionName
@@ -1302,14 +1303,14 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3201/0/5853";
      *     String functionName = null;
-     * 
+     *
      *     Object resultObject = connectApi.executeResource(deviceId, resourcePath, functionName, false, new TimePeriod(5));
      *     System.out.println("Result from the function executed: " + (String)resultObject);
      * } catch (MbedCloudException e) {
@@ -1317,7 +1318,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            The name/id of the device.
      * @param resourcePath
@@ -1360,7 +1361,7 @@ public class Connect extends AbstractApi {
      * Note: Waits if necessary for the computation to complete, and then retrieves its result.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1368,7 +1369,7 @@ public class Connect extends AbstractApi {
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = new Resource(deviceId, resourcePath);
      *     String functionName = null;
-     * 
+     *
      *     Object resultObject = connectApi.executeResource(resource, functionName, false, new TimePeriod(5));
      *     System.out.println("Result from the function executed: " + (String)resultObject);
      * } catch (MbedCloudException e) {
@@ -1376,7 +1377,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            The resource path to execute the function on.
      * @param functionName
@@ -1400,7 +1401,7 @@ public class Connect extends AbstractApi {
      * Lists pre-subscription data.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1416,7 +1417,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @return the list of pre-subscription data.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1437,7 +1438,7 @@ public class Connect extends AbstractApi {
      * Updates pre-subscription data.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1460,7 +1461,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param presubscriptions
      *            The pre-subscription list to update.
      *            <p>
@@ -1482,13 +1483,70 @@ public class Connect extends AbstractApi {
         });
     }
 
+    @API
+    public void addPresubscription(@Nullable Presubscription presubscription) throws MbedCloudException {
+        if (presubscription == null) {
+            return;
+        }
+        checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
+        List<Presubscription> presubscriptions = listPresubscriptions();
+        if (presubscriptions == null || presubscriptions.isEmpty()) {
+            presubscriptions = new LinkedList<>();
+        }
+        presubscriptions.add(presubscription);
+        updatePresubscriptions(presubscriptions);
+    }
+
+    @API
+    public @Nullable Presubscription getPresubscription(@Nullable String presubscriptionId) throws MbedCloudException {
+        if (presubscriptionId == null) {
+            return null;
+        }
+        final List<Presubscription> presubscriptions = listPresubscriptions();
+        if (presubscriptions == null || presubscriptions.isEmpty()) {
+            return null;
+        }
+        for (Presubscription presubscription : presubscriptions) {
+            if (presubscription.getId() == presubscriptionId) {
+                return presubscription;
+            }
+        }
+        return null;
+    }
+
+    @API
+    public void deletePresubscription(@Nullable String presubscriptionId) throws MbedCloudException {
+        if (presubscriptionId == null) {
+            return;
+        }
+        final List<Presubscription> presubscriptions = listPresubscriptions();
+        if (presubscriptions == null || presubscriptions.isEmpty()) {
+            return;
+        }
+        final List<Presubscription> updatedList = new LinkedList<>();
+        for (Presubscription presubscription : presubscriptions) {
+            if (presubscription.getId() != presubscriptionId) {
+                updatedList.add(presubscription);
+            }
+        }
+        updatePresubscriptions(updatedList);
+    }
+
+    @API
+    public void deletePresubscription(@Nullable Presubscription presubscription) throws MbedCloudException {
+        if (presubscription == null) {
+            return;
+        }
+        deletePresubscription(presubscription.getId());
+    }
+
     /**
-     * Deletes pre-subscription data.
+     * Deletes all pre-subscription data.
      * <p>
      * Note: this method will deregister all subscription callbacks or observers if any.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1498,7 +1556,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -1525,7 +1583,7 @@ public class Connect extends AbstractApi {
      * have been created.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1535,7 +1593,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -1567,7 +1625,7 @@ public class Connect extends AbstractApi {
      * Note: use {@link #deleteSubscriptions()} instead.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1577,7 +1635,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -1595,7 +1653,7 @@ public class Connect extends AbstractApi {
      * It could be slow for large numbers of connected devices.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1637,7 +1695,7 @@ public class Connect extends AbstractApi {
      * Note: this method will deregister all subscription callbacks or observers for this device if any.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1650,7 +1708,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            Device to consider.
      * @throws MbedCloudException
@@ -1675,14 +1733,14 @@ public class Connect extends AbstractApi {
      * Gets the status of a resource's subscription.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3200/0/5501";
      *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     * 
+     *
      *     boolean subscribed = connectApi.getResourceSubscription(buttonResource);
      *     System.out.println("Is " + deviceId + " subscribed to: " + resourcePath + "? " + (subscribed ? "yes" : "no"));
      * } catch (MbedCloudException e) {
@@ -1696,8 +1754,8 @@ public class Connect extends AbstractApi {
      * @return true if resource is subscribed. false otherwise.
      * @throws MbedCloudException
      *             if a parameter is incorrect
-     * 
-     * 
+     *
+     *
      */
     @API
     public boolean getResourceSubscription(@NonNull Resource resource) throws MbedCloudException {
@@ -1723,14 +1781,14 @@ public class Connect extends AbstractApi {
      * Allows notifications (received from a Webhook) to be injected into the notifications system.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";         
+     *       String resourcePath = "/3200/0/5501";
      *       String payload ="Q2hhbmdlIG1lIQ==";
-     *       
+     *
      *       NotificationData notification = new NotificationData();
      *       notification.setEp(deviceId);
      *       notification.setPath(resourcePath);
@@ -1740,19 +1798,19 @@ public class Connect extends AbstractApi {
      *       Resource resource = new Resource(deviceId, resourcePath);
      *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
      *               .subscribe(new Consumer<Object>() {
-     * 
+     *
      *                   &#64;Override
      *                   public void accept(Object t) throws Exception {
      *                       log("Received notification value", t);
      *                   }
-     *               });    
+     *               });
      *       api.notify(notifications);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param data
      *            The notification data to inject
      */
@@ -1765,32 +1823,32 @@ public class Connect extends AbstractApi {
      * Allows notifications expressed as a JSON string to be injected into the notifications system.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";         
+     *       String resourcePath = "/3200/0/5501";
      *       String payload ="Q2hhbmdlIG1lIQ==";
      *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
      *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
-     *       
+     *
      *       Resource resource = new Resource(deviceId, resourcePath);
      *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
      *               .subscribe(new Consumer<Object>() {
-     * 
+     *
      *                   &#64;Override
      *                   public void accept(Object t) throws Exception {
      *                       log("Received notification value", t);
      *                   }
-     *               });    
+     *               });
      *       api.notify(notifications);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param dataAsJson
      *            The notification data to inject as JSON String.
      */
@@ -1803,33 +1861,33 @@ public class Connect extends AbstractApi {
      * Allows a notification to be injected into the notifications system.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *       String deviceId = "015f4ac587f500000000000100100249";
-     *       String resourcePath = "/3200/0/5501";         
+     *       String resourcePath = "/3200/0/5501";
      *       String payload ="Q2hhbmdlIG1lIQ==";
      *       JSONSerialiser jsonSerialiser = new JSONSerialiser();
      *       String notifications = "{\"async-responses\":[{\"payload\":\"MQ\u003d\u003d\",\"id\":\"sfjasldfjl\"}],\"notifications\""
      *       +":[{\"path\":\"/3200/0/5501\",\"payload\":\"MQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
-     *       
+     *
      *       Resource resource = new Resource(deviceId, resourcePath);
      *       api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
      *               .subscribe(new Consumer<Object>() {
-     * 
+     *
      *                   &#64;Override
      *                   public void accept(Object t) throws Exception {
      *                       log("Received notification value", t);
      *                   }
-     *               });    
+     *               });
      *       api.notify(jsonSerialiser, notifications);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deserialiser
      *            JSON deserialiser to use.
      * @param dataAsJson
@@ -1845,14 +1903,14 @@ public class Connect extends AbstractApi {
      * Subscribes to a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3200/0/5501";
      *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     * 
+     *
      *     connectApi.addResourceSubscription(buttonResource);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -1884,7 +1942,7 @@ public class Connect extends AbstractApi {
      * Subscribes to a resource and associates callbacks.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1892,12 +1950,12 @@ public class Connect extends AbstractApi {
      *     String resourcePath = "/3200/0/5501";
      *     Resource buttonResource = new Resource(deviceId, resourcePath);
      *     Callback<Object> callback = new Callback<Object>() {
-     * 
+     *
      *         &#64;Override
      *         public void execute(Object arg) {
      *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
      *                     + ": " + String.valueOf(arg));
-     * 
+     *
      *         }
      *     };
      *     connectApi.addResourceSubscription(resource,callback, null);
@@ -1930,7 +1988,7 @@ public class Connect extends AbstractApi {
      * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {
      * {@code String resourcePath = "/3200/0/5501";
@@ -1940,7 +1998,7 @@ public class Connect extends AbstractApi {
      *                   .subscribe(System.out::println);
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            resource to subscribe to.
      * @param strategy
@@ -1961,26 +2019,26 @@ public class Connect extends AbstractApi {
      * Registers a subscription callback for a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {
      * {@code String resourcePath = "/3200/0/5501";
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     Resource resource = new Resource(deviceId, path);
      *     Callback<Object> callback = new Callback<Object>() {
-     * 
+     *
      *         &#64;Override
      *         public void execute(Object arg) {
      *             System.out.println("Just received a notification from " + device.getId() + " regarding " + path
      *                     + ": " + String.valueOf(arg));
-     * 
+     *
      *         }
      *     };
      *     connectApi.registerResourceSubscriptionCallback(resource, callback, null);
      *     connectApi.addResourceSubscription(resource);
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            resource to register the callback for.
      * @param onNotification
@@ -2004,9 +2062,9 @@ public class Connect extends AbstractApi {
      * Deregisters the subscription callback of a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
-     * 
+     *
      * {
      *     &#64;code
      *     String resourcePath = "/3200/0/5501";
@@ -2015,7 +2073,7 @@ public class Connect extends AbstractApi {
      *     connectApi.deregisterResourceSubscriptionCallback(resource);
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            resource to consider.
      * @throws MbedCloudException
@@ -2035,7 +2093,7 @@ public class Connect extends AbstractApi {
      * <a href="https://github.com/ReactiveX/RxJava">RxJava</a> *
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {
      * {@code String resourcePath = "/3200/0/5501";
@@ -2046,7 +2104,7 @@ public class Connect extends AbstractApi {
      *     connectApi.addResourceSubscription(resource);
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            resource to subscribe to.
      * @param strategy
@@ -2068,16 +2126,16 @@ public class Connect extends AbstractApi {
      * Removes the subscription observer of a resource.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
-     *      
+     *
      * {@code String resourcePath = "/3200/0/5501"
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     Resource resource = new Resource(deviceId, path);
      *     connectApi.removeResourceSubscriptionObserver(resource);
      * }
      * </pre>
-     * 
+     *
      * @param resource
      *            resource to consider.
      * @throws MbedCloudException
@@ -2094,16 +2152,16 @@ public class Connect extends AbstractApi {
      * Deregisters all subscription observers or callbacks for a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
-     *      
+     *
      * {@code String deviceId = "015f4ac587f500000000000100100249"
      *     Device device = new Device();
      *     device.setId(deviceId);
      *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks(device);
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            device to consider.
      * @throws MbedCloudException
@@ -2121,10 +2179,10 @@ public class Connect extends AbstractApi {
      * Deregisters all subscription observers or callbacks.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
-     *      
-     * {@code 
+     *
+     * {@code
      *     connectApi.deregisterAllResourceSubscriptionObserversOrCallbacks();
      * }
      * </pre>
@@ -2139,16 +2197,16 @@ public class Connect extends AbstractApi {
      * <p>
      * Note: this method will deregister all subscription callbacks or observers for this resource if any.
      * <p>
-     * 
+     *
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     String resourcePath = "/3200/0/5501";
      *     Resource buttonResource = new Resource(deviceId, resourcePath);
-     * 
+     *
      *     connectApi.deleteResourceSubscription(buttonResource);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
@@ -2182,7 +2240,7 @@ public class Connect extends AbstractApi {
      * Gets the current callback URL if it exists.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -2193,7 +2251,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @return the webhook.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -2214,7 +2272,7 @@ public class Connect extends AbstractApi {
      * Registers new webhook for incoming subscriptions.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -2227,7 +2285,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param webhook
      *            Webhook to set.
      * @throws MbedCloudException
@@ -2258,7 +2316,7 @@ public class Connect extends AbstractApi {
      * Note that every registered subscription will be deleted as part of deregistering a webhook.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -2268,7 +2326,7 @@ public class Connect extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
@@ -2285,7 +2343,7 @@ public class Connect extends AbstractApi {
 
     /**
      * States whether any existing notification channel should be cleared before a new one is created.
-     * 
+     *
      * @return True if the channel will be cleared. False otherwise.
      */
     public boolean isForceClear() {
@@ -2294,7 +2352,7 @@ public class Connect extends AbstractApi {
 
     /**
      * Sets whether any existing notification channel should be cleared before a new one is created.
-     * 
+     *
      * @param forceClear
      *            True if the channel will be cleared. False otherwise.
      */
@@ -2307,7 +2365,7 @@ public class Connect extends AbstractApi {
      * <p>
      * Note: to change this behaviour, use {@link ConnectionOptions#setAutostartDaemon(boolean)} when initialising this
      * API.
-     * 
+     *
      * @return true if daemon will be started automatically. False otherwise.
      */
     public boolean isAutostartDaemon() {
@@ -2316,7 +2374,7 @@ public class Connect extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override

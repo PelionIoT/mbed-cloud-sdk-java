@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.model;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -94,13 +95,13 @@ public class Presubscription implements SdkModel {
 
     /**
      * Gets presubscription Id.
-     * 
+     *
      * @return presubscription id.
      */
     @Internal
     @Override
     public String getId() {
-        return getDeviceId();
+        return String.valueOf(hashCode());
     }
 
     /**
@@ -142,6 +143,51 @@ public class Presubscription implements SdkModel {
     }
 
     /**
+     * Adds a resource path to subscribe to.
+     *
+     * @param resourcePath
+     *            path to subscribe to.
+     */
+    public void addResourcePath(String resourcePath) {
+        if (resourcePath == null || resourcePath.isEmpty()) {
+            return;
+        }
+        if (resourcePaths == null) {
+            setResourcePaths(new LinkedList<>());
+        }
+        resourcePaths.add(resourcePath);
+    }
+
+    /**
+     * Adds a resource to subscribe to.
+     *
+     * @param resource
+     *            resource to subscribe to.
+     */
+    public void addResource(Resource resource) {
+        if (resource == null || !resource.isValid()) {
+            return;
+        }
+        addResourcePath(resource.getPath());
+        setDeviceId(resource.getDeviceId());
+    }
+
+    /**
+     * Sets resources to subscribe to.
+     *
+     * @param resources
+     *            the resources to set
+     */
+    public void setResources(List<Resource> resources) {
+        if (resources == null) {
+            return;
+        }
+        for (final Resource resource : resources) {
+            addResource(resource);
+        }
+    }
+
+    /**
      * Gets a clone.
      *
      * @return a clone
@@ -160,7 +206,7 @@ public class Presubscription implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return deviceId != null || resourcePaths != null || deviceType != null;
     }
 
     private static List<String> getResourcePath(Resource resource) {
@@ -181,6 +227,62 @@ public class Presubscription implements SdkModel {
     public String toString() {
         return "Presubscription [deviceId=" + deviceId + ", deviceType=" + deviceType + ", resourcePaths="
                 + resourcePaths + "]";
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((deviceId == null) ? 0 : deviceId.hashCode());
+        result = prime * result + ((deviceType == null) ? 0 : deviceType.hashCode());
+        result = prime * result + ((resourcePaths == null) ? 0 : resourcePaths.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Presubscription other = (Presubscription) obj;
+        if (deviceId == null) {
+            if (other.deviceId != null) {
+                return false;
+            }
+        } else if (!deviceId.equals(other.deviceId)) {
+            return false;
+        }
+        if (deviceType == null) {
+            if (other.deviceType != null) {
+                return false;
+            }
+        } else if (!deviceType.equals(other.deviceType)) {
+            return false;
+        }
+        if (resourcePaths == null) {
+            if (other.resourcePaths != null) {
+                return false;
+            }
+        } else if (!resourcePaths.equals(other.resourcePaths)) {
+            return false;
+        }
+        return true;
     }
 
 }
