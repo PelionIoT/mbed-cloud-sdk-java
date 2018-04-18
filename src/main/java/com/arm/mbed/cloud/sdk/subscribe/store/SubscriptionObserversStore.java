@@ -37,6 +37,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         this.scheduler = scheduler;
         store = new HashMap<>(3);
         store.put(SubscriptionType.DEVICE_STATE_CHANGE, new DeviceStateChangeSubscriptionObserverStore(this.scheduler));
+        store.put(SubscriptionType.NOTIFICATION, new ResourceValueChangeSubscriptionObserverStore(this.scheduler));
     }
 
     @Override
