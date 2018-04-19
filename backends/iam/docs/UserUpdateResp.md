@@ -28,7 +28,7 @@ Name | Type | Description | Notes
 **totpScratchCodes** | **List&lt;String&gt;** | A list of scratch codes for the 2-factor authentication. Visible only when 2FA is requested to be enabled or the codes regenerated. |  [optional]
 **totpSecret** | **String** | Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled. |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
-**userProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | User&#39;s account specific custom properties. |  [optional]
+**userProperties** | **Map&lt;String, String&gt;** | User&#39;s account specific custom properties. The value is a valid Json. |  [optional]
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. |  [optional]
 
 

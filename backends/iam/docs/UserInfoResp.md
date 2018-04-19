@@ -25,7 +25,7 @@ Name | Type | Description | Notes
 **phoneNumber** | **String** | Phone number. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | The status of the user. ENROLLING state indicates that the user is in the middle of the enrollment process. INVITED means that the user has not accepted the invitation request. RESET means that the password must be changed immediately. INACTIVE users are locked out and not permitted to use the system. | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
-**userProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | User&#39;s account specific custom properties. |  [optional]
+**userProperties** | **Map&lt;String, String&gt;** | User&#39;s account specific custom properties. The value is a valid Json. |  [optional]
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. |  [optional]
 
 

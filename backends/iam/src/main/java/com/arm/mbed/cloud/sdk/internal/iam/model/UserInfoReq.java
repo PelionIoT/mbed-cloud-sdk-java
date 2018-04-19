@@ -61,7 +61,7 @@ public class UserInfoReq implements Serializable {
   private String phoneNumber = null;
 
   @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
+  private Map<String, String> userProperties = null;
 
   @SerializedName("username")
   private String username = null;
@@ -218,29 +218,29 @@ public class UserInfoReq implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public UserInfoReq userProperties(Map<String, Map<String, String>> userProperties) {
+  public UserInfoReq userProperties(Map<String, String> userProperties) {
     this.userProperties = userProperties;
     return this;
   }
 
-  public UserInfoReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
+  public UserInfoReq putUserPropertiesItem(String key, String userPropertiesItem) {
     if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
+      this.userProperties = new HashMap<String, String>();
     }
     this.userProperties.put(key, userPropertiesItem);
     return this;
   }
 
    /**
-   * User&#39;s account specific custom properties.
+   * User&#39;s account specific custom properties. The value must be a valid Json.
    * @return userProperties
   **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
+  @ApiModelProperty(value = "User's account specific custom properties. The value must be a valid Json.")
+  public Map<String, String> getUserProperties() {
     return userProperties;
   }
 
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
+  public void setUserProperties(Map<String, String> userProperties) {
     this.userProperties = userProperties;
   }
 
