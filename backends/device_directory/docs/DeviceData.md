@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountId** | **String** | The ID of the associated account. |  [optional]
 **autoUpdate** | **Boolean** | DEPRECATED: Mark this device for automatic firmware update. |  [optional]
-**bootstrapExpirationDate** | [**DateTime**](DateTime.md) | The expiration date of the certificate used to connect to bootstrap server. |  [optional]
+**bootstrapExpirationDate** | [**LocalDate**](LocalDate.md) | The expiration date of the certificate used to connect to bootstrap server. |  [optional]
 **bootstrappedTimestamp** | [**DateTime**](DateTime.md) | The timestamp of the device&#39;s most recent bootstrap process. |  [optional]
 **caId** | **String** | The certificate issuer&#39;s ID. |  [optional]
-**connectorExpirationDate** | [**DateTime**](DateTime.md) | The expiration date of the certificate used to connect to LWM2M server. |  [optional]
+**connectorExpirationDate** | [**LocalDate**](LocalDate.md) | The expiration date of the certificate used to connect to LWM2M server. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The timestamp of when the device was created in the device directory. |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. |  [optional]
 **deployedState** | [**DeployedStateEnum**](#DeployedStateEnum) | DEPRECATED: The state of the device&#39;s deployment. |  [optional]

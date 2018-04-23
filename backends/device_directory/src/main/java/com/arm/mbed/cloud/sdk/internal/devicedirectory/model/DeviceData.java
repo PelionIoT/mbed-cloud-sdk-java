@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 /**
@@ -42,7 +43,7 @@ public class DeviceData implements Serializable {
   private Boolean autoUpdate = null;
 
   @SerializedName("bootstrap_expiration_date")
-  private DateTime bootstrapExpirationDate = null;
+  private LocalDate bootstrapExpirationDate = null;
 
   @SerializedName("bootstrapped_timestamp")
   private DateTime bootstrappedTimestamp = null;
@@ -51,7 +52,7 @@ public class DeviceData implements Serializable {
   private String caId = null;
 
   @SerializedName("connector_expiration_date")
-  private DateTime connectorExpirationDate = null;
+  private LocalDate connectorExpirationDate = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
@@ -311,7 +312,7 @@ public class DeviceData implements Serializable {
     this.autoUpdate = autoUpdate;
   }
 
-  public DeviceData bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+  public DeviceData bootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
     return this;
   }
@@ -321,11 +322,11 @@ public class DeviceData implements Serializable {
    * @return bootstrapExpirationDate
   **/
   @ApiModelProperty(value = "The expiration date of the certificate used to connect to bootstrap server.")
-  public DateTime getBootstrapExpirationDate() {
+  public LocalDate getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
 
-  public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+  public void setBootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
   }
 
@@ -365,7 +366,7 @@ public class DeviceData implements Serializable {
     this.caId = caId;
   }
 
-  public DeviceData connectorExpirationDate(DateTime connectorExpirationDate) {
+  public DeviceData connectorExpirationDate(LocalDate connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
     return this;
   }
@@ -375,11 +376,11 @@ public class DeviceData implements Serializable {
    * @return connectorExpirationDate
   **/
   @ApiModelProperty(value = "The expiration date of the certificate used to connect to LWM2M server.")
-  public DateTime getConnectorExpirationDate() {
+  public LocalDate getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
 
-  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+  public void setConnectorExpirationDate(LocalDate connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
   }
 
