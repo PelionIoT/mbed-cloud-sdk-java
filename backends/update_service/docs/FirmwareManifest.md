@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**DateTime**](DateTime.md) | The time the object was created | 
 **datafile** | **String** | The URL of the firmware manifest binary | 
-**datafileSize** | **Long** | Size of the datafile in bytes |  [optional]
+**datafileSize** | **Long** | The size of the datafile in bytes |  [optional]
 **description** | **String** | The description of the firmware manifest | 
 **deviceClass** | **String** | The class of the device | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature | 

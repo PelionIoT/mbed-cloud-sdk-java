@@ -167,7 +167,7 @@ public class UpdateCampaign implements Serializable {
    * The time the update campaign was created
    * @return createdAt
   **/
-  @ApiModelProperty(value = "The time the update campaign was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the update campaign was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -182,10 +182,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The optional description of the campaign
+   * An optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(example = "", value = "The optional description of the campaign")
+  @ApiModelProperty(example = "", value = "An optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -200,10 +200,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The filter for the devices the campaign will target
+   * The filter for the devices the campaign is targeting at
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign is targeting at")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -239,7 +239,7 @@ public class UpdateCampaign implements Serializable {
    * The campaign finish timestamp
    * @return finished
   **/
-  @ApiModelProperty(value = "The campaign finish timestamp")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The campaign finish timestamp")
   public DateTime getFinished() {
     return finished;
   }
@@ -356,7 +356,7 @@ public class UpdateCampaign implements Serializable {
    * Get startedAt
    * @return startedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getStartedAt() {
     return startedAt;
   }
@@ -392,7 +392,7 @@ public class UpdateCampaign implements Serializable {
    * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "The time the object was updated")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -407,10 +407,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The scheduled start time for the update campaign
+   * The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
    * @return when
   **/
-  @ApiModelProperty(value = "The scheduled start time for the update campaign")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.")
   public DateTime getWhen() {
     return when;
   }

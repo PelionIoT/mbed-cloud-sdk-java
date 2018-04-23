@@ -59,7 +59,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -77,7 +77,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get etag
    * @return etag
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getEtag() {
     return etag;
   }
@@ -95,7 +95,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get finished
    * @return finished
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getFinished() {
     return finished;
   }
@@ -113,7 +113,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get startedAt
    * @return startedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getStartedAt() {
     return startedAt;
   }
@@ -131,7 +131,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -149,7 +149,7 @@ public class UpdateCampaignGteLteFilter implements Serializable {
    * Get when
    * @return when
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getWhen() {
     return when;
   }

@@ -309,10 +309,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * Entity name: always &#39;update-campaign-device-metadata&#39;
+   * The entity name: always &#39;update-campaign-device-metadata&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "update-campaign-device-metadata", value = "Entity name: always 'update-campaign-device-metadata'")
+  @ApiModelProperty(example = "update-campaign-device-metadata", value = "The entity name: always 'update-campaign-device-metadata'")
   public String getObject() {
     return object;
   }
@@ -327,10 +327,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * This time this record was modified in the database format: date-time
+   * The record was modified in the database format: date-time
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:58.776736Z", value = "This time this record was modified in the database format: date-time")
+  @ApiModelProperty(example = "2017-05-22T12:37:58.776736Z", value = "The record was modified in the database format: date-time")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

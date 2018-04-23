@@ -71,7 +71,7 @@ public class FirmwareManifestEqNeqFilter implements Serializable {
    * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -161,7 +161,7 @@ public class FirmwareManifestEqNeqFilter implements Serializable {
    * Get etag
    * @return etag
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getEtag() {
     return etag;
   }
@@ -215,7 +215,7 @@ public class FirmwareManifestEqNeqFilter implements Serializable {
    * Get timestamp
    * @return timestamp
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getTimestamp() {
     return timestamp;
   }
@@ -233,7 +233,7 @@ public class FirmwareManifestEqNeqFilter implements Serializable {
    * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

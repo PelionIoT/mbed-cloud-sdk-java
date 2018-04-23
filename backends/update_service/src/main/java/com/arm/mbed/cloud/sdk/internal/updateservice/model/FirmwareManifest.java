@@ -77,7 +77,7 @@ public class FirmwareManifest implements Serializable {
    * The time the object was created
    * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The time the object was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -110,10 +110,10 @@ public class FirmwareManifest implements Serializable {
   }
 
    /**
-   * Size of the datafile in bytes
+   * The size of the datafile in bytes
    * @return datafileSize
   **/
-  @ApiModelProperty(value = "Size of the datafile in bytes")
+  @ApiModelProperty(value = "The size of the datafile in bytes")
   public Long getDatafileSize() {
     return datafileSize;
   }
@@ -167,7 +167,7 @@ public class FirmwareManifest implements Serializable {
    * The entity instance signature
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "The entity instance signature")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The entity instance signature")
   public DateTime getEtag() {
     return etag;
   }
@@ -257,7 +257,7 @@ public class FirmwareManifest implements Serializable {
    * The firmware manifest version as a timestamp
    * @return timestamp
   **/
-  @ApiModelProperty(required = true, value = "The firmware manifest version as a timestamp")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The firmware manifest version as a timestamp")
   public DateTime getTimestamp() {
     return timestamp;
   }
@@ -275,7 +275,7 @@ public class FirmwareManifest implements Serializable {
    * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was updated")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

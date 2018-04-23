@@ -152,10 +152,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Flag indicating whether there are more results
+   * A flag indicating whether there are more results
    * @return hasMore
   **/
-  @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
+  @ApiModelProperty(example = "false", value = "A flag indicating whether there are more results")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -188,10 +188,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Entity name: always &#39;list&#39;
+   * The entity name: always &#39;list&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "list", value = "Entity name: always 'list'")
+  @ApiModelProperty(example = "list", value = "The entity name: always 'list'")
   public String getObject() {
     return object;
   }
@@ -224,10 +224,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The total number or records, if requested. It might be returned also for small lists.
+   * The total number or records, if requested. It may be returned also for small lists.
    * @return totalCount
   **/
-  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It might be returned also for small lists.")
+  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It may be returned also for small lists.")
   public Integer getTotalCount() {
     return totalCount;
   }

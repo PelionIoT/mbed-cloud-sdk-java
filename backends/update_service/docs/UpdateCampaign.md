@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**DateTime**](DateTime.md) | The time the update campaign was created |  [optional]
-**description** | **String** | The optional description of the campaign |  [optional]
-**deviceFilter** | **String** | The filter for the devices the campaign will target |  [optional]
+**description** | **String** | An optional description of the campaign |  [optional]
+**deviceFilter** | **String** | The filter for the devices the campaign is targeting at |  [optional]
 **etag** | **String** | The entity instance signature |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
 **id** | **String** | The campaign ID |  [optional]
@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
-**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign |  [optional]
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed. |  [optional]
 
 
 <a name="StateEnum"></a>

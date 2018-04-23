@@ -5,12 +5,12 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **String** | An optional description of the campaign | 
-**deviceFilter** | **String** | The filter for the devices the campaign will target | 
+**deviceFilter** | **String** | The filter for the devices the campaign is targeting at | 
 **name** | **String** | The campaign&#39;s name | 
 **object** | **String** | The API resource entity | 
 **rootManifestId** | **String** |  | 
 **state** | [**StateEnum**](#StateEnum) | The state of the campaign | 
-**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign | 
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign. Not in use. | 
 
 
 <a name="StateEnum"></a>

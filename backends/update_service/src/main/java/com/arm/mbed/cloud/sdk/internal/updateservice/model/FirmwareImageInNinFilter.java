@@ -68,7 +68,7 @@ public class FirmwareImageInNinFilter implements Serializable {
    * Get createdAt
    * @return createdAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -158,7 +158,7 @@ public class FirmwareImageInNinFilter implements Serializable {
    * Get etag
    * @return etag
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getEtag() {
     return etag;
   }
@@ -212,7 +212,7 @@ public class FirmwareImageInNinFilter implements Serializable {
    * Get updatedAt
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

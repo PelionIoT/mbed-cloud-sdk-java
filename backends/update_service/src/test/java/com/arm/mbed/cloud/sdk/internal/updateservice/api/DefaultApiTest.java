@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.api;
 import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -35,7 +36,7 @@ public class DefaultApiTest {
     /**
      * Create an image
      *
-     * Create firmware image.
+     * Create a firmware image.
      */
     @Test
     public void firmwareImageCreateTest() {
@@ -49,7 +50,7 @@ public class DefaultApiTest {
     /**
      * Delete an image
      *
-     * Delete firmware image.
+     * Delete a firmware image.
      */
     @Test
     public void firmwareImageDestroyTest() {
@@ -77,7 +78,7 @@ public class DefaultApiTest {
     /**
      * Get an image
      *
-     * Retrieve firmware image.
+     * Retrieve a firmware image.
      */
     @Test
     public void firmwareImageRetrieveTest() {
@@ -89,7 +90,7 @@ public class DefaultApiTest {
     /**
      * Create a manifest
      *
-     * Create firmware manifest.
+     * Create a firmware manifest.
      */
     @Test
     public void firmwareManifestCreateTest() {
@@ -104,7 +105,7 @@ public class DefaultApiTest {
     /**
      * Delete a manifest
      *
-     * Delete firmware manifest.
+     * Delete a firmware manifest.
      */
     @Test
     public void firmwareManifestDestroyTest() {
@@ -132,12 +133,24 @@ public class DefaultApiTest {
     /**
      * Get a manifest
      *
-     * Retrieve firmware manifest.
+     * Retrieve a firmware manifest.
      */
     @Test
     public void firmwareManifestRetrieveTest() {
         String manifestId = null;
         // FirmwareManifest response = api.firmwareManifestRetrieve(manifestId);
+
+        // TODO: test validations
+    }
+    /**
+     * Archive a campaign.
+     *
+     * This command will archive a campaign.
+     */
+    @Test
+    public void updateCampaignArchiveTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignArchive(campaignId);
 
         // TODO: test validations
     }
@@ -211,14 +224,14 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Stop a running campaign
+     * Get campaign metrics
      *
-     * Stop a running update campaign.
+     * Get detailed statistics of a campaign.
      */
     @Test
-    public void updateCampaignMetadataStopTest() {
+    public void updateCampaignMetricsTest() {
         String campaignId = null;
-        // Void response = api.updateCampaignMetadataStop(campaignId);
+        // CampaignMetrics response = api.updateCampaignMetrics(campaignId);
 
         // TODO: test validations
     }
@@ -231,6 +244,30 @@ public class DefaultApiTest {
     public void updateCampaignRetrieveTest() {
         String campaignId = null;
         // UpdateCampaign response = api.updateCampaignRetrieve(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Start a campaign.
+     *
+     * This command will begin the process of starting a campaign.
+     */
+    @Test
+    public void updateCampaignStartTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignStart(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Stop a campaign.
+     *
+     * This command will begin the process of stopping a campaign.
+     */
+    @Test
+    public void updateCampaignStopTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignStop(campaignId);
 
         // TODO: test validations
     }

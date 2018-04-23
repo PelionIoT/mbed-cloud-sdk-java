@@ -14,8 +14,8 @@ Name | Type | Description | Notes
 **mechanism** | **String** | How the firmware is delivered (connector or direct) |  [optional]
 **mechanismUrl** | **String** | The Cloud Connect URL |  [optional]
 **name** | **String** | The record name |  [optional]
-**object** | **String** | Entity name: always &#39;update-campaign-device-metadata&#39; |  [optional]
-**updatedAt** | [**DateTime**](DateTime.md) | This time this record was modified in the database format: date-time |  [optional]
+**object** | **String** | The entity name: always &#39;update-campaign-device-metadata&#39; |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) | The record was modified in the database format: date-time |  [optional]
 
 
 <a name="DeploymentStateEnum"></a>

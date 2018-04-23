@@ -158,10 +158,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The filter for the devices the campaign will target
+   * The filter for the devices the campaign is targeting at
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign is targeting at")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -248,10 +248,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The scheduled start time for the update campaign
+   * The scheduled start time for the update campaign. Not in use.
    * @return when
   **/
-  @ApiModelProperty(required = true, value = "The scheduled start time for the update campaign")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The scheduled start time for the update campaign. Not in use.")
   public DateTime getWhen() {
     return when;
   }
