@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.bootstrap.adapters.PreSharedKeyAdapter;
 import com.arm.mbed.cloud.sdk.bootstrap.model.EndPoints;
@@ -48,11 +49,12 @@ public class Bootstrap extends AbstractApi {
      *
      * @param key
      *            key to upload
+     * @return uploaded key
      * @throws MbedCloudException
      *             if an error occurred during the process
      */
     @API
-    public void uploadPreSharedKey(@NonNull PreSharedKey key) throws MbedCloudException {
+    public PreSharedKey uploadPreSharedKey(@NonNull PreSharedKey key) throws MbedCloudException {
         checkNotNull(key, TAG_KEY);
         checkModelValidity(key, TAG_KEY);
         final PreSharedKey finalkey = key;
@@ -63,6 +65,23 @@ public class Bootstrap extends AbstractApi {
                 return endpoint.getPresharedKeys().uploadPreSharedKey(PreSharedKeyAdapter.reverseMap(finalkey));
             }
         });
+        return finalkey;
+    }
+
+    /**
+     * Uploads a pre-shared key (PSK) for a device to allow it to bootstrap.
+     * <p>
+     * Note: Similar to {@link #uploadPreSharedKey(PreSharedKey)}
+     *
+     * @param key
+     *            key to upload
+     * @return uploaded key
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    public PreSharedKey addPsk(@NonNull PreSharedKey key) throws MbedCloudException {
+        return uploadPreSharedKey(key);
     }
 
     /**
@@ -109,6 +128,81 @@ public class Bootstrap extends AbstractApi {
     }
 
     /**
+     * Gets a pre-shared key existing in the cloud.
+     *
+     * @param key
+     *            key to retrieve.
+     * @return the corresponding key or null if not existing in the cloud.
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    @Nullable
+    public PreSharedKey getPreSharedKey(@NonNull PreSharedKey key) throws MbedCloudException {
+        checkNotNull(key, TAG_KEY);
+        checkModelValidity(key, TAG_KEY);
+        final PreSharedKey finalkey = key;
+        return CloudCaller.call(this, "getPreSharedKey()", PreSharedKeyAdapter.getMapper(),
+                new CloudCall<PreSharedKeyWithoutSecret>() {
+
+                    @Override
+                    public Call<PreSharedKeyWithoutSecret> call() {
+                        return endpoint.getPresharedKeys().getPreSharedKey(finalkey.getId());
+                    }
+                }, false);
+    }
+
+    /**
+     * Gets a pre-shared key existing in the cloud.
+     *
+     * @param key
+     *            key to get.
+     * @return the corresponding key or null if not existing in the cloud.
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    @Nullable
+    public PreSharedKey getPreSharedKey(@NonNull String key) throws MbedCloudException {
+        checkNotNull(key, TAG_KEY_ID);
+        return getPreSharedKey(new PreSharedKey(key));
+    }
+
+    /**
+     * Gets a pre-shared key existing in the cloud.
+     * <p>
+     * Note: Similar to {@link #getPreSharedKey(PreSharedKey)}
+     *
+     * @param key
+     *            key to verify the existence of.
+     * @return the corresponding key or null if not existing in the cloud.
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    @Nullable
+    public PreSharedKey getPsk(@NonNull PreSharedKey key) throws MbedCloudException {
+        return getPreSharedKey(key);
+    }
+
+    /**
+     * Gets a pre-shared key existing in the cloud.
+     * <p>
+     * Note: Similar to {@link #getPreSharedKey(String)}
+     *
+     * @param key
+     *            key to get.
+     * @return the corresponding key or null if not existing in the cloud.
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    @Nullable
+    public PreSharedKey getPsk(@NonNull String key) throws MbedCloudException {
+        return getPreSharedKey(key);
+    }
+
+    /**
      * Deletes pre-shared key.
      *
      * @param key
@@ -143,6 +237,37 @@ public class Bootstrap extends AbstractApi {
         checkNotNull(key, TAG_KEY);
         final String finalKey = key.getId();
         deletePreSharedKey(finalKey);
+    }
+
+    /**
+     * // * Deletes pre-shared key.
+     * <p>
+     * Note: Similar to {@link #deletePreSharedKey(String)}
+     *
+     * @param key
+     *            key to delete
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    public void deletePsk(@NonNull String key) throws MbedCloudException {
+        deletePreSharedKey(key);
+
+    }
+
+    /**
+     * Deletes pre-shared key.
+     * <p>
+     * Note: Similar to {@link #deletePreSharedKey(PreSharedKey)}
+     *
+     * @param key
+     *            key to delete
+     * @throws MbedCloudException
+     *             if an error occurred during the process
+     */
+    @API
+    public void deletePsk(@NonNull PreSharedKey key) throws MbedCloudException {
+        deletePreSharedKey(key);
     }
 
     /**

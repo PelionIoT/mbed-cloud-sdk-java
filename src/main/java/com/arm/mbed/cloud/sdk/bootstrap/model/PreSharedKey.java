@@ -67,6 +67,18 @@ public class PreSharedKey implements SdkModel {
     }
 
     /**
+     * Gets PSK secret.
+     * <p>
+     * Note: Similar to {@link #getSecret()}
+     *
+     * @return the secret.
+     */
+    @Internal
+    public String getSecretHex() {
+        return getSecret();
+    }
+
+    /**
      * Sets the key identifier.
      * <p>
      * Note: It has to be 16-64 <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">printable</a>
@@ -84,10 +96,35 @@ public class PreSharedKey implements SdkModel {
 
     /**
      * Sets the key identifier.
+     * <p>
+     * Note: Similar to {@link #setId(String)}
+     *
+     * @param id
+     *            the id to set
+     */
+    @Internal
+    public void setEndpointName(String id) {
+        setId(id);
+    }
+
+    /**
+     * Gets the key identifier.
      */
     @Override
     public String getId() {
         return id;
+    }
+
+    /**
+     * Gets the key identifier.
+     * <p>
+     * Note: Similar to {@link #getId()}
+     *
+     * @return the key identifier
+     */
+    @Internal
+    public String getEndpointName() {
+        return getId();
     }
 
     /**
@@ -103,6 +140,19 @@ public class PreSharedKey implements SdkModel {
      */
     public void setSecret(String secret) {
         this.secret = secret;
+    }
+
+    /**
+     * Sets the secret.
+     * <p>
+     * Note: Similar to {@link #setSecret(String)}
+     *
+     * @param secret
+     *            the secret to set
+     */
+    @Internal
+    public void setSecretHex(String secret) {
+        setSecret(secret);
     }
 
     /**
