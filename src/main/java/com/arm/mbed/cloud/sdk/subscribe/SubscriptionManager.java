@@ -5,6 +5,8 @@ import java.util.List;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.Callback;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 
@@ -135,6 +137,8 @@ public interface SubscriptionManager {
 
     /**
      * Creates an observer and registers it.
+     * <p>
+     * Similar to {@link #createObserver(SubscriptionType, FilterOptions, BackpressureStrategy, Callback, Callback)}
      *
      * @param type
      *            type of subscription to consider.
@@ -142,10 +146,31 @@ public interface SubscriptionManager {
      *            filter to apply.
      * @param strategy
      *            backpressure strategy to apply for underlying communication channel.
-     * @return newly created observer
+     * @return newly created observer * @throws MbedCloudException if an error happened during the process
      */
     @Nullable
     Observer<?> createObserver(SubscriptionType type, FilterOptions filter, @NonNull BackpressureStrategy strategy);
+
+    /**
+     *
+     * Creates an observer and registers it.
+     *
+     * @param type
+     *            type of subscription to consider.
+     * @param filter
+     *            filter to apply.
+     * @param strategy
+     *            backpressure strategy to apply for underlying communication channel.
+     * @param actionOnSubscription
+     *            action to perform on subscription
+     * @param actionOnUnsubscription
+     *            action to perform on unsubscription
+     * @return newly created observer
+     */
+    @Nullable
+    Observer<?> createObserver(SubscriptionType type, FilterOptions filter, @NonNull BackpressureStrategy strategy,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription);
 
     /**
      * Notifies a raw value change to observers of a certain type.

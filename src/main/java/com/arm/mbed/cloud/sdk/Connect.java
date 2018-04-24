@@ -22,6 +22,7 @@ import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
@@ -48,7 +49,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
-import com.arm.mbed.cloud.sdk.connect.notificationhandling.NotificationHandlersStore;
+import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
@@ -1397,6 +1398,18 @@ public class Connect extends AbstractApi {
         return executeResource(resource.getDeviceId(), resource.getPath(), functionName, noResponse, timeout);
     }
 
+    protected GenericAdapter.MappedObjectRegistry<Presubscription> getCurrentPresubscriptionRegistry(String methodName)
+            throws MbedCloudException {
+        return CloudCaller.call(this, methodName, PresubscriptionAdapter.getListToRegistryMapper(),
+                new CloudCall<PresubscriptionArray>() {
+
+                    @Override
+                    public Call<PresubscriptionArray> call() {
+                        return endpoint.getSubscriptions().v2SubscriptionsGet();
+                    }
+                });
+    }
+
     /**
      * Lists pre-subscription data.
      * <p>
@@ -1424,14 +1437,9 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable List<Presubscription> listPresubscriptions() throws MbedCloudException {
-        return CloudCaller.call(this, "listPresubscriptions()", PresubscriptionAdapter.getListMapper(),
-                new CloudCall<PresubscriptionArray>() {
-
-                    @Override
-                    public Call<PresubscriptionArray> call() {
-                        return endpoint.getSubscriptions().v2SubscriptionsGet();
-                    }
-                });
+        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "listPresubscriptions()");
+        return (presubscriptionRegistry == null) ? null : presubscriptionRegistry.getEntries();
     }
 
     /**
@@ -1483,55 +1491,87 @@ public class Connect extends AbstractApi {
         });
     }
 
+    /**
+     * Adds a pre-subscription.
+     * <p>
+     * Note: for more information about pre-subscriptions, have a look at @link {@link Presubscription} or
+     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Mbed Cloud
+     * documentation</a>
+     *
+     * @param presubscription
+     *            pre-subscription to add
+     * @throws MbedCloudException
+     *             if an error happened during the process
+     */
     @API
     public void addPresubscription(@Nullable Presubscription presubscription) throws MbedCloudException {
         if (presubscription == null) {
             return;
         }
         checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
-        List<Presubscription> presubscriptions = listPresubscriptions();
-        if (presubscriptions == null || presubscriptions.isEmpty()) {
-            presubscriptions = new LinkedList<>();
+        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "addPresubscription()");
+        if (presubscriptionRegistry != null && presubscriptionRegistry.contains(presubscription)) {
+            return;
         }
-        presubscriptions.add(presubscription);
-        updatePresubscriptions(presubscriptions);
+        if (presubscriptionRegistry == null) {
+            presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
+        }
+        presubscriptionRegistry.addNewEnty(presubscription);
+        updatePresubscriptions(presubscriptionRegistry.getEntries());
     }
 
+    /**
+     * Gets a pre-subscription.
+     *
+     * @param presubscriptionId
+     *            pre-subscription id
+     * @return corresponding pre-subscription
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
     @API
     public @Nullable Presubscription getPresubscription(@Nullable String presubscriptionId) throws MbedCloudException {
         if (presubscriptionId == null) {
             return null;
         }
-        final List<Presubscription> presubscriptions = listPresubscriptions();
-        if (presubscriptions == null || presubscriptions.isEmpty()) {
-            return null;
-        }
-        for (Presubscription presubscription : presubscriptions) {
-            if (presubscription.getId() == presubscriptionId) {
-                return presubscription;
-            }
-        }
-        return null;
+        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "getPresubscription()");
+        return (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) ? null
+                : presubscriptionRegistry.getEntry(presubscriptionId);
     }
 
+    /**
+     * Deletes a pre-subscription.
+     *
+     * @param presubscriptionId
+     *            pre-subscription id of the pre-subscription to delete
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
     @API
     public void deletePresubscription(@Nullable String presubscriptionId) throws MbedCloudException {
         if (presubscriptionId == null) {
             return;
         }
-        final List<Presubscription> presubscriptions = listPresubscriptions();
-        if (presubscriptions == null || presubscriptions.isEmpty()) {
+        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "deletePresubscription()");
+        if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()
+                || !presubscriptionRegistry.contains(presubscriptionId)) {
             return;
         }
-        final List<Presubscription> updatedList = new LinkedList<>();
-        for (Presubscription presubscription : presubscriptions) {
-            if (presubscription.getId() != presubscriptionId) {
-                updatedList.add(presubscription);
-            }
-        }
-        updatePresubscriptions(updatedList);
+        presubscriptionRegistry.removeEntry(presubscriptionId);
+        updatePresubscriptions(presubscriptionRegistry.getEntries());
     }
 
+    /**
+     * Deletes a pre-subscription.
+     *
+     * @param presubscription
+     *            pre-subscription to delete
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
     @API
     public void deletePresubscription(@Nullable Presubscription presubscription) throws MbedCloudException {
         if (presubscription == null) {

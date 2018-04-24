@@ -70,8 +70,11 @@ public interface Observer<T extends NotificationMessageValue> {
      * Note: the communication channel comprised within the observer will also be closed.
      * <p>
      * Hence, the observer should not be used after this action.
+     *
+     * @throws MbedCloudException
+     *             if an error happened during the process
      */
-    void unsubscribe();
+    void unsubscribe() throws MbedCloudException;
 
     /**
      * Gets the RxJava

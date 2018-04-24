@@ -2,6 +2,8 @@ package com.arm.mbed.cloud.sdk.subscribe.store;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
@@ -23,8 +25,9 @@ public class ResourceValueChangeSubscriptionObserverStore
 
     @Override
     protected Observer<?> buildObserver(String channelId, Flowable<ResourceValueChangeNotification> flow,
-            FilterOptions filter) {
-        return new ResourceValueChangeObserver(this, channelId, flow, (SubscriptionFilterOptions) filter);
+            FilterOptions filter, CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+        return new ResourceValueChangeObserver(this, channelId, flow, (SubscriptionFilterOptions) filter,
+                actionOnSubscription, actionOnUnsubscription);
     }
-
 }

@@ -41,7 +41,7 @@ public class TestSubscriptionObserversStore {
         ScheduledExecutorService executor = null;
         try {
             List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
-            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation());
+            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
             DeviceStateObserver obs1 = store.deviceState(new DeviceStateFilterOptions().likeDevice("016%33e")
                     .equalDeviceState(DeviceState.REGISTRATION_UPDATE), BackpressureStrategy.BUFFER);
 
@@ -109,11 +109,14 @@ public class TestSubscriptionObserversStore {
                 assertEquals("0161661edbab000000000001001002b7", n.getDeviceId());
                 assertEquals(DeviceState.REGISTRATION_UPDATE, n.getState());
             });
-            assertTrue(store.hasObserver(obs1));
+            // Observer obs1 should have been unsubscribed after the value had been received whereas obs2 should be
+            // still on.
+            assertFalse(store.hasObserver(obs1));
+            assertTrue(store.hasObserver(obs2));
             store.completeAll();
             store.unsubscribeAll();
             assertFalse(store.hasObservers());
-            assertFalse(store.hasObserver(obs1));
+            assertFalse(store.hasObserver(obs2));
 
             if (handle != null) {
                 handle.cancel(true);

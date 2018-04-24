@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.connect.notificationhandling;
+package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -85,8 +85,10 @@ public class NotificationHandlersStore {
         pullHandle = null;
         responseStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
         subscriptionHandlers = new DevicesSubscriptionHandlers();
-        observerStore = new SubscriptionObserversStore((subscriptionHandlingExecutor == null) ? Schedulers.computation()
-                : Schedulers.from(subscriptionHandlingExecutor));
+        observerStore = new SubscriptionObserversStore(
+                (subscriptionHandlingExecutor == null) ? Schedulers.computation()
+                        : Schedulers.from(subscriptionHandlingExecutor),
+                new ResourceSubscriber(api), new ResourceUnsubscriber(api));
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.connect.notificationhandling;
+package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 

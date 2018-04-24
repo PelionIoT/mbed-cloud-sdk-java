@@ -18,7 +18,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Maps presubscription.
-     * 
+     *
      * @param apiPresubscription
      *            presubscription to map
      * @return mapped presubscription
@@ -36,7 +36,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Reverses mapping of a presubscription.
-     * 
+     *
      * @param presubscription
      *            presubscription
      * @return presubscription
@@ -55,7 +55,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return mapper
      */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription> getMapper() {
@@ -71,7 +71,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Gets reverse mapper.
-     * 
+     *
      * @return reverse mapper
      */
     public static Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription> getReverseMapper() {
@@ -87,7 +87,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Maps list of presubscriptions.
-     * 
+     *
      * @param list
      *            of presubscription.
      * @return list of presubscription
@@ -100,8 +100,19 @@ public final class PresubscriptionAdapter {
     }
 
     /**
+     * Maps list of presubscriptions to a registry.
+     *
+     * @param list
+     *            of presubscription.
+     * @return a registry of presubscription
+     */
+    public static GenericAdapter.MappedObjectRegistry<Presubscription> mapListToRegistry(PresubscriptionArray list) {
+        return new GenericAdapter.MappedObjectRegistry<>(list, getMapper());
+    }
+
+    /**
      * Reverses mapping of a list of presubscriptions.
-     * 
+     *
      * @param list
      *            of presubscription.
      * @return list of presubscription
@@ -112,7 +123,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return a list mapper
      */
     public static Mapper<PresubscriptionArray, List<Presubscription>> getListMapper() {
@@ -127,8 +138,24 @@ public final class PresubscriptionAdapter {
     }
 
     /**
+     * Gets list to registry mapper.
+     *
+     * @return a list to registry mapper
+     */
+    public static Mapper<PresubscriptionArray, GenericAdapter.MappedObjectRegistry<Presubscription>> getListToRegistryMapper() {
+        return new Mapper<PresubscriptionArray, GenericAdapter.MappedObjectRegistry<Presubscription>>() {
+
+            @Override
+            public GenericAdapter.MappedObjectRegistry<Presubscription> map(PresubscriptionArray toBeMapped) {
+                return PresubscriptionAdapter.mapListToRegistry(toBeMapped);
+            }
+
+        };
+    }
+
+    /**
      * Gets a list of resource path from a string.
-     * 
+     *
      * @param list
      *            string containing resource paths.
      * @return list of resource paths
@@ -143,7 +170,7 @@ public final class PresubscriptionAdapter {
 
     /**
      * Gets resource path list mapper.
-     * 
+     *
      * @return a list of resource path
      */
     public static Mapper<String, List<String>> getResourcePathListMapper() {

@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.internal.mds.model.EndpointData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;

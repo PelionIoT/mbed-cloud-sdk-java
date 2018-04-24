@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -269,10 +269,10 @@ public class FilterOptions implements Cloneable {
      * @param fieldName
      *            field name to apply the filter on
      * @param values
-     *            a comma-separated list of values for the filter
+     *            a JSON array or a comma-separated list of values for the filter
      */
     public void addInFilter(@Nullable String fieldName, @NonNull String values) {
-        addInFilter(fieldName, (values == null) ? null : Arrays.asList(values.split(",")));
+        addInFilter(fieldName, SdkUtils.parseListString(values));
     }
 
     /**
@@ -295,10 +295,10 @@ public class FilterOptions implements Cloneable {
      * @param fieldName
      *            field name to apply the filter on
      * @param values
-     *            a comma-separated list of values for the filter
+     *            a JSON array or a comma-separated list of values for the filter
      */
     public void addNotInFilter(@Nullable String fieldName, @NonNull String values) {
-        addNotInFilter(fieldName, (values == null) ? null : Arrays.asList(values.split(",")));
+        addNotInFilter(fieldName, SdkUtils.parseListString(values));
     }
 
     /**

@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -32,6 +33,46 @@ public class TestGenericAdapter {
         for (int i = 0; i < 5; i++) {
             assertEquals(new Integer(i + 1), mappedList.get(i));
         }
+    }
+
+    @Test
+    public void testIdentity() {
+        List<String> list = new LinkedList<>();
+        list.add("1");
+        list.add(" 2 ");
+        list.add(" 3");
+        list.add("4 ");
+        list.add("5");
+        List<String> mappedList = GenericAdapter.mapList(list, GenericAdapter.identityMapper());
+        for (int i = 0; i < list.size(); i++) {
+            assertEquals(list.get(i), mappedList.get(i));
+        }
+    }
+
+    @SuppressWarnings("boxing")
+    @Test
+    public void testMapListToRegistry() {
+        List<String> data = new LinkedList<>();
+        data.add("1");
+        data.add(" 2 ");
+        data.add(" 3");
+        data.add("4 ");
+        data.add("5");
+
+        GenericAdapter.MappedObjectRegistry<IntegerModel> registry = new GenericAdapter.MappedObjectRegistry<>(data,
+                new Mapper<String, IntegerModel>() {
+
+                    @Override
+                    public IntegerModel map(String toBeMapped) {
+                        return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped, 0));
+                    }
+                });
+        for (int i = 0; i < data.size(); i++) {
+            final IntegerModel expectedModel = new IntegerModel(i + 1);
+            assertTrue(registry.contains(expectedModel));
+            assertTrue(registry.contains(expectedModel.getId()));
+        }
+
     }
 
     @Test
@@ -94,7 +135,7 @@ public class TestGenericAdapter {
 
     private static class IntegerModel implements SdkModel {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 5594572725706194677L;
         private final Integer value;
@@ -115,7 +156,7 @@ public class TestGenericAdapter {
 
         @Override
         public String getId() {
-            return String.valueOf(value);
+            return String.valueOf(hashCode());
         }
 
         @Override
@@ -133,18 +174,23 @@ public class TestGenericAdapter {
 
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             IntegerModel other = (IntegerModel) obj;
             if (value == null) {
-                if (other.value != null)
+                if (other.value != null) {
                     return false;
-            } else if (!value.equals(other.value))
+                }
+            } else if (!value.equals(other.value)) {
                 return false;
+            }
             return true;
         }
 
