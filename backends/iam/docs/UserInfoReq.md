@@ -12,7 +12,7 @@ Name | Type | Description | Notes
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. |  [optional]
 **password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **phoneNumber** | **String** | Phone number, not longer than 100 characters. |  [optional]
-**userProperties** | **Map&lt;String, String&gt;** | User&#39;s account specific custom properties. The value must be a valid Json. |  [optional]
+**userProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | User&#39;s account specific custom properties. |  [optional]
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long. |  [optional]
 
 

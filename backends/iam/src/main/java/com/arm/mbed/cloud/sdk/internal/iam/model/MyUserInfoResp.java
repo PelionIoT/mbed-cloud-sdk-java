@@ -32,11 +32,11 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a user update response.
+ * This object represents user details.
  */
-@ApiModel(description = "This object represents a user update response.")
+@ApiModel(description = "This object represents user details.")
 
-public class UserUpdateResp implements Serializable {
+public class MyUserInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("account_id")
@@ -203,9 +203,6 @@ public class UserUpdateResp implements Serializable {
   @SerializedName("totp_scratch_codes")
   private List<String> totpScratchCodes = null;
 
-  @SerializedName("totp_secret")
-  private String totpSecret = null;
-
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
 
@@ -215,7 +212,7 @@ public class UserUpdateResp implements Serializable {
   @SerializedName("username")
   private String username = null;
 
-  public UserUpdateResp accountId(String accountId) {
+  public MyUserInfoResp accountId(String accountId) {
     this.accountId = accountId;
     return this;
   }
@@ -233,12 +230,12 @@ public class UserUpdateResp implements Serializable {
     this.accountId = accountId;
   }
 
-  public UserUpdateResp activeSessions(List<ActiveSession> activeSessions) {
+  public MyUserInfoResp activeSessions(List<ActiveSession> activeSessions) {
     this.activeSessions = activeSessions;
     return this;
   }
 
-  public UserUpdateResp addActiveSessionsItem(ActiveSession activeSessionsItem) {
+  public MyUserInfoResp addActiveSessionsItem(ActiveSession activeSessionsItem) {
     if (this.activeSessions == null) {
       this.activeSessions = new ArrayList<ActiveSession>();
     }
@@ -259,7 +256,7 @@ public class UserUpdateResp implements Serializable {
     this.activeSessions = activeSessions;
   }
 
-  public UserUpdateResp address(String address) {
+  public MyUserInfoResp address(String address) {
     this.address = address;
     return this;
   }
@@ -277,7 +274,7 @@ public class UserUpdateResp implements Serializable {
     this.address = address;
   }
 
-  public UserUpdateResp createdAt(DateTime createdAt) {
+  public MyUserInfoResp createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -295,7 +292,7 @@ public class UserUpdateResp implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public UserUpdateResp creationTime(Long creationTime) {
+  public MyUserInfoResp creationTime(Long creationTime) {
     this.creationTime = creationTime;
     return this;
   }
@@ -313,7 +310,7 @@ public class UserUpdateResp implements Serializable {
     this.creationTime = creationTime;
   }
 
-  public UserUpdateResp email(String email) {
+  public MyUserInfoResp email(String email) {
     this.email = email;
     return this;
   }
@@ -331,7 +328,7 @@ public class UserUpdateResp implements Serializable {
     this.email = email;
   }
 
-  public UserUpdateResp emailVerified(Boolean emailVerified) {
+  public MyUserInfoResp emailVerified(Boolean emailVerified) {
     this.emailVerified = emailVerified;
     return this;
   }
@@ -349,7 +346,7 @@ public class UserUpdateResp implements Serializable {
     this.emailVerified = emailVerified;
   }
 
-  public UserUpdateResp etag(String etag) {
+  public MyUserInfoResp etag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -367,7 +364,7 @@ public class UserUpdateResp implements Serializable {
     this.etag = etag;
   }
 
-  public UserUpdateResp fullName(String fullName) {
+  public MyUserInfoResp fullName(String fullName) {
     this.fullName = fullName;
     return this;
   }
@@ -385,12 +382,12 @@ public class UserUpdateResp implements Serializable {
     this.fullName = fullName;
   }
 
-  public UserUpdateResp groups(List<String> groups) {
+  public MyUserInfoResp groups(List<String> groups) {
     this.groups = groups;
     return this;
   }
 
-  public UserUpdateResp addGroupsItem(String groupsItem) {
+  public MyUserInfoResp addGroupsItem(String groupsItem) {
     if (this.groups == null) {
       this.groups = new ArrayList<String>();
     }
@@ -411,7 +408,7 @@ public class UserUpdateResp implements Serializable {
     this.groups = groups;
   }
 
-  public UserUpdateResp id(String id) {
+  public MyUserInfoResp id(String id) {
     this.id = id;
     return this;
   }
@@ -429,7 +426,7 @@ public class UserUpdateResp implements Serializable {
     this.id = id;
   }
 
-  public UserUpdateResp isGtcAccepted(Boolean isGtcAccepted) {
+  public MyUserInfoResp isGtcAccepted(Boolean isGtcAccepted) {
     this.isGtcAccepted = isGtcAccepted;
     return this;
   }
@@ -447,7 +444,7 @@ public class UserUpdateResp implements Serializable {
     this.isGtcAccepted = isGtcAccepted;
   }
 
-  public UserUpdateResp isMarketingAccepted(Boolean isMarketingAccepted) {
+  public MyUserInfoResp isMarketingAccepted(Boolean isMarketingAccepted) {
     this.isMarketingAccepted = isMarketingAccepted;
     return this;
   }
@@ -465,7 +462,7 @@ public class UserUpdateResp implements Serializable {
     this.isMarketingAccepted = isMarketingAccepted;
   }
 
-  public UserUpdateResp isTotpEnabled(Boolean isTotpEnabled) {
+  public MyUserInfoResp isTotpEnabled(Boolean isTotpEnabled) {
     this.isTotpEnabled = isTotpEnabled;
     return this;
   }
@@ -483,7 +480,7 @@ public class UserUpdateResp implements Serializable {
     this.isTotpEnabled = isTotpEnabled;
   }
 
-  public UserUpdateResp lastLoginTime(Long lastLoginTime) {
+  public MyUserInfoResp lastLoginTime(Long lastLoginTime) {
     this.lastLoginTime = lastLoginTime;
     return this;
   }
@@ -501,12 +498,12 @@ public class UserUpdateResp implements Serializable {
     this.lastLoginTime = lastLoginTime;
   }
 
-  public UserUpdateResp loginHistory(List<LoginHistory> loginHistory) {
+  public MyUserInfoResp loginHistory(List<LoginHistory> loginHistory) {
     this.loginHistory = loginHistory;
     return this;
   }
 
-  public UserUpdateResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
+  public MyUserInfoResp addLoginHistoryItem(LoginHistory loginHistoryItem) {
     if (this.loginHistory == null) {
       this.loginHistory = new ArrayList<LoginHistory>();
     }
@@ -527,7 +524,7 @@ public class UserUpdateResp implements Serializable {
     this.loginHistory = loginHistory;
   }
 
-  public UserUpdateResp object(ObjectEnum object) {
+  public MyUserInfoResp object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -545,7 +542,7 @@ public class UserUpdateResp implements Serializable {
     this.object = object;
   }
 
-  public UserUpdateResp password(String password) {
+  public MyUserInfoResp password(String password) {
     this.password = password;
     return this;
   }
@@ -563,7 +560,7 @@ public class UserUpdateResp implements Serializable {
     this.password = password;
   }
 
-  public UserUpdateResp passwordChangedTime(Long passwordChangedTime) {
+  public MyUserInfoResp passwordChangedTime(Long passwordChangedTime) {
     this.passwordChangedTime = passwordChangedTime;
     return this;
   }
@@ -581,7 +578,7 @@ public class UserUpdateResp implements Serializable {
     this.passwordChangedTime = passwordChangedTime;
   }
 
-  public UserUpdateResp phoneNumber(String phoneNumber) {
+  public MyUserInfoResp phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
   }
@@ -599,7 +596,7 @@ public class UserUpdateResp implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public UserUpdateResp status(StatusEnum status) {
+  public MyUserInfoResp status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -617,12 +614,12 @@ public class UserUpdateResp implements Serializable {
     this.status = status;
   }
 
-  public UserUpdateResp totpScratchCodes(List<String> totpScratchCodes) {
+  public MyUserInfoResp totpScratchCodes(List<String> totpScratchCodes) {
     this.totpScratchCodes = totpScratchCodes;
     return this;
   }
 
-  public UserUpdateResp addTotpScratchCodesItem(String totpScratchCodesItem) {
+  public MyUserInfoResp addTotpScratchCodesItem(String totpScratchCodesItem) {
     if (this.totpScratchCodes == null) {
       this.totpScratchCodes = new ArrayList<String>();
     }
@@ -643,25 +640,7 @@ public class UserUpdateResp implements Serializable {
     this.totpScratchCodes = totpScratchCodes;
   }
 
-  public UserUpdateResp totpSecret(String totpSecret) {
-    this.totpSecret = totpSecret;
-    return this;
-  }
-
-   /**
-   * Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.
-   * @return totpSecret
-  **/
-  @ApiModelProperty(example = "OZAMCDB7VRJSEHL2", value = "Secret for the 2-factor authenticator app. Visible only when 2FA is requested to be enabled.")
-  public String getTotpSecret() {
-    return totpSecret;
-  }
-
-  public void setTotpSecret(String totpSecret) {
-    this.totpSecret = totpSecret;
-  }
-
-  public UserUpdateResp updatedAt(DateTime updatedAt) {
+  public MyUserInfoResp updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
@@ -679,12 +658,12 @@ public class UserUpdateResp implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public UserUpdateResp userProperties(Map<String, Map<String, String>> userProperties) {
+  public MyUserInfoResp userProperties(Map<String, Map<String, String>> userProperties) {
     this.userProperties = userProperties;
     return this;
   }
 
-  public UserUpdateResp putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
+  public MyUserInfoResp putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
     if (this.userProperties == null) {
       this.userProperties = new HashMap<String, Map<String, String>>();
     }
@@ -705,7 +684,7 @@ public class UserUpdateResp implements Serializable {
     this.userProperties = userProperties;
   }
 
-  public UserUpdateResp username(String username) {
+  public MyUserInfoResp username(String username) {
     this.username = username;
     return this;
   }
@@ -732,45 +711,44 @@ public class UserUpdateResp implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    UserUpdateResp userUpdateResp = (UserUpdateResp) o;
-    return Objects.equals(this.accountId, userUpdateResp.accountId) &&
-        Objects.equals(this.activeSessions, userUpdateResp.activeSessions) &&
-        Objects.equals(this.address, userUpdateResp.address) &&
-        Objects.equals(this.createdAt, userUpdateResp.createdAt) &&
-        Objects.equals(this.creationTime, userUpdateResp.creationTime) &&
-        Objects.equals(this.email, userUpdateResp.email) &&
-        Objects.equals(this.emailVerified, userUpdateResp.emailVerified) &&
-        Objects.equals(this.etag, userUpdateResp.etag) &&
-        Objects.equals(this.fullName, userUpdateResp.fullName) &&
-        Objects.equals(this.groups, userUpdateResp.groups) &&
-        Objects.equals(this.id, userUpdateResp.id) &&
-        Objects.equals(this.isGtcAccepted, userUpdateResp.isGtcAccepted) &&
-        Objects.equals(this.isMarketingAccepted, userUpdateResp.isMarketingAccepted) &&
-        Objects.equals(this.isTotpEnabled, userUpdateResp.isTotpEnabled) &&
-        Objects.equals(this.lastLoginTime, userUpdateResp.lastLoginTime) &&
-        Objects.equals(this.loginHistory, userUpdateResp.loginHistory) &&
-        Objects.equals(this.object, userUpdateResp.object) &&
-        Objects.equals(this.password, userUpdateResp.password) &&
-        Objects.equals(this.passwordChangedTime, userUpdateResp.passwordChangedTime) &&
-        Objects.equals(this.phoneNumber, userUpdateResp.phoneNumber) &&
-        Objects.equals(this.status, userUpdateResp.status) &&
-        Objects.equals(this.totpScratchCodes, userUpdateResp.totpScratchCodes) &&
-        Objects.equals(this.totpSecret, userUpdateResp.totpSecret) &&
-        Objects.equals(this.updatedAt, userUpdateResp.updatedAt) &&
-        Objects.equals(this.userProperties, userUpdateResp.userProperties) &&
-        Objects.equals(this.username, userUpdateResp.username);
+    MyUserInfoResp myUserInfoResp = (MyUserInfoResp) o;
+    return Objects.equals(this.accountId, myUserInfoResp.accountId) &&
+        Objects.equals(this.activeSessions, myUserInfoResp.activeSessions) &&
+        Objects.equals(this.address, myUserInfoResp.address) &&
+        Objects.equals(this.createdAt, myUserInfoResp.createdAt) &&
+        Objects.equals(this.creationTime, myUserInfoResp.creationTime) &&
+        Objects.equals(this.email, myUserInfoResp.email) &&
+        Objects.equals(this.emailVerified, myUserInfoResp.emailVerified) &&
+        Objects.equals(this.etag, myUserInfoResp.etag) &&
+        Objects.equals(this.fullName, myUserInfoResp.fullName) &&
+        Objects.equals(this.groups, myUserInfoResp.groups) &&
+        Objects.equals(this.id, myUserInfoResp.id) &&
+        Objects.equals(this.isGtcAccepted, myUserInfoResp.isGtcAccepted) &&
+        Objects.equals(this.isMarketingAccepted, myUserInfoResp.isMarketingAccepted) &&
+        Objects.equals(this.isTotpEnabled, myUserInfoResp.isTotpEnabled) &&
+        Objects.equals(this.lastLoginTime, myUserInfoResp.lastLoginTime) &&
+        Objects.equals(this.loginHistory, myUserInfoResp.loginHistory) &&
+        Objects.equals(this.object, myUserInfoResp.object) &&
+        Objects.equals(this.password, myUserInfoResp.password) &&
+        Objects.equals(this.passwordChangedTime, myUserInfoResp.passwordChangedTime) &&
+        Objects.equals(this.phoneNumber, myUserInfoResp.phoneNumber) &&
+        Objects.equals(this.status, myUserInfoResp.status) &&
+        Objects.equals(this.totpScratchCodes, myUserInfoResp.totpScratchCodes) &&
+        Objects.equals(this.updatedAt, myUserInfoResp.updatedAt) &&
+        Objects.equals(this.userProperties, myUserInfoResp.userProperties) &&
+        Objects.equals(this.username, myUserInfoResp.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, activeSessions, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, totpScratchCodes, totpSecret, updatedAt, userProperties, username);
+    return Objects.hash(accountId, activeSessions, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, totpScratchCodes, updatedAt, userProperties, username);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class UserUpdateResp {\n");
+    sb.append("class MyUserInfoResp {\n");
     
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    activeSessions: ").append(toIndentedString(activeSessions)).append("\n");
@@ -794,7 +772,6 @@ public class UserUpdateResp implements Serializable {
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    totpScratchCodes: ").append(toIndentedString(totpScratchCodes)).append("\n");
-    sb.append("    totpSecret: ").append(toIndentedString(totpSecret)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");

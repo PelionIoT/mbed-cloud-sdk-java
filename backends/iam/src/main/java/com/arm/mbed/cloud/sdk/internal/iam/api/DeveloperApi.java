@@ -10,6 +10,7 @@ import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -17,11 +18,14 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -30,8 +34,22 @@ import java.util.Map;
 
 public interface DeveloperApi {
   /**
+   * Add user to a list of groupS.
+   * An endpoint for adding user to groups.
+   * @param body A list of IDs of the groups to be updated. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/users/me/groups")
+  Call<UpdatedResponse> addMeToGroups(
+    @retrofit2.http.Body List<String> body
+  );
+
+  /**
    * Add API key to a list of groups.
-   * An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for adding API key to groups.
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
    */
@@ -70,7 +88,7 @@ public interface DeveloperApi {
 
   /**
    * Delete a trusted certificate by ID.
-   * An endpoint for deleting a trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for deleting a trusted certificate.
    * @param certId The ID of the trusted certificate to be deleted. (required)
    * @return Call&lt;Void&gt;
    */
@@ -97,7 +115,7 @@ public interface DeveloperApi {
 
   /**
    * Get all trusted certificates.
-   * An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for retrieving trusted certificates in an array.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
@@ -120,7 +138,7 @@ public interface DeveloperApi {
 
   /**
    * Get all group information.
-   * An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for retrieving all group information.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
@@ -135,7 +153,7 @@ public interface DeveloperApi {
 
   /**
    * Get API key details.
-   * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for retrieving API key details.
    * @param apiKey The ID of the API key to be retrieved. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
    */
@@ -146,7 +164,7 @@ public interface DeveloperApi {
 
   /**
    * Get the API keys of a group.
-   * An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for listing the API keys of the group with details.
    * @param groupID The ID of the group whose API keys are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -172,7 +190,7 @@ public interface DeveloperApi {
 
   /**
    * Get group information.
-   * An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for getting general information about the group.
    * @param groupID The ID of the group to be retrieved. (required)
    * @return Call&lt;GroupSummary&gt;
    */
@@ -183,7 +201,7 @@ public interface DeveloperApi {
 
   /**
    * Get groups of the API key.
-   * An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for retrieving groups of the API key.
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
@@ -208,6 +226,15 @@ public interface DeveloperApi {
   );
 
   /**
+   * Get accounts of the user.
+   * An endpoint for retrieving the accounts of the logged in user.
+   * @return Call&lt;AccountResponseList&gt;
+   */
+  @GET("v3/users/me/team-accounts")
+  Call<AccountResponseList> getMyAccounts();
+    
+
+  /**
    * Get API key details.
    * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @return Call&lt;ApiKeyInfoResp&gt;
@@ -217,8 +244,35 @@ public interface DeveloperApi {
     
 
   /**
+   * Get groups of the user.
+   * An endpoint for retrieving groups of the user.
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
+   * @param include Comma separated additional data to return. Currently supported: total_count (optional)
+   * @return Call&lt;GroupSummaryList&gt;
+   */
+  @GET("v3/users/me/groups")
+  Call<GroupSummaryList> getMyGroups(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * Details of the current user.
+   * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param scratchCodes Request to regenerate new emergency scratch codes. (optional)
+   * @param properties Request to return account specific user property values according to the given property name. (optional)
+   * @param include Comma separated additional data to return. Currently supported: active_sessions (optional)
+   * @return Call&lt;MyUserInfoResp&gt;
+   */
+  @GET("v3/users/me")
+  Call<MyUserInfoResp> getMyUser(
+    @retrofit2.http.Query("scratch_codes") String scratchCodes, @retrofit2.http.Query("properties") String properties, @retrofit2.http.Query("include") String include
+  );
+
+  /**
    * Remove API keys from a group.
-   * An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for removing API keys from groups.
    * @param groupID The ID of the group whose API keys are removed. (required)
    * @param body A list of API keys to be removed from the group. (required)
    * @return Call&lt;UpdatedResponse&gt;
@@ -232,8 +286,22 @@ public interface DeveloperApi {
   );
 
   /**
+   * Remove user from a group.
+   * An endpoint for removing user from groups.
+   * @param body A list of IDs of the groups to be updated. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @DELETE("v3/users/me/groups")
+  Call<UpdatedResponse> removeMeFromGroups(
+    @retrofit2.http.Body List<String> body
+  );
+
+  /**
    * Remove API key from groups.
-   * An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for removing API key from groups.
    * @param body A list of IDs of the groups to be updated. (required)
    * @return Call&lt;UpdatedResponse&gt;
    */
@@ -247,7 +315,7 @@ public interface DeveloperApi {
 
   /**
    * Update API key details.
-   * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * An endpoint for updating API key details.
    * @param apiKey The ID of the API key to be updated. (required)
    * @param body New API key attributes to be stored. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
@@ -281,6 +349,20 @@ public interface DeveloperApi {
   @PUT("v3/api-keys/me")
   Call<ApiKeyInfoResp> updateMyApiKey(
     @retrofit2.http.Body ApiKeyUpdateReq body
+  );
+
+  /**
+   * Update user details.
+   * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param body New attributes for the logged in user. (required)
+   * @return Call&lt;UserUpdateResp&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/users/me")
+  Call<UserUpdateResp> updateMyUser(
+    @retrofit2.http.Body UserUpdateReq body
   );
 
 }

@@ -14,6 +14,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyInfoList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -101,6 +106,48 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Attach a policy to API keys.
+     *
+     * An endpoint for attaching policy to API keys.
+     */
+    @Test
+    public void attachAccountPolicyToApikeysTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.attachAccountPolicyToApikeys(accountID, policyId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Attach a policy to groups.
+     *
+     * An endpoint for attaching policy to groups.
+     */
+    @Test
+    public void attachAccountPolicyToGroupTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.attachAccountPolicyToGroup(accountID, policyId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Attach a policy to users.
+     *
+     * An endpoint for attaching policy to users.
+     */
+    @Test
+    public void attachAccountPolicyToUsersTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.attachAccountPolicyToUsers(accountID, policyId, body);
+
+        // TODO: test validations
+    }
+    /**
      * Check the API key.
      *
      * An endpoint for checking API key.
@@ -136,6 +183,19 @@ public class AggregatorAccountAdminApiTest {
         String accountID = null;
         ApiKeyInfoReq body = null;
         // ApiKeyInfoResp response = api.createAccountApiKey(accountID, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a policy.
+     *
+     * An endpoint for creating a new policy.
+     */
+    @Test
+    public void createAccountPolicyTest() {
+        String accountID = null;
+        PolicyCreationReq body = null;
+        // PolicyInfo response = api.createAccountPolicy(accountID, body);
 
         // TODO: test validations
     }
@@ -180,6 +240,19 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Delete policy.
+     *
+     * An endpoint for deleting a policy.
+     */
+    @Test
+    public void deleteAccountPolicyTest() {
+        String accountID = null;
+        String policyId = null;
+        // Void response = api.deleteAccountPolicy(accountID, policyId);
+
+        // TODO: test validations
+    }
+    /**
      * Delete a user.
      *
      * An endpoint for deleting a user.
@@ -189,6 +262,48 @@ public class AggregatorAccountAdminApiTest {
         String accountID = null;
         String userId = null;
         // Void response = api.deleteAccountUser(accountID, userId);
+
+        // TODO: test validations
+    }
+    /**
+     * Detach a policy from API keys.
+     *
+     * An endpoint for detaching policy from API keys.
+     */
+    @Test
+    public void detachAccountPolicyFromApikeysTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.detachAccountPolicyFromApikeys(accountID, policyId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Detach a policy from users.
+     *
+     * An endpoint for detaching policy from users.
+     */
+    @Test
+    public void detachAccountPolicyFromUsersTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.detachAccountPolicyFromUsers(accountID, policyId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Detach a policy to groups.
+     *
+     * An endpoint for detaching policy to groups.
+     */
+    @Test
+    public void detachAccountPolicyToGroupTest() {
+        String accountID = null;
+        String policyId = null;
+        List<String> body = null;
+        // UpdatedResponse response = api.detachAccountPolicyToGroup(accountID, policyId, body);
 
         // TODO: test validations
     }
@@ -246,6 +361,70 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Get policy by ID.
+     *
+     * An endpoint for retrieving a policy by ID.
+     */
+    @Test
+    public void getAccountPolicyTest() {
+        String accountID = null;
+        String policyId = null;
+        // PolicyInfo response = api.getAccountPolicy(accountID, policyId);
+
+        // TODO: test validations
+    }
+    /**
+     * Fetch details of policy&#39;s API keys.
+     *
+     * An endpoint for fetching detailed information about API keys this policy is attached to.
+     */
+    @Test
+    public void getAccountPolicyApikeysTest() {
+        String accountID = null;
+        String policyId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // ApiKeyInfoRespList response = api.getAccountPolicyApikeys(accountID, policyId, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Fetch details of policy&#39;s groups.
+     *
+     * An endpoint for fetching detailed information about groups this policy is attached to.
+     */
+    @Test
+    public void getAccountPolicyGroupsTest() {
+        String accountID = null;
+        String policyId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // GroupSummaryList response = api.getAccountPolicyGroups(accountID, policyId, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Fetch details of policy&#39;s users.
+     *
+     * An endpoint for fetching detailed information about users this policy is attached to.
+     */
+    @Test
+    public void getAccountPolicyUsersTest() {
+        String accountID = null;
+        String policyId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // UserInfoRespList response = api.getAccountPolicyUsers(accountID, policyId, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
      * Details of the user.
      *
      * An endpoint for retrieving details of the user.
@@ -254,8 +433,9 @@ public class AggregatorAccountAdminApiTest {
     public void getAccountUserTest() {
         String accountID = null;
         String userId = null;
+        String scratchCodes = null;
         String properties = null;
-        // UserInfoResp response = api.getAccountUser(accountID, userId, properties);
+        // MyUserInfoResp response = api.getAccountUser(accountID, userId, scratchCodes, properties);
 
         // TODO: test validations
     }
@@ -320,6 +500,28 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Get all policies.
+     *
+     * An endpoint for retrieving all policies in the account.
+     */
+    @Test
+    public void getAllAccountPoliciesTest() {
+        String accountID = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String nameEq = null;
+        String statusEq = null;
+        String tagEq = null;
+        String userIdEq = null;
+        String apikeyIdEq = null;
+        String groupIdEq = null;
+        String unbounded = null;
+        // PolicyInfoList response = api.getAllAccountPolicies(accountID, limit, after, order, nameEq, statusEq, tagEq, userIdEq, apikeyIdEq, groupIdEq, unbounded);
+
+        // TODO: test validations
+    }
+    /**
      * Get all user details.
      *
      * An endpoint for retrieving details of all users.
@@ -333,9 +535,7 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String emailEq = null;
         String statusEq = null;
-        String statusIn = null;
-        String statusNin = null;
-        // UserInfoRespList response = api.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
+        // UserInfoRespList response = api.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq);
 
         // TODO: test validations
     }
@@ -347,8 +547,6 @@ public class AggregatorAccountAdminApiTest {
     @Test
     public void getAllAccountsTest() {
         String statusEq = null;
-        String statusIn = null;
-        String statusNin = null;
         String tierEq = null;
         String parentEq = null;
         String endMarketEq = null;
@@ -359,7 +557,7 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String format = null;
         String properties = null;
-        // AccountInfoList response = api.getAllAccounts(statusEq, statusIn, statusNin, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
+        // AccountInfoList response = api.getAllAccounts(statusEq, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
 
         // TODO: test validations
     }
@@ -538,6 +736,20 @@ public class AggregatorAccountAdminApiTest {
         String certId = null;
         TrustedCertificateUpdateReq body = null;
         // TrustedCertificateInternalResp response = api.updateAccountCertificate(accountID, certId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Update a policy.
+     *
+     * An endpoint for updating a policy.
+     */
+    @Test
+    public void updateAccountPolicyTest() {
+        String accountID = null;
+        String policyId = null;
+        PolicyUpdateReq body = null;
+        // PolicyInfo response = api.updateAccountPolicy(accountID, policyId, body);
 
         // TODO: test validations
     }
