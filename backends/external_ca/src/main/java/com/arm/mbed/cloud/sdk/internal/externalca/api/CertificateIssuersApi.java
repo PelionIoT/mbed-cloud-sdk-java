@@ -33,7 +33,7 @@ public interface CertificateIssuersApi {
     "Content-Type:application/json;charset=UTF-8"
   })
   @POST("v3/certificate-issuers")
-  Call<CertificateIssuerInfo> createCertificateIssuerUsingPOST(
+  Call<CertificateIssuerInfo> createCertificateIssuer(
     @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body CertificateIssuerRequest certificateIssuerRequest
   );
 
@@ -48,7 +48,7 @@ public interface CertificateIssuersApi {
     "Content-Type:application/json"
   })
   @DELETE("v3/certificate-issuers/{certificate-issuer-id}")
-  Call<Void> deleteCertificateIssuerUsingDELETE(
+  Call<Void> deleteCertificateIssuer(
     @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId, @retrofit2.http.Header("Authorization") String authorization
   );
 
@@ -63,7 +63,7 @@ public interface CertificateIssuersApi {
     "Content-Type:application/json;charset=UTF-8"
   })
   @GET("v3/certificate-issuers/{certificate-issuer-id}")
-  Call<CertificateIssuerInfo> getCertificateIssuerUsingGET(
+  Call<CertificateIssuerInfo> getCertificateIssuer(
     @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId, @retrofit2.http.Header("Authorization") String authorization
   );
 
@@ -77,7 +77,7 @@ public interface CertificateIssuersApi {
     "Content-Type:application/json"
   })
   @GET("v3/certificate-issuers")
-  Call<CertificateIssuerInfoListResponse> getCertificateIssuersUsingGET(
+  Call<CertificateIssuerInfoListResponse> getCertificateIssuers(
     @retrofit2.http.Header("Authorization") String authorization
   );
 
@@ -93,7 +93,7 @@ public interface CertificateIssuersApi {
     "Content-Type:application/json;charset=UTF-8"
   })
   @PUT("v3/certificate-issuers/{certificate-issuer-id}")
-  Call<CertificateIssuerInfo> updateCertificateIssuerUsingPUT(
+  Call<CertificateIssuerInfo> updateCertificateIssuer(
     @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId, @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body CertificateIssuerUpdateRequest certificateIssuerUpdateRequest
   );
 

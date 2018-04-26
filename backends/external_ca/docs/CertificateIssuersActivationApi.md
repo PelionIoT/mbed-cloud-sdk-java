@@ -4,13 +4,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getCertificateIssuerConfigUsingGET**](CertificateIssuersActivationApi.md#getCertificateIssuerConfigUsingGET) | **GET** v3/certificate-issuer-configurations/lwm2m | Get certificate issuer configuration.
-[**updateCertificateIssuerConfigUsingPUT**](CertificateIssuersActivationApi.md#updateCertificateIssuerConfigUsingPUT) | **PUT** v3/certificate-issuer-configurations/lwm2m | Update certificate issuer configuration.
+[**getCertificateIssuerConfig**](CertificateIssuersActivationApi.md#getCertificateIssuerConfig) | **GET** v3/certificate-issuer-configurations/lwm2m | Get certificate issuer configuration.
+[**updateCertificateIssuerConfig**](CertificateIssuersActivationApi.md#updateCertificateIssuerConfig) | **PUT** v3/certificate-issuer-configurations/lwm2m | Update certificate issuer configuration.
 
 
-<a name="getCertificateIssuerConfigUsingGET"></a>
-# **getCertificateIssuerConfigUsingGET**
-> CertificateIssuerConfigResponse getCertificateIssuerConfigUsingGET(authorization)
+<a name="getCertificateIssuerConfig"></a>
+# **getCertificateIssuerConfig**
+> CertificateIssuerConfigResponse getCertificateIssuerConfig(authorization)
 
 Get certificate issuer configuration.
 
@@ -36,10 +36,10 @@ Bearer.setApiKey("YOUR API KEY");
 CertificateIssuersActivationApi apiInstance = new CertificateIssuersActivationApi();
 String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerConfigResponse result = apiInstance.getCertificateIssuerConfigUsingGET(authorization);
+    CertificateIssuerConfigResponse result = apiInstance.getCertificateIssuerConfig(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersActivationApi#getCertificateIssuerConfigUsingGET");
+    System.err.println("Exception when calling CertificateIssuersActivationApi#getCertificateIssuerConfig");
     e.printStackTrace();
 }
 ```
@@ -63,9 +63,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json;charset=UTF-8
  - **Accept**: application/json;charset=UTF-8
 
-<a name="updateCertificateIssuerConfigUsingPUT"></a>
-# **updateCertificateIssuerConfigUsingPUT**
-> CertificateIssuerConfigResponse updateCertificateIssuerConfigUsingPUT(authorization, certificateIssuerConfigRequest)
+<a name="updateCertificateIssuerConfig"></a>
+# **updateCertificateIssuerConfig**
+> CertificateIssuerConfigResponse updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest)
 
 Update certificate issuer configuration.
 
@@ -92,10 +92,10 @@ CertificateIssuersActivationApi apiInstance = new CertificateIssuersActivationAp
 String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerConfigRequest certificateIssuerConfigRequest = new CertificateIssuerConfigRequest(); // CertificateIssuerConfigRequest | Certificate Issuer Configuration Request
 try {
-    CertificateIssuerConfigResponse result = apiInstance.updateCertificateIssuerConfigUsingPUT(authorization, certificateIssuerConfigRequest);
+    CertificateIssuerConfigResponse result = apiInstance.updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersActivationApi#updateCertificateIssuerConfigUsingPUT");
+    System.err.println("Exception when calling CertificateIssuersActivationApi#updateCertificateIssuerConfig");
     e.printStackTrace();
 }
 ```

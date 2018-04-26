@@ -29,7 +29,7 @@ public interface CertificateIssuersActivationApi {
     "Content-Type:application/json;charset=UTF-8"
   })
   @GET("v3/certificate-issuer-configurations/lwm2m")
-  Call<CertificateIssuerConfigResponse> getCertificateIssuerConfigUsingGET(
+  Call<CertificateIssuerConfigResponse> getCertificateIssuerConfig(
     @retrofit2.http.Header("Authorization") String authorization
   );
 
@@ -44,7 +44,7 @@ public interface CertificateIssuersActivationApi {
     "Content-Type:application/json;charset=UTF-8"
   })
   @PUT("v3/certificate-issuer-configurations/lwm2m")
-  Call<CertificateIssuerConfigResponse> updateCertificateIssuerConfigUsingPUT(
+  Call<CertificateIssuerConfigResponse> updateCertificateIssuerConfig(
     @retrofit2.http.Header("Authorization") String authorization, @retrofit2.http.Body CertificateIssuerConfigRequest certificateIssuerConfigRequest
   );
 

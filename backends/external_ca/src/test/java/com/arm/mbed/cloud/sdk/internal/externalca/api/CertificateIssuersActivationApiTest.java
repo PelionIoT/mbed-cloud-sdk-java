@@ -30,9 +30,9 @@ public class CertificateIssuersActivationApiTest {
      * Provides the configured certificate issuer to be used when creating device certificates for LwM2M communication.&lt;br&gt; 
      */
     @Test
-    public void getCertificateIssuerConfigUsingGETTest() {
+    public void getCertificateIssuerConfigTest() {
         String authorization = null;
-        // CertificateIssuerConfigResponse response = api.getCertificateIssuerConfigUsingGET(authorization);
+        // CertificateIssuerConfigResponse response = api.getCertificateIssuerConfig(authorization);
 
         // TODO: test validations
     }
@@ -42,10 +42,10 @@ public class CertificateIssuersActivationApiTest {
      * Configure the certificate issuer to be used when creating device certificates for LwM2M communication. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl -X PUT \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations/lwm2m \\ -d &#39;{   \&quot;certificate_issuer_id\&quot;: \&quot;01621a36719d507b9d48a91b00000000\&quot; }&#39; &#x60;&#x60;&#x60; 
      */
     @Test
-    public void updateCertificateIssuerConfigUsingPUTTest() {
+    public void updateCertificateIssuerConfigTest() {
         String authorization = null;
         CertificateIssuerConfigRequest certificateIssuerConfigRequest = null;
-        // CertificateIssuerConfigResponse response = api.updateCertificateIssuerConfigUsingPUT(authorization, certificateIssuerConfigRequest);
+        // CertificateIssuerConfigResponse response = api.updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest);
 
         // TODO: test validations
     }

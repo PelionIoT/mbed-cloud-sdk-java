@@ -4,17 +4,17 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createCertificateIssuerUsingPOST**](CertificateIssuersApi.md#createCertificateIssuerUsingPOST) | **POST** v3/certificate-issuers | Create certificate issuer.
-[**deleteCertificateIssuerUsingDELETE**](CertificateIssuersApi.md#deleteCertificateIssuerUsingDELETE) | **DELETE** v3/certificate-issuers/{certificate-issuer-id} | Delete certificate issuer.
-[**getCertificateIssuerUsingGET**](CertificateIssuersApi.md#getCertificateIssuerUsingGET) | **GET** v3/certificate-issuers/{certificate-issuer-id} | Get certificate issuer by ID.
-[**getCertificateIssuersUsingGET**](CertificateIssuersApi.md#getCertificateIssuersUsingGET) | **GET** v3/certificate-issuers | Get certificate issuers list.
-[**updateCertificateIssuerUsingPUT**](CertificateIssuersApi.md#updateCertificateIssuerUsingPUT) | **PUT** v3/certificate-issuers/{certificate-issuer-id} | Update certificate issuer.
+[**createCertificateIssuer**](CertificateIssuersApi.md#createCertificateIssuer) | **POST** v3/certificate-issuers | Create certificate issuer.
+[**deleteCertificateIssuer**](CertificateIssuersApi.md#deleteCertificateIssuer) | **DELETE** v3/certificate-issuers/{certificate-issuer-id} | Delete certificate issuer.
+[**getCertificateIssuer**](CertificateIssuersApi.md#getCertificateIssuer) | **GET** v3/certificate-issuers/{certificate-issuer-id} | Get certificate issuer by ID.
+[**getCertificateIssuers**](CertificateIssuersApi.md#getCertificateIssuers) | **GET** v3/certificate-issuers | Get certificate issuers list.
+[**updateCertificateIssuer**](CertificateIssuersApi.md#updateCertificateIssuer) | **PUT** v3/certificate-issuers/{certificate-issuer-id} | Update certificate issuer.
 [**verifyCertificateIssuer**](CertificateIssuersApi.md#verifyCertificateIssuer) | **POST** v3/certificate-issuers/{certificate-issuer-id}/verify | Verify certificate issuer.
 
 
-<a name="createCertificateIssuerUsingPOST"></a>
-# **createCertificateIssuerUsingPOST**
-> CertificateIssuerInfo createCertificateIssuerUsingPOST(authorization, certificateIssuerRequest)
+<a name="createCertificateIssuer"></a>
+# **createCertificateIssuer**
+> CertificateIssuerInfo createCertificateIssuer(authorization, certificateIssuerRequest)
 
 Create certificate issuer.
 
@@ -41,10 +41,10 @@ CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerRequest certificateIssuerRequest = new CertificateIssuerRequest(); // CertificateIssuerRequest | Certificate issuer request.
 try {
-    CertificateIssuerInfo result = apiInstance.createCertificateIssuerUsingPOST(authorization, certificateIssuerRequest);
+    CertificateIssuerInfo result = apiInstance.createCertificateIssuer(authorization, certificateIssuerRequest);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersApi#createCertificateIssuerUsingPOST");
+    System.err.println("Exception when calling CertificateIssuersApi#createCertificateIssuer");
     e.printStackTrace();
 }
 ```
@@ -69,9 +69,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json;charset=UTF-8
  - **Accept**: application/json;charset=UTF-8
 
-<a name="deleteCertificateIssuerUsingDELETE"></a>
-# **deleteCertificateIssuerUsingDELETE**
-> Void deleteCertificateIssuerUsingDELETE(certificateIssuerId, authorization)
+<a name="deleteCertificateIssuer"></a>
+# **deleteCertificateIssuer**
+> Void deleteCertificateIssuer(certificateIssuerId, authorization)
 
 Delete certificate issuer.
 
@@ -98,10 +98,10 @@ CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. <br> The ID of the certificate issuer. An active certificate issuer may not be deleted. 
 String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    Void result = apiInstance.deleteCertificateIssuerUsingDELETE(certificateIssuerId, authorization);
+    Void result = apiInstance.deleteCertificateIssuer(certificateIssuerId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersApi#deleteCertificateIssuerUsingDELETE");
+    System.err.println("Exception when calling CertificateIssuersApi#deleteCertificateIssuer");
     e.printStackTrace();
 }
 ```
@@ -126,9 +126,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: */*
 
-<a name="getCertificateIssuerUsingGET"></a>
-# **getCertificateIssuerUsingGET**
-> CertificateIssuerInfo getCertificateIssuerUsingGET(certificateIssuerId, authorization)
+<a name="getCertificateIssuer"></a>
+# **getCertificateIssuer**
+> CertificateIssuerInfo getCertificateIssuer(certificateIssuerId, authorization)
 
 Get certificate issuer by ID.
 
@@ -153,10 +153,10 @@ CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. The ID of the certificate issuer. 
 String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerInfo result = apiInstance.getCertificateIssuerUsingGET(certificateIssuerId, authorization);
+    CertificateIssuerInfo result = apiInstance.getCertificateIssuer(certificateIssuerId, authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuerUsingGET");
+    System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuer");
     e.printStackTrace();
 }
 ```
@@ -181,9 +181,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json;charset=UTF-8
  - **Accept**: application/json;charset=UTF-8
 
-<a name="getCertificateIssuersUsingGET"></a>
-# **getCertificateIssuersUsingGET**
-> CertificateIssuerInfoListResponse getCertificateIssuersUsingGET(authorization)
+<a name="getCertificateIssuers"></a>
+# **getCertificateIssuers**
+> CertificateIssuerInfoListResponse getCertificateIssuers(authorization)
 
 Get certificate issuers list.
 
@@ -207,10 +207,10 @@ Bearer.setApiKey("YOUR API KEY");
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuersUsingGET(authorization);
+    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuers(authorization);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuersUsingGET");
+    System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuers");
     e.printStackTrace();
 }
 ```
@@ -234,9 +234,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json;charset=UTF-8
 
-<a name="updateCertificateIssuerUsingPUT"></a>
-# **updateCertificateIssuerUsingPUT**
-> CertificateIssuerInfo updateCertificateIssuerUsingPUT(certificateIssuerId, authorization, certificateIssuerUpdateRequest)
+<a name="updateCertificateIssuer"></a>
+# **updateCertificateIssuer**
+> CertificateIssuerInfo updateCertificateIssuer(certificateIssuerId, authorization, certificateIssuerUpdateRequest)
 
 Update certificate issuer.
 
@@ -264,10 +264,10 @@ String certificateIssuerId = "certificateIssuerId_example"; // String | Certific
 String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerUpdateRequest certificateIssuerUpdateRequest = new CertificateIssuerUpdateRequest(); // CertificateIssuerUpdateRequest | Certificate issuer update request.
 try {
-    CertificateIssuerInfo result = apiInstance.updateCertificateIssuerUsingPUT(certificateIssuerId, authorization, certificateIssuerUpdateRequest);
+    CertificateIssuerInfo result = apiInstance.updateCertificateIssuer(certificateIssuerId, authorization, certificateIssuerUpdateRequest);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling CertificateIssuersApi#updateCertificateIssuerUsingPUT");
+    System.err.println("Exception when calling CertificateIssuersApi#updateCertificateIssuer");
     e.printStackTrace();
 }
 ```
