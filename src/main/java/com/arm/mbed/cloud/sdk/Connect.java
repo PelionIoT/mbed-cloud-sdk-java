@@ -1443,7 +1443,7 @@ public class Connect extends AbstractApi {
     }
 
     /**
-     * Updates pre-subscription data.
+     * Updates all pre-subscription data.
      * <p>
      * Example:
      *
@@ -1522,6 +1522,41 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Adds some pre-subscriptions.
+     * <p>
+     * Note: for more information about pre-subscriptions, have a look at @link {@link Presubscription} or
+     * <a href="https://cloud.mbed.com/docs/current/connecting/presubscriptions.html">corresponding Mbed Cloud
+     * documentation</a>
+     *
+     * @param presubscriptions
+     *            pre-subscriptions to add
+     * @throws MbedCloudException
+     *             if an error happened during the process
+     */
+    @API
+    public void addSomePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
+        if (presubscriptions == null) {
+            return;
+        }
+        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "addSomePresubscriptions()");
+        if (presubscriptionRegistry == null) {
+            presubscriptionRegistry = new GenericAdapter.MappedObjectRegistry<>();
+        }
+        boolean requireAddition = false;
+        for (final Presubscription presubscription : presubscriptions) {
+            checkModelValidity(presubscription, TAG_PRESUBSCRIPTION);
+            if (!presubscriptionRegistry.contains(presubscription)) {
+                requireAddition = true;
+                presubscriptionRegistry.addNewEnty(presubscription);
+            }
+        }
+        if (requireAddition) {
+            updatePresubscriptions(presubscriptionRegistry.getEntries());
+        }
+    }
+
+    /**
      * Gets a pre-subscription.
      *
      * @param presubscriptionId
@@ -1578,6 +1613,38 @@ public class Connect extends AbstractApi {
             return;
         }
         deletePresubscription(presubscription.getId());
+    }
+
+    /**
+     * Deletes some pre-subscriptions.
+     *
+     * @param presubscriptions
+     *            pre-subscriptions to delete
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
+    @API
+    public void deleteSomePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
+        if (presubscriptions == null) {
+            return;
+        }
+        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+                "deleteSomePresubscriptions()");
+
+        if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) {
+            return;
+        }
+        boolean requireDeletion = false;
+        for (final Presubscription presubscription : presubscriptions) {
+            if (presubscriptionRegistry.contains(presubscription.getId())) {
+                requireDeletion = true;
+            }
+            presubscriptionRegistry.removeEntry(presubscription.getId());
+
+        }
+        if (requireDeletion) {
+            updatePresubscriptions(presubscriptionRegistry.getEntries());
+        }
     }
 
     /**
@@ -1976,6 +2043,25 @@ public class Connect extends AbstractApi {
                         ApiUtils.normalisePath(finalResource.getPath()));
             }
         });
+    }
+
+    /**
+     * Subscribes to a list of resources.
+     *
+     *
+     * @param resources
+     *            resources to subscribe to.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void addResourcesSubscription(@Nullable List<Resource> resources) throws MbedCloudException {
+        if (resources == null) {
+            return;
+        }
+        for (final Resource resource : resources) {
+            addResourceSubscription(resource);
+        }
     }
 
     /**

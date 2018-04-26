@@ -135,7 +135,40 @@ public class FilterOptions implements Cloneable {
         addFilter(new CustomFilter(customAttribute, operator, value));
     }
 
-    protected Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
+    /**
+     * Determines whether a filter has been set or not.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @param operator
+     *            filter operator to consider
+     * @return True if there is a filter defined. False otherwise.
+     */
+    public boolean hasFilter(String fieldName, FilterOperator operator) {
+        return fetchSpecificFilterValue(fieldName, operator) != null;
+    }
+
+    /**
+     * Determines whether filters have been set or not.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @return True if there is a filter defined. False otherwise.
+     */
+    public boolean hasFilters(String fieldName) {
+        return fetchFilters(fieldName) != null && !fetchFilters(fieldName).isEmpty();
+    }
+
+    /**
+     * Fetches a specific filter value.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @param operator
+     *            filter operator to consider
+     * @return the corresponding filter value
+     */
+    public Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
         if (fieldName == null || filter == null) {
             return null;
         }

@@ -15,6 +15,8 @@ public class Presubscription implements SdkModel {
      * Serialisation id.
      */
     private static final long serialVersionUID = -5268031934513375264L;
+
+    public static final Presubscription TO_EVERYTHING = new Presubscription().deviceId("*");
     /**
      * The device id (optionally having an * character at the end).
      */
@@ -87,10 +89,24 @@ public class Presubscription implements SdkModel {
      * Sets device id.
      *
      * @param deviceId
-     *            the deviceId to set
+     *            the device Id to set
      */
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    /**
+     * Sets device id.
+     * <p>
+     * Note: Similar to {@link #setDeviceId(String)}
+     *
+     * @param id
+     *            the device id to set
+     * @return this pre-subscription
+     */
+    public Presubscription deviceId(String id) {
+        setDeviceId(id);
+        return this;
     }
 
     /**

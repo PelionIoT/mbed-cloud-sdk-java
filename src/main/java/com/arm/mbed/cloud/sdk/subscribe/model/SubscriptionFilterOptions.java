@@ -696,6 +696,45 @@ public class SubscriptionFilterOptions extends FilterOptions {
         return evaluateResource(notification.getResource());// TODO && evaluateDeviceType(notification.);
     }
 
+    /**
+     * States whether any resource in the list verifies the filter created or not.
+     *
+     * @param resources
+     *            resources to check
+     * @return True if at least one resource of the list verifies the filter. False otherwise.
+     */
+    public boolean isVerified(List<Resource> resources) {
+        if (resources == null) {
+            return false;
+        }
+        for (final Resource resource : resources) {
+            if (evaluateResource(resource)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Gets the subset of resources which verify the filter.
+     *
+     * @param resources
+     *            resources to check
+     * @return subset of resources verifying the filter.
+     */
+    public List<Resource> getVerifiedResources(List<Resource> resources) {
+        if (resources == null) {
+            return null;
+        }
+        final List<Resource> verifiedResources = new LinkedList<>();
+        for (final Resource resource : resources) {
+            if (evaluateResource(resource)) {
+                verifiedResources.add(resource);
+            }
+        }
+        return (verifiedResources.isEmpty()) ? null : verifiedResources;
+    }
+
     private boolean evaluateResource(Resource resource) {
         if (resource == null) {
             return false;
