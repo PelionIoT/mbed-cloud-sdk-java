@@ -248,6 +248,7 @@ dependencies {
     compile project(':lwm2m')
     compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
+    compile project(':backends:connector_bootstrap')
     compile project(':backends:device_directory')
     compile project(':backends:iam')
     compile project(':backends:mds')
