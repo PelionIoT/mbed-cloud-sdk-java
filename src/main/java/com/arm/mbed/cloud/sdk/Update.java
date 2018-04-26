@@ -46,6 +46,7 @@ import retrofit2.Call;
  */
 public class Update extends AbstractApi {
 
+    private static final String KEY_TABLE_PARAMETER = "key_table";
     private static final String TAG_CAMPAIGN_ID = "campaign id";
     private static final String TAG_CAMPAIGN = "campaign";
     private static final String TAG_FIRMWARE_MANIFEST_ID = "firmwareManifestId";
@@ -56,7 +57,7 @@ public class Update extends AbstractApi {
 
     /**
      * Update module constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -69,7 +70,7 @@ public class Update extends AbstractApi {
      * Lists all firmware images according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -77,7 +78,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
      *     ListResponse<FirmwareImage> images = updateApi.listFirmwareImages(options);
@@ -90,7 +91,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of firmware images corresponding to filter options (One page).
@@ -119,7 +120,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all firmware images according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -127,7 +128,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartImage", FilterOperator.EQUAL);
      *
      *     Paginator<FirmwareImage> images = updateApi.listAllFirmwareImages(options);
@@ -141,7 +142,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of firmware images corresponding to filter options.
@@ -165,7 +166,7 @@ public class Update extends AbstractApi {
      * Gets details of a firmware image.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -179,7 +180,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareImageId
      *            the firmware image ID.
      * @return firmware image details.
@@ -205,7 +206,7 @@ public class Update extends AbstractApi {
      * Adds a firmware image.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -223,7 +224,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param image
      *            The image to add.
      * @return added image.
@@ -252,7 +253,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware image.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -263,7 +264,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareImageId
      *            The ID of the firmware image to delete.
      * @throws MbedCloudException
@@ -287,7 +288,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware image.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -298,7 +299,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareImage
      *            The firmware image to delete.
      * @throws MbedCloudException
@@ -314,7 +315,7 @@ public class Update extends AbstractApi {
      * Lists all firmware manifests according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -322,7 +323,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
      *     ListResponse<FirmwareManifest> manifests = updateApi.listFirmwareManifests(options);
@@ -335,7 +336,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options
      * @return The list of firmware manifests corresponding to filter options (One page).
@@ -365,7 +366,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all firmware manifests according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -373,7 +374,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartManifest", FilterOperator.EQUAL);
      *
      *     Paginator<FirmwareManifest> manifests = updateApi.listAllFirmwareManifests(options);
@@ -387,7 +388,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of firmware manifests corresponding to filter options.
@@ -411,7 +412,7 @@ public class Update extends AbstractApi {
      * Get details of a firmware manifest.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -425,7 +426,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareManifestId
      *            The firmware manifest ID.
      * @return corresponding firmware manifest.
@@ -452,7 +453,7 @@ public class Update extends AbstractApi {
      * Adds a firmware manifest.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -470,7 +471,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param manifest
      *            The manifest to add.
      * @return added manifest.
@@ -491,7 +492,7 @@ public class Update extends AbstractApi {
                         return endpoint.getUpdate().firmwareManifestCreate(
                                 DataFileAdapter.reverseMap(finalManifest.getDataFile()), finalManifest.getName(),
                                 finalManifest.getDescription(),
-                                DataFileAdapter.reverseMap(finalManifest.getDecryptionKeysFile()));
+                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER, finalManifest.getDecryptionKeysFile()));
                     }
 
                 });
@@ -501,7 +502,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware manifest.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -512,7 +513,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareManifestId
      *            The ID of the firmware manifest to delete.
      * @throws MbedCloudException
@@ -536,7 +537,7 @@ public class Update extends AbstractApi {
      * Deletes a firmware manifest.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -547,7 +548,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param firmwareManifest
      *            The firmware manifest to delete.
      * @throws MbedCloudException
@@ -563,7 +564,7 @@ public class Update extends AbstractApi {
      * Lists all update campaigns according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -571,7 +572,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
@@ -585,7 +586,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of update campaigns corresponding to filter options (One page).
@@ -614,7 +615,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all update campaigns according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -622,7 +623,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
@@ -638,7 +639,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of update campaigns corresponding to filter options.
@@ -661,7 +662,7 @@ public class Update extends AbstractApi {
      * Gets details of an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -675,7 +676,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaignId
      *            The update campaign ID.
      * @return the update campaign.
@@ -700,7 +701,7 @@ public class Update extends AbstractApi {
      * Adds an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -708,7 +709,7 @@ public class Update extends AbstractApi {
      *     campaign.setName("QuickstartCampaign");
      *     campaign.setDescription("Quick start campaign");
      *     campaign.setState(CampaignState.DRAFT);
-     *     
+     *
      *     Filters deviceFilter = new Filters();
      *     deviceFilter.add(new Filter("state", FilterOperator.EQUAL, "registered"));
      *     campaign.setDeviceFilter(deviceFilter);
@@ -725,7 +726,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            The campaign to add.
      * @return added update campaign.
@@ -749,7 +750,7 @@ public class Update extends AbstractApi {
 
     /**
      * Modifies an update campaign.
-     * 
+     *
      * @param campaign
      *            campaign to modify.
      * @param actionName
@@ -779,7 +780,7 @@ public class Update extends AbstractApi {
      * Updates an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -787,7 +788,7 @@ public class Update extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     * 
+     *
      *     options.addNameFilter("QuickstartCampaign", FilterOperator.EQUAL);
      *     options.addUpdatedFilter("deployed", FilterOperator.EQUAL);
      *
@@ -802,7 +803,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            The campaign to update.
      * @return updated update campaign.
@@ -818,7 +819,7 @@ public class Update extends AbstractApi {
      * Deletes an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -829,7 +830,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaignId
      *            The ID of the update campaign to delete.
      * @throws MbedCloudException
@@ -853,7 +854,7 @@ public class Update extends AbstractApi {
      * Deletes an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -864,7 +865,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            The update campaign to delete.
      * @throws MbedCloudException
@@ -880,7 +881,7 @@ public class Update extends AbstractApi {
      * Starts an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -892,7 +893,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            the update campaign to start.
      * @return the started campaign.
@@ -910,7 +911,7 @@ public class Update extends AbstractApi {
      * Stops an update campaign.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -922,7 +923,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            the update campaign to stop.
      * @return the stopped campaign.
@@ -940,7 +941,7 @@ public class Update extends AbstractApi {
      * Lists campaign devices states.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -958,7 +959,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaignId
      *            The ID of the update campaign.
      * @param options
@@ -991,7 +992,7 @@ public class Update extends AbstractApi {
      * Lists campaign devices states.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1009,7 +1010,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            The update campaign.
      * @param options
@@ -1029,7 +1030,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all campaign device states according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1049,7 +1050,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaignId
      *            The ID of the update campaign.
      * @param options
@@ -1078,7 +1079,7 @@ public class Update extends AbstractApi {
      * Gets an iterator over all campaign device states according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1097,7 +1098,7 @@ public class Update extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param campaign
      *            The update campaign.
      * @param options
@@ -1116,7 +1117,7 @@ public class Update extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override
