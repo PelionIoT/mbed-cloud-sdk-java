@@ -41,11 +41,13 @@ public class CertificateIssuerRequest implements Serializable {
   private Object issuerCredentials = null;
 
   /**
-   * Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. 
+   * The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. 
    */
   @JsonAdapter(IssuerTypeEnum.Adapter.class)
   public enum IssuerTypeEnum {
-    SIGN("GLOBAL_SIGN");
+    GLOBAL_SIGN("GLOBAL_SIGN"),
+    
+    CFSSL_AUTH("CFSSL_AUTH");
 
     private String value;
 
@@ -115,10 +117,10 @@ public class CertificateIssuerRequest implements Serializable {
   }
 
    /**
-   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. 
+   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. 
    * @return issuerAttributes
   **/
-  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. ")
+  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
   public Object getIssuerAttributes() {
     return issuerAttributes;
   }
@@ -133,10 +135,10 @@ public class CertificateIssuerRequest implements Serializable {
   }
 
    /**
-   * Credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. 
+   * The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. 
    * @return issuerCredentials
   **/
-  @ApiModelProperty(value = "Credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. ")
+  @ApiModelProperty(value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
   public Object getIssuerCredentials() {
     return issuerCredentials;
   }
@@ -151,10 +153,10 @@ public class CertificateIssuerRequest implements Serializable {
   }
 
    /**
-   * Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. 
+   * The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. 
    * @return issuerType
   **/
-  @ApiModelProperty(required = true, value = "Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. ")
+  @ApiModelProperty(required = true, value = "The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. ")
   public IssuerTypeEnum getIssuerType() {
     return issuerType;
   }

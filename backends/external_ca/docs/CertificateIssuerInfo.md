@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **etag** | **String** | Entity instance signature. |  [optional]
 **id** | **String** | The ID of the certificate issuer. |  [optional]
 **issuerAttributes** | **Map&lt;String, String&gt;** | General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty.  |  [optional]
-**issuerType** | [**IssuerTypeEnum**](#IssuerTypeEnum) | Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.  | 
+**issuerType** | [**IssuerTypeEnum**](#IssuerTypeEnum) | The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials.  | 
 **name** | **String** | Certificate issuer name, unique per account. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) |  |  [optional]
 
@@ -18,7 +18,8 @@ Name | Type | Description | Notes
 ## Enum: IssuerTypeEnum
 Name | Value
 ---- | -----
-SIGN | &quot;GLOBAL_SIGN&quot;
+GLOBAL_SIGN | &quot;GLOBAL_SIGN&quot;
+CFSSL_AUTH | &quot;CFSSL_AUTH&quot;
 
 
 <a name="ObjectEnum"></a>

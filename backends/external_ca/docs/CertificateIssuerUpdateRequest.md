@@ -5,8 +5,8 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **String** | General description for the certificate issuer. |  [optional]
-**issuerAttributes** | **Object** | General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty.  |  [optional]
-**issuerCredentials** | **Object** | Credentials required for connecting to the certificate issuer. When issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials.  |  [optional]
+**issuerAttributes** | **Object** | General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes.  |  [optional]
+**issuerCredentials** | **Object** | The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials.  |  [optional]
 **name** | **String** | Certificate issuer name. |  [optional]
 
 

@@ -67,10 +67,10 @@ public class CertificateIssuerUpdateRequest implements Serializable {
   }
 
    /**
-   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. 
+   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. 
    * @return issuerAttributes
   **/
-  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. ")
+  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
   public Object getIssuerAttributes() {
     return issuerAttributes;
   }
@@ -85,10 +85,10 @@ public class CertificateIssuerUpdateRequest implements Serializable {
   }
 
    /**
-   * Credentials required for connecting to the certificate issuer. When issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. 
+   * The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. 
    * @return issuerCredentials
   **/
-  @ApiModelProperty(value = "Credentials required for connecting to the certificate issuer. When issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. ")
+  @ApiModelProperty(value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
   public Object getIssuerCredentials() {
     return issuerCredentials;
   }

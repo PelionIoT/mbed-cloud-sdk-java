@@ -50,11 +50,13 @@ public class CertificateIssuerInfo implements Serializable {
   private Map<String, String> issuerAttributes = null;
 
   /**
-   * Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. 
+   * The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. 
    */
   @JsonAdapter(IssuerTypeEnum.Adapter.class)
   public enum IssuerTypeEnum {
-    SIGN("GLOBAL_SIGN");
+    GLOBAL_SIGN("GLOBAL_SIGN"),
+    
+    CFSSL_AUTH("CFSSL_AUTH");
 
     private String value;
 
@@ -252,10 +254,10 @@ public class CertificateIssuerInfo implements Serializable {
   }
 
    /**
-   * Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. 
+   * The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. 
    * @return issuerType
   **/
-  @ApiModelProperty(example = "GLOBAL_SIGN", required = true, value = "Type of certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. ")
+  @ApiModelProperty(example = "GLOBAL_SIGN", required = true, value = "The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. ")
   public IssuerTypeEnum getIssuerType() {
     return issuerType;
   }
