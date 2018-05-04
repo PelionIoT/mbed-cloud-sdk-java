@@ -56,10 +56,10 @@ public class CampaignMetrics implements Serializable {
   }
 
    /**
-   * The time the campaign was created
+   * The time the metrics were created.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the metrics were created.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
