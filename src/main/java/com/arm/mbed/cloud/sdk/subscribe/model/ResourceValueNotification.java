@@ -10,8 +10,8 @@ import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
 import com.mbed.lwm2m.base64.Base64Decoder;
 
-@Preamble(description = "Java bean describing a resource value change")
-public class ResourceValueChangeNotification implements NotificationMessageValue {
+@Preamble(description = "Java bean describing a resource value notification")
+public class ResourceValueNotification implements NotificationMessageValue {
     /**
      * Serialisation Id.
      */
@@ -20,6 +20,7 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
     private final Resource resource;
     private String contentType;
     private Object payload;
+    private String maxAge;
     private Throwable throwable;
 
     private String deviceType;// TODO
@@ -32,7 +33,7 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
      * @param resourcePath
      *            resource path
      */
-    public ResourceValueChangeNotification(String deviceId, String resourcePath) {
+    public ResourceValueNotification(String deviceId, String resourcePath) {
         this(new Resource(deviceId, resourcePath));
     }
 
@@ -41,7 +42,7 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
      *
      * @param resource.
      */
-    public ResourceValueChangeNotification(Resource resource) {
+    public ResourceValueNotification(Resource resource) {
         super();
         this.resource = resource;
     }
@@ -122,17 +123,32 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
     }
 
     /**
+     * @return the maxAge
+     */
+    public String getMaxAge() {
+        return maxAge;
+    }
+
+    /**
+     * @param maxAge
+     *            the maxAge to set
+     */
+    public void setMaxAge(String maxAge) {
+        this.maxAge = maxAge;
+    }
+
+    /**
      * Decodes the payload.
      *
      * @param encodedPayload
      *            encoded payload
-     * @param payloadContentType1
+     * @param payloadContentType
      *            content type of the payload.
      */
-    public void decodePayload(String encodedPayload, String payloadContentType1) {
-        setContentType(payloadContentType1);
+    public void decodePayload(String encodedPayload, String payloadContentType) {
+        setContentType(payloadContentType);
         try {
-            setPayload(decodeBase64EncodedPayload(encodedPayload, payloadContentType1));
+            setPayload(decodeBase64EncodedPayload(encodedPayload, payloadContentType));
         } catch (DecodingException exception) {
             setThrowable(exception);
 
@@ -155,11 +171,12 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
      * @see java.lang.Object#clone()
      */
     @Override
-    public ResourceValueChangeNotification clone() {
-        final ResourceValueChangeNotification clone = new ResourceValueChangeNotification(resource);
+    public ResourceValueNotification clone() {
+        final ResourceValueNotification clone = new ResourceValueNotification(resource);
         clone.setContentType(contentType);
         clone.setPayload(payload);
         clone.setThrowable(throwable);
+        clone.setMaxAge(maxAge);
         return clone;
     }
 
@@ -179,6 +196,7 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
         int result = 1;
         result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
         result = prime * result + ((deviceType == null) ? 0 : deviceType.hashCode());
+        result = prime * result + ((maxAge == null) ? 0 : maxAge.hashCode());
         result = prime * result + ((payload == null) ? 0 : payload.hashCode());
         result = prime * result + ((resource == null) ? 0 : resource.hashCode());
         return result;
@@ -200,7 +218,7 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ResourceValueChangeNotification other = (ResourceValueChangeNotification) obj;
+        ResourceValueNotification other = (ResourceValueNotification) obj;
         if (contentType == null) {
             if (other.contentType != null) {
                 return false;
@@ -213,6 +231,13 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
                 return false;
             }
         } else if (!deviceType.equals(other.deviceType)) {
+            return false;
+        }
+        if (maxAge == null) {
+            if (other.maxAge != null) {
+                return false;
+            }
+        } else if (!maxAge.equals(other.maxAge)) {
             return false;
         }
         if (payload == null) {
@@ -239,8 +264,8 @@ public class ResourceValueChangeNotification implements NotificationMessageValue
      */
     @Override
     public String toString() {
-        return "ResourceValueChangeNotification [resource=" + resource + ", contentType=" + contentType + ", payload="
-                + payload + ", throwable=" + throwable + "]";
+        return "ResourceValueNotification [resource=" + resource + ", contentType=" + contentType + ", payload="
+                + payload + ", maxAge=" + maxAge + ", throwable=" + throwable + ", deviceType=" + deviceType + "]";
     }
 
 }

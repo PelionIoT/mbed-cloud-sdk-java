@@ -689,7 +689,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
      *            a notification.
      * @return True if the filter is verified by this notification. False otherwise.
      */
-    public boolean isVerified(ResourceValueChangeNotification notification) {
+    public boolean isVerified(ResourceValueNotification notification) {
         if (notification == null) {
             return false;
         }

@@ -18,8 +18,9 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 public final class PresubscriptionAdapter {
 
     private static final Pattern RESOURCE_PATH_ACCEPTED_LIKE_FILTER_PATTERN = Pattern
-            .compile("[\\w\\/\\]+((.?*?)|([_%]?))");
-    private static final Pattern DEVICE_ID_ACCEPTED_LIKE_FILTER_PATTERN = Pattern.compile("[\\w .-]+((.?*?)|([_%]?))");
+            .compile("[\\p{Alnum}\\\\/]+((\\.?\\*)|[_%\\?])?");
+    private static final Pattern DEVICE_ID_ACCEPTED_LIKE_FILTER_PATTERN = Pattern
+            .compile("[\\p{Alnum} \\.-]+((\\.?\\*)|[_%\\?])?");
 
     private PresubscriptionAdapter() {
         super();
@@ -62,8 +63,8 @@ public final class PresubscriptionAdapter {
             hadEnpointNameFilter = true;
             final Presubscription presubscription = new Presubscription();
             mapPresubscriptionResourcePath(options, presubscription);
-            presubscription.setDeviceId((String) options
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE));
+            presubscription.setDeviceId(mapLikeDeviceIdPath((String) options
+                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE)));
             if (presubscription.isValid()) {
                 list.add(presubscription);
             }
@@ -148,7 +149,7 @@ public final class PresubscriptionAdapter {
         String presubscriptionValueString = null;
         if (resourcePathSubstringPattern.matcher(filterValueString).matches()) {
             presubscriptionValueString = filterValueString.replace(".*", "*").replace(".", "*").replace("_", "*")
-                    .replace("%", "*");
+                    .replace("%", "*").replace("?", "*");
             if (!presubscriptionValueString.contains("*")) {
                 presubscriptionValueString += "*";
             }

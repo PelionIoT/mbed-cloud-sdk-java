@@ -10,8 +10,8 @@ import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 
 import io.reactivex.Flowable;
 
-@Preamble(description = "Resource value change observer")
-public class ResourceValueChangeObserver extends AbstractObserver<ResourceValueChangeNotification> {
+@Preamble(description = "Resource value observer")
+public class ResourceValueObserver extends AbstractObserver<ResourceValueNotification> {
 
     /**
      * Constructor.
@@ -29,15 +29,15 @@ public class ResourceValueChangeObserver extends AbstractObserver<ResourceValueC
      * @param actionOnUnsubscription
      *            action on
      */
-    public ResourceValueChangeObserver(SubscriptionManager manager, String id,
-            Flowable<ResourceValueChangeNotification> flow, SubscriptionFilterOptions filter,
+    public ResourceValueObserver(SubscriptionManager manager, String id, Flowable<ResourceValueNotification> flow,
+            SubscriptionFilterOptions filter,
             CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
             CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
         super(manager, id, flow, filter, true, actionOnSubscription, actionOnUnsubscription);
     }
 
     @Override
-    protected boolean verifiesFilter(ResourceValueChangeNotification notification) {
+    protected boolean verifiesFilter(ResourceValueNotification notification) {
         if (filter == null) {
             return true;
         }

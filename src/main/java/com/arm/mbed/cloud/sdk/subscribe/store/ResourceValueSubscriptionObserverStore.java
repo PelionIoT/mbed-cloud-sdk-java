@@ -7,27 +7,28 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
-import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueChangeNotification;
-import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueChangeObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 
-@Preamble(description = "Store for resource value changes observers")
+@Preamble(description = "Store for resource value observers")
 @Internal
-public class ResourceValueChangeSubscriptionObserverStore
-        extends AbstractSubscriptionObserverStore<ResourceValueChangeNotification> {
+public class ResourceValueSubscriptionObserverStore
+        extends AbstractSubscriptionObserverStore<ResourceValueNotification> {
 
-    public ResourceValueChangeSubscriptionObserverStore(Scheduler scheduler) {
+    public ResourceValueSubscriptionObserverStore(Scheduler scheduler) {
         super(SubscriptionType.NOTIFICATION, scheduler);
     }
 
     @Override
-    protected Observer<?> buildObserver(String channelId, Flowable<ResourceValueChangeNotification> flow,
+    protected Observer<?> buildObserver(String channelId, Flowable<ResourceValueNotification> flow,
             FilterOptions filter, CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
             CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
-        return new ResourceValueChangeObserver(this, channelId, flow, (SubscriptionFilterOptions) filter,
+        return new ResourceValueObserver(this, channelId, flow, (SubscriptionFilterOptions) filter,
                 actionOnSubscription, actionOnUnsubscription);
     }
+
 }

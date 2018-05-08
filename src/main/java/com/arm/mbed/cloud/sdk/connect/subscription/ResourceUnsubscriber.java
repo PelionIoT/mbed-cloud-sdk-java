@@ -7,12 +7,13 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 public class ResourceUnsubscriber extends AbstractSubscriptionAction {
 
-    public ResourceUnsubscriber(AbstractApi api) {
-        super(api);
+    public ResourceUnsubscriber(AbstractApi api, FirstValue mode) {
+        super(api, mode);
     }
 
     @Override
@@ -22,6 +23,12 @@ public class ResourceUnsubscriber extends AbstractSubscriptionAction {
         final List<Presubscription> correspondingPresubscriptions = PresubscriptionAdapter
                 .mapSubscriptionFilter(filters);
         api.deleteSomePresubscriptions(correspondingPresubscriptions);
+        // Subscriptions are not deleted because other observers may be subscribing to similar resources
 
+    }
+
+    @Override
+    public ResourceUnsubscriber clone() {
+        return new ResourceUnsubscriber(api, mode);
     }
 }
