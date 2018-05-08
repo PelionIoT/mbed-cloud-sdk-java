@@ -146,7 +146,9 @@ public interface SubscriptionManager {
      *            filter to apply.
      * @param strategy
      *            backpressure strategy to apply for underlying communication channel.
-     * @return newly created observer * @throws MbedCloudException if an error happened during the process
+     * @return newly created observer
+     * @throws MbedCloudException
+     *             if an error happened during the process
      */
     @Nullable
     Observer<?> createObserver(SubscriptionType type, FilterOptions filter, @NonNull BackpressureStrategy strategy);

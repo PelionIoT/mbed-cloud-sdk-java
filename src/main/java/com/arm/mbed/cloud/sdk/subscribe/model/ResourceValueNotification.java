@@ -182,7 +182,7 @@ public class ResourceValueNotification implements NotificationMessageValue {
 
     @Override
     public Object getRawValue() {
-        return this;
+        return getPayload();
     }
 
     /*

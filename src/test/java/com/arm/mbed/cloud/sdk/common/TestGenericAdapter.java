@@ -43,7 +43,7 @@ public class TestGenericAdapter {
         list.add(" 3");
         list.add("4 ");
         list.add("5");
-        List<String> mappedList = GenericAdapter.mapList(list, GenericAdapter.identityMapper());
+        List<String> mappedList = GenericAdapter.mapList(list, GenericAdapter.identityMapper(String.class));
         for (int i = 0; i < list.size(); i++) {
             assertEquals(list.get(i), mappedList.get(i));
         }

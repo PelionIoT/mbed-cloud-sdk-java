@@ -169,7 +169,7 @@ public class Presubscription implements SdkModel {
             return;
         }
         if (resourcePaths == null) {
-            setResourcePaths(new LinkedList<>());
+            setResourcePaths(new LinkedList<String>());
         }
         resourcePaths.add(resourcePath);
     }

@@ -230,6 +230,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         return (observer == null) ? false : hasObserver(observer.getSubscriptionType(), observer.getId());
     }
 
+    @Deprecated
     @Override
     public DeviceStateObserver deviceState(DeviceStateFilterOptions filter, BackpressureStrategy strategy) {
         return deviceStateChanges(filter, strategy);

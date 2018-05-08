@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 
-@Preamble(description = "Adapter for device state change notifications")
+@Preamble(description = "Adapter for resource value change notifications")
 @Internal
 public final class ResourceValueNotificationAdapter {
 

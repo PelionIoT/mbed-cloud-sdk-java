@@ -226,7 +226,7 @@ public class TestCloudCaller {
         }
 
         public String callTest() throws MbedCloudException {
-            return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(),
+            return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(String.class),
                     new CloudCall<String>() {
 
                         @Override

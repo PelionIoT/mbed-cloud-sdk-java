@@ -35,11 +35,13 @@ public class GenericAdapter {
     /**
      * Gets an Identity mapper.
      *
+     * @param type
+     *            type of the the object to map
      * @param <T>
      *            Type of the object to convert from/to.
      * @return a mapper which maps an object to itself.
      */
-    public static <T> Mapper<T, T> identityMapper() {
+    public static <T> Mapper<T, T> identityMapper(Class<T> type) {
         return new Mapper<T, T>() {
 
             @Override

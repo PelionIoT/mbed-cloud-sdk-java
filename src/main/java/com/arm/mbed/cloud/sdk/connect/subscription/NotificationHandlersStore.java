@@ -344,7 +344,7 @@ public class NotificationHandlersStore {
             public void run() {
                 try {
                     final CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
-                            "NotificationPullGet()", GenericAdapter.identityMapper(),
+                            "NotificationPullGet()", GenericAdapter.identityMapper(NotificationMessage.class),
                             new CloudCall<NotificationMessage>() {
 
                                 @Override

@@ -3,6 +3,8 @@
  */
 package com.arm.mbed.cloud.sdk.common;
 
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
+
 /**
  * Defines a callback.
  * <p>
@@ -11,6 +13,7 @@ package com.arm.mbed.cloud.sdk.common;
  * @param <T>
  *            callback argument type
  */
+@Preamble(description = "Callback which can throw an exception if an error occurs during its execution")
 public interface CallbackWithException<T, U extends Exception> {
     /**
      * Callback execution action.
