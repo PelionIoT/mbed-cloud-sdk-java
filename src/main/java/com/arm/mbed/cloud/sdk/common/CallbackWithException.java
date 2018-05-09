@@ -20,8 +20,8 @@ public interface CallbackWithException<T, U extends Exception> {
      *
      * @param arg
      *            function argument
-     * @param <U>
-     *            type of the exception thrown.
+     * @throws U
+     *             if an error happens during the process
      */
     void execute(T arg) throws U;
 

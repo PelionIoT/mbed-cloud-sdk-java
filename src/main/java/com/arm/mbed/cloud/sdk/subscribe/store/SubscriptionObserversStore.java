@@ -42,6 +42,10 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
      *
      * @param scheduler
      *            scheduler {@link Scheduler} the observers should use.
+     * @param resourceSubscriber
+     *            action to perform on subscription
+     * @param resourceUnsubscriber
+     *            action to perform on unsubscription
      */
     public SubscriptionObserversStore(Scheduler scheduler, SubscriptionAction resourceSubscriber,
             SubscriptionAction resourceUnsubscriber) {

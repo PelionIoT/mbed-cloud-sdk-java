@@ -23,7 +23,7 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
     /**
      * Sets the first value mode.
      *
-     * @see {@link FirstValue}
+     * @see FirstValue
      * @param mode
      *            the mode to set
      */
@@ -35,7 +35,7 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
     /**
      * Sets the first value mode.
      *
-     * @see {@link FirstValue}
+     * @see FirstValue
      * @param aMode
      *            the mode to set
      */

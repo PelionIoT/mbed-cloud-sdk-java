@@ -270,7 +270,7 @@ public class GenericAdapter {
          * @param <U>
          *            type of the object to be mapped from
          *
-         * @return mapped map
+         *
          */
         public <U> void addNewEntries(@Nullable List<U> list, @Nullable Mapper<U, T> mapper) {
             if (list == null || mapper == null) {
@@ -311,7 +311,7 @@ public class GenericAdapter {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override

@@ -51,7 +51,7 @@ public class DeviceStateFilterOptions extends FilterOptions {
     /**
      * Creates a "Like" filter.
      *
-     * @see #{@link #addLikeFilter(String, Object)}
+     * @see #addLikeFilter(String, Object)
      * @param deviceIdlike
      *            like filter on device Id: it can be a substring, a Java Regex or an SQL like entry
      */
@@ -62,7 +62,7 @@ public class DeviceStateFilterOptions extends FilterOptions {
     /**
      * Creates a "Like" filter.
      *
-     * @see #{@link #addLikeFilter(String, Object)}
+     * @see #addLikeFilter(String, Object)
      * @param deviceIdlike
      *            like filter on device Id: it can be a substring, a Java Regex or an SQL like entry
      * @return this filter

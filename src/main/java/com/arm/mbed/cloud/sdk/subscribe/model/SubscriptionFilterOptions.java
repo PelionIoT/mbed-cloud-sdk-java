@@ -56,7 +56,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
     /**
      * Adds a "Like" filter on device ids.
      *
-     * @see #{@link #addLikeFilter(String, Object)}
+     * @see #addLikeFilter(String, Object)
      * @param deviceIdlike
      *            like filter on device Id: it can be a substring, a Java Regex or an SQL like entry
      */
@@ -67,7 +67,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
     /**
      * Creates a "Like" filter on device ids.
      *
-     * @see #{@link #addLikeFilter(String, Object)}
+     * @see #addLikeFilter(String, Object)
      * @param deviceIdlike
      *            like filter on device Id: it can be a substring, a Java Regex or an SQL like entry
      * @return this filter
@@ -339,7 +339,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
     /**
      * Adds a "Like" filter on resource path.
      *
-     * @see #{@link #addLikeFilter(String, Object)}
+     * @see #addLikeFilter(String, Object)
      * @param resourcePath
      *            like filter on resource path: it can be a substring, a Java Regex or an SQL like entry
      */
@@ -432,7 +432,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
     /**
      * Creates an "Equal" filter related to a resource.
      *
-     * Similar to {@link #addEqualResourceFilter(Resource}
+     * Similar to {@link #addEqualResourceFilter(Resource)}
      *
      * @param resource
      *            resource to consider.
@@ -483,7 +483,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
     /**
      * Creates an "Not equal" filter related to a resouce.
      *
-     * Similar to {@link #addNotEqualResourceFilter(Resource}
+     * Similar to {@link #addNotEqualResourceFilter(Resource)}
      *
      * @param resource
      *            resource to consider.
