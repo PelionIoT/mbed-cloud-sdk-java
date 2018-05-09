@@ -1480,8 +1480,7 @@ public class Connect extends AbstractApi {
      */
     @API
     public void updatePresubscriptions(@Nullable List<Presubscription> presubscriptions) throws MbedCloudException {
-        final List<Presubscription> finalList = presubscriptions;
-        final PresubscriptionArray array = PresubscriptionAdapter.reverseMapList(finalList);
+        final PresubscriptionArray array = PresubscriptionAdapter.reverseMapList(presubscriptions);
         CloudCaller.call(this, "updatePresubscriptions()", null, new CloudCall<Void>() {
 
             @Override

@@ -104,6 +104,19 @@ public class ResourceValueNotification implements NotificationMessageValue {
     }
 
     /**
+     *
+     * Sets the payload.
+     *
+     * @param aPayload
+     *            the payload to set
+     * @return this
+     */
+    public ResourceValueNotification payload(Object aPayload) {
+        setPayload(aPayload);
+        return this;
+    }
+
+    /**
      * Sets exception which may have happened.
      *
      * @param throwable

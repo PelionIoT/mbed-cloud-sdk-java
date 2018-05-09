@@ -20,6 +20,9 @@ public class ResourceUnsubscriber extends AbstractSubscriptionAction {
 
     @Override
     public void execute(FilterOptions arg) throws MbedCloudException {
+        if (!hasCloudConnection()) {
+            return;
+        }
         final SubscriptionFilterOptions filters = (SubscriptionFilterOptions) arg;
         // deleting pre-subscriptions
         final List<Presubscription> correspondingPresubscriptions = PresubscriptionAdapter

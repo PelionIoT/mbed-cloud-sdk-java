@@ -237,7 +237,7 @@ public final class PresubscriptionAdapter {
         if (list == null) {
             return null;
         }
-        return GenericAdapter.mapList(list, getMapper());
+        return GenericAdapter.mapList(list, PresubscriptionAdapter.getMapper());
     }
 
     /**
@@ -248,7 +248,7 @@ public final class PresubscriptionAdapter {
      * @return a registry of presubscription
      */
     public static GenericAdapter.MappedObjectRegistry<Presubscription> mapListToRegistry(PresubscriptionArray list) {
-        return new GenericAdapter.MappedObjectRegistry<>(list, getMapper());
+        return new GenericAdapter.MappedObjectRegistry<>(list, PresubscriptionAdapter.getMapper());
     }
 
     /**

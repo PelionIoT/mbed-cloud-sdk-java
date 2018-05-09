@@ -299,5 +299,25 @@ public class GenericAdapter {
         public @Nullable List<T> getEntries() {
             return isEmpty() ? null : new ArrayList<>(registry.values());
         }
+
+        /**
+         * Gets registry size.
+         *
+         * @return the number of elements in the registry
+         */
+        public int size() {
+            return isEmpty() ? 0 : registry.size();
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "MappedObjectRegistry [registry=" + registry + "]";
+        }
+
     }
 }

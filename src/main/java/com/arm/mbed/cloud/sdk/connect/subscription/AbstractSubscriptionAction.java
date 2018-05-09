@@ -45,6 +45,15 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
         return this;
     }
 
+    /**
+     * States whether a connection to the Cloud was set up or not.
+     *
+     * @return true if a cloud connection was set up. False otherwise.
+     */
+    public boolean hasCloudConnection() {
+        return api != null;
+    }
+
     /*
      * (non-Javadoc)
      *
