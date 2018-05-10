@@ -32,8 +32,17 @@ import java.io.Serializable;
 public class DeviceEventData implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("asset_hash")
+  private String assetHash = null;
+
+  @SerializedName("campaign_id")
+  private String campaignId = null;
+
   @SerializedName("changes")
   private Object changes = null;
+
+  @SerializedName("code")
+  private String code = null;
 
   @SerializedName("data")
   private Object data = null;
@@ -56,8 +65,50 @@ public class DeviceEventData implements Serializable {
   @SerializedName("id")
   private String id = null;
 
+  @SerializedName("manifest_id")
+  private String manifestId = null;
+
+  @SerializedName("plugin_id")
+  private String pluginId = null;
+
   @SerializedName("state_change")
   private Boolean stateChange = null;
+
+  public DeviceEventData assetHash(String assetHash) {
+    this.assetHash = assetHash;
+    return this;
+  }
+
+   /**
+   * The hash of the new asset.
+   * @return assetHash
+  **/
+  @ApiModelProperty(example = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", value = "The hash of the new asset.")
+  public String getAssetHash() {
+    return assetHash;
+  }
+
+  public void setAssetHash(String assetHash) {
+    this.assetHash = assetHash;
+  }
+
+  public DeviceEventData campaignId(String campaignId) {
+    this.campaignId = campaignId;
+    return this;
+  }
+
+   /**
+   * The ID of the campaign.
+   * @return campaignId
+  **/
+  @ApiModelProperty(example = "0", value = "The ID of the campaign.")
+  public String getCampaignId() {
+    return campaignId;
+  }
+
+  public void setCampaignId(String campaignId) {
+    this.campaignId = campaignId;
+  }
 
   public DeviceEventData changes(Object changes) {
     this.changes = changes;
@@ -75,6 +126,24 @@ public class DeviceEventData implements Serializable {
 
   public void setChanges(Object changes) {
     this.changes = changes;
+  }
+
+  public DeviceEventData code(String code) {
+    this.code = code;
+    return this;
+  }
+
+   /**
+   * The event log code.
+   * @return code
+  **/
+  @ApiModelProperty(example = "UPD2_100", value = "The event log code.")
+  public String getCode() {
+    return code;
+  }
+
+  public void setCode(String code) {
+    this.code = code;
   }
 
   public DeviceEventData data(Object data) {
@@ -203,6 +272,42 @@ public class DeviceEventData implements Serializable {
     this.id = id;
   }
 
+  public DeviceEventData manifestId(String manifestId) {
+    this.manifestId = manifestId;
+    return this;
+  }
+
+   /**
+   * The ID of the manifest.
+   * @return manifestId
+  **/
+  @ApiModelProperty(example = "0", value = "The ID of the manifest.")
+  public String getManifestId() {
+    return manifestId;
+  }
+
+  public void setManifestId(String manifestId) {
+    this.manifestId = manifestId;
+  }
+
+  public DeviceEventData pluginId(String pluginId) {
+    this.pluginId = pluginId;
+    return this;
+  }
+
+   /**
+   * The ID of the handler that processed the request in the client.
+   * @return pluginId
+  **/
+  @ApiModelProperty(example = "1", value = "The ID of the handler that processed the request in the client.")
+  public String getPluginId() {
+    return pluginId;
+  }
+
+  public void setPluginId(String pluginId) {
+    this.pluginId = pluginId;
+  }
+
   public DeviceEventData stateChange(Boolean stateChange) {
     this.stateChange = stateChange;
     return this;
@@ -231,7 +336,10 @@ public class DeviceEventData implements Serializable {
       return false;
     }
     DeviceEventData deviceEventData = (DeviceEventData) o;
-    return Objects.equals(this.changes, deviceEventData.changes) &&
+    return Objects.equals(this.assetHash, deviceEventData.assetHash) &&
+        Objects.equals(this.campaignId, deviceEventData.campaignId) &&
+        Objects.equals(this.changes, deviceEventData.changes) &&
+        Objects.equals(this.code, deviceEventData.code) &&
         Objects.equals(this.data, deviceEventData.data) &&
         Objects.equals(this.dateTime, deviceEventData.dateTime) &&
         Objects.equals(this.description, deviceEventData.description) &&
@@ -239,12 +347,14 @@ public class DeviceEventData implements Serializable {
         Objects.equals(this.eventType, deviceEventData.eventType) &&
         Objects.equals(this.eventTypeDescription, deviceEventData.eventTypeDescription) &&
         Objects.equals(this.id, deviceEventData.id) &&
+        Objects.equals(this.manifestId, deviceEventData.manifestId) &&
+        Objects.equals(this.pluginId, deviceEventData.pluginId) &&
         Objects.equals(this.stateChange, deviceEventData.stateChange);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(changes, data, dateTime, description, deviceId, eventType, eventTypeDescription, id, stateChange);
+    return Objects.hash(assetHash, campaignId, changes, code, data, dateTime, description, deviceId, eventType, eventTypeDescription, id, manifestId, pluginId, stateChange);
   }
 
 
@@ -253,7 +363,10 @@ public class DeviceEventData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceEventData {\n");
     
+    sb.append("    assetHash: ").append(toIndentedString(assetHash)).append("\n");
+    sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
     sb.append("    changes: ").append(toIndentedString(changes)).append("\n");
+    sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
@@ -261,6 +374,8 @@ public class DeviceEventData implements Serializable {
     sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
     sb.append("    eventTypeDescription: ").append(toIndentedString(eventTypeDescription)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    manifestId: ").append(toIndentedString(manifestId)).append("\n");
+    sb.append("    pluginId: ").append(toIndentedString(pluginId)).append("\n");
     sb.append("    stateChange: ").append(toIndentedString(stateChange)).append("\n");
     sb.append("}");
     return sb.toString();
