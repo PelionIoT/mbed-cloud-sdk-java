@@ -7,16 +7,16 @@ import java.util.regex.Pattern;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "SDK Model Utilities")
-public final class SdkModelUtils {
+@Preamble(description = "SDK Utilities")
+public final class SdkUtils {
 
-    private SdkModelUtils() {
+    private SdkUtils() {
         super();
     }
 
     /**
      * Parses a string containing a list of elements and returning corresponding Java List.
-     * 
+     *
      * @param listString
      *            String containing a list on elements, either a JSON array or a CSV String.
      * @return list of elements
