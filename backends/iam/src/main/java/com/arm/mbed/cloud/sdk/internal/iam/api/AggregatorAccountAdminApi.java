@@ -22,11 +22,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyCreationReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyInfoList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.PolicyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -109,54 +104,6 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
-   * Attach a policy to API keys.
-   * An endpoint for attaching policy to API keys.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be attached to API keys. (required)
-   * @param body List of API key IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/accounts/{accountID}/policies/{policy-id}/api-keys")
-  Call<UpdatedResponse> attachAccountPolicyToApikeys(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Attach a policy to groups.
-   * An endpoint for attaching policy to groups.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be attached to groups. (required)
-   * @param body List of groups IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/accounts/{accountID}/policies/{policy-id}/groups")
-  Call<UpdatedResponse> attachAccountPolicyToGroup(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Attach a policy to users.
-   * An endpoint for attaching policy to users.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be attached to users. (required)
-   * @param body List of user IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/accounts/{accountID}/policies/{policy-id}/users")
-  Call<UpdatedResponse> attachAccountPolicyToUsers(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
-  );
-
-  /**
    * Check the API key.
    * An endpoint for checking API key.
    * @param accountID Account ID. (required)
@@ -196,21 +143,6 @@ public interface AggregatorAccountAdminApi {
   @POST("v3/accounts/{accountID}/api-keys")
   Call<ApiKeyInfoResp> createAccountApiKey(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body ApiKeyInfoReq body
-  );
-
-  /**
-   * Create a policy.
-   * An endpoint for creating a new policy.
-   * @param accountID Account ID. (required)
-   * @param body The details of the policy to be created. (required)
-   * @return Call&lt;PolicyInfo&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @POST("v3/accounts/{accountID}/policies")
-  Call<PolicyInfo> createAccountPolicy(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body PolicyCreationReq body
   );
 
   /**
@@ -254,18 +186,6 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
-   * Delete policy.
-   * An endpoint for deleting a policy.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be deleted. (required)
-   * @return Call&lt;Void&gt;
-   */
-  @DELETE("v3/accounts/{accountID}/policies/{policy-id}")
-  Call<Void> deleteAccountPolicy(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId
-  );
-
-  /**
    * Delete a user.
    * An endpoint for deleting a user.
    * @param accountID Account ID. (required)
@@ -275,54 +195,6 @@ public interface AggregatorAccountAdminApi {
   @DELETE("v3/accounts/{accountID}/users/{user-id}")
   Call<Void> deleteAccountUser(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId
-  );
-
-  /**
-   * Detach a policy from API keys.
-   * An endpoint for detaching policy from API keys.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be detached from API keys. (required)
-   * @param body List of API key IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @DELETE("v3/accounts/{accountID}/policies/{policy-id}/api-keys")
-  Call<UpdatedResponse> detachAccountPolicyFromApikeys(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Detach a policy from users.
-   * An endpoint for detaching policy from users.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be detached from users. (required)
-   * @param body List of user IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @DELETE("v3/accounts/{accountID}/policies/{policy-id}/users")
-  Call<UpdatedResponse> detachAccountPolicyFromUsers(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
-  );
-
-  /**
-   * Detach a policy to groups.
-   * An endpoint for detaching policy to groups.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID of the policy to be detached from groups. (required)
-   * @param body List of groups IDs. (required)
-   * @return Call&lt;UpdatedResponse&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @DELETE("v3/accounts/{accountID}/policies/{policy-id}/groups")
-  Call<UpdatedResponse> detachAccountPolicyToGroup(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -375,77 +247,16 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
-   * Get policy by ID.
-   * An endpoint for retrieving a policy by ID.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID the policy to be retrieved. (required)
-   * @return Call&lt;PolicyInfo&gt;
-   */
-  @GET("v3/accounts/{accountID}/policies/{policy-id}")
-  Call<PolicyInfo> getAccountPolicy(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId
-  );
-
-  /**
-   * Fetch details of policy&#39;s API keys.
-   * An endpoint for fetching detailed information about API keys this policy is attached to.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID the policy whose API keys to be retrieved. (required)
-   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
-   * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
-   * @param include Comma separated additional data to return. Currently supported: total_count (optional)
-   * @return Call&lt;ApiKeyInfoRespList&gt;
-   */
-  @GET("v3/accounts/{accountID}/policies/{policy-id}/api-keys")
-  Call<ApiKeyInfoRespList> getAccountPolicyApikeys(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
-  );
-
-  /**
-   * Fetch details of policy&#39;s groups.
-   * An endpoint for fetching detailed information about groups this policy is attached to.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID the policy whose API keys to be retrieved. (required)
-   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
-   * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
-   * @param include Comma separated additional data to return. Currently supported: total_count (optional)
-   * @return Call&lt;GroupSummaryList&gt;
-   */
-  @GET("v3/accounts/{accountID}/policies/{policy-id}/groups")
-  Call<GroupSummaryList> getAccountPolicyGroups(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
-  );
-
-  /**
-   * Fetch details of policy&#39;s users.
-   * An endpoint for fetching detailed information about users this policy is attached to.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID the policy whose users to be retrieved. (required)
-   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
-   * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
-   * @param include Comma separated additional data to return. Currently supported: total_count (optional)
-   * @return Call&lt;UserInfoRespList&gt;
-   */
-  @GET("v3/accounts/{accountID}/policies/{policy-id}/users")
-  Call<UserInfoRespList> getAccountPolicyUsers(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
-  );
-
-  /**
    * Details of the user.
    * An endpoint for retrieving details of the user.
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be retrieved. (required)
-   * @param scratchCodes Request to regenerate new emergency scratch codes. (optional)
    * @param properties Request to return account specific user property values according to the given property name. (optional)
-   * @return Call&lt;MyUserInfoResp&gt;
+   * @return Call&lt;UserInfoResp&gt;
    */
   @GET("v3/accounts/{accountID}/users/{user-id}")
-  Call<MyUserInfoResp> getAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("scratch_codes") String scratchCodes, @retrofit2.http.Query("properties") String properties
+  Call<UserInfoResp> getAccountUser(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("properties") String properties
   );
 
   /**
@@ -506,27 +317,6 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
-   * Get all policies.
-   * An endpoint for retrieving all policies in the account.
-   * @param accountID Account ID. (required)
-   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
-   * @param after The entity ID to fetch after the given one. (optional)
-   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
-   * @param nameEq Filter result by policy name. (optional)
-   * @param statusEq Filter for status, ACTIVE or INACTIVE. (optional)
-   * @param tagEq Filter results for tag. (optional)
-   * @param userIdEq Retrieve policies attached to a certain user ID. (optional)
-   * @param apikeyIdEq Retrieve policies attached to a certain API key ID. (optional)
-   * @param groupIdEq Retrieve policies attached to a certain group ID. (optional)
-   * @param unbounded Retrieve policies not attached to any subject in the account. (optional)
-   * @return Call&lt;PolicyInfoList&gt;
-   */
-  @GET("v3/accounts/{accountID}/policies")
-  Call<PolicyInfoList> getAllAccountPolicies(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("tag__eq") String tagEq, @retrofit2.http.Query("user_id__eq") String userIdEq, @retrofit2.http.Query("apikey_id__eq") String apikeyIdEq, @retrofit2.http.Query("group_id__eq") String groupIdEq, @retrofit2.http.Query("unbounded") String unbounded
-  );
-
-  /**
    * Get all user details.
    * An endpoint for retrieving details of all users.
    * @param accountID Account ID. (required)
@@ -536,17 +326,21 @@ public interface AggregatorAccountAdminApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param emailEq Filter for email address (optional)
    * @param statusEq Filter for status (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/accounts/{accountID}/users")
   Call<UserInfoRespList> getAllAccountUsers(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
    * Get all accounts.
    * Returns an array of account objects, optionally filtered by status and tier level.
    * @param statusEq An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
+   * @param statusIn An optional filter for getting accounts with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding accounts with a specified set of statuses. (optional)
    * @param tierEq An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
    * @param parentEq An optional filter for parent account ID. (optional)
    * @param endMarketEq An optional filter for account end market. (optional)
@@ -561,7 +355,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts")
   Call<AccountInfoList> getAllAccounts(
-    @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("tier__eq") String tierEq, @retrofit2.http.Query("parent__eq") String parentEq, @retrofit2.http.Query("end_market__eq") String endMarketEq, @retrofit2.http.Query("country__like") String countryLike, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("format") String format, @retrofit2.http.Query("properties") String properties
+    @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin, @retrofit2.http.Query("tier__eq") String tierEq, @retrofit2.http.Query("parent__eq") String parentEq, @retrofit2.http.Query("end_market__eq") String endMarketEq, @retrofit2.http.Query("country__like") String countryLike, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("format") String format, @retrofit2.http.Query("properties") String properties
   );
 
   /**
@@ -621,11 +415,14 @@ public interface AggregatorAccountAdminApi {
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
+   * @param statusEq An optional filter for getting users by status. (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/accounts/{accountID}/policy-groups/{groupID}/users")
   Call<UserInfoRespList> getUsersOfAccountGroup(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
@@ -746,22 +543,6 @@ public interface AggregatorAccountAdminApi {
   @PUT("v3/accounts/{accountID}/trusted-certificates/{cert-id}")
   Call<TrustedCertificateInternalResp> updateAccountCertificate(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "cert-id", encoded = true) String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
-  );
-
-  /**
-   * Update a policy.
-   * An endpoint for updating a policy.
-   * @param accountID Account ID. (required)
-   * @param policyId The ID the policy to be retrieved. (required)
-   * @param body The details of the policy to be updated. (required)
-   * @return Call&lt;PolicyInfo&gt;
-   */
-  @Headers({
-    "Content-Type:application/json"
-  })
-  @PUT("v3/accounts/{accountID}/policies/{policy-id}")
-  Call<PolicyInfo> updateAccountPolicy(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "policy-id", encoded = true) String policyId, @retrofit2.http.Body PolicyUpdateReq body
   );
 
   /**

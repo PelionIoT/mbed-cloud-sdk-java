@@ -4,7 +4,6 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**addMeToGroups**](DeveloperApi.md#addMeToGroups) | **POST** v3/users/me/groups | Add user to a list of groupS.
 [**addMyApiKeyToGroups**](DeveloperApi.md#addMyApiKeyToGroups) | **POST** v3/api-keys/me/groups | Add API key to a list of groups.
 [**createApiKey**](DeveloperApi.md#createApiKey) | **POST** v3/api-keys | Create a new API key.
 [**deleteApiKey**](DeveloperApi.md#deleteApiKey) | **DELETE** v3/api-keys/{apiKey} | Delete API key.
@@ -18,73 +17,13 @@ Method | HTTP request | Description
 [**getGroupSummary**](DeveloperApi.md#getGroupSummary) | **GET** v3/policy-groups/{groupID} | Get group information.
 [**getGroupsOfMyApiKey**](DeveloperApi.md#getGroupsOfMyApiKey) | **GET** v3/api-keys/me/groups | Get groups of the API key.
 [**getMyAccountInfo**](DeveloperApi.md#getMyAccountInfo) | **GET** v3/accounts/me | Get account info.
-[**getMyAccounts**](DeveloperApi.md#getMyAccounts) | **GET** v3/users/me/team-accounts | Get accounts of the user.
 [**getMyApiKey**](DeveloperApi.md#getMyApiKey) | **GET** v3/api-keys/me | Get API key details.
-[**getMyGroups**](DeveloperApi.md#getMyGroups) | **GET** v3/users/me/groups | Get groups of the user.
-[**getMyUser**](DeveloperApi.md#getMyUser) | **GET** v3/users/me | Details of the current user.
 [**removeApiKeysFromGroup**](DeveloperApi.md#removeApiKeysFromGroup) | **DELETE** v3/policy-groups/{groupID}/api-keys | Remove API keys from a group.
-[**removeMeFromGroups**](DeveloperApi.md#removeMeFromGroups) | **DELETE** v3/users/me/groups | Remove user from a group.
 [**removeMyApiKeyFromGroups**](DeveloperApi.md#removeMyApiKeyFromGroups) | **DELETE** v3/api-keys/me/groups | Remove API key from groups.
 [**updateApiKey**](DeveloperApi.md#updateApiKey) | **PUT** v3/api-keys/{apiKey} | Update API key details.
 [**updateCertificate**](DeveloperApi.md#updateCertificate) | **PUT** v3/trusted-certificates/{cert-id} | Update trusted certificate.
 [**updateMyApiKey**](DeveloperApi.md#updateMyApiKey) | **PUT** v3/api-keys/me | Update API key details.
-[**updateMyUser**](DeveloperApi.md#updateMyUser) | **PUT** v3/users/me | Update user details.
 
-
-<a name="addMeToGroups"></a>
-# **addMeToGroups**
-> UpdatedResponse addMeToGroups(body)
-
-Add user to a list of groupS.
-
-An endpoint for adding user to groups.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
-try {
-    UpdatedResponse result = apiInstance.addMeToGroups(body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#addMeToGroups");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
 
 <a name="addMyApiKeyToGroups"></a>
 # **addMyApiKeyToGroups**
@@ -92,7 +31,7 @@ Name | Type | Description  | Notes
 
 Add API key to a list of groups.
 
-An endpoint for adding API key to groups.
+An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -257,7 +196,7 @@ Name | Type | Description  | Notes
 
 Delete a trusted certificate by ID.
 
-An endpoint for deleting a trusted certificate.
+An endpoint for deleting a trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -377,7 +316,7 @@ Name | Type | Description  | Notes
 
 Get all trusted certificates.
 
-An endpoint for retrieving trusted certificates in an array.
+An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -456,7 +395,7 @@ Name | Type | Description  | Notes
 
 Get all group information.
 
-An endpoint for retrieving all group information.
+An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -519,7 +458,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details.
+An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -574,7 +513,7 @@ Name | Type | Description  | Notes
 
 Get the API keys of a group.
 
-An endpoint for listing the API keys of the group with details.
+An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -692,7 +631,7 @@ Name | Type | Description  | Notes
 
 Get group information.
 
-An endpoint for getting general information about the group.
+An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -747,7 +686,7 @@ Name | Type | Description  | Notes
 
 Get groups of the API key.
 
-An endpoint for retrieving groups of the API key.
+An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -859,57 +798,6 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getMyAccounts"></a>
-# **getMyAccounts**
-> AccountResponseList getMyAccounts()
-
-Get accounts of the user.
-
-An endpoint for retrieving the accounts of the logged in user.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-try {
-    AccountResponseList result = apiInstance.getMyAccounts();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#getMyAccounts");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**AccountResponseList**](AccountResponseList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="getMyApiKey"></a>
 # **getMyApiKey**
 > ApiKeyInfoResp getMyApiKey()
@@ -961,133 +849,13 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getMyGroups"></a>
-# **getMyGroups**
-> GroupSummaryList getMyGroups(limit, after, order, include)
-
-Get groups of the user.
-
-An endpoint for retrieving groups of the user.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
-String after = "after_example"; // String | The entity ID to fetch after the given one.
-String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
-try {
-    GroupSummaryList result = apiInstance.getMyGroups(limit, after, order, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#getMyGroups");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
- **after** | **String**| The entity ID to fetch after the given one. | [optional]
- **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
- **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
-
-### Return type
-
-[**GroupSummaryList**](GroupSummaryList.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="getMyUser"></a>
-# **getMyUser**
-> MyUserInfoResp getMyUser(scratchCodes, properties, include)
-
-Details of the current user.
-
-An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-String scratchCodes = "scratchCodes_example"; // String | Request to regenerate new emergency scratch codes.
-String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
-String include = "include_example"; // String | Comma separated additional data to return. Currently supported: active_sessions
-try {
-    MyUserInfoResp result = apiInstance.getMyUser(scratchCodes, properties, include);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#getMyUser");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scratchCodes** | **String**| Request to regenerate new emergency scratch codes. | [optional]
- **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
- **include** | **String**| Comma separated additional data to return. Currently supported: active_sessions | [optional]
-
-### Return type
-
-[**MyUserInfoResp**](MyUserInfoResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
 <a name="removeApiKeysFromGroup"></a>
 # **removeApiKeysFromGroup**
 > UpdatedResponse removeApiKeysFromGroup(groupID, body)
 
 Remove API keys from a group.
 
-An endpoint for removing API keys from groups.
+An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1138,68 +906,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="removeMeFromGroups"></a>
-# **removeMeFromGroups**
-> UpdatedResponse removeMeFromGroups(body)
-
-Remove user from a group.
-
-An endpoint for removing user from groups.
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-List<String> body = Arrays.asList(new List<String>()); // List<String> | A list of IDs of the groups to be updated.
-try {
-    UpdatedResponse result = apiInstance.removeMeFromGroups(body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#removeMeFromGroups");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **List&lt;String&gt;**| A list of IDs of the groups to be updated. |
-
-### Return type
-
-[**UpdatedResponse**](UpdatedResponse.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
- - **Accept**: application/json
-
 <a name="removeMyApiKeyFromGroups"></a>
 # **removeMyApiKeyFromGroups**
 > UpdatedResponse removeMyApiKeyFromGroups(body)
 
 Remove API key from groups.
 
-An endpoint for removing API key from groups.
+An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/me/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1254,7 +967,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details.
+An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1415,60 +1128,5 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="updateMyUser"></a>
-# **updateMyUser**
-> UserUpdateResp updateMyUser(body)
-
-Update user details.
-
-An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-DeveloperApi apiInstance = new DeveloperApi();
-UserUpdateReq body = new UserUpdateReq(); // UserUpdateReq | New attributes for the logged in user.
-try {
-    UserUpdateResp result = apiInstance.updateMyUser(body);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling DeveloperApi#updateMyUser");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | [**UserUpdateReq**](UserUpdateReq.md)| New attributes for the logged in user. |
-
-### Return type
-
-[**UserUpdateResp**](UserUpdateResp.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: application/json
  - **Accept**: application/json
 

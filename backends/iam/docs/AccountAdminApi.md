@@ -31,7 +31,7 @@ Method | HTTP request | Description
 
 Add API key to a list of groups.
 
-An endpoint for adding API key to groups.
+An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -88,7 +88,7 @@ Name | Type | Description  | Notes
 
 Upload a new trusted certificate.
 
-An endpoint for uploading new trusted certificates.
+An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/trusted-certificates -d {\&quot;name\&quot;: \&quot;myCert1\&quot;, \&quot;description\&quot;: \&quot;very important cert\&quot;, \&quot;certificate\&quot;: \&quot;certificate_data\&quot;, \&quot;service\&quot;: \&quot;lwm2m\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -143,7 +143,7 @@ Name | Type | Description  | Notes
 
 Add members to a group.
 
-An endpoint for adding users and API keys to groups.
+An endpoint for adding users and API keys to a group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d &#39;{\&quot;users\&quot;: [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -200,7 +200,7 @@ Name | Type | Description  | Notes
 
 Add user to a list of groups.
 
-An endpoint for adding user to groups.
+An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -257,7 +257,7 @@ Name | Type | Description  | Notes
 
 Create a new group.
 
-An endpoint for creating a new group.
+An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/policy-groups -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -312,7 +312,7 @@ Name | Type | Description  | Notes
 
 Create a new user.
 
-An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -369,7 +369,7 @@ Name | Type | Description  | Notes
 
 Delete a group.
 
-An endpoint for deleting a group.
+An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -424,7 +424,7 @@ Name | Type | Description  | Notes
 
 Delete a user.
 
-An endpoint for deleting a user.
+An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -475,11 +475,11 @@ Name | Type | Description  | Notes
 
 <a name="getAllUsers"></a>
 # **getAllUsers**
-> UserInfoRespList getAllUsers(limit, after, order, include, emailEq, statusEq)
+> UserInfoRespList getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin)
 
 Get the details of all users.
 
-An endpoint for retrieving the details of all users.
+An endpoint for retrieving the details of all users.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -505,8 +505,10 @@ String order = "ASC"; // String | The order of the records based on creation tim
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String emailEq = "emailEq_example"; // String | Filter for email address
 String statusEq = "statusEq_example"; // String | Filter for status, for example active or reset
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, emailEq, statusEq);
+    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getAllUsers");
@@ -524,6 +526,8 @@ Name | Type | Description  | Notes
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **emailEq** | **String**| Filter for email address | [optional]
  **statusEq** | **String**| Filter for status, for example active or reset | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
@@ -544,7 +548,7 @@ Name | Type | Description  | Notes
 
 Get groups of the API key.
 
-An endpoint for retrieving groups of the API key.
+An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -607,7 +611,7 @@ Name | Type | Description  | Notes
 
 Get groups of the user.
 
-An endpoint for retrieving groups of the user.
+An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -670,7 +674,7 @@ Name | Type | Description  | Notes
 
 Details of a user.
 
-An endpoint for retrieving the details of a user.
+An endpoint for retrieving the details of a user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -723,11 +727,11 @@ Name | Type | Description  | Notes
 
 <a name="getUsersOfGroup"></a>
 # **getUsersOfGroup**
-> UserInfoRespList getUsersOfGroup(groupID, limit, after, order, include)
+> UserInfoRespList getUsersOfGroup(groupID, limit, after, order, include, statusEq, statusIn, statusNin)
 
 Get users of a group.
 
-An endpoint for listing the users of a group with details.
+An endpoint for listing the users of a group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -752,8 +756,11 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String statusEq = "statusEq_example"; // String | An optional filter for getting users by status.
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getUsersOfGroup(groupID, limit, after, order, include);
+    UserInfoRespList result = apiInstance.getUsersOfGroup(groupID, limit, after, order, include, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getUsersOfGroup");
@@ -770,6 +777,9 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **statusEq** | **String**| An optional filter for getting users by status. | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
@@ -790,7 +800,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-An endpoint for removing API key from groups.
+An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/api-keys/{apikey-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -847,7 +857,7 @@ Name | Type | Description  | Notes
 
 Remove user from groups.
 
-An endpoint for removing user from groups.
+An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -904,7 +914,7 @@ Name | Type | Description  | Notes
 
 Remove users from a group.
 
-An endpoint for removing users from groups.
+An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id}/users -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -961,7 +971,7 @@ Name | Type | Description  | Notes
 
 Update the group name.
 
-An endpoint for updating a group name.
+An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/policy-groups/{group-id} -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1073,7 +1083,7 @@ Name | Type | Description  | Notes
 
 Update user details.
 
-An endpoint for updating user details.
+An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
