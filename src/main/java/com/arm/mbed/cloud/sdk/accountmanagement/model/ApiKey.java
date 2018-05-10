@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import com.arm.mbed.cloud.sdk.common.SdkModelUtils;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "This object represents an API key in Arm Mbed Cloud")
 public class ApiKey implements SdkModel {
@@ -235,7 +235,7 @@ public class ApiKey implements SdkModel {
      *            "015bc8548c8902420a016d0600000000,015bc8548c8902420a016d0600fsdf000".
      */
     public void setGroupsFromString(String groups) {
-        setGroup(SdkModelUtils.parseListString(groups));
+        setGroup(SdkUtils.parseListString(groups));
     }
 
     /**

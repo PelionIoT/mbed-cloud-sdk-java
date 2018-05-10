@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import com.arm.mbed.cloud.sdk.common.SdkModelUtils;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "Account")
 public class Account implements SdkModel {
@@ -604,7 +604,7 @@ public class Account implements SdkModel {
      *            AUTOTEST-BXAU54".
      */
     public void setAliasesFromString(String aliases) {
-        setAliases(SdkModelUtils.parseListString(aliases));
+        setAliases(SdkUtils.parseListString(aliases));
     }
 
     /**
