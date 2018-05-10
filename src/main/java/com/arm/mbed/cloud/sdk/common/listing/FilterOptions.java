@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -8,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.CustomFilter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -135,7 +135,40 @@ public class FilterOptions implements Cloneable {
         addFilter(new CustomFilter(customAttribute, operator, value));
     }
 
-    protected Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
+    /**
+     * Determines whether a filter has been set or not.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @param operator
+     *            filter operator to consider
+     * @return True if there is a filter defined. False otherwise.
+     */
+    public boolean hasFilter(String fieldName, FilterOperator operator) {
+        return fetchSpecificFilterValue(fieldName, operator) != null;
+    }
+
+    /**
+     * Determines whether filters have been set or not.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @return True if there is a filter defined. False otherwise.
+     */
+    public boolean hasFilters(String fieldName) {
+        return fetchFilters(fieldName) != null && !fetchFilters(fieldName).isEmpty();
+    }
+
+    /**
+     * Fetches a specific filter value.
+     *
+     * @param fieldName
+     *            field the filter applies to
+     * @param operator
+     *            filter operator to consider
+     * @return the corresponding filter value
+     */
+    public Object fetchSpecificFilterValue(String fieldName, FilterOperator operator) {
         if (fieldName == null || filter == null) {
             return null;
         }
@@ -215,11 +248,23 @@ public class FilterOptions implements Cloneable {
 
     /**
      * Adds a "like" filter.
+     * <p>
+     * Note:
+     * <p>
+     * - if the value is not a String or a list/array, then the "like" filter behaves like the "equal" filter. Similar
+     * to {@link #addEqualFilter(String, Object)}
+     * <p>
+     * - if the value is a String, it can be either a substring, a Java Regex or an
+     * <a href="https://www.w3schools.com/sql/sql_like.asp">SQL like entry</a>
+     * <p>
+     * - if the value is a list/array, the filter checks if any element of the list is verified (equivalent of an OR of
+     * LIKE filters).
      *
      * @param fieldName
      *            field name to apply the filter on
      * @param value
      *            the value of the filter
+     *
      */
     public void addLikeFilter(@Nullable String fieldName, @Nullable Object value) {
         addFilter(fieldName, FilterOperator.LIKE, value);
@@ -257,10 +302,10 @@ public class FilterOptions implements Cloneable {
      * @param fieldName
      *            field name to apply the filter on
      * @param values
-     *            a comma-separated list of values for the filter
+     *            a JSON array or a comma-separated list of values for the filter
      */
     public void addInFilter(@Nullable String fieldName, @NonNull String values) {
-        addInFilter(fieldName, (values == null) ? null : Arrays.asList(values.split(",")));
+        addInFilter(fieldName, SdkUtils.parseListString(values));
     }
 
     /**
@@ -283,10 +328,10 @@ public class FilterOptions implements Cloneable {
      * @param fieldName
      *            field name to apply the filter on
      * @param values
-     *            a comma-separated list of values for the filter
+     *            a JSON array or a comma-separated list of values for the filter
      */
     public void addNotInFilter(@Nullable String fieldName, @NonNull String values) {
-        addNotInFilter(fieldName, (values == null) ? null : Arrays.asList(values.split(",")));
+        addNotInFilter(fieldName, SdkUtils.parseListString(values));
     }
 
     /**

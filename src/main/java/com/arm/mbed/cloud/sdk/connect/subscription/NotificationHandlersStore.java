@@ -1,11 +1,10 @@
-package com.arm.mbed.cloud.sdk.connect.notificationhandling;
+package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -20,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
@@ -29,13 +29,15 @@ import com.arm.mbed.cloud.sdk.connect.model.EndPoints;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
 import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncIDResponse;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
-import com.arm.mbed.cloud.sdk.subscribe.NotificationEmitter;
+import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.ResourceValueNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
 import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
@@ -43,6 +45,7 @@ import com.mbed.lwm2m.base64.Base64Decoder;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
@@ -61,7 +64,6 @@ public class NotificationHandlersStore {
     private Future<?> pullHandle;
     private final EndPoints endpoint;
     private final ConcurrentHashMap<String, AsyncResponse> responseStore;
-    private final DevicesSubscriptionHandlers subscriptionHandlers;
     private final SubscriptionObserversStore observerStore;
 
     /**
@@ -84,9 +86,11 @@ public class NotificationHandlersStore {
         this.api = api;
         pullHandle = null;
         responseStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
-        subscriptionHandlers = new DevicesSubscriptionHandlers();
-        observerStore = new SubscriptionObserversStore((subscriptionHandlingExecutor == null) ? Schedulers.computation()
-                : Schedulers.from(subscriptionHandlingExecutor));
+        observerStore = new SubscriptionObserversStore(
+                (subscriptionHandlingExecutor == null) ? Schedulers.computation()
+                        : Schedulers.from(subscriptionHandlingExecutor),
+                new ResourceSubscriber(api, FirstValue.getDefault()),
+                new ResourceUnsubscriber(api, FirstValue.getDefault()));
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -110,10 +114,10 @@ public class NotificationHandlersStore {
             api.getLogger().logInfo("Notification pull is already working.");
             return;
         }
-        final Runnable cachingSingleAction = createCachingSingleAction();
+        final Runnable pollingSingleAction = createPollingSingleAction();
         pullHandle = null;
         if (pullThreads instanceof ScheduledExecutorService) {
-            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(cachingSingleAction, 0,
+            pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(pollingSingleAction, 0,
                     IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS, TimeUnit.MILLISECONDS);
         } else {
             pullHandle = pullThreads.submit(new Runnable() {
@@ -121,7 +125,7 @@ public class NotificationHandlersStore {
                 @Override
                 public void run() {
                     while (true) {
-                        cachingSingleAction.run();
+                        pollingSingleAction.run();
                         try {
                             // Sleeping between calls
                             Thread.sleep(IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS);
@@ -177,7 +181,19 @@ public class NotificationHandlersStore {
      */
     public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
             Callback<Throwable> onFailure) {
-        subscriptionHandlers.registerNotificationSubscriptionCallback(resource, onNotification, onFailure);
+        final Callback<Object> onNotificationCallBack = onNotification;
+        observerStore.resourceValues(resource, BackpressureStrategy.BUFFER)
+                .addCallback(new NotificationCallback<>(new Callback<ResourceValueNotification>() {
+
+                    @Override
+                    public void execute(ResourceValueNotification notification) {
+                        if (onNotificationCallBack != null && notification != null) {
+                            onNotificationCallBack.execute(notification.getPayload());
+                        }
+
+                    }
+
+                }, onFailure));
     }
 
     /**
@@ -191,7 +207,14 @@ public class NotificationHandlersStore {
      */
     public @Nullable Flowable<NotificationMessageValue> createResourceSubscriptionObserver(Resource resource,
             BackpressureStrategy strategy) {
-        return subscriptionHandlers.createResourceSubscriptionEmitter(resource, strategy);
+        return observerStore.resourceValues(resource, strategy).flow()
+                .map(new Function<ResourceValueNotification, NotificationMessageValue>() {
+
+                    @Override
+                    public NotificationMessageValue apply(ResourceValueNotification value) throws Exception {
+                        return value;
+                    }
+                });
     }
 
     /**
@@ -201,7 +224,7 @@ public class NotificationHandlersStore {
      *            resource to consider.
      */
     public void deregisterNotificationSubscriptionCallback(Resource resource) {
-        subscriptionHandlers.deregisterNotificationSubscriptionCallback(resource);
+        removeResourceSubscriptionObserver(resource);
     }
 
     /**
@@ -211,7 +234,11 @@ public class NotificationHandlersStore {
      *            resource to consider.
      */
     public void removeResourceSubscriptionObserver(Resource resource) {
-        subscriptionHandlers.removeResourceSubscriptionEmitter(resource);
+        try {
+            observerStore.unsubscribeResourceObserver(resource);
+        } catch (MbedCloudException exception) {
+            logNotificationError(exception);
+        }
 
     }
 
@@ -219,7 +246,7 @@ public class NotificationHandlersStore {
      * Deregisters all subscription observers or callbacks.
      */
     public void deregisterAllResourceSubscriptionObserversOrCallbacks() {
-        subscriptionHandlers.clear();
+        observerStore.unsubscribeAll(SubscriptionType.NOTIFICATION);
     }
 
     /**
@@ -229,7 +256,11 @@ public class NotificationHandlersStore {
      *            device id of the device.
      */
     public void deregisterAllResourceSubscriptionObserversOrCallbacks(String deviceId) {
-        subscriptionHandlers.removeDeviceStore(deviceId);
+        try {
+            observerStore.unsubscribeResourceObserver(new Resource(deviceId, null));
+        } catch (MbedCloudException exception) {
+            logNotificationError(exception);
+        }
     }
 
     /**
@@ -239,12 +270,7 @@ public class NotificationHandlersStore {
      *            The notification data to inject
      */
     public void notify(NotificationMessage data) {
-        if (data == null) {
-            return;
-        }
-        storeResponses(data.getAsyncResponses());
-        handleSubscriptions(data.getNotifications());
-        handleDeviceStateChanges(data);
+        emitNotification(data);
     }
 
     /**
@@ -304,23 +330,13 @@ public class NotificationHandlersStore {
 
             @Override
             public String map(AsyncID toBeMapped) {
-                return toBeMapped.getAsyncResponseId();
+                return toBeMapped == null ? null : toBeMapped.getAsyncResponseId();
             }
 
         };
     }
 
-    private static Mapper<NotificationMessage, NotificationMessage> getIdentityMapper() {
-        return new Mapper<NotificationMessage, NotificationMessage>() {
-
-            @Override
-            public NotificationMessage map(NotificationMessage toBeMapped) {
-                return toBeMapped;
-            }
-        };
-    }
-
-    private Runnable createCachingSingleAction() {
+    private Runnable createPollingSingleAction() {
         return new Runnable() {
             private final ExponentialBackoff backoffPolicy = new ExponentialBackoff(api.getLogger());
 
@@ -328,7 +344,8 @@ public class NotificationHandlersStore {
             public void run() {
                 try {
                     final CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
-                            "NotificationPullGet()", getIdentityMapper(), new CloudCall<NotificationMessage>() {
+                            "NotificationPullGet()", GenericAdapter.identityMapper(NotificationMessage.class),
+                            new CloudCall<NotificationMessage>() {
 
                                 @Override
                                 public Call<NotificationMessage> call() {
@@ -342,10 +359,7 @@ public class NotificationHandlersStore {
                                         + feedback.getMetadata());
                         return;
                     }
-                    storeResponses(notificationMessage.getAsyncResponses());
-                    handleSubscriptions(notificationMessage.getNotifications());
-                    handleDeviceStateChanges(notificationMessage);
-
+                    emitNotification(notificationMessage);
                 } catch (MbedCloudException exception) {
                     backoffPolicy.backoff();
                     logPullError(exception);
@@ -407,12 +421,26 @@ public class NotificationHandlersStore {
 
     private void clearStores() {
         responseStore.clear();
-        subscriptionHandlers.clear();
+        observerStore.unsubscribeAll();
+    }
+
+    private void emitNotification(NotificationMessage data) {
+        if (data == null) {
+            return;
+        }
+        storeResponses(data.getAsyncResponses());
+        handleResourceValueChanges(data);
+        handleDeviceStateChanges(data);
     }
 
     private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
         handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notificationMessage,
                 DeviceStateNotificationAdapter.getNotificationMessageMapper());
+    }
+
+    private void handleResourceValueChanges(NotificationMessage notificationMessage) {
+        handleNotification(SubscriptionType.NOTIFICATION, notificationMessage,
+                ResourceValueNotificationAdapter.getNotificationMessageMapper());
     }
 
     private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
@@ -429,28 +457,7 @@ public class NotificationHandlersStore {
                 observerStore.notify(type, notification);
             } catch (MbedCloudException exception) {
                 logNotificationError(exception);
-
             }
-        }
-    }
-
-    private void handleSubscriptions(List<NotificationData> notifications) {
-        if (notifications == null) {
-            return;
-        }
-        for (final NotificationData notification : notifications) {
-            if (notification == null) {
-                continue;
-            }
-            Object value = null;
-            Throwable throwable = null;
-            try {
-                value = decodePayload(notification.getPayload(), notification.getCt());
-            } catch (DecodingException exception) {
-                logNotificationError(exception);
-                throwable = exception;
-            }
-            subscriptionHandlers.handleNotification(notification.getEp(), notification.getPath(), value, throwable);
         }
     }
 
@@ -593,241 +600,6 @@ public class NotificationHandlersStore {
             return id;
         }
 
-    }
-
-    private static class NotificationCallBack {
-        private final Callback<Object> onSuccess;
-        private final Callback<Throwable> onFailure;
-
-        public NotificationCallBack(Callback<Object> onSuccess, Callback<Throwable> onFailure) {
-            super();
-            this.onSuccess = onSuccess;
-            this.onFailure = onFailure;
-        }
-
-        public void callBack(Object notification, Throwable throwable) {
-            if (throwable == null) {
-                if (onSuccess != null) {
-                    onSuccess.execute(notification);
-                }
-            } else {
-                if (onFailure != null) {
-                    onFailure.execute(throwable);
-                }
-            }
-        }
-
-    }
-
-    private static class NotificationHandler {
-        private NotificationCallBack callback;
-        private NotificationEmitter<NotificationMessageValue> emitter;
-
-        public NotificationHandler() {
-            super();
-            callback = null;
-            emitter = null;
-        }
-
-        public void registerNotificationSubscriptionCallback(Callback<Object> onNotification,
-                Callback<Throwable> onFailure) {
-            callback = new NotificationCallBack(onNotification, onFailure);
-        }
-
-        public void deregisterNotificationSubscriptionCallback() {
-            callback = null;
-        }
-
-        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(BackpressureStrategy strategy) {
-            emitter = new NotificationEmitter<>();
-            return emitter.create(strategy);
-        }
-
-        public void removeResourceSubscriptionEmitter() {
-            emitter = null;
-        }
-
-        public void handleNotification(Object notification, Throwable throwable) {
-            synchronized (this) {
-                if (callback != null) {
-                    callback.callBack(notification, throwable);
-                }
-            }
-            synchronized (this) {
-                if (emitter != null) {
-                    emitter.emit(new NotificationValue(notification), throwable);
-                }
-            }
-        }
-
-        public synchronized boolean hasHandlers() {
-            return emitter != null || callback != null;
-        }
-
-    }
-
-    private static class DeviceSubscriptionStore {
-        private final ConcurrentMap<String, NotificationHandler> store = new ConcurrentHashMap<>();
-
-        public void handleNotification(String resourcePath, Object notification, Throwable throwable) {
-            if (resourcePath == null) {
-                return;
-            }
-            final NotificationHandler handler = store.get(resourcePath);
-            if (handler != null) {
-                handler.handleNotification(notification, throwable);
-            }
-        }
-
-        public NotificationHandler getHandlerOrCreate(String resourcePath) {
-            if (resourcePath == null) {
-                return null;
-            }
-            NotificationHandler handler = new NotificationHandler();
-            final NotificationHandler formerHandler = store.putIfAbsent(resourcePath, handler);
-            if (formerHandler != null) {
-                handler = formerHandler;
-            }
-            return handler;
-        }
-
-        public void registerNotificationSubscriptionCallback(String resourcePath, Callback<Object> onNotification,
-                Callback<Throwable> onFailure) {
-            if (resourcePath == null) {
-                return;
-            }
-            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
-            handler.registerNotificationSubscriptionCallback(onNotification, onFailure);
-
-        }
-
-        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(String resourcePath,
-                BackpressureStrategy strategy) {
-            if (resourcePath == null) {
-                return null;
-            }
-            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
-            return handler.createResourceSubscriptionEmitter(strategy);
-        }
-
-        public void deregisterNotificationSubscriptionCallback(String resourcePath) {
-            if (resourcePath == null) {
-                return;
-            }
-            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
-            if (handler == null) {
-                return;
-            }
-            handler.deregisterNotificationSubscriptionCallback();
-            if (!handler.hasHandlers()) {
-                removeNotificationHandler(resourcePath);
-            }
-
-        }
-
-        public void removeResourceSubscriptionEmitter(String resourcePath) {
-            if (resourcePath == null) {
-                return;
-            }
-            final NotificationHandler handler = getHandlerOrCreate(resourcePath);
-            if (handler == null) {
-                return;
-            }
-            handler.removeResourceSubscriptionEmitter();
-            if (!handler.hasHandlers()) {
-                removeNotificationHandler(resourcePath);
-            }
-        }
-
-        public void removeNotificationHandler(String resourcePath) {
-            if (resourcePath == null) {
-                return;
-            }
-            store.remove(resourcePath);
-        }
-
-        public void removeAllNotificationHandlers() {
-            store.clear();
-        }
-    }
-
-    private static class DevicesSubscriptionHandlers {
-        private final ConcurrentMap<String, DeviceSubscriptionStore> store = new ConcurrentHashMap<>(
-                STORE_INITIAL_CAPACITY);
-
-        public void handleNotification(String deviceId, String resourcePath, Object notification, Throwable throwable) {
-            if (deviceId == null) {
-                return;
-            }
-            final DeviceSubscriptionStore deviceStore = store.get(deviceId);
-            if (deviceStore != null) {
-                deviceStore.handleNotification(resourcePath, notification, throwable);
-            }
-        }
-
-        public DeviceSubscriptionStore getDeviceHandlerOrCreate(String deviceId) {
-            if (deviceId == null) {
-                return null;
-            }
-            DeviceSubscriptionStore deviceCache = new DeviceSubscriptionStore();
-            final DeviceSubscriptionStore formerCache = store.putIfAbsent(deviceId, deviceCache);
-            if (formerCache != null) {
-                deviceCache = formerCache;
-            }
-            return deviceCache;
-        }
-
-        public void registerNotificationSubscriptionCallback(Resource resource, Callback<Object> onNotification,
-                Callback<Throwable> onFailure) {
-            if (resource == null || !resource.isValid()) {
-                return;
-            }
-            final DeviceSubscriptionStore deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
-            deviceCache.registerNotificationSubscriptionCallback(resource.getPath(), onNotification, onFailure);
-
-        }
-
-        public Flowable<NotificationMessageValue> createResourceSubscriptionEmitter(Resource resource,
-                BackpressureStrategy strategy) {
-            if (resource == null || !resource.isValid()) {
-                return null;
-            }
-            final DeviceSubscriptionStore deviceCache = getDeviceHandlerOrCreate(resource.getDeviceId());
-            return deviceCache.createResourceSubscriptionEmitter(resource.getPath(), strategy);
-        }
-
-        public void deregisterNotificationSubscriptionCallback(Resource resource) {
-            if (resource == null || !resource.isValid()) {
-                return;
-            }
-            final DeviceSubscriptionStore deviceCache = store.get(resource.getDeviceId());
-            if (deviceCache == null) {
-                return;
-            }
-            deviceCache.deregisterNotificationSubscriptionCallback(resource.getPath());
-        }
-
-        public void removeResourceSubscriptionEmitter(Resource resource) {
-            if (resource == null || !resource.isValid()) {
-                return;
-            }
-            final DeviceSubscriptionStore deviceCache = store.get(resource.getDeviceId());
-            if (deviceCache == null) {
-                return;
-            }
-            deviceCache.removeResourceSubscriptionEmitter(resource.getPath());
-        }
-
-        public void removeDeviceStore(String deviceId) {
-            if (deviceId == null) {
-                return;
-            }
-            store.remove(deviceId);
-        }
-
-        public void clear() {
-            store.clear();
-        }
     }
 
 }

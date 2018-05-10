@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
@@ -184,15 +185,23 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
     @SuppressWarnings("unchecked")
     @Override
     public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
-            BackpressureStrategy strategy) {
+            BackpressureStrategy strategy,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
         if (subscriptionType == null || subscriptionType != this.type) {
             return null;
         }
         final String channelId = this.type.toString() + UuidGenerator.generate();
         final Flowable<T> flow = emitterStore.createSubscriptionChannel(channelId, strategy);
-        final Observer<?> obs = buildObserver(channelId, flow, filter);
+        final Observer<?> obs = buildObserver(channelId, flow, filter, actionOnSubscription, actionOnUnsubscription);
         storeObserver((Observer<T>) obs);
         return obs;
+    }
+
+    @Override
+    public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
+            BackpressureStrategy strategy) {
+        return createObserver(subscriptionType, filter, strategy, null, null);
     }
 
     private void storeObserver(Observer<T> observer) {
@@ -253,6 +262,8 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         return hasObserver(observer.getSubscriptionType(), observer.getId());
     }
 
-    protected abstract Observer<?> buildObserver(String channelId, Flowable<T> flow, FilterOptions filter);
+    protected abstract Observer<?> buildObserver(String channelId, Flowable<T> flow, FilterOptions filter,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription);
 
 }
