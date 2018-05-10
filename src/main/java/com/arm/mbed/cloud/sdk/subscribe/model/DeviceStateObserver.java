@@ -12,7 +12,7 @@ public class DeviceStateObserver extends AbstractObserver<DeviceStateNotificatio
 
     /**
      * Constructor.
-     * 
+     *
      * @param manager
      *            manager
      * @param id
@@ -24,7 +24,7 @@ public class DeviceStateObserver extends AbstractObserver<DeviceStateNotificatio
      */
     public DeviceStateObserver(SubscriptionManager manager, String id, Flowable<DeviceStateNotification> flow,
             DeviceStateFilterOptions filter) {
-        super(manager, id, flow, filter, true);
+        super(manager, id, flow, filter, true, null, null);
     }
 
     @Override
@@ -39,4 +39,5 @@ public class DeviceStateObserver extends AbstractObserver<DeviceStateNotificatio
     public SubscriptionType getSubscriptionType() {
         return SubscriptionType.DEVICE_STATE_CHANGE;
     }
+
 }
