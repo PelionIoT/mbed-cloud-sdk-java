@@ -45,6 +45,13 @@ public final class DeviceAdapter {
         return new FilterMarshaller(filterMapping);
     }
 
+    /**
+     * Maps subscription options into device list options.
+     *
+     * @param filters
+     *            subscription filter
+     * @return corresponding device list options
+     */
     public static DeviceListOptions mapSubscriptionOptions(SubscriptionFilterOptions filters) {
         if (filters == null) {
             return null;
@@ -68,7 +75,7 @@ public final class DeviceAdapter {
         }
         // TODO do other filters when implemented
 
-        return !addedFilters ? null : listOptions;
+        return addedFilters ? listOptions : null;
 
     }
 

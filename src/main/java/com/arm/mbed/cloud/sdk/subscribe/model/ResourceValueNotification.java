@@ -107,12 +107,12 @@ public class ResourceValueNotification implements NotificationMessageValue {
      *
      * Sets the payload.
      *
-     * @param aPayload
+     * @param somePayload
      *            the payload to set
      * @return this
      */
-    public ResourceValueNotification payload(Object aPayload) {
-        setPayload(aPayload);
+    public ResourceValueNotification payload(Object somePayload) {
+        setPayload(somePayload);
         return this;
     }
 
@@ -136,6 +136,10 @@ public class ResourceValueNotification implements NotificationMessageValue {
     }
 
     /**
+     * Gets the max age.
+     * <p>
+     * Note: maximum cache time of the value in seconds.
+     *
      * @return the maxAge
      */
     public String getMaxAge() {
@@ -143,6 +147,11 @@ public class ResourceValueNotification implements NotificationMessageValue {
     }
 
     /**
+     * Sets the max age.
+     * <p>
+     * Note: Max age value is an integer number of seconds between 0 and 2^32-1 but the actual maximum cache time is
+     * limited to 3 days. A default value of 60 seconds is assumed in the absence of the option.
+     *
      * @param maxAge
      *            the maxAge to set
      */
@@ -231,7 +240,7 @@ public class ResourceValueNotification implements NotificationMessageValue {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ResourceValueNotification other = (ResourceValueNotification) obj;
+        final ResourceValueNotification other = (ResourceValueNotification) obj;
         if (contentType == null) {
             if (other.contentType != null) {
                 return false;

@@ -249,7 +249,7 @@ public class Resource implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -263,7 +263,7 @@ public class Resource implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -277,7 +277,7 @@ public class Resource implements SdkModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Resource other = (Resource) obj;
+        final Resource other = (Resource) obj;
         if (deviceId == null) {
             if (other.deviceId != null) {
                 return false;

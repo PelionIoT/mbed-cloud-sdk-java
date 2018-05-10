@@ -1569,9 +1569,9 @@ public class Connect extends AbstractApi {
         if (presubscriptionId == null) {
             return null;
         }
-        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
                 "getPresubscription()");
-        return (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) ? null
+        return presubscriptionRegistry == null || presubscriptionRegistry.isEmpty() ? null
                 : presubscriptionRegistry.getEntry(presubscriptionId);
     }
 
@@ -1588,7 +1588,7 @@ public class Connect extends AbstractApi {
         if (presubscriptionId == null) {
             return;
         }
-        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
                 "deletePresubscription()");
         if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()
                 || !presubscriptionRegistry.contains(presubscriptionId)) {
@@ -1627,7 +1627,7 @@ public class Connect extends AbstractApi {
         if (presubscriptions == null) {
             return;
         }
-        GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
+        final GenericAdapter.MappedObjectRegistry<Presubscription> presubscriptionRegistry = getCurrentPresubscriptionRegistry(
                 "deleteSomePresubscriptions()");
 
         if (presubscriptionRegistry == null || presubscriptionRegistry.isEmpty()) {
@@ -2006,6 +2006,25 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Subscribes to a list of resources.
+     *
+     *
+     * @param resources
+     *            resources to subscribe to.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public void addResourcesSubscription(@Nullable List<Resource> resources) throws MbedCloudException {
+        if (resources == null) {
+            return;
+        }
+        for (final Resource resource : resources) {
+            addResourceSubscription(resource);
+        }
+    }
+
+    /**
      * Subscribes to a resource.
      * <p>
      * Example:
@@ -2042,25 +2061,6 @@ public class Connect extends AbstractApi {
                         ApiUtils.normalisePath(finalResource.getPath()));
             }
         });
-    }
-
-    /**
-     * Subscribes to a list of resources.
-     *
-     *
-     * @param resources
-     *            resources to subscribe to.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    public void addResourcesSubscription(@Nullable List<Resource> resources) throws MbedCloudException {
-        if (resources == null) {
-            return;
-        }
-        for (final Resource resource : resources) {
-            addResourceSubscription(resource);
-        }
     }
 
     /**

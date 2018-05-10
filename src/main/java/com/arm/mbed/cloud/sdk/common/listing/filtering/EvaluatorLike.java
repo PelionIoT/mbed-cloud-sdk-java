@@ -14,6 +14,10 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class EvaluatorLike implements FilterEvaluator {
 
+    private static final String BOXING = "boxing";
+    private static final String UNCHECKED = "unchecked";
+    private static final String RAWTYPES = "rawtypes";
+
     @Override
     public boolean isVerified(Filter filter, Object value) {
         if (filter == null || filter.getOperator() != FilterOperator.LIKE) {
@@ -23,7 +27,7 @@ public class EvaluatorLike implements FilterEvaluator {
         return verify(value, filterValue);
     }
 
-    @SuppressWarnings({ "rawtypes" })
+    @SuppressWarnings({ RAWTYPES })
     protected static boolean verify(Object value, final Object filterValue) {
         if (EvaluatorEqual.verify(value, filterValue)) {
             return true;
@@ -38,33 +42,36 @@ public class EvaluatorLike implements FilterEvaluator {
             return verifyArray(value, filterValue);
         }
         if (filterValue instanceof String || filterValue instanceof CharSequence) {
-            final String pattern = String.valueOf(filterValue);
-            final String valueString = String.valueOf(value).toLowerCase(Locale.getDefault());
-            if (valueString.contains(pattern) || valueString.contains(pattern.toLowerCase(Locale.getDefault()))) {
-                return true;
-            }
-            // If filterValue is a Java Regex.
-            try {
-                if (Pattern.matches(pattern, valueString)) {
-                    return true;
-                }
-            } catch (PatternSyntaxException exception) {
-                // Nothing to do
-            }
-            // If filterValue is a SQL like entry i.e.
-            final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("*", "\\*")
-                    .replace("?", ".").replace("_", ".").replace("%", ".*");
-            try {
-                return Pattern.matches(javaPattern, valueString);
-            } catch (PatternSyntaxException exception) {
-                return false;
-            }
+            return verifyStringLike(value, filterValue);
         }
         // If not a string "like" is equivalent to equal
         return EvaluatorEqual.verify(value, filterValue);
     }
 
-    @SuppressWarnings({ "unchecked", "boxing" })
+    private static boolean verifyStringLike(Object value, final Object filterValue) {
+        final String pattern = String.valueOf(filterValue);
+        final String valueString = String.valueOf(value).toLowerCase(Locale.getDefault());
+        if (valueString.contains(pattern) || valueString.contains(pattern.toLowerCase(Locale.getDefault()))) {
+            return true;
+        }
+        // If filterValue is a Java Regex.
+        try {
+            if (Pattern.matches(pattern, valueString)) {
+                return true;
+            }
+        } catch (PatternSyntaxException exception) {
+            // Nothing to do
+        }
+        // If filterValue is a SQL like entry i.e.
+        final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("*", "\\*")
+                .replace("?", ".").replace("_", ".").replace("%", ".*");
+        try {
+            return Pattern.matches(javaPattern, valueString);
+        } catch (PatternSyntaxException exception) {
+            return false;
+        }
+    }
+
     protected static boolean verifyArray(Object value, final Object filterValue) {
         if (filterValue instanceof String[]) {
             return verifyList(value, Arrays.asList((String[]) filterValue));
@@ -72,65 +79,96 @@ public class EvaluatorLike implements FilterEvaluator {
         if (filterValue instanceof Object[]) {
             return verifyList(value, Arrays.asList(((Object[]) filterValue)));
         }
-        @SuppressWarnings("rawtypes")
-        List list = null;
+        @SuppressWarnings(RAWTYPES)
+        final List list = new ArrayList<>();
+        handleByteArray(filterValue, list);
+        handleShortArray(filterValue, list);
+        handleIntegerArray(filterValue, list);
+        handleLongArray(filterValue, list);
+        handleFloatArray(filterValue, list);
+        handleDoubleArray(filterValue, list);
+        handleBooleanArray(filterValue, list);
+        handleCharacterArray(filterValue, list);
+
+        return verifyList(value, list);
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleByteArray(final Object filterValue, List list) {
         if (filterValue instanceof byte[]) {
-            list = new ArrayList<>();
             for (final byte filterSubValue : (byte[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleShortArray(final Object filterValue, List list) {
         if (filterValue instanceof short[]) {
-            list = new ArrayList<>();
             for (final short filterSubValue : (short[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleIntegerArray(final Object filterValue, List list) {
         if (filterValue instanceof int[]) {
-            list = new ArrayList<>();
             for (final int filterSubValue : (int[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleLongArray(final Object filterValue, List list) {
         if (filterValue instanceof long[]) {
-            list = new ArrayList<>();
             for (final long filterSubValue : (long[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleFloatArray(final Object filterValue, List list) {
         if (filterValue instanceof float[]) {
-            list = new ArrayList<>();
             for (final float filterSubValue : (float[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
-        if (filterValue instanceof double[]) {
+    }
 
-            list = new ArrayList<>();
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleDoubleArray(final Object filterValue, List list) {
+        if (filterValue instanceof double[]) {
             for (final double filterSubValue : (double[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleBooleanArray(final Object filterValue, List list) {
         if (filterValue instanceof boolean[]) {
-            list = new ArrayList<>();
             for (final boolean filterSubValue : (boolean[]) filterValue) {
                 list.add(filterSubValue);
             }
 
         }
+    }
+
+    @SuppressWarnings({ RAWTYPES, UNCHECKED, BOXING })
+    private static void handleCharacterArray(final Object filterValue, List list) {
         if (filterValue instanceof char[]) {
-            list = new ArrayList<>();
             for (final char filterSubValue : (char[]) filterValue) {
                 list.add(filterSubValue);
             }
         }
-
-        return verifyList(value, list);
     }
 
-    @SuppressWarnings("rawtypes")
+    @SuppressWarnings(RAWTYPES)
     protected static boolean verifyList(Object value, final List filterValues) {
-        if (filterValues == null) {
+        if (filterValues == null || filterValues.isEmpty()) {
             return false;
         }
         for (final Object filterSubValue : filterValues) {

@@ -14,6 +14,14 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
     protected final Connect api;
     protected FirstValue mode;
 
+    /**
+     * Constructor.
+     *
+     * @param api
+     *            Connect API instance
+     * @param mode
+     *            mode
+     */
     public AbstractSubscriptionAction(AbstractApi api, FirstValue mode) {
         super();
         this.api = (Connect) api;
@@ -36,12 +44,12 @@ public abstract class AbstractSubscriptionAction implements SubscriptionAction {
      * Sets the first value mode.
      *
      * @see FirstValue
-     * @param aMode
+     * @param firstValueMode
      *            the mode to set
      */
     @Override
-    public SubscriptionAction mode(FirstValue aMode) {
-        setMode(aMode);
+    public SubscriptionAction mode(FirstValue firstValueMode) {
+        setMode(firstValueMode);
         return this;
     }
 

@@ -277,6 +277,14 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         return observer;
     }
 
+    /**
+     * Attaches an observer to a specific resource.
+     *
+     * @param resource
+     *            resource to subscribe to.
+     * @param observer
+     *            Observer to attach to the resource.
+     */
     public void attachObserverToResource(Resource resource, Observer<?> observer) {
         if (resource == null || observer == null) {
             return;
@@ -284,12 +292,21 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         resourceToObserverStore.put(Integer.valueOf(resource.hashCode()), new WeakReference<Observer<?>>(observer));
     }
 
+    /**
+     * Unsubscribes a resource observer.
+     *
+     * @param resource
+     *            resource to unsubscribe from.
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
     public void unsubscribeResourceObserver(Resource resource) throws MbedCloudException {
-        if (resource == null || !resourceToObserverStore.contains(Integer.valueOf(resource.hashCode()))) {
+        if (resource == null || !resourceToObserverStore.containsKey(Integer.valueOf(resource.hashCode()))) {
             return;
         }
         final int resourceHash = resource.hashCode();
-        final Observer<?> observer = resourceToObserverStore.get(Integer.valueOf(resourceHash)).get();
+        final WeakReference<Observer<?>> observerRef = resourceToObserverStore.get(Integer.valueOf(resourceHash));
+        final Observer<?> observer = observerRef.get();
         if (observer != null) {
             observer.unsubscribe();
         }

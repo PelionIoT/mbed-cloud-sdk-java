@@ -19,11 +19,11 @@ public interface SubscriptionAction extends CallbackWithException<FilterOptions,
      * Sets the first value mode.
      *
      * @see FirstValue
-     * @param aMode
+     * @param firstValueMode
      *            the mode to set
      * @return this action
      */
-    SubscriptionAction mode(FirstValue aMode);
+    SubscriptionAction mode(FirstValue firstValueMode);
 
     /**
      * Sets the first value mode.

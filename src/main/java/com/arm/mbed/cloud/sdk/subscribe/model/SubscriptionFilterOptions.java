@@ -476,7 +476,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
      * @return this filter
      */
     public SubscriptionFilterOptions notEqualResourcePath(@Nullable String resourcePath) {
-        notEqualResourcePath(resourcePath);
+        addNotEqualResourcePathFilter(resourcePath);
         return this;
     }
 
@@ -732,7 +732,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
                 verifiedResources.add(resource);
             }
         }
-        return (verifiedResources.isEmpty()) ? null : verifiedResources;
+        return verifiedResources.isEmpty() ? null : verifiedResources;
     }
 
     private boolean evaluateResource(Resource resource) {
@@ -750,7 +750,8 @@ public class SubscriptionFilterOptions extends FilterOptions {
         return FiltersEvaluator.isVerified(filter, RESOURCE_PATH_FILTER, resourcePath);
     }
 
-    private boolean evaluateDeviceType(String deviceType) {
-        return FiltersEvaluator.isVerified(filter, DEVICE_TYPE_FILTER, deviceType);
-    }
+    // TODO
+    // private boolean evaluateDeviceType(String deviceType) {
+    // return FiltersEvaluator.isVerified(filter, DEVICE_TYPE_FILTER, deviceType);
+    // }
 }

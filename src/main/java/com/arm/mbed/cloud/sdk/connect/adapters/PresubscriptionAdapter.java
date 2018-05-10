@@ -41,41 +41,20 @@ public final class PresubscriptionAdapter {
         boolean hadEnpointNameFilter = false;
         if (options.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.IN)) {
             hadEnpointNameFilter = true;
-            final Presubscription presubscription = new Presubscription();
-            mapPresubscriptionResourcePath(options, presubscription);
-            @SuppressWarnings("unchecked")
-            final List<String> deviceIds = (List<String>) options
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.IN);
-            for (final String deviceId : deviceIds) {
-                list.add(presubscription.clone().deviceId(deviceId));
-            }
+            mapDeviceIn(options, list);
         }
         if (options.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL)) {
             hadEnpointNameFilter = true;
-            final Presubscription presubscription = new Presubscription();
-            presubscription.setDeviceId((String) options
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL));
-            mapPresubscriptionResourcePath(options, presubscription);
-            list.add(presubscription);
+            mapDeviceEqual(options, list);
 
         }
         if (options.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE)) {
             hadEnpointNameFilter = true;
-            final Presubscription presubscription = new Presubscription();
-            mapPresubscriptionResourcePath(options, presubscription);
-            presubscription.setDeviceId(mapLikeDeviceIdPath((String) options
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE)));
-            if (presubscription.isValid()) {
-                list.add(presubscription);
-            }
+            mapDeviceLike(options, list);
         }
 
         if (!hadEnpointNameFilter && options.hasFilters(SubscriptionFilterOptions.RESOURCE_PATH_FILTER)) {
-            final Presubscription presubscription = new Presubscription();
-            mapPresubscriptionResourcePath(options, presubscription);
-            if (presubscription.isValid()) {
-                list.add(presubscription);
-            }
+            mapResourcePath(options, list);
         }
         // TODO endpoint type
 
@@ -84,6 +63,43 @@ public final class PresubscriptionAdapter {
         }
         return list;
 
+    }
+
+    private static void mapResourcePath(SubscriptionFilterOptions options, final List<Presubscription> list) {
+        final Presubscription presubscription = new Presubscription();
+        mapPresubscriptionResourcePath(options, presubscription);
+        if (presubscription.isValid()) {
+            list.add(presubscription);
+        }
+    }
+
+    private static void mapDeviceLike(SubscriptionFilterOptions options, final List<Presubscription> list) {
+        final Presubscription presubscription = new Presubscription();
+        mapPresubscriptionResourcePath(options, presubscription);
+        presubscription.setDeviceId(mapLikeDeviceIdPath((String) options
+                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.LIKE)));
+        if (presubscription.isValid()) {
+            list.add(presubscription);
+        }
+    }
+
+    private static void mapDeviceEqual(SubscriptionFilterOptions options, final List<Presubscription> list) {
+        final Presubscription presubscription = new Presubscription();
+        presubscription.setDeviceId((String) options
+                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL));
+        mapPresubscriptionResourcePath(options, presubscription);
+        list.add(presubscription);
+    }
+
+    private static void mapDeviceIn(SubscriptionFilterOptions options, final List<Presubscription> list) {
+        final Presubscription presubscription = new Presubscription();
+        mapPresubscriptionResourcePath(options, presubscription);
+        @SuppressWarnings("unchecked")
+        final List<String> deviceIds = (List<String>) options
+                .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.IN);
+        for (final String deviceId : deviceIds) {
+            list.add(presubscription.clone().deviceId(deviceId));
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -102,20 +118,26 @@ public final class PresubscriptionAdapter {
                         SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.EQUAL));
             }
             if (options.hasFilter(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.LIKE)) {
-                final Object filterValue = options
-                        .fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER, FilterOperator.LIKE);
-                if (filterValue instanceof List) {
-                    mapLikeResourcePaths(presubscription, (List<String>) filterValue);
-                } else if (filterValue.getClass().isArray()) {
-                    mapLikeResourcePaths(presubscription, Arrays.asList((String[]) filterValue));
-                } else {
-                    final String likeFilter = mapLikeResourcePath((String) filterValue);
-                    if (likeFilter != null) {
-                        presubscription.addResourcePath(likeFilter);
-                    }
-
-                }
+                mapPresubscriptionLikeResourcePath(options, presubscription);
             }
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    private static void mapPresubscriptionLikeResourcePath(SubscriptionFilterOptions options,
+            Presubscription presubscription) {
+        final Object filterValue = options.fetchSpecificFilterValue(SubscriptionFilterOptions.RESOURCE_PATH_FILTER,
+                FilterOperator.LIKE);
+        if (filterValue instanceof List) {
+            mapLikeResourcePaths(presubscription, (List<String>) filterValue);
+        } else if (filterValue.getClass().isArray()) {
+            mapLikeResourcePaths(presubscription, Arrays.asList((String[]) filterValue));
+        } else {
+            final String likeFilter = mapLikeResourcePath((String) filterValue);
+            if (likeFilter != null) {
+                presubscription.addResourcePath(likeFilter);
+            }
+
         }
     }
 
@@ -151,7 +173,9 @@ public final class PresubscriptionAdapter {
             presubscriptionValueString = filterValueString.replace(".*", "*").replace(".", "*").replace("_", "*")
                     .replace("%", "*").replace("?", "*");
             if (!presubscriptionValueString.contains("*")) {
-                presubscriptionValueString += "*";
+                final StringBuffer buffer = new StringBuffer();
+                buffer.append(presubscriptionValueString).append('*');
+                presubscriptionValueString = buffer.toString();
             }
         }
         return presubscriptionValueString;

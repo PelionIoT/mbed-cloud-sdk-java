@@ -192,7 +192,7 @@ public class GenericAdapter {
          * @return True if the registry is contained
          */
         public boolean contains(@Nullable T object) {
-            return (isEmpty() || object == null) ? false : registry.containsKey(generateObjectId(object));
+            return isEmpty() || object == null ? false : registry.containsKey(generateObjectId(object));
         }
 
         /**
@@ -204,7 +204,7 @@ public class GenericAdapter {
          */
         public boolean contains(@Nullable String objectId) {
             try {
-                return (isEmpty() || objectId == null) ? false : registry.containsKey(translateStringToKey(objectId));
+                return isEmpty() || objectId == null ? false : registry.containsKey(translateStringToKey(objectId));
             } catch (NumberFormatException exception) {
                 return false;
             }
@@ -219,7 +219,7 @@ public class GenericAdapter {
          */
         public @Nullable T getEntry(@Nullable String objectId) {
             try {
-                return (isEmpty() || objectId == null) ? null : registry.get(translateStringToKey(objectId));
+                return isEmpty() || objectId == null ? null : registry.get(translateStringToKey(objectId));
             } catch (NumberFormatException exception) {
                 return null;
             }
@@ -231,7 +231,7 @@ public class GenericAdapter {
          * @param object
          *            an entry
          */
-        public @Nullable void removeEntry(@Nullable T object) {
+        public void removeEntry(@Nullable T object) {
             try {
                 if (isEmpty() || object == null) {
                     return;
@@ -248,7 +248,7 @@ public class GenericAdapter {
          * @param objectId
          *            registry id of the object to remove
          */
-        public @Nullable void removeEntry(@Nullable String objectId) {
+        public void removeEntry(@Nullable String objectId) {
             try {
                 if (isEmpty() || objectId == null) {
                     return;

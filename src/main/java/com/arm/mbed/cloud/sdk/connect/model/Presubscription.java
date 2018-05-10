@@ -276,7 +276,7 @@ public class Presubscription implements SdkModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Presubscription other = (Presubscription) obj;
+        final Presubscription other = (Presubscription) obj;
         if (deviceId == null) {
             if (other.deviceId != null) {
                 return false;

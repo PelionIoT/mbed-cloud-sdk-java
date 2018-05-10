@@ -33,7 +33,8 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         api.addSomePresubscriptions(correspondingPresubscriptions);
         // Subscribe to currently connected devices
         if (mode == FirstValue.ON_VALUE_UPDATE) {
-            Paginator<Device> iterator = api.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
+            final Paginator<Device> iterator = api
+                    .listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
             if (iterator == null) {
                 return;
             }

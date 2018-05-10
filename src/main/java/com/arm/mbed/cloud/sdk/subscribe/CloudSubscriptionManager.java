@@ -16,7 +16,7 @@ import io.reactivex.BackpressureStrategy;
 @Preamble(description = "Definition of the subscription manager for Mbed Cloud")
 public interface CloudSubscriptionManager extends SubscriptionManager {
 
-    public static final String DEFAULT_BACKPRESSURE_STRATEGY = "BUFFER";
+    String DEFAULT_BACKPRESSURE_STRATEGY = "BUFFER";
 
     /**
      * Creates an observer {@link Observer } which listens to device state changes that verify the filter.

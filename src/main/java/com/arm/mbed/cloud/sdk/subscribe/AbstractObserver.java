@@ -83,7 +83,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
         return new Consumer<Subscription>() {
 
             @Override
-            public void accept(Subscription t) throws Exception {
+            public void accept(Subscription subscription) throws Exception {
                 if (actionOnSubscription != null && !hasExecutedActionOnFirstSubscription) {
                     actionOnSubscription.execute(filter);
                     hasExecutedActionOnFirstSubscription = true;
