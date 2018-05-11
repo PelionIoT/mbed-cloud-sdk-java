@@ -19,12 +19,21 @@ import java.util.Map;
 
 public interface NotificationsApi {
   /**
+   * Delete notification Long Poll channel
+   * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET &#x60;/v2/notification/pull&#x60; call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \&quot;CHANNEL_DELETED\&quot; as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v2/notification/pull")
+  Call<Void> deleteLongPollChannel();
+    
+
+  /**
    * Delete callback URL
    * Deletes the callback URL.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/callback -H &#39;authorization: Bearer {api-key}&#39; 
    * @return Call&lt;Void&gt;
    */
   @DELETE("v2/notification/callback")
-  Call<Void> v2NotificationCallbackDelete();
+  Call<Void> deregisterWebhook();
     
 
   /**
@@ -33,7 +42,16 @@ public interface NotificationsApi {
    * @return Call&lt;Webhook&gt;
    */
   @GET("v2/notification/callback")
-  Call<Webhook> v2NotificationCallbackGet();
+  Call<Webhook> getWebhook();
+    
+
+  /**
+   * Get notifications using Long Poll
+   * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to &#x60;/v2/notification/pull&#x60;. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
+   * @return Call&lt;NotificationMessage&gt;
+   */
+  @GET("v2/notification/pull")
+  Call<NotificationMessage> longPollNotifications();
     
 
   /**
@@ -46,26 +64,8 @@ public interface NotificationsApi {
     "Content-Type:application/json"
   })
   @PUT("v2/notification/callback")
-  Call<Void> v2NotificationCallbackPut(
+  Call<Void> registerWebhook(
     @retrofit2.http.Body Webhook webhook
   );
-
-  /**
-   * Delete notification Long Poll channel
-   * To delete a notification Long Poll channel. This is required to change the channel from Long Poll to a callback. You should not make a GET &#x60;/v2/notification/pull&#x60; call for 2 minutes after channel was deleted, because it can implicitly recreate the pull channel. You can also have some random responses with payload or 410 GONE with \&quot;CHANNEL_DELETED\&quot; as a payload or 200/204 until the old channel is purged.  **Example usage:**     curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
-   * @return Call&lt;Void&gt;
-   */
-  @DELETE("v2/notification/pull")
-  Call<Void> v2NotificationPullDelete();
-    
-
-  /**
-   * Get notifications using Long Poll
-   * In this case, notifications are delivered through HTTP long poll requests. The HTTP request is kept open until an event notification or a batch of event notifications are delivered to the client or the request times out (response code 204). In both cases, the client should open a new polling connection after the previous one closes. Only a single long polling connection per API key can be ongoing at any given time. You must have a persistent connection (Connection keep-alive header in the request) to avoid excess TLS handshakes.  The pull channel is implicitly created by the first GET call to &#x60;/v2/notification/pull&#x60;. It is refreshed on each GET call. If the channel is not polled for a long time (10 minutes) - it expires and will be deleted. This means that no notifications will stay in the queue between polls. A channel can be also deleted explicitly by a DELETE call.  **Note:** If you cannot have a public facing callback URL, for example when developing on your local machine, you can use long polling to check for new messages. However, **long polling is deprecated** and will likely be replaced in future. It is meant only for experimentation and not for commercial usage. The proper method to receive notifications is a **notification callback**. There can only be one notification channel per API key at a time in Mbed Cloud Connect. If a callback notification channel already exists, you need to delete it before creating a long poll notification channel, and vice-versa.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/notification/pull -H &#39;authorization: Bearer {api-key}&#39; 
-   * @return Call&lt;NotificationMessage&gt;
-   */
-  @GET("v2/notification/pull")
-  Call<NotificationMessage> v2NotificationPullGet();
-    
 
 }
