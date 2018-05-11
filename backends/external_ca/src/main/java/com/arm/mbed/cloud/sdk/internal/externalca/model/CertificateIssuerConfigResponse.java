@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -86,7 +87,7 @@ public class CertificateIssuerConfigResponse implements Serializable {
   private String reference = null;
 
   @SerializedName("updated_at")
-  private String updatedAt = null;
+  private DateTime updatedAt = null;
 
   public CertificateIssuerConfigResponse certificateIssuerId(String certificateIssuerId) {
     this.certificateIssuerId = certificateIssuerId;
@@ -142,21 +143,21 @@ public class CertificateIssuerConfigResponse implements Serializable {
     this.reference = reference;
   }
 
-  public CertificateIssuerConfigResponse updatedAt(String updatedAt) {
+  public CertificateIssuerConfigResponse updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
   }
 
    /**
-   * Get updatedAt
+   * Updated UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "")
-  public String getUpdatedAt() {
+  @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "Updated UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
     return updatedAt;
   }
 
-  public void setUpdatedAt(String updatedAt) {
+  public void setUpdatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
   }
 

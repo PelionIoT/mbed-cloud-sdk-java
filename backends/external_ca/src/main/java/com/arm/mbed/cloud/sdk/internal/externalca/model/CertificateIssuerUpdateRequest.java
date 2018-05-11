@@ -22,6 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -35,10 +38,10 @@ public class CertificateIssuerUpdateRequest implements Serializable {
   private String description = null;
 
   @SerializedName("issuer_attributes")
-  private Object issuerAttributes = null;
+  private Map<String, String> issuerAttributes = null;
 
   @SerializedName("issuer_credentials")
-  private Object issuerCredentials = null;
+  private Map<String, String> issuerCredentials = null;
 
   @SerializedName("name")
   private String name = null;
@@ -61,8 +64,16 @@ public class CertificateIssuerUpdateRequest implements Serializable {
     this.description = description;
   }
 
-  public CertificateIssuerUpdateRequest issuerAttributes(Object issuerAttributes) {
+  public CertificateIssuerUpdateRequest issuerAttributes(Map<String, String> issuerAttributes) {
     this.issuerAttributes = issuerAttributes;
+    return this;
+  }
+
+  public CertificateIssuerUpdateRequest putIssuerAttributesItem(String key, String issuerAttributesItem) {
+    if (this.issuerAttributes == null) {
+      this.issuerAttributes = new HashMap<String, String>();
+    }
+    this.issuerAttributes.put(key, issuerAttributesItem);
     return this;
   }
 
@@ -70,17 +81,25 @@ public class CertificateIssuerUpdateRequest implements Serializable {
    * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. 
    * @return issuerAttributes
   **/
-  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
-  public Object getIssuerAttributes() {
+  @ApiModelProperty(example = "{}", value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
+  public Map<String, String> getIssuerAttributes() {
     return issuerAttributes;
   }
 
-  public void setIssuerAttributes(Object issuerAttributes) {
+  public void setIssuerAttributes(Map<String, String> issuerAttributes) {
     this.issuerAttributes = issuerAttributes;
   }
 
-  public CertificateIssuerUpdateRequest issuerCredentials(Object issuerCredentials) {
+  public CertificateIssuerUpdateRequest issuerCredentials(Map<String, String> issuerCredentials) {
     this.issuerCredentials = issuerCredentials;
+    return this;
+  }
+
+  public CertificateIssuerUpdateRequest putIssuerCredentialsItem(String key, String issuerCredentialsItem) {
+    if (this.issuerCredentials == null) {
+      this.issuerCredentials = new HashMap<String, String>();
+    }
+    this.issuerCredentials.put(key, issuerCredentialsItem);
     return this;
   }
 
@@ -88,12 +107,12 @@ public class CertificateIssuerUpdateRequest implements Serializable {
    * The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. 
    * @return issuerCredentials
   **/
-  @ApiModelProperty(value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
-  public Object getIssuerCredentials() {
+  @ApiModelProperty(example = "{}", value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
+  public Map<String, String> getIssuerCredentials() {
     return issuerCredentials;
   }
 
-  public void setIssuerCredentials(Object issuerCredentials) {
+  public void setIssuerCredentials(Map<String, String> issuerCredentials) {
     this.issuerCredentials = issuerCredentials;
   }
 

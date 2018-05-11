@@ -34,9 +34,8 @@ public class CertificateIssuersApiTest {
      */
     @Test
     public void createCertificateIssuerTest() {
-        String authorization = null;
         CertificateIssuerRequest certificateIssuerRequest = null;
-        // CertificateIssuerInfo response = api.createCertificateIssuer(authorization, certificateIssuerRequest);
+        // CertificateIssuerInfo response = api.createCertificateIssuer(certificateIssuerRequest);
 
         // TODO: test validations
     }
@@ -48,8 +47,7 @@ public class CertificateIssuersApiTest {
     @Test
     public void deleteCertificateIssuerTest() {
         String certificateIssuerId = null;
-        String authorization = null;
-        // Void response = api.deleteCertificateIssuer(certificateIssuerId, authorization);
+        // Void response = api.deleteCertificateIssuer(certificateIssuerId);
 
         // TODO: test validations
     }
@@ -61,8 +59,7 @@ public class CertificateIssuersApiTest {
     @Test
     public void getCertificateIssuerTest() {
         String certificateIssuerId = null;
-        String authorization = null;
-        // CertificateIssuerInfo response = api.getCertificateIssuer(certificateIssuerId, authorization);
+        // CertificateIssuerInfo response = api.getCertificateIssuer(certificateIssuerId);
 
         // TODO: test validations
     }
@@ -73,8 +70,7 @@ public class CertificateIssuersApiTest {
      */
     @Test
     public void getCertificateIssuersTest() {
-        String authorization = null;
-        // CertificateIssuerInfoListResponse response = api.getCertificateIssuers(authorization);
+        // CertificateIssuerInfoListResponse response = api.getCertificateIssuers();
 
         // TODO: test validations
     }
@@ -86,9 +82,8 @@ public class CertificateIssuersApiTest {
     @Test
     public void updateCertificateIssuerTest() {
         String certificateIssuerId = null;
-        String authorization = null;
         CertificateIssuerUpdateRequest certificateIssuerUpdateRequest = null;
-        // CertificateIssuerInfo response = api.updateCertificateIssuer(certificateIssuerId, authorization, certificateIssuerUpdateRequest);
+        // CertificateIssuerInfo response = api.updateCertificateIssuer(certificateIssuerId, certificateIssuerUpdateRequest);
 
         // TODO: test validations
     }
@@ -100,8 +95,7 @@ public class CertificateIssuersApiTest {
     @Test
     public void verifyCertificateIssuerTest() {
         String certificateIssuerId = null;
-        String authorization = null;
-        // CertificateIssuerVerifyResponse response = api.verifyCertificateIssuer(certificateIssuerId, authorization);
+        // CertificateIssuerVerifyResponse response = api.verifyCertificateIssuer(certificateIssuerId);
 
         // TODO: test validations
     }

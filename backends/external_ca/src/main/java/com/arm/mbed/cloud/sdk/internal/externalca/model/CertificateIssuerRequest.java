@@ -22,6 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -35,10 +38,10 @@ public class CertificateIssuerRequest implements Serializable {
   private String description = null;
 
   @SerializedName("issuer_attributes")
-  private Object issuerAttributes = null;
+  private Map<String, String> issuerAttributes = null;
 
   @SerializedName("issuer_credentials")
-  private Object issuerCredentials = null;
+  private Map<String, String> issuerCredentials = null;
 
   /**
    * The type of the certificate issuer. - GLOBAL_SIGN:   Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials. - CFSSL_AUTH:   Certificates are issued by CFSSL authenticated signing service.   The users must provide their own CFSSL host_url and credentials. 
@@ -111,8 +114,16 @@ public class CertificateIssuerRequest implements Serializable {
     this.description = description;
   }
 
-  public CertificateIssuerRequest issuerAttributes(Object issuerAttributes) {
+  public CertificateIssuerRequest issuerAttributes(Map<String, String> issuerAttributes) {
     this.issuerAttributes = issuerAttributes;
+    return this;
+  }
+
+  public CertificateIssuerRequest putIssuerAttributesItem(String key, String issuerAttributesItem) {
+    if (this.issuerAttributes == null) {
+      this.issuerAttributes = new HashMap<String, String>();
+    }
+    this.issuerAttributes.put(key, issuerAttributesItem);
     return this;
   }
 
@@ -120,17 +131,25 @@ public class CertificateIssuerRequest implements Serializable {
    * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. 
    * @return issuerAttributes
   **/
-  @ApiModelProperty(value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
-  public Object getIssuerAttributes() {
+  @ApiModelProperty(example = "{}", value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
+  public Map<String, String> getIssuerAttributes() {
     return issuerAttributes;
   }
 
-  public void setIssuerAttributes(Object issuerAttributes) {
+  public void setIssuerAttributes(Map<String, String> issuerAttributes) {
     this.issuerAttributes = issuerAttributes;
   }
 
-  public CertificateIssuerRequest issuerCredentials(Object issuerCredentials) {
+  public CertificateIssuerRequest issuerCredentials(Map<String, String> issuerCredentials) {
     this.issuerCredentials = issuerCredentials;
+    return this;
+  }
+
+  public CertificateIssuerRequest putIssuerCredentialsItem(String key, String issuerCredentialsItem) {
+    if (this.issuerCredentials == null) {
+      this.issuerCredentials = new HashMap<String, String>();
+    }
+    this.issuerCredentials.put(key, issuerCredentialsItem);
     return this;
   }
 
@@ -138,12 +157,12 @@ public class CertificateIssuerRequest implements Serializable {
    * The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. 
    * @return issuerCredentials
   **/
-  @ApiModelProperty(value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
-  public Object getIssuerCredentials() {
+  @ApiModelProperty(example = "{}", value = "The credentials required for connecting to the certificate issuer. When the issuer_type is GLOBAL_SIGN, see definition of GlobalSignCredentials. When the issuer_type is CFSSL_AUTH, see definition of CfsslAuthCredentials. ")
+  public Map<String, String> getIssuerCredentials() {
     return issuerCredentials;
   }
 
-  public void setIssuerCredentials(Object issuerCredentials) {
+  public void setIssuerCredentials(Map<String, String> issuerCredentials) {
     this.issuerCredentials = issuerCredentials;
   }
 

@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -35,7 +36,7 @@ public class CertificateIssuerInfo implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("created_at")
-  private String createdAt = null;
+  private DateTime createdAt = null;
 
   @SerializedName("description")
   private String description = null;
@@ -150,7 +151,7 @@ public class CertificateIssuerInfo implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
-  public CertificateIssuerInfo createdAt(String createdAt) {
+  public CertificateIssuerInfo createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -160,11 +161,11 @@ public class CertificateIssuerInfo implements Serializable {
    * @return createdAt
   **/
   @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "Creation UTC time RFC3339.")
-  public String getCreatedAt() {
+  public DateTime getCreatedAt() {
     return createdAt;
   }
 
-  public void setCreatedAt(String createdAt) {
+  public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
   }
 
@@ -236,10 +237,10 @@ public class CertificateIssuerInfo implements Serializable {
   }
 
    /**
-   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. 
+   * General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. 
    * @return issuerAttributes
   **/
-  @ApiModelProperty(example = "{}", value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. ")
+  @ApiModelProperty(example = "{}", value = "General attributes for connecting the certificate issuer. When the issuer_type is GLOBAL_SIGN, the value shall be empty. When the issuer_type is CFSSL_AUTH, see definition of CfsslAttributes. ")
   public Map<String, String> getIssuerAttributes() {
     return issuerAttributes;
   }

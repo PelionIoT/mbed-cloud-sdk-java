@@ -14,7 +14,7 @@ Method | HTTP request | Description
 
 <a name="createCertificateIssuer"></a>
 # **createCertificateIssuer**
-> CertificateIssuerInfo createCertificateIssuer(authorization, certificateIssuerRequest)
+> CertificateIssuerInfo createCertificateIssuer(certificateIssuerRequest)
 
 Create certificate issuer.
 
@@ -38,10 +38,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
-String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerRequest certificateIssuerRequest = new CertificateIssuerRequest(); // CertificateIssuerRequest | Certificate issuer request.
 try {
-    CertificateIssuerInfo result = apiInstance.createCertificateIssuer(authorization, certificateIssuerRequest);
+    CertificateIssuerInfo result = apiInstance.createCertificateIssuer(certificateIssuerRequest);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#createCertificateIssuer");
@@ -53,7 +52,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {token} |
  **certificateIssuerRequest** | [**CertificateIssuerRequest**](CertificateIssuerRequest.md)| Certificate issuer request. |
 
 ### Return type
@@ -66,12 +64,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="deleteCertificateIssuer"></a>
 # **deleteCertificateIssuer**
-> Void deleteCertificateIssuer(certificateIssuerId, authorization)
+> Void deleteCertificateIssuer(certificateIssuerId)
 
 Delete certificate issuer.
 
@@ -96,9 +94,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. <br> The ID of the certificate issuer. An active certificate issuer may not be deleted. 
-String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    Void result = apiInstance.deleteCertificateIssuer(certificateIssuerId, authorization);
+    Void result = apiInstance.deleteCertificateIssuer(certificateIssuerId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#deleteCertificateIssuer");
@@ -111,7 +108,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **certificateIssuerId** | **String**| Certificate issuer ID. &lt;br&gt; The ID of the certificate issuer. An active certificate issuer may not be deleted.  |
- **authorization** | **String**| Bearer {token} |
 
 ### Return type
 
@@ -123,12 +119,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: */*
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="getCertificateIssuer"></a>
 # **getCertificateIssuer**
-> CertificateIssuerInfo getCertificateIssuer(certificateIssuerId, authorization)
+> CertificateIssuerInfo getCertificateIssuer(certificateIssuerId)
 
 Get certificate issuer by ID.
 
@@ -151,9 +147,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. The ID of the certificate issuer. 
-String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerInfo result = apiInstance.getCertificateIssuer(certificateIssuerId, authorization);
+    CertificateIssuerInfo result = apiInstance.getCertificateIssuer(certificateIssuerId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuer");
@@ -166,7 +161,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **certificateIssuerId** | **String**| Certificate issuer ID. The ID of the certificate issuer.  |
- **authorization** | **String**| Bearer {token} |
 
 ### Return type
 
@@ -178,12 +172,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="getCertificateIssuers"></a>
 # **getCertificateIssuers**
-> CertificateIssuerInfoListResponse getCertificateIssuers(authorization)
+> CertificateIssuerInfoListResponse getCertificateIssuers()
 
 Get certificate issuers list.
 
@@ -205,9 +199,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
-String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuers(authorization);
+    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuers();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuers");
@@ -216,10 +209,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {token} |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -231,12 +221,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="updateCertificateIssuer"></a>
 # **updateCertificateIssuer**
-> CertificateIssuerInfo updateCertificateIssuer(certificateIssuerId, authorization, certificateIssuerUpdateRequest)
+> CertificateIssuerInfo updateCertificateIssuer(certificateIssuerId, certificateIssuerUpdateRequest)
 
 Update certificate issuer.
 
@@ -261,10 +251,9 @@ Bearer.setApiKey("YOUR API KEY");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. <br> The ID of the certificate issuer. 
-String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerUpdateRequest certificateIssuerUpdateRequest = new CertificateIssuerUpdateRequest(); // CertificateIssuerUpdateRequest | Certificate issuer update request.
 try {
-    CertificateIssuerInfo result = apiInstance.updateCertificateIssuer(certificateIssuerId, authorization, certificateIssuerUpdateRequest);
+    CertificateIssuerInfo result = apiInstance.updateCertificateIssuer(certificateIssuerId, certificateIssuerUpdateRequest);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#updateCertificateIssuer");
@@ -277,7 +266,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **certificateIssuerId** | **String**| Certificate issuer ID. &lt;br&gt; The ID of the certificate issuer.  |
- **authorization** | **String**| Bearer {token} |
  **certificateIssuerUpdateRequest** | [**CertificateIssuerUpdateRequest**](CertificateIssuerUpdateRequest.md)| Certificate issuer update request. |
 
 ### Return type
@@ -290,12 +278,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="verifyCertificateIssuer"></a>
 # **verifyCertificateIssuer**
-> CertificateIssuerVerifyResponse verifyCertificateIssuer(certificateIssuerId, authorization)
+> CertificateIssuerVerifyResponse verifyCertificateIssuer(certificateIssuerId)
 
 Verify certificate issuer.
 
@@ -320,9 +308,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
 String certificateIssuerId = "certificateIssuerId_example"; // String | Certificate issuer ID. <br> The ID of the certificate issuer. 
-String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerVerifyResponse result = apiInstance.verifyCertificateIssuer(certificateIssuerId, authorization);
+    CertificateIssuerVerifyResponse result = apiInstance.verifyCertificateIssuer(certificateIssuerId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#verifyCertificateIssuer");
@@ -335,7 +322,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **certificateIssuerId** | **String**| Certificate issuer ID. &lt;br&gt; The ID of the certificate issuer.  |
- **authorization** | **String**| Bearer {token} |
 
 ### Return type
 
@@ -347,6 +333,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 

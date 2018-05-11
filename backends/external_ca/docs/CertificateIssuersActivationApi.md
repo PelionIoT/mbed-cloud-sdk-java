@@ -10,7 +10,7 @@ Method | HTTP request | Description
 
 <a name="getCertificateIssuerConfig"></a>
 # **getCertificateIssuerConfig**
-> CertificateIssuerConfigResponse getCertificateIssuerConfig(authorization)
+> CertificateIssuerConfigResponse getCertificateIssuerConfig()
 
 Get certificate issuer configuration.
 
@@ -34,9 +34,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersActivationApi apiInstance = new CertificateIssuersActivationApi();
-String authorization = "authorization_example"; // String | Bearer {token}
 try {
-    CertificateIssuerConfigResponse result = apiInstance.getCertificateIssuerConfig(authorization);
+    CertificateIssuerConfigResponse result = apiInstance.getCertificateIssuerConfig();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersActivationApi#getCertificateIssuerConfig");
@@ -45,10 +44,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {token} |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -60,12 +56,12 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 
 <a name="updateCertificateIssuerConfig"></a>
 # **updateCertificateIssuerConfig**
-> CertificateIssuerConfigResponse updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest)
+> CertificateIssuerConfigResponse updateCertificateIssuerConfig(certificateIssuerConfigRequest)
 
 Update certificate issuer configuration.
 
@@ -89,10 +85,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersActivationApi apiInstance = new CertificateIssuersActivationApi();
-String authorization = "authorization_example"; // String | Bearer {token}
 CertificateIssuerConfigRequest certificateIssuerConfigRequest = new CertificateIssuerConfigRequest(); // CertificateIssuerConfigRequest | Certificate Issuer Configuration Request
 try {
-    CertificateIssuerConfigResponse result = apiInstance.updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest);
+    CertificateIssuerConfigResponse result = apiInstance.updateCertificateIssuerConfig(certificateIssuerConfigRequest);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersActivationApi#updateCertificateIssuerConfig");
@@ -104,7 +99,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {token} |
  **certificateIssuerConfigRequest** | [**CertificateIssuerConfigRequest**](CertificateIssuerConfigRequest.md)| Certificate Issuer Configuration Request |
 
 ### Return type
@@ -117,6 +111,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json;charset=UTF-8
- - **Accept**: application/json;charset=UTF-8
+ - **Content-Type**: application/json; charset=utf-8
+ - **Accept**: application/json; charset=utf-8
 

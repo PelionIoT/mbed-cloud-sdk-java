@@ -31,8 +31,7 @@ public class CertificateIssuersActivationApiTest {
      */
     @Test
     public void getCertificateIssuerConfigTest() {
-        String authorization = null;
-        // CertificateIssuerConfigResponse response = api.getCertificateIssuerConfig(authorization);
+        // CertificateIssuerConfigResponse response = api.getCertificateIssuerConfig();
 
         // TODO: test validations
     }
@@ -43,9 +42,8 @@ public class CertificateIssuersActivationApiTest {
      */
     @Test
     public void updateCertificateIssuerConfigTest() {
-        String authorization = null;
         CertificateIssuerConfigRequest certificateIssuerConfigRequest = null;
-        // CertificateIssuerConfigResponse response = api.updateCertificateIssuerConfig(authorization, certificateIssuerConfigRequest);
+        // CertificateIssuerConfigResponse response = api.updateCertificateIssuerConfig(certificateIssuerConfigRequest);
 
         // TODO: test validations
     }
