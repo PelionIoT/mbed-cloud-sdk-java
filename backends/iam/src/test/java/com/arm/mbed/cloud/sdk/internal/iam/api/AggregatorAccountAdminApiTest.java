@@ -14,7 +14,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -255,9 +254,8 @@ public class AggregatorAccountAdminApiTest {
     public void getAccountUserTest() {
         String accountID = null;
         String userId = null;
-        String scratchCodes = null;
         String properties = null;
-        // MyUserInfoResp response = api.getAccountUser(accountID, userId, scratchCodes, properties);
+        // UserInfoResp response = api.getAccountUser(accountID, userId, properties);
 
         // TODO: test validations
     }
@@ -335,7 +333,9 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String emailEq = null;
         String statusEq = null;
-        // UserInfoRespList response = api.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq);
+        String statusIn = null;
+        String statusNin = null;
+        // UserInfoRespList response = api.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
 
         // TODO: test validations
     }
@@ -347,6 +347,8 @@ public class AggregatorAccountAdminApiTest {
     @Test
     public void getAllAccountsTest() {
         String statusEq = null;
+        String statusIn = null;
+        String statusNin = null;
         String tierEq = null;
         String parentEq = null;
         String endMarketEq = null;
@@ -357,7 +359,7 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String format = null;
         String properties = null;
-        // AccountInfoList response = api.getAllAccounts(statusEq, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
+        // AccountInfoList response = api.getAllAccounts(statusEq, statusIn, statusNin, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
 
         // TODO: test validations
     }
@@ -425,7 +427,10 @@ public class AggregatorAccountAdminApiTest {
         String after = null;
         String order = null;
         String include = null;
-        // UserInfoRespList response = api.getUsersOfAccountGroup(accountID, groupID, limit, after, order, include);
+        String statusEq = null;
+        String statusIn = null;
+        String statusNin = null;
+        // UserInfoRespList response = api.getUsersOfAccountGroup(accountID, groupID, limit, after, order, include, statusEq, statusIn, statusNin);
 
         // TODO: test validations
     }

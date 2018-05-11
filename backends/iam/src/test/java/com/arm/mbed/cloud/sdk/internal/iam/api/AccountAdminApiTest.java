@@ -149,7 +149,9 @@ public class AccountAdminApiTest {
         String include = null;
         String emailEq = null;
         String statusEq = null;
-        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, emailEq, statusEq);
+        String statusIn = null;
+        String statusNin = null;
+        // UserInfoRespList response = api.getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
 
         // TODO: test validations
     }
@@ -210,7 +212,10 @@ public class AccountAdminApiTest {
         String after = null;
         String order = null;
         String include = null;
-        // UserInfoRespList response = api.getUsersOfGroup(groupID, limit, after, order, include);
+        String statusEq = null;
+        String statusIn = null;
+        String statusNin = null;
+        // UserInfoRespList response = api.getUsersOfGroup(groupID, limit, after, order, include, statusEq, statusIn, statusNin);
 
         // TODO: test validations
     }
