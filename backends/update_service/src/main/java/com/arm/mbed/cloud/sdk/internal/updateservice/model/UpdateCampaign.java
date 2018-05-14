@@ -47,6 +47,58 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("finished")
   private DateTime finished = null;
 
+  /**
+   * An indication to the condition of the campaign.
+   */
+  @JsonAdapter(HealthIndicatorEnum.Adapter.class)
+  public enum HealthIndicatorEnum {
+    OK("ok"),
+    
+    WARNING("warning"),
+    
+    ERROR("error");
+
+    private String value;
+
+    HealthIndicatorEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static HealthIndicatorEnum fromValue(String text) {
+      for (HealthIndicatorEnum b : HealthIndicatorEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<HealthIndicatorEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final HealthIndicatorEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public HealthIndicatorEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return HealthIndicatorEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("health_indicator")
+  private HealthIndicatorEnum healthIndicator = null;
+
   @SerializedName("id")
   private String id = null;
 
@@ -248,6 +300,24 @@ public class UpdateCampaign implements Serializable {
     this.finished = finished;
   }
 
+  public UpdateCampaign healthIndicator(HealthIndicatorEnum healthIndicator) {
+    this.healthIndicator = healthIndicator;
+    return this;
+  }
+
+   /**
+   * An indication to the condition of the campaign.
+   * @return healthIndicator
+  **/
+  @ApiModelProperty(example = "ok", value = "An indication to the condition of the campaign.")
+  public HealthIndicatorEnum getHealthIndicator() {
+    return healthIndicator;
+  }
+
+  public void setHealthIndicator(HealthIndicatorEnum healthIndicator) {
+    this.healthIndicator = healthIndicator;
+  }
+
   public UpdateCampaign id(String id) {
     this.id = id;
     return this;
@@ -434,6 +504,7 @@ public class UpdateCampaign implements Serializable {
         Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
         Objects.equals(this.etag, updateCampaign.etag) &&
         Objects.equals(this.finished, updateCampaign.finished) &&
+        Objects.equals(this.healthIndicator, updateCampaign.healthIndicator) &&
         Objects.equals(this.id, updateCampaign.id) &&
         Objects.equals(this.name, updateCampaign.name) &&
         Objects.equals(this.object, updateCampaign.object) &&
@@ -448,7 +519,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, description, deviceFilter, etag, finished, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
+    return Objects.hash(createdAt, description, deviceFilter, etag, finished, healthIndicator, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
   }
 
 
@@ -462,6 +533,7 @@ public class UpdateCampaign implements Serializable {
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
+    sb.append("    healthIndicator: ").append(toIndentedString(healthIndicator)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
