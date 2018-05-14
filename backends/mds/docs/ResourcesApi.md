@@ -5,7 +5,7 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deleteResourcePath**](ResourcesApi.md#deleteResourcePath) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
-[**executeResourceFunctionOrCreateResourcePath**](ResourcesApi.md#executeResourceFunctionOrCreateResourcePath) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
+[**executeOrCreateResource**](ResourcesApi.md#executeOrCreateResource) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
 [**getResourceValue**](ResourcesApi.md#getResourceValue) | **GET** v2/endpoints/{device-id}/{resourcePath} | Read from a resource
 [**updateResourceValue**](ResourcesApi.md#updateResourceValue) | **PUT** v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
 
@@ -69,9 +69,9 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="executeResourceFunctionOrCreateResourcePath"></a>
-# **executeResourceFunctionOrCreateResourcePath**
-> AsyncID executeResourceFunctionOrCreateResourcePath(deviceId, resourcePath, resourceFunction, noResp)
+<a name="executeOrCreateResource"></a>
+# **executeOrCreateResource**
+> AsyncID executeOrCreateResource(deviceId, resourcePath, resourceFunction, noResp)
 
 Execute a function on a Resource or create new Object instance
 
@@ -100,10 +100,10 @@ String resourcePath = "resourcePath_example"; // String | The URL of the resourc
 String resourceFunction = "resourceFunction_example"; // String | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in Mbed Cloud Client. 
 Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`. 
 try {
-    AsyncID result = apiInstance.executeResourceFunctionOrCreateResourcePath(deviceId, resourcePath, resourceFunction, noResp);
+    AsyncID result = apiInstance.executeOrCreateResource(deviceId, resourcePath, resourceFunction, noResp);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ResourcesApi#executeResourceFunctionOrCreateResourcePath");
+    System.err.println("Exception when calling ResourcesApi#executeOrCreateResource");
     e.printStackTrace();
 }
 ```
