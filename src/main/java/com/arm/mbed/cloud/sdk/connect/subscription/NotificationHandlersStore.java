@@ -349,7 +349,7 @@ public class NotificationHandlersStore {
 
                                 @Override
                                 public Call<NotificationMessage> call() {
-                                    return endpoint.getNotifications().v2NotificationPullGet();
+                                    return endpoint.getNotifications().longPollNotifications();
                                 }
                             }, false, true);
                     final NotificationMessage notificationMessage = feedback.getResult();
