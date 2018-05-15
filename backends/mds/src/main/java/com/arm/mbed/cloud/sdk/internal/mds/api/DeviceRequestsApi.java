@@ -29,7 +29,7 @@ public interface DeviceRequestsApi {
     "Content-Type:application/json"
   })
   @POST("v2/device-requests/{device-id}")
-  Call<Void> v2DeviceRequestsDeviceIdPost(
+  Call<Void> createAsyncRequest(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Query("async-id") String asyncId, @retrofit2.http.Body DeviceRequest body
   );
 

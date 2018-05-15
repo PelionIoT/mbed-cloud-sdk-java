@@ -4,292 +4,19 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2SubscriptionsDelete**](SubscriptionsApi.md#v2SubscriptionsDelete) | **DELETE** v2/subscriptions | Remove pre-subscriptions
-[**v2SubscriptionsDeviceIdDelete**](SubscriptionsApi.md#v2SubscriptionsDeviceIdDelete) | **DELETE** v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
-[**v2SubscriptionsDeviceIdGet**](SubscriptionsApi.md#v2SubscriptionsDeviceIdGet) | **GET** v2/subscriptions/{device-id} | Read endpoints subscriptions
-[**v2SubscriptionsDeviceIdResourcePathDelete**](SubscriptionsApi.md#v2SubscriptionsDeviceIdResourcePathDelete) | **DELETE** v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
-[**v2SubscriptionsDeviceIdResourcePathGet**](SubscriptionsApi.md#v2SubscriptionsDeviceIdResourcePathGet) | **GET** v2/subscriptions/{device-id}/{resourcePath} | Read subscription status
-[**v2SubscriptionsDeviceIdResourcePathPut**](SubscriptionsApi.md#v2SubscriptionsDeviceIdResourcePathPut) | **PUT** v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
-[**v2SubscriptionsGet**](SubscriptionsApi.md#v2SubscriptionsGet) | **GET** v2/subscriptions | Get pre-subscriptions
-[**v2SubscriptionsPut**](SubscriptionsApi.md#v2SubscriptionsPut) | **PUT** v2/subscriptions | Set pre-subscriptions
-
-
-<a name="v2SubscriptionsDelete"></a>
-# **v2SubscriptionsDelete**
-> Void v2SubscriptionsDelete()
-
-Remove pre-subscriptions
-
-Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SubscriptionsApi apiInstance = new SubscriptionsApi();
-try {
-    Void result = apiInstance.v2SubscriptionsDelete();
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDelete");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="v2SubscriptionsDeviceIdDelete"></a>
-# **v2SubscriptionsDeviceIdDelete**
-> Void v2SubscriptionsDeviceIdDelete(deviceId)
-
-Delete subscriptions from an endpoint
-
-Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SubscriptionsApi apiInstance = new SubscriptionsApi();
-String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-try {
-    Void result = apiInstance.v2SubscriptionsDeviceIdDelete(deviceId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdDelete");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="v2SubscriptionsDeviceIdGet"></a>
-# **v2SubscriptionsDeviceIdGet**
-> String v2SubscriptionsDeviceIdGet(deviceId)
-
-Read endpoints subscriptions
-
-Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SubscriptionsApi apiInstance = new SubscriptionsApi();
-String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
-try {
-    String result = apiInstance.v2SubscriptionsDeviceIdGet(deviceId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  |
-
-### Return type
-
-**String**
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: text/uri-list
-
-<a name="v2SubscriptionsDeviceIdResourcePathDelete"></a>
-# **v2SubscriptionsDeviceIdResourcePathDelete**
-> Void v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath)
-
-Remove a subscription
-
-To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SubscriptionsApi apiInstance = new SubscriptionsApi();
-String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
-try {
-    Void result = apiInstance.v2SubscriptionsDeviceIdResourcePathDelete(deviceId, resourcePath);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdResourcePathDelete");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
- **resourcePath** | **String**| The URL of the resource.  |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="v2SubscriptionsDeviceIdResourcePathGet"></a>
-# **v2SubscriptionsDeviceIdResourcePathGet**
-> Void v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath)
-
-Read subscription status
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-SubscriptionsApi apiInstance = new SubscriptionsApi();
-String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
-String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
-try {
-    Void result = apiInstance.v2SubscriptionsDeviceIdResourcePathGet(deviceId, resourcePath);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdResourcePathGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
- **resourcePath** | **String**| The URL of the resource.  |
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="v2SubscriptionsDeviceIdResourcePathPut"></a>
-# **v2SubscriptionsDeviceIdResourcePathPut**
-> Void v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath)
+[**addResourceSubscription**](SubscriptionsApi.md#addResourceSubscription) | **PUT** v2/subscriptions/{device-id}/{resourcePath} | Subscribe to a resource path
+[**checkResourceSubscription**](SubscriptionsApi.md#checkResourceSubscription) | **GET** v2/subscriptions/{device-id}/{resourcePath} | Read subscription status
+[**deleteEndpointSubscriptions**](SubscriptionsApi.md#deleteEndpointSubscriptions) | **DELETE** v2/subscriptions/{device-id} | Delete subscriptions from an endpoint
+[**deletePreSubscriptions**](SubscriptionsApi.md#deletePreSubscriptions) | **DELETE** v2/subscriptions | Remove pre-subscriptions
+[**deleteResourceSubscription**](SubscriptionsApi.md#deleteResourceSubscription) | **DELETE** v2/subscriptions/{device-id}/{resourcePath} | Remove a subscription
+[**getEndpointSubscriptions**](SubscriptionsApi.md#getEndpointSubscriptions) | **GET** v2/subscriptions/{device-id} | Read endpoints subscriptions
+[**getPreSubscriptions**](SubscriptionsApi.md#getPreSubscriptions) | **GET** v2/subscriptions | Get pre-subscriptions
+[**updatePreSubscriptions**](SubscriptionsApi.md#updatePreSubscriptions) | **PUT** v2/subscriptions | Set pre-subscriptions
+
+
+<a name="addResourceSubscription"></a>
+# **addResourceSubscription**
+> Void addResourceSubscription(deviceId, resourcePath)
 
 Subscribe to a resource path
 
@@ -316,10 +43,10 @@ SubscriptionsApi apiInstance = new SubscriptionsApi();
 String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
 String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
 try {
-    Void result = apiInstance.v2SubscriptionsDeviceIdResourcePathPut(deviceId, resourcePath);
+    Void result = apiInstance.addResourceSubscription(deviceId, resourcePath);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsDeviceIdResourcePathPut");
+    System.err.println("Exception when calling SubscriptionsApi#addResourceSubscription");
     e.printStackTrace();
 }
 ```
@@ -344,9 +71,282 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="v2SubscriptionsGet"></a>
-# **v2SubscriptionsGet**
-> PresubscriptionArray v2SubscriptionsGet()
+<a name="checkResourceSubscription"></a>
+# **checkResourceSubscription**
+> Void checkResourceSubscription(deviceId, resourcePath)
+
+Read subscription status
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SubscriptionsApi apiInstance = new SubscriptionsApi();
+String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
+try {
+    Void result = apiInstance.checkResourceSubscription(deviceId, resourcePath);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SubscriptionsApi#checkResourceSubscription");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
+ **resourcePath** | **String**| The URL of the resource.  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="deleteEndpointSubscriptions"></a>
+# **deleteEndpointSubscriptions**
+> Void deleteEndpointSubscriptions(deviceId)
+
+Delete subscriptions from an endpoint
+
+Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SubscriptionsApi apiInstance = new SubscriptionsApi();
+String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+try {
+    Void result = apiInstance.deleteEndpointSubscriptions(deviceId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SubscriptionsApi#deleteEndpointSubscriptions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="deletePreSubscriptions"></a>
+# **deletePreSubscriptions**
+> Void deletePreSubscriptions()
+
+Remove pre-subscriptions
+
+Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SubscriptionsApi apiInstance = new SubscriptionsApi();
+try {
+    Void result = apiInstance.deletePreSubscriptions();
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SubscriptionsApi#deletePreSubscriptions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="deleteResourceSubscription"></a>
+# **deleteResourceSubscription**
+> Void deleteResourceSubscription(deviceId, resourcePath)
+
+Remove a subscription
+
+To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SubscriptionsApi apiInstance = new SubscriptionsApi();
+String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here. 
+String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
+try {
+    Void result = apiInstance.deleteResourceSubscription(deviceId, resourcePath);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SubscriptionsApi#deleteResourceSubscription");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  |
+ **resourcePath** | **String**| The URL of the resource.  |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="getEndpointSubscriptions"></a>
+# **getEndpointSubscriptions**
+> String getEndpointSubscriptions(deviceId)
+
+Read endpoints subscriptions
+
+Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+SubscriptionsApi apiInstance = new SubscriptionsApi();
+String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here. 
+try {
+    String result = apiInstance.getEndpointSubscriptions(deviceId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling SubscriptionsApi#getEndpointSubscriptions");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  |
+
+### Return type
+
+**String**
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: text/uri-list
+
+<a name="getPreSubscriptions"></a>
+# **getPreSubscriptions**
+> PresubscriptionArray getPreSubscriptions()
 
 Get pre-subscriptions
 
@@ -371,10 +371,10 @@ Bearer.setApiKey("YOUR API KEY");
 
 SubscriptionsApi apiInstance = new SubscriptionsApi();
 try {
-    PresubscriptionArray result = apiInstance.v2SubscriptionsGet();
+    PresubscriptionArray result = apiInstance.getPreSubscriptions();
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsGet");
+    System.err.println("Exception when calling SubscriptionsApi#getPreSubscriptions");
     e.printStackTrace();
 }
 ```
@@ -395,9 +395,9 @@ This endpoint does not need any parameter.
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="v2SubscriptionsPut"></a>
-# **v2SubscriptionsPut**
-> Void v2SubscriptionsPut(presubsription)
+<a name="updatePreSubscriptions"></a>
+# **updatePreSubscriptions**
+> Void updatePreSubscriptions(presubsription)
 
 Set pre-subscriptions
 
@@ -423,10 +423,10 @@ Bearer.setApiKey("YOUR API KEY");
 SubscriptionsApi apiInstance = new SubscriptionsApi();
 PresubscriptionArray presubsription = new PresubscriptionArray(); // PresubscriptionArray | Array of pre-subscriptions.
 try {
-    Void result = apiInstance.v2SubscriptionsPut(presubsription);
+    Void result = apiInstance.updatePreSubscriptions(presubsription);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling SubscriptionsApi#v2SubscriptionsPut");
+    System.err.println("Exception when calling SubscriptionsApi#updatePreSubscriptions");
     e.printStackTrace();
 }
 ```
