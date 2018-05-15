@@ -1,14 +1,24 @@
 package com.arm.mbed.cloud.sdk.bootstrap.model;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.mbed.lwm2m.utils.HexArray;
 
+@Preamble(description = "Definition of a pre-shared key")
+/**
+ * Definition of a pre-shared key.
+ * <p>
+ * For more information about such keys, have a look at
+ * <a href=" https://cloud.mbed.com/docs/latest/connecting/mbed-client-lite-security-considerations.html">corresponding
+ * documentation</a>
+ *
+ */
 public class PreSharedKey implements SdkModel {
 
-    private static final String IDENTIFIER_VALIDATION_REGEX = "^[ -~]{16,64}$";
-    private static final String SECRET_VALIDATION_REGEX = "^(0[xX])?[0-9a-fA-F]{16,64}$";
+    public static final String IDENTIFIER_VALIDATION_REGEX = "^[-~]{16,64}$";
+    public static final String SECRET_VALIDATION_REGEX = "^(0[xX])?[0-9a-fA-F]{32,64}$";
     /**
      * Serialisation Id.
      */
@@ -81,10 +91,13 @@ public class PreSharedKey implements SdkModel {
     /**
      * Sets the key identifier.
      * <p>
-     * Note: It has to be 16-64 <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">printable</a>
-     * (non-control) ASCII characters.
+     * Note: It has to be 16-64 non-whitespace
+     * <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">printable</a> (non-control) ASCII characters.
+     * It also must be globally unique. Consider using vendor-MAC-ID-device-model.
      * <p>
      * for instance "myEndpoint.host.com"
+     *
+     * @see #IDENTIFIER_VALIDATION_REGEX for checking validity
      *
      * @param id
      *            the id to set
@@ -131,10 +144,11 @@ public class PreSharedKey implements SdkModel {
      * Sets the secret.
      * <p>
      * Note: It is not case sensitive; 4a is same as 4A, and it is allowed with or without 0x in the beginning. The
-     * minimum length of the secret is 64 bits and maximum 256 bits.
+     * minimum length of the secret is 128 bits and maximum 256 bits.
      * <p>
      * for instance, "4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a"
      *
+     * @see #SECRET_VALIDATION_REGEX for checking validity
      * @param secret
      *            the secret to set
      */
@@ -215,5 +229,4 @@ public class PreSharedKey implements SdkModel {
     public String toString() {
         return "PreSharedKey [id=" + id + ", secret=" + secret + "]";
     }
-
 }
