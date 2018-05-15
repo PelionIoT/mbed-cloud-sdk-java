@@ -101,7 +101,7 @@ public class Account implements SdkModel {
     /**
      * Account specific custom properties.
      */
-    private Map<String, Map<String, String>> customProperties;
+    private CustomProperties customProperties;
     /**
      * Number of days before an email should be sent to notify account expiration.
      */
@@ -177,7 +177,7 @@ public class Account implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Account()} instead.
-     * 
+     *
      * @param id
      *            id
      * @param status
@@ -288,10 +288,10 @@ public class Account implements SdkModel {
     protected Account(String id, AccountStatus status, String displayName, String contact, String company,
             String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
             String country, String email, String customerNumber, String salesContactEmail, String contractNumber,
-            Map<String, Map<String, String>> customProperties, long expiryWarning,
-            List<String> notificationEmailAddresses, MultifactorAuthenticationStatus multifactorAuthenticationStatus,
-            List<String> aliases, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
-            Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
+            CustomProperties customProperties, long expiryWarning, List<String> notificationEmailAddresses,
+            MultifactorAuthenticationStatus multifactorAuthenticationStatus, List<String> aliases, String referenceNote,
+            String tier, Date createdAt, Date upgradedAt, Date updatedAt, Map<String, String> limits,
+            List<Policy> policies, String templateId, String reason) {
         super();
         setId(id);
         this.status = status;
@@ -320,7 +320,7 @@ public class Account implements SdkModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-        setCustomProperties(customProperties);
+        setCustomFields(customProperties);
         setExpiryWarning(expiryWarning);
         setMultifactorAuthenticationStatus(multifactorAuthenticationStatus);
         setNotificationEmails(notificationEmailAddresses);
@@ -669,7 +669,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets list of policies.
-     * 
+     *
      * @return the policies
      */
     public List<Policy> getPolicies() {
@@ -678,7 +678,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the reason note for updating the status of the account.
-     * 
+     *
      * @return the reason
      */
     public String getReason() {
@@ -686,27 +686,79 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets account specific custom properties.
-     * 
-     * @return the customProperties
+     * States whether the account has custom properties or not.
+     *
+     * @return true if so. False otherwise.
      */
-    public Map<String, Map<String, String>> getCustomProperties() {
+    public boolean hasCustomFields() {
+        return customProperties != null && !customProperties.isEmpty();
+    }
+
+    /**
+     * Gets account custom properties.
+     *
+     * @return the custom properties
+     */
+    public CustomProperties getCustomFields() {
         return customProperties;
     }
 
     /**
-     * Sets account specific custom properties.
-     * 
+     * Sets account custom properties.
+     *
      * @param customProperties
-     *            the custom properties to set
+     *            the customProperties to set
      */
-    public void setCustomProperties(Map<String, Map<String, String>> customProperties) {
+    public void setCustomFields(CustomProperties customProperties) {
         this.customProperties = customProperties;
     }
 
     /**
+     * Sets account custom properties from a Json string.
+     * <p>
+     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     *
+     * @param json
+     *            Json string describing the custom attributes
+     */
+    public void setCustomFields(String json) {
+        setCustomFields(new CustomProperties(json));
+    }
+
+    /**
+     * Gets account custom properties.
+     * <p>
+     * Note: Similar to {@link #getCustomFields()}
+     *
+     * @return the custom properties
+     */
+    @Deprecated
+    public Map<String, Map<String, String>> getCustomProperties() {
+        return hasCustomFields() ? customProperties.getPropertiesInFormerFormat() : null;
+    }
+
+    /**
+     * Sets account custom properties from an Object.
+     * <p>
+     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     *
+     * @param obj
+     *            object describing the custom attributes
+     */
+    @Deprecated
+    public void setCustomProperties(Object obj) {
+        if (obj instanceof CustomProperties) {
+            setCustomFields((CustomProperties) obj);
+        } else if (obj instanceof String) {
+            setCustomFields((String) obj);
+        } else {
+            setCustomFields(new CustomProperties().fromObject(obj));
+        }
+    }
+
+    /**
      * Gets the number of days before a expiry warning email is sent.
-     * 
+     *
      * @return the expiryWarning
      */
     public long getExpiryWarning() {
@@ -715,7 +767,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the number of days before a expiry warning email is sent.
-     * 
+     *
      * @param expiryWarning
      *            number of days before email notification
      */
@@ -725,7 +777,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets notification email addresses.
-     * 
+     *
      * @return the notificationEmailAddresses
      */
     public List<String> getNotificationEmails() {
@@ -734,7 +786,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets notifications email addresses.
-     * 
+     *
      * @param notificationEmailAddresses
      *            the notificationEmailAddresses to set
      */
@@ -744,7 +796,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the enforcement status of the multi-factor authentication.
-     * 
+     *
      * @return the multifactorAuthenticationStatus
      */
     public MultifactorAuthenticationStatus getMultifactorAuthenticationStatus() {
@@ -753,7 +805,7 @@ public class Account implements SdkModel {
 
     /**
      * Sets the enforcement status of the multi-factor authentication.
-     * 
+     *
      * @param multifactorAuthenticationStatus
      *            the multifactorAuthenticationStatus to set
      */
@@ -773,7 +825,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets customer reference number.
-     * 
+     *
      * @return the customerNumber
      */
     public String getCustomerNumber() {
@@ -782,7 +834,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets the email address of the sales contact.
-     * 
+     *
      * @return the salesContactEmail
      */
     public String getSalesContactEmail() {
@@ -791,7 +843,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets contract number.
-     * 
+     *
      * @return the contractNumber
      */
     public String getContractNumber() {
@@ -800,7 +852,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets a reference note for updating the status of the account.
-     * 
+     *
      * @return the referenceNote
      */
     public String getReferenceNote() {
@@ -809,7 +861,7 @@ public class Account implements SdkModel {
 
     /**
      * Gets when the account was last updated.
-     * 
+     *
      * @return the updatedAt
      */
     public Date getUpdatedAt() {
@@ -843,7 +895,7 @@ public class Account implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

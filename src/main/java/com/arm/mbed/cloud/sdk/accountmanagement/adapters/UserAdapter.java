@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.accountmanagement.model.CustomProperties;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -27,7 +28,7 @@ public final class UserAdapter {
 
     /**
      * Maps user.
-     * 
+     *
      * @param apiUser
      *            user to map.
      * @return mapped user.
@@ -52,14 +53,14 @@ public final class UserAdapter {
         user.setAddress(apiUser.getAddress());
         user.setTermsAccepted(TranslationUtils.toBool(apiUser.isIsGtcAccepted(), true));
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.isIsMarketingAccepted(), true));
-        user.setCustomProperties(apiUser.getUserProperties());
+        user.setCustomFields(new CustomProperties(apiUser.getCustomFields()));
         return user;
 
     }
 
     /**
      * Gets user mapper.
-     * 
+     *
      * @return user mapper.
      */
     public static Mapper<UserInfoResp, User> getMapper() {
@@ -75,7 +76,7 @@ public final class UserAdapter {
 
     /**
      * Reverses user mapping for a new user.
-     * 
+     *
      * @param user
      *            to map.
      * @return new user request.
@@ -94,13 +95,13 @@ public final class UserAdapter {
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userInfo.setGroups(user.getGroups());
-        userInfo.setUserProperties(user.getCustomProperties());
+        userInfo.setCustomFields(user.hasCustomFields() ? user.getCustomFields().getRawProperties() : null);
         return userInfo;
     }
 
     /**
      * Reverses user mapping for a user to update.
-     * 
+     *
      * @param user
      *            to update.
      * @return related update request.
@@ -119,13 +120,13 @@ public final class UserAdapter {
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userUpdate.setGroups(user.getGroups());
-        userUpdate.setUserProperties(user.getCustomProperties());
+        userUpdate.setCustomFields(user.hasCustomFields() ? user.getCustomFields().getRawProperties() : null);
         return userUpdate;
     }
 
     /**
      * Maps list of users.
-     * 
+     *
      * @param list
      *            of users to map.
      * @return list of users.
@@ -170,7 +171,7 @@ public final class UserAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper.
      */
     public static Mapper<UserInfoRespList, ListResponse<User>> getListMapper() {
