@@ -4,68 +4,13 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2EndpointsDeviceIdGet**](EndpointsApi.md#v2EndpointsDeviceIdGet) | **GET** v2/endpoints/{device-id} | List the resources on an endpoint
-[**v2EndpointsGet**](EndpointsApi.md#v2EndpointsGet) | **GET** v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+[**getConnectedEndpoints**](EndpointsApi.md#getConnectedEndpoints) | **GET** v2/endpoints | (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
+[**getEndpointResources**](EndpointsApi.md#getEndpointResources) | **GET** v2/endpoints/{device-id} | List the resources on an endpoint
 
 
-<a name="v2EndpointsDeviceIdGet"></a>
-# **v2EndpointsDeviceIdGet**
-> List&lt;Resource&gt; v2EndpointsDeviceIdGet(deviceId)
-
-List the resources on an endpoint
-
-The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H &#39;authorization: Bearer {api-key}&#39; 
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-EndpointsApi apiInstance = new EndpointsApi();
-String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
-try {
-    List<Resource> result = apiInstance.v2EndpointsDeviceIdGet(deviceId);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling EndpointsApi#v2EndpointsDeviceIdGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  |
-
-### Return type
-
-[**List&lt;Resource&gt;**](Resource.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="v2EndpointsGet"></a>
-# **v2EndpointsGet**
-> List&lt;Endpoint&gt; v2EndpointsGet(type)
+<a name="getConnectedEndpoints"></a>
+# **getConnectedEndpoints**
+> List&lt;Endpoint&gt; getConnectedEndpoints(type)
 
 (DEPRECATED) List registered endpoints. The number of returned endpoints is currently limited to 200.
 
@@ -91,10 +36,10 @@ Bearer.setApiKey("YOUR API KEY");
 EndpointsApi apiInstance = new EndpointsApi();
 String type = "type_example"; // String | Filter endpoints by endpoint-type.
 try {
-    List<Endpoint> result = apiInstance.v2EndpointsGet(type);
+    List<Endpoint> result = apiInstance.getConnectedEndpoints(type);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling EndpointsApi#v2EndpointsGet");
+    System.err.println("Exception when calling EndpointsApi#getConnectedEndpoints");
     e.printStackTrace();
 }
 ```
@@ -108,6 +53,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**List&lt;Endpoint&gt;**](Endpoint.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getEndpointResources"></a>
+# **getEndpointResources**
+> List&lt;Resource&gt; getEndpointResources(deviceId)
+
+List the resources on an endpoint
+
+The list of resources is cached by Mbed Cloud Connect, so this call does not create a message to the device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id} -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+EndpointsApi apiInstance = new EndpointsApi();
+String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+try {
+    List<Resource> result = apiInstance.getEndpointResources(deviceId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling EndpointsApi#getEndpointResources");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| A unique Mbed Cloud device ID for an endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  |
+
+### Return type
+
+[**List&lt;Resource&gt;**](Resource.md)
 
 ### Authorization
 

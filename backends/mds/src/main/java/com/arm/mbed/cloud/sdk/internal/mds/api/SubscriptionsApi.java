@@ -19,45 +19,14 @@ import java.util.Map;
 
 public interface SubscriptionsApi {
   /**
-   * Remove pre-subscriptions
-   * Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
-   * @return Call&lt;Void&gt;
-   */
-  @DELETE("v2/subscriptions")
-  Call<Void> v2SubscriptionsDelete();
-    
-
-  /**
-   * Delete subscriptions from an endpoint
-   * Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
-   * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
-   * @return Call&lt;Void&gt;
-   */
-  @DELETE("v2/subscriptions/{device-id}")
-  Call<Void> v2SubscriptionsDeviceIdDelete(
-    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
-  );
-
-  /**
-   * Read endpoints subscriptions
-   * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
-   * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
-   * @return Call&lt;String&gt;
-   */
-  @GET("v2/subscriptions/{device-id}")
-  Call<String> v2SubscriptionsDeviceIdGet(
-    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
-  );
-
-  /**
-   * Remove a subscription
-   * To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+   * Subscribe to a resource path
+   * The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LwM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to Mbed Cloud Connect service. An application needs to call a &#x60;/notification/callback&#x60; method to get Mbed Cloud Connect to push notifications of the resource changes.  **Notification rules**  A web application can place dynamic observation rules for individual Object Instances and Resources to define when the device sends observations. More information in [Notification rules](/docs/current/connecting/resource-change-webapp.html).  All manual subscriptions are removed during a full device registration and applications need to re-subscribe at that point. To avoid this, you can use &#x60;/subscriptions&#x60; to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
    * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
    * @param resourcePath The URL of the resource.  (required)
    * @return Call&lt;Void&gt;
    */
-  @DELETE("v2/subscriptions/{device-id}/{resourcePath}")
-  Call<Void> v2SubscriptionsDeviceIdResourcePathDelete(
+  @PUT("v2/subscriptions/{device-id}/{resourcePath}")
+  Call<Void> addResourceSubscription(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
@@ -69,20 +38,51 @@ public interface SubscriptionsApi {
    * @return Call&lt;Void&gt;
    */
   @GET("v2/subscriptions/{device-id}/{resourcePath}")
-  Call<Void> v2SubscriptionsDeviceIdResourcePathGet(
+  Call<Void> checkResourceSubscription(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
-   * Subscribe to a resource path
-   * The Mbed Cloud Connect eventing model consists of observable resources.  This means that endpoints can deliver updated resource content, periodically or with a more sophisticated solution-dependent logic. The OMA LwM2M resource model including objects, object instances, resources and resource instances is also supported.  Applications can subscribe to objects, object instances or individual resources to make the device to provide value change notifications to Mbed Cloud Connect service. An application needs to call a &#x60;/notification/callback&#x60; method to get Mbed Cloud Connect to push notifications of the resource changes.  **Notification rules**  A web application can place dynamic observation rules for individual Object Instances and Resources to define when the device sends observations. More information in [Notification rules](/docs/current/connecting/resource-change-webapp.html).  All manual subscriptions are removed during a full device registration and applications need to re-subscribe at that point. To avoid this, you can use &#x60;/subscriptions&#x60; to set a pre-subscription.  **Example usage:**      curl -X PUT \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+   * Delete subscriptions from an endpoint
+   * Deletes all resource subscriptions in a single endpoint.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+   * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v2/subscriptions/{device-id}")
+  Call<Void> deleteEndpointSubscriptions(
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
+  );
+
+  /**
+   * Remove pre-subscriptions
+   * Removes pre-subscriptions.  **Example usage:**      curl -X DELETE https://api.us-east-1.mbedcloud.com/v2/subscriptions -H &#39;authorization: Bearer {api-key}&#39; 
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v2/subscriptions")
+  Call<Void> deletePreSubscriptions();
+    
+
+  /**
+   * Remove a subscription
+   * To remove an existing subscription from a resource path.  **Example usage:**      curl -X DELETE \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
    * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that the ID must be an exact match. You cannot use wildcards here.  (required)
    * @param resourcePath The URL of the resource.  (required)
    * @return Call&lt;Void&gt;
    */
-  @PUT("v2/subscriptions/{device-id}/{resourcePath}")
-  Call<Void> v2SubscriptionsDeviceIdResourcePathPut(
+  @DELETE("v2/subscriptions/{device-id}/{resourcePath}")
+  Call<Void> deleteResourceSubscription(
     @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
+  );
+
+  /**
+   * Read endpoints subscriptions
+   * Lists all subscribed resources from a single endpoint.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/subscriptions/{device-id} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+   * @param deviceId A unique Mbed Cloud device ID for the endpoint. Note that ID must be an exact match. You cannot use wildcards here.  (required)
+   * @return Call&lt;String&gt;
+   */
+  @GET("v2/subscriptions/{device-id}")
+  Call<String> getEndpointSubscriptions(
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**
@@ -91,7 +91,7 @@ public interface SubscriptionsApi {
    * @return Call&lt;PresubscriptionArray&gt;
    */
   @GET("v2/subscriptions")
-  Call<PresubscriptionArray> v2SubscriptionsGet();
+  Call<PresubscriptionArray> getPreSubscriptions();
     
 
   /**
@@ -104,7 +104,7 @@ public interface SubscriptionsApi {
     "Content-Type:application/json"
   })
   @PUT("v2/subscriptions")
-  Call<Void> v2SubscriptionsPut(
+  Call<Void> updatePreSubscriptions(
     @retrofit2.http.Body PresubscriptionArray presubsription
   );
 
