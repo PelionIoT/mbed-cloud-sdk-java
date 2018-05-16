@@ -91,9 +91,8 @@ public class PreSharedKey implements SdkModel {
     /**
      * Sets the key identifier.
      * <p>
-     * Note: It has to be 16-64 non-whitespace
-     * <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">printable</a> (non-control) ASCII characters.
-     * It also must be globally unique. Consider using vendor-MAC-ID-device-model.
+     * Note: It has to be 16-64 <a href="https://en.wikipedia.org/wiki/ASCII#Printable_characters">printable</a>
+     * (non-control) ASCII characters. It also must be globally unique. Consider using vendor-MAC-ID-device-model.
      * <p>
      * for instance "myEndpoint.host.com"
      *
