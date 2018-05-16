@@ -17,7 +17,7 @@ import com.mbed.lwm2m.utils.HexArray;
  */
 public class PreSharedKey implements SdkModel {
 
-    public static final String IDENTIFIER_VALIDATION_REGEX = "^[-~]{16,64}$";
+    public static final String IDENTIFIER_VALIDATION_REGEX = "^[ -~]{16,64}$";
     public static final String SECRET_VALIDATION_REGEX = "^(0[xX])?[0-9a-fA-F]{32,64}$";
     /**
      * Serialisation Id.
