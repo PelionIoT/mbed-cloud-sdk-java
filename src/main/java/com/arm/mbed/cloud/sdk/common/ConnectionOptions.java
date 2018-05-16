@@ -38,6 +38,32 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
+     * Generates a new Mbed Cloud connection configuration.
+     *
+     * @param apiKey
+     *            API key to use.
+     * @return corresponding configuration.
+     */
+    public static ConnectionOptions newConfiguration(String apiKey) {
+        return new ConnectionOptions(apiKey);
+    }
+
+    /**
+     *
+     * Generates a new Mbed Cloud connection configuration.
+     *
+     * @param apiKey
+     *            API key to use.
+     * @param host
+     *            Host address of the Cloud to use. The host does not need to be specified and will default to Arm Mbed
+     *            Cloud production system.
+     * @return corresponding configuration
+     */
+    public static ConnectionOptions newConfiguration(String apiKey, String host) {
+        return newConfiguration(apiKey).host(host);
+    }
+
+    /**
      * Constructor for communications to Arm Mbed Cloud.
      *
      * @param apiKey
@@ -132,12 +158,12 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * <p>
      * Note: Similar to {@link #setHost(String)}
      *
-     * @param host
-     *            to contact
+     * @param cloudHost
+     *            host to contact
      * @return these connection options
      */
-    public ConnectionOptions host(String host) {
-        setHost(host);
+    public ConnectionOptions host(String cloudHost) {
+        setHost(cloudHost);
         return this;
     }
 
@@ -167,12 +193,12 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * <p>
      * Note: Similar to {@link #setClientLogLevel(CallLogLevel)}
      *
-     * @param clientLogLevel
+     * @param logLevelOfTheHttpClient
      *            log level to set
      * @return these connection options.
      */
-    public ConnectionOptions logLevel(CallLogLevel clientLogLevel) {
-        setClientLogLevel(clientLogLevel);
+    public ConnectionOptions logLevel(CallLogLevel logLevelOfTheHttpClient) {
+        setClientLogLevel(logLevelOfTheHttpClient);
         return this;
     }
 

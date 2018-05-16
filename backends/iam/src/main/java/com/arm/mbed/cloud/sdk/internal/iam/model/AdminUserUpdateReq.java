@@ -39,6 +39,9 @@ public class AdminUserUpdateReq implements Serializable {
   @SerializedName("address")
   private String address = null;
 
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
+
   @SerializedName("email")
   private String email = null;
 
@@ -69,9 +72,6 @@ public class AdminUserUpdateReq implements Serializable {
   @SerializedName("status")
   private String status = null;
 
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
   @SerializedName("username")
   private String username = null;
 
@@ -91,6 +91,32 @@ public class AdminUserUpdateReq implements Serializable {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public AdminUserUpdateReq customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public AdminUserUpdateReq putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * User&#39;s account specific custom properties. The value is handled as a string.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "User's account specific custom properties. The value is handled as a string.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public AdminUserUpdateReq email(String email) {
@@ -289,32 +315,6 @@ public class AdminUserUpdateReq implements Serializable {
     this.status = status;
   }
 
-  public AdminUserUpdateReq userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public AdminUserUpdateReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-  }
-
   public AdminUserUpdateReq username(String username) {
     this.username = username;
     return this;
@@ -344,6 +344,7 @@ public class AdminUserUpdateReq implements Serializable {
     }
     AdminUserUpdateReq adminUserUpdateReq = (AdminUserUpdateReq) o;
     return Objects.equals(this.address, adminUserUpdateReq.address) &&
+        Objects.equals(this.customFields, adminUserUpdateReq.customFields) &&
         Objects.equals(this.email, adminUserUpdateReq.email) &&
         Objects.equals(this.fullName, adminUserUpdateReq.fullName) &&
         Objects.equals(this.groups, adminUserUpdateReq.groups) &&
@@ -354,13 +355,12 @@ public class AdminUserUpdateReq implements Serializable {
         Objects.equals(this.password, adminUserUpdateReq.password) &&
         Objects.equals(this.phoneNumber, adminUserUpdateReq.phoneNumber) &&
         Objects.equals(this.status, adminUserUpdateReq.status) &&
-        Objects.equals(this.userProperties, adminUserUpdateReq.userProperties) &&
         Objects.equals(this.username, adminUserUpdateReq.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, notificationProperties, password, phoneNumber, status, userProperties, username);
+    return Objects.hash(address, customFields, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, notificationProperties, password, phoneNumber, status, username);
   }
 
 
@@ -370,6 +370,7 @@ public class AdminUserUpdateReq implements Serializable {
     sb.append("class AdminUserUpdateReq {\n");
     
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
@@ -380,7 +381,6 @@ public class AdminUserUpdateReq implements Serializable {
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();

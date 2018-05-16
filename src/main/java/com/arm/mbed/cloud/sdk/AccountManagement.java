@@ -56,7 +56,7 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Account management module constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -69,7 +69,7 @@ public class AccountManagement extends AbstractApi {
      * Gets details of account associated with current API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {
      *     &#64;code
@@ -77,9 +77,9 @@ public class AccountManagement extends AbstractApi {
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
      * }
-     * 
+     *
      * </pre>
-     * 
+     *
      * @param propertyName
      *            Property name to be returned from account specific properties.
      * @return account details.
@@ -102,7 +102,7 @@ public class AccountManagement extends AbstractApi {
      * Gets details of account associated with current API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {
      *     &#64;code
@@ -110,9 +110,9 @@ public class AccountManagement extends AbstractApi {
      *     System.out.println("User account ID: " + account.getId());
      *     System.out.println("Associated user email: " + account.getEmail());
      * }
-     * 
+     *
      * </pre>
-     * 
+     *
      * @return account details.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -126,7 +126,7 @@ public class AccountManagement extends AbstractApi {
      * Updates details of account associated with current API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code Account account = accountManagementApi.getAccount()
      *     account.setCity("Austin");
@@ -136,7 +136,7 @@ public class AccountManagement extends AbstractApi {
      *     accountManagementApi.updateAccount(account);
      * }
      * </pre>
-     * 
+     *
      * @param account
      *            The account object to update.
      * @return updated account.
@@ -161,7 +161,7 @@ public class AccountManagement extends AbstractApi {
      * Lists all API keys according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -178,7 +178,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of API keys corresponding to filter options (One page).
@@ -206,7 +206,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all API keys according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -225,7 +225,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of API keys corresponding to filter options.
@@ -247,7 +247,7 @@ public class AccountManagement extends AbstractApi {
      * Get details of an API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -261,7 +261,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param apiKeyId
      *            The API key ID (if not specified, returns current API key).
      * @return the API key.
@@ -286,7 +286,7 @@ public class AccountManagement extends AbstractApi {
      * Adds an API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -301,7 +301,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param apiKey
      *            The API key to add.
      * @return added API Key.
@@ -326,7 +326,7 @@ public class AccountManagement extends AbstractApi {
      * Updates an API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -344,7 +344,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param apiKey
      *            The API key to update.
      * @return updated API key.
@@ -378,7 +378,7 @@ public class AccountManagement extends AbstractApi {
      * Deletes an API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -389,7 +389,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param apiKeyId
      *            The API key ID.
      * @throws MbedCloudException
@@ -412,7 +412,7 @@ public class AccountManagement extends AbstractApi {
      * Deletes an API key.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -425,7 +425,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param apiKey
      *            The API key.
      * @throws MbedCloudException
@@ -441,7 +441,7 @@ public class AccountManagement extends AbstractApi {
      * Lists users according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -458,7 +458,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return list of users (One page).
@@ -475,7 +475,9 @@ public class AccountManagement extends AbstractApi {
                 return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
-                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER));
+                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
+                        finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
+                        finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
             }
         });
     }
@@ -484,7 +486,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all users according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      *  {@code try {
      *     UserListOptions options = new UserListOptions();
@@ -502,7 +504,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of users corresponding to filter options.
@@ -524,7 +526,7 @@ public class AccountManagement extends AbstractApi {
      * Gets details about a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      *  {@code try {
      *     String userId = "015f4ac587f500000000000100109294";
@@ -536,7 +538,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param userId
      *            The user ID.
      * @param property
@@ -563,7 +565,7 @@ public class AccountManagement extends AbstractApi {
      * Gets details about a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      *  {@code try {
      *     String userId = "015f4ac587f500000000000100109294";
@@ -575,7 +577,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param userId
      *            The user ID.
      * @return a user.
@@ -591,7 +593,7 @@ public class AccountManagement extends AbstractApi {
      * Adds a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -599,7 +601,7 @@ public class AccountManagement extends AbstractApi {
      *     user.setEmail("javaSDK@arm.com");
      *     user.setUsername("javaSDK");
      *     user.setFullName("Java SDK");
-     *     
+     *
      *     User newUser = accountManagementApi.addUser(user);
      *     System.out.println("User ID: " + newUser.getId());
      * } catch (MbedCloudException e) {
@@ -607,7 +609,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param user
      *            User to add.
      * @return added user.
@@ -632,7 +634,7 @@ public class AccountManagement extends AbstractApi {
      * Updates a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -642,7 +644,7 @@ public class AccountManagement extends AbstractApi {
      *     user.setEmail("javaSDK@arm.com");
      *     user.setUsername("javaSDK");
      *     user.setFullName("New JavaSDK");
-     *     
+     *
      *     User newUser = accountManagementApi.updateUser(user);
      *     System.out.println("New User name: " + newUser.getFullName());
      *     assert userId == newUser.getId();
@@ -651,7 +653,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param user
      *            User to update.
      * @return updated user.
@@ -684,18 +686,18 @@ public class AccountManagement extends AbstractApi {
      * Deletes a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
-     *     String userId = "015f4ac587f500000000000100109294";     
+     *     String userId = "015f4ac587f500000000000100109294";
      *     accountManagementApi.deleteUser(userId);
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param userId
      *            The user ID of the user to delete.
      * @throws MbedCloudException
@@ -718,7 +720,7 @@ public class AccountManagement extends AbstractApi {
      * Deletes a user.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -731,7 +733,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param user
      *            The user to delete.
      * @throws MbedCloudException
@@ -747,7 +749,7 @@ public class AccountManagement extends AbstractApi {
      * Lists available groups depending on filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -764,7 +766,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of groups corresponding to filter options (One page).
@@ -788,7 +790,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all available groups depending on filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -807,7 +809,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the groups corresponding to filter options.
@@ -829,7 +831,7 @@ public class AccountManagement extends AbstractApi {
      * Get details of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -842,7 +844,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param groupId
      *            The group ID to look for.
      * @return corresponding group.
@@ -866,7 +868,7 @@ public class AccountManagement extends AbstractApi {
      * Lists users of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -894,10 +896,10 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
             throws MbedCloudException {
         checkNotNull(groupId, TAG_GROUP_ID);
-        final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
+        final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
         final String finalGroupId = groupId;
         return CloudCaller.call(this, "listGroupUsers()", UserAdapter.getListMapper(),
                 new CloudCall<UserInfoRespList>() {
@@ -906,7 +908,10 @@ public class AccountManagement extends AbstractApi {
                     public Call<UserInfoRespList> call() {
                         return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getLimit(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude());
+                                finalOptions.encodeInclude(),
+                                finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
+                                finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
+                                finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
                     }
                 });
     }
@@ -915,7 +920,7 @@ public class AccountManagement extends AbstractApi {
      * Lists users of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -943,7 +948,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<User> listGroupUsers(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable ListResponse<User> listGroupUsers(@NonNull Group group, @Nullable UserListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listGroupUsers(group.getId(), options);
@@ -953,7 +958,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all users of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -983,14 +988,14 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
         return new Paginator<>(options, new PageRequester<User>() {
 
             @Override
             public ListResponse<User> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listGroupUsers(finalGroupId, opt);
+                return listGroupUsers(finalGroupId, (UserListOptions) opt);
             }
         });
     }
@@ -999,7 +1004,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all users of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1029,7 +1034,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<User> listAllGroupUsers(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable Paginator<User> listAllGroupUsers(@NonNull Group group, @Nullable UserListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listAllGroupUsers(group.getId(), options);
@@ -1039,7 +1044,7 @@ public class AccountManagement extends AbstractApi {
      * Lists API keys of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1056,7 +1061,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param groupId
      *            The group ID of the group.
      * @param options
@@ -1087,7 +1092,7 @@ public class AccountManagement extends AbstractApi {
      * Lists API keys of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1104,7 +1109,7 @@ public class AccountManagement extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param group
      *            The group to consider.
      * @param options
@@ -1124,7 +1129,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all API keys of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1169,7 +1174,7 @@ public class AccountManagement extends AbstractApi {
      * Gets an iterator over all API keys of a group.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -1205,7 +1210,7 @@ public class AccountManagement extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override

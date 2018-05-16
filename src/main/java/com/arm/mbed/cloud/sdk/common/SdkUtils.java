@@ -10,6 +10,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "SDK Utilities")
 public final class SdkUtils {
 
+    private static final Pattern JSON_ARRAY_PATTERN = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
+
     private SdkUtils() {
         super();
     }
@@ -25,8 +27,7 @@ public final class SdkUtils {
         if (listString == null) {
             return null;
         }
-        final Pattern pattern = Pattern.compile("\\[([\'\"][\\w-\\s\\S]*[\'\"],?)*\\]");
-        final Matcher matcher = pattern.matcher(listString);
+        final Matcher matcher = JSON_ARRAY_PATTERN.matcher(listString);
         String[] array = null;
         if (matcher.matches()) { // it is a JSON array
             final String aliasArray = matcher.group(1);
@@ -35,6 +36,31 @@ public final class SdkUtils {
             array = listString.split(",");
         }
         return Arrays.asList(array);
+    }
+
+    /**
+     * Generates a new String composed of copies of the list elements joined together with a copy of the separator.
+     *
+     * @param list
+     *            list of elements to join
+     * @param separator
+     *            separator between elements
+     * @return corresponding string of joined elements separated by the separator.
+     */
+    public static String joinList(List<?> list, String separator) {
+        if (list == null || list.isEmpty()) {
+            return null;
+        }
+        final StringBuilder buffer = new StringBuilder();
+        boolean start = true;
+        for (final Object element : list) {
+            if (!start) {
+                buffer.append(separator);
+            }
+            buffer.append(element.toString().trim());
+            start = false;
+        }
+        return buffer.toString();
     }
 
 }

@@ -110,7 +110,7 @@ public class User implements SdkModel {
     /**
      * User's account specific custom properties.
      */
-    private Map<String, Map<String, String>> customProperties;
+    private CustomProperties customProperties;
 
     /**
      * Internal constructor.
@@ -199,7 +199,7 @@ public class User implements SdkModel {
             String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
             List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
-            long passwordChangedTime, long lastLoginTime, Map<String, Map<String, String>> customProperties) {
+            long passwordChangedTime, long lastLoginTime, CustomProperties customProperties) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -220,7 +220,7 @@ public class User implements SdkModel {
         setAddress(address);
         setTermsAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
-        setCustomProperties(customProperties);
+        setCustomFields(customProperties);
         hasEmailBeenUpdated = false;
     }
 
@@ -412,7 +412,7 @@ public class User implements SdkModel {
      * States whether terms have been accepted.
      * <p>
      * Similar to {@link #areTermsAccepted()}
-     * 
+     *
      * @return the {@link #areTermsAccepted}.
      */
     @Internal
@@ -550,22 +550,74 @@ public class User implements SdkModel {
     }
 
     /**
-     * Gets account custom properties.
-     * 
-     * @return the customProperties
+     * States whether the user has custom properties or not.
+     *
+     * @return true if so. False otherwise.
      */
-    public Map<String, Map<String, String>> getCustomProperties() {
+    public boolean hasCustomFields() {
+        return customProperties != null && !customProperties.isEmpty();
+    }
+
+    /**
+     * Gets user custom properties.
+     *
+     * @return the custom properties
+     */
+    public CustomProperties getCustomFields() {
         return customProperties;
     }
 
     /**
-     * Sets account custom properties.
-     * 
+     * Gets user custom properties.
+     * <p>
+     * Note: Similar to {@link #getCustomFields()}
+     *
+     * @return the custom properties
+     */
+    @Deprecated
+    public Map<String, Map<String, String>> getCustomProperties() {
+        return hasCustomFields() ? customProperties.getPropertiesInFormerFormat() : null;
+    }
+
+    /**
+     * Sets user custom properties.
+     *
      * @param customProperties
      *            the customProperties to set
      */
-    public void setCustomProperties(Map<String, Map<String, String>> customProperties) {
+    public void setCustomFields(CustomProperties customProperties) {
         this.customProperties = customProperties;
+    }
+
+    /**
+     * Sets user custom properties from a Json string.
+     * <p>
+     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     *
+     * @param json
+     *            Json string describing the custom attributes
+     */
+    public void setCustomFields(String json) {
+        setCustomFields(new CustomProperties(json));
+    }
+
+    /**
+     * Sets user custom properties from an Object.
+     * <p>
+     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     *
+     * @param obj
+     *            object describing the custom attributes
+     */
+    @Deprecated
+    public void setCustomProperties(Object obj) {
+        if (obj instanceof CustomProperties) {
+            setCustomFields((CustomProperties) obj);
+        } else if (obj instanceof String) {
+            setCustomFields((String) obj);
+        } else {
+            setCustomFields(new CustomProperties().fromObject(obj));
+        }
     }
 
     /**
@@ -593,7 +645,7 @@ public class User implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

@@ -50,6 +50,9 @@ public class UserInfoResp implements Serializable {
   @SerializedName("creation_time")
   private Long creationTime = null;
 
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
+
   @SerializedName("email")
   private String email = null;
 
@@ -199,9 +202,6 @@ public class UserInfoResp implements Serializable {
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
 
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
   @SerializedName("username")
   private String username = null;
 
@@ -275,6 +275,32 @@ public class UserInfoResp implements Serializable {
 
   public void setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
+  }
+
+  public UserInfoResp customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public UserInfoResp putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * User&#39;s account specific custom properties. The value is a string.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "User's account specific custom properties. The value is a string.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public UserInfoResp email(String email) {
@@ -599,32 +625,6 @@ public class UserInfoResp implements Serializable {
     this.updatedAt = updatedAt;
   }
 
-  public UserInfoResp userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public UserInfoResp putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-  }
-
   public UserInfoResp username(String username) {
     this.username = username;
     return this;
@@ -657,6 +657,7 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.address, userInfoResp.address) &&
         Objects.equals(this.createdAt, userInfoResp.createdAt) &&
         Objects.equals(this.creationTime, userInfoResp.creationTime) &&
+        Objects.equals(this.customFields, userInfoResp.customFields) &&
         Objects.equals(this.email, userInfoResp.email) &&
         Objects.equals(this.emailVerified, userInfoResp.emailVerified) &&
         Objects.equals(this.etag, userInfoResp.etag) &&
@@ -674,13 +675,12 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.phoneNumber, userInfoResp.phoneNumber) &&
         Objects.equals(this.status, userInfoResp.status) &&
         Objects.equals(this.updatedAt, userInfoResp.updatedAt) &&
-        Objects.equals(this.userProperties, userInfoResp.userProperties) &&
         Objects.equals(this.username, userInfoResp.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, updatedAt, userProperties, username);
+    return Objects.hash(accountId, address, createdAt, creationTime, customFields, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, updatedAt, username);
   }
 
 
@@ -693,6 +693,7 @@ public class UserInfoResp implements Serializable {
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
@@ -710,7 +711,6 @@ public class UserInfoResp implements Serializable {
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();

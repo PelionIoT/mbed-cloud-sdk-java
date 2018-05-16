@@ -475,7 +475,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllUsers"></a>
 # **getAllUsers**
-> UserInfoRespList getAllUsers(limit, after, order, include, emailEq, statusEq)
+> UserInfoRespList getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin)
 
 Get the details of all users.
 
@@ -505,8 +505,10 @@ String order = "ASC"; // String | The order of the records based on creation tim
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String emailEq = "emailEq_example"; // String | Filter for email address
 String statusEq = "statusEq_example"; // String | Filter for status, for example active or reset
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, emailEq, statusEq);
+    UserInfoRespList result = apiInstance.getAllUsers(limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getAllUsers");
@@ -524,6 +526,8 @@ Name | Type | Description  | Notes
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **emailEq** | **String**| Filter for email address | [optional]
  **statusEq** | **String**| Filter for status, for example active or reset | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
@@ -723,7 +727,7 @@ Name | Type | Description  | Notes
 
 <a name="getUsersOfGroup"></a>
 # **getUsersOfGroup**
-> UserInfoRespList getUsersOfGroup(groupID, limit, after, order, include)
+> UserInfoRespList getUsersOfGroup(groupID, limit, after, order, include, statusEq, statusIn, statusNin)
 
 Get users of a group.
 
@@ -752,8 +756,11 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String statusEq = "statusEq_example"; // String | An optional filter for getting users by status.
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getUsersOfGroup(groupID, limit, after, order, include);
+    UserInfoRespList result = apiInstance.getUsersOfGroup(groupID, limit, after, order, include, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getUsersOfGroup");
@@ -770,6 +777,9 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **statusEq** | **String**| An optional filter for getting users by status. | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
