@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
+import com.arm.mbed.cloud.sdk.annotations.Daemon;
 import com.arm.mbed.cloud.sdk.annotations.Experimental;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
@@ -12,9 +13,13 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 import io.reactivex.BackpressureStrategy;
 
@@ -84,7 +89,80 @@ public class MbedCloud extends AbstractApi {
     @Nullable
     public DeviceStateObserver subscribe(@NonNull DeviceStateFilterOptions filter,
             @NonNull BackpressureStrategy strategy) throws MbedCloudException {
-        return subscribe().deviceState(filter, strategy);
+        return subscribe().deviceStateChanges(filter, strategy);
+    }
+
+    /**
+     * Subscribes to resource value changes.
+     *
+     * @param filter
+     *            filter to apply.
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     *
+     * @return a registered observer which listens to some resource value changes.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    public ResourceValueObserver subscribe(@NonNull SubscriptionFilterOptions filter,
+            @NonNull BackpressureStrategy strategy) throws MbedCloudException {
+        return subscribe().resourceValues(filter, strategy);
+    }
+
+    /**
+     * Subscribes to resource value changes.
+     *
+     * @param filter
+     *            filter to apply.
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     * @param triggerMode
+     *            mode describing when the first value should be retrieved
+     * @return a registered observer which listens to some resource value changes.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    public ResourceValueObserver subscribe(@NonNull SubscriptionFilterOptions filter,
+            @NonNull BackpressureStrategy strategy, FirstValue triggerMode) throws MbedCloudException {
+        return subscribe().resourceValues(filter, strategy, triggerMode);
+    }
+
+    /**
+     * Subscribes to value changes of a specific resource.
+     *
+     * @param resource
+     *            resource to subscribe to.
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     * @return a registered observer which listens to some resource value changes.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy)
+            throws MbedCloudException {
+        return subscribe().resourceValues(resource, strategy);
+    }
+
+    /**
+     * Subscribes to value changes of a specific resource.
+     *
+     * @param resource
+     *            resource to subscribe to.
+     * @param strategy
+     *            backpressure strategy to apply to underlying communication channel. @see {@link BackpressureStrategy}
+     * @param triggerMode
+     *            mode describing when the first value should be retrieved
+     * @return a registered observer which listens to some resource value changes.
+     *
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy,
+            FirstValue triggerMode) throws MbedCloudException {
+        return subscribe().resourceValues(resource, strategy, triggerMode);
     }
 
     /**
@@ -94,6 +172,7 @@ public class MbedCloud extends AbstractApi {
      *             if a problem occurs during the process.
      */
     @API
+    @Daemon(stop = true)
     public void stop() throws MbedCloudException {
         connectApi.stopNotifications();
     }
