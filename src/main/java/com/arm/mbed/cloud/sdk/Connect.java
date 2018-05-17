@@ -223,7 +223,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getNotifications().v2NotificationPullDelete();
+                return endpoint.getNotifications().deleteLongPollChannel();
             }
         });
     }
@@ -364,7 +364,7 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>> call() {
-                        return endpoint.getEndpoints().v2EndpointsDeviceIdGet(finalDeviceId);
+                        return endpoint.getEndpoints().getEndpointResources(finalDeviceId);
                     }
                 });
     }
@@ -499,7 +499,7 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<String> call() {
-                        return endpoint.getSubscriptions().v2SubscriptionsDeviceIdGet(finalDeviceId);
+                        return endpoint.getSubscriptions().getEndpointSubscriptions(finalDeviceId);
                     }
                 });
     }
@@ -714,8 +714,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<AsyncID> call() {
-                final Call<Void> initialCall = endpoint.getAsync().v2DeviceRequestsDeviceIdPost(finalDeviceId,
-                        finalAsyncId,
+                final Call<Void> initialCall = endpoint.getAsync().createAsyncRequest(finalDeviceId, finalAsyncId,
                         ResourceAdapter.callGetFunctionOnResource(ApiUtils.normaliseResourcePath(finalResourcePath)));
                 return ResourceAdapter.convertResourceCall(finalAsyncId, initialCall);
             }
@@ -1018,7 +1017,7 @@ public class Connect extends AbstractApi {
             @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPut(finalDeviceId,
+                return endpoint.getResources().updateResourceValue(finalDeviceId,
                         ApiUtils.normalisePath(finalResourcePath), finalResourceValue, finalNoResponse);
             }
         });
@@ -1253,7 +1252,7 @@ public class Connect extends AbstractApi {
             @SuppressWarnings("boxing")
             @Override
             public Call<AsyncID> call() {
-                return endpoint.getResources().v2EndpointsDeviceIdResourcePathPost(finalDeviceId,
+                return endpoint.getResources().executeOrCreateResource(finalDeviceId,
                         ApiUtils.normalisePath(finalResourcePath), finalFunctionName, finalNoResponse);
             }
         });
@@ -1405,7 +1404,7 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<PresubscriptionArray> call() {
-                        return endpoint.getSubscriptions().v2SubscriptionsGet();
+                        return endpoint.getSubscriptions().getPreSubscriptions();
                     }
                 });
     }
@@ -1485,7 +1484,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsPut(array);
+                return endpoint.getSubscriptions().updatePreSubscriptions(array);
             }
         });
     }
@@ -1672,7 +1671,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsPut(PresubscriptionAdapter.reverseMapList(null));
+                return endpoint.getSubscriptions().updatePreSubscriptions(PresubscriptionAdapter.reverseMapList(null));
             }
         });
         deregisterAllResourceSubscriptionObserversOrCallbacks();
@@ -1829,7 +1828,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdDelete(finalDeviceId);
+                return endpoint.getSubscriptions().deleteEndpointSubscriptions(finalDeviceId);
             }
         });
         deregisterAllResourceSubscriptionObserversOrCallbacks(device);
@@ -1873,8 +1872,8 @@ public class Connect extends AbstractApi {
 
                 @Override
                 public Call<Void> call() {
-                    return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathGet(
-                            finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
+                    return endpoint.getSubscriptions().checkResourceSubscription(finalResource.getDeviceId(),
+                            ApiUtils.normalisePath(finalResource.getPath()));
                 }
             }, true);
             return true;
@@ -2057,7 +2056,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathPut(finalResource.getDeviceId(),
+                return endpoint.getSubscriptions().addResourceSubscription(finalResource.getDeviceId(),
                         ApiUtils.normalisePath(finalResource.getPath()));
             }
         });
@@ -2353,8 +2352,8 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getSubscriptions().v2SubscriptionsDeviceIdResourcePathDelete(
-                        finalResource.getDeviceId(), ApiUtils.normalisePath(finalResource.getPath()));
+                return endpoint.getSubscriptions().deleteResourceSubscription(finalResource.getDeviceId(),
+                        ApiUtils.normalisePath(finalResource.getPath()));
             }
         });
         deregisterResourceSubscriptionCallback(finalResource);
@@ -2388,7 +2387,7 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook> call() {
-                        return endpoint.getNotifications().v2NotificationCallbackGet();
+                        return endpoint.getNotifications().getWebhook();
                     }
                 });
     }
@@ -2428,7 +2427,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getNotifications().v2NotificationCallbackPut(WebhookAdapter.reverseMap(finalWebhook));
+                return endpoint.getNotifications().registerWebhook(WebhookAdapter.reverseMap(finalWebhook));
             }
         });
     }
@@ -2461,7 +2460,7 @@ public class Connect extends AbstractApi {
 
             @Override
             public Call<Void> call() {
-                return endpoint.getNotifications().v2NotificationCallbackDelete();
+                return endpoint.getNotifications().deregisterWebhook();
             }
         });
     }
