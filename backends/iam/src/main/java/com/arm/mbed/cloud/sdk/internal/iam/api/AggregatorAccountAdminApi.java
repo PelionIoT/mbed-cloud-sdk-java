@@ -14,7 +14,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AdminUserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -32,6 +31,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
@@ -558,7 +558,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{accountID}/users/{user-id}")
   Call<UserUpdateResp> updateAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body AdminUserUpdateReq body
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**

@@ -2090,7 +2090,7 @@ Bearer.setApiKey("YOUR API KEY");
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountID = "accountID_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user to be updated.
-AdminUserUpdateReq body = new AdminUserUpdateReq(); // AdminUserUpdateReq | A user object with attributes.
+UserUpdateReq body = new UserUpdateReq(); // UserUpdateReq | A user object with attributes.
 try {
     UserUpdateResp result = apiInstance.updateAccountUser(accountID, userId, body);
     System.out.println(result);
@@ -2106,7 +2106,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **userId** | **String**| The ID of the user to be updated. |
- **body** | [**AdminUserUpdateReq**](AdminUserUpdateReq.md)| A user object with attributes. |
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| A user object with attributes. |
 
 ### Return type
 

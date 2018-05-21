@@ -6,7 +6,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AdminUserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -24,6 +23,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 import org.junit.Before;
 import org.junit.Test;
@@ -553,7 +553,7 @@ public class AggregatorAccountAdminApiTest {
     public void updateAccountUserTest() {
         String accountID = null;
         String userId = null;
-        AdminUserUpdateReq body = null;
+        UserUpdateReq body = null;
         // UserUpdateResp response = api.updateAccountUser(accountID, userId, body);
 
         // TODO: test validations
