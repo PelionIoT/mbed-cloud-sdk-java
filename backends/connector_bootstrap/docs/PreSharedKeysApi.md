@@ -6,6 +6,7 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**deletePreSharedKey**](PreSharedKeysApi.md#deletePreSharedKey) | **DELETE** v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
 [**getPreSharedKey**](PreSharedKeysApi.md#getPreSharedKey) | **GET** v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
+[**listPreSharedKeys**](PreSharedKeysApi.md#listPreSharedKeys) | **GET** v2/device-shared-keys | List pre-shared keys.
 [**uploadPreSharedKey**](PreSharedKeysApi.md#uploadPreSharedKey) | **POST** v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
 
 
@@ -118,6 +119,63 @@ Name | Type | Description  | Notes
 
  - **Content-Type**: Not defined
  - **Accept**: Not defined
+
+<a name="listPreSharedKeys"></a>
+# **listPreSharedKeys**
+> ListOfPreSharedKeysWithoutSecret listPreSharedKeys(limit, after)
+
+List pre-shared keys.
+
+List pre-shared keys with pagination and default page size of 50 entries. 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.api.PreSharedKeysApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PreSharedKeysApi apiInstance = new PreSharedKeysApi();
+Integer limit = 56; // Integer | The number of entries per page
+String after = "after_example"; // String | An offset token for fetching a specific page. Provided by the server.
+try {
+    ListOfPreSharedKeysWithoutSecret result = apiInstance.listPreSharedKeys(limit, after);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PreSharedKeysApi#listPreSharedKeys");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of entries per page | [optional]
+ **after** | **String**| An offset token for fetching a specific page. Provided by the server. | [optional]
+
+### Return type
+
+[**ListOfPreSharedKeysWithoutSecret**](ListOfPreSharedKeysWithoutSecret.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
 
 <a name="uploadPreSharedKey"></a>
 # **uploadPreSharedKey**

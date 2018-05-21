@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.internal.connectorbootstrap.api;
 
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
 import org.junit.Before;
@@ -44,6 +45,19 @@ public class PreSharedKeysApiTest {
     public void getPreSharedKeyTest() {
         String endpointName = null;
         // PreSharedKeyWithoutSecret response = api.getPreSharedKey(endpointName);
+
+        // TODO: test validations
+    }
+    /**
+     * List pre-shared keys.
+     *
+     * List pre-shared keys with pagination and default page size of 50 entries. 
+     */
+    @Test
+    public void listPreSharedKeysTest() {
+        Integer limit = null;
+        String after = null;
+        // ListOfPreSharedKeysWithoutSecret response = api.listPreSharedKeys(limit, after);
 
         // TODO: test validations
     }

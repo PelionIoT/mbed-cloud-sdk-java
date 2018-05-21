@@ -9,6 +9,7 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
+import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
 
@@ -38,6 +39,21 @@ public interface PreSharedKeysApi {
   @GET("v2/device-shared-keys/{endpoint_name}")
   Call<PreSharedKeyWithoutSecret> getPreSharedKey(
     @retrofit2.http.Path(value = "endpoint_name", encoded = true) String endpointName
+  );
+
+  /**
+   * List pre-shared keys.
+   * List pre-shared keys with pagination and default page size of 50 entries. 
+   * @param limit The number of entries per page (optional)
+   * @param after An offset token for fetching a specific page. Provided by the server. (optional)
+   * @return Call&lt;ListOfPreSharedKeysWithoutSecret&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @GET("v2/device-shared-keys")
+  Call<ListOfPreSharedKeysWithoutSecret> listPreSharedKeys(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after
   );
 
   /**
