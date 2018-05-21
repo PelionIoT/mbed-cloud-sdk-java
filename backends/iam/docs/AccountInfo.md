@@ -36,7 +36,7 @@ Name | Type | Description | Notes
 **salesContact** | **String** | Email address of the sales contact. |  [optional]
 **state** | **String** | The state part of the postal address. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | The status of the account. | 
-**subAccounts** | [**List&lt;AccountInfo&gt;**](AccountInfo.md) | List of sub accounts. |  [optional]
+**subAccounts** | [**List&lt;AccountInfo&gt;**](AccountInfo.md) | List of sub accounts. Not available for developer users. |  [optional]
 **templateId** | **String** | Account template ID. |  [optional]
 **tier** | **String** | The tier level of the account; &#39;0&#39;: free tier, &#39;1&#39;: commercial account, &#39;2&#39;: partner tier. Other values are reserved for the future. | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]

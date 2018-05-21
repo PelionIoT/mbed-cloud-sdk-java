@@ -112,9 +112,10 @@ public class Certificate implements SdkModel {
      * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed
      * with SHA256.
      */
+    @Deprecated
     private String signature;
     /**
-     * Enrolment mode. If true, signature is not required.
+     * Enrolment mode. Certificate is used in enrollment mode. Default value is false.
      */
     @Required
     @DefaultValue(value = DEFAULT_ENROLMENT_MODE_STRING)
@@ -434,6 +435,7 @@ public class Certificate implements SdkModel {
      *
      * @return the signature
      */
+    @Deprecated
     public String getSignature() {
         return signature;
     }
@@ -444,6 +446,7 @@ public class Certificate implements SdkModel {
      * @param signature
      *            the signature to set
      */
+    @Deprecated
     public void setSignature(String signature) {
         this.signature = signature;
     }
@@ -548,10 +551,8 @@ public class Certificate implements SdkModel {
     }
 
     /**
-     * States whether the enrolment mode is set to true or not.
-     * <p>
-     * If true, signature is not required.
-     * 
+     * States whether the certificate is used in enrolment mode or not. Default value is false.
+     *
      * @return the enrollmentMode
      */
     public boolean isEnrollmentMode() {
@@ -559,10 +560,8 @@ public class Certificate implements SdkModel {
     }
 
     /**
-     * Sets enrolment mode.
-     * <p>
-     * If true, signature is not required.
-     * 
+     * Sets whether the certificate is used in enrolment mode or not. Default value is false.
+     *
      * @param enrollmentMode
      *            the enrollmentMode to set
      */
@@ -627,7 +626,7 @@ public class Certificate implements SdkModel {
      *            another partial certificate.
      * @return a merged certificate
      */
-    @SuppressWarnings({ "boxing", "cast" })
+    @SuppressWarnings({ "boxing" })
     public static Certificate merge(@Nullable Certificate partial1, @Nullable Certificate partial2) {
         if (partial1 == null) {
             return partial2;
@@ -653,8 +652,8 @@ public class Certificate implements SdkModel {
         merge.setSignature(mergeField(partial1.getSignature(), partial2.getSignature()));
         merge.setStatus(mergeField(partial1.getStatus(), partial2.getStatus()));
         merge.setType(mergeField(partial1.getType(), partial2.getType()));
-        merge.setEnrollmentMode((boolean) mergeField(Boolean.valueOf(partial1.isEnrollmentMode()),
-                Boolean.valueOf(partial2.isEnrollmentMode())));
+        merge.setEnrollmentMode(
+                mergeField(Boolean.valueOf(partial1.isEnrollmentMode()), Boolean.valueOf(partial2.isEnrollmentMode())));
         merge.setAsNew();
         return merge;
     }
@@ -685,7 +684,7 @@ public class Certificate implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -695,8 +694,7 @@ public class Certificate implements SdkModel {
                 + ", issuer=" + issuer + ", createdAt=" + createdAt + ", serverUri=" + serverUri
                 + ", serverCertificate=" + serverCertificate + ", headerFile=" + headerFile + ", developerCertificate="
                 + developerCertificate + ", developerPrivateKey=" + developerPrivateKey + ", ownerId=" + ownerId
-                + ", certificateData=" + certificateData + ", signature=" + signature + ", enrollmentMode="
-                + enrollmentMode + "]";
+                + ", certificateData=" + certificateData + ", enrollmentMode=" + enrollmentMode + "]";
     }
 
 }

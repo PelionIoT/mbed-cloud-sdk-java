@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -31,8 +32,29 @@ import java.io.Serializable;
 public class PreSharedKeyWithoutSecret implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
+
   @SerializedName("endpoint_name")
   private String endpointName = null;
+
+  public PreSharedKeyWithoutSecret createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+   * @return createdAt
+  **/
+  @ApiModelProperty(example = "2017-07-21T17:32:28.012Z", value = "The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+  }
 
   public PreSharedKeyWithoutSecret endpointName(String endpointName) {
     this.endpointName = endpointName;
@@ -62,12 +84,13 @@ public class PreSharedKeyWithoutSecret implements Serializable {
       return false;
     }
     PreSharedKeyWithoutSecret preSharedKeyWithoutSecret = (PreSharedKeyWithoutSecret) o;
-    return Objects.equals(this.endpointName, preSharedKeyWithoutSecret.endpointName);
+    return Objects.equals(this.createdAt, preSharedKeyWithoutSecret.createdAt) &&
+        Objects.equals(this.endpointName, preSharedKeyWithoutSecret.endpointName);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(endpointName);
+    return Objects.hash(createdAt, endpointName);
   }
 
 
@@ -76,6 +99,7 @@ public class PreSharedKeyWithoutSecret implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class PreSharedKeyWithoutSecret {\n");
     
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("}");
     return sb.toString();
