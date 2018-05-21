@@ -28,6 +28,6 @@ public enum FirstValue {
     // explicitly requests value update from each matching resource. many api calls. immediate.
 
     public static FirstValue getDefault() {
-        return FirstValue.ON_REGISTRATION;
+        return FirstValue.ON_VALUE_UPDATE;
     }
 }
