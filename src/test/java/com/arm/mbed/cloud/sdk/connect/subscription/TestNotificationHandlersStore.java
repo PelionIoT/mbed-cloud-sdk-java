@@ -32,6 +32,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
@@ -184,7 +185,7 @@ public class TestNotificationHandlersStore {
                     receivedErrorsUsingCallbacks.add(arg);
 
                 }
-            });
+            }, FirstValue.ON_REGISTRATION);
 
             // Expecting two calls to the the server. one for getting presubscription and one for updating the list
             assertEquals(2, server.getRequestCount());

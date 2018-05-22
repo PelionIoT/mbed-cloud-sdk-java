@@ -20,9 +20,9 @@ public class TestPreSharedKey {
         assertFalse(key.isSecretValid());
         key.setSecret("0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a");
         assertTrue(key.isSecretValid());
-        key.setSecret("0x4a4a4a4a4a4a4a4a");
+        key.setSecret("0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a");
         assertTrue(key.isSecretValid());
-        key.setSecret("0x4a4a4a4a4a4a4a4");
+        key.setSecret("0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4");
         assertFalse(key.isSecretValid());
 
     }
