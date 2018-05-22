@@ -6,10 +6,10 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **certificate** | **String** | X509.v3 trusted certificate in PEM format. |  [optional]
 **description** | **String** | Human readable description of this certificate, not longer than 500 characters. |  [optional]
-**enrollmentMode** | **Boolean** | If true, signature parameter is not required. Default value is false. |  [optional]
+**enrollmentMode** | **Boolean** | Certificate is used in enrollment mode. Default value is false. |  [optional]
 **name** | **String** | Certificate name, not longer than 100 characters. |  [optional]
 **service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. |  [optional]
-**signature** | **String** | Base64 encoded signature of the account ID signed by the certificate whose data to be updated. Signature must be hashed with SHA256. |  [optional]
+**signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 
 

@@ -2,10 +2,13 @@ package com.arm.mbed.cloud.sdk.subscribe;
 
 import java.util.concurrent.Future;
 
+import org.reactivestreams.Subscription;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
@@ -26,7 +29,10 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     protected final FilterOptions filter;
     private final CompositeDisposable composite;
     private final String id;
+    private final CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription;
+    private final CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription;
     private volatile boolean isDisposed;
+    private volatile boolean hasExecutedActionOnFirstSubscription;
 
     /**
      * Constructor.
@@ -42,15 +48,25 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
      *            filter to apply
      * @param unsubscribeOnCompletion
      *            states whether the manager should unsubscribe the observer when the communication channel is closed.
+     * @param actionOnSubscription
+     *            action to perform on subscription
+     * @param actionOnUnsubscription
+     *            action to perform on unsubscription
      */
+    @SuppressWarnings("unchecked")
     public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter,
-            boolean unsubscribeOnCompletion) {
+            boolean unsubscribeOnCompletion,
+            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnUnsubscription) {
         super();
         isDisposed = false;
+        hasExecutedActionOnFirstSubscription = false;
         this.filter = filter;
         this.composite = new CompositeDisposable();
         this.id = id;
         final boolean mustUnsubscribeOnCompletion = unsubscribeOnCompletion;
+        this.actionOnSubscription = (CallbackWithException<FilterOptions, MbedCloudException>) actionOnSubscription;
+        this.actionOnUnsubscription = (CallbackWithException<FilterOptions, MbedCloudException>) actionOnUnsubscription;
         this.flow = flow.observeOn(manager.getObservedOnExecutor()).filter(new Predicate<T>() {
 
             @Override
@@ -58,9 +74,24 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
                 return verifiesFilter(value);
             }
 
-        }).doOnTerminate(createTerminationAction(mustUnsubscribeOnCompletion));
+        }).doOnSubscribe(createOnSubscriptionAction()).doFinally(createTerminationAction(mustUnsubscribeOnCompletion));
         this.manager = manager;
 
+    }
+
+    private Consumer<? super Subscription> createOnSubscriptionAction() {
+        return new Consumer<Subscription>() {
+
+            @Override
+            public void accept(Subscription subscription) throws Exception {
+                if (actionOnSubscription != null && !hasExecutedActionOnFirstSubscription) {
+                    actionOnSubscription.execute(filter);
+                    hasExecutedActionOnFirstSubscription = true;
+                }
+
+            }
+
+        };
     }
 
     private Action createTerminationAction(final boolean mustUnsubscribeOnCompletion) {
@@ -119,7 +150,10 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     }
 
     @Override
-    public void unsubscribe() {
+    public void unsubscribe() throws MbedCloudException {
+        if (actionOnUnsubscription != null) {
+            actionOnUnsubscription.execute(this.filter);
+        }
         removeCallback();
         manager.unsubscribe(this);
         isDisposed = true;

@@ -67,10 +67,10 @@ public class Resource implements Serializable {
   }
 
    /**
-   * Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+   * Application specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
    * @return rt
   **/
-  @ApiModelProperty(example = "light_sensor", value = "Application specific resource type that describes this resource. [It is created by the client side application](/docs/v1.2/collecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+  @ApiModelProperty(example = "light_sensor", value = "Application specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
   public String getRt() {
     return rt;
   }

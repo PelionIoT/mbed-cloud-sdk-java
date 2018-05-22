@@ -1,14 +1,18 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
-import java.util.HashMap;
+import java.lang.ref.WeakReference;
+import java.util.EnumMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
@@ -17,26 +21,42 @@ import com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Scheduler;
 
 @Preamble(description = "Store of all subscription observers")
 public class SubscriptionObserversStore implements CloudSubscriptionManager {
+    private static final int STORE_INITIAL_CAPACITY = 10;
     private final Map<SubscriptionType, SubscriptionManager> store;
+    private final ConcurrentHashMap<Integer, WeakReference<Observer<?>>> resourceToObserverStore;
     private final Scheduler scheduler;
+    private final SubscriptionAction resourceSubscriber;
+    private final SubscriptionAction resourceUnsubscriber;
 
     /**
      * Constructor.
      *
      * @param scheduler
      *            scheduler {@link Scheduler} the observers should use.
+     * @param resourceSubscriber
+     *            action to perform on subscription
+     * @param resourceUnsubscriber
+     *            action to perform on unsubscription
      */
-    public SubscriptionObserversStore(Scheduler scheduler) {
+    public SubscriptionObserversStore(Scheduler scheduler, SubscriptionAction resourceSubscriber,
+            SubscriptionAction resourceUnsubscriber) {
         super();
         this.scheduler = scheduler;
-        store = new HashMap<>(3);
+        store = new EnumMap<>(SubscriptionType.class);
         store.put(SubscriptionType.DEVICE_STATE_CHANGE, new DeviceStateChangeSubscriptionObserverStore(this.scheduler));
+        store.put(SubscriptionType.NOTIFICATION, new ResourceValueSubscriptionObserverStore(this.scheduler));
+        this.resourceSubscriber = resourceSubscriber;
+        this.resourceUnsubscriber = resourceUnsubscriber;
+        resourceToObserverStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
     }
 
     @Override
@@ -60,6 +80,7 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     @Override
     public void unsubscribeAll() {
+        resourceToObserverStore.clear();
         for (final SubscriptionManager substore : store.values()) {
             substore.unsubscribeAll();
         }
@@ -132,8 +153,23 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     @Override
     public Observer<?> createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
+        return createObserver(type, filter, strategy, null, null);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#createObserver(com.arm.mbed.cloud.sdk.subscribe.
+     * SubscriptionType, com.arm.mbed.cloud.sdk.common.listing.FilterOptions, io.reactivex.BackpressureStrategy,
+     * com.arm.mbed.cloud.sdk.common.Callback, com.arm.mbed.cloud.sdk.common.Callback)
+     */
+    @Override
+    public Observer<?> createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
         final SubscriptionManager substore = store.get(type);
-        return (substore == null) ? null : substore.createObserver(type, filter, strategy);
+        return (substore == null) ? null
+                : substore.createObserver(type, filter, strategy, actionOnSubscription, actionOnUnsubscription);
     }
 
     /*
@@ -198,9 +234,82 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         return (observer == null) ? false : hasObserver(observer.getSubscriptionType(), observer.getId());
     }
 
+    @Deprecated
     @Override
     public DeviceStateObserver deviceState(DeviceStateFilterOptions filter, BackpressureStrategy strategy) {
+        return deviceStateChanges(filter, strategy);
+    }
+
+    @Override
+    public DeviceStateObserver deviceStateChanges(DeviceStateFilterOptions filter, BackpressureStrategy strategy) {
         return (DeviceStateObserver) createObserver(SubscriptionType.DEVICE_STATE_CHANGE, filter, strategy);
     }
 
+    @Override
+    public ResourceValueObserver resourceValues(SubscriptionFilterOptions filter, BackpressureStrategy strategy) {
+        // TODO determine FirstValue from Global Power values
+        return (ResourceValueObserver) createObserver(SubscriptionType.NOTIFICATION, filter, strategy,
+                resourceSubscriber, resourceUnsubscriber);
+    }
+
+    @Override
+    public ResourceValueObserver resourceValues(SubscriptionFilterOptions filter, BackpressureStrategy strategy,
+            FirstValue triggerMode) {
+        return (ResourceValueObserver) createObserver(SubscriptionType.NOTIFICATION, filter, strategy,
+                resourceSubscriber.clone().mode(triggerMode), resourceUnsubscriber.clone().mode(triggerMode));
+    }
+
+    @Override
+    public ResourceValueObserver resourceValues(Resource resource, BackpressureStrategy strategy,
+            FirstValue triggerMode) {
+        final ResourceValueObserver observer = resourceValues(
+                SubscriptionFilterOptions.newFilter().equalResource(resource), strategy, triggerMode);
+        attachObserverToResource(resource, observer);
+        return observer;
+
+    }
+
+    @Override
+    public ResourceValueObserver resourceValues(Resource resource, BackpressureStrategy strategy) {
+        final ResourceValueObserver observer = resourceValues(
+                SubscriptionFilterOptions.newFilter().equalResource(resource), strategy);
+        attachObserverToResource(resource, observer);
+        return observer;
+    }
+
+    /**
+     * Attaches an observer to a specific resource.
+     *
+     * @param resource
+     *            resource to subscribe to.
+     * @param observer
+     *            Observer to attach to the resource.
+     */
+    public void attachObserverToResource(Resource resource, Observer<?> observer) {
+        if (resource == null || observer == null) {
+            return;
+        }
+        resourceToObserverStore.put(Integer.valueOf(resource.hashCode()), new WeakReference<Observer<?>>(observer));
+    }
+
+    /**
+     * Unsubscribes a resource observer.
+     *
+     * @param resource
+     *            resource to unsubscribe from.
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
+     */
+    public void unsubscribeResourceObserver(Resource resource) throws MbedCloudException {
+        if (resource == null || !resourceToObserverStore.containsKey(Integer.valueOf(resource.hashCode()))) {
+            return;
+        }
+        final int resourceHash = resource.hashCode();
+        final WeakReference<Observer<?>> observerRef = resourceToObserverStore.get(Integer.valueOf(resourceHash));
+        final Observer<?> observer = observerRef.get();
+        if (observer != null) {
+            observer.unsubscribe();
+        }
+        resourceToObserverStore.remove(Integer.valueOf(resourceHash));
+    }
 }

@@ -39,6 +39,9 @@ public class UserInfoReq implements Serializable {
   @SerializedName("address")
   private String address = null;
 
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
+
   @SerializedName("email")
   private String email = null;
 
@@ -60,9 +63,6 @@ public class UserInfoReq implements Serializable {
   @SerializedName("phone_number")
   private String phoneNumber = null;
 
-  @SerializedName("user_properties")
-  private Map<String, Map<String, String>> userProperties = null;
-
   @SerializedName("username")
   private String username = null;
 
@@ -82,6 +82,32 @@ public class UserInfoReq implements Serializable {
 
   public void setAddress(String address) {
     this.address = address;
+  }
+
+  public UserInfoReq customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public UserInfoReq putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * User&#39;s account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "User's account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public UserInfoReq email(String email) {
@@ -218,32 +244,6 @@ public class UserInfoReq implements Serializable {
     this.phoneNumber = phoneNumber;
   }
 
-  public UserInfoReq userProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-    return this;
-  }
-
-  public UserInfoReq putUserPropertiesItem(String key, Map<String, String> userPropertiesItem) {
-    if (this.userProperties == null) {
-      this.userProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.userProperties.put(key, userPropertiesItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties.
-   * @return userProperties
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties.")
-  public Map<String, Map<String, String>> getUserProperties() {
-    return userProperties;
-  }
-
-  public void setUserProperties(Map<String, Map<String, String>> userProperties) {
-    this.userProperties = userProperties;
-  }
-
   public UserInfoReq username(String username) {
     this.username = username;
     return this;
@@ -273,6 +273,7 @@ public class UserInfoReq implements Serializable {
     }
     UserInfoReq userInfoReq = (UserInfoReq) o;
     return Objects.equals(this.address, userInfoReq.address) &&
+        Objects.equals(this.customFields, userInfoReq.customFields) &&
         Objects.equals(this.email, userInfoReq.email) &&
         Objects.equals(this.fullName, userInfoReq.fullName) &&
         Objects.equals(this.groups, userInfoReq.groups) &&
@@ -280,13 +281,12 @@ public class UserInfoReq implements Serializable {
         Objects.equals(this.isMarketingAccepted, userInfoReq.isMarketingAccepted) &&
         Objects.equals(this.password, userInfoReq.password) &&
         Objects.equals(this.phoneNumber, userInfoReq.phoneNumber) &&
-        Objects.equals(this.userProperties, userInfoReq.userProperties) &&
         Objects.equals(this.username, userInfoReq.username);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, password, phoneNumber, userProperties, username);
+    return Objects.hash(address, customFields, email, fullName, groups, isGtcAccepted, isMarketingAccepted, password, phoneNumber, username);
   }
 
 
@@ -296,6 +296,7 @@ public class UserInfoReq implements Serializable {
     sb.append("class UserInfoReq {\n");
     
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
@@ -303,7 +304,6 @@ public class UserInfoReq implements Serializable {
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
-    sb.append("    userProperties: ").append(toIndentedString(userProperties)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");
     sb.append("}");
     return sb.toString();

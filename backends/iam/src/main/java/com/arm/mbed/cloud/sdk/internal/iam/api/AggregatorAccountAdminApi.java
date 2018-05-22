@@ -14,7 +14,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AdminUserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -22,7 +21,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -33,6 +31,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
@@ -252,13 +251,12 @@ public interface AggregatorAccountAdminApi {
    * An endpoint for retrieving details of the user.
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be retrieved. (required)
-   * @param scratchCodes Request to regenerate new emergency scratch codes. (optional)
    * @param properties Request to return account specific user property values according to the given property name. (optional)
-   * @return Call&lt;MyUserInfoResp&gt;
+   * @return Call&lt;UserInfoResp&gt;
    */
   @GET("v3/accounts/{accountID}/users/{user-id}")
-  Call<MyUserInfoResp> getAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("scratch_codes") String scratchCodes, @retrofit2.http.Query("properties") String properties
+  Call<UserInfoResp> getAccountUser(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("properties") String properties
   );
 
   /**
@@ -328,17 +326,21 @@ public interface AggregatorAccountAdminApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param emailEq Filter for email address (optional)
    * @param statusEq Filter for status (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/accounts/{accountID}/users")
   Call<UserInfoRespList> getAllAccountUsers(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
    * Get all accounts.
    * Returns an array of account objects, optionally filtered by status and tier level.
    * @param statusEq An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
+   * @param statusIn An optional filter for getting accounts with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding accounts with a specified set of statuses. (optional)
    * @param tierEq An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. (optional)
    * @param parentEq An optional filter for parent account ID. (optional)
    * @param endMarketEq An optional filter for account end market. (optional)
@@ -353,7 +355,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts")
   Call<AccountInfoList> getAllAccounts(
-    @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("tier__eq") String tierEq, @retrofit2.http.Query("parent__eq") String parentEq, @retrofit2.http.Query("end_market__eq") String endMarketEq, @retrofit2.http.Query("country__like") String countryLike, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("format") String format, @retrofit2.http.Query("properties") String properties
+    @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin, @retrofit2.http.Query("tier__eq") String tierEq, @retrofit2.http.Query("parent__eq") String parentEq, @retrofit2.http.Query("end_market__eq") String endMarketEq, @retrofit2.http.Query("country__like") String countryLike, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("format") String format, @retrofit2.http.Query("properties") String properties
   );
 
   /**
@@ -413,11 +415,14 @@ public interface AggregatorAccountAdminApi {
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
+   * @param statusEq An optional filter for getting users by status. (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/accounts/{accountID}/policy-groups/{groupID}/users")
   Call<UserInfoRespList> getUsersOfAccountGroup(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
@@ -553,7 +558,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{accountID}/users/{user-id}")
   Call<UserUpdateResp> updateAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body AdminUserUpdateReq body
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**
