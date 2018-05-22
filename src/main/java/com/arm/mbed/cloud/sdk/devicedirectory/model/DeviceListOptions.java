@@ -10,6 +10,10 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 @Preamble(description = "Options to use when listing devices")
 public class DeviceListOptions extends ListOptions {
     /**
+     * Tag of filter by id.
+     */
+    public static final String FILTER_ID = "id";
+    /**
      * Tag of filter by vendor id.
      */
     public static final String FILTER_VENDOR_ID = "vendorId";
@@ -106,8 +110,20 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Adds a device filter based on id field.
+     *
+     * @param id
+     *            filter to apply
+     * @param operator
+     *            filter operator
+     */
+    public void addIdFilter(String id, FilterOperator operator) {
+        addFilter(FILTER_ID, operator, id);
+    }
+
+    /**
      * Adds a device filter based on accountId field.
-     * 
+     *
      * @param accountId
      *            filter to apply
      * @param operator
@@ -119,7 +135,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on bootstra[ certificate expiry date field.
-     * 
+     *
      * @param bootstrapCertificateExpiration
      *            filter to apply
      * @param operator
@@ -131,7 +147,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on bootstrapped timestamp field.
-     * 
+     *
      * @param bootstrappedTimestamp
      *            filter to apply
      * @param operator
@@ -143,7 +159,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on issuer id field.
-     * 
+     *
      * @param certificateIssuerId
      *            filter to apply
      * @param operator
@@ -155,7 +171,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on connector certificate expiry date field.
-     * 
+     *
      * @param connectorCertificateExpiration
      *            filter to apply
      * @param operator
@@ -167,7 +183,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on createdAt field.
-     * 
+     *
      * @param createdAtDate
      *            filter to apply
      * @param operator
@@ -179,7 +195,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on description field.
-     * 
+     *
      * @param description
      *            filter to apply
      * @param operator
@@ -191,7 +207,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on device class field.
-     * 
+     *
      * @param deviceClass
      *            filter to apply
      * @param operator
@@ -203,7 +219,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on certificate fingerprint field.
-     * 
+     *
      * @param certificateFingerprint
      *            filter to apply
      * @param operator
@@ -215,7 +231,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on alias field.
-     * 
+     *
      * @param alias
      *            filter to apply
      * @param operator
@@ -227,7 +243,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on firmware checksum field.
-     * 
+     *
      * @param firmwareChecksum
      *            filter to apply
      * @param operator
@@ -239,7 +255,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on manifest timestamp field.
-     * 
+     *
      * @param manifestTimestamp
      *            filter to apply
      * @param operator
@@ -251,7 +267,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on mechanism field.
-     * 
+     *
      * @param mechanism
      *            filter to apply
      * @param operator
@@ -263,7 +279,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on mechanism URL field.
-     * 
+     *
      * @param mechanismUrl
      *            filter to apply
      * @param operator
@@ -275,7 +291,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on name field.
-     * 
+     *
      * @param queryName
      *            filter to apply
      * @param operator
@@ -287,7 +303,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on serial number field.
-     * 
+     *
      * @param serialNumber
      *            filter to apply
      * @param operator
@@ -299,7 +315,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on state field.
-     * 
+     *
      * @param state
      *            filter to apply
      * @param operator
@@ -311,7 +327,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on updatedAt field.
-     * 
+     *
      * @param updatedAtDate
      *            filter to apply
      * @param operator
@@ -323,7 +339,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on claimedAt field.
-     * 
+     *
      * @param claimedAtDate
      *            filter to apply
      * @param operator
@@ -335,7 +351,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on vendor id field.
-     * 
+     *
      * @param vendorId
      *            filter to apply
      * @param operator
@@ -347,7 +363,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on device type field.
-     * 
+     *
      * @param deviceType
      *            filter to apply
      * @param operator
@@ -359,7 +375,7 @@ public class DeviceListOptions extends ListOptions {
 
     /**
      * Adds a device filter based on host gateway type field.
-     * 
+     *
      * @param hostGateway
      *            filter to apply
      * @param operator
@@ -371,7 +387,7 @@ public class DeviceListOptions extends ListOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
      */
     @Override

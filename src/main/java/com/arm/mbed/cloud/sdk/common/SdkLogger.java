@@ -34,7 +34,7 @@ public class SdkLogger {
 
     /**
      * Logs an error.
-     * 
+     *
      * @param message
      *            error message.
      * @param exception
@@ -50,6 +50,22 @@ public class SdkLogger {
 
     public void logWarn(String message) {
         LOGGER.warn(message);
+    }
+
+    /**
+     * Logs a warning.
+     *
+     * @param message
+     *            warning message.
+     * @param exception
+     *            exception causing the warning.
+     */
+    public void logWarn(String message, Throwable exception) {
+        final String exceptionString = exception == null ? "Unknown Reason"
+                : exception.getMessage() == null ? "An exception [" + exception.toString() + "] was raised"
+                        : exception.getMessage()
+                                + (exception.getCause() == null ? "" : ". Cause: " + exception.getCause());
+        LOGGER.warn(message + ". Reason: " + exceptionString);
     }
 
     public void throwSdkException(Exception exception) throws MbedCloudException {

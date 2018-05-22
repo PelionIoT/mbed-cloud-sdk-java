@@ -42,7 +42,7 @@ public final class CampaignAdapter {
 
     /**
      * Maps campaign.
-     * 
+     *
      * @param campaign
      *            campaign result
      * @return campaign
@@ -51,7 +51,7 @@ public final class CampaignAdapter {
         if (campaign == null) {
             return null;
         }
-        final Campaign updateCampaign = new Campaign(campaign.getId(),
+        final Campaign updateCampaign = new Campaign(campaign.getId(), campaign.getPhase(),
                 TranslationUtils.toUrl(campaign.getRootManifestUrl()), TranslationUtils.toDate(campaign.getCreatedAt()),
                 TranslationUtils.toDate(campaign.getStartedAt()), TranslationUtils.toDate(campaign.getFinished()),
                 TranslationUtils.toDate(campaign.getUpdatedAt()));
@@ -66,7 +66,7 @@ public final class CampaignAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return a mapper
      */
     public static Mapper<UpdateCampaign, Campaign> getMapper() {
@@ -82,7 +82,7 @@ public final class CampaignAdapter {
 
     /**
      * Reverses mapping of a new campaign.
-     * 
+     *
      * @param campaign
      *            new campaign
      * @return new campaign request
@@ -103,7 +103,7 @@ public final class CampaignAdapter {
 
     /**
      * Reverses mapping of an updated campaign.
-     * 
+     *
      * @param campaign
      *            an updated campaign
      * @return campaign update request
@@ -285,7 +285,7 @@ public final class CampaignAdapter {
 
     /**
      * Maps a list of campaigns.
-     * 
+     *
      * @param list
      *            campaign page.
      * @return a list of campaigns
@@ -330,7 +330,7 @@ public final class CampaignAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<UpdateCampaignPage, ListResponse<Campaign>> getListMapper() {

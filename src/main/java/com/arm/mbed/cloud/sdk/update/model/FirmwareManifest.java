@@ -316,7 +316,7 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the file describing decryption keys.
-     * 
+     *
      * @return the decryptionKeysFile
      */
     public DataFile getDecryptionKeysFile() {
@@ -324,13 +324,38 @@ public class FirmwareManifest implements SdkModel {
     }
 
     /**
+     * Gets the file describing decryption keys.
+     * <p>
+     * Note: Similar to {@link #getDecryptionKeysFile()}
+     *
+     *
+     * @return the decryptionKeysFile
+     */
+    @Internal
+    public DataFile getKeyTableFile() {
+        return getDecryptionKeysFile();
+    }
+
+    /**
      * Sets the file containing decryption keys.
-     * 
+     *
      * @param decryptionKeysFile
      *            the file to set
      */
     public void setDecryptionKeysFile(DataFile decryptionKeysFile) {
         this.decryptionKeysFile = decryptionKeysFile;
+    }
+
+    /**
+     * Sets the file containing decryption keys.
+     * <p>
+     * Note: Similar to {@link #setDecryptionKeysFile(DataFile)}
+     *
+     * @param decryptionKeysFile
+     *            the file to set
+     */
+    public void setKeyTableFile(DataFile decryptionKeysFile) {
+        setDecryptionKeysFile(decryptionKeysFile);
     }
 
     /**
@@ -346,11 +371,23 @@ public class FirmwareManifest implements SdkModel {
 
     /**
      * Gets the URL to the decryption key table.
-     * 
+     *
      * @return the decryptionKeysUrl
      */
     public URL getDecryptionKeysUrl() {
         return decryptionKeysUrl;
+    }
+
+    /**
+     * Gets the URL to the decryption key table.
+     * <p>
+     * Note: Similar to {@link #getDecryptionKeysUrl()}
+     *
+     * @return the decryptionKeysUrl
+     */
+    @Internal
+    public URL getKeyTableUrl() {
+        return getDecryptionKeysUrl();
     }
 
     /**
@@ -378,7 +415,7 @@ public class FirmwareManifest implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

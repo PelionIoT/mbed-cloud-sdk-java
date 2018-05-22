@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -8,6 +9,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
@@ -43,7 +45,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Constructor.
-     * 
+     *
      * @param limit
      *            limit.
      * @param order
@@ -67,7 +69,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets the limit.
-     * 
+     *
      * @return the limit
      */
     public Integer getLimit() {
@@ -76,7 +78,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Sets the limit.
-     * 
+     *
      * @param limit
      *            the limit to set
      */
@@ -86,7 +88,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets the sorting order.
-     * 
+     *
      * @see Order
      * @return the order
      */
@@ -96,7 +98,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Sets the sorting order.
-     * 
+     *
      * @see Order
      * @param order
      *            the order to set
@@ -107,7 +109,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets after (ID of the the item after which to retrieve the next page).
-     * 
+     *
      * @return the after
      */
     public String getAfter() {
@@ -116,7 +118,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Sets after (ID of the the item after which to retrieve the next page).
-     * 
+     *
      * @param after
      *            the after to set
      */
@@ -126,7 +128,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets include fields.
-     * 
+     *
      * @see IncludeField
      * @return the include fields
      */
@@ -136,7 +138,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets a string comprising all include fields in Snake case.
-     * 
+     *
      * @return string
      */
     public @Nullable String encodeInclude() {
@@ -157,7 +159,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Appends an include field.
-     * 
+     *
      * @param includeField
      *            include field to append.
      */
@@ -176,7 +178,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Sets include fields.
-     * 
+     *
      * @see IncludeField
      * @param include
      *            the include to set
@@ -187,7 +189,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Determines whether an include field has already been set.
-     * 
+     *
      * @param field
      *            include field.
      * @return True if the field is already present. False otherwise.
@@ -201,7 +203,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Determines whether 'total count' include field has already been set.
-     * 
+     *
      * @return True if the 'total count' field is already present. False otherwise.
      */
     public boolean constainsTotalCountInclude() {
@@ -223,6 +225,14 @@ public class ListOptions extends FilterOptions {
         // If no like filter was entered but an equal filter was, equal filter is considered.
         final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
         return (specificLike == null) ? fetchEqualFilterValue(fieldName) : specificLike;
+    }
+
+    protected Object fetchInFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.IN);
+    }
+
+    protected Object fetchNotInFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_IN);
     }
 
     /**
@@ -249,13 +259,65 @@ public class ListOptions extends FilterOptions {
         return encodeSingleFilter(filterObj);
     }
 
+    /**
+     * Gets a string describing an "In" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleInFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchInFilterValue(fieldName);
+        return encodeMultipleFilters(filterObj);
+    }
+
+    /**
+     * Gets a string describing a "Not In" filter.
+     *
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleNotInFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchNotInFilterValue(fieldName);
+        return encodeMultipleFilters(filterObj);
+    }
+
     private String encodeSingleFilter(final Object filterObj) {
         return (filterObj == null) ? null : filterObj.toString();
     }
 
+    @SuppressWarnings("rawtypes")
+    private String encodeMultipleFilters(final Object filterObj) {
+        if (filterObj == null) {
+            return null;
+        }
+        if (filterObj instanceof List) {
+            return encodeList((List) filterObj);
+        }
+        if (filterObj.getClass().isArray()) {
+            return encodeArray(filterObj);
+        }
+        return encodeSingleFilter(filterObj);
+    }
+
+    private String encodeArray(Object filterObj) {
+        if (filterObj instanceof String[]) {
+            return encodeList(Arrays.asList((String[]) filterObj));
+        }
+        if (filterObj instanceof Object[]) {
+            return encodeList(Arrays.asList(((Object[]) filterObj)));
+        }
+        return null;
+    }
+
+    private String encodeList(List<?> filterObj) {
+        return SdkUtils.joinList(filterObj, ",");
+    }
+
     /**
      * Overrides option parameters.
-     * 
+     *
      * @param options
      *            parameters to set.
      * @param <T>
@@ -283,7 +345,7 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Clones the options.
-     * 
+     *
      * @return a clone.
      */
     @Override
@@ -294,7 +356,7 @@ public class ListOptions extends FilterOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -311,7 +373,7 @@ public class ListOptions extends FilterOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -362,7 +424,7 @@ public class ListOptions extends FilterOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

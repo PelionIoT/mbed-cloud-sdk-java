@@ -921,10 +921,10 @@ public class AccountInfo implements Serializable {
   }
 
    /**
-   * List of sub accounts.
+   * List of sub accounts. Not available for developer users.
    * @return subAccounts
   **/
-  @ApiModelProperty(value = "List of sub accounts.")
+  @ApiModelProperty(value = "List of sub accounts. Not available for developer users.")
   public List<AccountInfo> getSubAccounts() {
     return subAccounts;
   }

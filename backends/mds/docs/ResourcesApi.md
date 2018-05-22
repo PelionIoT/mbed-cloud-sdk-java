@@ -4,15 +4,15 @@ All URIs are relative to *https://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**v2EndpointsDeviceIdResourcePathDelete**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathDelete) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
-[**v2EndpointsDeviceIdResourcePathGet**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathGet) | **GET** v2/endpoints/{device-id}/{resourcePath} | Read from a resource
-[**v2EndpointsDeviceIdResourcePathPost**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPost) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
-[**v2EndpointsDeviceIdResourcePathPut**](ResourcesApi.md#v2EndpointsDeviceIdResourcePathPut) | **PUT** v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
+[**deleteResourcePath**](ResourcesApi.md#deleteResourcePath) | **DELETE** v2/endpoints/{device-id}/{resourcePath} | Delete a resource path
+[**executeOrCreateResource**](ResourcesApi.md#executeOrCreateResource) | **POST** v2/endpoints/{device-id}/{resourcePath} | Execute a function on a Resource or create new Object instance
+[**getResourceValue**](ResourcesApi.md#getResourceValue) | **GET** v2/endpoints/{device-id}/{resourcePath} | Read from a resource
+[**updateResourceValue**](ResourcesApi.md#updateResourceValue) | **PUT** v2/endpoints/{device-id}/{resourcePath} | Write to a resource or use write-attributes for a resource
 
 
-<a name="v2EndpointsDeviceIdResourcePathDelete"></a>
-# **v2EndpointsDeviceIdResourcePathDelete**
-> AsyncID v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResp)
+<a name="deleteResourcePath"></a>
+# **deleteResourcePath**
+> AsyncID deleteResourcePath(deviceId, resourcePath, noResp)
 
 Delete a resource path
 
@@ -40,10 +40,10 @@ String deviceId = "deviceId_example"; // String | A unique Mbed Cloud device ID 
 String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
 Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`. 
 try {
-    AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathDelete(deviceId, resourcePath, noResp);
+    AsyncID result = apiInstance.deleteResourcePath(deviceId, resourcePath, noResp);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ResourcesApi#v2EndpointsDeviceIdResourcePathDelete");
+    System.err.println("Exception when calling ResourcesApi#deleteResourcePath");
     e.printStackTrace();
 }
 ```
@@ -69,74 +69,13 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: Not defined
 
-<a name="v2EndpointsDeviceIdResourcePathGet"></a>
-# **v2EndpointsDeviceIdResourcePathGet**
-> Void v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp)
-
-Read from a resource
-
-Requests the resource value and when the response is available, an &#x60;AsyncIDResponse&#x60; json object is received in the notification channel. The preferred way to get resource values is to use the **subscribe** and **callback** methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to Mbed Cloud Connect.  Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf) for more inforamtion.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39;        
-
-### Example
-```java
-// Import classes:
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
-//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
-//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
-//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
-//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
-
-ApiClient defaultClient = Configuration.getDefaultApiClient();
-
-// Configure API key authorization: Bearer
-ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
-Bearer.setApiKey("YOUR API KEY");
-// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
-//Bearer.setApiKeyPrefix("Token");
-
-ResourcesApi apiInstance = new ResourcesApi();
-String deviceId = "deviceId_example"; // String | Unique Mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
-String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
-Boolean cacheOnly = true; // Boolean | If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/current/connecting/working-with-the-resources.html) defined in the client side. 
-Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  `409 Conflict`. 
-try {
-    Void result = apiInstance.v2EndpointsDeviceIdResourcePathGet(deviceId, resourcePath, cacheOnly, noResp);
-    System.out.println(result);
-} catch (ApiException e) {
-    System.err.println("Exception when calling ResourcesApi#v2EndpointsDeviceIdResourcePathGet");
-    e.printStackTrace();
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **deviceId** | **String**| Unique Mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  |
- **resourcePath** | **String**| The URL of the resource.  |
- **cacheOnly** | **Boolean**| If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/current/connecting/working-with-the-resources.html) defined in the client side.  | [optional]
- **noResp** | **Boolean**| &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP  non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back  an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol  does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code  &#x60;409 Conflict&#x60;.  | [optional]
-
-### Return type
-
-[**Void**](.md)
-
-### Authorization
-
-[Bearer](../README.md#Bearer)
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: Not defined
-
-<a name="v2EndpointsDeviceIdResourcePathPost"></a>
-# **v2EndpointsDeviceIdResourcePathPost**
-> AsyncID v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, resourceFunction, noResp)
+<a name="executeOrCreateResource"></a>
+# **executeOrCreateResource**
+> AsyncID executeOrCreateResource(deviceId, resourcePath, resourceFunction, noResp)
 
 Execute a function on a Resource or create new Object instance
 
-With this API, you can [execute a function](/docs/v1.2/collecting/handling-resources-from-a-web-application.html#the-execute-operation)  on an existing resource and create new Object instance to the device. The resource-path does not have to exist - it can be  created by the call. The maximum length of resource-path is 255 characters.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Mbed Cloud translates HTTP to equivalent CoAP content type.  **Example usage:**  This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml) instance 0 by executing the Resource 5605 &#39;Reset Min and Max Measured Values&#39;.          curl -X POST \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605 \\       -H &#39;authorization: Bearer {api-key}&#39; 
+With this API, you can [execute a function](/docs/current/connecting/handle-resource-webapp.html#the-execute-operation) on an existing resource and create new Object instance to the device. The resource-path does not have to exist - it can be created by the call. The maximum length of resource-path is 255 characters.  All resource APIs are asynchronous. These APIs respond only if the device is turned on and connected to Mbed Cloud Connect and there is an active notification channel.  Supported content types depend on the device and its resource. Mbed Cloud translates HTTP to equivalent CoAP content type.  **Example usage:**  This example resets the min and max values of the [temperature sensor](http://www.openmobilealliance.org/tech/profiles/lwm2m/3303.xml) instance 0 by executing the Resource 5605 &#39;Reset Min and Max Measured Values&#39;.      curl -X POST \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/3303/0/5605 \\       -H &#39;authorization: Bearer {api-key}&#39; 
 
 ### Example
 ```java
@@ -161,10 +100,10 @@ String resourcePath = "resourcePath_example"; // String | The URL of the resourc
 String resourceFunction = "resourceFunction_example"; // String | This value is not needed. Most of the time resources do not accept a function but they have their own functions predefined. You can use this to trigger them.  If a function is included, the body of this request is passed as a char* to the function in Mbed Cloud Client. 
 Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`. 
 try {
-    AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathPost(deviceId, resourcePath, resourceFunction, noResp);
+    AsyncID result = apiInstance.executeOrCreateResource(deviceId, resourcePath, resourceFunction, noResp);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ResourcesApi#v2EndpointsDeviceIdResourcePathPost");
+    System.err.println("Exception when calling ResourcesApi#executeOrCreateResource");
     e.printStackTrace();
 }
 ```
@@ -191,9 +130,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: text/plain, application/xml, application/octet-stream, application/exi, application/json, application/link-format, application/senml+json, application/nanoservice-tlv, application/vnd.oma.lwm2m+text, application/vnd.oma.lwm2m+opaq, application/vnd.oma.lwm2m+tlvapplication/vnd.oma.lwm2m+json, 
  - **Accept**: Not defined
 
-<a name="v2EndpointsDeviceIdResourcePathPut"></a>
-# **v2EndpointsDeviceIdResourcePathPut**
-> AsyncID v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, resourceValue, noResp)
+<a name="getResourceValue"></a>
+# **getResourceValue**
+> Void getResourceValue(deviceId, resourcePath, cacheOnly, noResp)
+
+Read from a resource
+
+Requests the resource value and when the response is available, an &#x60;AsyncIDResponse&#x60; json object is received in the notification channel. The preferred way to get resource values is to use the **subscribe** and **callback** methods.  All resource APIs are asynchronous. These APIs only respond if the device is turned on and connected to Mbed Cloud Connect.  Please refer to [Lightweight Machine to Machine Technical specification](http://www.openmobilealliance.org/release/LightweightM2M/V1_0-20170208-A/OMA-TS-LightweightM2M-V1_0-20170208-A.pdf) for more inforamtion.  **Example usage:**      curl -X GET \\       https://api.us-east-1.mbedcloud.com/v2/endpoints/{device-id}/{resourcePath} \\       -H &#39;authorization: Bearer {api-key}&#39; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.mds.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.mds.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.mds.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+ResourcesApi apiInstance = new ResourcesApi();
+String deviceId = "deviceId_example"; // String | Unique Mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here. 
+String resourcePath = "resourcePath_example"; // String | The URL of the resource. 
+Boolean cacheOnly = true; // Boolean | If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/current/connecting/working-with-the-resources.html) defined in the client side. 
+Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter `noResp`. If a request is made with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`. 
+try {
+    Void result = apiInstance.getResourceValue(deviceId, resourcePath, cacheOnly, noResp);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling ResourcesApi#getResourceValue");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceId** | **String**| Unique Mbed Cloud device ID for the endpoint. Note that the ID needs to be an exact match. You cannot use wildcards here.  |
+ **resourcePath** | **String**| The URL of the resource.  |
+ **cacheOnly** | **Boolean**| If true, the response comes only from the cache. Default: false. Mbed Cloud Connect caches the received resource values for the time of [max_age](/docs/current/connecting/working-with-the-resources.html) defined in the client side.  | [optional]
+ **noResp** | **Boolean**| &lt;br/&gt;&lt;br/&gt;&lt;b&gt;Non-confirmable requests&lt;/b&gt;&lt;br/&gt;  All resource APIs have the parameter &#x60;noResp&#x60;. If a request is made with &#x60;noResp&#x3D;true&#x60;, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code &#x60;204 No Content&#x60;. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code &#x60;409 Conflict&#x60;.  | [optional]
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: Not defined
+
+<a name="updateResourceValue"></a>
+# **updateResourceValue**
+> AsyncID updateResourceValue(deviceId, resourcePath, resourceValue, noResp)
 
 Write to a resource or use write-attributes for a resource
 
@@ -222,10 +222,10 @@ String resourcePath = "resourcePath_example"; // String | Resource URL.
 String resourceValue = "resourceValue_example"; // String | The value to be set to the resource. 
 Boolean noResp = true; // Boolean | <br/><br/><b>Non-confirmable requests</b><br/>  All resource APIs have the parameter noResp. If you make a request with `noResp=true`, Mbed Cloud Connect makes a CoAP non-confirmable request to the device. Such requests are not guaranteed to arrive in the device, and you do not get back an async-response-id.  If calls with this parameter enabled succeed, they return with the status code `204 No Content`. If the underlying protocol does not support non-confirmable requests, or if the endpoint is registered in queue mode, the response is status code `409 Conflict`. 
 try {
-    AsyncID result = apiInstance.v2EndpointsDeviceIdResourcePathPut(deviceId, resourcePath, resourceValue, noResp);
+    AsyncID result = apiInstance.updateResourceValue(deviceId, resourcePath, resourceValue, noResp);
     System.out.println(result);
 } catch (ApiException e) {
-    System.err.println("Exception when calling ResourcesApi#v2EndpointsDeviceIdResourcePathPut");
+    System.err.println("Exception when calling ResourcesApi#updateResourceValue");
     e.printStackTrace();
 }
 ```
