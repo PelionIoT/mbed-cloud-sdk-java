@@ -12,13 +12,14 @@ buildscript {
         }
     }
     dependencies {
-        classpath "ru.vyarus:gradle-animalsniffer-plugin:1.2.0"
-        classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
-        classpath "com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2"
-        classpath "de.aaschmid:gradle-cpd-plugin:1.0"
-        classpath "org.jfrog.buildinfo:build-info-extractor-gradle:4.6.+"
-        classpath "gradle.plugin.com.dorongold.plugins:task-tree:1.3"
+        classpath 'ru.vyarus:gradle-animalsniffer-plugin:1.2.0'
+        classpath 'com.github.jengelman.gradle.plugins:shadow:2.0.1'
+        classpath 'com.smokejumperit.gradle.license:Gradle-License-Report:0.0.2'
+        classpath 'de.aaschmid:gradle-cpd-plugin:1.0'
+        classpath 'org.jfrog.buildinfo:build-info-extractor-gradle:4.6.+'
+        classpath 'gradle.plugin.com.dorongold.plugins:task-tree:1.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
+        classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
     }
 }
 
@@ -30,14 +31,15 @@ apply plugin: 'checkstyle' //code style checks
 apply plugin: 'jdepend'// design quality
 apply plugin: 'findbugs' //static analysis
 apply plugin: 'pmd' //static analysis
-apply plugin: "de.aaschmid.cpd" //Code duplication
+apply plugin: 'de.aaschmid.cpd' //Code duplication
 apply plugin: 'project-report' //Generate project reports
-apply plugin: "com.github.johnrengelman.shadow" //Generate fat jars
-apply plugin: "com.dorongold.task-tree"
+apply plugin: 'com.github.johnrengelman.shadow' //Generate fat jars
+apply plugin: 'com.dorongold.task-tree'
 apply plugin: 'maven-publish' //POM file generation
-apply plugin: "com.jfrog.artifactory" //Upload to artifactory
-apply plugin: "com.jfrog.bintray" //Upload to bintray
-apply plugin: "ru.vyarus.animalsniffer" //Checks that SDK will work on Java 1.7 onwards
+apply plugin: 'com.jfrog.artifactory' //Upload to artifactory
+apply plugin: 'com.jfrog.bintray' //Upload to bintray
+apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
+
 
 
 
@@ -84,9 +86,10 @@ allprojects {
         apply plugin: 'build-dashboard'
         apply plugin: 'project-report' //Generate project reports
         apply plugin: 'maven-publish'
-        apply plugin: "com.jfrog.artifactory"
-        apply plugin: "com.jfrog.bintray"
-        apply plugin: "ru.vyarus.animalsniffer"
+        apply plugin: 'com.jfrog.artifactory'
+        apply plugin: 'com.jfrog.bintray'
+        apply plugin: 'ru.vyarus.animalsniffer'
+        apply plugin: 'com.github.hierynomus.license-report'
 
         compileJava {
             // Java SDK compatibility
@@ -248,6 +251,7 @@ dependencies {
     compile project(':lwm2m')
     compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
+    compile project(':backends:connector_bootstrap')
     compile project(':backends:device_directory')
     compile project(':backends:iam')
     compile project(':backends:mds')
@@ -384,6 +388,7 @@ pmdMain {
 cpd {
     toolVersion = '5.4.2'
 }
+
 cpdCheck {
     reports {
         text.enabled = false
@@ -437,6 +442,33 @@ shadowJar {
     doLast {
         updateArtifactList("SDK_FULL_JAR", shadowJar.archivePath)
     }
+}
+
+downloadLicenses {
+    ext.apacheTwo = license('Apache-2.0', 'http://opensource.org/licenses/Apache-2.0')
+    ext.bsd = license('BSD-3-Clause', 'http://www.opensource.org/licenses/bsd-license.php')
+    ext.mit = license('MIT', 'https://opensource.org/licenses/mit-license.php')
+    ext.jsonLicense = license('JSON', 'https://www.json.org/license.html')
+    ext.creativeCommonsZero = license('CC0-1.0', 'https://creativecommons.org/publicdomain/zero/1.0/')
+
+    includeProjectDependencies = true
+    reportByDependencyFileName='tpip-report'
+    reportByLicenseFileName ='used-licences'
+    
+    licenses = [
+        (group( project(':lwm2m').group)) : apacheTwo,
+        (group( 'com.arm.mbed.cloud')) : apacheTwo,
+        (group( project.group)) : apacheTwo
+    ]
+
+    aliases = [
+        (apacheTwo) : ['The Apache Software License, Version 2.0','Apache 2.0','Apache License, Version 2.0', 'Apache 2', 'Apache License Version 2.0', 'Apache License, Version 2.0', 'Apache License 2.0', license('Apache-2.0', 'http://www.apache.org/licenses/LICENSE-2.0')],
+        (bsd) : ['BSD', license('BSD-3-Clause', 'http://www.opensource.org/licenses/bsd-license.php')],
+        (mit) : ['MIT', 'The MIT License', 'MIT License', license('MIT', 'https://opensource.org/licenses/mit-license.php')],
+        (jsonLicense) : ['The JSON License', 'JSON', license('JSON', 'https://www.json.org/license.html')],
+        (creativeCommonsZero) : ['Creative Commons Zero', 'CC0', license('CC0-1.0', 'https://creativecommons.org/publicdomain/zero/1.0/')],
+    ]
+
 }
 
 task testJar(type: Jar) {

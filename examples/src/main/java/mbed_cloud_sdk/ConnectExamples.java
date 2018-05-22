@@ -28,6 +28,9 @@ import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
+import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.functions.Consumer;
@@ -297,7 +300,11 @@ public class ConnectExamples extends AbstractExample {
 
     /**
      * Subscribes to a resource with callbacks.
+     * <p>
+     *
+     * @see #subscribeToResourceValueChanges()
      */
+    @Deprecated
     @SuppressWarnings({ "boxing", "null" })
     @Example
     public void subscribeToResourcesWithCallbacks() {
@@ -367,8 +374,12 @@ public class ConnectExamples extends AbstractExample {
      * Subscribes to a resource with observable streams.
      * <p>
      * Note: for more information about observable streams, see also <a href="http://reactivex.io/">Reactive X</a>
+     * <p>
+     *
+     * @see #subscribeToResourceValueChanges()
      */
     @SuppressWarnings({ "boxing", "null" })
+    @Deprecated
     @Example
     public void subscribeToResourcesWithObservableStreams() {
         ConnectionOptions config = Configuration.get();
@@ -432,13 +443,57 @@ public class ConnectExamples extends AbstractExample {
             // devices which are newly registered or expired.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
-            DeviceStateObserver observer = api.subscribe().deviceState(
+            DeviceStateObserver observer = api.subscribe().deviceStateChanges(
                     DeviceStateFilterOptions.newFilter().likeDevice("016%")
                             .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION, DeviceState.EXPIRED_REGISTRATION)),
                     BackpressureStrategy.BUFFER);
             // Printing device changes when they happen.
             observer.flow().subscribe(System.out::println);
             // Listening to device state changes for 2 minutes.
+            Thread.sleep(120000);
+
+            // Stopping notification pull channel.
+            api.stopNotifications();
+            Thread.sleep(100);
+            api.shutdownConnectService();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            logError("last API Metadata", api.getLastApiMetadata());
+            try {
+                api.stopNotifications();
+                Thread.sleep(100);
+            } catch (Exception e1) {
+                e1.printStackTrace();
+            }
+            api.shutdownConnectService();
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Subscribes to resource value changes.
+     * <p>
+     * Note: This example introduces new high level abstraction objects such as Observer
+     */
+
+    @Example
+    public void subscribeToResourceValueChanges() {
+        ConnectionOptions config = Configuration.get();
+        Connect api = new Connect(config);
+        try {
+            // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
+            // resource paths starting with /3/0/.
+            // For more information about backpressure strategies, please have a look at related documentation:
+            // https://github.com/ReactiveX/RxJava/wiki/Backpressure
+            // For more information about First Value strategies, have a look at
+            // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
+            ResourceValueObserver observer = api.subscribe().resourceValues(
+                    SubscriptionFilterOptions.newFilter().likeDevice("016%").likeResourcePath("/3/0/%"),
+                    BackpressureStrategy.BUFFER, FirstValue.ON_VALUE_UPDATE);
+            // Printing resource value notification when they happen.
+            observer.flow().subscribe(System.out::println);
+            // Listening to resource value changes for 2 minutes.
             Thread.sleep(120000);
 
             // Stopping notification pull channel.

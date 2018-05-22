@@ -17,6 +17,8 @@ include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
 include 'backends:connector_ca'
 project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
+include 'backends:connector_bootstrap'
+project(':backends:connector_bootstrap').projectDir = file('../backends/connector_bootstrap')
 include 'backends:enrollment'
 project(':backends:enrollment').projectDir = file('../backends/enrollment')
 include 'backends:device_directory'

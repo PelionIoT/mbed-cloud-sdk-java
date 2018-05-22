@@ -36,7 +36,7 @@ implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
 }
 ```
 ## Usage
-These instructions can also be found in the [official documentation](https://s3-us-west-2.amazonaws.com/mbed-cloud-sdk-java/index.html):
+These instructions can also be found in the [official documentation](https://cloud.mbed.com/docs/latest/mbed-cloud-sdk-java/):
 1. Create an API key on [Mbed Cloud Portal](https://portal.mbedcloud.com/).
 2. Import the SDK to your project using one of the packages listed above.
 3. Create a configuration object:
@@ -77,4 +77,4 @@ Mbed Cloud SDK for Java is open source and we would like your help. There is a b
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 Mbed Cloud SDK for Java is free-to-use and licensed under the **Apache License
-2.0**. See LICENCE file for more information.
+2.0**. See [LICENCE](LICENCE) file for more information.

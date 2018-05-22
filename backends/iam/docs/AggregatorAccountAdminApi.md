@@ -908,7 +908,7 @@ Name | Type | Description  | Notes
 
 <a name="getAccountUser"></a>
 # **getAccountUser**
-> MyUserInfoResp getAccountUser(accountID, userId, scratchCodes, properties)
+> UserInfoResp getAccountUser(accountID, userId, properties)
 
 Details of the user.
 
@@ -934,10 +934,9 @@ Bearer.setApiKey("YOUR API KEY");
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountID = "accountID_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user to be retrieved.
-String scratchCodes = "scratchCodes_example"; // String | Request to regenerate new emergency scratch codes.
 String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
 try {
-    MyUserInfoResp result = apiInstance.getAccountUser(accountID, userId, scratchCodes, properties);
+    UserInfoResp result = apiInstance.getAccountUser(accountID, userId, properties);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountUser");
@@ -951,12 +950,11 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **userId** | **String**| The ID of the user to be retrieved. |
- **scratchCodes** | **String**| Request to regenerate new emergency scratch codes. | [optional]
  **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
 
 ### Return type
 
-[**MyUserInfoResp**](MyUserInfoResp.md)
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 
@@ -1182,7 +1180,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllAccountUsers"></a>
 # **getAllAccountUsers**
-> UserInfoRespList getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq)
+> UserInfoRespList getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq, statusIn, statusNin)
 
 Get all user details.
 
@@ -1213,8 +1211,10 @@ String order = "ASC"; // String | The order of the records based on creation tim
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String emailEq = "emailEq_example"; // String | Filter for email address
 String statusEq = "statusEq_example"; // String | Filter for status
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq);
+    UserInfoRespList result = apiInstance.getAllAccountUsers(accountID, limit, after, order, include, emailEq, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountUsers");
@@ -1233,6 +1233,8 @@ Name | Type | Description  | Notes
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
  **emailEq** | **String**| Filter for email address | [optional]
  **statusEq** | **String**| Filter for status | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
@@ -1249,7 +1251,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllAccounts"></a>
 # **getAllAccounts**
-> AccountInfoList getAllAccounts(statusEq, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties)
+> AccountInfoList getAllAccounts(statusEq, statusIn, statusNin, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties)
 
 Get all accounts.
 
@@ -1274,6 +1276,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String statusEq = "statusEq_example"; // String | An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED.
+String statusIn = "statusIn_example"; // String | An optional filter for getting accounts with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding accounts with a specified set of statuses.
 String tierEq = "tierEq_example"; // String | An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted.
 String parentEq = "parentEq_example"; // String | An optional filter for parent account ID.
 String endMarketEq = "endMarketEq_example"; // String | An optional filter for account end market.
@@ -1285,7 +1289,7 @@ String include = "include_example"; // String | Comma separated additional data 
 String format = "format_example"; // String | Format information for the response to the query, supported: format=breakdown.
 String properties = "properties_example"; // String | Property name to be returned from account specific properties.
 try {
-    AccountInfoList result = apiInstance.getAllAccounts(statusEq, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
+    AccountInfoList result = apiInstance.getAllAccounts(statusEq, statusIn, statusNin, tierEq, parentEq, endMarketEq, countryLike, limit, after, order, include, format, properties);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccounts");
@@ -1298,6 +1302,8 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **statusEq** | **String**| An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. | [optional]
+ **statusIn** | **String**| An optional filter for getting accounts with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding accounts with a specified set of statuses. | [optional]
  **tierEq** | **String**| An optional filter for tier level, must be 0, 1, 2, 98, 99 or omitted. | [optional]
  **parentEq** | **String**| An optional filter for parent account ID. | [optional]
  **endMarketEq** | **String**| An optional filter for account end market. | [optional]
@@ -1519,7 +1525,7 @@ Name | Type | Description  | Notes
 
 <a name="getUsersOfAccountGroup"></a>
 # **getUsersOfAccountGroup**
-> UserInfoRespList getUsersOfAccountGroup(accountID, groupID, limit, after, order, include)
+> UserInfoRespList getUsersOfAccountGroup(accountID, groupID, limit, after, order, include, statusEq, statusIn, statusNin)
 
 Get users of a group.
 
@@ -1549,8 +1555,11 @@ Integer limit = 50; // Integer | The number of results to return (2-1000), defau
 String after = "after_example"; // String | The entity ID to fetch after the given one.
 String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
+String statusEq = "statusEq_example"; // String | An optional filter for getting users by status.
+String statusIn = "statusIn_example"; // String | An optional filter for getting users with a specified set of statuses.
+String statusNin = "statusNin_example"; // String | An optional filter for excluding users with a specified set of statuses.
 try {
-    UserInfoRespList result = apiInstance.getUsersOfAccountGroup(accountID, groupID, limit, after, order, include);
+    UserInfoRespList result = apiInstance.getUsersOfAccountGroup(accountID, groupID, limit, after, order, include, statusEq, statusIn, statusNin);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getUsersOfAccountGroup");
@@ -1568,6 +1577,9 @@ Name | Type | Description  | Notes
  **after** | **String**| The entity ID to fetch after the given one. | [optional]
  **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
  **include** | **String**| Comma separated additional data to return. Currently supported: total_count | [optional]
+ **statusEq** | **String**| An optional filter for getting users by status. | [optional]
+ **statusIn** | **String**| An optional filter for getting users with a specified set of statuses. | [optional]
+ **statusNin** | **String**| An optional filter for excluding users with a specified set of statuses. | [optional]
 
 ### Return type
 
@@ -2078,7 +2090,7 @@ Bearer.setApiKey("YOUR API KEY");
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountID = "accountID_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user to be updated.
-AdminUserUpdateReq body = new AdminUserUpdateReq(); // AdminUserUpdateReq | A user object with attributes.
+UserUpdateReq body = new UserUpdateReq(); // UserUpdateReq | A user object with attributes.
 try {
     UserUpdateResp result = apiInstance.updateAccountUser(accountID, userId, body);
     System.out.println(result);
@@ -2094,7 +2106,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **userId** | **String**| The ID of the user to be updated. |
- **body** | [**AdminUserUpdateReq**](AdminUserUpdateReq.md)| A user object with attributes. |
+ **body** | [**UserUpdateReq**](UserUpdateReq.md)| A user object with attributes. |
 
 ### Return type
 

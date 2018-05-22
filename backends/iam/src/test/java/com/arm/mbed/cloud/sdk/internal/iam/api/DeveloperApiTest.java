@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.internal.iam.api;
 
 import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountResponseList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
@@ -10,14 +9,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.MyUserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,18 +34,6 @@ public class DeveloperApiTest {
         api = new ApiClient().createService(DeveloperApi.class);
     }
 
-    /**
-     * Add user to a list of groupS.
-     *
-     * An endpoint for adding user to groups.
-     */
-    @Test
-    public void addMeToGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.addMeToGroups(body);
-
-        // TODO: test validations
-    }
     /**
      * Add API key to a list of groups.
      *
@@ -236,17 +220,6 @@ public class DeveloperApiTest {
         // TODO: test validations
     }
     /**
-     * Get accounts of the user.
-     *
-     * An endpoint for retrieving the accounts of the logged in user.
-     */
-    @Test
-    public void getMyAccountsTest() {
-        // AccountResponseList response = api.getMyAccounts();
-
-        // TODO: test validations
-    }
-    /**
      * Get API key details.
      *
      * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/api-keys/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -254,35 +227,6 @@ public class DeveloperApiTest {
     @Test
     public void getMyApiKeyTest() {
         // ApiKeyInfoResp response = api.getMyApiKey();
-
-        // TODO: test validations
-    }
-    /**
-     * Get groups of the user.
-     *
-     * An endpoint for retrieving groups of the user.
-     */
-    @Test
-    public void getMyGroupsTest() {
-        Integer limit = null;
-        String after = null;
-        String order = null;
-        String include = null;
-        // GroupSummaryList response = api.getMyGroups(limit, after, order, include);
-
-        // TODO: test validations
-    }
-    /**
-     * Details of the current user.
-     *
-     * An endpoint for retrieving the details of the logged in user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/me -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
-     */
-    @Test
-    public void getMyUserTest() {
-        String scratchCodes = null;
-        String properties = null;
-        String include = null;
-        // MyUserInfoResp response = api.getMyUser(scratchCodes, properties, include);
 
         // TODO: test validations
     }
@@ -296,18 +240,6 @@ public class DeveloperApiTest {
         String groupID = null;
         SubjectList body = null;
         // UpdatedResponse response = api.removeApiKeysFromGroup(groupID, body);
-
-        // TODO: test validations
-    }
-    /**
-     * Remove user from a group.
-     *
-     * An endpoint for removing user from groups.
-     */
-    @Test
-    public void removeMeFromGroupsTest() {
-        List<String> body = null;
-        // UpdatedResponse response = api.removeMeFromGroups(body);
 
         // TODO: test validations
     }
@@ -358,18 +290,6 @@ public class DeveloperApiTest {
     public void updateMyApiKeyTest() {
         ApiKeyUpdateReq body = null;
         // ApiKeyInfoResp response = api.updateMyApiKey(body);
-
-        // TODO: test validations
-    }
-    /**
-     * Update user details.
-     *
-     * An endpoint for updating the details of the logged in user.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/users/me -d &#39;{\&quot;address\&quot;: \&quot;1007 Mountain Drive\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
-     */
-    @Test
-    public void updateMyUserTest() {
-        UserUpdateReq body = null;
-        // UserUpdateResp response = api.updateMyUser(body);
 
         // TODO: test validations
     }
