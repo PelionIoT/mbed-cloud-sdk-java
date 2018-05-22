@@ -189,10 +189,10 @@ public class TrustedCertificateReq implements Serializable {
   }
 
    /**
-   * If true, signature parameter is not required. Default value is false.
+   * Certificate is used in enrollment mode. Default value is false.
    * @return enrollmentMode
   **/
-  @ApiModelProperty(value = "If true, signature parameter is not required. Default value is false.")
+  @ApiModelProperty(value = "Certificate is used in enrollment mode. Default value is false.")
   public Boolean isEnrollmentMode() {
     return enrollmentMode;
   }
@@ -243,10 +243,10 @@ public class TrustedCertificateReq implements Serializable {
   }
 
    /**
-   * Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;.
+   * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;.
    * @return signature
   **/
-  @ApiModelProperty(value = "Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.")
+  @ApiModelProperty(value = "DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.")
   public String getSignature() {
     return signature;
   }

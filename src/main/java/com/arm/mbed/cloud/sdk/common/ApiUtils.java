@@ -76,16 +76,24 @@ public class ApiUtils {
             }
 
         }
-        if (missingFields.isEmpty()) {
-            return;
-        }
-        final StringBuilder errorBuilder = generateInvalidModelInstanceErrorMessage(model, missingFields, argName);
+        final StringBuilder errorBuilder = missingFields.isEmpty()
+                ? generateInvalidModelInstanceErrorMessage(model, argName)
+                : generateModelInstanceWithMissingFieldsErrorMessage(model, missingFields, argName);
         logger.throwSdkException(new IllegalArgumentException(errorBuilder.toString()));
 
     }
 
-    private static StringBuilder generateInvalidModelInstanceErrorMessage(SdkModel model, List<String> missingFields,
-            String argName) {
+    private static StringBuilder generateInvalidModelInstanceErrorMessage(SdkModel model, String argName) {
+        final StringBuilder errorBuilder = new StringBuilder(200);
+        errorBuilder.append("Parameter [");
+        errorBuilder.append(argName);
+        errorBuilder.append("] is an invalid instance of ").append(model.getClass().getSimpleName())
+                .append(" model. Please ensure all its fields are valid.");
+        return errorBuilder;
+    }
+
+    private static StringBuilder generateModelInstanceWithMissingFieldsErrorMessage(SdkModel model,
+            List<String> missingFields, String argName) {
         final List<String> setters = new LinkedList<>();
         final Method[] modelMethods = model.getClass().getDeclaredMethods();
         for (final Method modelMethod : modelMethods) {
@@ -275,7 +283,7 @@ public class ApiUtils {
 
     /**
      * Converts date into a UTC timestamp string.
-     * 
+     *
      * @param date
      *            date/time
      * @return timestamp in UTC (RFC3339)
@@ -285,9 +293,9 @@ public class ApiUtils {
     }
 
     /**
-     * 
+     *
      * Converts string following RFC3339 into dates.
-     * 
+     *
      * @param valueStr
      *            string representing a date and following RFC3339
      * @return corresponding date

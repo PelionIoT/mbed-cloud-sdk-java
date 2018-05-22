@@ -150,11 +150,13 @@ public interface AccountAdminApi {
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param emailEq Filter for email address (optional)
    * @param statusEq Filter for status, for example active or reset (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/users")
   Call<UserInfoRespList> getAllUsers(
-    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
@@ -207,11 +209,14 @@ public interface AccountAdminApi {
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
+   * @param statusEq An optional filter for getting users by status. (optional)
+   * @param statusIn An optional filter for getting users with a specified set of statuses. (optional)
+   * @param statusNin An optional filter for excluding users with a specified set of statuses. (optional)
    * @return Call&lt;UserInfoRespList&gt;
    */
   @GET("v3/policy-groups/{groupID}/users")
   Call<UserInfoRespList> getUsersOfGroup(
-    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**

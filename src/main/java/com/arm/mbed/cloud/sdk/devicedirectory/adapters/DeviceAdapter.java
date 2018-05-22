@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
@@ -22,6 +23,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostReque
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.StateEnum;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
+import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Adapter for device model")
 @Internal
@@ -44,8 +46,42 @@ public final class DeviceAdapter {
     }
 
     /**
+     * Maps subscription options into device list options.
+     *
+     * @param filters
+     *            subscription filter
+     * @return corresponding device list options
+     */
+    public static DeviceListOptions mapSubscriptionOptions(SubscriptionFilterOptions filters) {
+        if (filters == null) {
+            return null;
+        }
+        if (!filters.hasFilters(SubscriptionFilterOptions.DEVICE_ID_FILTER)) {
+            return null;
+        }
+        boolean addedFilters = false;
+        final DeviceListOptions listOptions = new DeviceListOptions();
+        if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL)) {
+            addedFilters = true;
+            listOptions.addIdFilter((String) filters
+                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL),
+                    FilterOperator.EQUAL);
+        }
+        if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL)) {
+            addedFilters = true;
+            listOptions.addIdFilter((String) filters
+                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL),
+                    FilterOperator.NOT_EQUAL);
+        }
+        // TODO do other filters when implemented
+
+        return addedFilters ? listOptions : null;
+
+    }
+
+    /**
      * Maps device data.
-     * 
+     *
      * @param deviceData
      *            device data to map
      * @return mapped device data
@@ -82,7 +118,7 @@ public final class DeviceAdapter {
 
     /**
      * Gets a mapper.
-     * 
+     *
      * @return a mapper
      */
     public static Mapper<DeviceData, Device> getMapper() {
@@ -97,7 +133,7 @@ public final class DeviceAdapter {
 
     /**
      * Maps a list of device data.
-     * 
+     *
      * @param list
      *            device page
      * @return a list of devices
@@ -141,7 +177,7 @@ public final class DeviceAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<DevicePage, ListResponse<Device>> getListMapper() {
@@ -157,7 +193,7 @@ public final class DeviceAdapter {
 
     /**
      * Reverses the mapping of a new device.
-     * 
+     *
      * @param device
      *            new device
      * @return a new device data request
@@ -191,7 +227,7 @@ public final class DeviceAdapter {
 
     /**
      * Reverses the mapping of an updated device.
-     * 
+     *
      * @param device
      *            updated device
      * @return a device data update request

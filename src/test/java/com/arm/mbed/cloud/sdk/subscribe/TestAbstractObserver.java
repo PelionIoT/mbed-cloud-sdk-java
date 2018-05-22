@@ -22,6 +22,7 @@ import java.util.stream.Stream;
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.Callback;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
@@ -41,6 +42,8 @@ public class TestAbstractObserver {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(false);
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
                 BackpressureStrategy.BUFFER);
+        assertFalse(obs.executedActionOnSubscription);
+        assertEquals(obs.numberOfActionOnSubscription, 0);
         // Only storing even numbers.
         List<Integer> evenValuesCallback1 = new LinkedList<>();
         // Only storing multiple of 10.
@@ -60,6 +63,8 @@ public class TestAbstractObserver {
                 evenValuesCallback1.add(((Integer) arg.getRawValue()));
             }
         }, onFailureCallback));
+        assertTrue(obs.executedActionOnSubscription);
+        assertEquals(1, obs.numberOfActionOnSubscription);
         assertEquals(1, obs.numberOfCallbacks());
         obs.addCallback(new NotificationCallback<>(new Callback<NotificationTestMessageValue>() {
 
@@ -72,7 +77,11 @@ public class TestAbstractObserver {
             }
         }, onFailureCallback));
         assertEquals(2, obs.numberOfCallbacks());
+        assertTrue(obs.executedActionOnSubscription);
+        assertEquals(1, obs.numberOfActionOnSubscription);
         obs.flow().blockingSubscribe();
+        assertTrue(obs.executedActionOnSubscription);
+        assertEquals(1, obs.numberOfActionOnSubscription);
         // the first list should only contain even numbers from 0 to 100 included.
         assertEquals(51, evenValuesCallback1.size());
         // the second list should only contain multiples of 10 from 0 to 100 included.
@@ -86,7 +95,13 @@ public class TestAbstractObserver {
             assertEquals(i * 10, evenValuesCallback2.get(i).intValue());
         }
         assertFalse(obs.isDisposed());
-        obs.unsubscribe();
+        assertFalse(TestObserver.executedActionOnUnsubscription);
+        try {
+            obs.unsubscribe();
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+        assertTrue(TestObserver.executedActionOnUnsubscription);
         assertTrue(obs.isDisposed());
         assertEquals(0, obs.numberOfCallbacks());
     }
@@ -386,7 +401,11 @@ public class TestAbstractObserver {
         assertTrue(manager.hasObserver(obs1));
         assertTrue(manager.hasObserver(obs2));
         assertTrue(manager.hasObserver(obs3));
-        obs1.unsubscribe();
+        try {
+            obs1.unsubscribe();
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
         assertFalse(manager.hasObserver(obs1));
         assertTrue(manager.hasObserver(obs2));
         assertTrue(manager.hasObserver(obs3));
@@ -432,7 +451,11 @@ public class TestAbstractObserver {
             assertEquals(i * 10, MultiplesOfTenList.get(i).intValue());
         }
         assertFalse(obs.isDisposed());
-        obs.unsubscribe();
+        try {
+            obs.unsubscribe();
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
         assertTrue(obs.isDisposed());
         assertEquals(0, obs.numberOfCallbacks());
     }
@@ -447,8 +470,8 @@ public class TestAbstractObserver {
             NotificationTestMessageValue value = future.get(5, TimeUnit.SECONDS);
             // Value should be the first element received.
             assertEquals(0, value.i);
-            // The observer does not get disposed
-            assertFalse(obs.isDisposed());
+            // The observer should have been disposed
+            assertTrue(obs.isDisposed());
         } catch (Exception e) {
             e.printStackTrace();
             fail(e.getMessage());
@@ -534,12 +557,41 @@ public class TestAbstractObserver {
     private static class TestObserver extends AbstractObserver<NotificationTestMessageValue> {
 
         private final SubscriptionType type;
+        public static volatile boolean executedActionOnUnsubscription;
+        public static volatile boolean executedActionOnSubscription;
+        public static volatile int numberOfActionOnSubscription;
 
         public TestObserver(SubscriptionManager manager, SubscriptionType type, String id,
                 Flowable<NotificationTestMessageValue> flow, FilterOptions filter,
                 boolean mustUnsubscribeOnCompletion) {
-            super(manager, id, flow, filter, mustUnsubscribeOnCompletion);
+            super(manager, id, flow, filter, mustUnsubscribeOnCompletion, getActionOnSubscription(),
+                    getActionOnUnsubscription());
             this.type = type;
+            executedActionOnUnsubscription = false;
+            numberOfActionOnSubscription = 0;
+            executedActionOnSubscription = false;
+        }
+
+        private static CallbackWithException<FilterOptions, MbedCloudException> getActionOnUnsubscription() {
+            return new CallbackWithException<FilterOptions, MbedCloudException>() {
+
+                @Override
+                public void execute(FilterOptions arg) {
+                    executedActionOnUnsubscription = true;
+
+                }
+            };
+        }
+
+        private static CallbackWithException<FilterOptions, MbedCloudException> getActionOnSubscription() {
+            return new CallbackWithException<FilterOptions, MbedCloudException>() {
+
+                @Override
+                public void execute(FilterOptions arg) {
+                    numberOfActionOnSubscription++;
+                    executedActionOnSubscription = true;
+                }
+            };
         }
 
         @Override
@@ -672,6 +724,11 @@ public class TestAbstractObserver {
 
         }
 
+        @Override
+        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
+            return (TestObserver) createObserver(type, filter, strategy, null, null);
+        }
+
     }
 
     private static class SubscriptionTestManagerFixedInput extends AbstractTestSubscriptionManager {
@@ -681,7 +738,9 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
+        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
             @SuppressWarnings("boxing")
             final Flowable<NotificationTestMessageValue> flow = Flowable.range(0, 102)
                     .map(i -> new NotificationTestMessageValue(i));
@@ -738,7 +797,6 @@ public class TestAbstractObserver {
             // TODO Auto-generated method stub
 
         }
-
     }
 
     private static class SubscriptionTestManagerNeverInput extends AbstractTestSubscriptionManager {
@@ -748,7 +806,9 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
+        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
             final Flowable<NotificationTestMessageValue> flow = Flowable.never();
             final String id = "testObserver_" + UuidGenerator.generate();
             final TestObserver obs = new TestObserver(this, type, id, flow, null, unsubscribeOnCompletion);
@@ -815,10 +875,11 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
+        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
             final String id = "testObserver_" + UuidGenerator.generate();
-            final TestObserver obs = new TestObserver(this, type, id, emitter.create(strategy), null,
-                    unsubscribeOnCompletion);
+            final TestObserver obs = new TestObserver(this, type, id, emitter.create(strategy), filter, false);
             observers.put(id, obs);
             return obs;
         }
