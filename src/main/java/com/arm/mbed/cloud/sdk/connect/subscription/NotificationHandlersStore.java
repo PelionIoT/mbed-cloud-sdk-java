@@ -181,8 +181,25 @@ public class NotificationHandlersStore {
      */
     public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
             Callback<Throwable> onFailure) {
+        registerSubscriptionCallback(resource, onNotification, onFailure, FirstValue.getDefault());
+    }
+
+    /**
+     * Registers resource subscription callback.
+     *
+     * @param resource
+     *            resource to register the callback for.
+     * @param onNotification
+     *            callback to execute on notification.
+     * @param triggerMode
+     *            mode of getting the first resource value
+     * @param onFailure
+     *            callback to execute on error.
+     */
+    public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
+            Callback<Throwable> onFailure, FirstValue triggerMode) {
         final Callback<Object> onNotificationCallBack = onNotification;
-        observerStore.resourceValues(resource, BackpressureStrategy.BUFFER)
+        observerStore.resourceValues(resource, BackpressureStrategy.BUFFER, triggerMode)
                 .addCallback(new NotificationCallback<>(new Callback<ResourceValueNotification>() {
 
                     @Override
