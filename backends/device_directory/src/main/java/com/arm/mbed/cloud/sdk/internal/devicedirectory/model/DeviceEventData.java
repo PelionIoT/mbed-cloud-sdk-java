@@ -173,7 +173,7 @@ public class DeviceEventData implements Serializable {
    * Get dateTime
    * @return dateTime
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "")
   public DateTime getDateTime() {
     return dateTime;
   }

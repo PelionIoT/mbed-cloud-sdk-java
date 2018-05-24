@@ -62,7 +62,7 @@ public class DeviceQuery implements Serializable {
    * The timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(required = true, value = "The timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -80,7 +80,7 @@ public class DeviceQuery implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(required = true, value = "The entity instance signature.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The entity instance signature.")
   public DateTime getEtag() {
     return etag;
   }
@@ -170,7 +170,7 @@ public class DeviceQuery implements Serializable {
    * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(required = true, value = "The time the object was updated.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", required = true, value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

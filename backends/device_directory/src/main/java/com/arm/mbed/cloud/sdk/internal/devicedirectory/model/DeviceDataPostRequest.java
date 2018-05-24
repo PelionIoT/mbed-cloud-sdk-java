@@ -231,7 +231,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The expiration date of the certificate used to connect to bootstrap server.
    * @return bootstrapExpirationDate
   **/
-  @ApiModelProperty(value = "The expiration date of the certificate used to connect to bootstrap server.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to bootstrap server.")
   public DateTime getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
@@ -249,7 +249,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -285,7 +285,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The expiration date of the certificate used to connect to the LWM2M server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(value = "The expiration date of the certificate used to connect to the LWM2M server.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to the LWM2M server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }

@@ -339,7 +339,7 @@ public class DeviceData implements Serializable {
    * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -393,7 +393,7 @@ public class DeviceData implements Serializable {
    * The timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "The timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -581,7 +581,7 @@ public class DeviceData implements Serializable {
    * The claim date/time.
    * @return enrolmentListTimestamp
   **/
-  @ApiModelProperty(value = "The claim date/time.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The claim date/time.")
   public DateTime getEnrolmentListTimestamp() {
     return enrolmentListTimestamp;
   }
@@ -599,7 +599,7 @@ public class DeviceData implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(value = "The entity instance signature.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The entity instance signature.")
   public DateTime getEtag() {
     return etag;
   }
@@ -689,7 +689,7 @@ public class DeviceData implements Serializable {
    * The timestamp of the current manifest version.
    * @return manifestTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the current manifest version.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the current manifest version.")
   public DateTime getManifestTimestamp() {
     return manifestTimestamp;
   }
@@ -815,7 +815,7 @@ public class DeviceData implements Serializable {
    * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "The time the object was updated.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
