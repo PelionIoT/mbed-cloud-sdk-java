@@ -121,7 +121,7 @@ public interface AggregatorAccountAdminApi {
    * Create a new account.
    * An endpoint for creating a new account.
    * @param body Details of the account to be created. (required)
-   * @param action Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. (optional, default to create)
+   * @param action Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; (optional, default to create)
    * @return Call&lt;AccountCreationResp&gt;
    */
   @Headers({
