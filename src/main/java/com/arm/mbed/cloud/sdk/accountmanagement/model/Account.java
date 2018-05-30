@@ -320,7 +320,7 @@ public class Account implements SdkModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-        setCustomFields(customProperties);
+        setAdditionalFields(customProperties);
         setExpiryWarning(expiryWarning);
         setMultifactorAuthenticationStatus(multifactorAuthenticationStatus);
         setNotificationEmails(notificationEmailAddresses);
@@ -690,8 +690,17 @@ public class Account implements SdkModel {
      *
      * @return true if so. False otherwise.
      */
-    public boolean hasCustomFields() {
+    public boolean hasAdditionalFields() {
         return customProperties != null && !customProperties.isEmpty();
+    }
+
+    /**
+     * Gets account custom properties.
+     *
+     * @return the custom properties as a hashmap
+     */
+    public Map<String, String> getCustomFields() {
+        return hasAdditionalFields() ? customProperties.getRawProperties() : null;
     }
 
     /**
@@ -699,7 +708,7 @@ public class Account implements SdkModel {
      *
      * @return the custom properties
      */
-    public CustomProperties getCustomFields() {
+    public CustomProperties getAdditionalFields() {
         return customProperties;
     }
 
@@ -709,20 +718,32 @@ public class Account implements SdkModel {
      * @param customProperties
      *            the customProperties to set
      */
-    public void setCustomFields(CustomProperties customProperties) {
+    public void setAdditionalFields(CustomProperties customProperties) {
         this.customProperties = customProperties;
     }
 
     /**
      * Sets account custom properties from a Json string.
      * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
      *
-     * @param json
+     * @param customProperties
      *            Json string describing the custom attributes
      */
-    public void setCustomFields(String json) {
-        setCustomFields(new CustomProperties(json));
+    public void setCustomFieldsFromJson(String customProperties) {
+        setAdditionalFields(new CustomProperties(customProperties));
+    }
+
+    /**
+     * Sets account custom properties from a hashMap.
+     * <p>
+     * Note: Prefer using {@link #setAdditionalFields(CustomProperties)} instead
+     *
+     * @param customProperties
+     *            hashmap describing the custom properties
+     */
+    public void setCustomFields(Map<String, String> customProperties) {
+        setAdditionalFields(new CustomProperties(customProperties));
     }
 
     /**
@@ -734,13 +755,13 @@ public class Account implements SdkModel {
      */
     @Deprecated
     public Map<String, Map<String, String>> getCustomProperties() {
-        return hasCustomFields() ? customProperties.getPropertiesInFormerFormat() : null;
+        return hasAdditionalFields() ? customProperties.getPropertiesInFormerFormat() : null;
     }
 
     /**
      * Sets account custom properties from an Object.
      * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
      *
      * @param obj
      *            object describing the custom attributes
@@ -748,11 +769,11 @@ public class Account implements SdkModel {
     @Deprecated
     public void setCustomProperties(Object obj) {
         if (obj instanceof CustomProperties) {
-            setCustomFields((CustomProperties) obj);
+            setAdditionalFields((CustomProperties) obj);
         } else if (obj instanceof String) {
-            setCustomFields((String) obj);
+            setCustomFieldsFromJson((String) obj);
         } else {
-            setCustomFields(new CustomProperties().fromObject(obj));
+            setAdditionalFields(new CustomProperties().fromObject(obj));
         }
     }
 

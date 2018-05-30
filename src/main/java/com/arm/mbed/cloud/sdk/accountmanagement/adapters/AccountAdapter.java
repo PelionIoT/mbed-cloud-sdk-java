@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 
 import com.arm.mbed.cloud.sdk.accountmanagement.model.Account;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.AccountStatus;
-import com.arm.mbed.cloud.sdk.accountmanagement.model.CustomProperties;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.MultifactorAuthenticationStatus;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -51,7 +50,7 @@ public final class AccountAdapter {
         account.setCountry(accountInfo.getCountry());
         account.setEmail(accountInfo.getEmail());
         account.setAliases(accountInfo.getAliases());
-        account.setCustomFields(new CustomProperties(accountInfo.getCustomFields()));
+        account.setCustomFields(accountInfo.getCustomFields());
         account.setExpiryWarning(
                 TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(), Account.DEFAULT_EXPIRY_WARNING));
         account.setMultifactorAuthenticationStatus(toMultifactorAuthenticationStatus(accountInfo.getMfaStatus()));
@@ -152,8 +151,7 @@ public final class AccountAdapter {
         accountUpdateReq.setState(updateAccount.getState());
         accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
-        accountUpdateReq.setCustomFields(
-                updateAccount.hasCustomFields() ? updateAccount.getCustomFields().getRawProperties() : null);
+        accountUpdateReq.setCustomFields(updateAccount.getCustomFields());
         accountUpdateReq.setExpirationWarningThreshold(toWarningExpiry(updateAccount));
         accountUpdateReq.setMfaStatus(toMfaStatus(updateAccount.getMultifactorAuthenticationStatus()));
         accountUpdateReq.setNotificationEmails(updateAccount.getNotificationEmails());

@@ -220,7 +220,7 @@ public class User implements SdkModel {
         setAddress(address);
         setTermsAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
-        setCustomFields(customProperties);
+        setAdditionalFields(customProperties);
         hasEmailBeenUpdated = false;
     }
 
@@ -554,7 +554,7 @@ public class User implements SdkModel {
      *
      * @return true if so. False otherwise.
      */
-    public boolean hasCustomFields() {
+    public boolean hasAdditionalFields() {
         return customProperties != null && !customProperties.isEmpty();
     }
 
@@ -563,20 +563,29 @@ public class User implements SdkModel {
      *
      * @return the custom properties
      */
-    public CustomProperties getCustomFields() {
+    public CustomProperties getAdditionalFields() {
         return customProperties;
     }
 
     /**
      * Gets user custom properties.
+     *
+     * @return the custom properties
+     */
+    public Map<String, String> getCustomFields() {
+        return hasAdditionalFields() ? customProperties.getRawProperties() : null;
+    }
+
+    /**
+     * Gets user custom properties.
      * <p>
-     * Note: Similar to {@link #getCustomFields()}
+     * Note: Similar to {@link #getAdditionalFields()}
      *
      * @return the custom properties
      */
     @Deprecated
     public Map<String, Map<String, String>> getCustomProperties() {
-        return hasCustomFields() ? customProperties.getPropertiesInFormerFormat() : null;
+        return hasAdditionalFields() ? customProperties.getPropertiesInFormerFormat() : null;
     }
 
     /**
@@ -585,26 +594,36 @@ public class User implements SdkModel {
      * @param customProperties
      *            the customProperties to set
      */
-    public void setCustomFields(CustomProperties customProperties) {
+    public void setAdditionalFields(CustomProperties customProperties) {
         this.customProperties = customProperties;
+    }
+
+    /**
+     * Sets user custom properties.
+     *
+     * @param customProperties
+     *            the customProperties to set
+     */
+    public void setCustomFields(Map<String, String> customProperties) {
+        setAdditionalFields(new CustomProperties(customProperties));
     }
 
     /**
      * Sets user custom properties from a Json string.
      * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
      *
      * @param json
      *            Json string describing the custom attributes
      */
-    public void setCustomFields(String json) {
-        setCustomFields(new CustomProperties(json));
+    public void setCustomFieldsFromJson(String json) {
+        setAdditionalFields(new CustomProperties(json));
     }
 
     /**
      * Sets user custom properties from an Object.
      * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
      *
      * @param obj
      *            object describing the custom attributes
@@ -612,11 +631,11 @@ public class User implements SdkModel {
     @Deprecated
     public void setCustomProperties(Object obj) {
         if (obj instanceof CustomProperties) {
-            setCustomFields((CustomProperties) obj);
+            setAdditionalFields((CustomProperties) obj);
         } else if (obj instanceof String) {
-            setCustomFields((String) obj);
+            setCustomFieldsFromJson((String) obj);
         } else {
-            setCustomFields(new CustomProperties().fromObject(obj));
+            setAdditionalFields(new CustomProperties().fromObject(obj));
         }
     }
 
