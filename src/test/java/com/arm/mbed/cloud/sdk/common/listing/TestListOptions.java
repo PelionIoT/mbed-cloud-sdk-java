@@ -30,12 +30,12 @@ public class TestListOptions {
 
     @Test
     public void testSetOptions() {
-        ListOptions options = new ListOptions(new Integer(3), null, "after", null, null);
+        ListOptions options = new ListOptions(new Integer(3), new Long(3), null, "after", null, null);
         options.setOrder(Order.DESC);
         options.includeTotalCount();
         options.addEqualFilter("afield", "some value");
         options.addCustomFilter("field", FilterOperator.NOT_EQUAL, "value");
-        ListOptions options2 = new ListOptions(new Integer(4), null, "other", null, null);
+        ListOptions options2 = new ListOptions(new Integer(4), new Long(4), null, "other", null, null);
         options2.setOrder(Order.ASC);
         options2.addFilter("test_3", FilterOperator.LESS_THAN, "value1");
         assertNotEquals(options2.getOrder(), Order.DESC);
@@ -44,13 +44,13 @@ public class TestListOptions {
         options2.setOptions(options);
         assertEquals(options, options2);
         assertEquals(options.hashCode(), options2.hashCode());
-        assertEquals(options2.getOrder(), Order.DESC);
+        assertEquals(Order.DESC, options2.getOrder());
         assertEquals("some value", options2.fetchEqualFilterValue("afield"));
     }
 
     @Test
     public void testClone() {
-        ListOptions options = new ListOptions(new Integer(4), null, "after", null, null);
+        ListOptions options = new ListOptions(new Integer(4), new Long(4), null, "after", null, null);
         options.setOrder(Order.DESC);
         options.includeTotalCount();
         options.addCustomFilter("field", FilterOperator.NOT_EQUAL, "value");

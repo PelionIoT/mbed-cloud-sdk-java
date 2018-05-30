@@ -159,7 +159,7 @@ public class Certificates extends AbstractApi {
                 new CloudCall<TrustedCertificateRespList>() {
                     @Override
                     public Call<TrustedCertificateRespList> call() {
-                        return endpoint.getAccountDeveloper().getAllCertificates(finalOptions.getLimit(),
+                        return endpoint.getAccountDeveloper().getAllCertificates(finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude(),
                                 finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER), serviceEq,

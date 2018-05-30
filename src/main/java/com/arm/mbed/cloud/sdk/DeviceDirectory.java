@@ -51,7 +51,7 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Device directory module constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -64,7 +64,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all devices according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -72,7 +72,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     ListResponse<Device> devices = deviceDirectoryApi.listDevices(options);
@@ -85,7 +85,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of devices corresponding to filter options (One page).
@@ -107,8 +107,9 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DevicePage> call() {
-                return endpoint.getDirectory().deviceList(finalOptions.getLimit(), finalOptions.getOrder().toString(),
-                        finalOptions.getAfter(), DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                return endpoint.getDirectory().deviceList(finalOptions.getPageSize(),
+                        finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                        DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                         finalOptions.encodeInclude());
             }
         });
@@ -118,7 +119,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all devices according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -126,7 +127,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addDeviceTypeFilter("default", FilterOperator.EQUAL);
      *
      *     Paginator<Device> devices = deviceDirectoryApi.listAllDevices(options);
@@ -140,7 +141,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of devices corresponding to filter options.
@@ -162,7 +163,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets details of a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -175,7 +176,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            Device ID.
      * @return device corresponding to the device id or null if not found.
@@ -199,7 +200,7 @@ public class DeviceDirectory extends AbstractApi {
      * Adds a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -216,7 +217,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            Device details.
      * @return added device.
@@ -241,7 +242,7 @@ public class DeviceDirectory extends AbstractApi {
      * Updates a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -259,7 +260,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            Device details.
      * @return updated device.
@@ -286,7 +287,7 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -297,7 +298,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceId
      *            Device ID of the device to delete.
      * @throws MbedCloudException
@@ -321,7 +322,7 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a device.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -332,7 +333,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param device
      *            the device to delete.
      * @throws MbedCloudException
@@ -348,7 +349,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all queries according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -356,7 +357,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
      *     ListResponse<Query> queries = deviceDirectoryApi.listQueries(options);
@@ -369,7 +370,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of queries corresponding to filter options (One page).
@@ -384,7 +385,7 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DeviceQueryPage> call() {
-                return endpoint.getDirectory().deviceQueryList(finalOptions.getLimit(),
+                return endpoint.getDirectory().deviceQueryList(finalOptions.getPageSize(),
                         finalOptions.getOrder().toString(), finalOptions.getAfter(),
                         new FilterMarshaller(null).encode(finalOptions.getFilter()), finalOptions.encodeInclude());
             }
@@ -395,7 +396,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all queries according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -403,7 +404,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addCreatedAtFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     options.addNameFilter("QueryName", FilterOperator.EQUAL);
      *
      *     Paginator<Query> queries = deviceDirectoryApi.listAllQueries(options);
@@ -417,7 +418,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of queries corresponding to filter options.
@@ -439,7 +440,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets a query.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -452,7 +453,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param queryId
      *            Query ID.
      * @return query corresponding to the device id or null if not found.
@@ -476,7 +477,7 @@ public class DeviceDirectory extends AbstractApi {
      * Adds a query.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -498,7 +499,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param query
      *            the query to add.
      * @return added query.
@@ -523,7 +524,7 @@ public class DeviceDirectory extends AbstractApi {
      * Updates a query.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -543,13 +544,13 @@ public class DeviceDirectory extends AbstractApi {
      *     Query newQuery = deviceDirectoryApi.updateQuery(query);
      *     System.out.println("Update query name: " + newQuery.getName());
      *     assert query.getId() == newQuery.getId();
-     *     
+     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param query
      *            The query to update.
      * @return updated query.
@@ -576,19 +577,19 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a query.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     String queryId = "015f4ac587f500000000000100100249";
      *     deviceDirectoryApi.deleteQuery(queryId);
-     *     
+     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param queryId
      *            query ID of the query to delete.
      * @throws MbedCloudException
@@ -612,19 +613,19 @@ public class DeviceDirectory extends AbstractApi {
      * Deletes a query.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
      *     Query query = deviceDirectoryApi.getQuery("015f4ac587f500000000000100100249");
      *     deviceDirectoryApi.deleteQuery(query);
-     *     
+     *
      * } catch (MbedCloudException e) {
      *     e.printStackTrace();
      * }
      * }
      * </pre>
-     * 
+     *
      * @param query
      *            The query to delete.
      * @throws MbedCloudException
@@ -640,7 +641,7 @@ public class DeviceDirectory extends AbstractApi {
      * Lists all device events according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -648,7 +649,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addEventDateFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
      *
@@ -662,7 +663,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return The list of device events corresponding to filter options (One page).
@@ -679,7 +680,7 @@ public class DeviceDirectory extends AbstractApi {
 
                     @Override
                     public Call<DeviceEventPage> call() {
-                        return endpoint.getDirectory().deviceLogList(finalOptions.getLimit(),
+                        return endpoint.getDirectory().deviceLogList(finalOptions.getPageSize(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
@@ -691,7 +692,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets an iterator over all device events according to filter options.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -699,7 +700,7 @@ public class DeviceDirectory extends AbstractApi {
      *
      *     Calendar date = GregorianCalendar(2017,10,30,10,20,56);
      *     options.addEventDateFilter(date.getTime(), FilterOperator.GREATER_THAN);
-     *     
+     *
      *     String deviceId = "015f4ac587f500000000000100100249";
      *     options.addDeviceIdFilter(deviceId, FilterOperator.EQUAL);
      *
@@ -714,7 +715,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of device events corresponding to filter options.
@@ -738,7 +739,7 @@ public class DeviceDirectory extends AbstractApi {
      * Gets a single device event.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -751,7 +752,7 @@ public class DeviceDirectory extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param deviceEventId
      *            Device event ID.
      * @return device event corresponding to the device event id or null if not found.
@@ -774,7 +775,7 @@ public class DeviceDirectory extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override

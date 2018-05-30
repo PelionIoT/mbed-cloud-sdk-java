@@ -82,13 +82,72 @@ public class TestPaginator {
     }
 
     @Test
-    public final void testMultiplePagesIteration() {
+    public final void testOnePageIterationWithResultNumberLimit() {
         int elementNumber = 41;
+        final FakeServer server = new FakeServer(1, elementNumber);
+        ListOptions options = new ListOptions();
+        int maxResult = 4;
+        options.setMaxResults(Long.valueOf(maxResult));
+        try {
+            Paginator<FakeElement> paginator = new Paginator<>(options, new PageRequester<FakeElement>() {
+
+                @Override
+                public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
+                    return server.fetchPage(opt);
+                }
+
+            });
+            assertNotNull(paginator.iterator());
+            assertNotNull(paginator.getRequester());
+            assertNull(paginator.previous());
+            assertFalse(paginator.hasPrevious());
+            assertFalse(paginator.hasPreviousPage());
+            assertTrue(paginator.isFirstPage());
+            assertTrue(paginator.isLastPage());
+            assertNotNull(paginator.getLastPage());
+            assertEquals(paginator.getFirstPage(), paginator.getLastPage());
+            assertEquals(paginator.getCurrentPage(), paginator.getLastPage());
+            assertNull(paginator.getNextPage());
+            FakeElement testingElement = paginator.first();
+            assertEquals(0, testingElement.id);
+            assertEquals(0, testingElement.value);
+            testingElement = paginator.last();
+            assertEquals(maxResult - 1, testingElement.id);
+            assertEquals((maxResult - 1) * 4, testingElement.value);
+            assertEquals(paginator.first(), paginator.current());
+            assertEquals(elementNumber, paginator.getElementsTotal());
+            assertEquals(elementNumber, paginator.getNumberOfPageElements());
+            assertEquals(1, paginator.getPagesNumber());
+            assertEquals(0, paginator.getPageIndex());
+            for (int i = 0; i < maxResult; i++) {
+                assertTrue(paginator.hasNext());
+                FakeElement element = paginator.next();
+                assertEquals(i, element.id);
+                assertEquals(i * 4, element.value);
+            }
+            FakeElement previous = paginator.previous();
+            if (maxResult > 1) {
+                assertEquals(maxResult - 2, previous.id);
+                assertEquals((maxResult - 2) * 4, previous.value);
+            } else {
+                assertNull(paginator.previous());
+            }
+            assertEquals(paginator.last(), paginator.current());
+            assertFalse(paginator.hasNext());
+            assertNull(paginator.next());
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
+    }
+
+    @Test
+    public final void testMultiplePagesIteration() {
+        int pageSize = 41;
         int pageNumber = 5;
-        int totalNumberOfElements = elementNumber * pageNumber;
+        int totalNumberOfElements = pageSize * pageNumber;
         long idSum = 0;
         long valueSum = 0;
-        final FakeServer server = new FakeServer(pageNumber, elementNumber);
+        final FakeServer server = new FakeServer(pageNumber, pageSize);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(null, new PageRequester<FakeElement>() {
 
@@ -130,7 +189,7 @@ public class TestPaginator {
             assertEquals(totalNumberOfElements - 1, testingElement.id);
             assertEquals((totalNumberOfElements - 1) * 4, testingElement.value);
             assertEquals(totalNumberOfElements, paginator.getElementsTotal());
-            assertEquals(elementNumber, paginator.getNumberOfPageElements());
+            assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals(5, paginator.getPagesNumber());
             assertNotEquals(0, paginator.getPageIndex());
             assertNotNull(paginator.getCurrentPage());
@@ -221,7 +280,7 @@ public class TestPaginator {
 
     private class FakeElement implements SdkModel {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 1L;
         final int id;
@@ -247,7 +306,7 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.common.SdkModel#isValid()
          */
         @Override
@@ -257,7 +316,7 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.common.SdkModel#getId()
          */
         @Override
@@ -267,7 +326,7 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#clone()
          */
         @Override
@@ -284,7 +343,7 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -299,24 +358,30 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             FakeElement other = (FakeElement) obj;
-            if (!getOuterType().equals(other.getOuterType()))
+            if (!getOuterType().equals(other.getOuterType())) {
                 return false;
-            if (id != other.id)
+            }
+            if (id != other.id) {
                 return false;
-            if (value != other.value)
+            }
+            if (value != other.value) {
                 return false;
+            }
             return true;
         }
 
@@ -347,13 +412,14 @@ public class TestPaginator {
         ListResponse<FakeElement> getPage() {
             ListResponse<FakeElement> page = new ListResponse<>();
             page.setData(elements);
+            // page.setPageSize(elements.size());
             page.setHasMore(hasMore);
             return page;
         }
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -368,27 +434,34 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             FakePage other = (FakePage) obj;
-            if (!getOuterType().equals(other.getOuterType()))
+            if (!getOuterType().equals(other.getOuterType())) {
                 return false;
+            }
             if (elements == null) {
-                if (other.elements != null)
+                if (other.elements != null) {
                     return false;
-            } else if (!elements.equals(other.elements))
+                }
+            } else if (!elements.equals(other.elements)) {
                 return false;
-            if (hasMore != other.hasMore)
+            }
+            if (hasMore != other.hasMore) {
                 return false;
+            }
             return true;
         }
 
@@ -398,7 +471,7 @@ public class TestPaginator {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override
@@ -418,6 +491,7 @@ public class TestPaginator {
             for (int i = 0; i < pageNumber; i++) {
                 FakePage page = new FakePage(i != (pageNumber - 1));
                 page.generateElements(pageSize, i * pageSize);
+                page.s
                 pages.add(page);
                 allElements.addAll(page.elements);
             }
@@ -428,7 +502,7 @@ public class TestPaginator {
                 return (pages.isEmpty()) ? null : pages.get(0);
             }
             @SuppressWarnings("cast")
-            int eid = (int) Integer.parseInt(id);
+            int eid = Integer.parseInt(id);
             for (FakeElement element : allElements) {
                 if (element.id == eid) {
                     return element.getRelatedPage();
