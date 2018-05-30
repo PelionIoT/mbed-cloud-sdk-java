@@ -37,9 +37,6 @@ import java.io.Serializable;
 public class AccountUpdateRootReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("account_properties")
-  private Map<String, Map<String, String>> accountProperties = null;
-
   @SerializedName("address_line1")
   private String addressLine1 = null;
 
@@ -63,6 +60,9 @@ public class AccountUpdateRootReq implements Serializable {
 
   @SerializedName("country")
   private String country = null;
+
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
 
   @SerializedName("customer_number")
   private String customerNumber = null;
@@ -149,32 +149,6 @@ public class AccountUpdateRootReq implements Serializable {
 
   @SerializedName("state")
   private String state = null;
-
-  public AccountUpdateRootReq accountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-    return this;
-  }
-
-  public AccountUpdateRootReq putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
-    if (this.accountProperties == null) {
-      this.accountProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.accountProperties.put(key, accountPropertiesItem);
-    return this;
-  }
-
-   /**
-   * Properties for this account.
-   * @return accountProperties
-  **/
-  @ApiModelProperty(value = "Properties for this account.")
-  public Map<String, Map<String, String>> getAccountProperties() {
-    return accountProperties;
-  }
-
-  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-  }
 
   public AccountUpdateRootReq addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
@@ -326,6 +300,32 @@ public class AccountUpdateRootReq implements Serializable {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+
+  public AccountUpdateRootReq customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public AccountUpdateRootReq putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * Account&#39;s custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public AccountUpdateRootReq customerNumber(String customerNumber) {
@@ -580,8 +580,7 @@ public class AccountUpdateRootReq implements Serializable {
       return false;
     }
     AccountUpdateRootReq accountUpdateRootReq = (AccountUpdateRootReq) o;
-    return Objects.equals(this.accountProperties, accountUpdateRootReq.accountProperties) &&
-        Objects.equals(this.addressLine1, accountUpdateRootReq.addressLine1) &&
+    return Objects.equals(this.addressLine1, accountUpdateRootReq.addressLine1) &&
         Objects.equals(this.addressLine2, accountUpdateRootReq.addressLine2) &&
         Objects.equals(this.aliases, accountUpdateRootReq.aliases) &&
         Objects.equals(this.city, accountUpdateRootReq.city) &&
@@ -589,6 +588,7 @@ public class AccountUpdateRootReq implements Serializable {
         Objects.equals(this.contact, accountUpdateRootReq.contact) &&
         Objects.equals(this.contractNumber, accountUpdateRootReq.contractNumber) &&
         Objects.equals(this.country, accountUpdateRootReq.country) &&
+        Objects.equals(this.customFields, accountUpdateRootReq.customFields) &&
         Objects.equals(this.customerNumber, accountUpdateRootReq.customerNumber) &&
         Objects.equals(this.displayName, accountUpdateRootReq.displayName) &&
         Objects.equals(this.email, accountUpdateRootReq.email) &&
@@ -606,7 +606,7 @@ public class AccountUpdateRootReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountProperties, addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country, customerNumber, displayName, email, endMarket, expirationWarningThreshold, idleTimeout, mfaStatus, notificationEmails, passwordPolicy, phoneNumber, postalCode, salesContact, state);
+    return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country, customFields, customerNumber, displayName, email, endMarket, expirationWarningThreshold, idleTimeout, mfaStatus, notificationEmails, passwordPolicy, phoneNumber, postalCode, salesContact, state);
   }
 
 
@@ -615,7 +615,6 @@ public class AccountUpdateRootReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountUpdateRootReq {\n");
     
-    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
@@ -624,6 +623,7 @@ public class AccountUpdateRootReq implements Serializable {
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");

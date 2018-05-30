@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**accountProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | Account specific custom properties. |  [optional]
 **addressLine1** | **String** | Postal address line 1. |  [optional]
 **addressLine2** | **String** | Postal address line 2. |  [optional]
 **aliases** | **List&lt;String&gt;** | An array of aliases. | 
@@ -14,6 +13,7 @@ Name | Type | Description | Notes
 **contractNumber** | **String** | Contract number of the customer. |  [optional]
 **country** | **String** | The country part of the postal address. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
+**customFields** | **Map&lt;String, String&gt;** | Account&#39;s custom properties as key-value pairs. |  [optional]
 **customerNumber** | **String** | Customer number of the customer. |  [optional]
 **displayName** | **String** | The display name for the account. |  [optional]
 **email** | **String** | The company email address for this account. |  [optional]
