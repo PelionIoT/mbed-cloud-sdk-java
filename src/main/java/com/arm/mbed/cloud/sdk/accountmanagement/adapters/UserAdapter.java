@@ -112,7 +112,7 @@ public final class UserAdapter {
         final UserUpdateReq userUpdate = new UserUpdateReq();
         userUpdate.setFullName(user.getFullName());
         userUpdate.setUsername(user.getUsername());
-        userUpdate.setPassword(user.getPassword());
+        // IOTAUTH-1547 removed password from the update request
         userUpdate.setEmail(user.getEmail());
         userUpdate.setPhoneNumber(user.getPhoneNumber());
         userUpdate.setAddress(user.getAddress());
