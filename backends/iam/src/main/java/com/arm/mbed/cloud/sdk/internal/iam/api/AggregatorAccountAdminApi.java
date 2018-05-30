@@ -19,8 +19,10 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -146,6 +148,21 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Create a new group.
+   * An endpoint for creating a new group.
+   * @param accountID Account ID. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;GroupSummary&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/accounts/{accountID}/policy-groups")
+  Call<GroupSummary> createAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body GroupCreationInfo body
+  );
+
+  /**
    * Create a new user.
    * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
    * @param accountID Account ID. (required)
@@ -183,6 +200,18 @@ public interface AggregatorAccountAdminApi {
   @DELETE("v3/accounts/{accountID}/trusted-certificates/{cert-id}")
   Call<Void> deleteAccountCertificate(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "cert-id", encoded = true) String certId
+  );
+
+  /**
+   * Delete a group.
+   * An endpoint for deleting a group.
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<Void> deleteAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID
   );
 
   /**
@@ -309,10 +338,10 @@ public interface AggregatorAccountAdminApi {
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param nameEq Filter for group name (optional)
-   * @return Call&lt;List&lt;GroupSummary&gt;&gt;
+   * @return Call&lt;GroupSummaryList&gt;
    */
   @GET("v3/accounts/{accountID}/policy-groups")
-  Call<List<GroupSummary>> getAllAccountGroups(
+  Call<GroupSummaryList> getAllAccountGroups(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
   );
 
@@ -543,6 +572,22 @@ public interface AggregatorAccountAdminApi {
   @PUT("v3/accounts/{accountID}/trusted-certificates/{cert-id}")
   Call<TrustedCertificateInternalResp> updateAccountCertificate(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "cert-id", encoded = true) String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
+  );
+
+  /**
+   * Update the group name.
+   * An endpoint for updating a group name.
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be updated. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<UpdatedResponse> updateAccountGroupName(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
   );
 
   /**

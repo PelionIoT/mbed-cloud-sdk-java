@@ -104,10 +104,10 @@ public class UserUpdateReq implements Serializable {
   }
 
    /**
-   * User&#39;s account specific custom properties. The value is handled as a string.
+   * User&#39;s account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
    * @return customFields
   **/
-  @ApiModelProperty(value = "User's account specific custom properties. The value is handled as a string.")
+  @ApiModelProperty(value = "User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.")
   public Map<String, String> getCustomFields() {
     return customFields;
   }

@@ -11,9 +11,11 @@ Method | HTTP request | Description
 [**checkAccountApiKey**](AggregatorAccountAdminApi.md#checkAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 [**createAccount**](AggregatorAccountAdminApi.md#createAccount) | **POST** v3/accounts | Create a new account.
 [**createAccountApiKey**](AggregatorAccountAdminApi.md#createAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys | Create a new API key.
+[**createAccountGroup**](AggregatorAccountAdminApi.md#createAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups | Create a new group.
 [**createAccountUser**](AggregatorAccountAdminApi.md#createAccountUser) | **POST** v3/accounts/{accountID}/users | Create a new user.
 [**deleteAccountApiKey**](AggregatorAccountAdminApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**deleteAccountCertificate**](AggregatorAccountAdminApi.md#deleteAccountCertificate) | **DELETE** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
+[**deleteAccountGroup**](AggregatorAccountAdminApi.md#deleteAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
 [**deleteAccountUser**](AggregatorAccountAdminApi.md#deleteAccountUser) | **DELETE** v3/accounts/{accountID}/users/{user-id} | Delete a user.
 [**getAccountApiKey**](AggregatorAccountAdminApi.md#getAccountApiKey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**getAccountCertificate**](AggregatorAccountAdminApi.md#getAccountCertificate) | **GET** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
@@ -37,6 +39,7 @@ Method | HTTP request | Description
 [**updateAccount**](AggregatorAccountAdminApi.md#updateAccount) | **PUT** v3/accounts/{accountID} | Update attributes of an existing account.
 [**updateAccountApiKey**](AggregatorAccountAdminApi.md#updateAccountApiKey) | **PUT** v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**updateAccountCertificate**](AggregatorAccountAdminApi.md#updateAccountCertificate) | **PUT** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
+[**updateAccountGroupName**](AggregatorAccountAdminApi.md#updateAccountGroupName) | **PUT** v3/accounts/{accountID}/policy-groups/{groupID} | Update the group name.
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -446,6 +449,63 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createAccountGroup"></a>
+# **createAccountGroup**
+> GroupSummary createAccountGroup(accountID, body)
+
+Create a new group.
+
+An endpoint for creating a new group.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+GroupCreationInfo body = new GroupCreationInfo(); // GroupCreationInfo | Details of the group to be created.
+try {
+    GroupSummary result = apiInstance.createAccountGroup(accountID, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#createAccountGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **body** | [**GroupCreationInfo**](GroupCreationInfo.md)| Details of the group to be created. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createAccountUser"></a>
 # **createAccountUser**
 > UserInfoResp createAccountUser(accountID, body, action)
@@ -605,6 +665,63 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **certId** | **String**| The ID of the trusted certificate to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAccountGroup"></a>
+# **deleteAccountGroup**
+> Void deleteAccountGroup(accountID, groupID)
+
+Delete a group.
+
+An endpoint for deleting a group.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String groupID = "groupID_example"; // String | The ID of the group to be deleted.
+try {
+    Void result = apiInstance.deleteAccountGroup(accountID, groupID);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#deleteAccountGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **groupID** | **String**| The ID of the group to be deleted. |
 
 ### Return type
 
@@ -1115,7 +1232,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllAccountGroups"></a>
 # **getAllAccountGroups**
-> List&lt;GroupSummary&gt; getAllAccountGroups(accountID, limit, after, order, include, nameEq)
+> GroupSummaryList getAllAccountGroups(accountID, limit, after, order, include, nameEq)
 
 Get all group information.
 
@@ -1146,7 +1263,7 @@ String order = "ASC"; // String | The order of the records based on creation tim
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String nameEq = "nameEq_example"; // String | Filter for group name
 try {
-    List<GroupSummary> result = apiInstance.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
+    GroupSummaryList result = apiInstance.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountGroups");
@@ -1167,7 +1284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List&lt;GroupSummary&gt;**](GroupSummary.md)
+[**GroupSummaryList**](GroupSummaryList.md)
 
 ### Authorization
 
@@ -2052,6 +2169,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**TrustedCertificateInternalResp**](TrustedCertificateInternalResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="updateAccountGroupName"></a>
+# **updateAccountGroupName**
+> UpdatedResponse updateAccountGroupName(accountID, groupID, body)
+
+Update the group name.
+
+An endpoint for updating a group name.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String groupID = "groupID_example"; // String | The ID of the group to be updated.
+GroupUpdateInfo body = new GroupUpdateInfo(); // GroupUpdateInfo | Details of the group to be created.
+try {
+    UpdatedResponse result = apiInstance.updateAccountGroupName(accountID, groupID, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountGroupName");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **groupID** | **String**| The ID of the group to be updated. |
+ **body** | [**GroupUpdateInfo**](GroupUpdateInfo.md)| Details of the group to be created. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
 
 ### Authorization
 
