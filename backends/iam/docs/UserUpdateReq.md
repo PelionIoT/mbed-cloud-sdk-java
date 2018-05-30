@@ -12,7 +12,6 @@ Name | Type | Description | Notes
 **isGtcAccepted** | **Boolean** | A flag indicating that the General Terms and Conditions has been accepted. |  [optional]
 **isMarketingAccepted** | **Boolean** | A flag indicating that receiving marketing information has been accepted. |  [optional]
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has to be enabled or disabled. |  [optional]
-**password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **phoneNumber** | **String** | Phone number, not longer than 100 characters. |  [optional]
 **status** | **String** | The status of the user. |  [optional]
 **username** | **String** | A username containing alphanumerical letters and -,._@+&#x3D; characters. It must be at least 4 but not more than 30 character long. |  [optional]

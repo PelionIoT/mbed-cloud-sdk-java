@@ -362,7 +362,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 AccountCreationReq body = new AccountCreationReq(); // AccountCreationReq | Details of the account to be created.
-String action = "create"; // String | Action, either 'create', 'enroll' or 'enrollment_link'.
+String action = "create"; // String | Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
 try {
     AccountCreationResp result = apiInstance.createAccount(body, action);
     System.out.println(result);
@@ -377,7 +377,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**AccountCreationReq**](AccountCreationReq.md)| Details of the account to be created. |
- **action** | **String**| Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. | [optional] [default to create]
+ **action** | **String**| Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; | [optional] [default to create]
 
 ### Return type
 
