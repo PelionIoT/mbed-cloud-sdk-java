@@ -153,10 +153,10 @@ public class TrustedCertificateUpdateReq implements Serializable {
   }
 
    /**
-   * X509.v3 trusted certificate in PEM format.
+   * A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.
    * @return certificate
   **/
-  @ApiModelProperty(value = "X509.v3 trusted certificate in PEM format.")
+  @ApiModelProperty(value = "A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required.")
   public String getCertificate() {
     return certificate;
   }
@@ -243,10 +243,10 @@ public class TrustedCertificateUpdateReq implements Serializable {
   }
 
    /**
-   * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;.
+   * DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.
    * @return signature
   **/
-  @ApiModelProperty(value = "DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is 'true'.")
+  @ApiModelProperty(value = "DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain.")
   public String getSignature() {
     return signature;
   }
