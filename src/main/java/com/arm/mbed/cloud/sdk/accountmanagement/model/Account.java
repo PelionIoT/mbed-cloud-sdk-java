@@ -320,7 +320,7 @@ public class Account implements SdkModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-        setAdditionalFields(customProperties);
+        setAdditionalProperties(customProperties);
         setExpiryWarning(expiryWarning);
         setMultifactorAuthenticationStatus(multifactorAuthenticationStatus);
         setNotificationEmails(notificationEmailAddresses);
@@ -690,17 +690,8 @@ public class Account implements SdkModel {
      *
      * @return true if so. False otherwise.
      */
-    public boolean hasAdditionalFields() {
+    public boolean hasAdditionalProperties() {
         return customProperties != null && !customProperties.isEmpty();
-    }
-
-    /**
-     * Gets account custom properties.
-     *
-     * @return the custom properties as a hashmap
-     */
-    public Map<String, String> getCustomFields() {
-        return hasAdditionalFields() ? customProperties.getRawProperties() : null;
     }
 
     /**
@@ -708,7 +699,7 @@ public class Account implements SdkModel {
      *
      * @return the custom properties
      */
-    public CustomProperties getAdditionalFields() {
+    public CustomProperties getAdditionalProperties() {
         return customProperties;
     }
 
@@ -718,63 +709,59 @@ public class Account implements SdkModel {
      * @param customProperties
      *            the customProperties to set
      */
-    public void setAdditionalFields(CustomProperties customProperties) {
+    public void setAdditionalProperties(CustomProperties customProperties) {
         this.customProperties = customProperties;
     }
 
     /**
      * Sets account custom properties from a Json string.
      * <p>
-     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalProperties(CustomProperties)}
      *
      * @param customProperties
      *            Json string describing the custom attributes
      */
-    public void setCustomFieldsFromJson(String customProperties) {
-        setAdditionalFields(new CustomProperties(customProperties));
-    }
-
-    /**
-     * Sets account custom properties from a hashMap.
-     * <p>
-     * Note: Prefer using {@link #setAdditionalFields(CustomProperties)} instead
-     *
-     * @param customProperties
-     *            hashmap describing the custom properties
-     */
-    public void setCustomFields(Map<String, String> customProperties) {
-        setAdditionalFields(new CustomProperties(customProperties));
+    public void setAdditionalPropertiesFromJson(String customProperties) {
+        setAdditionalProperties(new CustomProperties(customProperties));
     }
 
     /**
      * Gets account custom properties.
      * <p>
-     * Note: Similar to {@link #getCustomFields()}
+     * Note: Similar to {@link #getAdditionalProperties()}
      *
-     * @return the custom properties
+     * @return the custom properties but as a hashtable.
      */
-    @Deprecated
-    public Map<String, Map<String, String>> getCustomProperties() {
-        return hasAdditionalFields() ? customProperties.getPropertiesInFormerFormat() : null;
+    public Map<String, String> getCustomProperties() {
+        return hasAdditionalProperties() ? customProperties.getRawProperties() : null;
+    }
+
+    /**
+     * Gets account custom properties.
+     * <p>
+     * Note: Similar to {@link #getAdditionalProperties()} but the properties are returned in the format specified by
+     * the returnType
+     *
+     * @param returnType
+     *            type of the object returned containing the different properties.
+     * @param <T>
+     *            type of the return object
+     * @return the custom properties as an object of the specified type.
+     */
+    public <T> T getCustomProperties(Class<T> returnType) {
+        return hasAdditionalProperties() ? customProperties.getProperties(returnType) : null;
     }
 
     /**
      * Sets account custom properties from an Object.
      * <p>
-     * Note: Similar to {@link #setAdditionalFields(CustomProperties)}
+     * Note: Similar to {@link #setAdditionalProperties(CustomProperties)}
      *
      * @param obj
      *            object describing the custom attributes
      */
-    @Deprecated
     public void setCustomProperties(Object obj) {
-        if (obj instanceof CustomProperties) {
-            setAdditionalFields((CustomProperties) obj);
-        } else if (obj instanceof String) {
-            setCustomFieldsFromJson((String) obj);
-        } else {
-            setAdditionalFields(new CustomProperties().fromObject(obj));
-        }
+        setAdditionalProperties(CustomProperties.from(obj));
     }
 
     /**

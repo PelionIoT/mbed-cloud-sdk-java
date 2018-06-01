@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.accountmanagement.model.CustomProperties;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -52,7 +53,7 @@ public final class UserAdapter {
         user.setAddress(apiUser.getAddress());
         user.setTermsAccepted(TranslationUtils.toBool(apiUser.isIsGtcAccepted(), true));
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.isIsMarketingAccepted(), true));
-        user.setCustomFields(apiUser.getCustomFields());
+        user.setCustomProperties(new CustomProperties(apiUser.getCustomFields()));
         return user;
 
     }
@@ -94,7 +95,7 @@ public final class UserAdapter {
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userInfo.setGroups(user.getGroups());
-        userInfo.setCustomFields(user.getCustomFields());
+        userInfo.setCustomFields(user.getCustomProperties());
         return userInfo;
     }
 
@@ -119,7 +120,7 @@ public final class UserAdapter {
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userUpdate.setGroups(user.getGroups());
-        userUpdate.setCustomFields(user.getCustomFields());
+        userUpdate.setCustomFields(user.getCustomProperties());
         return userUpdate;
     }
 
