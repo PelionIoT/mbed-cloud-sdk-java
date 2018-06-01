@@ -287,7 +287,7 @@ public class CustomProperties implements SdkModel {
     }
 
     /**
-     * Generates the custom properties from a custom object
+     * Generates the custom properties from a custom object.
      *
      * @param obj
      *            object describing the properties

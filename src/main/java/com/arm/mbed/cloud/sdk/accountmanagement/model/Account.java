@@ -746,7 +746,7 @@ public class Account implements SdkModel {
      *            type of the object returned containing the different properties.
      * @param <T>
      *            type of the return object
-     * @return the custom properties as a object of type <T>.
+     * @return the custom properties as an object of the specified type.
      */
     public <T> T getCustomProperties(Class<T> returnType) {
         return hasAdditionalProperties() ? customProperties.getProperties(returnType) : null;
