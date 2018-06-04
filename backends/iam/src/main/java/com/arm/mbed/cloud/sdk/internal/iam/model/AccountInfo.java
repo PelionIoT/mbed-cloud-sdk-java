@@ -40,9 +40,6 @@ import java.io.Serializable;
 public class AccountInfo implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("account_properties")
-  private Map<String, Map<String, String>> accountProperties = null;
-
   @SerializedName("address_line1")
   private String addressLine1 = null;
 
@@ -69,6 +66,9 @@ public class AccountInfo implements Serializable {
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
+
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
 
   @SerializedName("customer_number")
   private String customerNumber = null;
@@ -294,32 +294,6 @@ public class AccountInfo implements Serializable {
   @SerializedName("upgraded_at")
   private DateTime upgradedAt = null;
 
-  public AccountInfo accountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-    return this;
-  }
-
-  public AccountInfo putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
-    if (this.accountProperties == null) {
-      this.accountProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.accountProperties.put(key, accountPropertiesItem);
-    return this;
-  }
-
-   /**
-   * Account specific custom properties.
-   * @return accountProperties
-  **/
-  @ApiModelProperty(value = "Account specific custom properties.")
-  public Map<String, Map<String, String>> getAccountProperties() {
-    return accountProperties;
-  }
-
-  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-  }
-
   public AccountInfo addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
     return this;
@@ -485,6 +459,32 @@ public class AccountInfo implements Serializable {
 
   public void setCreatedAt(DateTime createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public AccountInfo customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public AccountInfo putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * Account&#39;s custom properties as key-value pairs.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "Account's custom properties as key-value pairs.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public AccountInfo customerNumber(String customerNumber) {
@@ -1015,8 +1015,7 @@ public class AccountInfo implements Serializable {
       return false;
     }
     AccountInfo accountInfo = (AccountInfo) o;
-    return Objects.equals(this.accountProperties, accountInfo.accountProperties) &&
-        Objects.equals(this.addressLine1, accountInfo.addressLine1) &&
+    return Objects.equals(this.addressLine1, accountInfo.addressLine1) &&
         Objects.equals(this.addressLine2, accountInfo.addressLine2) &&
         Objects.equals(this.aliases, accountInfo.aliases) &&
         Objects.equals(this.city, accountInfo.city) &&
@@ -1025,6 +1024,7 @@ public class AccountInfo implements Serializable {
         Objects.equals(this.contractNumber, accountInfo.contractNumber) &&
         Objects.equals(this.country, accountInfo.country) &&
         Objects.equals(this.createdAt, accountInfo.createdAt) &&
+        Objects.equals(this.customFields, accountInfo.customFields) &&
         Objects.equals(this.customerNumber, accountInfo.customerNumber) &&
         Objects.equals(this.displayName, accountInfo.displayName) &&
         Objects.equals(this.email, accountInfo.email) &&
@@ -1056,7 +1056,7 @@ public class AccountInfo implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountProperties, addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country, createdAt, customerNumber, displayName, email, endMarket, etag, expirationWarningThreshold, id, idleTimeout, limits, mfaStatus, notificationEmails, object, parentId, passwordPolicy, phoneNumber, policies, postalCode, reason, referenceNote, salesContact, state, status, subAccounts, templateId, tier, updatedAt, upgradedAt);
+    return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, contractNumber, country, createdAt, customFields, customerNumber, displayName, email, endMarket, etag, expirationWarningThreshold, id, idleTimeout, limits, mfaStatus, notificationEmails, object, parentId, passwordPolicy, phoneNumber, policies, postalCode, reason, referenceNote, salesContact, state, status, subAccounts, templateId, tier, updatedAt, upgradedAt);
   }
 
 
@@ -1065,7 +1065,6 @@ public class AccountInfo implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountInfo {\n");
     
-    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
@@ -1075,6 +1074,7 @@ public class AccountInfo implements Serializable {
     sb.append("    contractNumber: ").append(toIndentedString(contractNumber)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    customerNumber: ").append(toIndentedString(customerNumber)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
