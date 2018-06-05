@@ -194,8 +194,9 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(),
-                                finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getPageSize(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude(),
                                 finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
                                 finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
                     }
@@ -472,7 +473,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoRespList> call() {
-                return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
+                return endpoint.getAdmin().getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
@@ -780,7 +781,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<GroupSummaryList> call() {
-                return endpoint.getDeveloper().getAllGroups(finalOptions.getLimit(), finalOptions.getAfter(),
+                return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(), finalOptions.getNameFilter());
             }
         });
@@ -906,7 +907,7 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<UserInfoRespList> call() {
-                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getLimit(),
+                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude(),
                                 finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
@@ -1081,7 +1082,7 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getLimit(),
+                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude());
                     }

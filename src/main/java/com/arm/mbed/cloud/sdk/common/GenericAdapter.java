@@ -91,7 +91,7 @@ public class GenericAdapter {
             return null;
         }
         final ListResponse<T> responseList = new ListResponse<>(TranslationUtils.toBool(respList.getHasMore(), false),
-                TranslationUtils.toInt(respList.getTotalCount()), respList.getAfter(),
+                TranslationUtils.toLong(respList.getTotalCount()), respList.getAfter(),
                 TranslationUtils.toInt(respList.getLimit()),
                 Order.parseOrder(respList.getOrder(), Order.getUnknownEnum()));
         if (respList.getData() == null || respList.getData().isEmpty()) {

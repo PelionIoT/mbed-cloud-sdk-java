@@ -27,15 +27,15 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     /**
      * Total number of records.
      */
-    private int totalCount;
+    private long totalCount;
     /**
      * Entity id for fetch after it.
      */
     private String after;
     /**
-     * The number of results to return.
+     * The page size.
      */
-    private int limit;
+    private int pageSize;
     /**
      * Order of returned records.
      */
@@ -48,29 +48,29 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Constructor.
-     * 
+     *
      * @param hasMore
      *            Whether there are more results to display.
      * @param totalCount
      *            Total number of records.
      * @param after
      *            Entity id for fetch after it.
-     * @param limit
+     * @param pageSize
      *            The number of results to return.
      * @param order
      *            Order of returned records.
      */
-    public ListResponse(boolean hasMore, int totalCount, String after, int limit, Order order) {
-        this(hasMore, totalCount, after, limit, order, null);
+    public ListResponse(boolean hasMore, long totalCount, String after, int pageSize, Order order) {
+        this(hasMore, totalCount, after, pageSize, order, null);
         initialiseData();
     }
 
-    private ListResponse(boolean hasMore, int totalCount, String after, int limit, Order order, List<T> data) {
+    private ListResponse(boolean hasMore, long totalCount, String after, int pageSize, Order order, List<T> data) {
         super();
         setHasMore(hasMore);
         setTotalCount(totalCount);
         setAfter(after);
-        setLimit(limit);
+        setPageSize(pageSize);
         setOrder(order);
         this.data = data;
     }
@@ -90,7 +90,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * States whether there are more results.
-     * 
+     *
      * @return the hasMore
      */
     public boolean hasMore() {
@@ -101,7 +101,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      * States whether there are more results.
      * <p>
      * Similar to {@link #hasMore()}
-     * 
+     *
      * @return the hasMore
      */
     @Internal
@@ -111,7 +111,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Sets whether there are more results.
-     * 
+     *
      * @param hasMore
      *            the hasMore to set
      */
@@ -121,26 +121,26 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Gets total number of results.
-     * 
+     *
      * @return the totalCount
      */
-    public int getTotalCount() {
+    public long getTotalCount() {
         return totalCount;
     }
 
     /**
      * Sets total number of records.
-     * 
+     *
      * @param totalCount
      *            the totalCount to set
      */
-    public void setTotalCount(int totalCount) {
+    public void setTotalCount(long totalCount) {
         this.totalCount = totalCount;
     }
 
     /**
      * Gets the entity id of the next record.
-     * 
+     *
      * @return the after
      */
     public String getAfter() {
@@ -149,7 +149,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Sets the entity id of the next record.
-     * 
+     *
      * @param after
      *            the after to set
      */
@@ -159,26 +159,51 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Gets the record limit.
-     * 
+     * <p>
+     * Note: Use {@link #getPageSize()}
+     *
      * @return the limit
      */
+    @Deprecated
     public int getLimit() {
-        return limit;
+        return getPageSize();
+    }
+
+    /**
+     * Sets the page size.
+     *
+     * @param pageSize
+     *            the page size to set
+     */
+    public void setPageSize(int pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    /**
+     * Gets the page size.
+     *
+     * @return the page size
+     */
+    public int getPageSize() {
+        return pageSize;
     }
 
     /**
      * Sets the record limit.
-     * 
+     * <p>
+     * Note: Use {@link #setPageSize(int)}
+     *
      * @param limit
      *            the limit to set
      */
+    @Deprecated
     public void setLimit(int limit) {
-        this.limit = limit;
+        setPageSize(limit);
     }
 
     /**
      * Gets record order.
-     * 
+     *
      * @return the order
      */
     public Order getOrder() {
@@ -187,7 +212,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Sets list sorting order.
-     * 
+     *
      * @param order
      *            the order to set
      */
@@ -197,7 +222,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Gets records.
-     * 
+     *
      * @return the data
      */
     public List<T> getData() {
@@ -206,7 +231,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Sets records.
-     * 
+     *
      * @param data
      *            the data to set
      */
@@ -216,7 +241,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Adds an element to the data list.
-     * 
+     *
      * @param dataToAdd
      *            the data to add
      */
@@ -230,7 +255,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Iterates over all the objects of the page.
-     * 
+     *
      * @return the page iterator
      */
     public Iterator<T> iterator() {
@@ -240,7 +265,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Returns the first data element of this page.
-     * 
+     *
      * @return first element of this page.
      */
     public @Nullable T first() {
@@ -253,7 +278,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Returns the last data element of this page.
-     * 
+     *
      * @return last element of this page.
      */
     public @Nullable T last() {
@@ -265,8 +290,21 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     }
 
     /**
+     * Returns the data element at the specified position in this page.
+     *
+     * @return data element at the specified position in this page.
+     */
+    public @Nullable T get(int index) {
+        initialiseData();
+        if (data.isEmpty()) {
+            return null;
+        }
+        return data.get(index);
+    }
+
+    /**
      * Gets the number of elements on this page.
-     * 
+     *
      * @return the number of elements on this page.
      */
     public int getNumberOfElements() {
@@ -275,28 +313,28 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
 
     /**
      * Clones this paginated list.
-     * 
+     *
      * @return a clone.
      */
     @Override
     public ListResponse<T> clone() {
-        return new ListResponse<>(hasMore, totalCount, after, limit, order, new LinkedList<>(data));
+        return new ListResponse<>(hasMore, totalCount, after, pageSize, order, new LinkedList<>(data));
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "ListResponse [hasMore=" + hasMore + ", totalCount=" + totalCount + ", after=" + after + ", limit="
-                + limit + ", order=" + order + ", data=" + data + "]";
+        return "ListResponse [hasMore=" + hasMore + ", totalCount=" + totalCount + ", after=" + after + ", pageSize="
+                + pageSize + ", order=" + order + ", data=" + data + "]";
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -306,14 +344,14 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
         result = prime * result + ((after == null) ? 0 : after.hashCode());
         result = prime * result + ((data == null) ? 0 : data.hashCode());
         result = prime * result + (hasMore ? 1231 : 1237);
-        result = prime * result + limit;
+        result = prime * result + pageSize;
         result = prime * result + ((order == null) ? 0 : order.hashCode());
         return result;
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @SuppressWarnings("rawtypes")
@@ -346,7 +384,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
         if (hasMore != other.hasMore) {
             return false;
         }
-        if (limit != other.limit) {
+        if (pageSize != other.pageSize) {
             return false;
         }
         if (order != other.order) {
