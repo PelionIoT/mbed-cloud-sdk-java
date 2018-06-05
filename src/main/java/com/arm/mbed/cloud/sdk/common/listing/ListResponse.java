@@ -33,6 +33,10 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      */
     private String after;
     /**
+     * An offset token for fetching the next page.
+     */
+    private String continuationMarker;
+    /**
      * The page size.
      */
     private int pageSize;
@@ -53,6 +57,8 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      *            Whether there are more results to display.
      * @param totalCount
      *            Total number of records.
+     * @param continuationMarker
+     *            An offset token for fetching the next page.
      * @param after
      *            Entity id for fetch after it.
      * @param pageSize
@@ -60,16 +66,42 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      * @param order
      *            Order of returned records.
      */
-    public ListResponse(boolean hasMore, long totalCount, String after, int pageSize, Order order) {
-        this(hasMore, totalCount, after, pageSize, order, null);
+    public ListResponse(boolean hasMore, long totalCount, String after, String continuationMarker, int pageSize,
+            Order order) {
+        this(hasMore, totalCount, after, continuationMarker, pageSize, order, null);
         initialiseData();
     }
 
-    private ListResponse(boolean hasMore, long totalCount, String after, int pageSize, Order order, List<T> data) {
+    /**
+     * Constructor.
+     * <p>
+     * Note: use {@link #ListResponse(boolean, long, String, String, int, Order)} instead
+     *
+     * @param hasMore
+     *            Whether there are more results to display.
+     * @param totalCount
+     *            Total number of records.
+     *
+     * @param after
+     *            Entity id for fetch after it.
+     * @param pageSize
+     *            The number of results to return.
+     * @param order
+     *            Order of returned records.
+     */
+    @Deprecated
+    public ListResponse(boolean hasMore, long totalCount, String after, int pageSize, Order order) {
+        this(hasMore, totalCount, after, null, pageSize, order);
+
+    }
+
+    private ListResponse(boolean hasMore, long totalCount, String after, String continuationMarker, int pageSize,
+            Order order, List<T> data) {
         super();
         setHasMore(hasMore);
         setTotalCount(totalCount);
         setAfter(after);
+        setContinuationMarker(continuationMarker);
         setPageSize(pageSize);
         setOrder(order);
         this.data = data;
@@ -85,7 +117,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      * Constructor with default settings.
      */
     public ListResponse() {
-        this(false, 0, null, 0, Order.ASC);
+        this(false, 0, null, null, 0, Order.ASC);
     }
 
     /**
@@ -155,6 +187,34 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      */
     public void setAfter(String after) {
         this.after = after;
+    }
+
+    /**
+     * Gets the offset token for fetching the next page.
+     *
+     * @return the continuation marker
+     */
+    public String getContinuationMarker() {
+        return continuationMarker;
+    }
+
+    /**
+     * States whether a continuation marker is specified or not.
+     *
+     * @return True if the marker is present. False otherwise.
+     */
+    public boolean hasContinuationMarker() {
+        return continuationMarker != null;
+    }
+
+    /**
+     * Sets the offset token for fetching the next page.
+     *
+     * @param continuationMarker
+     *            the continuation marker to set
+     */
+    public void setContinuationMarker(String continuationMarker) {
+        this.continuationMarker = continuationMarker;
     }
 
     /**
@@ -318,7 +378,8 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      */
     @Override
     public ListResponse<T> clone() {
-        return new ListResponse<>(hasMore, totalCount, after, pageSize, order, new LinkedList<>(data));
+        return new ListResponse<>(hasMore, totalCount, after, continuationMarker, pageSize, order,
+                new LinkedList<>(data));
     }
 
     /*
@@ -328,8 +389,9 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      */
     @Override
     public String toString() {
-        return "ListResponse [hasMore=" + hasMore + ", totalCount=" + totalCount + ", after=" + after + ", pageSize="
-                + pageSize + ", order=" + order + ", data=" + data + "]";
+        return "ListResponse [hasMore=" + hasMore + ", totalCount=" + totalCount + ", after=" + after
+                + ", continuationMarker=" + continuationMarker + ", pageSize=" + pageSize + ", order=" + order
+                + ", data=" + data + "]";
     }
 
     /*
@@ -342,10 +404,12 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
         final int prime = 31;
         int result = 1;
         result = prime * result + ((after == null) ? 0 : after.hashCode());
+        result = prime * result + ((continuationMarker == null) ? 0 : continuationMarker.hashCode());
         result = prime * result + ((data == null) ? 0 : data.hashCode());
         result = prime * result + (hasMore ? 1231 : 1237);
-        result = prime * result + pageSize;
         result = prime * result + ((order == null) ? 0 : order.hashCode());
+        result = prime * result + pageSize;
+        result = prime * result + (int) (totalCount ^ (totalCount >>> 32));
         return result;
     }
 
@@ -354,7 +418,6 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      *
      * @see java.lang.Object#equals(java.lang.Object)
      */
-    @SuppressWarnings("rawtypes")
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -366,12 +429,20 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
         if (getClass() != obj.getClass()) {
             return false;
         }
+        @SuppressWarnings("rawtypes")
         final ListResponse other = (ListResponse) obj;
         if (after == null) {
             if (other.after != null) {
                 return false;
             }
         } else if (!after.equals(other.after)) {
+            return false;
+        }
+        if (continuationMarker == null) {
+            if (other.continuationMarker != null) {
+                return false;
+            }
+        } else if (!continuationMarker.equals(other.continuationMarker)) {
             return false;
         }
         if (data == null) {
@@ -384,10 +455,13 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
         if (hasMore != other.hasMore) {
             return false;
         }
+        if (order != other.order) {
+            return false;
+        }
         if (pageSize != other.pageSize) {
             return false;
         }
-        if (order != other.order) {
+        if (totalCount != other.totalCount) {
             return false;
         }
         return true;

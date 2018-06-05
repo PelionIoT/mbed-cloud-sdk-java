@@ -22,7 +22,7 @@ public final class FirmwareManifestAdapter {
 
     /**
      * Maps firmware manifest.
-     * 
+     *
      * @param manifest
      *            manifest
      * @return manifest
@@ -45,7 +45,7 @@ public final class FirmwareManifestAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return mapper
      */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest> getMapper() {
@@ -62,7 +62,7 @@ public final class FirmwareManifestAdapter {
 
     /**
      * Maps list of manifests.
-     * 
+     *
      * @param list
      *            manifest page
      * @return list of manifest
@@ -98,6 +98,11 @@ public final class FirmwareManifestAdapter {
             }
 
             @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            @Override
             public List<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> getData() {
                 return (imageList == null) ? null : imageList.getData();
             }
@@ -107,7 +112,7 @@ public final class FirmwareManifestAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<FirmwareManifestPage, ListResponse<FirmwareManifest>> getListMapper() {

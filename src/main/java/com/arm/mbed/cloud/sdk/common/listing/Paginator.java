@@ -73,7 +73,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         if (hasNextPage()) {
             final ListOptions optionsToStore = currentOptions.clone();
             if (currentPage != null) {
-                currentOptions.setAfter(fetchAfterId(currentPage.last()));
+                currentOptions.setAfter(findNextPageCursor());
             }
             final int firstResultIndex = (pageSize == null)
                     ? (currentPage == null) ? 0 : (pageIndex + 1) * currentPage.getNumberOfElements()
@@ -84,6 +84,11 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         } else {
             setCurrentPageAsLast();
         }
+    }
+
+    private String findNextPageCursor() {
+        return currentPage.hasContinuationMarker() ? currentPage.getContinuationMarker()
+                : fetchAfterId(currentPage.last());
     }
 
     private void setCurrentPageAsLast() {

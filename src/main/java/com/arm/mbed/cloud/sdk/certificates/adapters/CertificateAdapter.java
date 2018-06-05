@@ -328,6 +328,11 @@ public final class CertificateAdapter {
             }
 
             @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            @Override
             public List<TrustedCertificateResp> getData() {
                 return (certificateList == null) ? null : certificateList.getData();
             }
