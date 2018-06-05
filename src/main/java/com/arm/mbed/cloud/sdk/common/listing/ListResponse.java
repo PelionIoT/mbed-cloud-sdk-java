@@ -55,7 +55,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      *            Total number of records.
      * @param after
      *            Entity id for fetch after it.
-     * @param limit
+     * @param pageSize
      *            The number of results to return.
      * @param order
      *            Order of returned records.

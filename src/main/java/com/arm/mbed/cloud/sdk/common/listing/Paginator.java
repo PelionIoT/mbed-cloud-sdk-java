@@ -156,9 +156,9 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
      * @return the number of elements on the current page.
      */
     public int getNumberOfPageElements() {
-        int currentElements = (currentPage == null) ? 0
-                : (currentPage.getPageSize() != 0) ? currentPage.getPageSize() : currentPage.getNumberOfElements();
-        return currentElements;
+        return currentPage == null ? 0
+                : currentPage.getPageSize() == 0 ? currentPage.getNumberOfElements() : currentPage.getPageSize();
+
     }
 
     /**
@@ -288,10 +288,8 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         if (currentIterator == null || currentPage == null) {
             return false;
         }
-        if (initialOptions.hasMaxResults()) {
-            if (resultNumber + 1 > initialOptions.getMaxResults().longValue()) {
-                return false;
-            }
+        if (initialOptions.hasMaxResults() && resultNumber + 1 > initialOptions.getMaxResults().longValue()) {
+            return false;
         }
         return currentIterator.hasNext() ? true : !isLastPage();
     }
@@ -316,12 +314,10 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
                 return null;
             }
         }
-        if (initialOptions.hasMaxResults()) {
-            if (resultNumber + 1 > initialOptions.getMaxResults().longValue()) {
-                setCurrentPageAsLast();
-                currentElement = null;
-                return currentElement;
-            }
+        if (initialOptions.hasMaxResults() && resultNumber + 1 > initialOptions.getMaxResults().longValue()) {
+            setCurrentPageAsLast();
+            currentElement = null;
+            return currentElement;
         }
         if (currentIterator != null && currentIterator.hasNext()) {
             currentElement = currentIterator.next();
@@ -342,16 +338,14 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         if (currentPage == null) {
             return true;
         }
-        if (initialOptions.hasMaxResults()) {
-            if (IsLastElementInCurrentPage()) {
-                return false;
-            }
+        if (initialOptions.hasMaxResults() && isLastElementInCurrentPage()) {
+            return false;
         }
         return currentPage.hasMore();
 
     }
 
-    private boolean IsLastElementInCurrentPage() {
+    private boolean isLastElementInCurrentPage() {
         return pageSize != null && pageIndex + 1 > initialOptions.getMaxResults().longValue() / pageSize.intValue();
     }
 
@@ -479,14 +473,9 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         if (currentPage == null) {
             return true;
         }
-        if (initialOptions.hasMaxResults()) {
-            // if (resultNumber + 1 + currentPage.getNumberOfElements() > initialOptions.getMaxResults().longValue()) {
-            // return true;
-            // }
+        if (initialOptions.hasMaxResults() && isLastElementInCurrentPage()) {
+            return true;
 
-            if (IsLastElementInCurrentPage()) {
-                return true;
-            }
         }
         return !currentPage.hasMore();
     }
@@ -525,12 +514,14 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
      *             if a problem occurs during the processing
      */
     public List<T> all() throws MbedCloudException {
-        Paginator<T> clone = clone();
-        if (clone == null) {
-            return null;
+        Paginator<T> clone;
+        try {
+            clone = clone();
+        } catch (CloneNotSupportedException exception) {
+            throw new MbedCloudException(exception);
         }
         clone.rewind();
-        List<T> all = new LinkedList<>();
+        final List<T> all = new LinkedList<>();
         while (clone.hasNext()) {
             all.add(clone.next());
         }
@@ -538,16 +529,16 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
     }
 
     private void setProperties(Paginator<T> other) {
-        if (other != null) {
-            lastOptions = other.lastOptions;
-            totalCount = other.totalCount;
-            lastPageIndex = other.lastPageIndex;
-            pageSize = other.pageSize;
-        } else {
+        if (other == null) {
             lastOptions = null;
             totalCount = 0;
             lastPageIndex = 0;
             pageSize = null;
+        } else {
+            lastOptions = other.lastOptions;
+            totalCount = other.totalCount;
+            lastPageIndex = other.lastPageIndex;
+            pageSize = other.pageSize;
         }
     }
 
@@ -557,14 +548,15 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
      * @see java.lang.Object#clone()
      */
     @Override
-    public @Nullable Paginator<T> clone() {
+    public Paginator<T> clone() throws CloneNotSupportedException {
         try {
-            Paginator<T> clone = new Paginator<>(initialOptions.clone(), requester);
+            final Paginator<T> clone = new Paginator<>(initialOptions.clone(), requester);
             clone.setProperties(this);
             return clone;
-        } catch (MbedCloudException e) {
-            return null;
+        } catch (MbedCloudException exception) {
+            // Nothing to do
         }
+        throw new CloneNotSupportedException();
     }
 
 }
