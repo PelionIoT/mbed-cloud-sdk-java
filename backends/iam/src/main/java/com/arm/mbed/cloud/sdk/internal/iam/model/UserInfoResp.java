@@ -24,9 +24,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -49,9 +47,6 @@ public class UserInfoResp implements Serializable {
 
   @SerializedName("creation_time")
   private Long creationTime = null;
-
-  @SerializedName("custom_fields")
-  private Map<String, String> customFields = null;
 
   @SerializedName("email")
   private String email = null;
@@ -275,32 +270,6 @@ public class UserInfoResp implements Serializable {
 
   public void setCreationTime(Long creationTime) {
     this.creationTime = creationTime;
-  }
-
-  public UserInfoResp customFields(Map<String, String> customFields) {
-    this.customFields = customFields;
-    return this;
-  }
-
-  public UserInfoResp putCustomFieldsItem(String key, String customFieldsItem) {
-    if (this.customFields == null) {
-      this.customFields = new HashMap<String, String>();
-    }
-    this.customFields.put(key, customFieldsItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties. The value is a string.
-   * @return customFields
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties. The value is a string.")
-  public Map<String, String> getCustomFields() {
-    return customFields;
-  }
-
-  public void setCustomFields(Map<String, String> customFields) {
-    this.customFields = customFields;
   }
 
   public UserInfoResp email(String email) {
@@ -657,7 +626,6 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.address, userInfoResp.address) &&
         Objects.equals(this.createdAt, userInfoResp.createdAt) &&
         Objects.equals(this.creationTime, userInfoResp.creationTime) &&
-        Objects.equals(this.customFields, userInfoResp.customFields) &&
         Objects.equals(this.email, userInfoResp.email) &&
         Objects.equals(this.emailVerified, userInfoResp.emailVerified) &&
         Objects.equals(this.etag, userInfoResp.etag) &&
@@ -680,7 +648,7 @@ public class UserInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, address, createdAt, creationTime, customFields, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, updatedAt, username);
+    return Objects.hash(accountId, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, updatedAt, username);
   }
 
 
@@ -693,7 +661,6 @@ public class UserInfoResp implements Serializable {
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    creationTime: ").append(toIndentedString(creationTime)).append("\n");
-    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    emailVerified: ").append(toIndentedString(emailVerified)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
