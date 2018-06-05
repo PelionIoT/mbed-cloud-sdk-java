@@ -26,7 +26,7 @@ public class TestPaginator {
     @Test
     public void testOnePageIterationWithOnlyOneValueSent() {
         int pageSize = 1;
-        final FakeServer server = new FakeServer(1, pageSize, null);
+        final FakeServer server = new FakeServer(1, pageSize, null, false);
 
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
@@ -72,7 +72,7 @@ public class TestPaginator {
     @Test
     public void testOnePageIteration() {
         int pageSize = 50;
-        final FakeServer server = new FakeServer(1, pageSize, null);
+        final FakeServer server = new FakeServer(1, pageSize, null, false);
 
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
@@ -135,7 +135,7 @@ public class TestPaginator {
     public void testOnePageIterationWithResultNumberLimit() {
         int pageSize = 41;
         int maxResult = 4;
-        final FakeServer server = new FakeServer(1, pageSize, Integer.valueOf(maxResult));
+        final FakeServer server = new FakeServer(1, pageSize, Integer.valueOf(maxResult), false);
 
         try {
             Paginator<FakeElement> paginator = new Paginator<>(
@@ -197,7 +197,7 @@ public class TestPaginator {
         int pageNumber = 9;
         long idSum = 0;
         long valueSum = 0;
-        final FakeServer server = new FakeServer(pageNumber, pageSize, null);
+        final FakeServer server = new FakeServer(pageNumber, pageSize, null, false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
                     new PageRequester<FakeElement>() {
@@ -299,7 +299,116 @@ public class TestPaginator {
         } catch (MbedCloudException e) {
             fail(e.getMessage());
         }
+    }
 
+    @Test
+    public void testMultiplePagesIterationWithContinuationMarker() {
+        int pageSize = 10;
+        int pageNumber = 9;
+        long idSum = 0;
+        long valueSum = 0;
+        final FakeServer server = new FakeServer(pageNumber, pageSize, null, true);
+        try {
+            Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
+                    new PageRequester<FakeElement>() {
+
+                        @Override
+                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
+                            return server.fetchPage(opt);
+                        }
+
+                    });
+            assertNotNull(paginator.getRequester());
+            assertNull(paginator.previous());
+            assertFalse(paginator.hasPrevious());
+            assertFalse(paginator.hasPreviousPage());
+            assertTrue(paginator.isFirstPage());
+            assertFalse(paginator.isLastPage());
+            assertEquals(0, paginator.getPageIndex());
+            assertNotNull(paginator.getCurrentPage());
+            assertEquals(paginator.getCurrentPage(), paginator.getFirstPage());
+            assertTrue(paginator.hasNextPage());
+            assertNotNull(paginator.getNextPage());
+            assertNotEquals(paginator.getCurrentPage(), paginator.getFirstPage());
+            assertNotNull(paginator.getLastPage());
+            assertTrue(paginator.isLastPage());
+            assertNotEquals(paginator.getFirstPage(), paginator.getLastPage());
+            FakeElement testingElement = paginator.first();
+            assertTrue(paginator.isFirstPage());
+            assertEquals(0, testingElement.id);
+            assertEquals(0, testingElement.value);
+            testingElement = paginator.last();
+            assertNotNull(testingElement);
+            FakeElement lastElement = testingElement.clone();
+            assertNotNull(lastElement);
+            assertEquals(server.numberOfSentElements() - 1, testingElement.id);
+            assertEquals((server.numberOfSentElements() - 1) * 4, testingElement.value);
+            testingElement = paginator.first();
+            assertEquals(0, testingElement.id);
+            assertEquals(0, testingElement.value);
+            testingElement = paginator.last();
+            assertEquals(server.numberOfSentElements() - 1, testingElement.id);
+            assertEquals((server.numberOfSentElements() - 1) * 4, testingElement.value);
+            assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
+            assertEquals(pageSize, paginator.getNumberOfPageElements());
+            assertEquals(pageNumber, paginator.getPagesNumber());
+            assertNotEquals(0, paginator.getPageIndex());
+            assertNotNull(paginator.getCurrentPage());
+            paginator.rewind();
+            assertTrue(paginator.isFirstPage());
+            assertEquals(0, paginator.getPageIndex());
+            int i = 0;
+            while (paginator.hasNext()) {
+                FakeElement element = paginator.next();
+                FakeElement previous = paginator.previous();
+                assertEquals(i, element.id);
+                assertEquals(i * 4, element.value);
+                if (i == 0) {
+                    assertEquals(i, previous.id);
+                    assertEquals(i, previous.value);
+                } else {
+                    assertEquals(i - 1, previous.id);
+                    assertEquals((i - 1) * 4, previous.value);
+                }
+                idSum += element.id;
+                valueSum += element.value;
+                i++;
+            }
+            assertTrue(paginator.hasPreviousPage());
+            assertEquals((server.numberOfSentElements() - 1) * server.numberOfSentElements() / 2, idSum);
+            assertEquals((server.numberOfSentElements() - 1) * server.numberOfSentElements() * 2, valueSum);
+            assertEquals(pageNumber - 1, paginator.getPageIndex());
+            assertFalse(paginator.hasNext());
+            assertTrue(paginator.isLastPage());
+            assertFalse(paginator.hasNextPage());
+            assertEquals(lastElement, paginator.current());
+            assertTrue(paginator.hasPrevious());
+            FakeElement previous = paginator.previous();
+            if (server.numberOfSentElements() > 1) {
+                assertEquals(server.numberOfSentElements() - 2, previous.id);
+                assertEquals((server.numberOfSentElements() - 2) * 4, previous.value);
+            } else {
+                assertNull(paginator.previous());
+            }
+            // Current element should be the last one of the collection.
+            assertNotNull(paginator.current());
+            assertNull(paginator.next());
+            assertNull(paginator.current());
+            assertNotNull(paginator.previous());
+            assertTrue(paginator.hasPreviousPage());
+            assertNotNull(paginator.getPreviousPage());
+            // Checks we are still in the last page and have not moved to previous page.
+            assertTrue(paginator.isLastPage());
+            // Moving to head of the collection and back to the tail. When jumping in the collection then previous page
+            // information is not stored anymore.
+            paginator.getFirstPage();
+            paginator.getLastPage();
+            assertFalse(paginator.hasPreviousPage());
+            assertNull(paginator.getPreviousPage());
+
+        } catch (MbedCloudException e) {
+            fail(e.getMessage());
+        }
     }
 
     @Test
@@ -309,7 +418,7 @@ public class TestPaginator {
         int maxResult = 16;
         long idSum = 0;
         long valueSum = 0;
-        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult));
+        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(
                     new ListOptions().pageSize(pageSize).maxResults(maxResult), new PageRequester<FakeElement>() {
@@ -428,7 +537,7 @@ public class TestPaginator {
         int maxResult = 16;
         long idSum = 0;
         long valueSum = 0;
-        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult));
+        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().maxResults(maxResult),
                     new PageRequester<FakeElement>() {
@@ -545,7 +654,7 @@ public class TestPaginator {
         int pageSize = 5;
         int pageNumber = 8;
         int maxResult = 16;
-        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult));
+        final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().maxResults(maxResult),
                     new PageRequester<FakeElement>() {
@@ -575,9 +684,9 @@ public class TestPaginator {
         FakePages pages;
         int callsNumber;
 
-        public FakeServer(int pageNumber, int pageSize, Integer maxResults) {
+        public FakeServer(int pageNumber, int pageSize, Integer maxResults, boolean includeContinuationMarker) {
             super();
-            pages = new FakePages();
+            pages = new FakePages(includeContinuationMarker);
             pages.generateElements(pageNumber, pageSize, maxResults);
             callsNumber = 0;
         }
@@ -720,11 +829,13 @@ public class TestPaginator {
         List<FakeElement> elements = new LinkedList<>();
         int pageSize;
         boolean hasMore;
+        boolean includeContinuationMarker;
 
-        public FakePage(int pageSize, boolean hasMore) {
+        public FakePage(int pageSize, boolean hasMore, boolean includeContinuationMarker) {
             super();
             this.pageSize = pageSize;
             this.hasMore = hasMore;
+            this.includeContinuationMarker = includeContinuationMarker;
         }
 
         void generateElements(int size, int starting) {
@@ -739,6 +850,9 @@ public class TestPaginator {
             ListResponse<FakeElement> page = new ListResponse<>();
             page.setPageSize(pageSize);
             page.setData(elements);
+            if (includeContinuationMarker) {
+                page.setContinuationMarker(page.last().getId());
+            }
             // page.setPageSize(elements.size());
             page.setHasMore(hasMore);
             return page;
@@ -809,16 +923,23 @@ public class TestPaginator {
         List<FakeElement> allElements = new LinkedList<>();
         Iterator<FakePage> iterator = pages.iterator();
 
+        boolean includeContinuationMarker;
+
+        public FakePages(boolean includeContinuationMarker) {
+            super();
+            this.includeContinuationMarker = includeContinuationMarker;
+        }
+
         void generateElements(int pageNumber, int pageSize, Integer maxResult) {
             pages.clear();
             allElements.clear();
             for (int i = 0; i < pageNumber - 1; i++) {
-                final FakePage page = new FakePage(pageSize, true);
+                final FakePage page = new FakePage(pageSize, true, includeContinuationMarker);
                 page.generateElements(pageSize, i * pageSize);
                 pages.add(page);
                 allElements.addAll(page.elements);
             }
-            final FakePage lastpage = new FakePage(pageSize, false);
+            final FakePage lastpage = new FakePage(pageSize, false, includeContinuationMarker);
             int numberOfElementsInLastPage = (int) (pageSize * Math.random());
             // Enforcing that there is at least one element in the last page
             if (numberOfElementsInLastPage == 0 && pageSize > 0) {

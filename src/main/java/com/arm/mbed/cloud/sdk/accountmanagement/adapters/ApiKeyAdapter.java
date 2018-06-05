@@ -27,7 +27,7 @@ public final class ApiKeyAdapter {
 
     /**
      * Maps API keys.
-     * 
+     *
      * @param apiKeyInfo
      *            an API key.
      * @return an API Key.
@@ -49,7 +49,7 @@ public final class ApiKeyAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return a mapper.
      */
     public static Mapper<ApiKeyInfoResp, ApiKey> getMapper() {
@@ -63,7 +63,7 @@ public final class ApiKeyAdapter {
 
     /**
      * Reverses mapping for new API keys.
-     * 
+     *
      * @param apiKey
      *            an API key.
      * @return API key addition request.
@@ -82,7 +82,7 @@ public final class ApiKeyAdapter {
 
     /**
      * Reverses mapping for updated API keys.
-     * 
+     *
      * @param apiKey
      *            an API key.
      * @return API key update request.
@@ -143,7 +143,7 @@ public final class ApiKeyAdapter {
 
     /**
      * Maps a list of API keys.
-     * 
+     *
      * @param list
      *            list of API keys.
      * @return list of API keys.
@@ -182,13 +182,19 @@ public final class ApiKeyAdapter {
             public List<ApiKeyInfoResp> getData() {
                 return (apiKeyList == null) ? null : apiKeyList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return a list mapper.
      */
     public static Mapper<ApiKeyInfoRespList, ListResponse<ApiKey>> getListMapper() {

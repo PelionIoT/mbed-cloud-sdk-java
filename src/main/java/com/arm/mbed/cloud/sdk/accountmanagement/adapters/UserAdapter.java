@@ -165,6 +165,11 @@ public final class UserAdapter {
             public List<UserInfoResp> getData() {
                 return (userList == null) ? null : userList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }

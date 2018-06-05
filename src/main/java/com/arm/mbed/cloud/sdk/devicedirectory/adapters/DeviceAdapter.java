@@ -171,6 +171,11 @@ public final class DeviceAdapter {
             public List<DeviceData> getData() {
                 return (deviceList == null) ? null : deviceList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }

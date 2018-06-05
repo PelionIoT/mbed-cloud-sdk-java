@@ -1072,7 +1072,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(groupId, TAG_GROUP_ID);
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
@@ -1120,7 +1120,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listGroupApiKeys(group.getId(), options);
@@ -1159,14 +1159,14 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
         return new Paginator<>(options, new PageRequester<ApiKey>() {
 
             @Override
             public ListResponse<ApiKey> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listGroupApiKeys(finalGroupId, opt);
+                return listGroupApiKeys(finalGroupId, (ApiKeyListOptions) opt);
             }
         });
     }
@@ -1203,7 +1203,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listAllGroupApiKeys(group.getId(), options);
