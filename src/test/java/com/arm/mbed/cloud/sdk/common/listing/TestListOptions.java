@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
@@ -58,6 +59,7 @@ public class TestListOptions {
         ListOptions clone = options.clone();
         assertEquals(options, clone);
         assertFalse(options == clone);
+        assertTrue(clone.hasMaxResults());
         assertEquals(options.hashCode(), clone.hashCode());
         assertEquals("some value", clone.fetchEqualFilterValue("afield"));
 

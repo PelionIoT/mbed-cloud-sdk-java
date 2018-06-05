@@ -1,6 +1,8 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -10,7 +12,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "Iterator over an entire result set of a truncated/paginated API operation.")
-public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
+public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, Cloneable {
 
     private final PageRequester<T> requester;
     private final ListOptions initialOptions;
@@ -24,7 +26,8 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
     private T previousElement;
     private T currentElement;
     private int pageIndex;
-    private long resultNumber;
+    private Integer pageSize;
+    public long resultNumber;
 
     /**
      * Constructor.
@@ -40,9 +43,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
         super();
         this.requester = requester;
         this.initialOptions = (options == null) ? new ListOptions() : options;
-        lastOptions = null;
-        totalCount = 0;
-        lastPageIndex = 0;
+        setProperties(null);
         rewind();
     }
 
@@ -74,12 +75,20 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
             if (currentPage != null) {
                 currentOptions.setAfter(fetchAfterId(currentPage.last()));
             }
+            final int firstResultIndex = (pageSize == null)
+                    ? (currentPage == null) ? 0 : (pageIndex + 1) * currentPage.getNumberOfElements()
+                    : (pageIndex + 1) * pageSize.intValue();
             gotoAPage(currentOptions, pageIndex + 1);
             previousOptions = optionsToStore;
+            resultNumber = firstResultIndex;
         } else {
-            lastOptions = currentOptions.clone();
-            lastPageIndex = pageIndex;
+            setCurrentPageAsLast();
         }
+    }
+
+    private void setCurrentPageAsLast() {
+        lastOptions = currentOptions.clone();
+        lastPageIndex = pageIndex;
     }
 
     private final void gotoAPage(ListOptions pageOptions, int index) throws MbedCloudException {
@@ -147,7 +156,9 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
      * @return the number of elements on the current page.
      */
     public int getNumberOfPageElements() {
-        return (currentPage == null) ? 0 : currentPage.getNumberOfElements();
+        int currentElements = (currentPage == null) ? 0
+                : (currentPage.getPageSize() != 0) ? currentPage.getPageSize() : currentPage.getNumberOfElements();
+        return currentElements;
     }
 
     /**
@@ -296,7 +307,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
     @SuppressWarnings("unchecked")
     @Override
     public @Nullable T next() {
-        previousElement = (currentElement == null) ? previousElement : (T) currentElement.clone();
+        previousElement = (currentElement == null) ? null : (T) currentElement.clone();
         if (currentIterator == null || !currentIterator.hasNext()) {
             try {
                 fetchNewPage();
@@ -305,12 +316,20 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
                 return null;
             }
         }
+        if (initialOptions.hasMaxResults()) {
+            if (resultNumber + 1 > initialOptions.getMaxResults().longValue()) {
+                setCurrentPageAsLast();
+                currentElement = null;
+                return currentElement;
+            }
+        }
         if (currentIterator != null && currentIterator.hasNext()) {
             currentElement = currentIterator.next();
             resultNumber++;
         } else {
             currentElement = null;
         }
+
         return currentElement;
     }
 
@@ -324,12 +343,16 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
             return true;
         }
         if (initialOptions.hasMaxResults()) {
-            if (resultNumber + 1 + currentPage.getNumberOfElements() > initialOptions.getMaxResults().longValue()) {
+            if (IsLastElementInCurrentPage()) {
                 return false;
             }
         }
         return currentPage.hasMore();
 
+    }
+
+    private boolean IsLastElementInCurrentPage() {
+        return pageSize != null && pageIndex + 1 > initialOptions.getMaxResults().longValue() / pageSize.intValue();
     }
 
     /**
@@ -348,6 +371,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
                     exception);
             return null;
         }
+
         return currentPage;
     }
 
@@ -357,11 +381,13 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
      * @return the first element of the collection.
      */
     public @Nullable T first() {
+        currentIterator = null;
         final ListResponse<T> firstPage = getFirstPage();
         if (firstPage == null) {
             return null;
         }
-        return firstPage.first();
+        currentIterator = firstPage.iterator();
+        return currentIterator.next();
     }
 
     /**
@@ -405,16 +431,14 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
             return null;
         }
         if (initialOptions.hasMaxResults()) {
-            if (resultNumber + lastPage.getNumberOfElements() > initialOptions.getMaxResults().longValue()) {
-                System.out.println(resultNumber);
-                int index = (int) (initialOptions.getMaxResults().longValue() - resultNumber - 1);
-                if (index < 0) {
-                    index = 0;
-                } else if (index + 1 > lastPage.getNumberOfElements()) {
-                    index = lastPage.getNumberOfElements() - 1;
-                }
-                return lastPage.get(index);
+            int indexLastElement = (int) (initialOptions.getMaxResults().longValue()
+                    - (getPagesNumber() - 1) * (pageSize == null ? lastPage.getPageSize() : pageSize.intValue())) - 1;
+            if (indexLastElement < 0) {
+                indexLastElement = 0;
+            } else if (indexLastElement > lastPage.getNumberOfElements() - 1) {
+                indexLastElement = lastPage.getNumberOfElements() - 1;
             }
+            return lastPage.get(indexLastElement);
         }
         return lastPage.last();
     }
@@ -456,7 +480,11 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
             return true;
         }
         if (initialOptions.hasMaxResults()) {
-            if (resultNumber + 1 + currentPage.getNumberOfElements() > initialOptions.getMaxResults().longValue()) {
+            // if (resultNumber + 1 + currentPage.getNumberOfElements() > initialOptions.getMaxResults().longValue()) {
+            // return true;
+            // }
+
+            if (IsLastElementInCurrentPage()) {
                 return true;
             }
         }
@@ -475,9 +503,68 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T> {
         currentOptions = this.initialOptions.clone();
         currentElement = null;
         previousElement = null;
-        resultNumber = 0;
         fetchNewPage();
+
+        resultNumber = 0;
         previousOptions = null;
         pageIndex = 0;
+        pageSize = (currentPage == null) ? currentOptions.getPageSize() : Integer.valueOf(currentPage.getPageSize());
     }
+
+    /**
+     * Gets a list of all elements present in this collection.
+     * <p>
+     * Warning: This method can be really expensive and potentially harmful if the number of elements requested is
+     * important as all of them will be stored in memory.
+     * <p>
+     * Moreover, no caching of the data is performed. Therefore, every call to this method will entail iteration over
+     * the whole collection.
+     *
+     * @return a list containing all the elements present in this collection.
+     * @throws MbedCloudException
+     *             if a problem occurs during the processing
+     */
+    public List<T> all() throws MbedCloudException {
+        Paginator<T> clone = clone();
+        if (clone == null) {
+            return null;
+        }
+        clone.rewind();
+        List<T> all = new LinkedList<>();
+        while (clone.hasNext()) {
+            all.add(clone.next());
+        }
+        return all;
+    }
+
+    private void setProperties(Paginator<T> other) {
+        if (other != null) {
+            lastOptions = other.lastOptions;
+            totalCount = other.totalCount;
+            lastPageIndex = other.lastPageIndex;
+            pageSize = other.pageSize;
+        } else {
+            lastOptions = null;
+            totalCount = 0;
+            lastPageIndex = 0;
+            pageSize = null;
+        }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public @Nullable Paginator<T> clone() {
+        try {
+            Paginator<T> clone = new Paginator<>(initialOptions.clone(), requester);
+            clone.setProperties(this);
+            return clone;
+        } catch (MbedCloudException e) {
+            return null;
+        }
+    }
+
 }

@@ -171,6 +171,21 @@ public class ListOptions extends FilterOptions {
     }
 
     /**
+     * Sets how many objects to retrieve in the page.
+     * <P>
+     * Note: Similar to {@link #setPageSize(Integer)}
+     *
+     * @param enforcedPageSize
+     *            the pageSize to set
+     *
+     * @return this
+     */
+    public ListOptions pageSize(int enforcedPageSize) {
+        setPageSize(Integer.valueOf(enforcedPageSize));
+        return this;
+    }
+
+    /**
      * Sets how many objects to retrieve in total.
      * <P>
      * This parameter is relevant to paginators {@link Paginator}.
@@ -182,6 +197,20 @@ public class ListOptions extends FilterOptions {
      */
     public void setMaxResults(Long maxResults) {
         this.maxResults = maxResults;
+    }
+
+    /**
+     * Sets how many objects to retrieve in total.
+     * <p>
+     * Note: Similar to {@link #setMaxResults(Long)}
+     *
+     * @param requestedMaxResults
+     *            the number of results to request
+     * @return this
+     */
+    public ListOptions maxResults(long requestedMaxResults) {
+        setMaxResults(Long.valueOf(requestedMaxResults));
+        return this;
     }
 
     /**
