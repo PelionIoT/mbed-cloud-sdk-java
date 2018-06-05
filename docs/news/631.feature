@@ -1,0 +1,1 @@
+Pre-shared keys registered in the Cloud can now be listed
