@@ -179,7 +179,7 @@ public class UpdateCampaignPostRequest implements Serializable {
    * The name for this campaign
    * @return name
   **/
-  @ApiModelProperty(example = "campaign", required = true, value = "The name for this campaign")
+  @ApiModelProperty(example = "campaign", value = "The name for this campaign")
   public String getName() {
     return name;
   }

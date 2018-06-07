@@ -4,13 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**description** | **String** | An optional description of the campaign | 
-**deviceFilter** | **String** | The filter for the devices the campaign is targeting at | 
-**name** | **String** | The campaign&#39;s name | 
-**object** | **String** | The API resource entity | 
-**rootManifestId** | **String** |  | 
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign | 
-**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign. Not in use. | 
+**description** | **String** | An optional description of the campaign |  [optional]
+**deviceFilter** | **String** | The filter for the devices the campaign is targeting at |  [optional]
+**name** | **String** | The campaign&#39;s name |  [optional]
+**object** | **String** | The API resource entity |  [optional]
+**rootManifestId** | **String** |  |  [optional]
+**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign. Not in use. |  [optional]
 
 
 <a name="StateEnum"></a>

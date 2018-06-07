@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **description** | **String** | An optional description of the campaign |  [optional]
 **deviceFilter** | **String** | The filter for the devices the campaign is targeting at | 
-**name** | **String** | The name for this campaign | 
+**name** | **String** | The name for this campaign |  [optional]
 **object** | **String** | The API resource entity |  [optional]
 **rootManifestId** | **String** |  |  [optional]
 **state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
