@@ -305,10 +305,10 @@ public class ErrorResponse implements Serializable {
   }
 
    /**
-   * Request ID (muuid).
+   * Request ID.
    * @return requestId
   **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Request ID (muuid).")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Request ID.")
   public String getRequestId() {
     return requestId;
   }

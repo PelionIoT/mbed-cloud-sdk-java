@@ -153,10 +153,10 @@ public class EnrollmentIdentities implements Serializable {
   }
 
    /**
-   * muuid
+   * ID
    * @return after
   **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "muuid")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "ID")
   public String getAfter() {
     return after;
   }
