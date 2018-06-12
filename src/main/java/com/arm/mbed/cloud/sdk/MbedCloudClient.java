@@ -29,7 +29,7 @@ import io.reactivex.BackpressureStrategy;
 /**
  * Entry point for using the SDK.
  */
-public class MbedCloud extends AbstractApi {
+public class MbedCloudClient extends AbstractApi {
 
     private final Connect connectApi;
 
@@ -39,7 +39,7 @@ public class MbedCloud extends AbstractApi {
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
-    public MbedCloud(ConnectionOptions options) {
+    public MbedCloudClient(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
     }
@@ -51,8 +51,8 @@ public class MbedCloud extends AbstractApi {
      *            connection options @see {@link ConnectionOptions}.
      * @return an instance of the SDK.
      */
-    public static MbedCloud createSdk(ConnectionOptions options) {
-        return new MbedCloud(options);
+    public static MbedCloudClient createSdk(ConnectionOptions options) {
+        return new MbedCloudClient(options);
     }
 
     private static Map<String, String> extendUserAgent() {

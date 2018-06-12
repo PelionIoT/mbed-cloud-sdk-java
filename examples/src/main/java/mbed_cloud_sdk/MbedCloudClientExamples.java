@@ -6,19 +6,22 @@ import static org.junit.Assert.fail;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-import com.arm.mbed.cloud.sdk.MbedCloud;
+import com.arm.mbed.cloud.sdk.MbedCloudClient;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateNotification;
+import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
+import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
+import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 import io.reactivex.BackpressureStrategy;
 import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
 
-public class MbedCloudExamples extends AbstractExample {
+public class MbedCloudClientExamples extends AbstractExample {
 
     /**
      * Subscribes to device state changes.
@@ -29,7 +32,8 @@ public class MbedCloudExamples extends AbstractExample {
     @Example
     public void subscribeToDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        MbedCloud sdk = MbedCloud.createSdk(config);
+        config.autostartDaemon(false);
+        MbedCloudClient sdk = MbedCloudClient.createSdk(config);
         try {
             // an example: subscribing to device state changes
             // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
@@ -43,8 +47,53 @@ public class MbedCloudExamples extends AbstractExample {
                     BackpressureStrategy.BUFFER).flow().subscribe(System.out::println);
 
             // Listening to device state changes for 2 minutes.
-            Thread.sleep(120000);
+            Thread.sleep(120000); // TODO do some other work in your application
 
+            // Stopping the SDK.
+            sdk.stop();
+            // end of example
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Subscribes to a resource value change.
+     * <p>
+     * Note: This example introduces new high level abstraction objects such as Observer
+     */
+
+    @Example
+    public void subscribeToDeviceValueChanges() {
+        ConnectionOptions config = Configuration.get();
+        config.autostartDaemon(false);
+        MbedCloudClient sdk = MbedCloudClient.createSdk(config);
+        try {
+            // an example: subscribing to resource value change
+            // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
+            // devices which are newly registered or expired. Such device state changes are then printed when they
+            // occur.
+            // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
+            // resource paths starting with /3/0/. Such resource value changes are then printed to "standard out" when
+            // they
+            // occur.
+            // For more information about backpressure strategies, please have a look at related documentation:
+            // https://github.com/ReactiveX/RxJava/wiki/Backpressure
+            // For more information about First Value strategies, have a look at
+            // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
+            sdk.subscribe(SubscriptionFilterOptions.newFilter().likeDevice("016%").likeResourcePath("/3/0/%"),
+                    BackpressureStrategy.BUFFER, FirstValue.ON_VALUE_UPDATE).flow().subscribe(System.out::println);
+            // Listening to resource value changes for 2 minutes.
+            Thread.sleep(120000); // TODO do some other work in your application
+            // cloak
+            // Checking that an observer was created
+            assertTrue(sdk.subscribe().hasObservers());
+            // Notifying a device change
+            sdk.subscribe().notify(SubscriptionType.NOTIFICATION,
+                    new ResourceValueNotification("016546546465", "/3/0/5").payload("TEST"));
+            // uncloak
             // Stopping the SDK.
             sdk.stop();
             // end of example
@@ -64,19 +113,20 @@ public class MbedCloudExamples extends AbstractExample {
     @Example
     public void subscribeToNewRegisteredDeviceStateChanges() {
         ConnectionOptions config = Configuration.get();
-        MbedCloud sdk = MbedCloud.createSdk(config);
+        config.autostartDaemon(false);
+        MbedCloudClient sdk = MbedCloudClient.createSdk(config);
         try {
-            // an example: subscribing to a newly registered device
+            // an example: subscribing to newly registered devices
             // Creating an Observer listening to device state changes for
             // devices which are newly registered.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
 
             sdk.subscribe(DeviceStateFilterOptions.newFilter().equalDeviceState(DeviceState.REGISTRATION),
-                    BackpressureStrategy.BUFFER).flow().timeout(5, TimeUnit.SECONDS).subscribe(System.out::println);
+                    BackpressureStrategy.BUFFER).flow().timeout(80, TimeUnit.SECONDS).subscribe(System.out::println);
 
             // Listening to device state changes for 1 minute.
-            Thread.sleep(60000);
+            Thread.sleep(60000); // TODO do some other work in your application
             // cloak
             // Checking that an observer was created
             assertTrue(sdk.subscribe().hasObservers());
