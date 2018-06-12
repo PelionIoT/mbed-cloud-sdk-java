@@ -6,6 +6,32 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+1.2.8 (2018-05-23)
+==================
+
+### Features
+
+- Added new field (phase) to update campaign. (J1057)
+
+- Added 'Resource value change' subscription channel. This supercedes
+  'presubscription' and 'subscription' behaviours to provide a uniform
+  interface in line with the existing 'Device state change' channel. See
+  Connect module > subscribe(). (J1102)
+
+- Updated models regarding Users and Accounts to better manage custom
+  properties. Added additional filters when listing users. (J1225)
+
+- It is now possible to upload all device decryption keys for a campaign as a
+  single blob when adding the firmware manifest (J552)
+
+- Bootstrap module for Pre-Shared Keys was integrated. This provides the
+  ability to set Pre-Shared Keys for device bring-up. (J630)
+
+### Bugfixes
+
+- Updated Connect backend endpoint names (J1235)
+
+
 1.2.7 (2018-04-09)
 ==================
 

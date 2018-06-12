@@ -18,22 +18,35 @@ public class ListOptions extends FilterOptions {
 
     /**
      * how many objects to retrieve in the page.
+     * <P>
+     * This parameter is relevant to results pages {@link ListResponse}.
+     * <p>
+     * If set to null, the default page size will be used.
      */
-    @DefaultValue(value = "default")
-    Integer limit;
+    @DefaultValue(value = "null")
+    protected Integer pageSize;
+    /**
+     * how many objects to retrieve in total.
+     * <P>
+     * This parameter is relevant to paginators {@link Paginator}.
+     * <p>
+     * If set to null, all results present in the dataset will be returned.
+     */
+    @DefaultValue(value = "null")
+    protected Long maxResults;
     /**
      * Sorting order. ASC or DESC
      */
     @DefaultValue(value = "ASC")
-    Order order;
+    protected Order order;
     /**
      * the ID of the the item after which to retrieve the next page.
      */
-    String after;
+    protected String after;
     /**
      * Optional fields to include.
      */
-    List<IncludeField> include;
+    protected List<IncludeField> include;
 
     /**
      * Constructor.
@@ -58,9 +71,33 @@ public class ListOptions extends FilterOptions {
      *            filter.
      */
     @Internal
+    @Deprecated
     protected ListOptions(Integer limit, Order order, String after, List<IncludeField> include, Filters filter) {
+        this(limit, null, order, after, include, filter);
+    }
+
+    /**
+     * Constructor.
+     *
+     * @param pageSize
+     *            pageSize.
+     * @param maxResults
+     *            maxResults.
+     * @param order
+     *            order.
+     * @param after
+     *            after.
+     * @param include
+     *            include.
+     * @param filter
+     *            filter.
+     */
+    @Internal
+    public ListOptions(Integer pageSize, Long maxResults, Order order, String after, List<IncludeField> include,
+            Filters filter) {
         super();
-        this.limit = limit;
+        this.pageSize = pageSize;
+        this.maxResults = maxResults;
         this.order = order;
         this.after = after;
         this.include = include;
@@ -69,21 +106,111 @@ public class ListOptions extends FilterOptions {
 
     /**
      * Gets the limit.
+     * <p>
+     * Note: Use {@link #getPageSize()} instead
      *
      * @return the limit
      */
+    @Deprecated
     public Integer getLimit() {
-        return limit;
+        return getPageSize();
     }
 
     /**
      * Sets the limit.
+     * <p>
+     * Note: Use {@link #setPageSize(Integer)} instead
      *
      * @param limit
      *            the limit to set
      */
+    @Deprecated
     public void setLimit(Integer limit) {
-        this.limit = limit;
+        setPageSize(limit);
+    }
+
+    /**
+     * Gets how many objects will be retrieved per page.
+     *
+     * @return the page size
+     */
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    /**
+     * Gets how many objects are requested in total.
+     *
+     * @return the maximum number of results returned.
+     */
+    public Long getMaxResults() {
+        return maxResults;
+    }
+
+    /**
+     * States whether the maximum number of expected results has been set or not.
+     *
+     * @return true if the number has been set. False otherwise.
+     */
+    public boolean hasMaxResults() {
+        return maxResults != null;
+    }
+
+    /**
+     * Sets how many objects to retrieve in the page.
+     * <P>
+     * This parameter is relevant to results pages {@link ListResponse}.
+     * <p>
+     * If set to null, the default page size will be used.
+     *
+     * @param pageSize
+     *            the pageSize to set
+     */
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    /**
+     * Sets how many objects to retrieve in the page.
+     * <P>
+     * Note: Similar to {@link #setPageSize(Integer)}
+     *
+     * @param enforcedPageSize
+     *            the pageSize to set
+     *
+     * @return this
+     */
+    public ListOptions pageSize(int enforcedPageSize) {
+        setPageSize(Integer.valueOf(enforcedPageSize));
+        return this;
+    }
+
+    /**
+     * Sets how many objects to retrieve in total.
+     * <P>
+     * This parameter is relevant to paginators {@link Paginator}.
+     * <p>
+     * If set to null, all results present in the dataset will be returned.
+     *
+     * @param maxResults
+     *            the number of results to request
+     */
+    public void setMaxResults(Long maxResults) {
+        this.maxResults = maxResults;
+    }
+
+    /**
+     * Sets how many objects to retrieve in total.
+     * <p>
+     * Note: Similar to {@link #setMaxResults(Long)}
+     *
+     * @param requestedMaxResults
+     *            the number of results to request
+     * @return this
+     */
+    public ListOptions maxResults(long requestedMaxResults) {
+        setMaxResults(Long.valueOf(requestedMaxResults));
+        return this;
     }
 
     /**
@@ -328,7 +455,8 @@ public class ListOptions extends FilterOptions {
         setAfter(overridingOptions.getAfter());
         setFilters(overridingOptions.getFilter());
         setInclude(overridingOptions.getInclude());
-        setLimit(overridingOptions.getLimit());
+        setPageSize(overridingOptions.getPageSize());
+        setMaxResults(overridingOptions.getMaxResults());
         setOrder(overridingOptions.getOrder());
     }
 
@@ -339,7 +467,8 @@ public class ListOptions extends FilterOptions {
         setAfter(null);
         setFilters(null);
         setInclude(null);
-        setLimit(null);
+        setPageSize(null);
+        setMaxResults(null);
         setOrder(Order.ASC);
     }
 
@@ -350,7 +479,7 @@ public class ListOptions extends FilterOptions {
      */
     @Override
     public ListOptions clone() {
-        return new ListOptions(limit, order, after, (include == null) ? null : new LinkedList<>(include),
+        return new ListOptions(pageSize, maxResults, order, after, (include == null) ? null : new LinkedList<>(include),
                 (filter == null) ? null : filter.clone());
     }
 
@@ -362,12 +491,12 @@ public class ListOptions extends FilterOptions {
     @Override
     public int hashCode() {
         final int prime = 31;
-        int result = 1;
+        int result = super.hashCode();
         result = prime * result + ((after == null) ? 0 : after.hashCode());
-        result = prime * result + ((filter == null) ? 0 : filter.hashCode());
         result = prime * result + ((include == null) ? 0 : include.hashCode());
-        result = prime * result + ((limit == null) ? 0 : limit.hashCode());
+        result = prime * result + ((maxResults == null) ? 0 : maxResults.hashCode());
         result = prime * result + ((order == null) ? 0 : order.hashCode());
+        result = prime * result + ((pageSize == null) ? 0 : pageSize.hashCode());
         return result;
     }
 
@@ -381,7 +510,7 @@ public class ListOptions extends FilterOptions {
         if (this == obj) {
             return true;
         }
-        if (obj == null) {
+        if (!super.equals(obj)) {
             return false;
         }
         if (getClass() != obj.getClass()) {
@@ -395,13 +524,7 @@ public class ListOptions extends FilterOptions {
         } else if (!after.equals(other.after)) {
             return false;
         }
-        if (filter == null) {
-            if (other.filter != null) {
-                return false;
-            }
-        } else if (!filter.equals(other.filter)) {
-            return false;
-        }
+
         if (include == null) {
             if (other.include != null) {
                 return false;
@@ -409,14 +532,21 @@ public class ListOptions extends FilterOptions {
         } else if (!include.equals(other.include)) {
             return false;
         }
-        if (limit == null) {
-            if (other.limit != null) {
+        if (maxResults == null) {
+            if (other.maxResults != null) {
                 return false;
             }
-        } else if (!limit.equals(other.limit)) {
+        } else if (!maxResults.equals(other.maxResults)) {
             return false;
         }
         if (order != other.order) {
+            return false;
+        }
+        if (pageSize == null) {
+            if (other.pageSize != null) {
+                return false;
+            }
+        } else if (!pageSize.equals(other.pageSize)) {
             return false;
         }
         return true;
@@ -429,8 +559,8 @@ public class ListOptions extends FilterOptions {
      */
     @Override
     public String toString() {
-        return "ListOptions [limit=" + limit + ", order=" + order + ", after=" + after + ", include=" + encodeInclude()
-                + ", filter=" + retrieveFilterAsJson() + "]";
+        return "ListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order + ", after="
+                + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
     }
 
 }

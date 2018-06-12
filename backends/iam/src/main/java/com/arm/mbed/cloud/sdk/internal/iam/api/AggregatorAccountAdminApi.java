@@ -14,14 +14,15 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AdminUserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -32,6 +33,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
@@ -119,7 +121,7 @@ public interface AggregatorAccountAdminApi {
    * Create a new account.
    * An endpoint for creating a new account.
    * @param body Details of the account to be created. (required)
-   * @param action Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. (optional, default to create)
+   * @param action Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; (optional, default to create)
    * @return Call&lt;AccountCreationResp&gt;
    */
   @Headers({
@@ -143,6 +145,21 @@ public interface AggregatorAccountAdminApi {
   @POST("v3/accounts/{accountID}/api-keys")
   Call<ApiKeyInfoResp> createAccountApiKey(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body ApiKeyInfoReq body
+  );
+
+  /**
+   * Create a new group.
+   * An endpoint for creating a new group.
+   * @param accountID Account ID. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;GroupSummary&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/accounts/{accountID}/policy-groups")
+  Call<GroupSummary> createAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body GroupCreationInfo body
   );
 
   /**
@@ -183,6 +200,18 @@ public interface AggregatorAccountAdminApi {
   @DELETE("v3/accounts/{accountID}/trusted-certificates/{cert-id}")
   Call<Void> deleteAccountCertificate(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "cert-id", encoded = true) String certId
+  );
+
+  /**
+   * Delete a group.
+   * An endpoint for deleting a group.
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<Void> deleteAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID
   );
 
   /**
@@ -309,10 +338,10 @@ public interface AggregatorAccountAdminApi {
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param nameEq Filter for group name (optional)
-   * @return Call&lt;List&lt;GroupSummary&gt;&gt;
+   * @return Call&lt;GroupSummaryList&gt;
    */
   @GET("v3/accounts/{accountID}/policy-groups")
-  Call<List<GroupSummary>> getAllAccountGroups(
+  Call<GroupSummaryList> getAllAccountGroups(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
   );
 
@@ -546,6 +575,22 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Update the group name.
+   * An endpoint for updating a group name.
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be updated. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<UpdatedResponse> updateAccountGroupName(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
+  );
+
+  /**
    * Update user details.
    * An endpoint for updating user details.
    * @param accountID Account ID. (required)
@@ -558,7 +603,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{accountID}/users/{user-id}")
   Call<UserUpdateResp> updateAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body AdminUserUpdateReq body
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**

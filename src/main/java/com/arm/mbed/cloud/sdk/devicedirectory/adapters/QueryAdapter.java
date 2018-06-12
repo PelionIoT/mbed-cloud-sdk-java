@@ -25,7 +25,7 @@ public final class QueryAdapter {
 
     /**
      * Maps query.
-     * 
+     *
      * @param deviceQuery
      *            query to map
      * @return a map
@@ -43,7 +43,7 @@ public final class QueryAdapter {
 
     /**
      * Gets a mapper.
-     * 
+     *
      * @return a mapper
      */
     public static Mapper<DeviceQuery, Query> getMapper() {
@@ -59,7 +59,7 @@ public final class QueryAdapter {
 
     /**
      * Maps a list of query.
-     * 
+     *
      * @param list
      *            query page.
      * @return a list of queries
@@ -97,13 +97,18 @@ public final class QueryAdapter {
             public List<DeviceQuery> getData() {
                 return (queryList == null) ? null : queryList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<DeviceQueryPage, ListResponse<Query>> getListMapper() {
@@ -119,7 +124,7 @@ public final class QueryAdapter {
 
     /**
      * Reverses mapping of a new query.
-     * 
+     *
      * @param query
      *            query to add
      * @return a new query request
@@ -136,7 +141,7 @@ public final class QueryAdapter {
 
     /**
      * Reverses mapping of an updated query.
-     * 
+     *
      * @param query
      *            query to update
      * @return a query update request

@@ -15,7 +15,7 @@ public class TestListResponse {
 
     @Test
     public void testIterator() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         response.addData(new IntegerModel(0));
         response.addData(new IntegerModel(1));
         response.addData(new IntegerModel(2));
@@ -32,7 +32,7 @@ public class TestListResponse {
 
     @Test
     public void testFirst() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         assertEquals(null, response.first());
         response.addData(new IntegerModel(5));
         assertEquals(5, response.first().getValue());
@@ -49,7 +49,7 @@ public class TestListResponse {
 
     @Test
     public void testLast() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         assertEquals(null, response.last());
         response.addData(new IntegerModel(5));
         assertEquals(5, response.last().getValue());
@@ -65,7 +65,7 @@ public class TestListResponse {
 
     @Test
     public void testGetNumberOfElements() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         assertEquals(0, response.getNumberOfElements());
         response.addData(new IntegerModel(5));
         assertEquals(1, response.getNumberOfElements());
@@ -79,7 +79,7 @@ public class TestListResponse {
 
     @Test
     public void testClone() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         response.addData(new IntegerModel(5));
         response.addData(new IntegerModel(4));
         response.addData(new IntegerModel(3));
@@ -95,14 +95,14 @@ public class TestListResponse {
 
     @Test
     public void testEqualsObject() {
-        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         response.addData(new IntegerModel(5));
         response.addData(new IntegerModel(4));
         response.addData(new IntegerModel(3));
         response.addData(new IntegerModel(2));
         response.addData(new IntegerModel(1));
         response.addData(new IntegerModel(0));
-        ListResponse<IntegerModel> response2 = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response2 = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         response2.addData(new IntegerModel(5));
         response2.addData(new IntegerModel(4));
         response2.addData(new IntegerModel(3));
@@ -112,7 +112,7 @@ public class TestListResponse {
         assertEquals(response2, response);
         assertFalse(response2 == response);
         assertEquals(response2.hashCode(), response.hashCode());
-        ListResponse<IntegerModel> response3 = new ListResponse<>(true, 5, null, 6, Order.ASC);
+        ListResponse<IntegerModel> response3 = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
         response3.addData(new IntegerModel(5));
         response3.addData(new IntegerModel(4));
         response3.addData(new IntegerModel(3));
@@ -130,7 +130,7 @@ public class TestListResponse {
 
     private static class IntegerModel implements SdkModel {
         /**
-         * 
+         *
          */
         private static final long serialVersionUID = 1L;
         private int value;
@@ -154,7 +154,7 @@ public class TestListResponse {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see com.arm.mbed.cloud.sdk.common.SdkModel#getId()
          */
         @Override
@@ -164,7 +164,7 @@ public class TestListResponse {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#clone()
          */
         @Override
@@ -174,7 +174,7 @@ public class TestListResponse {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#hashCode()
          */
         @Override
@@ -187,20 +187,24 @@ public class TestListResponse {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#equals(java.lang.Object)
          */
         @Override
         public boolean equals(Object obj) {
-            if (this == obj)
+            if (this == obj) {
                 return true;
-            if (obj == null)
+            }
+            if (obj == null) {
                 return false;
-            if (getClass() != obj.getClass())
+            }
+            if (getClass() != obj.getClass()) {
                 return false;
+            }
             IntegerModel other = (IntegerModel) obj;
-            if (value != other.value)
+            if (value != other.value) {
                 return false;
+            }
             return true;
         }
 

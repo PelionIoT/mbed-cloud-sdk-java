@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.internal.connectorbootstrap.api;
 
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
 import org.junit.Before;
@@ -26,7 +27,7 @@ public class PreSharedKeysApiTest {
     /**
      * Remove a pre-shared key.
      *
-     * Remove a pre-shared key.
+     * Remove a pre-shared key.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; -X DELETE https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 &#x60;&#x60;&#x60; 
      */
     @Test
     public void deletePreSharedKeyTest() {
@@ -38,7 +39,7 @@ public class PreSharedKeysApiTest {
     /**
      * Get a pre-shared key.
      *
-     * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself. 
+     * Check if a pre-shared key for an endpoint exists or not. The response does not contain the secret itself.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; https://api.us-east-1.mbedcloud.com/v2/device-shared-keys/my-endpoint-0001 &#x60;&#x60;&#x60; 
      */
     @Test
     public void getPreSharedKeyTest() {
@@ -48,9 +49,22 @@ public class PreSharedKeysApiTest {
         // TODO: test validations
     }
     /**
+     * List pre-shared keys.
+     *
+     * List pre-shared keys with pagination and default page size of 50 entries.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; https://api.us-east-1.mbedcloud.com/v2/device-shared-keys &#x60;&#x60;&#x60; 
+     */
+    @Test
+    public void listPreSharedKeysTest() {
+        Integer limit = null;
+        String after = null;
+        // ListOfPreSharedKeysWithoutSecret response = api.listPreSharedKeys(limit, after);
+
+        // TODO: test validations
+    }
+    /**
      * Upload a pre-shared key to Mbed Cloud.
      *
-     * Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  &#x60;&#x60;&#x60; Example payloads: {\&quot;endpoint_name\&quot;: \&quot;myEndpoint.host.com\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; } {\&quot;endpoint_name\&quot;: \&quot;myEndpoint.host.com\&quot;, \&quot;secret_hex\&quot;: \&quot;0x4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; } &#x60;&#x60;&#x60; 
+     * Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; -H \&quot;content-type: application/json\&quot; -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\      -d &#39;{\&quot;endpoint_name\&quot;: \&quot;my-endpoint-0001\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; }&#39; &#x60;&#x60;&#x60; 
      */
     @Test
     public void uploadPreSharedKeyTest() {

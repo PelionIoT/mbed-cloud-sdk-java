@@ -1,1 +1,0 @@
-Added 'Resource value change' subscription channel. This supercedes 'presubscription' and 'subscription' behaviours to provide a uniform interface in line with the existing 'Device state change' channel. See Connect module > subscribe().

@@ -6,14 +6,15 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateRootReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AdminUserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -24,6 +25,7 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 import org.junit.Before;
 import org.junit.Test;
@@ -140,6 +142,19 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Create a new group.
+     *
+     * An endpoint for creating a new group.
+     */
+    @Test
+    public void createAccountGroupTest() {
+        String accountID = null;
+        GroupCreationInfo body = null;
+        // GroupSummary response = api.createAccountGroup(accountID, body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a new user.
      *
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
@@ -176,6 +191,19 @@ public class AggregatorAccountAdminApiTest {
         String accountID = null;
         String certId = null;
         // Void response = api.deleteAccountCertificate(accountID, certId);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a group.
+     *
+     * An endpoint for deleting a group.
+     */
+    @Test
+    public void deleteAccountGroupTest() {
+        String accountID = null;
+        String groupID = null;
+        // Void response = api.deleteAccountGroup(accountID, groupID);
 
         // TODO: test validations
     }
@@ -315,7 +343,7 @@ public class AggregatorAccountAdminApiTest {
         String order = null;
         String include = null;
         String nameEq = null;
-        // List<GroupSummary> response = api.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
+        // GroupSummaryList response = api.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
 
         // TODO: test validations
     }
@@ -545,6 +573,20 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Update the group name.
+     *
+     * An endpoint for updating a group name.
+     */
+    @Test
+    public void updateAccountGroupNameTest() {
+        String accountID = null;
+        String groupID = null;
+        GroupUpdateInfo body = null;
+        // UpdatedResponse response = api.updateAccountGroupName(accountID, groupID, body);
+
+        // TODO: test validations
+    }
+    /**
      * Update user details.
      *
      * An endpoint for updating user details.
@@ -553,7 +595,7 @@ public class AggregatorAccountAdminApiTest {
     public void updateAccountUserTest() {
         String accountID = null;
         String userId = null;
-        AdminUserUpdateReq body = null;
+        UserUpdateReq body = null;
         // UserUpdateResp response = api.updateAccountUser(accountID, userId, body);
 
         // TODO: test validations

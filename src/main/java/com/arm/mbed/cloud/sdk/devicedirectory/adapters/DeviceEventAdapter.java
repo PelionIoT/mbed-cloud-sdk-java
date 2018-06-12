@@ -35,7 +35,7 @@ public final class DeviceEventAdapter {
 
     /**
      * Maps device event data.
-     * 
+     *
      * @param deviceEventData
      *            device event to map
      * @return mapped device event
@@ -53,7 +53,7 @@ public final class DeviceEventAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return mapper
      */
     public static Mapper<DeviceEventData, DeviceEvent> getMapper() {
@@ -69,7 +69,7 @@ public final class DeviceEventAdapter {
 
     /**
      * Maps a list of device event.
-     * 
+     *
      * @param list
      *            device event page
      * @return a list of device events
@@ -107,13 +107,18 @@ public final class DeviceEventAdapter {
             public List<DeviceEventData> getData() {
                 return (eventList == null) ? null : eventList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<DeviceEventPage, ListResponse<DeviceEvent>> getListMapper() {

@@ -37,9 +37,6 @@ import java.io.Serializable;
 public class AccountUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("account_properties")
-  private Map<String, Map<String, String>> accountProperties = null;
-
   @SerializedName("address_line1")
   private String addressLine1 = null;
 
@@ -60,6 +57,9 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("country")
   private String country = null;
+
+  @SerializedName("custom_fields")
+  private Map<String, String> customFields = null;
 
   @SerializedName("display_name")
   private String displayName = null;
@@ -140,32 +140,6 @@ public class AccountUpdateReq implements Serializable {
 
   @SerializedName("state")
   private String state = null;
-
-  public AccountUpdateReq accountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-    return this;
-  }
-
-  public AccountUpdateReq putAccountPropertiesItem(String key, Map<String, String> accountPropertiesItem) {
-    if (this.accountProperties == null) {
-      this.accountProperties = new HashMap<String, Map<String, String>>();
-    }
-    this.accountProperties.put(key, accountPropertiesItem);
-    return this;
-  }
-
-   /**
-   * Properties for this account.
-   * @return accountProperties
-  **/
-  @ApiModelProperty(value = "Properties for this account.")
-  public Map<String, Map<String, String>> getAccountProperties() {
-    return accountProperties;
-  }
-
-  public void setAccountProperties(Map<String, Map<String, String>> accountProperties) {
-    this.accountProperties = accountProperties;
-  }
 
   public AccountUpdateReq addressLine1(String addressLine1) {
     this.addressLine1 = addressLine1;
@@ -299,6 +273,32 @@ public class AccountUpdateReq implements Serializable {
 
   public void setCountry(String country) {
     this.country = country;
+  }
+
+  public AccountUpdateReq customFields(Map<String, String> customFields) {
+    this.customFields = customFields;
+    return this;
+  }
+
+  public AccountUpdateReq putCustomFieldsItem(String key, String customFieldsItem) {
+    if (this.customFields == null) {
+      this.customFields = new HashMap<String, String>();
+    }
+    this.customFields.put(key, customFieldsItem);
+    return this;
+  }
+
+   /**
+   * Account&#39;s custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
+   * @return customFields
+  **/
+  @ApiModelProperty(value = "Account's custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.")
+  public Map<String, String> getCustomFields() {
+    return customFields;
+  }
+
+  public void setCustomFields(Map<String, String> customFields) {
+    this.customFields = customFields;
   }
 
   public AccountUpdateReq displayName(String displayName) {
@@ -517,14 +517,14 @@ public class AccountUpdateReq implements Serializable {
       return false;
     }
     AccountUpdateReq accountUpdateReq = (AccountUpdateReq) o;
-    return Objects.equals(this.accountProperties, accountUpdateReq.accountProperties) &&
-        Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
+    return Objects.equals(this.addressLine1, accountUpdateReq.addressLine1) &&
         Objects.equals(this.addressLine2, accountUpdateReq.addressLine2) &&
         Objects.equals(this.aliases, accountUpdateReq.aliases) &&
         Objects.equals(this.city, accountUpdateReq.city) &&
         Objects.equals(this.company, accountUpdateReq.company) &&
         Objects.equals(this.contact, accountUpdateReq.contact) &&
         Objects.equals(this.country, accountUpdateReq.country) &&
+        Objects.equals(this.customFields, accountUpdateReq.customFields) &&
         Objects.equals(this.displayName, accountUpdateReq.displayName) &&
         Objects.equals(this.email, accountUpdateReq.email) &&
         Objects.equals(this.endMarket, accountUpdateReq.endMarket) &&
@@ -540,7 +540,7 @@ public class AccountUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountProperties, addressLine1, addressLine2, aliases, city, company, contact, country, displayName, email, endMarket, expirationWarningThreshold, idleTimeout, mfaStatus, notificationEmails, passwordPolicy, phoneNumber, postalCode, state);
+    return Objects.hash(addressLine1, addressLine2, aliases, city, company, contact, country, customFields, displayName, email, endMarket, expirationWarningThreshold, idleTimeout, mfaStatus, notificationEmails, passwordPolicy, phoneNumber, postalCode, state);
   }
 
 
@@ -549,7 +549,6 @@ public class AccountUpdateReq implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class AccountUpdateReq {\n");
     
-    sb.append("    accountProperties: ").append(toIndentedString(accountProperties)).append("\n");
     sb.append("    addressLine1: ").append(toIndentedString(addressLine1)).append("\n");
     sb.append("    addressLine2: ").append(toIndentedString(addressLine2)).append("\n");
     sb.append("    aliases: ").append(toIndentedString(aliases)).append("\n");
@@ -557,6 +556,7 @@ public class AccountUpdateReq implements Serializable {
     sb.append("    company: ").append(toIndentedString(company)).append("\n");
     sb.append("    contact: ").append(toIndentedString(contact)).append("\n");
     sb.append("    country: ").append(toIndentedString(country)).append("\n");
+    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    displayName: ").append(toIndentedString(displayName)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    endMarket: ").append(toIndentedString(endMarket)).append("\n");
