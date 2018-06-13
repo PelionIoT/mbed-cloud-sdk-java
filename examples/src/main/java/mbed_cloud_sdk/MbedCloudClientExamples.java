@@ -65,7 +65,7 @@ public class MbedCloudClientExamples extends AbstractExample {
         MbedCloudClient sdk = MbedCloudClient.createSdk(config);
         try {
             // an example: subscribing to device state changes
-            // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
+            // Creating an Observer listening to device state changes for devices whose id starts with 016 and for
             // devices which are newly registered or expired. Such device state changes are then printed to the console
             // when they occur.
             // For more information about backpressure strategies, please have a look at related documentation:
@@ -101,13 +101,9 @@ public class MbedCloudClientExamples extends AbstractExample {
         MbedCloudClient sdk = MbedCloudClient.createSdk(config);
         try {
             // an example: subscribing to resource value changes
-            // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
-            // devices which are newly registered or expired. Such device state changes are then printed when they
-            // occur.
-            // Creating an Observer listening to resource value changes for devices whose ids start with 016 and
+            // Creating an Observer listening to resource value changes for devices whose id starts with 016 and
             // resource paths starting with /3/0/. Such resource value changes are then printed to "standard out" when
-            // they
-            // occur.
+            // they occur.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
             // For more information about First Value strategies, have a look at

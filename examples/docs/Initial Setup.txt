@@ -1,0 +1,29 @@
+// an example: Initial setup
+/*
+In order to use the Java SDK, JRE > 1.7 is necessary and must be installed.
+
+In order to best meet your requirements, Java SDK is packaged in 3 different ways:
+    - Individual Jars
+    - Distribution ZIP. See related gradle plugin for more details.
+    - A fat jar comprising the SDK and all its dependencies.
+
+Artefacts listed above are published on <a href="https://bintray.com/armmbed/mbed-cloud-sdk">JCenter</a> and <a href="https://mvnrepository.com/artifact/com.arm.mbed.cloud.sdk/mbed-cloud-sdk">Maven Central</a>. They can therefore be retrieved and included into your project using the package manager of your choice (e.g. Gradle, Maven, Ant/Ivy). To do so, please follow the instructions present on one of these artefact repositories (<a href="https://bintray.com/armmbed/mbed-cloud-sdk/mbed-cloud-sdk/">Bintray page of the project</a>).
+
+For example, if using Gradle, you can initialise your project, as follows:
+*/
+> gradle init --type java-application
+/*
+Then, add the following compile dependency to build.gradle:
+*/
+compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y'
+/*
+Current artefacts are not fully tailored for Android but can be used as is on this mobile platform. However, oltu dependency will have to be excluded to remove any compilation issue (e.g. Error converting bytecode to dex:\nCause: com.android.dex.DexException: Multiple dex files define Lorg/apache/oltu/oauth2/common/domain/credentials/Credentials). To do so, import the SDK in the gradle file, as follows:
+*/
+implementation( 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.x.y' ){
+    // Excluding a particular transitive dependency:
+    exclude group: 'org.apache.oltu.oauth2'
+}
+/*
+Next time, you build your project, the dependencies will be fetched and stored in your package manager cache. You are then ready to start working with the SDK.
+*/
+// end of example
