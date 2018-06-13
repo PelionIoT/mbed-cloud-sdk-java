@@ -42,8 +42,8 @@ public class MbedCloudClientExamples extends AbstractExample {
         try {
             // uncloak
             // TODO do something with the SDK
-            // Stop the SDK when you do not need them anymore.
-            sdk.stop();
+            // Stop the SDK when you do not need it anymore.
+            sdk.quit();
             // end of example
 
         } catch (Exception e) {
@@ -78,8 +78,8 @@ public class MbedCloudClientExamples extends AbstractExample {
             // Listening to device state changes for 2 minutes.
             Thread.sleep(120000); // TODO do some actual work in your application
 
-            // Stopping the SDK.
-            sdk.stop();
+            // Stopping the SDK when no longer needed.
+            sdk.quit();
             // end of example
 
         } catch (Exception e) {
@@ -119,8 +119,8 @@ public class MbedCloudClientExamples extends AbstractExample {
             sdk.subscribe().notify(SubscriptionType.NOTIFICATION,
                     new ResourceValueNotification("016546546465", "/3/0/5").payload("TEST"));
             // uncloak
-            // Stopping the SDK.
-            sdk.stop();
+            // Stopping the SDK when no longer needed.
+            sdk.quit();
             // end of example
 
         } catch (Exception e) {
