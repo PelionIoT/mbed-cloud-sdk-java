@@ -24,6 +24,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -35,7 +36,7 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("added")
-  private String added = null;
+  private DateTime added = null;
 
   @SerializedName("amount")
   private Long amount = null;
@@ -107,7 +108,7 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
   @SerializedName("service_package")
   private ServicePackageQuotaHistoryServicePackage servicePackage = null;
 
-  public ServicePackageQuotaHistoryItem added(String added) {
+  public ServicePackageQuotaHistoryItem added(DateTime added) {
     this.added = added;
     return this;
   }
@@ -117,11 +118,11 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
    * @return added
   **/
   @ApiModelProperty(required = true, value = "Added time of quota history entry.")
-  public String getAdded() {
+  public DateTime getAdded() {
     return added;
   }
 
-  public void setAdded(String added) {
+  public void setAdded(DateTime added) {
     this.added = added;
   }
 
