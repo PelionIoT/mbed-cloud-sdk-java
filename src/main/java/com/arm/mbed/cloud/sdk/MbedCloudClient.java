@@ -56,7 +56,7 @@ public class MbedCloudClient extends AbstractApi {
     }
 
     private static Map<String, String> extendUserAgent() {
-        Map<String, String> extension = new HashMap<>(1);
+        final Map<String, String> extension = new HashMap<>(1);
         extension.put("HLA", "1.0.0-experimental");
         return extension;
     }

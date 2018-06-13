@@ -352,6 +352,8 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     /**
      * Returns the data element at the specified position in this page.
      *
+     * @param index
+     *            index of the element to retrieve
      * @return data element at the specified position in this page.
      */
     public @Nullable T get(int index) {

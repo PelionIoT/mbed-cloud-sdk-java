@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
 import com.arm.mbed.cloud.sdk.MbedCloudClient;
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
@@ -24,6 +25,34 @@ import utils.Example;
 public class MbedCloudClientExamples extends AbstractExample {
 
     /**
+     * Configures the SDK.
+     */
+
+    @Example
+    public void configureTheSdk() {
+        // an example: configuring the SDK
+        ConnectionOptions config = ConnectionOptions.newConfiguration("an_API_KEY_for_the_cloud");
+        // If the host is not the default Mbed Cloud, it needs to be specified
+        config.setHost("Cloud host URL");
+        // The level of logging regarding Http communications with the Cloud can also be specified (see CallLogLevel for
+        // more details).
+        config.setClientLogLevel(CallLogLevel.BASIC);
+        MbedCloudClient sdk = MbedCloudClient.createSdk(config);
+        // cloak
+        try {
+            // uncloak
+            // TODO do something with the SDK
+            // Stop the SDK when you do not need them anymore.
+            sdk.stop();
+            // end of example
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+
+    /**
      * Subscribes to device state changes.
      * <p>
      * Note: This example introduces new high level abstraction objects such as Observer
@@ -37,8 +66,8 @@ public class MbedCloudClientExamples extends AbstractExample {
         try {
             // an example: subscribing to device state changes
             // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
-            // devices which are newly registered or expired. Such device state changes are then printed when they
-            // occur.
+            // devices which are newly registered or expired. Such device state changes are then printed to the console
+            // when they occur.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
             sdk.subscribe(
@@ -47,7 +76,7 @@ public class MbedCloudClientExamples extends AbstractExample {
                     BackpressureStrategy.BUFFER).flow().subscribe(System.out::println);
 
             // Listening to device state changes for 2 minutes.
-            Thread.sleep(120000); // TODO do some other work in your application
+            Thread.sleep(120000); // TODO do some actual work in your application
 
             // Stopping the SDK.
             sdk.stop();
@@ -71,7 +100,7 @@ public class MbedCloudClientExamples extends AbstractExample {
         config.autostartDaemon(false);
         MbedCloudClient sdk = MbedCloudClient.createSdk(config);
         try {
-            // an example: subscribing to resource value change
+            // an example: subscribing to resource value changes
             // Creating an Observer listening to device state changes for devices whose ids start with 016 and for
             // devices which are newly registered or expired. Such device state changes are then printed when they
             // occur.
@@ -86,7 +115,7 @@ public class MbedCloudClientExamples extends AbstractExample {
             sdk.subscribe(SubscriptionFilterOptions.newFilter().likeDevice("016%").likeResourcePath("/3/0/%"),
                     BackpressureStrategy.BUFFER, FirstValue.ON_VALUE_UPDATE).flow().subscribe(System.out::println);
             // Listening to resource value changes for 2 minutes.
-            Thread.sleep(120000); // TODO do some other work in your application
+            Thread.sleep(120000); // TODO do some actual work in your application
             // cloak
             // Checking that an observer was created
             assertTrue(sdk.subscribe().hasObservers());

@@ -31,7 +31,7 @@ public abstract class AbstractApi {
      * @param options
      *            connection options @see {@link ConnectionOptions}
      * @param userAgentExtension
-     *            extension list for the user agent: module name -> module version
+     *            extension list for the user agent: module name - module version
      */
     public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
         super();

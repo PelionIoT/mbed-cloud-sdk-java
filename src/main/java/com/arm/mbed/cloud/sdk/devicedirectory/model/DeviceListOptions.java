@@ -110,6 +110,15 @@ public class DeviceListOptions extends ListOptions {
     }
 
     /**
+     * Creates a new instance of the options.
+     *
+     * @return a new instance
+     */
+    public static DeviceListOptions newOptions() {
+        return new DeviceListOptions();
+    }
+
+    /**
      * Adds a device filter based on id field.
      *
      * @param id

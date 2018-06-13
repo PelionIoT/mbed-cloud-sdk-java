@@ -40,7 +40,7 @@ public class ApiClientWrapper {
      * @param options
      *            connection options @see {@link ConnectionOptions}
      * @param userAgentExtensions
-     *            extension list for the user agent: module name -> module version
+     *            extension list for the user agent: module name - module version
      */
     public ApiClientWrapper(ConnectionOptions options, Map<String, String> userAgentExtensions) {
         super();
