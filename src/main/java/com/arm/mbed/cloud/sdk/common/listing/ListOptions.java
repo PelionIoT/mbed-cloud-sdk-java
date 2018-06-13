@@ -177,12 +177,14 @@ public class ListOptions extends FilterOptions {
      *
      * @param enforcedPageSize
      *            the pageSize to set
-     *
+     * @param <T>
+     *            this type
      * @return this
      */
-    public ListOptions pageSize(int enforcedPageSize) {
+    @SuppressWarnings("unchecked")
+    public <T extends ListOptions> T pageSize(int enforcedPageSize) {
         setPageSize(Integer.valueOf(enforcedPageSize));
-        return this;
+        return (T) this;
     }
 
     /**
@@ -206,11 +208,14 @@ public class ListOptions extends FilterOptions {
      *
      * @param requestedMaxResults
      *            the number of results to request
+     * @param <T>
+     *            this type
      * @return this
      */
-    public ListOptions maxResults(long requestedMaxResults) {
+    @SuppressWarnings("unchecked")
+    public <T extends ListOptions> T maxResults(long requestedMaxResults) {
         setMaxResults(Long.valueOf(requestedMaxResults));
-        return this;
+        return (T) this;
     }
 
     /**
@@ -232,6 +237,23 @@ public class ListOptions extends FilterOptions {
      */
     public void setOrder(Order order) {
         this.order = order;
+    }
+
+    /**
+     * Sets the sorting order.
+     * <p>
+     * Note: Similar to {@link #setOrder(Order)}
+     *
+     * @param listOrder
+     *            the order to set
+     * @param <T>
+     *            this type
+     * @return this
+     */
+    @SuppressWarnings("unchecked")
+    public <T extends ListOptions> T order(Order listOrder) {
+        setOrder(listOrder);
+        return (T) this;
     }
 
     /**

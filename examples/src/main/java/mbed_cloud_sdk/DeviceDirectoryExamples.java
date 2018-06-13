@@ -4,12 +4,14 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 import java.util.UUID;
+import java.util.stream.StreamSupport;
 
 import com.arm.mbed.cloud.sdk.DeviceDirectory;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEvent;
@@ -129,49 +131,62 @@ public class DeviceDirectoryExamples extends AbstractExample {
     }
 
     /**
-     * Lists the last 5 devices.
+     * Lists the first 900 devices in the Cloud and log their status.
+     * <p>
+     * Note: This example introduces new high level abstraction objects such as Paginator
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listDevices() {
         ConnectionOptions config = Configuration.get();
-        DeviceDirectory api = new DeviceDirectory(config);
         try {
-            // Defining query options.
-            DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(5);
-            options.setOrder(Order.DESC);
-            // Listing devices.
-            ListResponse<Device> devices = api.listDevices(options);
-            for (Device device : devices.getData()) {
-                log("Device", device);
-            }
+            // an example: list devices in Mbed Cloud
+            // Creating an instance of the SDK
+            DeviceDirectory api = new DeviceDirectory(config);
+            // Getting a paginator over the first 900 devices present in the Cloud.
+            // In the Java SDK, all listing APIs start with 'list'. When the method name also contains 'All',
+            // the corresponding paginator is returned. Otherwise, a ListResponse (i.e. only one page) is returned.
+            Paginator<Device> paginator = api
+                    .listAllDevices(DeviceListOptions.newOptions().maxResults(900).order(Order.ASC));
+            // For each device found, log their ID and State.
+            StreamSupport.stream(paginator.spliterator(), false)
+                    .map(device -> device.getId() + " [" + device.getState() + "]").forEach(d -> log("Device", d));
+            // end of example
+
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
+            logError("Exception", e);
             fail(e.getMessage());
         }
     }
 
     /**
-     * Lists the first 5 deregistered devices.
+     * Lists the last 900 deregistered devices in the Cloud and log their id.
+     * <p>
+     * Note: This example introduces new high level abstraction objects such as Paginator
      */
-    @SuppressWarnings("boxing")
     @Example
     public void listDeregisteredDevices() {
         ConnectionOptions config = Configuration.get();
-        DeviceDirectory api = new DeviceDirectory(config);
         try {
-            // Defining query options.
-            DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(5);
+            // an example: list deregistered devices in Mbed Cloud
+            // Creating an instance of the SDK
+            DeviceDirectory api = new DeviceDirectory(config);
+            // Setting the listing options (i.e. limit the number of results to 900 and order the results in the reverse
+            // order)
+            DeviceListOptions options = DeviceListOptions.newOptions().maxResults(900).order(Order.DESC);
+            // Setting a filter
             options.addStateFilter(DeviceState.DEREGISTERED, FilterOperator.EQUAL);
-            // Listing deregistered devices.
-            ListResponse<Device> devices = api.listDevices(options);
-            for (Device device : devices.getData()) {
-                log("Deregistered device", device);
-            }
+            // Getting a paginator over the last 900 deregistered devices present in the Cloud.
+            // In the Java SDK, all listing APIs start with 'list'. When the method name also contains 'All',
+            // the corresponding paginator is returned. Otherwise, a ListResponse (i.e. only one page) is returned.
+            Paginator<Device> paginator = api.listAllDevices(options);
+            // For each device found, log their ID and State.
+            StreamSupport.stream(paginator.spliterator(), false)
+                    .map(device -> device.getId() + " [" + device.getState() + "]")
+                    .forEach(d -> log("Deregistered device", d));
+            // end of example
+
         } catch (Exception e) {
-            logError("last API Metadata", api.getLastApiMetadata());
+            logError("Exception", e);
             fail(e.getMessage());
         }
     }
