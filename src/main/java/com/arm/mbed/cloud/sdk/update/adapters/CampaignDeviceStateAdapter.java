@@ -25,7 +25,7 @@ public final class CampaignDeviceStateAdapter {
 
     /**
      * Maps metadata.
-     * 
+     *
      * @param metadata
      *            campaign metadata
      * @return campaign state
@@ -42,7 +42,7 @@ public final class CampaignDeviceStateAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return mapper.
      */
     public static Mapper<CampaignDeviceMetadata, CampaignDeviceState> getMapper() {
@@ -58,7 +58,7 @@ public final class CampaignDeviceStateAdapter {
 
     /**
      * Maps list of campaign metadata.
-     * 
+     *
      * @param list
      *            metadata page
      * @return list of campaign metadata
@@ -93,6 +93,11 @@ public final class CampaignDeviceStateAdapter {
             }
 
             @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            @Override
             public List<CampaignDeviceMetadata> getData() {
                 return (deviceList == null) ? null : deviceList.getData();
             }
@@ -102,7 +107,7 @@ public final class CampaignDeviceStateAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<CampaignDeviceMetadataPage, ListResponse<CampaignDeviceState>> getListMapper() {

@@ -4,7 +4,6 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**accountProperties** | [**Map&lt;String, Map&lt;String, String&gt;&gt;**](Map.md) | Properties for this account. |  [optional]
 **addressLine1** | **String** | Postal address line 1, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **addressLine2** | **String** | Postal address line 2, not longer than 100 characters. |  [optional]
 **aliases** | **List&lt;String&gt;** | An array of aliases, not more than 10. An alias is not shorter than 8 and not longer than 100 characters. |  [optional]
@@ -13,6 +12,7 @@ Name | Type | Description | Notes
 **contact** | **String** | The name of the contact person for this account, not longer than 100 characters. Required for commercial accounts only. |  [optional]
 **contractNumber** | **String** | Contract number of the customer. |  [optional]
 **country** | **String** | The country part of the postal address, not longer than 100 characters. Required for commercial accounts only. |  [optional]
+**customFields** | **Map&lt;String, String&gt;** | Account&#39;s custom properties as key-value pairs, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters. |  [optional]
 **customerNumber** | **String** | Customer number of the customer. |  [optional]
 **displayName** | **String** | The display name for the account, not longer than 100 characters. |  [optional]
 **email** | **String** | The company email address for this account, not longer than 254 characters. Required for commercial accounts only. |  [optional]

@@ -1,0 +1,8 @@
+[snippet]
+# config for snippet project (https://github.com/ARMmbed/snippet)
+input_glob = 'examples/src/main/java/mbed_cloud_sdk/*.java'
+output_dir = 'docs/hla_examples'
+log_level=10
+language_name = 'java'
+comment_prefix = '// '
+comment_suffix = ''

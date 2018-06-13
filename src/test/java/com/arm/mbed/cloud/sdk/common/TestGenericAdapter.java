@@ -102,6 +102,11 @@ public class TestGenericAdapter {
                 return null;
             }
 
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
             @SuppressWarnings("boxing")
             @Override
             public Integer getLimit() {

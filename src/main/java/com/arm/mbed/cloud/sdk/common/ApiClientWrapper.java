@@ -30,11 +30,29 @@ public class ApiClientWrapper {
      *            connection options @see {@link ConnectionOptions}
      */
     public ApiClientWrapper(ConnectionOptions options) {
+        this(options, null);
+    }
+
+    /**
+     *
+     * Arm Mbed Cloud client constructor.
+     *
+     * @param options
+     *            connection options @see {@link ConnectionOptions}
+     * @param userAgentExtensions
+     *            extension list for the user agent: module name - module version
+     */
+    public ApiClientWrapper(ConnectionOptions options, Map<String, String> userAgentExtensions) {
         super();
         this.client = createClient(options);
         setLogging(options.getClientLogLevel());
         setRequestTimeout(options.getRequestTimeout());
         this.userAgent = new UserAgent();
+        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
+            for (Entry<String, String> entry : userAgentExtensions.entrySet()) {
+                userAgent.addExtension(entry.getKey(), entry.getValue());
+            }
+        }
         setUserAgent();
         this.connectionOptions = options;
     }

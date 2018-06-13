@@ -575,7 +575,7 @@ public class Connect extends AbstractApi {
                         return endpoint.getStatistic().v3MetricsGet(
                                 MetricAdapter.mapIncludes(finalOptions.getInclude()),
                                 finalOptions.getInterval().toString(), TranslationUtils.toLocalDate(finalStart),
-                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getLimit(),
+                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString());
                     }
                 });
@@ -734,7 +734,7 @@ public class Connect extends AbstractApi {
      *     device.setId("015f4ac587f500000000000100100249");
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = connectApi.getResource(device, resourcePath);
-
+    
      *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource, false, false);
      *     String ledPattern = (String)futureLedPattern.get();
      *     System.out.println("LED pattern from device: " + ledPattern);
@@ -776,7 +776,7 @@ public class Connect extends AbstractApi {
      *     device.setId("015f4ac587f500000000000100100249");
      *     String resourcePath = "/3201/0/5853";
      *     Resource resource = connectApi.getResource(device, resourcePath);
-
+    
      *     Future<Object> futureLedPattern = connectApi.getResourceValueAsync(resource);
      *     String ledPattern = (String)futureLedPattern.get();
      *     System.out.println("LED pattern from device: " + ledPattern);

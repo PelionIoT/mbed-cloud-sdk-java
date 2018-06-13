@@ -23,7 +23,7 @@ public final class EnrollmentAdapter {
 
     /**
      * Maps an enrolment claim.
-     * 
+     *
      * @param enrollmentClaim
      *            enrollment claim
      * @return mapped claim
@@ -43,7 +43,7 @@ public final class EnrollmentAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return a mapper
      */
     public static Mapper<EnrollmentIdentity, EnrollmentClaim> getMapper() {
@@ -59,7 +59,7 @@ public final class EnrollmentAdapter {
 
     /**
      * Maps a list of enrollment identities.
-     * 
+     *
      * @param list
      *            enrollment identities (page).
      * @return a list of enrollment identities
@@ -97,13 +97,18 @@ public final class EnrollmentAdapter {
             public List<EnrollmentIdentity> getData() {
                 return (enrollmentList == null) ? null : enrollmentList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<EnrollmentIdentities, ListResponse<EnrollmentClaim>> getListMapper() {

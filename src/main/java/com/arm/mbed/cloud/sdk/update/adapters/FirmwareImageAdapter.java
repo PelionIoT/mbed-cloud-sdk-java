@@ -22,7 +22,7 @@ public final class FirmwareImageAdapter {
 
     /**
      * Maps firmware image.
-     * 
+     *
      * @param firmwareImage
      *            image
      * @return image.
@@ -44,7 +44,7 @@ public final class FirmwareImageAdapter {
 
     /**
      * Gets mapper.
-     * 
+     *
      * @return mapper
      */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage> getMapper() {
@@ -59,7 +59,7 @@ public final class FirmwareImageAdapter {
 
     /**
      * Maps list of images.
-     * 
+     *
      * @param list
      *            images page
      * @return list of images
@@ -95,6 +95,11 @@ public final class FirmwareImageAdapter {
             }
 
             @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            @Override
             public List<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> getData() {
                 return (imageList == null) ? null : imageList.getData();
             }
@@ -104,7 +109,7 @@ public final class FirmwareImageAdapter {
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return list mapper
      */
     public static Mapper<FirmwareImagePage, ListResponse<FirmwareImage>> getListMapper() {

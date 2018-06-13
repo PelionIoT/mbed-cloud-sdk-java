@@ -4,12 +4,12 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**certificate** | **String** | X509.v3 trusted certificate in PEM format. Chaining multiple certificates after one another is supported. | 
+**certificate** | **String** | A chain of X509.v3 trusted certificates in PEM format. The chain must contain all certificates from root to leaf. Otherwise, the signature parameter is required. | 
 **description** | **String** | Human readable description of this certificate, not longer than 500 characters. |  [optional]
 **enrollmentMode** | **Boolean** | Certificate is used in enrollment mode. Default value is false. |  [optional]
 **name** | **String** | Certificate name, not longer than 100 characters. | 
 **service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. | 
-**signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. Signature must be hashed with SHA256. Optional if enrollment_mode is &#39;true&#39;. |  [optional]
+**signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 
 
