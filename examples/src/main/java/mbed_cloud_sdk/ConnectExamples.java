@@ -593,13 +593,13 @@ public class ConnectExamples extends AbstractExample {
             log("Resource path of interest", resourcePath);
             // Subscribing to the resource value changes
             api.subscribe().resourceValues(SubscriptionFilterOptions.newFilter().equalResourcePath(resourcePath),
-                    BackpressureStrategy.MISSING);
+                    BackpressureStrategy.MISSING).flow().subscribe();
             // Ensuring the webhook has been correctly registered
             log("Registered webhook", api.getWebhook());
             // Waiting for notifications to be sent to the webhook.
             Thread.sleep(60000);// TODO do some actual work in your application
             // Deleting the webhook when it is no longer needed.
-            deleteWebhook(api);
+            api.deleteWebhook();
             // end of example
         } catch (Exception e) {
             logError("Exception", e);

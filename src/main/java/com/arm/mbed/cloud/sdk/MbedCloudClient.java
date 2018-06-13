@@ -177,6 +177,25 @@ public class MbedCloudClient extends AbstractApi {
         connectApi.stopNotifications();
     }
 
+    /**
+     * Shuts down all daemon services.
+     * <p>
+     * This method should be called when quitting the SDK.
+     * <p>
+     * It does not stop the JVM though.
+     *
+     */
+    @API
+    @Daemon(shutdown = true)
+    public void quit() {
+        try {
+            stop();
+        } catch (MbedCloudException e) {
+            // Nothing to do
+        }
+        connectApi.shutdownConnectService();
+    }
+
     @Override
     public String getModuleName() {
         return "SDK entry point";
