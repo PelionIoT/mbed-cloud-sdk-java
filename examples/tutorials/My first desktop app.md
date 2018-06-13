@@ -87,7 +87,7 @@ Run your code using gradle.
 > gradle run
 
 /*
-It is possible to output more logging by the line concerning the logger implementation in 'build.gradle' by the following.
+It is possible to output more logging by replacing the line concerning the logger implementation in 'build.gradle' by the following.
 */
 
 compile 'org.slf4j:slf4j-simple:1.7.25'
