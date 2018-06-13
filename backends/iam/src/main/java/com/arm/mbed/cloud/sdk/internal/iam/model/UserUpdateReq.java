@@ -60,9 +60,6 @@ public class UserUpdateReq implements Serializable {
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
 
-  @SerializedName("password")
-  private String password = null;
-
   @SerializedName("phone_number")
   private String phoneNumber = null;
 
@@ -104,10 +101,10 @@ public class UserUpdateReq implements Serializable {
   }
 
    /**
-   * User&#39;s account specific custom properties. The value is handled as a string.
+   * User&#39;s account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.
    * @return customFields
   **/
-  @ApiModelProperty(value = "User's account specific custom properties. The value is handled as a string.")
+  @ApiModelProperty(value = "User's account specific custom properties, with a maximum of 10 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 1000 characters.")
   public Map<String, String> getCustomFields() {
     return customFields;
   }
@@ -232,24 +229,6 @@ public class UserUpdateReq implements Serializable {
     this.isTotpEnabled = isTotpEnabled;
   }
 
-  public UserUpdateReq password(String password) {
-    this.password = password;
-    return this;
-  }
-
-   /**
-   * The password when creating a new user. It will be generated when not present in the request.
-   * @return password
-  **/
-  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   public UserUpdateReq phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -322,7 +301,6 @@ public class UserUpdateReq implements Serializable {
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
-        Objects.equals(this.password, userUpdateReq.password) &&
         Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
         Objects.equals(this.status, userUpdateReq.status) &&
         Objects.equals(this.username, userUpdateReq.username);
@@ -330,7 +308,7 @@ public class UserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, customFields, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, password, phoneNumber, status, username);
+    return Objects.hash(address, customFields, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, phoneNumber, status, username);
   }
 
 
@@ -347,7 +325,6 @@ public class UserUpdateReq implements Serializable {
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");

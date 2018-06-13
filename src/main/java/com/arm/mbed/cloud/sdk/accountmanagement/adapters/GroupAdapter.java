@@ -23,7 +23,7 @@ public final class GroupAdapter {
 
     /**
      * Maps group objects.
-     * 
+     *
      * @param groupSummary
      *            a group summary.
      * @return equivalent group.
@@ -41,7 +41,7 @@ public final class GroupAdapter {
 
     /**
      * Gets group mapper.
-     * 
+     *
      * @return groupd mapper.
      */
     public static Mapper<GroupSummary, Group> getMapper() {
@@ -57,7 +57,7 @@ public final class GroupAdapter {
 
     /**
      * Maps a list of groups.
-     * 
+     *
      * @param list
      *            list to map.
      * @return a list of groups.
@@ -95,13 +95,18 @@ public final class GroupAdapter {
             public List<GroupSummary> getData() {
                 return (groupList == null) ? null : groupList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return the list mapper.
      */
     public static Mapper<GroupSummaryList, ListResponse<Group>> getListMapper() {

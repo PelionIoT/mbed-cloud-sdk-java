@@ -28,7 +28,8 @@ public class TestAllListOptions {
         MetricsPeriodListOptions opt1 = new MetricsPeriodListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         opt1.setPeriod("30d");
         opt1.setInterval("2d");
         MetricsPeriodListOptions opt2 = new MetricsPeriodListOptions();
@@ -44,7 +45,8 @@ public class TestAllListOptions {
         MetricsStartEndListOptions opt1 = new MetricsStartEndListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         opt1.setInterval("1d");
         opt1.setStart(new GregorianCalendar(2017, 0, 9).getTime());
         opt1.setEnd(new GregorianCalendar(2018, 0, 9).getTime());
@@ -61,7 +63,8 @@ public class TestAllListOptions {
         ApiKeyListOptions opt1 = new ApiKeyListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         ApiKeyListOptions opt2 = new ApiKeyListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -75,7 +78,8 @@ public class TestAllListOptions {
         CampaignDevicesStatesListOptions opt1 = new CampaignDevicesStatesListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         CampaignDevicesStatesListOptions opt2 = new CampaignDevicesStatesListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -89,7 +93,8 @@ public class TestAllListOptions {
         CampaignListOptions opt1 = new CampaignListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         CampaignListOptions opt2 = new CampaignListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -103,7 +108,8 @@ public class TestAllListOptions {
         CertificateListOptions opt1 = new CertificateListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         CertificateListOptions opt2 = new CertificateListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -117,7 +123,8 @@ public class TestAllListOptions {
         DeviceEventListOptions opt1 = new DeviceEventListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         DeviceEventListOptions opt2 = new DeviceEventListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -131,7 +138,8 @@ public class TestAllListOptions {
         DeviceListOptions opt1 = new DeviceListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         DeviceListOptions opt2 = new DeviceListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -145,7 +153,8 @@ public class TestAllListOptions {
         FirmwareImageListOptions opt1 = new FirmwareImageListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         FirmwareImageListOptions opt2 = new FirmwareImageListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -159,7 +168,8 @@ public class TestAllListOptions {
         FirmwareManifestListOptions opt1 = new FirmwareManifestListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         FirmwareManifestListOptions opt2 = new FirmwareManifestListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -173,7 +183,8 @@ public class TestAllListOptions {
         QueryListOptions opt1 = new QueryListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         QueryListOptions opt2 = new QueryListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);
@@ -187,7 +198,8 @@ public class TestAllListOptions {
         UserListOptions opt1 = new UserListOptions();
         opt1.addEqualFilter("field1", Integer.valueOf(3));
         opt1.includeTotalCount();
-        opt1.setLimit(Integer.valueOf(2));
+        opt1.setMaxResults(Long.valueOf(2));
+        opt1.setPageSize(Integer.valueOf(2));
         UserListOptions opt2 = new UserListOptions();
         assertNotEquals(opt2, opt1);
         assertNotSame(opt2, opt1);

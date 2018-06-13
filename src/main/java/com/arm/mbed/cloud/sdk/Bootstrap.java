@@ -8,11 +8,17 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.bootstrap.adapters.PreSharedKeyAdapter;
 import com.arm.mbed.cloud.sdk.bootstrap.model.EndPoints;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKey;
+import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKeyListOptions;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.ListOfPreSharedKeysWithoutSecret;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.model.PreSharedKeyWithoutSecret;
 
 import retrofit2.Call;
@@ -37,6 +43,86 @@ public class Bootstrap extends AbstractApi {
     public Bootstrap(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.client);
+    }
+
+    /**
+     * Lists all pre-shared keys according to filter options.
+     *
+     * @param options
+     *            filter options.
+     * @return The list of pre-shared keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public ListResponse<PreSharedKey> listPreSharedKeys(@Nullable PreSharedKeyListOptions options)
+            throws MbedCloudException {
+        final PreSharedKeyListOptions finalOptions = (options == null) ? new PreSharedKeyListOptions() : options;
+
+        return CloudCaller.call(this, "listPreSharedKeys()", PreSharedKeyAdapter.getListMapper(),
+                new CloudCall<ListOfPreSharedKeysWithoutSecret>() {
+
+                    @Override
+                    public Call<ListOfPreSharedKeysWithoutSecret> call() {
+                        return endpoint.getPresharedKeys().listPreSharedKeys(finalOptions.getPageSize(),
+                                finalOptions.getAfter());
+                    }
+                });
+    }
+
+    /**
+     * Lists all pre-shared keys according to filter options.
+     * <p>
+     * Note: Similar to {@link #listPreSharedKeys(PreSharedKeyListOptions)}
+     *
+     * @param options
+     *            filter options.
+     * @return The list of pre-shared keys corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public ListResponse<PreSharedKey> listPsks(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
+        return listPreSharedKeys(options);
+    }
+
+    /**
+     * Gets an iterator over all pre-shared keys according to filter options.
+     *
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of pre-shared keys corresponding to filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<PreSharedKey> listAllPreSharedKeys(@Nullable PreSharedKeyListOptions options)
+            throws MbedCloudException {
+        return new Paginator<>((options == null) ? new PreSharedKeyListOptions() : options,
+                new PageRequester<PreSharedKey>() {
+
+                    @Override
+                    public ListResponse<PreSharedKey> requestNewPage(ListOptions opt) throws MbedCloudException {
+                        return listPreSharedKeys((PreSharedKeyListOptions) opt);
+                    }
+                });
+    }
+
+    /**
+     * Gets an iterator over all pre-shared keys according to filter options.
+     * <p>
+     * Note: similar to {@link #listAllPreSharedKeys(PreSharedKeyListOptions)}
+     *
+     * @param options
+     *            filter options.
+     * @return paginator @see {@link Paginator} for the list of pre-shared keys corresponding to filter options.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Paginator<PreSharedKey> listAllPsks(@Nullable PreSharedKeyListOptions options)
+            throws MbedCloudException {
+        return listAllPreSharedKeys(options);
     }
 
     /**

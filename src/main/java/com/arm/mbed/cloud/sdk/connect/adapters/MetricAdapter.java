@@ -24,7 +24,7 @@ public final class MetricAdapter {
 
     /**
      * Maps metrics.
-     * 
+     *
      * @param apiMetric
      *            metrics to map
      * @return metrics
@@ -57,7 +57,7 @@ public final class MetricAdapter {
 
     /**
      * Gets a mapper.
-     * 
+     *
      * @return a mapper
      */
     public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
@@ -73,7 +73,7 @@ public final class MetricAdapter {
 
     /**
      * Maps a list of metrics.
-     * 
+     *
      * @param list
      *            of metrics.
      * @return list of metrics
@@ -111,13 +111,18 @@ public final class MetricAdapter {
             public List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> getData() {
                 return (metricsList == null) ? null : metricsList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }
 
     /**
      * Gets list mapper.
-     * 
+     *
      * @return a list mapper
      */
     public static Mapper<SuccessfulResponse, ListResponse<Metric>> getListMapper() {
@@ -133,7 +138,7 @@ public final class MetricAdapter {
 
     /**
      * Maps include fields
-     * 
+     *
      * @param includeFields
      *            include fields to encode.
      * @return a string containing all include fields
