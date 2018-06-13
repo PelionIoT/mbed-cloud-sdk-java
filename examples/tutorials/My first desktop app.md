@@ -93,7 +93,7 @@ It is possible to output more logging by the line concerning the logger implemen
 compile 'org.slf4j:slf4j-simple:1.7.25'
 
 /*
-It is possible to find all the code for this tutorial on Github: .
+It is possible to find all the code for this tutorial on Github: https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master/examples/tutorials
 */
 
 // end of example
