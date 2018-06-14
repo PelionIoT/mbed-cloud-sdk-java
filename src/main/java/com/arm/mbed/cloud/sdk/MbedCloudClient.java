@@ -190,7 +190,7 @@ public class MbedCloudClient extends AbstractApi {
     public void quit() {
         try {
             stop();
-        } catch (MbedCloudException e) {
+        } catch (MbedCloudException exception) {
             // Nothing to do
         }
         connectApi.shutdownConnectService();
