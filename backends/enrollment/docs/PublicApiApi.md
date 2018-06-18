@@ -4,11 +4,68 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createBulkDeviceEnrollment**](PublicApiApi.md#createBulkDeviceEnrollment) | **POST** v3/device-enrollments-bulk-uploads | Bulk upload
 [**createDeviceEnrollment**](PublicApiApi.md#createDeviceEnrollment) | **POST** v3/device-enrollments | Place an enrollment claim for one or several devices.
 [**deleteDeviceEnrollment**](PublicApiApi.md#deleteDeviceEnrollment) | **DELETE** v3/device-enrollments/{id} | Delete an enrollment by ID.
+[**getBulkDeviceEnrollment**](PublicApiApi.md#getBulkDeviceEnrollment) | **GET** v3/device-enrollments-bulk-uploads/{id} | Get bulk upload entity
 [**getDeviceEnrollment**](PublicApiApi.md#getDeviceEnrollment) | **GET** v3/device-enrollments/{id} | Get details of an enrollment by ID.
 [**getDeviceEnrollments**](PublicApiApi.md#getDeviceEnrollments) | **GET** v3/device-enrollments | Get enrollment list.
 
+
+<a name="createBulkDeviceEnrollment"></a>
+# **createBulkDeviceEnrollment**
+> BulkCreateResponse createBulkDeviceEnrollment(enrollmentIdentities)
+
+Bulk upload
+
+With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollments&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads &#x60;&#x60;&#x60; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+File enrollmentIdentities = new File("/path/to/file.txt"); // File | Enrollment identities CSV file. Maximum file size is 10MB. 
+try {
+    BulkCreateResponse result = apiInstance.createBulkDeviceEnrollment(enrollmentIdentities);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#createBulkDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enrollmentIdentities** | **File**| Enrollment identities CSV file. Maximum file size is 10MB.  |
+
+### Return type
+
+[**BulkCreateResponse**](BulkCreateResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
 
 <a name="createDeviceEnrollment"></a>
 # **createDeviceEnrollment**
@@ -16,7 +73,7 @@ Method | HTTP request | Description
 
 Place an enrollment claim for one or several devices.
 
-When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. 
+When the device connects to the bootstrap server and provides the enrollment ID, it will be assigned to your account. &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments \\ -d &#39;{\&quot;enrollment_identity\&quot;: \&quot;A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5\&quot;}&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -71,7 +128,7 @@ Name | Type | Description  | Notes
 
 Delete an enrollment by ID.
 
-To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information on the ownership trasfer, see [https://github.com/ARMmbed/mbed_Cloud_Docs/blob/restructure/Docs/provisioning/generic_instructions/device-ownership.md#transferring-ownership-using-first-to-claim](TODO put the right link).
+To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership.html). &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X DELETE \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -91,7 +148,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 PublicApiApi apiInstance = new PublicApiApi();
-String id = "id_example"; // String | Enrollment identity internal id
+String id = "id_example"; // String | Enrollment identity.
 try {
     Void result = apiInstance.deleteDeviceEnrollment(id);
     System.out.println(result);
@@ -105,7 +162,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Enrollment identity internal id |
+ **id** | **String**| Enrollment identity. |
 
 ### Return type
 
@@ -117,16 +174,16 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
-<a name="getDeviceEnrollment"></a>
-# **getDeviceEnrollment**
-> EnrollmentIdentity getDeviceEnrollment(id)
+<a name="getBulkDeviceEnrollment"></a>
+# **getBulkDeviceEnrollment**
+> BulkCreateResponse getBulkDeviceEnrollment(id)
 
-Get details of an enrollment by ID.
+Get bulk upload entity
 
-To check the enrollment info in detail, for example claming date and expiration date.
+Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -146,7 +203,62 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 PublicApiApi apiInstance = new PublicApiApi();
-String id = "id_example"; // String | Enrollment identity internal id
+String id = "id_example"; // String | Bulk create task entity ID
+try {
+    BulkCreateResponse result = apiInstance.getBulkDeviceEnrollment(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#getBulkDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Bulk create task entity ID |
+
+### Return type
+
+[**BulkCreateResponse**](BulkCreateResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="getDeviceEnrollment"></a>
+# **getDeviceEnrollment**
+> EnrollmentIdentity getDeviceEnrollment(id)
+
+Get details of an enrollment by ID.
+
+To check the enrollment info in detail, for example date of claim and expiration date. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+String id = "id_example"; // String | Enrollment identity.
 try {
     EnrollmentIdentity result = apiInstance.getDeviceEnrollment(id);
     System.out.println(result);
@@ -160,7 +272,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **id** | **String**| Enrollment identity internal id |
+ **id** | **String**| Enrollment identity. |
 
 ### Return type
 
@@ -172,7 +284,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="getDeviceEnrollments"></a>
@@ -181,7 +293,7 @@ Name | Type | Description  | Notes
 
 Get enrollment list.
 
-Provides a list of pending and claimed enrollments. Example usage: 
+Provides a list of pending and claimed enrollments. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments &#x60;&#x60;&#x60; With query parameters: &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ &#39;https://api.us-east-1.mbedcloud.com/v3/device-enrollments?limit&#x3D;10&#39; &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -204,7 +316,7 @@ PublicApiApi apiInstance = new PublicApiApi();
 Integer limit = 56; // Integer | Number of results to be returned. Between 2 and 1000, inclusive.
 String after = "after_example"; // String | Entity ID to fetch after.
 String order = "ASC"; // String | ASC or DESC
-String include = "include_example"; // String | Comma separate additional data to return. Currently supported: total_count
+String include = "include_example"; // String | Comma-separated additional data to return. Currently supported: total_count.
 try {
     EnrollmentIdentities result = apiInstance.getDeviceEnrollments(limit, after, order, include);
     System.out.println(result);
@@ -221,7 +333,7 @@ Name | Type | Description  | Notes
  **limit** | **Integer**| Number of results to be returned. Between 2 and 1000, inclusive. | [optional]
  **after** | **String**| Entity ID to fetch after. | [optional]
  **order** | **String**| ASC or DESC | [optional] [default to ASC] [enum: ASC, DESC]
- **include** | **String**| Comma separate additional data to return. Currently supported: total_count | [optional]
+ **include** | **String**| Comma-separated additional data to return. Currently supported: total_count. | [optional]
 
 ### Return type
 
@@ -233,6 +345,6 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: Not defined
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
