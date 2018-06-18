@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**added** | **String** | Added time of quota history entry. | 
+**added** | [**DateTime**](DateTime.md) | Added time of quota history entry. | 
 **amount** | **Long** | the amount of quota usage, negative or positive | 
 **id** | **String** | Service package quota history id. | 
 **reason** | [**ReasonEnum**](#ReasonEnum) | Type of quota usage entry. | 
