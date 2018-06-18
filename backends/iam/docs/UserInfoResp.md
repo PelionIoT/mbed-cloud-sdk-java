@@ -8,7 +8,6 @@ Name | Type | Description | Notes
 **address** | **String** | Address. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | Creation UTC time RFC3339. |  [optional]
 **creationTime** | **Long** | A timestamp of the user creation in the storage, in milliseconds. |  [optional]
-**customFields** | **Map&lt;String, String&gt;** | User&#39;s account specific custom properties. The value is a string. |  [optional]
 **email** | **String** | The email address. | 
 **emailVerified** | **Boolean** | A flag indicating whether the user&#39;s email address has been verified or not. |  [optional]
 **etag** | **String** | API resource entity version. | 
