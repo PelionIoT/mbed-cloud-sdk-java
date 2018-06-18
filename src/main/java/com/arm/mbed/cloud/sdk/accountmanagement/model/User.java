@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -107,10 +106,6 @@ public class User implements SdkModel {
      * A timestamp of the latest login of the user, in milliseconds.
      */
     private final long lastLoginTime;
-    /**
-     * User's account specific custom properties.
-     */
-    private CustomProperties customProperties;
 
     /**
      * Internal constructor.
@@ -145,7 +140,7 @@ public class User implements SdkModel {
             Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
         this(id, accountId, null, null, null, null, null, null, true, true, groups, status, isEmailVerified, createdAt,
-                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime, null);
+                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime);
     }
 
     /**
@@ -191,15 +186,13 @@ public class User implements SdkModel {
      *            passwordChangedTime
      * @param lastLoginTime
      *            lastLoginTime
-     * @param customProperties
-     *            customProperties
      */
     @Internal
     protected User(String id, String accountId, String fullName, String username, String password, String email,
             String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
             List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
             boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
-            long passwordChangedTime, long lastLoginTime, CustomProperties customProperties) {
+            long passwordChangedTime, long lastLoginTime) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -220,7 +213,6 @@ public class User implements SdkModel {
         setAddress(address);
         setTermsAccepted(areTermsAccepted);
         setMarketingAccepted(isMarketingAccepted);
-        setAdditionalProperties(customProperties);
         hasEmailBeenUpdated = false;
     }
 
@@ -550,69 +542,6 @@ public class User implements SdkModel {
     }
 
     /**
-     * States whether the user has custom properties or not.
-     *
-     * @return true if so. False otherwise.
-     */
-    public boolean hasAdditionalProperties() {
-        return customProperties != null && !customProperties.isEmpty();
-    }
-
-    /**
-     * Gets user custom properties.
-     *
-     * @return the custom properties
-     */
-    public CustomProperties getAdditionalProperties() {
-        return customProperties;
-    }
-
-    /**
-     * Gets user custom properties.
-     * <p>
-     * Note: Similar to {@link #getAdditionalProperties()}
-     *
-     * @return the custom properties as a hash table
-     */
-    public Map<String, String> getCustomProperties() {
-        return hasAdditionalProperties() ? customProperties.getRawProperties() : null;
-    }
-
-    /**
-     * Sets user custom properties.
-     *
-     * @param customProperties
-     *            the customProperties to set
-     */
-    public void setAdditionalProperties(CustomProperties customProperties) {
-        this.customProperties = customProperties;
-    }
-
-    /**
-     * Sets user custom properties from a Json string.
-     * <p>
-     * Note: Similar to {@link #setAdditionalProperties(CustomProperties)}
-     *
-     * @param json
-     *            Json string describing the custom attributes
-     */
-    public void setAdditionalPropertiesFromJson(String json) {
-        setAdditionalProperties(new CustomProperties(json));
-    }
-
-    /**
-     * Sets user custom properties from an Object.
-     * <p>
-     * Note: Similar to {@link #setAdditionalProperties(CustomProperties)}
-     *
-     * @param obj
-     *            object describing the custom attributes
-     */
-    public void setCustomProperties(Object obj) {
-        setAdditionalProperties(CustomProperties.from(obj));
-    }
-
-    /**
      * Gets a clone.
      *
      * @return a clone.
@@ -622,7 +551,7 @@ public class User implements SdkModel {
     public User clone() {
         return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
                 isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
-                creationTime, passwordChangedTime, lastLoginTime, customProperties);
+                creationTime, passwordChangedTime, lastLoginTime);
     }
 
     /**
@@ -648,7 +577,7 @@ public class User implements SdkModel {
                 + ", groups=" + groups + ", status=" + status + ", isEmailVerified=" + isEmailVerified + ", createdAt="
                 + createdAt + ", twoFactorAuthentication=" + twoFactorAuthentication + ", loginHistory=" + loginHistory
                 + ", creationTime=" + creationTime + ", passwordChangedTime=" + passwordChangedTime + ", lastLoginTime="
-                + lastLoginTime + ", customProperties=" + customProperties + "]";
+                + lastLoginTime + "]";
     }
 
 }

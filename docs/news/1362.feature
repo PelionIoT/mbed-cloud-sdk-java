@@ -1,0 +1,1 @@
+Removed custom  properties field from on user's models
