@@ -1,1 +1,1 @@
-Removed custom  properties field from on user's models
+Removed custom properties field from user and account models
