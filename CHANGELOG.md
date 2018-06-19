@@ -11,25 +11,25 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 ### Features
 
-- Added new field (phase) to update campaign. (J1057)
+- Added new field (phase) to update campaign. (1057)
 
 - Added 'Resource value change' subscription channel. This supercedes
   'presubscription' and 'subscription' behaviours to provide a uniform
   interface in line with the existing 'Device state change' channel. See
-  Connect module > subscribe(). (J1102)
+  Connect module > subscribe(). (1102)
 
 - Updated models regarding Users and Accounts to better manage custom
-  properties. Added additional filters when listing users. (J1225)
+  properties. Added additional filters when listing users. (1225)
 
 - It is now possible to upload all device decryption keys for a campaign as a
-  single blob when adding the firmware manifest (J552)
+  single blob when adding the firmware manifest (552)
 
 - Bootstrap module for Pre-Shared Keys was integrated. This provides the
-  ability to set Pre-Shared Keys for device bring-up. (J630)
+  ability to set Pre-Shared Keys for device bring-up. (630)
 
 ### Bugfixes
 
-- Updated Connect backend endpoint names (J1235)
+- Updated Connect backend endpoint names (1235)
 
 
 1.2.7 (2018-04-09)
@@ -38,21 +38,21 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 ### Features
 
 - Exponential backoff in case of request call failure during notification pull
-  was implemented. (J1065)
+  was implemented. (1065)
 
-- Specified User Agent header when sending requests to Mbed Cloud (J634)
+- Specified User Agent header when sending requests to Mbed Cloud (634)
 
 - Notification channels for device registration status notifications (4 events)
-  were added. (J722)
+  were added. (722)
 
 ### Bugfixes
 
-- Updated Connector CA schema (J1081)
+- Updated Connector CA schema (1081)
 
-- Updated contribution guidelines (J729)
+- Updated contribution guidelines (729)
 
 - Modified backends to avoid duplicate code leading to Android compilation
-  issue (J976)
+  issue (976)
 
 
 # Older Releases:
