@@ -39,7 +39,8 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
                 return;
             }
             while (iterator.hasNext()) {
-                api.addResourcesSubscription(filters.getVerifiedResources(api.listResources(iterator.next())));
+                api.addResourcesSubscription(
+                        filters.getVerifiedResources(api.listObservableResources(iterator.next())));
             }
         }
 
