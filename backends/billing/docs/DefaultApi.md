@@ -4,10 +4,66 @@ All URIs are relative to *http://mbed-billing.example.com/v3*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**getBillingReport**](DefaultApi.md#getBillingReport) | **GET** billing-report | Get billing report.
 [**getServicePackageQuota**](DefaultApi.md#getServicePackageQuota) | **GET** service-packages-quota | Service package quota
 [**getServicePackageQuotaHistory**](DefaultApi.md#getServicePackageQuotaHistory) | **GET** service-packages-quota-history | Service package quota history
 [**getServicePackages**](DefaultApi.md#getServicePackages) | **GET** service-packages | Get all service packages.
 
+
+<a name="getBillingReport"></a>
+# **getBillingReport**
+> ReportResponse getBillingReport(month)
+
+Get billing report.
+
+Fetch generated billing report for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.billing.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.billing.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.billing.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String month = "month_example"; // String | Queried year and month of billing report
+try {
+    ReportResponse result = apiInstance.getBillingReport(month);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#getBillingReport");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **String**| Queried year and month of billing report |
+
+### Return type
+
+[**ReportResponse**](ReportResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 <a name="getServicePackageQuota"></a>
 # **getServicePackageQuota**

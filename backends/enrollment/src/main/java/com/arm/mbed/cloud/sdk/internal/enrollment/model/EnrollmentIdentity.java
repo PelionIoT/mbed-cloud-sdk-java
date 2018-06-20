@@ -41,9 +41,6 @@ public class EnrollmentIdentity implements Serializable {
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
-  @SerializedName("device_id")
-  private String deviceId = null;
-
   @SerializedName("enrolled_device_id")
   private String enrolledDeviceId = null;
 
@@ -113,10 +110,10 @@ public class EnrollmentIdentity implements Serializable {
   }
 
    /**
-   * muuid
+   * ID
    * @return accountId
   **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "muuid")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "ID")
   public String getAccountId() {
     return accountId;
   }
@@ -134,7 +131,7 @@ public class EnrollmentIdentity implements Serializable {
    * The time of claiming the device to be assigned to the account.
    * @return claimedAt
   **/
-  @ApiModelProperty(value = "The time of claiming the device to be assigned to the account.")
+  @ApiModelProperty(required = true, value = "The time of claiming the device to be assigned to the account.")
   public DateTime getClaimedAt() {
     return claimedAt;
   }
@@ -161,34 +158,16 @@ public class EnrollmentIdentity implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public EnrollmentIdentity deviceId(String deviceId) {
-    this.deviceId = deviceId;
-    return this;
-  }
-
-   /**
-   * The ID of the device in the Device Directory once it has been registered.
-   * @return deviceId
-  **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "The ID of the device in the Device Directory once it has been registered.")
-  public String getDeviceId() {
-    return deviceId;
-  }
-
-  public void setDeviceId(String deviceId) {
-    this.deviceId = deviceId;
-  }
-
   public EnrollmentIdentity enrolledDeviceId(String enrolledDeviceId) {
     this.enrolledDeviceId = enrolledDeviceId;
     return this;
   }
 
    /**
-   * Enrolled device internal ID
+   * The ID of the device in the Device Directory once it has been registered.
    * @return enrolledDeviceId
   **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", value = "Enrolled device internal ID")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "The ID of the device in the Device Directory once it has been registered.")
   public String getEnrolledDeviceId() {
     return enrolledDeviceId;
   }
@@ -206,7 +185,7 @@ public class EnrollmentIdentity implements Serializable {
    * Enrollment identity.
    * @return enrollmentIdentity
   **/
-  @ApiModelProperty(example = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5", value = "Enrollment identity.")
+  @ApiModelProperty(example = "A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5", required = true, value = "Enrollment identity.")
   public String getEnrollmentIdentity() {
     return enrollmentIdentity;
   }
@@ -257,10 +236,10 @@ public class EnrollmentIdentity implements Serializable {
   }
 
    /**
-   * Enrollment identity internal id
+   * Enrollment identity.
    * @return id
   **/
-  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Enrollment identity internal id")
+  @ApiModelProperty(example = "00005a4e027f0a580a01081c00000000", required = true, value = "Enrollment identity.")
   public String getId() {
     return id;
   }
@@ -278,7 +257,7 @@ public class EnrollmentIdentity implements Serializable {
    * Get object
    * @return object
   **/
-  @ApiModelProperty(example = "enrollment", value = "")
+  @ApiModelProperty(example = "enrollment", required = true, value = "")
   public ObjectEnum getObject() {
     return object;
   }
@@ -300,7 +279,6 @@ public class EnrollmentIdentity implements Serializable {
     return Objects.equals(this.accountId, enrollmentIdentity.accountId) &&
         Objects.equals(this.claimedAt, enrollmentIdentity.claimedAt) &&
         Objects.equals(this.createdAt, enrollmentIdentity.createdAt) &&
-        Objects.equals(this.deviceId, enrollmentIdentity.deviceId) &&
         Objects.equals(this.enrolledDeviceId, enrollmentIdentity.enrolledDeviceId) &&
         Objects.equals(this.enrollmentIdentity, enrollmentIdentity.enrollmentIdentity) &&
         Objects.equals(this.etag, enrollmentIdentity.etag) &&
@@ -311,7 +289,7 @@ public class EnrollmentIdentity implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, claimedAt, createdAt, deviceId, enrolledDeviceId, enrollmentIdentity, etag, expiresAt, id, object);
+    return Objects.hash(accountId, claimedAt, createdAt, enrolledDeviceId, enrollmentIdentity, etag, expiresAt, id, object);
   }
 
 
@@ -323,7 +301,6 @@ public class EnrollmentIdentity implements Serializable {
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    claimedAt: ").append(toIndentedString(claimedAt)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
     sb.append("    enrolledDeviceId: ").append(toIndentedString(enrolledDeviceId)).append("\n");
     sb.append("    enrollmentIdentity: ").append(toIndentedString(enrollmentIdentity)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");

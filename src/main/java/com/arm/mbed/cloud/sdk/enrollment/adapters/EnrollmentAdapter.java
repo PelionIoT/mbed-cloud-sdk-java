@@ -36,7 +36,7 @@ public final class EnrollmentAdapter {
                 TranslationUtils.toDate(enrollmentClaim.getCreatedAt()),
                 TranslationUtils.toDate(enrollmentClaim.getClaimedAt()),
                 TranslationUtils.toDate(enrollmentClaim.getExpiresAt()), enrollmentClaim.getAccountId(),
-                enrollmentClaim.getDeviceId());
+                enrollmentClaim.getEnrolledDeviceId());
         claim.setClaimId(enrollmentClaim.getEnrollmentIdentity());
         return claim;
     }

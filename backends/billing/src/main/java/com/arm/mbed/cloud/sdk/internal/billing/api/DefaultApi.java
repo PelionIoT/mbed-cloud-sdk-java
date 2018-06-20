@@ -9,8 +9,11 @@ import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
 import okhttp3.MultipartBody;
 
+import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ForbiddenErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.InternalServerErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportNotFoundErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
@@ -22,6 +25,17 @@ import java.util.List;
 import java.util.Map;
 
 public interface DefaultApi {
+  /**
+   * Get billing report.
+   * Fetch generated billing report for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.
+   * @param month Queried year and month of billing report (required)
+   * @return Call&lt;ReportResponse&gt;
+   */
+  @GET("billing-report")
+  Call<ReportResponse> getBillingReport(
+    @retrofit2.http.Query("month") String month
+  );
+
   /**
    * Service package quota
    * Get the available firmware update quota for the currently authenticated commercial acount.

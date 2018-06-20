@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **enrollmentMode** | **Boolean** | Certificate is used in enrollment mode. Default value is false. |  [optional]
 **name** | **String** | Certificate name, not longer than 100 characters. | 
 **service** | [**ServiceEnum**](#ServiceEnum) | Service name where the certificate must be used. | 
-**signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. Needed when uploading an interim certificate without the full chain. |  [optional]
+**signature** | **String** | DEPRECATED: Base64 encoded signature of the account ID signed by the certificate to be uploaded. The signature must be hashed with SHA256. |  [optional]
 **status** | [**StatusEnum**](#StatusEnum) | Status of the certificate. |  [optional]
 
 
