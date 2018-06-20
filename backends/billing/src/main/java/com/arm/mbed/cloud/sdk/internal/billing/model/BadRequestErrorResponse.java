@@ -14,6 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.billing.model;
 
 import java.util.Objects;
+import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponseField;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -22,18 +23,23 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 /**
- * 403 Forbidden.
+ * 400 Bad Request response.
  */
-@ApiModel(description = "403 Forbidden.")
+@ApiModel(description = "400 Bad Request response.")
 
-public class ForbiddenErrorResponse implements Serializable {
+public class BadRequestErrorResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("code")
   private Integer code = null;
+
+  @SerializedName("fields")
+  private List<BadRequestErrorResponseField> fields = new ArrayList<BadRequestErrorResponseField>();
 
   @SerializedName("message")
   private String message = null;
@@ -90,11 +96,11 @@ public class ForbiddenErrorResponse implements Serializable {
   private String requestId = null;
 
   /**
-   * Error type. Always set to &#39;forbidden&#39;.
+   * Error type. Always set to &#39;validation_error&#39;.
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    FORBIDDEN("forbidden");
+    ERROR("validation_error");
 
     private String value;
 
@@ -137,16 +143,16 @@ public class ForbiddenErrorResponse implements Serializable {
   @SerializedName("type")
   private TypeEnum type = null;
 
-  public ForbiddenErrorResponse code(Integer code) {
+  public BadRequestErrorResponse code(Integer code) {
     this.code = code;
     return this;
   }
 
    /**
-   * Response code. Always set to 403.
+   * Response code. Always set to 400.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Response code. Always set to 403.")
+  @ApiModelProperty(required = true, value = "Response code. Always set to 400.")
   public Integer getCode() {
     return code;
   }
@@ -155,7 +161,30 @@ public class ForbiddenErrorResponse implements Serializable {
     this.code = code;
   }
 
-  public ForbiddenErrorResponse message(String message) {
+  public BadRequestErrorResponse fields(List<BadRequestErrorResponseField> fields) {
+    this.fields = fields;
+    return this;
+  }
+
+  public BadRequestErrorResponse addFieldsItem(BadRequestErrorResponseField fieldsItem) {
+    this.fields.add(fieldsItem);
+    return this;
+  }
+
+   /**
+   * Get fields
+   * @return fields
+  **/
+  @ApiModelProperty(required = true, value = "")
+  public List<BadRequestErrorResponseField> getFields() {
+    return fields;
+  }
+
+  public void setFields(List<BadRequestErrorResponseField> fields) {
+    this.fields = fields;
+  }
+
+  public BadRequestErrorResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -173,7 +202,7 @@ public class ForbiddenErrorResponse implements Serializable {
     this.message = message;
   }
 
-  public ForbiddenErrorResponse object(ObjectEnum object) {
+  public BadRequestErrorResponse object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -191,7 +220,7 @@ public class ForbiddenErrorResponse implements Serializable {
     this.object = object;
   }
 
-  public ForbiddenErrorResponse requestId(String requestId) {
+  public BadRequestErrorResponse requestId(String requestId) {
     this.requestId = requestId;
     return this;
   }
@@ -209,16 +238,16 @@ public class ForbiddenErrorResponse implements Serializable {
     this.requestId = requestId;
   }
 
-  public ForbiddenErrorResponse type(TypeEnum type) {
+  public BadRequestErrorResponse type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
    /**
-   * Error type. Always set to &#39;forbidden&#39;.
+   * Error type. Always set to &#39;validation_error&#39;.
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Error type. Always set to 'forbidden'.")
+  @ApiModelProperty(required = true, value = "Error type. Always set to 'validation_error'.")
   public TypeEnum getType() {
     return type;
   }
@@ -236,26 +265,28 @@ public class ForbiddenErrorResponse implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ForbiddenErrorResponse forbiddenErrorResponse = (ForbiddenErrorResponse) o;
-    return Objects.equals(this.code, forbiddenErrorResponse.code) &&
-        Objects.equals(this.message, forbiddenErrorResponse.message) &&
-        Objects.equals(this.object, forbiddenErrorResponse.object) &&
-        Objects.equals(this.requestId, forbiddenErrorResponse.requestId) &&
-        Objects.equals(this.type, forbiddenErrorResponse.type);
+    BadRequestErrorResponse badRequestErrorResponse = (BadRequestErrorResponse) o;
+    return Objects.equals(this.code, badRequestErrorResponse.code) &&
+        Objects.equals(this.fields, badRequestErrorResponse.fields) &&
+        Objects.equals(this.message, badRequestErrorResponse.message) &&
+        Objects.equals(this.object, badRequestErrorResponse.object) &&
+        Objects.equals(this.requestId, badRequestErrorResponse.requestId) &&
+        Objects.equals(this.type, badRequestErrorResponse.type);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(code, message, object, requestId, type);
+    return Objects.hash(code, fields, message, object, requestId, type);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ForbiddenErrorResponse {\n");
+    sb.append("class BadRequestErrorResponse {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    fields: ").append(toIndentedString(fields)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    requestId: ").append(toIndentedString(requestId)).append("\n");

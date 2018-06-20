@@ -25,11 +25,11 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * 403 Forbidden.
+ * 404 Not Found response.
  */
-@ApiModel(description = "403 Forbidden.")
+@ApiModel(description = "404 Not Found response.")
 
-public class ForbiddenErrorResponse implements Serializable {
+public class ReportNotFoundErrorResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("code")
@@ -90,11 +90,11 @@ public class ForbiddenErrorResponse implements Serializable {
   private String requestId = null;
 
   /**
-   * Error type. Always set to &#39;forbidden&#39;.
+   * Error type. Always set to &#39;report_not_found&#39;.
    */
   @JsonAdapter(TypeEnum.Adapter.class)
   public enum TypeEnum {
-    FORBIDDEN("forbidden");
+    FOUND("report_not_found");
 
     private String value;
 
@@ -137,16 +137,16 @@ public class ForbiddenErrorResponse implements Serializable {
   @SerializedName("type")
   private TypeEnum type = null;
 
-  public ForbiddenErrorResponse code(Integer code) {
+  public ReportNotFoundErrorResponse code(Integer code) {
     this.code = code;
     return this;
   }
 
    /**
-   * Response code. Always set to 403.
+   * Response code. Always set to 404.
    * @return code
   **/
-  @ApiModelProperty(required = true, value = "Response code. Always set to 403.")
+  @ApiModelProperty(required = true, value = "Response code. Always set to 404.")
   public Integer getCode() {
     return code;
   }
@@ -155,7 +155,7 @@ public class ForbiddenErrorResponse implements Serializable {
     this.code = code;
   }
 
-  public ForbiddenErrorResponse message(String message) {
+  public ReportNotFoundErrorResponse message(String message) {
     this.message = message;
     return this;
   }
@@ -173,7 +173,7 @@ public class ForbiddenErrorResponse implements Serializable {
     this.message = message;
   }
 
-  public ForbiddenErrorResponse object(ObjectEnum object) {
+  public ReportNotFoundErrorResponse object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -191,7 +191,7 @@ public class ForbiddenErrorResponse implements Serializable {
     this.object = object;
   }
 
-  public ForbiddenErrorResponse requestId(String requestId) {
+  public ReportNotFoundErrorResponse requestId(String requestId) {
     this.requestId = requestId;
     return this;
   }
@@ -209,16 +209,16 @@ public class ForbiddenErrorResponse implements Serializable {
     this.requestId = requestId;
   }
 
-  public ForbiddenErrorResponse type(TypeEnum type) {
+  public ReportNotFoundErrorResponse type(TypeEnum type) {
     this.type = type;
     return this;
   }
 
    /**
-   * Error type. Always set to &#39;forbidden&#39;.
+   * Error type. Always set to &#39;report_not_found&#39;.
    * @return type
   **/
-  @ApiModelProperty(required = true, value = "Error type. Always set to 'forbidden'.")
+  @ApiModelProperty(required = true, value = "Error type. Always set to 'report_not_found'.")
   public TypeEnum getType() {
     return type;
   }
@@ -236,12 +236,12 @@ public class ForbiddenErrorResponse implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    ForbiddenErrorResponse forbiddenErrorResponse = (ForbiddenErrorResponse) o;
-    return Objects.equals(this.code, forbiddenErrorResponse.code) &&
-        Objects.equals(this.message, forbiddenErrorResponse.message) &&
-        Objects.equals(this.object, forbiddenErrorResponse.object) &&
-        Objects.equals(this.requestId, forbiddenErrorResponse.requestId) &&
-        Objects.equals(this.type, forbiddenErrorResponse.type);
+    ReportNotFoundErrorResponse reportNotFoundErrorResponse = (ReportNotFoundErrorResponse) o;
+    return Objects.equals(this.code, reportNotFoundErrorResponse.code) &&
+        Objects.equals(this.message, reportNotFoundErrorResponse.message) &&
+        Objects.equals(this.object, reportNotFoundErrorResponse.object) &&
+        Objects.equals(this.requestId, reportNotFoundErrorResponse.requestId) &&
+        Objects.equals(this.type, reportNotFoundErrorResponse.type);
   }
 
   @Override
@@ -253,7 +253,7 @@ public class ForbiddenErrorResponse implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class ForbiddenErrorResponse {\n");
+    sb.append("class ReportNotFoundErrorResponse {\n");
     
     sb.append("    code: ").append(toIndentedString(code)).append("\n");
     sb.append("    message: ").append(toIndentedString(message)).append("\n");
