@@ -270,8 +270,6 @@ public class Account implements SdkModel {
      *            salesContactEmail
      * @param updatedAt
      *            updatedAt
-     * @param customProperties
-     *            customProperties
      * @param expiryWarning
      *            expiryWarning
      * @param multifactorAuthenticationStatus

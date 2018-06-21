@@ -12,8 +12,10 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -163,6 +165,41 @@ public class MbedCloudClient extends AbstractApi {
     public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy,
             FirstValue triggerMode) throws MbedCloudException {
         return subscribe().resourceValues(resource, strategy, triggerMode);
+    }
+
+    /**
+     * Allows notifications (received from a Webhook) to be injected into the notifications system.
+     *
+     * @param data
+     *            The notification data to inject
+     */
+    @API
+    public void notify(@Nullable NotificationMessage data) {
+        connectApi.notify(data);
+    }
+
+    /**
+     * Allows notifications expressed as a JSON string to be injected into the notifications system.
+     *
+     * @param dataAsJson
+     *            The notification data to inject as JSON String.
+     */
+    @API
+    public void notify(@Nullable String dataAsJson) {
+        connectApi.notify(dataAsJson);
+    }
+
+    /**
+     * Allows a notification to be injected into the notifications system.
+     *
+     * @param deserialiser
+     *            JSON deserialiser to use.
+     * @param dataAsJson
+     *            The notification data to inject as JSON String.
+     */
+    @API
+    public void notify(@Nullable JsonSerialiser deserialiser, @Nullable String dataAsJson) {
+        connectApi.notify(deserialiser, dataAsJson);
     }
 
     /**
