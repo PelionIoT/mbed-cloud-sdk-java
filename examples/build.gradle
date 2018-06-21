@@ -28,6 +28,7 @@ dependencies {
     compile project(':backends:statistics')
     compile project(':backends:update_service')
     compile project(':backends:enrollment')
+    compile project(':backends:billing')
     compile project(':backends:external_ca')
     compile project(":mbed-cloud-sdk-java")
     // Use JUnit test framework

@@ -33,6 +33,8 @@ include 'backends:update_service'
 project(':backends:update_service').projectDir = file('../backends/update_service')
 include 'backends:external_ca'
 project(':backends:external_ca').projectDir = file('../backends/external_ca')
+include 'backends:billing'
+project(':backends:billing').projectDir = file('../backends/billing')
 include ':mbed-cloud-sdk-java'
 project(':mbed-cloud-sdk-java').projectDir = file('../')
 
