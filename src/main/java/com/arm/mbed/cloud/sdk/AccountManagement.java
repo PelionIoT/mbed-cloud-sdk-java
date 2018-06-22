@@ -793,7 +793,7 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Paginator<Group> listAllGroups(@Nullable GroupListOptions options) throws MbedCloudException {
-        return new Paginator<>(options, new PageRequester<Group>() {
+        return new Paginator<>((options == null) ? new GroupListOptions() : options, new PageRequester<Group>() {
 
             @Override
             public ListResponse<Group> requestNewPage(ListOptions opt) throws MbedCloudException {
@@ -966,7 +966,7 @@ public class AccountManagement extends AbstractApi {
     public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
-        return new Paginator<>(options, new PageRequester<User>() {
+        return new Paginator<>((options == null) ? new UserListOptions() : options, new PageRequester<User>() {
 
             @Override
             public ListResponse<User> requestNewPage(ListOptions opt) throws MbedCloudException {
@@ -1136,7 +1136,7 @@ public class AccountManagement extends AbstractApi {
     public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
-        return new Paginator<>(options, new PageRequester<ApiKey>() {
+        return new Paginator<>((options == null) ? new ApiKeyListOptions() : options, new PageRequester<ApiKey>() {
 
             @Override
             public ListResponse<ApiKey> requestNewPage(ListOptions opt) throws MbedCloudException {
