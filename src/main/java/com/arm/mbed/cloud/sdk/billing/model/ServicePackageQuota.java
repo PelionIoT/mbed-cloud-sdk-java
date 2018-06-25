@@ -3,8 +3,10 @@ package com.arm.mbed.cloud.sdk.billing.model;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
+@Preamble(description = "Model for firmware update quota")
 public class ServicePackageQuota implements SdkModel {
     /**
      * Serialisation Id.
