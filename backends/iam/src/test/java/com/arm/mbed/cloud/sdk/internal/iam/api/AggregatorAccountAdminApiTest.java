@@ -26,7 +26,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -50,7 +49,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Add API key to a list of groups.
      *
-     * An endpoint for adding API key to groups.
+     * An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void addAccountApiKeyToGroupsTest() {
@@ -64,7 +63,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Upload new trusted certificate.
      *
-     * An endpoint for uploading new trusted certificates.
+     * An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -d {\&quot;name\&quot;: \&quot;myCert1\&quot;, \&quot;description\&quot;: \&quot;very important cert\&quot;, \&quot;certificate\&quot;: \&quot;certificate_data\&quot;, \&quot;service\&quot;: \&quot;lwm2m\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void addAccountCertificateTest() {
@@ -77,7 +76,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Add user to a list of groups.
      *
-     * An endpoint for adding user to groups.
+     * An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void addAccountUserToGroupsTest() {
@@ -91,7 +90,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Add members to a group.
      *
-     * An endpoint for adding users and API keys to groups.
+     * An endpoint for adding users and API keys to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -d &#39;{\&quot;users\&quot;: [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void addSubjectsToAccountGroupTest() {
@@ -105,7 +104,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Check the API key.
      *
-     * An endpoint for checking API key.
+     * An endpoint for checking API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void checkAccountApiKeyTest() {
@@ -118,7 +117,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Create a new account.
      *
-     * An endpoint for creating a new account.
+     * An endpoint for creating a new account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void createAccountTest() {
@@ -131,7 +130,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Create a new API key.
      *
-     * An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.
+     * An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void createAccountApiKeyTest() {
@@ -144,7 +143,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Create a new group.
      *
-     * An endpoint for creating a new group.
+     * An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void createAccountGroupTest() {
@@ -157,7 +156,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Create a new user.
      *
-     * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+     * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void createAccountUserTest() {
@@ -171,7 +170,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Delete the API key.
      *
-     * An endpoint for deleting an API key.
+     * An endpoint for deleting an API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void deleteAccountApiKeyTest() {
@@ -184,7 +183,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Delete trusted certificate by ID.
      *
-     * An endpoint for deleting the trusted certificate.
+     * An endpoint for deleting the trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void deleteAccountCertificateTest() {
@@ -197,7 +196,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Delete a group.
      *
-     * An endpoint for deleting a group.
+     * An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void deleteAccountGroupTest() {
@@ -210,7 +209,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Delete a user.
      *
-     * An endpoint for deleting a user.
+     * An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void deleteAccountUserTest() {
@@ -223,7 +222,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get API key details.
      *
-     * An endpoint for retrieving API key details.
+     * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAccountApiKeyTest() {
@@ -236,7 +235,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get trusted certificate by ID.
      *
-     * An endpoint for retrieving a trusted certificate by ID.
+     * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAccountCertificateTest() {
@@ -249,7 +248,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get group information.
      *
-     * An endpoint for getting general information about the group.
+     * An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAccountGroupSummaryTest() {
@@ -262,7 +261,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get account info.
      *
-     * Returns detailed information about the account.
+     * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
      */
     @Test
     public void getAccountInfoTest() {
@@ -276,21 +275,20 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Details of the user.
      *
-     * An endpoint for retrieving details of the user.
+     * An endpoint for retrieving details of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{userID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAccountUserTest() {
         String accountID = null;
         String userId = null;
-        String properties = null;
-        // UserInfoResp response = api.getAccountUser(accountID, userId, properties);
+        // UserInfoResp response = api.getAccountUser(accountID, userId);
 
         // TODO: test validations
     }
     /**
      * Get all API keys.
      *
-     * An endpoint for retrieving the API keys in an array, optionally filtered by the owner.
+     * An endpoint for retrieving the API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllAccountApiKeysTest() {
@@ -308,7 +306,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get all trusted certificates.
      *
-     * An endpoint for retrieving trusted certificates in an array.
+     * An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllAccountCertificatesTest() {
@@ -333,7 +331,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get all group information.
      *
-     * An endpoint for retrieving all group information.
+     * An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllAccountGroupsTest() {
@@ -350,7 +348,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get all user details.
      *
-     * An endpoint for retrieving details of all users.
+     * An endpoint for retrieving details of all users.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getAllAccountUsersTest() {
@@ -370,7 +368,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get all accounts.
      *
-     * Returns an array of account objects, optionally filtered by status and tier level.
+     * Returns an array of account objects, optionally filtered by status and tier level.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
      */
     @Test
     public void getAllAccountsTest() {
@@ -394,7 +392,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get API keys of a group.
      *
-     * An endpoint for listing the API keys of the group with details.
+     * An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getApiKeysOfAccountGroupTest() {
@@ -411,7 +409,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get groups of the API key.
      *
-     * An endpoint for retrieving groups of the API key.
+     * An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getGroupsOfAccountApikeyTest() {
@@ -428,7 +426,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get groups of the user.
      *
-     * An endpoint for retrieving groups of the user.
+     * An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getGroupsOfAccountUserTest() {
@@ -445,7 +443,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Get users of a group.
      *
-     * An endpoint for listing users of the group with details.
+     * An endpoint for listing users of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void getUsersOfAccountGroupTest() {
@@ -465,7 +463,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Remove API key from groups.
      *
-     * An endpoint for removing API key from groups.
+     * An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeAccountApiKeyFromGroupsTest() {
@@ -479,7 +477,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Remove user from groups.
      *
-     * An endpoint for removing user from groups.
+     * An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeAccountUserFromGroupsTest() {
@@ -493,7 +491,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Remove API keys from a group.
      *
-     * An endpoint for removing API keys from groups.
+     * An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeApiKeysFromAccountGroupTest() {
@@ -507,7 +505,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Remove users from a group.
      *
-     * An endpoint for removing users from groups.
+     * An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void removeUsersFromAccountGroupTest() {
@@ -521,7 +519,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Reset the secret key.
      *
-     * An endpoint for resetting the secret key of the API key.
+     * An endpoint for resetting the secret key of the API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void resetAccountApiKeySecretTest() {
@@ -534,7 +532,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Update attributes of an existing account.
      *
-     * An endpoint for updating an account.
+     * An endpoint for updating an account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void updateAccountTest() {
@@ -547,7 +545,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Update API key details.
      *
-     * An endpoint for updating API key details.
+     * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void updateAccountApiKeyTest() {
@@ -575,7 +573,7 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Update the group name.
      *
-     * An endpoint for updating a group name.
+     * An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/ -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void updateAccountGroupNameTest() {
@@ -589,21 +587,21 @@ public class AggregatorAccountAdminApiTest {
     /**
      * Update user details.
      *
-     * An endpoint for updating user details.
+     * An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void updateAccountUserTest() {
         String accountID = null;
         String userId = null;
         UserUpdateReq body = null;
-        // UserUpdateResp response = api.updateAccountUser(accountID, userId, body);
+        // UserInfoResp response = api.updateAccountUser(accountID, userId, body);
 
         // TODO: test validations
     }
     /**
      * Validate the user email.
      *
-     * An endpoint for validating the user email.
+     * An endpoint for validating the user email.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/validate-email -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
      */
     @Test
     public void validateAccountUserEmailTest() {

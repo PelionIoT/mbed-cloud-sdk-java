@@ -1,0 +1,19 @@
+plugins {
+  id 'io.vertx.vertx-plugin' version '0.0.4'
+  id 'eclipse'
+}
+
+repositories {
+  jcenter()
+}
+
+dependencies {
+    compile 'io.vertx:vertx-web:3.5.2'
+    compile 'org.slf4j:slf4j-simple:1.7.25'
+    //compile 'org.slf4j:slf4j-nop:1.7.25'
+    compile 'com.arm.mbed.cloud.sdk:mbed-cloud-sdk:1.2.8'
+}
+vertx {
+  mainVerticle = 'App'
+  redeploy = true
+}
