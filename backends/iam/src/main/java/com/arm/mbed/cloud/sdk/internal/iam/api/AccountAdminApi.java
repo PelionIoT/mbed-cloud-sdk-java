@@ -193,12 +193,11 @@ public interface AccountAdminApi {
    * Details of a user.
    * An endpoint for retrieving the details of a user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user whose details are retrieved. (required)
-   * @param properties Request to return account specific user property values according to the given property name. (optional)
    * @return Call&lt;UserInfoResp&gt;
    */
   @GET("v3/users/{user-id}")
   Call<UserInfoResp> getUser(
-    @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("properties") String properties
+    @retrofit2.http.Path(value = "user-id", encoded = true) String userId
   );
 
   /**

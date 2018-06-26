@@ -37,7 +37,7 @@ public class Enrollment extends AbstractApi {
 
     /**
      * Enrolment module constructor.
-     * 
+     *
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
@@ -50,7 +50,7 @@ public class Enrollment extends AbstractApi {
      * Lists all device enrolment claims.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -66,7 +66,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            list options.
      * @return The list of enrolments (One page).
@@ -83,7 +83,7 @@ public class Enrollment extends AbstractApi {
 
                     @Override
                     public Call<EnrollmentIdentities> call() {
-                        return endpoint.getEnrollment().getDeviceEnrollments(finalOptions.getLimit(),
+                        return endpoint.getEnrollment().getDeviceEnrollments(finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude());
                     }
@@ -94,11 +94,11 @@ public class Enrollment extends AbstractApi {
      * Gets an iterator over all device enrolment claims.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
-     *     ListOptions options = new ListOptions();    
+     *     ListOptions options = new ListOptions();
      *     Paginator<EnrollmentClaim> enrollments = enrollmentApi.listAllEnrollmentClaims(options);
      *     while (enrollments.hasNext()) {
      *         System.out.println(enrollments.next());
@@ -109,7 +109,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param options
      *            filter options.
      * @return paginator @see {@link Paginator} for the list of device enrolments corresponding to filter options.
@@ -132,7 +132,7 @@ public class Enrollment extends AbstractApi {
      * Gets details about a device enrolment.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -145,7 +145,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param enrollmentId
      *            the ID of the device enrolment.
      * @return device enrolment details.
@@ -171,7 +171,7 @@ public class Enrollment extends AbstractApi {
      * Places an enrolment claim for one or several devices.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -184,7 +184,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param claimId
      *            Claim Id. Pattern: '^[A-Z]{1}-[A-Za-z0-9:]{1, 256}' e.g.
      *            A-35:e7:72:8a:07:50:3b:3d:75:96:57:52:72:41:0d:78:cc:c6:e5:53:48:c6:65:58:5b:fa:af:4d:2d:73:95:c5
@@ -211,7 +211,7 @@ public class Enrollment extends AbstractApi {
      * Deletes a device enrolment claim.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -221,7 +221,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param enrollmentId
      *            the ID of the device enrolment.
      * @throws MbedCloudException
@@ -245,7 +245,7 @@ public class Enrollment extends AbstractApi {
      * Deletes a device enrolment claim.
      * <p>
      * Example:
-     * 
+     *
      * <pre>
      * {@code
      * try {
@@ -256,7 +256,7 @@ public class Enrollment extends AbstractApi {
      * }
      * }
      * </pre>
-     * 
+     *
      * @param enrollmentClaim
      *            An enrolment claim to delete
      * @throws MbedCloudException
@@ -270,7 +270,7 @@ public class Enrollment extends AbstractApi {
 
     /**
      * Retrieves module name.
-     * 
+     *
      * @return module name.
      */
     @Override

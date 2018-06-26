@@ -195,8 +195,7 @@ public class AccountAdminApiTest {
     @Test
     public void getUserTest() {
         String userId = null;
-        String properties = null;
-        // UserInfoResp response = api.getUser(userId, properties);
+        // UserInfoResp response = api.getUser(userId);
 
         // TODO: test validations
     }

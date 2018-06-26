@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.Connect;
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -276,17 +277,17 @@ public class ConnectExamples extends AbstractExample {
     }
 
     /**
-     * Lists metrics for March 2017.
+     * Lists metrics for March 2018.
      */
     @Example
-    public void listMarch2017Metric() {
-        ConnectionOptions config = Configuration.get();
+    public void listMarch2018Metric() {
+        ConnectionOptions config = Configuration.get().logLevel(CallLogLevel.BODY);
         Connect api = new Connect(config);
         try {
             // Defining query options.
             MetricsStartEndListOptions options = new MetricsStartEndListOptions();
-            options.setStart(new GregorianCalendar(2017, 2, 1).getTime());
-            options.setEnd(new GregorianCalendar(2017, 3, 1).getTime());
+            options.setStart(new GregorianCalendar(2018, 2, 1).getTime());
+            options.setEnd(new GregorianCalendar(2018, 3, 1).getTime());
             // Listing metrics data.
             Paginator<Metric> metrics = api.listAllMetrics(options);
             for (Metric metric : metrics) {
@@ -571,48 +572,42 @@ public class ConnectExamples extends AbstractExample {
     }
 
     /**
-     * Sets up a webhook for notifications
+     * Uses a webhook for notifications
      */
     @Example
-    public void setUpAWebhook() {
-        ConnectionOptions config = Configuration.get();
+    public void useServerInitiatedNotificationChannel() {
+        ConnectionOptions config = Configuration.get().autostartDaemon(false);
+        // an example: using a webhook for handling notifications from Mbed Cloud
         Connect api = new Connect(config);
+        // cloak
         // Telling the API to stop notification channel if already in use
         api.setForceClear(true);
         try {
-            // Defining resource to listen to
-            String resourcePath = "/5002/0/1";
-            log("Resource path of interest", resourcePath);
-            // Creating webhook.
+            // uncloak
+            // Describing a webhook to use (i.e. a publicly available webserver accepting POST request).
             Webhook webhook = new Webhook(new URL("http://mbedcloudjavawebhooktest.requestcatcher.com/test"));
             log("Webhook", webhook);
-            // Setting up webhook.
+            // Registering the webhook to Mbed Cloud.
             api.updateWebhook(webhook);
-            Thread.sleep(2000);
-            // Adding subscription to all connected devices.
-            Paginator<Device> connectedDevices = api.listAllConnectedDevices(null);
-            for (Device connectedDevice : connectedDevices) {
-                try {
-                    Resource resource = api.getResource(connectedDevice, resourcePath);
-                    if (resource != null) {
-                        api.addResourceSubscription(resource);
-                    }
-                } catch (Exception e1) {
-                    e1.printStackTrace();
-                    logError("An error occurred when trying to fetch Resource [" + resourcePath + "] on device: "
-                            + connectedDevice, api.getLastApiMetadata());
-                }
-            }
+            // Defining a resource to listen to
+            String resourcePath = "/5002/0/1";
+            log("Resource path of interest", resourcePath);
+            // Subscribing to the resource value changes
+            api.subscribe().resourceValues(SubscriptionFilterOptions.newFilter().equalResourcePath(resourcePath),
+                    BackpressureStrategy.MISSING).flow().subscribe();
+            // Ensuring the webhook has been correctly registered
+            log("Registered webhook", api.getWebhook());
             // Waiting for notifications to be sent to the webhook.
-            Thread.sleep(60000);
-            // Deleting the webhook.
-            deleteWebhook(api);
+            Thread.sleep(60000);// TODO do some actual work in your application
+            // Deleting the webhook when it is no longer needed.
+            api.deleteWebhook();
+            // end of example
         } catch (Exception e) {
-            e.printStackTrace();
-            logError("last API Metadata", api.getLastApiMetadata());
+            logError("Exception", e);
             deleteWebhook(api);
             fail(e.getMessage());
         }
+
     }
 
     /**

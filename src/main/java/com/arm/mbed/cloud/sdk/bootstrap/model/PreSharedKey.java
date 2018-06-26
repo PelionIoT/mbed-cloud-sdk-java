@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.bootstrap.model;
 
+import java.util.Date;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
@@ -32,6 +34,30 @@ public class PreSharedKey implements SdkModel {
      * The secret of the pre-shared key in hexadecimal.
      */
     private String secret;
+    /**
+     * the date-time when this pre-shared key was uploaded to Mbed Cloud.
+     */
+    private final Date createdAt;
+
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: use {@link #PreSharedKey(String, String)} instead.
+     *
+     * @param id
+     *            id
+     * @param secret
+     *            secret
+     * @param createdAt
+     *            createdAt
+     */
+    @Internal
+    public PreSharedKey(String id, String secret, Date createdAt) {
+        super();
+        setId(id);
+        setSecret(secret);
+        this.createdAt = createdAt;
+    }
 
     /**
      * Constructor.
@@ -42,9 +68,7 @@ public class PreSharedKey implements SdkModel {
      *            hexadecimal secret.
      */
     public PreSharedKey(String id, String secret) {
-        super();
-        setId(id);
-        setSecret(secret);
+        this(id, secret, null);
     }
 
     /**
@@ -179,6 +203,15 @@ public class PreSharedKey implements SdkModel {
     }
 
     /**
+     * Gets when this pre-shared key was uploaded to Mbed Cloud.
+     *
+     * @return the date when this pre-shared key was uploaded to Mbed Cloud.
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
      * Checks whether the secret is valid or not.
      *
      * @return True if the secret is valid. False otherwise.
@@ -211,7 +244,7 @@ public class PreSharedKey implements SdkModel {
      */
     @Override
     public SdkModel clone() {
-        return new PreSharedKey(id, secret);
+        return new PreSharedKey(id, secret, createdAt);
     }
 
     @Override
@@ -226,6 +259,7 @@ public class PreSharedKey implements SdkModel {
      */
     @Override
     public String toString() {
-        return "PreSharedKey [id=" + id + ", secret=" + secret + "]";
+        return "PreSharedKey [id=" + id + ", secret=" + secret + ", createdAt=" + createdAt + "]";
     }
+
 }

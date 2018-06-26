@@ -23,9 +23,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.io.Serializable;
 
 /**
@@ -38,9 +36,6 @@ public class UserUpdateReq implements Serializable {
 
   @SerializedName("address")
   private String address = null;
-
-  @SerializedName("custom_fields")
-  private Map<String, String> customFields = null;
 
   @SerializedName("email")
   private String email = null;
@@ -59,9 +54,6 @@ public class UserUpdateReq implements Serializable {
 
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
-
-  @SerializedName("password")
-  private String password = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
@@ -88,32 +80,6 @@ public class UserUpdateReq implements Serializable {
 
   public void setAddress(String address) {
     this.address = address;
-  }
-
-  public UserUpdateReq customFields(Map<String, String> customFields) {
-    this.customFields = customFields;
-    return this;
-  }
-
-  public UserUpdateReq putCustomFieldsItem(String key, String customFieldsItem) {
-    if (this.customFields == null) {
-      this.customFields = new HashMap<String, String>();
-    }
-    this.customFields.put(key, customFieldsItem);
-    return this;
-  }
-
-   /**
-   * User&#39;s account specific custom properties. The value is handled as a string.
-   * @return customFields
-  **/
-  @ApiModelProperty(value = "User's account specific custom properties. The value is handled as a string.")
-  public Map<String, String> getCustomFields() {
-    return customFields;
-  }
-
-  public void setCustomFields(Map<String, String> customFields) {
-    this.customFields = customFields;
   }
 
   public UserUpdateReq email(String email) {
@@ -232,24 +198,6 @@ public class UserUpdateReq implements Serializable {
     this.isTotpEnabled = isTotpEnabled;
   }
 
-  public UserUpdateReq password(String password) {
-    this.password = password;
-    return this;
-  }
-
-   /**
-   * The password when creating a new user. It will be generated when not present in the request.
-   * @return password
-  **/
-  @ApiModelProperty(value = "The password when creating a new user. It will be generated when not present in the request.")
-  public String getPassword() {
-    return password;
-  }
-
-  public void setPassword(String password) {
-    this.password = password;
-  }
-
   public UserUpdateReq phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -315,14 +263,12 @@ public class UserUpdateReq implements Serializable {
     }
     UserUpdateReq userUpdateReq = (UserUpdateReq) o;
     return Objects.equals(this.address, userUpdateReq.address) &&
-        Objects.equals(this.customFields, userUpdateReq.customFields) &&
         Objects.equals(this.email, userUpdateReq.email) &&
         Objects.equals(this.fullName, userUpdateReq.fullName) &&
         Objects.equals(this.groups, userUpdateReq.groups) &&
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
-        Objects.equals(this.password, userUpdateReq.password) &&
         Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
         Objects.equals(this.status, userUpdateReq.status) &&
         Objects.equals(this.username, userUpdateReq.username);
@@ -330,7 +276,7 @@ public class UserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, customFields, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, password, phoneNumber, status, username);
+    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, phoneNumber, status, username);
   }
 
 
@@ -340,14 +286,12 @@ public class UserUpdateReq implements Serializable {
     sb.append("class UserUpdateReq {\n");
     
     sb.append("    address: ").append(toIndentedString(address)).append("\n");
-    sb.append("    customFields: ").append(toIndentedString(customFields)).append("\n");
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
     sb.append("    fullName: ").append(toIndentedString(fullName)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
-    sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");

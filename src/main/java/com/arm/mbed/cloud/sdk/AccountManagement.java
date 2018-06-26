@@ -194,8 +194,9 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getLimit(), finalOptions.getAfter(),
-                                finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getPageSize(),
+                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
+                                finalOptions.encodeInclude(),
                                 finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
                                 finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
                     }
@@ -472,7 +473,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoRespList> call() {
-                return endpoint.getAdmin().getAllUsers(finalOptions.getLimit(), finalOptions.getAfter(),
+                return endpoint.getAdmin().getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
                         finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
@@ -525,19 +526,7 @@ public class AccountManagement extends AbstractApi {
     /**
      * Gets details about a user.
      * <p>
-     * Example:
-     *
-     * <pre>
-     *  {@code try {
-     *     String userId = "015f4ac587f500000000000100109294";
-     *     User user = accountManagementApi.getUser(userId);
-     *     System.out.println("User name: " + user.getFullName());
-     *     assert userId == user.getId();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
+     * Note: Use {@link #getUser(String)} instead. The property parameter is no longer taken into account.
      *
      * @param userId
      *            The user ID.
@@ -548,35 +537,13 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable User getUser(@NonNull String userId, @Nullable String property) throws MbedCloudException {
-        checkNotNull(userId, TAG_USER_ID);
-        final String finalUserId = userId;
-        final String propertyName = property;
-        return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
-
-            @Override
-            public Call<UserInfoResp> call() {
-                return endpoint.getAdmin().getUser(finalUserId, propertyName);
-            }
-        });
+        return getUser(userId);
     }
 
     /**
      * Gets details about a user.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     *  {@code try {
-     *     String userId = "015f4ac587f500000000000100109294";
-     *     User user = accountManagementApi.getUser(userId);
-     *     System.out.println("User name: " + user.getFullName());
-     *     assert userId == user.getId();
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
      *
      * @param userId
      *            The user ID.
@@ -586,7 +553,15 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable User getUser(@NonNull String userId) throws MbedCloudException {
-        return getUser(userId, null);
+        checkNotNull(userId, TAG_USER_ID);
+        final String finalUserId = userId;
+        return CloudCaller.call(this, "getUser()", UserAdapter.getMapper(), new CloudCall<UserInfoResp>() {
+
+            @Override
+            public Call<UserInfoResp> call() {
+                return endpoint.getAdmin().getUser(finalUserId);
+            }
+        });
     }
 
     /**
@@ -780,7 +755,7 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<GroupSummaryList> call() {
-                return endpoint.getDeveloper().getAllGroups(finalOptions.getLimit(), finalOptions.getAfter(),
+                return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
                         finalOptions.getOrder().toString(), finalOptions.encodeInclude(), finalOptions.getNameFilter());
             }
         });
@@ -818,7 +793,7 @@ public class AccountManagement extends AbstractApi {
      */
     @API
     public @Nullable Paginator<Group> listAllGroups(@Nullable GroupListOptions options) throws MbedCloudException {
-        return new Paginator<>(options, new PageRequester<Group>() {
+        return new Paginator<>((options == null) ? new GroupListOptions() : options, new PageRequester<Group>() {
 
             @Override
             public ListResponse<Group> requestNewPage(ListOptions opt) throws MbedCloudException {
@@ -906,7 +881,7 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<UserInfoRespList> call() {
-                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getLimit(),
+                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude(),
                                 finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
@@ -991,7 +966,7 @@ public class AccountManagement extends AbstractApi {
     public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
-        return new Paginator<>(options, new PageRequester<User>() {
+        return new Paginator<>((options == null) ? new UserListOptions() : options, new PageRequester<User>() {
 
             @Override
             public ListResponse<User> requestNewPage(ListOptions opt) throws MbedCloudException {
@@ -1071,7 +1046,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(groupId, TAG_GROUP_ID);
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
@@ -1081,7 +1056,7 @@ public class AccountManagement extends AbstractApi {
 
                     @Override
                     public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getLimit(),
+                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString(),
                                 finalOptions.encodeInclude());
                     }
@@ -1119,7 +1094,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listGroupApiKeys(group.getId(), options);
@@ -1158,14 +1133,14 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ListOptions options)
+    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         final String finalGroupId = groupId;
-        return new Paginator<>(options, new PageRequester<ApiKey>() {
+        return new Paginator<>((options == null) ? new ApiKeyListOptions() : options, new PageRequester<ApiKey>() {
 
             @Override
             public ListResponse<ApiKey> requestNewPage(ListOptions opt) throws MbedCloudException {
-                return listGroupApiKeys(finalGroupId, opt);
+                return listGroupApiKeys(finalGroupId, (ApiKeyListOptions) opt);
             }
         });
     }
@@ -1202,7 +1177,7 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ListOptions options)
+    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
             throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listAllGroupApiKeys(group.getId(), options);

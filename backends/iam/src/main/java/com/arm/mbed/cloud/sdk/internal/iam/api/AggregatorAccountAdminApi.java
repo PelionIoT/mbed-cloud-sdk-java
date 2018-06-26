@@ -19,8 +19,10 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyUpdateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -32,7 +34,6 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateResp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -42,7 +43,7 @@ import java.util.Map;
 public interface AggregatorAccountAdminApi {
   /**
    * Add API key to a list of groups.
-   * An endpoint for adding API key to groups.
+   * An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be added to the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
@@ -58,7 +59,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Upload new trusted certificate.
-   * An endpoint for uploading new trusted certificates.
+   * An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -d {\&quot;name\&quot;: \&quot;myCert1\&quot;, \&quot;description\&quot;: \&quot;very important cert\&quot;, \&quot;certificate\&quot;: \&quot;certificate_data\&quot;, \&quot;service\&quot;: \&quot;lwm2m\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param body A trusted certificate object with attributes, signature is optional. (required)
    * @return Call&lt;TrustedCertificateResp&gt;
@@ -73,7 +74,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Add user to a list of groups.
-   * An endpoint for adding user to groups.
+   * An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be added to the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
@@ -89,7 +90,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Add members to a group.
-   * An endpoint for adding users and API keys to groups.
+   * An endpoint for adding users and API keys to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -d &#39;{\&quot;users\&quot;: [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID The ID of the group to be updated. (required)
    * @param body A list of users and API keys to be added to the group. (required)
@@ -105,7 +106,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Check the API key.
-   * An endpoint for checking API key.
+   * An endpoint for checking API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The API key to be checked. (required)
    * @return Call&lt;Void&gt;
@@ -117,9 +118,9 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Create a new account.
-   * An endpoint for creating a new account.
+   * An endpoint for creating a new account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body Details of the account to be created. (required)
-   * @param action Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. (optional, default to create)
+   * @param action Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; (optional, default to create)
    * @return Call&lt;AccountCreationResp&gt;
    */
   @Headers({
@@ -132,7 +133,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Create a new API key.
-   * An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.
+   * An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param body Details of the API key to be created. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
@@ -146,8 +147,23 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Create a new group.
+   * An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param accountID Account ID. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;GroupSummary&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/accounts/{accountID}/policy-groups")
+  Call<GroupSummary> createAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Body GroupCreationInfo body
+  );
+
+  /**
    * Create a new user.
-   * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+   * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param body A user object with attributes. (required)
    * @param action Create or invite user. (optional, default to create)
@@ -163,7 +179,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Delete the API key.
-   * An endpoint for deleting an API key.
+   * An endpoint for deleting an API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be deleted. (required)
    * @return Call&lt;Void&gt;
@@ -175,7 +191,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Delete trusted certificate by ID.
-   * An endpoint for deleting the trusted certificate.
+   * An endpoint for deleting the trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param certId The ID of the trusted certificate to be deleted. (required)
    * @return Call&lt;Void&gt;
@@ -186,8 +202,20 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Delete a group.
+   * An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<Void> deleteAccountGroup(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID
+  );
+
+  /**
    * Delete a user.
-   * An endpoint for deleting a user.
+   * An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be deleted. (required)
    * @return Call&lt;Void&gt;
@@ -199,7 +227,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get API key details.
-   * An endpoint for retrieving API key details.
+   * An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be retrieved. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
@@ -211,7 +239,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get trusted certificate by ID.
-   * An endpoint for retrieving a trusted certificate by ID.
+   * An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param certId The ID of the trusted certificate to be retrieved. (required)
    * @return Call&lt;TrustedCertificateInternalResp&gt;
@@ -223,7 +251,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get group information.
-   * An endpoint for getting general information about the group.
+   * An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID The ID of the group to be retrieved. (required)
    * @return Call&lt;GroupSummary&gt;
@@ -235,7 +263,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get account info.
-   * Returns detailed information about the account.
+   * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
    * @param accountID The ID of the account to be fetched. (required)
    * @param include Comma separated additional data to return. Currently supported: limits, policies, sub_accounts (optional)
    * @param properties Property name to be returned from account specific properties. (optional)
@@ -248,20 +276,19 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Details of the user.
-   * An endpoint for retrieving details of the user.
+   * An endpoint for retrieving details of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{userID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be retrieved. (required)
-   * @param properties Request to return account specific user property values according to the given property name. (optional)
    * @return Call&lt;UserInfoResp&gt;
    */
   @GET("v3/accounts/{accountID}/users/{user-id}")
   Call<UserInfoResp> getAccountUser(
-    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("properties") String properties
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId
   );
 
   /**
    * Get all API keys.
-   * An endpoint for retrieving the API keys in an array, optionally filtered by the owner.
+   * An endpoint for retrieving the API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -278,7 +305,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get all trusted certificates.
-   * An endpoint for retrieving trusted certificates in an array.
+   * An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -302,23 +329,23 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get all group information.
-   * An endpoint for retrieving all group information.
+   * An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
    * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
    * @param include Comma separated additional data to return. Currently supported: total_count (optional)
    * @param nameEq Filter for group name (optional)
-   * @return Call&lt;List&lt;GroupSummary&gt;&gt;
+   * @return Call&lt;GroupSummaryList&gt;
    */
   @GET("v3/accounts/{accountID}/policy-groups")
-  Call<List<GroupSummary>> getAllAccountGroups(
+  Call<GroupSummaryList> getAllAccountGroups(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
   );
 
   /**
    * Get all user details.
-   * An endpoint for retrieving details of all users.
+   * An endpoint for retrieving details of all users.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
    * @param after The entity ID to fetch after the given one. (optional)
@@ -337,7 +364,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get all accounts.
-   * Returns an array of account objects, optionally filtered by status and tier level.
+   * Returns an array of account objects, optionally filtered by status and tier level.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
    * @param statusEq An optional filter for account status, ENROLLING, ACTIVE, RESTRICTED or SUSPENDED. (optional)
    * @param statusIn An optional filter for getting accounts with a specified set of statuses. (optional)
    * @param statusNin An optional filter for excluding accounts with a specified set of statuses. (optional)
@@ -360,7 +387,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get API keys of a group.
-   * An endpoint for listing the API keys of the group with details.
+   * An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID The ID of the group whose API keys are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
@@ -376,7 +403,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get groups of the API key.
-   * An endpoint for retrieving groups of the API key.
+   * An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key whose details are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
@@ -392,7 +419,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get groups of the user.
-   * An endpoint for retrieving groups of the user.
+   * An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user whose details are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
@@ -408,7 +435,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Get users of a group.
-   * An endpoint for listing users of the group with details.
+   * An endpoint for listing users of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID The ID of the group whose users are retrieved. (required)
    * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
@@ -427,7 +454,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Remove API key from groups.
-   * An endpoint for removing API key from groups.
+   * An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be removed from the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
@@ -443,7 +470,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Remove user from groups.
-   * An endpoint for removing user from groups.
+   * An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be removed from the group. (required)
    * @param body A list of IDs of the groups to be updated. (required)
@@ -459,7 +486,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Remove API keys from a group.
-   * An endpoint for removing API keys from groups.
+   * An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID A list of API keys to be removed from the group. (required)
    * @param body  (optional)
@@ -475,7 +502,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Remove users from a group.
-   * An endpoint for removing users from groups.
+   * An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param groupID  (required)
    * @param body  (optional)
@@ -491,7 +518,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Reset the secret key.
-   * An endpoint for resetting the secret key of the API key.
+   * An endpoint for resetting the secret key of the API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be reset. (required)
    * @return Call&lt;ApiKeyInfoResp&gt;
@@ -503,7 +530,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Update attributes of an existing account.
-   * An endpoint for updating an account.
+   * An endpoint for updating an account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID The ID of the account to be updated. (required)
    * @param body Details of the account to be updated. (required)
    * @return Call&lt;AccountInfo&gt;
@@ -518,7 +545,7 @@ public interface AggregatorAccountAdminApi {
 
   /**
    * Update API key details.
-   * An endpoint for updating API key details.
+   * An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param apiKey The ID of the API key to be updated. (required)
    * @param body New API key attributes to be stored. (required)
@@ -546,24 +573,40 @@ public interface AggregatorAccountAdminApi {
   );
 
   /**
+   * Update the group name.
+   * An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/ -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param accountID Account ID. (required)
+   * @param groupID The ID of the group to be updated. (required)
+   * @param body Details of the group to be created. (required)
+   * @return Call&lt;UpdatedResponse&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/accounts/{accountID}/policy-groups/{groupID}")
+  Call<UpdatedResponse> updateAccountGroupName(
+    @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
+  );
+
+  /**
    * Update user details.
-   * An endpoint for updating user details.
+   * An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user to be updated. (required)
    * @param body A user object with attributes. (required)
-   * @return Call&lt;UserUpdateResp&gt;
+   * @return Call&lt;UserInfoResp&gt;
    */
   @Headers({
     "Content-Type:application/json"
   })
   @PUT("v3/accounts/{accountID}/users/{user-id}")
-  Call<UserUpdateResp> updateAccountUser(
+  Call<UserInfoResp> updateAccountUser(
     @retrofit2.http.Path(value = "accountID", encoded = true) String accountID, @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**
    * Validate the user email.
-   * An endpoint for validating the user email.
+   * An endpoint for validating the user email.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/validate-email -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param accountID Account ID. (required)
    * @param userId The ID of the user whose email is validated. (required)
    * @return Call&lt;Void&gt;

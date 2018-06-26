@@ -27,7 +27,6 @@ public final class AccountAdapter {
      *            accountInfo.
      * @return an account.
      */
-    @SuppressWarnings("deprecation")
     public static Account map(AccountInfo accountInfo) {
         if (accountInfo == null) {
             return null;
@@ -51,8 +50,6 @@ public final class AccountAdapter {
         account.setCountry(accountInfo.getCountry());
         account.setEmail(accountInfo.getEmail());
         account.setAliases(accountInfo.getAliases());
-        // TODO change when https://jira.arm.com/browse/IOTAUTH-1518 is implemented
-        account.setCustomProperties(accountInfo.getAccountProperties());
         account.setExpiryWarning(
                 TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(), Account.DEFAULT_EXPIRY_WARNING));
         account.setMultifactorAuthenticationStatus(toMultifactorAuthenticationStatus(accountInfo.getMfaStatus()));
@@ -136,7 +133,6 @@ public final class AccountAdapter {
      *            an updated account.
      * @return an account update request.
      */
-    @SuppressWarnings("deprecation")
     public static AccountUpdateReq reverseMap(Account updateAccount) {
         if (updateAccount == null) {
             return null;
@@ -154,8 +150,6 @@ public final class AccountAdapter {
         accountUpdateReq.setState(updateAccount.getState());
         accountUpdateReq.setPostalCode(updateAccount.getPostcode());
         accountUpdateReq.setCountry(updateAccount.getCountry());
-        // TODO change when https://jira.arm.com/browse/IOTAUTH-1518 is implemented
-        accountUpdateReq.setAccountProperties(updateAccount.getCustomProperties());
         accountUpdateReq.setExpirationWarningThreshold(toWarningExpiry(updateAccount));
         accountUpdateReq.setMfaStatus(toMfaStatus(updateAccount.getMultifactorAuthenticationStatus()));
         accountUpdateReq.setNotificationEmails(updateAccount.getNotificationEmails());

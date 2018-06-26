@@ -17,7 +17,7 @@ public class CustomProperties implements SdkModel {
      */
     private static final long serialVersionUID = 1917364914377541938L;
     private Map<String, String> rawProperties;
-    private final JsonSerialiser jsonMarshaller;
+    private final transient JsonSerialiser jsonMarshaller;
 
     /**
      * Internal constructor.
@@ -88,7 +88,7 @@ public class CustomProperties implements SdkModel {
      *
      * @return the properties in former format when possible.
      */
-    @Internal
+    @Deprecated
     public Map<String, Map<String, String>> getPropertiesInFormerFormat() {
         if (isEmpty()) {
             return null;
@@ -142,7 +142,7 @@ public class CustomProperties implements SdkModel {
      */
     @Internal
     public void setRawProperty(String key, String value) {
-        if (value == null) {
+        if (key == null || value == null) {
             return;
         }
         initialiseMap();
@@ -177,6 +177,10 @@ public class CustomProperties implements SdkModel {
      */
     @Internal
     public void setProperty(String key, Object value) {
+        if (value instanceof String) {
+            setRawProperty(key, (String) value);
+            return;
+        }
         setRawProperty(key, jsonMarshaller.toJson(value));
     }
 
@@ -189,19 +193,28 @@ public class CustomProperties implements SdkModel {
      *            type of the object
      * @return corresponding properties.
      */
+    @SuppressWarnings("unchecked")
     public @Nullable <T> T getProperties(Class<T> valueType) {
-        if (isEmpty()) {
+        if (isEmpty() || valueType == null) {
             return null;
         }
+        if (CustomProperties.class.isAssignableFrom(valueType)) {
+            return (T) this;
+        }
+
         final Map<String, Object> newMap = new HashMap<>(rawProperties.size());
         for (final Entry<String, String> pair : rawProperties.entrySet()) {
             try {
                 newMap.put(pair.getKey(), jsonMarshaller.fromJson(pair.getValue(), Map.class));
             } catch (Exception exception) {
+
                 newMap.put(pair.getKey(), pair.getValue());
             }
         }
         final String serialisedObject = jsonMarshaller.toJson(newMap);
+        if (String.class.isAssignableFrom(valueType)) {
+            return (T) serialisedObject;
+        }
         return serialisedObject == null ? null : jsonMarshaller.fromJson(serialisedObject, valueType);
     }
 
@@ -250,15 +263,19 @@ public class CustomProperties implements SdkModel {
         }
         if (obj instanceof CustomProperties) {
             setRawProperties(((CustomProperties) obj).getRawProperties());
-        } else {
-            setFromJsonString(jsonMarshaller.toJson(obj));
+            return;
         }
+        if (obj instanceof String) {
+            setFromJsonString(obj.toString());
+            return;
+        }
+        setFromJsonString(jsonMarshaller.toJson(obj));
     }
 
     /**
      * Sets the properties from a custom object.
      * <p>
-     * Note: Similar
+     * Note: Similar to {@link #setFromObject(Object)}
      *
      * @param obj
      *            object describing the properties
@@ -267,6 +284,17 @@ public class CustomProperties implements SdkModel {
     public CustomProperties fromObject(Object obj) {
         setFromObject(obj);
         return this;
+    }
+
+    /**
+     * Generates the custom properties from a custom object.
+     *
+     * @param obj
+     *            object describing the properties
+     * @return corresponding custom properties
+     */
+    public static CustomProperties from(Object obj) {
+        return new CustomProperties().fromObject(obj);
     }
 
     /**

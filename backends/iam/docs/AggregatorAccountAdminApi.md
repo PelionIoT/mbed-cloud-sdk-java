@@ -11,9 +11,11 @@ Method | HTTP request | Description
 [**checkAccountApiKey**](AggregatorAccountAdminApi.md#checkAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys/{apiKey} | Check the API key.
 [**createAccount**](AggregatorAccountAdminApi.md#createAccount) | **POST** v3/accounts | Create a new account.
 [**createAccountApiKey**](AggregatorAccountAdminApi.md#createAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys | Create a new API key.
+[**createAccountGroup**](AggregatorAccountAdminApi.md#createAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups | Create a new group.
 [**createAccountUser**](AggregatorAccountAdminApi.md#createAccountUser) | **POST** v3/accounts/{accountID}/users | Create a new user.
 [**deleteAccountApiKey**](AggregatorAccountAdminApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**deleteAccountCertificate**](AggregatorAccountAdminApi.md#deleteAccountCertificate) | **DELETE** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
+[**deleteAccountGroup**](AggregatorAccountAdminApi.md#deleteAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
 [**deleteAccountUser**](AggregatorAccountAdminApi.md#deleteAccountUser) | **DELETE** v3/accounts/{accountID}/users/{user-id} | Delete a user.
 [**getAccountApiKey**](AggregatorAccountAdminApi.md#getAccountApiKey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**getAccountCertificate**](AggregatorAccountAdminApi.md#getAccountCertificate) | **GET** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
@@ -37,6 +39,7 @@ Method | HTTP request | Description
 [**updateAccount**](AggregatorAccountAdminApi.md#updateAccount) | **PUT** v3/accounts/{accountID} | Update attributes of an existing account.
 [**updateAccountApiKey**](AggregatorAccountAdminApi.md#updateAccountApiKey) | **PUT** v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**updateAccountCertificate**](AggregatorAccountAdminApi.md#updateAccountCertificate) | **PUT** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
+[**updateAccountGroupName**](AggregatorAccountAdminApi.md#updateAccountGroupName) | **PUT** v3/accounts/{accountID}/policy-groups/{groupID} | Update the group name.
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -47,7 +50,7 @@ Method | HTTP request | Description
 
 Add API key to a list of groups.
 
-An endpoint for adding API key to groups.
+An endpoint for adding API key to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -106,7 +109,7 @@ Name | Type | Description  | Notes
 
 Upload new trusted certificate.
 
-An endpoint for uploading new trusted certificates.
+An endpoint for uploading new trusted certificates.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -d {\&quot;name\&quot;: \&quot;myCert1\&quot;, \&quot;description\&quot;: \&quot;very important cert\&quot;, \&quot;certificate\&quot;: \&quot;certificate_data\&quot;, \&quot;service\&quot;: \&quot;lwm2m\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -163,7 +166,7 @@ Name | Type | Description  | Notes
 
 Add user to a list of groups.
 
-An endpoint for adding user to groups.
+An endpoint for adding user to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -222,7 +225,7 @@ Name | Type | Description  | Notes
 
 Add members to a group.
 
-An endpoint for adding users and API keys to groups.
+An endpoint for adding users and API keys to groups.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -d &#39;{\&quot;users\&quot;: [0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -281,7 +284,7 @@ Name | Type | Description  | Notes
 
 Check the API key.
 
-An endpoint for checking API key.
+An endpoint for checking API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -338,7 +341,7 @@ Name | Type | Description  | Notes
 
 Create a new account.
 
-An endpoint for creating a new account.
+An endpoint for creating a new account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts -d &#39;{\&quot;display_name\&quot;: \&quot;MyAccount1\&quot;, \&quot;admin_name\&quot;: \&quot;accountAdmin1\&quot;, \&quot;email\&quot;: \&quot;example_admin@myaccount.info\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -359,7 +362,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 AccountCreationReq body = new AccountCreationReq(); // AccountCreationReq | Details of the account to be created.
-String action = "create"; // String | Action, either 'create', 'enroll' or 'enrollment_link'.
+String action = "create"; // String | Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
 try {
     AccountCreationResp result = apiInstance.createAccount(body, action);
     System.out.println(result);
@@ -374,7 +377,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **body** | [**AccountCreationReq**](AccountCreationReq.md)| Details of the account to be created. |
- **action** | **String**| Action, either &#39;create&#39;, &#39;enroll&#39; or &#39;enrollment_link&#39;. | [optional] [default to create]
+ **action** | **String**| Action, either &#39;create&#39; or &#39;enroll&#39;. &lt;ul&gt;&lt;li&gt;&#39;create&#39; creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. &lt;/li&gt;&lt;li&gt;&#39;enroll&#39; creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. &lt;/li&gt;&lt;/ul&gt; | [optional] [default to create]
 
 ### Return type
 
@@ -395,7 +398,7 @@ Name | Type | Description  | Notes
 
 Create a new API key.
 
-An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.
+An endpoint for creating a new API key. There is no default value for the owner ID and it must be from the same account where the new API key is created.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -d &#39;{\&quot;name\&quot;: \&quot;MyKey1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -446,13 +449,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createAccountGroup"></a>
+# **createAccountGroup**
+> GroupSummary createAccountGroup(accountID, body)
+
+Create a new group.
+
+An endpoint for creating a new group.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -d &#39;{\&quot;name\&quot;: \&quot;MyGroup1\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+GroupCreationInfo body = new GroupCreationInfo(); // GroupCreationInfo | Details of the group to be created.
+try {
+    GroupSummary result = apiInstance.createAccountGroup(accountID, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#createAccountGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **body** | [**GroupCreationInfo**](GroupCreationInfo.md)| Details of the group to be created. |
+
+### Return type
+
+[**GroupSummary**](GroupSummary.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createAccountUser"></a>
 # **createAccountUser**
 > UserInfoResp createAccountUser(accountID, body, action)
 
 Create a new user.
 
-An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.
+An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -511,7 +571,7 @@ Name | Type | Description  | Notes
 
 Delete the API key.
 
-An endpoint for deleting an API key.
+An endpoint for deleting an API key.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apikey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -568,7 +628,7 @@ Name | Type | Description  | Notes
 
 Delete trusted certificate by ID.
 
-An endpoint for deleting the trusted certificate.
+An endpoint for deleting the trusted certificate.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -619,13 +679,70 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteAccountGroup"></a>
+# **deleteAccountGroup**
+> Void deleteAccountGroup(accountID, groupID)
+
+Delete a group.
+
+An endpoint for deleting a group.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String groupID = "groupID_example"; // String | The ID of the group to be deleted.
+try {
+    Void result = apiInstance.deleteAccountGroup(accountID, groupID);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#deleteAccountGroup");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **groupID** | **String**| The ID of the group to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteAccountUser"></a>
 # **deleteAccountUser**
 > Void deleteAccountUser(accountID, userId)
 
 Delete a user.
 
-An endpoint for deleting a user.
+An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -682,7 +799,7 @@ Name | Type | Description  | Notes
 
 Get API key details.
 
-An endpoint for retrieving API key details.
+An endpoint for retrieving API key details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -739,7 +856,7 @@ Name | Type | Description  | Notes
 
 Get trusted certificate by ID.
 
-An endpoint for retrieving a trusted certificate by ID.
+An endpoint for retrieving a trusted certificate by ID.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates/{cert-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -796,7 +913,7 @@ Name | Type | Description  | Notes
 
 Get group information.
 
-An endpoint for getting general information about the group.
+An endpoint for getting general information about the group.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -853,7 +970,7 @@ Name | Type | Description  | Notes
 
 Get account info.
 
-Returns detailed information about the account.
+Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
 
 ### Example
 ```java
@@ -908,11 +1025,11 @@ Name | Type | Description  | Notes
 
 <a name="getAccountUser"></a>
 # **getAccountUser**
-> UserInfoResp getAccountUser(accountID, userId, properties)
+> UserInfoResp getAccountUser(accountID, userId)
 
 Details of the user.
 
-An endpoint for retrieving details of the user.
+An endpoint for retrieving details of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{userID} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -934,9 +1051,8 @@ Bearer.setApiKey("YOUR API KEY");
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountID = "accountID_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user to be retrieved.
-String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
 try {
-    UserInfoResp result = apiInstance.getAccountUser(accountID, userId, properties);
+    UserInfoResp result = apiInstance.getAccountUser(accountID, userId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountUser");
@@ -950,7 +1066,6 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **userId** | **String**| The ID of the user to be retrieved. |
- **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
 
 ### Return type
 
@@ -971,7 +1086,7 @@ Name | Type | Description  | Notes
 
 Get all API keys.
 
-An endpoint for retrieving the API keys in an array, optionally filtered by the owner.
+An endpoint for retrieving the API keys in an array, optionally filtered by the owner.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1038,7 +1153,7 @@ Name | Type | Description  | Notes
 
 Get all trusted certificates.
 
-An endpoint for retrieving trusted certificates in an array.
+An endpoint for retrieving trusted certificates in an array.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/trusted-certificates -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1115,11 +1230,11 @@ Name | Type | Description  | Notes
 
 <a name="getAllAccountGroups"></a>
 # **getAllAccountGroups**
-> List&lt;GroupSummary&gt; getAllAccountGroups(accountID, limit, after, order, include, nameEq)
+> GroupSummaryList getAllAccountGroups(accountID, limit, after, order, include, nameEq)
 
 Get all group information.
 
-An endpoint for retrieving all group information.
+An endpoint for retrieving all group information.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1146,7 +1261,7 @@ String order = "ASC"; // String | The order of the records based on creation tim
 String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count
 String nameEq = "nameEq_example"; // String | Filter for group name
 try {
-    List<GroupSummary> result = apiInstance.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
+    GroupSummaryList result = apiInstance.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountGroups");
@@ -1167,7 +1282,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**List&lt;GroupSummary&gt;**](GroupSummary.md)
+[**GroupSummaryList**](GroupSummaryList.md)
 
 ### Authorization
 
@@ -1184,7 +1299,7 @@ Name | Type | Description  | Notes
 
 Get all user details.
 
-An endpoint for retrieving details of all users.
+An endpoint for retrieving details of all users.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1255,7 +1370,7 @@ Name | Type | Description  | Notes
 
 Get all accounts.
 
-Returns an array of account objects, optionally filtered by status and tier level.
+Returns an array of account objects, optionally filtered by status and tier level.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
 
 ### Example
 ```java
@@ -1334,7 +1449,7 @@ Name | Type | Description  | Notes
 
 Get API keys of a group.
 
-An endpoint for listing the API keys of the group with details.
+An endpoint for listing the API keys of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1399,7 +1514,7 @@ Name | Type | Description  | Notes
 
 Get groups of the API key.
 
-An endpoint for retrieving groups of the API key.
+An endpoint for retrieving groups of the API key.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1464,7 +1579,7 @@ Name | Type | Description  | Notes
 
 Get groups of the user.
 
-An endpoint for retrieving groups of the user.
+An endpoint for retrieving groups of the user.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1529,7 +1644,7 @@ Name | Type | Description  | Notes
 
 Get users of a group.
 
-An endpoint for listing users of the group with details.
+An endpoint for listing users of the group with details.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1600,7 +1715,7 @@ Name | Type | Description  | Notes
 
 Remove API key from groups.
 
-An endpoint for removing API key from groups.
+An endpoint for removing API key from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1659,7 +1774,7 @@ Name | Type | Description  | Notes
 
 Remove user from groups.
 
-An endpoint for removing user from groups.
+An endpoint for removing user from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/groups -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1718,7 +1833,7 @@ Name | Type | Description  | Notes
 
 Remove API keys from a group.
 
-An endpoint for removing API keys from groups.
+An endpoint for removing API keys from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/api-keys -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1777,7 +1892,7 @@ Name | Type | Description  | Notes
 
 Remove users from a group.
 
-An endpoint for removing users from groups.
+An endpoint for removing users from groups.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/users -d &#39;[0162056a9a1586f30242590700000000,0117056a9a1586f30242590700000000]&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1836,7 +1951,7 @@ Name | Type | Description  | Notes
 
 Reset the secret key.
 
-An endpoint for resetting the secret key of the API key.
+An endpoint for resetting the secret key of the API key.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey}/reset-secret -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1893,7 +2008,7 @@ Name | Type | Description  | Notes
 
 Update attributes of an existing account.
 
-An endpoint for updating an account.
+An endpoint for updating an account.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -d &#39;{\&quot;phone_number\&quot;: \&quot;12345678\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -1950,7 +2065,7 @@ Name | Type | Description  | Notes
 
 Update API key details.
 
-An endpoint for updating API key details.
+An endpoint for updating API key details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/api-keys/{apiKey} -d &#39;{\&quot;name\&quot;: \&quot;TestApiKey25\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -2062,13 +2177,72 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="updateAccountGroupName"></a>
+# **updateAccountGroupName**
+> UpdatedResponse updateAccountGroupName(accountID, groupID, body)
+
+Update the group name.
+
+An endpoint for updating a group name.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/policy-groups/{groupID}/ -d &#39;{\&quot;name\&quot;: \&quot;TestGroup2\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountID = "accountID_example"; // String | Account ID.
+String groupID = "groupID_example"; // String | The ID of the group to be updated.
+GroupUpdateInfo body = new GroupUpdateInfo(); // GroupUpdateInfo | Details of the group to be created.
+try {
+    UpdatedResponse result = apiInstance.updateAccountGroupName(accountID, groupID, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountGroupName");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountID** | **String**| Account ID. |
+ **groupID** | **String**| The ID of the group to be updated. |
+ **body** | [**GroupUpdateInfo**](GroupUpdateInfo.md)| Details of the group to be created. |
+
+### Return type
+
+[**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="updateAccountUser"></a>
 # **updateAccountUser**
-> UserUpdateResp updateAccountUser(accountID, userId, body)
+> UserInfoResp updateAccountUser(accountID, userId, body)
 
 Update user details.
 
-An endpoint for updating user details.
+An endpoint for updating user details.   **Example usage:** &#x60;curl -X PUT https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id} -d &#39;{\&quot;username\&quot;: \&quot;myusername\&quot;}&#39; -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java
@@ -2092,7 +2266,7 @@ String accountID = "accountID_example"; // String | Account ID.
 String userId = "userId_example"; // String | The ID of the user to be updated.
 UserUpdateReq body = new UserUpdateReq(); // UserUpdateReq | A user object with attributes.
 try {
-    UserUpdateResp result = apiInstance.updateAccountUser(accountID, userId, body);
+    UserInfoResp result = apiInstance.updateAccountUser(accountID, userId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountUser");
@@ -2110,7 +2284,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**UserUpdateResp**](UserUpdateResp.md)
+[**UserInfoResp**](UserInfoResp.md)
 
 ### Authorization
 
@@ -2127,7 +2301,7 @@ Name | Type | Description  | Notes
 
 Validate the user email.
 
-An endpoint for validating the user email.
+An endpoint for validating the user email.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users/{user-id}/validate-email -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
 
 ### Example
 ```java

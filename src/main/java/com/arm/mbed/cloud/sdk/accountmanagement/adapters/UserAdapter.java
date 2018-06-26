@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.accountmanagement.adapters;
 
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.accountmanagement.model.CustomProperties;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.User;
 import com.arm.mbed.cloud.sdk.accountmanagement.model.UserStatus;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
@@ -53,7 +52,6 @@ public final class UserAdapter {
         user.setAddress(apiUser.getAddress());
         user.setTermsAccepted(TranslationUtils.toBool(apiUser.isIsGtcAccepted(), true));
         user.setMarketingAccepted(TranslationUtils.toBool(apiUser.isIsMarketingAccepted(), true));
-        user.setCustomFields(new CustomProperties(apiUser.getCustomFields()));
         return user;
 
     }
@@ -95,7 +93,6 @@ public final class UserAdapter {
         userInfo.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userInfo.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userInfo.setGroups(user.getGroups());
-        userInfo.setCustomFields(user.hasCustomFields() ? user.getCustomFields().getRawProperties() : null);
         return userInfo;
     }
 
@@ -113,14 +110,13 @@ public final class UserAdapter {
         final UserUpdateReq userUpdate = new UserUpdateReq();
         userUpdate.setFullName(user.getFullName());
         userUpdate.setUsername(user.getUsername());
-        userUpdate.setPassword(user.getPassword());
+        // IOTAUTH-1547 removed password from the update request
         userUpdate.setEmail(user.getEmail());
         userUpdate.setPhoneNumber(user.getPhoneNumber());
         userUpdate.setAddress(user.getAddress());
         userUpdate.setIsGtcAccepted(Boolean.valueOf(user.areTermsAccepted()));
         userUpdate.setIsMarketingAccepted(Boolean.valueOf(user.isMarketingAccepted()));
         userUpdate.setGroups(user.getGroups());
-        userUpdate.setCustomFields(user.hasCustomFields() ? user.getCustomFields().getRawProperties() : null);
         return userUpdate;
     }
 
@@ -164,6 +160,11 @@ public final class UserAdapter {
             @Override
             public List<UserInfoResp> getData() {
                 return (userList == null) ? null : userList.getData();
+            }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
             }
         };
         return GenericAdapter.mapList(respList, getMapper());

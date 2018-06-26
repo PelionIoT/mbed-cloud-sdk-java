@@ -324,6 +324,11 @@ public final class CampaignAdapter {
             public List<UpdateCampaign> getData() {
                 return (campaignList == null) ? null : campaignList.getData();
             }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
         };
         return GenericAdapter.mapList(respList, getMapper());
     }

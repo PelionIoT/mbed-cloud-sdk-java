@@ -99,10 +99,6 @@ public class Account implements SdkModel {
      */
     private final String contractNumber;
     /**
-     * Account specific custom properties.
-     */
-    private CustomProperties customProperties;
-    /**
      * Number of days before an email should be sent to notify account expiration.
      */
     @DefaultValue(value = DEFAULT_EXPIRY_WARNING_STRING)
@@ -211,10 +207,9 @@ public class Account implements SdkModel {
     public Account(String id, AccountStatus status, String customerNumber, String salesContactEmail,
             String contractNumber, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
             Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
-        this(id, status, null, null, null, null, null, null, null, null, null, null, null, customerNumber,
-                salesContactEmail, contractNumber, null, DEFAULT_EXPIRY_WARNING, null,
-                MultifactorAuthenticationStatus.getDefault(), null, referenceNote, tier, createdAt, upgradedAt,
-                updatedAt, limits, policies, templateId, reason);
+        this(id, status, null, null, null, null, null, null, null, null, null, null, customerNumber, salesContactEmail,
+                contractNumber, null, DEFAULT_EXPIRY_WARNING, null, MultifactorAuthenticationStatus.getDefault(), null,
+                referenceNote, tier, createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -275,8 +270,6 @@ public class Account implements SdkModel {
      *            salesContactEmail
      * @param updatedAt
      *            updatedAt
-     * @param customProperties
-     *            customProperties
      * @param expiryWarning
      *            expiryWarning
      * @param multifactorAuthenticationStatus
@@ -288,7 +281,7 @@ public class Account implements SdkModel {
     protected Account(String id, AccountStatus status, String displayName, String contact, String company,
             String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
             String country, String email, String customerNumber, String salesContactEmail, String contractNumber,
-            CustomProperties customProperties, long expiryWarning, List<String> notificationEmailAddresses,
+            long expiryWarning, List<String> notificationEmailAddresses,
             MultifactorAuthenticationStatus multifactorAuthenticationStatus, List<String> aliases, String referenceNote,
             String tier, Date createdAt, Date upgradedAt, Date updatedAt, Map<String, String> limits,
             List<Policy> policies, String templateId, String reason) {
@@ -320,7 +313,6 @@ public class Account implements SdkModel {
         setState(state);
         setCountry(country);
         setEmail(email);
-        setCustomFields(customProperties);
         setExpiryWarning(expiryWarning);
         setMultifactorAuthenticationStatus(multifactorAuthenticationStatus);
         setNotificationEmails(notificationEmailAddresses);
@@ -686,77 +678,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * States whether the account has custom properties or not.
-     *
-     * @return true if so. False otherwise.
-     */
-    public boolean hasCustomFields() {
-        return customProperties != null && !customProperties.isEmpty();
-    }
-
-    /**
-     * Gets account custom properties.
-     *
-     * @return the custom properties
-     */
-    public CustomProperties getCustomFields() {
-        return customProperties;
-    }
-
-    /**
-     * Sets account custom properties.
-     *
-     * @param customProperties
-     *            the customProperties to set
-     */
-    public void setCustomFields(CustomProperties customProperties) {
-        this.customProperties = customProperties;
-    }
-
-    /**
-     * Sets account custom properties from a Json string.
-     * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
-     *
-     * @param json
-     *            Json string describing the custom attributes
-     */
-    public void setCustomFields(String json) {
-        setCustomFields(new CustomProperties(json));
-    }
-
-    /**
-     * Gets account custom properties.
-     * <p>
-     * Note: Similar to {@link #getCustomFields()}
-     *
-     * @return the custom properties
-     */
-    @Deprecated
-    public Map<String, Map<String, String>> getCustomProperties() {
-        return hasCustomFields() ? customProperties.getPropertiesInFormerFormat() : null;
-    }
-
-    /**
-     * Sets account custom properties from an Object.
-     * <p>
-     * Note: Similar to {@link #setCustomFields(CustomProperties)}
-     *
-     * @param obj
-     *            object describing the custom attributes
-     */
-    @Deprecated
-    public void setCustomProperties(Object obj) {
-        if (obj instanceof CustomProperties) {
-            setCustomFields((CustomProperties) obj);
-        } else if (obj instanceof String) {
-            setCustomFields((String) obj);
-        } else {
-            setCustomFields(new CustomProperties().fromObject(obj));
-        }
-    }
-
-    /**
      * Gets the number of days before a expiry warning email is sent.
      *
      * @return the expiryWarning
@@ -878,9 +799,9 @@ public class Account implements SdkModel {
     @Override
     public Account clone() {
         return new Account(id, status, displayName, contact, company, phoneNumber, postcode, addressLine1, addressLine2,
-                city, state, country, email, customerNumber, salesContactEmail, contractNumber, customProperties,
-                expiryWarning, notificationEmails, multifactorAuthenticationStatus, aliases, referenceNote, tier,
-                createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
+                city, state, country, email, customerNumber, salesContactEmail, contractNumber, expiryWarning,
+                notificationEmails, multifactorAuthenticationStatus, aliases, referenceNote, tier, createdAt,
+                upgradedAt, updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -904,12 +825,12 @@ public class Account implements SdkModel {
                 + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postcode=" + postcode + ", addressLine1="
                 + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
                 + country + ", email=" + email + ", customerNumber=" + customerNumber + ", salesContactEmail="
-                + salesContactEmail + ", contractNumber=" + contractNumber + ", customProperties=" + customProperties
-                + ", expiryWarning=" + expiryWarning + ", notificationEmails=" + notificationEmails
-                + ", multifactorAuthenticationStatus=" + multifactorAuthenticationStatus + ", aliases=" + aliases
-                + ", referenceNote=" + referenceNote + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt="
-                + upgradedAt + ", updatedAt=" + updatedAt + ", limits=" + limits + ", policies=" + policies
-                + ", templateId=" + templateId + ", reason=" + reason + "]";
+                + salesContactEmail + ", contractNumber=" + contractNumber + ", expiryWarning=" + expiryWarning
+                + ", notificationEmails=" + notificationEmails + ", multifactorAuthenticationStatus="
+                + multifactorAuthenticationStatus + ", aliases=" + aliases + ", referenceNote=" + referenceNote
+                + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", updatedAt="
+                + updatedAt + ", limits=" + limits + ", policies=" + policies + ", templateId=" + templateId
+                + ", reason=" + reason + "]";
     }
 
 }

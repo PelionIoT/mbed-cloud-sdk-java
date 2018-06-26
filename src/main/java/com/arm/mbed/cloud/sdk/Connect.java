@@ -572,10 +572,9 @@ public class Connect extends AbstractApi {
 
                     @Override
                     public Call<SuccessfulResponse> call() {
-                        return endpoint.getStatistic().v3MetricsGet(
-                                MetricAdapter.mapIncludes(finalOptions.getInclude()),
+                        return endpoint.getStatistic().getMetrics(MetricAdapter.mapIncludes(finalOptions.getInclude()),
                                 finalOptions.getInterval().toString(), TranslationUtils.toLocalDate(finalStart),
-                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getLimit(),
+                                TranslationUtils.toLocalDate(finalEnd), finalPeriod, finalOptions.getPageSize(),
                                 finalOptions.getAfter(), finalOptions.getOrder().toString());
                     }
                 });

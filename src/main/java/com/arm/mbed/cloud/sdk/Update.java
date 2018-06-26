@@ -108,7 +108,7 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<FirmwareImagePage> call() {
-                        return endpoint.getUpdate().firmwareImageList(finalOptions.getLimit(),
+                        return endpoint.getUpdate().firmwareImageList(finalOptions.getPageSize(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 new FilterMarshaller(null).encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
@@ -354,7 +354,7 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<FirmwareManifestPage> call() {
-                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getLimit(),
+                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getPageSize(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 new FilterMarshaller(null).encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
@@ -603,7 +603,7 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<UpdateCampaignPage> call() {
-                        return endpoint.getUpdate().updateCampaignList(finalOptions.getLimit(),
+                        return endpoint.getUpdate().updateCampaignList(finalOptions.getPageSize(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
                                 finalOptions.encodeInclude());
@@ -981,7 +981,7 @@ public class Update extends AbstractApi {
 
                     @Override
                     public Call<CampaignDeviceMetadataPage> call() {
-                        return endpoint.getUpdate().updateCampaignMetadataList(finalId, finalOptions.getLimit(),
+                        return endpoint.getUpdate().updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
                                 finalOptions.getOrder().toString(), finalOptions.getAfter(),
                                 finalOptions.encodeInclude());
                     }

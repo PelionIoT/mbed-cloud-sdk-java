@@ -1,1 +1,0 @@
-Added new field (phase) to update campaign.

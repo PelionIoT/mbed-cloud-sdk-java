@@ -5,7 +5,6 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **address** | **String** | Address, not longer than 100 characters. |  [optional]
-**customFields** | **Map&lt;String, String&gt;** | User&#39;s account-specific custom properties as key-value pairs, with a maximum of 100 keys. The maximum length of a key is 100 characters. The values are handled as strings and the maximum length for a value is 4000 characters. |  [optional]
 **email** | **String** | The email address, not longer than 254 characters. | 
 **fullName** | **String** | The full name of the user, not longer than 100 characters. |  [optional]
 **groups** | **List&lt;String&gt;** | A list of IDs of the groups this user belongs to. |  [optional]

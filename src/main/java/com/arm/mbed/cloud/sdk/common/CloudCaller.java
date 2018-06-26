@@ -246,8 +246,7 @@ public class CloudCaller<T, U> {
 
             logger.throwSdkException(
                     "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    error == null ? errorMessage == null ? null : new MbedCloudException(errorMessage)
-                            : new MbedCloudException(error.toPrettyString()));
+                    new MbedCloudException(error.toPrettyString()));
         }
     }
 
