@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **fields** | [**List&lt;Field&gt;**](Field.md) | Failed input fields during request object validation. |  [optional]
 **message** | **String** | A human readable message with detailed info. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name, always &#39;error&#39;. |  [optional]
-**requestId** | **String** | Request ID (muuid). |  [optional]
+**requestId** | **String** | Request ID. |  [optional]
 **type** | [**TypeEnum**](#TypeEnum) | Error type. |  [optional]
 
 

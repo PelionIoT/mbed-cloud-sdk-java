@@ -9,6 +9,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.Connect;
+import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -276,17 +277,17 @@ public class ConnectExamples extends AbstractExample {
     }
 
     /**
-     * Lists metrics for March 2017.
+     * Lists metrics for March 2018.
      */
     @Example
-    public void listMarch2017Metric() {
-        ConnectionOptions config = Configuration.get();
+    public void listMarch2018Metric() {
+        ConnectionOptions config = Configuration.get().logLevel(CallLogLevel.BODY);
         Connect api = new Connect(config);
         try {
             // Defining query options.
             MetricsStartEndListOptions options = new MetricsStartEndListOptions();
-            options.setStart(new GregorianCalendar(2017, 2, 1).getTime());
-            options.setEnd(new GregorianCalendar(2017, 3, 1).getTime());
+            options.setStart(new GregorianCalendar(2018, 2, 1).getTime());
+            options.setEnd(new GregorianCalendar(2018, 3, 1).getTime());
             // Listing metrics data.
             Paginator<Metric> metrics = api.listAllMetrics(options);
             for (Metric metric : metrics) {

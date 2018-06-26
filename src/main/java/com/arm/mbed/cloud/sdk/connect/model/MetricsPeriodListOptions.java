@@ -21,7 +21,7 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
 
     /**
      * Gets period to consider.
-     * 
+     *
      * @return the period
      */
     public TimePeriod getPeriod() {
@@ -30,7 +30,7 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
 
     /**
      * Sets period to consider.
-     * 
+     *
      * @param period
      *            the period to set
      */
@@ -41,9 +41,9 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
     /**
      * Sets period from a string.
      * <p>
-     * 
+     *
      * @see TimePeriod#fromString(String) for more information about string format
-     * 
+     *
      * @param period
      *            the period to set
      */
@@ -53,13 +53,13 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see
      * com.arm.mbed.cloud.sdk.common.listing.ListOptions#setOptions(com.arm.mbed.cloud.sdk.common.listing.ListOptions)
      */
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#setDefault()
      */
     @Override
@@ -83,7 +83,47 @@ public class MetricsPeriodListOptions extends AbstractMetricsListOptions {
 
     /*
      * (non-Javadoc)
-     * 
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + ((period == null) ? 0 : period.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final MetricsPeriodListOptions other = (MetricsPeriodListOptions) obj;
+        if (period == null) {
+            if (other.period != null) {
+                return false;
+            }
+        } else if (!period.equals(other.period)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see com.arm.mbed.cloud.sdk.common.listing.ListOptions#clone()
      */
     @Override

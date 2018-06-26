@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**enrollmentIdentity** | **String** | Enrollment identity. |  [optional]
+**enrollmentIdentity** | **String** | Enrollment identity. | 
 
 
 

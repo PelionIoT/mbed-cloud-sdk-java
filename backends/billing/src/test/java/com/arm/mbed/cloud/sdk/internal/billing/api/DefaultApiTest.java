@@ -1,8 +1,11 @@
 package com.arm.mbed.cloud.sdk.internal.billing.api;
 
 import com.arm.mbed.cloud.sdk.internal.billing.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ForbiddenErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.InternalServerErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportNotFoundErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
@@ -27,6 +30,18 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
+    /**
+     * Get billing report.
+     *
+     * Fetch generated billing report for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.
+     */
+    @Test
+    public void getBillingReportTest() {
+        String month = null;
+        // ReportResponse response = api.getBillingReport(month);
+
+        // TODO: test validations
+    }
     /**
      * Service package quota
      *

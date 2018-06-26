@@ -670,7 +670,7 @@ Name | Type | Description  | Notes
 
 <a name="getUser"></a>
 # **getUser**
-> UserInfoResp getUser(userId, properties)
+> UserInfoResp getUser(userId)
 
 Details of a user.
 
@@ -695,9 +695,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 AccountAdminApi apiInstance = new AccountAdminApi();
 String userId = "userId_example"; // String | The ID of the user whose details are retrieved.
-String properties = "properties_example"; // String | Request to return account specific user property values according to the given property name.
 try {
-    UserInfoResp result = apiInstance.getUser(userId, properties);
+    UserInfoResp result = apiInstance.getUser(userId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AccountAdminApi#getUser");
@@ -710,7 +709,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **userId** | **String**| The ID of the user whose details are retrieved. |
- **properties** | **String**| Request to return account specific user property values according to the given property name. | [optional]
 
 ### Return type
 
