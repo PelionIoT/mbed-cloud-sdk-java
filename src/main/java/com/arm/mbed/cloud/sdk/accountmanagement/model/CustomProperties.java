@@ -17,7 +17,7 @@ public class CustomProperties implements SdkModel {
      */
     private static final long serialVersionUID = 1917364914377541938L;
     private Map<String, String> rawProperties;
-    private final JsonSerialiser jsonMarshaller;
+    private final transient JsonSerialiser jsonMarshaller;
 
     /**
      * Internal constructor.

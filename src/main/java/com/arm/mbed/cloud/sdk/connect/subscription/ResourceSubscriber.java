@@ -35,9 +35,6 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         if (mode == FirstValue.ON_VALUE_UPDATE) {
             final Paginator<Device> iterator = api
                     .listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
-            if (iterator == null) {
-                return;
-            }
             while (iterator.hasNext()) {
                 api.addResourcesSubscription(
                         filters.getVerifiedResources(api.listObservableResources(iterator.next())));
