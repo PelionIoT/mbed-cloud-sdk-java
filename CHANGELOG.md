@@ -6,6 +6,26 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+1.2.9 (2018-06-27)
+==================
+
+### Features
+
+- Updated account and user custom properties fields in AccountManagement
+  (#1254)
+
+- Paginator<T> and ListOptions objects used in the SDK to list elements now
+  take `maxResults` and `pageSize` to remove the ambiguity of former parameter
+  `limit`. (#1296)
+
+- Added an experimental single point of entry for using the SDK
+  (MbedCloudClient) (#1348)
+
+- Removed custom properties field from user and account models (#1362)
+
+- Pre-shared keys registered in the Cloud can now be listed (#631)
+
+
 1.2.8 (2018-05-23)
 ==================
 
