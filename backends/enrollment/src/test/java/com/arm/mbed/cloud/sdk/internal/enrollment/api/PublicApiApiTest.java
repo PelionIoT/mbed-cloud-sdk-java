@@ -1,7 +1,7 @@
 package com.arm.mbed.cloud.sdk.internal.enrollment.api;
 
 import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.BulkCreateResponse;
+import com.arm.mbed.cloud.sdk.internal.enrollment.model.BulkResponse;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentId;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentities;
 import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
@@ -30,12 +30,12 @@ public class PublicApiApiTest {
     /**
      * Bulk upload
      *
-     * With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollments&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads &#x60;&#x60;&#x60; 
+     * With bulk upload you can upload a CSV file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **Example csv File:** 1. First line is assumed to be the header. Content of the header is not validated. 2. Each line can contain comma separated values where 1st value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected in one line. 4. Valid Enrollments begins with A followed by a - and 95 charactors in the format as given below. 5. Valid Enrollment identities may be enclosed with in quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
      */
     @Test
     public void createBulkDeviceEnrollmentTest() {
         File enrollmentIdentities = null;
-        // BulkCreateResponse response = api.createBulkDeviceEnrollment(enrollmentIdentities);
+        // BulkResponse response = api.createBulkDeviceEnrollment(enrollmentIdentities);
 
         // TODO: test validations
     }
@@ -71,7 +71,7 @@ public class PublicApiApiTest {
     @Test
     public void getBulkDeviceEnrollmentTest() {
         String id = null;
-        // BulkCreateResponse response = api.getBulkDeviceEnrollment(id);
+        // BulkResponse response = api.getBulkDeviceEnrollment(id);
 
         // TODO: test validations
     }
