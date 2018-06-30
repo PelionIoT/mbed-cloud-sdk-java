@@ -1,13 +1,15 @@
 # DefaultApi
 
-All URIs are relative to *http://mbed-billing.example.com/v3*
+All URIs are relative to *http://mbed-billing.example.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getBillingReport**](DefaultApi.md#getBillingReport) | **GET** billing-report | Get billing report.
-[**getServicePackageQuota**](DefaultApi.md#getServicePackageQuota) | **GET** service-packages-quota | Service package quota
-[**getServicePackageQuotaHistory**](DefaultApi.md#getServicePackageQuotaHistory) | **GET** service-packages-quota-history | Service package quota history
-[**getServicePackages**](DefaultApi.md#getServicePackages) | **GET** service-packages | Get all service packages.
+[**getBillingReport**](DefaultApi.md#getBillingReport) | **GET** v3/billing-report | Get billing report.
+[**getBillingReportActiveDevices**](DefaultApi.md#getBillingReportActiveDevices) | **GET** billing-report-active-devices | Get raw active devices billing data for the month.
+[**getBillingReportFirmwareUpdates**](DefaultApi.md#getBillingReportFirmwareUpdates) | **GET** billing-report-firmware-updates | Get raw firmware updates billing data for the month.
+[**getServicePackageQuota**](DefaultApi.md#getServicePackageQuota) | **GET** v3/service-packages-quota | Service package quota
+[**getServicePackageQuotaHistory**](DefaultApi.md#getServicePackageQuotaHistory) | **GET** v3/service-packages-quota-history | Service package quota history
+[**getServicePackages**](DefaultApi.md#getServicePackages) | **GET** v3/service-packages | Get all service packages.
 
 
 <a name="getBillingReport"></a>
@@ -55,6 +57,116 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**ReportResponse**](ReportResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getBillingReportActiveDevices"></a>
+# **getBillingReportActiveDevices**
+> Void getBillingReportActiveDevices(month)
+
+Get raw active devices billing data for the month.
+
+Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.billing.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.billing.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.billing.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String month = "month_example"; // String | Queried year and month of billing report
+try {
+    Void result = apiInstance.getBillingReportActiveDevices(month);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#getBillingReportActiveDevices");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **String**| Queried year and month of billing report |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getBillingReportFirmwareUpdates"></a>
+# **getBillingReportFirmwareUpdates**
+> Void getBillingReportFirmwareUpdates(month)
+
+Get raw firmware updates billing data for the month.
+
+Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator&#39;s firmware update devices billing report.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.billing.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.billing.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.billing.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.billing.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String month = "month_example"; // String | Queried year and month of billing report
+try {
+    Void result = apiInstance.getBillingReportFirmwareUpdates(month);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#getBillingReportFirmwareUpdates");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **month** | **String**| Queried year and month of billing report |
+
+### Return type
+
+[**Void**](.md)
 
 ### Authorization
 
