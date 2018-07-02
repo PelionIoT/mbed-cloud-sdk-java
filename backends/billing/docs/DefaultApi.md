@@ -5,8 +5,8 @@ All URIs are relative to *http://mbed-billing.example.com*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**getBillingReport**](DefaultApi.md#getBillingReport) | **GET** v3/billing-report | Get billing report.
-[**getBillingReportActiveDevices**](DefaultApi.md#getBillingReportActiveDevices) | **GET** billing-report-active-devices | Get raw active devices billing data for the month.
-[**getBillingReportFirmwareUpdates**](DefaultApi.md#getBillingReportFirmwareUpdates) | **GET** billing-report-firmware-updates | Get raw firmware updates billing data for the month.
+[**getBillingReportActiveDevices**](DefaultApi.md#getBillingReportActiveDevices) | **GET** v3/billing-report-active-devices | Get raw active devices billing data for the month.
+[**getBillingReportFirmwareUpdates**](DefaultApi.md#getBillingReportFirmwareUpdates) | **GET** v3/billing-report-firmware-updates | Get raw firmware updates billing data for the month.
 [**getServicePackageQuota**](DefaultApi.md#getServicePackageQuota) | **GET** v3/service-packages-quota | Service package quota
 [**getServicePackageQuotaHistory**](DefaultApi.md#getServicePackageQuotaHistory) | **GET** v3/service-packages-quota-history | Service package quota history
 [**getServicePackages**](DefaultApi.md#getServicePackages) | **GET** v3/service-packages | Get all service packages.

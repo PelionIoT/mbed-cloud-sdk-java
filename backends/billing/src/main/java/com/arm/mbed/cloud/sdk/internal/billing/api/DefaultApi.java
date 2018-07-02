@@ -42,7 +42,7 @@ public interface DefaultApi {
    * @param month Queried year and month of billing report (required)
    * @return Call&lt;Void&gt;
    */
-  @GET("billing-report-active-devices")
+  @GET("v3/billing-report-active-devices")
   Call<Void> getBillingReportActiveDevices(
     @retrofit2.http.Query("month") String month
   );
@@ -53,7 +53,7 @@ public interface DefaultApi {
    * @param month Queried year and month of billing report (required)
    * @return Call&lt;Void&gt;
    */
-  @GET("billing-report-firmware-updates")
+  @GET("v3/billing-report-firmware-updates")
   Call<Void> getBillingReportFirmwareUpdates(
     @retrofit2.http.Query("month") String month
   );
