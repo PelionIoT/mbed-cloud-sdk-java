@@ -31,7 +31,7 @@ import io.reactivex.BackpressureStrategy;
 /**
  * Entry point for using the SDK.
  */
-public class MbedCloudClient extends AbstractApi {
+public class MbedCloudClient extends AbstractApi implements AutoCloseable {
 
     private final Connect connectApi;
 
@@ -233,8 +233,17 @@ public class MbedCloudClient extends AbstractApi {
         connectApi.shutdownConnectService();
     }
 
+    /**
+     * Similar to {@link #quit()}.
+     */
+    @Override
+    public void close() throws Exception {
+        quit();
+    }
+
     @Override
     public String getModuleName() {
         return "SDK entry point";
     }
+
 }
