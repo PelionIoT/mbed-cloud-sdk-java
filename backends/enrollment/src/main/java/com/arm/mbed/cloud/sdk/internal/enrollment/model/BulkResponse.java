@@ -26,10 +26,10 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * BulkCreateResponse
+ * BulkResponse
  */
 
-public class BulkCreateResponse implements Serializable {
+public class BulkResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("account_id")
@@ -162,7 +162,7 @@ public class BulkCreateResponse implements Serializable {
   @SerializedName("total_count")
   private Integer totalCount = null;
 
-  public BulkCreateResponse accountId(String accountId) {
+  public BulkResponse accountId(String accountId) {
     this.accountId = accountId;
     return this;
   }
@@ -180,7 +180,7 @@ public class BulkCreateResponse implements Serializable {
     this.accountId = accountId;
   }
 
-  public BulkCreateResponse completedAt(DateTime completedAt) {
+  public BulkResponse completedAt(DateTime completedAt) {
     this.completedAt = completedAt;
     return this;
   }
@@ -198,7 +198,7 @@ public class BulkCreateResponse implements Serializable {
     this.completedAt = completedAt;
   }
 
-  public BulkCreateResponse createdAt(DateTime createdAt) {
+  public BulkResponse createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
   }
@@ -216,7 +216,7 @@ public class BulkCreateResponse implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public BulkCreateResponse errorsCount(Integer errorsCount) {
+  public BulkResponse errorsCount(Integer errorsCount) {
     this.errorsCount = errorsCount;
     return this;
   }
@@ -234,7 +234,7 @@ public class BulkCreateResponse implements Serializable {
     this.errorsCount = errorsCount;
   }
 
-  public BulkCreateResponse errorsReportFile(String errorsReportFile) {
+  public BulkResponse errorsReportFile(String errorsReportFile) {
     this.errorsReportFile = errorsReportFile;
     return this;
   }
@@ -243,7 +243,7 @@ public class BulkCreateResponse implements Serializable {
    * Get errorsReportFile
    * @return errorsReportFile
   **/
-  @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-reports/2d238a89038b4ddb84699dd36a901063/errors_report.csv", value = "")
+  @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/errors_report.csv", value = "")
   public String getErrorsReportFile() {
     return errorsReportFile;
   }
@@ -252,7 +252,7 @@ public class BulkCreateResponse implements Serializable {
     this.errorsReportFile = errorsReportFile;
   }
 
-  public BulkCreateResponse etag(String etag) {
+  public BulkResponse etag(String etag) {
     this.etag = etag;
     return this;
   }
@@ -270,7 +270,7 @@ public class BulkCreateResponse implements Serializable {
     this.etag = etag;
   }
 
-  public BulkCreateResponse fullReportFile(String fullReportFile) {
+  public BulkResponse fullReportFile(String fullReportFile) {
     this.fullReportFile = fullReportFile;
     return this;
   }
@@ -279,7 +279,7 @@ public class BulkCreateResponse implements Serializable {
    * Get fullReportFile
    * @return fullReportFile
   **/
-  @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-reports/2d238a89038b4ddb84699dd36a901063/full_report.csv", value = "")
+  @ApiModelProperty(example = "https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/2d238a89038b4ddb84699dd36a901063/full_report.csv", value = "")
   public String getFullReportFile() {
     return fullReportFile;
   }
@@ -288,7 +288,7 @@ public class BulkCreateResponse implements Serializable {
     this.fullReportFile = fullReportFile;
   }
 
-  public BulkCreateResponse id(String id) {
+  public BulkResponse id(String id) {
     this.id = id;
     return this;
   }
@@ -306,7 +306,7 @@ public class BulkCreateResponse implements Serializable {
     this.id = id;
   }
 
-  public BulkCreateResponse object(ObjectEnum object) {
+  public BulkResponse object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -324,7 +324,7 @@ public class BulkCreateResponse implements Serializable {
     this.object = object;
   }
 
-  public BulkCreateResponse processedCount(Integer processedCount) {
+  public BulkResponse processedCount(Integer processedCount) {
     this.processedCount = processedCount;
     return this;
   }
@@ -342,7 +342,7 @@ public class BulkCreateResponse implements Serializable {
     this.processedCount = processedCount;
   }
 
-  public BulkCreateResponse status(StatusEnum status) {
+  public BulkResponse status(StatusEnum status) {
     this.status = status;
     return this;
   }
@@ -360,7 +360,7 @@ public class BulkCreateResponse implements Serializable {
     this.status = status;
   }
 
-  public BulkCreateResponse totalCount(Integer totalCount) {
+  public BulkResponse totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -387,19 +387,19 @@ public class BulkCreateResponse implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    BulkCreateResponse bulkCreateResponse = (BulkCreateResponse) o;
-    return Objects.equals(this.accountId, bulkCreateResponse.accountId) &&
-        Objects.equals(this.completedAt, bulkCreateResponse.completedAt) &&
-        Objects.equals(this.createdAt, bulkCreateResponse.createdAt) &&
-        Objects.equals(this.errorsCount, bulkCreateResponse.errorsCount) &&
-        Objects.equals(this.errorsReportFile, bulkCreateResponse.errorsReportFile) &&
-        Objects.equals(this.etag, bulkCreateResponse.etag) &&
-        Objects.equals(this.fullReportFile, bulkCreateResponse.fullReportFile) &&
-        Objects.equals(this.id, bulkCreateResponse.id) &&
-        Objects.equals(this.object, bulkCreateResponse.object) &&
-        Objects.equals(this.processedCount, bulkCreateResponse.processedCount) &&
-        Objects.equals(this.status, bulkCreateResponse.status) &&
-        Objects.equals(this.totalCount, bulkCreateResponse.totalCount);
+    BulkResponse bulkResponse = (BulkResponse) o;
+    return Objects.equals(this.accountId, bulkResponse.accountId) &&
+        Objects.equals(this.completedAt, bulkResponse.completedAt) &&
+        Objects.equals(this.createdAt, bulkResponse.createdAt) &&
+        Objects.equals(this.errorsCount, bulkResponse.errorsCount) &&
+        Objects.equals(this.errorsReportFile, bulkResponse.errorsReportFile) &&
+        Objects.equals(this.etag, bulkResponse.etag) &&
+        Objects.equals(this.fullReportFile, bulkResponse.fullReportFile) &&
+        Objects.equals(this.id, bulkResponse.id) &&
+        Objects.equals(this.object, bulkResponse.object) &&
+        Objects.equals(this.processedCount, bulkResponse.processedCount) &&
+        Objects.equals(this.status, bulkResponse.status) &&
+        Objects.equals(this.totalCount, bulkResponse.totalCount);
   }
 
   @Override
@@ -411,7 +411,7 @@ public class BulkCreateResponse implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class BulkCreateResponse {\n");
+    sb.append("class BulkResponse {\n");
     
     sb.append("    accountId: ").append(toIndentedString(accountId)).append("\n");
     sb.append("    completedAt: ").append(toIndentedString(completedAt)).append("\n");
