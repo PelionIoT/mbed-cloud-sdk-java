@@ -30,7 +30,7 @@ public class AccountApiTest {
      * This REST API is used to get account-specific statistics.
      */
     @Test
-    public void v3MetricsGetTest() {
+    public void getMetricsTest() {
         String include = null;
         String interval = null;
         LocalDate start = null;
@@ -39,7 +39,7 @@ public class AccountApiTest {
         Integer limit = null;
         String after = null;
         String order = null;
-        // SuccessfulResponse response = api.v3MetricsGet(include, interval, start, end, period, limit, after, order);
+        // SuccessfulResponse response = api.getMetrics(include, interval, start, end, period, limit, after, order);
 
         // TODO: test validations
     }

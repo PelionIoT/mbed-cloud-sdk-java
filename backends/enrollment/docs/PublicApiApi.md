@@ -14,11 +14,11 @@ Method | HTTP request | Description
 
 <a name="createBulkDeviceEnrollment"></a>
 # **createBulkDeviceEnrollment**
-> BulkCreateResponse createBulkDeviceEnrollment(enrollmentIdentities)
+> BulkResponse createBulkDeviceEnrollment(enrollmentIdentities)
 
 Bulk upload
 
-With bulk upload you can upload a CSV file containing a number of enrollment IDs.  First line of the CSV is read as a header and not as a enrollment identity. **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollments&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads &#x60;&#x60;&#x60; 
+With bulk upload you can upload a CSV file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **Example csv File:** 1. First line is assumed to be the header. Content of the header is not validated. 2. Each line can contain comma separated values where 1st value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected in one line. 4. Valid Enrollments begins with A followed by a - and 95 charactors in the format as given below. 5. Valid Enrollment identities may be enclosed with in quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -40,7 +40,7 @@ Bearer.setApiKey("YOUR API KEY");
 PublicApiApi apiInstance = new PublicApiApi();
 File enrollmentIdentities = new File("/path/to/file.txt"); // File | Enrollment identities CSV file. Maximum file size is 10MB. 
 try {
-    BulkCreateResponse result = apiInstance.createBulkDeviceEnrollment(enrollmentIdentities);
+    BulkResponse result = apiInstance.createBulkDeviceEnrollment(enrollmentIdentities);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PublicApiApi#createBulkDeviceEnrollment");
@@ -56,7 +56,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkCreateResponse**](BulkCreateResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 
@@ -179,7 +179,7 @@ Name | Type | Description  | Notes
 
 <a name="getBulkDeviceEnrollment"></a>
 # **getBulkDeviceEnrollment**
-> BulkCreateResponse getBulkDeviceEnrollment(id)
+> BulkResponse getBulkDeviceEnrollment(id)
 
 Get bulk upload entity
 
@@ -205,7 +205,7 @@ Bearer.setApiKey("YOUR API KEY");
 PublicApiApi apiInstance = new PublicApiApi();
 String id = "id_example"; // String | Bulk create task entity ID
 try {
-    BulkCreateResponse result = apiInstance.getBulkDeviceEnrollment(id);
+    BulkResponse result = apiInstance.getBulkDeviceEnrollment(id);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling PublicApiApi#getBulkDeviceEnrollment");
@@ -221,7 +221,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**BulkCreateResponse**](BulkCreateResponse.md)
+[**BulkResponse**](BulkResponse.md)
 
 ### Authorization
 

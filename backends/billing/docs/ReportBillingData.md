@@ -6,9 +6,9 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **activeDevices** | **Long** |  | 
 **firmwareUpdates** | **Long** |  | 
-**generated** | **String** |  | 
-**periodEnd** | **String** |  | 
-**periodStart** | **String** |  | 
+**generated** | [**DateTime**](DateTime.md) |  | 
+**periodEnd** | [**DateTime**](DateTime.md) |  | 
+**periodStart** | [**DateTime**](DateTime.md) |  | 
 
 
 

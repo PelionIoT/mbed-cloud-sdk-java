@@ -1,5 +1,5 @@
 
-# BulkCreateResponse
+# BulkResponse
 
 ## Properties
 Name | Type | Description | Notes
