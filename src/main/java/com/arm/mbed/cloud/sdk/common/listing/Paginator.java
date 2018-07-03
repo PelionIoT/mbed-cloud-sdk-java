@@ -27,7 +27,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
     private T currentElement;
     private int pageIndex;
     private Integer pageSize;
-    public long resultNumber;
+    private long resultNumber;
 
     /**
      * Constructor.
