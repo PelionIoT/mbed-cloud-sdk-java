@@ -1,1 +1,0 @@
-Removed custom properties field from user and account models
