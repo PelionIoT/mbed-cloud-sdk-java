@@ -43,6 +43,30 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Get raw active devices billing data for the month.
+     *
+     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data.
+     */
+    @Test
+    public void getBillingReportActiveDevicesTest() {
+        String month = null;
+        // Void response = api.getBillingReportActiveDevices(month);
+
+        // TODO: test validations
+    }
+    /**
+     * Get raw firmware updates billing data for the month.
+     *
+     * Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator&#39;s firmware update devices billing report.
+     */
+    @Test
+    public void getBillingReportFirmwareUpdatesTest() {
+        String month = null;
+        // Void response = api.getBillingReportFirmwareUpdates(month);
+
+        // TODO: test validations
+    }
+    /**
      * Service package quota
      *
      * Get the available firmware update quota for the currently authenticated commercial acount.

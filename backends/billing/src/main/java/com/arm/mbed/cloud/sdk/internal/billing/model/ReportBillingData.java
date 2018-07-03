@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -38,13 +39,13 @@ public class ReportBillingData implements Serializable {
   private Long firmwareUpdates = null;
 
   @SerializedName("generated")
-  private String generated = null;
+  private DateTime generated = null;
 
   @SerializedName("period_end")
-  private String periodEnd = null;
+  private DateTime periodEnd = null;
 
   @SerializedName("period_start")
-  private String periodStart = null;
+  private DateTime periodStart = null;
 
   public ReportBillingData activeDevices(Long activeDevices) {
     this.activeDevices = activeDevices;
@@ -84,7 +85,7 @@ public class ReportBillingData implements Serializable {
     this.firmwareUpdates = firmwareUpdates;
   }
 
-  public ReportBillingData generated(String generated) {
+  public ReportBillingData generated(DateTime generated) {
     this.generated = generated;
     return this;
   }
@@ -94,15 +95,15 @@ public class ReportBillingData implements Serializable {
    * @return generated
   **/
   @ApiModelProperty(required = true, value = "")
-  public String getGenerated() {
+  public DateTime getGenerated() {
     return generated;
   }
 
-  public void setGenerated(String generated) {
+  public void setGenerated(DateTime generated) {
     this.generated = generated;
   }
 
-  public ReportBillingData periodEnd(String periodEnd) {
+  public ReportBillingData periodEnd(DateTime periodEnd) {
     this.periodEnd = periodEnd;
     return this;
   }
@@ -112,15 +113,15 @@ public class ReportBillingData implements Serializable {
    * @return periodEnd
   **/
   @ApiModelProperty(required = true, value = "")
-  public String getPeriodEnd() {
+  public DateTime getPeriodEnd() {
     return periodEnd;
   }
 
-  public void setPeriodEnd(String periodEnd) {
+  public void setPeriodEnd(DateTime periodEnd) {
     this.periodEnd = periodEnd;
   }
 
-  public ReportBillingData periodStart(String periodStart) {
+  public ReportBillingData periodStart(DateTime periodStart) {
     this.periodStart = periodStart;
     return this;
   }
@@ -130,11 +131,11 @@ public class ReportBillingData implements Serializable {
    * @return periodStart
   **/
   @ApiModelProperty(required = true, value = "")
-  public String getPeriodStart() {
+  public DateTime getPeriodStart() {
     return periodStart;
   }
 
-  public void setPeriodStart(String periodStart) {
+  public void setPeriodStart(DateTime periodStart) {
     this.periodStart = periodStart;
   }
 

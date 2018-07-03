@@ -104,7 +104,7 @@ public class ApiClient {
     json = new JSON();
     okBuilder = new OkHttpClient.Builder();
 
-    String baseUrl = "http://mbed-billing.example.com/v3";
+    String baseUrl = "http://mbed-billing.example.com";
     if (!baseUrl.endsWith("/"))
       baseUrl = baseUrl + "/";
 
