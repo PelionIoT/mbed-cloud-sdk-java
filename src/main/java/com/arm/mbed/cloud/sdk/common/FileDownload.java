@@ -20,6 +20,10 @@ public class FileDownload {
     private boolean downloaded;
     private SdkLogger logger;
 
+    public enum Extension {
+        JSON, TXT, DEFAULT
+    }
+
     /**
      * Constructor.
      * <p>
@@ -51,7 +55,7 @@ public class FileDownload {
      *             if a problem occurred during the process
      */
     public FileDownload(URL source) throws IOException, URISyntaxException {
-        this(source, generateTempFile(source));
+        this(source, generateTempFile(source, null));
     }
 
     /**
@@ -95,13 +99,29 @@ public class FileDownload {
      * <p>
      * Note: the data will be saved to a temporary file on the disk.
      *
+     * @param extension
+     *            extension of the destination file on the disk.
+     * @throws IOException
+     *             if a problem occurred during the process
+     * @throws URISyntaxException
+     *             if a problem occurred during the process
+     */
+    public FileDownload(Extension extension) throws IOException, URISyntaxException {
+        this(generateTempFile(null, extension == Extension.DEFAULT ? null : "." + extension.toString().toLowerCase()));
+    }
+
+    /**
+     * Constructor.
+     * <p>
+     * Note: the data will be saved to a temporary file on the disk.
+     *
      * @throws IOException
      *             if a problem occurred during the process
      * @throws URISyntaxException
      *             if a problem occurred during the process
      */
     public FileDownload() throws IOException, URISyntaxException {
-        this(generateTempFile(null));
+        this(Extension.DEFAULT);
     }
 
     /**
@@ -214,9 +234,10 @@ public class FileDownload {
         }
     }
 
-    private static File generateTempFile(URL source) throws IOException, URISyntaxException {
-        final String fileName = (source == null) ? "unknown" : Paths.get(source.toURI()).toFile().getName();
-        return File.createTempFile(getFileNameWithoutExtension(fileName), getFileExtension(fileName));
+    private static File generateTempFile(URL source, String extension) throws IOException, URISyntaxException {
+        final String fileName = (source == null) ? "unknown.txt" : Paths.get(source.toURI()).toFile().getName();
+        return File.createTempFile(getFileNameWithoutExtension(fileName),
+                extension == null ? "." + getFileExtension(fileName) : extension);
     }
 
     private static String getFileExtension(String fileName) {
@@ -232,6 +253,16 @@ public class FileDownload {
             return "";
         }
         return fileName.replace("." + getFileExtension(fileName), "");
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "FileDownload [source=" + source + ", destination=" + destination + ", downloaded=" + downloaded + "]";
     }
 
 }

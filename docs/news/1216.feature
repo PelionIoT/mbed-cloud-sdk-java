@@ -1,0 +1,1 @@
+Billing module was integrated. This provides the ability to fetch various reports regarding billing (e.g. Service package status, remaining quota, history of transactions)

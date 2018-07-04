@@ -29,6 +29,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
 
@@ -74,7 +75,7 @@ public class Billing extends AbstractApi {
                     public Call<com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota> call() {
                         return endpoint.getBilling().getServicePackageQuota();
                     }
-                }, false);
+                });
         return (remainingQuota == null) ? 0l : TranslationUtils.toLong(remainingQuota.getQuota());
     }
 
@@ -121,7 +122,7 @@ public class Billing extends AbstractApi {
                         return endpoint.getBilling().getServicePackageQuotaHistory(finalOptions.getPageSize(),
                                 finalOptions.getAfter());
                     }
-                }, false);
+                });
     }
 
     /**
@@ -146,45 +147,167 @@ public class Billing extends AbstractApi {
                 });
     }
 
+    /**
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested. If null, the current month will be considered.
+     * @param destination
+     *            destination file
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
     @API
-    public void getReportOverview(@Nullable Calendar month, FileDownload destination) throws MbedCloudException {
-        getReportOverview(TranslationUtils.toDate(month), destination);
+    public FileDownload getReportOverview(@Nullable Calendar month, @NonNull FileDownload destination)
+            throws MbedCloudException {
+        return getReportOverview(TranslationUtils.toDate(month), destination);
     }
 
+    /**
+     *
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested. If null, the current month will be considered.
+     * @param filePath
+     *            path of the destination file. If null, a temporary file will be created.
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
     @API
-    public void getReportOverview(@Nullable Date month, @Nullable String filePath) throws MbedCloudException {
+    public FileDownload getReportOverview(@Nullable Calendar month, @Nullable String filePath)
+            throws MbedCloudException {
+        return getReportOverview(TranslationUtils.toDate(month), filePath);
+    }
+
+    /**
+     *
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested.If null, the current month will be considered.
+     * @param filePath
+     *            path of the destination file. If null, a temporary file will be created.
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public FileDownload getReportOverview(@Nullable Date month, @Nullable String filePath) throws MbedCloudException {
         try {
-            getReportOverview(month, filePath == null ? new FileDownload() : new FileDownload(filePath));
+            return getReportOverview(month,
+                    filePath == null ? new FileDownload(FileDownload.Extension.JSON) : new FileDownload(filePath));
         } catch (IOException | URISyntaxException exception) {
             throw new MbedCloudException(exception);
         }
     }
 
+    /**
+     *
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested. If null, the current month will be considered.
+     * @param destination
+     *            destination file
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
     @API
-    public void getReportOverview(@Nullable String month, @Nullable String filePath) throws MbedCloudException {
-        try {
-            getReportOverview(month, filePath == null ? new FileDownload() : new FileDownload(filePath));
-        } catch (IOException | URISyntaxException exception) {
-            throw new MbedCloudException(exception);
-        }
-    }
-
-    @API
-    public void getReportOverview(@Nullable Date month, FileDownload destination) throws MbedCloudException {
+    public FileDownload getReportOverview(@Nullable Date month, @NonNull FileDownload destination)
+            throws MbedCloudException {
         final Date finalDate = month == null ? new Date() : month;
         Calendar cal = Calendar.getInstance();
         cal.setTime(finalDate);
         final int dateYear = cal.get(Calendar.YEAR);
-        final int dateMonth = cal.get(Calendar.MONTH);
-        getReportOverview(dateYear + "-" + dateMonth, destination);
+        final int dateMonth = cal.get(Calendar.MONTH) + 1;
+        return getReportOverview(generateReportReference(dateYear, dateMonth), destination);
     }
 
+    /**
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested
+     * @param year
+     *            year for which the report is requested
+     * @param filePath
+     *            path of the destination file. If null, a temporary file will be created.
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
     @API
-    public void getReportOverview(@NonNull String month, @NonNull FileDownload destination) throws MbedCloudException {
+    public FileDownload getReportOverview(int month, int year, @Nullable String filePath) throws MbedCloudException {
+        try {
+            return getReportOverview(generateReportReference(year, month),
+                    filePath == null ? new FileDownload(FileDownload.Extension.JSON) : new FileDownload(filePath));
+        } catch (IOException | URISyntaxException exception) {
+            throw new MbedCloudException(exception);
+        }
+    }
+
+    /**
+     *
+     * Downloads a report overview.
+     * <p>
+     * If the report does not exist, an empty Json file will be created.
+     *
+     * @param month
+     *            month for which the report is requested. If null, the current month will be considered.
+     * @param filePath
+     *            path of the destination file. If null, a temporary file will be created.
+     * @return downloaded file
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public FileDownload getReportOverview(@Nullable String month, @Nullable String filePath) throws MbedCloudException {
+        try {
+            return getReportOverview(month,
+                    filePath == null ? new FileDownload(FileDownload.Extension.JSON) : new FileDownload(filePath));
+        } catch (IOException | URISyntaxException exception) {
+            throw new MbedCloudException(exception);
+        }
+    }
+
+    private String generateReportReference(int dateYear, int dateMonth) {
+        final String monthString = dateMonth < 10 && dateMonth > 0 ? "0" + dateMonth : String.valueOf(dateMonth);
+        return dateYear + "-" + monthString;
+    }
+
+    private FileDownload getReportOverview(@NonNull String month, @NonNull FileDownload destination)
+            throws MbedCloudException {
         ApiUtils.checkNotNull(logger, month, TAG_MONTH);
         ApiUtils.checkNotNull(logger, destination, TAG_DESTINATION);
-        final String bodyContent = null;// TODO
-        destination.download(bodyContent);
+        final String finalMonth = month;
+        String bodyContent = CloudCaller.callRaw(this, "getReportOverview()", new CloudCall<ReportResponse>() {
+
+            @Override
+            public Call<ReportResponse> call() {
+                return endpoint.getBilling().getBillingReport(finalMonth);
+            }
+        }, false);
+        if (bodyContent == null || bodyContent.isEmpty()) {
+            logger.logWarn("Requested billing report [" + finalMonth + "] is empty");
+            logger.logInfo("An empty Json file will be created");
+            bodyContent = "{}";
+        }
+        destination.download(bodyContent.trim());
+        return destination;
     }
 
     /**

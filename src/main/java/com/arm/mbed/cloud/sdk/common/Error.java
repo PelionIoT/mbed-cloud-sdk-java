@@ -206,7 +206,37 @@ public class Error implements SdkModel {
      * @return string representation of the error.
      */
     public String toPrettyString() {
-        return type + " (" + requestId + "). Status code: " + code + ". Object: " + object + ". Message: " + message;
+        return type + " (" + requestId + "). Status code: " + code + ". Object: " + object + ". Message: "
+                + generatePrettyMessage();
+    }
+
+    private String generatePrettyMessage() {
+        if (message == null) {
+            return "";
+        }
+        String formattedMessage = message;
+        if (fields != null && formattedMessage.endsWith(".")) {
+            formattedMessage = formattedMessage.substring(0, formattedMessage.length() - 1);
+        }
+        return formattedMessage + generateieldsDescription();
+    }
+
+    private String generateieldsDescription() {
+        if (fields == null) {
+            return "";
+        }
+        final StringBuilder builder = new StringBuilder();
+        builder.append(" (");
+        boolean start = true;
+        for (final Field field : fields) {
+            if (!start) {
+                builder.append(", ");
+            }
+            start = false;
+            builder.append(field.toPrettyString());
+        }
+        builder.append(").");
+        return builder.toString();
     }
 
     /**
@@ -299,6 +329,14 @@ public class Error implements SdkModel {
             return "Field [name=" + name + ", message=" + message + "]";
         }
 
+        /**
+         * Generates a pretty string representation.
+         *
+         * @return string representation of the error.
+         */
+        public String toPrettyString() {
+            return "" + name + ": " + message;
+        }
     }
 
 }
