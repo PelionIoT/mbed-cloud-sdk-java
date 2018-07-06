@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -39,7 +40,7 @@ public class QuotaUsageReport implements Serializable {
   private String campaignName = null;
 
   @SerializedName("time")
-  private String time = null;
+  private DateTime time = null;
 
   /**
    * Type of quota usage entry.
@@ -135,7 +136,7 @@ public class QuotaUsageReport implements Serializable {
     this.campaignName = campaignName;
   }
 
-  public QuotaUsageReport time(String time) {
+  public QuotaUsageReport time(DateTime time) {
     this.time = time;
     return this;
   }
@@ -145,11 +146,11 @@ public class QuotaUsageReport implements Serializable {
    * @return time
   **/
   @ApiModelProperty(required = true, value = "Added time of quota usage entry.")
-  public String getTime() {
+  public DateTime getTime() {
     return time;
   }
 
-  public void setTime(String time) {
+  public void setTime(DateTime time) {
     this.time = time;
   }
 
