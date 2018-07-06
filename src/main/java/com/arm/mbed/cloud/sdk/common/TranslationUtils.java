@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -35,7 +36,7 @@ public final class TranslationUtils {
 
     /**
      * Converts datetime to date.
-     * 
+     *
      * @param date
      *            datetime
      * @return corresponding date
@@ -45,8 +46,19 @@ public final class TranslationUtils {
     }
 
     /**
+     * Converts calendar to date.
+     *
+     * @param date
+     *            calendar
+     * @return corresponding date
+     */
+    public static Date toDate(Calendar date) {
+        return (date == null) ? null : date.getTime();
+    }
+
+    /**
      * Converts timestamp into a date.
-     * 
+     *
      * @param timestamp
      *            timestamp
      * @param unit
@@ -87,7 +99,7 @@ public final class TranslationUtils {
 
     /**
      * Converts to datetime.
-     * 
+     *
      * @param date
      *            date
      * @return corresponding datetime.
@@ -110,7 +122,7 @@ public final class TranslationUtils {
 
     /**
      * Converts string to a long value.
-     * 
+     *
      * @param stringContainingANumber
      *            string containing a number
      * @param defaultValue
@@ -144,11 +156,11 @@ public final class TranslationUtils {
 
     /**
      * Converts timestamp to date.
-     * 
+     *
      * @param timestamp
      *            string representing a date.
      * @return corresponding date or default date
-     * 
+     *
      * @throws MbedCloudException
      *             if timestamp is not recognised
      */
@@ -158,7 +170,7 @@ public final class TranslationUtils {
 
     /**
      * Converts timestamp into dates.
-     * 
+     *
      * @param timestamp
      *            string representing a date
      * @param defaultDate
@@ -175,7 +187,7 @@ public final class TranslationUtils {
 
     /**
      * Converts timestamp to date.
-     * 
+     *
      * @param timestamp
      *            string representing a date.
      * @param format
@@ -194,7 +206,7 @@ public final class TranslationUtils {
 
     /**
      * Parses a timestamp string.
-     * 
+     *
      * @param timestamp
      *            string representing a date
      * @param format
@@ -215,9 +227,9 @@ public final class TranslationUtils {
     }
 
     /**
-     * 
+     *
      * Converts timestamp following RFC3339 into dates.
-     * 
+     *
      * @param timestamp
      *            string representing a date and following RFC3339
      * @return corresponding date
@@ -230,7 +242,7 @@ public final class TranslationUtils {
 
     /**
      * Converts timestamp following RFC3339 into dates.
-     * 
+     *
      * @param timestamp
      *            string representing a date and following RFC3339
      * @param defaultDate
@@ -247,7 +259,7 @@ public final class TranslationUtils {
 
     /**
      * Gets default string representation of a date.
-     * 
+     *
      * @param date
      *            date
      * @return string representation
@@ -258,7 +270,7 @@ public final class TranslationUtils {
 
     /**
      * Gets RFC3339 string representation of a date.
-     * 
+     *
      * @param date
      *            date
      * @return string representation
@@ -275,7 +287,7 @@ public final class TranslationUtils {
 
     /**
      * Converts string to URL.
-     * 
+     *
      * @param url
      *            string
      * @return corresponding URL or null if incorrect.
@@ -292,7 +304,7 @@ public final class TranslationUtils {
 
     /**
      * Converts URL to string.
-     * 
+     *
      * @param url
      *            a URL
      * @return corresponding string
@@ -303,7 +315,7 @@ public final class TranslationUtils {
 
     /**
      * Converts a string to an integer.
-     * 
+     *
      * @param value
      *            string containing an integer.
      * @param defaultV
@@ -325,7 +337,7 @@ public final class TranslationUtils {
 
     /**
      * Converts date into a timestamp string.
-     * 
+     *
      * @param date
      *            date to convert
      * @param format
@@ -341,7 +353,7 @@ public final class TranslationUtils {
 
     /**
      * Extracts a list of strings from a string.
-     * 
+     *
      * @param string
      *            string containing a list of string elements
      * @param separator
@@ -357,7 +369,7 @@ public final class TranslationUtils {
 
     /**
      * Moves dates to UTC time zone.
-     * 
+     *
      * @param date
      *            date/time
      * @return date/time in UTC
@@ -368,7 +380,7 @@ public final class TranslationUtils {
 
     /**
      * Moves dates to UTC time zone.
-     * 
+     *
      * @param date
      *            date/time
      * @return date/time in UTC
@@ -380,7 +392,7 @@ public final class TranslationUtils {
 
     /**
      * Converts date into a UTC timestamp string.
-     * 
+     *
      * @param date
      *            date/time
      * @return timestamp in UTC (RFC3339)
@@ -391,13 +403,13 @@ public final class TranslationUtils {
     }
 
     /**
-     * 
+     *
      * Converts string following RFC3339 into dates.
      * <p>
      * Similar to {@link #convertRfc3339Timestamp(String)} but using Joda time implementation.
-     * 
+     *
      * @see DateTimeFormatter#parseDateTime(String)
-     * 
+     *
      * @param valueStr
      *            string representing a date and following RFC3339
      * @return corresponding date

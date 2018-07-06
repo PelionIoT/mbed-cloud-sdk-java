@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
@@ -33,7 +34,7 @@ public class ServicePackageMetadata implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("end_time")
-  private String endTime = null;
+  private DateTime endTime = null;
 
   @SerializedName("remaining_quota")
   private Long remainingQuota = null;
@@ -42,9 +43,9 @@ public class ServicePackageMetadata implements Serializable {
   private Long reservedQuota = null;
 
   @SerializedName("start_time")
-  private String startTime = null;
+  private DateTime startTime = null;
 
-  public ServicePackageMetadata endTime(String endTime) {
+  public ServicePackageMetadata endTime(DateTime endTime) {
     this.endTime = endTime;
     return this;
   }
@@ -54,11 +55,11 @@ public class ServicePackageMetadata implements Serializable {
    * @return endTime
   **/
   @ApiModelProperty(required = true, value = "Service package end time.")
-  public String getEndTime() {
+  public DateTime getEndTime() {
     return endTime;
   }
 
-  public void setEndTime(String endTime) {
+  public void setEndTime(DateTime endTime) {
     this.endTime = endTime;
   }
 
@@ -100,7 +101,7 @@ public class ServicePackageMetadata implements Serializable {
     this.reservedQuota = reservedQuota;
   }
 
-  public ServicePackageMetadata startTime(String startTime) {
+  public ServicePackageMetadata startTime(DateTime startTime) {
     this.startTime = startTime;
     return this;
   }
@@ -110,11 +111,11 @@ public class ServicePackageMetadata implements Serializable {
    * @return startTime
   **/
   @ApiModelProperty(required = true, value = "Service package start time.")
-  public String getStartTime() {
+  public DateTime getStartTime() {
     return startTime;
   }
 
-  public void setStartTime(String startTime) {
+  public void setStartTime(DateTime startTime) {
     this.startTime = startTime;
   }
 

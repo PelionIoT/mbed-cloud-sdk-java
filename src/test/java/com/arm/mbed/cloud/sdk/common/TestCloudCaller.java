@@ -15,6 +15,7 @@ import java.util.TimeZone;
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudResponse;
 import com.arm.mbed.cloud.sdk.common.Error.Field;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
@@ -68,7 +69,8 @@ public class TestCloudCaller {
             // First request
             retrofit2.Response<String> receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            Error error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(receivedResponse),
+            Error error = CloudCaller.retrieveErrorDetails(
+                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
                     receivedResponse);
             assertNotNull(error);
             assertEquals(403, error.getCode());
@@ -84,7 +86,8 @@ public class TestCloudCaller {
             // Second request
             receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(receivedResponse),
+            error = CloudCaller.retrieveErrorDetails(
+                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
                     receivedResponse);
             assertNotNull(error);
             assertEquals(403, error.getCode());
@@ -96,7 +99,8 @@ public class TestCloudCaller {
             // Third request
             receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(receivedResponse),
+            error = CloudCaller.retrieveErrorDetails(
+                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
                     receivedResponse);
             RecordedRequest request = server.takeRequest();
             assertNotNull(error);

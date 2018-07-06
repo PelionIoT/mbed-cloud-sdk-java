@@ -6,6 +6,18 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+1.2.10 (2018-07-06)
+===================
+
+### Features
+
+- Added a preferences file for development on Eclipse [/config/eclipse] (#1)
+
+- Billing module was integrated. This provides the ability to fetch various
+  reports regarding billing (e.g. Service package status, remaining quota,
+  history of transactions) (#1216)
+
+
 1.2.9 (2018-06-27)
 ==================
 

@@ -360,15 +360,16 @@ public class NotificationHandlersStore {
             @Override
             public void run() {
                 try {
-                    final CallFeedback<NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
-                            "NotificationPullGet()", GenericAdapter.identityMapper(NotificationMessage.class),
-                            new CloudCall<NotificationMessage>() {
+                    final CallFeedback<NotificationMessage, NotificationMessage> feedback = CloudCaller
+                            .callWithFeedback(api, "NotificationPullGet()",
+                                    GenericAdapter.identityMapper(NotificationMessage.class),
+                                    new CloudCall<NotificationMessage>() {
 
-                                @Override
-                                public Call<NotificationMessage> call() {
-                                    return endpoint.getNotifications().longPollNotifications();
-                                }
-                            }, false, true);
+                                        @Override
+                                        public Call<NotificationMessage> call() {
+                                            return endpoint.getNotifications().longPollNotifications();
+                                        }
+                                    }, false, true);
                     final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(
