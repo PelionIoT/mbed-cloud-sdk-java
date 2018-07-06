@@ -7,6 +7,7 @@ import java.io.PrintWriter;
 import java.net.MalformedURLException;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
@@ -21,7 +22,9 @@ public class FileDownload {
     private SdkLogger logger;
 
     public enum Extension {
-        JSON, TXT, DEFAULT
+        JSON,
+        TXT,
+        DEFAULT
     }
 
     /**
@@ -49,12 +52,10 @@ public class FileDownload {
      *
      * @param source
      *            URL of the source.
-     * @throws IOException
-     *             if a problem occurred during the process
-     * @throws URISyntaxException
+     * @throws MbedCloudException
      *             if a problem occurred during the process
      */
-    public FileDownload(URL source) throws IOException, URISyntaxException {
+    public FileDownload(URL source) throws MbedCloudException {
         this(source, generateTempFile(source, null));
     }
 
@@ -63,15 +64,15 @@ public class FileDownload {
      * <p>
      * The file will be downloaded from the source to the destination.
      *
-     * @param sourceURL
+     * @param sourceUrl
      *            URL of the source.
      * @param destinationPath
      *            destination file path on the disk.
      * @throws MalformedURLException
      *             if a problem occurred during the process
      */
-    public FileDownload(String sourceURL, String destinationPath) throws MalformedURLException {
-        this(new URL(sourceURL), new File(destinationPath));
+    public FileDownload(String sourceUrl, String destinationPath) throws MalformedURLException {
+        this(new URL(sourceUrl), new File(destinationPath));
     }
 
     /**
@@ -101,12 +102,10 @@ public class FileDownload {
      *
      * @param extension
      *            extension of the destination file on the disk.
-     * @throws IOException
-     *             if a problem occurred during the process
-     * @throws URISyntaxException
+     * @throws MbedCloudException
      *             if a problem occurred during the process
      */
-    public FileDownload(Extension extension) throws IOException, URISyntaxException {
+    public FileDownload(Extension extension) throws MbedCloudException {
         this(generateTempFile(null, extension == Extension.DEFAULT ? null : "." + extension.toString().toLowerCase()));
     }
 
@@ -114,13 +113,13 @@ public class FileDownload {
      * Constructor.
      * <p>
      * Note: the data will be saved to a temporary file on the disk.
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurred during the process
      *
-     * @throws IOException
-     *             if a problem occurred during the process
-     * @throws URISyntaxException
-     *             if a problem occurred during the process
+     * 
      */
-    public FileDownload() throws IOException, URISyntaxException {
+    public FileDownload() throws MbedCloudException {
         this(Extension.DEFAULT);
     }
 
@@ -187,7 +186,7 @@ public class FileDownload {
         if (logger != null) {
             logger.logInfo("Downloading data to [" + destination.getName() + "]");
         }
-        try (PrintWriter out = new PrintWriter(destination)) {
+        try (PrintWriter out = new PrintWriter(destination, StandardCharsets.UTF_8.name())) {
             out.println(content);
         } catch (IOException exception) {
             throw new MbedCloudException("The file could not be downloaded", exception);
@@ -224,20 +223,24 @@ public class FileDownload {
         if (destination == null) {
             throw new MbedCloudException("The destination of the download has not been specified");
         }
-        if (!destination.isFile()) {
-            throw new MbedCloudException("The destination does not correspond to a file");
-        }
         if (destination.exists()) {
+            if (!destination.isFile()) {
+                throw new MbedCloudException("The destination does not correspond to a file");
+            }
             if (logger != null) {
                 logger.logWarn("File [" + destination.getName() + "] will be overwritten");
             }
         }
     }
 
-    private static File generateTempFile(URL source, String extension) throws IOException, URISyntaxException {
-        final String fileName = (source == null) ? "unknown.txt" : Paths.get(source.toURI()).toFile().getName();
-        return File.createTempFile(getFileNameWithoutExtension(fileName),
-                extension == null ? "." + getFileExtension(fileName) : extension);
+    private static File generateTempFile(URL source, String extension) throws MbedCloudException {
+        try {
+            final String fileName = (source == null) ? "unknown.txt" : Paths.get(source.toURI()).toFile().getName();
+            return File.createTempFile(getFileNameWithoutExtension(fileName),
+                                       extension == null ? "." + getFileExtension(fileName) : extension);
+        } catch (IOException | URISyntaxException exception) {
+            throw new MbedCloudException(exception);
+        }
     }
 
     private static String getFileExtension(String fileName) {

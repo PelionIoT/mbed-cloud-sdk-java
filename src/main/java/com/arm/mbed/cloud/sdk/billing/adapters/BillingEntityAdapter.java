@@ -36,6 +36,8 @@ public final class BillingEntityAdapter {
      *
      * @param toBeMapped
      *            package response from Mbed Cloud.
+     * @param <T>
+     *            type of the raw object to map
      * @return corresponding service package.
      */
     public static <T extends Object> ServicePackage map(T toBeMapped) {
@@ -45,30 +47,36 @@ public final class BillingEntityAdapter {
         if (toBeMapped instanceof ActiveServicePackage) {
             final ActiveServicePackage raw = (ActiveServicePackage) toBeMapped;
             return new ServicePackage(raw.getId(), TranslationUtils.toDate(raw.getCreated()),
-                    TranslationUtils.toDate(raw.getStartTime()), TranslationUtils.toDate(raw.getExpires()), null,
-                    TranslationUtils.toDate(raw.getModified()), TranslationUtils.toBool(raw.isGracePeriod(), false),
-                    TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), raw.getNextId(), null,
-                    ServicePackageState.ACTIVE);
+                                      TranslationUtils.toDate(raw.getStartTime()),
+                                      TranslationUtils.toDate(raw.getExpires()), null,
+                                      TranslationUtils.toDate(raw.getModified()),
+                                      TranslationUtils.toBool(raw.isGracePeriod(), false),
+                                      TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(),
+                                      raw.getNextId(), null, ServicePackageState.ACTIVE);
         } else if (toBeMapped instanceof PendingServicePackage) {
             final PendingServicePackage raw = (PendingServicePackage) toBeMapped;
             return new ServicePackage(raw.getId(), TranslationUtils.toDate(raw.getCreated()),
-                    TranslationUtils.toDate(raw.getStartTime()), TranslationUtils.toDate(raw.getExpires()), null,
-                    TranslationUtils.toDate(raw.getModified()), false,
-                    TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), null, null,
-                    ServicePackageState.PENDING);
+                                      TranslationUtils.toDate(raw.getStartTime()),
+                                      TranslationUtils.toDate(raw.getExpires()), null,
+                                      TranslationUtils.toDate(raw.getModified()), false,
+                                      TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), null,
+                                      null, ServicePackageState.PENDING);
         } else if (toBeMapped instanceof PreviousServicePackage) {
             final PreviousServicePackage raw = (PreviousServicePackage) toBeMapped;
             return new ServicePackage(raw.getId(), TranslationUtils.toDate(raw.getCreated()),
-                    TranslationUtils.toDate(raw.getStartTime()), TranslationUtils.toDate(raw.getExpires()),
-                    TranslationUtils.toDate(raw.getEndTime()), TranslationUtils.toDate(raw.getModified()), false,
-                    TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), raw.getNextId(),
-                    raw.getReason() == null ? null : raw.getReason().toString(), ServicePackageState.PREVIOUS);
+                                      TranslationUtils.toDate(raw.getStartTime()),
+                                      TranslationUtils.toDate(raw.getExpires()),
+                                      TranslationUtils.toDate(raw.getEndTime()),
+                                      TranslationUtils.toDate(raw.getModified()), false,
+                                      TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(),
+                                      raw.getNextId(), raw.getReason() == null ? null : raw.getReason().toString(),
+                                      ServicePackageState.PREVIOUS);
         } else if (toBeMapped instanceof ServicePackageQuotaHistoryServicePackage) {
             final ServicePackageQuotaHistoryServicePackage raw = (ServicePackageQuotaHistoryServicePackage) toBeMapped;
             return new ServicePackage(raw.getId(), null, TranslationUtils.toDate(raw.getStartTime()),
-                    TranslationUtils.toDate(raw.getExpires()), null, null, false,
-                    TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), null, null,
-                    ServicePackageState.PREVIOUS);
+                                      TranslationUtils.toDate(raw.getExpires()), null, null, false,
+                                      TranslationUtils.toLong(raw.getFirmwareUpdateCount()), raw.getPreviousId(), null,
+                                      null, ServicePackageState.PREVIOUS);
         }
         return null;
     }
@@ -89,10 +97,14 @@ public final class BillingEntityAdapter {
 
     /**
      * Gets a mapper.
-     *
+     * 
+     * @param type
+     *            type of the cloud object.
+     * @param <T>
+     *            type of the raw object to map
      * @return a mapper.
      */
-    public static <T extends Object> Mapper<T, ServicePackage> getMapper() {
+    public static <T extends Object> Mapper<T, ServicePackage> getMapper(Class<T> type) {
 
         return new Mapper<T, ServicePackage>() {
 
@@ -118,7 +130,7 @@ public final class BillingEntityAdapter {
         final ServicePackage pendingPackage = BillingEntityAdapter.map(list.getPending());
         final ServicePackage activePackage = BillingEntityAdapter.map(list.getActive());
         final List<ServicePackage> previousList = GenericAdapter.mapList(list.getPrevious(),
-                BillingEntityAdapter.getMapper());
+                                                                         BillingEntityAdapter.getMapper(PreviousServicePackage.class));
         if (pendingPackage != null) {
             mappedList.add(pendingPackage);
         }
@@ -159,11 +171,10 @@ public final class BillingEntityAdapter {
             return null;
         }
         return new QuotaHistory(toBeMapped.getId(), TranslationUtils.toDate(toBeMapped.getAdded()),
-                TranslationUtils.toLong(toBeMapped.getAmount()),
-                toBeMapped.getReason() == null ? null : toBeMapped.getReason().toString(),
-                toBeMapped.getServicePackage() == null
-                        ? BillingEntityAdapter.mapReservation(toBeMapped.getReservation())
-                        : BillingEntityAdapter.map(toBeMapped.getServicePackage()));
+                                TranslationUtils.toLong(toBeMapped.getAmount()),
+                                toBeMapped.getReason() == null ? null : toBeMapped.getReason().toString(),
+                                toBeMapped.getServicePackage() == null ? BillingEntityAdapter.mapReservation(toBeMapped.getReservation())
+                                                                       : BillingEntityAdapter.map(toBeMapped.getServicePackage()));
     }
 
     /**
@@ -189,6 +200,7 @@ public final class BillingEntityAdapter {
      *            quotahistory list
      * @return corresponding service package.
      */
+    @SuppressWarnings("PMD.NPathComplexity")
     public static ListResponse<QuotaHistory> mapQuotaHistoryList(ServicePackageQuotaHistoryResponse list) {
         final ServicePackageQuotaHistoryResponse finalList = list;
         final RespList<ServicePackageQuotaHistoryItem> respList = new RespList<ServicePackageQuotaHistoryItem>() {

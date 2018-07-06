@@ -197,7 +197,7 @@ public class Error implements SdkModel {
     @Override
     public String toString() {
         return "Error [object=" + object + ", code=" + code + ", type=" + type + ", message=" + message + ", requestId="
-                + requestId + ", fields=" + fields + "]";
+               + requestId + ", fields=" + fields + "]";
     }
 
     /**
@@ -207,7 +207,7 @@ public class Error implements SdkModel {
      */
     public String toPrettyString() {
         return type + " (" + requestId + "). Status code: " + code + ". Object: " + object + ". Message: "
-                + generatePrettyMessage();
+               + generatePrettyMessage();
     }
 
     private String generatePrettyMessage() {
@@ -335,7 +335,7 @@ public class Error implements SdkModel {
          * @return string representation of the error.
          */
         public String toPrettyString() {
-            return "" + name + ": " + message;
+            return name + ": " + message;
         }
     }
 

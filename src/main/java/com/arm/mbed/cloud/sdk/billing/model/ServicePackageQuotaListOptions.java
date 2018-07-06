@@ -8,7 +8,7 @@ public class ServicePackageQuotaListOptions extends ListOptions {
 
     public ServicePackageQuotaListOptions() {
         super();
-        setPageSize(new Integer(2));
+        setPageSize(Integer.valueOf(2));
     }
 
     /*

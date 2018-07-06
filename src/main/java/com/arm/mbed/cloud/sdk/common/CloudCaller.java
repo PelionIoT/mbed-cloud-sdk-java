@@ -19,6 +19,7 @@ import retrofit2.Response;
 @Preamble(description = "Utility in charge of calling Arm Mbed Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
+    private static final String UNCHECKED = "unchecked";
     protected static final String DATE_HEADER = "Date";
     protected static final String DATE_HEADER_LOWERCASE = "date";
     protected static final String REQUEST_ID_HEADER = "X-Request-ID";
@@ -42,7 +43,7 @@ public class CloudCaller<T, U> {
     }
 
     private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
-            boolean storeMetada, boolean throwExceptionOnNotFound) {
+                        boolean storeMetada, boolean throwExceptionOnNotFound) {
         super();
         this.caller = caller;
         this.mapper = mapper;
@@ -75,8 +76,8 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller)
-            throws MbedCloudException {
+    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper,
+                                CloudCall<T> caller) throws MbedCloudException {
         return call(module, functionName, mapper, caller, false);
     }
 
@@ -104,32 +105,8 @@ public class CloudCaller<T, U> {
      *             if an error occurred during the call
      */
     public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
-            boolean throwExceptionOnNotFound) throws MbedCloudException {
+                                boolean throwExceptionOnNotFound) throws MbedCloudException {
         return call(module, functionName, mapper, caller, true, throwExceptionOnNotFound);
-    }
-
-    /**
-     * Executes a call to Arm Mbed Cloud.
-     * <p>
-     * Note: call metadata are recorded
-     *
-     * @param module
-     *            API module
-     * @param functionName
-     *            API function name.
-     * @param caller
-     *            request
-     * @param throwExceptionOnNotFound
-     *            states whether to throw an exception when 404 Not found is received from the server
-     * @param <T>
-     *            type of HTTP response object.
-     * @return raw result
-     * @throws MbedCloudException
-     *             if an error occurred during the call
-     */
-    public static <T> String callRaw(AbstractApi module, String functionName, CloudCall<T> caller,
-            boolean throwExceptionOnNotFound) throws MbedCloudException {
-        return callWithRawFeedback(module, functionName, caller, true, throwExceptionOnNotFound).getResult();
     }
 
     /**
@@ -156,9 +133,33 @@ public class CloudCaller<T, U> {
      *             if an error occurred during the call
      */
     public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
-            boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
-        return callWithFeedback(module, functionName, mapper, caller, storeMetadata, throwExceptionOnNotFound)
-                .getResult();
+                                boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return callWithFeedback(module, functionName, mapper, caller, storeMetadata,
+                                throwExceptionOnNotFound).getResult();
+    }
+
+    /**
+     * Executes a call to Arm Mbed Cloud.
+     * <p>
+     * Note: call metadata are recorded
+     *
+     * @param module
+     *            API module
+     * @param functionName
+     *            API function name.
+     * @param caller
+     *            request
+     * @param throwExceptionOnNotFound
+     *            states whether to throw an exception when 404 Not found is received from the server
+     * @param <T>
+     *            type of HTTP response object.
+     * @return raw result
+     * @throws MbedCloudException
+     *             if an error occurred during the call
+     */
+    public static <T> String callRaw(AbstractApi module, String functionName, CloudCall<T> caller,
+                                     boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return callWithRawFeedback(module, functionName, caller, true, throwExceptionOnNotFound).getResult();
     }
 
     /**
@@ -184,11 +185,11 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T, U> CallFeedback<T, U> callWithFeedback(AbstractApi module, String functionName,
-            Mapper<T, U> mapper, CloudCall<T> caller, boolean storeMetadata, boolean throwExceptionOnNotFound)
-            throws MbedCloudException {
-        return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata, throwExceptionOnNotFound)
-                .execute();
+    public static <T, U> CallFeedback<T, U>
+           callWithFeedback(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+                            boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata,
+                                 throwExceptionOnNotFound).execute();
     }
 
     /**
@@ -210,10 +211,11 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T> RawCallFeedback<T> callWithRawFeedback(AbstractApi module, String functionName,
-            CloudCall<T> caller, boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
-        return new CloudCaller<>(functionName, caller, null, module, storeMetadata, throwExceptionOnNotFound)
-                .executeRaw();
+    public static <T> RawCallFeedback<T>
+           callWithRawFeedback(AbstractApi module, String functionName, CloudCall<T> caller, boolean storeMetadata,
+                               boolean throwExceptionOnNotFound) throws MbedCloudException {
+        return new CloudCaller<>(functionName, caller, null, module, storeMetadata,
+                                 throwExceptionOnNotFound).executeRaw();
     }
 
     /**
@@ -231,25 +233,25 @@ public class CloudCaller<T, U> {
     /**
      * Executes a call to Arm Mbed Cloud.
      *
-     * @return result objects of type U
+     * @return raw result objects
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    @SuppressWarnings({ "unchecked" })
-    private CallFeedback<T, U> execute() throws MbedCloudException {
-        return execute(CallFeedback.class);
+    @SuppressWarnings({ UNCHECKED })
+    private RawCallFeedback<T> executeRaw() throws MbedCloudException {
+        return execute(RawCallFeedback.class);
     }
 
     /**
      * Executes a call to Arm Mbed Cloud.
      *
-     * @return raw result objects
+     * @return result objects of type U
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    @SuppressWarnings({ "unchecked" })
-    private RawCallFeedback<T> executeRaw() throws MbedCloudException {
-        return execute(RawCallFeedback.class);
+    @SuppressWarnings(UNCHECKED)
+    private CallFeedback<T, U> execute() throws MbedCloudException {
+        return execute(CallFeedback.class);
     }
 
     /**
@@ -267,7 +269,7 @@ public class CloudCaller<T, U> {
             clearPreviousApiMetadata();
             call = caller.call();
             final CloudResponse<T> response = executeRequest(call, isRawCall);
-            @SuppressWarnings("unchecked")
+            @SuppressWarnings(UNCHECKED)
             final C comms = (C) (isRawCall ? new RawCallFeedback<T>(logger) : new CallFeedback<>(logger, mapper));
             comms.setMetadataFromResponse(response.getResponse());
             if (storeMetadata) {
@@ -285,7 +287,7 @@ public class CloudCaller<T, U> {
                 call.cancel();
             }
             logger.throwSdkException("An error occurred when calling SDK function [" + apiName + "]",
-                    detailedException);
+                                     detailedException);
         }
         return null;
     }
@@ -294,21 +296,24 @@ public class CloudCaller<T, U> {
         return isRawCall ? rawExecute(call) : new CloudResponse<>(call.execute(), null);
     }
 
+    @SuppressWarnings(UNCHECKED)
     private CloudResponse<T> rawExecute(Call<T> call) throws IOException {
         try {
-            Method method = call.getClass().getDeclaredMethod("createRawCall");
+            final Method method = call.getClass().getDeclaredMethod("createRawCall");
             method.setAccessible(true);
-            okhttp3.Call rawCall = (okhttp3.Call) method.invoke(call);
+            final okhttp3.Call rawCall = (okhttp3.Call) method.invoke(call);
             CloudResponse<T> response = null;
             try (okhttp3.Response rawResponse = rawCall.execute()) {
-                int code = rawResponse.code();
+                final int code = rawResponse.code();
                 try (ResponseBody rawBody = rawResponse.body()) {
                     if (code < 200 || code >= 300) {
-                        response = new CloudResponse<>(Response.error(null, rawResponse), rawBody.string());
+                        response = new CloudResponse<>((Response<T>) Response.error(rawBody, rawResponse),
+                                                       rawBody.string());
                     } else if (code == 204 || code == 205) {
-                        response = new CloudResponse<>(Response.success(null, rawResponse), null);
+                        response = new CloudResponse<>((Response<T>) Response.success(null, rawResponse), null);
                     } else {
-                        response = new CloudResponse<>(Response.success(null, rawResponse), rawBody.string());
+                        response = new CloudResponse<>((Response<T>) Response.success(null, rawResponse),
+                                                       rawBody.string());
                     }
                 }
             }
@@ -334,8 +339,8 @@ public class CloudCaller<T, U> {
         module.metadataCache.clearMetadata();
     }
 
-    private <C extends AbstractCallFeedBack<T>> void checkResponse(CloudResponse<T> response, C comms)
-            throws MbedCloudException {
+    private <C extends AbstractCallFeedBack<T>> void checkResponse(CloudResponse<T> response,
+                                                                   C comms) throws MbedCloudException {
         if (response == null) {
             logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: no response was received");
         }
@@ -348,13 +353,12 @@ public class CloudCaller<T, U> {
             }
             // In the case of a 404 Not found error, consider that the request result is actually NULL and not
             // erroneous.
-            if (response.code() == 404 && !throwExceptionOnNotFound) {
+            if (response.isNotFound() && !throwExceptionOnNotFound) {
                 return;
             }
 
-            logger.throwSdkException(
-                    "An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] " + response.message(),
-                    new MbedCloudException(error.toPrettyString()));
+            logger.throwSdkException("An error occurred when calling Arm Mbed Cloud: [" + response.code() + "] "
+                                     + response.message(), new MbedCloudException(error.toPrettyString()));
         }
     }
 
@@ -362,7 +366,7 @@ public class CloudCaller<T, U> {
         String errorMessage = null;
         try {
             errorMessage = response.getRawBody() == null ? response.getResponse().errorBody().string()
-                    : response.getRawBody();
+                                                         : response.getRawBody();
         } catch (Exception exception) {
             // Nothing to do
         }
@@ -389,7 +393,7 @@ public class CloudCaller<T, U> {
             errorMessageBuilder.append(": ").append(errorMessageFromBody);
         }
         return new Error(response.code(), "Mbed Cloud call", errorMessageBuilder.toString(),
-                retrieveRequestId(response));
+                         retrieveRequestId(response));
     }
 
     public static <T> String retrieveRequestId(Response<T> response) {
@@ -476,12 +480,16 @@ public class CloudCaller<T, U> {
             return response == null ? 0 : response.code();
         }
 
+        public boolean isNotFound() {
+            return code() == 404;
+        }
+
         public boolean isSuccessful() {
             return response == null ? false : response.isSuccessful();
         }
 
         /**
-         * Gets the response
+         * Gets the response.
          *
          * @return the response
          */
@@ -500,7 +508,7 @@ public class CloudCaller<T, U> {
 
     }
 
-    private static abstract class AbstractCallFeedBack<T> {
+    private abstract static class AbstractCallFeedBack<T> {
 
         protected final SdkLogger logger;
         ApiMetadata metadata;
@@ -603,7 +611,7 @@ public class CloudCaller<T, U> {
                     return (etag == null) ? null : (etag instanceof String) ? (String) etag : etag.toString();
                 }
             } catch (SecurityException | IllegalAccessException | IllegalArgumentException
-                    | InvocationTargetException exception) {
+                     | InvocationTargetException exception) {
                 logger.logError("Error occurred when trying to fetch etag from API metadata", exception);
             } catch (NoSuchMethodException exception) {
                 return null;
@@ -614,10 +622,6 @@ public class CloudCaller<T, U> {
         /**
          * Sets result from an HTTP response.
          *
-         * @param mapper
-         *            object mapper
-         * @param <T>
-         *            type of the result
          * @param response
          *            HTTP response
          */
@@ -667,14 +671,14 @@ public class CloudCaller<T, U> {
         /**
          * Sets result from an HTTP response.
          *
-         * @param <T>
-         *            type of the result
          * @param response
          *            HTTP response
          */
         @Override
         public void setResultFromResponse(CloudResponse<T> response) {
-            setResult(response.getRawBody());
+            if (!response.isNotFound()) {
+                setResult(response.getRawBody());
+            }
         }
     }
 
@@ -726,15 +730,14 @@ public class CloudCaller<T, U> {
         /**
          * Sets result from an HTTP response.
          *
-         * @param <T>
-         *            type of the result
          * @param response
          *            HTTP response
          */
-        @SuppressWarnings("unchecked")
         @Override
         public void setResultFromResponse(CloudResponse<T> response) {
-            setResult((mapper == null) ? null : mapper.map(response.getResponse().body()));
+            if (!response.isNotFound()) {
+                setResult((mapper == null) ? null : mapper.map(response.getResponse().body()));
+            }
         }
     }
 }

@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 @Preamble(description = "An abstract model describing a billing entity")
 @Internal
-public abstract class BillingEntity implements SdkModel {
+public abstract class AbstractBillingEntity implements SdkModel {
 
     /**
      * Serialisation id.
@@ -20,11 +20,12 @@ public abstract class BillingEntity implements SdkModel {
      * @param id
      *            id
      */
-    public BillingEntity(String id) {
+    public AbstractBillingEntity(String id) {
         super();
         setId(id);
     }
 
+    @SuppressWarnings("PMD.EmptyMethodInAbstractClassShouldBeAbstract")
     @Override
     public boolean isValid() {
         return true;
@@ -39,7 +40,7 @@ public abstract class BillingEntity implements SdkModel {
     }
 
     /**
-     * Sets the billing entity ID
+     * Sets the billing entity ID.
      *
      * @param id
      *            the id to set
@@ -48,11 +49,6 @@ public abstract class BillingEntity implements SdkModel {
         this.id = id;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#hashCode()
-     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -61,11 +57,6 @@ public abstract class BillingEntity implements SdkModel {
         return result;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#equals(java.lang.Object)
-     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -77,7 +68,7 @@ public abstract class BillingEntity implements SdkModel {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        final BillingEntity other = (BillingEntity) obj;
+        final AbstractBillingEntity other = (AbstractBillingEntity) obj;
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -89,6 +80,6 @@ public abstract class BillingEntity implements SdkModel {
     }
 
     @Override
-    public abstract BillingEntity clone();
+    public abstract AbstractBillingEntity clone();
 
 }

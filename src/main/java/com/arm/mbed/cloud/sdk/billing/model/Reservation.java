@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
  * campaigns simultaneously and thus have multiple reservations.
  *
  */
-public class Reservation extends BillingEntity {
+public class Reservation extends AbstractBillingEntity {
     /**
      * Serialisation Id.
      */

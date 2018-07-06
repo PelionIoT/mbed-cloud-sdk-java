@@ -5,7 +5,10 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The state of the service package")
 public enum ServicePackageState implements SdkEnum {
-    PREVIOUS("PREVIOUS"), ACTIVE("ACTIVE"), PENDING("PENDING"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    PREVIOUS("previous"),
+    ACTIVE("active"),
+    PENDING("pending"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

@@ -11,7 +11,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
  * service package has a validity period of 1 year. Customers can only have one active service package at a time.
  *
  */
-public class ServicePackage extends BillingEntity {
+@SuppressWarnings("PMD.CyclomaticComplexity")
+public class ServicePackage extends AbstractBillingEntity {
     /**
      * Serialisation Id.
      */
@@ -53,11 +54,13 @@ public class ServicePackage extends BillingEntity {
      *            nextId
      * @param reason
      *            reason
+     * @param state
+     *            state
      */
     @Internal
     public ServicePackage(String id, Date createdAt, Date startsAt, Date expiresAt, Date endsAt, Date modifiedAt,
-            boolean gracePeriod, long firmwareUpdateCount, String previousId, String nextId, String reason,
-            ServicePackageState state) {
+                          boolean gracePeriod, long firmwareUpdateCount, String previousId, String nextId,
+                          String reason, ServicePackageState state) {
         super(id);
         this.createdAt = createdAt;
         this.startsAt = startsAt;
@@ -77,7 +80,7 @@ public class ServicePackage extends BillingEntity {
      */
     public ServicePackage() {
         this(null, new Date(), new Date(), new Date(), new Date(), new Date(), false, 0, null, null, null,
-                ServicePackageState.getDefault());
+             ServicePackageState.getDefault());
     }
 
     /**
@@ -313,20 +316,15 @@ public class ServicePackage extends BillingEntity {
     @Override
     public ServicePackage clone() {
         return new ServicePackage(id, createdAt, startsAt, expiresAt, endsAt, modifiedAt, gracePeriod,
-                firmwareUpdateCount, previousId, nextId, reason, state);
+                                  firmwareUpdateCount, previousId, nextId, reason, state);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "ServicePackage [id=" + id + ", createdAt=" + createdAt + ", startsAt=" + startsAt + ", expiresAt="
-                + expiresAt + ", endsAt=" + endsAt + ", modifiedAt=" + modifiedAt + ", gracePeriod=" + gracePeriod
-                + ", firmwareUpdateCount=" + firmwareUpdateCount + ", previousId=" + previousId + ", nextId=" + nextId
-                + ", reason=" + reason + ", state=" + state + "]";
+        return "ServicePackage [createdAt=" + createdAt + ", startsAt=" + startsAt + ", expiresAt=" + expiresAt
+               + ", endsAt=" + endsAt + ", modifiedAt=" + modifiedAt + ", gracePeriod=" + gracePeriod
+               + ", firmwareUpdateCount=" + firmwareUpdateCount + ", previousId=" + previousId + ", nextId=" + nextId
+               + ", reason=" + reason + ", state=" + state + "]";
     }
 
 }
