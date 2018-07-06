@@ -1,28 +1,12 @@
 package com.arm.mbed.cloud.sdk.internal.billing.api;
 
-import com.arm.mbed.cloud.sdk.internal.billing.CollectionFormats.*;
-
-import retrofit2.Call;
-import retrofit2.http.*;
-
-import okhttp3.RequestBody;
-import okhttp3.ResponseBody;
-import okhttp3.MultipartBody;
-
-import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ForbiddenErrorResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.InternalServerErrorResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.ReportNotFoundErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
-import com.arm.mbed.cloud.sdk.internal.billing.model.UnauthorizedErrorResponse;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import retrofit2.Call;
+import retrofit2.http.GET;
 
 public interface DefaultApi {
   /**
