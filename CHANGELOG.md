@@ -9,6 +9,13 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 1.2.10 (2018-07-06)
 ===================
 
+
+No significant changes.
+
+
+1.2.10 (2018-07-06)
+===================
+
 ### Features
 
 - Added a preferences file for development on Eclipse [/config/eclipse] (#1)
