@@ -113,11 +113,11 @@ public class FileDownload {
      * Constructor.
      * <p>
      * Note: the data will be saved to a temporary file on the disk.
-     * 
+     *
      * @throws MbedCloudException
      *             if a problem occurred during the process
      *
-     * 
+     *
      */
     public FileDownload() throws MbedCloudException {
         this(Extension.DEFAULT);
@@ -235,7 +235,8 @@ public class FileDownload {
 
     private static File generateTempFile(URL source, String extension) throws MbedCloudException {
         try {
-            final String fileName = (source == null) ? "unknown.txt" : Paths.get(source.toURI()).toFile().getName();
+            final String fileName = (source == null) ? "unknown.txt"
+                                                     : Paths.get(source.toURI().getPath()).toFile().getName();
             return File.createTempFile(getFileNameWithoutExtension(fileName),
                                        extension == null ? "." + getFileExtension(fileName) : extension);
         } catch (IOException | URISyntaxException exception) {

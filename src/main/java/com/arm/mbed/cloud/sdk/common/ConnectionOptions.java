@@ -4,11 +4,27 @@ import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import io.github.cdimascio.dotenv.Dotenv;
+
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "APIs connection options/configuration")
 public class ConnectionOptions implements Cloneable, Serializable {
+    /**
+     * Environment variable for setting Mbed Cloud host.
+     */
+    public static final String ENVIRONMENT_VARIABLE_HOST = "MBED_CLOUD_SDK_HOST";
+    /**
+     * Environment variable for setting the level of HTTP logs when communicating to Mbed Cloud.
+     *
+     * @see CallLogLevel for more details about the possible values.
+     */
+    public static final String ENVIRONMENT_VARIABLE_HTTP_LOG_LEVEL = "MBED_CLOUD_SDK_LOG_LEVEL";
+    /**
+     * Environment variable for setting the API Key to use for Mbed Cloud.
+     */
+    public static final String ENVIRONMENT_VARIABLE_API_KEY = "MBED_CLOUD_SDK_API_KEY";
     /**
      * Serialisation Id.
      */
@@ -20,6 +36,30 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private TimePeriod requestTimeout;
     @DefaultValue(value = "TRUE")
     private boolean autostartDaemon;
+    private transient final Dotenv dotenv;
+
+    /**
+     * Constructor for communications to Arm Mbed Cloud.
+     * <p>
+     * Note: the API key will be read from environment variables or .env file. {@link #ENVIRONMENT_VARIABLE_API_KEY} is
+     * required to be set.
+     *
+     */
+    public ConnectionOptions() {
+        this(null);
+    }
+
+    /**
+     * Constructor for communications to Arm Mbed Cloud.
+     *
+     * @param apiKey
+     *            API key to use. The host does not need to be specified and will default to Arm Mbed Cloud production
+     *            system.
+     *
+     */
+    public ConnectionOptions(String apiKey) {
+        this(apiKey, null);
+    }
 
     /**
      * Constructor.
@@ -31,10 +71,24 @@ public class ConnectionOptions implements Cloneable, Serializable {
      */
     public ConnectionOptions(String apiKey, String host) {
         super();
+        dotenv = Dotenv.configure().ignoreIfMissing().load();
         setApiKey(apiKey);
         setHost(host);
         setAutostartDaemon(true);
-        setClientLogLevel(CallLogLevel.NONE);
+        setClientLogLevel((String) null);
+    }
+
+    /**
+     * Generates a new Mbed Cloud connection configuration.
+     * <p>
+     * Note: the API key will be read from environment variables or .env file.
+     * <p>
+     * This is similar to {@link #ConnectionOptions()}
+     *
+     * @return corresponding configuration.
+     */
+    public static ConnectionOptions newConfiguration() {
+        return new ConnectionOptions();
     }
 
     /**
@@ -64,18 +118,6 @@ public class ConnectionOptions implements Cloneable, Serializable {
     }
 
     /**
-     * Constructor for communications to Arm Mbed Cloud.
-     *
-     * @param apiKey
-     *            API key to use. The host does not need to be specified and will default to Arm Mbed Cloud production
-     *            system.
-     *
-     */
-    public ConnectionOptions(String apiKey) {
-        this(apiKey, null);
-    }
-
-    /**
      * Gets the API key in use.
      *
      * @return the apiKey
@@ -91,7 +133,11 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            the apiKey to set
      */
     public void setApiKey(String apiKey) {
-        this.apiKey = apiKey;
+        String key = (apiKey == null) ? null : apiKey.trim();
+        if (key == null || key.isEmpty()) {
+            key = dotenv.get(ENVIRONMENT_VARIABLE_API_KEY);
+        }
+        this.apiKey = key;
     }
 
     /**
@@ -143,7 +189,10 @@ public class ConnectionOptions implements Cloneable, Serializable {
     public void setHost(String host) {
         String cloudHost = (host == null) ? null : host.trim();
         if (cloudHost == null || cloudHost.isEmpty()) {
-            cloudHost = ARM_MBED_CLOUD_DEFAULT_HOST;
+            cloudHost = dotenv.get(ENVIRONMENT_VARIABLE_HOST);
+            if (cloudHost == null || cloudHost.isEmpty()) {
+                cloudHost = ARM_MBED_CLOUD_DEFAULT_HOST;
+            }
         }
         final StringBuilder sb = new StringBuilder();
         sb.append(cloudHost);
@@ -186,6 +235,25 @@ public class ConnectionOptions implements Cloneable, Serializable {
      */
     public void setClientLogLevel(CallLogLevel clientLogLevel) {
         this.clientLogLevel = clientLogLevel;
+    }
+
+    /**
+     * Sets the logging level of the client to use.
+     *
+     * @see CallLogLevel
+     * @param clientLogLevel
+     *            the clientLogLevel to set
+     */
+    public void setClientLogLevel(String clientLogLevel) {
+        String logLevel = (clientLogLevel == null) ? null : clientLogLevel.trim();
+        if (logLevel == null || logLevel.isEmpty()) {
+            logLevel = dotenv.get(ENVIRONMENT_VARIABLE_HTTP_LOG_LEVEL);
+        }
+        if (logLevel != null && !logLevel.isEmpty()) {
+            setClientLogLevel(CallLogLevel.getLevel(logLevel));
+        } else {
+            setClientLogLevel(CallLogLevel.NONE);
+        }
     }
 
     /**

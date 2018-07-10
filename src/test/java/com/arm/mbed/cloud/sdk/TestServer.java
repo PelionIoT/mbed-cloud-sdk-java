@@ -9,9 +9,23 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import io.netty.handler.codec.http.QueryStringDecoder;
+import io.vertx.core.MultiMap;
+import io.vertx.core.Vertx;
+import io.vertx.core.VertxOptions;
+import io.vertx.core.http.HttpMethod;
+import io.vertx.core.http.HttpServer;
+import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.http.HttpServerRequest;
+import io.vertx.core.http.HttpServerResponse;
+import io.vertx.core.json.JsonObject;
+import io.vertx.ext.web.Route;
+import io.vertx.ext.web.Router;
+import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
+
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.testserver.Engine;
@@ -30,30 +44,12 @@ import com.arm.mbed.cloud.sdk.testserver.model.SdkApiParameters;
 import com.arm.mbed.cloud.sdk.testutils.APICallException;
 import com.arm.mbed.cloud.sdk.testutils.Serializer;
 
-import io.netty.handler.codec.http.QueryStringDecoder;
-import io.vertx.core.MultiMap;
-import io.vertx.core.Vertx;
-import io.vertx.core.VertxOptions;
-import io.vertx.core.http.HttpMethod;
-import io.vertx.core.http.HttpServer;
-import io.vertx.core.http.HttpServerOptions;
-import io.vertx.core.http.HttpServerRequest;
-import io.vertx.core.http.HttpServerResponse;
-import io.vertx.core.json.JsonObject;
-import io.vertx.ext.web.Route;
-import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.BodyHandler;
-
 @Preamble(description = "Test system server part in charge of carrying out a mapping of the APIs present in the SDK and invoking them when requested by the client")
 public class TestServer {
 
     private static final String TEST_ARGS_KEY = "args";
     private static final String CONTENT_TYPE_HEADER = "content-type";
     private static final String APPLICATION_JSON = "application/json";
-    private static final String ENVVAR_MBED_CLOUD_HOST = "MBED_CLOUD_HOST";
-    private static final String ENVVAR_MBED_CLOUD_API_KEY = "MBED_CLOUD_API_KEY";
-    private static final String ENVVAR_HTTP_LOG_LEVEL = "HTTP_LOG_LEVEL";
     private static final String PARAM_METHOD = "method";
     private static final String PARAM_MODULE = "module";
     private static final String PARAM_INSTANCE = "instance";
@@ -72,9 +68,9 @@ public class TestServer {
 
     public void start() {
         if (server == null) {
-            Vertx vertx = Vertx
-                    .vertx(new VertxOptions().setWorkerPoolSize(40).setBlockedThreadCheckInterval(1000L * 60L * 10L)
-                            .setMaxWorkerExecuteTime(1000L * 1000L * 1000L * 60L * 10L));
+            Vertx vertx = Vertx.vertx(new VertxOptions().setWorkerPoolSize(40)
+                                                        .setBlockedThreadCheckInterval(1000L * 60L * 10L)
+                                                        .setMaxWorkerExecuteTime(1000L * 1000L * 1000L * 60L * 10L));
             HttpServerOptions options = new HttpServerOptions();
             options.setMaxInitialLineLength(HttpServerOptions.DEFAULT_MAX_INITIAL_LINE_LENGTH * 2);
             server = vertx.createHttpServer(options);
@@ -186,7 +182,7 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     return engine.listModules().stream().map(m -> ApiUtils.convertCamelToSnake(m))
-                            .collect(Collectors.toList());
+                                 .collect(Collectors.toList());
                 }
             }, false);
         });
@@ -194,7 +190,7 @@ public class TestServer {
 
     private void defineListModuleInstancesRoute() {
         Route route = router.route(HttpMethod.GET, "/modules/:" + PARAM_MODULE + "/instances")
-                .produces(APPLICATION_JSON);
+                            .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String moduleId = routingContext.request().getParam(PARAM_MODULE);
 
@@ -203,7 +199,7 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     return engine.listModuleInstances(moduleId).stream().map(m -> m.toInstance())
-                            .collect(Collectors.toList());
+                                 .collect(Collectors.toList());
                 }
             }, false);
         });
@@ -211,7 +207,7 @@ public class TestServer {
 
     private void defineCreateModuleInstanceRoute() {
         Route route = router.route(HttpMethod.POST, "/modules/:" + PARAM_MODULE + "/instances")
-                .produces(APPLICATION_JSON);
+                            .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String moduleId = routingContext.request().getParam(PARAM_MODULE);
 
@@ -236,7 +232,7 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     return engine.listAllModuleInstances().stream().map(m -> m.toInstance())
-                            .collect(Collectors.toList());
+                                 .collect(Collectors.toList());
                 }
             }, false);
         });
@@ -273,7 +269,7 @@ public class TestServer {
 
     private void defineListInstanceMethodsRoute() {
         Route route = router.route(HttpMethod.GET, "/instances/:" + PARAM_INSTANCE + "/methods")
-                .produces(APPLICATION_JSON);
+                            .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             String instanceId = routingContext.request().getParam(PARAM_INSTANCE);
             execute(200, routingContext, new ServerAction() {
@@ -281,7 +277,7 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     return engine.listInstanceMethods(instanceId).stream().map(m -> m.toSdkApi())
-                            .collect(Collectors.toList());
+                                 .collect(Collectors.toList());
                 }
             }, false);
         });
@@ -289,7 +285,7 @@ public class TestServer {
 
     private void defineRunInstanceMethodRoute() {
         Route route = router.route(HttpMethod.POST, "/instances/:" + PARAM_INSTANCE + "/methods/:" + PARAM_METHOD)
-                .produces(APPLICATION_JSON);
+                            .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
             HttpServerRequest request = routingContext.request();
             String instanceId = request.getParam(PARAM_INSTANCE);
@@ -300,7 +296,7 @@ public class TestServer {
                 @Override
                 public Object execute() throws Exception {
                     logger.logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT "
-                            + new Date().toString());
+                                   + new Date().toString());
                     APIMethodResult result = engine.callAPIOnInstance(instanceId, methodId, methodArgs);
                     if (!result.wasExceptionRaised()) {
                         return result.getResult();
@@ -316,7 +312,7 @@ public class TestServer {
     @SuppressWarnings("boxing")
     private void defineModuleMethodTestRoute() {
         Route route = router.route(HttpMethod.GET, "/:" + PARAM_MODULE + "/:" + PARAM_METHOD + "*")
-                .produces(APPLICATION_JSON);
+                            .produces(APPLICATION_JSON);
         route.blockingHandler(routingContext -> {
 
             HttpServerRequest request = routingContext.request();
@@ -324,8 +320,8 @@ public class TestServer {
             String method = request.getParam(PARAM_METHOD);
 
             Map<String, Object> params = retrieveQueryParameters(request);
-            logger.logInfo(
-                    "TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT " + new Date().toString());
+            logger.logInfo("TEST http://localhost:" + String.valueOf(port) + request.uri() + " AT "
+                           + new Date().toString());
             ModuleInstance instance = null;
             try {
                 instance = engine.createInstance(module, defaultConnectionConfiguration);
@@ -340,12 +336,14 @@ public class TestServer {
                     logger.logDebug("RESULT error happened: " + result.getMetadata());
                     if (result.getMetadata() == null) {
                         sendError(setResponse(500, routingContext), null,
-                                (result.getException().getMessage() == null)
-                                        ? "Exception of type " + result.getException() + " was raised"
-                                        : result.getException().getMessage());
+                                  (result.getException().getMessage() == null)
+                                                                               ? "Exception of type "
+                                                                                 + result.getException()
+                                                                                 + " was raised"
+                                                                               : result.getException().getMessage());
                     } else {
                         sendError(setResponse(500, routingContext), result.getMetadata().getStatusCode(),
-                                "An error occurred during call. Call metadata: " + result.getMetadata().toString());
+                                  "An error occurred during call. Call metadata: " + result.getMetadata().toString());
                     }
                 }
 
@@ -359,7 +357,7 @@ public class TestServer {
                     }
                 }
                 sendError(setResponse(500, routingContext), null,
-                        (e.getMessage() == null) ? "Exception of type " + e + " was raised" : e.getMessage());
+                          (e.getMessage() == null) ? "Exception of type " + e + " was raised" : e.getMessage());
             }
         });
     }
@@ -367,7 +365,7 @@ public class TestServer {
     /**
      * Safeguard in case a user specifies the whole instance description in the request rather than just setting the
      * instance id.
-     * 
+     *
      * @param instanceIdAsString
      *            string that should be the instance id but may be corrupted.
      * @return the instance id
@@ -392,8 +390,7 @@ public class TestServer {
 
     private ConnectionOptions retrieveConnectionOptions(String bodyAsString) {
         if (bodyAsString == null || bodyAsString.isEmpty()) {
-            logger.logWarn(
-                    "The test server did not receive any connection configuration. Defaulting to test server configuration.");
+            logger.logWarn("The test server did not receive any connection configuration. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
         InstanceConfiguration conf = null;
@@ -401,17 +398,17 @@ public class TestServer {
             conf = Serializer.convertStringToObject(bodyAsString, InstanceConfiguration.class);
         } catch (Exception e) {
             logger.logWarn("The test server could not interpret instance configuration properly: [" + bodyAsString
-                    + "]. Defaulting to test server configuration.");
+                           + "]. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
         ConnectionOptions opts = new ConnectionOptions(conf.getApiKey(), conf.getHost());
         if (opts.isApiKeyEmpty()) {
             logger.logWarn("The test server could not find the API key configuration in the request: [" + bodyAsString
-                    + "]. Defaulting to test server configuration.");
+                           + "]. Defaulting to test server configuration.");
             return defaultConnectionConfiguration;
         }
-        opts.setAutostartDaemon(
-                TranslationUtils.toBool(conf.isAutostartDaemon(), defaultConnectionConfiguration.isAutostartDaemon()));
+        opts.setAutostartDaemon(TranslationUtils.toBool(conf.isAutostartDaemon(),
+                                                        defaultConnectionConfiguration.isAutostartDaemon()));
         opts.setClientLogLevel(defaultConnectionConfiguration.getClientLogLevel());
         opts.setRequestTimeout(defaultConnectionConfiguration.getRequestTimeout());
         return opts;
@@ -472,9 +469,7 @@ public class TestServer {
     }
 
     private void retrieveConfig() {
-        defaultConnectionConfiguration = new ConnectionOptions(System.getenv(ENVVAR_MBED_CLOUD_API_KEY),
-                System.getenv(ENVVAR_MBED_CLOUD_HOST));
-        defaultConnectionConfiguration.setClientLogLevel(CallLogLevel.getLevel(System.getenv(ENVVAR_HTTP_LOG_LEVEL)));
+        defaultConnectionConfiguration = ConnectionOptions.newConfiguration();
         // logger.logInfo("Default config:");
         // logger.logInfo(JsonObject.mapFrom(defaultConnectionConfiguration).encodePrettily());
     }
@@ -522,12 +517,12 @@ public class TestServer {
                         for (Map.Entry<String, List<String>> entry : prms.entrySet()) {
                             if (entry.getValue() == null || entry.getValue().isEmpty()) {
                                 logger.logWarn("Argument [" + String.valueOf(entry.getKey())
-                                        + "] has no value. It will be ignored");
+                                               + "] has no value. It will be ignored");
                             } else if (entry.getValue().size() > 1) {
                                 logger.logWarn("Argument [" + String.valueOf(entry.getKey())
-                                        + "] has more than one value " + String.valueOf(entry.getValue())
-                                        + ". Only the first one will be considered i.e. "
-                                        + String.valueOf(entry.getValue().get(0)));
+                                               + "] has more than one value " + String.valueOf(entry.getValue())
+                                               + ". Only the first one will be considered i.e. "
+                                               + String.valueOf(entry.getValue().get(0)));
                             } else {
                                 params.put(entry.getKey(), Serializer.deserialiseString(entry.getValue().get(0)));
                             }
