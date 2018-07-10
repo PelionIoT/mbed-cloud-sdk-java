@@ -1,1 +1,0 @@
-Added a preferences file for development on Eclipse [/config/eclipse]
