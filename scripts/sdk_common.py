@@ -775,31 +775,31 @@ class Config(Action):
 
     def get_apikey_lab(self):
         if not self.lab_api_key:
-            self.lab_api_key = os.getenv("MBED_CLOUD_API_KEY")
+            self.lab_api_key = os.getenv("MBED_CLOUD_SDK_API_KEY")
         return self.lab_api_key
 
     def get_apikey_prod(self):
         if not self.prod_api_key:
-            self.prod_api_key = os.getenv("MBED_CLOUD_API_KEY_PROD")
+            self.prod_api_key = os.getenv("MBED_CLOUD_SDK_API_KEY_PROD")
         return self.prod_api_key
 
     def get_host(self):
         if not self.cloud_host:
-            self.cloud_host = os.getenv("MBED_CLOUD_HOST")
+            self.cloud_host = os.getenv("MBED_CLOUD_SDK_HOST")
         return self.cloud_host
 
     def get_environment_with_host_set(self, host, env=None):
         if not env:
             env = os.environ.copy()
         if host is not None:
-            env['MBED_CLOUD_HOST'] = host
+            env['MBED_CLOUD_SDK_HOST'] = host
         return env
 
     def get_environment_with_apikey_set(self, apikey, env=None):
         if not env:
             env = os.environ.copy()
         if apikey:
-            env['MBED_CLOUD_API_KEY'] = apikey
+            env['MBED_CLOUD_SDK_API_KEY'] = apikey
         return env
 
     def load(self):
