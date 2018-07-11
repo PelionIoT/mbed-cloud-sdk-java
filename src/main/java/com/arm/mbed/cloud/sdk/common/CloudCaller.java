@@ -24,6 +24,8 @@ public class CloudCaller<T, U> {
     protected static final String DATE_HEADER_LOWERCASE = "date";
     protected static final String REQUEST_ID_HEADER = "X-Request-ID";
     protected static final String REQUEST_ID_HEADER_LOWERCASE = "x-request-id";
+    protected static final String ETAG_HEADER = "ETag";
+    protected static final String ETAG_HEADER_LOWERCASE = "etag";
     private final CloudCall<T> caller;
     private final Mapper<T, U> mapper;
     private final SdkLogger logger;
@@ -584,6 +586,10 @@ public class CloudCaller<T, U> {
                 if (!callMetadata.hasRequestId()) {
                     callMetadata.setRequestId(headers.get(REQUEST_ID_HEADER));
                 }
+                callMetadata.setEtag(headers.get(ETAG_HEADER_LOWERCASE));
+                if (!callMetadata.hasEtag()) {
+                    callMetadata.setEtag(headers.get(ETAG_HEADER));
+                }
                 try {
                     String dateHeader = headers.get(DATE_HEADER);
                     if (dateHeader == null) {
@@ -598,7 +604,10 @@ public class CloudCaller<T, U> {
             final T body = response.body();
             if (body != null) {
                 callMetadata.setObject(body.getClass());
-                callMetadata.setEtag(fetchEtagField(body));
+                final String etag = fetchEtagField(body);
+                if (etag != null) {
+                    callMetadata.setEtag(etag);
+                }
             }
             return callMetadata;
         }

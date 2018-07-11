@@ -36,7 +36,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
     private TimePeriod requestTimeout;
     @DefaultValue(value = "TRUE")
     private boolean autostartDaemon;
-    private transient final Dotenv dotenv;
+    private final transient Dotenv dotenv;
 
     /**
      * Constructor for communications to Arm Mbed Cloud.
@@ -249,10 +249,10 @@ public class ConnectionOptions implements Cloneable, Serializable {
         if (logLevel == null || logLevel.isEmpty()) {
             logLevel = dotenv.get(ENVIRONMENT_VARIABLE_HTTP_LOG_LEVEL);
         }
-        if (logLevel != null && !logLevel.isEmpty()) {
-            setClientLogLevel(CallLogLevel.getLevel(logLevel));
-        } else {
+        if (logLevel == null || logLevel.isEmpty()) {
             setClientLogLevel(CallLogLevel.NONE);
+        } else {
+            setClientLogLevel(CallLogLevel.getLevel(logLevel));
         }
     }
 
