@@ -16,7 +16,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public class ApiMetadata {
 
     private static final SimpleDateFormat REQUEST_DATE_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z",
-            Locale.getDefault());
+                                                                                     Locale.getDefault());
     private Date date;
     private Map<String, List<String>> headers;
     /**
@@ -248,6 +248,15 @@ public class ApiMetadata {
     }
 
     /**
+     * Checks whether the meta-data contains the etag or not.
+     *
+     * @return True if etag is specified. False otherwise.
+     */
+    public boolean hasEtag() {
+        return etag != null && !etag.isEmpty();
+    }
+
+    /**
      * Gets the etag.
      *
      * @return the etag
@@ -314,8 +323,8 @@ public class ApiMetadata {
     public String toString() {
         final String errorMessageStr = (errorMessage == null) ? null : errorMessage.toPrettyString();
         return "ApiMetadata [date=" + date + ", headers=" + headers + ", url=" + url + ", method=" + method
-                + ", statusCode=" + statusCode + ", requestId=" + requestId + ", object=" + object + ", etag=" + etag
-                + ", errorMessage=" + errorMessageStr + "]";
+               + ", statusCode=" + statusCode + ", requestId=" + requestId + ", object=" + object + ", etag=" + etag
+               + ", errorMessage=" + errorMessageStr + "]";
     }
 
     /**
