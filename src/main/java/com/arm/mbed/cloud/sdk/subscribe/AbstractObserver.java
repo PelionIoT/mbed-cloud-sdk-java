@@ -4,6 +4,13 @@ import java.util.concurrent.Future;
 
 import org.reactivestreams.Subscription;
 
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Predicate;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -13,19 +20,12 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 
-import io.reactivex.Flowable;
-import io.reactivex.Single;
-import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
-import io.reactivex.functions.Predicate;
-
 @Preamble(description = "Abstract subscription observer")
 @Internal
 public abstract class AbstractObserver<T extends NotificationMessageValue> implements Observer<T> {
 
     private final Flowable<T> flow;
-    private final SubscriptionManager manager;
+    protected final SubscriptionManager manager;
     protected final FilterOptions filter;
     private final CompositeDisposable composite;
     private final String id;
@@ -55,9 +55,9 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
      */
     @SuppressWarnings("unchecked")
     public AbstractObserver(SubscriptionManager manager, String id, Flowable<T> flow, FilterOptions filter,
-            boolean unsubscribeOnCompletion,
-            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnSubscription,
-            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnUnsubscription) {
+                            boolean unsubscribeOnCompletion,
+                            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnSubscription,
+                            CallbackWithException<? extends FilterOptions, MbedCloudException> actionOnUnsubscription) {
         super();
         isDisposed = false;
         hasExecutedActionOnFirstSubscription = false;
@@ -181,7 +181,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
      */
     @Override
     public Future<T> futureOne(@Nullable TimePeriod timeout) throws MbedCloudException {
-        return fetchSingle(timeout).toFuture();
+        return singleNotification(timeout).toFuture();
     }
 
     @Override
@@ -197,7 +197,7 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     @Override
     public T one(@Nullable TimePeriod timeout) throws MbedCloudException {
         try {
-            final T value = fetchSingle(timeout).blockingGet();
+            final T value = singleNotification(timeout).blockingGet();
             unsubscribe();
             return value;
         } catch (Exception exception) {
@@ -205,10 +205,11 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
         }
     }
 
-    protected Single<T> fetchSingle(TimePeriod timeout) throws MbedCloudException {
+    @Override
+    public Single<T> singleNotification(TimePeriod timeout) throws MbedCloudException {
         try {
             final Flowable<T> oneItemFlow = (timeout == null) ? flow
-                    : flow.timeout(timeout.getDuration(), timeout.getUnit());
+                                                              : flow.timeout(timeout.getDuration(), timeout.getUnit());
             return oneItemFlow.firstOrError();
         } catch (Exception exception) {
             throw new MbedCloudException("The value could not be retrieved", exception);
@@ -248,6 +249,17 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
         return composite;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "Observer [id=" + id + ", type=" + getSubscriptionType() + ", filter=" + filter + ", isDisposed="
+               + isDisposed + "]";
+    }
+
     /**
      * Tests whether the value complies with the filter or not.
      *
@@ -256,5 +268,8 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
      * @return true if the notification value verifies the filter. False otherwise.
      */
     protected abstract boolean verifiesFilter(T value);
+
+    @Override
+    public abstract SubscriptionType getSubscriptionType();
 
 }

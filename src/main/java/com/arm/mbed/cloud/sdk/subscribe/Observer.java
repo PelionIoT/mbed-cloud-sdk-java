@@ -2,12 +2,13 @@ package com.arm.mbed.cloud.sdk.subscribe;
 
 import java.util.concurrent.Future;
 
+import io.reactivex.Flowable;
+import io.reactivex.Single;
+
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
-
-import io.reactivex.Flowable;
 
 /**
  * Object based on ReactiveX's <a href="http://reactivex.io/RxJava/2.x/javadoc/io/reactivex/Flowable.html">Flowable</a>
@@ -90,6 +91,17 @@ public interface Observer<T extends NotificationMessageValue> {
     Flowable<T> flow();
 
     /**
+     * Gets an RxJava <a href="http://reactivex.io/documentation/single.html">Single</a> for one notification.
+     *
+     * @param timeout
+     *            time before which a notification must be received.
+     * @return a single.
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
+    Single<T> singleNotification(@Nullable TimePeriod timeout) throws MbedCloudException;
+
+    /**
      * Gets a future for one notification.
      * <p>
      * The data will be returned when a notification has been emitted to the communication channel.
@@ -161,4 +173,12 @@ public interface Observer<T extends NotificationMessageValue> {
      * @return type
      */
     SubscriptionType getSubscriptionType();
+
+    /**
+     * Gets the string representation of the observer.
+     *
+     * @return string
+     */
+    @Override
+    String toString();
 }

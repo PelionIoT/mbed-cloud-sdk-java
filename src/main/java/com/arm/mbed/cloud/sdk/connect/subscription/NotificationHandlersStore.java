@@ -10,6 +10,11 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -34,8 +39,10 @@ import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.AsynchronousResponseNotificationAdapter;
 import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
 import com.arm.mbed.cloud.sdk.subscribe.adapters.ResourceValueNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
@@ -43,10 +50,6 @@ import com.mbed.lwm2m.DecodingException;
 import com.mbed.lwm2m.EncodingType;
 import com.mbed.lwm2m.base64.Base64Decoder;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.functions.Function;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 @Preamble(description = "Internal store for notification handlers")
@@ -79,18 +82,17 @@ public class NotificationHandlersStore {
      *            subscription handling executor
      */
     public NotificationHandlersStore(AbstractApi api, ExecutorService pullingThread,
-            ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
+                                     ExecutorService subscriptionHandlingExecutor, EndPoints endpoint) {
         super();
         this.pullThreads = pullingThread;
         this.endpoint = createNotificationPull(endpoint);
         this.api = api;
         pullHandle = null;
         responseStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
-        observerStore = new SubscriptionObserversStore(
-                (subscriptionHandlingExecutor == null) ? Schedulers.computation()
-                        : Schedulers.from(subscriptionHandlingExecutor),
-                new ResourceSubscriber(api, FirstValue.getDefault()),
-                new ResourceUnsubscriber(api, FirstValue.getDefault()));
+        observerStore = new SubscriptionObserversStore((subscriptionHandlingExecutor == null) ? Schedulers.computation()
+                                                                                              : Schedulers.from(subscriptionHandlingExecutor),
+                                                       new ResourceSubscriber(api, FirstValue.getDefault()),
+                                                       new ResourceUnsubscriber(api, FirstValue.getDefault()));
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -118,7 +120,8 @@ public class NotificationHandlersStore {
         pullHandle = null;
         if (pullThreads instanceof ScheduledExecutorService) {
             pullHandle = ((ScheduledExecutorService) pullThreads).scheduleWithFixedDelay(pollingSingleAction, 0,
-                    IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS, TimeUnit.MILLISECONDS);
+                                                                                         IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS,
+                                                                                         TimeUnit.MILLISECONDS);
         } else {
             pullHandle = pullThreads.submit(new Runnable() {
 
@@ -180,7 +183,7 @@ public class NotificationHandlersStore {
      *            callback to execute on error.
      */
     public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
-            Callback<Throwable> onFailure) {
+                                             Callback<Throwable> onFailure) {
         registerSubscriptionCallback(resource, onNotification, onFailure, FirstValue.getDefault());
     }
 
@@ -197,20 +200,20 @@ public class NotificationHandlersStore {
      *            callback to execute on error.
      */
     public void registerSubscriptionCallback(Resource resource, Callback<Object> onNotification,
-            Callback<Throwable> onFailure, FirstValue triggerMode) {
+                                             Callback<Throwable> onFailure, FirstValue triggerMode) {
         final Callback<Object> onNotificationCallBack = onNotification;
         observerStore.resourceValues(resource, BackpressureStrategy.BUFFER, triggerMode)
-                .addCallback(new NotificationCallback<>(new Callback<ResourceValueNotification>() {
+                     .addCallback(new NotificationCallback<>(new Callback<ResourceValueNotification>() {
 
-                    @Override
-                    public void execute(ResourceValueNotification notification) {
-                        if (onNotificationCallBack != null && notification != null) {
-                            onNotificationCallBack.execute(notification.getPayload());
-                        }
+                         @Override
+                         public void execute(ResourceValueNotification notification) {
+                             if (onNotificationCallBack != null && notification != null) {
+                                 onNotificationCallBack.execute(notification.getPayload());
+                             }
 
-                    }
+                         }
 
-                }, onFailure));
+                     }, onFailure));
     }
 
     /**
@@ -222,16 +225,17 @@ public class NotificationHandlersStore {
      *            backpressure strategy to apply @see {@link BackpressureStrategy}
      * @return Observable which can be subscribed to. @see {@link Flowable}
      */
-    public @Nullable Flowable<NotificationMessageValue> createResourceSubscriptionObserver(Resource resource,
-            BackpressureStrategy strategy) {
+    public @Nullable Flowable<NotificationMessageValue>
+           createResourceSubscriptionObserver(Resource resource, BackpressureStrategy strategy) {
         return observerStore.resourceValues(resource, strategy).flow()
-                .map(new Function<ResourceValueNotification, NotificationMessageValue>() {
+                            .map(new Function<ResourceValueNotification, NotificationMessageValue>() {
 
-                    @Override
-                    public NotificationMessageValue apply(ResourceValueNotification value) throws Exception {
-                        return value;
-                    }
-                });
+                                @Override
+                                public NotificationMessageValue
+                                       apply(ResourceValueNotification value) throws Exception {
+                                    return value;
+                                }
+                            });
     }
 
     /**
@@ -280,6 +284,12 @@ public class NotificationHandlersStore {
         }
     }
 
+    public AsynchronousResponseObserver createAsyncResponseObserver(Resource finalResource, String finalAsyncId,
+                                                                    BackpressureStrategy finalStrategy,
+                                                                    boolean notifyOtherObservers) {
+        return observerStore.asynchronousResponse(finalAsyncId, finalResource, notifyOtherObservers, finalStrategy);
+    }
+
     /**
      * Allows a notification to be injected into the notifications system.
      *
@@ -303,12 +313,12 @@ public class NotificationHandlersStore {
      * @throws MbedCloudException
      *             if an error occurred during the call.
      */
-    public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName, CloudCall<AsyncID> caller)
-            throws MbedCloudException {
+    public Future<Object> fetchAsyncResponse(ExecutorService executor, String functionName,
+                                             CloudCall<AsyncID> caller) throws MbedCloudException {
         api.clearApiMetadata();
         if (!isPullingActive()) {
-            api.getLogger().throwSdkException(
-                    "startNotifications() needs to be called before fetching any asynchronous response.");
+            api.getLogger()
+               .throwSdkException("startNotifications() needs to be called before fetching any asynchronous response.");
         }
         final String asyncResponseId = CloudCaller.call(api, functionName, getResponseIdMapper(), caller);
         return fetchAsyncResponse(executor, asyncResponseId);
@@ -334,7 +344,7 @@ public class NotificationHandlersStore {
                 }
                 if (response.statusCode != 200) {
                     return new com.arm.mbed.cloud.sdk.common.Error(response.statusCode, "Async error",
-                            response.errorMessage, responseId);
+                                                                   response.errorMessage, responseId);
                 }
                 return response.payload;
             }
@@ -360,25 +370,33 @@ public class NotificationHandlersStore {
             @Override
             public void run() {
                 try {
-                    final CallFeedback<NotificationMessage, NotificationMessage> feedback = CloudCaller
-                            .callWithFeedback(api, "NotificationPullGet()",
-                                    GenericAdapter.identityMapper(NotificationMessage.class),
-                                    new CloudCall<NotificationMessage>() {
+                    System.out.println("HI");
+                    final CallFeedback<NotificationMessage,
+                                       NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
+                                                                                                    "NotificationPullGet()",
+                                                                                                    GenericAdapter.identityMapper(NotificationMessage.class),
+                                                                                                    new CloudCall<NotificationMessage>() {
 
-                                        @Override
-                                        public Call<NotificationMessage> call() {
-                                            return endpoint.getNotifications().longPollNotifications();
-                                        }
-                                    }, false, true);
+                                                                                                        @Override
+                                                                                                        public Call<NotificationMessage>
+                                                                                                               call() {
+                                                                                                            return endpoint.getNotifications()
+                                                                                                                           .longPollNotifications();
+                                                                                                        }
+                                                                                                    }, false, true);
+                    System.out.println("END HI");
                     final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(
-                                "Notification pull did not receive any notification during last call. Call information: "
-                                        + feedback.getMetadata());
+                                                "Notification pull did not receive any notification during last call. Call information: "
+                                                + feedback.getMetadata());
                         return;
                     }
+                    System.out.println("HELLO");
                     emitNotification(notificationMessage);
-                } catch (MbedCloudException exception) {
+                    System.out.println("HELLO2");
+
+                } catch (Exception exception) {
                     backoffPolicy.backoff();
                     logPullError(exception);
                 }
@@ -446,23 +464,32 @@ public class NotificationHandlersStore {
         if (data == null) {
             return;
         }
+        System.out.println("START HANDLIGN");
         storeResponses(data.getAsyncResponses());
+        handleAsynchronousResponse(data);
         handleResourceValueChanges(data);
         handleDeviceStateChanges(data);
+        System.out.println("STOP HANDLIGN");
     }
 
     private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
         handleNotification(SubscriptionType.DEVICE_STATE_CHANGE, notificationMessage,
-                DeviceStateNotificationAdapter.getNotificationMessageMapper());
+                           DeviceStateNotificationAdapter.getNotificationMessageMapper());
     }
 
     private void handleResourceValueChanges(NotificationMessage notificationMessage) {
         handleNotification(SubscriptionType.NOTIFICATION, notificationMessage,
-                ResourceValueNotificationAdapter.getNotificationMessageMapper());
+                           ResourceValueNotificationAdapter.getNotificationMessageMapper());
+    }
+
+    private void handleAsynchronousResponse(NotificationMessage notificationMessage) {
+        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notificationMessage,
+                           AsynchronousResponseNotificationAdapter.getNotificationMessageMapper());
     }
 
     private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
-            NotificationMessage message, Mapper<NotificationMessage, List<T>> mapper) {
+                                                                         NotificationMessage message,
+                                                                         Mapper<NotificationMessage, List<T>> mapper) {
         if (message == null || mapper == null || type == null) {
             return;
         }
@@ -548,7 +575,7 @@ public class NotificationHandlersStore {
 
         public AsyncResponse(AsyncIDResponse response) throws DecodingException {
             this(response.getId(), TranslationUtils.toInt(response.getStatus(), 200), response.getError(),
-                    decodePayload(response.getPayload(), response.getCt()));
+                 decodePayload(response.getPayload(), response.getCt()));
         }
 
         /*
@@ -611,7 +638,7 @@ public class NotificationHandlersStore {
         @Override
         public String toString() {
             return "AsyncResponse [statusCode=" + statusCode + ", errorMessage=" + errorMessage + ", payload=" + payload
-                    + "]";
+                   + "]";
         }
 
         public String getKey() {

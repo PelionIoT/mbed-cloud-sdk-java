@@ -23,7 +23,9 @@ public enum FirstValue {
      * <p>
      * MEDIUM wait.
      */
-    ON_VALUE_UPDATE;
+    ON_VALUE_UPDATE,
+
+    IMMEDIATELY;
     // TODO Add LAST_KNOWN, IMMEDIATELY
     // explicitly requests value update from each matching resource. many api calls. immediate.
 

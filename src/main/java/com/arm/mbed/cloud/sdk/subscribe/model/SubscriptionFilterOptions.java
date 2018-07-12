@@ -19,7 +19,7 @@ public class SubscriptionFilterOptions extends FilterOptions {
      */
     public static final String DEVICE_ID_FILTER = "deviceId";
     /**
-     * Tag of filter by device state.
+     * Tag of filter by device type.
      */
     public static final String DEVICE_TYPE_FILTER = "deviceType";
     /**

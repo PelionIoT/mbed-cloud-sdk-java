@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+import io.reactivex.Scheduler;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -13,20 +17,17 @@ import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
-import io.reactivex.Scheduler;
-
 @Preamble(description = "Abstract store for subscription observers")
 @Internal
 public abstract class AbstractSubscriptionObserverStore<T extends NotificationMessageValue>
-        implements SubscriptionManager {
+                                                       implements SubscriptionManager {
     private final SubscriptionEmitterStore<T> emitterStore;
     private static final int STORE_INITIAL_CAPACITY = 10;
     private final ConcurrentMap<String, Observer<T>> observerStore;
@@ -52,7 +53,9 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
     @Override
     public @Nullable List<Observer<?>> listAll() {
         return observerStore.isEmpty() ? null
-                : Arrays.asList(observerStore.values().toArray(new Observer<?>[observerStore.values().size()]));
+                                       : Arrays.asList(observerStore.values()
+                                                                    .toArray(new Observer<?>[observerStore.values()
+                                                                                                          .size()]));
     }
 
     @Override
@@ -144,7 +147,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
     @SuppressWarnings("unchecked")
     @Override
     public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, String channelId,
-            NotificationMessage<U> message) throws MbedCloudException {
+                                                            NotificationMessage<U> message) throws MbedCloudException {
         if (subscriptionType == null || subscriptionType != this.type || message == null) {
             return;
         }
@@ -163,15 +166,15 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
      * com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
      */
     @Override
-    public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType, U value)
-            throws MbedCloudException {
+    public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType,
+                                                            U value) throws MbedCloudException {
         notify(subscriptionType, new NotificationMessage<>(value, null));
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public <U extends NotificationMessageValue> void notify(SubscriptionType subscriptionType,
-            NotificationMessage<U> message) throws MbedCloudException {
+                                                            NotificationMessage<U> message) throws MbedCloudException {
         if (subscriptionType == null || subscriptionType != this.type) {
             return;
         }
@@ -184,23 +187,34 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
 
     @SuppressWarnings("unchecked")
     @Override
-    public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
-            BackpressureStrategy strategy,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+    public @Nullable Observer<?>
+           createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                          CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                          CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+        return createObserver(subscriptionType, filter, strategy, null, null, false, null);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public @Nullable Observer<?>
+           createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                          CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                          CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                          boolean notifyOtherObservers, Resource correspondingResource) {
         if (subscriptionType == null || subscriptionType != this.type) {
             return null;
         }
         final String channelId = this.type.toString() + UuidGenerator.generate();
         final Flowable<T> flow = emitterStore.createSubscriptionChannel(channelId, strategy);
-        final Observer<?> obs = buildObserver(channelId, flow, filter, actionOnSubscription, actionOnUnsubscription);
+        final Observer<?> obs = buildObserver(channelId, flow, filter, actionOnSubscription, actionOnUnsubscription,
+                                              notifyOtherObservers, correspondingResource);
         storeObserver((Observer<T>) obs);
         return obs;
     }
 
     @Override
     public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
-            BackpressureStrategy strategy) {
+                                                BackpressureStrategy strategy) {
         return createObserver(subscriptionType, filter, strategy, null, null);
     }
 
@@ -262,8 +276,10 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         return hasObserver(observer.getSubscriptionType(), observer.getId());
     }
 
-    protected abstract Observer<?> buildObserver(String channelId, Flowable<T> flow, FilterOptions filter,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription);
+    protected abstract Observer<?>
+              buildObserver(String channelId, Flowable<T> flow, FilterOptions filter,
+                            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                            boolean notifyOtherObservers, Resource correspondingResource);
 
 }
