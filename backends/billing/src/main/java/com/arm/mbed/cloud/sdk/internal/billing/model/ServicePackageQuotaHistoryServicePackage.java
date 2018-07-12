@@ -54,10 +54,10 @@ public class ServicePackageQuotaHistoryServicePackage implements Serializable {
   }
 
    /**
-   * Service package expiration time in RFC3339 date-time with UTC time zone.
+   * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return expires
   **/
-  @ApiModelProperty(required = true, value = "Service package expiration time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getExpires() {
     return expires;
   }
@@ -126,10 +126,10 @@ public class ServicePackageQuotaHistoryServicePackage implements Serializable {
   }
 
    /**
-   * Service package start time in RFC3339 date-time with UTC time zone.
+   * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return startTime
   **/
-  @ApiModelProperty(required = true, value = "Service package start time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getStartTime() {
     return startTime;
   }

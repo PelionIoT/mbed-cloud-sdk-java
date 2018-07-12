@@ -142,10 +142,10 @@ public class QuotaUsageReport implements Serializable {
   }
 
    /**
-   * Added time of quota usage entry.
+   * Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return time
   **/
-  @ApiModelProperty(required = true, value = "Added time of quota usage entry.")
+  @ApiModelProperty(required = true, value = "Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getTime() {
     return time;
   }

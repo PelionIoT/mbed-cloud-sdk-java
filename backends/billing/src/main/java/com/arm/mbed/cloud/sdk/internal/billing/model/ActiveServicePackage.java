@@ -66,10 +66,10 @@ public class ActiveServicePackage implements Serializable {
   }
 
    /**
-   * Service package creation time in RFC3339 date-time with UTC time zone.
+   * Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return created
   **/
-  @ApiModelProperty(required = true, value = "Service package creation time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package creation time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getCreated() {
     return created;
   }
@@ -84,10 +84,10 @@ public class ActiveServicePackage implements Serializable {
   }
 
    /**
-   * Service package expiration time in RFC3339 date-time with UTC time zone.
+   * Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return expires
   **/
-  @ApiModelProperty(required = true, value = "Service package expiration time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package expiration time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getExpires() {
     return expires;
   }
@@ -156,10 +156,10 @@ public class ActiveServicePackage implements Serializable {
   }
 
    /**
-   * Service package latest modified time in RFC3339 date-time with UTC time zone.
+   * Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return modified
   **/
-  @ApiModelProperty(required = true, value = "Service package latest modified time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package latest modified time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getModified() {
     return modified;
   }
@@ -210,10 +210,10 @@ public class ActiveServicePackage implements Serializable {
   }
 
    /**
-   * Service package start time in RFC3339 date-time with UTC time zone.
+   * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return startTime
   **/
-  @ApiModelProperty(required = true, value = "Service package start time in RFC3339 date-time with UTC time zone.")
+  @ApiModelProperty(required = true, value = "Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getStartTime() {
     return startTime;
   }
