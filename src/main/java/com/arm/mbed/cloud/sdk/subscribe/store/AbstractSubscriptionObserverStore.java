@@ -185,13 +185,19 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
         }
     }
 
-    @SuppressWarnings("unchecked")
+    @Override
+    public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
+                                                BackpressureStrategy strategy) {
+        return createObserver(subscriptionType, filter, strategy, null, null);
+    }
+
     @Override
     public @Nullable Observer<?>
            createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
                           CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
                           CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
-        return createObserver(subscriptionType, filter, strategy, null, null, false, null);
+        return createObserver(subscriptionType, filter, strategy, actionOnSubscription, actionOnUnsubscription, false,
+                              null);
     }
 
     @SuppressWarnings("unchecked")
@@ -210,12 +216,6 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
                                               notifyOtherObservers, correspondingResource);
         storeObserver((Observer<T>) obs);
         return obs;
-    }
-
-    @Override
-    public @Nullable Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter,
-                                                BackpressureStrategy strategy) {
-        return createObserver(subscriptionType, filter, strategy, null, null);
     }
 
     private void storeObserver(Observer<T> observer) {
