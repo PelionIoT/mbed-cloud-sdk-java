@@ -628,6 +628,16 @@ public class TestAbstractObserver {
             this.unsubscribeOnCompletion = unsubscribeOnCompletion;
         }
 
+        /*
+         * (non-Javadoc)
+         *
+         * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#getTopManager()
+         */
+        @Override
+        public SubscriptionManager getTopManager() {
+            return null;
+        }
+
         @Override
         public List<Observer<?>> listAll() {
             return new ArrayList<>(observers.values());

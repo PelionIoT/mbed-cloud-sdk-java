@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
 
@@ -10,6 +12,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
+import com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
@@ -20,8 +23,8 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 public class ResourceValueSubscriptionObserverStore extends
                                                     AbstractSubscriptionObserverStore<ResourceValueNotification> {
 
-    public ResourceValueSubscriptionObserverStore(Scheduler scheduler) {
-        super(SubscriptionType.NOTIFICATION, scheduler);
+    public ResourceValueSubscriptionObserverStore(Scheduler scheduler, WeakReference<SubscriptionManager> parent) {
+        super(SubscriptionType.NOTIFICATION, scheduler, parent);
     }
 
     @Override

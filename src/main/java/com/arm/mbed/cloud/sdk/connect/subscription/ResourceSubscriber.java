@@ -32,28 +32,20 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         if (!hasCloudConnection()) {
             return;
         }
-        System.out.println("CAME HERE 1");
         final SubscriptionFilterOptions filters = (SubscriptionFilterOptions) arg;
         // Setting pre-subscriptions
         final List<Presubscription> correspondingPresubscriptions = PresubscriptionAdapter.mapSubscriptionFilter(filters);
-        System.out.println("CAME HERE " + correspondingPresubscriptions);
         api.addSomePresubscriptions(correspondingPresubscriptions);
         // Subscribe to currently connected devices
         if (mode == FirstValue.ON_VALUE_UPDATE || mode == FirstValue.IMMEDIATELY) {
-            System.out.println("CAME HERE 2");
             final Paginator<Device> iterator = api.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
-            System.out.println("Got something");
             while (iterator.hasNext()) {
-                System.out.println(filters);
                 final List<Resource> resourcesToObserve = filters.getVerifiedResources(api.listObservableResources(iterator.next()));
-                System.out.println("add resource sub " + resourcesToObserve);
                 api.addResourcesSubscription(resourcesToObserve);
                 if (mode == FirstValue.IMMEDIATELY) {
-                    System.out.println("CAME HERE");
                     for (final Resource resourceToObserve : resourcesToObserve) {
                         requestCurrentResourceValue(resourceToObserve);
                     }
-                    System.out.println("LEFT HERE");
                 }
             }
         }
@@ -64,11 +56,18 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         try {
             final AsynchronousResponseObserver observer = api.createCurrentResourceValueObserver(resourceToObserve,
                                                                                                  BackpressureStrategy.BUFFER);
-            observer.singleNotification(null).subscribe(new Consumer<AsynchronousResponseNotification>() {
+            observer.singleNotification(null).doOnError(new Consumer<Throwable>() {
+
+                @Override
+                public void accept(Throwable exception) throws Exception {
+                    api.getLogger().logError("Could not fetch the current value of " + resourceToObserve, exception);
+
+                }
+            }).subscribe(new Consumer<AsynchronousResponseNotification>() {
 
                 @Override
                 public void accept(AsynchronousResponseNotification notification) throws Exception {
-                    api.getLogger().logDebug("The following notification was received: " + notification);
+                    api.getLogger().logDebug("The following asynchronous response was received: " + notification);
                     observer.unsubscribe();
                 }
             });

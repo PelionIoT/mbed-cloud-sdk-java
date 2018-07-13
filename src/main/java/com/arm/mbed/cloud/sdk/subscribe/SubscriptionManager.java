@@ -252,4 +252,10 @@ public interface SubscriptionManager {
      * @return the scheduler.
      */
     Scheduler getObservedOnExecutor();
+
+    /**
+     * Gets the manager which controls all observers in the system: the manager at the top of the observer store tree.
+     */
+    @Nullable
+    SubscriptionManager getTopManager();
 }

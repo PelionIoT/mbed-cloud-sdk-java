@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.subscribe.store;
 
+import java.lang.ref.WeakReference;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -33,6 +34,7 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
     private final ConcurrentMap<String, Observer<T>> observerStore;
     private final SubscriptionType type;
     private final Scheduler scheduler;
+    private final WeakReference<SubscriptionManager> parentManager;
 
     /**
      * Constructor.
@@ -41,13 +43,17 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
      *            type of subscription.
      * @param scheduler
      *            scheduler to use for notification consumption.
+     * @param parent
+     *            parent manager
      */
-    public AbstractSubscriptionObserverStore(SubscriptionType type, Scheduler scheduler) {
+    public AbstractSubscriptionObserverStore(SubscriptionType type, Scheduler scheduler,
+                                             WeakReference<SubscriptionManager> parent) {
         super();
         this.type = type;
         emitterStore = new SubscriptionEmitterStore<>();
         observerStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
         this.scheduler = scheduler;
+        this.parentManager = parent;
     }
 
     @Override
@@ -274,6 +280,30 @@ public abstract class AbstractSubscriptionObserverStore<T extends NotificationMe
             return false;
         }
         return hasObserver(observer.getSubscriptionType(), observer.getId());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "AbstractSubscriptionObserverStore [type=" + type + "]";
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#getTopManager()
+     */
+    @Override
+    public SubscriptionManager getTopManager() {
+        SubscriptionManager manager = this.parentManager == null ? null : this.parentManager.get();
+        while (manager != null && manager.getTopManager() != null) {
+            manager = manager.getTopManager();
+        }
+        return manager;
     }
 
     protected abstract Observer<?>

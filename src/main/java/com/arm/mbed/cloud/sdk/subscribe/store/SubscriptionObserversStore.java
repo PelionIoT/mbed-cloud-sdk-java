@@ -54,10 +54,12 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         super();
         this.scheduler = scheduler;
         store = new EnumMap<>(SubscriptionType.class);
-        store.put(SubscriptionType.DEVICE_STATE_CHANGE, new DeviceStateChangeSubscriptionObserverStore(this.scheduler));
-        store.put(SubscriptionType.NOTIFICATION, new ResourceValueSubscriptionObserverStore(this.scheduler));
+        store.put(SubscriptionType.DEVICE_STATE_CHANGE,
+                  new DeviceStateChangeSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
+        store.put(SubscriptionType.NOTIFICATION,
+                  new ResourceValueSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
         store.put(SubscriptionType.ASYNCHRONOUS_RESPONSE,
-                  new AsynchronousResponseSubscriptionObserverStore(this.scheduler));
+                  new AsynchronousResponseSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
         this.resourceSubscriber = resourceSubscriber;
         this.resourceUnsubscriber = resourceUnsubscriber;
         resourceToObserverStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
@@ -74,6 +76,16 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         }
         return list.isEmpty() ? null : list;
 
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#getTopManager()
+     */
+    @Override
+    public SubscriptionManager getTopManager() {
+        return null;
     }
 
     @Override
@@ -355,4 +367,15 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         }
         resourceToObserverStore.remove(Integer.valueOf(resourceHash));
     }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "SubscriptionObserversStore [" + super.toString() + "]";
+    }
+
 }

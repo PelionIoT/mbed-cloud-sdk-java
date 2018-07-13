@@ -62,7 +62,7 @@ public class Resource implements SdkModel {
      */
     @Internal
     public Resource(String deviceId, String path, String type, String contentType, boolean observable,
-            String interfaceDescription) {
+                    String interfaceDescription) {
         super();
         setDeviceId(deviceId);
         setPath(path);
@@ -120,6 +120,32 @@ public class Resource implements SdkModel {
      */
     public Resource() {
         this(null, null, null, null);
+    }
+
+    /**
+     * Creates an observable resource.
+     *
+     * @param deviceId
+     *            device id.
+     * @param path
+     *            resource path.
+     * @return corresponding observable resource
+     */
+    public static Resource newObservableResource(String deviceId, String path) {
+        return new Resource(deviceId, path, null, null, true, null);
+    }
+
+    /**
+     * Creates an observable resource.
+     *
+     * @param deviceId
+     *            device id.
+     * @param path
+     *            resource path.
+     * @return corresponding observable resource
+     */
+    public static Resource newObservableResource(Device device, String path) {
+        return newObservableResource((device == null) ? null : device.getId(), path);
     }
 
     /**
@@ -303,7 +329,7 @@ public class Resource implements SdkModel {
     @Override
     public String toString() {
         return "Resource [deviceId=" + deviceId + ", path=" + path + ", type=" + type + ", contentType=" + contentType
-                + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
+               + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
     }
 
 }

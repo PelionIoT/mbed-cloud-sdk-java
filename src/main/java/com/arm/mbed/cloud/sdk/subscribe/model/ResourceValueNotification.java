@@ -23,7 +23,7 @@ public class ResourceValueNotification extends NotificationWithPayload {
      *            resource path
      */
     public ResourceValueNotification(String deviceId, String resourcePath) {
-        this(new Resource(deviceId, resourcePath));
+        this(Resource.newObservableResource(deviceId, resourcePath));
     }
 
     /**

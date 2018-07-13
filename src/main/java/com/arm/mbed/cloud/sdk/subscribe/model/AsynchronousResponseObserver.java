@@ -63,11 +63,21 @@ public class AsynchronousResponseObserver extends AbstractObserver<AsynchronousR
 
             @Override
             public void accept(AsynchronousResponseNotification notification) throws Exception {
-                manager.notify(SubscriptionType.NOTIFICATION,
-                               AsynchronousResponseNotificationAdapter.mapToResourceValueNotification(correspondingResource,
-                                                                                                      notification));
+                final ResourceValueNotification otherNotification = AsynchronousResponseNotificationAdapter.mapToResourceValueNotification(correspondingResource,
+                                                                                                                                           notification);
+                getTopManager().notify(SubscriptionType.NOTIFICATION, otherNotification);
+
             }
         });
+
+    }
+
+    private SubscriptionManager getTopManager() {
+        SubscriptionManager topManager = manager.getTopManager();
+        if (topManager == null) {
+            topManager = manager;
+        }
+        return topManager;
     }
 
     /**

@@ -370,7 +370,6 @@ public class NotificationHandlersStore {
             @Override
             public void run() {
                 try {
-                    System.out.println("HI");
                     final CallFeedback<NotificationMessage,
                                        NotificationMessage> feedback = CloudCaller.callWithFeedback(api,
                                                                                                     "NotificationPullGet()",
@@ -384,7 +383,6 @@ public class NotificationHandlersStore {
                                                                                                                            .longPollNotifications();
                                                                                                         }
                                                                                                     }, false, true);
-                    System.out.println("END HI");
                     final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
                         api.getLogger().logInfo(
@@ -392,10 +390,7 @@ public class NotificationHandlersStore {
                                                 + feedback.getMetadata());
                         return;
                     }
-                    System.out.println("HELLO");
                     emitNotification(notificationMessage);
-                    System.out.println("HELLO2");
-
                 } catch (Exception exception) {
                     backoffPolicy.backoff();
                     logPullError(exception);
@@ -464,12 +459,10 @@ public class NotificationHandlersStore {
         if (data == null) {
             return;
         }
-        System.out.println("START HANDLIGN");
         storeResponses(data.getAsyncResponses());
         handleAsynchronousResponse(data);
         handleResourceValueChanges(data);
         handleDeviceStateChanges(data);
-        System.out.println("STOP HANDLIGN");
     }
 
     private void handleDeviceStateChanges(NotificationMessage notificationMessage) {
