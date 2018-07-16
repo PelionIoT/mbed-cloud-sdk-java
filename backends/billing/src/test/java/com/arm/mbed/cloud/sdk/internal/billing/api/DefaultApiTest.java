@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.internal.billing.api;
 
 import com.arm.mbed.cloud.sdk.internal.billing.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.BillingReportRawDataResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ForbiddenErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.InternalServerErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ReportNotFoundErrorResponse;
@@ -45,24 +46,24 @@ public class DefaultApiTest {
     /**
      * Get raw active devices billing data for the month.
      *
-     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data.
+     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
      */
     @Test
     public void getBillingReportActiveDevicesTest() {
         String month = null;
-        // Void response = api.getBillingReportActiveDevices(month);
+        // BillingReportRawDataResponse response = api.getBillingReportActiveDevices(month);
 
         // TODO: test validations
     }
     /**
      * Get raw firmware updates billing data for the month.
      *
-     * Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator&#39;s firmware update devices billing report.
+     * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
      */
     @Test
     public void getBillingReportFirmwareUpdatesTest() {
         String month = null;
-        // Void response = api.getBillingReportFirmwareUpdates(month);
+        // BillingReportRawDataResponse response = api.getBillingReportFirmwareUpdates(month);
 
         // TODO: test validations
     }

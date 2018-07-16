@@ -91,10 +91,10 @@ public class ReportBillingData implements Serializable {
   }
 
    /**
-   * Get generated
+   * Billing report generated time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return generated
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Billing report generated time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getGenerated() {
     return generated;
   }
@@ -109,10 +109,10 @@ public class ReportBillingData implements Serializable {
   }
 
    /**
-   * Get periodEnd
+   * Billing report end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return periodEnd
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Billing report end time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getPeriodEnd() {
     return periodEnd;
   }
@@ -127,10 +127,10 @@ public class ReportBillingData implements Serializable {
   }
 
    /**
-   * Get periodStart
+   * Billing report start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return periodStart
   **/
-  @ApiModelProperty(required = true, value = "")
+  @ApiModelProperty(required = true, value = "Billing report start time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getPeriodStart() {
     return periodStart;
   }

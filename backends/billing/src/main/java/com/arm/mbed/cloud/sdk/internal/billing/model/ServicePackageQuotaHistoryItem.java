@@ -114,10 +114,10 @@ public class ServicePackageQuotaHistoryItem implements Serializable {
   }
 
    /**
-   * Added time of quota history entry.
+   * Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return added
   **/
-  @ApiModelProperty(required = true, value = "Added time of quota history entry.")
+  @ApiModelProperty(required = true, value = "Added time of quota history entry in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getAdded() {
     return added;
   }

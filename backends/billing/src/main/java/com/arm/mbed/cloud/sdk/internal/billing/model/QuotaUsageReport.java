@@ -106,10 +106,10 @@ public class QuotaUsageReport implements Serializable {
   }
 
    /**
-   * Amount of quota usage entry. Negavtive if it is quota consumption.
+   * Amount of quota usage entry. Negative if it is quota consumption.
    * @return amount
   **/
-  @ApiModelProperty(required = true, value = "Amount of quota usage entry. Negavtive if it is quota consumption.")
+  @ApiModelProperty(required = true, value = "Amount of quota usage entry. Negative if it is quota consumption.")
   public Long getAmount() {
     return amount;
   }
@@ -142,10 +142,10 @@ public class QuotaUsageReport implements Serializable {
   }
 
    /**
-   * Added time of quota usage entry.
+   * Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return time
   **/
-  @ApiModelProperty(required = true, value = "Added time of quota usage entry.")
+  @ApiModelProperty(required = true, value = "Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getTime() {
     return time;
   }
