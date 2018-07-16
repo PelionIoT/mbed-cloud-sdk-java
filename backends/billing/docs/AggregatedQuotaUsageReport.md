@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **accountId** | **String** |  | 
-**amount** | **Long** | Amount of quota usage entry. Negavtive if it is quota consumption. | 
+**amount** | **Long** | Amount of quota usage entry. Negative if it is quota consumption. | 
 **campaignName** | **String** | Campaign name of quota usage entry. Null if quota usage entry type is not reservation or reservation release. |  [optional]
 **time** | [**DateTime**](DateTime.md) | Added time of quota usage entry in RFC3339 date-time with millisecond accuracy and UTC time zone. | 
 **type** | [**TypeEnum**](#TypeEnum) | Type of quota usage entry. | 
