@@ -294,19 +294,30 @@ public class FileDownload {
         }
     }
 
-    private static String getFileExtension(String fileName) {
-        if (fileName == null) {
+    protected static String getFileExtension(String fileName) {
+        if (fileName == null || fileName.trim().endsWith(".")) {
             return "";
         }
         final int i = fileName.lastIndexOf('.');
-        return i > 0 ? fileName.substring(i + 1) : "";
+        if (i < 0) {
+            return "";
+        }
+        StringBuilder builder = new StringBuilder();
+        final String shorterFilename = fileName.substring(0, i);
+        final int j = shorterFilename.lastIndexOf('.');
+        if (j > 0 && shorterFilename.length() - j < 5) {// This is an arbitrary constraint on the length of the
+                                                        // extension.
+            builder.append(shorterFilename.substring(j + 1)).append('.');
+        }
+        builder.append(fileName.substring(i + 1));
+        return builder.toString().trim();
     }
 
-    private static String getFileNameWithoutExtension(String fileName) {
+    protected static String getFileNameWithoutExtension(String fileName) {
         if (fileName == null) {
             return "";
         }
-        return fileName.replace("." + getFileExtension(fileName), "");
+        return fileName.trim().replace("." + getFileExtension(fileName), "");
     }
 
     /*

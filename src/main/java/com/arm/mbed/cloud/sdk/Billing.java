@@ -645,7 +645,7 @@ public class Billing extends AbstractApi {
         return filePath == null ? new FileDownload(FileDownload.Extension.JSON) : new FileDownload(filePath);
     }
 
-    private String generateReportReferenceFromDate(Date month) {
+    protected String generateReportReferenceFromDate(Date month) {
         final Date finalDate = month == null ? new Date() : month;
         final Calendar cal = Calendar.getInstance();
         cal.setTime(finalDate);
@@ -654,7 +654,7 @@ public class Billing extends AbstractApi {
         return generateReportReference(dateYear, dateMonth);
     }
 
-    private String generateReportReference(int dateYear, int dateMonth) {
+    protected String generateReportReference(int dateYear, int dateMonth) {
         final String monthString = dateMonth < 10 && dateMonth > 0 ? "0" + dateMonth : String.valueOf(dateMonth);
         return dateYear + "-" + monthString;
     }
