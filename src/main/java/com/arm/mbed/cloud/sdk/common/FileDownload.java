@@ -302,7 +302,7 @@ public class FileDownload {
         if (i < 0) {
             return "";
         }
-        StringBuilder builder = new StringBuilder();
+        final StringBuilder builder = new StringBuilder();
         final String shorterFilename = fileName.substring(0, i);
         final int j = shorterFilename.lastIndexOf('.');
         // This is an arbitrary constraint on the length of the extension.
