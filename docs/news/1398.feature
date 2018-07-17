@@ -1,0 +1,1 @@
+It is now possible to download active devices and firmware updates reports in the Billing module.
