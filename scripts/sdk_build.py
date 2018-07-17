@@ -16,8 +16,12 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
         self.print_title()
         try:
             self.log_info("Building sdk")
-            self.execute_gradle_task('build')
+            self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
             self.execute_gradle_task('shadowJar')
+            self.log_info("Running static analysis")
+            self.execute_gradle_task('check', ['-x', 'test'])
+            self.log_info("Running unit tests")
+            self.execute_gradle_task('test', ['-x', 'check'])
             self.log_info("Determining code coverage")
             self.execute_gradle_task('jacocoTestReport')
             self.log_info("Generating Javadoc")
