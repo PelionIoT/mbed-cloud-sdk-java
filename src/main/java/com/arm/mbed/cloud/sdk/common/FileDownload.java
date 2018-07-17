@@ -305,8 +305,8 @@ public class FileDownload {
         StringBuilder builder = new StringBuilder();
         final String shorterFilename = fileName.substring(0, i);
         final int j = shorterFilename.lastIndexOf('.');
-        if (j > 0 && shorterFilename.length() - j < 5) {// This is an arbitrary constraint on the length of the
-                                                        // extension.
+        // This is an arbitrary constraint on the length of the extension.
+        if (j > 0 && shorterFilename.length() - j < 5) {
             builder.append(shorterFilename.substring(j + 1)).append('.');
         }
         builder.append(fileName.substring(i + 1));
