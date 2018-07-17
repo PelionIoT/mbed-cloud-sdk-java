@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
@@ -58,9 +59,10 @@ public class TestCloudCaller {
             String errorBody2 = "MALFORMED_JSON_CONTENT";
             server.enqueue(new MockResponse().setBody(errorBody1).setResponseCode(403));
             server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(403)
-                    .setStatus("HTTP/1.1 403 Bad Request").addHeader(CloudCaller.REQUEST_ID_HEADER, requestID));
-            server.enqueue(
-                    new MockResponse().setBody(errorBody2).setResponseCode(403).setStatus("HTTP/1.1 403 Bad Request"));
+                                             .setStatus("HTTP/1.1 403 Bad Request")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER, requestID));
+            server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(403)
+                                             .setStatus("HTTP/1.1 403 Bad Request"));
 
             server.start();
             HttpUrl baseUrl = server.url("");
@@ -69,9 +71,9 @@ public class TestCloudCaller {
             // First request
             retrofit2.Response<String> receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            Error error = CloudCaller.retrieveErrorDetails(
-                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
-                    receivedResponse);
+            Error error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse,
+                                                                                                                        null)),
+                                                           receivedResponse);
             assertNotNull(error);
             assertEquals(403, error.getCode());
             assertEquals("error", error.getObject());
@@ -86,9 +88,9 @@ public class TestCloudCaller {
             // Second request
             receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            error = CloudCaller.retrieveErrorDetails(
-                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
-                    receivedResponse);
+            error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse,
+                                                                                                                  null)),
+                                                     receivedResponse);
             assertNotNull(error);
             assertEquals(403, error.getCode());
             assertEquals("error", error.getObject());
@@ -99,9 +101,9 @@ public class TestCloudCaller {
             // Third request
             receivedResponse = testService.getEndpointValue().execute();
             assertFalse(receivedResponse.isSuccessful());
-            error = CloudCaller.retrieveErrorDetails(
-                    CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse, null)),
-                    receivedResponse);
+            error = CloudCaller.retrieveErrorDetails(CloudCaller.retrieveErrorMessageFromBody(new CloudResponse<>(receivedResponse,
+                                                                                                                  null)),
+                                                     receivedResponse);
             RecordedRequest request = server.takeRequest();
             assertNotNull(error);
             assertEquals(403, error.getCode());
@@ -126,18 +128,27 @@ public class TestCloudCaller {
         try {
             MockWebServer server = new MockWebServer();
             String requestID = "01626653c64b0242ac12000700000000";
+            String bodyEtag = "2018-04-13T14:18:56.862996Z";
             String errorBody1 = "{\"fields\": [{\"name\": \"policy\",\"message\": \"Access denied by policy [PSK agreement].\"}],\"object\": \"error\",\"code\": 403,\"type\": \"access_denied\",\"message\": \"Not authorized to execute the request.\",\"request_id\": \""
-                    + requestID + "\" }";
+                                + requestID + "\" }";
             String correctBody = "This request was a success";
+            String correctBody2 = "{\"color\": \"black\",\"category\": \"hue\",\"type\": \"primary\",\"rgba\": [255,255,255,1],\"hex\": \"#000\", \"etag\": \""
+                                  + bodyEtag + "\"}";
             String errorBody2 = "{\"object\": \"error\",\"code\": 404,\"type\": \"not_found\",\"message\": \"Not Found.\",\"request_id\": \"01626653c64b0242ac12dass000700000000\" }";
-            server.enqueue(
-                    new MockResponse().setBody(errorBody1).setResponseCode(403).setStatus("HTTP/1.1 403 Bad Request"));
+            server.enqueue(new MockResponse().setBody(errorBody1).setResponseCode(403)
+                                             .setStatus("HTTP/1.1 403 Bad Request"));
             server.enqueue(new MockResponse().setBody(correctBody).setResponseCode(200)
-                    .addHeader(CloudCaller.DATE_HEADER_LOWERCASE, "Tue, 17 Apr 2018 11:08:42 GMT")
-                    .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID));
+                                             .addHeader(CloudCaller.DATE_HEADER_LOWERCASE,
+                                                        "Tue, 17 Apr 2018 11:08:42 GMT")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID));
+            server.enqueue(new MockResponse().setBody(correctBody2).setResponseCode(200)
+                                             .addHeader(CloudCaller.DATE_HEADER_LOWERCASE,
+                                                        "Tue, 13 Apr 2018 11:08:42 GMT")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID));
             server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(404)
-                    .setStatus("HTTP/1.1 404 Not Found").addHeader(CloudCaller.REQUEST_ID_HEADER, requestID)
-                    .addHeader(CloudCaller.DATE_HEADER, "Tue, 17 Apr 2018 11:08:42 GMT"));
+                                             .setStatus("HTTP/1.1 404 Not Found")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER, requestID)
+                                             .addHeader(CloudCaller.DATE_HEADER, "Tue, 17 Apr 2018 11:08:42 GMT"));
             server.start();
             HttpUrl baseUrl = server.url("");
             ConnectionOptions config = new ConnectionOptions("test", baseUrl.toString());
@@ -180,9 +191,124 @@ public class TestCloudCaller {
             } catch (MbedCloudException e) {
                 fail(e.getMessage());
             }
-            // Third call - not found response
+            // Third call - valid response
+            try {
+                BodyTest body = api.bodyCallTest();
+                assertNotNull(body);
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(200, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 13, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertEquals(requestID, metadata.getRequestId());
+                assertEquals(bodyEtag, metadata.getEtag());
+                assertNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+            }
+            // Fourth call - not found response
             try {
                 assertEquals(null, api.callTest());
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(404, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 17, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertNotNull(metadata.getObject());
+                assertEquals(requestID, metadata.getRequestId());
+                assertNotNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+            }
+
+            server.shutdown();
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+    }
+
+    /**
+     * Testing raw calls.
+     */
+    @Test
+    public void testRawCloudCaller() {
+        try {
+            MockWebServer server = new MockWebServer();
+            String requestID = "01626653c64b0242ac12000700000000";
+            String etag = "6423d6bf35fcaff4388bf676e6f24500";
+
+            String errorBody1 = "{\"fields\": [{\"name\": \"policy\",\"message\": \"Access denied by policy [PSK agreement].\"}],\"object\": \"error\",\"code\": 403,\"type\": \"access_denied\",\"message\": \"Not authorized to execute the request.\",\"request_id\": \""
+                                + requestID + "\" }";
+            String correctBody = "{\"color\": \"black\",\"category\": \"hue\",\"type\": \"primary\",\"code\": {\"rgba\": [255,255,255,1],\"hex\": \"#000\"}";
+
+            String errorBody2 = "{\"object\": \"error\",\"code\": 404,\"type\": \"not_found\",\"message\": \"Not Found.\",\"request_id\": \"01626653c64b0242ac12dass000700000000\" }";
+            server.enqueue(new MockResponse().setBody(errorBody1).setResponseCode(403)
+                                             .setStatus("HTTP/1.1 403 Bad Request"));
+            server.enqueue(new MockResponse().setBody(correctBody).setResponseCode(200)
+                                             .addHeader(CloudCaller.DATE_HEADER_LOWERCASE,
+                                                        "Tue, 17 Apr 2018 11:08:42 GMT")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER_LOWERCASE, requestID)
+                                             .addHeader(CloudCaller.ETAG_HEADER, etag));
+            server.enqueue(new MockResponse().setBody(errorBody2).setResponseCode(404)
+                                             .setStatus("HTTP/1.1 404 Not Found")
+                                             .addHeader(CloudCaller.REQUEST_ID_HEADER, requestID)
+                                             .addHeader(CloudCaller.DATE_HEADER, "Tue, 17 Apr 2018 11:08:42 GMT"));
+            server.start();
+            HttpUrl baseUrl = server.url("");
+            ConnectionOptions config = new ConnectionOptions("test", baseUrl.toString());
+            TestApi api = new TestApi(config);
+            // First call - error response
+            try {
+                api.rawCallTest();
+                fail("An error should have been reported");
+            } catch (MbedCloudException e) {
+                assertNotNull(e.getMessage());
+                assertTrue(e.getMessage().contains(TestApi.CALL_TEST_METHOD_NAME));
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(403, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                assertNotNull(metadata.getObject());
+                assertEquals(requestID, metadata.getRequestId());
+                assertNotNull(metadata.getErrorMessage());
+
+            }
+            // Second call - valid response
+            try {
+                assertEquals(correctBody, api.rawCallTest());
+                ApiMetadata metadata = api.getLastApiMetadata();
+                assertNotNull(metadata);
+                assertNotNull(metadata.getUrl());
+                assertTrue(metadata.getUrl().toString().contains(TEST_ENDPOINT_PATH));
+                assertEquals("GET", metadata.getMethod());
+                assertEquals(200, metadata.getStatusCode());
+                assertNotNull(metadata.getDate());
+                Calendar calendar = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
+                calendar.set(2018, 3, 17, 11, 8, 42);
+                assertEquals(0, (calendar.getTime().getTime() - metadata.getDate().getTime()) / 1000);
+                assertEquals(requestID, metadata.getRequestId());
+                assertEquals(etag, metadata.getEtag());
+                assertNull(metadata.getErrorMessage());
+            } catch (MbedCloudException e) {
+                fail(e.getMessage());
+            }
+
+            // Third call - not found response
+            try {
+                assertEquals(null, api.rawCallTest());
                 ApiMetadata metadata = api.getLastApiMetadata();
                 assertNotNull(metadata);
                 assertNotNull(metadata.getUrl());
@@ -217,6 +343,9 @@ public class TestCloudCaller {
         @GET("/a_rest_api_endpoint_of_some_sort")
         Call<String> getEndpointValue();
 
+        @GET("/a_rest_api_endpoint_of_some_sort_with_known_body")
+        Call<BodyTest> getEndpointInterpretedValue();
+
     }
 
     public static class TestApi extends AbstractApi {
@@ -229,15 +358,36 @@ public class TestCloudCaller {
             testService = createTestApiClient(options.getHost());
         }
 
+        public String rawCallTest() throws MbedCloudException {
+            return CloudCaller.callRaw(this, CALL_TEST_METHOD_NAME, new CloudCall<String>() {
+
+                @Override
+                public Call<String> call() {
+                    return testService.getEndpointValue();
+                }
+            }, false);
+        }
+
         public String callTest() throws MbedCloudException {
             return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(String.class),
-                    new CloudCall<String>() {
+                                    new CloudCall<String>() {
 
-                        @Override
-                        public Call<String> call() {
-                            return testService.getEndpointValue();
-                        }
-                    });
+                                        @Override
+                                        public Call<String> call() {
+                                            return testService.getEndpointValue();
+                                        }
+                                    });
+        }
+
+        public BodyTest bodyCallTest() throws MbedCloudException {
+            return CloudCaller.call(this, CALL_TEST_METHOD_NAME, GenericAdapter.identityMapper(BodyTest.class),
+                                    new CloudCall<BodyTest>() {
+
+                                        @Override
+                                        public Call<BodyTest> call() {
+                                            return testService.getEndpointInterpretedValue();
+                                        }
+                                    });
         }
 
         @Override
@@ -245,6 +395,120 @@ public class TestCloudCaller {
             return "TestApi";
         }
 
+    }
+
+    private static class BodyTest {
+        private String color;
+        private String category;
+        private String type;
+        private int[] rgba;
+        private String hex;
+        private String etag;
+
+        /**
+         * @return the color
+         */
+        public String getColor() {
+            return color;
+        }
+
+        /**
+         * @return the category
+         */
+        public String getCategory() {
+            return category;
+        }
+
+        /**
+         * @return the type
+         */
+        public String getType() {
+            return type;
+        }
+
+        /**
+         * @return the rgba
+         */
+        public int[] getRgba() {
+            return rgba;
+        }
+
+        /**
+         * @return the hex
+         */
+        public String getHex() {
+            return hex;
+        }
+
+        /**
+         * @return the etag
+         */
+        public String getEtag() {
+            return etag;
+        }
+
+        /**
+         * @param color
+         *            the color to set
+         */
+        public void setColor(String color) {
+            this.color = color;
+        }
+
+        /**
+         * @param category
+         *            the category to set
+         */
+        public void setCategory(String category) {
+            this.category = category;
+        }
+
+        /**
+         * @param type
+         *            the type to set
+         */
+        public void setType(String type) {
+            this.type = type;
+        }
+
+        /**
+         * @param rgba
+         *            the rgba to set
+         */
+        public void setRgba(int[] rgba) {
+            this.rgba = rgba;
+        }
+
+        /**
+         * @param hex
+         *            the hex to set
+         */
+        public void setHex(String hex) {
+            this.hex = hex;
+        }
+
+        /**
+         * @param etag
+         *            the etag to set
+         */
+        public void setEtag(String etag) {
+            this.etag = etag;
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#toString()
+         */
+        @Override
+        public String toString() {
+            return "BodyTest [color=" + color + ", category=" + category + ", type=" + type + ", rgba="
+                   + Arrays.toString(rgba) + ", hex=" + hex + ", etag=" + etag + "]";
+        }
+
+        // String correctBody2 = "{\"color\": \"black\",\"category\": \"hue\",\"type\": \"primary\",\"rgba\":
+        // [255,255,255,1],\"hex\": \"#000\", \"etag\": \""
+        // + bodyEtag + "\"}";
     }
 
 }

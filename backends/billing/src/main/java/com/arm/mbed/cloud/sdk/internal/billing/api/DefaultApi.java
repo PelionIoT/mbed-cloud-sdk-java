@@ -1,12 +1,29 @@
 package com.arm.mbed.cloud.sdk.internal.billing.api;
 
+import com.arm.mbed.cloud.sdk.internal.billing.CollectionFormats.*;
+
+import retrofit2.Call;
+import retrofit2.http.*;
+
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import okhttp3.MultipartBody;
+
+import com.arm.mbed.cloud.sdk.internal.billing.model.BadRequestErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.BillingReportRawDataResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ForbiddenErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.InternalServerErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.ReportNotFoundErrorResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ReportResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuota;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackageQuotaHistoryResponse;
 import com.arm.mbed.cloud.sdk.internal.billing.model.ServicePackagesResponse;
+import com.arm.mbed.cloud.sdk.internal.billing.model.UnauthorizedErrorResponse;
 
-import retrofit2.Call;
-import retrofit2.http.GET;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public interface DefaultApi {
   /**
@@ -22,23 +39,23 @@ public interface DefaultApi {
 
   /**
    * Get raw active devices billing data for the month.
-   * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data.
+   * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
    * @param month Queried year and month of billing report (required)
-   * @return Call&lt;Void&gt;
+   * @return Call&lt;BillingReportRawDataResponse&gt;
    */
   @GET("v3/billing-report-active-devices")
-  Call<Void> getBillingReportActiveDevices(
+  Call<BillingReportRawDataResponse> getBillingReportActiveDevices(
     @retrofit2.http.Query("month") String month
   );
 
   /**
    * Get raw firmware updates billing data for the month.
-   * Fetch generated firmware update devices billing report for the currently authenticated commercial non-subtenant account. The firmware update devices billing reports for subtenant accounts are included in their aggregator&#39;s firmware update devices billing report.
+   * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
    * @param month Queried year and month of billing report (required)
-   * @return Call&lt;Void&gt;
+   * @return Call&lt;BillingReportRawDataResponse&gt;
    */
   @GET("v3/billing-report-firmware-updates")
-  Call<Void> getBillingReportFirmwareUpdates(
+  Call<BillingReportRawDataResponse> getBillingReportFirmwareUpdates(
     @retrofit2.http.Query("month") String month
   );
 

@@ -51,10 +51,10 @@ public class ServicePackageMetadata implements Serializable {
   }
 
    /**
-   * Service package end time.
+   * Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return endTime
   **/
-  @ApiModelProperty(required = true, value = "Service package end time.")
+  @ApiModelProperty(required = true, value = "Service package end time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getEndTime() {
     return endTime;
   }
@@ -107,10 +107,10 @@ public class ServicePackageMetadata implements Serializable {
   }
 
    /**
-   * Service package start time.
+   * Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.
    * @return startTime
   **/
-  @ApiModelProperty(required = true, value = "Service package start time.")
+  @ApiModelProperty(required = true, value = "Service package start time in RFC3339 date-time with millisecond accuracy and UTC time zone.")
   public DateTime getStartTime() {
     return startTime;
   }
