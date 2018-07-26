@@ -12,6 +12,7 @@ import okhttp3.MultipartBody;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.ErrorResponse;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -21,6 +22,11 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfo;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfoPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob1;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJobPage;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -260,6 +266,111 @@ public interface DefaultApi {
   @PUT("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignUpdate(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
+  );
+
+  /**
+   * Append a chunks to an upload job
+   * Append a chunks to an upload job
+   * @param contentLength  (required)
+   * @param uploadJobId Upload job ID (required)
+   * @param contentMD5  (optional)
+   * @param chunk Chunk (optional)
+   * @return Call&lt;UploadChunkInfo&gt;
+   */
+  @Headers({
+    "Content-Type:binary/octet-stream"
+  })
+  @POST("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
+  Call<UploadChunkInfo> uploadJobChunkCreate(
+    @retrofit2.http.Header("Content-Length") Integer contentLength, @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Header("Content-MD5") String contentMD5, @retrofit2.http.Body String chunk
+  );
+
+  /**
+   * List all metadata for uploaded chunks
+   * List all metadata for uploaded chunks
+   * @param uploadJobId Upload job (required)
+   * @param limit How many metadata items for uploaded chunks to retrieve (optional)
+   * @param order ASC or DESC (optional)
+   * @param after The ID of the the item after which to retrieve the next page (optional)
+   * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;status&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;hash&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;length&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;status__eq&#x3D;in_progress&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;status__eq&#x3D;in_progress&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;status__in&#x3D;in_progress,success&#x60; (optional)
+   * @return Call&lt;UploadChunkInfoPage&gt;
+   */
+  @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
+  Call<UploadChunkInfoPage> uploadJobChunkList(
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
+  );
+
+  /**
+   * Get metadata about a chunk
+   * Get metadata about a chunk
+   * @param uploadJobId Upload job (required)
+   * @param chunkId Chunk (required)
+   * @return Call&lt;UploadChunkInfo&gt;
+   */
+  @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks/{chunk_id}")
+  Call<UploadChunkInfo> uploadJobChunkRetreive(
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Path(value = "chunk_id", encoded = true) String chunkId
+  );
+
+  /**
+   * Create a new upload job
+   * Create a new upload job
+   * @param uploadJob Upload job (required)
+   * @return Call&lt;UploadJob&gt;
+   */
+  @POST("v3/firmware-images/upload-jobs")
+  Call<UploadJob> uploadJobCreate(
+    @retrofit2.http.Body UploadJob uploadJob
+  );
+
+  /**
+   * Delete an upload job
+   * Delete an upload job
+   * @param uploadJobId Upload job (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/firmware-images/upload-jobs/{upload_job_id}")
+  Call<Void> uploadJobDelete(
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId
+  );
+
+  /**
+   * Get all upload jobs
+   * Get all upload jobs
+   * @param limit How many upload jobs to retrieve (optional)
+   * @param order ASC or DESC (optional)
+   * @param after The ID of the the item after which to retrieve the next page (optional)
+   * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
+   * @param filter URL-encoded query string parameter to filter returned data  &#x60;?filter&#x3D;{URL-encoded query string}&#x60;  ###### Filterable fields:  The table lists all the fields that can be filtered on with certain filters:  &lt;table&gt;   &lt;thead&gt;     &lt;tr&gt;       &lt;th&gt;Field&lt;/th&gt;       &lt;th&gt;&#x3D; / __eq / __neq&lt;/th&gt;       &lt;th&gt;__in /  __nin&lt;/th&gt;       &lt;th&gt;__lte / __gte&lt;/th&gt;     &lt;tr&gt;   &lt;thead&gt;   &lt;tbody&gt;     &lt;tr&gt;       &lt;td&gt;name&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;description&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;complete&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;firmware_image_id&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;status&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;&amp;nbsp;&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;created_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;etag&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;     &lt;tr&gt;       &lt;td&gt;updated_at&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;       &lt;td&gt;✓&lt;/td&gt;     &lt;/tr&gt;   &lt;/tbody&gt; &lt;/table&gt; &amp;nbsp;  The query string is made up of key-value pairs separated by ampersands. For example, this query: &#x60;key1&#x3D;value1&amp;key2&#x3D;value2&amp;key3&#x3D;value3&#x60;  would be URL-encoded as: &#x60;?filter&#x3D;key1__eq%3Dvalue1%26key2__eq%3Dvalue2%26key3__eq%3Dvalue3&#x60;   **Filtering by properties** &#x60;name__eq&#x3D;myimage&#x60;  **Filtering on date-time fields**  Date-time fields should be specified in UTC RFC3339 format, &#x60;YYYY-MM-DDThh:mm:ss.msZ&#x60;. There are three permitted variations:  * UTC RFC3339 with milliseconds. Example: &#x60;2016-11-30T16:25:12.1234Z&#x60; * UTC RFC3339 without milliseconds. Example: &#x60;2016-11-30T16:25:12Z&#x60; * UTC RFC3339 shortened without milliseconds and punctuation. Example: &#x60;20161130T162512Z&#x60;  Date-time filtering supports three operators:  * equality by appending &#x60;__eq&#x60; to the field name * greater than or equal to by appending &#x60;__gte&#x60; to the field name * less than or equal to by appending &#x60;__lte&#x60; to the field name  &#x60;{field name}[|__eq|__lte|__gte]&#x3D;{UTC RFC3339 date-time}&#x60;  Time ranges may be specified by including both the &#x60;__gte&#x60; and &#x60;__lte&#x60; forms in the filter. For example:  &#x60;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering on multiple fields**  &#x60;name__eq&#x3D;myimage&amp;created_at__gte&#x3D;2016-11-30T16:25:12.1234Z&amp;created_at__lte&#x3D;2016-12-30T00:00:00Z&#x60;  **Filtering with filter operators**  String field filtering supports the following operators:  * equality: &#x60;__eq&#x60; * non-equality: &#x60;__neq&#x60; * in : &#x60;__in&#x60; * not in: &#x60;__nin&#x60;  For &#x60;__in&#x60; and &#x60;__nin&#x60; filters list of parameters must be comma-separated:  &#x60;name__in&#x3D;fw-image1,fw-image2&#x60; (optional)
+   * @return Call&lt;UploadJobPage&gt;
+   */
+  @GET("v3/firmware-images/upload-jobs")
+  Call<UploadJobPage> uploadJobList(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
+  );
+
+  /**
+   * Get an upload job
+   * Get an upload job
+   * @param uploadJobId Upload job (required)
+   * @return Call&lt;UploadJob&gt;
+   */
+  @GET("v3/firmware-images/upload-jobs/{upload_job_id}")
+  Call<UploadJob> uploadJobRetrieve(
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId
+  );
+
+  /**
+   * Update an upload job
+   * Update an upload job
+   * @param uploadJobId Upload job id (required)
+   * @param uploadJob Upload job (required)
+   * @return Call&lt;UploadJob&gt;
+   */
+  @PUT("v3/firmware-images/upload-jobs/{upload_job_id}")
+  Call<UploadJob> uploadJobUpdate(
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Body UploadJob1 uploadJob
   );
 
 }

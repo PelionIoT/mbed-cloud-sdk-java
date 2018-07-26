@@ -4,6 +4,7 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.ErrorResponse;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -13,6 +14,11 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfo;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfoPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob1;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJobPage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -281,6 +287,116 @@ public class DefaultApiTest {
         String campaignId = null;
         UpdateCampaignPutRequest campaign = null;
         // UpdateCampaign response = api.updateCampaignUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
+    /**
+     * Append a chunks to an upload job
+     *
+     * Append a chunks to an upload job
+     */
+    @Test
+    public void uploadJobChunkCreateTest() {
+        Integer contentLength = null;
+        String uploadJobId = null;
+        String contentMD5 = null;
+        String chunk = null;
+        // UploadChunkInfo response = api.uploadJobChunkCreate(contentLength, uploadJobId, contentMD5, chunk);
+
+        // TODO: test validations
+    }
+    /**
+     * List all metadata for uploaded chunks
+     *
+     * List all metadata for uploaded chunks
+     */
+    @Test
+    public void uploadJobChunkListTest() {
+        String uploadJobId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // UploadChunkInfoPage response = api.uploadJobChunkList(uploadJobId, limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get metadata about a chunk
+     *
+     * Get metadata about a chunk
+     */
+    @Test
+    public void uploadJobChunkRetreiveTest() {
+        String uploadJobId = null;
+        String chunkId = null;
+        // UploadChunkInfo response = api.uploadJobChunkRetreive(uploadJobId, chunkId);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a new upload job
+     *
+     * Create a new upload job
+     */
+    @Test
+    public void uploadJobCreateTest() {
+        UploadJob uploadJob = null;
+        // UploadJob response = api.uploadJobCreate(uploadJob);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete an upload job
+     *
+     * Delete an upload job
+     */
+    @Test
+    public void uploadJobDeleteTest() {
+        String uploadJobId = null;
+        // Void response = api.uploadJobDelete(uploadJobId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get all upload jobs
+     *
+     * Get all upload jobs
+     */
+    @Test
+    public void uploadJobListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get an upload job
+     *
+     * Get an upload job
+     */
+    @Test
+    public void uploadJobRetrieveTest() {
+        String uploadJobId = null;
+        // UploadJob response = api.uploadJobRetrieve(uploadJobId);
+
+        // TODO: test validations
+    }
+    /**
+     * Update an upload job
+     *
+     * Update an upload job
+     */
+    @Test
+    public void uploadJobUpdateTest() {
+        String uploadJobId = null;
+        UploadJob1 uploadJob = null;
+        // UploadJob response = api.uploadJobUpdate(uploadJobId, uploadJob);
 
         // TODO: test validations
     }
