@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -76,6 +77,9 @@ public class DeviceDataPostRequest implements Serializable {
 
   @SerializedName("firmware_checksum")
   private String firmwareChecksum = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("host_gateway")
   private String hostGateway = null;
@@ -464,6 +468,32 @@ public class DeviceDataPostRequest implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
+  public DeviceDataPostRequest groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public DeviceDataPostRequest addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * An array containing an id of each group this device belongs to
+   * @return groups
+  **/
+  @ApiModelProperty(value = "An array containing an id of each group this device belongs to")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
   public DeviceDataPostRequest hostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
     return this;
@@ -650,6 +680,7 @@ public class DeviceDataPostRequest implements Serializable {
         Objects.equals(this.endpointName, deviceDataPostRequest.endpointName) &&
         Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
         Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum) &&
+        Objects.equals(this.groups, deviceDataPostRequest.groups) &&
         Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway) &&
         Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
         Objects.equals(this.mechanism, deviceDataPostRequest.mechanism) &&
@@ -663,7 +694,7 @@ public class DeviceDataPostRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, firmwareChecksum, hostGateway, manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
+    return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, firmwareChecksum, groups, hostGateway, manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
   }
 
 
@@ -686,6 +717,7 @@ public class DeviceDataPostRequest implements Serializable {
     sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");

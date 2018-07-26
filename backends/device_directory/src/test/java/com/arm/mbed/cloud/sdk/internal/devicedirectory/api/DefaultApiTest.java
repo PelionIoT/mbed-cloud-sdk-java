@@ -6,10 +6,15 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostReque
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group1;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -213,6 +218,70 @@ public class DefaultApiTest {
         String id = null;
         DeviceDataPutRequest device = null;
         // DeviceData response = api.deviceUpdate(id, device);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a group
+     *
+     * Create a group
+     */
+    @Test
+    public void groupCreateTest() {
+        Group group = null;
+        // DeviceGroup response = api.groupCreate(group);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a group
+     *
+     * Delete a group.
+     */
+    @Test
+    public void groupDeleteTest() {
+        String deviceGroupId = null;
+        // Void response = api.groupDelete(deviceGroupId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all groups.
+     *
+     * List all groups.
+     */
+    @Test
+    public void groupListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        // DeviceGroupPage response = api.groupList(limit, order, after, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a group.
+     *
+     * Get a group.
+     */
+    @Test
+    public void groupRetrieveTest() {
+        String deviceGroupId = null;
+        // DeviceGroup response = api.groupRetrieve(deviceGroupId);
+
+        // TODO: test validations
+    }
+    /**
+     * Modify the attributes of a group.
+     *
+     * Modify the attributes of a group.
+     */
+    @Test
+    public void groupUpdateTest() {
+        String deviceGroupId = null;
+        Group1 group = null;
+        // DeviceGroup response = api.groupUpdate(deviceGroupId, group);
 
         // TODO: test validations
     }

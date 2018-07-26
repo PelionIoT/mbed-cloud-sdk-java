@@ -18,6 +18,7 @@ Name | Type | Description | Notes
 **endpointName** | **String** | The endpoint name given to the device. |  [optional]
 **endpointType** | **String** | The endpoint type of the device. For example, the device is a gateway. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
+**groups** | **List&lt;String&gt;** | An array containing an id of each group this device belongs to |  [optional]
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
 **mechanism** | [**MechanismEnum**](#MechanismEnum) | The ID of the channel used to communicate with the device. |  [optional]

@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -139,6 +140,9 @@ public class DeviceData implements Serializable {
 
   @SerializedName("firmware_checksum")
   private String firmwareChecksum = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("host_gateway")
   private String hostGateway = null;
@@ -626,6 +630,32 @@ public class DeviceData implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
+  public DeviceData groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public DeviceData addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * An array containing an id of each group this device belongs to
+   * @return groups
+  **/
+  @ApiModelProperty(value = "An array containing an id of each group this device belongs to")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
   public DeviceData hostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
     return this;
@@ -871,6 +901,7 @@ public class DeviceData implements Serializable {
         Objects.equals(this.enrolmentListTimestamp, deviceData.enrolmentListTimestamp) &&
         Objects.equals(this.etag, deviceData.etag) &&
         Objects.equals(this.firmwareChecksum, deviceData.firmwareChecksum) &&
+        Objects.equals(this.groups, deviceData.groups) &&
         Objects.equals(this.hostGateway, deviceData.hostGateway) &&
         Objects.equals(this.id, deviceData.id) &&
         Objects.equals(this.manifest, deviceData.manifest) &&
@@ -887,7 +918,7 @@ public class DeviceData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, hostGateway, id, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
+    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
   }
 
 
@@ -915,6 +946,7 @@ public class DeviceData implements Serializable {
     sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");

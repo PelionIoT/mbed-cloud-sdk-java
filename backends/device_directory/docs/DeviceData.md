@@ -23,6 +23,7 @@ Name | Type | Description | Notes
 **enrolmentListTimestamp** | [**DateTime**](DateTime.md) | The claim date/time. |  [optional]
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature. |  [optional]
 **firmwareChecksum** | **String** | The SHA256 checksum of the current firmware image. |  [optional]
+**groups** | **List&lt;String&gt;** | An array containing an id of each group this device belongs to |  [optional]
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
 **id** | **String** | The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]

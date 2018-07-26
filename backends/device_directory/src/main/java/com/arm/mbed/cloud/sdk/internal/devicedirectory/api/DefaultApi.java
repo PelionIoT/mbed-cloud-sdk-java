@@ -14,10 +14,15 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostReque
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPostPutRequest;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.Group1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -195,6 +200,65 @@ public interface DefaultApi {
   @PUT("v3/devices/{id}/")
   Call<DeviceData> deviceUpdate(
     @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body DeviceDataPutRequest device
+  );
+
+  /**
+   * Create a group
+   * Create a group
+   * @param group Group (required)
+   * @return Call&lt;DeviceGroup&gt;
+   */
+  @POST("v3/device-groups/")
+  Call<DeviceGroup> groupCreate(
+    @retrofit2.http.Body Group group
+  );
+
+  /**
+   * Delete a group
+   * Delete a group.
+   * @param deviceGroupId The ID of the group (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/device-groups/{device-group-id}/")
+  Call<Void> groupDelete(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId
+  );
+
+  /**
+   * List all groups.
+   * List all groups.
+   * @param limit How many objects to retrieve in the page. (optional)
+   * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
+   * @param after The ID of The item after which to retrieve the next page. (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
+   * @return Call&lt;DeviceGroupPage&gt;
+   */
+  @GET("v3/device-groups/")
+  Call<DeviceGroupPage> groupList(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * Get a group.
+   * Get a group.
+   * @param deviceGroupId The group ID (required)
+   * @return Call&lt;DeviceGroup&gt;
+   */
+  @GET("v3/device-groups/{device-group-id}/")
+  Call<DeviceGroup> groupRetrieve(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId
+  );
+
+  /**
+   * Modify the attributes of a group.
+   * Modify the attributes of a group.
+   * @param deviceGroupId  (required)
+   * @param group Group (required)
+   * @return Call&lt;DeviceGroup&gt;
+   */
+  @PUT("v3/device-groups/{device-group-id}/")
+  Call<DeviceGroup> groupUpdate(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body Group1 group
   );
 
 }
