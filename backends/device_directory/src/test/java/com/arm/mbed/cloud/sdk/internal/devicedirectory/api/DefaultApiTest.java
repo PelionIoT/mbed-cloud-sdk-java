@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutReques
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupManipulation;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
@@ -257,6 +258,44 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         // DeviceGroupPage response = api.groupList(limit, order, after, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Add devices from a group
+     *
+     * Add one or more devices from a group
+     */
+    @Test
+    public void groupMembersAddTest() {
+        String deviceGroupId = null;
+        DeviceGroupManipulation body = null;
+        // DevicePage response = api.groupMembersAdd(deviceGroupId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Remove devices from a group
+     *
+     * Remove one or more devices from a group
+     */
+    @Test
+    public void groupMembersRemoveTest() {
+        String deviceGroupId = null;
+        DeviceGroupManipulation body = null;
+        // DevicePage response = api.groupMembersRemove(deviceGroupId, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a page of devices
+     *
+     * Get a page of device
+     */
+    @Test
+    public void groupMembersRetrieveTest() {
+        String deviceGroupId = null;
+        // DevicePage response = api.groupMembersRetrieve(deviceGroupId);
 
         // TODO: test validations
     }

@@ -21,6 +21,9 @@ Method | HTTP request | Description
 [**groupCreate**](DefaultApi.md#groupCreate) | **POST** v3/device-groups/ | Create a group
 [**groupDelete**](DefaultApi.md#groupDelete) | **DELETE** v3/device-groups/{device-group-id}/ | Delete a group
 [**groupList**](DefaultApi.md#groupList) | **GET** v3/device-groups/ | List all groups.
+[**groupMembersAdd**](DefaultApi.md#groupMembersAdd) | **POST** v3/device-groups/{device-group-id}/devices/add/ | Add devices from a group
+[**groupMembersRemove**](DefaultApi.md#groupMembersRemove) | **POST** v3/device-groups/{device-group-id}/devices/remove/ | Remove devices from a group
+[**groupMembersRetrieve**](DefaultApi.md#groupMembersRetrieve) | **GET** v3/device-groups/{device-group-id}/devices/ | Get a page of devices
 [**groupRetrieve**](DefaultApi.md#groupRetrieve) | **GET** v3/device-groups/{device-group-id}/ | Get a group.
 [**groupUpdate**](DefaultApi.md#groupUpdate) | **PUT** v3/device-groups/{device-group-id}/ | Modify the attributes of a group.
 
@@ -992,6 +995,175 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**DeviceGroupPage**](DeviceGroupPage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="groupMembersAdd"></a>
+# **groupMembersAdd**
+> DevicePage groupMembersAdd(deviceGroupId, body)
+
+Add devices from a group
+
+Add one or more devices from a group
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String deviceGroupId = "deviceGroupId_example"; // String | The ID of the group
+DeviceGroupManipulation body = new DeviceGroupManipulation(); // DeviceGroupManipulation | Body of the request
+try {
+    DevicePage result = apiInstance.groupMembersAdd(deviceGroupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#groupMembersAdd");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceGroupId** | **String**| The ID of the group |
+ **body** | [**DeviceGroupManipulation**](DeviceGroupManipulation.md)| Body of the request |
+
+### Return type
+
+[**DevicePage**](DevicePage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="groupMembersRemove"></a>
+# **groupMembersRemove**
+> DevicePage groupMembersRemove(deviceGroupId, body)
+
+Remove devices from a group
+
+Remove one or more devices from a group
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String deviceGroupId = "deviceGroupId_example"; // String | The ID of the group
+DeviceGroupManipulation body = new DeviceGroupManipulation(); // DeviceGroupManipulation | Body of the request
+try {
+    DevicePage result = apiInstance.groupMembersRemove(deviceGroupId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#groupMembersRemove");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceGroupId** | **String**| The ID of the group |
+ **body** | [**DeviceGroupManipulation**](DeviceGroupManipulation.md)| Body of the request |
+
+### Return type
+
+[**DevicePage**](DevicePage.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="groupMembersRetrieve"></a>
+# **groupMembersRetrieve**
+> DevicePage groupMembersRetrieve(deviceGroupId)
+
+Get a page of devices
+
+Get a page of device
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String deviceGroupId = "deviceGroupId_example"; // String | 
+try {
+    DevicePage result = apiInstance.groupMembersRetrieve(deviceGroupId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#groupMembersRetrieve");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **deviceGroupId** | **String**|  |
+
+### Return type
+
+[**DevicePage**](DevicePage.md)
 
 ### Authorization
 

@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutReques
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroup;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupManipulation;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceGroupPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
@@ -236,6 +237,41 @@ public interface DefaultApi {
   @GET("v3/device-groups/")
   Call<DeviceGroupPage> groupList(
     @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * Add devices from a group
+   * Add one or more devices from a group
+   * @param deviceGroupId The ID of the group (required)
+   * @param body Body of the request (required)
+   * @return Call&lt;DevicePage&gt;
+   */
+  @POST("v3/device-groups/{device-group-id}/devices/add/")
+  Call<DevicePage> groupMembersAdd(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
+  );
+
+  /**
+   * Remove devices from a group
+   * Remove one or more devices from a group
+   * @param deviceGroupId The ID of the group (required)
+   * @param body Body of the request (required)
+   * @return Call&lt;DevicePage&gt;
+   */
+  @POST("v3/device-groups/{device-group-id}/devices/remove/")
+  Call<DevicePage> groupMembersRemove(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
+  );
+
+  /**
+   * Get a page of devices
+   * Get a page of device
+   * @param deviceGroupId  (required)
+   * @return Call&lt;DevicePage&gt;
+   */
+  @GET("v3/device-groups/{device-group-id}/devices/")
+  Call<DevicePage> groupMembersRetrieve(
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId
   );
 
   /**
