@@ -257,7 +257,8 @@ public class DefaultApiTest {
         String order = null;
         String after = null;
         String include = null;
-        // DeviceGroupPage response = api.groupList(limit, order, after, include);
+        String filter = null;
+        // DeviceGroupPage response = api.groupList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -295,7 +296,12 @@ public class DefaultApiTest {
     @Test
     public void groupMembersRetrieveTest() {
         String deviceGroupId = null;
-        // DevicePage response = api.groupMembersRetrieve(deviceGroupId);
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
 
         // TODO: test validations
     }
