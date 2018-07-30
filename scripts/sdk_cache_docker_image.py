@@ -29,7 +29,7 @@ class SDKImageCacheExecuter(sdk_common.BuildStepUsingGradle):
         return image_destination
 
 
-# Block in charge of caching docekr image
+# Block in charge of caching docker image
 class SDKImageCacher(SDKImageCacheExecuter):
     def __init__(self, image_filename, image_name, name, logger=None):
         super(SDKImageCacher, self).__init__(image_filename, image_name, name, logger)

@@ -204,6 +204,7 @@ jobs:
         name: Deploying the SDK to Artifactory and beyond
         command: docker run --rm --network container:artifactory sdk_test_server python3 -u scripts/sdk.py deploy
         no_output_timeout:  1h
+    - run: python3 ${SCRIPTS_DIR}/sdk.py notify
     - <<: *store_logs
     - <<: *persist_build
 
@@ -234,6 +235,11 @@ jobs:
     - <<: *attach_build
     - <<: *install_python
     - <<: *install_sdk_tools
+    - run:
+        name: Reset modified files back to original
+        command: >
+          rm gradle.properties 
+          && rm CHANGELOG.md
     - checkout
     - run: python3 ${SCRIPTS_DIR}/sdk.py retrieve_testrunner
     - run: python3 ${SCRIPTS_DIR}/sdk.py versioning_release

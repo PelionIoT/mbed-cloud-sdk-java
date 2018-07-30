@@ -2,7 +2,7 @@
 import sdk_common
 
 
-# Block in charge of generating documnetation
+# Block in charge of generating documentation
 class SDKDocumentationBuilder(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKDocumentationBuilder, self).__init__('SDK documentation', logger)

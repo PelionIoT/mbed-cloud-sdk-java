@@ -668,10 +668,16 @@ class Config(Action):
         self.user_name = None
         self.user_email = None
         self.commit_hash = None
+        self.previous_commit_hash = None
         self.commit_tag = None
         self.forced_version_number = None
         self.testing_parameters = None
         self.code_coverage_files_directory = None
+        self.github_token = None
+        self.git_url_with_token = None
+        self.fetched_all_tags = False
+        self.slack_token = None
+        self.slack_channel = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -728,6 +734,9 @@ class Config(Action):
     def get_docker_compose_file(self):
         return self.properties['dockerComposeFile']
 
+    def get_project_property_file(self):
+        return "gradle.properties"
+
     def is_for_release(self):
         return self.is_release
 
@@ -745,7 +754,8 @@ class Config(Action):
         if not self.branch_name:
             self.log_debug("Determining branch name")
             try:
-                self.branch_name = self.check_shell_command_output("git rev-parse --abbrev-ref HEAD")
+                self.branch_name = \
+                    self.__clean_git_command_result(self.check_shell_command_output("git rev-parse --abbrev-ref HEAD"))
             except:
                 self.branch_name = None
         return self.branch_name
@@ -754,23 +764,50 @@ class Config(Action):
         if not self.commit_hash:
             self.log_debug("Determining commit hash")
             try:
-                self.commit_hash = self.check_shell_command_output("git rev-parse HEAD")
+                self.commit_hash = self.__clean_git_command_result(
+                    self.check_shell_command_output("git rev-parse HEAD"))
             except:
                 self.commit_hash = None
         return self.commit_hash
 
+    def get_previous_commit_hash(self):
+        if not self.previous_commit_hash:
+            self.log_debug("Determining previous commit hash")
+            current_hash = self.get_commit_hash()
+            if current_hash:
+                try:
+                    self.previous_commit_hash = self.__clean_git_command_result(self.check_shell_command_output(
+                        "git rev-list --parents -n 1 %s" % str(current_hash))).split(" ")[0]
+                except:
+                    self.previous_commit_hash = None
+        return self.previous_commit_hash
+
     def get_commit_tag(self):
         if not self.commit_tag:
             self.log_debug("Determining commit tag")
-            try:
-                hash = self.get_commit_hash()
-                if hash:
-                    self.commit_tag = self.check_shell_command_output("git describe --exact-match %s --tags" % hash)
-                else:
-                    self.commit_tag = None
-            except:
-                self.commit_tag = None
+            hash = self.get_commit_hash()
+            if hash:
+                self.commit_tag = self.__fetch_a_commit_attached_tag(hash)
         return self.commit_tag
+
+    def __clean_git_command_result(self, result):
+        return result.strip().strip(os.linesep) if result else None
+
+    def __fetch_a_commit_attached_tag(self, hash):
+        if not hash:
+            return None
+        try:
+            if not self.fetched_all_tags:
+                try:
+                    self.fetched_all_tags = True
+                    self.check_shell_command_output(
+                        "git fetch --tags --force")
+                except:
+                    pass
+            return self.__clean_git_command_result(self.check_shell_command_output(
+                "git describe --tags --exact-match %s" % hash))
+        except:
+            return None
 
     def is_commit_tagged(self):
         return self.get_commit_tag() is not None
@@ -803,6 +840,18 @@ class Config(Action):
             except:
                 self.origin_url = None
         return self.origin_url
+
+    def get_origin_url_combined_with_token(self):
+        if not self.git_url_with_token:
+            self.log_debug("Determining remote repository URL with token")
+            url = self.get_origin_url()
+            token = self.get_github_token()
+            if not url or not token:
+                return None
+            path = url.split('github.com', 1)[1][1:].strip()
+            new = 'https://{GITHUB_TOKEN}@github.com/%s' % path
+            self.git_url_with_token = new.format(GITHUB_TOKEN=token)
+        return self.git_url_with_token
 
     def get_version(self):
         if not self.version:
@@ -837,6 +886,12 @@ class Config(Action):
     def get_cached_testserver_filename(self):
         return 'testserver.tar'
 
+    def get_github_token(self):
+        if not self.github_token:
+            self.log_debug("Determining the GitHub token")
+            self.github_token = os.getenv("GITHUB_TOKEN")
+        return self.github_token
+
     def get_artifactory_username(self):
         if not self.artifactory_user:
             self.log_debug("Determining artifactory username")
@@ -854,6 +909,19 @@ class Config(Action):
             self.log_debug("Determining Maven Central username")
             self.maven_central_user = os.getenv("MAVEN_CENTRAL_USERNAME", "monty-bot")
         return self.maven_central_user
+
+    def get_slack_token(self):
+        if not self.slack_token:
+            self.log_debug("Determining Slack token")
+            # ways to generate tokens: https://api.slack.com/custom-integrations/legacy-tokens
+            self.slack_token = os.getenv("SLACK_API_TOKEN")
+        return self.slack_token
+
+    def get_slack_channel(self):
+        if not self.slack_channel:
+            self.log_debug("Determining Slack channel")
+            self.slack_channel = os.getenv("SLACK_CHANNEL", "#mbed-cloud-sdk")
+        return self.slack_channel
 
     def get_artifactory_url(self):
         if not self.artifactory_url:
@@ -908,7 +976,11 @@ class Config(Action):
                 if container_path and testrunner_hash:
                     self.testrunner_image = str(container_path) + ':' + str(testrunner_hash)
                 else:
-                    self.testrunner_image = ""
+                    self.log_error_without_getting_cause(
+                        "Information regarding the test runner image to use is missing")
+                    self.log_info(
+                        "Test runner image name [%s] | Test runner version [%s]" % (
+                            str(container_path), str(testrunner_hash)))
         return self.testrunner_image
 
     def get_new_artifact_log_parser(self, module):
@@ -971,7 +1043,8 @@ class Config(Action):
 
     def load(self):
         self.log_debug("Loading SDK distribution configuration")
-        property_file = PropertyFileParser(self, self.get_sdk_top_directory(), "gradle.properties", "=", "#")
+        property_file = PropertyFileParser(self, self.get_sdk_top_directory(), self.get_project_property_file(), "=",
+                                           "#")
         self.get_sdk_build_directory()
         property_file.load()
         self.check_platform()

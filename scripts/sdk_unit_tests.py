@@ -2,7 +2,7 @@
 import sdk_common
 
 
-# Block in charge of building SDK and running unit tests
+# Block in charge of running unit tests
 class SDKUnitTests(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKUnitTests, self).__init__('SDK Unit tests', logger)

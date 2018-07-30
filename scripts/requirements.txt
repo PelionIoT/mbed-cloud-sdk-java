@@ -1,3 +1,4 @@
 towncrier
 git+https://github.com/ARMmbed/mbed-cloud-sdk-python.git@d19c1b8ddce4f479b1c7462e386d0b88d6c65276#subdirectory=scripts/auto_version/&egg=auto_version
 PyYAML
+slackclient
