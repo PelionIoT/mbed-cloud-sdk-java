@@ -7,10 +7,11 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public class CustomFilter extends Filter {
 
     public static final String CUSTOM_ATTRIBUTES_PREFIX = "custom_attributes__";
+    public static final String INCORRECT_BUT_ACCEPTED_CUSTOM_ATTRIBUTES_PREFIX = "custom_attribute__";
 
     /**
      * Constructor.
-     * 
+     *
      * @param fieldName
      *            field on which the filter applies
      * @param operator
@@ -24,7 +25,7 @@ public class CustomFilter extends Filter {
 
     /**
      * Gets filter prefix.
-     * 
+     *
      * @return filter prefix
      * @see Filter#getPrefix()
      */
@@ -36,7 +37,7 @@ public class CustomFilter extends Filter {
 
     /**
      * States whether the filter has a prefix.
-     * 
+     *
      * @return true if it has.
      * @see Filter#hasPrefix()
      */
@@ -48,7 +49,7 @@ public class CustomFilter extends Filter {
 
     /**
      * Gets a clone of the filter.
-     * 
+     *
      * @return a clone.
      * @see Cloneable
      */
@@ -59,7 +60,7 @@ public class CustomFilter extends Filter {
 
     /**
      * Gets parent filter.
-     * 
+     *
      * @return filter
      */
     public Filter getRawFilter() {

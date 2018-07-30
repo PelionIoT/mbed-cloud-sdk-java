@@ -1,5 +1,8 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import static org.hamcrest.CoreMatchers.anyOf;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
@@ -58,13 +61,17 @@ public class TestTranslationUtils {
 
     @Test
     public void testToRFC3339Timestamp() {
-        String timestamp = "2017-08-11T18:33:35+0100";
+        String timestamp1 = "2017-08-11T18:33:35+0100";
+        String timestamp2 = "2017-08-11T17:33:35+0000";
+        String timestamp3 = "2017-08-11T17:33:35Z";
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("CET"));
         calendar.set(2017, 7, 11, 19, 33, 35);
         calendar.set(Calendar.MILLISECOND, 0);
         Date datetime = TranslationUtils.moveDateTimeToUtc(calendar.getTime());
-        assertEquals(timestamp, TranslationUtils.toRfc3339Timestamp(datetime));
+        String obtainedTimestamp = TranslationUtils.toRfc3339Timestamp(datetime);
+        assertThat(obtainedTimestamp, anyOf(is(timestamp1), is(timestamp2), is(timestamp3)));
+
     }
 
     @Test
@@ -153,7 +160,7 @@ public class TestTranslationUtils {
         String timestamp = "Fri, 11 Aug 2017 19:33:35 GMT";
         Date now = new Date();
         Date date = TranslationUtils.convertTimestamp(timestamp, new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"),
-                now);
+                                                      now);
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeZone(TimeZone.getTimeZone("GMT"));
@@ -161,7 +168,7 @@ public class TestTranslationUtils {
         calendar.set(Calendar.MILLISECOND, 0);
         assertEquals(calendar.getTime(), date);
         date = TranslationUtils.convertTimestamp("Fri 11 Aug 2017 19:33:35",
-                new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"), now);
+                                                 new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z"), now);
         assertEquals(now, date);
     }
 

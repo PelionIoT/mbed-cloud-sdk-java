@@ -10,9 +10,7 @@ import json
 class SDKQualityReportBuilder(sdk_common.BuildStep):
     def __init__(self, logger=None):
         super(SDKQualityReportBuilder, self).__init__('SDK code quality summary', logger)
-        self.artifacts_parser = sdk_common.PropertyFileParser(self,
-                                                              self.common_config.get_config().get_sdk_top_directory(),
-                                                              "artifacts.properties", "=", "#")
+        self.artifacts_parser = self.common_config.get_config().get_new_artifact_log_parser(self)
 
     def determine_coverage_result(self, path):
         if not path or not os.path.exists(path):

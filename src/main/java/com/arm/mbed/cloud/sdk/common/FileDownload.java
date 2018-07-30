@@ -69,18 +69,18 @@ public class FileDownload {
      *
      * @param sourceUrl
      *            URL of the source.
-     * @param destinationDirectory
-     *            directory on disk where the file should be downloaded.
+     * @param filePath
+     *            directory on disk where the file should be downloaded or path to the end file.
      * @param fileName
-     *            filename of the downloaded file
+     *            filename of the downloaded file if not specified in filePath
      * @throws MalformedURLException
      *             if a problem occurred during the process
      * @throws MbedCloudException
      *             if a problem occurred during the process
      */
-    public FileDownload(String sourceUrl, String destinationDirectory, String fileName) throws MalformedURLException,
-                                                                                        MbedCloudException {
-        this(new URL(sourceUrl), generateFileDestination(destinationDirectory, fileName));
+    public FileDownload(String sourceUrl, String filePath, String fileName) throws MalformedURLException,
+                                                                            MbedCloudException {
+        this(new URL(sourceUrl), generateFileDestination(filePath, fileName));
     }
 
     /**
@@ -260,7 +260,7 @@ public class FileDownload {
 
     private static File generateFileDestination(String destinationDirectory,
                                                 String fileName) throws MbedCloudException {
-        if (destinationDirectory == null) {
+        if (destinationDirectory == null || destinationDirectory.isEmpty()) {
             return generateTempFile(fileName, null);
         }
         final File directory = new File(destinationDirectory);
@@ -272,7 +272,7 @@ public class FileDownload {
             // In this case, the file path is complete.
             return directory;
         }
-        return destination;
+        return hasExtension(destinationDirectory) ? directory : destination;
     }
 
     private static File generateTempFile(URL source, String extension) throws MbedCloudException {
@@ -292,6 +292,10 @@ public class FileDownload {
         } catch (IOException exception) {
             throw new MbedCloudException(exception);
         }
+    }
+
+    protected static boolean hasExtension(String fileName) {
+        return !getFileExtension(fileName).isEmpty();
     }
 
     protected static String getFileExtension(String fileName) {
