@@ -71,6 +71,26 @@ class Action(object):
     def call_command(self, args, directory=None, show_output_asap=False, use_shell=True, env=None):
         return self._spawn_command(True, args, directory, show_output_asap, use_shell, env)
 
+    def call_command_with_retries(self, retries, args, directory=None, show_output_asap=False, use_shell=True,
+                                  env=None):
+        remaining_retries = retries
+        return_code_int = 0
+        while (remaining_retries > 0):
+            try:
+                return_code_int = self.call_command(args, directory, show_output_asap, use_shell, env)
+                if return_code_int != 0:
+                    raise Exception('Failure', return_code_int)
+                else:
+                    break
+            except:
+                self.log_error(
+                    'Attempt [%s] to execute %s failed' % (str(retries - remaining_retries + 1), str(args)))
+                if remaining_retries == 0:
+                    return return_code_int
+                remaining_retries -= 1
+                self.log_info("Remaining attempts: %s" % str(remaining_retries))
+        return return_code_int
+
     def _spawn(self, debug, args, use_shell=True, env=None, **kwargs):
         if not env:
             env = os.environ
@@ -159,6 +179,20 @@ class Action(object):
             self.log_debug("Command Output: " + str(result))
             return result
         return None
+
+    def check_command_output_with_retries(self, retries, args, directory=None):
+        remaining_retries = retries
+        while (remaining_retries > 0):
+            try:
+                self.check_command_output(args, directory)
+                break
+            except:
+                self.log_error(
+                    'Attempt [%s] to execute %s failed' % (str(retries - remaining_retries + 1), str(args)))
+                if remaining_retries == 0:
+                    raise Exception()
+                remaining_retries -= 1
+                self.log_info("Remaining attempts: %s" % str(remaining_retries))
 
     def check_shell_command_output(self, command, directory=None):
         if not directory:
@@ -300,9 +334,26 @@ class BuildStepUsingGradle(BuildStep):
 
     def execute_gradle_task(self, task, params=None):
         arguments = [self.graddle_command, task]
+        if self.common_config.get_config().is_running_on_windows():
+            # Disabling the daemon on windows
+            arguments = arguments + ['--no-daemon']
         if params:
             arguments = arguments + params
         self.check_command_output(arguments, self.gradle_directory)
+
+    def execute_gradle_task_with_retries(self, retries, task, params=None):
+        remaining_retries = retries
+        while (remaining_retries > 0):
+            try:
+                self.execute_gradle_task(task, params)
+                break
+            except:
+                self.log_error(
+                    'Attempt [%s] to execute %s failed' % (str(retries - remaining_retries + 1), task))
+                if remaining_retries == 0:
+                    raise Exception()
+                remaining_retries -= 1
+                self.log_info("Remaining attempts: %s" % str(remaining_retries))
 
     def execute_gradle_task_overriding_variable(self, task, variable_name, variable_value):
         arguments = [self.graddle_command, "-P" + str(variable_name) + "=" + str(variable_value), task]
@@ -599,9 +650,11 @@ class Config(Action):
         self.sdk_build_dir = None
         self.use_gradle_wrapper = False
         self.on_windows = False
+        self.from_private = False
         self.artifactory_url = None
         self.artifactory_host = None
         self.testrunner_image = None
+        self.origin_url = None
         self.code_coverage = None
         self.branch_name = None
         self.cloud_host = None
@@ -612,6 +665,13 @@ class Config(Action):
         self.bintray_password = None
         self.maven_central_user = None
         self.maven_central_password = None
+        self.user_name = None
+        self.user_email = None
+        self.commit_hash = None
+        self.commit_tag = None
+        self.forced_version_number = None
+        self.testing_parameters = None
+        self.code_coverage_files_directory = None
         self.properties = OrderedDict()
 
     def get_sdk_top_directory(self):
@@ -659,8 +719,21 @@ class Config(Action):
                 self.publishing_repo = self.properties['artifactory_deployment_snapshot_repository']
         return self.publishing_repo
 
+    def get_news_folder(self):
+        return self.properties['newsFolder']
+
+    def get_changelog_file(self):
+        return self.properties['changelogFile']
+
+    def get_docker_compose_file(self):
+        return self.properties['dockerComposeFile']
+
     def is_for_release(self):
         return self.is_release
+
+    def is_from_private(self):
+        self.get_origin_url()
+        return self.from_private
 
     def is_running_on_windows(self):
         return self.on_windows
@@ -677,29 +750,92 @@ class Config(Action):
                 self.branch_name = None
         return self.branch_name
 
+    def get_commit_hash(self):
+        if not self.commit_hash:
+            self.log_debug("Determining commit hash")
+            try:
+                self.commit_hash = self.check_shell_command_output("git rev-parse HEAD")
+            except:
+                self.commit_hash = None
+        return self.commit_hash
+
+    def get_commit_tag(self):
+        if not self.commit_tag:
+            self.log_debug("Determining commit tag")
+            try:
+                hash = self.get_commit_hash()
+                if hash:
+                    self.commit_tag = self.check_shell_command_output("git describe --exact-match %s --tags" % hash)
+                else:
+                    self.commit_tag = None
+            except:
+                self.commit_tag = None
+        return self.commit_tag
+
+    def is_commit_tagged(self):
+        return self.get_commit_tag() is not None
+
+    def get_user_name(self):
+        if not self.user_name:
+            self.log_debug("Determining user name")
+            try:
+                self.user_name = self.check_shell_command_output("git config --get user.name")
+            except:
+                self.user_name = None
+        return self.user_name
+
+    def get_user_email(self):
+        if not self.user_email:
+            self.log_debug("Determining user email")
+            try:
+                self.user_email = self.check_shell_command_output("git config --get user.email")
+            except:
+                self.user_email = None
+        return self.user_email
+
+    def get_origin_url(self):
+        if not self.origin_url:
+            self.log_debug("Determining remote repository URL")
+            try:
+                self.origin_url = self.check_shell_command_output("git remote get-url origin")
+                if self.origin_url and "private" in self.origin_url.strip().lower():
+                    self.from_private = True
+            except:
+                self.origin_url = None
+        return self.origin_url
+
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
-            version_pattern = r"(\d+\.)?(\d+\.)?(\d+)(-\w+)?"  # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
+            version_pattern = r"(\d+\.)?(\d+\.)?(\d+)"  # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
             tmp_version = self.properties['SDKVersion']
-            build_number = os.getenv("CIRCLE_BUILD_NUM", 0)
             branch_name = self.get_branch_name()
-            if branch_name and re.match(version_pattern, branch_name):
-                self.is_release = True
+            self.is_release = False
+            if branch_name and branch_name.lower().strip() != "master":
                 if tmp_version:
-                    self.version = tmp_version
+                    snapshot_version = r"(\d+\.)?(\d+\.)?(\d+)(-\w+)(_\w*)"
+                    if re.match(snapshot_version, tmp_version):
+                        self.version = tmp_version
+                    else:
+                        self.version = tmp_version + "_" + branch_name.lower().strip().replace("-", "_")
+                        if self.is_from_private():
+                            self.version += "_private"
                 else:
                     self.version = branch_name
             else:
-                snapshot_version_pattern = r"(\d+\.)?(\d+\.)?(\d+)(-\w+)?(-\d+)"
-                if tmp_version and re.match(snapshot_version_pattern, tmp_version):
-                    self.version = tmp_version
+                self.version = tmp_version
+                if tmp_version and re.match(version_pattern, tmp_version):
+                    self.is_release = True
                 else:
-                    if tmp_version and re.match(version_pattern, tmp_version):
-                        self.version = tmp_version + '-' + str(build_number)
-                    else:
-                        self.version = '0.0.0-' + str(build_number)
+                    if self.is_from_private():
+                        self.version += "_private"
         return self.version
+
+    def get_cached_testrunner_filename(self):
+        return 'testrunner.tar'
+
+    def get_cached_testserver_filename(self):
+        return 'testserver.tar'
 
     def get_artifactory_username(self):
         if not self.artifactory_user:
@@ -754,11 +890,31 @@ class Config(Action):
             self.maven_central_password = os.getenv("MAVEN_CENTRAL_KEY", "")
         return self.maven_central_password
 
+    def get_testserver_docker_image(self):
+        return 'sdk_test_server'
+
     def get_testrunner_docker_image(self):
         if not self.testrunner_image:
             self.log_debug("Determining test runner docker image")
-            self.testrunner_image = os.getenv("TESTRUNNER_DOCKER_IMAGE", "")
+            image = os.getenv("TESTRUNNER_DOCKER_IMAGE")
+            # If the code correspond to a specific version (i.e. is tagged)
+            # then the testrunner used for this version is retrieved.
+            # Otherwise, the latest testrunner is used
+            if image and not self.is_commit_tagged():
+                self.testrunner_image = image
+            else:
+                container_path = self.properties['testrunner_container']
+                testrunner_hash = self.properties['SDKTestrunnerVersion']
+                if container_path and testrunner_hash:
+                    self.testrunner_image = str(container_path) + ':' + str(testrunner_hash)
+                else:
+                    self.testrunner_image = ""
         return self.testrunner_image
+
+    def get_new_artifact_log_parser(self, module):
+        return PropertyFileParser(module,
+                                  self.get_sdk_top_directory(),
+                                  "artifacts.properties", "=", "#")
 
     def should_perform_code_coverage(self):
         if not self.code_coverage:
@@ -770,8 +926,27 @@ class Config(Action):
                 self.code_coverage = True
         return self.code_coverage
 
+    def get_code_coverage_file_directory(self):
+        if not self.code_coverage_files_directory:
+            self.code_coverage_files_directory = os.getenv("TEST_COVERAGE_DIR",
+                                                           os.path.join(self.get_sdk_top_directory(), "coverage_files"))
+        return self.code_coverage_files_directory
+
     def get_configuration_as_dictionary(self):
         return self.properties
+
+    def is_testing_against_production(self):
+        return os.getenv("IS_PRODUCTION_TESTING") is not None
+
+    def get_testing_parameters(self, prod=False):
+        if not self.testing_parameters:
+            self.testing_parameters = {
+                'MBED_CLOUD_SDK_API_KEY': self.get_apikey_prod() if self.is_testing_against_production() or prod else self.get_apikey_lab(),
+                'MBED_CLOUD_SDK_HOST': '' if self.is_testing_against_production() or prod else self.get_host(),
+                'TESTRUNNER_DOCKER_IMAGE': self.get_testrunner_docker_image() if len(
+                    self.get_testrunner_docker_image()) > 0 else None
+            }
+        return self.testing_parameters
 
     def get_apikey_lab(self):
         if not self.lab_api_key:
@@ -788,19 +963,11 @@ class Config(Action):
             self.cloud_host = os.getenv("MBED_CLOUD_SDK_HOST")
         return self.cloud_host
 
-    def get_environment_with_host_set(self, host, env=None):
-        if not env:
-            env = os.environ.copy()
-        if host is not None:
-            env['MBED_CLOUD_SDK_HOST'] = host
-        return env
-
-    def get_environment_with_apikey_set(self, apikey, env=None):
-        if not env:
-            env = os.environ.copy()
-        if apikey:
-            env['MBED_CLOUD_SDK_API_KEY'] = apikey
-        return env
+    # Set the following environment variable if you want the SDK to have this specific version
+    def get_forced_version_number(self):
+        if not self.forced_version_number:
+            self.forced_version_number = os.getenv("MBED_CLOUD_SDK_VERSION_TO_SET")
+        return self.forced_version_number
 
     def load(self):
         self.log_debug("Loading SDK distribution configuration")

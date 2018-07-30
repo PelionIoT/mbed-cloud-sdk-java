@@ -1,0 +1,9 @@
+[AutoVersionConfig]
+DEVMODE_TEMPLATE = "{version}-dev{count}"
+CONFIG_NAME = "JAVA"
+targets = [  "./gradle.properties",]
+
+[AutoVersionConfig.key_aliases]
+SDKVersion = "VERSION_KEY"
+SDKCommitHash = "COMMIT"
+SDKCommitCount = "COMMIT_COUNT"

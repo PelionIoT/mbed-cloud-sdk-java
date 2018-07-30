@@ -13,10 +13,21 @@ import sdk_help
 import sdk_launch_test_server
 import sdk_licensing
 import sdk_logger
-import sdk_test
+import sdk_build_test_server
 import sdk_version
 import sdk_generate_quality_summary
 import sdk_run_integration_tests
+import sdk_unit_tests
+import sdk_static_analysis
+import sdk_run_examples
+import sdk_news_and_tags
+import sdk_versioning
+import sdk_versioning_release
+import sdk_check_dependencies
+import sdk_documentation
+import sdk_cache_docker_image
+import sdk_build_test_server_image
+import sdk_gather_code_coverage_files
 
 
 # Entry point for executing SDK build steps
@@ -27,7 +38,10 @@ class SDKBuild:
         self.steps = {'configure': sdk_distribution_config.SDKDistributionSetter(self.logger),
                       'license': sdk_licensing.LicenceSetter(self.logger),
                       'build': sdk_build.SDKBuilder(self.logger),
-                      'build_test_server': sdk_test.SDKTestServerBuilder(self.logger),
+                      'unit_tests': sdk_unit_tests.SDKUnitTests(self.logger),
+                      'static_analysis': sdk_static_analysis.SDKBuilder(self.logger),
+                      'build_test_server': sdk_build_test_server.SDKTestServerBuilder(self.logger),
+                      'buid_test_server_image': sdk_build_test_server_image.SDKTestServerImageBuilder(self.logger),
                       'deploy': sdk_deploy.ArtifactDeployer(self.logger),
                       'clean': sdk_clean.SDKCleaner(self.logger),
                       'version': sdk_version.SDKVersion(self.logger),
@@ -35,8 +49,23 @@ class SDKBuild:
                       'run_integration_tests': sdk_run_integration_tests.SDKIntegrationTestRunner(self.logger),
                       'fetch_test_runner': sdk_fetch_test_runner.SDKTestRunnerFetcher(self.logger),
                       'fetch_code_coverage_tools': sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger),
+                      'gather_code_coverage_files': sdk_gather_code_coverage_files.SDKCoverageFileGatherer(self.logger),
                       'report_code_coverage': sdk_report_code_coverage.SDKCoverageReporter(self.logger),
                       'generate_quality_summary': sdk_generate_quality_summary.SDKQualityReportBuilder(self.logger),
+                      'run_examples': sdk_run_examples.SDKExamplesRunner(self.logger),
+                      'changelog': sdk_news_and_tags.SDKNewsAndTag(self.logger),
+                      'versioning': sdk_versioning.SDKVersioning(self.logger),
+                      'versioning_release': sdk_versioning_release.SDKVersioningRelease(self.logger),
+                      'dependencies': sdk_check_dependencies.SDKDependenciesChecker(self.logger),
+                      'documentation': sdk_documentation.SDKDocumentationBuilder(self.logger),
+                      'cache_testrunner': sdk_cache_docker_image.SDKTestRunnerImageManager(
+                          self.logger).get_image_cacher(),
+                      'retrieve_testrunner': sdk_cache_docker_image.SDKTestRunnerImageManager(
+                          self.logger).get_image_retriever(),
+                      'cache_testserver': sdk_cache_docker_image.SDKTestServerImageManager(
+                          self.logger).get_image_cacher(),
+                      'retrieve_testserver': sdk_cache_docker_image.SDKTestServerImageManager(
+                          self.logger).get_image_retriever(),
                       'help': sdk_help.SDKHelp(self.logger)
                       }
         self.steps['help'].set_action_list(self.steps.keys())

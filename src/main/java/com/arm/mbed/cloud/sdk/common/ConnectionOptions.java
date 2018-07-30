@@ -134,7 +134,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      */
     public void setApiKey(String apiKey) {
         String key = (apiKey == null) ? null : apiKey.trim();
-        if (key == null || key.isEmpty()) {
+        if (isEntryEmpty(key)) {
             key = dotenv.get(ENVIRONMENT_VARIABLE_API_KEY);
         }
         this.apiKey = key;
@@ -146,7 +146,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * @return true if the API key has not been set. false otherwise.
      */
     public boolean isApiKeyEmpty() {
-        return apiKey == null || apiKey.isEmpty();
+        return isEntryEmpty(apiKey);
     }
 
     /**
@@ -155,7 +155,7 @@ public class ConnectionOptions implements Cloneable, Serializable {
      * @return true if the host has not been set. false otherwise.
      */
     public boolean isHostEmpty() {
-        return host == null || host.isEmpty();
+        return isEntryEmpty(host);
     }
 
     /**
@@ -187,15 +187,15 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            the host to set
      */
     public void setHost(String host) {
-        String cloudHost = (host == null) ? null : host.trim();
-        if (cloudHost == null || cloudHost.isEmpty()) {
+        String cloudHost = host;
+        if (isEntryEmpty(cloudHost)) {
             cloudHost = dotenv.get(ENVIRONMENT_VARIABLE_HOST);
-            if (cloudHost == null || cloudHost.isEmpty()) {
+            if (isEntryEmpty(cloudHost)) {
                 cloudHost = ARM_MBED_CLOUD_DEFAULT_HOST;
             }
         }
         final StringBuilder sb = new StringBuilder();
-        sb.append(cloudHost);
+        sb.append(cloudHost.trim());
         if (!cloudHost.endsWith("/")) {
             sb.append('/');
         }
@@ -245,14 +245,14 @@ public class ConnectionOptions implements Cloneable, Serializable {
      *            the clientLogLevel to set
      */
     public void setClientLogLevel(String clientLogLevel) {
-        String logLevel = (clientLogLevel == null) ? null : clientLogLevel.trim();
-        if (logLevel == null || logLevel.isEmpty()) {
+        String logLevel = clientLogLevel;
+        if (isEntryEmpty(logLevel)) {
             logLevel = dotenv.get(ENVIRONMENT_VARIABLE_HTTP_LOG_LEVEL);
         }
-        if (logLevel == null || logLevel.isEmpty()) {
+        if (isEntryEmpty(logLevel)) {
             setClientLogLevel(CallLogLevel.NONE);
         } else {
-            setClientLogLevel(CallLogLevel.getLevel(logLevel));
+            setClientLogLevel(CallLogLevel.getLevel(logLevel.trim()));
         }
     }
 
@@ -346,6 +346,14 @@ public class ConnectionOptions implements Cloneable, Serializable {
             options.setRequestTimeout(requestTimeout.clone());
         }
         return options;
+    }
+
+    protected static boolean isEntryEmpty(String entry) {
+        if (entry == null || entry.isEmpty()) {
+            return true;
+        }
+        return entry.replace("\'", "").replace("\"", "").trim().isEmpty();
+
     }
 
 }

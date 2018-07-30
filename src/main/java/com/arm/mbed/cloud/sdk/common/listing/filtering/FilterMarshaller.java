@@ -19,10 +19,9 @@ import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
     private static final String CUSTOM_ATTRIBUTES_FIELD_NAME = "custom_attributes";
-    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = ApiUtils
-            .getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
-    private static final String CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE = SNAKE_TO_CAMEL_CONVERTER
-            .convert(CUSTOM_ATTRIBUTES_FIELD_NAME, false);
+    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
+    private static final String CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE = SNAKE_TO_CAMEL_CONVERTER.convert(CUSTOM_ATTRIBUTES_FIELD_NAME,
+                                                                                                           false);
 
     private static final String FILTER_KEY_VALUE_SEPARATOR = "=";
 
@@ -146,7 +145,7 @@ public class FilterMarshaller {
      * <p>
      * dates/times must be expressed as strings following RFC3339. @see
      * <a href="https://tools.ietf.org/html/rfc3339#page-7">(RFC)</a>.
-     * 
+     *
      * @param json
      *            Json string defining filters
      * @return corresponding filters
@@ -181,7 +180,7 @@ public class FilterMarshaller {
     /**
      * Gets filters from a "Json Map".
      * <p>
-     * 
+     *
      * @param filtersJson
      *            Json Map defining filters
      * @return corresponding filters
@@ -225,13 +224,15 @@ public class FilterMarshaller {
         }
         String key = parts[0];
         boolean isCustom = false;
-        if (key != null && key.contains(CustomFilter.CUSTOM_ATTRIBUTES_PREFIX)) {
-            key = key.replace(CustomFilter.CUSTOM_ATTRIBUTES_PREFIX, "");
+        if (key != null && (key.contains(CustomFilter.CUSTOM_ATTRIBUTES_PREFIX)
+                            || key.contains(CustomFilter.INCORRECT_BUT_ACCEPTED_CUSTOM_ATTRIBUTES_PREFIX))) {
+            key = key.replace(CustomFilter.CUSTOM_ATTRIBUTES_PREFIX, "")
+                     .replace(CustomFilter.INCORRECT_BUT_ACCEPTED_CUSTOM_ATTRIBUTES_PREFIX, "");
             isCustom = true;
         }
         FilterOperator operator = FilterOperator.getFromSuffix(fetchSuffix(key));
         Filter filter = (isCustom) ? new CustomFilter(fetchFieldName(key, operator), operator, parts[1])
-                : new Filter(fetchFieldName(key, operator), operator, parts[1]);
+                                   : new Filter(fetchFieldName(key, operator), operator, parts[1]);
         return (filter.isValid()) ? filter : null;
     }
 
@@ -239,7 +240,7 @@ public class FilterMarshaller {
         Filters filters = new Filters();
         for (String fieldName : obj.fieldNames()) {
             if (CUSTOM_ATTRIBUTES_FIELD_NAME.equalsIgnoreCase(fieldName)
-                    || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
+                || CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE.equals(fieldName)) {
                 JsonObject filterJson = obj.getJsonObject(fieldName);
                 for (String subfieldName : filterJson.fieldNames()) {
                     parseFilter(filterJson, subfieldName, filters, true);
@@ -337,7 +338,7 @@ public class FilterMarshaller {
     private static void parseFilterAsString(JsonObject obj, String fieldName, Filters filters) {
         Object filterValue = obj.getValue(fieldName);
         Filter filter = new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false), FilterOperator.getDefault(),
-                filterValue);
+                                   filterValue);
         filters.add(filter);
     }
 
@@ -347,11 +348,12 @@ public class FilterMarshaller {
             return;
         }
         for (String operator : filterJson.fieldNames()) {
-            Filter filter = (isCustom)
-                    ? new CustomFilter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
-                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator))
-                    : new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
-                            FilterOperator.getFromSymbol(operator), filterJson.getValue(operator));
+            Filter filter = (isCustom) ? new CustomFilter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                                                          FilterOperator.getFromSymbol(operator),
+                                                          filterJson.getValue(operator))
+                                       : new Filter(SNAKE_TO_CAMEL_CONVERTER.convert(fieldName, false),
+                                                    FilterOperator.getFromSymbol(operator),
+                                                    filterJson.getValue(operator));
             filters.add(filter);
         }
     }
@@ -521,7 +523,7 @@ public class FilterMarshaller {
 
         /*
          * (non-Javadoc)
-         * 
+         *
          * @see java.lang.Object#toString()
          */
         @Override

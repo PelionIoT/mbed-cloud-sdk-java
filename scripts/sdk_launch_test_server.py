@@ -9,9 +9,8 @@ class SDKTestServerLauncher(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKTestServerLauncher, self).__init__('SDK test server launch', logger)
         # self.logger.is_debug_enabled = True
-        self.artifacts_parser = sdk_common.PropertyFileParser(self,
-                                                              self.common_config.get_config().get_sdk_top_directory(),
-                                                              "artifacts.properties", "=", "#")
+        self.artifacts_parser = self.common_config.get_config().get_new_artifact_log_parser(self)
+
         self.is_code_coverage = self.common_config.get_config().should_perform_code_coverage()
         self.coverage_tools = sdk_fetch_coverage_tools.SDKCoverageToolsFetcher(self.logger)
         self.result_dir = None
