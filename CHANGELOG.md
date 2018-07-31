@@ -6,6 +6,15 @@ This news file contains a log of notable changes to the SDK. Built artefacts, in
 
 [//]: # (begin_release_notes)
 
+2.0.0 (2018-07-31)
+==================
+
+### Features
+
+- It is now possible to download active devices and firmware updates reports in the Billing module. (#1398)
+
+- Settings can now be configured from `.env` files. See https://github.com/cdimascio/java-dotenv for more details. Host and API keys can be specified using the following environment variables: respectively `MBED_CLOUD_SDK_HOST` and `MBED_CLOUD_SDK_API_KEY`. (#927)
+
 
 1.2.10 (2018-07-06)
 ===================
