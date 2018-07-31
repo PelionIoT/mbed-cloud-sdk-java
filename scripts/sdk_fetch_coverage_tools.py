@@ -9,9 +9,7 @@ class SDKCoverageToolsFetcher(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKCoverageToolsFetcher, self).__init__('SDK Coverage tools fetch', logger)
         self.is_code_coverage = self.common_config.get_config().should_perform_code_coverage()
-        self.artifacts_parser = sdk_common.PropertyFileParser(self,
-                                                              self.common_config.get_config().get_sdk_top_directory(),
-                                                              "artifacts.properties", "=", "#")
+        self.artifacts_parser = self.common_config.get_config().get_new_artifact_log_parser(self)
         self.jacoco_cli_name = 'jacococli.jar'
 
     def retrieve_folder_location(self, key):

@@ -5,7 +5,7 @@ import shutil
 from functools import reduce
 
 
-# Block in charge of building SDK and running unittests as well as running quality checks
+# Block in charge of building SDK
 class SDKBuilder(sdk_common.BuildStepUsingGradle):
     def __init__(self, logger=None):
         super(SDKBuilder, self).__init__('SDK build', logger)
@@ -17,13 +17,8 @@ class SDKBuilder(sdk_common.BuildStepUsingGradle):
         try:
             self.log_info("Building sdk")
             self.execute_gradle_task('build', ['-x', 'check', '-x', 'test'])
+            self.log_info("Building the fat jar")
             self.execute_gradle_task('shadowJar')
-            self.log_info("Running static analysis")
-            self.execute_gradle_task('check', ['-x', 'test'])
-            self.log_info("Running unit tests")
-            self.execute_gradle_task('test', ['-x', 'check'])
-            self.log_info("Determining code coverage")
-            self.execute_gradle_task('jacocoTestReport')
             self.log_info("Generating Javadoc")
             self.execute_gradle_task('javadoc')
             self.log_info("Packaging distribution")

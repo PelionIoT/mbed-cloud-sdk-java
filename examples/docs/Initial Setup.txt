@@ -1,6 +1,6 @@
 // an example: Initial setup
 /*
-In order to use the Java SDK, JRE > 1.7 is necessary and must be installed.
+In order to use the Java SDK, JRE 1.7+ is necessary and must be installed.
 
 In order to best meet your requirements, Java SDK is packaged in 3 different ways:
     - Individual Jars

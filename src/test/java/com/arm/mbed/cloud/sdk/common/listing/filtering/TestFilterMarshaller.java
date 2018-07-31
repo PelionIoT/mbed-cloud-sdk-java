@@ -53,6 +53,14 @@ public class TestFilterMarshaller {
         assertEquals(FilterOperator.EQUAL, filter.getOperator());
         assertEquals("foo", filter.getFieldName());
         assertEquals("bar", filter.getValue());
+        query = "custom_attribute__foo=bar";
+        filter = new FilterMarshaller(null).decodeFilter(query);
+        assertNotNull(filter);
+        assertTrue(filter.isValid());
+        assertTrue(filter instanceof CustomFilter);
+        assertEquals(FilterOperator.EQUAL, filter.getOperator());
+        assertEquals("foo", filter.getFieldName());
+        assertEquals("bar", filter.getValue());
         query = "foo__neq=bar";
         filter = new FilterMarshaller(null).decodeFilter(query);
         assertNotNull(filter);
@@ -95,7 +103,7 @@ public class TestFilterMarshaller {
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
         assertEquals("{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"key\":{\"$lte\":\"value\"}}",
-                FilterMarshaller.toJson(filters));
+                     FilterMarshaller.toJson(filters));
         Map<String, String> mapping = new HashMap<>(1);
         mapping.put("foo", "test_1");
         mapping.put("key", "test_2");
@@ -103,9 +111,8 @@ public class TestFilterMarshaller {
         filters = new FilterMarshaller(mapping).decode(query);
         assertNotNull(filters);
         assertFalse(filters.isEmpty());
-        assertEquals(
-                "{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"key\":{\"$lte\":\"value\"},\"test3\":{\"$eq\":\"value\"}}",
-                FilterMarshaller.toJson(filters));
+        assertEquals("{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"key\":{\"$lte\":\"value\"},\"test3\":{\"$eq\":\"value\"}}",
+                     FilterMarshaller.toJson(filters));
         // TODO add more test cases
     }
 

@@ -109,6 +109,7 @@ allprojects {
                 attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
                         'Implementation-Version': project.version,
                         'MbedCloudSdk-Version': project.version,
+                        'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
                         'Implementation-Vendor': 'Arm Limited',
                         'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
                         'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
@@ -553,6 +554,22 @@ task copyCoverageAgent(type: Copy) {
     updateArtifactList("SDK_COVERAGE_TOOLS_DIR", dest)
     updateArtifactList("SDK_COVERAGE_RESULTS_DIR", coverage_results)
     mkdir coverage_results
+}
+
+task projectInitialisation() {
+    println 'Initialising the project'
+    def cache = "$buildDir" + File.separator + "cache"
+    def gradleCache = "$project.gradle.gradleUserHomeDir" + File.separator + "caches"
+    def cacheFile = new File(cache)
+    if (!cacheFile.exists()) {
+        cacheFile.mkdirs()
+    }
+    updateArtifactList("GRADLE_CACHES", gradleCache)
+    updateArtifactList("GRADLE_USER_HOME", project.gradle.gradleUserHomeDir)
+    updateArtifactList("SDK_PROJECT_ROOT_DIR", rootDir)
+    updateArtifactList("SDK_PROJECT_DIR", projectDir)
+    updateArtifactList("SDK_PROJECT_BUILD_DIR", buildDir)
+    updateArtifactList("SDK_PROJECT_CACHE_DIR", cache)
 }
 
 task reportCoverage(dependsOn: copyCoverageAgent) {

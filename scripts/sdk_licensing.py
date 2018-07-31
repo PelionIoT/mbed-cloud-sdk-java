@@ -62,12 +62,12 @@ class LicenceSetter(sdk_common.BuildStepUsingGradle):
             self.generate_tpip_csv(filename)
 
     def generate_tpip_csv(self, file):
-        with open(file) as json_data:
+        with open(file, 'r') as json_data:
             data = json.load(json_data)
             if data.get('dependencies'):
                 csv_file = os.path.join(os.path.dirname(file), os.path.splitext(os.path.basename(file))[0] + '.csv')
                 columns = self.tpip_csv_format.keys()
-                with open(csv_file, 'wb') as tpip_csv:
+                with open(csv_file, 'w') as tpip_csv:
                     csv_w = csv.writer(tpip_csv)
                     csv_w.writerow(columns)
                     used_packages = data.get('dependencies')
