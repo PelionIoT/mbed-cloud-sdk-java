@@ -856,7 +856,7 @@ class Config(Action):
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
-            version_pattern = r"(\d+\.)?(\d+\.)?(\d+)"  # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
+            version_pattern =  r"^(\d+\.)?(\d+\.)?(\d+)$" # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
             tmp_version = self.properties['SDKVersion']
             branch_name = self.get_branch_name()
             self.is_release = False
