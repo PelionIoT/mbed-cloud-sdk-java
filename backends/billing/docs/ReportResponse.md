@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **account** | [**ReportAccountContactInfo**](ReportAccountContactInfo.md) | Account contact information. | 
 **aggregated** | [**ReportBillingData**](ReportBillingData.md) | Aggregated report billing data including all subtenant accounts if any. | 
 **billingData** | [**ReportBillingData**](ReportBillingData.md) | Report billing data. | 
-**id** | **String** | Billing report id. | 
+**id** | **String** | Billing report ID. | 
 **month** | **String** | Month of requested billing report | 
 **object** | [**ObjectEnum**](#ObjectEnum) | Billing report response object. Always set to &#39;billing-report&#39;. | 
 **servicePackage** | [**ServicePackageReport**](ServicePackageReport.md) | Report service package. |  [optional]

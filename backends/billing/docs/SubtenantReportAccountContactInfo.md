@@ -10,9 +10,9 @@ Name | Type | Description | Notes
 **company** | **String** |  | 
 **contact** | **String** |  |  [optional]
 **country** | **String** |  |  [optional]
-**customerSubtenantId** | **String** | Account subtenant id if it is a subtenant. | 
+**customerSubtenantId** | **String** | Account subtenant ID if it is a subtenant. | 
 **email** | **String** |  |  [optional]
-**id** | **String** | Account id. | 
+**id** | **String** | Account ID. | 
 **phoneNumber** | **String** |  |  [optional]
 **postalCode** | **String** |  |  [optional]
 **state** | **String** |  |  [optional]

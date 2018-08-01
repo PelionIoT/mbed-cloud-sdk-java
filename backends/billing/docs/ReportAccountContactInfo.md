@@ -11,7 +11,7 @@ Name | Type | Description | Notes
 **contact** | **String** |  |  [optional]
 **country** | **String** |  |  [optional]
 **email** | **String** |  |  [optional]
-**id** | **String** | Account id. | 
+**id** | **String** | Account ID. | 
 **phoneNumber** | **String** |  |  [optional]
 **postalCode** | **String** |  |  [optional]
 **state** | **String** |  |  [optional]

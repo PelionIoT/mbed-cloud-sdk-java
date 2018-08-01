@@ -39,7 +39,7 @@ public interface DefaultApi {
 
   /**
    * Get raw active devices billing data for the month.
-   * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
+   * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device ID.
    * @param month Queried year and month of billing report (required)
    * @return Call&lt;BillingReportRawDataResponse&gt;
    */
@@ -50,7 +50,7 @@ public interface DefaultApi {
 
   /**
    * Get raw firmware updates billing data for the month.
-   * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
+   * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device ID.
    * @param month Queried year and month of billing report (required)
    * @return Call&lt;BillingReportRawDataResponse&gt;
    */
@@ -72,7 +72,7 @@ public interface DefaultApi {
    * Service package quota history
    * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and subtenant quota usage data. History data is ordered in ascending order based on the added timestamp. 
    * @param limit Maximum amount of quota history entries contained in one paged response. (optional)
-   * @param after To fetch after which quota history id. The results will contain entries after specified entry. (optional)
+   * @param after To fetch after which quota history ID. The results will contain entries after specified entry. (optional)
    * @return Call&lt;ServicePackageQuotaHistoryResponse&gt;
    */
   @GET("v3/service-packages-quota-history")

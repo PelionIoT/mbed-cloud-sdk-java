@@ -1,6 +1,6 @@
 # DefaultApi
 
-All URIs are relative to *http://mbed-billing.example.com*
+All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
@@ -73,7 +73,7 @@ Name | Type | Description  | Notes
 
 Get raw active devices billing data for the month.
 
-Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
+Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device ID.
 
 ### Example
 ```java
@@ -128,7 +128,7 @@ Name | Type | Description  | Notes
 
 Get raw firmware updates billing data for the month.
 
-Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
+Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device ID.
 
 ### Example
 ```java
@@ -255,7 +255,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 Integer limit = 56; // Integer | Maximum amount of quota history entries contained in one paged response.
-String after = "after_example"; // String | To fetch after which quota history id. The results will contain entries after specified entry.
+String after = "after_example"; // String | To fetch after which quota history ID. The results will contain entries after specified entry.
 try {
     ServicePackageQuotaHistoryResponse result = apiInstance.getServicePackageQuotaHistory(limit, after);
     System.out.println(result);
@@ -270,7 +270,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **limit** | **Integer**| Maximum amount of quota history entries contained in one paged response. | [optional]
- **after** | **String**| To fetch after which quota history id. The results will contain entries after specified entry. | [optional]
+ **after** | **String**| To fetch after which quota history ID. The results will contain entries after specified entry. | [optional]
 
 ### Return type
 
