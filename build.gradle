@@ -252,6 +252,7 @@ dependencies {
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     compile project(':support-annotations')
     compile project(':lwm2m')
+	compile project(':pelion-sdk-core')
     compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:external_ca')    
@@ -345,7 +346,7 @@ test {
 checkstyle {
     toolVersion = '7.2'
     configFile rootProject.file('config/checkstyle/checkstyle.xml')
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = false
     maxWarnings = 0
 }
@@ -357,7 +358,7 @@ checkstyleMain {
     }
 }
 jdepend {
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = true
 }
 jdependMain {
@@ -379,7 +380,7 @@ jacocoTestReport {
 
 pmd {
     toolVersion = "5.0.4"
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = false
     ruleSets = []
     ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
@@ -407,7 +408,7 @@ cpdCheck {
 
 findbugs {
     //toolVersion = "2.0.1"
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = false
     effort = "max"
     reportLevel = "high"
@@ -416,7 +417,7 @@ findbugs {
 
 spotbugs {
   //toolVersion = '3.1.5'
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = false
     effort = "max"
     reportLevel = "high"
@@ -425,7 +426,7 @@ spotbugs {
 
 animalsniffer {
     toolVersion = '1.16'
-    sourceSets = [sourceSets.main]
+    sourceSets = [sourceSets.main, project(':lwm2m').sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
     ignoreFailures = false
 }
 

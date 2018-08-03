@@ -8,6 +8,7 @@
  */
 include 'support-annotations'
 include 'lwm2m'
+include 'pelion-sdk-core'
 include 'backends:connector_ca'
 include 'backends:external_ca'
 include 'backends:device_directory'
