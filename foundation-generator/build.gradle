@@ -1,0 +1,45 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
+    }
+}
+
+plugins {
+    // Apply the java plugin to add support for Java
+    id 'java'
+	id 'eclipse'
+
+    // Apply the application plugin to add support for building an application
+    id 'application'
+}
+apply plugin: 'walkmod'
+
+// In this section you declare where to find the dependencies of your project
+repositories {
+    // Use jcenter for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+// Define the main class for the application
+mainClassName = 'App'
+
+dependencies {
+    // This dependency is found on compile classpath of this component and consumers.
+    compile 'com.squareup:javapoet:1.11.+'
+	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
+	compile 'org.slf4j:slf4j-simple:1.7.7'
+	compile project(':pelion-sdk-core')
+    // Use JUnit test framework
+    testCompile 'junit:junit:4.12'
+}
+
+
+walkmod {
+  chains = [ 'pmd' ]
+}
