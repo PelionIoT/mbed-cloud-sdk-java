@@ -32,6 +32,9 @@ import java.io.Serializable;
 public class UpdateCampaign implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("autostop_reason")
+  private String autostopReason = null;
+
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
@@ -209,6 +212,24 @@ public class UpdateCampaign implements Serializable {
 
   @SerializedName("when")
   private DateTime when = null;
+
+  public UpdateCampaign autostopReason(String autostopReason) {
+    this.autostopReason = autostopReason;
+    return this;
+  }
+
+   /**
+   * Text description of why a campaign failed to start or why a campaign stopped.
+   * @return autostopReason
+  **/
+  @ApiModelProperty(example = "Insufficient billing credit.", value = "Text description of why a campaign failed to start or why a campaign stopped.")
+  public String getAutostopReason() {
+    return autostopReason;
+  }
+
+  public void setAutostopReason(String autostopReason) {
+    this.autostopReason = autostopReason;
+  }
 
   public UpdateCampaign createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
@@ -499,7 +520,8 @@ public class UpdateCampaign implements Serializable {
       return false;
     }
     UpdateCampaign updateCampaign = (UpdateCampaign) o;
-    return Objects.equals(this.createdAt, updateCampaign.createdAt) &&
+    return Objects.equals(this.autostopReason, updateCampaign.autostopReason) &&
+        Objects.equals(this.createdAt, updateCampaign.createdAt) &&
         Objects.equals(this.description, updateCampaign.description) &&
         Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
         Objects.equals(this.etag, updateCampaign.etag) &&
@@ -519,7 +541,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, description, deviceFilter, etag, finished, healthIndicator, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
+    return Objects.hash(autostopReason, createdAt, description, deviceFilter, etag, finished, healthIndicator, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
   }
 
 
@@ -528,6 +550,7 @@ public class UpdateCampaign implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateCampaign {\n");
     
+    sb.append("    autostopReason: ").append(toIndentedString(autostopReason)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");

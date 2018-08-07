@@ -4,6 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**autostopReason** | **String** | Text description of why a campaign failed to start or why a campaign stopped. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The time the update campaign was created |  [optional]
 **description** | **String** | An optional description of the campaign |  [optional]
 **deviceFilter** | **String** | The filter for the devices the campaign is targeting at |  [optional]
