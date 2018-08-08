@@ -75,7 +75,7 @@ public class ModelGenerator extends AbstractGenerator {
                                    + ". Feel free to change its content as you wish.");
                     final String fieldsToDefine = model.getListOfFieldsToDefineManually();
                     if (fieldsToDefine != null && !fieldsToDefine.isEmpty()) {
-                        builder.append(System.lineSeparator()).append("The following fields need to be defined:"
+                        builder.append(System.lineSeparator()).append("TODO The following fields need to be defined:"
                                                                       + System.lineSeparator() + fieldsToDefine.trim());
                     }
                 } else {

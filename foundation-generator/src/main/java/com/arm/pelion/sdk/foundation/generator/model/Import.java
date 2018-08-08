@@ -9,6 +9,18 @@ public class Import implements Entity {
     private String name;
     private String packageName;
     private ClassName className;
+    private boolean isEnum;
+
+    /**
+     *
+     */
+    public Import() {
+        super();
+        setName(null);
+        setPackageName(null);
+        setClassName(null);
+        setEnum(false);
+    }
 
     /**
      * @return the name
@@ -59,6 +71,21 @@ public class Import implements Entity {
         return name == null || name.isEmpty() || packageName == null || packageName.isEmpty();
     }
 
+    /**
+     * @return the isEnum
+     */
+    public boolean isEnum() {
+        return isEnum;
+    }
+
+    /**
+     * @param isEnum
+     *            the isEnum to set
+     */
+    public void setEnum(boolean isEnum) {
+        this.isEnum = isEnum;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -66,7 +93,8 @@ public class Import implements Entity {
      */
     @Override
     public String toString() {
-        return "Import [name=" + name + ", packageName=" + packageName + "]";
+        return "Import [name=" + name + ", packageName=" + packageName + ", className=" + className + ", isEnum="
+               + isEnum + "]";
     }
 
     @Override

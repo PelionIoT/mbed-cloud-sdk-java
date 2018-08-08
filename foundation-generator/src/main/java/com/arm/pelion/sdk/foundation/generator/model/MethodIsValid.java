@@ -1,0 +1,55 @@
+package com.arm.pelion.sdk.foundation.generator.model;
+
+import java.util.LinkedList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import com.squareup.javapoet.CodeBlock;
+
+public class MethodIsValid extends AbstractMethodBasedOnModel {
+
+    public MethodIsValid(Model currentModel, Model parentModel) {
+        super(currentModel, parentModel, false, "isValid", "Checks whether the model is valid or not",
+              "@see SdkModel#isValid()", false, true, false, false,
+              currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false,
+              findWhetherOverriding(currentModel, parentModel));
+        setReturnType(new ParameterType(boolean.class));
+        setReturnDescription("true if the model is valid; false otherwise.");
+        setCode(CodeBlock.builder());
+    }
+
+    private static boolean findWhetherOverriding(Model currentModel, Model parentModel) {
+        return parentModel != null || (currentModel != null && currentModel.hasParent());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.pelion.sdk.foundation.generator.model.Method#translateCode()
+     */
+    @Override
+    protected void translateCode() {
+        super.translateCode();
+        List<String> validationMethodList = hasCurrentModel() ? currentModel.getMethodList().stream()
+                                                                            .filter(m -> m instanceof MethodIsFieldValid)
+                                                                            .map(m -> m.getName() + "()")
+                                                                            .collect(Collectors.toList())
+                                                              : null;
+        if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
+            if (validationMethodList == null) {
+                validationMethodList = new LinkedList<>();
+            }
+            validationMethodList.add("super." + getName() + "()");
+        } else if (validationMethodList == null) {
+            code.addStatement("return true");
+            return;
+        }
+        if (validationMethodList.isEmpty()) {
+            code.addStatement("return true");
+            return;
+        }
+        String methodValue = String.join(System.lineSeparator() + "&& ", validationMethodList);
+        code.addStatement("return " + methodValue);
+    }
+
+}

@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 public abstract class AbstractModelEntity implements ModelEntity {
 
+    private static final String UNKOWN_IDENTIFIER = "Unknown identifier";
     protected boolean isReadOnly;
     protected String name;
     protected String description;
@@ -131,7 +132,8 @@ public abstract class AbstractModelEntity implements ModelEntity {
      */
     @Override
     public void setDescription(String description) {
-        this.description = description;
+        this.description = has(description) ? description.trim().endsWith(".") ? description : description + "."
+                                            : description;
     }
 
     @Override
@@ -234,14 +236,25 @@ public abstract class AbstractModelEntity implements ModelEntity {
     /*
      * (non-Javadoc)
      *
+     * @see com.arm.pelion.sdk.foundation.generator.model.ModelEntity#getIdentifier()
+     */
+    @Override
+    public String getIdentifier() {
+        // TODO override if necessary
+        return hasName() ? getName() : UNKOWN_IDENTIFIER;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
-        return "AbstractModelEntity [isReadOnly=" + isReadOnly + ", name=" + name + ", description=" + description
-               + ", longDescription=" + longDescription + ", isStatic=" + isStatic + ", isAccessible=" + isAccessible
-               + ", isAbstract=" + isAbstract + ", isInternal=" + isInternal + ", containsCustomCode="
-               + containsCustomCode + ", needsCustomCode=" + needsCustomCode + "]";
+        return "AbstractModelEntity [id=" + getIdentifier() + ", isReadOnly=" + isReadOnly + ", name=" + name
+               + ", description=" + description + ", longDescription=" + longDescription + ", isStatic=" + isStatic
+               + ", isAccessible=" + isAccessible + ", isAbstract=" + isAbstract + ", isInternal=" + isInternal
+               + ", containsCustomCode=" + containsCustomCode + ", needsCustomCode=" + needsCustomCode + "]";
     }
 
 }

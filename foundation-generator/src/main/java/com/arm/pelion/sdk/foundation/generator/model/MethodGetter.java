@@ -7,7 +7,7 @@ public class MethodGetter extends Method {
     public MethodGetter(Field field, String longDescription, boolean isInternal) {
         super(false, generateGetterName(field), generateGetterDescription(field),
               generateGetterLongDescription(longDescription, field), false, true, false, field.containsCustomCode(),
-              field.needsCustomCode(), isInternal, false);
+              field.needsCustomCode(), isInternal, false, false);
         setReturnType(field.getType());
         setReturnDescription(field.getName());
         setStatement(generateStatement(field));

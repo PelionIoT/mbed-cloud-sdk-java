@@ -18,16 +18,17 @@ public class Method extends AbstractModelEntity {
 
     private MethodSpec.Builder specificationBuilder;
 
-    private String statement;
-    private ParameterType returnType;
-    private String returnDescription;
-    private final List<Parameter> parameters;
-    private CodeBlock.Builder code;
-    private boolean isRequired;
+    protected String statement;
+    protected ParameterType returnType;
+    protected String returnDescription;
+    protected final List<Parameter> parameters;
+    protected CodeBlock.Builder code;
+    protected boolean isRequired;
+    protected boolean isAnOverride;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
-                  boolean isInternal, boolean isRequired) {
+                  boolean isInternal, boolean isRequired, boolean isAnOverride) {
         super(isReadOnly, name, description, longDescription, isStatic, isAccessible, isAbstract, containsCustomCode,
               needsCustomCode, isInternal);
         parameters = new LinkedList<>();
@@ -35,6 +36,7 @@ public class Method extends AbstractModelEntity {
         setReturnType(null);
         setCode(null);
         setRequired(isRequired);
+        setAsOverride(isAnOverride);
     }
 
     /*
@@ -68,6 +70,21 @@ public class Method extends AbstractModelEntity {
 
     public boolean hasReturnDescription() {
         return has(returnDescription);
+    }
+
+    /**
+     * @return the isAnOverride
+     */
+    public boolean isAnOverride() {
+        return isAnOverride;
+    }
+
+    /**
+     * @param isAnOverride
+     *            the isAnOverride to set
+     */
+    public void setAsOverride(boolean isAnOverride) {
+        this.isAnOverride = isAnOverride;
     }
 
     /**
@@ -191,7 +208,7 @@ public class Method extends AbstractModelEntity {
         if (isAbstract) {
             specificationBuilder.addModifiers(Modifier.ABSTRACT);
         }
-        if (containsCustomCode) {
+        if (containsCustomCode || isAnOverride) {
             specificationBuilder.addAnnotation(Override.class);
         }
         if (isInternal) {
@@ -225,7 +242,7 @@ public class Method extends AbstractModelEntity {
             } else {
                 specificationBuilder.returns(returnType.getTypeName());
             }
-            specificationBuilder.addJavadoc(" @return "
+            specificationBuilder.addJavadoc("@return "
                                             + String.valueOf(hasReturnDescription() ? returnDescription : "something")
                                             + System.lineSeparator());
         }
@@ -243,7 +260,13 @@ public class Method extends AbstractModelEntity {
         if (containsCustomCode) {
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
             if (hasReturn()) {
-                specificationBuilder.addStatement("return null");
+                if (returnType.isNumber()) {
+                    specificationBuilder.addStatement("return 0");
+                } else if (returnType.isBoolean()) {
+                    specificationBuilder.addStatement("return false");
+                } else {
+                    specificationBuilder.addStatement("return null");
+                }
             }
             return;
         }

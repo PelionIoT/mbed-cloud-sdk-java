@@ -66,11 +66,13 @@ public class ModelsGenerator extends AbstractGenerator {
             for (int j = 0; j < (int) (Math.random() * 100); j++) {
                 model.field(new Field(Math.random() >= 0.5, new ParameterType("string", null),
                                       "field" + (int) (Math.random() * 100), "a field of some sort",
-                                      "Some more description", null, Math.random() >= 0.5, false, Math.random() >= 0.5,
-                                      Math.random() >= 0.5, Math.random() >= 0.5 ? "some default value" : null));
+                                      "Some more description",
+                                      Math.random() >= 0.9 ? "/^Some regex of some sort" : null, Math.random() >= 0.5,
+                                      Math.random() >= 0.9, Math.random() >= 0.5, Math.random() >= 0.5,
+                                      Math.random() >= 0.5 ? "some default value" : null));
 
             }
-            model.generateSettersAndGetters();
+            model.generateMethods();
             models.add(model);
         }
         File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation");

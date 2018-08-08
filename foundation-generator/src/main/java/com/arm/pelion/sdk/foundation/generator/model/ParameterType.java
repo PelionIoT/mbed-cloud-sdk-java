@@ -1,5 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Date;
+
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.Entity;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.TypeName;
@@ -32,6 +35,14 @@ public class ParameterType implements Entity {
         this();
         setType(type);
         setFormat(format);
+    }
+
+    /**
+     * @param clazz
+     */
+    public ParameterType(Class<?> clazz) {
+        this();
+        setClazz(clazz);
     }
 
     /**
@@ -124,7 +135,9 @@ public class ParameterType implements Entity {
 
     @Override
     public void translate() throws TranslationException {
-        clazz = PrimitiveDataTypes.getDataType(type, format);
+        if (!hasClass()) {
+            clazz = PrimitiveDataTypes.getDataType(type, format);
+        }
         if (!hasClass()) {
             if (importPath == null || importPath.isIncomplete()) {
                 throw new TranslationException("The type definition is incomplete: " + importPath);
@@ -143,4 +156,52 @@ public class ParameterType implements Entity {
         }
     }
 
+    public boolean isNumber() {
+        try {
+            translate();
+            return hasClass() ? Number.class.isAssignableFrom(getClazz()) || getClazz() == int.class
+                                || getClazz() == long.class || getClazz() == float.class || getClazz() == double.class
+                                || getClazz() == byte.class || getClazz() == short.class
+                              : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isString() {
+        try {
+            translate();
+            return hasClass() ? String.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isBoolean() {
+        try {
+            translate();
+            return hasClass() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isDate() {
+        try {
+            translate();
+            return hasClass() ? Date.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isEnum() {
+        try {
+            translate();
+            return hasClass() ? SdkEnum.class.isAssignableFrom(getClazz())
+                              : importPath == null ? false : importPath.isEnum();
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
 }

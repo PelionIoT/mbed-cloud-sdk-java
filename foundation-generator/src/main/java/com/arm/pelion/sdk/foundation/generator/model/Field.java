@@ -15,6 +15,7 @@ public class Field extends AbstractModelEntity implements Cloneable {
     private ParameterType type;
     private String pattern;
     private String defaultValue;
+    private String initialiser;
     private boolean isRequired;
     private FieldSpec.Builder specificationBuilder;
 
@@ -40,6 +41,7 @@ public class Field extends AbstractModelEntity implements Cloneable {
         setType(type);
         setRequired(isRequired);
         setDefaultValue(defaultValue);
+        setInitialiser(null);
     }
 
     /*
@@ -115,12 +117,35 @@ public class Field extends AbstractModelEntity implements Cloneable {
         return specificationBuilder;
     }
 
+    public boolean hasInitialiser() {
+        return has(initialiser);
+    }
+
+    /**
+     * @return the initialiser
+     */
+    public String getInitialiser() {
+        return initialiser;
+    }
+
+    /**
+     * @param initialiser
+     *            the initialiser to set
+     */
+    public void setInitialiser(String initialiser) {
+        this.initialiser = initialiser;
+    }
+
     /**
      * @param specificationBuilder
      *            the specificationBuilder to set
      */
     public void setSpecificationBuilder(FieldSpec.Builder specificationBuilder) {
         this.specificationBuilder = specificationBuilder;
+    }
+
+    public boolean hasPattern() {
+        return has(pattern) && !type.isDate();
     }
 
     /**
@@ -143,6 +168,10 @@ public class Field extends AbstractModelEntity implements Cloneable {
      */
     public boolean isRequired() {
         return isRequired;
+    }
+
+    public boolean needsValidation() {
+        return isRequired() || hasPattern();// TODO add more cases where validation is needed.
     }
 
     /**
@@ -189,12 +218,20 @@ public class Field extends AbstractModelEntity implements Cloneable {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(DefaultValue.class)
                                                              .addMember("value", "\"" + defaultValue + "\"").build());
         }
+
+    }
+
+    protected void addValue() {
+        if (hasInitialiser()) {
+            specificationBuilder.initializer(initialiser);
+        }
     }
 
     @Override
     public void translate() throws TranslationException {
         initialiseBuilder();
         addModifiers();
+        addValue();
     }
 
     public Parameter toParameter() {

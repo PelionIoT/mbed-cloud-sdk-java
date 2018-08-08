@@ -24,6 +24,8 @@ public interface ModelEntity extends Entity {
 
     String getName();
 
+    String getIdentifier();
+
     boolean isAccessible();
 
     boolean isReadOnly();
