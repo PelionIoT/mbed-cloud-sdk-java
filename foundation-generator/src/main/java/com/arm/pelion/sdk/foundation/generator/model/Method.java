@@ -16,7 +16,7 @@ import com.squareup.javapoet.MethodSpec;
 
 public class Method extends AbstractModelEntity {
 
-    private MethodSpec.Builder specificationBuilder;
+    protected MethodSpec.Builder specificationBuilder;
 
     protected String statement;
     protected ParameterType returnType;
@@ -197,7 +197,6 @@ public class Method extends AbstractModelEntity {
         if (specificationBuilder == null) {
             specificationBuilder = MethodSpec.methodBuilder(name);
         }
-
     }
 
     protected void addModifiers() {

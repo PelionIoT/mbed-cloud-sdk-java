@@ -12,6 +12,10 @@ public class MethodSetter extends Method {
         setStatement(generateStatement(field));
     }
 
+    public MethodSetter(Field field) {
+        this(field, null, false);
+    }
+
     protected String getCallStatement(Parameter setter) {
         return getName() + "(" + String.valueOf(setter == null ? null : setter.getName()) + ");";
     }

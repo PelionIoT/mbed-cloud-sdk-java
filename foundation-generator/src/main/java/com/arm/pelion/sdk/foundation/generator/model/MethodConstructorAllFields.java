@@ -1,0 +1,37 @@
+package com.arm.pelion.sdk.foundation.generator.model;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+public class MethodConstructorAllFields extends AbstractMethodConstructorWithFieldParameters {
+
+    public MethodConstructorAllFields(Model currentModel, Model parentModel) {
+        super(currentModel, parentModel, null, null, true);
+    }
+
+    @Override
+    protected void translateCode() {
+        if (hasParentModel()) {
+            final List<Field> parentFields = parentModel.getFieldList();
+            code.addStatement("super(" + String.join("," + System.lineSeparator(),
+                                                     parentFields.stream().map(f -> f.toParameter().getName())
+                                                                 .collect(Collectors.toList()))
+                              + ")");
+        } else {
+            code.addStatement("super()");
+        }
+        if (hasCurrentModel()) {
+            currentModel.getFieldList().stream().filter(f -> f.isReadOnly() && !f.isIdentifier())
+                        .forEach(f -> code.addStatement("this.$L = $L", f.getName(), f.toParameter().getName()));
+            currentModel.getFieldList().stream().filter(f -> !f.isReadOnly() || f.isIdentifier())
+                        .forEach(f -> code.addStatement("$L($L)", (new MethodSetter(f)).getName(),
+                                                        f.toParameter().getName()));
+        }
+    }
+
+    @Override
+    protected void setFields() {
+        setFields(this.getFieldList(false, false, true, false));
+
+    }
+}

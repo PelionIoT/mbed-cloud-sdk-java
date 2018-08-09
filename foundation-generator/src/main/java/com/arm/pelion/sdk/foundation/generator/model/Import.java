@@ -15,9 +15,17 @@ public class Import implements Entity {
      *
      */
     public Import() {
+        this(null, null);
+    }
+
+    /**
+     * @param name
+     * @param packageName
+     */
+    public Import(String name, String packageName) {
         super();
-        setName(null);
-        setPackageName(null);
+        this.name = name;
+        this.packageName = packageName;
         setClassName(null);
         setEnum(false);
     }

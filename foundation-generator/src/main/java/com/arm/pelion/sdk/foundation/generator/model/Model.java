@@ -1,10 +1,13 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
@@ -142,7 +145,15 @@ public class Model extends AbstractModelEntity {
     }
 
     public boolean hasMethod(Method method) {
-        return method == null ? false : methods.containsKey(method.getIdentifier());
+        return hasMethod(method.getIdentifier());
+    }
+
+    public boolean hasMethod(String identifier) {
+        return identifier == null ? false : methods.containsKey(identifier);
+    }
+
+    public Method fetchMethod(String identifier) {
+        return hasMethod(identifier) ? methods.get(identifier) : null;
     }
 
     public boolean hasField(Field field) {
@@ -299,6 +310,7 @@ public class Model extends AbstractModelEntity {
         });
         getMethodList().stream().filter(m -> !m.needsCustomCode()).forEach(m -> abstractModel.addMethod(m));
         abstractModel.generateMethodsNecessaryAtEachLevel();
+        abstractModel.ensureSdkModelMethodsHaveOverrideAnnotation();
         return abstractModel;
     }
 
@@ -315,6 +327,7 @@ public class Model extends AbstractModelEntity {
             child.addMethod(m);
         });
         child.generateMethodsNecessaryAtEachLevel();
+        child.ensureSdkModelMethodsHaveOverrideAnnotation();
         return child;
     }
 
@@ -346,8 +359,7 @@ public class Model extends AbstractModelEntity {
         // Adding getters and setters
         generateSettersAndGetters();
         generateMethodsNecessaryAtEachLevel();
-        // TODO do more e.g. add constructors
-
+        generateSdkModelMethods();
     }
 
     protected void generateSettersAndGetters() {
@@ -382,11 +394,44 @@ public class Model extends AbstractModelEntity {
     protected void generateMethodsDependingOnParents(Model theParent) {
         generateToString(theParent);
         generateIsValid(theParent);
+        generateConstructors(theParent);
+        generateClone(theParent);
+    }
+
+    protected void generateSdkModelMethods() {
+        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(SdkModel.class.getMethods());
+        sdkModelMethods.forEach(m -> {
+            if (hasMethod(m.getName())) {
+                fetchMethod(m.getName()).setAsOverride(true);
+            } else {
+                addMethod(new MethodGeneric(m));
+            }
+        });
+    }
+
+    protected void ensureSdkModelMethodsHaveOverrideAnnotation() {
+        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(SdkModel.class.getMethods());
+        sdkModelMethods.forEach(m -> {
+            if (hasMethod(m.getName())) {
+                fetchMethod(m.getName()).setAsOverride(true);
+            }
+        });
     }
 
     protected void generateHashCodeAndEquals() {
         addMethod(new MethodHashCode(this, null));
         addMethod(new MethodEquals(this, null));
+    }
+
+    private void generateConstructors(Model theParent) {
+        ConstructorList constructors = new ConstructorList();
+        constructors.add(new MethodConstructorAllFields(this, theParent));
+        constructors.add(new MethodConstructorFromObject(this, theParent));
+        constructors.add(new MethodConstructorEmpty(this, theParent));
+        constructors.add(new MethodConstructorIdentifiers(this, theParent));
+        constructors.add(new MethodConstructorReadOnly(this, theParent));
+        constructors.add(new MethodConstructorRequired(this, theParent));
+        constructors.getRefinedList().forEach(c -> overrideMethodIfExist(c));
     }
 
     protected void generateToString(Model theParent) {
@@ -395,6 +440,10 @@ public class Model extends AbstractModelEntity {
 
     protected void generateIsValid(Model theParent) {
         overrideMethodIfExist(new MethodIsValid(this, theParent));
+    }
+
+    protected void generateClone(Model theParent) {
+        overrideMethodIfExist(new MethodClone(this, theParent));
     }
 
     public List<Model> getProcessedModels() {
@@ -494,6 +543,16 @@ public class Model extends AbstractModelEntity {
         translateMethods();
     }
 
+    public ParameterType toType() {
+        return new ParameterType(new Import(name, packageName));
+    }
+
+    public Parameter toParameter() {
+        final String theDescription = "a " + String.valueOf(name).toLowerCase();
+        final String parameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name), false);
+        return new Parameter(parameterName, theDescription, null, toType(), null);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -509,4 +568,24 @@ public class Model extends AbstractModelEntity {
         return "Model [packageName=" + packageName + ", name=" + name + "]";
     }
 
+    private static class ConstructorList {
+        final List<AbstractMethodConstructor> constructors = new LinkedList<>();
+
+        public ConstructorList() {
+            super();
+        }
+
+        public void add(AbstractMethodConstructor constructor) {
+            if (constructor == null) {
+                return;
+            }
+            if (constructors.stream().filter(c -> c.hasSameSignature(constructor)).count() == 0) {
+                constructors.add(constructor);
+            }
+        }
+
+        public List<AbstractMethodConstructor> getRefinedList() {
+            return constructors.stream().filter(c -> c.isNecessary()).collect(Collectors.toList());
+        }
+    }
 }

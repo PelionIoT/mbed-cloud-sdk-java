@@ -80,6 +80,26 @@ public class Field extends AbstractModelEntity implements Cloneable {
         return has(defaultValue);
     }
 
+    public String getJavaDefaultValue() {
+        if (type.isBoolean()) {
+            return hasDefaultValue() ? defaultValue : "false";
+        }
+        if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
+            return hasDefaultValue() ? defaultValue : type.getShortName() + ".getDefault()";
+        }
+        if (type.isNumber()) {
+            return hasDefaultValue() ? defaultValue : "0";
+        }
+        if (type.isDate()) {// TODO ensure the default date value is called now
+            return hasDefaultValue() ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
+                                     : "new java.util.Date()";
+        }
+        if (type.isString()) {
+            return hasDefaultValue() ? "\"" + defaultValue + "\"" : "null";
+        }
+        return hasDefaultValue() ? defaultValue : "null";
+    }
+
     /**
      * @return the defaultValue
      */
