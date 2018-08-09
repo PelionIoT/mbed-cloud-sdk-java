@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
-import com.squareup.javapoet.WildcardTypeName;
+import com.squareup.javapoet.TypeVariableName;
 
 public class GenericParameterType extends ParameterType {
 
@@ -43,10 +43,20 @@ public class GenericParameterType extends ParameterType {
     public void translate() throws TranslationException {
         super.translate();
         if (super.hasClass()) {
-            setTypeName(WildcardTypeName.subtypeOf(getClazz()));
+            setTypeName(TypeVariableName.get("T", getClazz()));
         } else {
-            setTypeName(WildcardTypeName.subtypeOf(getTypeName()));
+            setTypeName(TypeVariableName.get("T", getTypeName()));
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see com.arm.pelion.sdk.foundation.generator.model.ParameterType#isGeneric()
+     */
+    @Override
+    public boolean isGeneric() {
+        return true;
     }
 
 }

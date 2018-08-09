@@ -86,7 +86,8 @@ public class Enum extends Model {
     @Override
     protected void generateMethodsNecessaryAtEachLevel() {
         generateToString(null);
-        overrideMethodIfExist(new MethodConstructorAllFields(this, null).longDescription(null));
+        overrideMethodIfExist((new MethodConstructorAllFields(this, null)).callSuperConstructor(false)
+                                                                          .longDescription(null));
         generateIsDefault();
         generateIsUnknownValue();
         generateGetDefault();

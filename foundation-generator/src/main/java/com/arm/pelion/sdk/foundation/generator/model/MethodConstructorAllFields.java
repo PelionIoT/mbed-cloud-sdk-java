@@ -5,20 +5,25 @@ import java.util.stream.Collectors;
 
 public class MethodConstructorAllFields extends AbstractMethodConstructorWithFieldParameters {
 
+    private boolean callSuperConstructor;
+
     public MethodConstructorAllFields(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, true);
+        callSuperConstructor = true;
     }
 
     @Override
     protected void translateCode() {
-        if (hasParentModel()) {
-            final List<Field> parentFields = parentModel.getFieldList();
-            code.addStatement("super(" + String.join("," + System.lineSeparator(),
-                                                     parentFields.stream().map(f -> f.toParameter().getName())
-                                                                 .collect(Collectors.toList()))
-                              + ")");
-        } else {
-            code.addStatement("super()");
+        if (callSuperConstructor) {
+            if (hasParentModel()) {
+                final List<Field> parentFields = parentModel.getFieldList();
+                code.addStatement("super(" + String.join("," + System.lineSeparator(),
+                                                         parentFields.stream().map(f -> f.toParameter().getName())
+                                                                     .collect(Collectors.toList()))
+                                  + ")");
+            } else {
+                code.addStatement("super()");
+            }
         }
         if (hasCurrentModel()) {
             currentModel.getFieldList().stream().filter(f -> f.isReadOnly() && !f.isIdentifier())
@@ -33,5 +38,25 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
     protected void setFields() {
         setFields(this.getFieldList(false, false, true, false));
 
+    }
+
+    /**
+     * @return the callSuperConstructor
+     */
+    public boolean isCallSuperConstructor() {
+        return callSuperConstructor;
+    }
+
+    /**
+     * @param callSuperConstructor
+     *            the callSuperConstructor to set
+     */
+    public void setCallSuperConstructor(boolean callSuperConstructor) {
+        this.callSuperConstructor = callSuperConstructor;
+    }
+
+    public <T extends MethodConstructorAllFields> T callSuperConstructor(boolean callSuperConstructor) {
+        setCallSuperConstructor(callSuperConstructor);
+        return (T) this;
     }
 }

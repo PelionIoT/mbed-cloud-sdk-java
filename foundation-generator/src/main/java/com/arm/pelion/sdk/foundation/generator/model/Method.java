@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,7 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeVariableName;
 
 public class Method extends AbstractModelEntity {
 
@@ -230,6 +232,7 @@ public class Method extends AbstractModelEntity {
     }
 
     protected void addParameters() throws TranslationException {
+        final Map<ParameterType, Boolean> definedTypes = new HashMap<>();
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {
@@ -240,6 +243,12 @@ public class Method extends AbstractModelEntity {
         if (hasParameters()) {
             for (final Parameter parameter : parameters) {
                 parameter.translate();
+                if (parameter.getType().isGeneric()) {
+                    if (!definedTypes.containsKey(parameter.getType())) {
+                        specificationBuilder.addTypeVariable((TypeVariableName) parameter.getType().getTypeName());
+                        definedTypes.put(parameter.getType(), Boolean.TRUE);
+                    }
+                }
                 specificationBuilder.addParameter(parameter.getSpecification().build());
                 specificationBuilder.addJavadoc("@param " + parameter.getName() + " " + parameter.getDescription()
                                                 + System.lineSeparator());
@@ -247,6 +256,11 @@ public class Method extends AbstractModelEntity {
         }
         if (hasReturn()) {
             returnType.translate();
+            if (returnType.isGeneric()) {
+                if (!definedTypes.containsKey(returnType)) {
+                    specificationBuilder.addTypeVariable((TypeVariableName) returnType.getTypeName());
+                }
+            }
             if (returnType.hasClass()) {
                 specificationBuilder.returns(returnType.getClazz());
             } else {

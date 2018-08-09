@@ -9,11 +9,11 @@ import com.squareup.javapoet.TypeName;
 
 public class ParameterType implements Entity {
 
-    private Import importPath;
-    private Class<?> clazz;
-    private TypeName typeName;
-    private String type;
-    private String format;
+    protected Import importPath;
+    protected Class<?> clazz;
+    protected TypeName typeName;
+    protected String type;
+    protected String format;
 
     /**
      *
@@ -208,4 +208,73 @@ public class ParameterType implements Entity {
             return false;
         }
     }
+
+    public boolean isGeneric() {
+        return false;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((clazz == null) ? 0 : clazz.hashCode());
+        result = prime * result + ((format == null) ? 0 : format.hashCode());
+        result = prime * result + ((importPath == null) ? 0 : importPath.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        ParameterType other = (ParameterType) obj;
+        if (clazz == null) {
+            if (other.clazz != null) {
+                return false;
+            }
+        } else if (!clazz.equals(other.clazz)) {
+            return false;
+        }
+        if (format == null) {
+            if (other.format != null) {
+                return false;
+            }
+        } else if (!format.equals(other.format)) {
+            return false;
+        }
+        if (importPath == null) {
+            if (other.importPath != null) {
+                return false;
+            }
+        } else if (!importPath.equals(other.importPath)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
+    }
+
 }
