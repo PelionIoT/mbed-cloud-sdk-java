@@ -229,6 +229,12 @@ public abstract class AbstractModelEntity implements ModelEntity {
     }
 
     @Override
+    public <T extends ModelEntity> T longDescription(String longDescription) {
+        setLongDescription(longDescription);
+        return (T) this;
+    }
+
+    @Override
     public boolean hasLongDescription() {
         return has(longDescription);
     }

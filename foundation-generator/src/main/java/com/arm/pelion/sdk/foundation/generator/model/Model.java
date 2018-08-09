@@ -21,14 +21,15 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
 
 public class Model extends AbstractModelEntity {
+    private static final int MAX_LONG_LENGTH = 18 - 2;
     private static final String UNKOWN_NAME = "Unkown";
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
-    private String packageName;
+    protected String packageName;
     private String parent;
     private String group;
     private final Map<String, Method> methods;
     private final Map<String, Field> fields;
-    private TypeSpec.Builder specificationBuilder;
+    protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
         LOOKUP_TABLE.put("a", Integer.valueOf(1));
@@ -271,22 +272,25 @@ public class Model extends AbstractModelEntity {
         this.specificationBuilder = specificationBuilder;
     }
 
-    private void initialiseBuilder() {
+    protected void initialiseBuilder() {
         if (specificationBuilder == null) {
             specificationBuilder = TypeSpec.classBuilder(name).addModifiers(Modifier.PUBLIC);
             if (isAbstract) {
                 specificationBuilder.addModifiers(Modifier.ABSTRACT);
             }
-            specificationBuilder.addAnnotation(AnnotationSpec.builder(Preamble.class)
-                                                             .addMember("description", "\"" + description + "\"")
-                                                             .build());
-            specificationBuilder.addJavadoc(generateClassJavadocComment(hasDescription(), description,
-                                                                        hasLongDescription(), longDescription));
-            specificationBuilder.addSuperinterface(SdkModel.class);
+            generateDocumentation();
+            specificationBuilder.addSuperinterface(getSuperInterface());
             if (hasParent()) {
                 specificationBuilder.superclass(ClassName.get(packageName, parent));
             }
         }
+    }
+
+    protected void generateDocumentation() {
+        specificationBuilder.addAnnotation(AnnotationSpec.builder(Preamble.class)
+                                                         .addMember("description", "\"" + description + "\"").build());
+        specificationBuilder.addJavadoc(generateClassJavadocComment(hasDescription(), description, hasLongDescription(),
+                                                                    longDescription));
     }
 
     public boolean needsCustomisation() {
@@ -359,7 +363,7 @@ public class Model extends AbstractModelEntity {
         // Adding getters and setters
         generateSettersAndGetters();
         generateMethodsNecessaryAtEachLevel();
-        generateSdkModelMethods();
+        generateInterfaceMethods();
     }
 
     protected void generateSettersAndGetters() {
@@ -398,9 +402,9 @@ public class Model extends AbstractModelEntity {
         generateClone(theParent);
     }
 
-    protected void generateSdkModelMethods() {
-        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(SdkModel.class.getMethods());
-        sdkModelMethods.forEach(m -> {
+    protected void generateInterfaceMethods() {
+        List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
+        superInterfaceMethods.forEach(m -> {
             if (hasMethod(m.getName())) {
                 fetchMethod(m.getName()).setAsOverride(true);
             } else {
@@ -409,8 +413,12 @@ public class Model extends AbstractModelEntity {
         });
     }
 
+    protected Class<?> getSuperInterface() {
+        return SdkModel.class;
+    }
+
     protected void ensureSdkModelMethodsHaveOverrideAnnotation() {
-        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(SdkModel.class.getMethods());
+        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(getSuperInterface().getMethods());
         sdkModelMethods.forEach(m -> {
             if (hasMethod(m.getName())) {
                 fetchMethod(m.getName()).setAsOverride(true);
@@ -490,7 +498,7 @@ public class Model extends AbstractModelEntity {
                 builder.append(value.intValue());
             }
         }
-        return builder.toString();
+        return builder.toString().substring(0, MAX_LONG_LENGTH);
     }
 
     protected void translateSerialisation() throws TranslationException {

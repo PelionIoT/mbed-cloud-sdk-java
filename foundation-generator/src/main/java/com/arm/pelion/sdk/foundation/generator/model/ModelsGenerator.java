@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,24 +58,30 @@ public class ModelsGenerator extends AbstractGenerator {
 
     public static void main(String[] args) {
         List<Model> models = new LinkedList<>();
-        for (int i = 0; i < 9; i++) {
-            Model model = new Model("package.test.models", "test" + String.valueOf((int) (Math.random() * 100)), "tag",
-                                    "some description", "some more description", Math.random() >= 0.5,
-                                    Math.random() >= 0.5);
-            model.field(new Field(true, new ParameterType("string", null), "id", "ID", null, null, false, false, false,
-                                  false, null));
-            for (int j = 0; j < (int) (Math.random() * 100); j++) {
-                model.field(new Field(Math.random() >= 0.5, new ParameterType("string", null),
-                                      "field" + (int) (Math.random() * 100), "a field of some sort",
-                                      "Some more description",
-                                      Math.random() >= 0.9 ? "/^Some regex of some sort" : null, Math.random() >= 0.5,
-                                      Math.random() >= 0.9, Math.random() >= 0.5, Math.random() >= 0.5,
-                                      Math.random() >= 0.5 ? "some default value" : null));
-
-            }
-            model.generateMethods();
-            models.add(model);
-        }
+        // for (int i = 0; i < 9; i++) {
+        // Model model = new Model("package.test.models", "test" + String.valueOf((int) (Math.random() * 100)), "tag",
+        // "some description", "some more description", Math.random() >= 0.5,
+        // Math.random() >= 0.5);
+        // model.field(new Field(true, new ParameterType("string", null), "id", "ID", null, null, false, false, false,
+        // false, null));
+        // for (int j = 0; j < (int) (Math.random() * 100); j++) {
+        // model.field(new Field(Math.random() >= 0.5, new ParameterType("string", null),
+        // "field" + (int) (Math.random() * 100), "a field of some sort",
+        // "Some more description",
+        // Math.random() >= 0.9 ? "/^Some regex of some sort" : null, Math.random() >= 0.5,
+        // Math.random() >= 0.9, Math.random() >= 0.5, Math.random() >= 0.5,
+        // Math.random() >= 0.5 ? "some default value" : null));
+        //
+        // }
+        // model.generateMethods();
+        // models.add(model);
+        // }
+        Enum enumerator = new Enum("package.test.models", "AnEntity", "state", "tmp", "Enumerator",
+                                   Arrays.asList("unenrolled", "cloud_enrolling", "bootstrapped", "registered",
+                                                 "deregistered"),
+                                   "deregistered");
+        enumerator.generateMethods();
+        models.add(enumerator);
         File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation");
         ModelsGenerator generator = new ModelsGenerator(directory, new Models(models));
         try {
@@ -85,5 +92,4 @@ public class ModelsGenerator extends AbstractGenerator {
             exception.printStackTrace();
         }
     }
-
 }

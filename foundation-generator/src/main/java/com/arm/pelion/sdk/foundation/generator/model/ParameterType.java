@@ -130,15 +130,19 @@ public class ParameterType implements Entity {
     }
 
     public boolean hasClass() {
+        return hasClazz();
+    }
+
+    protected boolean hasClazz() {
         return clazz != null;
     }
 
     @Override
     public void translate() throws TranslationException {
-        if (!hasClass()) {
+        if (!hasClazz()) {
             clazz = PrimitiveDataTypes.getDataType(type, format);
         }
-        if (!hasClass()) {
+        if (!hasClazz()) {
             if (importPath == null || importPath.isIncomplete()) {
                 throw new TranslationException("The type definition is incomplete: " + importPath);
             }
@@ -150,7 +154,7 @@ public class ParameterType implements Entity {
     public String getShortName() {
         try {
             translate();
-            return hasClass() ? getClazz().getSimpleName() : importPath.getName();
+            return hasClazz() ? getClazz().getSimpleName() : importPath.getName();
         } catch (TranslationException exception) {
             return "";
         }
@@ -159,7 +163,7 @@ public class ParameterType implements Entity {
     public boolean isNumber() {
         try {
             translate();
-            return hasClass() ? Number.class.isAssignableFrom(getClazz()) || getClazz() == int.class
+            return hasClazz() ? Number.class.isAssignableFrom(getClazz()) || getClazz() == int.class
                                 || getClazz() == long.class || getClazz() == float.class || getClazz() == double.class
                                 || getClazz() == byte.class || getClazz() == short.class
                               : false;
@@ -171,7 +175,7 @@ public class ParameterType implements Entity {
     public boolean isString() {
         try {
             translate();
-            return hasClass() ? String.class.isAssignableFrom(getClazz()) : false;
+            return hasClazz() ? String.class.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }
@@ -180,7 +184,7 @@ public class ParameterType implements Entity {
     public boolean isBoolean() {
         try {
             translate();
-            return hasClass() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
+            return hasClazz() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
         } catch (TranslationException exception) {
             return false;
         }
@@ -189,7 +193,7 @@ public class ParameterType implements Entity {
     public boolean isDate() {
         try {
             translate();
-            return hasClass() ? Date.class.isAssignableFrom(getClazz()) : false;
+            return hasClazz() ? Date.class.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }
@@ -198,7 +202,7 @@ public class ParameterType implements Entity {
     public boolean isEnum() {
         try {
             translate();
-            return hasClass() ? SdkEnum.class.isAssignableFrom(getClazz())
+            return hasClazz() ? SdkEnum.class.isAssignableFrom(getClazz())
                               : importPath == null ? false : importPath.isEnum();
         } catch (TranslationException exception) {
             return false;

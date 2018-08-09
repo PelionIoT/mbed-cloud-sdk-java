@@ -34,6 +34,7 @@ public class Method extends AbstractModelEntity {
         parameters = new LinkedList<>();
         setStatement(null);
         setReturnType(null);
+        setReturnDescription(null);
         setCode(null);
         setRequired(isRequired);
         setAsOverride(isAnOverride);
@@ -100,6 +101,11 @@ public class Method extends AbstractModelEntity {
      */
     public void setReturnDescription(String returnDescription) {
         this.returnDescription = returnDescription;
+    }
+
+    public <T extends Method> T returnDescription(String returnDesc) {
+        setReturnDescription(returnDesc);
+        return (T) this;
     }
 
     /**
@@ -183,6 +189,11 @@ public class Method extends AbstractModelEntity {
      */
     public void setReturnType(ParameterType returnType) {
         this.returnType = returnType;
+    }
+
+    public <T extends Method> T returnType(ParameterType theReturnType) {
+        setReturnType(theReturnType);
+        return (T) this;
     }
 
     /**

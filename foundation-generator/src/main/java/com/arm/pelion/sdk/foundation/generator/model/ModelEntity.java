@@ -54,4 +54,6 @@ public interface ModelEntity extends Entity {
 
     <T extends ModelEntity> T needsCustomCode(boolean needsCustomCode);
 
+    <T extends ModelEntity> T longDescription(String longDescription);
+
 }
