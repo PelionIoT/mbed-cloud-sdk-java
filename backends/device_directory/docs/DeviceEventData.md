@@ -4,19 +4,18 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**assetHash** | **String** | The hash of the new asset. |  [optional]
-**campaignId** | **String** | The ID of the campaign. |  [optional]
-**changes** | **Object** |  |  [optional]
-**code** | **String** | The event log code. |  [optional]
+**changes** | **Map&lt;String, String&gt;** | Additional data relevant to the event. |  [optional]
+**createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **data** | **Object** |  |  [optional]
 **dateTime** | [**DateTime**](DateTime.md) |  | 
 **description** | **String** |  |  [optional]
 **deviceId** | **String** |  |  [optional]
-**eventType** | **String** |  |  [optional]
-**eventTypeDescription** | **String** |  |  [optional]
+**etag** | [**DateTime**](DateTime.md) |  |  [optional]
+**eventType** | **String** | Event code |  [optional]
+**eventTypeCategory** | **String** | Category code which groups the event type by a summary category. |  [optional]
+**eventTypeDescription** | **String** | Generic description of the event |  [optional]
 **id** | **String** |  | 
-**manifestId** | **String** | The ID of the manifest. |  [optional]
-**pluginId** | **String** | The ID of the handler that processed the request in the client. |  [optional]
+**object** | **String** | The API resource entity. |  [optional]
 **stateChange** | **Boolean** |  |  [optional]
 
 

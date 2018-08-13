@@ -22,6 +22,9 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -32,17 +35,11 @@ import java.io.Serializable;
 public class DeviceEventData implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("asset_hash")
-  private String assetHash = null;
-
-  @SerializedName("campaign_id")
-  private String campaignId = null;
-
   @SerializedName("changes")
-  private Object changes = null;
+  private Map<String, String> changes = null;
 
-  @SerializedName("code")
-  private String code = null;
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
 
   @SerializedName("data")
   private Object data = null;
@@ -56,8 +53,14 @@ public class DeviceEventData implements Serializable {
   @SerializedName("device_id")
   private String deviceId = null;
 
+  @SerializedName("etag")
+  private DateTime etag = null;
+
   @SerializedName("event_type")
   private String eventType = null;
+
+  @SerializedName("event_type_category")
+  private String eventTypeCategory = null;
 
   @SerializedName("event_type_description")
   private String eventTypeDescription = null;
@@ -65,85 +68,54 @@ public class DeviceEventData implements Serializable {
   @SerializedName("id")
   private String id = null;
 
-  @SerializedName("manifest_id")
-  private String manifestId = null;
-
-  @SerializedName("plugin_id")
-  private String pluginId = null;
+  @SerializedName("object")
+  private String object = null;
 
   @SerializedName("state_change")
   private Boolean stateChange = null;
 
-  public DeviceEventData assetHash(String assetHash) {
-    this.assetHash = assetHash;
-    return this;
-  }
-
-   /**
-   * The hash of the new asset.
-   * @return assetHash
-  **/
-  @ApiModelProperty(example = "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855", value = "The hash of the new asset.")
-  public String getAssetHash() {
-    return assetHash;
-  }
-
-  public void setAssetHash(String assetHash) {
-    this.assetHash = assetHash;
-  }
-
-  public DeviceEventData campaignId(String campaignId) {
-    this.campaignId = campaignId;
-    return this;
-  }
-
-   /**
-   * The ID of the campaign.
-   * @return campaignId
-  **/
-  @ApiModelProperty(example = "0", value = "The ID of the campaign.")
-  public String getCampaignId() {
-    return campaignId;
-  }
-
-  public void setCampaignId(String campaignId) {
-    this.campaignId = campaignId;
-  }
-
-  public DeviceEventData changes(Object changes) {
+  public DeviceEventData changes(Map<String, String> changes) {
     this.changes = changes;
     return this;
   }
 
+  public DeviceEventData putChangesItem(String key, String changesItem) {
+    if (this.changes == null) {
+      this.changes = new HashMap<String, String>();
+    }
+    this.changes.put(key, changesItem);
+    return this;
+  }
+
    /**
-   * Get changes
+   * Additional data relevant to the event.
    * @return changes
   **/
-  @ApiModelProperty(example = "\"device-events\"", value = "")
-  public Object getChanges() {
+  @ApiModelProperty(example = "{\"campaign_id\":\"00000000000000000000000000000000\"}", value = "Additional data relevant to the event.")
+  public Map<String, String> getChanges() {
     return changes;
   }
 
-  public void setChanges(Object changes) {
+  public void setChanges(Map<String, String> changes) {
     this.changes = changes;
   }
 
-  public DeviceEventData code(String code) {
-    this.code = code;
+  public DeviceEventData createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
     return this;
   }
 
    /**
-   * The event log code.
-   * @return code
+   * Get createdAt
+   * @return createdAt
   **/
-  @ApiModelProperty(example = "UPD2_100", value = "The event log code.")
-  public String getCode() {
-    return code;
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
+  public DateTime getCreatedAt() {
+    return createdAt;
   }
 
-  public void setCode(String code) {
-    this.code = code;
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
   }
 
   public DeviceEventData data(Object data) {
@@ -155,7 +127,7 @@ public class DeviceEventData implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "\"{ device object }\"", value = "")
+  @ApiModelProperty(example = "\"{ }\"", value = "")
   public Object getData() {
     return data;
   }
@@ -218,16 +190,34 @@ public class DeviceEventData implements Serializable {
     this.deviceId = deviceId;
   }
 
+  public DeviceEventData etag(DateTime etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * Get etag
+   * @return etag
+  **/
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
+  public DateTime getEtag() {
+    return etag;
+  }
+
+  public void setEtag(DateTime etag) {
+    this.etag = etag;
+  }
+
   public DeviceEventData eventType(String eventType) {
     this.eventType = eventType;
     return this;
   }
 
    /**
-   * Get eventType
+   * Event code
    * @return eventType
   **/
-  @ApiModelProperty(example = "update.device.device-created", value = "")
+  @ApiModelProperty(example = "UPD2_100", value = "Event code")
   public String getEventType() {
     return eventType;
   }
@@ -236,16 +226,34 @@ public class DeviceEventData implements Serializable {
     this.eventType = eventType;
   }
 
+  public DeviceEventData eventTypeCategory(String eventTypeCategory) {
+    this.eventTypeCategory = eventTypeCategory;
+    return this;
+  }
+
+   /**
+   * Category code which groups the event type by a summary category.
+   * @return eventTypeCategory
+  **/
+  @ApiModelProperty(example = "FAIL_MANIFEST_REJECTED", value = "Category code which groups the event type by a summary category.")
+  public String getEventTypeCategory() {
+    return eventTypeCategory;
+  }
+
+  public void setEventTypeCategory(String eventTypeCategory) {
+    this.eventTypeCategory = eventTypeCategory;
+  }
+
   public DeviceEventData eventTypeDescription(String eventTypeDescription) {
     this.eventTypeDescription = eventTypeDescription;
     return this;
   }
 
    /**
-   * Get eventTypeDescription
+   * Generic description of the event
    * @return eventTypeDescription
   **/
-  @ApiModelProperty(example = "Device record created", value = "")
+  @ApiModelProperty(example = "FAIL", value = "Generic description of the event")
   public String getEventTypeDescription() {
     return eventTypeDescription;
   }
@@ -272,40 +280,22 @@ public class DeviceEventData implements Serializable {
     this.id = id;
   }
 
-  public DeviceEventData manifestId(String manifestId) {
-    this.manifestId = manifestId;
+  public DeviceEventData object(String object) {
+    this.object = object;
     return this;
   }
 
    /**
-   * The ID of the manifest.
-   * @return manifestId
+   * The API resource entity.
+   * @return object
   **/
-  @ApiModelProperty(example = "0", value = "The ID of the manifest.")
-  public String getManifestId() {
-    return manifestId;
+  @ApiModelProperty(example = "device-event", value = "The API resource entity.")
+  public String getObject() {
+    return object;
   }
 
-  public void setManifestId(String manifestId) {
-    this.manifestId = manifestId;
-  }
-
-  public DeviceEventData pluginId(String pluginId) {
-    this.pluginId = pluginId;
-    return this;
-  }
-
-   /**
-   * The ID of the handler that processed the request in the client.
-   * @return pluginId
-  **/
-  @ApiModelProperty(example = "1", value = "The ID of the handler that processed the request in the client.")
-  public String getPluginId() {
-    return pluginId;
-  }
-
-  public void setPluginId(String pluginId) {
-    this.pluginId = pluginId;
+  public void setObject(String object) {
+    this.object = object;
   }
 
   public DeviceEventData stateChange(Boolean stateChange) {
@@ -336,25 +326,24 @@ public class DeviceEventData implements Serializable {
       return false;
     }
     DeviceEventData deviceEventData = (DeviceEventData) o;
-    return Objects.equals(this.assetHash, deviceEventData.assetHash) &&
-        Objects.equals(this.campaignId, deviceEventData.campaignId) &&
-        Objects.equals(this.changes, deviceEventData.changes) &&
-        Objects.equals(this.code, deviceEventData.code) &&
+    return Objects.equals(this.changes, deviceEventData.changes) &&
+        Objects.equals(this.createdAt, deviceEventData.createdAt) &&
         Objects.equals(this.data, deviceEventData.data) &&
         Objects.equals(this.dateTime, deviceEventData.dateTime) &&
         Objects.equals(this.description, deviceEventData.description) &&
         Objects.equals(this.deviceId, deviceEventData.deviceId) &&
+        Objects.equals(this.etag, deviceEventData.etag) &&
         Objects.equals(this.eventType, deviceEventData.eventType) &&
+        Objects.equals(this.eventTypeCategory, deviceEventData.eventTypeCategory) &&
         Objects.equals(this.eventTypeDescription, deviceEventData.eventTypeDescription) &&
         Objects.equals(this.id, deviceEventData.id) &&
-        Objects.equals(this.manifestId, deviceEventData.manifestId) &&
-        Objects.equals(this.pluginId, deviceEventData.pluginId) &&
+        Objects.equals(this.object, deviceEventData.object) &&
         Objects.equals(this.stateChange, deviceEventData.stateChange);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(assetHash, campaignId, changes, code, data, dateTime, description, deviceId, eventType, eventTypeDescription, id, manifestId, pluginId, stateChange);
+    return Objects.hash(changes, createdAt, data, dateTime, description, deviceId, etag, eventType, eventTypeCategory, eventTypeDescription, id, object, stateChange);
   }
 
 
@@ -363,19 +352,18 @@ public class DeviceEventData implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceEventData {\n");
     
-    sb.append("    assetHash: ").append(toIndentedString(assetHash)).append("\n");
-    sb.append("    campaignId: ").append(toIndentedString(campaignId)).append("\n");
     sb.append("    changes: ").append(toIndentedString(changes)).append("\n");
-    sb.append("    code: ").append(toIndentedString(code)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
     sb.append("    dateTime: ").append(toIndentedString(dateTime)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    eventType: ").append(toIndentedString(eventType)).append("\n");
+    sb.append("    eventTypeCategory: ").append(toIndentedString(eventTypeCategory)).append("\n");
     sb.append("    eventTypeDescription: ").append(toIndentedString(eventTypeDescription)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("    manifestId: ").append(toIndentedString(manifestId)).append("\n");
-    sb.append("    pluginId: ").append(toIndentedString(pluginId)).append("\n");
+    sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    stateChange: ").append(toIndentedString(stateChange)).append("\n");
     sb.append("}");
     return sb.toString();
