@@ -30,7 +30,7 @@ public class PublicApiApiTest {
     /**
      * Bulk upload
      *
-     * With bulk upload you can upload a CSV file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **Example csv File:** 1. First line is assumed to be the header. Content of the header is not validated. 2. Each line can contain comma separated values where 1st value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected in one line. 4. Valid Enrollments begins with A followed by a - and 95 charactors in the format as given below. 5. Valid Enrollment identities may be enclosed with in quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
+     * With bulk upload, you can upload a &#x60;CSV&#x60; file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **An example &#x60;CSV&#x60; file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
      */
     @Test
     public void createBulkDeviceEnrollmentTest() {
@@ -52,6 +52,18 @@ public class PublicApiApiTest {
         // TODO: test validations
     }
     /**
+     * Bulk delete
+     *
+     * With bulk delete, you can upload a &#x60;CSV&#x60; file containing a number of enrollment IDs to be deleted.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes  &#x60;&#x60;&#x60; **An example &#x60;CSV&#x60; file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
+     */
+    @Test
+    public void deleteBulkDeviceEnrollmentTest() {
+        File enrollmentIdentities = null;
+        // BulkResponse response = api.deleteBulkDeviceEnrollment(enrollmentIdentities);
+
+        // TODO: test validations
+    }
+    /**
      * Delete an enrollment by ID.
      *
      * To free a device from your account you can delete the enrollment claim. To bypass the device ownership, you need to delete the enrollment and do a factory reset for the device. For more information, see [Transferring the ownership using First-to-Claim](/docs/current/connecting/device-ownership.html). &lt;br&gt; **Example usage:** &#x60;&#x60;&#x60; curl -X DELETE \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments/{id} &#x60;&#x60;&#x60; 
@@ -66,12 +78,24 @@ public class PublicApiApiTest {
     /**
      * Get bulk upload entity
      *
-     * Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
+     * Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk upload reports are provided. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
      */
     @Test
     public void getBulkDeviceEnrollmentTest() {
         String id = null;
         // BulkResponse response = api.getBulkDeviceEnrollment(id);
+
+        // TODO: test validations
+    }
+    /**
+     * Get bulk delete entity
+     *
+     * Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk delete reports are provided. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} &#x60;&#x60;&#x60; 
+     */
+    @Test
+    public void getBulkDeviceEnrollmentDeleteTest() {
+        String id = null;
+        // BulkResponse response = api.getBulkDeviceEnrollmentDelete(id);
 
         // TODO: test validations
     }

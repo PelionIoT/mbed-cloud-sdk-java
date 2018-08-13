@@ -6,8 +6,10 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createBulkDeviceEnrollment**](PublicApiApi.md#createBulkDeviceEnrollment) | **POST** v3/device-enrollments-bulk-uploads | Bulk upload
 [**createDeviceEnrollment**](PublicApiApi.md#createDeviceEnrollment) | **POST** v3/device-enrollments | Place an enrollment claim for one or several devices.
+[**deleteBulkDeviceEnrollment**](PublicApiApi.md#deleteBulkDeviceEnrollment) | **POST** v3/device-enrollments-bulk-deletes | Bulk delete
 [**deleteDeviceEnrollment**](PublicApiApi.md#deleteDeviceEnrollment) | **DELETE** v3/device-enrollments/{id} | Delete an enrollment by ID.
 [**getBulkDeviceEnrollment**](PublicApiApi.md#getBulkDeviceEnrollment) | **GET** v3/device-enrollments-bulk-uploads/{id} | Get bulk upload entity
+[**getBulkDeviceEnrollmentDelete**](PublicApiApi.md#getBulkDeviceEnrollmentDelete) | **GET** v3/device-enrollments-bulk-deletes/{id} | Get bulk delete entity
 [**getDeviceEnrollment**](PublicApiApi.md#getDeviceEnrollment) | **GET** v3/device-enrollments/{id} | Get details of an enrollment by ID.
 [**getDeviceEnrollments**](PublicApiApi.md#getDeviceEnrollments) | **GET** v3/device-enrollments | Get enrollment list.
 
@@ -18,7 +20,7 @@ Method | HTTP request | Description
 
 Bulk upload
 
-With bulk upload you can upload a CSV file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **Example csv File:** 1. First line is assumed to be the header. Content of the header is not validated. 2. Each line can contain comma separated values where 1st value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected in one line. 4. Valid Enrollments begins with A followed by a - and 95 charactors in the format as given below. 5. Valid Enrollment identities may be enclosed with in quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
+With bulk upload, you can upload a &#x60;CSV&#x60; file containing a number of enrollment IDs.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads  &#x60;&#x60;&#x60; **An example &#x60;CSV&#x60; file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -38,7 +40,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 PublicApiApi apiInstance = new PublicApiApi();
-File enrollmentIdentities = new File("/path/to/file.txt"); // File | Enrollment identities CSV file. Maximum file size is 10MB. 
+File enrollmentIdentities = new File("/path/to/file.txt"); // File | The `CSV` file containing the enrollment IDs. The maximum file size is 10MB. 
 try {
     BulkResponse result = apiInstance.createBulkDeviceEnrollment(enrollmentIdentities);
     System.out.println(result);
@@ -52,7 +54,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **enrollmentIdentities** | **File**| Enrollment identities CSV file. Maximum file size is 10MB.  |
+ **enrollmentIdentities** | **File**| The &#x60;CSV&#x60; file containing the enrollment IDs. The maximum file size is 10MB.  |
 
 ### Return type
 
@@ -122,6 +124,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="deleteBulkDeviceEnrollment"></a>
+# **deleteBulkDeviceEnrollment**
+> BulkResponse deleteBulkDeviceEnrollment(enrollmentIdentities)
+
+Bulk delete
+
+With bulk delete, you can upload a &#x60;CSV&#x60; file containing a number of enrollment IDs to be deleted.  **Example usage:** &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ -F &#39;enrollment_identities&#x3D;@/path/to/enrollments/enrollments.csv&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes  &#x60;&#x60;&#x60; **An example &#x60;CSV&#x60; file:** 1. The first line is assumed to be the header. The content of the header is not validated. 2. Each line can contain comma-separated values, where the first value is always assumed to be the Enrollment ID. 3. Only one enrollment ID is expected per line. 4. Valid enrollments begin with A followed by a - and 95 characters in the format as below. 5. Valid enrollment identities may be enclosed within quotes. 6. UTF-8 encoding is expected.  &#x60;&#x60;&#x60; \&quot;enrollment_identity\&quot; \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:44:71:93:23:22:15:43:23:12\&quot;, \&quot;A-4E:63:2D:AE:14:BC:D1:09:77:21:95:44:ED:34:06:57:1E:03:B1:EF:0E:F2:59:25:48:44:71:22:15:43:23:12\&quot;,  &#x60;&#x60;&#x60; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+File enrollmentIdentities = new File("/path/to/file.txt"); // File | The `CSV` file containing the enrollment IDs. The maximum file size is 10MB. 
+try {
+    BulkResponse result = apiInstance.deleteBulkDeviceEnrollment(enrollmentIdentities);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#deleteBulkDeviceEnrollment");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **enrollmentIdentities** | **File**| The &#x60;CSV&#x60; file containing the enrollment IDs. The maximum file size is 10MB.  |
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: multipart/form-data
+ - **Accept**: application/json
+
 <a name="deleteDeviceEnrollment"></a>
 # **deleteDeviceEnrollment**
 > Void deleteDeviceEnrollment(id)
@@ -183,7 +240,7 @@ Name | Type | Description  | Notes
 
 Get bulk upload entity
 
-Provides info about bulk upload for the given ID. For example bulk status and processed count of enrollment identities. Info includes also links for the bulk upload reports. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
+Provides information on bulk upload for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk upload reports are provided. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-uploads/{id} &#x60;&#x60;&#x60; 
 
 ### Example
 ```java
@@ -218,6 +275,61 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **id** | **String**| Bulk create task entity ID |
+
+### Return type
+
+[**BulkResponse**](BulkResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="getBulkDeviceEnrollmentDelete"></a>
+# **getBulkDeviceEnrollmentDelete**
+> BulkResponse getBulkDeviceEnrollmentDelete(id)
+
+Get bulk delete entity
+
+Provides information on bulk delete for the given ID. For example, the bulk status and the number of processed enrollment identities. Also links to the bulk delete reports are provided. **Example usage:** &#x60;&#x60;&#x60; curl -X GET \\ -H &#39;Authorization: Bearer &lt;valid access token&gt;&#39; \\ https://api.us-east-1.mbedcloud.com/v3/device-enrollments-bulk-deletes/{id} &#x60;&#x60;&#x60; 
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.enrollment.api.PublicApiApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+PublicApiApi apiInstance = new PublicApiApi();
+String id = "id_example"; // String | Bulk delete task entity ID
+try {
+    BulkResponse result = apiInstance.getBulkDeviceEnrollmentDelete(id);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling PublicApiApi#getBulkDeviceEnrollmentDelete");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **String**| Bulk delete task entity ID |
 
 ### Return type
 
