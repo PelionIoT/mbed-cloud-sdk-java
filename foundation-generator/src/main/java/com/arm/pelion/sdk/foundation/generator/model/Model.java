@@ -69,8 +69,8 @@ public class Model extends AbstractModelEntity {
 
     public Model(String packageName, String name, String group, String description, String longDescription,
                  boolean isAbstract, boolean needsCustomCode, boolean containsCustomCode, boolean isInternal) {
-        super(false, name, description, longDescription, false, true, isAbstract, containsCustomCode, needsCustomCode,
-              isInternal);
+        super(false, name, generateDescription(name, description), longDescription, false, true, isAbstract,
+              containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
         setPackageName(packageName);
@@ -80,6 +80,14 @@ public class Model extends AbstractModelEntity {
     public Model(String packageName, String name, String group, String description, String longDescription,
                  boolean needsCustomCode, boolean isInternal) {
         this(packageName, name, group, description, longDescription, false, needsCustomCode, false, isInternal);
+    }
+
+    public Model(String packageName, String name, String group) {
+        this(packageName, name, group, null, null, false, true);
+    }
+
+    private static String generateDescription(String name, String description) {
+        return description == null || description.isEmpty() ? "Model for " + name : description;
     }
 
     /**
@@ -153,18 +161,18 @@ public class Model extends AbstractModelEntity {
         return identifier == null ? false : methods.containsKey(identifier);
     }
 
+    public void addMethod(Method method) {
+        if (!hasMethod(method)) {
+            overrideMethodIfExist(method);
+        }
+    }
+
     public Method fetchMethod(String identifier) {
         return hasMethod(identifier) ? methods.get(identifier) : null;
     }
 
     public boolean hasField(Field field) {
         return field == null ? false : fields.containsKey(field.getIdentifier());
-    }
-
-    public void addMethod(Method method) {
-        if (!hasMethod(method)) {
-            overrideMethodIfExist(method);
-        }
     }
 
     public void overrideMethodIfExist(Method method) {

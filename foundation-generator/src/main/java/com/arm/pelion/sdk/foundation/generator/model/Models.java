@@ -12,6 +12,7 @@ public class Models {
 
     private final List<Model> rawModels;
     private final List<Model> processedModels;
+    private final List<ModelTest> unitTests;
     private final Map<String, PackageInfo> packagesInfo;
 
     /**
@@ -21,6 +22,7 @@ public class Models {
         super();
         rawModels = new LinkedList<>();
         processedModels = new LinkedList<>();
+        unitTests = new LinkedList<>();
         packagesInfo = new HashMap<>();
     }
 
@@ -46,6 +48,7 @@ public class Models {
             storePackageInfo(m);
             processedModels.addAll(m.getProcessedModels());
         });
+        processedModels.stream().filter(m -> !m.isAbstract()).forEach(m -> unitTests.add(new ModelTest(m)));
         // processedModels.
     }
 
@@ -65,6 +68,13 @@ public class Models {
 
     public List<PackageInfo> getPackagesInfo() {
         return new ArrayList<>(packagesInfo.values());
+    }
+
+    /**
+     * @return the unitTests
+     */
+    public List<ModelTest> getUnitTests() {
+        return unitTests;
     }
 
     private void storePackageInfo(Model m) {

@@ -172,6 +172,10 @@ public class ParameterType implements Entity {
         }
     }
 
+    public boolean isList() {
+        return false;
+    }
+
     public boolean isString() {
         try {
             translate();
@@ -215,7 +219,7 @@ public class ParameterType implements Entity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -231,7 +235,7 @@ public class ParameterType implements Entity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -275,6 +279,17 @@ public class ParameterType implements Entity {
             return false;
         }
         return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ParameterType [importPath=" + importPath + ", clazz=" + clazz + ", typeName=" + typeName + ", type="
+               + type + ", format=" + format + "]";
     }
 
 }

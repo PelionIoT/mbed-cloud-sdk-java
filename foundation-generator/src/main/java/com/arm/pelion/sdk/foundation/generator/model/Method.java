@@ -27,6 +27,7 @@ public class Method extends AbstractModelEntity {
     protected CodeBlock.Builder code;
     protected boolean isRequired;
     protected boolean isAnOverride;
+    protected boolean shouldTest;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -40,6 +41,7 @@ public class Method extends AbstractModelEntity {
         setCode(null);
         setRequired(isRequired);
         setAsOverride(isAnOverride);
+        shouldTest(false);
     }
 
     /*
@@ -88,6 +90,21 @@ public class Method extends AbstractModelEntity {
      */
     public void setAsOverride(boolean isAnOverride) {
         this.isAnOverride = isAnOverride;
+    }
+
+    /**
+     * @return the shouldTest
+     */
+    public boolean isShouldTest() {
+        return shouldTest;
+    }
+
+    /**
+     * @param shouldTest
+     *            the shouldTest to set
+     */
+    public void shouldTest(boolean shouldTest) {
+        this.shouldTest = shouldTest;
     }
 
     /**

@@ -6,15 +6,17 @@ import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
 public abstract class AbstractGenerator {
 
-    protected final File destinationDirectory;
+    protected final File sourceDestinationDirectory;
+    protected final File testDestinationDirectory;
     protected final Logger logger;
 
     /**
      * @param destinationDirectory
      */
-    public AbstractGenerator(File destinationDirectory) {
+    public AbstractGenerator(File sourceDestinationDirectory, File testDestinationDirectory) {
         super();
-        this.destinationDirectory = destinationDirectory;
+        this.sourceDestinationDirectory = sourceDestinationDirectory;
+        this.testDestinationDirectory = testDestinationDirectory;
         this.logger = Logger.getLogger();
     }
 

@@ -4,10 +4,11 @@ import com.squareup.javapoet.CodeBlock;
 
 public class MethodEquals extends AbstractMethodBasedOnModel {
 
+    public static final String IDENTIFIER = "equals";
     private static final String PARAMETER_NAME = "obj";
 
     public MethodEquals(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, false, "equals",
+        super(currentModel, parentModel, false, IDENTIFIER,
               "Indicates whether some other object is \"equal to\" this one.",
               "@see java.lang.Object#equals(java.lang.Object)", false, true, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
@@ -16,6 +17,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
                                    new ParameterType(Object.class), null));
         setReturnDescription("true if this object is the same as the obj argument; false otherwise.");
         setCode(CodeBlock.builder());
+        shouldTest(true);
     }
 
     /*

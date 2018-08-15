@@ -4,14 +4,17 @@ import com.squareup.javapoet.CodeBlock;
 
 public class MethodHashCode extends AbstractMethodBasedOnModel {
 
+    public static final String IDENTIFIER = "hashCode";
+
     public MethodHashCode(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, false, "hashCode",
+        super(currentModel, parentModel, false, IDENTIFIER,
               "Calculates the hash code of this instance based on field values", "@see java.lang.Object#hashCode()",
               false, true, false, false, currentModel == null ? false : currentModel.needsFieldCustomisation(), false,
               false, true);
         setReturnType(new ParameterType(int.class));
         setReturnDescription("hash code");
         setCode(CodeBlock.builder());
+        shouldTest(true);
     }
 
     /*

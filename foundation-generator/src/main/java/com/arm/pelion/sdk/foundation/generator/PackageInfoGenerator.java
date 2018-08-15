@@ -7,7 +7,7 @@ public class PackageInfoGenerator extends AbstractGenerator {
     private final PackageInfo packageInfo;
 
     public PackageInfoGenerator(File destinationDirectory, PackageInfo packageInfo) {
-        super(destinationDirectory);
+        super(destinationDirectory, null);
         this.packageInfo = packageInfo;
     }
 

@@ -22,7 +22,7 @@ public class ModelGenerator extends AbstractGenerator {
      * @param model
      */
     public ModelGenerator(File destinationDirectory, Model model) {
-        super(destinationDirectory);
+        super(destinationDirectory, null);
         this.model = model;
     }
 
@@ -38,8 +38,8 @@ public class ModelGenerator extends AbstractGenerator {
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))
                                 .build();
         try {
-            File destinationFile = new File(destinationDirectory, file.toJavaFileObject().getName());
-            if (destinationDirectory == null) {
+            File destinationFile = new File(sourceDestinationDirectory, file.toJavaFileObject().getName());
+            if (sourceDestinationDirectory == null) {
                 logger.logWarn("The destination directory for the generated code was not specified. It will hence only be output in Standard out.");
                 file.writeTo(System.out);
             } else {
@@ -48,7 +48,7 @@ public class ModelGenerator extends AbstractGenerator {
                     logger.logInfo("The model file is already present and contains some custom code. Therefore, it won't be regenerated.");
                     return;
                 }
-                file.writeTo(destinationDirectory);
+                file.writeTo(sourceDestinationDirectory);
                 logger.logInfo("Model [" + model.getFullName() + "] was generated and can be find there: "
                                + destinationFile.toString());
             }
@@ -99,7 +99,7 @@ public class ModelGenerator extends AbstractGenerator {
         JavaFile file = JavaFile.builder(model.getPackageName(), TypeSpec.classBuilder("MeaninglessClass").build())
                                 .build();
 
-        File classFolder = new File(destinationDirectory, file.toJavaFileObject().getName()).getParentFile();
+        File classFolder = new File(sourceDestinationDirectory, file.toJavaFileObject().getName()).getParentFile();
         File[] filesToClean = classFolder.listFiles(new FilenameFilter() {
 
             @Override

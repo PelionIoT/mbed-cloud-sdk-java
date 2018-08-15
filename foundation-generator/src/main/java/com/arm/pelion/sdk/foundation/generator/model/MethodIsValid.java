@@ -8,8 +8,10 @@ import com.squareup.javapoet.CodeBlock;
 
 public class MethodIsValid extends AbstractMethodBasedOnModel {
 
+    public static final String IDENTIFIER = "isValid";
+
     public MethodIsValid(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, false, "isValid", "Checks whether the model is valid or not",
+        super(currentModel, parentModel, false, IDENTIFIER, "Checks whether the model is valid or not",
               "@see SdkModel#isValid()", false, true, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false,
               findWhetherOverriding(currentModel, parentModel));
@@ -48,6 +50,7 @@ public class MethodIsValid extends AbstractMethodBasedOnModel {
             code.addStatement("return true");
             return;
         }
+        shouldTest(true);
         String methodValue = String.join(System.lineSeparator() + "&& ", validationMethodList);
         code.addStatement("return " + methodValue);
     }

@@ -13,3 +13,7 @@
 *.iws
 *.prefs
 *.log
+/**/*.jar
+*.jar
+*.zip
+
