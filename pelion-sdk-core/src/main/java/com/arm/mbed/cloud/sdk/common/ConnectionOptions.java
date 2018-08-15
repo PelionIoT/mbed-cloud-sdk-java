@@ -356,4 +356,15 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     }
 
+    /*
+     * (non-Javadoc)
+     * 
+     * @see java.lang.Object#toString()
+     */
+    @Override
+    public String toString() {
+        return "ConnectionOptions [host=" + host + ", clientLogLevel=" + clientLogLevel + ", requestTimeout="
+               + requestTimeout + ", autostartDaemon=" + autostartDaemon + "]";
+    }
+
 }

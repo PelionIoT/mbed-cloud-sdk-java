@@ -30,14 +30,15 @@ public class TestPaginator {
 
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.iterator());
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
@@ -76,14 +77,15 @@ public class TestPaginator {
 
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.iterator());
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
@@ -138,15 +140,17 @@ public class TestPaginator {
         final FakeServer server = new FakeServer(1, pageSize, Integer.valueOf(maxResult), false);
 
         try {
-            Paginator<FakeElement> paginator = new Paginator<>(
-                    new ListOptions().pageSize(pageSize).maxResults(maxResult), new PageRequester<FakeElement>() {
+            Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize)
+                                                                                .maxResults(maxResult),
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.iterator());
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
@@ -200,14 +204,15 @@ public class TestPaginator {
         final FakeServer server = new FakeServer(pageNumber, pageSize, null, false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
             assertFalse(paginator.hasPrevious());
@@ -310,14 +315,15 @@ public class TestPaginator {
         final FakeServer server = new FakeServer(pageNumber, pageSize, null, true);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
             assertFalse(paginator.hasPrevious());
@@ -420,15 +426,17 @@ public class TestPaginator {
         long valueSum = 0;
         final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
-            Paginator<FakeElement> paginator = new Paginator<>(
-                    new ListOptions().pageSize(pageSize).maxResults(maxResult), new PageRequester<FakeElement>() {
+            Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().pageSize(pageSize)
+                                                                                .maxResults(maxResult),
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
             assertFalse(paginator.hasPrevious());
@@ -464,7 +472,7 @@ public class TestPaginator {
             assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals((maxResult % pageSize > 0) ? (maxResult / pageSize) + 1 : maxResult / pageSize,
-                    paginator.getPagesNumber());
+                         paginator.getPagesNumber());
             assertNotEquals(0, paginator.getPageIndex());
             assertNotNull(paginator.getCurrentPage());
             paginator.rewind();
@@ -540,14 +548,15 @@ public class TestPaginator {
         final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().maxResults(maxResult),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.getRequester());
             assertNull(paginator.previous());
             assertFalse(paginator.hasPrevious());
@@ -583,7 +592,7 @@ public class TestPaginator {
             assertEquals(server.numberOfSentElements(), paginator.getElementsTotal());
             assertEquals(pageSize, paginator.getNumberOfPageElements());
             assertEquals((maxResult % pageSize > 0) ? (maxResult / pageSize) + 1 : maxResult / pageSize,
-                    paginator.getPagesNumber());
+                         paginator.getPagesNumber());
             assertNotEquals(0, paginator.getPageIndex());
             assertNotNull(paginator.getCurrentPage());
             paginator.rewind();
@@ -657,14 +666,15 @@ public class TestPaginator {
         final FakeServer server = new FakeServer(pageNumber, pageSize, Integer.valueOf(maxResult), false);
         try {
             Paginator<FakeElement> paginator = new Paginator<>(new ListOptions().maxResults(maxResult),
-                    new PageRequester<FakeElement>() {
+                                                               new PageRequester<FakeElement>() {
 
-                        @Override
-                        public ListResponse<FakeElement> requestNewPage(ListOptions opt) throws MbedCloudException {
-                            return server.fetchPage(opt);
-                        }
+                                                                   @Override
+                                                                   public ListResponse<FakeElement>
+                                                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                                                       return server.fetchPage(opt);
+                                                                   }
 
-                    });
+                                                               });
             assertNotNull(paginator.getRequester());
             List<FakeElement> elements = paginator.all();
             assertNotNull(elements);
@@ -822,6 +832,11 @@ public class TestPaginator {
             return true;
         }
 
+        @Override
+        public void setId(String id) {
+            // Nothing to do.
+        }
+
     }
 
     private static class FakePage {
@@ -947,7 +962,7 @@ public class TestPaginator {
             }
             // Ensure there is more results than maxResult when set
             if (maxResult != null
-                    && (maxResult.intValue() - (pageSize * (pageNumber - 1))) > numberOfElementsInLastPage) {
+                && (maxResult.intValue() - (pageSize * (pageNumber - 1))) > numberOfElementsInLastPage) {
                 numberOfElementsInLastPage = (maxResult.intValue() - (pageSize * (pageNumber - 1)));
             }
             lastpage.generateElements(numberOfElementsInLastPage, (pageNumber - 1) * pageSize);

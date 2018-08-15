@@ -12,7 +12,14 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
-@Preamble(description = "List response. Most listing operations are paginated and respond with truncated results. This object comprises the information related to a page.")
+/**
+ * Most listing operations are <a href="https://en.wikipedia.org/wiki/Pagination">paginated</a> and respond with
+ * truncated results. This object comprises the information related to one page.
+ *
+ * @param <T>
+ *            model type.
+ */
+@Preamble(description = "Paginated response corresponding to one page.")
 public class ListResponse<T extends SdkModel> implements Cloneable, Serializable {
 
     /**
@@ -67,7 +74,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
      *            Order of returned records.
      */
     public ListResponse(boolean hasMore, long totalCount, String after, String continuationMarker, int pageSize,
-            Order order) {
+                        Order order) {
         this(hasMore, totalCount, after, continuationMarker, pageSize, order, null);
         initialiseData();
     }
@@ -96,7 +103,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     }
 
     private ListResponse(boolean hasMore, long totalCount, String after, String continuationMarker, int pageSize,
-            Order order, List<T> data) {
+                         Order order, List<T> data) {
         super();
         setHasMore(hasMore);
         setTotalCount(totalCount);
@@ -381,7 +388,7 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     @Override
     public ListResponse<T> clone() {
         return new ListResponse<>(hasMore, totalCount, after, continuationMarker, pageSize, order,
-                new LinkedList<>(data));
+                                  new LinkedList<>(data));
     }
 
     /*
@@ -392,8 +399,8 @@ public class ListResponse<T extends SdkModel> implements Cloneable, Serializable
     @Override
     public String toString() {
         return "ListResponse [hasMore=" + hasMore + ", totalCount=" + totalCount + ", after=" + after
-                + ", continuationMarker=" + continuationMarker + ", pageSize=" + pageSize + ", order=" + order
-                + ", data=" + data + "]";
+               + ", continuationMarker=" + continuationMarker + ", pageSize=" + pageSize + ", order=" + order
+               + ", data=" + data + "]";
     }
 
     /*

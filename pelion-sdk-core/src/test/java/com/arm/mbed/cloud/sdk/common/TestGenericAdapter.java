@@ -60,13 +60,16 @@ public class TestGenericAdapter {
         data.add("5");
 
         GenericAdapter.MappedObjectRegistry<IntegerModel> registry = new GenericAdapter.MappedObjectRegistry<>(data,
-                new Mapper<String, IntegerModel>() {
+                                                                                                               new Mapper<String,
+                                                                                                                          IntegerModel>() {
 
-                    @Override
-                    public IntegerModel map(String toBeMapped) {
-                        return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped, 0));
-                    }
-                });
+                                                                                                                   @Override
+                                                                                                                   public IntegerModel
+                                                                                                                          map(String toBeMapped) {
+                                                                                                                       return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped,
+                                                                                                                                                                                 0));
+                                                                                                                   }
+                                                                                                               });
         for (int i = 0; i < data.size(); i++) {
             final IntegerModel expectedModel = new IntegerModel(i + 1);
             assertTrue(registry.contains(expectedModel));
@@ -197,6 +200,12 @@ public class TestGenericAdapter {
                 return false;
             }
             return true;
+        }
+
+        @Override
+        public void setId(String id) {
+            // Nothing to do.
+
         }
 
     }

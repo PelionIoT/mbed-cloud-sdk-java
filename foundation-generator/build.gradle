@@ -33,7 +33,10 @@ dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.squareup:javapoet:1.11.+'
 	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
+	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
+	compile 'com.github.mifmif:generex:1.0.+'
 	compile 'org.slf4j:slf4j-simple:1.7.7'
+	compile 'junit:junit:4.+'
 	compile project(':pelion-sdk-core')
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'

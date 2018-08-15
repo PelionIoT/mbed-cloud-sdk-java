@@ -208,6 +208,11 @@ public class TestListResponse {
             return true;
         }
 
+        @Override
+        public void setId(String id) {
+            value = Integer.parseInt(id);
+        }
+
     }
 
 }

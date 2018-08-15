@@ -263,6 +263,17 @@ public class Error implements SdkModel {
         return getCode() + "-" + getRequestId();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @Override
+    public void setId(String id) {
+        // Nothing to do.
+
+    }
+
     @Preamble(description = "Request field in which there is an error")
     public static class Field implements Serializable {
         /**

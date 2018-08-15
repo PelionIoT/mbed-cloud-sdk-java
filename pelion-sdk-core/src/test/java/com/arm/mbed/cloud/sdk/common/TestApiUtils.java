@@ -116,6 +116,12 @@ public class TestApiUtils {
             return null;
         }
 
+        @Override
+        public void setId(String id) {
+            // Nothing to do
+
+        }
+
     }
 
     @SuppressWarnings("boxing")
@@ -197,7 +203,7 @@ public class TestApiUtils {
         assertNotNull(tempText);
         assertNotEquals(testfunctionString, tempText);
         assertEquals(testfunctionString,
-                ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL).convert(tempText, false));
+                     ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL).convert(tempText, false));
         tempText = ApiUtils.getCaseConverter(CaseConversion.CAMEL_TO_SNAKE).convert(testClassString, true);
         assertNotNull(tempText);
         assertNotEquals(testClassString, tempText);

@@ -11,6 +11,16 @@ import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
+/**
+ * Iterator over all the elements of a list without requiring the developer to create and process all the individual
+ * requests. This Paginator should be used as the primary way of listing entities. Paginators can be configured to
+ * return only a maximum number of results if existing (i.e. parameter {@code maxResult}) or to set the page size in
+ * order to tweak underlying http communications (i.e. parameter {@code pageSize}).
+ *
+ *
+ * @param <T>
+ *            model type.
+ */
 @Preamble(description = "Iterator over an entire result set of a truncated/paginated API operation.")
 public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, Cloneable {
 
@@ -75,9 +85,10 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
             if (currentPage != null) {
                 currentOptions.setAfter(findNextPageCursor());
             }
-            final int firstResultIndex = (pageSize == null)
-                    ? (currentPage == null) ? 0 : (pageIndex + 1) * currentPage.getNumberOfElements()
-                    : (pageIndex + 1) * pageSize.intValue();
+            final int firstResultIndex = (pageSize == null) ? (currentPage == null) ? 0
+                                                                                    : (pageIndex + 1)
+                                                                                      * currentPage.getNumberOfElements()
+                                                            : (pageIndex + 1) * pageSize.intValue();
             gotoAPage(currentOptions, pageIndex + 1);
             previousOptions = optionsToStore;
             resultNumber = firstResultIndex;
@@ -88,7 +99,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
 
     private String findNextPageCursor() {
         return currentPage.hasContinuationMarker() ? currentPage.getContinuationMarker()
-                : fetchAfterId(currentPage.last());
+                                                   : fetchAfterId(currentPage.last());
     }
 
     private void setCurrentPageAsLast() {
@@ -161,8 +172,8 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
      * @return the number of elements on the current page.
      */
     public int getNumberOfPageElements() {
-        return currentPage == null ? 0
-                : currentPage.getPageSize() == 0 ? currentPage.getNumberOfElements() : currentPage.getPageSize();
+        return currentPage == null ? 0 : currentPage.getPageSize() == 0 ? currentPage.getNumberOfElements()
+                                                                        : currentPage.getPageSize();
 
     }
 
@@ -367,7 +378,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
             fetchNewPage();
         } catch (MbedCloudException exception) {
             SdkLogger.getLogger().logError("Error occurred while browsing the collection (requesting a new page)",
-                    exception);
+                                           exception);
             return null;
         }
 
@@ -401,7 +412,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
             }
         } catch (MbedCloudException exception) {
             SdkLogger.getLogger().logError("Error occurred while browsing the collection (going to the heading page)",
-                    exception);
+                                           exception);
             return null;
         }
         return currentPage;
@@ -431,7 +442,9 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
         }
         if (initialOptions.hasMaxResults()) {
             int indexLastElement = (int) (initialOptions.getMaxResults().longValue()
-                    - (getPagesNumber() - 1) * (pageSize == null ? lastPage.getPageSize() : pageSize.intValue())) - 1;
+                                          - (getPagesNumber() - 1)
+                                            * (pageSize == null ? lastPage.getPageSize() : pageSize.intValue()))
+                                   - 1;
             if (indexLastElement < 0) {
                 indexLastElement = 0;
             } else if (indexLastElement > lastPage.getNumberOfElements() - 1) {
@@ -463,7 +476,7 @@ public class Paginator<T extends SdkModel> implements Iterator<T>, Iterable<T>, 
             }
         } catch (MbedCloudException exception) {
             SdkLogger.getLogger().logError("Error occurred while browsing the collection (requesting a new page)",
-                    exception);
+                                           exception);
             return null;
         }
         return currentPage;

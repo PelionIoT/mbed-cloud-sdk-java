@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic SDK module definition")
 @Internal
-public abstract class AbstractApi {
+public abstract class AbstractApi implements ApiModule {
 
     protected final ApiClientWrapper client;
 
@@ -50,22 +50,26 @@ public abstract class AbstractApi {
         ApiUtils.checkModelValidity(logger, model, argName);
     }
 
-    /**
-     * Gets SDK logger.
-     *
-     * @see SdkLogger
-     * @return the logger.
+    /* (non-Javadoc)
+     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getLogger()
      */
+    @Override
     public SdkLogger getLogger() {
         return logger;
     }
 
-    /**
-     * Gets meta data for the last Arm Mbed Cloud API call.
-     *
-     * @see ApiMetadata
-     * @return metadata
+    /* (non-Javadoc)
+     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getClient()
      */
+    @Override
+    public ApiClientWrapper getClient() {
+        return client;
+    }
+
+    /* (non-Javadoc)
+     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getLastApiMetadata()
+     */
+    @Override
     @API
     public ApiMetadata getLastApiMetadata() {
         return metadataCache.getLastApiMetadata();
@@ -81,11 +85,10 @@ public abstract class AbstractApi {
         metadataCache.clearMetadata();
     }
 
-    /**
-     * Gets the SDK module name.
-     *
-     * @return module name.
+    /* (non-Javadoc)
+     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getModuleName()
      */
+    @Override
     public abstract String getModuleName();
 
 }
