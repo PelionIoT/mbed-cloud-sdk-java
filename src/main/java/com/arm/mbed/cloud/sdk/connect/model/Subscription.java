@@ -123,7 +123,7 @@ public class Subscription implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
@@ -134,6 +134,16 @@ public class Subscription implements SdkModel {
     @Override
     public String getId() {
         return getDeviceId();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @Override
+    public void setId(String id) {
+        setDeviceId(id);
     }
 
 }

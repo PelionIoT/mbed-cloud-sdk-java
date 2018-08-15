@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.connect.model;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -62,7 +63,7 @@ public class Resource implements SdkModel {
      */
     @Internal
     public Resource(String deviceId, String path, String type, String contentType, boolean observable,
-            String interfaceDescription) {
+                    String interfaceDescription) {
         super();
         setDeviceId(deviceId);
         setPath(path);
@@ -140,6 +141,19 @@ public class Resource implements SdkModel {
     @Override
     public String getId() {
         return getDeviceId() + getPath();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
+
     }
 
     /**
@@ -303,7 +317,7 @@ public class Resource implements SdkModel {
     @Override
     public String toString() {
         return "Resource [deviceId=" + deviceId + ", path=" + path + ", type=" + type + ", contentType=" + contentType
-                + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
+               + ", interfaceDescription=" + interfaceDescription + ", observable=" + observable + "]";
     }
 
 }

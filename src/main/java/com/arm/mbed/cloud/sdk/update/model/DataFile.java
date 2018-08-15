@@ -7,7 +7,9 @@ import java.io.InputStream;
 
 import org.apache.commons.codec.digest.DigestUtils;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -73,12 +75,24 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets file Id.
-     * 
+     *
      * @return file Id (file path).
      */
     @Override
     public String getId() {
         return hasFile() ? getFile().toString() : null;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
     }
 
     /**
@@ -112,7 +126,7 @@ public class DataFile implements SdkModel {
 
     /**
      * Gets the file name.
-     * 
+     *
      * @return the file name.
      */
     public @Nullable String getFileName() {
@@ -121,7 +135,7 @@ public class DataFile implements SdkModel {
 
     /**
      * States whether a file has been specified.
-     * 
+     *
      * @return True if a file has been specified. False otherwise.
      */
     public boolean hasFile() {

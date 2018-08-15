@@ -4,6 +4,7 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -67,13 +68,26 @@ public class LoginHistory implements SdkModel {
 
     /**
      * Gets login history Id.
-     * 
+     *
      * @return an id.
      */
     @Override
     @Internal
     public String getId() {
         return (getDate() == null) ? null : getDate().toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
+
     }
 
     /**
@@ -141,7 +155,7 @@ public class LoginHistory implements SdkModel {
     @Override
     public String toString() {
         return "LoginHistory [date=" + date + ", userAgent=" + userAgent + ", ipAddress=" + ipAddress + ", success="
-                + success + "]";
+               + success + "]";
     }
 
 }

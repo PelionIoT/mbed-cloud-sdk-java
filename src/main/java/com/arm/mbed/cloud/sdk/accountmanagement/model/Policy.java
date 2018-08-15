@@ -2,6 +2,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -14,33 +15,33 @@ public class Policy implements SdkModel {
     private static final long serialVersionUID = -505337926801785611L;
 
     /**
-     * 
+     *
      * Comma separated list of actions, empty string represents all actions.
-     * 
+     *
      */
 
     private final String action;
 
     /**
-     * 
+     *
      * Resource that is protected by this policy.
-     * 
+     *
      */
 
     public final String resource;
 
     /**
-     * 
+     *
      * Feature name corresponding to this policy.
-     * 
+     *
      */
 
     public final String feature;
 
     /**
-     * 
+     *
      * True or false controlling whether an action is allowed or not.
-     * 
+     *
      */
     @DefaultValue(value = "false")
     public boolean allow;
@@ -49,7 +50,7 @@ public class Policy implements SdkModel {
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #Policy()} instead.
-     * 
+     *
      * @param action
      *            action
      * @param resource
@@ -77,7 +78,7 @@ public class Policy implements SdkModel {
 
     /**
      * Gets policy Id.
-     * 
+     *
      * @return the policy id.
      */
     @Internal
@@ -86,9 +87,21 @@ public class Policy implements SdkModel {
         return getFeature();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do.
+    }
+
     /**
      * States whether an action is allowed or not.
-     * 
+     *
      * @return True is action is allowed. False otherwise.
      */
     public boolean isAllow() {
@@ -97,7 +110,7 @@ public class Policy implements SdkModel {
 
     /**
      * Controls whether an action is allowed or not.
-     * 
+     *
      * @param allow
      *            True is action is allowed. False otherwise.
      */
@@ -109,7 +122,7 @@ public class Policy implements SdkModel {
      * Gets comma separated list of actions related to this policy.
      * <p>
      * Empty string represents all actions.
-     * 
+     *
      * @return comma separated list of actions
      */
     public String getAction() {
@@ -118,7 +131,7 @@ public class Policy implements SdkModel {
 
     /**
      * Gets the resource that is protected by this policy.
-     * 
+     *
      * @return the resource
      */
     public String getResource() {
@@ -127,7 +140,7 @@ public class Policy implements SdkModel {
 
     /**
      * Gets the feature name corresponding to this policy.
-     * 
+     *
      * @return the feature name.
      */
     public String getFeature() {
@@ -158,13 +171,13 @@ public class Policy implements SdkModel {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
     public String toString() {
         return "Policy [action=" + action + ", resource=" + resource + ", feature=" + feature + ", allow=" + allow
-                + "]";
+               + "]";
     }
 
 }

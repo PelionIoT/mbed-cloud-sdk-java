@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
@@ -118,6 +119,19 @@ public class Presubscription implements SdkModel {
     @Override
     public String getId() {
         return String.valueOf(hashCode());
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
+
     }
 
     /**
@@ -242,7 +256,7 @@ public class Presubscription implements SdkModel {
     @Override
     public String toString() {
         return "Presubscription [deviceId=" + deviceId + ", deviceType=" + deviceType + ", resourcePaths="
-                + resourcePaths + "]";
+               + resourcePaths + "]";
     }
 
     /*

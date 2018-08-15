@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -61,13 +62,26 @@ public class Webhook implements SdkModel {
     /**
      * Gets webhook id (url)
      * <p>
-     * 
+     *
      * @return the webhook URL as a string.
      */
     @Internal
     @Override
     public String getId() {
         return (getUrl() == null) ? null : getUrl().toString();
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
+
     }
 
     /**

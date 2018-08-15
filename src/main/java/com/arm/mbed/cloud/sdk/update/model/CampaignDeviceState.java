@@ -3,6 +3,8 @@ package com.arm.mbed.cloud.sdk.update.model;
 import java.net.URL;
 import java.util.Date;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
@@ -79,7 +81,7 @@ public class CampaignDeviceState implements SdkModel {
      *            mechanism URL
      */
     public CampaignDeviceState(String id, String deviceId, String campaignId, DeviceState state, String name,
-            String description, Date createdAt, Date updatedAt, String mechanism, URL mechanismUrl) {
+                               String description, Date createdAt, Date updatedAt, String mechanism, URL mechanismUrl) {
         super();
         this.id = id;
         this.deviceId = deviceId;
@@ -119,6 +121,19 @@ public class CampaignDeviceState implements SdkModel {
     @Override
     public String getId() {
         return id;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see com.arm.mbed.cloud.sdk.common.SdkModel#setId(java.lang.String)
+     */
+    @PerformsNoOperation
+    @Internal
+    @Override
+    public void setId(String id) {
+        // Nothing to do
+
     }
 
     /**
@@ -193,7 +208,7 @@ public class CampaignDeviceState implements SdkModel {
     @Override
     public CampaignDeviceState clone() {
         return new CampaignDeviceState(id, deviceId, campaignId, state, name, description, createdAt, updatedAt,
-                mechanism, mechanismUrl);
+                                       mechanism, mechanismUrl);
     }
 
     /**
@@ -214,8 +229,8 @@ public class CampaignDeviceState implements SdkModel {
     @Override
     public String toString() {
         return "CampaignDeviceState [id=" + id + ", deviceId=" + deviceId + ", campaignId=" + campaignId + ", state="
-                + state + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt
-                + ", updatedAt=" + updatedAt + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + "]";
+               + state + ", name=" + name + ", description=" + description + ", createdAt=" + createdAt + ", updatedAt="
+               + updatedAt + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + "]";
     }
 
 }
