@@ -5,10 +5,10 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Field {
-    @JsonProperty("_kEY")
-    private String key;
+    @JsonProperty(InputSchema.KEY_TAG)
+    private Map<String, String> keys;
     private String description;
-    @JsonProperty("api_fieldname")
+    @JsonProperty(InputSchema.API_FIELDNAME_TAG)
     private String apiFieldname;
     private boolean required;
     private String type;
@@ -16,21 +16,21 @@ public class Field {
     private String example;
     private Map<String, Object> items;
     private Map<String, Object> schema;
-    @JsonProperty("custom_code")
+    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
-    @JsonProperty("default")
+    @JsonProperty(InputSchema.DEFAULT_VALUE_TAG)
     private String defaultValue;
-    @JsonProperty("read_only")
+    @JsonProperty(InputSchema.READ_ONLY_TAG)
     private boolean readOnly;
     private String pattern;
 
     // Java specific fields
     private boolean internal;
-    @JsonProperty("long_description")
+    @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
 
     public Field() {
-        key = null;
+        keys = null;
         description = null;
         apiFieldname = null;
         required = false;
@@ -50,7 +50,7 @@ public class Field {
      * @return the key
      */
     public String getKey() {
-        return key;
+        return Utils.getKey(keys, true);
     }
 
     /**
@@ -135,8 +135,8 @@ public class Field {
      * @param key
      *            the key to set
      */
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeys(Map<String, String> key) {
+        this.keys = key;
     }
 
     /**
@@ -284,7 +284,7 @@ public class Field {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        result = prime * result + ((keys == null) ? 0 : keys.hashCode());
         return result;
     }
 
@@ -305,11 +305,11 @@ public class Field {
             return false;
         }
         Field other = (Field) obj;
-        if (key == null) {
-            if (other.key != null) {
+        if (keys == null) {
+            if (other.keys != null) {
                 return false;
             }
-        } else if (!key.equals(other.key)) {
+        } else if (!keys.equals(other.keys)) {
             return false;
         }
         return true;
@@ -322,11 +322,11 @@ public class Field {
      */
     @Override
     public String toString() {
-        return "Field [key=" + key + ", description=" + description + ", apiFieldname=" + apiFieldname + ", required="
-               + required + ", type=" + type + ", format=" + format + ", example=" + example + ", items=" + items
-               + ", schema=" + schema + ", customCode=" + customCode + ", defaultValue=" + defaultValue + ", readOnly="
-               + readOnly + ", pattern=" + pattern + ", internal=" + internal + ", longDescription=" + longDescription
-               + "]";
+        return "Field [key=" + getKey() + ", description=" + description + ", apiFieldname=" + apiFieldname
+               + ", required=" + required + ", type=" + type + ", format=" + format + ", example=" + example
+               + ", items=" + items + ", schema=" + schema + ", customCode=" + customCode + ", defaultValue="
+               + defaultValue + ", readOnly=" + readOnly + ", pattern=" + pattern + ", internal=" + internal
+               + ", longDescription=" + longDescription + "]";
     }
 
 }

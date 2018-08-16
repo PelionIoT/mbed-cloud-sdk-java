@@ -1,23 +1,25 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Entity {
-    @JsonProperty("_kEY")
-    private String key;
-    @JsonProperty("group_id")
-    private List<String> groupId;
+
+    @JsonProperty(InputSchema.KEY_TAG)
+    private Map<String, String> keys;
+    @JsonProperty(InputSchema.GROUP_ID_TAG)
+    private Map<String, String> groupIds;
     private String description;
 
-    @JsonProperty("custom_code")
+    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
 
     private List<Field> fields;
 
     // Java specific fields
-    @JsonProperty("long_description")
+    @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
     private boolean internal;
 
@@ -29,14 +31,14 @@ public class Entity {
      * @return the key
      */
     public String getKey() {
-        return key;
+        return Utils.getKey(keys, false);
     }
 
     /**
      * @return the groupId
      */
     public List<String> getGroupId() {
-        return groupId;
+        return Utils.getGroupId(groupIds);
     }
 
     /**
@@ -78,16 +80,16 @@ public class Entity {
      * @param key
      *            the key to set
      */
-    public void setKey(String key) {
-        this.key = key;
+    public void setKeys(Map<String, String> keys) {
+        this.keys = keys;
     }
 
     /**
      * @param groupId
      *            the groupId to set
      */
-    public void setGroupId(List<String> groupId) {
-        this.groupId = groupId;
+    public void setGroupIds(Map<String, String> groupIds) {
+        this.groupIds = groupIds;
     }
 
     /**
@@ -143,8 +145,8 @@ public class Entity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
+        result = prime * result + ((groupIds == null) ? 0 : groupIds.hashCode());
+        result = prime * result + ((keys == null) ? 0 : keys.hashCode());
         return result;
     }
 
@@ -165,18 +167,18 @@ public class Entity {
             return false;
         }
         Entity other = (Entity) obj;
-        if (groupId == null) {
-            if (other.groupId != null) {
+        if (groupIds == null) {
+            if (other.groupIds != null) {
                 return false;
             }
-        } else if (!groupId.equals(other.groupId)) {
+        } else if (!groupIds.equals(other.groupIds)) {
             return false;
         }
-        if (key == null) {
-            if (other.key != null) {
+        if (keys == null) {
+            if (other.keys != null) {
                 return false;
             }
-        } else if (!key.equals(other.key)) {
+        } else if (!keys.equals(other.keys)) {
             return false;
         }
         return true;
@@ -189,7 +191,7 @@ public class Entity {
      */
     @Override
     public String toString() {
-        return "Entity [key=" + key + ", groupId=" + groupId + ", customCode=" + customCode + "]";
+        return "Entity [key=" + getKey() + ", groupId=" + getGroupId() + ", customCode=" + customCode + "]";
     }
 
 }

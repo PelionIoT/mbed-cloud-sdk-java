@@ -27,14 +27,18 @@ public class MethodIsFieldValid extends Method {
         if (field.hasPattern()) {
             if (field.getType().isString()) {
                 checkList.add("(" + field.getName() + " == null || " + field.getName() + ".matches(\""
-                              + field.getPattern() + "\"))");
+                              + fetchRegex(field) + "\"))");
             } else {
                 checkList.add("(" + field.getName() + " == null || String.valueOf(" + field.getName() + ").matches(\""
-                              + field.getPattern() + "\"))");
+                              + fetchRegex(field) + "\"))");
             }
         }
         // TODO add more checks
         return "return " + String.join(System.lineSeparator() + "&& ", checkList);
+    }
+
+    private String fetchRegex(Field field) {
+        return field.getPattern();
     }
 
     private static String generateMethodDescription(Field field) {

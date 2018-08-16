@@ -31,9 +31,8 @@ public class ModelGenerator extends AbstractGenerator {
         if (model == null) {
             return;
         }
-
-        model.translate();
         logger.logInfo("Generating model [" + model.getFullName() + "]");
+        model.translate();
         TypeSpec modelClass = model.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))
                                 .build();
@@ -48,6 +47,7 @@ public class ModelGenerator extends AbstractGenerator {
                     logger.logInfo("The model file is already present and contains some custom code. Therefore, it won't be regenerated.");
                     return;
                 }
+
                 file.writeTo(sourceDestinationDirectory);
                 logger.logInfo("Model [" + model.getFullName() + "] was generated and can be find there: "
                                + destinationFile.toString());

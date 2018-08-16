@@ -3,9 +3,9 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 import java.util.Map;
 
 import com.arm.pelion.sdk.foundation.generator.model.Field;
+import com.arm.pelion.sdk.foundation.generator.model.ListType;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
-import com.arm.pelion.sdk.foundation.generator.model.ListType;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
 public class FieldTranslator {
@@ -22,11 +22,16 @@ public class FieldTranslator {
             return null;
         }
         final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group), field.getKey(),
-                                           field.getDescription(), field.getLongDescription(), field.getPattern(),
-                                           false, field.isCustomCode(), field.isInternal(), field.isRequired(),
-                                           field.getDefaultValue());
+                                           field.getDescription(), field.getLongDescription(),
+                                           determinePattern(field.getPattern()), false, field.isCustomCode(),
+                                           field.isInternal(), field.isRequired(), field.getDefaultValue());
         // TODO do something if needed
         return modelField;
+    }
+
+    private static String determinePattern(String pattern) {
+        // FIXME hack because JavaPoet does not handle well "$"
+        return pattern == null ? null : pattern.replace("$", "");
     }
 
     private static ParameterType determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,
@@ -37,10 +42,9 @@ public class FieldTranslator {
                 throw new FoundationGeneratorException("The item section of field [" + field + "] is missing");
             }
             return itemTypes.containsKey(NESTED_ENTITY_TAG) ? new ListType(FetchNestedEntityType((String) itemTypes.get(NESTED_ENTITY_TAG),
-                                                                                                          packageName,
-                                                                                                          group))
+                                                                                                 packageName, group))
                                                             : new ListType((String) itemTypes.get("type"),
-                                                                                    (String) itemTypes.get("format"));
+                                                                           (String) itemTypes.get("format"));
         }
         // TODO
         return field.hasSchema() ? FetchNestedEntityType((String) field.getSchema().get(NESTED_ENTITY_TAG), packageName,

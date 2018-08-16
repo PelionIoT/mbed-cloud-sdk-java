@@ -24,8 +24,8 @@ public class FoundationGenerator {
     public void load() {
         logger.logInfo("Loading definitions");
         FoundationDataLoader loader = new FoundationDataLoader();
-        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test.yml");
-        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test2.yml");
+        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test3.yml");
+        // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test2.yml");
         loader.load();
         definition = loader.getInput();
     }

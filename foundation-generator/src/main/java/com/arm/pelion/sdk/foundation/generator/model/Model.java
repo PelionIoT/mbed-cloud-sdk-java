@@ -506,7 +506,9 @@ public class Model extends AbstractModelEntity {
                 builder.append(value.intValue());
             }
         }
-        return builder.toString().substring(0, MAX_LONG_LENGTH);
+        final String serialisationString = builder.toString();
+        return serialisationString.length() > MAX_LONG_LENGTH ? serialisationString.substring(0, MAX_LONG_LENGTH)
+                                                              : serialisationString;
     }
 
     protected void translateSerialisation() throws TranslationException {

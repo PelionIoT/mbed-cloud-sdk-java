@@ -34,7 +34,11 @@ public class MethodSetter extends Method {
     }
 
     private static String generateSetterDescription(Field field) {
-        return "Sets " + field.getDescription().toLowerCase().trim();
+        return "Sets " + getSetterDecription(field).toLowerCase().trim();
+    }
+
+    private static String getSetterDecription(Field field) {
+        return field.hasDescription() ? field.getDescription() : field.getName();
     }
 
     private static String generateSetterName(Field field) {

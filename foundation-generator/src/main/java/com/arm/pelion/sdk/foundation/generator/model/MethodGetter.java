@@ -22,7 +22,11 @@ public class MethodGetter extends Method {
     }
 
     private static String generateGetterDescription(Field field) {
-        return "Gets " + field.getDescription().toLowerCase().trim();
+        return "Gets " + getFieldDescription(field).toLowerCase().trim();
+    }
+
+    private static String getFieldDescription(Field field) {
+        return field.hasDescription() ? field.getDescription() : field.getName();
     }
 
     private static String generateGetterName(Field field) {
