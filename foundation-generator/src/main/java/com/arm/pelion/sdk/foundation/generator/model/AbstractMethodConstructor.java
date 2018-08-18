@@ -50,7 +50,7 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return has(description) ? description : isInternal ? "Internal constructor" : "Constructor";
     }
 
-    protected List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers) {
+    public List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers) {
         final List<Field> fieldsList = new LinkedList<>();
         if (hasCurrentModel()) {
             fieldsList.addAll(currentModel.getFieldList());

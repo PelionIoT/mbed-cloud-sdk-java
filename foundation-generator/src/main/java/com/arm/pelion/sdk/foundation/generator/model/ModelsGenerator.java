@@ -39,6 +39,7 @@ public class ModelsGenerator extends AbstractGenerator {
         }
         logger.logInfo("Generating model unit tests");
         for (final ModelTest unittest : models.getUnitTests()) {
+            unittest.generateTests();
             new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
         }
 

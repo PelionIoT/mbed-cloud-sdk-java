@@ -27,6 +27,7 @@ public class Model extends AbstractModelEntity {
     protected String packageName;
     private String parent;
     private String group;
+    private final List<String> contructorsName;
     private final Map<String, Method> methods;
     private final Map<String, Field> fields;
     protected TypeSpec.Builder specificationBuilder;
@@ -73,6 +74,7 @@ public class Model extends AbstractModelEntity {
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
+        contructorsName = new LinkedList<>();
         setPackageName(packageName);
         setGroup(group);
     }
@@ -180,6 +182,13 @@ public class Model extends AbstractModelEntity {
             return;
         }
         methods.put(method.getIdentifier(), method);
+    }
+
+    public void removeMethodIfExist(Method method) {
+        if (method == null) {
+            return;
+        }
+        methods.remove(method.getIdentifier());
     }
 
     /**
@@ -366,6 +375,13 @@ public class Model extends AbstractModelEntity {
         return false;
     }
 
+    /**
+     * @return the contructorsName
+     */
+    public List<String> getContructorIdentifiers() {
+        return contructorsName;
+    }
+
     public void generateMethods() {
         methods.clear();
         // Adding getters and setters
@@ -447,7 +463,12 @@ public class Model extends AbstractModelEntity {
         constructors.add(new MethodConstructorIdentifiers(this, theParent));
         constructors.add(new MethodConstructorReadOnly(this, theParent));
         constructors.add(new MethodConstructorRequired(this, theParent));
-        constructors.getRefinedList().forEach(c -> overrideMethodIfExist(c));
+        constructors.getRefinedList().forEach(c -> addConstructor(c));
+    }
+
+    private void addConstructor(AbstractMethodConstructor constructor) {
+        contructorsName.add(constructor.getIdentifier());
+        overrideMethodIfExist(constructor);
     }
 
     protected void generateToString(Model theParent) {
@@ -459,7 +480,12 @@ public class Model extends AbstractModelEntity {
     }
 
     protected void generateClone(Model theParent) {
-        overrideMethodIfExist(new MethodClone(this, theParent));
+        final MethodClone cloneMethod = new MethodClone(this, theParent);
+        if (!this.isAbstract()) {
+            overrideMethodIfExist(cloneMethod);
+        } else {
+            removeMethodIfExist(cloneMethod);
+        }
     }
 
     public List<Model> getProcessedModels() {

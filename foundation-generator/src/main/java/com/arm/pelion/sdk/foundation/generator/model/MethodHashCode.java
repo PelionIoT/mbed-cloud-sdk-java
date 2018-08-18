@@ -25,18 +25,25 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
     @Override
     protected void translateCode() {
         super.translateCode();
-        code.addStatement("final int prime = 31");
-        if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
-            code.addStatement("int result = super.hashCode()");
-        } else {
-            code.addStatement("int result = 1");
-        }
-        if (hasCurrentModel() && currentModel.hasMethods()) {
+        if (hasCurrentModel() && currentModel.hasFields()) {
+            code.addStatement("final int prime = 31");
+            if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
+                code.addStatement("int result = super.hashCode()");
+            } else {
+                code.addStatement("int result = 1");
+            }
+
             currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode())
                         .forEach(f -> code.addStatement("result = prime * result + (($L == null) ? 0 : $L.hashCode())",
                                                         f.getName(), f.getName()));
+            code.addStatement("return result");
+        } else {
+            if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
+                code.addStatement("return super.hashCode()");
+            } else {
+                code.addStatement("return 1");
+            }
         }
-        code.addStatement("return result");
     }
 
 }

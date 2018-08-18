@@ -322,18 +322,7 @@ public class Method extends AbstractModelEntity {
                                                                                                 .getTypeName()));
                 specificationBuilder.addNamedCode(statement, parametersMap);
             } else {
-                if (statement.contains("$")) {
-                    // final long dollarCount = statement.codePoints().filter(ch -> ch == '$').count();
-                    // specificationBuilder.addStatement(statement.replace("$", "$L "),
-                    // IntStream.rangeClosed(1, (int) dollarCount).mapToObj(d -> {
-                    // return "$";
-                    // }).collect(Collectors.toList()));
-
-                    // FIXME hack as JavaPoet does not like $ characters other than the ones used as tokens
-                    specificationBuilder.addStatement(statement.replace("$", ""));
-                } else {
-                    specificationBuilder.addStatement(statement);
-                }
+                specificationBuilder.addStatement(statement);
             }
         }
         if (hasCode()) {

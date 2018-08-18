@@ -31,7 +31,7 @@ public class FieldTranslator {
 
     private static String determinePattern(String pattern) {
         // FIXME hack because JavaPoet does not handle well "$"
-        return pattern == null ? null : pattern.replace("$", "");
+        return pattern == null ? null : pattern.replace("$", "$$");
     }
 
     private static ParameterType determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,

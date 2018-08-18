@@ -35,13 +35,19 @@ public class MethodToString extends AbstractMethodBasedOnModel {
         builder.append("\"").append(currentModel.getName()).append(" [");
         if (currentModel.hasFields()) {
             builder.append(generateFlattenedListOfElements(currentModel.getFieldList()));
-        } else {
-            builder.append("\"");
         }
         if (parentModel != null && parentModel.hasFields()) {
-            builder.append(" + \", ").append(generateFlattenedListOfElements(parentModel.getFieldList()));
+            if (currentModel.hasFields()) {
+                builder.append(" + \", ");
+            }
+            builder.append(generateFlattenedListOfElements(parentModel.getFieldList()));
+        } else {
+            if (currentModel.hasFields()) {
+                builder.append(" + \"]\"");
+            } else {
+                builder.append("]\"");
+            }
         }
-        builder.append(" + \"]\"");
         return builder.toString();
 
     }

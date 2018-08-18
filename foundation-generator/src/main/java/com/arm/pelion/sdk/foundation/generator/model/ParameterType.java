@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
@@ -160,6 +161,14 @@ public class ParameterType implements Entity {
         }
     }
 
+    public boolean isDecimal() {
+        if (!isNumber()) {
+            return false;
+        }
+        return getClazz() == double.class || getClazz() == float.class || getClazz() == BigDecimal.class
+               || getClazz() == Double.class || getClazz() == Float.class;
+    }
+
     public boolean isNumber() {
         try {
             translate();
@@ -283,7 +292,7 @@ public class ParameterType implements Entity {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override
