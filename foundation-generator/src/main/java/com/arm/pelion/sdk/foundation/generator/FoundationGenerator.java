@@ -14,11 +14,13 @@ public class FoundationGenerator {
     private IntermediateApiDefinition definition;
     private boolean forceRegenerateUnitTests;
     private final Logger logger;
+    private final Configuration config;
 
     public FoundationGenerator() {
         definition = null;
         logger = Logger.getLogger();
         forceRegenerateUnitTests = true;
+        config = new Configuration();
     }
 
     public void load() {
@@ -34,7 +36,8 @@ public class FoundationGenerator {
         File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation");
         File testDirectory = directory;
         logger.logInfo("Translating generic definitions into Java models");
-        ModelsGenerator generator = new ModelsGenerator(directory, testDirectory, ModelTranslator.translate(definition),
+        ModelsGenerator generator = new ModelsGenerator(directory, testDirectory,
+                                                        ModelTranslator.translate(config, definition),
                                                         forceRegenerateUnitTests);
         try {
             generator.clean();
