@@ -12,7 +12,7 @@ public class Filter implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param fieldName
      *            field on which the filter applies
      * @param operator
@@ -29,7 +29,7 @@ public class Filter implements Cloneable {
 
     /**
      * Gets the name of the field the filter applies to.
-     * 
+     *
      * @return the field name
      */
     public String getFieldName() {
@@ -38,7 +38,7 @@ public class Filter implements Cloneable {
 
     /**
      * Gets the value of the filter.
-     * 
+     *
      * @return the value
      */
     public Object getValue() {
@@ -47,7 +47,7 @@ public class Filter implements Cloneable {
 
     /**
      * Gets the filter operator.
-     * 
+     *
      * @see FilterOperator for more information about operators.
      * @return the operator
      */
@@ -57,7 +57,7 @@ public class Filter implements Cloneable {
 
     /**
      * States whether the definition of the filter is correct.
-     * 
+     *
      * @return true if the filter is valid. False otherwise.
      */
     public boolean isValid() {
@@ -66,7 +66,7 @@ public class Filter implements Cloneable {
 
     /**
      * Gets filter prefix.
-     * 
+     *
      * @return filter prefix
      */
     @Internal
@@ -76,7 +76,7 @@ public class Filter implements Cloneable {
 
     /**
      * States whether the filter has a prefix.
-     * 
+     *
      * @return true if it has.
      */
     @Internal
@@ -86,7 +86,7 @@ public class Filter implements Cloneable {
 
     /**
      * Gets a clone of the filter.
-     * 
+     *
      * @return a clone.
      * @see Cloneable
      */
@@ -97,7 +97,7 @@ public class Filter implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -112,7 +112,7 @@ public class Filter implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -123,7 +123,7 @@ public class Filter implements Cloneable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Filter)) {
             return false;
         }
         final Filter other = (Filter) obj;
@@ -149,7 +149,7 @@ public class Filter implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#toString()
      */
     @Override

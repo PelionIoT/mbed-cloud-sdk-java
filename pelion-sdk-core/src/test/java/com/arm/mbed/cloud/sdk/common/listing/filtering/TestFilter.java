@@ -9,6 +9,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestFilter {
 
     @Test
@@ -69,6 +72,11 @@ public class TestFilter {
         filter = new CustomFilter("Test", null, "Value");
         assertNotNull(filter.getPrefix());
         assertTrue(filter.hasPrefix());
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(Filter.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 
 }

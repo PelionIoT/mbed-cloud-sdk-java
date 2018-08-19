@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -26,6 +27,9 @@ public final class SdkUtils {
     public static List<String> parseListString(String listString) {
         if (listString == null) {
             return null;
+        }
+        if (listString.isEmpty()) {
+            return new ArrayList<>();
         }
         final Matcher matcher = JSON_ARRAY_PATTERN.matcher(listString);
         String[] array = null;

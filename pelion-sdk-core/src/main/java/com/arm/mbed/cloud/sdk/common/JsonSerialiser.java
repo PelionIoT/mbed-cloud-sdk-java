@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 
 @Preamble(description = "JSON serialisation/deserialisation wrapper")
 public class JsonSerialiser {
-    // The implementation of choice is gson rather than Jason because retrofit2 which is used as web client in the SDK
+    // The implementation of choice is gson rather than Jackson because retrofit2 which is used as web client in the SDK
     // uses this implementation.
     private final Gson gson;
 
@@ -41,7 +41,7 @@ public class JsonSerialiser {
      * @param clazz
      *            the class of T
      * @return a deserialised object of type T.
-     * 
+     *
      */
     public @Nullable <T> T fromJson(@NonNull Reader reader, @NonNull Class<T> clazz) {
         return gson.fromJson(reader, clazz);

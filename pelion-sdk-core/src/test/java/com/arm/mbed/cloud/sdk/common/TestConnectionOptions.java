@@ -5,6 +5,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestConnectionOptions {
 
     @Test
@@ -38,4 +41,9 @@ public class TestConnectionOptions {
         assertFalse(ConnectionOptions.isEntryEmpty("' this is a test '"));
     }
 
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(ConnectionOptions.class).suppress(Warning.NONFINAL_FIELDS)
+                      .suppress(Warning.STRICT_INHERITANCE).verify();
+    }
 }

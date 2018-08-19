@@ -17,25 +17,25 @@ import okhttp3.logging.HttpLoggingInterceptor;
 
 @Preamble(description = "Client wrapper")
 @Internal
-public class ApiClientWrapper {
+public class ApiClientWrapper implements Cloneable {
     private static final String DEFAULT_AUTH_NAME = "Bearer";
     private final UserAgent userAgent;
     protected final ApiClient client;
     private final ConnectionOptions connectionOptions;
 
     /**
-     * Arm Mbed Cloud client constructor.
+     * Cloud client constructor.
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}
      */
     public ApiClientWrapper(ConnectionOptions options) {
-        this(options, null);
+        this(options, new UserAgent());
     }
 
     /**
      *
-     * Arm Mbed Cloud client constructor.
+     * Cloud client constructor.
      *
      * @param options
      *            connection options @see {@link ConnectionOptions}
@@ -43,18 +43,28 @@ public class ApiClientWrapper {
      *            extension list for the user agent: module name - module version
      */
     public ApiClientWrapper(ConnectionOptions options, Map<String, String> userAgentExtensions) {
+        this(options, generateUserAgent(userAgentExtensions));
+    }
+
+    /**
+     * Cloud client constructor.
+     *
+     * @param anotherClient
+     *            another client
+     */
+    public ApiClientWrapper(ApiClientWrapper anotherClient) {
+        this(anotherClient == null ? null : anotherClient.connectionOptions,
+             anotherClient == null ? null : anotherClient.userAgent);
+    }
+
+    private ApiClientWrapper(ConnectionOptions options, UserAgent userAgent) {
         super();
-        this.client = createClient(options);
-        setLogging(options.getClientLogLevel());
-        setRequestTimeout(options.getRequestTimeout());
-        this.userAgent = new UserAgent();
-        if (userAgentExtensions != null && !userAgentExtensions.isEmpty()) {
-            for (Entry<String, String> entry : userAgentExtensions.entrySet()) {
-                userAgent.addExtension(entry.getKey(), entry.getValue());
-            }
-        }
+        connectionOptions = options == null ? ConnectionOptions.newConfiguration() : options;
+        this.client = createClient(connectionOptions);
+        setLogging(connectionOptions.getClientLogLevel());
+        setRequestTimeout(connectionOptions.getRequestTimeout());
+        this.userAgent = userAgent == null ? new UserAgent() : userAgent;
         setUserAgent();
-        this.connectionOptions = options;
     }
 
     /**
@@ -136,9 +146,79 @@ public class ApiClientWrapper {
         return connectionOptions;
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((connectionOptions == null) ? 0 : connectionOptions.hashCode());
+        result = prime * result + ((userAgent == null) ? 0 : userAgent.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ApiClientWrapper)) {
+            return false;
+        }
+        final ApiClientWrapper other = (ApiClientWrapper) obj;
+        if (connectionOptions == null) {
+            if (other.connectionOptions != null) {
+                return false;
+            }
+        } else if (!connectionOptions.equals(other.connectionOptions)) {
+            return false;
+        }
+        if (userAgent == null) {
+            if (other.userAgent != null) {
+                return false;
+            }
+        } else if (!userAgent.equals(other.userAgent)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#clone()
+     */
+    @Override
+    public ApiClientWrapper clone() {
+        return new ApiClientWrapper(this);
+    }
+
+    private static UserAgent generateUserAgent(Map<String, String> userAgentExtensions) {
+        if (userAgentExtensions == null || userAgentExtensions.isEmpty()) {
+            return null;
+        }
+        final UserAgent userAgent = new UserAgent();
+        for (Entry<String, String> entry : userAgentExtensions.entrySet()) {
+            userAgent.addExtension(entry.getKey(), entry.getValue());
+        }
+        return userAgent;
+    }
+
     private static ApiClient createClient(ConnectionOptions options) {
         final ApiClient apiClient = options.isApiKeyEmpty() ? new ApiClient()
-                : new ApiClient(DEFAULT_AUTH_NAME, formatApiKey(options.getApiKey()));
+                                                            : new ApiClient(DEFAULT_AUTH_NAME,
+                                                                            formatApiKey(options.getApiKey()));
         if (!options.isHostEmpty()) {
             apiClient.setAdapterBuilder(apiClient.getAdapterBuilder().baseUrl(options.getHost()));
         }
@@ -215,13 +295,13 @@ public class ApiClientWrapper {
                 builder.append(defaultInformation.getSdkVersion());
             }
             builder.append(" (").append(defaultInformation.getOs()).append("; ")
-                    .append(defaultInformation.getOsVersion()).append("; ")
-                    .append(defaultInformation.getOsArchitecture()).append("; ").append(defaultInformation.getLocale())
-                    .append(") Java/").append(defaultInformation.getJavaVersion());
+                   .append(defaultInformation.getOsVersion()).append("; ")
+                   .append(defaultInformation.getOsArchitecture()).append("; ").append(defaultInformation.getLocale())
+                   .append(") Java/").append(defaultInformation.getJavaVersion());
             builder.append(" (").append(defaultInformation.getJavaVendor()).append("; ")
-                    .append(defaultInformation.getJavaVendorUrl()).append("; ")
-                    .append(defaultInformation.getSdkDescription()).append("; ")
-                    .append(defaultInformation.getSdkLicence()).append(')');
+                   .append(defaultInformation.getJavaVendorUrl()).append("; ")
+                   .append(defaultInformation.getSdkDescription()).append("; ")
+                   .append(defaultInformation.getSdkLicence()).append(')');
 
             if (!extensions.isEmpty()) {
                 for (final Entry<String, String> entry : extensions.entrySet()) {
@@ -232,6 +312,45 @@ public class ApiClientWrapper {
             return builder.toString();
         }
 
+        /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#hashCode()
+         */
+        @Override
+        public int hashCode() {
+            final int prime = 31;
+            int result = 1;
+            result = prime * result + ((userAgentString == null) ? 0 : userAgentString.hashCode());
+            return result;
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see java.lang.Object#equals(java.lang.Object)
+         */
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            if (obj == null) {
+                return false;
+            }
+            if (!(obj instanceof UserAgent)) {
+                return false;
+            }
+            final UserAgent other = (UserAgent) obj;
+            if (userAgentString == null) {
+                if (other.userAgentString != null) {
+                    return false;
+                }
+            } else if (!userAgentString.equals(other.userAgentString)) {
+                return false;
+            }
+            return true;
+        }
     }
 
     private static class UserAgentInterceptor implements Interceptor {
@@ -248,7 +367,10 @@ public class ApiClientWrapper {
         public Response intercept(Chain chain) throws IOException {
             final Request originRequest = chain.request();
             final Request requestWithUserAgent = userAgent == null ? originRequest.newBuilder().build()
-                    : originRequest.newBuilder().addHeader(USER_AGENT_HEADER, generateUserAgent()).build();
+                                                                   : originRequest.newBuilder()
+                                                                                  .addHeader(USER_AGENT_HEADER,
+                                                                                             generateUserAgent())
+                                                                                  .build();
 
             return chain.proceed(requestWithUserAgent);
         }

@@ -1,10 +1,14 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotSame;
 
 import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 public class TestTimePeriod {
 
@@ -48,6 +52,20 @@ public class TestTimePeriod {
         assertEquals(TimeUnit.DAYS, period.getUnit());
         assertEquals(366, period.getDuration());
         assertEquals("1y", period.toString());
+    }
+
+    @Test
+    public void testClone() {
+        final TimePeriod p = new TimePeriod("1000n");
+        final TimePeriod clone = p.clone();
+        assertNotSame(p, clone);
+        assertEquals(p, clone);
+        assertEquals(TimeUnit.NANOSECONDS, clone.getUnit());
+    }
+
+    @Test
+    public void testEqualsContract() {
+        EqualsVerifier.forClass(TimePeriod.class).suppress(Warning.NONFINAL_FIELDS).verify();
     }
 
 }

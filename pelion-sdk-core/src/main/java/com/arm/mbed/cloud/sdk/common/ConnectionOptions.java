@@ -358,7 +358,71 @@ public class ConnectionOptions implements Cloneable, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((apiKey == null) ? 0 : apiKey.hashCode());
+        result = prime * result + (autostartDaemon ? 1231 : 1237);
+        result = prime * result + ((clientLogLevel == null) ? 0 : clientLogLevel.hashCode());
+        result = prime * result + ((host == null) ? 0 : host.hashCode());
+        result = prime * result + ((requestTimeout == null) ? 0 : requestTimeout.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof ConnectionOptions)) {
+            return false;
+        }
+        final ConnectionOptions other = (ConnectionOptions) obj;
+        if (apiKey == null) {
+            if (other.apiKey != null) {
+                return false;
+            }
+        } else if (!apiKey.equals(other.apiKey)) {
+            return false;
+        }
+        if (autostartDaemon != other.autostartDaemon) {
+            return false;
+        }
+        if (clientLogLevel != other.clientLogLevel) {
+            return false;
+        }
+        if (host == null) {
+            if (other.host != null) {
+                return false;
+            }
+        } else if (!host.equals(other.host)) {
+            return false;
+        }
+        if (requestTimeout == null) {
+            if (other.requestTimeout != null) {
+                return false;
+            }
+        } else if (!requestTimeout.equals(other.requestTimeout)) {
+            return false;
+        }
+        return true;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
      * @see java.lang.Object#toString()
      */
     @Override

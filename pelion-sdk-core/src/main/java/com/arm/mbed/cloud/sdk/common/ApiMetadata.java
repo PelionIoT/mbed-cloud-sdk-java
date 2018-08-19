@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "API metadata")
-public class ApiMetadata {
+public final class ApiMetadata {
 
     private static final SimpleDateFormat REQUEST_DATE_FORMAT = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss z",
                                                                                      Locale.getDefault());
@@ -312,6 +312,102 @@ public class ApiMetadata {
         if (object == null) {
             setObject(Error.class);
         }
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((errorMessage == null) ? 0 : errorMessage.hashCode());
+        result = prime * result + ((etag == null) ? 0 : etag.hashCode());
+        result = prime * result + ((headers == null) ? 0 : headers.hashCode());
+        result = prime * result + ((method == null) ? 0 : method.hashCode());
+        result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
+        result = prime * result + ((object == null) ? 0 : object.hashCode());
+        result = prime * result + statusCode;
+        result = prime * result + ((url == null) ? 0 : url.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final ApiMetadata other = (ApiMetadata) obj;
+        if (object != other.object) {
+            return false;
+        }
+        if (date == null) {
+            if (other.date != null) {
+                return false;
+            }
+        } else if (!date.equals(other.date)) {
+            return false;
+        }
+        if (errorMessage == null) {
+            if (other.errorMessage != null) {
+                return false;
+            }
+        } else if (!errorMessage.equals(other.errorMessage)) {
+            return false;
+        }
+        if (etag == null) {
+            if (other.etag != null) {
+                return false;
+            }
+        } else if (!etag.equals(other.etag)) {
+            return false;
+        }
+        if (headers == null) {
+            if (other.headers != null) {
+                return false;
+            }
+        } else if (!headers.equals(other.headers)) {
+            return false;
+        }
+        if (method == null) {
+            if (other.method != null) {
+                return false;
+            }
+        } else if (!method.equals(other.method)) {
+            return false;
+        }
+        if (requestId == null) {
+            if (other.requestId != null) {
+                return false;
+            }
+        } else if (!requestId.equals(other.requestId)) {
+            return false;
+        }
+        if (statusCode != other.statusCode) {
+            return false;
+        }
+        if (url == null) {
+            if (other.url != null) {
+                return false;
+            }
+        } else if (!url.equals(other.url)) {
+            return false;
+        }
+        return true;
     }
 
     /**

@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -14,6 +15,10 @@ import org.junit.Test;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.Filter;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
+import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
+
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
 
 public class TestListOptions {
 
@@ -51,18 +56,17 @@ public class TestListOptions {
 
     @Test
     public void testClone() {
-        ListOptions options = new ListOptions(new Integer(4), new Long(4), null, "after", null, null);
+        final ListOptions options = new ListOptions(new Integer(4), new Long(4), null, "after", null, null);
         options.setOrder(Order.DESC);
         options.includeTotalCount();
         options.addCustomFilter("field", FilterOperator.NOT_EQUAL, "value");
         options.addEqualFilter("afield", "some value");
         ListOptions clone = options.clone();
+        assertNotSame(options, clone);
         assertEquals(options, clone);
-        assertFalse(options == clone);
         assertTrue(clone.hasMaxResults());
         assertEquals(options.hashCode(), clone.hashCode());
         assertEquals("some value", clone.fetchEqualFilterValue("afield"));
-
     }
 
     @Test
@@ -86,7 +90,28 @@ public class TestListOptions {
         options.addCustomFilter("foo", FilterOperator.NOT_EQUAL, "bar");
         options.addFilter("test_3", FilterOperator.LESS_THAN, "value1");
         assertEquals("{\"custom_attributes\":{\"foo\":{\"$neq\":\"bar\"}},\"test_3\":{\"$lte\":\"value1\"}}",
-                options.retrieveFilterAsJson());
+                     options.retrieveFilterAsJson());
+    }
+
+    @Test
+    public void equalsContract() {
+        final Filter filter1 = new Filter("test1", FilterOperator.GREATER_THAN, Integer.valueOf(5));
+        final Filter filter2 = new Filter("test2", FilterOperator.NOT_EQUAL, "test value");
+        final Filters filters = new Filters();
+        final Filters filters2 = new Filters();
+        filters.add(filter1);
+        filters.add(filter2);
+        filters2.add(filter1);
+        final ListOptions opt1 = new ListOptions(new Integer(3), new Long(3), null, "after", null, filters);
+        final ListOptions opt2 = new ListOptions(new Integer(3), new Long(3), null, "after", null, filters);
+        final ListOptions opt3 = new ListOptions(new Integer(3), new Long(3), null, "after", null, filters2);
+        assertNotSame(opt1, opt2);
+        assertEquals(opt1, opt2);
+        assertNotEquals(opt1, opt3);
+        assertNotEquals(opt2, opt3);
+
+        EqualsVerifier.forClass(ListOptions.class).withRedefinedSuperclass().suppress(Warning.NONFINAL_FIELDS)
+                      .suppress(Warning.STRICT_INHERITANCE).withPrefabValues(Filters.class, filters, filters2).verify();
     }
 
 }

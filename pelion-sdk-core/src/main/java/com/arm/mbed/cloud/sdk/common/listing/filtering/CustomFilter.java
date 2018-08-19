@@ -3,8 +3,8 @@ package com.arm.mbed.cloud.sdk.common.listing.filtering;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
-@Preamble(description = "Custom filter for listing requests")
-public class CustomFilter extends Filter {
+@Preamble(description = "Custom attribute filter for listing requests")
+public final class CustomFilter extends Filter {
 
     public static final String CUSTOM_ATTRIBUTES_PREFIX = "custom_attributes__";
     public static final String INCORRECT_BUT_ACCEPTED_CUSTOM_ATTRIBUTES_PREFIX = "custom_attribute__";

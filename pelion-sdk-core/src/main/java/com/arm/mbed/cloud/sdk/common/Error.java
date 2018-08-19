@@ -239,6 +239,82 @@ public class Error implements SdkModel {
         return builder.toString();
     }
 
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public final int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + code;
+        result = prime * result + ((fields == null) ? 0 : fields.hashCode());
+        result = prime * result + ((message == null) ? 0 : message.hashCode());
+        result = prime * result + ((object == null) ? 0 : object.hashCode());
+        result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public final boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof Error)) {
+            return false;
+        }
+        final Error other = (Error) obj;
+        if (code != other.code) {
+            return false;
+        }
+        if (fields == null) {
+            if (other.fields != null) {
+                return false;
+            }
+        } else if (!fields.equals(other.fields)) {
+            return false;
+        }
+        if (message == null) {
+            if (other.message != null) {
+                return false;
+            }
+        } else if (!message.equals(other.message)) {
+            return false;
+        }
+        if (object == null) {
+            if (other.object != null) {
+                return false;
+            }
+        } else if (!object.equals(other.object)) {
+            return false;
+        }
+        if (requestId == null) {
+            if (other.requestId != null) {
+                return false;
+            }
+        } else if (!requestId.equals(other.requestId)) {
+            return false;
+        }
+        if (type == null) {
+            if (other.type != null) {
+                return false;
+            }
+        } else if (!type.equals(other.type)) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * Clones the error.
      */

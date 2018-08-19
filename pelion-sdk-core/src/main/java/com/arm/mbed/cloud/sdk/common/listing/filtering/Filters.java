@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "filters for Cloud requests")
-public class Filters implements Cloneable, Serializable {
+public final class Filters implements Cloneable, Serializable {
     /**
      * Serialisation ID.
      */
@@ -36,7 +36,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Gets filters definition.
-     * 
+     *
      * @return the filters
      */
     public Map<String, Map<FilterOperator, List<Filter>>> getFilters() {
@@ -45,7 +45,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Adds a new filter.
-     * 
+     *
      * @param filter
      *            filter
      */
@@ -70,7 +70,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Gets all filters for a particular field.
-     * 
+     *
      * @param fieldName
      *            name of the field the filters apply to.
      * @return hashtable of corresponding filters
@@ -81,7 +81,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Gets all filters for a particular field.
-     * 
+     *
      * @param fieldName
      *            name of the field the filters apply to.
      * @return list of corresponding filters
@@ -100,7 +100,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Gets all defined filters.
-     * 
+     *
      * @return list of all defined filters
      */
     public List<Filter> get() {
@@ -116,7 +116,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * Gets all filters for a particular field and a particular operator {@link FilterOperator}.
-     * 
+     *
      * @param fieldName
      *            name of the field the filters apply to.
      * @param operator
@@ -130,7 +130,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * States whether custom filters were defined.
-     * 
+     *
      * @see CustomFilter
      * @return true if there are custom filters defined
      */
@@ -148,7 +148,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * States whether no filters were defined.
-     * 
+     *
      * @return true if not filters were defined. false otherwise
      */
     public boolean isEmpty() {
@@ -157,7 +157,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * States whether some filters are defined for a particular field.
-     * 
+     *
      * @param fieldName
      *            name of the field.
      * @return true if such filters are defined.
@@ -168,7 +168,7 @@ public class Filters implements Cloneable, Serializable {
 
     /**
      * States whether some filters are defined for a particular field and a particular operator {@link FilterOperator}.
-     * 
+     *
      * @param fieldName
      *            name of the field.
      * @param operator
@@ -181,7 +181,7 @@ public class Filters implements Cloneable, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#clone()
      */
     @Override
@@ -191,7 +191,7 @@ public class Filters implements Cloneable, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -204,7 +204,7 @@ public class Filters implements Cloneable, Serializable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -215,7 +215,7 @@ public class Filters implements Cloneable, Serializable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof Filters)) {
             return false;
         }
         final Filters other = (Filters) obj;

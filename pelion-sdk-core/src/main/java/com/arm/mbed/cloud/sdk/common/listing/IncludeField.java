@@ -11,7 +11,7 @@ public class IncludeField implements Cloneable {
 
     /**
      * Constructor.
-     * 
+     *
      * @param str
      *            field string
      */
@@ -21,7 +21,7 @@ public class IncludeField implements Cloneable {
 
     /**
      * Gets field string.
-     * 
+     *
      * @return string representation.
      */
     @Override
@@ -31,7 +31,7 @@ public class IncludeField implements Cloneable {
 
     /**
      * Encodes include field to snake case.
-     * 
+     *
      * @return processed string.
      */
     public String encode() {
@@ -40,7 +40,7 @@ public class IncludeField implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#hashCode()
      */
     @Override
@@ -53,7 +53,7 @@ public class IncludeField implements Cloneable {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -64,7 +64,7 @@ public class IncludeField implements Cloneable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof IncludeField)) {
             return false;
         }
         final IncludeField other = (IncludeField) obj;
@@ -80,7 +80,7 @@ public class IncludeField implements Cloneable {
 
     /**
      * Clones the include field.
-     * 
+     *
      * @return a clone.
      */
     @Override

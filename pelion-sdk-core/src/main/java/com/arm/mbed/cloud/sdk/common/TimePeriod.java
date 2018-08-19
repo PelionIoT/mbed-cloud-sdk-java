@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Time period")
-public class TimePeriod implements Cloneable, Serializable {
+public final class TimePeriod implements Cloneable, Serializable {
     /**
      * Serialisation Id.
      */
@@ -19,7 +19,13 @@ public class TimePeriod implements Cloneable, Serializable {
 
     @Internal
     private enum PeriodTimeUnit {
-        YEARS, WEEKS, DAYS, HOURS, MINUTES, SECONDS, NANOSECONDS;
+        YEARS,
+        WEEKS,
+        DAYS,
+        HOURS,
+        MINUTES,
+        SECONDS,
+        NANOSECONDS;
     }
 
     private static final Pattern STRING_PATTERN = Pattern.compile("\\s*(\\d+)\\s*([A-Za-z])\\s*");
@@ -305,6 +311,46 @@ public class TimePeriod implements Cloneable, Serializable {
     @Override
     public TimePeriod clone() {
         return new TimePeriod(unit, duration);
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + (int) (duration ^ (duration >>> 32));
+        result = prime * result + ((unit == null) ? 0 : unit.hashCode());
+        return result;
+    }
+
+    /*
+     * (non-Javadoc)
+     *
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final TimePeriod other = (TimePeriod) obj;
+        if (duration != other.duration) {
+            return false;
+        }
+        if (unit != other.unit) {
+            return false;
+        }
+        return true;
     }
 
 }

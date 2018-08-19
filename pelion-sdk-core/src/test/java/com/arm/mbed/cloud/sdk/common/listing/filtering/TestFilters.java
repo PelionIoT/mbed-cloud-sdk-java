@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestFilters {
 
     @Test
@@ -40,6 +43,11 @@ public class TestFilters {
         filters3.add(filter11.clone());
         assertEquals(filters1, filters2);
         assertNotEquals(filters1, filters3);
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(Filters.class).suppress(Warning.TRANSIENT_FIELDS).verify();
     }
 
 }

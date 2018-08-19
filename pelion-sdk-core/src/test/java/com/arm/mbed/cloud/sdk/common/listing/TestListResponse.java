@@ -11,6 +11,9 @@ import org.junit.Test;
 import com.arm.mbed.cloud.sdk.common.Order;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestListResponse {
 
     @Test
@@ -128,7 +131,14 @@ public class TestListResponse {
         assertNotEquals(response2, response);
     }
 
-    private static class IntegerModel implements SdkModel {
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(ListResponse.class)
+                      .withPrefabValues(SdkModel.class, new IntegerModel(1), new IntegerModel(2))
+                      .suppress(Warning.NONFINAL_FIELDS).verify();
+    }
+
+    private static final class IntegerModel implements SdkModel {
         /**
          *
          */

@@ -10,6 +10,7 @@ plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
 	id 'eclipse'
+	id 'jacoco' //Code coverage
 }
 
 dependencies {
@@ -17,16 +18,15 @@ dependencies {
     api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     api project(':support-annotations')
     compile project(':backends:mbedcloud_common')
-	//compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     api 'joda-time:joda-time:2.9.9'
     api 'com.jcabi:jcabi-manifests:1.1'
     api 'io.github.cdimascio:java-dotenv:3.1.1'
 
     // Use JUnit test framework
-	    testCompile 'org.reflections:reflections:0.9.10'
     testImplementation 'org.slf4j:slf4j-simple:1.7.7'
     testImplementation 'com.squareup.okhttp:mockwebserver:2.7.5'
     testImplementation 'junit:junit:4.12'
+    testImplementation 'nl.jqno.equalsverifier:equalsverifier:2.5.+'
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -34,4 +34,18 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+}
+
+compileJava {
+    // Library compatibility
+    sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+    targetCompatibility  JavaVersion.VERSION_1_7.toString()
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
 }

@@ -6,6 +6,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestFileDownload {
 
     @Test
@@ -43,6 +46,12 @@ public class TestFileDownload {
         filePath = "201806-0157528bb84102420a01321400000000-firmwareupdates .csv.gz ";
         assertEquals("201806-0157528bb84102420a01321400000000-firmwareupdates ",
                      FileDownload.getFileNameWithoutExtension(filePath));
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(FileDownload.class).suppress(Warning.STRICT_INHERITANCE)
+                      .suppress(Warning.TRANSIENT_FIELDS).verify();
     }
 
 }

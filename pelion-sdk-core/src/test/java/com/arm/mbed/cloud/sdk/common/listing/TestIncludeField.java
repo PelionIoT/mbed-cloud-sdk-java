@@ -6,6 +6,9 @@ import static org.junit.Assert.assertNotEquals;
 
 import org.junit.Test;
 
+import nl.jqno.equalsverifier.EqualsVerifier;
+import nl.jqno.equalsverifier.Warning;
+
 public class TestIncludeField {
 
     @Test
@@ -26,6 +29,11 @@ public class TestIncludeField {
         assertNotEquals(include3, include1);
         assertNotEquals(include3.hashCode(), include1.hashCode());
         assertFalse(include3 == include2);
+    }
+
+    @Test
+    public void equalsContract() {
+        EqualsVerifier.forClass(IncludeField.class).suppress(Warning.STRICT_INHERITANCE).verify();
     }
 
     @Test

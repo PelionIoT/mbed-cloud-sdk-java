@@ -232,18 +232,44 @@ public class FilterOptions implements Cloneable {
         if (obj == null) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof FilterOptions)) {
             return false;
         }
         final FilterOptions other = (FilterOptions) obj;
-        if (filter == null) {
-            if (other.filter != null) {
-                return false;
-            }
-        } else if (!filter.equals(other.filter)) {
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        if (!equalsFilter(other)) {
             return false;
         }
         return true;
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href:"https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     *
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise
+     */
+    protected boolean canEqual(Object other) {
+        return (other instanceof FilterOptions);
+    }
+
+    /**
+     * Checks whether two option objects have equal filters.
+     *
+     * @param other
+     *            an option object
+     * @return true if the filters are equal; false otherwise.
+     */
+    public <T extends FilterOptions> boolean equalsFilter(T other) {
+        if (other == null) {
+            return false;
+        }
+        return filter == null ? other.filter == null : filter.equals(other.filter);
     }
 
     /**

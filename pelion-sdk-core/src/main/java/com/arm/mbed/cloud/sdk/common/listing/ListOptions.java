@@ -94,7 +94,7 @@ public class ListOptions extends FilterOptions {
      */
     @Internal
     public ListOptions(Integer pageSize, Long maxResults, Order order, String after, List<IncludeField> include,
-            Filters filter) {
+                       Filters filter) {
         super();
         this.pageSize = pageSize;
         this.maxResults = maxResults;
@@ -502,7 +502,7 @@ public class ListOptions extends FilterOptions {
     @Override
     public ListOptions clone() {
         return new ListOptions(pageSize, maxResults, order, after, (include == null) ? null : new LinkedList<>(include),
-                (filter == null) ? null : filter.clone());
+                               (filter == null) ? null : filter.clone());
     }
 
     /*
@@ -535,10 +535,13 @@ public class ListOptions extends FilterOptions {
         if (!super.equals(obj)) {
             return false;
         }
-        if (getClass() != obj.getClass()) {
+        if (!(obj instanceof ListOptions)) {
             return false;
         }
         final ListOptions other = (ListOptions) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         if (after == null) {
             if (other.after != null) {
                 return false;
@@ -546,7 +549,6 @@ public class ListOptions extends FilterOptions {
         } else if (!after.equals(other.after)) {
             return false;
         }
-
         if (include == null) {
             if (other.include != null) {
                 return false;
@@ -574,6 +576,20 @@ public class ListOptions extends FilterOptions {
         return true;
     }
 
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href:"https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     *
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise
+     */
+    @Override
+    protected boolean canEqual(Object other) {
+        return (other instanceof ListOptions);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -582,7 +598,7 @@ public class ListOptions extends FilterOptions {
     @Override
     public String toString() {
         return "ListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order + ", after="
-                + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
     }
 
 }
