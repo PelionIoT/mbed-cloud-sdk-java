@@ -2,8 +2,11 @@ package com.arm.pelion.sdk.foundation.generator;
 
 import java.io.File;
 
+import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.pelion.sdk.foundation.generator.input.FoundationDataLoader;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
+import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIFinder;
+import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
 import com.arm.pelion.sdk.foundation.generator.model.ModelsGenerator;
 import com.arm.pelion.sdk.foundation.generator.translator.ModelTranslator;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
@@ -12,18 +15,25 @@ import com.arm.pelion.sdk.foundation.generator.util.Logger;
 public class FoundationGenerator {
 
     private IntermediateApiDefinition definition;
+    private LowLevelAPIs lowLevelAPIs;
     private boolean forceRegenerateUnitTests;
     private final Logger logger;
     private final Configuration config;
 
     public FoundationGenerator() {
         definition = null;
+        lowLevelAPIs = null;
         logger = Logger.getLogger();
         forceRegenerateUnitTests = true;
         config = new Configuration();
     }
 
     public void load() {
+        logger.logInfo("Loading low level APIs definition");
+        LowLevelAPIFinder apiFinder = new LowLevelAPIFinder(config.getRootPackageName(),
+                                                            config.getLowLevelApiModuleNameRegex());
+        lowLevelAPIs = apiFinder.find();
+        logger.logInfo(new JsonSerialiser().toJson(lowLevelAPIs));
         logger.logInfo("Loading definitions");
         FoundationDataLoader loader = new FoundationDataLoader();
         loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test3.yml");

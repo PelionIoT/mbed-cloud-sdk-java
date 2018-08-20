@@ -14,5 +14,23 @@ include 'support-annotations'
 project(':support-annotations').projectDir = file('../support-annotations')
 include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
-
-
+include 'backends:connector_ca'
+project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
+include 'backends:connector_bootstrap'
+project(':backends:connector_bootstrap').projectDir = file('../backends/connector_bootstrap')
+include 'backends:enrollment'
+project(':backends:enrollment').projectDir = file('../backends/enrollment')
+include 'backends:device_directory'
+project(':backends:device_directory').projectDir = file('../backends/device_directory')
+include 'backends:iam'
+project(':backends:iam').projectDir = file('../backends/iam')
+include 'backends:mds'
+project(':backends:mds').projectDir = file('../backends/mds')
+include 'backends:statistics'
+project(':backends:statistics').projectDir = file('../backends/statistics')
+include 'backends:update_service'
+project(':backends:update_service').projectDir = file('../backends/update_service')
+include 'backends:external_ca'
+project(':backends:external_ca').projectDir = file('../backends/external_ca')
+include 'backends:billing'
+project(':backends:billing').projectDir = file('../backends/billing')

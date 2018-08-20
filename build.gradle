@@ -250,10 +250,8 @@ dependencies {
     signature 'org.codehaus.mojo.signature:java17:1.0@signature'
     api 'org.slf4j:slf4j-api:1.7.7'
     compile 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    compile project(':support-annotations')
     compile project(':lwm2m')
 	compile project(':pelion-sdk-core')
-    compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:external_ca')    
     compile project(':backends:connector_bootstrap')
@@ -264,7 +262,6 @@ dependencies {
     compile project(':backends:update_service')
     compile project(':backends:enrollment')
     compile project(':backends:billing')
-    compile project(':backends:mbedcloud_common')
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'

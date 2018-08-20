@@ -6,6 +6,8 @@ public class Configuration {
 
     private String modelPackage = "model";
 
+    private String lowLevelApiModuleNameRegex = ".*Api";
+
     public Configuration() {
         // TODO Auto-generated constructor stub
     }
@@ -38,6 +40,21 @@ public class Configuration {
      */
     public void setModelPackage(String modelPackage) {
         this.modelPackage = modelPackage;
+    }
+
+    /**
+     * @return the lowLevelApiModuleNameRegex
+     */
+    public String getLowLevelApiModuleNameRegex() {
+        return lowLevelApiModuleNameRegex;
+    }
+
+    /**
+     * @param lowLevelApiModuleNameRegex
+     *            the lowLevelApiModuleNameRegex to set
+     */
+    public void setLowLevelApiModuleNameRegex(String lowLevelApiModuleNameRegex) {
+        this.lowLevelApiModuleNameRegex = lowLevelApiModuleNameRegex;
     }
 
 }
