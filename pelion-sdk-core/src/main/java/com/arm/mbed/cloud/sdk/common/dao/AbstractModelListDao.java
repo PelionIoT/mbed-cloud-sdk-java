@@ -4,10 +4,13 @@ import java.lang.reflect.ParameterizedType;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.PageRequester;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.IdPageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.IdPaginator;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOptions> extends AbstractCloudDao
@@ -56,6 +59,17 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     }
 
     @Override
+    public IdListResponse idsPage(U listOptions) throws MbedCloudException {
+        setListOptions(listOptions);
+        return idsPage();
+    }
+
+    @Override
+    public IdListResponse idsPage() throws MbedCloudException {
+        return requestOnePageOfIds(options);
+    }
+
+    @Override
     public Paginator<T> getPaginator(U listOptions) throws MbedCloudException {
         setListOptions(listOptions);
         return getPaginator();
@@ -77,6 +91,18 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
         return getPaginator();
     }
 
+    @Override
+    public IdPaginator idsPaginator(U listOptions) throws MbedCloudException {
+        setListOptions(listOptions);
+        return idsPaginator();
+    }
+
+    @Override
+    public IdPaginator idsPaginator() throws MbedCloudException {
+        final U finalOptions = options;
+        return new IdPaginator(finalOptions, getIdPageRequester());
+    }
+
     private PageRequester<T> getPageRequester() {
         return new PageRequester<T>() {
 
@@ -86,6 +112,16 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
                 return requestOnePage((U) listOptions);
             }
 
+        };
+    }
+
+    private IdPageRequester getIdPageRequester() {
+        return new IdPageRequester() {
+
+            @Override
+            public IdListResponse requestNewPage(ListOptions listOptions) throws MbedCloudException {
+                return requestOnePageOfIds((U) listOptions);
+            }
         };
     }
 
@@ -107,4 +143,6 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     }
 
     protected abstract ListResponse<T> requestOnePage(U listOptions);
+
+    protected abstract IdListResponse requestOnePageOfIds(U listOptions);
 }

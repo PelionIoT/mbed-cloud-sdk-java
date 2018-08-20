@@ -8,6 +8,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 @Preamble(description = "Generic adapter")
@@ -93,9 +94,11 @@ public class GenericAdapter {
             return null;
         }
         final ListResponse<T> responseList = new ListResponse<>(TranslationUtils.toBool(respList.getHasMore(), false),
-                TranslationUtils.toLong(respList.getTotalCount()), respList.getAfter(),
-                respList.getContinuationMarker(), TranslationUtils.toInt(respList.getLimit()),
-                Order.parseOrder(respList.getOrder(), Order.getUnknownEnum()));
+                                                                TranslationUtils.toLong(respList.getTotalCount()),
+                                                                respList.getAfter(), respList.getContinuationMarker(),
+                                                                TranslationUtils.toInt(respList.getLimit()),
+                                                                Order.parseOrder(respList.getOrder(),
+                                                                                 Order.getUnknownEnum()));
         if (respList.getData() == null || respList.getData().isEmpty()) {
             return responseList;
         }
@@ -104,6 +107,36 @@ public class GenericAdapter {
         }
         return responseList;
 
+    }
+
+    /**
+     * Maps a page of objects U into a list of IDs.
+     *
+     * @param respList
+     *            page (i.e. paginated response from server)
+     * @param mapper
+     *            mapper determining corresponding model's ID.
+     * @param <U>
+     *            type of the object to be mapped from
+     * @return list of IDs or null if list is null @see {@link IdListResponse}
+     */
+    public static <U> IdListResponse mapIdList(RespList<U> respList, Mapper<U, String> mapper) {
+        if (respList == null || mapper == null) {
+            return null;
+        }
+        final IdListResponse responseList = new IdListResponse(TranslationUtils.toBool(respList.getHasMore(), false),
+                                                               TranslationUtils.toLong(respList.getTotalCount()),
+                                                               respList.getAfter(), respList.getContinuationMarker(),
+                                                               TranslationUtils.toInt(respList.getLimit()),
+                                                               Order.parseOrder(respList.getOrder(),
+                                                                                Order.getUnknownEnum()));
+        if (respList.getData() == null || respList.getData().isEmpty()) {
+            return responseList;
+        }
+        for (final U resp : respList.getData()) {
+            responseList.addData(mapper.map(resp));
+        }
+        return responseList;
     }
 
     /**

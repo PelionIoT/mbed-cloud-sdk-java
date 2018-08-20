@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
+import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 public class TestGenericAdapter {
@@ -137,6 +138,62 @@ public class TestGenericAdapter {
         List<IntegerModel> mappedList = listResp.getData();
         for (int i = 0; i < 5; i++) {
             assertEquals(new IntegerModel(i + 1), mappedList.get(i));
+        }
+        assertEquals(list.getLimit(), list.getLimit());
+    }
+
+    @Test
+    public void testMapListIdRespListOfUMapperOfUT() {
+        List<String> data = new LinkedList<>();
+        data.add("1");
+        data.add("2");
+        data.add("3");
+        data.add("4");
+        data.add("5");
+        RespList<String> list = new RespList<String>() {
+
+            @SuppressWarnings("boxing")
+            @Override
+            public Boolean getHasMore() {
+                return false;
+            }
+
+            @SuppressWarnings("boxing")
+            @Override
+            public Integer getTotalCount() {
+                return 1;
+            }
+
+            @Override
+            public String getAfter() {
+                return null;
+            }
+
+            @Override
+            public String getContinuationMarker() {
+                return null;
+            }
+
+            @SuppressWarnings("boxing")
+            @Override
+            public Integer getLimit() {
+                return 5;
+            }
+
+            @Override
+            public String getOrder() {
+                return null;
+            }
+
+            @Override
+            public List<String> getData() {
+                return data;
+            }
+        };
+        IdListResponse listResp = GenericAdapter.mapIdList(list, GenericAdapter.identityMapper(String.class));
+        List<String> mappedList = listResp.getData();
+        for (int i = 0; i < 5; i++) {
+            assertEquals(String.valueOf(i + 1), mappedList.get(i));
         }
         assertEquals(list.getLimit(), list.getLimit());
     }

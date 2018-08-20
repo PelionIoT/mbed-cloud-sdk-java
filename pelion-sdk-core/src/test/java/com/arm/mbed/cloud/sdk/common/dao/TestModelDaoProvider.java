@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
@@ -148,6 +149,11 @@ public class TestModelDaoProvider {
 
         @Override
         protected ApiModule instantiateModule(ConnectionOptions options) {
+            return null;
+        }
+
+        @Override
+        protected IdListResponse requestOnePageOfIds(ListOptions listOptions) {
             return null;
         }
 

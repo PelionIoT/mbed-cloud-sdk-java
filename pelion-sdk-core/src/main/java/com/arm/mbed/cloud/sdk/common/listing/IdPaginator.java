@@ -2,7 +2,6 @@ package com.arm.mbed.cloud.sdk.common.listing;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
  * Iterator over all the elements of a list without requiring the developer to create and process all the individual
@@ -10,16 +9,13 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  * return only a maximum number of results if existing (i.e. parameter {@code maxResult}) or to set the page size in
  * order to tweak underlying http communications (i.e. parameter {@code pageSize}).
  * <P>
- * Note: This paginator is an iterator over models.
+ * Note: This paginator is an iterator over IDs.
  *
- *
- * @param <T>
- *            model type.
  */
-@Preamble(description = "Model iterator over an entire result set of a truncated/paginated API operation.")
-public class Paginator<T extends SdkModel> extends AbstractPaginator<T, ListResponse<T>, PageRequester<T>> {
+@Preamble(description = "ID iterator over an entire result set of a truncated/paginated API operation.")
+public class IdPaginator extends AbstractPaginator<String, IdListResponse, IdPageRequester> {
 
-    public Paginator(ListOptions options, PageRequester<T> requester) throws MbedCloudException {
+    public IdPaginator(ListOptions options, IdPageRequester requester) throws MbedCloudException {
         super(options, requester);
     }
 
@@ -29,9 +25,9 @@ public class Paginator<T extends SdkModel> extends AbstractPaginator<T, ListResp
      * @see java.lang.Object#clone()
      */
     @Override
-    public Paginator<T> clone() throws CloneNotSupportedException {
+    public IdPaginator clone() throws CloneNotSupportedException {
         try {
-            final Paginator<T> clone = new Paginator<>(cloneListOptions(), getRequester());
+            final IdPaginator clone = new IdPaginator(cloneListOptions(), getRequester());
             clone.setProperties(this);
             return clone;
         } catch (MbedCloudException exception) {
@@ -40,19 +36,15 @@ public class Paginator<T extends SdkModel> extends AbstractPaginator<T, ListResp
         throw new CloneNotSupportedException();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    protected T cloneCurrentElement() {
-        final T currentElement = current();
-        return (currentElement == null) ? null : (T) currentElement.clone();
+    protected String cloneCurrentElement() {
+        final String currentElement = current();
+        return (currentElement == null) ? null : String.valueOf(currentElement);
     }
 
     @Override
-    protected String fetchAfterId(T last) {
-        if (last == null) {
-            return null;
-        }
-        return last.getId();
+    protected String fetchAfterId(String last) {
+        return last;
     }
 
 }

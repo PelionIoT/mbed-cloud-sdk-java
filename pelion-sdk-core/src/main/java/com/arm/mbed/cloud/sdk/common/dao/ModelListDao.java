@@ -5,6 +5,8 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.IdPaginator;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -112,6 +114,29 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
     ListResponse<T> onePage() throws MbedCloudException;
 
     /**
+     * Gets one page of model IDs.
+     * <p>
+     * * @param options list options.
+     *
+     * @return one page worth of model IDs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @Nullable
+    IdListResponse idsPage(@Nullable U options) throws MbedCloudException;
+
+    /**
+     * Gets one page of model IDs.
+     * <p>
+     *
+     * @return one page worth of model IDs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @Nullable
+    IdListResponse idsPage() throws MbedCloudException;
+
+    /**
      * Gets a paginator over the whole collection of data models present in the Cloud.
      * <p>
      * Note: the maximum number of returned results can be configured using the {@code options}. see
@@ -164,4 +189,26 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      */
     @NonNull
     Paginator<T> paginator() throws MbedCloudException;
+
+    /**
+     * Gets a paginator over the whole collection of data model IDs present in the Cloud.
+     *
+     * @param options
+     *            list options.
+     * @return a paginator over the whole collection of data model IDs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @NonNull
+    IdPaginator idsPaginator(@Nullable U options) throws MbedCloudException;
+
+    /**
+     * Gets a paginator over the whole collection of data model IDs present in the Cloud.
+     *
+     * @return a paginator over the whole collection of data model IDs.
+     * @throws MbedCloudException
+     *             if an error occurs during the process
+     */
+    @NonNull
+    IdPaginator idsPaginator() throws MbedCloudException;
 }

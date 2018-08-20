@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.common.listing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNull;
 
 import java.util.Iterator;
 
@@ -36,7 +37,7 @@ public class TestListResponse {
     @Test
     public void testFirst() {
         ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
-        assertEquals(null, response.first());
+        assertNull(response.first());
         response.addData(new IntegerModel(5));
         assertEquals(5, response.first().getValue());
         assertEquals(5, response.first().getValue());
@@ -53,7 +54,7 @@ public class TestListResponse {
     @Test
     public void testLast() {
         ListResponse<IntegerModel> response = new ListResponse<>(true, 5, null, null, 6, Order.ASC);
-        assertEquals(null, response.last());
+        assertNull(response.last());
         response.addData(new IntegerModel(5));
         assertEquals(5, response.last().getValue());
         assertEquals(5, response.last().getValue());
@@ -132,7 +133,7 @@ public class TestListResponse {
     }
 
     @Test
-    public void equalsContract() {
+    public void testEqualsContract() {
         EqualsVerifier.forClass(ListResponse.class)
                       .withPrefabValues(SdkModel.class, new IntegerModel(1), new IntegerModel(2))
                       .suppress(Warning.NONFINAL_FIELDS).verify();
