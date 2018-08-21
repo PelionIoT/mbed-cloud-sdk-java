@@ -25,6 +25,9 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import org.junit.Before;
 import org.junit.Test;
@@ -154,6 +157,19 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Create a user invitation.
+     *
+     * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account-id}/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void createAccountInvitationTest() {
+        String accountId = null;
+        UserInvitationReq body = null;
+        // UserInvitationResp response = api.createAccountInvitation(accountId, body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a new user.
      *
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accounts/{accountID}/users -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -203,6 +219,19 @@ public class AggregatorAccountAdminApiTest {
         String accountID = null;
         String groupID = null;
         // Void response = api.deleteAccountGroup(accountID, groupID);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a user invitation.
+     *
+     * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteAccountInvitationTest() {
+        String accountId = null;
+        String invitationId = null;
+        // Void response = api.deleteAccountInvitation(accountId, invitationId);
 
         // TODO: test validations
     }
@@ -269,6 +298,19 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String properties = null;
         // AccountInfo response = api.getAccountInfo(accountID, include, properties);
+
+        // TODO: test validations
+    }
+    /**
+     * Details of a user invitation.
+     *
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void getAccountInvitationTest() {
+        String accountId = null;
+        String invitationId = null;
+        // UserInvitationResp response = api.getAccountInvitation(accountId, invitationId);
 
         // TODO: test validations
     }
@@ -342,6 +384,21 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String nameEq = null;
         // GroupSummaryList response = api.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
+
+        // TODO: test validations
+    }
+    /**
+     * Get the details of all the user invitations.
+     *
+     * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void getAllAccountInvitationsTest() {
+        String accountId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        // UserInvitationRespList response = api.getAllAccountInvitations(accountId, limit, after, order);
 
         // TODO: test validations
     }

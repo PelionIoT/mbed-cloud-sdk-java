@@ -66,7 +66,9 @@ public class UpdatedResponse implements Serializable {
     
     IDENTITY_PROVIDER("identity-provider"),
     
-    USER_SESSION("user-session");
+    USER_SESSION("user-session"),
+    
+    USER_INVITATION("user_invitation");
 
     private String value;
 

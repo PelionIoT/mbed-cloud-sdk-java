@@ -9,12 +9,16 @@ Method | HTTP request | Description
 [**addSubjectsToGroup**](AccountAdminApi.md#addSubjectsToGroup) | **POST** v3/policy-groups/{groupID} | Add members to a group.
 [**addUserToGroups**](AccountAdminApi.md#addUserToGroups) | **POST** v3/users/{user-id}/groups | Add user to a list of groups.
 [**createGroup**](AccountAdminApi.md#createGroup) | **POST** v3/policy-groups | Create a new group.
+[**createInvitation**](AccountAdminApi.md#createInvitation) | **POST** v3/user-invitations | Create a user invitation.
 [**createUser**](AccountAdminApi.md#createUser) | **POST** v3/users | Create a new user.
 [**deleteGroup**](AccountAdminApi.md#deleteGroup) | **DELETE** v3/policy-groups/{groupID} | Delete a group.
+[**deleteInvitation**](AccountAdminApi.md#deleteInvitation) | **DELETE** v3/user-invitations/{invitation-id} | Delete a user invitation.
 [**deleteUser**](AccountAdminApi.md#deleteUser) | **DELETE** v3/users/{user-id} | Delete a user.
+[**getAllInvitations**](AccountAdminApi.md#getAllInvitations) | **GET** v3/user-invitations | Get the details of all the user invitations.
 [**getAllUsers**](AccountAdminApi.md#getAllUsers) | **GET** v3/users | Get the details of all users.
 [**getGroupsOfApikey**](AccountAdminApi.md#getGroupsOfApikey) | **GET** v3/api-keys/{apiKey}/groups | Get groups of the API key.
 [**getGroupsOfUser**](AccountAdminApi.md#getGroupsOfUser) | **GET** v3/users/{user-id}/groups | Get groups of the user.
+[**getInvitation**](AccountAdminApi.md#getInvitation) | **GET** v3/user-invitations/{invitation-id} | Details of a user invitation.
 [**getUser**](AccountAdminApi.md#getUser) | **GET** v3/users/{user-id} | Details of a user.
 [**getUsersOfGroup**](AccountAdminApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{groupID}/users | Get users of a group.
 [**removeApiKeyFromGroups**](AccountAdminApi.md#removeApiKeyFromGroups) | **DELETE** v3/api-keys/{apiKey}/groups | Remove API key from groups.
@@ -306,6 +310,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createInvitation"></a>
+# **createInvitation**
+> UserInvitationResp createInvitation(body)
+
+Create a user invitation.
+
+An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+UserInvitationReq body = new UserInvitationReq(); // UserInvitationReq | A user invitation object with attributes.
+try {
+    UserInvitationResp result = apiInstance.createInvitation(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#createInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**UserInvitationReq**](UserInvitationReq.md)| A user invitation object with attributes. |
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createUser"></a>
 # **createUser**
 > UserInfoResp createUser(body, action)
@@ -418,6 +477,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteInvitation"></a>
+# **deleteInvitation**
+> Void deleteInvitation(invitationId)
+
+Delete a user invitation.
+
+An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String invitationId = "invitationId_example"; // String | The ID of the invitation to be deleted.
+try {
+    Void result = apiInstance.deleteInvitation(invitationId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#deleteInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitationId** | **String**| The ID of the invitation to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteUser"></a>
 # **deleteUser**
 > Void deleteUser(userId)
@@ -463,6 +577,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAllInvitations"></a>
+# **getAllInvitations**
+> UserInvitationRespList getAllInvitations(limit, after, order)
+
+Get the details of all the user invitations.
+
+An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+try {
+    UserInvitationRespList result = apiInstance.getAllInvitations(limit, after, order);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getAllInvitations");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+
+### Return type
+
+[**UserInvitationRespList**](UserInvitationRespList.md)
 
 ### Authorization
 
@@ -658,6 +831,61 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getInvitation"></a>
+# **getInvitation**
+> UserInvitationResp getInvitation(invitationId)
+
+Details of a user invitation.
+
+An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String invitationId = "invitationId_example"; // String | The ID of the invitation to be retrieved.
+try {
+    UserInvitationResp result = apiInstance.getInvitation(invitationId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **invitationId** | **String**| The ID of the invitation to be retrieved. |
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
 
 ### Authorization
 
