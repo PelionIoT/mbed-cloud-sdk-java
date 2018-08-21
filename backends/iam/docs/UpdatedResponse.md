@@ -27,6 +27,7 @@ ERROR | &quot;error&quot;
 POLICY | &quot;policy&quot;
 IDENTITY_PROVIDER | &quot;identity-provider&quot;
 USER_SESSION | &quot;user-session&quot;
+USER_INVITATION | &quot;user_invitation&quot;
 
 
 <a name="TypeEnum"></a>

@@ -15,6 +15,9 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,6 +103,18 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Create a user invitation.
+     *
+     * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void createInvitationTest() {
+        UserInvitationReq body = null;
+        // UserInvitationResp response = api.createInvitation(body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a new user.
      *
      * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -125,6 +140,18 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Delete a user invitation.
+     *
+     * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void deleteInvitationTest() {
+        String invitationId = null;
+        // Void response = api.deleteInvitation(invitationId);
+
+        // TODO: test validations
+    }
+    /**
      * Delete a user.
      *
      * An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -133,6 +160,20 @@ public class AccountAdminApiTest {
     public void deleteUserTest() {
         String userId = null;
         // Void response = api.deleteUser(userId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get the details of all the user invitations.
+     *
+     * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void getAllInvitationsTest() {
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        // UserInvitationRespList response = api.getAllInvitations(limit, after, order);
 
         // TODO: test validations
     }
@@ -184,6 +225,18 @@ public class AccountAdminApiTest {
         String order = null;
         String include = null;
         // GroupSummaryList response = api.getGroupsOfUser(userId, limit, after, order, include);
+
+        // TODO: test validations
+    }
+    /**
+     * Details of a user invitation.
+     *
+     * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+     */
+    @Test
+    public void getInvitationTest() {
+        String invitationId = null;
+        // UserInvitationResp response = api.getInvitation(invitationId);
 
         // TODO: test validations
     }
