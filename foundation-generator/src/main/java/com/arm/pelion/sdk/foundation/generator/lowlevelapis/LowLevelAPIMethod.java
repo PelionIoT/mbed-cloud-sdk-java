@@ -9,6 +9,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
+
 public class LowLevelAPIMethod {
     private String name;
     private LowLevelAPIMethodArgument returnArgument;
@@ -50,8 +52,17 @@ public class LowLevelAPIMethod {
             return null;
         }
         return Arrays.asList(m.getParameters()).stream()
-                     .map(p -> new LowLevelAPIMethodArgument(p.getName(), p.getType(), getParameterizedParameter(p)))
+                     .map(p -> new LowLevelAPIMethodArgument(determineParameterName(p), p.getType(),
+                                                             getParameterizedParameter(p)))
                      .collect(Collectors.toList());
+    }
+
+    protected static String determineParameterName(Parameter p) {
+        if (!p.isNamePresent()) {
+            Logger.getLogger()
+                  .logError("Missing name for " + p + ". Ensure the project is compiled with the -parameter option.");
+        }
+        return p.getName();
     }
 
     protected static ParameterizedType getParameterizedParameter(Parameter p) {

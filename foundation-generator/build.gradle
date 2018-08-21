@@ -12,7 +12,7 @@ buildscript {
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
-	id 'eclipse'
+    id 'eclipse'
 
     // Apply the application plugin to add support for building an application
     id 'application'
@@ -27,20 +27,20 @@ repositories {
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     compile 'com.squareup:javapoet:1.11.+'
-	compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
-	compile 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
-	compile 'com.github.mifmif:generex:1.0.+'
-	compile 'org.reflections:reflections:0.9.+'
-	compile 'org.slf4j:slf4j-simple:1.7.7'
-	compile 'junit:junit:4.+'
-	compile project(':pelion-sdk-core')
-	// Backends
-	compile project(':backends:connector_ca')
+    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
+    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
+    compile 'com.github.mifmif:generex:1.0.+'
+    compile 'org.reflections:reflections:0.9.+'
+    compile 'org.slf4j:slf4j-simple:1.7.7'
+    compile 'junit:junit:4.+'
+    compile project(':pelion-sdk-core')
+    // Backends
+    compile project(':backends:connector_ca')
     compile project(':backends:external_ca')    
     compile project(':backends:connector_bootstrap')
     compile project(':backends:device_directory')
@@ -54,6 +54,29 @@ dependencies {
     testCompile 'junit:junit:4.12'
 }
 
+allprojects {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+    tasks.withType(JavaCompile) { 
+        if (name == 'compileJava') {
+            if (project.name != rootProject.name){
+                sourceCompatibility JavaVersion.VERSION_1_8.toString()
+                targetCompatibility JavaVersion.VERSION_1_8.toString()
+            }
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
+                options.compilerArgs += ["-deprecation"]
+            }
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-parameters")){
+                options.compilerArgs += ["-parameters"]
+            }
+            options.fork = true
+            doFirst {
+                //println  options.dump()            
+                println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
+            }
+        }
+    }
+}
 
 walkmod {
   chains = [ 'pmd' ]
