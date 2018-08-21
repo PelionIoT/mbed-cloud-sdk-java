@@ -331,7 +331,7 @@ public final class ApiMetadata {
         result = prime * result + ((requestId == null) ? 0 : requestId.hashCode());
         result = prime * result + ((object == null) ? 0 : object.hashCode());
         result = prime * result + statusCode;
-        result = prime * result + ((url == null) ? 0 : url.toString().hashCode());
+        result = prime * result + SdkUtils.urlHashcode(url);
         return result;
     }
 
@@ -400,11 +400,7 @@ public final class ApiMetadata {
         if (statusCode != other.statusCode) {
             return false;
         }
-        if (url == null) {
-            if (other.url != null) {
-                return false;
-            }
-        } else if (!url.toString().equals(other.url.toString())) {
+        if (!SdkUtils.urlEquals(url, other.url)) {
             return false;
         }
         return true;

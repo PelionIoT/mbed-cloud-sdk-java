@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -65,6 +66,42 @@ public final class SdkUtils {
             start = false;
         }
         return buffer.toString();
+    }
+
+    /**
+     * Checks whether two URLs are equal.
+     *
+     * @param url1
+     *            one URL
+     * @param url2
+     *            another URL
+     * @return true if the URLs are equal; false otherwise
+     */
+    public static boolean urlEquals(URL url1, URL url2) {
+        if (url1 == null && url2 == null) {
+            return true;
+        }
+        if (url1 == null || url2 == null) {
+            return false;
+        }
+        if (url1.toString() == null) {
+            return url2.toString() == null;
+        }
+        return url1.toString().equals(url2.toString());
+    }
+
+    /**
+     * Calculates the hashcode of a URL.
+     *
+     * @param url
+     *            a url.
+     * @return corresponding hashcode
+     */
+    public static int urlHashcode(URL url) {
+        if (url == null || url.toString() == null) {
+            return 0;
+        }
+        return url.toString().hashCode();
     }
 
 }

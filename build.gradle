@@ -84,12 +84,14 @@ allprojects {
     }
 
     if (project != project(':backends')){
-        apply plugin: 'checkstyle' //code style checks
-        apply plugin: 'jdepend'// design quality
-        apply plugin: 'findbugs' //static analysis
-        apply plugin: 'com.github.spotbugs' //static analysis
-        apply plugin: 'pmd' //static analysis
-        apply plugin: 'de.aaschmid.cpd' //Code duplication
+        if  (! project.path.contains('backends') && ! project.path.contains('lwm2m')){
+            apply plugin: 'checkstyle' //code style checks
+            apply plugin: 'jdepend'// design quality
+            apply plugin: 'findbugs' //static analysis
+            apply plugin: 'com.github.spotbugs' //static analysis
+            apply plugin: 'pmd' //static analysis
+            apply plugin: 'de.aaschmid.cpd' //Code duplication
+        }
         apply plugin: 'license-report'
         apply plugin: 'com.github.hierynomus.license-report'
         apply plugin: 'maven'
@@ -270,81 +272,82 @@ allprojects {
                 }
             }
         }
-        
-        checkstyle {
-            toolVersion = '7.2'
-            configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
-            sourceSets = [sourceSets.main]
-            ignoreFailures = false
-            maxWarnings = 0
-        }
-        checkstyleMain {
-            reports {
-                xml.enabled true
-                html.enabled true
+        if  (! project.path.contains('backends') && ! project.path.contains('lwm2m')){
+            checkstyle {
+                toolVersion = '7.2'
+                configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
+                sourceSets = [sourceSets.main]
+                ignoreFailures = false
+                maxWarnings = 0
             }
-        }
-        jdepend {
-            sourceSets = [sourceSets.main]
-            ignoreFailures = true
-        }
-        jdependMain {
-            reports {
-                xml.enabled true
+            checkstyleMain {
+                reports {
+                    xml.enabled true
+                    html.enabled true
+                }
             }
-        }
-        pmd {
-            toolVersion = "5.0.4"
-            sourceSets = [sourceSets.main]
-            ignoreFailures = false
-            ruleSets = []
-            ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
-        }
-        pmdMain {
-            excludes = []
-            reports {
-                xml.enabled false
-                html.enabled true
+            jdepend {
+                sourceSets = [sourceSets.main]
+                ignoreFailures = true
             }
-        }
-        cpd {
-            toolVersion = '5.4.2'
-        }
-        cpdCheck {
-            reports {
-                text.enabled = false
-                xml.enabled = true
+            jdependMain {
+                reports {
+                    xml.enabled true
+                }
             }
-            ignoreFailures = true
-            source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
-        }
-        findbugs {
-            //toolVersion = "2.0.1"
-            sourceSets = [sourceSets.main]
-            ignoreFailures = false
-            effort = "max"
-            reportLevel = "high"
-            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-        }
-        spotbugs {
-          //toolVersion = '3.1.5'
-            sourceSets = [sourceSets.main]
-            ignoreFailures = false
-            effort = "max"
-            reportLevel = "high"
-            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-        }
-        tasks.withType(FindBugs) {
-            reports {
-                xml.enabled = false
-                html.enabled = true
+            pmd {
+                toolVersion = "5.0.4"
+                sourceSets = [sourceSets.main]
+                ignoreFailures = false
+                ruleSets = []
+                ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
             }
-        }
+            pmdMain {
+                excludes = []
+                reports {
+                    xml.enabled false
+                    html.enabled true
+                }
+            }
+            cpd {
+                toolVersion = '5.4.2'
+            }
+            cpdCheck {
+                reports {
+                    text.enabled = false
+                    xml.enabled = true
+                }
+                ignoreFailures = true
+                source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+            }
+            findbugs {
+                //toolVersion = "2.0.1"
+                sourceSets = [sourceSets.main]
+                ignoreFailures = false
+                effort = "max"
+                reportLevel = "high"
+                excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+            }
+            spotbugs {
+              //toolVersion = '3.1.5'
+                sourceSets = [sourceSets.main]
+                ignoreFailures = false
+                effort = "max"
+                reportLevel = "high"
+                excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+            }
+            tasks.withType(FindBugs) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
+                }
+            }
 
-        tasks.withType(com.github.spotbugs.SpotBugsTask) {
-            reports {
-                xml.enabled = false
-                html.enabled = true
+            tasks.withType(com.github.spotbugs.SpotBugsTask) {
+                reports {
+                    xml.enabled = false
+                    html.enabled = true
+                }
             }
         }
     }
@@ -356,9 +359,9 @@ subprojects {
 }
 
 // The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list below.
-def tasksNeedindSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs'].collect{it.toLowerCase()}
-def projectToExclude = ['lwm2m', 'backend'].collect{it.toLowerCase()}
-tasks.findAll{t -> tasksNeedindSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.name.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
+def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs'].collect{it.toLowerCase()}
+def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
+tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
 
 configurations {
     coverage
