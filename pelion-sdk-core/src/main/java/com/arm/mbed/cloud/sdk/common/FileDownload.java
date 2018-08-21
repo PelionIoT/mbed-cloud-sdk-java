@@ -334,7 +334,7 @@ public class FileDownload {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((destination == null) ? 0 : destination.hashCode());
-        result = prime * result + ((source == null) ? 0 : source.hashCode());
+        result = prime * result + ((source == null) ? 0 : source.toString() == null ? 0 : source.toString().hashCode());
         return result;
     }
 
@@ -362,11 +362,11 @@ public class FileDownload {
         } else if (!destination.equals(other.destination)) {
             return false;
         }
-        if (source == null) {
-            if (other.source != null) {
+        if (source == null || source.toString() == null) {
+            if (other.source != null && other.source.toString() != null) {
                 return false;
             }
-        } else if (!source.equals(other.source)) {
+        } else if (!source.toString().equals(other.source.toString())) {
             return false;
         }
         return true;

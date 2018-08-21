@@ -579,7 +579,7 @@ public class ListOptions extends FilterOptions {
     /**
      * Method to ensure {@link #equals(Object)} is correct.
      * <p>
-     * Note: see this article: <a href:"https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      *
      * @param other
      *            another object.
@@ -587,7 +587,7 @@ public class ListOptions extends FilterOptions {
      */
     @Override
     protected boolean canEqual(Object other) {
-        return (other instanceof ListOptions);
+        return other instanceof ListOptions;
     }
 
     /*

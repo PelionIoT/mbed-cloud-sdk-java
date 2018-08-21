@@ -248,14 +248,14 @@ public class FilterOptions implements Cloneable {
     /**
      * Method to ensure {@link #equals(Object)} is correct.
      * <p>
-     * Note: see this article: <a href:"https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
      *
      * @param other
      *            another object.
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise
      */
     protected boolean canEqual(Object other) {
-        return (other instanceof FilterOptions);
+        return other instanceof FilterOptions;
     }
 
     /**
@@ -263,6 +263,8 @@ public class FilterOptions implements Cloneable {
      *
      * @param other
      *            an option object
+     * @param <T>
+     *            filter option type
      * @return true if the filters are equal; false otherwise.
      */
     public <T extends FilterOptions> boolean equalsFilter(T other) {

@@ -21,6 +21,7 @@ buildscript {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.2"
+        classpath 'com.netflix.nebula:gradle-aggregate-javadocs-plugin:2.2.+'
     }
 }
 
@@ -28,20 +29,12 @@ buildscript {
 
 apply plugin: 'java-library-distribution'
 apply plugin: 'java-library'
-apply plugin: 'checkstyle' //code style checks
-apply plugin: 'jdepend'// design quality
-apply plugin: 'findbugs' //static analysis
-apply plugin: 'com.github.spotbugs' //static analysis
-apply plugin: 'pmd' //static analysis
-apply plugin: 'de.aaschmid.cpd' //Code duplication
-apply plugin: 'project-report' //Generate project reports
 apply plugin: 'com.github.johnrengelman.shadow' //Generate fat jars
 apply plugin: 'com.dorongold.task-tree'
 apply plugin: 'maven-publish' //POM file generation
 apply plugin: 'com.jfrog.artifactory' //Upload to artifactory
 apply plugin: 'com.jfrog.bintray' //Upload to bintray
-apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
-
+apply plugin: 'nebula-aggregate-javadocs'
 
 
 
@@ -54,7 +47,56 @@ repositories {
 }
 
 allprojects {
+    apply plugin: 'eclipse'
+    apply plugin: 'idea'
+    apply plugin: 'java-library'
+    apply plugin: 'jacoco'
+    apply plugin: 'project-report' //Generate project reports
+    apply plugin: 'build-dashboard'
+    apply plugin: 'project-report' //Generate project reports
+    apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
+
+    test {
+        reports {
+            junitXml.enabled = true
+            html.enabled = true
+        }
+        if(project == rootProject){
+            updateArtifactList("SDK_REPORT_DIR", "$reportsDir")
+            updateArtifactList("SDK_UNITTEST_REPORT_DIR", test.reports.html.destination)
+        }
+    }
+    jacoco {
+        toolVersion = "0.7.6.201602180812"
+    }
+
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.enabled true
+        }
+    }
+    animalsniffer {
+        toolVersion = '1.16'
+        sourceSets = [sourceSets.main]
+        ignoreFailures = false
+    }
+
     if (project != project(':backends')){
+        apply plugin: 'checkstyle' //code style checks
+        apply plugin: 'jdepend'// design quality
+        apply plugin: 'findbugs' //static analysis
+        apply plugin: 'com.github.spotbugs' //static analysis
+        apply plugin: 'pmd' //static analysis
+        apply plugin: 'de.aaschmid.cpd' //Code duplication
+        apply plugin: 'license-report'
+        apply plugin: 'com.github.hierynomus.license-report'
+        apply plugin: 'maven'
+        apply plugin: 'maven-publish'
+        apply plugin: 'com.jfrog.artifactory'
+        apply plugin: 'com.jfrog.bintray'
+    
         //The following is to override the version/group values contained in subproject build files
         tasks.whenTaskAdded { task ->
             if (project != project(':lwm2m')) {
@@ -77,20 +119,6 @@ allprojects {
             }
         }
         compileJava.dependsOn info
-
-        apply plugin: 'java-library'
-        apply plugin: 'license-report'
-        apply plugin: 'jacoco'
-        apply plugin: 'eclipse'
-        apply plugin: 'idea'
-        apply plugin: 'maven'
-        apply plugin: 'build-dashboard'
-        apply plugin: 'project-report' //Generate project reports
-        apply plugin: 'maven-publish'
-        apply plugin: 'com.jfrog.artifactory'
-        apply plugin: 'com.jfrog.bintray'
-        apply plugin: 'ru.vyarus.animalsniffer'
-        apply plugin: 'com.github.hierynomus.license-report'
         
         tasks.withType(JavaCompile) { 
             if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
@@ -242,6 +270,83 @@ allprojects {
                 }
             }
         }
+        
+        checkstyle {
+            toolVersion = '7.2'
+            configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            maxWarnings = 0
+        }
+        checkstyleMain {
+            reports {
+                xml.enabled true
+                html.enabled true
+            }
+        }
+        jdepend {
+            sourceSets = [sourceSets.main]
+            ignoreFailures = true
+        }
+        jdependMain {
+            reports {
+                xml.enabled true
+            }
+        }
+        pmd {
+            toolVersion = "5.0.4"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            ruleSets = []
+            ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+        }
+        pmdMain {
+            excludes = []
+            reports {
+                xml.enabled false
+                html.enabled true
+            }
+        }
+        cpd {
+            toolVersion = '5.4.2'
+        }
+        cpdCheck {
+            reports {
+                text.enabled = false
+                xml.enabled = true
+            }
+            ignoreFailures = true
+            source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+        }
+        findbugs {
+            //toolVersion = "2.0.1"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+        }
+        spotbugs {
+          //toolVersion = '3.1.5'
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+        }
+        tasks.withType(FindBugs) {
+            reports {
+                xml.enabled = false
+                html.enabled = true
+            }
+        }
+
+        tasks.withType(com.github.spotbugs.SpotBugsTask) {
+            reports {
+                xml.enabled = false
+                html.enabled = true
+            }
+        }
     }
 }
 
@@ -249,6 +354,11 @@ subprojects {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
 }
+
+// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list below.
+def tasksNeedindSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs'].collect{it.toLowerCase()}
+def projectToExclude = ['lwm2m', 'backend'].collect{it.toLowerCase()}
+tasks.findAll{t -> tasksNeedindSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.name.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
 
 configurations {
     coverage
@@ -341,117 +451,6 @@ javadoc {
         }
     }
 }
-
-test {
-    reports {
-        junitXml.enabled = true
-        html.enabled = true
-    }
-    updateArtifactList("SDK_REPORT_DIR", "$reportsDir")
-    updateArtifactList("SDK_UNITTEST_REPORT_DIR", test.reports.html.destination)
-}
-
-checkstyle {
-    toolVersion = '7.2'
-    configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
-    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = false
-    maxWarnings = 0
-}
-
-checkstyleMain {
-    reports {
-        xml.enabled true
-        html.enabled true
-    }
-}
-jdepend {
-    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = true
-}
-jdependMain {
-    reports {
-        xml.enabled true
-    }
-}
-jacoco {
-    toolVersion = "0.7.6.201602180812"
-}
-
-jacocoTestReport {
-    reports {
-        xml.enabled false
-        csv.enabled false
-        html.enabled true
-    }
-}
-
-pmd {
-    toolVersion = "5.0.4"
-    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = false
-    ruleSets = []
-    ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
-}
-pmdMain {
-    excludes = []
-    reports {
-        xml.enabled false
-        html.enabled true
-    }
-}
-
-cpd {
-    toolVersion = '5.4.2'
-}
-
-cpdCheck {
-    reports {
-        text.enabled = false
-        xml.enabled = true
-    }
-    ignoreFailures = true
-    source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
-}
-
-findbugs {
-    //toolVersion = "2.0.1"
-    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-}
-
-spotbugs {
-  //toolVersion = '3.1.5'
-    sourceSets = [sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = false
-    effort = "max"
-    reportLevel = "high"
-    excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-}
-
-animalsniffer {
-    toolVersion = '1.16'
-    sourceSets = [sourceSets.main, project(':lwm2m').sourceSets.main, project(':pelion-sdk-core').sourceSets.main]
-    ignoreFailures = false
-}
-
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-tasks.withType(com.github.spotbugs.SpotBugsTask) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
 
 
 def updateArtifactList(propertyName, value) {

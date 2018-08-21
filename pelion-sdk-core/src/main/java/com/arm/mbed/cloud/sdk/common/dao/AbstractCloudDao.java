@@ -20,6 +20,9 @@ public abstract class AbstractCloudDao implements CloudDao {
     private static final String PARAMETER_MODULE = "module";
     protected ApiModule module;
 
+    /**
+     * Constructor.
+     */
     public AbstractCloudDao() {
         module = null;
         try {
@@ -48,9 +51,9 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public void configure(ApiModule aModule) throws MbedCloudException {
-        ApiUtils.checkNotNull(SdkLogger.getLogger(), aModule, PARAMETER_MODULE);
-        this.module = aModule;
+    public void configure(ApiModule oneModule) throws MbedCloudException {
+        ApiUtils.checkNotNull(SdkLogger.getLogger(), oneModule, PARAMETER_MODULE);
+        this.module = oneModule;
     }
 
     @Override

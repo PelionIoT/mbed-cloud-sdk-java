@@ -116,7 +116,9 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
     /**
      * Gets one page of model IDs.
      * <p>
-     * * @param options list options.
+     *
+     * @param options
+     *            list options.
      *
      * @return one page worth of model IDs.
      * @throws MbedCloudException

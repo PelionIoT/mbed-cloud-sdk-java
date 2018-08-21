@@ -56,7 +56,6 @@ public abstract class AbstractPaginator<T, U extends AbstractListResponse<T>, V 
         super();
         this.requester = requester;
         this.initialOptions = (options == null) ? new ListOptions() : options;
-        System.out.println(this.initialOptions);
         setProperties(null);
         rewind();
     }

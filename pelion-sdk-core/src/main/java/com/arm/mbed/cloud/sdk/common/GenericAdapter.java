@@ -110,36 +110,6 @@ public class GenericAdapter {
     }
 
     /**
-     * Maps a page of objects U into a list of IDs.
-     *
-     * @param respList
-     *            page (i.e. paginated response from server)
-     * @param mapper
-     *            mapper determining corresponding model's ID.
-     * @param <U>
-     *            type of the object to be mapped from
-     * @return list of IDs or null if list is null @see {@link IdListResponse}
-     */
-    public static <U> IdListResponse mapIdList(RespList<U> respList, Mapper<U, String> mapper) {
-        if (respList == null || mapper == null) {
-            return null;
-        }
-        final IdListResponse responseList = new IdListResponse(TranslationUtils.toBool(respList.getHasMore(), false),
-                                                               TranslationUtils.toLong(respList.getTotalCount()),
-                                                               respList.getAfter(), respList.getContinuationMarker(),
-                                                               TranslationUtils.toInt(respList.getLimit()),
-                                                               Order.parseOrder(respList.getOrder(),
-                                                                                Order.getUnknownEnum()));
-        if (respList.getData() == null || respList.getData().isEmpty()) {
-            return responseList;
-        }
-        for (final U resp : respList.getData()) {
-            responseList.addData(mapper.map(resp));
-        }
-        return responseList;
-    }
-
-    /**
      * Maps a list of objects U into a list of object T.
      *
      * @param list
@@ -182,6 +152,36 @@ public class GenericAdapter {
             mappedList.add(mapper.map(element));
         }
         return mappedList;
+    }
+
+    /**
+     * Maps a page of objects U into a list of IDs.
+     *
+     * @param respList
+     *            page (i.e. paginated response from server)
+     * @param mapper
+     *            mapper determining corresponding model's ID.
+     * @param <U>
+     *            type of the object to be mapped from
+     * @return list of IDs or null if list is null @see {@link IdListResponse}
+     */
+    public static <U> IdListResponse mapIdList(RespList<U> respList, Mapper<U, String> mapper) {
+        if (respList == null || mapper == null) {
+            return null;
+        }
+        final IdListResponse responseList = new IdListResponse(TranslationUtils.toBool(respList.getHasMore(), false),
+                                                               TranslationUtils.toLong(respList.getTotalCount()),
+                                                               respList.getAfter(), respList.getContinuationMarker(),
+                                                               TranslationUtils.toInt(respList.getLimit()),
+                                                               Order.parseOrder(respList.getOrder(),
+                                                                                Order.getUnknownEnum()));
+        if (respList.getData() == null || respList.getData().isEmpty()) {
+            return responseList;
+        }
+        for (final U resp : respList.getData()) {
+            responseList.addData(mapper.map(resp));
+        }
+        return responseList;
     }
 
     public static class MappedObjectRegistry<T> {

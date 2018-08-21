@@ -7,8 +7,9 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Utilities for fetching DAOs corresponding to a certain Model using reflection")
-public class ModelDaoProvider {
+public final class ModelDaoProvider {
 
+    private static final String UNCHECKED = "unchecked";
     private static final String DAO_SUFFIX = "Dao";
     private static final String LIST_DAO_SUFFIX = "List" + DAO_SUFFIX;
 
@@ -21,9 +22,11 @@ public class ModelDaoProvider {
      *
      * @param modelType
      *            type of the data model
+     * @param <T>
+     *            model type
      * @return the class of the corresponding DAO; null if no DAO was found for this data model type
      */
-    @SuppressWarnings({ "unchecked", "static-access" })
+    @SuppressWarnings({ UNCHECKED, "static-access" })
     public @Nullable static <T extends SdkModel> Class<? extends ModelDao<T>> getCorrespondingDao(Class<T> modelType) {
         try {
             return modelType == null ? null
@@ -39,14 +42,20 @@ public class ModelDaoProvider {
      *
      * @param model
      *            data model
+     * @param <T>
+     *            model type
+     * @param <U>
+     *            model DAO type
      * @return an instance of the corresponding DAO; null if no DAO was found for this data model
+     * @throws MbedCloudException
+     *             if an error occurs during the process
      */
     public @Nullable static <T extends SdkModel, U extends ModelDao<T>> U
            getCorrespondingDao(T model) throws MbedCloudException {
         if (model == null) {
             return null;
         }
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings(UNCHECKED)
         final Class<U> daoClass = (Class<U>) getCorrespondingDao(model.getClass());
         if (daoClass == null) {
             return null;
@@ -65,10 +74,12 @@ public class ModelDaoProvider {
      *
      * @param modelType
      *            type of the data model
+     * @param <T>
+     *            model type
      * @return the class of the corresponding Model List DAO; null if no Model List DAO was found for this data model
      *         type
      */
-    @SuppressWarnings({ "static-access", "unchecked" })
+    @SuppressWarnings({ "static-access", UNCHECKED })
     public @Nullable static <T extends SdkModel> Class<? extends ModelListDao<T, ? extends ListOptions>>
            getCorrespondingListDao(Class<T> modelType) {
         try {
@@ -86,6 +97,12 @@ public class ModelDaoProvider {
      *
      * @param modelType
      *            data model type
+     * @param <T>
+     *            model type
+     * @param <U>
+     *            list options type
+     * @param <V>
+     *            list DAO type
      * @param options
      *            list options
      * @return an instance of the corresponding Model List DAO; null if no Model List DAO was found for this data model
@@ -97,7 +114,7 @@ public class ModelDaoProvider {
         if (modelType == null) {
             return null;
         }
-        @SuppressWarnings("unchecked")
+        @SuppressWarnings(UNCHECKED)
         final Class<V> listDaoClass = (Class<V>) getCorrespondingListDao(modelType);
         if (listDaoClass == null) {
             return null;
