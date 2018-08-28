@@ -21,8 +21,8 @@ Method | HTTP request | Description
 [**groupCreate**](DefaultApi.md#groupCreate) | **POST** v3/device-groups/ | Create a group
 [**groupDelete**](DefaultApi.md#groupDelete) | **DELETE** v3/device-groups/{device-group-id}/ | Delete a group
 [**groupList**](DefaultApi.md#groupList) | **GET** v3/device-groups/ | List all groups.
-[**groupMembersAdd**](DefaultApi.md#groupMembersAdd) | **POST** v3/device-groups/{device-group-id}/devices/add/ | Add devices from a group
-[**groupMembersRemove**](DefaultApi.md#groupMembersRemove) | **POST** v3/device-groups/{device-group-id}/devices/remove/ | Remove devices from a group
+[**groupMembersAdd**](DefaultApi.md#groupMembersAdd) | **POST** v3/device-groups/{device-group-id}/devices/add/ | Add a device to a group
+[**groupMembersRemove**](DefaultApi.md#groupMembersRemove) | **POST** v3/device-groups/{device-group-id}/devices/remove/ | Remove a device from a group
 [**groupMembersRetrieve**](DefaultApi.md#groupMembersRetrieve) | **GET** v3/device-groups/{device-group-id}/devices/ | Get a page of devices
 [**groupRetrieve**](DefaultApi.md#groupRetrieve) | **GET** v3/device-groups/{device-group-id}/ | Get a group.
 [**groupUpdate**](DefaultApi.md#groupUpdate) | **PUT** v3/device-groups/{device-group-id}/ | Modify the attributes of a group.
@@ -1011,9 +1011,9 @@ Name | Type | Description  | Notes
 # **groupMembersAdd**
 > DevicePage groupMembersAdd(deviceGroupId, body)
 
-Add devices from a group
+Add a device to a group
 
-Add one or more devices from a group
+Add one device to a group
 
 ### Example
 ```java
@@ -1068,9 +1068,9 @@ Name | Type | Description  | Notes
 # **groupMembersRemove**
 > DevicePage groupMembersRemove(deviceGroupId, body)
 
-Remove devices from a group
+Remove a device from a group
 
-Remove one or more devices from a group
+Remove one device from a group
 
 ### Example
 ```java

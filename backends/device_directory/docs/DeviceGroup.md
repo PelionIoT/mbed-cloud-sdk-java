@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**DateTime**](DateTime.md) | The time the campaign was created |  [optional]
-**customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. |  [optional]
+**customAttributes** | **Map&lt;String, String&gt;** | Up to ten custom key-value attributes. |  [optional]
 **description** | **String** | The description of the group |  [optional]
 **devicesCount** | **Integer** | The number of devices in this group |  [optional]
 **etag** | [**DateTime**](DateTime.md) |  |  [optional]

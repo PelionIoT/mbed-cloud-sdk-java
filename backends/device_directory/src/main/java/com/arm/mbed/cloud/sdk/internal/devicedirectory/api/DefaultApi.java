@@ -241,8 +241,8 @@ public interface DefaultApi {
   );
 
   /**
-   * Add devices from a group
-   * Add one or more devices from a group
+   * Add a device to a group
+   * Add one device to a group
    * @param deviceGroupId The ID of the group (required)
    * @param body Body of the request (required)
    * @return Call&lt;DevicePage&gt;
@@ -253,8 +253,8 @@ public interface DefaultApi {
   );
 
   /**
-   * Remove devices from a group
-   * Remove one or more devices from a group
+   * Remove a device from a group
+   * Remove one device from a group
    * @param deviceGroupId The ID of the group (required)
    * @param body Body of the request (required)
    * @return Call&lt;DevicePage&gt;

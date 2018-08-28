@@ -263,9 +263,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Add devices from a group
+     * Add a device to a group
      *
-     * Add one or more devices from a group
+     * Add one device to a group
      */
     @Test
     public void groupMembersAddTest() {
@@ -276,9 +276,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Remove devices from a group
+     * Remove a device from a group
      *
-     * Remove one or more devices from a group
+     * Remove one device from a group
      */
     @Test
     public void groupMembersRemoveTest() {

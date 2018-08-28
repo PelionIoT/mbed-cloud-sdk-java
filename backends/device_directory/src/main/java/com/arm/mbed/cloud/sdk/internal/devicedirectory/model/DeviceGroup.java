@@ -94,10 +94,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * Up to five custom key-value attributes.
+   * Up to ten custom key-value attributes.
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "Up to five custom key-value attributes.")
+  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "Up to ten custom key-value attributes.")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
