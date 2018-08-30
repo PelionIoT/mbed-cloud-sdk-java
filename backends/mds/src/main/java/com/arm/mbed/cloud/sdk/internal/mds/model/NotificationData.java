@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Pelion Device Management Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Device Management Connect allows connectivity to devices by queueing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -70,10 +70,10 @@ public class NotificationData implements Serializable {
   }
 
    /**
-   * Mbed Cloud Device ID.
+   * Device Management Device ID.
    * @return ep
   **/
-  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Mbed Cloud Device ID.")
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Device Management Device ID.")
   public String getEp() {
     return ep;
   }
