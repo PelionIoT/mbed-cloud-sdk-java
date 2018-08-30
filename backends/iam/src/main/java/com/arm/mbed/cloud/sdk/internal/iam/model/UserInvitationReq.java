@@ -25,9 +25,9 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * This object represents a user invitation in requests towards mbed Cloud.
+ * This object represents a user invitation in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user invitation in requests towards mbed Cloud.")
+@ApiModel(description = "This object represents a user invitation in requests towards Device Management.")
 
 public class UserInvitationReq implements Serializable {
   private static final long serialVersionUID = 1L;

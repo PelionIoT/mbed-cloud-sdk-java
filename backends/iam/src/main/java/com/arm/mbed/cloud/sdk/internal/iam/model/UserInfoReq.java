@@ -27,9 +27,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user in requests towards mbed Cloud.
+ * This object represents a user in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user in requests towards mbed Cloud.")
+@ApiModel(description = "This object represents a user in requests towards Device Management.")
 
 public class UserInfoReq implements Serializable {
   private static final long serialVersionUID = 1L;

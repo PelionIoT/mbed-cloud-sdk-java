@@ -29,9 +29,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a user in mbed Cloud.
+ * This object represents a user in Device Management.
  */
-@ApiModel(description = "This object represents a user in mbed Cloud.")
+@ApiModel(description = "This object represents a user in Device Management.")
 
 public class UserInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
