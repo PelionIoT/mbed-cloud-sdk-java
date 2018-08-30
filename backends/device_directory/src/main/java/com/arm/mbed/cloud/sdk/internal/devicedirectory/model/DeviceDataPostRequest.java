@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the Mbed Device Directory service.
+ * This is the API Documentation for the Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -286,10 +286,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The expiration date of the certificate used to connect to the LWM2M server.
+   * The expiration date of the certificate used to connect to the LwM2M server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to the LWM2M server.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to the LwM2M server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }

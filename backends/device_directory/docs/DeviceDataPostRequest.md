@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **bootstrapExpirationDate** | [**DateTime**](DateTime.md) | The expiration date of the certificate used to connect to bootstrap server. |  [optional]
 **bootstrappedTimestamp** | [**DateTime**](DateTime.md) | The timestamp of the device&#39;s most recent bootstrap process. |  [optional]
 **caId** | **String** | The certificate issuer&#39;s ID. |  [optional]
-**connectorExpirationDate** | [**DateTime**](DateTime.md) | The expiration date of the certificate used to connect to the LWM2M server. |  [optional]
+**connectorExpirationDate** | [**DateTime**](DateTime.md) | The expiration date of the certificate used to connect to the LwM2M server. |  [optional]
 **customAttributes** | **Map&lt;String, String&gt;** | Up to five custom key-value attributes. Note that keys cannot start with a number. Both keys and values are limited to 128 characters. |  [optional]
 **deployment** | **String** | DEPRECATED: The last deployment used on the device. |  [optional]
 **description** | **String** | The description of the device. |  [optional]
