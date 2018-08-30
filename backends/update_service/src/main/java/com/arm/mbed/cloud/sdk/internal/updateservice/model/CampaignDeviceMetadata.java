@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API documentation for the Mbed deployment service, which is part of the update service.
+ * This is the API documentation for the Device Management deployment service, which is part of the Update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -273,10 +273,10 @@ public class CampaignDeviceMetadata implements Serializable {
   }
 
    /**
-   * The Cloud Connect URL
+   * The Device Management Connect URL
    * @return mechanismUrl
   **/
-  @ApiModelProperty(example = "", value = "The Cloud Connect URL")
+  @ApiModelProperty(example = "", value = "The Device Management Connect URL")
   public String getMechanismUrl() {
     return mechanismUrl;
   }
