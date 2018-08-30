@@ -7,7 +7,7 @@ Method | HTTP request | Description
 [**deletePreSharedKey**](PreSharedKeysApi.md#deletePreSharedKey) | **DELETE** v2/device-shared-keys/{endpoint_name} | Remove a pre-shared key.
 [**getPreSharedKey**](PreSharedKeysApi.md#getPreSharedKey) | **GET** v2/device-shared-keys/{endpoint_name} | Get a pre-shared key.
 [**listPreSharedKeys**](PreSharedKeysApi.md#listPreSharedKeys) | **GET** v2/device-shared-keys | List pre-shared keys.
-[**uploadPreSharedKey**](PreSharedKeysApi.md#uploadPreSharedKey) | **POST** v2/device-shared-keys | Upload a pre-shared key to Mbed Cloud.
+[**uploadPreSharedKey**](PreSharedKeysApi.md#uploadPreSharedKey) | **POST** v2/device-shared-keys | Upload a pre-shared key to Pelion Device Management.
 
 
 <a name="deletePreSharedKey"></a>
@@ -181,7 +181,7 @@ Name | Type | Description  | Notes
 # **uploadPreSharedKey**
 > Void uploadPreSharedKey(body)
 
-Upload a pre-shared key to Mbed Cloud.
+Upload a pre-shared key to Pelion Device Management.
 
 Upload a pre-shared key (PSK) for an endpoint to allow it to bootstrap. The existing key will not be overwritten but needs to be deleted first in case of re-setting PSK for an endpoint.  **Note**: The PSK APIs are available only to accounts that have this feature enabled.  **Example usage:**  &#x60;&#x60;&#x60; curl -H \&quot;authorization: Bearer ${API_TOKEN}\&quot; -H \&quot;content-type: application/json\&quot; -X POST https://api.us-east-1.mbedcloud.com/v2/device-shared-keys \\      -d &#39;{\&quot;endpoint_name\&quot;: \&quot;my-endpoint-0001\&quot;, \&quot;secret_hex\&quot;: \&quot;4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a4a\&quot; }&#39; &#x60;&#x60;&#x60; 
 

@@ -1,6 +1,6 @@
 /*
  * Bootstrap API
- * Mbed Cloud Bootstrap API allows web applications to control the device bootstrapping process.
+ * Bootstrap API allows web applications to control the device bootstrapping process.
  *
  * OpenAPI spec version: 2
  * 
