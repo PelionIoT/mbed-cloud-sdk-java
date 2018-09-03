@@ -1,6 +1,6 @@
 /*
  * Billing API
- * Mbed Cloud Billing API allows users to retrieve billing reports and service package details.
+ * Billing API allows users to retrieve billing reports and service package details.
  *
  * OpenAPI spec version: 1.4.7
  * 

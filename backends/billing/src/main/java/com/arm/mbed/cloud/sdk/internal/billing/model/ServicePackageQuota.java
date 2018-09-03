@@ -1,6 +1,6 @@
 /*
  * Billing API
- * Mbed Cloud Billing API allows users to retrieve billing reports and service package details.
+ * Billing API allows users to retrieve billing reports and service package details.
  *
  * OpenAPI spec version: 1.4.7
  * 
@@ -107,11 +107,11 @@ public class ServicePackageQuota implements Serializable {
   }
 
    /**
-   * Available quota for the service package
+   * Available quota for the service package.
    * minimum: 0
    * @return quota
   **/
-  @ApiModelProperty(required = true, value = "Available quota for the service package")
+  @ApiModelProperty(required = true, value = "Available quota for the service package.")
   public Long getQuota() {
     return quota;
   }
