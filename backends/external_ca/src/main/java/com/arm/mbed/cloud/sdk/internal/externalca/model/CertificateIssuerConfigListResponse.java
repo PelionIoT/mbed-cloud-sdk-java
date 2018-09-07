@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.externalca.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo;
+import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigResponse;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,17 +28,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * CertificateIssuerInfoListResponse
+ * CertificateIssuerConfigListResponse
  */
 
-public class CertificateIssuerInfoListResponse implements Serializable {
+public class CertificateIssuerConfigListResponse implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("after")
   private String after = null;
 
   @SerializedName("data")
-  private List<CertificateIssuerInfo> data = null;
+  private List<CertificateIssuerConfigResponse> data = null;
 
   @SerializedName("limit")
   private Integer limit = null;
@@ -144,7 +144,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
   @SerializedName("total_count")
   private Integer totalCount = null;
 
-  public CertificateIssuerInfoListResponse after(String after) {
+  public CertificateIssuerConfigListResponse after(String after) {
     this.after = after;
     return this;
   }
@@ -153,7 +153,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
    * The entity ID to fetch after current result set.
    * @return after
   **/
-  @ApiModelProperty(example = "", value = "The entity ID to fetch after current result set.")
+  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The entity ID to fetch after current result set.")
   public String getAfter() {
     return after;
   }
@@ -162,14 +162,14 @@ public class CertificateIssuerInfoListResponse implements Serializable {
     this.after = after;
   }
 
-  public CertificateIssuerInfoListResponse data(List<CertificateIssuerInfo> data) {
+  public CertificateIssuerConfigListResponse data(List<CertificateIssuerConfigResponse> data) {
     this.data = data;
     return this;
   }
 
-  public CertificateIssuerInfoListResponse addDataItem(CertificateIssuerInfo dataItem) {
+  public CertificateIssuerConfigListResponse addDataItem(CertificateIssuerConfigResponse dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<CertificateIssuerInfo>();
+      this.data = new ArrayList<CertificateIssuerConfigResponse>();
     }
     this.data.add(dataItem);
     return this;
@@ -180,15 +180,15 @@ public class CertificateIssuerInfoListResponse implements Serializable {
    * @return data
   **/
   @ApiModelProperty(value = "List of certificate issuers.")
-  public List<CertificateIssuerInfo> getData() {
+  public List<CertificateIssuerConfigResponse> getData() {
     return data;
   }
 
-  public void setData(List<CertificateIssuerInfo> data) {
+  public void setData(List<CertificateIssuerConfigResponse> data) {
     this.data = data;
   }
 
-  public CertificateIssuerInfoListResponse limit(Integer limit) {
+  public CertificateIssuerConfigListResponse limit(Integer limit) {
     this.limit = limit;
     return this;
   }
@@ -206,7 +206,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
     this.limit = limit;
   }
 
-  public CertificateIssuerInfoListResponse object(ObjectEnum object) {
+  public CertificateIssuerConfigListResponse object(ObjectEnum object) {
     this.object = object;
     return this;
   }
@@ -224,7 +224,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
     this.object = object;
   }
 
-  public CertificateIssuerInfoListResponse order(OrderEnum order) {
+  public CertificateIssuerConfigListResponse order(OrderEnum order) {
     this.order = order;
     return this;
   }
@@ -242,7 +242,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
     this.order = order;
   }
 
-  public CertificateIssuerInfoListResponse totalCount(Integer totalCount) {
+  public CertificateIssuerConfigListResponse totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -269,13 +269,13 @@ public class CertificateIssuerInfoListResponse implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CertificateIssuerInfoListResponse certificateIssuerInfoListResponse = (CertificateIssuerInfoListResponse) o;
-    return Objects.equals(this.after, certificateIssuerInfoListResponse.after) &&
-        Objects.equals(this.data, certificateIssuerInfoListResponse.data) &&
-        Objects.equals(this.limit, certificateIssuerInfoListResponse.limit) &&
-        Objects.equals(this.object, certificateIssuerInfoListResponse.object) &&
-        Objects.equals(this.order, certificateIssuerInfoListResponse.order) &&
-        Objects.equals(this.totalCount, certificateIssuerInfoListResponse.totalCount);
+    CertificateIssuerConfigListResponse certificateIssuerConfigListResponse = (CertificateIssuerConfigListResponse) o;
+    return Objects.equals(this.after, certificateIssuerConfigListResponse.after) &&
+        Objects.equals(this.data, certificateIssuerConfigListResponse.data) &&
+        Objects.equals(this.limit, certificateIssuerConfigListResponse.limit) &&
+        Objects.equals(this.object, certificateIssuerConfigListResponse.object) &&
+        Objects.equals(this.order, certificateIssuerConfigListResponse.order) &&
+        Objects.equals(this.totalCount, certificateIssuerConfigListResponse.totalCount);
   }
 
   @Override
@@ -287,7 +287,7 @@ public class CertificateIssuerInfoListResponse implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CertificateIssuerInfoListResponse {\n");
+    sb.append("class CertificateIssuerConfigListResponse {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
