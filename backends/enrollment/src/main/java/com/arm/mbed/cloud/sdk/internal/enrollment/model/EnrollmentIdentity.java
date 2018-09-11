@@ -218,10 +218,10 @@ public class EnrollmentIdentity implements Serializable {
   }
 
    /**
-   * The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice
+   * The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice
    * @return expiresAt
   **/
-  @ApiModelProperty(required = true, value = "The enrollment claim expiration time. If the device does not connect to Mbed Cloud before the expiration, the claim is removed without a separate notice")
+  @ApiModelProperty(required = true, value = "The enrollment claim expiration time. If the device does not connect to Device Management before the expiration, the claim is removed without a separate notice")
   public DateTime getExpiresAt() {
     return expiresAt;
   }
