@@ -25,31 +25,52 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * CertificateIssuerConfigRequest
+ * CreateCertificateIssuerConfig
  */
 
-public class CertificateIssuerConfigRequest implements Serializable {
+public class CreateCertificateIssuerConfig implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("certificate_issuer_id")
   private String certificateIssuerId = null;
 
-  public CertificateIssuerConfigRequest certificateIssuerId(String certificateIssuerId) {
+  @SerializedName("reference")
+  private String reference = null;
+
+  public CreateCertificateIssuerConfig certificateIssuerId(String certificateIssuerId) {
     this.certificateIssuerId = certificateIssuerId;
     return this;
   }
 
    /**
-   * The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. 
+   * The ID of the certificate issuer. 
    * @return certificateIssuerId
   **/
-  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. ")
+  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", required = true, value = "The ID of the certificate issuer. ")
   public String getCertificateIssuerId() {
     return certificateIssuerId;
   }
 
   public void setCertificateIssuerId(String certificateIssuerId) {
     this.certificateIssuerId = certificateIssuerId;
+  }
+
+  public CreateCertificateIssuerConfig reference(String reference) {
+    this.reference = reference;
+    return this;
+  }
+
+   /**
+   * The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. 
+   * @return reference
+  **/
+  @ApiModelProperty(example = "customer.dlms", required = true, value = "The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. ")
+  public String getReference() {
+    return reference;
+  }
+
+  public void setReference(String reference) {
+    this.reference = reference;
   }
 
 
@@ -61,22 +82,24 @@ public class CertificateIssuerConfigRequest implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    CertificateIssuerConfigRequest certificateIssuerConfigRequest = (CertificateIssuerConfigRequest) o;
-    return Objects.equals(this.certificateIssuerId, certificateIssuerConfigRequest.certificateIssuerId);
+    CreateCertificateIssuerConfig createCertificateIssuerConfig = (CreateCertificateIssuerConfig) o;
+    return Objects.equals(this.certificateIssuerId, createCertificateIssuerConfig.certificateIssuerId) &&
+        Objects.equals(this.reference, createCertificateIssuerConfig.reference);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(certificateIssuerId);
+    return Objects.hash(certificateIssuerId, reference);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class CertificateIssuerConfigRequest {\n");
+    sb.append("class CreateCertificateIssuerConfig {\n");
     
     sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
+    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("}");
     return sb.toString();
   }
