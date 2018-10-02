@@ -146,10 +146,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of failed [Connect API](/docs/current/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.
+   * The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.
    * @return connectRestApiError
   **/
-  @ApiModelProperty(value = "The number of failed [Connect API](/docs/current/service-api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.")
+  @ApiModelProperty(value = "The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.")
   public Long getConnectRestApiError() {
     return connectRestApiError;
   }
@@ -164,10 +164,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of successful [Connect API](/docs/current/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.
+   * The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.
    * @return connectRestApiSuccess
   **/
-  @ApiModelProperty(value = "The number of successful [Connect API](/docs/current/service-api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.")
+  @ApiModelProperty(value = "The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the HTTP request used to subscibe to the device resources.")
   public Long getConnectRestApiSuccess() {
     return connectRestApiSuccess;
   }
@@ -200,10 +200,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of observations received by Device Management Connect from the devices linked to the account. The observations are pushed from the device to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. 
+   * **(Beta)** The number of observations received by Device Management Connect from the devices linked to the account. The observations are pushed from the device to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceObservations
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of observations received by Device Management Connect from the devices linked to the account. The observations are pushed from the device to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of observations received by Device Management Connect from the devices linked to the account. The observations are pushed from the device to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceObservations() {
     return deviceObservations;
   }
@@ -218,10 +218,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of failed proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. 
+   * **(Beta)** The number of failed proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Device Management Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceProxyRequestError
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Device Management Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceProxyRequestError() {
     return deviceProxyRequestError;
   }
@@ -236,10 +236,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of successful proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. 
+   * **(Beta)** The number of successful proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Device Management Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceProxyRequestSuccess
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from Device Management Connect to devices linked to the account. The proxy requests are made from Device Management Connect to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceProxyRequestSuccess() {
     return deviceProxyRequestSuccess;
   }
@@ -254,10 +254,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of failed subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. 
+   * **(Beta)** The number of failed subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceSubscriptionRequestError
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceSubscriptionRequestError() {
     return deviceSubscriptionRequestError;
   }
@@ -272,10 +272,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of successful subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. 
+   * **(Beta)** The number of successful subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceSubscriptionRequestSuccess
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/mbed-cloud-connect.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from Device Management Connect to devices linked to the account. The subscription requests are made from Device Management Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceSubscriptionRequestSuccess() {
     return deviceSubscriptionRequestSuccess;
   }
