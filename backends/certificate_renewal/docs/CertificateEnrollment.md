@@ -12,6 +12,7 @@ Name | Type | Description | Notes
 **etag** | **String** | Entity instance signature. | 
 **id** | **String** | The ID of the certificate enrollment. | 
 **object** | [**ObjectEnum**](#ObjectEnum) |  |  [optional]
+**updatedAt** | [**DateTime**](DateTime.md) | Update UTC time RFC3339. |  [optional]
 
 
 <a name="EnrollResultEnum"></a>
