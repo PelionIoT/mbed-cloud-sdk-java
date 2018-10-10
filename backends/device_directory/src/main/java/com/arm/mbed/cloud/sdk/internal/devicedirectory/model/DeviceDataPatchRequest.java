@@ -216,10 +216,10 @@ public class DeviceDataPatchRequest implements Serializable {
   }
 
    /**
-   * An array containing an id of each group this device belongs to
+   * An array containing an ID of each group this device belongs to.
    * @return groups
   **/
-  @ApiModelProperty(value = "An array containing an id of each group this device belongs to")
+  @ApiModelProperty(value = "An array containing an ID of each group this device belongs to.")
   public List<String> getGroups() {
     return groups;
   }

@@ -123,7 +123,7 @@ public class DefaultApiTest {
     /**
      * DEPRECATED: Retrieve a device event.
      *
-     * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead)
+     * Retrieve device event (deprecated, use /v3/device-events/{device_event_id}/ instead).
      */
     @Test
     public void deviceLogRetrieveTest() {
@@ -198,7 +198,7 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Get a devices
+     * Get a device
      *
      * Retrieve information about a specific device.
      */
@@ -225,7 +225,7 @@ public class DefaultApiTest {
     /**
      * Create a group
      *
-     * Create a group
+     * Create a group.
      */
     @Test
     public void groupCreateTest() {
@@ -265,33 +265,33 @@ public class DefaultApiTest {
     /**
      * Add a device to a group
      *
-     * Add one device to a group
+     * Add one device to a group.
      */
     @Test
     public void groupMembersAddTest() {
         String deviceGroupId = null;
         DeviceGroupManipulation body = null;
-        // DevicePage response = api.groupMembersAdd(deviceGroupId, body);
+        // Void response = api.groupMembersAdd(deviceGroupId, body);
 
         // TODO: test validations
     }
     /**
      * Remove a device from a group
      *
-     * Remove one device from a group
+     * Remove one device from a group.
      */
     @Test
     public void groupMembersRemoveTest() {
         String deviceGroupId = null;
         DeviceGroupManipulation body = null;
-        // DevicePage response = api.groupMembersRemove(deviceGroupId, body);
+        // Void response = api.groupMembersRemove(deviceGroupId, body);
 
         // TODO: test validations
     }
     /**
      * Get a page of devices
      *
-     * Get a page of device
+     * Get a page of devices.
      */
     @Test
     public void groupMembersRetrieveTest() {
@@ -301,7 +301,7 @@ public class DefaultApiTest {
         String after = null;
         String include = null;
         String filter = null;
-        // DevicePage response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
+        // Void response = api.groupMembersRetrieve(deviceGroupId, limit, order, after, include, filter);
 
         // TODO: test validations
     }

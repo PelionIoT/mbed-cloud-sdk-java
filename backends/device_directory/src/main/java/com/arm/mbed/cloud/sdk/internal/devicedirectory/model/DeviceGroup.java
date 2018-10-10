@@ -68,10 +68,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * The time the campaign was created
+   * The time the campaign was created.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the campaign was created.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -94,10 +94,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * Up to ten custom key-value attributes.
+   * Get customAttributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "Up to ten custom key-value attributes.")
+  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -112,10 +112,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * The description of the group
+   * The description of the group.
    * @return description
   **/
-  @ApiModelProperty(example = "Devices on the factory floor.", value = "The description of the group")
+  @ApiModelProperty(example = "Devices on the factory floor.", value = "The description of the group.")
   public String getDescription() {
     return description;
   }
@@ -130,10 +130,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * The number of devices in this group
+   * The number of devices in this group.
    * @return devicesCount
   **/
-  @ApiModelProperty(example = "10", value = "The number of devices in this group")
+  @ApiModelProperty(example = "10", value = "The number of devices in this group.")
   public Integer getDevicesCount() {
     return devicesCount;
   }
@@ -166,10 +166,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * The group id
+   * The group ID.
    * @return id
   **/
-  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The group id")
+  @ApiModelProperty(example = "015c3029f6f7000000000001001000c3", value = "The group ID.")
   public String getId() {
     return id;
   }
@@ -184,10 +184,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * Name of the group
+   * Name of the group.
    * @return name
   **/
-  @ApiModelProperty(example = "My devices", value = "Name of the group")
+  @ApiModelProperty(example = "My devices", value = "Name of the group.")
   public String getName() {
     return name;
   }
@@ -202,10 +202,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * Entity name: always &#39;device-group&#39;
+   * Entity name: always &#39;device-group&#39;.
    * @return object
   **/
-  @ApiModelProperty(example = "device-group", value = "Entity name: always 'device-group'")
+  @ApiModelProperty(example = "device-group", value = "Entity name: always 'device-group'.")
   public String getObject() {
     return object;
   }
@@ -220,10 +220,10 @@ public class DeviceGroup implements Serializable {
   }
 
    /**
-   * The time the object was updated
+   * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }

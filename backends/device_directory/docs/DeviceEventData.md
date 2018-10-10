@@ -4,9 +4,9 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**changes** | **Map&lt;String, String&gt;** | Additional data relevant to the event. |  [optional]
+**changes** | **Object** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**data** | **Object** |  |  [optional]
+**data** | **Map&lt;String, String&gt;** | Additional data relevant to the event. |  [optional]
 **dateTime** | [**DateTime**](DateTime.md) |  | 
 **description** | **String** |  |  [optional]
 **deviceId** | **String** |  |  [optional]

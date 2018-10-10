@@ -36,13 +36,13 @@ public class DeviceEventData implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("changes")
-  private Map<String, String> changes = null;
+  private Object changes = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
   @SerializedName("data")
-  private Object data = null;
+  private Map<String, String> data = null;
 
   @SerializedName("date_time")
   private DateTime dateTime = null;
@@ -74,29 +74,21 @@ public class DeviceEventData implements Serializable {
   @SerializedName("state_change")
   private Boolean stateChange = null;
 
-  public DeviceEventData changes(Map<String, String> changes) {
+  public DeviceEventData changes(Object changes) {
     this.changes = changes;
     return this;
   }
 
-  public DeviceEventData putChangesItem(String key, String changesItem) {
-    if (this.changes == null) {
-      this.changes = new HashMap<String, String>();
-    }
-    this.changes.put(key, changesItem);
-    return this;
-  }
-
    /**
-   * Additional data relevant to the event.
+   * Get changes
    * @return changes
   **/
-  @ApiModelProperty(example = "{\"campaign_id\":\"00000000000000000000000000000000\"}", value = "Additional data relevant to the event.")
-  public Map<String, String> getChanges() {
+  @ApiModelProperty(example = "{}", value = "")
+  public Object getChanges() {
     return changes;
   }
 
-  public void setChanges(Map<String, String> changes) {
+  public void setChanges(Object changes) {
     this.changes = changes;
   }
 
@@ -118,21 +110,29 @@ public class DeviceEventData implements Serializable {
     this.createdAt = createdAt;
   }
 
-  public DeviceEventData data(Object data) {
+  public DeviceEventData data(Map<String, String> data) {
     this.data = data;
     return this;
   }
 
+  public DeviceEventData putDataItem(String key, String dataItem) {
+    if (this.data == null) {
+      this.data = new HashMap<String, String>();
+    }
+    this.data.put(key, dataItem);
+    return this;
+  }
+
    /**
-   * Get data
+   * Additional data relevant to the event.
    * @return data
   **/
-  @ApiModelProperty(example = "\"{ }\"", value = "")
-  public Object getData() {
+  @ApiModelProperty(example = "{\"campaign_id\":\"00000000000000000000000000000000\"}", value = "Additional data relevant to the event.")
+  public Map<String, String> getData() {
     return data;
   }
 
-  public void setData(Object data) {
+  public void setData(Map<String, String> data) {
     this.data = data;
   }
 

@@ -22,8 +22,6 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -33,33 +31,25 @@ import java.io.Serializable;
 public class DeviceGroupManipulation implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("device_ids")
-  private List<String> deviceIds = null;
+  @SerializedName("device_id")
+  private String deviceId = null;
 
-  public DeviceGroupManipulation deviceIds(List<String> deviceIds) {
-    this.deviceIds = deviceIds;
-    return this;
-  }
-
-  public DeviceGroupManipulation addDeviceIdsItem(String deviceIdsItem) {
-    if (this.deviceIds == null) {
-      this.deviceIds = new ArrayList<String>();
-    }
-    this.deviceIds.add(deviceIdsItem);
+  public DeviceGroupManipulation deviceId(String deviceId) {
+    this.deviceId = deviceId;
     return this;
   }
 
    /**
-   * Get deviceIds
-   * @return deviceIds
+   * Get deviceId
+   * @return deviceId
   **/
-  @ApiModelProperty(value = "")
-  public List<String> getDeviceIds() {
-    return deviceIds;
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+  public String getDeviceId() {
+    return deviceId;
   }
 
-  public void setDeviceIds(List<String> deviceIds) {
-    this.deviceIds = deviceIds;
+  public void setDeviceId(String deviceId) {
+    this.deviceId = deviceId;
   }
 
 
@@ -72,12 +62,12 @@ public class DeviceGroupManipulation implements Serializable {
       return false;
     }
     DeviceGroupManipulation deviceGroupManipulation = (DeviceGroupManipulation) o;
-    return Objects.equals(this.deviceIds, deviceGroupManipulation.deviceIds);
+    return Objects.equals(this.deviceId, deviceGroupManipulation.deviceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(deviceIds);
+    return Objects.hash(deviceId);
   }
 
 
@@ -86,7 +76,7 @@ public class DeviceGroupManipulation implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class DeviceGroupManipulation {\n");
     
-    sb.append("    deviceIds: ").append(toIndentedString(deviceIds)).append("\n");
+    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

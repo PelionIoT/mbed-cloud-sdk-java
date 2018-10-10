@@ -90,7 +90,7 @@ public class DeviceGroupPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "\"[]\"", value = "")
+  @ApiModelProperty(value = "")
   public List<DeviceGroup> getData() {
     return data;
   }

@@ -57,10 +57,10 @@ public class Group1 implements Serializable {
   }
 
    /**
-   * Up to ten custom key-value attributes.
+   * Get customAttributes
    * @return customAttributes
   **/
-  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "Up to ten custom key-value attributes.")
+  @ApiModelProperty(example = "{\"key\":\"value\"}", value = "")
   public Map<String, String> getCustomAttributes() {
     return customAttributes;
   }
@@ -75,10 +75,10 @@ public class Group1 implements Serializable {
   }
 
    /**
-   * The description of the group
+   * The description of the group.
    * @return description
   **/
-  @ApiModelProperty(example = "Devices on the factory floor.", value = "The description of the group")
+  @ApiModelProperty(example = "Devices on the factory floor.", value = "The description of the group.")
   public String getDescription() {
     return description;
   }
@@ -93,10 +93,10 @@ public class Group1 implements Serializable {
   }
 
    /**
-   * Name of the group
+   * Name of the group.
    * @return name
   **/
-  @ApiModelProperty(example = "My devices", value = "Name of the group")
+  @ApiModelProperty(example = "My devices", value = "Name of the group.")
   public String getName() {
     return name;
   }

@@ -58,10 +58,10 @@ public class ErrorResponse implements Serializable {
   }
 
    /**
-   * Response code
+   * Response code.
    * @return code
   **/
-  @ApiModelProperty(example = "400", value = "Response code")
+  @ApiModelProperty(example = "400", value = "Response code.")
   public Integer getCode() {
     return code;
   }
