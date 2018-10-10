@@ -293,15 +293,15 @@ public class DefaultApiTest {
     /**
      * Append a chunks to an upload job
      *
-     * Append a chunks to an upload job
+     * Append a chunks to an upload job. To finish a job upload a zero-length chunk.
      */
     @Test
     public void uploadJobChunkCreateTest() {
+        String contentMD5 = null;
         Integer contentLength = null;
         String uploadJobId = null;
-        String contentMD5 = null;
-        String chunk = null;
-        // UploadChunkInfo response = api.uploadJobChunkCreate(contentLength, uploadJobId, contentMD5, chunk);
+        byte[] chunk = null;
+        // UploadChunkInfo response = api.uploadJobChunkCreate(contentMD5, contentLength, uploadJobId, chunk);
 
         // TODO: test validations
     }

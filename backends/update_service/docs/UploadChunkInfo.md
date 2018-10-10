@@ -10,7 +10,6 @@ Name | Type | Description | Notes
 **id** | **Integer** | The chunk number |  [optional]
 **length** | **Integer** | The length of the chunk |  [optional]
 **object** | **String** | Entity name: always &#39;upload-info&#39; |  [optional]
-**status** | **String** | The upload status of this chunk |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the entity was updated |  [optional]
 
 

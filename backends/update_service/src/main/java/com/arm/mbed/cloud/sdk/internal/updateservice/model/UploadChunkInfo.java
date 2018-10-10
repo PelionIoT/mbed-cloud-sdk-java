@@ -50,9 +50,6 @@ public class UploadChunkInfo implements Serializable {
   @SerializedName("object")
   private String object = null;
 
-  @SerializedName("status")
-  private String status = null;
-
   @SerializedName("updated_at")
   private DateTime updatedAt = null;
 
@@ -164,24 +161,6 @@ public class UploadChunkInfo implements Serializable {
     this.object = object;
   }
 
-  public UploadChunkInfo status(String status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The upload status of this chunk
-   * @return status
-  **/
-  @ApiModelProperty(example = "in_progress", value = "The upload status of this chunk")
-  public String getStatus() {
-    return status;
-  }
-
-  public void setStatus(String status) {
-    this.status = status;
-  }
-
   public UploadChunkInfo updatedAt(DateTime updatedAt) {
     this.updatedAt = updatedAt;
     return this;
@@ -216,13 +195,12 @@ public class UploadChunkInfo implements Serializable {
         Objects.equals(this.id, uploadChunkInfo.id) &&
         Objects.equals(this.length, uploadChunkInfo.length) &&
         Objects.equals(this.object, uploadChunkInfo.object) &&
-        Objects.equals(this.status, uploadChunkInfo.status) &&
         Objects.equals(this.updatedAt, uploadChunkInfo.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, etag, hash, id, length, object, status, updatedAt);
+    return Objects.hash(createdAt, etag, hash, id, length, object, updatedAt);
   }
 
 
@@ -237,7 +215,6 @@ public class UploadChunkInfo implements Serializable {
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    length: ").append(toIndentedString(length)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
