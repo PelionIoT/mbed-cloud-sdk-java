@@ -94,9 +94,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Create a manifest
+     * Upload a manifest
      *
-     * Create a firmware manifest.
+     * Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB.
      */
     @Test
     public void firmwareManifestCreateTest() {

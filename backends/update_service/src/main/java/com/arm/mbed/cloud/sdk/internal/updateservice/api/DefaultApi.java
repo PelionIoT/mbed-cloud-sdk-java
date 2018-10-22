@@ -86,8 +86,8 @@ public interface DefaultApi {
   );
 
   /**
-   * Create a manifest
-   * Create a firmware manifest.
+   * Upload a manifest
+   * Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB.
    * @param datafile The manifest file to create. The API gateway enforces the account-specific file size. (required)
    * @param name The name of the firmware manifest (required)
    * @param description The description of the firmware manifest (optional)

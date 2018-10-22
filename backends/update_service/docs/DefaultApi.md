@@ -8,7 +8,7 @@ Method | HTTP request | Description
 [**firmwareImageDestroy**](DefaultApi.md#firmwareImageDestroy) | **DELETE** v3/firmware-images/{image_id}/ | Delete an image
 [**firmwareImageList**](DefaultApi.md#firmwareImageList) | **GET** v3/firmware-images/ | List all images
 [**firmwareImageRetrieve**](DefaultApi.md#firmwareImageRetrieve) | **GET** v3/firmware-images/{image_id}/ | Get an image
-[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** v3/firmware-manifests/ | Create a manifest
+[**firmwareManifestCreate**](DefaultApi.md#firmwareManifestCreate) | **POST** v3/firmware-manifests/ | Upload a manifest
 [**firmwareManifestDestroy**](DefaultApi.md#firmwareManifestDestroy) | **DELETE** v3/firmware-manifests/{manifest_id}/ | Delete a manifest
 [**firmwareManifestList**](DefaultApi.md#firmwareManifestList) | **GET** v3/firmware-manifests/ | List manifests
 [**firmwareManifestRetrieve**](DefaultApi.md#firmwareManifestRetrieve) | **GET** v3/firmware-manifests/{manifest_id}/ | Get a manifest
@@ -269,9 +269,9 @@ Name | Type | Description  | Notes
 # **firmwareManifestCreate**
 > FirmwareManifest firmwareManifestCreate(datafile, name, description, keyTable)
 
-Create a manifest
+Upload a manifest
 
-Create a firmware manifest.
+Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB.
 
 ### Example
 ```java
