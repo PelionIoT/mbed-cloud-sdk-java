@@ -31,9 +31,8 @@ public class DeveloperCertificateApiTest {
      */
     @Test
     public void createDeveloperCertificateTest() {
-        String authorization = null;
         DeveloperCertificateRequestData body = null;
-        // DeveloperCertificateResponseData response = api.createDeveloperCertificate(authorization, body);
+        // DeveloperCertificateResponseData response = api.createDeveloperCertificate(body);
 
         // TODO: test validations
     }
@@ -45,8 +44,7 @@ public class DeveloperCertificateApiTest {
     @Test
     public void getDeveloperCertificateTest() {
         String developerCertificateId = null;
-        String authorization = null;
-        // DeveloperCertificateResponseData response = api.getDeveloperCertificate(developerCertificateId, authorization);
+        // DeveloperCertificateResponseData response = api.getDeveloperCertificate(developerCertificateId);
 
         // TODO: test validations
     }
