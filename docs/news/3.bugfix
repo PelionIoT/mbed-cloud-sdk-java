@@ -1,0 +1,1 @@
+Fixed `SpotBugs` gradle plugin failure with latest `gradle`
