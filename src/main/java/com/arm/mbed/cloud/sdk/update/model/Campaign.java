@@ -633,7 +633,7 @@ public class Campaign implements SdkModel {
     }
 
     /**
-     *
+     * Adds a device filter based on account Id field.
      *
      * @param accountIdFilter
      *            filter to apply
