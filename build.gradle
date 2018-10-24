@@ -20,7 +20,7 @@ buildscript {
         classpath 'gradle.plugin.com.dorongold.plugins:task-tree:1.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
-        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.2"
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.+"
     }
 }
 
