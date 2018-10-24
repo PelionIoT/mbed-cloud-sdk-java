@@ -856,7 +856,7 @@ class Config(Action):
     def get_version(self):
         if not self.version:
             self.log_debug("Determining SDK version")
-            version_pattern =  r"^(\d+\.)?(\d+\.)?(\d+)$" # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
+            version_pattern = r"^(\d+\.)?(\d+\.)?(\d+)$"  # see https://docs.oracle.com/middleware/1212/core/MAVEN/maven_version.htm#MAVEN8855 for more information
             tmp_version = self.properties['SDKVersion']
             branch_name = self.get_branch_name()
             self.is_release = False
@@ -1040,6 +1040,10 @@ class Config(Action):
         if not self.forced_version_number:
             self.forced_version_number = os.getenv("MBED_CLOUD_SDK_VERSION_TO_SET")
         return self.forced_version_number
+
+    # Set the following to disable deployment to Artifactory
+    def disable_artifactory_deployment(self):
+        return os.getenv("DISABLE_ARTIFACTORY") is not None
 
     def load(self):
         self.log_debug("Loading SDK distribution configuration")
