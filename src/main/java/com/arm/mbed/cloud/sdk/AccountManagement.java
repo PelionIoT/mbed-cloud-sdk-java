@@ -19,7 +19,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
@@ -190,17 +190,19 @@ public class AccountManagement extends AbstractApi {
         final ApiKeyListOptions finalOptions = (options == null) ? new ApiKeyListOptions() : options;
 
         return CloudCaller.call(this, "listApiKeys()", ApiKeyAdapter.getListMapper(),
-                new CloudCall<ApiKeyInfoRespList>() {
+                                new CloudCall<ApiKeyInfoRespList>() {
 
-                    @Override
-                    public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getAllApiKeys(finalOptions.getPageSize(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude(),
-                                finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
-                                finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
-                    }
-                });
+                                    @Override
+                                    public Call<ApiKeyInfoRespList> call() {
+                                        return endpoint.getDeveloper()
+                                                       .getAllApiKeys(finalOptions.getPageSize(),
+                                                                      finalOptions.getAfter(),
+                                                                      finalOptions.getOrder().toString(),
+                                                                      finalOptions.encodeInclude(),
+                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.KEY_FILTER),
+                                                                      finalOptions.encodeSingleEqualFilter(ApiKeyListOptions.OWNER_ID_FILTER));
+                                    }
+                                });
     }
 
     /**
@@ -278,7 +280,8 @@ public class AccountManagement extends AbstractApi {
             @Override
             public Call<ApiKeyInfoResp> call() {
                 return finalApiKeyId == null || finalApiKeyId.isEmpty() ? endpoint.getDeveloper().getMyApiKey()
-                        : endpoint.getDeveloper().getApiKey(finalApiKeyId);
+                                                                        : endpoint.getDeveloper()
+                                                                                  .getApiKey(finalApiKeyId);
             }
         });
     }
@@ -370,7 +373,7 @@ public class AccountManagement extends AbstractApi {
             @Override
             public Call<ApiKeyInfoResp> call() {
                 return endpoint.getDeveloper().updateApiKey(finalApiKey.getId(),
-                        ApiKeyAdapter.reverseMapUpdate(finalApiKey));
+                                                            ApiKeyAdapter.reverseMapUpdate(finalApiKey));
             }
         });
     }
@@ -473,12 +476,13 @@ public class AccountManagement extends AbstractApi {
 
             @Override
             public Call<UserInfoRespList> call() {
-                return endpoint.getAdmin().getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
-                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
-                        finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
-                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                        finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                        finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                return endpoint.getAdmin()
+                               .getAllUsers(finalOptions.getPageSize(), finalOptions.getAfter(),
+                                            finalOptions.getOrder().toString(), finalOptions.encodeInclude(),
+                                            finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
+                                            finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
+                                            finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
+                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
             }
         });
     }
@@ -756,7 +760,8 @@ public class AccountManagement extends AbstractApi {
             @Override
             public Call<GroupSummaryList> call() {
                 return endpoint.getDeveloper().getAllGroups(finalOptions.getPageSize(), finalOptions.getAfter(),
-                        finalOptions.getOrder().toString(), finalOptions.encodeInclude(), finalOptions.getNameFilter());
+                                                            finalOptions.getOrder().toString(),
+                                                            finalOptions.encodeInclude(), finalOptions.getNameFilter());
             }
         });
     }
@@ -871,24 +876,26 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<User> listGroupUsers(@NonNull String groupId,
+                                                       @Nullable UserListOptions options) throws MbedCloudException {
         checkNotNull(groupId, TAG_GROUP_ID);
         final UserListOptions finalOptions = (options == null) ? new UserListOptions() : options;
         final String finalGroupId = groupId;
         return CloudCaller.call(this, "listGroupUsers()", UserAdapter.getListMapper(),
-                new CloudCall<UserInfoRespList>() {
+                                new CloudCall<UserInfoRespList>() {
 
-                    @Override
-                    public Call<UserInfoRespList> call() {
-                        return endpoint.getAdmin().getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude(),
-                                finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
-                                finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
-                    }
-                });
+                                    @Override
+                                    public Call<UserInfoRespList> call() {
+                                        return endpoint.getAdmin()
+                                                       .getUsersOfGroup(finalGroupId, finalOptions.getPageSize(),
+                                                                        finalOptions.getAfter(),
+                                                                        finalOptions.getOrder().toString(),
+                                                                        finalOptions.encodeInclude(),
+                                                                        finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
+                                                                        finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
+                                                                        finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                    }
+                                });
     }
 
     /**
@@ -923,8 +930,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<User> listGroupUsers(@NonNull Group group, @Nullable UserListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<User> listGroupUsers(@NonNull Group group,
+                                                       @Nullable UserListOptions options) throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listGroupUsers(group.getId(), options);
     }
@@ -963,8 +970,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId, @Nullable UserListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<User> listAllGroupUsers(@NonNull String groupId,
+                                                       @Nullable UserListOptions options) throws MbedCloudException {
         final String finalGroupId = groupId;
         return new Paginator<>((options == null) ? new UserListOptions() : options, new PageRequester<User>() {
 
@@ -1009,8 +1016,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<User> listAllGroupUsers(@NonNull Group group, @Nullable UserListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<User> listAllGroupUsers(@NonNull Group group,
+                                                       @Nullable UserListOptions options) throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listAllGroupUsers(group.getId(), options);
     }
@@ -1046,21 +1053,23 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<ApiKey>
+           listGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options) throws MbedCloudException {
         checkNotNull(groupId, TAG_GROUP_ID);
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
         final String finalGroupId = groupId;
         return CloudCaller.call(this, "listGroupApiKeys()", ApiKeyAdapter.getListMapper(),
-                new CloudCall<ApiKeyInfoRespList>() {
+                                new CloudCall<ApiKeyInfoRespList>() {
 
-                    @Override
-                    public Call<ApiKeyInfoRespList> call() {
-                        return endpoint.getDeveloper().getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<ApiKeyInfoRespList> call() {
+                                        return endpoint.getDeveloper()
+                                                       .getApiKeysOfGroup(finalGroupId, finalOptions.getPageSize(),
+                                                                          finalOptions.getAfter(),
+                                                                          finalOptions.getOrder().toString(),
+                                                                          finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -1094,8 +1103,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<ApiKey> listGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<ApiKey>
+           listGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options) throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listGroupApiKeys(group.getId(), options);
     }
@@ -1133,8 +1142,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<ApiKey>
+           listAllGroupApiKeys(@NonNull String groupId, @Nullable ApiKeyListOptions options) throws MbedCloudException {
         final String finalGroupId = groupId;
         return new Paginator<>((options == null) ? new ApiKeyListOptions() : options, new PageRequester<ApiKey>() {
 
@@ -1177,8 +1186,8 @@ public class AccountManagement extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<ApiKey> listAllGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<ApiKey>
+           listAllGroupApiKeys(@NonNull Group group, @Nullable ApiKeyListOptions options) throws MbedCloudException {
         checkNotNull(group, TAG_GROUP);
         return listAllGroupApiKeys(group.getId(), options);
     }

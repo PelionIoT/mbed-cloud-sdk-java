@@ -15,8 +15,8 @@ import java.util.TimeZone;
 
 import org.junit.Test;
 
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudResponse;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.Error.Field;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
