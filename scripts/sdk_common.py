@@ -656,6 +656,7 @@ class Config(Action):
         self.testrunner_image = None
         self.origin_url = None
         self.code_coverage = None
+        self.disable_artifactory = None
         self.branch_name = None
         self.cloud_host = None
         self.lab_api_key = None
@@ -992,7 +993,7 @@ class Config(Action):
         if not self.code_coverage:
             self.log_debug("Determining if code coverage should be performed")
             tmp_property = self.properties['codeCoverageOn']
-            if not tmp_property and 'false' in tmp_property.lower():
+            if not tmp_property or 'false' in tmp_property.lower():
                 self.code_coverage = False
             else:
                 self.code_coverage = True
@@ -1043,7 +1044,14 @@ class Config(Action):
 
     # Set the following to disable deployment to Artifactory
     def disable_artifactory_deployment(self):
-        return os.getenv("DISABLE_ARTIFACTORY") is not None
+        if not self.disable_artifactory:
+            self.log_debug("Determining if code should be deployed to artifactory")
+            tmp_property = self.properties['artifactory_disable_deploy']
+            if not tmp_property or 'false' in tmp_property.lower():
+                self.disable_artifactory = os.getenv("DISABLE_ARTIFACTORY") is not None
+            else:
+                self.disable_artifactory = True
+        return self.disable_artifactory
 
     def load(self):
         self.log_debug("Loading SDK distribution configuration")
