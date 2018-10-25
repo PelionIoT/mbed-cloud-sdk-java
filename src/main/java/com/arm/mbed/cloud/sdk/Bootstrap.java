@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKeyListOptions;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
@@ -55,19 +55,19 @@ public class Bootstrap extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public ListResponse<PreSharedKey> listPreSharedKeys(@Nullable PreSharedKeyListOptions options)
-            throws MbedCloudException {
+    public ListResponse<PreSharedKey>
+           listPreSharedKeys(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
         final PreSharedKeyListOptions finalOptions = (options == null) ? new PreSharedKeyListOptions() : options;
 
         return CloudCaller.call(this, "listPreSharedKeys()", PreSharedKeyAdapter.getListMapper(),
-                new CloudCall<ListOfPreSharedKeysWithoutSecret>() {
+                                new CloudCall<ListOfPreSharedKeysWithoutSecret>() {
 
-                    @Override
-                    public Call<ListOfPreSharedKeysWithoutSecret> call() {
-                        return endpoint.getPresharedKeys().listPreSharedKeys(finalOptions.getPageSize(),
-                                finalOptions.getAfter());
-                    }
-                });
+                                    @Override
+                                    public Call<ListOfPreSharedKeysWithoutSecret> call() {
+                                        return endpoint.getPresharedKeys().listPreSharedKeys(finalOptions.getPageSize(),
+                                                                                             finalOptions.getAfter());
+                                    }
+                                });
     }
 
     /**
@@ -96,16 +96,17 @@ public class Bootstrap extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<PreSharedKey> listAllPreSharedKeys(@Nullable PreSharedKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<PreSharedKey>
+           listAllPreSharedKeys(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new PreSharedKeyListOptions() : options,
-                new PageRequester<PreSharedKey>() {
+                               new PageRequester<PreSharedKey>() {
 
-                    @Override
-                    public ListResponse<PreSharedKey> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listPreSharedKeys((PreSharedKeyListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<PreSharedKey>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listPreSharedKeys((PreSharedKeyListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -120,8 +121,8 @@ public class Bootstrap extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<PreSharedKey> listAllPsks(@Nullable PreSharedKeyListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<PreSharedKey>
+           listAllPsks(@Nullable PreSharedKeyListOptions options) throws MbedCloudException {
         return listAllPreSharedKeys(options);
     }
 
@@ -229,13 +230,13 @@ public class Bootstrap extends AbstractApi {
         checkModelValidity(key, TAG_KEY);
         final PreSharedKey finalkey = key;
         return CloudCaller.call(this, "getPreSharedKey()", PreSharedKeyAdapter.getMapper(),
-                new CloudCall<PreSharedKeyWithoutSecret>() {
+                                new CloudCall<PreSharedKeyWithoutSecret>() {
 
-                    @Override
-                    public Call<PreSharedKeyWithoutSecret> call() {
-                        return endpoint.getPresharedKeys().getPreSharedKey(finalkey.getId());
-                    }
-                }, false);
+                                    @Override
+                                    public Call<PreSharedKeyWithoutSecret> call() {
+                                        return endpoint.getPresharedKeys().getPreSharedKey(finalkey.getId());
+                                    }
+                                }, false);
     }
 
     /**
