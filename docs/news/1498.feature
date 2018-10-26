@@ -1,1 +1,0 @@
-Added a generic client `GenericClient` which can be used by the user to call any endpoint of Pelion Cloud.
