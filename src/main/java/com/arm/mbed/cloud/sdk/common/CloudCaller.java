@@ -8,6 +8,7 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 
 import okhttp3.Headers;
@@ -16,7 +17,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Response;
 
-@Preamble(description = "Utility in charge of calling Arm Mbed Cloud APIs")
+@Preamble(description = "Utility in charge of calling Pelion Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
     private static final String UNCHECKED = "unchecked";
@@ -33,16 +34,6 @@ public class CloudCaller<T, U> {
     private final boolean storeMetadata;
     private final boolean throwExceptionOnNotFound;
     private final AbstractApi module;
-
-    /**
-     * Defines a request to Arm Mbed Cloud.
-     *
-     * @param <T>
-     *            type of response object.
-     */
-    public interface CloudCall<T> {
-        Call<T> call();
-    }
 
     private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
                         boolean storeMetada, boolean throwExceptionOnNotFound) {

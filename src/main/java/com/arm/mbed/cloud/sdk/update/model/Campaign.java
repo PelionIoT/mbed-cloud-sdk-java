@@ -39,6 +39,10 @@ public class Campaign implements SdkModel {
      */
     public static final String FILTER_ACCOUNT_ID = "accountId";
     /**
+     * Tag of filter by device id.
+     */
+    public static final String FILTER_ID = "id";
+    /**
      * Tag of filter by certificate issuer id.
      */
     public static final String FILTER_CERTIFICATE_ISSUER_ID = "certificateIssuerId";
@@ -214,9 +218,9 @@ public class Campaign implements SdkModel {
      */
     @Internal
     public Campaign(String id, String phase, URL manifestUrl, Date createdAt, Date startedAt, Date finishedAt,
-            Date updatedAt) {
+                    Date updatedAt) {
         this(id, CampaignState.getDefault(), phase, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, null,
-                null, null, null, null);
+             null, null, null, null);
 
     }
 
@@ -254,8 +258,8 @@ public class Campaign implements SdkModel {
      */
     @Internal
     public Campaign(String id, CampaignState state, String phase, URL manifestUrl, Date createdAt, Date startedAt,
-            Date finishedAt, Date updatedAt, String name, String description, String manifestId, Date scheduledAt,
-            Filters deviceFilter) {
+                    Date finishedAt, Date updatedAt, String name, String description, String manifestId,
+                    Date scheduledAt, Filters deviceFilter) {
         super();
         setId(id);
         this.phase = phase;
@@ -617,6 +621,18 @@ public class Campaign implements SdkModel {
     }
 
     /**
+     * Adds a device filter based on device Id field.
+     *
+     * @param idFilter
+     *            filter to apply.
+     * @param operator
+     *            filter operator.
+     */
+    public void addDeviceIdFilter(String idFilter, FilterOperator operator) {
+        addDeviceFilter(FILTER_ID, operator, idFilter);
+    }
+
+    /**
      * Adds a device filter based on account Id field.
      *
      * @param accountIdFilter
@@ -637,7 +653,7 @@ public class Campaign implements SdkModel {
      *            filter operator
      */
     public void addBootstrapCertificateExpirationFilter(Date bootstrapCertificateExpirationFilter,
-            FilterOperator operator) {
+                                                        FilterOperator operator) {
         addDeviceFilter(FILTER_BOOTSTRAP_CERTIFICATE_EXPIRATION, operator, bootstrapCertificateExpirationFilter);
     }
 
@@ -674,7 +690,7 @@ public class Campaign implements SdkModel {
      *            filter operator
      */
     public void addConnectorCertificateExpirationFilter(Date connectorCertificateExpirationFilter,
-            FilterOperator operator) {
+                                                        FilterOperator operator) {
         addDeviceFilter(FILTER_CONNECTOR_CERTIFICATE_EXPIRATION, operator, connectorCertificateExpirationFilter);
     }
 
@@ -930,7 +946,17 @@ public class Campaign implements SdkModel {
         addDeviceFilter(FILTER_PHASE, operator, phaseFilter);
     }
 
-    private void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {
+    /**
+     * Adds a generic device filter.
+     *
+     * @param fieldName
+     *            name of the field to filter on.
+     * @param operator
+     *            filter operator to apply.
+     * @param value
+     *            filter value.
+     */
+    public void addDeviceFilter(String fieldName, FilterOperator operator, Object value) {
         addDeviceFilter(new Filter(fieldName, operator, value));
     }
 
@@ -954,7 +980,7 @@ public class Campaign implements SdkModel {
     @Override
     public Campaign clone() {
         return new Campaign(id, state, phase, manifestUrl, createdAt, startedAt, finishedAt, updatedAt, name,
-                description, manifestId, scheduledAt, deviceFilter);
+                            description, manifestId, scheduledAt, deviceFilter);
     }
 
     /**
@@ -975,9 +1001,9 @@ public class Campaign implements SdkModel {
     @Override
     public String toString() {
         return "Campaign [id=" + id + ", phase=" + phase + ", state=" + state + ", manifestUrl=" + manifestUrl
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startedAt=" + startedAt + ", finishedAt="
-                + finishedAt + ", name=" + name + ", description=" + description + ", manifestId=" + manifestId
-                + ", scheduledAt=" + scheduledAt + ", deviceFilter=" + deviceFilter + "]";
+               + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", startedAt=" + startedAt + ", finishedAt="
+               + finishedAt + ", name=" + name + ", description=" + description + ", manifestId=" + manifestId
+               + ", scheduledAt=" + scheduledAt + ", deviceFilter=" + deviceFilter + "]";
     }
 
 }

@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
@@ -99,21 +99,23 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<FirmwareImage> listFirmwareImages(@Nullable FirmwareImageListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<FirmwareImage>
+           listFirmwareImages(@Nullable FirmwareImageListOptions options) throws MbedCloudException {
         final FirmwareImageListOptions finalOptions = (options == null) ? new FirmwareImageListOptions() : options;
 
         return CloudCaller.call(this, "listFirmwareImages()", FirmwareImageAdapter.getListMapper(),
-                new CloudCall<FirmwareImagePage>() {
+                                new CloudCall<FirmwareImagePage>() {
 
-                    @Override
-                    public Call<FirmwareImagePage> call() {
-                        return endpoint.getUpdate().firmwareImageList(finalOptions.getPageSize(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<FirmwareImagePage> call() {
+                                        return endpoint.getUpdate().firmwareImageList(finalOptions.getPageSize(),
+                                                                                      finalOptions.getOrder()
+                                                                                                  .toString(),
+                                                                                      finalOptions.getAfter(),
+                                                                                      new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                                      finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -150,16 +152,17 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<FirmwareImage> listAllFirmwareImages(@Nullable FirmwareImageListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<FirmwareImage>
+           listAllFirmwareImages(@Nullable FirmwareImageListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new FirmwareImageListOptions() : options,
-                new PageRequester<FirmwareImage>() {
+                               new PageRequester<FirmwareImage>() {
 
-                    @Override
-                    public ListResponse<FirmwareImage> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listFirmwareImages((FirmwareImageListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<FirmwareImage>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listFirmwareImages((FirmwareImageListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -192,14 +195,15 @@ public class Update extends AbstractApi {
         checkNotNull(firmwareImageId, TAG_FIRMWARE_IMAGE_ID);
         final String finalId = firmwareImageId;
         return CloudCaller.call(this, "getFirmwareImage()", FirmwareImageAdapter.getMapper(),
-                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
 
-                    @Override
-                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> call() {
-                        return endpoint.getUpdate().firmwareImageRetrieve(finalId);
-                    }
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>
+                                           call() {
+                                        return endpoint.getUpdate().firmwareImageRetrieve(finalId);
+                                    }
 
-                });
+                                });
     }
 
     /**
@@ -237,16 +241,18 @@ public class Update extends AbstractApi {
         checkModelValidity(image, TAG_FIRMWARE_IMAGE);
         final FirmwareImage finalImage = image;
         return CloudCaller.call(this, "addFirmwareImage()", FirmwareImageAdapter.getMapper(),
-                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
 
-                    @Override
-                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> call() {
-                        return endpoint.getUpdate().firmwareImageCreate(
-                                DataFileAdapter.reverseMap(finalImage.getDataFile()), finalImage.getName(),
-                                finalImage.getDescription());
-                    }
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>
+                                           call() {
+                                        return endpoint.getUpdate().firmwareImageCreate(
+                                                                                        DataFileAdapter.reverseMap(finalImage.getDataFile()),
+                                                                                        finalImage.getName(),
+                                                                                        finalImage.getDescription());
+                                    }
 
-                });
+                                });
     }
 
     /**
@@ -344,22 +350,24 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<FirmwareManifest> listFirmwareManifests(@Nullable FirmwareManifestListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<FirmwareManifest>
+           listFirmwareManifests(@Nullable FirmwareManifestListOptions options) throws MbedCloudException {
         final FirmwareManifestListOptions finalOptions = (options == null) ? new FirmwareManifestListOptions()
-                : options;
+                                                                           : options;
 
         return CloudCaller.call(this, "listFirmwareManifests()", FirmwareManifestAdapter.getListMapper(),
-                new CloudCall<FirmwareManifestPage>() {
+                                new CloudCall<FirmwareManifestPage>() {
 
-                    @Override
-                    public Call<FirmwareManifestPage> call() {
-                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getPageSize(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<FirmwareManifestPage> call() {
+                                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getPageSize(),
+                                                                                         finalOptions.getOrder()
+                                                                                                     .toString(),
+                                                                                         finalOptions.getAfter(),
+                                                                                         new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                                         finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -396,16 +404,17 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<FirmwareManifest> listAllFirmwareManifests(@Nullable FirmwareManifestListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<FirmwareManifest>
+           listAllFirmwareManifests(@Nullable FirmwareManifestListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new FirmwareManifestListOptions() : options,
-                new PageRequester<FirmwareManifest>() {
+                               new PageRequester<FirmwareManifest>() {
 
-                    @Override
-                    public ListResponse<FirmwareManifest> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listFirmwareManifests((FirmwareManifestListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<FirmwareManifest>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listFirmwareManifests((FirmwareManifestListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -434,19 +443,20 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable FirmwareManifest getFirmwareManifest(@NonNull String firmwareManifestId)
-            throws MbedCloudException {
+    public @Nullable FirmwareManifest
+           getFirmwareManifest(@NonNull String firmwareManifestId) throws MbedCloudException {
         checkNotNull(firmwareManifestId, TAG_FIRMWARE_MANIFEST_ID);
         final String finalId = firmwareManifestId;
         return CloudCaller.call(this, "getFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
-                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
 
-                    @Override
-                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> call() {
-                        return endpoint.getUpdate().firmwareManifestRetrieve(finalId);
-                    }
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>
+                                           call() {
+                                        return endpoint.getUpdate().firmwareManifestRetrieve(finalId);
+                                    }
 
-                });
+                                });
     }
 
     /**
@@ -479,23 +489,26 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable FirmwareManifest addFirmwareManifest(@NonNull FirmwareManifest manifest)
-            throws MbedCloudException {
+    public @Nullable FirmwareManifest
+           addFirmwareManifest(@NonNull FirmwareManifest manifest) throws MbedCloudException {
         checkNotNull(manifest, TAG_FIRMWARE_MANIFEST);
         checkModelValidity(manifest, TAG_FIRMWARE_MANIFEST);
         final FirmwareManifest finalManifest = manifest;
         return CloudCaller.call(this, "addFirmwareManifest()", FirmwareManifestAdapter.getMapper(),
-                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>() {
 
-                    @Override
-                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest> call() {
-                        return endpoint.getUpdate().firmwareManifestCreate(
-                                DataFileAdapter.reverseMap(finalManifest.getDataFile()), finalManifest.getName(),
-                                finalManifest.getDescription(),
-                                DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER, finalManifest.getDecryptionKeysFile()));
-                    }
+                                    @Override
+                                    public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest>
+                                           call() {
+                                        return endpoint.getUpdate()
+                                                       .firmwareManifestCreate(DataFileAdapter.reverseMap(finalManifest.getDataFile()),
+                                                                               finalManifest.getName(),
+                                                                               finalManifest.getDescription(),
+                                                                               DataFileAdapter.reverseMap(KEY_TABLE_PARAMETER,
+                                                                                                          finalManifest.getDecryptionKeysFile()));
+                                    }
 
-                });
+                                });
     }
 
     /**
@@ -594,21 +607,23 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<Campaign> listCampaigns(@Nullable CampaignListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<Campaign>
+           listCampaigns(@Nullable CampaignListOptions options) throws MbedCloudException {
         final CampaignListOptions finalOptions = (options == null) ? new CampaignListOptions() : options;
 
         return CloudCaller.call(this, "listCampaigns()", CampaignAdapter.getListMapper(),
-                new CloudCall<UpdateCampaignPage>() {
+                                new CloudCall<UpdateCampaignPage>() {
 
-                    @Override
-                    public Call<UpdateCampaignPage> call() {
-                        return endpoint.getUpdate().updateCampaignList(finalOptions.getPageSize(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<UpdateCampaignPage> call() {
+                                        return endpoint.getUpdate().updateCampaignList(finalOptions.getPageSize(),
+                                                                                       finalOptions.getOrder()
+                                                                                                   .toString(),
+                                                                                       finalOptions.getAfter(),
+                                                                                       CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                                       finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -647,8 +662,8 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<Campaign> listAllCampaigns(@Nullable CampaignListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<Campaign>
+           listAllCampaigns(@Nullable CampaignListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new CampaignListOptions() : options, new PageRequester<Campaign>() {
 
             @Override
@@ -770,7 +785,7 @@ public class Update extends AbstractApi {
             @Override
             public Call<UpdateCampaign> call() {
                 return endpoint.getUpdate().updateCampaignUpdate(finalCampaign.getId(),
-                        CampaignAdapter.reverseMapUpdate(finalCampaign));
+                                                                 CampaignAdapter.reverseMapUpdate(finalCampaign));
             }
 
         });
@@ -969,23 +984,26 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<CampaignDeviceState> listCampaignDeviceStates(@NonNull String campaignId,
-            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+    public @Nullable ListResponse<CampaignDeviceState>
+           listCampaignDeviceStates(@NonNull String campaignId,
+                                    @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         final String finalId = campaignId;
         final CampaignDevicesStatesListOptions finalOptions = (options == null) ? new CampaignDevicesStatesListOptions()
-                : options;
+                                                                                : options;
 
         return CloudCaller.call(this, "listCampaignDeviceStates()", CampaignDeviceStateAdapter.getListMapper(),
-                new CloudCall<CampaignDeviceMetadataPage>() {
+                                new CloudCall<CampaignDeviceMetadataPage>() {
 
-                    @Override
-                    public Call<CampaignDeviceMetadataPage> call() {
-                        return endpoint.getUpdate().updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<CampaignDeviceMetadataPage> call() {
+                                        return endpoint.getUpdate()
+                                                       .updateCampaignMetadataList(finalId, finalOptions.getPageSize(),
+                                                                                   finalOptions.getOrder().toString(),
+                                                                                   finalOptions.getAfter(),
+                                                                                   finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -1020,8 +1038,9 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<CampaignDeviceState> listCampaignDeviceStates(@NonNull Campaign campaign,
-            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+    public @Nullable ListResponse<CampaignDeviceState>
+           listCampaignDeviceStates(@NonNull Campaign campaign,
+                                    @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
         checkNotNull(campaign, TAG_CAMPAIGN);
         return listCampaignDeviceStates(campaign.getId(), options);
     }
@@ -1061,18 +1080,20 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<CampaignDeviceState> listAllCampaignDeviceStates(@NonNull String campaignId,
-            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+    public @Nullable Paginator<CampaignDeviceState>
+           listAllCampaignDeviceStates(@NonNull String campaignId,
+                                       @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
         checkNotNull(campaignId, TAG_CAMPAIGN_ID);
         final String finalId = campaignId;
         return new Paginator<>((options == null) ? new CampaignDevicesStatesListOptions() : options,
-                new PageRequester<CampaignDeviceState>() {
+                               new PageRequester<CampaignDeviceState>() {
 
-                    @Override
-                    public ListResponse<CampaignDeviceState> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listCampaignDeviceStates(finalId, (CampaignDevicesStatesListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<CampaignDeviceState>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listCampaignDeviceStates(finalId, (CampaignDevicesStatesListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -1109,8 +1130,9 @@ public class Update extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<CampaignDeviceState> listAllCampaignDeviceStates(@NonNull Campaign campaign,
-            @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
+    public @Nullable Paginator<CampaignDeviceState>
+           listAllCampaignDeviceStates(@NonNull Campaign campaign,
+                                       @Nullable CampaignDevicesStatesListOptions options) throws MbedCloudException {
         checkNotNull(campaign, TAG_CAMPAIGN);
         return listAllCampaignDeviceStates(campaign.getId(), options);
     }

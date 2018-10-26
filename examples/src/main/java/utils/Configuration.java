@@ -20,7 +20,7 @@ public class Configuration {
     }
 
     private Configuration() {
-        config = new ConnectionOptions();
+        config = ConnectionOptions.newConfiguration();
         isIncomplete = config.isApiKeyEmpty();
     }
 
