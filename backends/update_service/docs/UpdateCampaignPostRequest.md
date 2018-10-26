@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **name** | **String** | The name for this campaign |  [optional]
 **object** | **String** | The API resource entity |  [optional]
 **rootManifestId** | **String** |  |  [optional]
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**state** | [**StateEnum**](#StateEnum) | DEPRECATED: The state of the campaign (use phase instead) |  [optional]
 **when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign. Not in use. |  [optional]
 
 

@@ -18,7 +18,7 @@ Name | Type | Description | Notes
 **rootManifestId** | **String** |  |  [optional]
 **rootManifestUrl** | **String** |  |  [optional]
 **startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**state** | [**StateEnum**](#StateEnum) | DEPRECATED: The state of the campaign (use phase instead). |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
 **when** | [**DateTime**](DateTime.md) | The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed. |  [optional]
 

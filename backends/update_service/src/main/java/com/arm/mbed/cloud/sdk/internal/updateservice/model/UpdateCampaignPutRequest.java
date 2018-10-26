@@ -48,7 +48,7 @@ public class UpdateCampaignPutRequest implements Serializable {
   private String rootManifestId = null;
 
   /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
@@ -230,10 +230,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    * @return state
   **/
-  @ApiModelProperty(value = "The state of the campaign")
+  @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
   public StateEnum getState() {
     return state;
   }

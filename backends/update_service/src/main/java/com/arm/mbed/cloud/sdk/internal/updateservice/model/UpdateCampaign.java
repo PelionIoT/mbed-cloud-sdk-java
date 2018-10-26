@@ -124,7 +124,7 @@ public class UpdateCampaign implements Serializable {
   private DateTime startedAt = null;
 
   /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
@@ -462,10 +462,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    * @return state
   **/
-  @ApiModelProperty(value = "The state of the campaign")
+  @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
   public StateEnum getState() {
     return state;
   }
