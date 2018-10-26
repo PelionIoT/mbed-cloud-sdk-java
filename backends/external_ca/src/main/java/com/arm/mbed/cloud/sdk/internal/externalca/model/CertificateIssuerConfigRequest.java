@@ -1,6 +1,6 @@
 /*
  * Third party CA management API
- * API for managing third party CA for creating certificates on Mbed Cloud
+ * API for managing third party CA for creating certificates on Pelion Device Management
  *
  * OpenAPI spec version: v3
  * 
@@ -40,10 +40,10 @@ public class CertificateIssuerConfigRequest implements Serializable {
   }
 
    /**
-   * The ID of the certificate issuer. Null if Arm Mbed Cloud internal HSM is used. 
+   * The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. 
    * @return certificateIssuerId
   **/
-  @ApiModelProperty(example = "ABCDEF0123456789ABCDEF0123456789", value = "The ID of the certificate issuer. Null if Arm Mbed Cloud internal HSM is used. ")
+  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. ")
   public String getCertificateIssuerId() {
     return certificateIssuerId;
   }

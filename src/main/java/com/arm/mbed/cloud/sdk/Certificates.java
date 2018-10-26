@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.certificates.model.EndPoints;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
@@ -53,7 +53,7 @@ public class Certificates extends AbstractApi {
     @SuppressWarnings("unchecked")
     @Internal
     private @Nullable Certificate fetchConnectorInformation(@Nullable CertificateType type,
-            @Nullable String certificateId) throws MbedCloudException {
+                                                            @Nullable String certificateId) throws MbedCloudException {
         if (type == null) {
             return null;
         }
@@ -98,20 +98,23 @@ public class Certificates extends AbstractApi {
         }
         if (type == CertificateType.DEVELOPER) {
             return CloudCaller.call(this, "getDeveloperCredentials()", CertificateAdapter.getDeveloperMapper(),
-                    (CloudCall<DeveloperCertificateResponseData>) caller);
+                                    (CloudCall<DeveloperCertificateResponseData>) caller);
         }
         return CloudCaller.call(this, "getConnectorCredentials()", CertificateAdapter.getServerMapper(),
-                (CloudCall<ServerCredentialsResponseData>) caller);
+                                (CloudCall<ServerCredentialsResponseData>) caller);
     }
 
     @Internal
-    private Certificate performCertificateAction(final String actionName,
-            final CloudCall<TrustedCertificateResp> action) throws MbedCloudException {
+    private Certificate
+            performCertificateAction(final String actionName,
+                                     final CloudCall<TrustedCertificateResp> action) throws MbedCloudException {
         final Certificate accountCertificate = CloudCaller.call(this, actionName, CertificateAdapter.getMapper(),
-                action);
+                                                                action);
         return Certificate.merge(accountCertificate,
-                fetchConnectorInformation((accountCertificate == null) ? null : accountCertificate.getType(),
-                        (accountCertificate == null) ? null : accountCertificate.getId()));
+                                 fetchConnectorInformation((accountCertificate == null) ? null
+                                                                                        : accountCertificate.getType(),
+                                                           (accountCertificate == null) ? null
+                                                                                        : accountCertificate.getId()));
     }
 
     /**
@@ -149,30 +152,32 @@ public class Certificates extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<Certificate> listCertificates(@Nullable CertificateListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<Certificate>
+           listCertificates(@Nullable CertificateListOptions options) throws MbedCloudException {
         final CertificateListOptions finalOptions = (options == null) ? new CertificateListOptions() : options;
-        final String serviceEq = finalOptions.getTypeFilter() == CertificateType.DEVELOPER
-                ? CertificateType.BOOTSTRAP.toString()
-                : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
+        final String serviceEq = finalOptions.getTypeFilter() == CertificateType.DEVELOPER ? CertificateType.BOOTSTRAP.toString()
+                                                                                           : finalOptions.encodeSingleEqualFilter(CertificateListOptions.TYPE_FILTER);
         return CloudCaller.call(this, "listCertificates()", CertificateAdapter.getListMapper(),
-                new CloudCall<TrustedCertificateRespList>() {
-                    @Override
-                    public Call<TrustedCertificateRespList> call() {
-                        return endpoint.getAccountDeveloper().getAllCertificates(finalOptions.getPageSize(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude(),
-                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER), serviceEq,
-                                TranslationUtils.convertToInteger(
-                                        finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
-                                        null),
-                                finalOptions.getExecutionModeFilter(), finalOptions.getExecutionModeNotEqualFilter(),
-                                finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
-                                finalOptions.getEnrollmentFilter(),
-                                finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
-                                finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
-                    }
-                });
+                                new CloudCall<TrustedCertificateRespList>() {
+                                    @Override
+                                    public Call<TrustedCertificateRespList> call() {
+                                        return endpoint.getAccountDeveloper()
+                                                       .getAllCertificates(finalOptions.getPageSize(),
+                                                                           finalOptions.getAfter(),
+                                                                           finalOptions.getOrder().toString(),
+                                                                           finalOptions.encodeInclude(),
+                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER),
+                                                                           serviceEq,
+                                                                           TranslationUtils.convertToInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
+                                                                                                             null),
+                                                                           finalOptions.getExecutionModeFilter(),
+                                                                           finalOptions.getExecutionModeNotEqualFilter(),
+                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
+                                                                           finalOptions.getEnrollmentFilter(),
+                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
+                                                                           finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
+                                    }
+                                });
     }
 
     /**
@@ -207,16 +212,17 @@ public class Certificates extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<Certificate> listAllCertificates(@Nullable CertificateListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<Certificate>
+           listAllCertificates(@Nullable CertificateListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new CertificateListOptions() : options,
-                new PageRequester<Certificate>() {
+                               new PageRequester<Certificate>() {
 
-                    @Override
-                    public ListResponse<Certificate> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listCertificates((CertificateListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<Certificate>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listCertificates((CertificateListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -335,25 +341,30 @@ public class Certificates extends AbstractApi {
         checkModelValidity(certificate, TAG_CERTIFICATE);
         final Certificate finalCertificate = certificate;
         final Certificate addedPartialCertificate1 = CloudCaller.call(this, "addDeveloperCertificate()",
-                CertificateAdapter.getDeveloperMapper(), new CloudCall<DeveloperCertificateResponseData>() {
+                                                                      CertificateAdapter.getDeveloperMapper(),
+                                                                      new CloudCall<DeveloperCertificateResponseData>() {
 
-                    @Override
-                    public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getCertDeveloper().createDeveloperCertificate(null,
-                                CertificateAdapter.reverseDeveloperMap(finalCertificate));
-                    }
-                });
+                                                                          @Override
+                                                                          public Call<DeveloperCertificateResponseData>
+                                                                                 call() {
+                                                                              return endpoint.getCertDeveloper()
+                                                                                             .createDeveloperCertificate(null,
+                                                                                                                         CertificateAdapter.reverseDeveloperMap(finalCertificate));
+                                                                          }
+                                                                      });
         if (addedPartialCertificate1 == null) {
             return null;
         }
         final Certificate addedPartialCertificate2 = performCertificateAction("addDeveloperCertificate()",
-                new CloudCall<TrustedCertificateResp>() {
+                                                                              new CloudCall<TrustedCertificateResp>() {
 
-                    @Override
-                    public Call<TrustedCertificateResp> call() {
-                        return endpoint.getAccountDeveloper().getCertificate(addedPartialCertificate1.getId());
-                    }
-                });
+                                                                                  @Override
+                                                                                  public Call<TrustedCertificateResp>
+                                                                                         call() {
+                                                                                      return endpoint.getAccountDeveloper()
+                                                                                                     .getCertificate(addedPartialCertificate1.getId());
+                                                                                  }
+                                                                              });
         return Certificate.merge(addedPartialCertificate1, addedPartialCertificate2);
     }
 
@@ -397,8 +408,9 @@ public class Certificates extends AbstractApi {
 
             @Override
             public Call<TrustedCertificateResp> call() {
-                return endpoint.getAccountDeveloper().updateCertificate(finalCertificate.getId(),
-                        CertificateAdapter.reverseMapUpdate(finalCertificate));
+                return endpoint.getAccountDeveloper()
+                               .updateCertificate(finalCertificate.getId(),
+                                                  CertificateAdapter.reverseMapUpdate(finalCertificate));
             }
         });
     }

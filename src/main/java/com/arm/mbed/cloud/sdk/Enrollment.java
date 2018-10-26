@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
@@ -74,20 +74,22 @@ public class Enrollment extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<EnrollmentClaim> listEnrollmentClaims(@Nullable ListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<EnrollmentClaim>
+           listEnrollmentClaims(@Nullable ListOptions options) throws MbedCloudException {
         final ListOptions finalOptions = (options == null) ? new ListOptions() : options;
 
         return CloudCaller.call(this, "listEnrollmentClaims()", EnrollmentAdapter.getListMapper(),
-                new CloudCall<EnrollmentIdentities>() {
+                                new CloudCall<EnrollmentIdentities>() {
 
-                    @Override
-                    public Call<EnrollmentIdentities> call() {
-                        return endpoint.getEnrollment().getDeviceEnrollments(finalOptions.getPageSize(),
-                                finalOptions.getAfter(), finalOptions.getOrder().toString(),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<EnrollmentIdentities> call() {
+                                        return endpoint.getEnrollment()
+                                                       .getDeviceEnrollments(finalOptions.getPageSize(),
+                                                                             finalOptions.getAfter(),
+                                                                             finalOptions.getOrder().toString(),
+                                                                             finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -117,8 +119,8 @@ public class Enrollment extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<EnrollmentClaim> listAllEnrollmentClaims(@Nullable ListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<EnrollmentClaim>
+           listAllEnrollmentClaims(@Nullable ListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new ListOptions() : options, new PageRequester<EnrollmentClaim>() {
 
             @Override
@@ -157,14 +159,14 @@ public class Enrollment extends AbstractApi {
         checkNotNull(enrollmentId, TAG_ENROLLMENT_ID);
         final String finalId = enrollmentId;
         return CloudCaller.call(this, "getEnrollmentClaim()", EnrollmentAdapter.getMapper(),
-                new CloudCall<EnrollmentIdentity>() {
+                                new CloudCall<EnrollmentIdentity>() {
 
-                    @Override
-                    public Call<EnrollmentIdentity> call() {
-                        return endpoint.getEnrollment().getDeviceEnrollment(finalId);
-                    }
+                                    @Override
+                                    public Call<EnrollmentIdentity> call() {
+                                        return endpoint.getEnrollment().getDeviceEnrollment(finalId);
+                                    }
 
-                });
+                                });
     }
 
     /**
@@ -197,14 +199,14 @@ public class Enrollment extends AbstractApi {
         checkNotNull(claimId, TAG_ENROLLMENT_ID);
         final EnrollmentId finalEnrollmentId = new EnrollmentId().enrollmentIdentity(claimId);
         return CloudCaller.call(this, "addEnrollmentClaim()", EnrollmentAdapter.getMapper(),
-                new CloudCall<EnrollmentIdentity>() {
+                                new CloudCall<EnrollmentIdentity>() {
 
-                    @Override
-                    public Call<EnrollmentIdentity> call() {
-                        return endpoint.getEnrollment().createDeviceEnrollment(finalEnrollmentId);
-                    }
+                                    @Override
+                                    public Call<EnrollmentIdentity> call() {
+                                        return endpoint.getEnrollment().createDeviceEnrollment(finalEnrollmentId);
+                                    }
 
-                });
+                                });
     }
 
     /**

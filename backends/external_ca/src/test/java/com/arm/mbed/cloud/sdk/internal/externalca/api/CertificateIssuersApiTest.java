@@ -90,7 +90,7 @@ public class CertificateIssuersApiTest {
     /**
      * Verify certificate issuer.
      *
-     * A utility API that can be used to validate the user configuration before activating a certificate issuer. Verifies that the certificate issuer is accessible and can be used to generate certificates by Arm Mbed Cloud. &lt;br&gt; **Note:** The API requests the 3rd party CA to sign a test certificate. For some 3rd party CAs, this operation may make use of the account quota. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify &#x60;&#x60;&#x60; 
+     * A utility API that can be used to validate the user configuration before activating a certificate issuer. Verifies that the certificate issuer is accessible and can be used to generate certificates by Device Management. &lt;br&gt; **Note:** The API requests the 3rd party CA to sign a test certificate. For some 3rd party CAs, this operation may make use of the account quota. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl -X POST \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuers/01621a36719d507b9d48a91b00000000/verify &#x60;&#x60;&#x60; 
      */
     @Test
     public void verifyCertificateIssuerTest() {

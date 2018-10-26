@@ -1,6 +1,6 @@
 /*
  * Third party CA management API
- * API for managing third party CA for creating certificates on Mbed Cloud
+ * API for managing third party CA for creating certificates on Pelion Device Management
  *
  * OpenAPI spec version: v3
  * 

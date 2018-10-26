@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
@@ -99,7 +99,7 @@ public class DeviceDirectory extends AbstractApi {
     }
 
     protected ListResponse<Device> listDevicesWithExtraFilters(String functionName, DeviceListOptions options,
-            Filter additionalFilter) throws MbedCloudException {
+                                                               Filter additionalFilter) throws MbedCloudException {
         final DeviceListOptions finalOptions = (options == null) ? new DeviceListOptions() : options;
         finalOptions.addFilter(additionalFilter);
 
@@ -108,9 +108,9 @@ public class DeviceDirectory extends AbstractApi {
             @Override
             public Call<DevicePage> call() {
                 return endpoint.getDirectory().deviceList(finalOptions.getPageSize(),
-                        finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                        DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                        finalOptions.encodeInclude());
+                                                          finalOptions.getOrder().toString(), finalOptions.getAfter(),
+                                                          DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                          finalOptions.encodeInclude());
             }
         });
     }
@@ -278,7 +278,7 @@ public class DeviceDirectory extends AbstractApi {
             @Override
             public Call<DeviceData> call() {
                 return endpoint.getDirectory().deviceUpdate(finalDevice.getId(),
-                        DeviceAdapter.reverseMapUpdate(finalDevice));
+                                                            DeviceAdapter.reverseMapUpdate(finalDevice));
             }
         });
     }
@@ -386,8 +386,10 @@ public class DeviceDirectory extends AbstractApi {
             @Override
             public Call<DeviceQueryPage> call() {
                 return endpoint.getDirectory().deviceQueryList(finalOptions.getPageSize(),
-                        finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                        new FilterMarshaller(null).encode(finalOptions.getFilter()), finalOptions.encodeInclude());
+                                                               finalOptions.getOrder().toString(),
+                                                               finalOptions.getAfter(),
+                                                               new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                               finalOptions.encodeInclude());
             }
         });
     }
@@ -568,7 +570,7 @@ public class DeviceDirectory extends AbstractApi {
             @Override
             public Call<DeviceQuery> call() {
                 return endpoint.getDirectory().deviceQueryUpdate(finalQuery.getId(),
-                        QueryAdapter.reverseMapUpdate(finalQuery));
+                                                                 QueryAdapter.reverseMapUpdate(finalQuery));
             }
         });
     }
@@ -671,21 +673,22 @@ public class DeviceDirectory extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable ListResponse<DeviceEvent> listDeviceEvents(@Nullable DeviceEventListOptions options)
-            throws MbedCloudException {
+    public @Nullable ListResponse<DeviceEvent>
+           listDeviceEvents(@Nullable DeviceEventListOptions options) throws MbedCloudException {
         final DeviceEventListOptions finalOptions = (options == null) ? new DeviceEventListOptions() : options;
 
         return CloudCaller.call(this, "listDeviceEvents()", DeviceEventAdapter.getListMapper(),
-                new CloudCall<DeviceEventPage>() {
+                                new CloudCall<DeviceEventPage>() {
 
-                    @Override
-                    public Call<DeviceEventPage> call() {
-                        return endpoint.getDirectory().deviceLogList(finalOptions.getPageSize(),
-                                finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                finalOptions.encodeInclude());
-                    }
-                });
+                                    @Override
+                                    public Call<DeviceEventPage> call() {
+                                        return endpoint.getDirectory().deviceLogList(finalOptions.getPageSize(),
+                                                                                     finalOptions.getOrder().toString(),
+                                                                                     finalOptions.getAfter(),
+                                                                                     DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                                     finalOptions.encodeInclude());
+                                    }
+                                });
     }
 
     /**
@@ -723,16 +726,17 @@ public class DeviceDirectory extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
-    public @Nullable Paginator<DeviceEvent> listAllDeviceEvents(@Nullable DeviceEventListOptions options)
-            throws MbedCloudException {
+    public @Nullable Paginator<DeviceEvent>
+           listAllDeviceEvents(@Nullable DeviceEventListOptions options) throws MbedCloudException {
         return new Paginator<>((options == null) ? new DeviceEventListOptions() : options,
-                new PageRequester<DeviceEvent>() {
+                               new PageRequester<DeviceEvent>() {
 
-                    @Override
-                    public ListResponse<DeviceEvent> requestNewPage(ListOptions opt) throws MbedCloudException {
-                        return listDeviceEvents((DeviceEventListOptions) opt);
-                    }
-                });
+                                   @Override
+                                   public ListResponse<DeviceEvent>
+                                          requestNewPage(ListOptions opt) throws MbedCloudException {
+                                       return listDeviceEvents((DeviceEventListOptions) opt);
+                                   }
+                               });
     }
 
     /**
@@ -764,13 +768,13 @@ public class DeviceDirectory extends AbstractApi {
         checkNotNull(deviceEventId, TAG_DEVICE_EVENT_ID);
         final String finalId = deviceEventId;
         return CloudCaller.call(this, "getDeviceEvent()", DeviceEventAdapter.getMapper(),
-                new CloudCall<DeviceEventData>() {
+                                new CloudCall<DeviceEventData>() {
 
-                    @Override
-                    public Call<DeviceEventData> call() {
-                        return endpoint.getDirectory().deviceLogRetrieve(finalId);
-                    }
-                });
+                                    @Override
+                                    public Call<DeviceEventData> call() {
+                                        return endpoint.getDirectory().deviceLogRetrieve(finalId);
+                                    }
+                                });
     }
 
     /**

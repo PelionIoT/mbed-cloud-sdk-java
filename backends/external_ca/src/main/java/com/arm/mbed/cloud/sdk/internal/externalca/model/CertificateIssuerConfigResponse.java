@@ -1,6 +1,6 @@
 /*
  * Third party CA management API
- * API for managing third party CA for creating certificates on Mbed Cloud
+ * API for managing third party CA for creating certificates on Pelion Device Management
  *
  * OpenAPI spec version: v3
  * 
@@ -34,6 +34,18 @@ public class CertificateIssuerConfigResponse implements Serializable {
 
   @SerializedName("certificate_issuer_id")
   private String certificateIssuerId = null;
+
+  @SerializedName("created_at")
+  private DateTime createdAt = null;
+
+  @SerializedName("etag")
+  private String etag = null;
+
+  @SerializedName("id")
+  private String id = null;
+
+  @SerializedName("is_custom")
+  private Boolean isCustom = null;
 
   /**
    * Gets or Sets object
@@ -95,16 +107,88 @@ public class CertificateIssuerConfigResponse implements Serializable {
   }
 
    /**
-   * The ID of the certificate issuer. Null if Arm Mbed Cloud internal HSM is used. 
+   * The ID of the certificate issuer. Null if Device Management internal HSM is used. 
    * @return certificateIssuerId
   **/
-  @ApiModelProperty(example = "ABCDEF0123456789ABCDEF0123456789", value = "The ID of the certificate issuer. Null if Arm Mbed Cloud internal HSM is used. ")
+  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The ID of the certificate issuer. Null if Device Management internal HSM is used. ")
   public String getCertificateIssuerId() {
     return certificateIssuerId;
   }
 
   public void setCertificateIssuerId(String certificateIssuerId) {
     this.certificateIssuerId = certificateIssuerId;
+  }
+
+  public CertificateIssuerConfigResponse createdAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+    return this;
+  }
+
+   /**
+   * Created UTC time RFC3339.
+   * @return createdAt
+  **/
+  @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "Created UTC time RFC3339.")
+  public DateTime getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(DateTime createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public CertificateIssuerConfigResponse etag(String etag) {
+    this.etag = etag;
+    return this;
+  }
+
+   /**
+   * Entity instance signature.
+   * @return etag
+  **/
+  @ApiModelProperty(example = "1", value = "Entity instance signature.")
+  public String getEtag() {
+    return etag;
+  }
+
+  public void setEtag(String etag) {
+    this.etag = etag;
+  }
+
+  public CertificateIssuerConfigResponse id(String id) {
+    this.id = id;
+    return this;
+  }
+
+   /**
+   * The ID of the certificate issuer configuration. 
+   * @return id
+  **/
+  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The ID of the certificate issuer configuration. ")
+  public String getId() {
+    return id;
+  }
+
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public CertificateIssuerConfigResponse isCustom(Boolean isCustom) {
+    this.isCustom = isCustom;
+    return this;
+  }
+
+   /**
+   * Get isCustom
+   * @return isCustom
+  **/
+  @ApiModelProperty(example = "true", value = "")
+  public Boolean isIsCustom() {
+    return isCustom;
+  }
+
+  public void setIsCustom(Boolean isCustom) {
+    this.isCustom = isCustom;
   }
 
   public CertificateIssuerConfigResponse object(ObjectEnum object) {
@@ -131,10 +215,10 @@ public class CertificateIssuerConfigResponse implements Serializable {
   }
 
    /**
-   * Get reference
+   * The certificate name to which the certificate issuer configuration applies.
    * @return reference
   **/
-  @ApiModelProperty(example = "LwM2M", value = "")
+  @ApiModelProperty(example = "customer.dlms", value = "The certificate name to which the certificate issuer configuration applies.")
   public String getReference() {
     return reference;
   }
@@ -152,7 +236,7 @@ public class CertificateIssuerConfigResponse implements Serializable {
    * Updated UTC time RFC3339.
    * @return updatedAt
   **/
-  @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "Updated UTC time RFC3339.")
+  @ApiModelProperty(example = "2017-02-01T00:00:00Z", value = "Updated UTC time RFC3339.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -172,6 +256,10 @@ public class CertificateIssuerConfigResponse implements Serializable {
     }
     CertificateIssuerConfigResponse certificateIssuerConfigResponse = (CertificateIssuerConfigResponse) o;
     return Objects.equals(this.certificateIssuerId, certificateIssuerConfigResponse.certificateIssuerId) &&
+        Objects.equals(this.createdAt, certificateIssuerConfigResponse.createdAt) &&
+        Objects.equals(this.etag, certificateIssuerConfigResponse.etag) &&
+        Objects.equals(this.id, certificateIssuerConfigResponse.id) &&
+        Objects.equals(this.isCustom, certificateIssuerConfigResponse.isCustom) &&
         Objects.equals(this.object, certificateIssuerConfigResponse.object) &&
         Objects.equals(this.reference, certificateIssuerConfigResponse.reference) &&
         Objects.equals(this.updatedAt, certificateIssuerConfigResponse.updatedAt);
@@ -179,7 +267,7 @@ public class CertificateIssuerConfigResponse implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(certificateIssuerId, object, reference, updatedAt);
+    return Objects.hash(certificateIssuerId, createdAt, etag, id, isCustom, object, reference, updatedAt);
   }
 
 
@@ -189,6 +277,10 @@ public class CertificateIssuerConfigResponse implements Serializable {
     sb.append("class CertificateIssuerConfigResponse {\n");
     
     sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
+    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+    sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
+    sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    isCustom: ").append(toIndentedString(isCustom)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");

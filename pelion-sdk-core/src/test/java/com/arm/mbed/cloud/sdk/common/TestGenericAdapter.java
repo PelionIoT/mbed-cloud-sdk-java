@@ -81,7 +81,7 @@ public class TestGenericAdapter {
 
     @Test
     public void testMapListRespListOfUMapperOfUT() {
-        List<String> data = new LinkedList<>();
+        final List<String> data = new LinkedList<>();
         data.add("1");
         data.add(" 2 ");
         data.add(" 3");
@@ -144,7 +144,7 @@ public class TestGenericAdapter {
 
     @Test
     public void testMapListIdRespListOfUMapperOfUT() {
-        List<String> data = new LinkedList<>();
+        final List<String> data = new LinkedList<>();
         data.add("1");
         data.add("2");
         data.add("3");

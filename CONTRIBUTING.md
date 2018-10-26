@@ -15,8 +15,10 @@ in the same one. This will help us review, give feedback and merge in your
 changes.
 
 - Fork the repository.
+- Generate the project files for your IDE of choice (Eclipse or IntelliJ) using gradle: `./gradlew eclipse` or `./gradlew idea` and import the project to your IDE.
 - Make your change and write unit tests, please do match the existing coding
   style. _Code style checks and static analysis are performed during build._
+  If using Eclipse as an IDE, there is a `preferences` file for development in /config/eclipse. Ensure code styling is performed on [`save`](http://www.eclipseonetips.com/2009/12/13/automatically-format-and-cleanup-code-every-time-you-save/).
 - Write a [good commit message](http://tbaggery.com/2008/04/19/a-note-about-git-commit-messages.html)
   and be sure to mention the issue if contributing a bug fix.
 - Write a news fragment for any non-trivial changes as a new file in `docs/news`  e.g. `123.feature`. (see [towncrier](https://github.com/hawkowl/towncrier#news-fragments) for more fragment types).

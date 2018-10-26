@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public abstract class AbstractApi implements ApiModule {
 
     protected final ApiClientWrapper client;
+    protected final ServiceStore serviceStore;
 
     protected final SdkLogger logger;
     protected final ApiMetadataCache metadataCache;
@@ -36,21 +37,24 @@ public abstract class AbstractApi implements ApiModule {
     public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
         super();
         this.client = new ApiClientWrapper(options, userAgentExtension);
+        serviceStore = new ServiceStore(client);
         logger = new SdkLogger();
         metadataCache = new ApiMetadataCache();
     }
 
-    protected void checkNotNull(Object arg, String argName) throws MbedCloudException {
+    public void checkNotNull(Object arg, String argName) throws MbedCloudException {
         clearApiMetadata();
         ApiUtils.checkNotNull(logger, arg, argName);
     }
 
-    protected void checkModelValidity(SdkModel model, String argName) throws MbedCloudException {
+    public void checkModelValidity(SdkModel model, String argName) throws MbedCloudException {
         clearApiMetadata();
         ApiUtils.checkModelValidity(logger, model, argName);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see com.arm.mbed.cloud.sdk.common.ApiModule#getLogger()
      */
     @Override
@@ -58,7 +62,9 @@ public abstract class AbstractApi implements ApiModule {
         return logger;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     *
      * @see com.arm.mbed.cloud.sdk.common.ApiModule#getClient()
      */
     @Override
@@ -66,8 +72,11 @@ public abstract class AbstractApi implements ApiModule {
         return client;
     }
 
-    /* (non-Javadoc)
-     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getLastApiMetadata()
+    /**
+     * Gets meta data for the last Arm Mbed Cloud API call.
+     *
+     * @see ApiMetadata
+     * @return metadata
      */
     @Override
     @API
@@ -85,8 +94,26 @@ public abstract class AbstractApi implements ApiModule {
         metadataCache.clearMetadata();
     }
 
-    /* (non-Javadoc)
-     * @see com.arm.mbed.cloud.sdk.common.ApiModule#getModuleName()
+    /**
+     *
+     * Gets a service.
+     *
+     * @param serviceClass
+     *            class of the service.
+     * @param <S>
+     *            service type
+     * @return corresponding service.
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
+    public <S> S getService(Class<S> serviceClass) throws MbedCloudException {
+        return serviceStore.getService(serviceClass);
+    }
+
+    /**
+     * Gets the SDK module name.
+     *
+     * @return module name.
      */
     @Override
     public abstract String getModuleName();

@@ -53,6 +53,25 @@ public class GenericAdapter {
     }
 
     /**
+     * Gets an Identity mapper for lists.
+     *
+     * @param type
+     *            type of the the list to map
+     * @param <T>
+     *            Type of the list to convert from/to.
+     * @return a mapper which maps a list to itself.
+     */
+    public static <T extends SdkModel> Mapper<ListResponse<T>, ListResponse<T>> identityListMapper(Class<T> type) {
+        return new Mapper<ListResponse<T>, ListResponse<T>>() {
+
+            @Override
+            public ListResponse<T> map(ListResponse<T> toBeMapped) {
+                return toBeMapped;
+            }
+        };
+    }
+
+    /**
      * Paginated response from the server.
      * <p>
      * A typical page returned from server when listing objects.
