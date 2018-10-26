@@ -24,10 +24,38 @@ public class GenericClientExamples extends AbstractExample {
     /**
      * Uses the generic client to list users.
      */
+    // an example: custom api call
+    /**
+     * Definition of the REST endpoint.
+     * <p>
+     * See the documentation from <a href="https://square.github.io/retrofit/">Retrofit</a> to see how to defined a
+     * service.
+     */
+    private interface PelionApi {
+        @GET("v3/users")
+        Call<UserListResponse> listAllUsers(@retrofit2.http.Query("limit") Integer limit);
+    }
 
+    /**
+     * Definition of the response object.
+     */
+    private static class UserListResponse {
+        List<User> data;
+
+        public List<User> getData() {
+            return data;
+        }
+
+        public void setData(List<User> data) {
+            this.data = data;
+        }
+
+    }
+
+    // cloak
     @Example
     public void useTheGenericClient() {
-        // example: custom api call
+        // uncloak
         // Create a generic client
         GenericClient client = GenericClient.newClient(Configuration.get());
         // Define how to generate the request based on a set of parameters
@@ -50,9 +78,8 @@ public class GenericClientExamples extends AbstractExample {
         };
         // cloak
         try {
-
-            @SuppressWarnings("boxing")
             // uncloak
+            @SuppressWarnings("boxing")
             // Make the call with the following set of parameters. here, limit = 2.
             UserListResponse response = client.callApi(requestDefinition, 2);
             for (User user : response.getData()) {
@@ -65,51 +92,36 @@ public class GenericClientExamples extends AbstractExample {
             logError("last API Metadata", client.getLastApiMetadata());
             fail(e.getMessage());
         }
-        // uncloak
     }
+    // uncloak
 
+    // end of example
+    /**
+     * Uses the generic client to list users and pagination.
+     */
+
+    // an example: custom paginated api call
     /**
      * Definition of the REST endpoint.
      * <p>
      * See the documentation from <a href="https://square.github.io/retrofit/">Retrofit</a> to see how to defined a
      * service.
+     * <p>
+     * Note: the response object has to be an page ie {@link ListResponse}.
      */
-    private interface PelionApi {
+    private interface PelionListApi {
         @GET("v3/users")
-        Call<UserListResponse> listAllUsers(@retrofit2.http.Query("limit") Integer limit);
+        Call<ListResponse<User>> listAllUsers(@retrofit2.http.Query("limit") Integer limit);
     }
 
-    /**
-     * Definition of the response object.
-     */
-    private static class UserListResponse {
-        /**
-         *
-         */
-        private static final long serialVersionUID = 1L;
-        List<User> data;
-
-        public List<User> getData() {
-            return data;
-        }
-
-        public void setData(List<User> data) {
-            this.data = data;
-        }
-
-    }
-    // end of example
-
-    /**
-     * Uses the generic client to list users and pagination.
-     */
-
+    // cloak
     @Example
     public void useGenericClientWithPagination() {
-        // example: custom paginated api call
+        // uncloak
         // Create a generic client
         GenericClient client = GenericClient.newClient(Configuration.get());
         // Define how to generate the request based on a set of parameters
+
         CloudRequest.CloudListRequest<User, PelionListApi,
                                       ListOptions> requestDefinition = new CloudRequest.CloudListRequest<User,
                                                                                                          PelionListApi, ListOptions>() {
@@ -142,21 +154,7 @@ public class GenericClientExamples extends AbstractExample {
             logError("last API Metadata", client.getLastApiMetadata());
             fail(e.getMessage());
         }
-        // uncloak
     }
-
-    /**
-     * Definition of the REST endpoint.
-     * <p>
-     * See the documentation from <a href="https://square.github.io/retrofit/">Retrofit</a> to see how to defined a
-     * service.
-     * <p>
-     * Note: the response object has to be an page ie {@link ListResponse}.
-     */
-    private interface PelionListApi {
-        @GET("v3/users")
-        Call<ListResponse<User>> listAllUsers(@retrofit2.http.Query("limit") Integer limit);
-    }
-
+    // uncloak
     // end of example
 }
