@@ -249,6 +249,16 @@ jobs:
         destination: CHANGELOG.md
     - <<: *store_logs
 
+ build_documentation:
+    docker:
+      - image: circleci/node:jessie-browsers
+    steps:
+      - run:
+          name: Trigger documentation build
+          command: |
+              curl -X POST --header "Content-Type: application/json" \
+               -d '{"branch":"master"}' \
+               https://circleci.com/api/v1.1/project/github/${ORGANISATION}/${DOCUMENTATION_PROJECT}/build?circle-token=${CIRCLE_TOKEN}
  build:
   <<: *java_job_environment
   steps:
@@ -507,7 +517,8 @@ workflows:
       - release_versioning:
           requires:
             - should_release
-
-
+      - build_documentation:
+          requires:
+            - release_versioning
       # - examples
 
