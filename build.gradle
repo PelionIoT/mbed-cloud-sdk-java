@@ -46,6 +46,7 @@ repositories {
     mavenCentral()
 }
 
+def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
 allprojects {
     apply plugin: 'eclipse'
     apply plugin: 'idea'
@@ -82,272 +83,273 @@ allprojects {
         sourceSets = [sourceSets.main]
         ignoreFailures = false
     }
-
-    if (project != project(':backends')){
-        if  (! project.path.contains('backends') && ! project.path.contains('lwm2m')){
-            apply plugin: 'checkstyle' //code style checks
-            apply plugin: 'jdepend'// design quality
-            apply plugin: 'findbugs' //static analysis
-            apply plugin: 'com.github.spotbugs' //static analysis
-            apply plugin: 'pmd' //static analysis
-            apply plugin: 'de.aaschmid.cpd' //Code duplication
-        }
-        apply plugin: 'license-report'
-        apply plugin: 'com.github.hierynomus.license-report'
-        apply plugin: 'maven'
-        apply plugin: 'maven-publish'
-        apply plugin: 'com.jfrog.artifactory'
-        apply plugin: 'com.jfrog.bintray'
     
-        //The following is to override the version/group values contained in subproject build files
-        tasks.whenTaskAdded { task ->
-            if (project != project(':lwm2m')) {
-                project.version = SDKVersion
-                project.group = SDKGroup
-                if (task.hasProperty('version')) {
-                    task.version = SDKVersion
-                }
-                if (task.hasProperty('group')) {
-                    task.group = SDKGroup
-                }
-            }
-        }
+    
+    def isInExcludeList = projectToExclude.findAll{ex -> project.path.toLowerCase().contains(ex)}.size() != 0
 
-        task info {
-            doLast { task ->
-                println "Building $task.project.name project..."
-                println "Version: $task.project.version"
-                println "Group: $task.project.group"
-            }
-        }
-        compileJava.dependsOn info
-        
-        tasks.withType(JavaCompile) { 
-            if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
-                options.compilerArgs += ["-deprecation"]
-            }
-            if ( options.compilerArgs == null || !options.compilerArgs.contains("-parameters")){
-                options.compilerArgs += ["-parameters"]
-            }
-            options.fork = true
-            options.encoding = "UTF-8"
-            if (name == 'compileJava') {
-                sourceCompatibility JavaVersion.VERSION_1_7.toString()
-                targetCompatibility JavaVersion.VERSION_1_7.toString()        
-            }
-            if (name == 'compileTestJava'){
-                sourceCompatibility JavaVersion.VERSION_1_8.toString()
-                targetCompatibility JavaVersion.VERSION_1_8.toString()        
-                if ( options.compilerArgs == null || !options.compilerArgs.contains("-g")){
-                    options.compilerArgs += ["-g"]
-                }
-            }
-            doFirst {
-                    //println  options.dump()            
-                    println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
-            }
-        }
+    if  (! isInExcludeList){
+        apply plugin: 'checkstyle' //code style checks
+        apply plugin: 'jdepend'// design quality
+        apply plugin: 'findbugs' //static analysis
+        apply plugin: 'com.github.spotbugs' //static analysis
+        apply plugin: 'pmd' //static analysis
+        apply plugin: 'de.aaschmid.cpd' //Code duplication
+    }
+    apply plugin: 'license-report'
+    apply plugin: 'com.github.hierynomus.license-report'
+    apply plugin: 'maven'
+    apply plugin: 'maven-publish'
+    apply plugin: 'com.jfrog.artifactory'
+    apply plugin: 'com.jfrog.bintray'
 
-        jar {
-            manifest {
-                attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
-                        'Implementation-Version': project.version,
-                        'MbedCloudSdk-Version': project.version,
-                        'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
-                        'Implementation-Vendor': 'Arm Limited',
-                        'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
-                        'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
-                        'Built-JDK': System.getProperty('java.version'),
-                        'Source-Compatibility': project.sourceCompatibility,
-                        'Target-Compatibility': project.targetCompatibility,
-                        'Built-By': System.getProperty('user.name')
-                        )
+    //The following is to override the version/group values contained in subproject build files
+    tasks.whenTaskAdded { task ->
+        if (project != project(':lwm2m')) {
+            project.version = SDKVersion
+            project.group = SDKGroup
+            if (task.hasProperty('version')) {
+                task.version = SDKVersion
             }
+            if (task.hasProperty('group')) {
+                task.group = SDKGroup
+            }
+        }
+    }
+
+    task info {
+        doLast { task ->
+            println "Building $task.project.name project..."
+            println "Version: $task.project.version"
+            println "Group: $task.project.group"
+        }
+    }
+    compileJava.dependsOn info
+    
+    tasks.withType(JavaCompile) { 
+        if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
+            options.compilerArgs += ["-deprecation"]
+        }
+        if ( options.compilerArgs == null || !options.compilerArgs.contains("-parameters")){
+            options.compilerArgs += ["-parameters"]
+        }
+        options.fork = true
+        options.encoding = "UTF-8"
+        if (name == 'compileJava') {
+            sourceCompatibility JavaVersion.VERSION_1_7.toString()
+            targetCompatibility JavaVersion.VERSION_1_7.toString()        
+        }
+        if (name == 'compileTestJava'){
+            sourceCompatibility JavaVersion.VERSION_1_8.toString()
+            targetCompatibility JavaVersion.VERSION_1_8.toString()        
+            if ( options.compilerArgs == null || !options.compilerArgs.contains("-g")){
+                options.compilerArgs += ["-g"]
+            }
+        }
+        doFirst {
+                //println  options.dump()            
+                println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
+        }
+    }
+
+    jar {
+        manifest {
+            attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+                    'Implementation-Version': project.version,
+                    'MbedCloudSdk-Version': project.version,
+                    'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
+                    'Implementation-Vendor': 'Arm Limited',
+                    'Implementation-URL': 'https://github.com/ARMmbed/mbed-cloud-sdk-java',
+                    'Bundle-License': 'http://www.apache.org/licenses/LICENSE-2.0.txt',
+                    'Built-JDK': System.getProperty('java.version'),
+                    'Source-Compatibility': project.sourceCompatibility,
+                    'Target-Compatibility': project.targetCompatibility,
+                    'Built-By': System.getProperty('user.name')
+                    )
+        }
+        doLast {
+            if (project == rootProject){
+                updateArtifactList("SDK_JAR", jar.archivePath)
+            }
+        }
+    }
+    
+    if (project != project(':lwm2m') ) {
+        task sourcesJar(type: Jar, dependsOn: classes) {
+            classifier = 'sources'
+            from sourceSets.main.allSource
             doLast {
                 if (project == rootProject){
-                    updateArtifactList("SDK_JAR", jar.archivePath)
+                    updateArtifactList("SOURCE_JAR", sourcesJar.archivePath)
                 }
             }
         }
-        
-        if (project != project(':lwm2m') ) {
-            task sourcesJar(type: Jar, dependsOn: classes) {
-                classifier = 'sources'
-                from sourceSets.main.allSource
-                doLast {
+
+        task javadocJar(type: Jar, dependsOn: javadoc) {
+            classifier = 'javadoc'
+            from javadoc.destinationDir
+            doLast {
+                if (project == rootProject){
+                    updateArtifactList("JAVADOC_JAR", javadocJar.archivePath)
+                }
+            }
+        }
+        configurations {
+            published
+        }
+        artifacts {
+            archives jar
+            archives sourcesJar
+            archives javadocJar
+            //published jar
+            //published sourcesJar
+            //published javadocJar
+        }
+        publishing {
+            publications {
+                mavenJava(MavenPublication) {
+
+                    from components.java
+                    artifact sourcesJar
+                    artifact javadocJar
+
+                    pom.withXml {
+                        asNode().appendNode('name', 'Arm Mbed Cloud SDK')
+                        asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
+                        asNode().appendNode('description', 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
+                        asNode().appendNode('packaging', 'jar')
+                        asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
+                        asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Mbed').parent().appendNode('organizationUrl','https://www.mbed.com/')
+                        asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
+                    }
+                }
+            }
+        }
+        if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){ 
+            if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
+                project.maven_central_user=rootProject.maven_central_user
+                project.maven_central_password=rootProject.maven_central_password
+            }
+        }
+        if (project.hasProperty('bintray_password') && project.hasProperty('bintray_user')){
+            bintray {
+                user = "${bintray_user}"
+                key = "${bintray_password}"
+                configurations = ['archives']
+                publications = ['mavenJava']
+                override = true
+                publish = true
+                //dryRun = true
+                pkg {
+                    repo = 'mbed-cloud-sdk'
                     if (project == rootProject){
-                        updateArtifactList("SOURCE_JAR", sourcesJar.archivePath)
+                        name = 'mbed-cloud-sdk'
+                    } else {
+                        name = 'mbed-cloud-' + project.name
                     }
-                }
-            }
-
-            task javadocJar(type: Jar, dependsOn: javadoc) {
-                classifier = 'javadoc'
-                from javadoc.destinationDir
-                doLast {
-                    if (project == rootProject){
-                        updateArtifactList("JAVADOC_JAR", javadocJar.archivePath)
-                    }
-                }
-            }
-            configurations {
-                published
-            }
-            artifacts {
-                archives jar
-                archives sourcesJar
-                archives javadocJar
-                //published jar
-                //published sourcesJar
-                //published javadocJar
-            }
-            publishing {
-                publications {
-                    mavenJava(MavenPublication) {
-
-                        from components.java
-                        artifact sourcesJar
-                        artifact javadocJar
-
-                        pom.withXml {
-                            asNode().appendNode('name', 'Arm Mbed Cloud SDK')
-                            asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
-                            asNode().appendNode('description', 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
-                            asNode().appendNode('packaging', 'jar')
-                            asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
-                            asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Mbed').parent().appendNode('organizationUrl','https://www.mbed.com/')
-                            asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
-                        }
-                    }
-                }
-            }
-            if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){ 
-                if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
-                    project.maven_central_user=rootProject.maven_central_user
-                    project.maven_central_password=rootProject.maven_central_password
-                }
-            }
-            if (project.hasProperty('bintray_password') && project.hasProperty('bintray_user')){
-                bintray {
-                    user = "${bintray_user}"
-                    key = "${bintray_password}"
-                    configurations = ['archives']
-                    publications = ['mavenJava']
-                    override = true
+                    labels = ["Mbed","Mbed Cloud","Cloud","SDK","Java","IoT"]
+                    desc = 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
+                    userOrg = 'armmbed'        
+                    licenses = ['Apache-2.0']
+                    websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
+                    issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
+                    vcsUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java.git'
+                    githubRepo = 'ARMmbed/mbed-cloud-sdk-java'
+                    githubReleaseNotesFile = 'README.md'
+                    publicDownloadNumbers = true
                     publish = true
-                    //dryRun = true
-                    pkg {
-                        repo = 'mbed-cloud-sdk'
-                        if (project == rootProject){
-                            name = 'mbed-cloud-sdk'
-                        } else {
-                            name = 'mbed-cloud-' + project.name
-                        }
-                        labels = ["Mbed","Mbed Cloud","Cloud","SDK","Java","IoT"]
-                        desc = 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
-                        userOrg = 'armmbed'        
-                        licenses = ['Apache-2.0']
-                        websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
-                        issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
-                        vcsUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java.git'
-                        githubRepo = 'ARMmbed/mbed-cloud-sdk-java'
-                        githubReleaseNotesFile = 'README.md'
-                        publicDownloadNumbers = true
-                        publish = true
-                        version {
-                            name = SDKVersion
-                            //gpg {
-                            //    sign = true //Determines whether to GPG sign the files. The default is false
-                            //}
-                            if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
-                                mavenCentralSync {
-                                    sync = true
-                                    user = "${maven_central_user}" //OSS user token
-                                    password = "${maven_central_password}" //OSS user password
-                                    close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
-                                }
-                            }    
-                        }
+                    version {
+                        name = SDKVersion
+                        //gpg {
+                        //    sign = true //Determines whether to GPG sign the files. The default is false
+                        //}
+                        if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
+                            mavenCentralSync {
+                                sync = true
+                                user = "${maven_central_user}" //OSS user token
+                                password = "${maven_central_password}" //OSS user password
+                                close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
+                            }
+                        }    
                     }
                 }
             }
         }
-        if  (! project.path.contains('backends') && ! project.path.contains('lwm2m')){
-            checkstyle {
-                toolVersion = '7.2'
-                configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
-                sourceSets = [sourceSets.main]
-                ignoreFailures = false
-                maxWarnings = 0
+    }
+    if  (! isInExcludeList){
+        checkstyle {
+            toolVersion = '7.2'
+            configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            maxWarnings = 0
+        }
+        checkstyleMain {
+            reports {
+                xml.enabled true
+                html.enabled true
             }
-            checkstyleMain {
-                reports {
-                    xml.enabled true
-                    html.enabled true
-                }
+        }
+        jdepend {
+            sourceSets = [sourceSets.main]
+            ignoreFailures = true
+        }
+        jdependMain {
+            reports {
+                xml.enabled true
             }
-            jdepend {
-                sourceSets = [sourceSets.main]
-                ignoreFailures = true
+        }
+        pmd {
+            toolVersion = "5.0.4"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            ruleSets = []
+            ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+        }
+        pmdMain {
+            excludes = []
+            reports {
+                xml.enabled false
+                html.enabled true
             }
-            jdependMain {
-                reports {
-                    xml.enabled true
-                }
+        }
+        cpd {
+            toolVersion = '5.4.2'
+        }
+        cpdCheck {
+            reports {
+                text.enabled = false
+                xml.enabled = true
             }
-            pmd {
-                toolVersion = "5.0.4"
-                sourceSets = [sourceSets.main]
-                ignoreFailures = false
-                ruleSets = []
-                ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+            ignoreFailures = true
+            source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
+        }
+        findbugs {
+            //toolVersion = "2.0.1"
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+        }
+        spotbugs {
+          //toolVersion = '3.1.5'
+            sourceSets = [sourceSets.main]
+            ignoreFailures = false
+            effort = "max"
+            reportLevel = "high"
+            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+        }
+        tasks.withType(FindBugs) {
+            reports {
+                xml.enabled = false
+                html.enabled = true
             }
-            pmdMain {
-                excludes = []
-                reports {
-                    xml.enabled false
-                    html.enabled true
-                }
-            }
-            cpd {
-                toolVersion = '5.4.2'
-            }
-            cpdCheck {
-                reports {
-                    text.enabled = false
-                    xml.enabled = true
-                }
-                ignoreFailures = true
-                source = sourceSets.main.allJava // only java, groovy and scala classes in 'main' sourceSets
-            }
-            findbugs {
-                //toolVersion = "2.0.1"
-                sourceSets = [sourceSets.main]
-                ignoreFailures = false
-                effort = "max"
-                reportLevel = "high"
-                excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-            }
-            spotbugs {
-              //toolVersion = '3.1.5'
-                sourceSets = [sourceSets.main]
-                ignoreFailures = false
-                effort = "max"
-                reportLevel = "high"
-                excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
-            }
-            tasks.withType(FindBugs) {
-                reports {
-                    xml.enabled = false
-                    html.enabled = true
-                }
-            }
+        }
 
-            tasks.withType(com.github.spotbugs.SpotBugsTask) {
-                reports {
-                    xml.enabled = false
-                    html.enabled = true
-                }
+        tasks.withType(com.github.spotbugs.SpotBugsTask) {
+            reports {
+                xml.enabled = false
+                html.enabled = true
             }
         }
     }
@@ -360,7 +362,6 @@ subprojects {
 
 // The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list below.
 def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs'].collect{it.toLowerCase()}
-def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
 tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
 
 configurations {
