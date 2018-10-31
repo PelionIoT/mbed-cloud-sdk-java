@@ -114,6 +114,11 @@ store_reports: &store_reports
           path: ./build/reports
           destination: reports
 
+store_artifact_file: &store_artifact_file  
+  store_artifacts:
+          path: ./artifacts.properties
+          destination: artifacts
+          
 anchors:
   &job_image circleci/openjdk:8-jdk-stretch-browsers
 
@@ -211,6 +216,7 @@ jobs:
         no_output_timeout:  1h
     - run: python3 ${SCRIPTS_DIR}/sdk.py notify
     - <<: *store_logs
+    - <<: *store_artifact_file
     - <<: *persist_build
 
  versioning:
@@ -229,6 +235,7 @@ jobs:
         path: CHANGELOG.md
         destination: CHANGELOG.md
     - <<: *store_logs
+    - <<: *store_artifact_file
     - <<: *persist_build
 
  release_versioning:
@@ -253,6 +260,7 @@ jobs:
         path: CHANGELOG.md
         destination: CHANGELOG.md
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  build_documentation:
     docker:
@@ -284,6 +292,7 @@ jobs:
           path: build/libs
           destination: artifacts
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  quality_report:
   <<: *java_job_environment
@@ -301,6 +310,7 @@ jobs:
     - <<: *persist_build
     - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  documentation:
   <<: *java_job_environment
@@ -324,6 +334,7 @@ jobs:
         path: build/docs/javadoc
         destination: docs
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  static_analysis:
   <<: *java_job_environment
@@ -338,6 +349,7 @@ jobs:
     # - <<: *persist_build
     - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  build_test_server:
   <<: *java_job_environment
@@ -352,6 +364,7 @@ jobs:
     - run: ${SCRIPT_COMMAND} cache_testserver
     - <<: *persist_build
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  unit_tests:
   <<: *java_job_environment
@@ -374,6 +387,7 @@ jobs:
         path: build/test-results/test
     - <<: *store_reports
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  run_production_integration_tests:
   <<: *machine_definition
@@ -415,6 +429,7 @@ jobs:
     - store_test_results:
         path: integration_production
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  run_os2_integration_tests:
   <<: *machine_definition
@@ -451,6 +466,7 @@ jobs:
     - store_test_results:
         path: integration_os2
     - <<: *store_logs
+    - <<: *store_artifact_file
 
  examples:
   <<: *java_job_environment
