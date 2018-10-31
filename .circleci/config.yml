@@ -109,6 +109,11 @@ store_logs: &store_logs
           path: ./build_logs
           destination: logs
 
+store_reports: &store_reports  
+  store_artifacts:
+          path: ./build/reports
+          destination: reports
+
 anchors:
   &job_image circleci/openjdk:8-jdk-stretch-browsers
 
@@ -294,9 +299,7 @@ jobs:
         name: Reporting coverage to CodeCov
         command: bash <(curl -s https://codecov.io/bash) -f ${BUILD_REPORTS_DIR}/jacoco-all/coverage.xml
     - <<: *persist_build
-    - store_artifacts:
-            path: build/reports
-            destination: reports
+    - <<: *store_reports
     - <<: *store_logs
 
  documentation:
@@ -333,9 +336,7 @@ jobs:
     # - run: ${SCRIPT_COMMAND} dependencies
     - run: ${SCRIPT_COMMAND} static_analysis
     # - <<: *persist_build
-    - store_artifacts:
-        path: build/reports
-        destination: reports
+    - <<: *store_reports
     - <<: *store_logs
 
  build_test_server:
@@ -371,6 +372,7 @@ jobs:
           - coverage_files/
     - store_test_results:
         path: build/test-results/test
+    - <<: *store_reports
     - <<: *store_logs
 
  run_production_integration_tests:

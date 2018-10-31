@@ -479,6 +479,12 @@ shadowJar {
     }
 }
 
+task unitTestReport(type: TestReport) {
+    destinationDir = file("$buildDir/reports/allUnitTests")
+    // Include the results from the `test` task in all subprojects
+    reportOn allprojects.collect { it.tasks.withType(Test) }
+}
+
 downloadLicenses {
     ext.apacheTwo = license('Apache-2.0', 'http://opensource.org/licenses/Apache-2.0')
     ext.bsd = license('BSD-3-Clause', 'http://www.opensource.org/licenses/bsd-license.php')
