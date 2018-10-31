@@ -94,6 +94,7 @@ persist_build: &persist_build
     paths:
       - build/
       - backends/
+      - pelion-sdk-core/
       - lwm2m/
       - .gradle/
       - gradle.properties
