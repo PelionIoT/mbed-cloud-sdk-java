@@ -62,7 +62,7 @@ public interface DefaultApi {
   /**
    * List all images
    * List all firmware images.
-   * @param limit How many firmware images to retrieve (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
@@ -114,7 +114,7 @@ public interface DefaultApi {
   /**
    * List manifests
    * List firmware manifests.
-   * @param limit How many firmware manifests to retrieve (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
@@ -173,7 +173,7 @@ public interface DefaultApi {
   /**
    * List all campaigns
    * Get update campaigns for devices specified by a filter.
-   * @param limit How many update campaigns to retrieve (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records. Acceptable values: ASC, DESC. Default: ASC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
@@ -189,7 +189,7 @@ public interface DefaultApi {
    * List all campaign device metadata
    * Get campaign device metadata.
    * @param campaignId The update campaign ID (required)
-   * @param limit How many objects to retrieve in the page (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
@@ -289,7 +289,7 @@ public interface DefaultApi {
    * List all metadata for uploaded chunks
    * List all metadata for uploaded chunks
    * @param uploadJobId Upload job (required)
-   * @param limit How many metadata items for uploaded chunks to retrieve (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)
@@ -338,7 +338,7 @@ public interface DefaultApi {
   /**
    * Get all upload jobs
    * Get all upload jobs
-   * @param limit How many upload jobs to retrieve (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order ASC or DESC (optional)
    * @param after The ID of the the item after which to retrieve the next page (optional)
    * @param include A comma-separated list of data fields to return. Currently supported: total_count (optional)

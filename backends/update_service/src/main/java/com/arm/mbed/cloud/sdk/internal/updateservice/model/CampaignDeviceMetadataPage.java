@@ -170,10 +170,12 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The number of results to return, (range: 2-1000), or equals to total_count
+   * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+   * minimum: 2
+   * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(example = "50", value = "The number of results to return, (range: 2-1000), or equals to total_count")
+  @ApiModelProperty(example = "50", value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
   public Integer getLimit() {
     return limit;
   }

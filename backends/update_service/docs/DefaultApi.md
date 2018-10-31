@@ -173,7 +173,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many firmware images to retrieve
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -191,7 +191,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many firmware images to retrieve | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
@@ -407,7 +407,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many firmware manifests to retrieve
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -425,7 +425,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many firmware manifests to retrieve | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
@@ -690,7 +690,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many update campaigns to retrieve
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records. Acceptable values: ASC, DESC. Default: ASC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -708,7 +708,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many update campaigns to retrieve | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records. Acceptable values: ASC, DESC. Default: ASC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
@@ -754,7 +754,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 String campaignId = "campaignId_example"; // String | The update campaign ID
-Integer limit = 56; // Integer | How many objects to retrieve in the page
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -772,7 +772,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **campaignId** | **String**| The update campaign ID |
- **limit** | **Integer**| How many objects to retrieve in the page | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
@@ -1212,7 +1212,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 String uploadJobId = "uploadJobId_example"; // String | Upload job
-Integer limit = 56; // Integer | How many metadata items for uploaded chunks to retrieve
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -1231,7 +1231,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **uploadJobId** | **String**| Upload job |
- **limit** | **Integer**| How many metadata items for uploaded chunks to retrieve | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
@@ -1443,7 +1443,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many upload jobs to retrieve
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | ASC or DESC
 String after = "after_example"; // String | The ID of the the item after which to retrieve the next page
 String include = "include_example"; // String | A comma-separated list of data fields to return. Currently supported: total_count
@@ -1461,7 +1461,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many upload jobs to retrieve | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| ASC or DESC | [optional]
  **after** | **String**| The ID of the the item after which to retrieve the next page | [optional]
  **include** | **String**| A comma-separated list of data fields to return. Currently supported: total_count | [optional]
