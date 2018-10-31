@@ -164,7 +164,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`
@@ -182,7 +182,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; | [optional]
@@ -282,7 +282,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
@@ -300,7 +300,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
@@ -345,7 +345,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
@@ -363,7 +363,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
@@ -573,7 +573,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
@@ -591,7 +591,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
@@ -970,7 +970,7 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DefaultApi apiInstance = new DefaultApi();
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
@@ -988,7 +988,7 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]
@@ -1148,7 +1148,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 DefaultApi apiInstance = new DefaultApi();
 String deviceGroupId = "deviceGroupId_example"; // String | 
-Integer limit = 56; // Integer | How many objects to retrieve in the page.
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
 String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
 String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
 String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`.
@@ -1167,7 +1167,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **deviceGroupId** | **String**|  |
- **limit** | **Integer**| How many objects to retrieve in the page. | [optional]
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
  **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
  **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
  **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. | [optional]

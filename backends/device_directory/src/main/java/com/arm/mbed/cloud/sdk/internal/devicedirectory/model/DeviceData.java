@@ -540,11 +540,6 @@ public class DeviceData implements Serializable {
     this.deviceKey = deviceKey;
   }
 
-  public DeviceData endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
    /**
    * The endpoint name given to the device.
    * @return endpointName
@@ -552,10 +547,6 @@ public class DeviceData implements Serializable {
   @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
   }
 
   public DeviceData endpointType(String endpointType) {

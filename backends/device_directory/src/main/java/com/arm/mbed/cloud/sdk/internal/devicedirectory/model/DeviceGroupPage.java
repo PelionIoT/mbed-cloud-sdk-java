@@ -123,10 +123,12 @@ public class DeviceGroupPage implements Serializable {
   }
 
    /**
-   * The value of limit query parameter from the request, or default if not specified.
+   * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+   * minimum: 2
+   * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(example = "50", value = "The value of limit query parameter from the request, or default if not specified.")
+  @ApiModelProperty(example = "50", value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
   public Integer getLimit() {
     return limit;
   }

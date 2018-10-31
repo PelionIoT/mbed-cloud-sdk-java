@@ -56,7 +56,7 @@ public interface DefaultApi {
   /**
    * List all device events.
    * List all device events for an account.
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; (optional)
@@ -82,7 +82,7 @@ public interface DefaultApi {
   /**
    * List all devices.
    * List all devices.
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
@@ -97,7 +97,7 @@ public interface DefaultApi {
   /**
    * DEPRECATED: List all device events.
    * DEPRECATED: List all device events. Use &#x60;/v3/device-events/&#x60; instead.
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
@@ -145,7 +145,7 @@ public interface DefaultApi {
   /**
    * List device queries.
    * List all device queries. The result will be paged into pages of 100.
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
@@ -228,7 +228,7 @@ public interface DefaultApi {
   /**
    * List all groups.
    * List all groups.
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
@@ -268,7 +268,7 @@ public interface DefaultApi {
    * Get a page of devices
    * Get a page of devices.
    * @param deviceGroupId  (required)
-   * @param limit How many objects to retrieve in the page. (optional)
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
    * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
    * @param after The ID of The item after which to retrieve the next page. (optional)
    * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60;. (optional)
