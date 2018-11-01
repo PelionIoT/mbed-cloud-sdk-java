@@ -5,6 +5,7 @@ import java.util.List;
 public class IntermediateApiDefinition {
 
     private List<Entity> entities;
+    private List<Enumerator> enums;
 
     public IntermediateApiDefinition() {
     }
@@ -28,20 +29,30 @@ public class IntermediateApiDefinition {
         this.entities = entities;
     }
 
+    public List<Enumerator> getEnums() {
+        return enums;
+    }
+
+    public void setEnums(List<Enumerator> enums) {
+        this.enums = enums;
+    }
+
+    public boolean hasEnums() {
+        return enums != null && !enums.isEmpty();
+    }
+
     public void clear() {
         if (entities != null) {
             entities.clear();
         }
+        if (enums != null) {
+            enums.clear();
+        }
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "IntermediateApiDefinition [entities=" + entities + "]";
+        return "IntermediateApiDefinition [entities=" + entities + ", enums=" + enums + "]";
     }
 
 }

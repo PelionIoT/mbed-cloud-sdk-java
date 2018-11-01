@@ -2,7 +2,6 @@ package com.arm.pelion.sdk.foundation.generator;
 
 import java.io.File;
 
-import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.pelion.sdk.foundation.generator.input.FoundationDataLoader;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIFinder;
@@ -33,17 +32,17 @@ public class FoundationGenerator {
         LowLevelAPIFinder apiFinder = new LowLevelAPIFinder(config.getRootPackageName(),
                                                             config.getLowLevelApiModuleNameRegex());
         lowLevelAPIs = apiFinder.find();
-        logger.logInfo(new JsonSerialiser().toJson(lowLevelAPIs));
+        // logger.logInfo(new JsonSerialiser().toJson(lowLevelAPIs));
         logger.logInfo("Loading definitions");
         FoundationDataLoader loader = new FoundationDataLoader();
-        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test3.yml");
+        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\inter.yaml");
         // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test2.yml");
         loader.load();
         definition = loader.getInput();
     }
 
     public void generateModels() throws FoundationGeneratorException {
-        File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation");
+        File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
         File testDirectory = directory;
         logger.logInfo("Translating generic definitions into Java models");
         ModelsGenerator generator = new ModelsGenerator(directory, testDirectory,

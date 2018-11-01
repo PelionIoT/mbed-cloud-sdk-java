@@ -1,36 +1,47 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
-import java.util.Map;
-
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Field {
     @JsonProperty(InputSchema.KEY_TAG)
-    private Map<String, String> keys;
+    private String key;
+    @JsonProperty(InputSchema.DESCRIPTION_TAG)
     private String description;
     @JsonProperty(InputSchema.API_FIELDNAME_TAG)
     private String apiFieldname;
+    @JsonProperty(InputSchema.REQUIRED_TAG)
     private boolean required;
-    private String type;
-    private String format;
-    private String example;
-    private Map<String, Object> items;
-    private Map<String, Object> schema;
+    @JsonProperty(InputSchema.EXAMPLE_TAG)
+    private Object example;
+    @JsonProperty(InputSchema.ITEMS_TAG)
+    private Item items;
     @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
     @JsonProperty(InputSchema.DEFAULT_VALUE_TAG)
     private String defaultValue;
     @JsonProperty(InputSchema.READ_ONLY_TAG)
     private boolean readOnly;
+    @JsonProperty(InputSchema.PATTERN_TAG)
     private String pattern;
+    @JsonProperty(InputSchema.ENUM_REFERENCE_TAG)
+    private String enumRef;
+    @JsonProperty(InputSchema.HASHTABLE_TAG)
+    private AdditionalProperty additionalProperties;
+    @JsonProperty(InputSchema.TYPE_TAG)
+    private String type;
+    @JsonProperty(InputSchema.FORMAT_TAG)
+    private String format;
+    @JsonProperty(InputSchema.FOREIGN_KEY_TAG)
+    private ForeignKey foreignKey;
 
     // Java specific fields
+    @JsonProperty(InputSchema.INTERNAL_TAG)
     private boolean internal;
     @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
 
     public Field() {
-        keys = null;
+        key = null;
         description = null;
         apiFieldname = null;
         required = false;
@@ -44,13 +55,16 @@ public class Field {
         internal = false;
         pattern = null;
         longDescription = null;
+        additionalProperties = null;
+        enumRef = null;
+        foreignKey = null;
     }
 
     /**
      * @return the key
      */
     public String getKey() {
-        return Utils.getKey(keys, true);
+        return key;
     }
 
     /**
@@ -92,13 +106,13 @@ public class Field {
      * @return the example
      */
     public String getExample() {
-        return example;
+        return String.valueOf(example);
     }
 
     /**
      * @return the items
      */
-    public Map<String, Object> getItems() {
+    public Item getItems() {
         return items;
     }
 
@@ -135,8 +149,8 @@ public class Field {
      * @param key
      *            the key to set
      */
-    public void setKeys(Map<String, String> key) {
-        this.keys = key;
+    public void setKey(String key) {
+        this.key = Utils.getKey(key, true);
     }
 
     /**
@@ -183,7 +197,7 @@ public class Field {
      * @param example
      *            the example to set
      */
-    public void setExample(String example) {
+    public void setExample(Object example) {
         this.example = example;
     }
 
@@ -191,7 +205,7 @@ public class Field {
      * @param items
      *            the items to set
      */
-    public void setItems(Map<String, Object> items) {
+    public void setItems(Item items) {
         this.items = items;
     }
 
@@ -256,23 +270,40 @@ public class Field {
         this.longDescription = longDescription;
     }
 
-    public boolean hasSchema() {
-        return schema != null && !schema.isEmpty();
+    public boolean hasAdditionalProperties() {
+        return additionalProperties != null;
     }
 
-    /**
-     * @return the schema
-     */
-    public Map<String, Object> getSchema() {
-        return schema;
+    public AdditionalProperty getAdditionalProperties() {
+        return additionalProperties;
     }
 
-    /**
-     * @param schema
-     *            the schema to set
-     */
-    public void setSchema(Map<String, Object> schema) {
-        this.schema = schema;
+    public void setAdditionalProperties(AdditionalProperty additionalProperties) {
+        this.additionalProperties = additionalProperties;
+    }
+
+    public boolean hasEnumRef() {
+        return enumRef != null && !enumRef.isEmpty();
+    }
+
+    public String getEnumRef() {
+        return enumRef;
+    }
+
+    public void setEnumRef(String enumRef) {
+        this.enumRef = enumRef;
+    }
+
+    public ForeignKey getForeignKey() {
+        return foreignKey;
+    }
+
+    public void setForeignKey(ForeignKey foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    public boolean hasForeignKey() {
+        return foreignKey != null;
     }
 
     /*
@@ -284,7 +315,7 @@ public class Field {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((keys == null) ? 0 : keys.hashCode());
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
         return result;
     }
 
@@ -305,28 +336,22 @@ public class Field {
             return false;
         }
         Field other = (Field) obj;
-        if (keys == null) {
-            if (other.keys != null) {
+        if (key == null) {
+            if (other.key != null) {
                 return false;
             }
-        } else if (!keys.equals(other.keys)) {
+        } else if (!key.equals(other.key)) {
             return false;
         }
         return true;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
         return "Field [key=" + getKey() + ", description=" + description + ", apiFieldname=" + apiFieldname
                + ", required=" + required + ", type=" + type + ", format=" + format + ", example=" + example
-               + ", items=" + items + ", schema=" + schema + ", customCode=" + customCode + ", defaultValue="
-               + defaultValue + ", readOnly=" + readOnly + ", pattern=" + pattern + ", internal=" + internal
-               + ", longDescription=" + longDescription + "]";
+               + ", items=" + items + ", customCode=" + customCode + ", defaultValue=" + defaultValue + ", readOnly="
+               + readOnly + ", pattern=" + pattern + ", enumRef=" + enumRef + ", additionalProperties="
+               + additionalProperties + ", internal=" + internal + ", longDescription=" + longDescription + "]";
     }
-
 }

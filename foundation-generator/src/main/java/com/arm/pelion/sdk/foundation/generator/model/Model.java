@@ -22,7 +22,6 @@ import com.squareup.javapoet.TypeSpec;
 
 public class Model extends AbstractModelEntity {
     private static final int MAX_LONG_LENGTH = 18 - 2;
-    private static final String UNKOWN_NAME = "Unkown";
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
     protected String packageName;
     private String parent;
@@ -30,6 +29,7 @@ public class Model extends AbstractModelEntity {
     private final List<String> contructorsName;
     private final Map<String, Method> methods;
     private final Map<String, Field> fields;
+    private ParameterType superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
@@ -77,6 +77,7 @@ public class Model extends AbstractModelEntity {
         contructorsName = new LinkedList<>();
         setPackageName(packageName);
         setGroup(group);
+        setSuperClassType(null);
     }
 
     public Model(String packageName, String name, String group, String description, String longDescription,
@@ -109,6 +110,18 @@ public class Model extends AbstractModelEntity {
 
     public boolean hasPackageName() {
         return has(packageName);
+    }
+
+    public boolean hasSuperClass() {
+        return superClassType != null;
+    }
+
+    public ParameterType getSuperClassType() {
+        return superClassType;
+    }
+
+    public void setSuperClassType(ParameterType superClassType) {
+        this.superClassType = superClassType;
     }
 
     public Model field(Field field) {
@@ -289,7 +302,7 @@ public class Model extends AbstractModelEntity {
         this.specificationBuilder = specificationBuilder;
     }
 
-    protected void initialiseBuilder() {
+    protected void initialiseBuilder() throws TranslationException {
         if (specificationBuilder == null) {
             specificationBuilder = TypeSpec.classBuilder(name).addModifiers(Modifier.PUBLIC);
             if (isAbstract) {
@@ -299,7 +312,13 @@ public class Model extends AbstractModelEntity {
             specificationBuilder.addSuperinterface(getSuperInterface());
             if (hasParent()) {
                 specificationBuilder.superclass(ClassName.get(packageName, parent));
+            } else {
+                if (hasSuperClass()) {
+                    getSuperClassType().translate();
+                    specificationBuilder.superclass(getSuperClassType().getTypeName());
+                }
             }
+
         }
     }
 
@@ -403,8 +422,7 @@ public class Model extends AbstractModelEntity {
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                "Similar to {@link #" + setter.generateSignature()
                                                                             + "}.",
-                                                               true).statement(setter.getCallStatement(equivalentF.toParameter())
-                                                                               + System.lineSeparator());
+                                                               true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
                     addMethod(equivalentSetter);
                 }
                 if (f.needsValidation()) {

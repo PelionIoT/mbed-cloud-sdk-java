@@ -1,16 +1,17 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
-import java.util.Map;
-
+import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
+import com.arm.pelion.sdk.foundation.generator.input.Item;
 import com.arm.pelion.sdk.foundation.generator.model.Field;
+import com.arm.pelion.sdk.foundation.generator.model.HashtableType;
 import com.arm.pelion.sdk.foundation.generator.model.ListType;
-import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
 public class FieldTranslator {
-
-    private static final String NESTED_ENTITY_TAG = "$ref";
+    private static final String ARRAY_TOKEN = "array";
+    private static final String OBJECT_TOKEN = "object";
+    private static final String HASHTABLE_TOKEN = "hashtable";
 
     public FieldTranslator() {
         // TODO Auto-generated constructor stub
@@ -36,32 +37,52 @@ public class FieldTranslator {
 
     private static ParameterType determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,
                                                String packageName, String group) throws FoundationGeneratorException {
-        if (field.getType().equals("array")) {
-            final Map<String, Object> itemTypes = field.getItems();
-            if (itemTypes == null) {
-                throw new FoundationGeneratorException("The item section of field [" + field + "] is missing");
-            }
-            return itemTypes.containsKey(NESTED_ENTITY_TAG) ? new ListType(FetchNestedEntityType((String) itemTypes.get(NESTED_ENTITY_TAG),
-                                                                                                 packageName, group))
-                                                            : new ListType((String) itemTypes.get("type"),
-                                                                           (String) itemTypes.get("format"));
+        switch (field.getType()) {
+            case ARRAY_TOKEN:
+                return determineArrayType(field, packageName, group);
+            // FIXME do the following properly
+            case HASHTABLE_TOKEN:
+            case OBJECT_TOKEN:
+                break;
+        }
+
+        // FIXME the following should be done above
+        if (field.hasAdditionalProperties()) {// FIXME replace by field.getType == hashtable when done
+            return determineHashtableType(field, packageName);
         }
         // TODO
-        return field.hasSchema() ? FetchNestedEntityType((String) field.getSchema().get(NESTED_ENTITY_TAG), packageName,
-                                                         group)
-                                 : new ParameterType(field.getType(), field.getFormat());
+        return determineObjectType(field, packageName);
     }
 
-    private static ParameterType FetchNestedEntityType(String reference, String packageName, String group) {
-        if (reference == null) {
-            return null;
+    private static ParameterType determineHashtableType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+                                                        String packageName) throws FoundationGeneratorException {
+        final AdditionalProperty mapDef = field.getAdditionalProperties();
+        if (mapDef == null) {
+            throw new FoundationGeneratorException("The additional properties section of field [" + field
+                                                   + "] is missing");
         }
-        final String actualRef = reference.replace("#/definitions/", "").trim();
-        final Model refModel = new Model(packageName, actualRef, group);
-        if (ModelDefinitionStore.get().has(refModel)) {
-            return ModelDefinitionStore.get().get(refModel).toType();
+        return mapDef.hasForeignKey() ? new HashtableType(CommonTranslator.FetchNestedEntityType(packageName,
+                                                                                                 mapDef.getForeignKey()),
+                                                          false)
+                                      : new HashtableType((String) mapDef.getType(), (String) mapDef.getFormat());
+    }
+
+    private static ParameterType determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+                                                     String packageName) {
+        return field.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName, field.getForeignKey())
+                                     : new ParameterType(field.getType(), field.getFormat());
+    }
+
+    private static ParameterType determineArrayType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+                                                    String packageName,
+                                                    String group) throws FoundationGeneratorException {
+        final Item itemTypes = field.getItems();
+        if (itemTypes == null) {
+            throw new FoundationGeneratorException("The item section of field [" + field + "] is missing");
         }
-        return refModel.toType();
+        return itemTypes.hasForeignKey() ? new ListType(CommonTranslator.FetchNestedEntityType(packageName,
+                                                                                               itemTypes.getForeignKey()))
+                                         : new ListType((String) itemTypes.getType(), (String) itemTypes.getFormat());
     }
 
 }

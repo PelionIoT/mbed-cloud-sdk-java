@@ -185,6 +185,10 @@ public class ParameterType implements Entity {
         return false;
     }
 
+    public boolean isHashtable() {
+        return false;
+    }
+
     public boolean isString() {
         try {
             translate();

@@ -26,7 +26,6 @@ public class Enum extends Model {
         this.defaultOption = determineDefaultValue(defaultOption, options);
         addField(new Field(true, new ParameterType(String.class), "string", "string representation", null, null, false,
                            false, true, true, generateConstantName(defaultOption)));
-
     }
 
     private String determineDefaultValue(String theDefaultOption, List<String> theOptions) {
@@ -49,8 +48,11 @@ public class Enum extends Model {
     }
 
     private static String generateName(String attachedEntity, String name) {
-        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(attachedEntity) + "_"
-                                            + ApiUtils.convertCamelToSnake(name), true);
+        String snakeName = (attachedEntity == null ? "" : ApiUtils.convertCamelToSnake(attachedEntity) + "_")
+                           + ApiUtils.convertCamelToSnake(name);
+        // Remove any reference to enum
+        snakeName = snakeName == null ? null : snakeName.replace("enum", "");
+        return ApiUtils.convertSnakeToCamel(snakeName, true);
     }
 
     private static String generateDescriptionFromName(String name) {
@@ -130,30 +132,42 @@ public class Enum extends Model {
     }
 
     protected void generateGetDefault() {
-        overrideMethodIfExist(new Method(false, "getDefault", "Gets default " + getDescriptionForDocumentation(), null,
-                                         true, true, false, false, false, false, false,
-                                         false).returnType(new ParameterType(new Import(name, packageName)))
-                                               .returnDescription("default " + getDescriptionForDocumentation())
-                                               .statement("return " + defaultOption));
+        overrideMethodIfExist(new Method(false, "getDefault", "Gets default "
+                                                              + getDescriptionForDocumentation(),
+                                         null, true, true, false, false, false, false, false, false)
+                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                                                             packageName)))
+                                                                                                    .returnDescription("default "
+                                                                                                                       + getDescriptionForDocumentation())
+                                                                                                    .statement("return "
+                                                                                                               + defaultOption));
     }
 
     protected void generateGetUnknownEnum() {
         overrideMethodIfExist(new Method(false, "getUnknownEnum",
-                                         "Gets unknown " + getDescriptionForDocumentation() + " value", null, true,
-                                         true, false, false, false, false, false,
-                                         false).returnType(new ParameterType(new Import(name, packageName)))
-                                               .returnDescription("unknown " + getDescriptionForDocumentation())
-                                               .statement("return " + UNKNOWN_ENUM));
+                                         "Gets unknown " + getDescriptionForDocumentation()
+                                                                  + " value",
+                                         null, true, true, false, false, false, false, false, false)
+                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                                                             packageName)))
+                                                                                                    .returnDescription("unknown "
+                                                                                                                       + getDescriptionForDocumentation())
+                                                                                                    .statement("return "
+                                                                                                               + UNKNOWN_ENUM));
     }
 
     protected void generateGetStateFromString() {
         final Method method = new Method(false, "getState",
-                                         "Gets " + getDescriptionForDocumentation() + " from its string representation",
-                                         null, true, true, false, false, false, false, false,
-                                         false).returnType(new ParameterType(new Import(name, packageName)))
-                                               .returnDescription("corresponding " + getDescriptionForDocumentation()
-                                                                  + "  or default " + getDescriptionForDocumentation()
-                                                                  + " if not recognised. ");
+                                         "Gets " + getDescriptionForDocumentation()
+                                                            + " from its string representation",
+                                         null, true, true, false, false, false, false, false, false)
+                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                                                             packageName)))
+                                                                                                    .returnDescription("corresponding "
+                                                                                                                       + getDescriptionForDocumentation()
+                                                                                                                       + "  or default "
+                                                                                                                       + getDescriptionForDocumentation()
+                                                                                                                       + " if not recognised. ");
         method.addParameter(new Parameter("value", "string", null, new ParameterType(String.class), null));
         method.setCode(CodeBlock.builder());
         method.getCode().beginControlFlow("if (value == null)");
@@ -171,9 +185,9 @@ public class Enum extends Model {
 
     protected void generateMerge() {
         final Method method = new Method(false, "merge", "Merges two states", "@see SdkEnum#(SdkEnum, SdkEnum)", false,
-                                         true, false, false, false, false, false,
-                                         true).returnType(new GenericParameterType(SdkEnum.class))
-                                              .returnDescription("the merged enumerator");
+                                         true, false, false, false, false, false, true)
+                                                                                       .returnType(new GenericParameterType(SdkEnum.class))
+                                                                                       .returnDescription("the merged enumerator");
         method.addParameter(new Parameter("obj1", "a " + getDescriptionForDocumentation(), null,
                                           new GenericParameterType(SdkEnum.class), null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,

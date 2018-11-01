@@ -1,44 +1,79 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
-import java.util.Map;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Entity {
 
     @JsonProperty(InputSchema.KEY_TAG)
-    private Map<String, String> keys;
+    private String key;
     @JsonProperty(InputSchema.GROUP_ID_TAG)
-    private Map<String, String> groupIds;
+    private List<String> groupId;
+    @JsonProperty(InputSchema.DESCRIPTION_TAG)
     private String description;
-
-    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
-    private boolean customCode;
-
+    @JsonProperty(InputSchema.FIELDS_TAG)
     private List<Field> fields;
+    @JsonProperty(InputSchema.RENAMES_TAG)
+    private List<Renaming> renames;
+    @JsonProperty(InputSchema.HASHTABLE_TAG)
+    private AdditionalProperty additionalProperties;
+    @JsonProperty(InputSchema.PRIMARY_KEY_TAG)
+    private String primaryKey;
 
     // Java specific fields
+    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
+    private boolean customCode;
     @JsonProperty(InputSchema.LONG_DESCRIPTION_TAG)
     private String longDescription;
+    @JsonProperty(InputSchema.INTERNAL_TAG)
     private boolean internal;
 
     public Entity() {
-        // TODO Auto-generated constructor stub
+        key = null;
+        groupId = null;
+        description = null;
+        fields = null;
+        renames = null;
+        customCode = false;
+        longDescription = null;
+        internal = false;
+        additionalProperties = null;
+        primaryKey = null;
+    }
+
+    public AdditionalProperty getAdditionalProperties() {
+        return additionalProperties;
+    }
+
+    public void setAdditionalProperties(AdditionalProperty additionalProperties) {
+        this.additionalProperties = additionalProperties;
+    }
+
+    public boolean hasAdditionalProperties() {
+        return additionalProperties != null;
+    }
+
+    public List<Renaming> getRenames() {
+        return renames;
+    }
+
+    public void setRenames(List<Renaming> renames) {
+        this.renames = renames;
     }
 
     /**
      * @return the key
      */
     public String getKey() {
-        return Utils.getKey(keys, false);
+        return key;
     }
 
     /**
      * @return the groupId
      */
     public List<String> getGroupId() {
-        return Utils.getGroupId(groupIds);
+        return groupId;
     }
 
     /**
@@ -80,16 +115,16 @@ public class Entity {
      * @param key
      *            the key to set
      */
-    public void setKeys(Map<String, String> keys) {
-        this.keys = keys;
+    public void setKey(String key) {
+        this.key = Utils.getKey(key, false);
     }
 
     /**
      * @param groupId
      *            the groupId to set
      */
-    public void setGroupIds(Map<String, String> groupIds) {
-        this.groupIds = groupIds;
+    public void setGroupId(String groupId) {
+        this.groupId = Utils.getGroupId(groupId);
     }
 
     /**
@@ -136,6 +171,14 @@ public class Entity {
         return fields != null && !fields.isEmpty();
     }
 
+    public String getPrimaryKey() {
+        return primaryKey;
+    }
+
+    public void setPrimaryKey(String primaryKey) {
+        this.primaryKey = primaryKey;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -145,8 +188,8 @@ public class Entity {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((groupIds == null) ? 0 : groupIds.hashCode());
-        result = prime * result + ((keys == null) ? 0 : keys.hashCode());
+        result = prime * result + ((groupId == null) ? 0 : groupId.hashCode());
+        result = prime * result + ((key == null) ? 0 : key.hashCode());
         return result;
     }
 
@@ -166,19 +209,19 @@ public class Entity {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        Entity other = (Entity) obj;
-        if (groupIds == null) {
-            if (other.groupIds != null) {
+        final Entity other = (Entity) obj;
+        if (groupId == null) {
+            if (other.groupId != null) {
                 return false;
             }
-        } else if (!groupIds.equals(other.groupIds)) {
+        } else if (!groupId.equals(other.groupId)) {
             return false;
         }
-        if (keys == null) {
-            if (other.keys != null) {
+        if (key == null) {
+            if (other.key != null) {
                 return false;
             }
-        } else if (!keys.equals(other.keys)) {
+        } else if (!key.equals(other.key)) {
             return false;
         }
         return true;

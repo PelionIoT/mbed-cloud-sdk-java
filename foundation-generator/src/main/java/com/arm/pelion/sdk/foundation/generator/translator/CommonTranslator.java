@@ -1,0 +1,28 @@
+package com.arm.pelion.sdk.foundation.generator.translator;
+
+import java.util.List;
+
+import com.arm.pelion.sdk.foundation.generator.input.ForeignKey;
+import com.arm.pelion.sdk.foundation.generator.model.Model;
+import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
+
+public class CommonTranslator {
+
+    public static final String PACKAGE_SEPARATOR = ".";
+
+    public static String generateGoup(List<String> groupId) {
+        return groupId == null ? null : String.join(PACKAGE_SEPARATOR, groupId);
+    }
+
+    public static ParameterType FetchNestedEntityType(String packageName, ForeignKey key) {
+        if (key == null) {
+            return null;
+        }
+        final Model refModel = new Model(packageName, key.getEntityRef(),
+                                         CommonTranslator.generateGoup(key.getGroupId()));
+        if (ModelDefinitionStore.get().has(refModel)) {
+            return ModelDefinitionStore.get().get(refModel).toType();
+        }
+        return refModel.toType();
+    }
+}
