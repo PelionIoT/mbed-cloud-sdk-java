@@ -72,6 +72,12 @@ public class GenericClient {
      *            list options
      * @param extraRequestParameters
      *            extra request parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * @param <O>
+     *            type of list options
      * @return paginator returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -93,6 +99,12 @@ public class GenericClient {
      *            list options
      * @param extraRequestParameters
      *            extra request parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * @param <O>
+     *            type of list options
      * @return paginator returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -124,6 +136,12 @@ public class GenericClient {
      *            list options
      * @param extraRequestParameters
      *            extra request parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * @param <O>
+     *            type of list options
      * @return page returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -145,6 +163,12 @@ public class GenericClient {
      *            list options
      * @param extraRequestParameters
      *            extra request parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * @param <O>
+     *            type of list options
      * @return page returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -170,6 +194,11 @@ public class GenericClient {
      *            request definition.
      * @param requestParameters
      *            parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * 
      * @return response returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -188,6 +217,10 @@ public class GenericClient {
      *            request definition.
      * @param requestParameters
      *            parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
      * @return response returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -214,6 +247,12 @@ public class GenericClient {
      *            request definition.
      * @param requestParameters
      *            parameters.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <S>
+     *            service to call
+     * @param <U>
+     *            type of objects returned by the API
      * @return response returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.
@@ -238,6 +277,10 @@ public class GenericClient {
      *            mapper between the response from Pelion Cloud and the expected model/entity.
      * @param call
      *            low level call definition.
+     * @param <T>
+     *            type of the model returned in the list
+     * @param <U>
+     *            type of objects returned by the API
      * @return response returned by Pelion.
      * @throws MbedCloudException
      *             if an error occurred during the call.

@@ -31,9 +31,9 @@ public @interface Preamble {
                              + "* from Arm Limited or its affiliates.\n"
                              + "--------------------------------------------------------------------------*/";
 
-    /** Short description of the file. **/
+    /** @return Short description of the file. **/
     String description() default "N/A";
 
-    /** Last version this API was changed. **/
+    /** @return Last version this API was changed. **/
     String lastApiModification() default "1.0.0";
 }
