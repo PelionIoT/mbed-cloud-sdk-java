@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**changes** | **Object** |  |  [optional]
+**changes** | **Map&lt;String, String&gt;** |  |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) |  |  [optional]
 **data** | **Map&lt;String, String&gt;** | Additional data relevant to the event. |  [optional]
 **dateTime** | [**DateTime**](DateTime.md) |  | 
