@@ -15,12 +15,16 @@ Method | HTTP request | Description
 [**updateCampaignArchive**](DefaultApi.md#updateCampaignArchive) | **POST** v3/update-campaigns/{campaign_id}/archive | Archive a campaign.
 [**updateCampaignCreate**](DefaultApi.md#updateCampaignCreate) | **POST** v3/update-campaigns/ | Create a campaign
 [**updateCampaignDestroy**](DefaultApi.md#updateCampaignDestroy) | **DELETE** v3/update-campaigns/{campaign_id}/ | Delete a campaign
+[**updateCampaignEventTypesList**](DefaultApi.md#updateCampaignEventTypesList) | **GET** v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/ | Get a list of events grouped by summary
+[**updateCampaignEventTypesRetrieve**](DefaultApi.md#updateCampaignEventTypesRetrieve) | **GET** v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id} | Get an event type for a campaign
 [**updateCampaignList**](DefaultApi.md#updateCampaignList) | **GET** v3/update-campaigns/ | List all campaigns
 [**updateCampaignMetadataList**](DefaultApi.md#updateCampaignMetadataList) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/ | List all campaign device metadata
 [**updateCampaignMetadataRetrieve**](DefaultApi.md#updateCampaignMetadataRetrieve) | **GET** v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/ | Get a campaign device metadata
 [**updateCampaignMetrics**](DefaultApi.md#updateCampaignMetrics) | **GET** v3/update-campaigns/{campaign_id}/metrics | Get campaign metrics
 [**updateCampaignRetrieve**](DefaultApi.md#updateCampaignRetrieve) | **GET** v3/update-campaigns/{campaign_id}/ | Get a campaign.
 [**updateCampaignStart**](DefaultApi.md#updateCampaignStart) | **POST** v3/update-campaigns/{campaign_id}/start | Start a campaign.
+[**updateCampaignStatisticsList**](DefaultApi.md#updateCampaignStatisticsList) | **GET** v3/update-campaigns/{campaign_id}/statistics/ | Get a list of statistics for a campaign
+[**updateCampaignStatisticsRetrieve**](DefaultApi.md#updateCampaignStatisticsRetrieve) | **GET** v3/update-campaigns/{campaign_id}/statistics/{summary_status_id} | Get a summary status
 [**updateCampaignStop**](DefaultApi.md#updateCampaignStop) | **POST** v3/update-campaigns/{campaign_id}/stop | Stop a campaign.
 [**updateCampaignUpdate**](DefaultApi.md#updateCampaignUpdate) | **PUT** v3/update-campaigns/{campaign_id}/ | Modify a campaign
 [**uploadJobChunkCreate**](DefaultApi.md#uploadJobChunkCreate) | **POST** v3/firmware-images/upload-jobs/{upload_job_id}/chunks | Append a chunks to an upload job
@@ -664,6 +668,122 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="updateCampaignEventTypesList"></a>
+# **updateCampaignEventTypesList**
+> EventTypeList updateCampaignEventTypesList(campaignId, summaryStatusId)
+
+Get a list of events grouped by summary
+
+Get a list of events grouped by summary
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+String summaryStatusId = "summaryStatusId_example"; // String | The summary status. For example, fail
+try {
+    EventTypeList result = apiInstance.updateCampaignEventTypesList(campaignId, summaryStatusId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#updateCampaignEventTypesList");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+ **summaryStatusId** | **String**| The summary status. For example, fail |
+
+### Return type
+
+[**EventTypeList**](EventTypeList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateCampaignEventTypesRetrieve"></a>
+# **updateCampaignEventTypesRetrieve**
+> EventType updateCampaignEventTypesRetrieve(campaignId, summaryStatusId, eventTypeId)
+
+Get an event type for a campaign
+
+Get an event type for a campaign
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+String summaryStatusId = "summaryStatusId_example"; // String | The summary status. For example, fail
+String eventTypeId = "eventTypeId_example"; // String | The event type parameter. For example, UPD4_FAIL_101
+try {
+    EventType result = apiInstance.updateCampaignEventTypesRetrieve(campaignId, summaryStatusId, eventTypeId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#updateCampaignEventTypesRetrieve");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+ **summaryStatusId** | **String**| The summary status. For example, fail |
+ **eventTypeId** | **String**| The event type parameter. For example, UPD4_FAIL_101 |
+
+### Return type
+
+[**EventType**](EventType.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateCampaignList"></a>
 # **updateCampaignList**
 > UpdateCampaignPage updateCampaignList(limit, order, after, include, filter)
@@ -1002,6 +1122,118 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateCampaignStatisticsList"></a>
+# **updateCampaignStatisticsList**
+> EventTypeSummaryList updateCampaignStatisticsList(campaignId)
+
+Get a list of statistics for a campaign
+
+Get a list of statistics for a campaign
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+try {
+    EventTypeSummaryList result = apiInstance.updateCampaignStatisticsList(campaignId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#updateCampaignStatisticsList");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+
+### Return type
+
+[**EventTypeSummaryList**](EventTypeSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateCampaignStatisticsRetrieve"></a>
+# **updateCampaignStatisticsRetrieve**
+> EventTypeSummary updateCampaignStatisticsRetrieve(campaignId, summaryStatusId)
+
+Get a summary status
+
+Get a summary status
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.updateservice.api.DefaultApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+DefaultApi apiInstance = new DefaultApi();
+String campaignId = "campaignId_example"; // String | The campaign ID
+String summaryStatusId = "summaryStatusId_example"; // String | The summary status. For example, fail
+try {
+    EventTypeSummary result = apiInstance.updateCampaignStatisticsRetrieve(campaignId, summaryStatusId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling DefaultApi#updateCampaignStatisticsRetrieve");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **campaignId** | **String**| The campaign ID |
+ **summaryStatusId** | **String**| The summary status. For example, fail |
+
+### Return type
+
+[**EventTypeSummary**](EventTypeSummary.md)
 
 ### Authorization
 

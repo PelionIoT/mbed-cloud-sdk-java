@@ -5,6 +5,10 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadat
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventType;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeList;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummary;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummaryList;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -185,6 +189,33 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Get a list of events grouped by summary
+     *
+     * Get a list of events grouped by summary
+     */
+    @Test
+    public void updateCampaignEventTypesListTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        // EventTypeList response = api.updateCampaignEventTypesList(campaignId, summaryStatusId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get an event type for a campaign
+     *
+     * Get an event type for a campaign
+     */
+    @Test
+    public void updateCampaignEventTypesRetrieveTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        String eventTypeId = null;
+        // EventType response = api.updateCampaignEventTypesRetrieve(campaignId, summaryStatusId, eventTypeId);
+
+        // TODO: test validations
+    }
+    /**
      * List all campaigns
      *
      * Get update campaigns for devices specified by a filter.
@@ -262,6 +293,31 @@ public class DefaultApiTest {
     public void updateCampaignStartTest() {
         String campaignId = null;
         // Void response = api.updateCampaignStart(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a list of statistics for a campaign
+     *
+     * Get a list of statistics for a campaign
+     */
+    @Test
+    public void updateCampaignStatisticsListTest() {
+        String campaignId = null;
+        // EventTypeSummaryList response = api.updateCampaignStatisticsList(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a summary status
+     *
+     * Get a summary status
+     */
+    @Test
+    public void updateCampaignStatisticsRetrieveTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        // EventTypeSummary response = api.updateCampaignStatisticsRetrieve(campaignId, summaryStatusId);
 
         // TODO: test validations
     }

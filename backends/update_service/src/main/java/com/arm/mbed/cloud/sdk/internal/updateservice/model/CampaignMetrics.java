@@ -44,6 +44,9 @@ public class CampaignMetrics implements Serializable {
   @SerializedName("pending_count")
   private Integer pendingCount = null;
 
+  @SerializedName("skipped_count")
+  private Integer skippedCount = null;
+
   @SerializedName("success_count")
   private Integer successCount = null;
 
@@ -113,13 +116,31 @@ public class CampaignMetrics implements Serializable {
    * Running total of devices that have yet to receive an update or are applying an update.
    * @return pendingCount
   **/
-  @ApiModelProperty(example = "10", value = "Running total of devices that have yet to receive an update or are applying an update.")
+  @ApiModelProperty(example = "5", value = "Running total of devices that have yet to receive an update or are applying an update.")
   public Integer getPendingCount() {
     return pendingCount;
   }
 
   public void setPendingCount(Integer pendingCount) {
     this.pendingCount = pendingCount;
+  }
+
+  public CampaignMetrics skippedCount(Integer skippedCount) {
+    this.skippedCount = skippedCount;
+    return this;
+  }
+
+   /**
+   * Running total of devices that were skipped.
+   * @return skippedCount
+  **/
+  @ApiModelProperty(example = "5", value = "Running total of devices that were skipped.")
+  public Integer getSkippedCount() {
+    return skippedCount;
+  }
+
+  public void setSkippedCount(Integer skippedCount) {
+    this.skippedCount = skippedCount;
   }
 
   public CampaignMetrics successCount(Integer successCount) {
@@ -172,13 +193,14 @@ public class CampaignMetrics implements Serializable {
         Objects.equals(this.failedCount, campaignMetrics.failedCount) &&
         Objects.equals(this.object, campaignMetrics.object) &&
         Objects.equals(this.pendingCount, campaignMetrics.pendingCount) &&
+        Objects.equals(this.skippedCount, campaignMetrics.skippedCount) &&
         Objects.equals(this.successCount, campaignMetrics.successCount) &&
         Objects.equals(this.totalCount, campaignMetrics.totalCount);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, failedCount, object, pendingCount, successCount, totalCount);
+    return Objects.hash(createdAt, failedCount, object, pendingCount, skippedCount, successCount, totalCount);
   }
 
 
@@ -191,6 +213,7 @@ public class CampaignMetrics implements Serializable {
     sb.append("    failedCount: ").append(toIndentedString(failedCount)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    pendingCount: ").append(toIndentedString(pendingCount)).append("\n");
+    sb.append("    skippedCount: ").append(toIndentedString(skippedCount)).append("\n");
     sb.append("    successCount: ").append(toIndentedString(successCount)).append("\n");
     sb.append("    totalCount: ").append(toIndentedString(totalCount)).append("\n");
     sb.append("}");

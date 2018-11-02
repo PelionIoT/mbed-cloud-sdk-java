@@ -13,6 +13,10 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadat
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventType;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeList;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummary;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummaryList;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -171,6 +175,31 @@ public interface DefaultApi {
   );
 
   /**
+   * Get a list of events grouped by summary
+   * Get a list of events grouped by summary
+   * @param campaignId The campaign ID (required)
+   * @param summaryStatusId The summary status. For example, fail (required)
+   * @return Call&lt;EventTypeList&gt;
+   */
+  @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/")
+  Call<EventTypeList> updateCampaignEventTypesList(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId
+  );
+
+  /**
+   * Get an event type for a campaign
+   * Get an event type for a campaign
+   * @param campaignId The campaign ID (required)
+   * @param summaryStatusId The summary status. For example, fail (required)
+   * @param eventTypeId The event type parameter. For example, UPD4_FAIL_101 (required)
+   * @return Call&lt;EventType&gt;
+   */
+  @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}")
+  Call<EventType> updateCampaignEventTypesRetrieve(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId, @retrofit2.http.Path(value = "event_type_id", encoded = true) String eventTypeId
+  );
+
+  /**
    * List all campaigns
    * Get update campaigns for devices specified by a filter.
    * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
@@ -243,6 +272,29 @@ public interface DefaultApi {
   @POST("v3/update-campaigns/{campaign_id}/start")
   Call<Void> updateCampaignStart(
     @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
+  );
+
+  /**
+   * Get a list of statistics for a campaign
+   * Get a list of statistics for a campaign
+   * @param campaignId The campaign ID (required)
+   * @return Call&lt;EventTypeSummaryList&gt;
+   */
+  @GET("v3/update-campaigns/{campaign_id}/statistics/")
+  Call<EventTypeSummaryList> updateCampaignStatisticsList(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
+  );
+
+  /**
+   * Get a summary status
+   * Get a summary status
+   * @param campaignId The campaign ID (required)
+   * @param summaryStatusId The summary status. For example, fail (required)
+   * @return Call&lt;EventTypeSummary&gt;
+   */
+  @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}")
+  Call<EventTypeSummary> updateCampaignStatisticsRetrieve(
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId
   );
 
   /**
