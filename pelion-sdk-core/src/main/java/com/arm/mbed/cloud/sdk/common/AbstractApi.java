@@ -26,6 +26,14 @@ public abstract class AbstractApi implements ApiModule {
         this(options, null);
     }
 
+    protected AbstractApi(ApiClientWrapper client) {
+        super();
+        this.client = client;
+        serviceStore = new ServiceStore(client);
+        logger = new SdkLogger();
+        metadataCache = new ApiMetadataCache();
+    }
+
     /**
      * Constructor.
      *
@@ -35,11 +43,7 @@ public abstract class AbstractApi implements ApiModule {
      *            extension list for the user agent: module name - module version
      */
     public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
-        super();
-        this.client = new ApiClientWrapper(options, userAgentExtension);
-        serviceStore = new ServiceStore(client);
-        logger = new SdkLogger();
-        metadataCache = new ApiMetadataCache();
+        this(new ApiClientWrapper(options, userAgentExtension));
     }
 
     public void checkNotNull(Object arg, String argName) throws MbedCloudException {

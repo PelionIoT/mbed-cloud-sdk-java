@@ -61,6 +61,26 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
     U getListOptions() throws MbedCloudException;
 
     /**
+     * Gets the definition of the corresponding model DAO.
+     * <p>
+     * Note: See {@link ModelDao}
+     * 
+     * @return the definition of the corresponding model DAO.
+     */
+    @Nullable
+    <V extends ModelDao<T>> Class<V> getCorrespondingModelDaoDefinition();
+
+    /**
+     * Gets corresponding model DAO.
+     * <p>
+     * Note: See {@link ModelDao}
+     * 
+     * @return an instance of corresponding model DAO.
+     */
+    @Nullable
+    <V extends ModelDao<T>> V getCorrespondingModelDao();
+
+    /**
      * Gets one page of models.
      * <p>
      * Note: the page size can be configured using the {@code options}. see {@link ListOptions#setPageSize(Integer)}

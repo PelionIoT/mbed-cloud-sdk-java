@@ -21,17 +21,16 @@ public class TestModelDaoProvider {
 
     @Test
     public void testGetCorrespondingDaoClassOfT() {
-        Class<?> foundClass = ModelDaoProvider.getCorrespondingDao(ModelTest.class);
+        Class<?> foundClass = DaoProvider.getCorrespondingDao(ModelTest.class);
         assertNotNull(foundClass);
         assertEquals(ModelTestDao.class, foundClass);
     }
 
     @Test
     public void testGetCorrespondingDaoT() {
-        ModelDao<?> foundDao;
         try {
             ModelTest aModel = new ModelTest();
-            foundDao = ModelDaoProvider.getCorrespondingDao(aModel);
+            ModelDao<?> foundDao = DaoProvider.getCorrespondingGlobalDao(aModel);
             assertNotNull(foundDao);
             assertEquals(ModelTestDao.class, foundDao.getClass());
             assertEquals(aModel, foundDao.getModel());
@@ -43,6 +42,10 @@ public class TestModelDaoProvider {
             foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
             assertEquals(anApiKey, foundDao.getModule().getClient().getConnectionOptions().getApiKey());
             assertEquals(cloudHost, foundDao.getModule().getClient().getConnectionOptions().getHost());
+            ModelDao<?> daoWithContext = foundDao.getDaoProvider().getCorrespondingDao(aModel);
+            assertEquals(anApiKey, daoWithContext.getModule().getClient().getConnectionOptions().getApiKey());
+            assertEquals(cloudHost, daoWithContext.getModule().getClient().getConnectionOptions().getHost());
+
         } catch (MbedCloudException exception) {
             fail(exception.getMessage());
         }
@@ -50,20 +53,27 @@ public class TestModelDaoProvider {
 
     @Test
     public void testGetCorrespondingListDaoClassOfT() {
-        Class<?> foundClass = ModelDaoProvider.getCorrespondingListDao(ModelTest.class);
+        Class<?> foundClass = DaoProvider.getCorrespondingListDao(ModelTest.class);
         assertNotNull(foundClass);
         assertEquals(ModelTestListDao.class, foundClass);
     }
 
     @Test
     public void testGetCorrespondingListDaoClassOfTU() {
-        ModelTestListDao foundDao;
         try {
             ListOptions someOptions = new ListOptions().maxResults(454);
-            foundDao = ModelDaoProvider.getCorrespondingListDao(ModelTest.class, someOptions);
+            ModelTestListDao foundDao = DaoProvider.getCorrespondingGlobalListDao(ModelTest.class, someOptions);
             assertNotNull(foundDao);
             assertEquals(ModelTestListDao.class, foundDao.getClass());
             assertEquals(someOptions, foundDao.getListOptions());
+            String cloudHost = "http://testHost/";
+            String anApiKey = "testApiKey";
+            foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
+            ModelTestListDao daoWithContext = foundDao.getDaoProvider().getCorrespondingListDao(ModelTest.class,
+                                                                                                someOptions);
+            assertEquals(anApiKey, daoWithContext.getModule().getClient().getConnectionOptions().getApiKey());
+            assertEquals(cloudHost, daoWithContext.getModule().getClient().getConnectionOptions().getHost());
+            assertEquals(someOptions, daoWithContext.getListOptions());
         } catch (MbedCloudException exception) {
             fail(exception.getMessage());
         }
@@ -110,7 +120,15 @@ public class TestModelDaoProvider {
 
         @Override
         protected ApiModule instantiateModule(ConnectionOptions options) {
-            final ConnectionOptions finalOptions = options;
+            return generateApiModule(new ApiClientWrapper(options));
+        }
+
+        @Override
+        protected ApiModule instantiateModule(ApiClientWrapper client) {
+            return generateApiModule(client);
+        }
+
+        public static ApiModule generateApiModule(final ApiClientWrapper client) {
             return new ApiModule() {
 
                 @Override
@@ -130,7 +148,7 @@ public class TestModelDaoProvider {
 
                 @Override
                 public ApiClientWrapper getClient() {
-                    return new ApiClientWrapper(finalOptions);
+                    return client;
                 }
             };
         }
@@ -149,12 +167,34 @@ public class TestModelDaoProvider {
 
         @Override
         protected ApiModule instantiateModule(ConnectionOptions options) {
-            return null;
+            return ModelTestDao.generateApiModule(new ApiClientWrapper(options));
         }
 
         @Override
         protected IdListResponse requestOnePageOfIds(ListOptions listOptions) {
             return null;
+        }
+
+        @Override
+        protected ApiModule instantiateModule(ApiClientWrapper client) {
+            return ModelTestDao.generateApiModule(client);
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V extends ModelDao<ModelTest>> Class<V> getCorrespondingModelDaoDefinition() {
+            return (Class<V>) ModelTestDao.class;
+        }
+
+        @SuppressWarnings("unchecked")
+        @Override
+        public <V extends ModelDao<ModelTest>> V getCorrespondingModelDao() {
+            try {
+                return (V) new ModelTestDao();
+            } catch (MbedCloudException exception) {
+                exception.printStackTrace();
+                return null;
+            }
         }
 
     }
