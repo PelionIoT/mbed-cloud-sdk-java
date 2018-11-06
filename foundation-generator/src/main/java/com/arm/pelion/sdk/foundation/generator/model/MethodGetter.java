@@ -13,6 +13,10 @@ public class MethodGetter extends Method {
         setStatement(generateStatement(field));
     }
 
+    public MethodGetter(Field field) {
+        this(field, null, false);
+    }
+
     private static String generateGetterLongDescription(String longDescription, Field field) {
         return has(longDescription) ? longDescription : field.getLongDescription();
     }

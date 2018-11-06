@@ -11,8 +11,6 @@ public abstract class AbstractModelEntity implements ModelEntity {
     protected boolean isAccessible;
     protected boolean isAbstract;
     protected boolean isInternal;
-    // Specifies whether it is a map
-    protected boolean isMap;
     /**
      * Specifies whether this instance contains custom code. i.e. code edited manually. If it exists, it must not be
      * overwritten.
@@ -263,8 +261,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
         return "AbstractModelEntity [id=" + getIdentifier() + ", isReadOnly=" + isReadOnly + ", name=" + name
                + ", description=" + description + ", longDescription=" + longDescription + ", isStatic=" + isStatic
                + ", isAccessible=" + isAccessible + ", isAbstract=" + isAbstract + ", isInternal=" + isInternal
-               + ", containsCustomCode=" + containsCustomCode + ", needsCustomCode=" + needsCustomCode + ", isMap="
-               + isMap + "]";
+               + ", containsCustomCode=" + containsCustomCode + ", needsCustomCode=" + needsCustomCode + "]";
     }
 
 }

@@ -309,7 +309,9 @@ public class Model extends AbstractModelEntity {
                 specificationBuilder.addModifiers(Modifier.ABSTRACT);
             }
             generateDocumentation();
-            specificationBuilder.addSuperinterface(getSuperInterface());
+            if (hasSuperInterface()) {
+                specificationBuilder.addSuperinterface(getSuperInterface());
+            }
             if (hasParent()) {
                 specificationBuilder.superclass(ClassName.get(packageName, parent));
             } else {
@@ -445,27 +447,39 @@ public class Model extends AbstractModelEntity {
     }
 
     protected void generateInterfaceMethods() {
-        List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
-        superInterfaceMethods.forEach(m -> {
-            if (hasMethod(m.getName())) {
-                fetchMethod(m.getName()).setAsOverride(true);
-            } else {
-                addMethod(new MethodGeneric(m));
-            }
-        });
+        if (hasSuperInterface()) {
+            List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
+            superInterfaceMethods.forEach(m -> {
+                if (hasMethod(m.getName())) {
+                    fetchMethod(m.getName()).setAsOverride(true);
+                } else {
+                    addMethod(new MethodGeneric(m));
+                }
+            });
+        }
     }
 
     protected Class<?> getSuperInterface() {
         return SdkModel.class;
     }
 
+    protected boolean hasSuperInterface() {
+        return true;
+    }
+
+    protected boolean isSerialisable() {
+        return true;
+    }
+
     protected void ensureSdkModelMethodsHaveOverrideAnnotation() {
-        List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(getSuperInterface().getMethods());
-        sdkModelMethods.forEach(m -> {
-            if (hasMethod(m.getName())) {
-                fetchMethod(m.getName()).setAsOverride(true);
-            }
-        });
+        if (hasSuperInterface()) {
+            List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(getSuperInterface().getMethods());
+            sdkModelMethods.forEach(m -> {
+                if (hasMethod(m.getName())) {
+                    fetchMethod(m.getName()).setAsOverride(true);
+                }
+            });
+        }
     }
 
     protected void generateHashCodeAndEquals() {
@@ -497,13 +511,17 @@ public class Model extends AbstractModelEntity {
         overrideMethodIfExist(new MethodIsValid(this, theParent));
     }
 
-    protected void generateClone(Model theParent) {
-        final MethodClone cloneMethod = new MethodClone(this, theParent);
+    private void generateClone(Model theParent) {
+        final MethodClone cloneMethod = instantiateCloneMethod(theParent);
         if (!this.isAbstract()) {
             overrideMethodIfExist(cloneMethod);
         } else {
             removeMethodIfExist(cloneMethod);
         }
+    }
+
+    protected MethodClone instantiateCloneMethod(Model theParent) {
+        return new MethodClone(this, theParent);
     }
 
     public List<Model> getProcessedModels() {
@@ -556,7 +574,7 @@ public class Model extends AbstractModelEntity {
     }
 
     protected void translateSerialisation() throws TranslationException {
-        if (isAbstract) {
+        if (isAbstract || !isSerialisable()) {
             return;
         }
         final Field serialVersionUID = new Field(true, new ParameterType(long.class), "serialVersionUID",
@@ -599,10 +617,14 @@ public class Model extends AbstractModelEntity {
      */
     @Override
     public void translate() throws TranslationException {
-        initialiseBuilder();
-        translateSerialisation();
-        translateFields();
-        translateMethods();
+        try {
+            initialiseBuilder();
+            translateSerialisation();
+            translateFields();
+            translateMethods();
+        } catch (TranslationException exception) {
+            throw new TranslationException("Error in model definition: " + this, exception);
+        }
     }
 
     public ParameterType toType() {

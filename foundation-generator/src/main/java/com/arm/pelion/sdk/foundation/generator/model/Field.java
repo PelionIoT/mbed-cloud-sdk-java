@@ -44,6 +44,12 @@ public class Field extends AbstractModelEntity implements Cloneable {
         setInitialiser(null);
     }
 
+    public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue) {
+        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()), new ParameterType(field.getDeclaringClass()),
+             field.getName(), null, null, null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false,
+             isInternal, isRequired, defaultValue);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -249,9 +255,13 @@ public class Field extends AbstractModelEntity implements Cloneable {
 
     @Override
     public void translate() throws TranslationException {
-        initialiseBuilder();
-        addModifiers();
-        addValue();
+        try {
+            initialiseBuilder();
+            addModifiers();
+            addValue();
+        } catch (TranslationException exception) {
+            throw new TranslationException("Error in field definition: " + this, exception);
+        }
     }
 
     public Parameter toParameter() {
@@ -264,15 +274,11 @@ public class Field extends AbstractModelEntity implements Cloneable {
                          isInternal, isRequired, defaultValue);
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "Field [type=" + type + ", pattern=" + pattern + ", defaultValue=" + defaultValue + ", isRequired="
-               + isRequired + ", parent=" + super.toString() + "]";
+        return "Field [" + "parent=" + super.toString() + ", type=" + type + ", pattern=" + pattern + ", defaultValue="
+               + defaultValue + ", initialiser=" + initialiser + ", isRequired=" + isRequired
+               + ", specificationBuilder=" + specificationBuilder + "]";
     }
 
 }
