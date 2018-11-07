@@ -22,6 +22,8 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.Serializable;
 
 /**
@@ -34,6 +36,9 @@ public class UserInvitationReq implements Serializable {
 
   @SerializedName("email")
   private String email = null;
+
+  @SerializedName("login_profiles")
+  private List<String> loginProfiles = null;
 
   public UserInvitationReq email(String email) {
     this.email = email;
@@ -53,6 +58,32 @@ public class UserInvitationReq implements Serializable {
     this.email = email;
   }
 
+  public UserInvitationReq loginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+    return this;
+  }
+
+  public UserInvitationReq addLoginProfilesItem(String loginProfilesItem) {
+    if (this.loginProfiles == null) {
+      this.loginProfiles = new ArrayList<String>();
+    }
+    this.loginProfiles.add(loginProfilesItem);
+    return this;
+  }
+
+   /**
+   * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.
+   * @return loginProfiles
+  **/
+  @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
+  public List<String> getLoginProfiles() {
+    return loginProfiles;
+  }
+
+  public void setLoginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -63,12 +94,13 @@ public class UserInvitationReq implements Serializable {
       return false;
     }
     UserInvitationReq userInvitationReq = (UserInvitationReq) o;
-    return Objects.equals(this.email, userInvitationReq.email);
+    return Objects.equals(this.email, userInvitationReq.email) &&
+        Objects.equals(this.loginProfiles, userInvitationReq.loginProfiles);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(email);
+    return Objects.hash(email, loginProfiles);
   }
 
 
@@ -78,6 +110,7 @@ public class UserInvitationReq implements Serializable {
     sb.append("class UserInvitationReq {\n");
     
     sb.append("    email: ").append(toIndentedString(email)).append("\n");
+    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
     sb.append("}");
     return sb.toString();
   }

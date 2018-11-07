@@ -14,6 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
+import com.arm.mbed.cloud.sdk.internal.iam.model.LoginProfileResp;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -55,6 +56,9 @@ public class UserInvitationResp implements Serializable {
 
   @SerializedName("id")
   private String id = null;
+
+  @SerializedName("login_profiles")
+  private List<LoginProfileResp> loginProfiles = null;
 
   /**
    * Entity name: always &#39;user-invitation&#39;
@@ -244,6 +248,32 @@ public class UserInvitationResp implements Serializable {
     this.id = id;
   }
 
+  public UserInvitationResp loginProfiles(List<LoginProfileResp> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+    return this;
+  }
+
+  public UserInvitationResp addLoginProfilesItem(LoginProfileResp loginProfilesItem) {
+    if (this.loginProfiles == null) {
+      this.loginProfiles = new ArrayList<LoginProfileResp>();
+    }
+    this.loginProfiles.add(loginProfilesItem);
+    return this;
+  }
+
+   /**
+   * A list of login profiles for the user. Specified as the identity providers the user is associated with.
+   * @return loginProfiles
+  **/
+  @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user is associated with.")
+  public List<LoginProfileResp> getLoginProfiles() {
+    return loginProfiles;
+  }
+
+  public void setLoginProfiles(List<LoginProfileResp> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+  }
+
   public UserInvitationResp object(ObjectEnum object) {
     this.object = object;
     return this;
@@ -315,6 +345,7 @@ public class UserInvitationResp implements Serializable {
         Objects.equals(this.expiration, userInvitationResp.expiration) &&
         Objects.equals(this.groups, userInvitationResp.groups) &&
         Objects.equals(this.id, userInvitationResp.id) &&
+        Objects.equals(this.loginProfiles, userInvitationResp.loginProfiles) &&
         Objects.equals(this.object, userInvitationResp.object) &&
         Objects.equals(this.updatedAt, userInvitationResp.updatedAt) &&
         Objects.equals(this.userId, userInvitationResp.userId);
@@ -322,7 +353,7 @@ public class UserInvitationResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, createdAt, email, etag, expiration, groups, id, object, updatedAt, userId);
+    return Objects.hash(accountId, createdAt, email, etag, expiration, groups, id, loginProfiles, object, updatedAt, userId);
   }
 
 
@@ -338,6 +369,7 @@ public class UserInvitationResp implements Serializable {
     sb.append("    expiration: ").append(toIndentedString(expiration)).append("\n");
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("    userId: ").append(toIndentedString(userId)).append("\n");

@@ -11,6 +11,7 @@ Name | Type | Description | Notes
 **expiration** | [**DateTime**](DateTime.md) | Invitation expiration as UTC time RFC3339. |  [optional]
 **groups** | **List&lt;String&gt;** | A list of IDs of the groups the user is invited to. |  [optional]
 **id** | **String** | The UUID of the invitation. | 
+**loginProfiles** | [**List&lt;LoginProfileResp&gt;**](LoginProfileResp.md) | A list of login profiles for the user. Specified as the identity providers the user is associated with. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;user-invitation&#39; | 
 **updatedAt** | [**DateTime**](DateTime.md) | Last update UTC time RFC3339. |  [optional]
 **userId** | **String** | The UUID of the invited user. | 
