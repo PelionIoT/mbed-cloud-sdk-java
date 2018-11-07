@@ -19,6 +19,7 @@ Name | Type | Description | Notes
 **isTotpEnabled** | **Boolean** | A flag indicating whether 2-factor authentication (TOTP) has been enabled. |  [optional]
 **lastLoginTime** | **Long** | A timestamp of the latest login of the user, in milliseconds. |  [optional]
 **loginHistory** | [**List&lt;LoginHistory&gt;**](LoginHistory.md) | Timestamps, succeedings, IP addresses and user agent information of the last five logins of the user, with timestamps in RFC3339 format. |  [optional]
+**loginProfiles** | [**List&lt;LoginProfileResp&gt;**](LoginProfileResp.md) | A list of login profiles for the user. Specified as the identity providers the user is associated with. |  [optional]
 **object** | [**ObjectEnum**](#ObjectEnum) | Entity name: always &#39;user&#39; | 
 **password** | **String** | The password when creating a new user. It will be generated when not present in the request. |  [optional]
 **passwordChangedTime** | **Long** | A timestamp of the latest change of the user password, in milliseconds. |  [optional]
