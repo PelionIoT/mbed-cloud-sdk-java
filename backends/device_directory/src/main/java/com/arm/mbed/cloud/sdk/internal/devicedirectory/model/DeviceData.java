@@ -150,6 +150,56 @@ public class DeviceData implements Serializable {
   @SerializedName("id")
   private String id = null;
 
+  /**
+   * The lifecycle status of the device.
+   */
+  @JsonAdapter(LifecycleStatusEnum.Adapter.class)
+  public enum LifecycleStatusEnum {
+    ENABLED("enabled"),
+    
+    BLOCKED("blocked");
+
+    private String value;
+
+    LifecycleStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static LifecycleStatusEnum fromValue(String text) {
+      for (LifecycleStatusEnum b : LifecycleStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<LifecycleStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final LifecycleStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public LifecycleStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return LifecycleStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("lifecycle_status")
+  private LifecycleStatusEnum lifecycleStatus = null;
+
   @SerializedName("manifest")
   private String manifest = null;
 
@@ -683,6 +733,24 @@ public class DeviceData implements Serializable {
     this.id = id;
   }
 
+  public DeviceData lifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
+    return this;
+  }
+
+   /**
+   * The lifecycle status of the device.
+   * @return lifecycleStatus
+  **/
+  @ApiModelProperty(example = "enabled", value = "The lifecycle status of the device.")
+  public LifecycleStatusEnum getLifecycleStatus() {
+    return lifecycleStatus;
+  }
+
+  public void setLifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
+  }
+
   public DeviceData manifest(String manifest) {
     this.manifest = manifest;
     return this;
@@ -895,6 +963,7 @@ public class DeviceData implements Serializable {
         Objects.equals(this.groups, deviceData.groups) &&
         Objects.equals(this.hostGateway, deviceData.hostGateway) &&
         Objects.equals(this.id, deviceData.id) &&
+        Objects.equals(this.lifecycleStatus, deviceData.lifecycleStatus) &&
         Objects.equals(this.manifest, deviceData.manifest) &&
         Objects.equals(this.manifestTimestamp, deviceData.manifestTimestamp) &&
         Objects.equals(this.mechanism, deviceData.mechanism) &&
@@ -909,7 +978,7 @@ public class DeviceData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
+    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, lifecycleStatus, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
   }
 
 
@@ -940,6 +1009,7 @@ public class DeviceData implements Serializable {
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
     sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");

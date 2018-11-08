@@ -26,6 +26,7 @@ Name | Type | Description | Notes
 **groups** | **List&lt;String&gt;** | An array containing an ID of each group this device belongs to. |  [optional]
 **hostGateway** | **String** | The &#x60;endpoint_name&#x60; of the host gateway, if appropriate. |  [optional]
 **id** | **String** | The ID of the device. The device ID is used across all Device Management APIs. |  [optional]
+**lifecycleStatus** | [**LifecycleStatusEnum**](#LifecycleStatusEnum) | The lifecycle status of the device. |  [optional]
 **manifest** | **String** | DEPRECATED: The URL for the current device manifest. |  [optional]
 **manifestTimestamp** | [**DateTime**](DateTime.md) | The timestamp of the current manifest version. |  [optional]
 **mechanism** | [**MechanismEnum**](#MechanismEnum) | The ID of the channel used to communicate with the device. |  [optional]
@@ -44,6 +45,14 @@ Name | Value
 ---- | -----
 DEVELOPMENT | &quot;development&quot;
 PRODUCTION | &quot;production&quot;
+
+
+<a name="LifecycleStatusEnum"></a>
+## Enum: LifecycleStatusEnum
+Name | Value
+---- | -----
+ENABLED | &quot;enabled&quot;
+BLOCKED | &quot;blocked&quot;
 
 
 <a name="MechanismEnum"></a>

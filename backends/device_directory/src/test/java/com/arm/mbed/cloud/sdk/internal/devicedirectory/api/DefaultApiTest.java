@@ -1,6 +1,8 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.api;
 
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.ApiClient;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceBlock;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceBlockPage;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
@@ -36,6 +38,127 @@ public class DefaultApiTest {
         api = new ApiClient().createService(DefaultApi.class);
     }
 
+    /**
+     * Create a device block
+     *
+     * Create a device block
+     */
+    @Test
+    public void blocksCreateTest() {
+        DeviceBlock deviceBlock = null;
+        // DeviceBlock response = api.blocksCreate(deviceBlock);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a device block
+     *
+     * Delete a device block. Deleting a block will also delete blocks associated with a device.
+     */
+    @Test
+    public void blocksDeleteTest() {
+        String blockId = null;
+        // Void response = api.blocksDelete(blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all device blocks
+     *
+     * List all device blocks
+     */
+    @Test
+    public void blocksListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DeviceBlockPage response = api.blocksList(limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a device block
+     *
+     * Get a device block
+     */
+    @Test
+    public void blocksRetrieveTest() {
+        String blockId = null;
+        // DeviceBlock response = api.blocksRetrieve(blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * Update a device block
+     *
+     * Update a device block
+     */
+    @Test
+    public void blocksUpdateTest() {
+        String blockId = null;
+        DeviceBlock deviceBlock = null;
+        // DeviceBlock response = api.blocksUpdate(blockId, deviceBlock);
+
+        // TODO: test validations
+    }
+    /**
+     * Add a block to this device
+     *
+     * Add a block to this device.
+     */
+    @Test
+    public void deviceBlocksCreateTest() {
+        String id = null;
+        DeviceBlock block = null;
+        // DeviceBlock response = api.deviceBlocksCreate(id, block);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete a block for a device
+     *
+     * Delete a block for a device. Please note that a while a device may have multiple blocks, only user blocks may be removed through this API.
+     */
+    @Test
+    public void deviceBlocksDeleteTest() {
+        String id = null;
+        String blockId = null;
+        // Void response = api.deviceBlocksDelete(id, blockId);
+
+        // TODO: test validations
+    }
+    /**
+     * List all blocks for this device
+     *
+     * List all blocks for this device
+     */
+    @Test
+    public void deviceBlocksListTest() {
+        String id = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // DeviceBlockPage response = api.deviceBlocksList(id, limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a block for a device
+     *
+     * Get a block for a device
+     */
+    @Test
+    public void deviceBlocksRetreiveTest() {
+        String id = null;
+        String blockId = null;
+        // DeviceBlock response = api.deviceBlocksRetreive(id, blockId);
+
+        // TODO: test validations
+    }
     /**
      * Create a device
      *
