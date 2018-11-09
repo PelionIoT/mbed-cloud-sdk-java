@@ -11,6 +11,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public abstract class AbstractApi {
 
     protected final ApiClientWrapper client;
+    protected final ServiceStore serviceStore;
 
     protected final SdkLogger logger;
     protected final ApiMetadataCache metadataCache;
@@ -36,16 +37,17 @@ public abstract class AbstractApi {
     public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
         super();
         this.client = new ApiClientWrapper(options, userAgentExtension);
+        serviceStore = new ServiceStore(client);
         logger = new SdkLogger();
         metadataCache = new ApiMetadataCache();
     }
 
-    protected void checkNotNull(Object arg, String argName) throws MbedCloudException {
+    public void checkNotNull(Object arg, String argName) throws MbedCloudException {
         clearApiMetadata();
         ApiUtils.checkNotNull(logger, arg, argName);
     }
 
-    protected void checkModelValidity(SdkModel model, String argName) throws MbedCloudException {
+    public void checkModelValidity(SdkModel model, String argName) throws MbedCloudException {
         clearApiMetadata();
         ApiUtils.checkModelValidity(logger, model, argName);
     }
@@ -79,6 +81,22 @@ public abstract class AbstractApi {
     @Internal
     public void clearApiMetadata() {
         metadataCache.clearMetadata();
+    }
+
+    /**
+     *
+     * Gets a service.
+     *
+     * @param serviceClass
+     *            class of the service.
+     * @param <S>
+     *            service type
+     * @return corresponding service.
+     * @throws MbedCloudException
+     *             if a problem occurred during the process.
+     */
+    public <S> S getService(Class<S> serviceClass) throws MbedCloudException {
+        return serviceStore.getService(serviceClass);
     }
 
     /**

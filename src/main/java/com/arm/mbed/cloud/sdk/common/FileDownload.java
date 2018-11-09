@@ -16,6 +16,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "File on the disk resulting from a download or where some content will be downloaded")
 public class FileDownload {
+    private static final String EMPTY_STRING = "";
+    private static final String EXTENSION_SEPARATOR = ".";
     private static final String UNDEFINED_DESTINATION_FILENAME = "unknown.txt";
     private final URL source;
     private final File destination;
@@ -131,7 +133,7 @@ public class FileDownload {
      */
     public FileDownload(Extension extension) throws MbedCloudException {
         this(generateTempFile((String) null,
-                              extension == Extension.DEFAULT ? null : "." + extension.toString().toLowerCase()));
+                              extension == Extension.DEFAULT ? null : EXTENSION_SEPARATOR + extension.toString().toLowerCase()));
     }
 
     /**
@@ -288,7 +290,7 @@ public class FileDownload {
         final String finalFileName = fileName == null ? UNDEFINED_DESTINATION_FILENAME : fileName;
         try {
             return File.createTempFile(getFileNameWithoutExtension(finalFileName),
-                                       extension == null ? "." + getFileExtension(finalFileName) : extension);
+                                       extension == null ? EXTENSION_SEPARATOR + getFileExtension(finalFileName) : extension);
         } catch (IOException exception) {
             throw new MbedCloudException(exception);
         }
@@ -299,12 +301,12 @@ public class FileDownload {
     }
 
     protected static String getFileExtension(String fileName) {
-        if (fileName == null || fileName.trim().endsWith(".")) {
-            return "";
+        if (fileName == null || fileName.trim().endsWith(EXTENSION_SEPARATOR)) {
+            return EMPTY_STRING;
         }
         final int i = fileName.lastIndexOf('.');
         if (i < 0) {
-            return "";
+            return EMPTY_STRING;
         }
         final StringBuilder builder = new StringBuilder();
         final String shorterFilename = fileName.substring(0, i);
@@ -319,9 +321,9 @@ public class FileDownload {
 
     protected static String getFileNameWithoutExtension(String fileName) {
         if (fileName == null) {
-            return "";
+            return EMPTY_STRING;
         }
-        return fileName.trim().replace("." + getFileExtension(fileName), "");
+        return fileName.trim().replace(EXTENSION_SEPARATOR + getFileExtension(fileName), EMPTY_STRING);
     }
 
     /*

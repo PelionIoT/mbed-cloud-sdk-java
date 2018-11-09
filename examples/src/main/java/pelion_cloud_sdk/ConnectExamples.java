@@ -1,4 +1,4 @@
-package mbed_cloud_sdk;
+package pelion_cloud_sdk;
 
 import static org.junit.Assert.fail;
 
