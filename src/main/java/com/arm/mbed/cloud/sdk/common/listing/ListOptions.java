@@ -94,7 +94,7 @@ public class ListOptions extends FilterOptions {
      */
     @Internal
     public ListOptions(Integer pageSize, Long maxResults, Order order, String after, List<IncludeField> include,
-            Filters filter) {
+                       Filters filter) {
         super();
         this.pageSize = pageSize;
         this.maxResults = maxResults;
@@ -370,6 +370,10 @@ public class ListOptions extends FilterOptions {
         return fetchSpecificFilterValue(fieldName, FilterOperator.EQUAL);
     }
 
+    protected Object fetchNotEqualFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_EQUAL);
+    }
+
     protected Object fetchLikeFilterValue(@Nullable String fieldName) {
         // If no like filter was entered but an equal filter was, equal filter is considered.
         final Object specificLike = fetchSpecificFilterValue(fieldName, FilterOperator.LIKE);
@@ -384,6 +388,14 @@ public class ListOptions extends FilterOptions {
         return fetchSpecificFilterValue(fieldName, FilterOperator.NOT_IN);
     }
 
+    protected Object fetchGreaterThanFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.GREATER_THAN);
+    }
+
+    protected Object fetchLessThanFilterValue(@Nullable String fieldName) {
+        return fetchSpecificFilterValue(fieldName, FilterOperator.LESS_THAN);
+    }
+
     /**
      * Gets a string describing an "equal" filter.
      *
@@ -393,6 +405,42 @@ public class ListOptions extends FilterOptions {
      */
     public @Nullable String encodeSingleEqualFilter(@Nullable String fieldName) {
         final Object filterObj = fetchEqualFilterValue(fieldName);
+        return encodeSingleFilter(filterObj);
+    }
+
+    /**
+     * Gets a string describing a "not equal" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleNotEqualFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchNotEqualFilterValue(fieldName);
+        return encodeSingleFilter(filterObj);
+    }
+
+    /**
+     * Gets a string describing a "greater than" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleGreaterThanFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchGreaterThanFilterValue(fieldName);
+        return encodeSingleFilter(filterObj);
+    }
+
+    /**
+     * Gets a string describing a "less than" filter.
+     * 
+     * @param fieldName
+     *            filter key
+     * @return string encoded filter
+     */
+    public @Nullable String encodeSingleLessThanFilter(@Nullable String fieldName) {
+        final Object filterObj = fetchLessThanFilterValue(fieldName);
         return encodeSingleFilter(filterObj);
     }
 
@@ -502,7 +550,7 @@ public class ListOptions extends FilterOptions {
     @Override
     public ListOptions clone() {
         return new ListOptions(pageSize, maxResults, order, after, (include == null) ? null : new LinkedList<>(include),
-                (filter == null) ? null : filter.clone());
+                               (filter == null) ? null : filter.clone());
     }
 
     /*
@@ -582,7 +630,7 @@ public class ListOptions extends FilterOptions {
     @Override
     public String toString() {
         return "ListOptions [pageSize=" + pageSize + ", maxResults=" + maxResults + ", order=" + order + ", after="
-                + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
+               + after + ", include=" + encodeInclude() + ", filter=" + retrieveFilterAsJson() + "]";
     }
 
 }
