@@ -33,9 +33,9 @@ public class CertificateEnrollment implements SdkModel {
      */
     private String deviceId;
 
-    private String enrollResult;
+    private CertificateEnrollmentEnrollResult enrollResult;
 
-    private String enrollStatus;
+    private CertificateEnrollmentEnrollStatus enrollStatus;
 
     /**
      * The ID of the certificate enrollment.
@@ -68,8 +68,9 @@ public class CertificateEnrollment implements SdkModel {
      *            Update UTC time RFC3339.
      */
     @Internal
-    public CertificateEnrollment(String certificateName, Date createdAt, String deviceId, String enrollResult,
-                                 String enrollStatus, String id, Date updatedAt) {
+    public CertificateEnrollment(String certificateName, Date createdAt, String deviceId,
+                                 CertificateEnrollmentEnrollResult enrollResult,
+                                 CertificateEnrollmentEnrollStatus enrollStatus, String id, Date updatedAt) {
         super();
         setCertificateName(certificateName);
         setCreatedAt(createdAt);
@@ -179,7 +180,7 @@ public class CertificateEnrollment implements SdkModel {
      * 
      * @return enrollResult
      */
-    public String getEnrollResult() {
+    public CertificateEnrollmentEnrollResult getEnrollResult() {
         return enrollResult;
     }
 
@@ -189,7 +190,7 @@ public class CertificateEnrollment implements SdkModel {
      * @param enrollResult
      *            null
      */
-    public void setEnrollResult(String enrollResult) {
+    public void setEnrollResult(CertificateEnrollmentEnrollResult enrollResult) {
         this.enrollResult = enrollResult;
     }
 
@@ -198,7 +199,7 @@ public class CertificateEnrollment implements SdkModel {
      * 
      * @return enrollStatus
      */
-    public String getEnrollStatus() {
+    public CertificateEnrollmentEnrollStatus getEnrollStatus() {
         return enrollStatus;
     }
 
@@ -208,7 +209,7 @@ public class CertificateEnrollment implements SdkModel {
      * @param enrollStatus
      *            null
      */
-    public void setEnrollStatus(String enrollStatus) {
+    public void setEnrollStatus(CertificateEnrollmentEnrollStatus enrollStatus) {
         this.enrollStatus = enrollStatus;
     }
 
