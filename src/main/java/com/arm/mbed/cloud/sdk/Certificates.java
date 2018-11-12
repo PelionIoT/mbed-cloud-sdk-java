@@ -85,7 +85,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<DeveloperCertificateResponseData> call() {
-                        return endpoint.getCertDeveloper().getDeveloperCertificate(finalCertificateId, null);
+                        return endpoint.getCertDeveloper().getDeveloperCertificate(finalCertificateId);
                     }
 
                 };
@@ -348,8 +348,7 @@ public class Certificates extends AbstractApi {
                                                                           public Call<DeveloperCertificateResponseData>
                                                                                  call() {
                                                                               return endpoint.getCertDeveloper()
-                                                                                             .createDeveloperCertificate(null,
-                                                                                                                         CertificateAdapter.reverseDeveloperMap(finalCertificate));
+                                                                                             .createDeveloperCertificate(CertificateAdapter.reverseDeveloperMap(finalCertificate));
                                                                           }
                                                                       });
         if (addedPartialCertificate1 == null) {
