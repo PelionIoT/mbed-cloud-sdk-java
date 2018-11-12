@@ -28,6 +28,8 @@ public class ServiceStore {
      *
      * @param serviceClass
      *            service definition
+     * @param <S>
+     *            type of the service to call
      * @return corresponding service.
      * @throws MbedCloudException
      *             if parameters are incorrect.

@@ -45,17 +45,12 @@ public class CertificateIssuer implements SdkModel {
      * provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by CFSSL authenticated
      * signing service. The users must provide their own CFSSL host_url and credentials.
      */
-    private String issuerType;
+    private CertificateIssuerType issuerType;
 
     /**
      * Certificate issuer name, unique per account.
      */
     private String name;
-
-    /**
-     * Indicates whether the certificate issuer was verified successfully.
-     */
-    private boolean successful;
 
     /**
      * Internal constructor.
@@ -79,13 +74,12 @@ public class CertificateIssuer implements SdkModel {
      * 
      * @param name
      *            Certificate issuer name, unique per account.
-     * @param successful
-     *            Indicates whether the certificate issuer was verified successfully.
+     * 
      * 
      */
     @Internal
     public CertificateIssuer(Date createdAt, String description, String id, Map<String, String> issuerAttributes,
-                             String issuerType, String name, boolean successful) {
+                             CertificateIssuerType issuerType, String name) {
         super();
         setCreatedAt(createdAt);
         setDescription(description);
@@ -93,7 +87,7 @@ public class CertificateIssuer implements SdkModel {
         setIssuerAttributes(issuerAttributes);
         setIssuerType(issuerType);
         setName(name);
-        setSuccessful(successful);
+
     }
 
     /**
@@ -110,16 +104,15 @@ public class CertificateIssuer implements SdkModel {
              certificateIssuer == null ? null : certificateIssuer.description,
              certificateIssuer == null ? null : certificateIssuer.id,
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
-             certificateIssuer == null ? null : certificateIssuer.issuerType,
-             certificateIssuer == null ? null : certificateIssuer.name,
-             certificateIssuer == null ? false : certificateIssuer.successful);
+             certificateIssuer == null ? CertificateIssuerType.getDefault() : certificateIssuer.issuerType,
+             certificateIssuer == null ? null : certificateIssuer.name);
     }
 
     /**
      * Constructor.
      */
     public CertificateIssuer() {
-        this(new java.util.Date(), null, null, null, null, null, false);
+        this(new java.util.Date(), null, null, null, null, null);
     }
 
     /**
@@ -234,7 +227,7 @@ public class CertificateIssuer implements SdkModel {
      * 
      * @return issuerType
      */
-    public String getIssuerType() {
+    public CertificateIssuerType getIssuerType() {
         return issuerType;
     }
 
@@ -249,7 +242,7 @@ public class CertificateIssuer implements SdkModel {
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
      * 
      */
-    public void setIssuerType(String issuerType) {
+    public void setIssuerType(CertificateIssuerType issuerType) {
         this.issuerType = issuerType;
     }
 
@@ -273,26 +266,6 @@ public class CertificateIssuer implements SdkModel {
     }
 
     /**
-     * Gets indicates whether the certificate issuer was verified successfully.
-     * 
-     * @return successful
-     */
-    public boolean getSuccessful() {
-        return successful;
-    }
-
-    /**
-     * Sets indicates whether the certificate issuer was verified successfully.
-     * 
-     * @param successful
-     *            Indicates whether the certificate issuer was verified successfully.
-     * 
-     */
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
-    }
-
-    /**
      * Calculates the hash code of this instance based on field values.
      * <p>
      * 
@@ -309,7 +282,6 @@ public class CertificateIssuer implements SdkModel {
         result = prime * result + ((issuerAttributes == null) ? 0 : issuerAttributes.hashCode());
         result = prime * result + ((issuerType == null) ? 0 : issuerType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + (successful ? 1231 : 1237);
         return result;
     }
 
@@ -376,9 +348,6 @@ public class CertificateIssuer implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (successful != other.successful) {
-            return false;
-        }
         return true;
     }
 
@@ -392,8 +361,7 @@ public class CertificateIssuer implements SdkModel {
     @Override
     public String toString() {
         return "CertificateIssuer [createdAt=" + createdAt + ", description=" + description + ", id=" + id
-               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name
-               + ", successful=" + successful + "]";
+               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name + "]";
     }
 
     /**

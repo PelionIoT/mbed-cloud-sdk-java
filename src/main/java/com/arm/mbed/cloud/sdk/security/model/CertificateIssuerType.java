@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
  * Certificate issuer issuer type.
  */
 @Preamble(description = "Certificate issuer issuer type.")
-public enum CertificateIssuerIssuerType implements SdkEnum {
+public enum CertificateIssuerType implements SdkEnum {
     CFSSL_AUTH("CFSSL_AUTH"),
 
     GLOBAL_SIGN("GLOBAL_SIGN"),
@@ -39,7 +39,7 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      *            string representation.
      */
     @Internal
-    CertificateIssuerIssuerType(@DefaultValue("CFSSL_AUTH") String string) {
+    CertificateIssuerType(@DefaultValue("CFSSL_AUTH") String string) {
         this.string = string;
     }
 
@@ -94,7 +94,7 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      * 
      * @return default certificate issuer issuer type
      */
-    public static CertificateIssuerIssuerType getDefault() {
+    public static CertificateIssuerType getDefault() {
         return CFSSL_AUTH;
     }
 
@@ -103,7 +103,7 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      * 
      * @return unknown certificate issuer issuer type
      */
-    public static CertificateIssuerIssuerType getUnknownEnum() {
+    public static CertificateIssuerType getUnknownEnum() {
         return UNKNOWN_ENUM;
     }
 
@@ -114,12 +114,12 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      *            string.
      * @return corresponding certificate issuer issuer type or default certificate issuer issuer type if not recognised.
      */
-    public static CertificateIssuerIssuerType getState(String value) {
+    public static CertificateIssuerType getState(String value) {
         if (value == null) {
             return getDefault();
         }
         final String trimmedValue = value.trim();
-        for (final CertificateIssuerIssuerType option : values()) {
+        for (final CertificateIssuerType option : values()) {
             if (option.getString().equalsIgnoreCase(trimmedValue)) {
                 return option;
             }

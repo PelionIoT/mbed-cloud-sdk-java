@@ -5,7 +5,7 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 @Preamble(description = "Options to use when listing certificate issuer configs")
 public class CertificateIssuerConfigListOptions extends ListOptions {
-    public static final String REFERENCE_FILTER = null;
+    public static final String CERTIFICATE_REFERENCE_FILTER = "reference";
 
     /**
      * Constructor.

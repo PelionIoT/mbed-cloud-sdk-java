@@ -33,8 +33,6 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     private String id;
 
-    private boolean isCustom;
-
     /**
      * The certificate name to which the certificate issuer configuration applies.
      */
@@ -66,13 +64,12 @@ public class CertificateIssuerConfig implements SdkModel {
      *            Updated UTC time RFC3339.
      */
     @Internal
-    public CertificateIssuerConfig(String certificateIssuerId, Date createdAt, String id, boolean isCustom,
-                                   String reference, Date updatedAt) {
+    public CertificateIssuerConfig(String certificateIssuerId, Date createdAt, String id, String reference,
+                                   Date updatedAt) {
         super();
         setCertificateIssuerId(certificateIssuerId);
         setCreatedAt(createdAt);
         setId(id);
-        setIsCustom(isCustom);
         setReference(reference);
         setUpdatedAt(updatedAt);
     }
@@ -90,7 +87,6 @@ public class CertificateIssuerConfig implements SdkModel {
         this(certificateIssuerConfig == null ? null : certificateIssuerConfig.certificateIssuerId,
              certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? null : certificateIssuerConfig.id,
-             certificateIssuerConfig == null ? false : certificateIssuerConfig.isCustom,
              certificateIssuerConfig == null ? null : certificateIssuerConfig.reference,
              certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.updatedAt);
     }
@@ -99,7 +95,7 @@ public class CertificateIssuerConfig implements SdkModel {
      * Constructor.
      */
     public CertificateIssuerConfig() {
-        this(null, new java.util.Date(), null, false, null, new java.util.Date());
+        this(null, new java.util.Date(), null, null, new java.util.Date());
     }
 
     /**
@@ -189,25 +185,6 @@ public class CertificateIssuerConfig implements SdkModel {
     }
 
     /**
-     * Gets iscustom.
-     * 
-     * @return isCustom
-     */
-    public boolean getIsCustom() {
-        return isCustom;
-    }
-
-    /**
-     * Sets iscustom.
-     * 
-     * @param isCustom
-     *            null
-     */
-    public void setIsCustom(boolean isCustom) {
-        this.isCustom = isCustom;
-    }
-
-    /**
      * Gets the certificate name to which the certificate issuer configuration applies.
      * 
      * @return reference
@@ -259,7 +236,6 @@ public class CertificateIssuerConfig implements SdkModel {
         result = prime * result + ((certificateIssuerId == null) ? 0 : certificateIssuerId.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + (isCustom ? 1231 : 1237);
         result = prime * result + ((reference == null) ? 0 : reference.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         return result;
@@ -307,9 +283,6 @@ public class CertificateIssuerConfig implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (isCustom != other.isCustom) {
-            return false;
-        }
         if (reference == null) {
             if (other.reference != null) {
                 return false;
@@ -337,8 +310,7 @@ public class CertificateIssuerConfig implements SdkModel {
     @Override
     public String toString() {
         return "CertificateIssuerConfig [certificateIssuerId=" + certificateIssuerId + ", createdAt=" + createdAt
-               + ", id=" + id + ", isCustom=" + isCustom + ", reference=" + reference + ", updatedAt=" + updatedAt
-               + "]";
+               + ", id=" + id + ", reference=" + reference + ", updatedAt=" + updatedAt + "]";
     }
 
     /**

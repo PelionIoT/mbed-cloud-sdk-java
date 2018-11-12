@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk;
 
+import java.util.Map;
+
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
@@ -20,9 +22,11 @@ import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigL
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerConfigResponse;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfoListResponse;
+import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateEnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerAdapter;
 import com.arm.mbed.cloud.sdk.security.adapters.CertificateIssuerConfigAdapter;
+import com.arm.mbed.cloud.sdk.security.adapters.VerificationResponseAdapter;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentListOptions;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuer;
@@ -30,6 +34,7 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfigListOptions;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerListOptions;
 import com.arm.mbed.cloud.sdk.security.model.EndPoints;
+import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
 
 import retrofit2.Call;
 
@@ -62,11 +67,15 @@ public class Security extends AbstractApi {
     }
 
     /**
+     * Renews a certificate.
      * 
      * @param deviceId
+     *            device Id.
      * @param issuerConfigurationReference
-     * @return
+     *            Certificate issuer configuration.
+     * @return the certificate enrolment
      * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public @Nullable CertificateEnrollment
@@ -92,11 +101,15 @@ public class Security extends AbstractApi {
     }
 
     /**
+     * Renews a certificate.
      * 
      * @param device
+     *            device to renew the certificate for.
      * @param issuerConfiguration
-     * @return
+     *            Certificate issuer configuration.
+     * @return the certificate enrolment
      * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     @API
     public @Nullable CertificateEnrollment
@@ -108,10 +121,13 @@ public class Security extends AbstractApi {
     }
 
     /**
+     * Gets a certificate enrolment.
      * 
      * @param certificateEnrollmentId
-     * @return
+     *            id.
+     * @return corresponding certificate enrolment.
      * @throws MbedCloudException
+     *             if an error occurs during the process.
      */
     public @Nullable CertificateEnrollment
            getCertificateEnrollment(@NonNull String certificateEnrollmentId) throws MbedCloudException {
@@ -130,6 +146,15 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Lists all certificate enrolments according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return the list of certificate enrolments corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable ListResponse<CertificateEnrollment>
            listCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
@@ -160,6 +185,15 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Gets an iterator over all certificate enrolment according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return paginator @see {@link Paginator} for the list of certificate enrolment corresponding to filter options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable Paginator<CertificateEnrollment>
            listAllCertificateEnrollments(@Nullable CertificateEnrollmentListOptions options) throws MbedCloudException {
@@ -174,6 +208,15 @@ public class Security extends AbstractApi {
                                });
     }
 
+    /**
+     * Gets a certificate issuer.
+     * 
+     * @param certificateIssuerId
+     *            issuer id.
+     * @return corresponding issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuer
            getCertificateIssuer(@NonNull String certificateIssuerId) throws MbedCloudException {
@@ -190,30 +233,59 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Adds a certificate issuer.
+     * 
+     * @param certificateIssuer
+     *            an issuer.
+     * @param certificateIssuerCredentials
+     *            credentials.
+     * @return added certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuer
-           addCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
+           addCertificateIssuer(@NonNull CertificateIssuer certificateIssuer,
+                                @Nullable Map<String, String> certificateIssuerCredentials) throws MbedCloudException {
         checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
         checkModelValidity(certificateIssuer, TAG_CERTIFICATE_ISSUER);
         final CertificateIssuer finalCertificateIssuer = certificateIssuer;
+        final Map<String, String> finalCertificateIssuerCredentials = certificateIssuerCredentials;
         return CloudCaller.call(this, "addCertificateIssuer()", CertificateIssuerAdapter.getMapper(),
                                 new CloudCall<CertificateIssuerInfo>() {
 
                                     @Override
                                     public Call<CertificateIssuerInfo> call() {
                                         return endpoint.getCertificateIssuers()
-                                                       .createCertificateIssuer(CertificateIssuerAdapter.reverseAddMap(finalCertificateIssuer));
+                                                       .createCertificateIssuer(CertificateIssuerAdapter.reverseAddMap(finalCertificateIssuerCredentials,
+                                                                                                                       finalCertificateIssuer));
                                     }
 
                                 });
     }
 
+    /**
+     * 
+     * Modifies a certificate issuer.
+     * 
+     * @param certificateIssuer
+     *            an issuer.
+     * @param certificateIssuerCredentials
+     *            credentials.
+     * @return updated certificate issuer.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuer
-           updateCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
+           updateCertificateIssuer(@NonNull CertificateIssuer certificateIssuer,
+                                   @Nullable Map<String,
+                                                 String> certificateIssuerCredentials) throws MbedCloudException {
         checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
         checkModelValidity(certificateIssuer, TAG_CERTIFICATE_ISSUER);
         final CertificateIssuer finalCertificateIssuer = certificateIssuer;
+        final Map<String, String> finalCertificateIssuerCredentials = certificateIssuerCredentials;
         return CloudCaller.call(this, "addCertificateIssuer()", CertificateIssuerAdapter.getMapper(),
                                 new CloudCall<CertificateIssuerInfo>() {
 
@@ -221,12 +293,21 @@ public class Security extends AbstractApi {
                                     public Call<CertificateIssuerInfo> call() {
                                         return endpoint.getCertificateIssuers()
                                                        .updateCertificateIssuer(finalCertificateIssuer.getId(),
-                                                                                CertificateIssuerAdapter.reverseUpdateMap(finalCertificateIssuer));
+                                                                                CertificateIssuerAdapter.reverseUpdateMap(finalCertificateIssuerCredentials,
+                                                                                                                          finalCertificateIssuer));
                                     }
 
                                 });
     }
 
+    /**
+     * Deletes a certificate issuer.
+     * 
+     * @param certificateIssuerId
+     *            issuer id.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public void deleteCertificateIssuer(@NonNull String certificateIssuerId) throws MbedCloudException {
         checkNotNull(certificateIssuerId, TAG_CERTIFICATE_ISSUER_ID);
@@ -241,35 +322,69 @@ public class Security extends AbstractApi {
         });
     }
 
+    /**
+     * Deletes a certificate issuer.
+     * 
+     * @param certificateIssuer
+     *            issuer
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public void deleteCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
         checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
         deleteCertificateIssuer(certificateIssuer.getId());
     }
 
-    // TODO
-    // @API
-    // public void verifyCertificateIssuer(@NonNull String certificateIssuerId) throws MbedCloudException {
-    // checkNotNull(certificateIssuerId, TAG_CERTIFICATE_ISSUER_ID);
-    // final String finalId = certificateIssuerId;
-    // CloudCaller.call(this, "deleteCertificateIssuer()", null, new CloudCall<Void>() {
-    //
-    // @Override
-    // public Call<Void> call() {
-    // return endpoint.getCertificateIssuers().v
-    // }
-    //
-    // });
-    // }
-    //
-    //
-    // @API
-    // public void deleteCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
-    // checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
-    // deleteCertificateIssuer(certificateIssuer.getId());
-    // }
-    //
-    //
+    /**
+     * Verifies certificate issuer.
+     * 
+     * @param certificateIssuerId
+     *            issuer ID.
+     * @return a verification response.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public VerificationResponse verifyCertificateIssuer(@NonNull String certificateIssuerId) throws MbedCloudException {
+        checkNotNull(certificateIssuerId, TAG_CERTIFICATE_ISSUER_ID);
+        final String finalId = certificateIssuerId;
+        return CloudCaller.call(this, "verifyCertificateIssuer()", VerificationResponseAdapter.getMapper(),
+                                new CloudCall<CertificateIssuerVerifyResponse>() {
+
+                                    @Override
+                                    public Call<CertificateIssuerVerifyResponse> call() {
+                                        return endpoint.getCertificateIssuers().verifyCertificateIssuer(finalId);
+                                    }
+
+                                });
+    }
+
+    /**
+     * Verifies certificate issuer.
+     * 
+     * @param certificateIssuerId
+     *            issuer to verify.
+     * @return a verification response.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    @API
+    public VerificationResponse
+           verifyCertificateIssuer(@NonNull CertificateIssuer certificateIssuer) throws MbedCloudException {
+        checkNotNull(certificateIssuer, TAG_CERTIFICATE_ISSUER);
+        return verifyCertificateIssuer(certificateIssuer.getId());
+    }
+
+    /**
+     * Lists all certificate issuers according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return the list of certificate issuers corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable ListResponse<CertificateIssuer>
            listCertificateIssuers(@Nullable CertificateIssuerListOptions options) throws MbedCloudException {
@@ -286,6 +401,16 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * 
+     * Gets an iterator over all certificate issuers according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return paginator @see {@link Paginator} for the list of certificate issuers corresponding to filter options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable Paginator<CertificateIssuer>
            listAllCertificateIssuers(@Nullable CertificateIssuerListOptions options) throws MbedCloudException {
@@ -300,6 +425,15 @@ public class Security extends AbstractApi {
                                });
     }
 
+    /**
+     * Gets a certificate issuer configuration.
+     * 
+     * @param certificateIssuerConfigId
+     *            configuration id.
+     * @return corresponding certificate issuer configuration
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuerConfig
            getCertificateIssuerConfig(@NonNull String certificateIssuerConfigId) throws MbedCloudException {
@@ -317,6 +451,15 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Adds a certificate issuer configuration.
+     * 
+     * @param certificateIssuerConfig
+     *            configuration.
+     * @return added configuration
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuerConfig
            addCertificateIssuerConfig(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
@@ -335,6 +478,15 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Modifies a certificate issuer configuration.
+     * 
+     * @param certificateIssuerConfig
+     *            configuration.
+     * @return corresponding configuration.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable CertificateIssuerConfig
            updateCertificateIssuerConfig(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
@@ -354,6 +506,14 @@ public class Security extends AbstractApi {
                                 });
     }
 
+    /**
+     * Deletes a certificate issuer configuration.
+     * 
+     * @param certificateIssuerConfigId
+     *            configuration id.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public void deleteCertificateIssuerConfig(@NonNull String certificateIssuerConfigId) throws MbedCloudException {
         checkNotNull(certificateIssuerConfigId, CERTIFICATE_ISSUER_CONFIG_ID);
@@ -368,6 +528,14 @@ public class Security extends AbstractApi {
         });
     }
 
+    /**
+     * Deletes a certificate issuer configuration.
+     * 
+     * @param certificateIssuerConfig
+     *            configuration
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public void
            deleteCertificateIssuerConfig(@NonNull CertificateIssuerConfig certificateIssuerConfig) throws MbedCloudException {
@@ -375,6 +543,15 @@ public class Security extends AbstractApi {
         deleteCertificateIssuerConfig(certificateIssuerConfig.getId());
     }
 
+    /**
+     * Lists all certificate issuer configurations according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return the list of certificate issuer configurations corresponding to filter options (One page).
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable ListResponse<CertificateIssuerConfig>
            listCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
@@ -387,11 +564,21 @@ public class Security extends AbstractApi {
                                     @Override
                                     public Call<CertificateIssuerConfigListResponse> call() {
                                         return endpoint.getCertificateIssuersActivation()
-                                                       .getCertificateIssuerConfigs(finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.REFERENCE_FILTER));
+                                                       .getCertificateIssuerConfigs(finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.CERTIFICATE_REFERENCE_FILTER));
                                     }
                                 });
     }
 
+    /**
+     * Gets an iterator over all certificate issuer configurations according to filter options.
+     * 
+     * @param options
+     *            list options
+     * @return paginator @see {@link Paginator} for the list of certificate issuer configurations corresponding to
+     *         filter options.
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
     @API
     public @Nullable Paginator<CertificateIssuerConfig>
            listAllCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
