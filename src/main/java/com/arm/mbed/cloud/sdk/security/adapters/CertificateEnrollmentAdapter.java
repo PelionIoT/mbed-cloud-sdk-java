@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus;
 
 @Preamble(description = "Adapter for certificate enrollment")
 @Internal
-public class CertificateEnrollmentAdapter {
+public final class CertificateEnrollmentAdapter {
 
     /**
      * Constructor.

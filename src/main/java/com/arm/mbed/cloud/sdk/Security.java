@@ -363,7 +363,7 @@ public class Security extends AbstractApi {
     /**
      * Verifies certificate issuer.
      * 
-     * @param certificateIssuerId
+     * @param certificateIssuer
      *            issuer to verify.
      * @return a verification response.
      * @throws MbedCloudException
@@ -388,8 +388,8 @@ public class Security extends AbstractApi {
     @API
     public @Nullable ListResponse<CertificateIssuer>
            listCertificateIssuers(@Nullable CertificateIssuerListOptions options) throws MbedCloudException {
-        final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
-                                                                            : options;
+        // final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
+        // : options;
         // FIXME: use options in the list when definition is fixed.
         return CloudCaller.call(this, "listCertificateIssuers()", CertificateIssuerAdapter.getListMapper(),
                                 new CloudCall<CertificateIssuerInfoListResponse>() {

@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerConfig;
 
 @Preamble(description = "Adapter for certificate issuer config")
 @Internal
-public class CertificateIssuerConfigAdapter {
+public final class CertificateIssuerConfigAdapter {
     /**
      * Constructor.
      */

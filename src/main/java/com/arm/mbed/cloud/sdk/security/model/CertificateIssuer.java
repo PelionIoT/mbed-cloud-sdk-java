@@ -100,7 +100,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Internal
     public CertificateIssuer(CertificateIssuer certificateIssuer) {
-        this(certificateIssuer == null ? new java.util.Date() : certificateIssuer.createdAt,
+        this(certificateIssuer == null ? new Date() : certificateIssuer.createdAt,
              certificateIssuer == null ? null : certificateIssuer.description,
              certificateIssuer == null ? null : certificateIssuer.id,
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
@@ -112,7 +112,7 @@ public class CertificateIssuer implements SdkModel {
      * Constructor.
      */
     public CertificateIssuer() {
-        this(new java.util.Date(), null, null, null, null, null);
+        this(new Date(), null, null, null, null, null);
     }
 
     /**

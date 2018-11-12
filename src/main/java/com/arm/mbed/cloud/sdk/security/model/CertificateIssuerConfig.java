@@ -56,8 +56,6 @@ public class CertificateIssuerConfig implements SdkModel {
      * @param id
      *            The ID of the certificate issuer configuration.
      * 
-     * @param isCustom
-     *            null
      * @param reference
      *            The certificate name to which the certificate issuer configuration applies.
      * @param updatedAt
@@ -85,17 +83,17 @@ public class CertificateIssuerConfig implements SdkModel {
     @Internal
     public CertificateIssuerConfig(CertificateIssuerConfig certificateIssuerConfig) {
         this(certificateIssuerConfig == null ? null : certificateIssuerConfig.certificateIssuerId,
-             certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.createdAt,
+             certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? null : certificateIssuerConfig.id,
              certificateIssuerConfig == null ? null : certificateIssuerConfig.reference,
-             certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.updatedAt);
+             certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.updatedAt);
     }
 
     /**
      * Constructor.
      */
     public CertificateIssuerConfig() {
-        this(null, new java.util.Date(), null, null, new java.util.Date());
+        this(null, new Date(), null, null, new Date());
     }
 
     /**

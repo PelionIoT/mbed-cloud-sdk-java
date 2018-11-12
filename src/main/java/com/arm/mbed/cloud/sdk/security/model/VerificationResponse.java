@@ -47,7 +47,7 @@ public class VerificationResponse implements SdkModel {
      */
     @Internal
     public VerificationResponse(VerificationResponse response) {
-        this(response == null ? null : response.isSuccessful, response == null ? null : response.message);
+        this(response == null ? false : response.isSuccessful, response == null ? null : response.message);
     }
 
     /**

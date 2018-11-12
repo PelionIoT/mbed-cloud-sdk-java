@@ -131,7 +131,7 @@ public enum CertificateIssuerType implements SdkEnum {
      * Merges two states.
      * <p>
      * 
-     * @see SdkEnum#(SdkEnum, SdkEnum)
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
      * @param obj1
      *            a certificate issuer issuer type.
      * @param obj2

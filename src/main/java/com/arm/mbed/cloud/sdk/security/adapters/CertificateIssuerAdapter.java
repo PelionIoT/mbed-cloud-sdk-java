@@ -11,16 +11,16 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo.IssuerTypeEnum;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfoListResponse;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest;
+import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest.IssuerTypeEnum;
 import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerUpdateRequest;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuer;
 import com.arm.mbed.cloud.sdk.security.model.CertificateIssuerType;
 
 @Preamble(description = "Adapter for certificate issuer")
 @Internal
-public class CertificateIssuerAdapter {
+public final class CertificateIssuerAdapter {
     /**
      * Constructor.
      */
@@ -51,7 +51,8 @@ public class CertificateIssuerAdapter {
         return certificateIssuer;
     }
 
-    private static CertificateIssuerType toIssuerType(IssuerTypeEnum type) {
+    private static CertificateIssuerType
+            toIssuerType(com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo.IssuerTypeEnum type) {
         if (type == null) {
             return CertificateIssuerType.getUnknownEnum();
         }
@@ -65,16 +66,15 @@ public class CertificateIssuerAdapter {
         }
     }
 
-    private static com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest.IssuerTypeEnum
-            toIssuerTypeReverseAdd(CertificateIssuerType issuerType) {
+    private static IssuerTypeEnum toIssuerTypeReverseAdd(CertificateIssuerType issuerType) {
         if (issuerType == null) {
             return null;
         }
         switch (issuerType) {
             case CFSSL_AUTH:
-                return com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest.IssuerTypeEnum.CFSSL_AUTH;
+                return IssuerTypeEnum.CFSSL_AUTH;
             case GLOBAL_SIGN:
-                return com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerRequest.IssuerTypeEnum.GLOBAL_SIGN;
+                return IssuerTypeEnum.GLOBAL_SIGN;
             default:
                 return null;
         }

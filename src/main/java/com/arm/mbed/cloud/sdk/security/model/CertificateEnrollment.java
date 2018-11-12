@@ -92,19 +92,19 @@ public class CertificateEnrollment implements SdkModel {
     @Internal
     public CertificateEnrollment(CertificateEnrollment certificateEnrollment) {
         this(certificateEnrollment == null ? null : certificateEnrollment.certificateName,
-             certificateEnrollment == null ? new java.util.Date() : certificateEnrollment.createdAt,
+             certificateEnrollment == null ? new Date() : certificateEnrollment.createdAt,
              certificateEnrollment == null ? null : certificateEnrollment.deviceId,
              certificateEnrollment == null ? null : certificateEnrollment.enrollResult,
              certificateEnrollment == null ? null : certificateEnrollment.enrollStatus,
              certificateEnrollment == null ? null : certificateEnrollment.id,
-             certificateEnrollment == null ? new java.util.Date() : certificateEnrollment.updatedAt);
+             certificateEnrollment == null ? new Date() : certificateEnrollment.updatedAt);
     }
 
     /**
      * Constructor.
      */
     public CertificateEnrollment() {
-        this(null, new java.util.Date(), null, null, null, null, new java.util.Date());
+        this(null, new Date(), null, null, null, null, new Date());
     }
 
     /**

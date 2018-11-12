@@ -132,7 +132,8 @@ public enum CertificateEnrollmentEnrollStatus implements SdkEnum {
      * Merges two states.
      * <p>
      * 
-     * @see SdkEnum#(SdkEnum, SdkEnum)
+     * @see SdkEnum#merge(SdkEnum, SdkEnum)
+     * 
      * @param obj1
      *            a certificate enrollment enroll status.
      * @param obj2
