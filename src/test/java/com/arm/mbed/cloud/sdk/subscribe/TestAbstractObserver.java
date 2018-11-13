@@ -21,13 +21,6 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
-import com.arm.mbed.cloud.sdk.common.Callback;
-import com.arm.mbed.cloud.sdk.common.CallbackWithException;
-import com.arm.mbed.cloud.sdk.common.MbedCloudException;
-import com.arm.mbed.cloud.sdk.common.TimePeriod;
-import com.arm.mbed.cloud.sdk.common.UuidGenerator;
-import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
-
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.Scheduler;
@@ -35,15 +28,24 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
+import com.arm.mbed.cloud.sdk.common.Callback;
+import com.arm.mbed.cloud.sdk.common.CallbackWithException;
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
+import com.arm.mbed.cloud.sdk.common.UuidGenerator;
+import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
+
 public class TestAbstractObserver {
 
+    @SuppressWarnings("static-access")
     @Test
     public void testAddRemoveCallback() {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(false);
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                  BackpressureStrategy.BUFFER);
         assertFalse(obs.executedActionOnSubscription);
-        assertEquals(obs.numberOfActionOnSubscription, 0);
+        assertEquals(0, obs.numberOfActionOnSubscription);
         // Only storing even numbers.
         List<Integer> evenValuesCallback1 = new LinkedList<>();
         // Only storing multiple of 10.
@@ -79,7 +81,13 @@ public class TestAbstractObserver {
         assertEquals(2, obs.numberOfCallbacks());
         assertTrue(obs.executedActionOnSubscription);
         assertEquals(1, obs.numberOfActionOnSubscription);
-        obs.flow().blockingSubscribe();
+        obs.flow().blockingSubscribe(System.out::println);
+        // Waiting two seconds (sanity sleep)
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException exception) {
+            exception.printStackTrace();
+        }
         assertTrue(obs.executedActionOnSubscription);
         assertEquals(1, obs.numberOfActionOnSubscription);
         // the first list should only contain even numbers from 0 to 100 included.
@@ -106,6 +114,9 @@ public class TestAbstractObserver {
         assertEquals(0, obs.numberOfCallbacks());
     }
 
+    /**
+     * Tests that several observers receive the same notification.
+     */
     @SuppressWarnings("null")
     @Test
     public void testNotifyToMultipleObservers() {
@@ -116,9 +127,9 @@ public class TestAbstractObserver {
             List<Integer> messages = Stream.iterate(0, n -> n + 1).limit(102).collect(Collectors.toList());
             SubscriptionTestManagerModifiableInput manager = new SubscriptionTestManagerModifiableInput(false);
             TestObserver obs1 = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                    BackpressureStrategy.BUFFER);
+                                                       BackpressureStrategy.BUFFER);
             TestObserver obs2 = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                    BackpressureStrategy.BUFFER);
+                                                       BackpressureStrategy.BUFFER);
             // Only storing even numbers.
             List<Integer> evenValues = new LinkedList<>();
             // Only storing multiple of 10.
@@ -165,8 +176,8 @@ public class TestAbstractObserver {
                 public void run() {
                     if (i < messages.size()) {
                         @SuppressWarnings({ "unchecked", "boxing", "rawtypes" })
-                        NotificationMessage<NotificationTestMessageValue> notification = new NotificationMessage(
-                                new NotificationTestMessageValue(messages.get(i)), null);
+                        NotificationMessage<NotificationTestMessageValue> notification = new NotificationMessage(new NotificationTestMessageValue(messages.get(i)),
+                                                                                                                 null);
 
                         try {
                             manager.notify(SubscriptionType.DEVICE_STATE_CHANGE, notification);
@@ -224,7 +235,7 @@ public class TestAbstractObserver {
             List<Integer> messages = Stream.iterate(0, n -> n + 1).limit(102).collect(Collectors.toList());
             SubscriptionTestManagerModifiableInput manager = new SubscriptionTestManagerModifiableInput(false);
             TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                    BackpressureStrategy.BUFFER);
+                                                      BackpressureStrategy.BUFFER);
             // Only storing multiple of 10.
             List<Integer> MultiplesOfTenList = new LinkedList<>();
 
@@ -252,8 +263,8 @@ public class TestAbstractObserver {
                 public void run() {
                     if (i < messages.size()) {
                         @SuppressWarnings({ "unchecked", "boxing", "rawtypes" })
-                        NotificationMessage<NotificationTestMessageValue> notification = new NotificationMessage(
-                                new NotificationTestMessageValue(messages.get(i)), null);
+                        NotificationMessage<NotificationTestMessageValue> notification = new NotificationMessage(new NotificationTestMessageValue(messages.get(i)),
+                                                                                                                 null);
 
                         try {
                             obs.notify(notification);
@@ -301,7 +312,7 @@ public class TestAbstractObserver {
             List<Integer> messages = Stream.iterate(0, n -> n + 1).limit(102).collect(Collectors.toList());
             SubscriptionTestManagerModifiableInput manager = new SubscriptionTestManagerModifiableInput(false);
             TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                    BackpressureStrategy.BUFFER);
+                                                      BackpressureStrategy.BUFFER);
             // Only storing multiple of 10.
             List<Integer> multiplesOfTenList = new LinkedList<>();
             List<String> errorList = new LinkedList<>();
@@ -334,10 +345,10 @@ public class TestAbstractObserver {
                         NotificationMessage<NotificationTestMessageValue> notification = null;
                         if (i < 52) {
                             notification = new NotificationMessage(new NotificationTestMessageValue(messages.get(i)),
-                                    null);
+                                                                   null);
                         } else {
                             notification = new NotificationMessage(new NotificationTestMessageValue(messages.get(i)),
-                                    new Exception("An error occurred"));
+                                                                   new Exception("An error occurred"));
                         }
 
                         try {
@@ -389,11 +400,11 @@ public class TestAbstractObserver {
     public void testUnsubscribe() {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(false);
         TestObserver obs1 = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                   BackpressureStrategy.BUFFER);
         TestObserver obs2 = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                   BackpressureStrategy.BUFFER);
         TestObserver obs3 = manager.createObserver(SubscriptionType.ASYNCHRONOUS_RESPONSE, null,
-                BackpressureStrategy.BUFFER);
+                                                   BackpressureStrategy.BUFFER);
         assertTrue(manager.hasObservers());
         assertTrue(manager.hasObservers(SubscriptionType.DEVICE_STATE_CHANGE));
         assertTrue(manager.hasObservers(SubscriptionType.ASYNCHRONOUS_RESPONSE));
@@ -425,7 +436,7 @@ public class TestAbstractObserver {
     public void testFlow() {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(false);
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                  BackpressureStrategy.BUFFER);
         // Only storing multiple of 10.
         List<Integer> MultiplesOfTenList = new LinkedList<>();
 
@@ -464,7 +475,7 @@ public class TestAbstractObserver {
     public void testFutureOne() {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(true);
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                  BackpressureStrategy.BUFFER);
         try {
             Future<NotificationTestMessageValue> future = obs.futureOne();
             NotificationTestMessageValue value = future.get(5, TimeUnit.SECONDS);
@@ -482,7 +493,7 @@ public class TestAbstractObserver {
     public void testOne() {
         SubscriptionTestManagerFixedInput manager = new SubscriptionTestManagerFixedInput(true);
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
-                BackpressureStrategy.BUFFER);
+                                                  BackpressureStrategy.BUFFER);
         try {
             NotificationTestMessageValue value = obs.one(new TimePeriod(5));
             // Value should be the first element received.
@@ -562,10 +573,10 @@ public class TestAbstractObserver {
         public static volatile int numberOfActionOnSubscription;
 
         public TestObserver(SubscriptionManager manager, SubscriptionType type, String id,
-                Flowable<NotificationTestMessageValue> flow, FilterOptions filter,
-                boolean mustUnsubscribeOnCompletion) {
+                            Flowable<NotificationTestMessageValue> flow, FilterOptions filter,
+                            boolean mustUnsubscribeOnCompletion) {
             super(manager, id, flow, filter, mustUnsubscribeOnCompletion, getActionOnSubscription(),
-                    getActionOnUnsubscription());
+                  getActionOnUnsubscription());
             this.type = type;
             executedActionOnUnsubscription = false;
             numberOfActionOnSubscription = 0;
@@ -615,6 +626,16 @@ public class TestAbstractObserver {
         protected AbstractTestSubscriptionManager(boolean unsubscribeOnCompletion) {
             super();
             this.unsubscribeOnCompletion = unsubscribeOnCompletion;
+        }
+
+        /*
+         * (non-Javadoc)
+         *
+         * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#getTopManager()
+         */
+        @Override
+        public SubscriptionManager getTopManager() {
+            return null;
         }
 
         @Override
@@ -718,15 +739,23 @@ public class TestAbstractObserver {
          * SubscriptionType, com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue)
          */
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, T value)
-                throws MbedCloudException {
+        public <T extends NotificationMessageValue> void notify(SubscriptionType type,
+                                                                T value) throws MbedCloudException {
             notify(type, new NotificationMessage<>(value, null));
 
         }
 
         @Override
         public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy) {
-            return (TestObserver) createObserver(type, filter, strategy, null, null);
+            return createObserver(type, filter, strategy, null, null);
+        }
+
+        @Override
+        public TestObserver
+               createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+            return (TestObserver) createObserver(type, filter, strategy, null, null, false, null);
         }
 
     }
@@ -738,27 +767,30 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+        public Observer<?>
+               createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                              boolean notifyOtherObservers, Resource correspondingResource) {
             @SuppressWarnings("boxing")
             final Flowable<NotificationTestMessageValue> flow = Flowable.range(0, 102)
-                    .map(i -> new NotificationTestMessageValue(i));
+                                                                        .map(i -> new NotificationTestMessageValue(i));
             final String id = "testObserver_" + UuidGenerator.generate();
-            final TestObserver obs = new TestObserver(this, type, id, flow, null, unsubscribeOnCompletion);
+            final TestObserver obs = new TestObserver(this, subscriptionType, id, flow, null, unsubscribeOnCompletion);
             observers.put(id, obs);
             return obs;
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, NotificationMessage<T> message)
-                throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, NotificationMessage<T> message) throws MbedCloudException {
             // No new notification can be added
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, String channelId,
-                NotificationMessage<T> message) throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, String channelId,
+                      NotificationMessage<T> message) throws MbedCloudException {
             // No new notification can be added
 
         }
@@ -805,26 +837,37 @@ public class TestAbstractObserver {
             super(unsubscribeOnCompletion);
         }
 
+        /*
+         * (non-Javadoc)
+         *
+         * @see com.arm.mbed.cloud.sdk.subscribe.SubscriptionManager#createObserver(com.arm.mbed.cloud.sdk.subscribe.
+         * SubscriptionType, com.arm.mbed.cloud.sdk.common.listing.FilterOptions, io.reactivex.BackpressureStrategy,
+         * com.arm.mbed.cloud.sdk.common.CallbackWithException, com.arm.mbed.cloud.sdk.common.CallbackWithException,
+         * boolean, com.arm.mbed.cloud.sdk.connect.model.Resource)
+         */
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+        public Observer<?>
+               createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                              boolean notifyOtherObservers, Resource correspondingResource) {
             final Flowable<NotificationTestMessageValue> flow = Flowable.never();
             final String id = "testObserver_" + UuidGenerator.generate();
-            final TestObserver obs = new TestObserver(this, type, id, flow, null, unsubscribeOnCompletion);
+            final TestObserver obs = new TestObserver(this, subscriptionType, id, flow, null, unsubscribeOnCompletion);
             observers.put(id, obs);
             return obs;
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, NotificationMessage<T> message)
-                throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, NotificationMessage<T> message) throws MbedCloudException {
             // No new notification can be added
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, String channelId,
-                NotificationMessage<T> message) throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, String channelId,
+                      NotificationMessage<T> message) throws MbedCloudException {
             // No new notification can be added
 
         }
@@ -875,18 +918,21 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public TestObserver createObserver(SubscriptionType type, FilterOptions filter, BackpressureStrategy strategy,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-                CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription) {
+        public Observer<?>
+               createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                              CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                              boolean notifyOtherObservers, Resource correspondingResource) {
             final String id = "testObserver_" + UuidGenerator.generate();
-            final TestObserver obs = new TestObserver(this, type, id, emitter.create(strategy), filter, false);
+            final TestObserver obs = new TestObserver(this, subscriptionType, id, emitter.create(strategy), filter,
+                                                      false);
             observers.put(id, obs);
             return obs;
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, NotificationMessage<T> message)
-                throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, NotificationMessage<T> message) throws MbedCloudException {
             if (message == null) {
                 emitter.emit(null, null);
             } else {
@@ -895,8 +941,9 @@ public class TestAbstractObserver {
         }
 
         @Override
-        public <T extends NotificationMessageValue> void notify(SubscriptionType type, String channelId,
-                NotificationMessage<T> message) throws MbedCloudException {
+        public <T extends NotificationMessageValue> void
+               notify(SubscriptionType type, String channelId,
+                      NotificationMessage<T> message) throws MbedCloudException {
             if (message == null) {
                 return;
             }

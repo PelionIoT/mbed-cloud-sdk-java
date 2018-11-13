@@ -39,8 +39,10 @@ import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.SubscriptionType;
+import com.arm.mbed.cloud.sdk.subscribe.adapters.AsynchronousResponseNotificationAdapter;
 import com.arm.mbed.cloud.sdk.subscribe.adapters.DeviceStateNotificationAdapter;
 import com.arm.mbed.cloud.sdk.subscribe.adapters.ResourceValueNotificationAdapter;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.store.SubscriptionObserversStore;
@@ -282,6 +284,12 @@ public class NotificationHandlersStore {
         }
     }
 
+    public AsynchronousResponseObserver createAsyncResponseObserver(Resource finalResource, String finalAsyncId,
+                                                                    BackpressureStrategy finalStrategy,
+                                                                    boolean notifyOtherObservers) {
+        return observerStore.asynchronousResponse(finalAsyncId, finalResource, notifyOtherObservers, finalStrategy);
+    }
+
     /**
      * Allows a notification to be injected into the notifications system.
      *
@@ -383,7 +391,7 @@ public class NotificationHandlersStore {
                         return;
                     }
                     emitNotification(notificationMessage);
-                } catch (MbedCloudException exception) {
+                } catch (Exception exception) {
                     backoffPolicy.backoff();
                     logPullError(exception);
                 }
@@ -452,6 +460,7 @@ public class NotificationHandlersStore {
             return;
         }
         storeResponses(data.getAsyncResponses());
+        handleAsynchronousResponse(data);
         handleResourceValueChanges(data);
         handleDeviceStateChanges(data);
     }
@@ -464,6 +473,11 @@ public class NotificationHandlersStore {
     private void handleResourceValueChanges(NotificationMessage notificationMessage) {
         handleNotification(SubscriptionType.NOTIFICATION, notificationMessage,
                            ResourceValueNotificationAdapter.getNotificationMessageMapper());
+    }
+
+    private void handleAsynchronousResponse(NotificationMessage notificationMessage) {
+        handleNotification(SubscriptionType.ASYNCHRONOUS_RESPONSE, notificationMessage,
+                           AsynchronousResponseNotificationAdapter.getNotificationMessageMapper());
     }
 
     private <T extends NotificationMessageValue> void handleNotification(SubscriptionType type,
