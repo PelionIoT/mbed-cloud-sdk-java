@@ -8,7 +8,11 @@ package com.mbed.lwm2m;
  *
  */
 public enum EncodingType {
-    JSON("json", "application/json"), TLV("wm2m+tlv", "application/vnd.oma.wm2m+tlv"), UNKNOWN("unknown", "");
+    PLAIN_TEXT("text", "text/plain"),
+    OCTET_STREAM("octet", "application/octet-stream"),
+    JSON("json", "application/json"),
+    TLV("lwm2m+tlv", "application/vnd.oma.wm2m+tlv"),
+    UNKNOWN("unknown", "");
 
     private final String value;
     private final String contentType;

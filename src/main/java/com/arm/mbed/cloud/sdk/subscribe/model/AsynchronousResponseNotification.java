@@ -1,6 +1,8 @@
 package com.arm.mbed.cloud.sdk.subscribe.model;
 
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.Error;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 
 @Preamble(description = "Java bean describing an asynchronous response notification")
@@ -61,10 +63,22 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
     }
 
     /**
+     * Gets the error message.
+     * 
      * @return the errorMessage
      */
     public String getErrorMessage() {
         return errorMessage;
+    }
+
+    /**
+     * Converts to a generic error.
+     * 
+     * @return equivalent error if request failed; Null otherwise.
+     */
+    public @Nullable com.arm.mbed.cloud.sdk.common.Error toError() {
+        return reportsFailure() ? new Error(getStatusCode(), "Async error", getErrorMessage(), getId()) : null;
+
     }
 
     /*

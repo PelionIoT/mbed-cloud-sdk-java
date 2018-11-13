@@ -11,6 +11,7 @@ import java.util.concurrent.ThreadFactory;
 
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
@@ -26,6 +27,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
+import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.PageRequester;
@@ -50,18 +52,24 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
+import com.arm.mbed.cloud.sdk.connect.model.ResourceValueType;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
+import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
+import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
+import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapter;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
-import com.arm.mbed.cloud.sdk.internal.mds.model.AsyncID;
+import com.arm.mbed.cloud.sdk.internal.mds.model.DeviceRequest;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
+import com.arm.mbed.cloud.sdk.subscribe.Observer;
+import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 
 import retrofit2.Call;
@@ -78,6 +86,7 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractApi {
+    private static final String TAG_VALUE_TYPE = "valueType";
     private static final String TAG_PRESUBSCRIPTION = "presubscription";
     private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
     private static final String TAG_WEBHOOK = "webhook";
@@ -645,6 +654,138 @@ public class Connect extends AbstractApi {
     }
 
     /**
+     * Creates a observer to obtain resource current value.
+     * <p>
+     * See {@link Observer}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           createCurrentResourceValueObserver(@NonNull Resource resource,
+                                              @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+
+        return createResourceActionObserver(createResourceAction("getResourceValueAsync()",
+                                                                 ResourceActionAdapter.getGetResourceValueMapper()),
+                                            resource, strategy, null, null, true);
+    }
+
+    /**
+     * Creates a observer to set a resource value.
+     * <p>
+     * See {@link Observer}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           createSetResourceValueObserver(@NonNull Resource resource,
+                                          @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+                                          @Nullable Object value,
+                                          @NonNull ResourceValueType valueType) throws MbedCloudException {
+
+        return createResourceActionObserver(createResourceAction("setResourceValueAsync()",
+                                                                 ResourceActionAdapter.getSetResourceValueMapper()),
+                                            resource, strategy, value, valueType, true);
+    }
+
+    /**
+     * Creates a observer to execute a resource.
+     * <p>
+     * See {@link Observer}
+     * 
+     * @param resource
+     *            resource of interest.
+     * @param strategy
+     *            backpressure strategy.
+     * @return corresponding observer.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    public @Nullable AsynchronousResponseObserver
+           createExecuteResourceValueObserver(@NonNull Resource resource,
+                                              @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+                                              @Nullable Object value,
+                                              @NonNull ResourceValueType valueType) throws MbedCloudException {
+        return createResourceActionObserver(createResourceAction("executeResourceAsync()",
+                                                                 ResourceActionAdapter.getExecuteResourceValueMapper()),
+                                            resource, strategy, value, valueType, false);
+    }
+
+    protected ResourceAction createResourceAction(String functionName,
+                                                  Mapper<ResourceActionParameters, DeviceRequest> requestMapper) {
+        final AbstractApi module = this;
+        final Mapper<ResourceActionParameters, DeviceRequest> finalMapper = requestMapper;
+        return new ResourceAction() {
+
+            @Override
+            public void execute(ResourceActionParameters arg) throws MbedCloudException {
+                CloudCaller.call(module, functionName, null, new CloudCall<Void>() {
+
+                    @Override
+                    public Call<Void> call() {
+                        return endpoint.getAsync().createAsyncRequest(arg.getResource().getDeviceId(), arg.getAsyncId(),
+                                                                      finalMapper.map(arg));
+                    }
+                });
+
+            }
+
+        };
+    }
+
+    protected AsynchronousResponseObserver
+              createResourceActionObserver(ResourceAction action, Resource resource, BackpressureStrategy strategy,
+                                           Object value, ResourceValueType type,
+                                           boolean notifyOtherObservers) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        autostartDaemonIfNeeded();
+        final ResourceActionParameters parameters = new ResourceActionParameters(UuidGenerator.generate(), resource,
+                                                                                 value, type);
+        final BackpressureStrategy finalStrategy = (strategy == null) ? BackpressureStrategy.BUFFER : strategy;
+        final AsynchronousResponseObserver observer = handlersStore.createAsyncResponseObserver(parameters.getResource(),
+                                                                                                parameters.getAsyncId(),
+                                                                                                finalStrategy,
+                                                                                                notifyOtherObservers);
+        try {
+            action.execute(parameters);
+        } catch (MbedCloudException exception) {
+            observer.unsubscribe();
+            throw exception;
+        }
+        return observer;
+    }
+
+    protected Future<Object> convertObserverToFuture(AsynchronousResponseObserver observer) throws MbedCloudException {
+        try {
+            return observer.flow().map(new Function<AsynchronousResponseNotification, Object>() {
+
+                @Override
+                public Object apply(AsynchronousResponseNotification notification) throws Exception {
+                    if (notification.reportsFailure()) {
+                        return notification.toError();
+                    } else {
+                        return notification.getPayload();
+                    }
+                }
+            }).firstOrError().toFuture();
+        } catch (Exception exception) {
+            throw new MbedCloudException(exception);
+        }
+    }
+
+    /**
      * Gets a resource value for a given device id and resource path.
      * <p>
      * Example:
@@ -716,51 +857,9 @@ public class Connect extends AbstractApi {
                                                           @NonNull String resourcePath) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        final String finalDeviceId = deviceId;
-        final String finalResourcePath = resourcePath;
-        final String finalAsyncId = UuidGenerator.generate();
+        return convertObserverToFuture(createCurrentResourceValueObserver(new Resource(deviceId, resourcePath),
+                                                                          BackpressureStrategy.BUFFER));
 
-        autostartDaemonIfNeeded();
-        return handlersStore.fetchAsyncResponse(threadPool, "getResourceValueAsync()", new CloudCall<AsyncID>() {
-
-            @Override
-            public Call<AsyncID> call() {
-                final Call<Void> initialCall = endpoint.getAsync()
-                                                       .createAsyncRequest(finalDeviceId, finalAsyncId,
-                                                                           ResourceAdapter.callGetFunctionOnResource(ApiUtils.normaliseResourcePath(finalResourcePath)));
-                return ResourceAdapter.convertResourceCall(finalAsyncId, initialCall);
-            }
-        });
-
-    }
-
-    public @Nullable AsynchronousResponseObserver
-           createCurrentResourceValueObserver(@NonNull Resource resource,
-                                           @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
-        checkModelValidity(resource, TAG_RESOURCE);
-        autostartDaemonIfNeeded();
-        final Resource finalResource = resource;
-        final BackpressureStrategy finalStrategy = (strategy == null) ? BackpressureStrategy.BUFFER : strategy;
-        final String finalAsyncId = UuidGenerator.generate();
-        final AsynchronousResponseObserver observer = handlersStore.createAsyncResponseObserver(finalResource,
-                                                                                                finalAsyncId,
-                                                                                                finalStrategy, true);
-        try {
-            CloudCaller.call(this, "getResourceValueAsync()", null, new CloudCall<Void>() {
-
-                @Override
-                public Call<Void> call() {
-                    return endpoint.getAsync()
-                                   .createAsyncRequest(finalResource.getDeviceId(), finalAsyncId,
-                                                       ResourceAdapter.callGetFunctionOnResource(ApiUtils.normaliseResourcePath(finalResource.getPath())));
-                }
-            });
-        } catch (MbedCloudException exception) {
-            observer.unsubscribe();
-            throw exception;
-        }
-        return observer;
     }
 
     /**
@@ -1047,26 +1146,34 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Future<Object>
            setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable String resourceValue,
                                  @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        checkNotNull(deviceId, TAG_DEVICE_ID);
-        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        final String finalDeviceId = deviceId;
-        final String finalResourcePath = resourcePath;
-        final String finalResourceValue = (resourceValue == null) ? null : resourceValue;
-        final boolean finalNoResponse = noResponse;
-        autostartDaemonIfNeeded();
-        return handlersStore.fetchAsyncResponse(threadPool, "setResourceValueAsync()", new CloudCall<AsyncID>() {
+        return setResourceValueAsync(deviceId, resourcePath, resourceValue, ResourceValueType.STRING);
+    }
 
-            @SuppressWarnings("boxing")
-            @Override
-            public Call<AsyncID> call() {
-                return endpoint.getResources().updateResourceValue(finalDeviceId,
-                                                                   ApiUtils.normalisePath(finalResourcePath),
-                                                                   finalResourceValue, finalNoResponse);
-            }
-        });
+    /**
+     * Sets the value of a resource.
+     * 
+     * @param deviceId
+     *            The name/id of the device.
+     * @param resourcePath
+     *            The resource path to get.
+     * @param resourceValue
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @return A Future from which it is possible to set the value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object>
+           setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable Object resourceValue,
+                                 @NonNull ResourceValueType valueType) throws MbedCloudException {
+
+        return setResourceValueAsync(new Resource(deviceId, resourcePath), resourceValue, valueType);
     }
 
     /**
@@ -1094,6 +1201,27 @@ public class Connect extends AbstractApi {
      *            The resource to set the value of.
      * @param resourceValue
      *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @return A Future from which it is possible to set the value.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @Deprecated
+    @API
+    public @Nullable Future<Object>
+           setResourceValueAsync(@NonNull Resource resource, @Nullable String resourceValue,
+                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
+        return setResourceValueAsync(resource, resourceValue, ResourceValueType.STRING);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * 
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
      * @param noResponse
      *            If true, mbed Device Connector will not wait for a response.
      * @return A Future from which it is possible to set the value.
@@ -1102,11 +1230,11 @@ public class Connect extends AbstractApi {
      */
     @API
     public @Nullable Future<Object>
-           setResourceValueAsync(@NonNull Resource resource, @Nullable String resourceValue,
-                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
-        checkModelValidity(resource, TAG_RESOURCE);
-        return setResourceValueAsync(resource.getDeviceId(), resource.getPath(), resourceValue, noResponse);
+           setResourceValueAsync(@NonNull Resource resource, @Nullable Object resourceValue,
+                                 @NonNull ResourceValueType valueType) throws MbedCloudException {
+        checkNotNull(valueType, TAG_VALUE_TYPE);
+        return convertObserverToFuture(createSetResourceValueObserver(resource, BackpressureStrategy.BUFFER,
+                                                                      resourceValue, valueType));
     }
 
     /**
@@ -1147,20 +1275,116 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
                                              @Nullable String resourceValue,
                                              @DefaultValue(value = FALSE) boolean noResponse,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
-        final String id = deviceId;
-        final String path = resourcePath;
-        final String value = resourceValue;
-        final boolean waitForResponse = noResponse;
+        return setResourceValue(deviceId, resourcePath, resourceValue, ResourceValueType.STRING, timeout);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     *
+     * @param deviceId
+     *            The name/id of the device.
+     * @param resourcePath
+     *            The resource path to get.
+     * @param resourceValue
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
+                                             @Nullable Object resourceValue, @NonNull ResourceValueType valueType,
+                                             @Nullable TimePeriod timeout) throws MbedCloudException {
+        return setResourceValue(new Resource(deviceId, resourcePath), resourceValue, valueType, timeout);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * <p>
+     * Example:
+     *
+     * <pre>
+     * {@code
+     * try {
+     *     String deviceId = "015f4ac587f500000000000100100249";
+     *     String resourcePath = "/3201/0/5853";
+     *     Resource resource = new Resource(deviceId, resourcePath);
+     *     String resourceValue = "500:500:500";
+     *
+     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
+     *     String setValue = (String)resultObject;
+     *     assert setValue == resourceValue;
+     * } catch (MbedCloudException e) {
+     *     e.printStackTrace();
+     * }
+     * }
+     * </pre>
+     *
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
+     * @param noResponse
+     *            If true, mbed Device Connector will not wait for a response.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @Deprecated
+    @API
+    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
+                                             @DefaultValue(value = FALSE) boolean noResponse,
+                                             @Nullable TimePeriod timeout) throws MbedCloudException {
+        return setResourceValue(resource, resourceValue, ResourceValueType.STRING, timeout);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     * 
+     * @param resource
+     *            The resource to set the value of.
+     * @param resourceValue
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable Object resourceValue,
+                                             @NonNull ResourceValueType valueType,
+                                             @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        final Resource finalResouce = resource;
+        final Object value = resourceValue;
+        final ResourceValueType type = valueType;
         try {
             return SynchronousMethod.waitForCompletion(this, "setResourceValue()", new AsynchronousMethod<Object>() {
 
                 @Override
                 public Future<Object> submit() throws MbedCloudException {
-                    return setResourceValueAsync(id, path, value, waitForResponse);
+                    return setResourceValueAsync(finalResouce, value, type);
                 }
             }, timeout);
         } catch (MbedCloudException exception) {
@@ -1197,51 +1421,6 @@ public class Connect extends AbstractApi {
      *            The resource to set the value of.
      * @param resourceValue
      *            value to set.
-     * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
-     * @param timeout
-     *            Timeout for the request.
-     * @return The value of the new resource.
-     * @throws MbedCloudException
-     *             if a problem occurred during request processing.
-     */
-    @API
-    public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
-                                             @DefaultValue(value = FALSE) boolean noResponse,
-                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
-        checkModelValidity(resource, TAG_RESOURCE);
-        return setResourceValue(resource.getDeviceId(), resource.getPath(), resourceValue, noResponse, timeout);
-    }
-
-    /**
-     * Sets the value of a resource.
-     * <p>
-     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
-     * <p>
-     * Example:
-     *
-     * <pre>
-     * {@code
-     * try {
-     *     String deviceId = "015f4ac587f500000000000100100249";
-     *     String resourcePath = "/3201/0/5853";
-     *     Resource resource = new Resource(deviceId, resourcePath);
-     *     String resourceValue = "500:500:500";
-     *
-     *     Object resultObject = connectApi.setResourceValue(resource, resourceValue, new TimePeriod(5));
-     *     String setValue = (String)resultObject;
-     *     assert setValue == resourceValue;
-     * } catch (MbedCloudException e) {
-     *     e.printStackTrace();
-     * }
-     * }
-     * </pre>
-     *
-     * @param resource
-     *            The resource to set the value of.
-     * @param resourceValue
-     *            value to set.
      * @param timeout
      *            Timeout for the request.
      * @return The value of the new resource.
@@ -1251,7 +1430,7 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Object setResourceValue(@NonNull Resource resource, @Nullable String resourceValue,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
-        return setResourceValue(resource, resourceValue, false, timeout);
+        return setResourceValue(resource, resourceValue, ResourceValueType.STRING, timeout);
     }
 
     /**
@@ -1287,28 +1466,14 @@ public class Connect extends AbstractApi {
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
+    @Deprecated
     @API
     public @Nullable Future<Object>
            executeResourceAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable String functionName,
                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        final String finalDeviceId = deviceId;
-        final String finalResourcePath = resourcePath;
-        // Body parameter value must not be null.
-        final String finalFunctionName = (functionName == null) ? "" : functionName;
-        final boolean finalNoResponse = noResponse;
-        autostartDaemonIfNeeded();
-        return handlersStore.fetchAsyncResponse(threadPool, "executeResourceAsync()", new CloudCall<AsyncID>() {
-
-            @SuppressWarnings("boxing")
-            @Override
-            public Call<AsyncID> call() {
-                return endpoint.getResources().executeOrCreateResource(finalDeviceId,
-                                                                       ApiUtils.normalisePath(finalResourcePath),
-                                                                       finalFunctionName, finalNoResponse);
-            }
-        });
+        return executeResourceAsync(new Resource(deviceId, resourcePath), functionName);
     }
 
     /**
@@ -1343,13 +1508,34 @@ public class Connect extends AbstractApi {
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
+    @Deprecated
     @API
     public @Nullable Future<Object>
            executeResourceAsync(@NonNull Resource resource, @Nullable String functionName,
                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        return executeResourceAsync(resource.getDeviceId(), resource.getPath(), functionName, noResponse);
+        return executeResourceAsync(resource, functionName);
+    }
+
+    /**
+     * Executes a function on a resource.
+     * 
+     * @param resource
+     *            The resource to execute the function on.
+     * @param functionName
+     *            The function to trigger.
+     * @return A Future from which it is possible to get the value returned from the function executed on the resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Future<Object> executeResourceAsync(@NonNull Resource resource,
+                                                         @Nullable String functionName) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
+        return convertObserverToFuture(createExecuteResourceValueObserver(resource, BackpressureStrategy.BUFFER,
+                                                                          functionName, ResourceValueType.STRING));
     }
 
     /**
@@ -1388,27 +1574,13 @@ public class Connect extends AbstractApi {
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
+    @Deprecated
     @API
     public @Nullable Object executeResource(@NonNull String deviceId, @NonNull String resourcePath,
                                             @Nullable String functionName,
                                             @DefaultValue(value = FALSE) boolean noResponse,
                                             @Nullable TimePeriod timeout) throws MbedCloudException {
-        final String id = deviceId;
-        final String path = resourcePath;
-        final String function = functionName;
-        final boolean waitForResponse = noResponse;
-        try {
-            return SynchronousMethod.waitForCompletion(this, "executeResource()", new AsynchronousMethod<Object>() {
-
-                @Override
-                public Future<Object> submit() throws MbedCloudException {
-                    return executeResourceAsync(id, path, function, waitForResponse);
-                }
-            }, timeout);
-        } catch (MbedCloudException exception) {
-            logger.throwSdkException(exception);
-        }
-        return null;
+        return executeResource(new Resource(deviceId, resourcePath), functionName, timeout);
     }
 
     /**
@@ -1447,12 +1619,47 @@ public class Connect extends AbstractApi {
      *             if a problem occurred during request processing.
      */
     @API
+    @Deprecated
     public @Nullable Object executeResource(@NonNull Resource resource, @Nullable String functionName,
                                             @DefaultValue(value = FALSE) boolean noResponse,
                                             @Nullable TimePeriod timeout) throws MbedCloudException {
+        return executeResource(resource, functionName, timeout);
+    }
+
+    /**
+     * Executes a function on a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     *
+     * @param resource
+     *            The resource path to execute the function on.
+     * @param functionName
+     *            The function to trigger.
+     * @param timeout
+     *            Timeout for the request.
+     * @return the value returned from the function executed on the resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object executeResource(@NonNull Resource resource, @Nullable String functionName,
+                                            @Nullable TimePeriod timeout) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        return executeResource(resource.getDeviceId(), resource.getPath(), functionName, noResponse, timeout);
+        final Resource finalResource = resource;
+        final String function = functionName;
+        try {
+            return SynchronousMethod.waitForCompletion(this, "executeResource()", new AsynchronousMethod<Object>() {
+
+                @Override
+                public Future<Object> submit() throws MbedCloudException {
+                    return executeResourceAsync(finalResource, function);
+                }
+            }, timeout);
+        } catch (MbedCloudException exception) {
+            logger.throwSdkException(exception);
+        }
+        return null;
     }
 
     protected GenericAdapter.MappedObjectRegistry<Presubscription>

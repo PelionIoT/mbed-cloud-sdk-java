@@ -31,7 +31,7 @@ import io.reactivex.BackpressureStrategy;
 /**
  * Entry point for using the SDK.
  */
-public class MbedCloudClient extends AbstractApi implements AutoCloseable {
+public class Sdk extends AbstractApi implements AutoCloseable {
 
     private final Connect connectApi;
 
@@ -41,7 +41,7 @@ public class MbedCloudClient extends AbstractApi implements AutoCloseable {
      * @param options
      *            connection options @see {@link ConnectionOptions}.
      */
-    public MbedCloudClient(ConnectionOptions options) {
+    public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
     }
@@ -53,8 +53,8 @@ public class MbedCloudClient extends AbstractApi implements AutoCloseable {
      *            connection options @see {@link ConnectionOptions}.
      * @return an instance of the SDK.
      */
-    public static MbedCloudClient createSdk(ConnectionOptions options) {
-        return new MbedCloudClient(options);
+    public static Sdk createSdk(ConnectionOptions options) {
+        return new Sdk(options);
     }
 
     private static Map<String, String> extendUserAgent() {

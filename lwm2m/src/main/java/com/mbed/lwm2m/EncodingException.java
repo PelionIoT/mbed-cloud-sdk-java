@@ -1,13 +1,13 @@
 package com.mbed.lwm2m;
 
 /**
- * Exception occurring during message payload encoding
+ * Exception occurring during message payload decoding
  */
-public class DecodingException extends Exception {
+public class EncodingException extends Exception {
 
     private static final long serialVersionUID = 7523416232311682667L;
 
-    public DecodingException() {
+    public EncodingException() {
         super();
     }
 
@@ -16,7 +16,7 @@ public class DecodingException extends Exception {
      * @param message
      *            exception message
      */
-    public DecodingException(String message) {
+    public EncodingException(String message) {
         super(message);
     }
 
@@ -26,7 +26,7 @@ public class DecodingException extends Exception {
      * @param e
      *            cause of the exception
      */
-    public DecodingException(String message, Exception e) {
+    public EncodingException(String message, Exception e) {
         super(message, e);
     }
 

@@ -19,14 +19,14 @@ public class Base64Decoder {
     }
 
     /**
-     * Decodes a LWM2M sequence encoded in Base64 into a list of LWM2M objects for which the type is not yet know
+     * Decodes a LWM2M sequence encoded in Base64 into a list of LWM2M objects for which the type is not yet known
      *
      * @param buffer
      *            sequence to decode
      * @param contentType
      *            content type of the sequence
      * @return List of LWM2M objects (i.e. Object instance, Resource instance, Resource) or bytes if content type is not
-     *         recognised
+     *         recognised as a valid LWM2M encoding (i.e. other than JSON or TLV)
      * @throws DecodingException
      *             if an error occurred during parsing
      */
@@ -62,8 +62,8 @@ public class Base64Decoder {
      * @throws DecodingException
      *             if an error occurred during parsing
      */
-    public static <T> List<T> decodeBase64(ByteBuffer buffer, Class<T> clazz, EncodingType contentType)
-            throws DecodingException {
+    public static <T> List<T> decodeBase64(ByteBuffer buffer, Class<T> clazz,
+                                           EncodingType contentType) throws DecodingException {
         if (buffer == null || contentType == null || contentType == EncodingType.UNKNOWN) {
             return null;
         }
