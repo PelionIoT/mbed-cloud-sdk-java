@@ -239,7 +239,7 @@ public class Sdk extends AbstractApi implements Closeable {
      * Similar to {@link #quit()}.
      */
     @Override
-    public void close() throws Exception {
+    public void close() {
         quit();
     }
 
