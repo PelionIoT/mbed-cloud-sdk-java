@@ -6,6 +6,7 @@ import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -21,6 +22,7 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * The ID of the certificate issuer. Null if Device Management internal HSM is used.
      */
+    @Required
     private String certificateIssuerId;
 
     /**
@@ -36,7 +38,8 @@ public class CertificateIssuerConfig implements SdkModel {
     /**
      * The certificate name to which the certificate issuer configuration applies.
      */
-    private String reference;
+    @Required
+    private String certificateReference;
 
     /**
      * Updated UTC time RFC3339.
@@ -68,7 +71,7 @@ public class CertificateIssuerConfig implements SdkModel {
         setCertificateIssuerId(certificateIssuerId);
         setCreatedAt(createdAt);
         setId(id);
-        setReference(reference);
+        setCertificateReference(reference);
         setUpdatedAt(updatedAt);
     }
 
@@ -85,7 +88,7 @@ public class CertificateIssuerConfig implements SdkModel {
         this(certificateIssuerConfig == null ? null : certificateIssuerConfig.certificateIssuerId,
              certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? null : certificateIssuerConfig.id,
-             certificateIssuerConfig == null ? null : certificateIssuerConfig.reference,
+             certificateIssuerConfig == null ? null : certificateIssuerConfig.certificateReference,
              certificateIssuerConfig == null ? new Date() : certificateIssuerConfig.updatedAt);
     }
 
@@ -124,6 +127,7 @@ public class CertificateIssuerConfig implements SdkModel {
      *            The ID of the certificate issuer. Null if Device Management internal HSM is used.
      * 
      */
+    @Required
     public void setCertificateIssuerId(String certificateIssuerId) {
         this.certificateIssuerId = certificateIssuerId;
     }
@@ -187,8 +191,8 @@ public class CertificateIssuerConfig implements SdkModel {
      * 
      * @return reference
      */
-    public String getReference() {
-        return reference;
+    public String getCertificateReference() {
+        return certificateReference;
     }
 
     /**
@@ -197,8 +201,9 @@ public class CertificateIssuerConfig implements SdkModel {
      * @param reference
      *            The certificate name to which the certificate issuer configuration applies.
      */
-    public void setReference(String reference) {
-        this.reference = reference;
+    @Required
+    public void setCertificateReference(String reference) {
+        this.certificateReference = reference;
     }
 
     /**
@@ -234,7 +239,7 @@ public class CertificateIssuerConfig implements SdkModel {
         result = prime * result + ((certificateIssuerId == null) ? 0 : certificateIssuerId.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((reference == null) ? 0 : reference.hashCode());
+        result = prime * result + ((certificateReference == null) ? 0 : certificateReference.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         return result;
     }
@@ -281,11 +286,11 @@ public class CertificateIssuerConfig implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
-        if (reference == null) {
-            if (other.reference != null) {
+        if (certificateReference == null) {
+            if (other.certificateReference != null) {
                 return false;
             }
-        } else if (!reference.equals(other.reference)) {
+        } else if (!certificateReference.equals(other.certificateReference)) {
             return false;
         }
         if (updatedAt == null) {
@@ -308,7 +313,7 @@ public class CertificateIssuerConfig implements SdkModel {
     @Override
     public String toString() {
         return "CertificateIssuerConfig [certificateIssuerId=" + certificateIssuerId + ", createdAt=" + createdAt
-               + ", id=" + id + ", reference=" + reference + ", updatedAt=" + updatedAt + "]";
+               + ", id=" + id + ", reference=" + certificateReference + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -320,7 +325,7 @@ public class CertificateIssuerConfig implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return certificateIssuerId != null && certificateReference != null;
     }
 
     /**

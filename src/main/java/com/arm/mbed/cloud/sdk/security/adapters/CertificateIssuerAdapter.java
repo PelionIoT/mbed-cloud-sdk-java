@@ -51,8 +51,7 @@ public final class CertificateIssuerAdapter {
         return certificateIssuer;
     }
 
-    private static CertificateIssuerType
-            toIssuerType(com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerInfo.IssuerTypeEnum type) {
+    private static CertificateIssuerType toIssuerType(CertificateIssuerInfo.IssuerTypeEnum type) {
         if (type == null) {
             return CertificateIssuerType.getUnknownEnum();
         }

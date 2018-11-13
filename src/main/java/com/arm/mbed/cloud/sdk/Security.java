@@ -117,7 +117,7 @@ public class Security extends AbstractApi {
                             @NonNull CertificateIssuerConfig issuerConfiguration) throws MbedCloudException {
         checkNotNull(device, TAG_DEVICE);
         checkNotNull(issuerConfiguration, TAG_ISSUER_CONFIGURATION);
-        return renewCertificate(device.getId(), issuerConfiguration.getReference());
+        return renewCertificate(device.getId(), issuerConfiguration.getCertificateReference());
     }
 
     /**

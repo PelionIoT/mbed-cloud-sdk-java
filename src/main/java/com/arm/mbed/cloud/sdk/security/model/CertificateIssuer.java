@@ -7,6 +7,7 @@ import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 
 /**
@@ -50,6 +51,7 @@ public class CertificateIssuer implements SdkModel {
     /**
      * Certificate issuer name, unique per account.
      */
+    @Required
     private String name;
 
     /**
@@ -261,6 +263,7 @@ public class CertificateIssuer implements SdkModel {
      * @param name
      *            Certificate issuer name, unique per account.
      */
+    @Required
     public void setName(String name) {
         this.name = name;
     }
@@ -373,7 +376,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return name != null;
     }
 
     /**

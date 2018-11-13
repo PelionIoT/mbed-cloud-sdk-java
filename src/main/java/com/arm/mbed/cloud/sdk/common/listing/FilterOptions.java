@@ -283,6 +283,30 @@ public class FilterOptions implements Cloneable {
     }
 
     /**
+     * Adds a "greater than" filter.
+     *
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param value
+     *            the value of the filter
+     */
+    public void addGreaterThanFilter(@Nullable String fieldName, @Nullable Object value) {
+        addFilter(fieldName, FilterOperator.GREATER_THAN, value);
+    }
+
+    /**
+     * Adds a "less than" filter.
+     *
+     * @param fieldName
+     *            field name to apply the filter on
+     * @param value
+     *            the value of the filter
+     */
+    public void addLessThanFilter(@Nullable String fieldName, @Nullable Object value) {
+        addFilter(fieldName, FilterOperator.LESS_THAN, value);
+    }
+
+    /**
      * Adds an "in" filter.
      *
      * @param fieldName
