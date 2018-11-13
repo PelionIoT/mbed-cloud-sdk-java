@@ -1,7 +1,10 @@
 package com.arm.mbed.cloud.sdk;
 
+import java.io.Closeable;
 import java.util.HashMap;
 import java.util.Map;
+
+import io.reactivex.BackpressureStrategy;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Daemon;
@@ -23,15 +26,13 @@ import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
-import io.reactivex.BackpressureStrategy;
-
 @Preamble(description = "Entry point for using the SDK")
 @Module
 @Experimental
 /**
  * Entry point for using the SDK.
  */
-public class Sdk extends AbstractApi implements AutoCloseable {
+public class Sdk extends AbstractApi implements Closeable {
 
     private final Connect connectApi;
 
@@ -90,7 +91,7 @@ public class Sdk extends AbstractApi implements AutoCloseable {
     @API
     @Nullable
     public DeviceStateObserver subscribe(@NonNull DeviceStateFilterOptions filter,
-            @NonNull BackpressureStrategy strategy) throws MbedCloudException {
+                                         @NonNull BackpressureStrategy strategy) throws MbedCloudException {
         return subscribe().deviceStateChanges(filter, strategy);
     }
 
@@ -108,7 +109,7 @@ public class Sdk extends AbstractApi implements AutoCloseable {
      *             if a problem occurs during the process.
      */
     public ResourceValueObserver subscribe(@NonNull SubscriptionFilterOptions filter,
-            @NonNull BackpressureStrategy strategy) throws MbedCloudException {
+                                           @NonNull BackpressureStrategy strategy) throws MbedCloudException {
         return subscribe().resourceValues(filter, strategy);
     }
 
@@ -127,7 +128,8 @@ public class Sdk extends AbstractApi implements AutoCloseable {
      *             if a problem occurs during the process.
      */
     public ResourceValueObserver subscribe(@NonNull SubscriptionFilterOptions filter,
-            @NonNull BackpressureStrategy strategy, FirstValue triggerMode) throws MbedCloudException {
+                                           @NonNull BackpressureStrategy strategy,
+                                           FirstValue triggerMode) throws MbedCloudException {
         return subscribe().resourceValues(filter, strategy, triggerMode);
     }
 
@@ -143,8 +145,8 @@ public class Sdk extends AbstractApi implements AutoCloseable {
      * @throws MbedCloudException
      *             if a problem occurs during the process.
      */
-    public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy)
-            throws MbedCloudException {
+    public ResourceValueObserver subscribe(@NonNull Resource resource,
+                                           @NonNull BackpressureStrategy strategy) throws MbedCloudException {
         return subscribe().resourceValues(resource, strategy);
     }
 
@@ -163,7 +165,7 @@ public class Sdk extends AbstractApi implements AutoCloseable {
      *             if a problem occurs during the process.
      */
     public ResourceValueObserver subscribe(@NonNull Resource resource, @NonNull BackpressureStrategy strategy,
-            FirstValue triggerMode) throws MbedCloudException {
+                                           FirstValue triggerMode) throws MbedCloudException {
         return subscribe().resourceValues(resource, strategy, triggerMode);
     }
 

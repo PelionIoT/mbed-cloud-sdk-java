@@ -3,12 +3,14 @@ package com.arm.mbed.cloud.sdk.connect.subscription;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.connect.model.ResourceValueType;
 import com.mbed.lwm2m.base64.Base64Encoder;
 
+@Preamble(description = "Parameters of an action carried out on a resource")
 public class ResourceActionParameters {
 
     private final String asyncId;

@@ -100,7 +100,6 @@ public class Connect extends AbstractApi {
     private static final String TAG_DEVICE = "Device";
     private final EndPoints endpoint;
     private final DeviceDirectory deviceDirectory;
-    private final ExecutorService threadPool;
     private final NotificationHandlersStore handlersStore;
 
     /**
@@ -141,12 +140,10 @@ public class Connect extends AbstractApi {
         super(options);
         endpoint = new EndPoints(options);
         deviceDirectory = new DeviceDirectory(options);
-        this.threadPool = (notificationHandlingThreadPool == null) ? Executors.newFixedThreadPool(4)
-                                                                   : notificationHandlingThreadPool;
         this.handlersStore = new NotificationHandlersStore(this,
                                                            (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()
                                                                                                    : notificationPullingThreadPool,
-                                                           null, endpoint);
+                                                           notificationHandlingThreadPool, endpoint);
 
     }
 
@@ -259,7 +256,6 @@ public class Connect extends AbstractApi {
     public void shutdownConnectService() {
         logger.logInfo(getModuleName() + ": shutdownConnectService()");
         handlersStore.shutdown();
-        threadPool.shutdown();
     }
 
     /**

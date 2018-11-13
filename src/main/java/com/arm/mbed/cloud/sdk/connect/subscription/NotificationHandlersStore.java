@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.connect.subscription;
 
+import java.io.Closeable;
+import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -44,7 +46,7 @@ import retrofit2.Call;
 
 @Preamble(description = "Internal store for notification handlers")
 @Internal
-public class NotificationHandlersStore {
+public class NotificationHandlersStore implements Closeable {
 
     private static final int IDLE_TIME_BETWEEN_NOTIFICATION_PULL_CALLS = 50;
 
@@ -54,6 +56,7 @@ public class NotificationHandlersStore {
     private final ExecutorService pullThreads;
     private Future<?> pullHandle;
     private final EndPoints endpoint;
+    private final ExecutorService customSubscriptionHandlingExecutor;
     private final SubscriptionObserversStore observerStore;
 
     /**
@@ -75,8 +78,9 @@ public class NotificationHandlersStore {
         this.endpoint = createNotificationPull(endpoint);
         this.api = api;
         pullHandle = null;
-        observerStore = new SubscriptionObserversStore((subscriptionHandlingExecutor == null) ? Schedulers.computation()
-                                                                                              : Schedulers.from(subscriptionHandlingExecutor),
+        customSubscriptionHandlingExecutor = subscriptionHandlingExecutor;
+        observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
+                                                                                                    : Schedulers.from(customSubscriptionHandlingExecutor),
                                                        new ResourceSubscriber(api, FirstValue.getDefault()),
                                                        new ResourceUnsubscriber(api, FirstValue.getDefault()));
     }
@@ -155,6 +159,10 @@ public class NotificationHandlersStore {
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
+        if (customSubscriptionHandlingExecutor != null) {
+            customSubscriptionHandlingExecutor.shutdown();
+        }
+        Schedulers.shutdown();
         clearStores();
     }
 
@@ -426,6 +434,11 @@ public class NotificationHandlersStore {
 
     private void logPullError(Exception exception) {
         api.getLogger().logError("An error occurred during Notification pull", exception);
+    }
+
+    @Override
+    public void close() throws IOException {
+        shutdown();
     }
 
 }
