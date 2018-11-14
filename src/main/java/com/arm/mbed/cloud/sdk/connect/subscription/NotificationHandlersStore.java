@@ -103,7 +103,7 @@ public class NotificationHandlersStore implements Closeable {
      */
     public void startNotificationPull() {
         if (isPullingActive()) {
-            api.getLogger().logInfo("Notification pull is already working.");
+            logInfo("Notification pull is already working.");
             return;
         }
         final Runnable pollingSingleAction = createPollingSingleAction();
@@ -350,9 +350,8 @@ public class NotificationHandlersStore implements Closeable {
                                                                                                     }, false, true);
                     final NotificationMessage notificationMessage = feedback.getResult();
                     if (notificationMessage == null) {
-                        api.getLogger()
-                           .logInfo("Notification pull did not receive any notification during last call. Call information: "
-                                    + feedback.getMetadata());
+                        logInfo("Notification pull did not receive any notification during last call. Call information: "
+                                + feedback.getMetadata());
                         return;
                     }
                     emitNotification(notificationMessage);
