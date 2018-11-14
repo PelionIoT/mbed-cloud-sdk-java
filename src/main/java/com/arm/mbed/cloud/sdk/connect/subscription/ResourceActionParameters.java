@@ -17,6 +17,18 @@ public class ResourceActionParameters {
     private final Object value;
     private final ResourceValueType valueType;
 
+    /**
+     * Constructor.
+     * 
+     * @param asyncId
+     *            asynchronous response Id.
+     * @param resource
+     *            resource the action refers to.
+     * @param value
+     *            value of the resource to set or execute.
+     * @param valueType
+     *            type of the value.
+     */
     public ResourceActionParameters(String asyncId, Resource resource, Object value, ResourceValueType valueType) {
         super();
         this.asyncId = asyncId;
@@ -49,6 +61,13 @@ public class ResourceActionParameters {
         return resource == null ? null : ApiUtils.normaliseResourcePath(resource.getPath());
     }
 
+    /**
+     * Marshalls the resource value into whatever acceptable format accepted by Pelion Cloud.
+     * 
+     * @return marshalled resource value as a String.
+     * @throws MbedCloudException
+     *             if an error occurred during the marshalling.
+     */
     public String marshall() throws MbedCloudException {
         if (!hasPayload()) {
             return null;
@@ -62,7 +81,8 @@ public class ResourceActionParameters {
                 || value.getClass() == Long.class) {
                 actualValueType = ResourceValueType.INTEGER;
             }
-        } else {// TODO be more granular OBJECT and LWM2M
+        } else {
+            // TODO be more granular OBJECT and LWM2M
             actualValueType = ResourceValueType.STRING;
         }
         ByteBuffer input = null;
@@ -84,7 +104,7 @@ public class ResourceActionParameters {
                     throw new MbedCloudException(new IllegalArgumentException("Expected value to a  number but was "
                                                                               + value.getClass()));
                 }
-                Number number = ((Number) value);
+                final Number number = ((Number) value);
                 input = ByteBuffer.allocate(Double.BYTES);
                 if (valueType == ResourceValueType.INTEGER) {
                     input.putLong(number.longValue());

@@ -16,6 +16,14 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
     private final int statusCode;
     private String errorMessage;
 
+    /**
+     * Constructor.
+     * 
+     * @param id
+     *            ID of the notification.
+     * @param statusCode
+     *            status code of the response.
+     */
     public AsynchronousResponseNotification(String id, int statusCode) {
         super();
         this.id = id;
@@ -76,7 +84,7 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
      * 
      * @return equivalent error if request failed; Null otherwise.
      */
-    public @Nullable com.arm.mbed.cloud.sdk.common.Error toError() {
+    public @Nullable Error toError() {
         return reportsFailure() ? new Error(getStatusCode(), "Async error", getErrorMessage(), getId()) : null;
 
     }
@@ -92,7 +100,7 @@ public class AsynchronousResponseNotification extends NotificationWithPayload {
     public <T extends NotificationWithPayload> void setObject(T other) {
         super.setObject(other);
         setErrorMessage(null);
-        if (other != null && other instanceof AsynchronousResponseNotification) {
+        if (other instanceof AsynchronousResponseNotification) {
             setErrorMessage(((AsynchronousResponseNotification) other).getErrorMessage());
         }
     }

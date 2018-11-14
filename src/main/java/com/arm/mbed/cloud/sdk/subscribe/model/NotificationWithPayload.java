@@ -78,6 +78,8 @@ public class NotificationWithPayload implements NotificationMessageValue {
      *
      * @param somePayload
      *            the payload to set
+     * @param <T>
+     *            type of payload
      * @return this
      */
     @SuppressWarnings("unchecked")
@@ -207,6 +209,8 @@ public class NotificationWithPayload implements NotificationMessageValue {
      *
      * @param other
      *            an other object
+     * @param <T>
+     *            type of the other object.
      */
     public <T extends NotificationWithPayload> void setObject(T other) {
         if (other == null) {

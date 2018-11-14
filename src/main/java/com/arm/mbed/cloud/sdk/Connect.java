@@ -86,6 +86,7 @@ import retrofit2.Call;
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
 public class Connect extends AbstractApi {
+    private static final String BUFFER = "BUFFER";
     private static final String TAG_VALUE_TYPE = "valueType";
     private static final String TAG_PRESUBSCRIPTION = "presubscription";
     private static final String TAG_ON_NOTIFICATION_CALLBACK = "on notification callback";
@@ -664,7 +665,7 @@ public class Connect extends AbstractApi {
      */
     public @Nullable AsynchronousResponseObserver
            createCurrentResourceValueObserver(@NonNull Resource resource,
-                                              @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+                                              @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy) throws MbedCloudException {
 
         return createResourceActionObserver(createResourceAction("getResourceValueAsync()",
                                                                  ResourceActionAdapter.getGetResourceValueMapper()),
@@ -680,13 +681,17 @@ public class Connect extends AbstractApi {
      *            resource of interest.
      * @param strategy
      *            backpressure strategy.
+     * @param value
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
      * @return corresponding observer.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     public @Nullable AsynchronousResponseObserver
            createSetResourceValueObserver(@NonNull Resource resource,
-                                          @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+                                          @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
                                           @Nullable Object value,
                                           @NonNull ResourceValueType valueType) throws MbedCloudException {
 
@@ -704,13 +709,17 @@ public class Connect extends AbstractApi {
      *            resource of interest.
      * @param strategy
      *            backpressure strategy.
+     * @param value
+     *            value to set.
+     * @param valueType
+     *            type of the value to set.
      * @return corresponding observer.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
      */
     public @Nullable AsynchronousResponseObserver
            createExecuteResourceValueObserver(@NonNull Resource resource,
-                                              @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy,
+                                              @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy,
                                               @Nullable Object value,
                                               @NonNull ResourceValueType valueType) throws MbedCloudException {
         return createResourceActionObserver(createResourceAction("executeResourceAsync()",
@@ -769,17 +778,19 @@ public class Connect extends AbstractApi {
 
     protected Future<Object> convertObserverToFuture(AsynchronousResponseObserver observer) throws MbedCloudException {
         try {
-            Flowable<Object> newFlow = observer.flow().map(new Function<AsynchronousResponseNotification, Object>() {
+            final Flowable<Object> newFlow = observer.flow()
+                                                     .map(new Function<AsynchronousResponseNotification, Object>() {
 
-                @Override
-                public Object apply(AsynchronousResponseNotification notification) throws Exception {
-                    if (notification.reportsFailure()) {
-                        return notification.toError();
-                    } else {
-                        return notification.getPayload();
-                    }
-                }
-            }).take(1);
+                                                         @Override
+                                                         public Object
+                                                                apply(AsynchronousResponseNotification notification) throws Exception {
+                                                             if (notification.reportsFailure()) {
+                                                                 return notification.toError();
+                                                             } else {
+                                                                 return notification.getPayload();
+                                                             }
+                                                         }
+                                                     }).take(1);
             return newFlow.toFuture();
 
         } catch (Exception exception) {
@@ -1202,8 +1213,9 @@ public class Connect extends AbstractApi {
      *            The resource to set the value of.
      * @param resourceValue
      *            value to set.
-     * @param valueType
-     *            type of the value to set.
+     * @param noResponse
+     *            If true, Pelion Cloud will not wait for a response.
+     * 
      * @return A Future from which it is possible to set the value.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -1223,8 +1235,8 @@ public class Connect extends AbstractApi {
      *            The resource to set the value of.
      * @param resourceValue
      *            value to set.
-     * @param noResponse
-     *            If true, mbed Device Connector will not wait for a response.
+     * @param valueType
+     *            type of the value to set.
      * @return A Future from which it is possible to set the value.
      * @throws MbedCloudException
      *             if a problem occurred during request processing.
@@ -2396,15 +2408,16 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Flowable<NotificationMessageValue>
            addResourceSubscription(@NonNull Resource resource,
-                                   @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
-        final Flowable<NotificationMessageValue> observer = createResourceSubscriptionObserver(resource, strategy);
+                                   @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy) throws MbedCloudException {
         try {
+            final Flowable<NotificationMessageValue> observer = createResourceSubscriptionObserver(resource, strategy);
             addResourceSubscription(resource);
+            return observer;
         } catch (MbedCloudException exception) {
             handlersStore.removeResourceSubscriptionObserver(resource);
             throw exception;
         }
-        return observer;
+
     }
 
     /**
@@ -2508,7 +2521,7 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Flowable<NotificationMessageValue>
            createResourceSubscriptionObserver(@NonNull Resource resource,
-                                              @Nullable @DefaultValue("BUFFER") BackpressureStrategy strategy) throws MbedCloudException {
+                                              @Nullable @DefaultValue(BUFFER) BackpressureStrategy strategy) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
         final BackpressureStrategy finalStrategy = (strategy == null) ? BackpressureStrategy.BUFFER : strategy;

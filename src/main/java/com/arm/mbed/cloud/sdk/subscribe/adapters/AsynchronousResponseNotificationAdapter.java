@@ -24,8 +24,10 @@ public final class AsynchronousResponseNotificationAdapter {
     /**
      * Maps an asynchronous response to a resource value notification.
      *
-     * @param notificationData
-     *            notification data.
+     * @param correspondingResource
+     *            corresponding resource.
+     * @param asyncResponse
+     *            asynchronous response
      * @return a resource value notification.
      */
     public static ResourceValueNotification

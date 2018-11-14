@@ -80,7 +80,7 @@ public class ResourceValueNotification extends NotificationWithPayload {
     public <T extends NotificationWithPayload> void setObject(T other) {
         super.setObject(other);
         setMaxAge(null);
-        if (other != null && other instanceof ResourceValueNotification) {
+        if (other instanceof ResourceValueNotification) {
             setMaxAge(((ResourceValueNotification) other).getMaxAge());
             // TODO add setDeviceType
         }

@@ -82,6 +82,12 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
 
     }
 
+    @Override
+    public List<Observer<?>> listAll(SubscriptionType type) {
+        final SubscriptionManager substore = store.get(type);
+        return (substore == null) ? null : substore.listAll(type);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -90,12 +96,6 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
     @Override
     public SubscriptionManager getTopManager() {
         return null;
-    }
-
-    @Override
-    public List<Observer<?>> listAll(SubscriptionType type) {
-        final SubscriptionManager substore = store.get(type);
-        return (substore == null) ? null : substore.listAll(type);
     }
 
     @Override

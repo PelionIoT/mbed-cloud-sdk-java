@@ -177,7 +177,7 @@ public interface SubscriptionManager {
      *
      * Creates an observer and registers it.
      *
-     * @param type
+     * @param subscriptionType
      *            type of subscription to consider.
      * @param filter
      *            filter to apply.
@@ -255,6 +255,8 @@ public interface SubscriptionManager {
 
     /**
      * Gets the manager which controls all observers in the system: the manager at the top of the observer store tree.
+     * 
+     * @return top manager.
      */
     @Nullable
     SubscriptionManager getTopManager();

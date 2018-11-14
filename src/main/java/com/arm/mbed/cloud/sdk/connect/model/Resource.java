@@ -138,8 +138,8 @@ public class Resource implements SdkModel {
     /**
      * Creates an observable resource.
      *
-     * @param deviceId
-     *            device id.
+     * @param device
+     *            device .
      * @param path
      *            resource path.
      * @return corresponding observable resource
