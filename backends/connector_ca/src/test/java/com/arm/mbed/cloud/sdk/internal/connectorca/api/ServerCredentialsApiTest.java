@@ -31,8 +31,7 @@ public class ServerCredentialsApiTest {
      */
     @Test
     public void getAllServerCredentialsTest() {
-        String authorization = null;
-        // AllServerCredentialsResponseData response = api.getAllServerCredentials(authorization);
+        // AllServerCredentialsResponseData response = api.getAllServerCredentials();
 
         // TODO: test validations
     }
@@ -43,8 +42,7 @@ public class ServerCredentialsApiTest {
      */
     @Test
     public void getBootstrapServerCredentialsTest() {
-        String authorization = null;
-        // ServerCredentialsResponseData response = api.getBootstrapServerCredentials(authorization);
+        // ServerCredentialsResponseData response = api.getBootstrapServerCredentials();
 
         // TODO: test validations
     }
@@ -55,8 +53,7 @@ public class ServerCredentialsApiTest {
      */
     @Test
     public void getL2M2MServerCredentialsTest() {
-        String authorization = null;
-        // ServerCredentialsResponseData response = api.getL2M2MServerCredentials(authorization);
+        // ServerCredentialsResponseData response = api.getL2M2MServerCredentials();
 
         // TODO: test validations
     }
