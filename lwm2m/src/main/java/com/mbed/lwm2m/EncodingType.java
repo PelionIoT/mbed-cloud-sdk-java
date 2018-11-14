@@ -9,9 +9,11 @@ package com.mbed.lwm2m;
  */
 public enum EncodingType {
     PLAIN_TEXT("text", "text/plain"),
-    OCTET_STREAM("octet", "application/octet-stream"),
-    JSON("json", "application/json"),
-    TLV("lwm2m+tlv", "application/vnd.oma.wm2m+tlv"),
+    JSON("application/json", "application/json"),
+    LWM2M_TLV("lwm2m+tlv", "application/vnd.oma.wm2m+tlv"),
+    LWM2M_JSON("lwm2m+json", "application/vnd.oma.lwm2m+json"),
+    LWM2M_OPAQUE("octet", "application/octet-stream"),
+    LWM2M_CORE_LINK_PARAM("link", "application/link-format"),
     UNKNOWN("unknown", "");
 
     private final String value;

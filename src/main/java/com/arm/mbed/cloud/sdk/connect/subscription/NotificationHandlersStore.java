@@ -156,14 +156,27 @@ public class NotificationHandlersStore implements Closeable {
      * Shuts down the store and the thread pool it uses.
      */
     public void shutdown() {
+        api.getLogger().logDebug("Shutting down polling thread");
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
+        api.getLogger().logDebug("Clearing notification handler store");
+        try {
+            clearStores();
+        } catch (Exception exception) {
+            api.getLogger().logError("Failed clearing notification handler store", exception);
+        }
+        api.getLogger().logDebug("Shutting down notification threads");
         if (customSubscriptionHandlingExecutor != null) {
             customSubscriptionHandlingExecutor.shutdown();
         }
-        Schedulers.shutdown();
-        clearStores();
+        api.getLogger().logDebug("Shutting down notification schedulers");
+        try {
+            Schedulers.shutdown();
+        } catch (Exception exception) {
+            api.getLogger().logError("Failed shutting down notification schedulers", exception);
+        }
+
     }
 
     /**

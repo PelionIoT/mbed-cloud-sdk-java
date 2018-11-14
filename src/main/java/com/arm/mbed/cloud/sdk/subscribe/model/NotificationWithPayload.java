@@ -124,12 +124,21 @@ public class NotificationWithPayload implements NotificationMessageValue {
 
     private static Object decodeBase64EncodedPayload(String payload, String ct) throws DecodingException {
         final EncodingType encodingType = EncodingType.getType(ct);
-        if (encodingType == EncodingType.UNKNOWN) {
-            return Base64Decoder.decodeToUtf8(payload);
+        switch (encodingType) {
+            case LWM2M_CORE_LINK_PARAM:
+            case LWM2M_JSON:
+            case LWM2M_OPAQUE:
+            case LWM2M_TLV:
+                final byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
+                final ByteBuffer buffer = ByteBuffer.wrap(bytes);
+                return Base64Decoder.decodeBase64Lwm2m(buffer, encodingType);
+            case JSON:
+                // TODO
+            case PLAIN_TEXT:
+            case UNKNOWN:
+            default:
+                return Base64Decoder.decodeToUtf8(payload);
         }
-        final byte[] bytes = payload.getBytes(StandardCharsets.UTF_8);
-        final ByteBuffer buffer = ByteBuffer.wrap(bytes);
-        return Base64Decoder.decodeBase64(buffer, encodingType);
     }
 
     @Override

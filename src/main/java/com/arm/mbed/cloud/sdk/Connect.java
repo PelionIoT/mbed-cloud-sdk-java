@@ -52,12 +52,12 @@ import com.arm.mbed.cloud.sdk.connect.model.MetricsPeriodListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.MetricsStartEndListOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.connect.model.ResourceValueType;
 import com.arm.mbed.cloud.sdk.connect.model.Subscription;
 import com.arm.mbed.cloud.sdk.connect.model.Webhook;
 import com.arm.mbed.cloud.sdk.connect.subscription.NotificationHandlersStore;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceAction;
 import com.arm.mbed.cloud.sdk.connect.subscription.ResourceActionParameters;
+import com.arm.mbed.cloud.sdk.connect.subscription.ResourceValueType;
 import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapter;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
@@ -754,6 +754,7 @@ public class Connect extends AbstractApi {
                                                                                                 parameters.getAsyncId(),
                                                                                                 finalStrategy,
                                                                                                 notifyOtherObservers);
+
         try {
             action.execute(parameters);
         } catch (MbedCloudException exception) {
@@ -765,7 +766,7 @@ public class Connect extends AbstractApi {
 
     protected Future<Object> convertObserverToFuture(AsynchronousResponseObserver observer) throws MbedCloudException {
         try {
-            return observer.flow().map(new Function<AsynchronousResponseNotification, Object>() {
+            Flowable<Object> newFlow = observer.flow().map(new Function<AsynchronousResponseNotification, Object>() {
 
                 @Override
                 public Object apply(AsynchronousResponseNotification notification) throws Exception {
@@ -775,7 +776,9 @@ public class Connect extends AbstractApi {
                         return notification.getPayload();
                     }
                 }
-            }).firstOrError().toFuture();
+            }).take(1);
+            return newFlow.toFuture();
+
         } catch (Exception exception) {
             throw new MbedCloudException(exception);
         }
@@ -855,7 +858,6 @@ public class Connect extends AbstractApi {
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         return convertObserverToFuture(createCurrentResourceValueObserver(new Resource(deviceId, resourcePath),
                                                                           BackpressureStrategy.BUFFER));
-
     }
 
     /**

@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.connect.model;
+package com.arm.mbed.cloud.sdk.connect.subscription;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
@@ -9,7 +9,7 @@ public enum ResourceValueType implements SdkEnum {
     STRING("string", EncodingType.PLAIN_TEXT),
     INTEGER("number", EncodingType.PLAIN_TEXT),
     NUMBER("number", EncodingType.PLAIN_TEXT),
-    BYTES("byte", EncodingType.OCTET_STREAM),
+    BYTES("byte", EncodingType.PLAIN_TEXT),
     // TODO
     // OBJECT("json", EncodingType.JSON),
     // LWM2M("lwm2m", EncodingType.TLV),
