@@ -170,12 +170,13 @@ public class NotificationHandlersStore implements Closeable {
         if (customSubscriptionHandlingExecutor != null) {
             customSubscriptionHandlingExecutor.shutdown();
         }
-        logDebug("Shutting down notification schedulers");
-        try {
-            Schedulers.shutdown();
-        } catch (Exception exception) {
-            logError("Failed shutting down notification schedulers", exception);
-        }
+        // shutting down schedulers can have side effects
+        // logDebug("Shutting down notification schedulers");
+        // try {
+        // Schedulers.shutdown();
+        // } catch (Exception exception) {
+        // logError("Failed shutting down notification schedulers", exception);
+        // }
     }
 
     protected void logDebug(String message) {

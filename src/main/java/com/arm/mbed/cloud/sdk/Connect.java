@@ -870,8 +870,7 @@ public class Connect extends AbstractApi {
                                                           @NonNull String resourcePath) throws MbedCloudException {
         checkNotNull(deviceId, TAG_DEVICE_ID);
         checkNotNull(resourcePath, TAG_RESOURCE_PATH);
-        return convertObserverToFuture(createCurrentResourceValueObserver(new Resource(deviceId, resourcePath),
-                                                                          BackpressureStrategy.BUFFER));
+        return getResourceValueAsync(new Resource(deviceId, resourcePath));
     }
 
     /**
@@ -947,7 +946,7 @@ public class Connect extends AbstractApi {
     public @Nullable Future<Object> getResourceValueAsync(@NonNull Resource resource) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        return getResourceValueAsync(resource.getDeviceId(), resource.getPath());
+        return convertObserverToFuture(createCurrentResourceValueObserver(resource, BackpressureStrategy.BUFFER));
 
     }
 
@@ -1027,20 +1026,9 @@ public class Connect extends AbstractApi {
     @API
     public @Nullable Object getResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
-        final String id = deviceId;
-        final String path = resourcePath;
-        try {
-            return SynchronousMethod.waitForCompletion(this, "getResourceValue()", new AsynchronousMethod<Object>() {
-
-                @Override
-                public Future<Object> submit() throws MbedCloudException {
-                    return getResourceValueAsync(id, path);
-                }
-            }, timeout);
-        } catch (MbedCloudException exception) {
-            logger.throwSdkException(exception);
-        }
-        return null;
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
+        return getResourceValue(new Resource(deviceId, resourcePath), timeout);
     }
 
     /**
@@ -1081,7 +1069,6 @@ public class Connect extends AbstractApi {
     public @Nullable Object getResourceValue(@NonNull Resource resource, @DefaultValue(value = FALSE) boolean cacheOnly,
                                              @DefaultValue(value = FALSE) boolean noResponse,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
         return getResourceValue(resource, timeout);
 
     }
@@ -1121,7 +1108,19 @@ public class Connect extends AbstractApi {
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
         checkNotNull(resource, TAG_RESOURCE);
         checkModelValidity(resource, TAG_RESOURCE);
-        return getResourceValue(resource.getDeviceId(), resource.getPath(), timeout);
+        final Resource finalResource = resource;
+        try {
+            return SynchronousMethod.waitForCompletion(this, "getResourceValue()", new AsynchronousMethod<Object>() {
+
+                @Override
+                public Future<Object> submit() throws MbedCloudException {
+                    return getResourceValueAsync(finalResource);
+                }
+            }, timeout);
+        } catch (MbedCloudException exception) {
+            logger.throwSdkException(exception);
+        }
+        return null;
     }
 
     /**
@@ -1184,7 +1183,8 @@ public class Connect extends AbstractApi {
     public @Nullable Future<Object>
            setResourceValueAsync(@NonNull String deviceId, @NonNull String resourcePath, @Nullable Object resourceValue,
                                  @NonNull ResourceValueType valueType) throws MbedCloudException {
-
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         return setResourceValueAsync(new Resource(deviceId, resourcePath), resourceValue, valueType);
     }
 
@@ -1245,6 +1245,8 @@ public class Connect extends AbstractApi {
     public @Nullable Future<Object>
            setResourceValueAsync(@NonNull Resource resource, @Nullable Object resourceValue,
                                  @NonNull ResourceValueType valueType) throws MbedCloudException {
+        checkNotNull(resource, TAG_RESOURCE);
+        checkModelValidity(resource, TAG_RESOURCE);
         checkNotNull(valueType, TAG_VALUE_TYPE);
         return convertObserverToFuture(createSetResourceValueObserver(resource, BackpressureStrategy.BUFFER,
                                                                       resourceValue, valueType));
@@ -1319,7 +1321,34 @@ public class Connect extends AbstractApi {
     public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
                                              @Nullable Object resourceValue, @NonNull ResourceValueType valueType,
                                              @Nullable TimePeriod timeout) throws MbedCloudException {
+        checkNotNull(deviceId, TAG_DEVICE_ID);
+        checkNotNull(resourcePath, TAG_RESOURCE_PATH);
         return setResourceValue(new Resource(deviceId, resourcePath), resourceValue, valueType, timeout);
+    }
+
+    /**
+     * Sets the value of a resource.
+     * <p>
+     * Note: Waits if necessary for the computation to complete, and then retrieves its result.
+     *
+     * @param deviceId
+     *            The name/id of the device.
+     * @param resourcePath
+     *            The resource path to get.
+     * @param resourceValue
+     *            value to set.
+     * @param timeout
+     *            Timeout for the request.
+     * @return The value of the new resource.
+     * @throws MbedCloudException
+     *             if a problem occurred during request processing.
+     */
+    @API
+    public @Nullable Object setResourceValue(@NonNull String deviceId, @NonNull String resourcePath,
+                                             @Nullable String resourceValue,
+                                             @Nullable TimePeriod timeout) throws MbedCloudException {
+
+        return setResourceValue(deviceId, resourcePath, resourceValue, ResourceValueType.STRING, timeout);
     }
 
     /**
@@ -1526,8 +1555,6 @@ public class Connect extends AbstractApi {
     public @Nullable Future<Object>
            executeResourceAsync(@NonNull Resource resource, @Nullable String functionName,
                                 @DefaultValue(value = FALSE) boolean noResponse) throws MbedCloudException {
-        checkNotNull(resource, TAG_RESOURCE);
-        checkModelValidity(resource, TAG_RESOURCE);
         return executeResourceAsync(resource, functionName);
     }
 
