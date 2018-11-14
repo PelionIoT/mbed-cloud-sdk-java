@@ -156,27 +156,47 @@ public class NotificationHandlersStore implements Closeable {
      * Shuts down the store and the thread pool it uses.
      */
     public void shutdown() {
-        api.getLogger().logDebug("Shutting down polling thread");
+        logDebug("Shutting down polling thread");
         if (pullThreads != null) {
             pullThreads.shutdown();
         }
-        api.getLogger().logDebug("Clearing notification handler store");
+        logDebug("Clearing notification handler store");
         try {
             clearStores();
         } catch (Exception exception) {
-            api.getLogger().logError("Failed clearing notification handler store", exception);
+            logError("Failed clearing notification handler store", exception);
         }
-        api.getLogger().logDebug("Shutting down notification threads");
+        logDebug("Shutting down notification threads");
         if (customSubscriptionHandlingExecutor != null) {
             customSubscriptionHandlingExecutor.shutdown();
         }
-        api.getLogger().logDebug("Shutting down notification schedulers");
+        logDebug("Shutting down notification schedulers");
         try {
             Schedulers.shutdown();
         } catch (Exception exception) {
-            api.getLogger().logError("Failed shutting down notification schedulers", exception);
+            logError("Failed shutting down notification schedulers", exception);
         }
+    }
 
+    protected void logDebug(String message) {
+        final SdkLogger logger = api == null ? null : api.getLogger();
+        if (logger != null) {
+            logger.logDebug(message);
+        }
+    }
+
+    protected void logError(String message, Exception exception) {
+        final SdkLogger logger = api == null ? null : api.getLogger();
+        if (logger != null) {
+            logger.logError(message, exception);
+        }
+    }
+
+    protected void logInfo(String message) {
+        final SdkLogger logger = api == null ? null : api.getLogger();
+        if (logger != null) {
+            logger.logInfo(message);
+        }
     }
 
     /**
@@ -442,11 +462,11 @@ public class NotificationHandlersStore implements Closeable {
     }
 
     private void logNotificationError(Exception exception) {
-        api.getLogger().logError("An error occurred while handling notifications", exception);
+        logError("An error occurred while handling notifications", exception);
     }
 
     private void logPullError(Exception exception) {
-        api.getLogger().logError("An error occurred during Notification pull", exception);
+        logError("An error occurred during Notification pull", exception);
     }
 
     @Override

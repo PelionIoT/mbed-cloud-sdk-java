@@ -477,6 +477,7 @@ public class TestAbstractObserver {
         TestObserver obs = manager.createObserver(SubscriptionType.DEVICE_STATE_CHANGE, null,
                                                   BackpressureStrategy.BUFFER);
         try {
+            obs.flow().subscribe();
             Future<NotificationTestMessageValue> future = obs.futureOne();
             NotificationTestMessageValue value = future.get(5, TimeUnit.SECONDS);
             // Value should be the first element received.

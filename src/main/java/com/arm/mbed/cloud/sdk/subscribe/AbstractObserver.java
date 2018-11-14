@@ -181,7 +181,8 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
      */
     @Override
     public Future<T> futureOne(@Nullable TimePeriod timeout) throws MbedCloudException {
-        return singleNotification(timeout).toFuture();
+        final Flowable<T> flowWithTimeout = specifyTimeout(timeout);
+        return flowWithTimeout.take(1).toFuture();
     }
 
     @Override
@@ -208,12 +209,15 @@ public abstract class AbstractObserver<T extends NotificationMessageValue> imple
     @Override
     public Single<T> singleNotification(TimePeriod timeout) throws MbedCloudException {
         try {
-            final Flowable<T> oneItemFlow = (timeout == null) ? flow
-                                                              : flow.timeout(timeout.getDuration(), timeout.getUnit());
+            final Flowable<T> oneItemFlow = specifyTimeout(timeout);
             return oneItemFlow.firstOrError();
         } catch (Exception exception) {
             throw new MbedCloudException("The value could not be retrieved", exception);
         }
+    }
+
+    protected Flowable<T> specifyTimeout(TimePeriod timeout) {
+        return (timeout == null) ? flow : flow.timeout(timeout.getDuration(), timeout.getUnit());
     }
 
     @Override
