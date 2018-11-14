@@ -19,7 +19,6 @@ class SDKNewsAndTag(sdk_common.BuildStep):
         self.property_file = self.common_config.get_config().get_project_property_file()
 
     def execute(self):
-        print('> is commit already tagged: ' + str(self.is_commit_already_tagged))
         self.print_title()
         try:
             self.log_info("Generating the changelog")
@@ -45,11 +44,6 @@ class SDKNewsAndTag(sdk_common.BuildStep):
             self.log_error('Failed to tag the repository')
             return False
         self.log_info("Done.")
-        return True
-
-        self.check_command_output(arguments, self.gradle_directory)
-        self.log_info(self.common_config.get_config().get_version(), True)
-
         return True
 
     def fetch_commit_tag(self):

@@ -1,7 +1,7 @@
 package com.mbed.lwm2m;
 
 /**
- * Exception occurring during message payload decoding
+ * Exception occurring during message payload encoding
  */
 public class DecodingException extends Exception {
 

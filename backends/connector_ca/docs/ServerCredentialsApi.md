@@ -11,7 +11,7 @@ Method | HTTP request | Description
 
 <a name="getAllServerCredentials"></a>
 # **getAllServerCredentials**
-> AllServerCredentialsResponseData getAllServerCredentials(authorization)
+> AllServerCredentialsResponseData getAllServerCredentials()
 
 Fetch all (Bootstrap and LwM2M) server credentials.
 
@@ -35,9 +35,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    AllServerCredentialsResponseData result = apiInstance.getAllServerCredentials(authorization);
+    AllServerCredentialsResponseData result = apiInstance.getAllServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getAllServerCredentials");
@@ -46,10 +45,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -66,7 +62,7 @@ Name | Type | Description  | Notes
 
 <a name="getBootstrapServerCredentials"></a>
 # **getBootstrapServerCredentials**
-> ServerCredentialsResponseData getBootstrapServerCredentials(authorization)
+> ServerCredentialsResponseData getBootstrapServerCredentials()
 
 Fetch bootstrap server credentials.
 
@@ -90,9 +86,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    ServerCredentialsResponseData result = apiInstance.getBootstrapServerCredentials(authorization);
+    ServerCredentialsResponseData result = apiInstance.getBootstrapServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getBootstrapServerCredentials");
@@ -101,10 +96,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -121,7 +113,7 @@ Name | Type | Description  | Notes
 
 <a name="getL2M2MServerCredentials"></a>
 # **getL2M2MServerCredentials**
-> ServerCredentialsResponseData getL2M2MServerCredentials(authorization)
+> ServerCredentialsResponseData getL2M2MServerCredentials()
 
 Fetch LwM2M server credentials.
 
@@ -145,9 +137,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    ServerCredentialsResponseData result = apiInstance.getL2M2MServerCredentials(authorization);
+    ServerCredentialsResponseData result = apiInstance.getL2M2MServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getL2M2MServerCredentials");
@@ -156,10 +147,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 

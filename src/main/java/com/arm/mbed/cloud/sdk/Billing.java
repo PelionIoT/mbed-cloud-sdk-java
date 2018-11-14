@@ -19,7 +19,7 @@ import com.arm.mbed.cloud.sdk.billing.model.ServicePackageQuotaListOptions;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
-import com.arm.mbed.cloud.sdk.common.CloudCaller.CloudCall;
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.FileDownload;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;

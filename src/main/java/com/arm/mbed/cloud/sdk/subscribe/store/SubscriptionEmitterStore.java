@@ -3,14 +3,14 @@ package com.arm.mbed.cloud.sdk.subscribe.store;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Flowable;
+
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationEmitter;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
-
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Flowable;
 
 @Preamble(description = "Store containing notification publishers")
 @Internal

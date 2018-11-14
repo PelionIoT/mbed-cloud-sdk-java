@@ -18,6 +18,9 @@ import java.util.stream.Stream;
 
 import org.junit.Test;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.schedulers.Schedulers;
+
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
@@ -29,9 +32,6 @@ import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueNotification;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
-
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.schedulers.Schedulers;
 
 public class TestSubscriptionObserversStore {
 
@@ -46,14 +46,16 @@ public class TestSubscriptionObserversStore {
             List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
             SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
             DeviceStateObserver obs1 = store.deviceStateChanges(new DeviceStateFilterOptions().likeDevice("016%33e")
-                    .equalDeviceState(DeviceState.REGISTRATION_UPDATE), BackpressureStrategy.BUFFER);
+                                                                                              .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
+                                                                BackpressureStrategy.BUFFER);
 
             // We are only interested in one value of obs1
             Future<DeviceStateNotification> future = obs1.futureOne();
 
             DeviceStateObserver obs2 = store.deviceStateChanges(DeviceStateFilterOptions.newFilter()
-                    .likeDevice("016%2b7").equalDeviceState(DeviceState.REGISTRATION_UPDATE),
-                    BackpressureStrategy.BUFFER);
+                                                                                        .likeDevice("016%2b7")
+                                                                                        .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
+                                                                BackpressureStrategy.BUFFER);
 
             assertTrue(store.hasObservers());
             assertTrue(store.hasObservers(SubscriptionType.DEVICE_STATE_CHANGE));
@@ -65,12 +67,12 @@ public class TestSubscriptionObserversStore {
             @SuppressWarnings("boxing")
             List<DeviceStateNotification> notifications = Stream.iterate(0, n -> n + 1).limit(102).map(i -> {
                 return (i % 2 == 0)
-                        ? new DeviceStateNotification(
-                                (i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.EXPIRED_REGISTRATION,
-                                "0161661e9ce10000000000010010033e")
-                        : new DeviceStateNotification(
-                                (i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE : DeviceState.REGISTRATION,
-                                "0161661edbab000000000001001002b7");
+                                    ? new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE
+                                                                               : DeviceState.EXPIRED_REGISTRATION,
+                                                                  "0161661e9ce10000000000010010033e")
+                                    : new DeviceStateNotification((i % 5 == 0) ? DeviceState.REGISTRATION_UPDATE
+                                                                               : DeviceState.REGISTRATION,
+                                                                  "0161661edbab000000000001001002b7");
             }).collect(Collectors.toList());
 
             obs2.addCallback(new NotificationCallback<>(new Callback<DeviceStateNotification>() {
@@ -149,16 +151,18 @@ public class TestSubscriptionObserversStore {
         try {
             List<ResourceValueNotification> receivedNotifications = new LinkedList<>();
             SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
-            ResourceValueObserver obs1 = store.resourceValues(
-                    SubscriptionFilterOptions.newFilter().likeDevice("016%33e").equalResourcePath("/1/0/3/"),
-                    BackpressureStrategy.BUFFER);
+            ResourceValueObserver obs1 = store.resourceValues(SubscriptionFilterOptions.newFilter()
+                                                                                       .likeDevice("016%33e")
+                                                                                       .equalResourcePath("/1/0/3/"),
+                                                              BackpressureStrategy.BUFFER);
 
             // We are only interested in one value of obs1
             Future<ResourceValueNotification> future = obs1.futureOne();
 
-            ResourceValueObserver obs2 = store.resourceValues(
-                    SubscriptionFilterOptions.newFilter().likeDevice("016%2b7").equalResourcePath("/1/0/3/"),
-                    BackpressureStrategy.BUFFER);
+            ResourceValueObserver obs2 = store.resourceValues(SubscriptionFilterOptions.newFilter()
+                                                                                       .likeDevice("016%2b7")
+                                                                                       .equalResourcePath("/1/0/3/"),
+                                                              BackpressureStrategy.BUFFER);
 
             assertTrue(store.hasObservers());
             assertTrue(store.hasObservers(SubscriptionType.NOTIFICATION));
@@ -169,11 +173,16 @@ public class TestSubscriptionObserversStore {
             // Generating notifications
             @SuppressWarnings("boxing")
             List<ResourceValueNotification> notifications = Stream.iterate(0, n -> n + 1).limit(102).map(i -> {
-                return (i % 2 == 0)
-                        ? new ResourceValueNotification("0161661e9ce10000000000010010033e",
-                                (i % 5 == 0) ? "/1/0/3/" : "/1/2/3").payload(i)
-                        : new ResourceValueNotification("0161661edbab000000000001001002b7",
-                                (i % 5 == 0) ? "/1/0/3/" : "/1/2/3").payload(i);
+                final ResourceValueNotification notification = (i
+                                                                % 2 == 0) ? new ResourceValueNotification("0161661e9ce10000000000010010033e",
+                                                                                                          (i % 5 == 0)
+                                                                                                                       ? "/1/0/3/"
+                                                                                                                       : "/1/2/3").payload(i)
+                                                                          : new ResourceValueNotification("0161661edbab000000000001001002b7",
+                                                                                                          (i
+                                                                                                           % 5 == 0) ? "/1/0/3/"
+                                                                                                                     : "/1/2/3").payload(i);
+                return notification;
             }).collect(Collectors.toList());
 
             obs2.addCallback(new NotificationCallback<>(new Callback<ResourceValueNotification>() {

@@ -10,6 +10,7 @@ class ArtifactDeployer(sdk_common.BuildStepUsingGradle):
         self.release_username = self.common_config.get_config().get_bintray_username()
         self.maven_username = self.common_config.get_config().get_maven_central_username()
         self.host = self.common_config.get_config().get_artifactory_host()
+        self.should_push_to_artifactory= not self.common_config.get_config().disable_artifactory_deployment()
         self.should_push_to_bintray = self.common_config.get_config().is_for_release() and not self.common_config.get_config().is_from_private()
 
     def execute(self):
@@ -17,12 +18,13 @@ class ArtifactDeployer(sdk_common.BuildStepUsingGradle):
         try:
             self.log_info("Generate Pom file")
             self.execute_gradle_task('generatePomFileForMavenJavaPublication')
-            if self.check_if_artifactory_is_accessible():
-                self.log_info("Pushing artifacts to artifactory as [" + str(self.username) + "]")
-                self.execute_gradle_task('artifactoryPublish', ['-x', 'javadoc'])
-            else:
-                self.log_error_without_getting_cause("Artifactory is not accessible [" + str(self.host) + "]")
-                self.log_info("SDK artifacts will not be automatically uploaded to such a repository")
+            if self.should_push_to_artifactory:
+                if self.check_if_artifactory_is_accessible():
+                    self.log_info("Pushing artifacts to artifactory as [" + str(self.username) + "]")
+                    self.execute_gradle_task('artifactoryPublish', ['-x', 'javadoc'])
+                else:
+                    self.log_error_without_getting_cause("Artifactory is not accessible [" + str(self.host) + "]")
+                    self.log_info("SDK artifacts will not be automatically uploaded to such a repository")
             if self.should_push_to_bintray:
                 self.log_info("Pushing artifacts to bintray as [" + str(self.release_username) + "]")
                 if self.maven_username:

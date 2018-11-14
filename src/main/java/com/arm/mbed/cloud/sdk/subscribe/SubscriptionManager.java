@@ -2,15 +2,16 @@ package com.arm.mbed.cloud.sdk.subscribe;
 
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.Scheduler;
+
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.CallbackWithException;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
-
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.Scheduler;
+import com.arm.mbed.cloud.sdk.connect.model.Resource;
 
 @Preamble(description = "Manager of notification observers")
 public interface SubscriptionManager {
@@ -169,8 +170,34 @@ public interface SubscriptionManager {
      */
     @Nullable
     Observer<?> createObserver(SubscriptionType type, FilterOptions filter, @NonNull BackpressureStrategy strategy,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
-            CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription);
+                               CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                               CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription);
+
+    /**
+     *
+     * Creates an observer and registers it.
+     *
+     * @param subscriptionType
+     *            type of subscription to consider.
+     * @param filter
+     *            filter to apply.
+     * @param strategy
+     *            backpressure strategy to apply for underlying communication channel.
+     * @param actionOnSubscription
+     *            action to perform on subscription
+     * @param actionOnUnsubscription
+     *            action to perform on unsubscription
+     * @param notifyOtherObservers
+     *            specifies whether the observer should notify other observers when it receives a notification.
+     * @param correspondingResource
+     *            resource corresponding to this observer.
+     * @return newly created observer
+     */
+    @Nullable
+    Observer<?> createObserver(SubscriptionType subscriptionType, FilterOptions filter, BackpressureStrategy strategy,
+                               CallbackWithException<FilterOptions, MbedCloudException> actionOnSubscription,
+                               CallbackWithException<FilterOptions, MbedCloudException> actionOnUnsubscription,
+                               boolean notifyOtherObservers, Resource correspondingResource);
 
     /**
      * Notifies a raw value change to observers of a certain type.
@@ -198,8 +225,8 @@ public interface SubscriptionManager {
      * @throws MbedCloudException
      *             if a problem occurs during the process.
      */
-    <T extends NotificationMessageValue> void notify(SubscriptionType type, NotificationMessage<T> message)
-            throws MbedCloudException;
+    <T extends NotificationMessageValue> void notify(SubscriptionType type,
+                                                     NotificationMessage<T> message) throws MbedCloudException;
 
     /**
      * Notifies a message to a specific observer.
@@ -216,7 +243,7 @@ public interface SubscriptionManager {
      *             if a problem occurs during the process.
      */
     <T extends NotificationMessageValue> void notify(SubscriptionType type, String channelId,
-            NotificationMessage<T> message) throws MbedCloudException;
+                                                     NotificationMessage<T> message) throws MbedCloudException;
 
     /**
      * Gets the scheduler (similar to Executor) @see {@link Scheduler} the observation/subscription will be carried out
@@ -225,4 +252,12 @@ public interface SubscriptionManager {
      * @return the scheduler.
      */
     Scheduler getObservedOnExecutor();
+
+    /**
+     * Gets the manager which controls all observers in the system: the manager at the top of the observer store tree.
+     * 
+     * @return top manager.
+     */
+    @Nullable
+    SubscriptionManager getTopManager();
 }

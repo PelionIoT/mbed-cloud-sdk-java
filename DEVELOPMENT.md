@@ -60,3 +60,6 @@ To regenerate afterwards the javadoc, just run the following command:
 The SDK is tested via a set of unit tests and integration tests.
 * Unit tests can be run using ```gradlew test``` command. They use JUnit framework and are present in src/test folder.
 * All integration tests are defined in [mbed-cloud-sdk-testrunner](https://github.com/ARMmbed/mbed-cloud-sdk-testrunner).
+
+## Releasing
+The SDK is set up to perform CI/CD on every commit to `master`. Only approved builds are then uploaded to JCenter and Maven Central. The version number is bumped automatically. It is however possible to overwrite it by setting the following environment variable `MBED_CLOUD_SDK_VERSION_TO_SET` with the wanted version value.
