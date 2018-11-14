@@ -64,7 +64,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServerCredentials().getBootstrapServerCredentials(null);
+                        return endpoint.getServerCredentials().getBootstrapServerCredentials();
                     }
 
                 };
@@ -74,7 +74,7 @@ public class Certificates extends AbstractApi {
 
                     @Override
                     public Call<ServerCredentialsResponseData> call() {
-                        return endpoint.getServerCredentials().getL2M2MServerCredentials(null);
+                        return endpoint.getServerCredentials().getL2M2MServerCredentials();
                     }
 
                 };
