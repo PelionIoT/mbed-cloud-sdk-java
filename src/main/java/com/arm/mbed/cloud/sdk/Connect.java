@@ -721,17 +721,20 @@ public class Connect extends AbstractApi {
     protected ResourceAction createResourceAction(String functionName,
                                                   Mapper<ResourceActionParameters, DeviceRequest> requestMapper) {
         final AbstractApi module = this;
+        final String function = functionName;
         final Mapper<ResourceActionParameters, DeviceRequest> finalMapper = requestMapper;
         return new ResourceAction() {
 
             @Override
             public void execute(ResourceActionParameters arg) throws MbedCloudException {
-                CloudCaller.call(module, functionName, null, new CloudCall<Void>() {
+                final ResourceActionParameters finalArgs = arg;
+                CloudCaller.call(module, function, null, new CloudCall<Void>() {
 
                     @Override
                     public Call<Void> call() {
-                        return endpoint.getAsync().createAsyncRequest(arg.getResource().getDeviceId(), arg.getAsyncId(),
-                                                                      finalMapper.map(arg));
+                        return endpoint.getAsync().createAsyncRequest(finalArgs.getResource().getDeviceId(),
+                                                                      finalArgs.getAsyncId(),
+                                                                      finalMapper.map(finalArgs));
                     }
                 });
 

@@ -55,14 +55,18 @@ public class SubscriptionObserversStore implements CloudSubscriptionManager {
         this.scheduler = scheduler;
         store = new EnumMap<>(SubscriptionType.class);
         store.put(SubscriptionType.DEVICE_STATE_CHANGE,
-                  new DeviceStateChangeSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
+                  new DeviceStateChangeSubscriptionObserverStore(this.scheduler, getManagerReference()));
         store.put(SubscriptionType.NOTIFICATION,
-                  new ResourceValueSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
+                  new ResourceValueSubscriptionObserverStore(this.scheduler, getManagerReference()));
         store.put(SubscriptionType.ASYNCHRONOUS_RESPONSE,
-                  new AsynchronousResponseSubscriptionObserverStore(this.scheduler, new WeakReference<>(this)));
+                  new AsynchronousResponseSubscriptionObserverStore(this.scheduler, getManagerReference()));
         this.resourceSubscriber = resourceSubscriber;
         this.resourceUnsubscriber = resourceUnsubscriber;
         resourceToObserverStore = new ConcurrentHashMap<>(STORE_INITIAL_CAPACITY);
+    }
+
+    protected WeakReference<SubscriptionManager> getManagerReference() {
+        return new WeakReference<>((SubscriptionManager) this);
     }
 
     @Override
