@@ -66,15 +66,20 @@ public interface CertificateIssuersApi {
 
   /**
    * Get certificate issuers list.
-   * 
+   * Note: This endpoint does not implement pagination and therefore, list control parameters such as &#x60;limit&#x60; or &#x60;after&#x60; will be ignored by the system. 
+   * @param limit How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. (optional)
+   * @param order The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. (optional)
+   * @param after The ID of The item after which to retrieve the next page. (optional)
+   * @param include Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; (optional)
    * @return Call&lt;CertificateIssuerInfoListResponse&gt;
    */
   @Headers({
     "Content-Type:application/json; charset=utf-8"
   })
   @GET("v3/certificate-issuers")
-  Call<CertificateIssuerInfoListResponse> getCertificateIssuers();
-    
+  Call<CertificateIssuerInfoListResponse> getCertificateIssuers(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+  );
 
   /**
    * Update certificate issuer.
