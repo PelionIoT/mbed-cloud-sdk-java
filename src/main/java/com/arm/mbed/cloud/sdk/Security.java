@@ -388,15 +388,18 @@ public class Security extends AbstractApi {
     @API
     public @Nullable ListResponse<CertificateIssuer>
            listCertificateIssuers(@Nullable CertificateIssuerListOptions options) throws MbedCloudException {
-        // final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
-        // : options;
-        // FIXME: use options in the list when definition is fixed.
+        final CertificateIssuerListOptions finalOptions = (options == null) ? new CertificateIssuerListOptions()
+                                                                            : options;
         return CloudCaller.call(this, "listCertificateIssuers()", CertificateIssuerAdapter.getListMapper(),
                                 new CloudCall<CertificateIssuerInfoListResponse>() {
 
                                     @Override
                                     public Call<CertificateIssuerInfoListResponse> call() {
-                                        return endpoint.getCertificateIssuers().getCertificateIssuers();
+                                        return endpoint.getCertificateIssuers()
+                                                       .getCertificateIssuers(finalOptions.getPageSize(),
+                                                                              finalOptions.getOrder().toString(),
+                                                                              finalOptions.getAfter(),
+                                                                              finalOptions.encodeInclude());
                                     }
                                 });
     }
@@ -557,14 +560,17 @@ public class Security extends AbstractApi {
            listCertificateIssuerConfigs(@Nullable CertificateIssuerConfigListOptions options) throws MbedCloudException {
         final CertificateIssuerConfigListOptions finalOptions = (options == null) ? new CertificateIssuerConfigListOptions()
                                                                                   : options;
-        // FIXME fix when endpoint is using options
         return CloudCaller.call(this, "listCertificateIssuerConfigs()", CertificateIssuerConfigAdapter.getListMapper(),
                                 new CloudCall<CertificateIssuerConfigListResponse>() {
 
                                     @Override
                                     public Call<CertificateIssuerConfigListResponse> call() {
                                         return endpoint.getCertificateIssuersActivation()
-                                                       .getCertificateIssuerConfigs(finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.CERTIFICATE_REFERENCE_FILTER));
+                                                       .getCertificateIssuerConfigs(finalOptions.getPageSize(),
+                                                                                    finalOptions.getOrder().toString(),
+                                                                                    finalOptions.getAfter(),
+                                                                                    finalOptions.encodeInclude(),
+                                                                                    finalOptions.encodeSingleEqualFilter(CertificateIssuerConfigListOptions.CERTIFICATE_REFERENCE_FILTER));
                                     }
                                 });
     }
