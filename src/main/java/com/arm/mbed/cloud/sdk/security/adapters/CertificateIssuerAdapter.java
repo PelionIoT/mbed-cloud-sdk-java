@@ -161,8 +161,7 @@ public final class CertificateIssuerAdapter {
 
             @Override
             public Boolean getHasMore() {
-                // FIXME return correct value when fixed.
-                return false;
+                return (finalList == null) ? false : finalList.isHasMore();
             }
 
             @Override

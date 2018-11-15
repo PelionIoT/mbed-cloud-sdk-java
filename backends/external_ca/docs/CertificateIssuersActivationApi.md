@@ -231,11 +231,11 @@ Name | Type | Description  | Notes
 
 <a name="getCertificateIssuerConfigs"></a>
 # **getCertificateIssuerConfigs**
-> CertificateIssuerConfigListResponse getCertificateIssuerConfigs(referenceEq)
+> CertificateIssuerConfigListResponse getCertificateIssuerConfigs(limit, order, after, include, referenceEq)
 
 Get certificate issuer configurations.
 
-Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; 
+Get certificate issuer configurations, optionally filtered by reference. &lt;br&gt; **Example usage:**  &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations \\ &#x60;&#x60;&#x60; &#x60;&#x60;&#x60; curl \\ -H &#39;authorization: &lt;valid access token&gt;&#39; \\ -H &#39;content-type: application/json;charset&#x3D;UTF-8&#39; \\ https://api.us-east-1.mbedcloud.com/v3/certificate-issuer-configurations?reference__eq&#x3D;dlms \\ &#x60;&#x60;&#x60; Note: This endpoint does not implement pagination and therefore, list control parameters such as &#x60;limit&#x60; or &#x60;after&#x60; will be ignored by the system. 
 
 ### Example
 ```java
@@ -255,9 +255,13 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersActivationApi apiInstance = new CertificateIssuersActivationApi();
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
+String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`
 String referenceEq = "referenceEq_example"; // String | The certificate name to which the certificate issuer configuration applies.
 try {
-    CertificateIssuerConfigListResponse result = apiInstance.getCertificateIssuerConfigs(referenceEq);
+    CertificateIssuerConfigListResponse result = apiInstance.getCertificateIssuerConfigs(limit, order, after, include, referenceEq);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersActivationApi#getCertificateIssuerConfigs");
@@ -269,6 +273,10 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
+ **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
+ **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; | [optional]
  **referenceEq** | **String**| The certificate name to which the certificate issuer configuration applies. | [optional]
 
 ### Return type

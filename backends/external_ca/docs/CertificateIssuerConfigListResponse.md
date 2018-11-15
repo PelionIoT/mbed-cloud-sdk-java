@@ -4,27 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**after** | **String** | The entity ID to fetch after current result set. |  [optional]
+**after** | **String** | An offset token for current page. |  [optional]
 **data** | [**List&lt;CertificateIssuerConfigResponse&gt;**](CertificateIssuerConfigResponse.md) | List of certificate issuers. |  [optional]
-**limit** | **Integer** | The number of results returned. |  [optional]
-**object** | [**ObjectEnum**](#ObjectEnum) | Describes the type of objects in the list. |  [optional]
-**order** | [**OrderEnum**](#OrderEnum) | The order of results. |  [optional]
-**totalCount** | **Integer** | The total number or records. |  [optional]
-
-
-<a name="ObjectEnum"></a>
-## Enum: ObjectEnum
-Name | Value
----- | -----
-LIST | &quot;list&quot;
-
-
-<a name="OrderEnum"></a>
-## Enum: OrderEnum
-Name | Value
----- | -----
-ASC | &quot;ASC&quot;
-DESC | &quot;DESC&quot;
+**hasMore** | **Boolean** | Are there more results available. |  [optional]
+**limit** | **Integer** | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. |  [optional]
+**object** | **String** | The type of this API object is a &#x60;list&#x60;. |  [optional]
+**order** | **String** | The creation time based order of the entries. |  [optional]
+**totalCount** | **Integer** |  |  [optional]
 
 
 
