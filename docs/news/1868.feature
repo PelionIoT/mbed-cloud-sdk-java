@@ -1,1 +1,0 @@
-It is now possible to renew certificates or manage Certificate issuers in the Security module.

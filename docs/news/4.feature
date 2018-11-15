@@ -1,1 +1,0 @@
-LWM2M actions on resources are now performed using solely Observers and RXJava introduced with Subscriptions.
