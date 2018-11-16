@@ -150,6 +150,9 @@ public class DeviceData implements Serializable {
   @SerializedName("id")
   private String id = null;
 
+  @SerializedName("issuer_fingerprint")
+  private String issuerFingerprint = null;
+
   /**
    * The lifecycle status of the device.
    */
@@ -733,6 +736,24 @@ public class DeviceData implements Serializable {
     this.id = id;
   }
 
+  public DeviceData issuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+    return this;
+  }
+
+   /**
+   * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * @return issuerFingerprint
+  **/
+  @ApiModelProperty(example = "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322", value = "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.")
+  public String getIssuerFingerprint() {
+    return issuerFingerprint;
+  }
+
+  public void setIssuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+  }
+
   public DeviceData lifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
     this.lifecycleStatus = lifecycleStatus;
     return this;
@@ -963,6 +984,7 @@ public class DeviceData implements Serializable {
         Objects.equals(this.groups, deviceData.groups) &&
         Objects.equals(this.hostGateway, deviceData.hostGateway) &&
         Objects.equals(this.id, deviceData.id) &&
+        Objects.equals(this.issuerFingerprint, deviceData.issuerFingerprint) &&
         Objects.equals(this.lifecycleStatus, deviceData.lifecycleStatus) &&
         Objects.equals(this.manifest, deviceData.manifest) &&
         Objects.equals(this.manifestTimestamp, deviceData.manifestTimestamp) &&
@@ -978,7 +1000,7 @@ public class DeviceData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, lifecycleStatus, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
+    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, issuerFingerprint, lifecycleStatus, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
   }
 
 
@@ -1009,6 +1031,7 @@ public class DeviceData implements Serializable {
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
     sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
