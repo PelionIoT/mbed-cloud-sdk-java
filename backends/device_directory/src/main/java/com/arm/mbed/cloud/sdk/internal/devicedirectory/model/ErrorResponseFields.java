@@ -25,52 +25,52 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * DeviceQueryPostPutRequest
+ * ErrorResponseFields
  */
 
-public class DeviceQueryPostPutRequest implements Serializable {
+public class ErrorResponseFields implements Serializable {
   private static final long serialVersionUID = 1L;
+
+  @SerializedName("message")
+  private String message = null;
 
   @SerializedName("name")
   private String name = null;
 
-  @SerializedName("query")
-  private String query = null;
+  public ErrorResponseFields message(String message) {
+    this.message = message;
+    return this;
+  }
 
-  public DeviceQueryPostPutRequest name(String name) {
+   /**
+   * Get message
+   * @return message
+  **/
+  @ApiModelProperty(example = "A human readable validation error", value = "")
+  public String getMessage() {
+    return message;
+  }
+
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  public ErrorResponseFields name(String name) {
     this.name = name;
     return this;
   }
 
    /**
-   * The name of the query.
+   * Get name
    * @return name
   **/
-  @ApiModelProperty(required = true, value = "The name of the query.")
+  @ApiModelProperty(example = "field_name", value = "")
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public DeviceQueryPostPutRequest query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * The device query.
-   * @return query
-  **/
-  @ApiModelProperty(required = true, value = "The device query.")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
   }
 
 
@@ -82,24 +82,24 @@ public class DeviceQueryPostPutRequest implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceQueryPostPutRequest deviceQueryPostPutRequest = (DeviceQueryPostPutRequest) o;
-    return Objects.equals(this.name, deviceQueryPostPutRequest.name) &&
-        Objects.equals(this.query, deviceQueryPostPutRequest.query);
+    ErrorResponseFields errorResponseFields = (ErrorResponseFields) o;
+    return Objects.equals(this.message, errorResponseFields.message) &&
+        Objects.equals(this.name, errorResponseFields.name);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, query);
+    return Objects.hash(message, name);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceQueryPostPutRequest {\n");
+    sb.append("class ErrorResponseFields {\n");
     
+    sb.append("    message: ").append(toIndentedString(message)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
     sb.append("}");
     return sb.toString();
   }

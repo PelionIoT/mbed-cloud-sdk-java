@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the Mbed Device Directory service.
+ * This is the API Documentation for the Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -77,8 +78,14 @@ public class DeviceDataPostRequest implements Serializable {
   @SerializedName("firmware_checksum")
   private String firmwareChecksum = null;
 
+  @SerializedName("groups")
+  private List<String> groups = null;
+
   @SerializedName("host_gateway")
   private String hostGateway = null;
+
+  @SerializedName("issuer_fingerprint")
+  private String issuerFingerprint = null;
 
   @SerializedName("manifest")
   private String manifest = null;
@@ -231,7 +238,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The expiration date of the certificate used to connect to bootstrap server.
    * @return bootstrapExpirationDate
   **/
-  @ApiModelProperty(value = "The expiration date of the certificate used to connect to bootstrap server.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to bootstrap server.")
   public DateTime getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
@@ -249,7 +256,7 @@ public class DeviceDataPostRequest implements Serializable {
    * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -282,10 +289,10 @@ public class DeviceDataPostRequest implements Serializable {
   }
 
    /**
-   * The expiration date of the certificate used to connect to the LWM2M server.
+   * The expiration date of the certificate used to connect to the LwM2M server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(value = "The expiration date of the certificate used to connect to the LWM2M server.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The expiration date of the certificate used to connect to the LwM2M server.")
   public DateTime getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
@@ -464,6 +471,32 @@ public class DeviceDataPostRequest implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
+  public DeviceDataPostRequest groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public DeviceDataPostRequest addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * An array containing an ID of each group this device belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "An array containing an ID of each group this device belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
   public DeviceDataPostRequest hostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
     return this;
@@ -480,6 +513,24 @@ public class DeviceDataPostRequest implements Serializable {
 
   public void setHostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
+  }
+
+  public DeviceDataPostRequest issuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+    return this;
+  }
+
+   /**
+   * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * @return issuerFingerprint
+  **/
+  @ApiModelProperty(example = "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322", value = "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.")
+  public String getIssuerFingerprint() {
+    return issuerFingerprint;
+  }
+
+  public void setIssuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
   }
 
   public DeviceDataPostRequest manifest(String manifest) {
@@ -650,7 +701,9 @@ public class DeviceDataPostRequest implements Serializable {
         Objects.equals(this.endpointName, deviceDataPostRequest.endpointName) &&
         Objects.equals(this.endpointType, deviceDataPostRequest.endpointType) &&
         Objects.equals(this.firmwareChecksum, deviceDataPostRequest.firmwareChecksum) &&
+        Objects.equals(this.groups, deviceDataPostRequest.groups) &&
         Objects.equals(this.hostGateway, deviceDataPostRequest.hostGateway) &&
+        Objects.equals(this.issuerFingerprint, deviceDataPostRequest.issuerFingerprint) &&
         Objects.equals(this.manifest, deviceDataPostRequest.manifest) &&
         Objects.equals(this.mechanism, deviceDataPostRequest.mechanism) &&
         Objects.equals(this.mechanismUrl, deviceDataPostRequest.mechanismUrl) &&
@@ -663,7 +716,7 @@ public class DeviceDataPostRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, firmwareChecksum, hostGateway, manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
+    return Objects.hash(autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, customAttributes, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, firmwareChecksum, groups, hostGateway, issuerFingerprint, manifest, mechanism, mechanismUrl, name, object, serialNumber, state, vendorId);
   }
 
 
@@ -686,7 +739,9 @@ public class DeviceDataPostRequest implements Serializable {
     sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
     sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
+    sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");
     sb.append("    mechanismUrl: ").append(toIndentedString(mechanismUrl)).append("\n");

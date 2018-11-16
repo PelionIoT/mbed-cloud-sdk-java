@@ -25,52 +25,31 @@ import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * DeviceQueryPostPutRequest
+ * DeviceGroupManipulation
  */
 
-public class DeviceQueryPostPutRequest implements Serializable {
+public class DeviceGroupManipulation implements Serializable {
   private static final long serialVersionUID = 1L;
 
-  @SerializedName("name")
-  private String name = null;
+  @SerializedName("device_id")
+  private String deviceId = null;
 
-  @SerializedName("query")
-  private String query = null;
-
-  public DeviceQueryPostPutRequest name(String name) {
-    this.name = name;
+  public DeviceGroupManipulation deviceId(String deviceId) {
+    this.deviceId = deviceId;
     return this;
   }
 
    /**
-   * The name of the query.
-   * @return name
+   * Get deviceId
+   * @return deviceId
   **/
-  @ApiModelProperty(required = true, value = "The name of the query.")
-  public String getName() {
-    return name;
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
+  public String getDeviceId() {
+    return deviceId;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public DeviceQueryPostPutRequest query(String query) {
-    this.query = query;
-    return this;
-  }
-
-   /**
-   * The device query.
-   * @return query
-  **/
-  @ApiModelProperty(required = true, value = "The device query.")
-  public String getQuery() {
-    return query;
-  }
-
-  public void setQuery(String query) {
-    this.query = query;
+  public void setDeviceId(String deviceId) {
+    this.deviceId = deviceId;
   }
 
 
@@ -82,24 +61,22 @@ public class DeviceQueryPostPutRequest implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceQueryPostPutRequest deviceQueryPostPutRequest = (DeviceQueryPostPutRequest) o;
-    return Objects.equals(this.name, deviceQueryPostPutRequest.name) &&
-        Objects.equals(this.query, deviceQueryPostPutRequest.query);
+    DeviceGroupManipulation deviceGroupManipulation = (DeviceGroupManipulation) o;
+    return Objects.equals(this.deviceId, deviceGroupManipulation.deviceId);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, query);
+    return Objects.hash(deviceId);
   }
 
 
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceQueryPostPutRequest {\n");
+    sb.append("class DeviceGroupManipulation {\n");
     
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    query: ").append(toIndentedString(query)).append("\n");
+    sb.append("    deviceId: ").append(toIndentedString(deviceId)).append("\n");
     sb.append("}");
     return sb.toString();
   }

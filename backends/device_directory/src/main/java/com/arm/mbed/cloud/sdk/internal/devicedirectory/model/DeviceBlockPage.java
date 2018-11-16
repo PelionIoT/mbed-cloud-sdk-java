@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.devicedirectory.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
+import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceBlock;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,17 +28,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * DeviceEventPage
+ * DeviceBlockPage
  */
 
-public class DeviceEventPage implements Serializable {
+public class DeviceBlockPage implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("after")
   private String after = null;
 
   @SerializedName("data")
-  private List<DeviceEventData> data = null;
+  private List<DeviceBlock> data = null;
 
   @SerializedName("has_more")
   private Boolean hasMore = null;
@@ -55,16 +55,16 @@ public class DeviceEventPage implements Serializable {
   @SerializedName("total_count")
   private Integer totalCount = null;
 
-  public DeviceEventPage after(String after) {
+  public DeviceBlockPage after(String after) {
     this.after = after;
     return this;
   }
 
    /**
-   * Get after
+   * An offset token for current page.
    * @return after
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "01631667477600000000000100100374", value = "An offset token for current page.")
   public String getAfter() {
     return after;
   }
@@ -73,14 +73,14 @@ public class DeviceEventPage implements Serializable {
     this.after = after;
   }
 
-  public DeviceEventPage data(List<DeviceEventData> data) {
+  public DeviceBlockPage data(List<DeviceBlock> data) {
     this.data = data;
     return this;
   }
 
-  public DeviceEventPage addDataItem(DeviceEventData dataItem) {
+  public DeviceBlockPage addDataItem(DeviceBlock dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<DeviceEventData>();
+      this.data = new ArrayList<DeviceBlock>();
     }
     this.data.add(dataItem);
     return this;
@@ -90,25 +90,25 @@ public class DeviceEventPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "\"[]\"", value = "")
-  public List<DeviceEventData> getData() {
+  @ApiModelProperty(value = "")
+  public List<DeviceBlock> getData() {
     return data;
   }
 
-  public void setData(List<DeviceEventData> data) {
+  public void setData(List<DeviceBlock> data) {
     this.data = data;
   }
 
-  public DeviceEventPage hasMore(Boolean hasMore) {
+  public DeviceBlockPage hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
 
    /**
-   * Get hasMore
+   * Are there more results available.
    * @return hasMore
   **/
-  @ApiModelProperty(example = "false", value = "")
+  @ApiModelProperty(example = "false", value = "Are there more results available.")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -117,16 +117,18 @@ public class DeviceEventPage implements Serializable {
     this.hasMore = hasMore;
   }
 
-  public DeviceEventPage limit(Integer limit) {
+  public DeviceBlockPage limit(Integer limit) {
     this.limit = limit;
     return this;
   }
 
    /**
-   * Get limit
+   * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+   * minimum: 2
+   * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(example = "1000", value = "")
+  @ApiModelProperty(example = "50", value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
   public Integer getLimit() {
     return limit;
   }
@@ -135,16 +137,16 @@ public class DeviceEventPage implements Serializable {
     this.limit = limit;
   }
 
-  public DeviceEventPage object(String object) {
+  public DeviceBlockPage object(String object) {
     this.object = object;
     return this;
   }
 
    /**
-   * Get object
+   * The type of this API object is a \&quot;list\&quot;.
    * @return object
   **/
-  @ApiModelProperty(example = "list", value = "")
+  @ApiModelProperty(example = "list", value = "The type of this API object is a \"list\".")
   public String getObject() {
     return object;
   }
@@ -153,16 +155,16 @@ public class DeviceEventPage implements Serializable {
     this.object = object;
   }
 
-  public DeviceEventPage order(String order) {
+  public DeviceBlockPage order(String order) {
     this.order = order;
     return this;
   }
 
    /**
-   * Get order
+   * The creation time based order of the entries.
    * @return order
   **/
-  @ApiModelProperty(example = "DESC", value = "")
+  @ApiModelProperty(example = "DESC", value = "The creation time based order of the entries.")
   public String getOrder() {
     return order;
   }
@@ -171,7 +173,7 @@ public class DeviceEventPage implements Serializable {
     this.order = order;
   }
 
-  public DeviceEventPage totalCount(Integer totalCount) {
+  public DeviceBlockPage totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -198,14 +200,14 @@ public class DeviceEventPage implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    DeviceEventPage deviceEventPage = (DeviceEventPage) o;
-    return Objects.equals(this.after, deviceEventPage.after) &&
-        Objects.equals(this.data, deviceEventPage.data) &&
-        Objects.equals(this.hasMore, deviceEventPage.hasMore) &&
-        Objects.equals(this.limit, deviceEventPage.limit) &&
-        Objects.equals(this.object, deviceEventPage.object) &&
-        Objects.equals(this.order, deviceEventPage.order) &&
-        Objects.equals(this.totalCount, deviceEventPage.totalCount);
+    DeviceBlockPage deviceBlockPage = (DeviceBlockPage) o;
+    return Objects.equals(this.after, deviceBlockPage.after) &&
+        Objects.equals(this.data, deviceBlockPage.data) &&
+        Objects.equals(this.hasMore, deviceBlockPage.hasMore) &&
+        Objects.equals(this.limit, deviceBlockPage.limit) &&
+        Objects.equals(this.object, deviceBlockPage.object) &&
+        Objects.equals(this.order, deviceBlockPage.order) &&
+        Objects.equals(this.totalCount, deviceBlockPage.totalCount);
   }
 
   @Override
@@ -217,7 +219,7 @@ public class DeviceEventPage implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceEventPage {\n");
+    sb.append("class DeviceBlockPage {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");
