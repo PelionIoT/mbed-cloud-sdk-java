@@ -26,7 +26,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public final class TranslationUtils {
 
     private static final SimpleDateFormat RFC3339_DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ",
-            Locale.getDefault());
+                                                                                     Locale.getDefault());
     private static final DateTimeFormatter DATE_ISO_PARSER = ISODateTimeFormat.dateTimeParser();
     private static final DateTimeFormatter DATE_ISO_PRINTER = ISODateTimeFormat.dateTime();
 
@@ -42,6 +42,17 @@ public final class TranslationUtils {
      * @return corresponding date
      */
     public static Date toDate(DateTime date) {
+        return (date == null) ? null : date.toDate();
+    }
+
+    /**
+     * Converts local date to date.
+     *
+     * @param date
+     *            local date
+     * @return corresponding date
+     */
+    public static Date toDate(LocalDate date) {
         return (date == null) ? null : date.toDate();
     }
 
@@ -137,7 +148,7 @@ public final class TranslationUtils {
             return Long.parseLong(stringContainingANumber);
         } catch (NumberFormatException exception) {
             SdkLogger.getLogger().logError("Error occurred when parsing the string containing a long number ["
-                    + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
+                                           + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
             return defaultValue;
         }
     }
@@ -280,8 +291,9 @@ public final class TranslationUtils {
     }
 
     private static Date defaultToDefaultDate(String timestamp, Date defaultDate, Exception exception) {
-        SdkLogger.getLogger().logError(
-                "Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate, exception);
+        SdkLogger.getLogger()
+                 .logError("Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate,
+                           exception);
         return defaultDate;
     }
 
@@ -297,7 +309,7 @@ public final class TranslationUtils {
             return url == null || url.isEmpty() ? null : new URL(url);
         } catch (MalformedURLException exception) {
             SdkLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null",
-                    exception);
+                                           exception);
         }
         return null;
     }
@@ -329,8 +341,9 @@ public final class TranslationUtils {
         try {
             return Integer.decode(value.trim());
         } catch (NumberFormatException exception) {
-            SdkLogger.getLogger().logError(
-                    "Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV, exception);
+            SdkLogger.getLogger()
+                     .logError("Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV,
+                               exception);
             return defaultV;
         }
     }

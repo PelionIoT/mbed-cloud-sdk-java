@@ -63,15 +63,15 @@ public final class DeviceAdapter {
         final DeviceListOptions listOptions = new DeviceListOptions();
         if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL)) {
             addedFilters = true;
-            listOptions.addIdFilter((String) filters
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.EQUAL),
-                    FilterOperator.EQUAL);
+            listOptions.addIdFilter((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                              FilterOperator.EQUAL),
+                                    FilterOperator.EQUAL);
         }
         if (filters.hasFilter(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL)) {
             addedFilters = true;
-            listOptions.addIdFilter((String) filters
-                    .fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER, FilterOperator.NOT_EQUAL),
-                    FilterOperator.NOT_EQUAL);
+            listOptions.addIdFilter((String) filters.fetchSpecificFilterValue(SubscriptionFilterOptions.DEVICE_ID_FILTER,
+                                                                              FilterOperator.NOT_EQUAL),
+                                    FilterOperator.NOT_EQUAL);
         }
         // TODO do other filters when implemented
 
@@ -91,9 +91,10 @@ public final class DeviceAdapter {
             return null;
         }
         final Device device = new Device(deviceData.getId(), deviceData.getAccountId(),
-                TranslationUtils.toDate(deviceData.getCreatedAt()), TranslationUtils.toDate(deviceData.getUpdatedAt()),
-                TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
-                TranslationUtils.toDate(deviceData.getManifestTimestamp()));
+                                         TranslationUtils.toDate(deviceData.getCreatedAt()),
+                                         TranslationUtils.toDate(deviceData.getUpdatedAt()),
+                                         TranslationUtils.toDate(deviceData.getEnrolmentListTimestamp()),
+                                         TranslationUtils.toDate(deviceData.getManifestTimestamp()));
         device.setBootstrappedTimestamp(TranslationUtils.toDate(deviceData.getBootstrappedTimestamp()));
         device.setCustomAttributes(deviceData.getCustomAttributes());
         device.setDescription(deviceData.getDescription());
@@ -247,7 +248,6 @@ public final class DeviceAdapter {
         updateDevice.setDescription(device.getDescription());
         updateDevice.setCaId(device.getCertificateIssuerId());
         updateDevice.setDeviceKey(device.getCertificateFingerprint());
-        updateDevice.setEndpointName(device.getAlias());
         updateDevice.setHostGateway(device.getHostGateway());
         updateDevice.setEndpointType(device.getDeviceType());
         return updateDevice;
