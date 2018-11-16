@@ -177,9 +177,11 @@ Name | Type | Description  | Notes
 
 <a name="getCertificateIssuers"></a>
 # **getCertificateIssuers**
-> CertificateIssuerInfoListResponse getCertificateIssuers()
+> CertificateIssuerInfoListResponse getCertificateIssuers(limit, order, after, include)
 
 Get certificate issuers list.
+
+Note: This endpoint does not implement pagination and therefore, list control parameters such as &#x60;limit&#x60; or &#x60;after&#x60; will be ignored by the system. 
 
 ### Example
 ```java
@@ -199,8 +201,12 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 CertificateIssuersApi apiInstance = new CertificateIssuersApi();
+Integer limit = 56; // Integer | How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+String order = "order_example"; // String | The order of the records based on creation time, `ASC` or `DESC`; by default `ASC`.
+String after = "after_example"; // String | The ID of The item after which to retrieve the next page.
+String include = "include_example"; // String | Comma-separated list of data fields to return. Currently supported: `total_count`
 try {
-    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuers();
+    CertificateIssuerInfoListResponse result = apiInstance.getCertificateIssuers(limit, order, after, include);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling CertificateIssuersApi#getCertificateIssuers");
@@ -209,7 +215,13 @@ try {
 ```
 
 ### Parameters
-This endpoint does not need any parameter.
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit. | [optional]
+ **order** | **String**| The order of the records based on creation time, &#x60;ASC&#x60; or &#x60;DESC&#x60;; by default &#x60;ASC&#x60;. | [optional]
+ **after** | **String**| The ID of The item after which to retrieve the next page. | [optional]
+ **include** | **String**| Comma-separated list of data fields to return. Currently supported: &#x60;total_count&#x60; | [optional]
 
 ### Return type
 

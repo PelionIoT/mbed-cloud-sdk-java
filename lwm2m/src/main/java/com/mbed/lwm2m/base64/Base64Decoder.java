@@ -19,32 +19,46 @@ public class Base64Decoder {
     }
 
     /**
-     * Decodes a LWM2M sequence encoded in Base64 into a list of LWM2M objects for which the type is not yet know
+     * Decodes a LWM2M sequence encoded in Base64 into a list of LWM2M objects for which the type is not yet known
      *
      * @param buffer
      *            sequence to decode
      * @param contentType
      *            content type of the sequence
      * @return List of LWM2M objects (i.e. Object instance, Resource instance, Resource) or bytes if content type is not
-     *         recognised
+     *         recognised as a valid LWM2M encoding (i.e. other than JSON or TLV)
      * @throws DecodingException
      *             if an error occurred during parsing
      */
-    public static List<?> decodeBase64(ByteBuffer buffer, EncodingType contentType) throws DecodingException {
+    public static List<?> decodeBase64Lwm2m(ByteBuffer buffer, EncodingType contentType) throws DecodingException {
         if (buffer == null || contentType == null) {
             return null;
         }
         ByteBuffer decodedByteBuffer = decode(buffer);
         switch (contentType) {
-            case JSON:
+            case LWM2M_JSON:
                 return JsonDecoder.decodeJson(decodedByteBuffer);
-            case TLV:
+            case LWM2M_TLV:
                 return TLVDecoder.decodeTlv(decodedByteBuffer);
             default:
                 break;
 
         }
-        return Arrays.asList(decodedByteBuffer.array());
+
+        return Arrays.asList(toByteArray(decodedByteBuffer.array()));
+    }
+
+    private static Byte[] toByteArray(final byte[] array) {
+        if (array == null) {
+            return null;
+        } else if (array.length == 0) {
+            return new Byte[0];
+        }
+        final Byte[] result = new Byte[array.length];
+        for (int i = 0; i < array.length; i++) {
+            result[i] = Byte.valueOf(array[i]);
+        }
+        return result;
     }
 
     /**
@@ -62,8 +76,8 @@ public class Base64Decoder {
      * @throws DecodingException
      *             if an error occurred during parsing
      */
-    public static <T> List<T> decodeBase64(ByteBuffer buffer, Class<T> clazz, EncodingType contentType)
-            throws DecodingException {
+    public static <T> List<T> decodeBase64Lwm2m(ByteBuffer buffer, Class<T> clazz,
+                                                EncodingType contentType) throws DecodingException {
         if (buffer == null || contentType == null || contentType == EncodingType.UNKNOWN) {
             return null;
         }
@@ -71,7 +85,7 @@ public class Base64Decoder {
         switch (contentType) {
             case JSON:
                 return JsonDecoder.decodeJson(decodedByteBuffer, clazz);
-            case TLV:
+            case LWM2M_TLV:
                 return TLVDecoder.decodeTlv(decodedByteBuffer, clazz);
             default:
                 break;

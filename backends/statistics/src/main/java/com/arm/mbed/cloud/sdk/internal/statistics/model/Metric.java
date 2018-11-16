@@ -1,6 +1,6 @@
 /*
  * Connect Statistics API
- * mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
+ * Connect Statistics API provides statistics about other cloud services through defined counters.
  *
  * OpenAPI spec version: 3
  * 
@@ -146,10 +146,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
+   * The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device. This metric includes only messages handled by the Connect service, it does not include any HTTP errors returned by firewall as result of malformed messages.
    * @return connectRestApiError
   **/
-  @ApiModelProperty(value = "The number of failed [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed.The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
+  @ApiModelProperty(value = "The number of failed [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device. This metric includes only messages handled by the Connect service, it does not include any HTTP errors returned by firewall as result of malformed messages.")
   public Long getConnectRestApiError() {
     return connectRestApiError;
   }
@@ -164,10 +164,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.
+   * The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device.
    * @return connectRestApiSuccess
   **/
-  @ApiModelProperty(value = "The number of successful [Connect API](/docs/v1.2/api-references/connect-api.html) requests the account has performed. The metric do not consider the actual response from the device and it includes only the result of the http request used to subscibe to the device resources.")
+  @ApiModelProperty(value = "The number of successful [Connect API](/docs/current/service-api-references/device-management-connect.html) requests that have been performed using the account. This metric does not consider the response from the device, it includes only the responses to the HTTP requests used to manage the device.")
   public Long getConnectRestApiSuccess() {
     return connectRestApiSuccess;
   }
@@ -182,10 +182,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.
+   * The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Device Management Connect registry. The deregistration is usually initiated by the device. Device Management Connect no longer handles requests for a deregistered device.
    * @return deletedRegistrations
   **/
-  @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Mbed Cloud Connect registry. The deregistration is usually initiated by the device. Mbed Cloud Connect no longer handles requests for a deregistered device.")
+  @ApiModelProperty(value = "The number of deleted registrations (deregistrations) linked to the account. Deregistration is the process of removing the device registration from the Device Management Connect registry. The deregistration is usually initiated by the device. Device Management Connect no longer handles requests for a deregistered device.")
   public Long getDeletedRegistrations() {
     return deletedRegistrations;
   }
@@ -200,10 +200,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
+   * **(Beta)** The number of notifications received by the Device Management Connect service from the devices linked to the account. The device pushes notifications to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceObservations
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of observations received by Mbed Cloud Connect from the devices linked to the account. The observations are pushed from the device to Mbed Cloud Connect when you have successfully subscribed to the device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of notifications received by the Device Management Connect service from the devices linked to the account. The device pushes notifications to Device Management Connect when you have successfully subscribed to the device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceObservations() {
     return deviceObservations;
   }
@@ -218,10 +218,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
+   * **(Beta)** The number of failed proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceProxyRequestError
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of failed proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceProxyRequestError() {
     return deviceProxyRequestError;
   }
@@ -236,10 +236,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
+   * **(Beta)** The number of successful proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceProxyRequestSuccess
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from Mbed Cloud Connect to devices linked to the account. The proxy requests are made from Mbed Cloud Connect to devices when you try to read or write values to device resources using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of successful proxy requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes proxy requests to devices when you try to read or write values to device resources using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceProxyRequestSuccess() {
     return deviceProxyRequestSuccess;
   }
@@ -254,10 +254,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
+   * **(Beta)** The number of failed subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceSubscriptionRequestError
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of failed subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceSubscriptionRequestError() {
     return deviceSubscriptionRequestError;
   }
@@ -272,10 +272,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * **(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. 
+   * **(Beta)** The number of successful subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. 
    * @return deviceSubscriptionRequestSuccess
   **/
-  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from Mbed Cloud Connect to devices linked to the account. The subscription requests are made from Mbed Cloud Connect to devices when you try to subscribe to a resource path using [Connect API](/docs/v1.2/api-references/connect-api.html) endpoints. ")
+  @ApiModelProperty(value = "**(Beta)** The number of successful subscription requests from the Device Management Connect service to devices linked to the account. Device Management Connect makes subscription requests to devices when you try to subscribe to a resource path using [Connect API](/docs/current/service-api-references/device-management-connect.html) endpoints. ")
   public Long getDeviceSubscriptionRequestSuccess() {
     return deviceSubscriptionRequestSuccess;
   }
@@ -290,10 +290,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.
+   * The number of expired registrations linked to the account. Device Management Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Device Management Connect no longer handles requests for a device whose registration has expired already.
    * @return expiredRegistrations
   **/
-  @ApiModelProperty(value = "The number of expired registrations linked to the account. Mbed Cloud Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Mbed Cloud Connect no longer handles requests for a device whose registration has expired already.")
+  @ApiModelProperty(value = "The number of expired registrations linked to the account. Device Management Connect removes the device registrations when the devices cannot update their registration before the expiry of the lifetime. Device Management Connect no longer handles requests for a device whose registration has expired already.")
   public Long getExpiredRegistrations() {
     return expiredRegistrations;
   }
@@ -308,10 +308,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.
+   * The number of full registrations linked to the account. Full registration is the process of registering a device with Device Management Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Device Management Connect at any point of time.
    * @return fullRegistrations
   **/
-  @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with the Mbed Cloud Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Mebd Cloud Connect at any point of time.")
+  @ApiModelProperty(value = "The number of full registrations linked to the account. Full registration is the process of registering a device with Device Management Connect by providing its lifetime and capabilities such as the resource structure.The registered status of the device does not guarantee that the device is active and accessible from Device Management Connect at any point of time.")
   public Long getFullRegistrations() {
     return fullRegistrations;
   }
@@ -326,10 +326,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.
+   * The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Device Management Connect for any operaton such as registration, registration update and deregistration.
    * @return handshakesSuccessful
   **/
-  @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Mbed Cloud Connect for any operaton such as registration, registration update and deregistration.")
+  @ApiModelProperty(value = "The number of successful TLS handshakes the account has performed. The SSL or TLS handshake enables the SSL or TLS client and server to establish the secret keys with which they communicate. A successful TLS handshake is required for establishing a connection with Device Management Connect for any operaton such as registration, registration update and deregistration.")
   public Long getHandshakesSuccessful() {
     return handshakesSuccessful;
   }
@@ -362,10 +362,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.
+   * The number of registration updates linked to the account. Registration update is the process of updating the registration status with Device Management Connect to update or extend the lifetime of the device.
    * @return registrationUpdates
   **/
-  @ApiModelProperty(value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with the Mbed Cloud Connect to update or extend the lifetime of the device.")
+  @ApiModelProperty(value = "The number of registration updates linked to the account. Registration update is the process of updating the registration status with Device Management Connect to update or extend the lifetime of the device.")
   public Long getRegistrationUpdates() {
     return registrationUpdates;
   }
@@ -398,10 +398,10 @@ public class Metric implements Serializable {
   }
 
    /**
-   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --&gt; mbed cloud) or received by the device (mbed cloud --&gt; device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
+   * The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Device Management. It can be either sent by the device (device --&gt; Device Management) or received by the device (Device Management --&gt; device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).
    * @return transactions
   **/
-  @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by mbed Cloud. It can be either sent by the device (device --> mbed cloud) or received by the device (mbed cloud --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
+  @ApiModelProperty(value = "The number of transaction events from or to devices linked to the account. A transaction is a 512-byte block of data processed by Device Management. It can be either sent by the device (device --> Device Management) or received by the device (Device Management --> device). A transaction does not include IP, TCP or UDP, TLS or DTLS packet overhead. It only contains the packet payload (full CoAP packet including CoAP headers).")
   public Long getTransactions() {
     return transactions;
   }

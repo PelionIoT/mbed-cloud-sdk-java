@@ -1,6 +1,6 @@
 /*
  * Connect CA API
- * mbed Cloud Connect CA API allows services to get device credentials.
+ * Connect CA API allows services to get device credentials.
  *
  * OpenAPI spec version: 3
  * 

@@ -27,9 +27,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user in requests towards mbed Cloud.
+ * This object represents a user in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user in requests towards mbed Cloud.")
+@ApiModel(description = "This object represents a user in requests towards Device Management.")
 
 public class UserInfoReq implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -51,6 +51,9 @@ public class UserInfoReq implements Serializable {
 
   @SerializedName("is_marketing_accepted")
   private Boolean isMarketingAccepted = null;
+
+  @SerializedName("login_profiles")
+  private List<String> loginProfiles = null;
 
   @SerializedName("password")
   private String password = null;
@@ -177,6 +180,32 @@ public class UserInfoReq implements Serializable {
     this.isMarketingAccepted = isMarketingAccepted;
   }
 
+  public UserInfoReq loginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+    return this;
+  }
+
+  public UserInfoReq addLoginProfilesItem(String loginProfilesItem) {
+    if (this.loginProfiles == null) {
+      this.loginProfiles = new ArrayList<String>();
+    }
+    this.loginProfiles.add(loginProfilesItem);
+    return this;
+  }
+
+   /**
+   * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.
+   * @return loginProfiles
+  **/
+  @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
+  public List<String> getLoginProfiles() {
+    return loginProfiles;
+  }
+
+  public void setLoginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+  }
+
   public UserInfoReq password(String password) {
     this.password = password;
     return this;
@@ -247,6 +276,7 @@ public class UserInfoReq implements Serializable {
         Objects.equals(this.groups, userInfoReq.groups) &&
         Objects.equals(this.isGtcAccepted, userInfoReq.isGtcAccepted) &&
         Objects.equals(this.isMarketingAccepted, userInfoReq.isMarketingAccepted) &&
+        Objects.equals(this.loginProfiles, userInfoReq.loginProfiles) &&
         Objects.equals(this.password, userInfoReq.password) &&
         Objects.equals(this.phoneNumber, userInfoReq.phoneNumber) &&
         Objects.equals(this.username, userInfoReq.username);
@@ -254,7 +284,7 @@ public class UserInfoReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, password, phoneNumber, username);
+    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, loginProfiles, password, phoneNumber, username);
   }
 
 
@@ -269,6 +299,7 @@ public class UserInfoReq implements Serializable {
     sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
+    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");

@@ -1,6 +1,6 @@
 /*
  * Bootstrap API
- * Mbed Cloud Bootstrap API allows web applications to control the device bootstrapping process.
+ * Bootstrap API allows web applications to control the device bootstrapping process.
  *
  * OpenAPI spec version: 2
  * 
@@ -44,10 +44,10 @@ public class PreSharedKeyWithoutSecret implements Serializable {
   }
 
    /**
-   * The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.
+   * The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.
    * @return createdAt
   **/
-  @ApiModelProperty(example = "2017-07-21T17:32:28.012Z", value = "The date-time (RFC3339) when this pre-shared key was uploaded to Mbed Cloud.")
+  @ApiModelProperty(example = "2017-07-21T17:32:28.012Z", value = "The date-time (RFC3339) when this pre-shared key was uploaded to Pelion device management.")
   public DateTime getCreatedAt() {
     return createdAt;
   }

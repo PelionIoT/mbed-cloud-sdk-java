@@ -27,9 +27,9 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * This object represents a user in requests towards mbed Cloud.
+ * This object represents a user in requests towards Device Management.
  */
-@ApiModel(description = "This object represents a user in requests towards mbed Cloud.")
+@ApiModel(description = "This object represents a user in requests towards Device Management.")
 
 public class UserUpdateReq implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -54,6 +54,9 @@ public class UserUpdateReq implements Serializable {
 
   @SerializedName("is_totp_enabled")
   private Boolean isTotpEnabled = null;
+
+  @SerializedName("login_profiles")
+  private List<String> loginProfiles = null;
 
   @SerializedName("phone_number")
   private String phoneNumber = null;
@@ -198,6 +201,32 @@ public class UserUpdateReq implements Serializable {
     this.isTotpEnabled = isTotpEnabled;
   }
 
+  public UserUpdateReq loginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+    return this;
+  }
+
+  public UserUpdateReq addLoginProfilesItem(String loginProfilesItem) {
+    if (this.loginProfiles == null) {
+      this.loginProfiles = new ArrayList<String>();
+    }
+    this.loginProfiles.add(loginProfilesItem);
+    return this;
+  }
+
+   /**
+   * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.
+   * @return loginProfiles
+  **/
+  @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
+  public List<String> getLoginProfiles() {
+    return loginProfiles;
+  }
+
+  public void setLoginProfiles(List<String> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+  }
+
   public UserUpdateReq phoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
     return this;
@@ -269,6 +298,7 @@ public class UserUpdateReq implements Serializable {
         Objects.equals(this.isGtcAccepted, userUpdateReq.isGtcAccepted) &&
         Objects.equals(this.isMarketingAccepted, userUpdateReq.isMarketingAccepted) &&
         Objects.equals(this.isTotpEnabled, userUpdateReq.isTotpEnabled) &&
+        Objects.equals(this.loginProfiles, userUpdateReq.loginProfiles) &&
         Objects.equals(this.phoneNumber, userUpdateReq.phoneNumber) &&
         Objects.equals(this.status, userUpdateReq.status) &&
         Objects.equals(this.username, userUpdateReq.username);
@@ -276,7 +306,7 @@ public class UserUpdateReq implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, phoneNumber, status, username);
+    return Objects.hash(address, email, fullName, groups, isGtcAccepted, isMarketingAccepted, isTotpEnabled, loginProfiles, phoneNumber, status, username);
   }
 
 
@@ -292,6 +322,7 @@ public class UserUpdateReq implements Serializable {
     sb.append("    isGtcAccepted: ").append(toIndentedString(isGtcAccepted)).append("\n");
     sb.append("    isMarketingAccepted: ").append(toIndentedString(isMarketingAccepted)).append("\n");
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
+    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
     sb.append("    phoneNumber: ").append(toIndentedString(phoneNumber)).append("\n");
     sb.append("    status: ").append(toIndentedString(status)).append("\n");
     sb.append("    username: ").append(toIndentedString(username)).append("\n");

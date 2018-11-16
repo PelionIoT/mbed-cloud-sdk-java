@@ -8,6 +8,9 @@ import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
+import io.reactivex.BackpressureStrategy;
+import io.reactivex.functions.Consumer;
+
 import com.arm.mbed.cloud.sdk.Connect;
 import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.Callback;
@@ -33,8 +36,6 @@ import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.ResourceValueObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
-import io.reactivex.BackpressureStrategy;
-import io.reactivex.functions.Consumer;
 import utils.AbstractExample;
 import utils.Configuration;
 import utils.Example;
@@ -97,11 +98,11 @@ public class ConnectExamples extends AbstractExample {
         ConnectionOptions config = Configuration.get();
         Connect api = new Connect(config);
         // resource path to get value from
-        String resourcePath = "/5001/0/1";
+        String resourcePath = "/3/0/13";
         try {
             // Getting a connected device.
             DeviceListOptions options = new DeviceListOptions();
-            options.setLimit(1);
+            options.setMaxResults(1l);
 
             Paginator<Device> deviceIterator = api.listAllConnectedDevices(options);
             if (!deviceIterator.hasNext()) {
@@ -404,7 +405,7 @@ public class ConnectExamples extends AbstractExample {
                 // Adding subscription for each resource.
                 if (resourceToSubscribeTo != null) {
                     api.addResourceSubscription(resourceToSubscribeTo, BackpressureStrategy.BUFFER)
-                            .subscribe(generateSubscriptionConsumer(resourceToSubscribeTo));
+                       .subscribe(generateSubscriptionConsumer(resourceToSubscribeTo));
                 }
             }
             // Listening to notifications for 2 minutes.
@@ -444,10 +445,12 @@ public class ConnectExamples extends AbstractExample {
             // devices which are newly registered or expired.
             // For more information about backpressure strategies, please have a look at related documentation:
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
-            DeviceStateObserver observer = api.subscribe().deviceStateChanges(
-                    DeviceStateFilterOptions.newFilter().likeDevice("016%")
-                            .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION, DeviceState.EXPIRED_REGISTRATION)),
-                    BackpressureStrategy.BUFFER);
+            DeviceStateObserver observer = api.subscribe()
+                                              .deviceStateChanges(DeviceStateFilterOptions.newFilter()
+                                                                                          .likeDevice("016%")
+                                                                                          .inDeviceStates(Arrays.asList(DeviceState.REGISTRATION,
+                                                                                                                        DeviceState.EXPIRED_REGISTRATION)),
+                                                                  BackpressureStrategy.BUFFER);
             // Printing device changes when they happen.
             observer.flow().subscribe(System.out::println);
             // Listening to device state changes for 2 minutes.
@@ -489,9 +492,11 @@ public class ConnectExamples extends AbstractExample {
             // https://github.com/ReactiveX/RxJava/wiki/Backpressure
             // For more information about First Value strategies, have a look at
             // com.arm.mbed.cloud.sdk.subscribe.model.FirstValue
-            ResourceValueObserver observer = api.subscribe().resourceValues(
-                    SubscriptionFilterOptions.newFilter().likeDevice("016%").likeResourcePath("/3/0/%"),
-                    BackpressureStrategy.BUFFER, FirstValue.ON_VALUE_UPDATE);
+            ResourceValueObserver observer = api.subscribe()
+                                                .resourceValues(SubscriptionFilterOptions.newFilter().likeDevice("016%")
+                                                                                         .likeResourcePath("/3/0/%"),
+                                                                BackpressureStrategy.BUFFER,
+                                                                FirstValue.ON_VALUE_UPDATE);
             // Printing resource value notification when they happen.
             observer.flow().subscribe(System.out::println);
             // Listening to resource value changes for 2 minutes.
@@ -537,7 +542,7 @@ public class ConnectExamples extends AbstractExample {
         try {
             // Creating notifications.
             String[] payloads = { "Q2hhbmdlIG1lIQ==", "VGhpcyBpcyB2YWx1ZSAy", "VGhpcyBpcyBhbm90aGVyIHZhbHVl",
-                    "VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA=" };
+                                  "VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA=" };
             List<String> payloadList = Arrays.asList(payloads);
             String deviceId = "015f4ac587f500000000000100100249";
             String resourcePath = "/3200/0/5501";
@@ -551,18 +556,18 @@ public class ConnectExamples extends AbstractExample {
             }
             // Creating the same notifications but using their JSON representation instead.
             String otherNotifications = "{\"notifications\":[{\"path\":\"/3200/0/5501\",\"payload\":\"Q2hhbmdlIG1lIQ\u003d\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyB2YWx1ZSAy\",\"ep\":\"015f4ac587f500000000000100100249\"}"
-                    + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
+                                        + ",{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyBpcyBhbm90aGVyIHZhbHVl\",\"ep\":\"015f4ac587f500000000000100100249\"},{\"path\":\"/3200/0/5501\",\"payload\":\"VGhpcyB3aWxsIGJlIG15IGxhc3Qgbm90aWZpY2F0aW9uIGJlY2F1c2UgSSBhbSB3aWxsaW5nIHRvIGdvIGJhY2sgdG8gc2xlZXA\u003d\",\"ep\":\"015f4ac587f500000000000100100249\"}]}";
 
             Resource resource = new Resource(deviceId, resourcePath);
             // Creating a subscriber for this resource.
             api.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-                    .subscribe(new Consumer<Object>() {
+               .subscribe(new Consumer<Object>() {
 
-                        @Override
-                        public void accept(Object t) throws Exception {
-                            log("Received notification value", t);
-                        }
-                    });
+                   @Override
+                   public void accept(Object t) throws Exception {
+                       log("Received notification value", t);
+                   }
+               });
             // Emitting notifications.
             api.notify(notifications);
             api.notify(otherNotifications);
@@ -594,7 +599,8 @@ public class ConnectExamples extends AbstractExample {
             log("Resource path of interest", resourcePath);
             // Subscribing to the resource value changes
             api.subscribe().resourceValues(SubscriptionFilterOptions.newFilter().equalResourcePath(resourcePath),
-                    BackpressureStrategy.MISSING).flow().subscribe();
+                                           BackpressureStrategy.MISSING)
+               .flow().subscribe();
             // Ensuring the webhook has been correctly registered
             log("Registered webhook", api.getWebhook());
             // Waiting for notifications to be sent to the webhook.

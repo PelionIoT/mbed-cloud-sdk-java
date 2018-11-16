@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the Mbed Device Directory service.
+ * This is the API Documentation for the Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -22,6 +22,7 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -54,6 +55,9 @@ public class DeviceDataPutRequest implements Serializable {
 
   @SerializedName("endpoint_type")
   private String endpointType = null;
+
+  @SerializedName("groups")
+  private List<String> groups = null;
 
   @SerializedName("host_gateway")
   private String hostGateway = null;
@@ -162,11 +166,6 @@ public class DeviceDataPutRequest implements Serializable {
     this.deviceKey = deviceKey;
   }
 
-  public DeviceDataPutRequest endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
    /**
    * The endpoint name given to the device.
    * @return endpointName
@@ -174,10 +173,6 @@ public class DeviceDataPutRequest implements Serializable {
   @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
   }
 
   public DeviceDataPutRequest endpointType(String endpointType) {
@@ -196,6 +191,32 @@ public class DeviceDataPutRequest implements Serializable {
 
   public void setEndpointType(String endpointType) {
     this.endpointType = endpointType;
+  }
+
+  public DeviceDataPutRequest groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public DeviceDataPutRequest addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * An array containing an ID of each group this device belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "An array containing an ID of each group this device belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
   }
 
   public DeviceDataPutRequest hostGateway(String hostGateway) {
@@ -269,6 +290,7 @@ public class DeviceDataPutRequest implements Serializable {
         Objects.equals(this.deviceKey, deviceDataPutRequest.deviceKey) &&
         Objects.equals(this.endpointName, deviceDataPutRequest.endpointName) &&
         Objects.equals(this.endpointType, deviceDataPutRequest.endpointType) &&
+        Objects.equals(this.groups, deviceDataPutRequest.groups) &&
         Objects.equals(this.hostGateway, deviceDataPutRequest.hostGateway) &&
         Objects.equals(this.name, deviceDataPutRequest.name) &&
         Objects.equals(this.object, deviceDataPutRequest.object);
@@ -276,7 +298,7 @@ public class DeviceDataPutRequest implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(autoUpdate, caId, customAttributes, description, deviceKey, endpointName, endpointType, hostGateway, name, object);
+    return Objects.hash(autoUpdate, caId, customAttributes, description, deviceKey, endpointName, endpointType, groups, hostGateway, name, object);
   }
 
 
@@ -292,6 +314,7 @@ public class DeviceDataPutRequest implements Serializable {
     sb.append("    deviceKey: ").append(toIndentedString(deviceKey)).append("\n");
     sb.append("    endpointName: ").append(toIndentedString(endpointName)).append("\n");
     sb.append("    endpointType: ").append(toIndentedString(endpointType)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");

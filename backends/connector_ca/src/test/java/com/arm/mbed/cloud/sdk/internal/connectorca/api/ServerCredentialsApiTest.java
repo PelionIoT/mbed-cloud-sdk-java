@@ -25,14 +25,13 @@ public class ServerCredentialsApiTest {
     }
 
     /**
-     * Fetch all (Bootstrap and LWM2M) server credentials.
+     * Fetch all (Bootstrap and LwM2M) server credentials.
      *
-     * This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot;         
+     * This REST API is intended to be used by customers to fetch all (Bootstrap and LwM2M) server credentials that they will need to use with their clients to connect to bootstrap or LwM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
      */
     @Test
     public void getAllServerCredentialsTest() {
-        String authorization = null;
-        // AllServerCredentialsResponseData response = api.getAllServerCredentials(authorization);
+        // AllServerCredentialsResponseData response = api.getAllServerCredentials();
 
         // TODO: test validations
     }
@@ -43,20 +42,18 @@ public class ServerCredentialsApiTest {
      */
     @Test
     public void getBootstrapServerCredentialsTest() {
-        String authorization = null;
-        // ServerCredentialsResponseData response = api.getBootstrapServerCredentials(authorization);
+        // ServerCredentialsResponseData response = api.getBootstrapServerCredentials();
 
         // TODO: test validations
     }
     /**
-     * Fetch LWM2M server credentials.
+     * Fetch LwM2M server credentials.
      *
-     * This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
+     * This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use with their clients to connect to LwM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
      */
     @Test
     public void getL2M2MServerCredentialsTest() {
-        String authorization = null;
-        // ServerCredentialsResponseData response = api.getL2M2MServerCredentials(authorization);
+        // ServerCredentialsResponseData response = api.getL2M2MServerCredentials();
 
         // TODO: test validations
     }

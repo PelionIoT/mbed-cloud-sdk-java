@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,6 +17,8 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import org.junit.Test;
+
+import io.reactivex.BackpressureStrategy;
 
 import com.arm.mbed.cloud.sdk.Connect;
 import com.arm.mbed.cloud.sdk.common.CallLogLevel;
@@ -39,19 +42,14 @@ import com.squareup.okhttp.mockwebserver.MockResponse;
 import com.squareup.okhttp.mockwebserver.MockWebServer;
 import com.squareup.okhttp.mockwebserver.RecordedRequest;
 
-import io.reactivex.BackpressureStrategy;
-
 public class TestNotificationHandlersStore {
 
-    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessage() {
         Future<?> handle = null;
-        ScheduledExecutorService executor = null;
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         String[] payloads = { "MQ==", "Mg==", "Mw==", "NA==", "NQ==" };
-        try {
-            executor = Executors.newScheduledThreadPool(1);
-            NotificationHandlersStore store = new NotificationHandlersStore(null, null, executor, null);
+        try (NotificationHandlersStore store = new NotificationHandlersStore(null, null, executor, null);) {
             List<Integer> receivedNotificationsUsingObservers = new LinkedList<>();
             List<Integer> receivedNotificationsUsingCallbacks = new LinkedList<>();
             List<Throwable> receivedErrorsUsingCallbacks = new LinkedList<>();
@@ -59,8 +57,7 @@ public class TestNotificationHandlersStore {
             String resourcePath = "/3200/0/5501";
             Resource resource = new Resource(deviceId, resourcePath);
             store.createResourceSubscriptionObserver(resource, BackpressureStrategy.BUFFER)
-                    .subscribe(object -> receivedNotificationsUsingObservers
-                            .add(Integer.parseInt(String.valueOf(object.getRawValue()))));
+                 .subscribe(object -> receivedNotificationsUsingObservers.add(Integer.parseInt(String.valueOf(object.getRawValue()))));
             store.registerSubscriptionCallback(resource, new Callback<Object>() {
 
                 @Override
@@ -142,29 +139,31 @@ public class TestNotificationHandlersStore {
         return array;
     }
 
-    @SuppressWarnings("boxing")
     @Test
     public void testNotifyNotificationMessageWithSubscriptionActions() {
         Future<?> handle = null;
-        ScheduledExecutorService executor = null;
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
         String[] payloads = { "MQ==", "Mg==", "Mw==", "NA==", "NQ==" };
+        int numberOfPresubscriptions = 4;
+        MockWebServer server = new MockWebServer();
+        Gson gson = new Gson();
+        PresubscriptionArray array = generatePresubscriptions(numberOfPresubscriptions);
+        for (int i = 0; i < 10; i++) {
+            server.enqueue(new MockResponse().setBody(gson.toJson(array)));
+        }
         try {
-            int numberOfPresubscriptions = 4;
-
-            MockWebServer server = new MockWebServer();
-            Gson gson = new Gson();
-            PresubscriptionArray array = generatePresubscriptions(numberOfPresubscriptions);
-            for (int i = 0; i < 10; i++) {
-                server.enqueue(new MockResponse().setBody(gson.toJson(array)));
-            }
             server.start();
-            HttpUrl baseUrl = server.url("");
-            ConnectionOptions opt = new ConnectionOptions("apikey");
-            opt.setHost(baseUrl.toString());
-            opt.setClientLogLevel(CallLogLevel.BODY);
-            Connect connect = new Connect(opt);
-            executor = Executors.newScheduledThreadPool(1);
-            NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null);
+        } catch (IOException exception) {
+            exception.printStackTrace();
+            fail(exception.getMessage());
+        }
+        HttpUrl baseUrl = server.url("");
+        ConnectionOptions opt = new ConnectionOptions("apikey");
+        opt.setHost(baseUrl.toString());
+        opt.setClientLogLevel(CallLogLevel.BODY);
+        Connect connect = new Connect(opt);
+        try (NotificationHandlersStore store = new NotificationHandlersStore(connect, null, executor, null)) {
+
             List<Integer> receivedNotificationsUsingCallbacks = new LinkedList<>();
             List<Throwable> receivedErrorsUsingCallbacks = new LinkedList<>();
             String deviceId = "015f4ac587f500000000000100100249";
@@ -252,16 +251,15 @@ public class TestNotificationHandlersStore {
     @Test
     public void testDeviceState() {
         Future<?> handle = null;
-        ScheduledExecutorService executor = null;
-        try {
-            List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
-            executor = Executors.newScheduledThreadPool(1);
-            NotificationHandlersStore store = new NotificationHandlersStore(null, null, executor, null);
-            DeviceStateObserver obs1 = store.getSubscriptionManager().deviceStateChanges(new DeviceStateFilterOptions()
-                    .likeDevice("016%33e").equalDeviceState(DeviceState.REGISTRATION_UPDATE),
-                    BackpressureStrategy.BUFFER);
+        List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
+        ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
+        try (NotificationHandlersStore store = new NotificationHandlersStore(null, null, executor, null)) {
+
+            DeviceStateObserver obs1 = store.getSubscriptionManager()
+                                            .deviceStateChanges(new DeviceStateFilterOptions().likeDevice("016%33e")
+                                                                                              .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
+                                                                BackpressureStrategy.BUFFER);
             // Generating notifications
-            @SuppressWarnings("boxing")
             List<NotificationMessage> notifications = Stream.iterate(0, n -> n + 1).limit(32).map(i -> {
                 NotificationMessage message = new NotificationMessage();
                 EndpointData data = new EndpointData();

@@ -12,19 +12,23 @@ Method | HTTP request | Description
 [**createAccount**](AggregatorAccountAdminApi.md#createAccount) | **POST** v3/accounts | Create a new account.
 [**createAccountApiKey**](AggregatorAccountAdminApi.md#createAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys | Create a new API key.
 [**createAccountGroup**](AggregatorAccountAdminApi.md#createAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups | Create a new group.
+[**createAccountInvitation**](AggregatorAccountAdminApi.md#createAccountInvitation) | **POST** v3/accounts/{account-id}/user-invitations | Create a user invitation.
 [**createAccountUser**](AggregatorAccountAdminApi.md#createAccountUser) | **POST** v3/accounts/{accountID}/users | Create a new user.
 [**deleteAccountApiKey**](AggregatorAccountAdminApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**deleteAccountCertificate**](AggregatorAccountAdminApi.md#deleteAccountCertificate) | **DELETE** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
 [**deleteAccountGroup**](AggregatorAccountAdminApi.md#deleteAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
+[**deleteAccountInvitation**](AggregatorAccountAdminApi.md#deleteAccountInvitation) | **DELETE** v3/accounts/{account-id}/user-invitations/{invitation-id} | Delete a user invitation.
 [**deleteAccountUser**](AggregatorAccountAdminApi.md#deleteAccountUser) | **DELETE** v3/accounts/{accountID}/users/{user-id} | Delete a user.
 [**getAccountApiKey**](AggregatorAccountAdminApi.md#getAccountApiKey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**getAccountCertificate**](AggregatorAccountAdminApi.md#getAccountCertificate) | **GET** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**getAccountGroupSummary**](AggregatorAccountAdminApi.md#getAccountGroupSummary) | **GET** v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
 [**getAccountInfo**](AggregatorAccountAdminApi.md#getAccountInfo) | **GET** v3/accounts/{accountID} | Get account info.
+[**getAccountInvitation**](AggregatorAccountAdminApi.md#getAccountInvitation) | **GET** v3/accounts/{account-id}/user-invitations/{invitation-id} | Details of a user invitation.
 [**getAccountUser**](AggregatorAccountAdminApi.md#getAccountUser) | **GET** v3/accounts/{accountID}/users/{user-id} | Details of the user.
 [**getAllAccountApiKeys**](AggregatorAccountAdminApi.md#getAllAccountApiKeys) | **GET** v3/accounts/{accountID}/api-keys | Get all API keys.
 [**getAllAccountCertificates**](AggregatorAccountAdminApi.md#getAllAccountCertificates) | **GET** v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 [**getAllAccountGroups**](AggregatorAccountAdminApi.md#getAllAccountGroups) | **GET** v3/accounts/{accountID}/policy-groups | Get all group information.
+[**getAllAccountInvitations**](AggregatorAccountAdminApi.md#getAllAccountInvitations) | **GET** v3/accounts/{account-id}/user-invitations | Get the details of all the user invitations.
 [**getAllAccountUsers**](AggregatorAccountAdminApi.md#getAllAccountUsers) | **GET** v3/accounts/{accountID}/users | Get all user details.
 [**getAllAccounts**](AggregatorAccountAdminApi.md#getAllAccounts) | **GET** v3/accounts | Get all accounts.
 [**getApiKeysOfAccountGroup**](AggregatorAccountAdminApi.md#getApiKeysOfAccountGroup) | **GET** v3/accounts/{accountID}/policy-groups/{groupID}/api-keys | Get API keys of a group.
@@ -506,6 +510,63 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createAccountInvitation"></a>
+# **createAccountInvitation**
+> UserInvitationResp createAccountInvitation(accountId, body)
+
+Create a user invitation.
+
+An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account-id}/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+UserInvitationReq body = new UserInvitationReq(); // UserInvitationReq | A user invitation object with attributes.
+try {
+    UserInvitationResp result = apiInstance.createAccountInvitation(accountId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#createAccountInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **body** | [**UserInvitationReq**](UserInvitationReq.md)| A user invitation object with attributes. |
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createAccountUser"></a>
 # **createAccountUser**
 > UserInfoResp createAccountUser(accountID, body, action)
@@ -722,6 +783,63 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **groupID** | **String**| The ID of the group to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAccountInvitation"></a>
+# **deleteAccountInvitation**
+> Void deleteAccountInvitation(accountId, invitationId)
+
+Delete a user invitation.
+
+An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+String invitationId = "invitationId_example"; // String | The ID of the invitation to be deleted.
+try {
+    Void result = apiInstance.deleteAccountInvitation(accountId, invitationId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#deleteAccountInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **invitationId** | **String**| The ID of the invitation to be deleted. |
 
 ### Return type
 
@@ -1023,6 +1141,63 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getAccountInvitation"></a>
+# **getAccountInvitation**
+> UserInvitationResp getAccountInvitation(accountId, invitationId)
+
+Details of a user invitation.
+
+An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+String invitationId = "invitationId_example"; // String | The ID of the invitation to be retrieved.
+try {
+    UserInvitationResp result = apiInstance.getAccountInvitation(accountId, invitationId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountInvitation");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **invitationId** | **String**| The ID of the invitation to be retrieved. |
+
+### Return type
+
+[**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getAccountUser"></a>
 # **getAccountUser**
 > UserInfoResp getAccountUser(accountID, userId)
@@ -1283,6 +1458,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**GroupSummaryList**](GroupSummaryList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAllAccountInvitations"></a>
+# **getAllAccountInvitations**
+> UserInvitationRespList getAllAccountInvitations(accountId, limit, after, order)
+
+Get the details of all the user invitations.
+
+An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id}/user-invitations -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+try {
+    UserInvitationRespList result = apiInstance.getAllAccountInvitations(accountId, limit, after, order);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountInvitations");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+
+### Return type
+
+[**UserInvitationRespList**](UserInvitationRespList.md)
 
 ### Authorization
 

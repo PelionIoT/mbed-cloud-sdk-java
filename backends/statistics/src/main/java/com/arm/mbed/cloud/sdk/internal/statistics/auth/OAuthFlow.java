@@ -1,6 +1,6 @@
 /*
  * Connect Statistics API
- * mbed Cloud Connect Statistics API provides statistics about other cloud services through defined counters.
+ * Connect Statistics API provides statistics about other cloud services through defined counters.
  *
  * OpenAPI spec version: 3
  * 

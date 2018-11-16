@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Pelion Device Management Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Device Management Connect allows connectivity to devices by queueing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -124,10 +124,10 @@ public class ResourcesData implements Serializable {
   }
 
    /**
-   * Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
+   * Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.
    * @return rt
   **/
-  @ApiModelProperty(example = "light_sensor", value = "Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-mbed-cloud-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
+  @ApiModelProperty(example = "light_sensor", value = "Application-specific resource type that describes this resource. [It is created by the client side application](/docs/current/connecting/resource-setup-in-device-management-client.html). Not meant to be a human-readable name for the resource. Multiple resource types may be included, they are separated by a space.")
   public String getRt() {
     return rt;
   }

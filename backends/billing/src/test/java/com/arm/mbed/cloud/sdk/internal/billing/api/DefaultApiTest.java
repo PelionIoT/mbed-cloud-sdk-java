@@ -34,7 +34,7 @@ public class DefaultApiTest {
     /**
      * Get billing report.
      *
-     * Fetch generated billing report for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.
+     * Fetch the billing report generated for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportTest() {
@@ -44,9 +44,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Get raw active devices billing data for the month.
+     * Get raw billing data of the active devices for the month.
      *
-     * Fetch raw active devices billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw active devices billing data for subtenant accounts are included in their aggregator&#39;s raw active devices billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of active devices included, e.g. active device id.
+     * Fetch the raw billing data of the active devices for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the active devices for subtenant accounts are included in their aggregator&#39;s raw billing data of the active devices. The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the active devices. For example, the ID of an active device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportActiveDevicesTest() {
@@ -56,9 +56,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Get raw firmware updates billing data for the month.
+     * Get raw billing data of the firmware updates for the month.
      *
-     * Fetch raw firmware updates billing data for the currently authenticated commercial non-subtenant account. They are supplementary data for billing report. The raw firmware updates billing data for subtenant accounts are included in their aggregator&#39;s raw firmware updates billing data. Endpoint returns the URL to download the gzipped csv file. First line of the file is the header which describes information of firmware updates included, e.g. firmware update device id.
+     * Fetch raw billing data of the firmware updates for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw billing data of the firmware updates. The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the firmware updates. For example, the ID of an firmware update.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportFirmwareUpdatesTest() {
@@ -68,9 +68,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Service package quota
+     * Service package quota.
      *
-     * Get the available firmware update quota for the currently authenticated commercial acount.
+     * Get the available firmware update quota for the currently authenticated commercial account.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H &#39;authorization: Bearer {api-key}&#39; 
      */
     @Test
     public void getServicePackageQuotaTest() {
@@ -79,9 +79,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Service package quota history
+     * Service package quota history.
      *
-     * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and subtenant quota usage data. History data is ordered in ascending order based on the added timestamp. 
+     * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and subtenant quota usage data. History data is ordered in ascending order based on the added timestamp.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history -H &#39;authorization: Bearer {api-key}&#39; 
      */
     @Test
     public void getServicePackageQuotaHistoryTest() {
@@ -94,7 +94,7 @@ public class DefaultApiTest {
     /**
      * Get all service packages.
      *
-     * Get information of all service packages for currently authenticated commercial account. The response is returned with descending order by service package created timestamp, listing first pending service package, then active service package, and previous service packages at last.
+     * Get information of all service packages for the currently authenticated commercial account. The response is returned in descending order by service package created timestamp, listing first the pending service package, then the active service package and finally the previous service packages.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages -H &#39;authorization: Bearer {api-key}&#39;
      */
     @Test
     public void getServicePackagesTest() {

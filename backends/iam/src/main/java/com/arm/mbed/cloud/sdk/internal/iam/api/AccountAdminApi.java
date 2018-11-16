@@ -23,6 +23,9 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationResp;
+import com.arm.mbed.cloud.sdk.internal.iam.model.UserInvitationRespList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
 
 import java.util.ArrayList;
@@ -105,6 +108,20 @@ public interface AccountAdminApi {
   );
 
   /**
+   * Create a user invitation.
+   * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param body A user invitation object with attributes. (required)
+   * @return Call&lt;UserInvitationResp&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/user-invitations")
+  Call<UserInvitationResp> createInvitation(
+    @retrofit2.http.Body UserInvitationReq body
+  );
+
+  /**
    * Create a new user.
    * An endpoint for creating or inviting a new user to the account. In case of invitation email address is used only, other attributes are set in the 2nd step.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/users?action&#x3D;invite -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body A user object with attributes. (required)
@@ -131,6 +148,17 @@ public interface AccountAdminApi {
   );
 
   /**
+   * Delete a user invitation.
+   * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param invitationId The ID of the invitation to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/user-invitations/{invitation-id}")
+  Call<Void> deleteInvitation(
+    @retrofit2.http.Path(value = "invitation-id", encoded = true) String invitationId
+  );
+
+  /**
    * Delete a user.
    * An endpoint for deleting a user.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/users/{user-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param userId The ID of the user to be deleted. (required)
@@ -139,6 +167,19 @@ public interface AccountAdminApi {
   @DELETE("v3/users/{user-id}")
   Call<Void> deleteUser(
     @retrofit2.http.Path(value = "user-id", encoded = true) String userId
+  );
+
+  /**
+   * Get the details of all the user invitations.
+   * An endpoint for retrieving the details of all the active user invitations sent for new or existing users to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
+   * @return Call&lt;UserInvitationRespList&gt;
+   */
+  @GET("v3/user-invitations")
+  Call<UserInvitationRespList> getAllInvitations(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
   );
 
   /**
@@ -187,6 +228,17 @@ public interface AccountAdminApi {
   @GET("v3/users/{user-id}/groups")
   Call<GroupSummaryList> getGroupsOfUser(
     @retrofit2.http.Path(value = "user-id", encoded = true) String userId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+  );
+
+  /**
+   * Details of a user invitation.
+   * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
+   * @param invitationId The ID of the invitation to be retrieved. (required)
+   * @return Call&lt;UserInvitationResp&gt;
+   */
+  @GET("v3/user-invitations/{invitation-id}")
+  Call<UserInvitationResp> getInvitation(
+    @retrofit2.http.Path(value = "invitation-id", encoded = true) String invitationId
   );
 
   /**

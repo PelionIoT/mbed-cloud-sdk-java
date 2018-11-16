@@ -30,7 +30,7 @@ public final class ResourceValueNotificationAdapter {
             return null;
         }
         final ResourceValueNotification notification = new ResourceValueNotification(notificationData.getEp(),
-                notificationData.getPath());
+                                                                                     notificationData.getPath());
         notification.setMaxAge(notificationData.getMaxAge());
         notification.decodePayload(notificationData.getPayload(), notificationData.getCt());
         return notification;
@@ -81,11 +81,11 @@ public final class ResourceValueNotificationAdapter {
     }
 
     /**
-     * Maps device state change notifications.
+     * Maps resource value change notifications.
      *
      * @param notificationMessage
      *            notification message.
-     * @return list of device state change notification.
+     * @return list of resource value change notification.
      */
     public static List<ResourceValueNotification> mapNotificationMessage(NotificationMessage notificationMessage) {
         if (notificationMessage == null) {

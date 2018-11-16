@@ -4,7 +4,7 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**after** | **String** | After which quota history id this paged response is fetched. |  [optional]
+**after** | **String** | After which quota history ID this paged response is fetched. |  [optional]
 **data** | [**List&lt;ServicePackageQuotaHistoryItem&gt;**](ServicePackageQuotaHistoryItem.md) | List of history items, empty list if no entries are available. | 
 **hasMore** | **Boolean** | If there is next available quota history paged response to be fetched. | 
 **limit** | **Integer** | Maximum amount of quota history entries contained in one paged response. | 

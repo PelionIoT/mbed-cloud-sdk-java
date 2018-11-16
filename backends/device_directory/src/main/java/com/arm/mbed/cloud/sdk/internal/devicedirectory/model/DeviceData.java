@@ -1,6 +1,6 @@
 /*
  * Device Directory API
- * This is the API Documentation for the Mbed Device Directory service.
+ * This is the API Documentation for the Device Directory service.
  *
  * OpenAPI spec version: 3
  * 
@@ -22,10 +22,12 @@ import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
 import java.io.Serializable;
 
 /**
@@ -42,7 +44,7 @@ public class DeviceData implements Serializable {
   private Boolean autoUpdate = null;
 
   @SerializedName("bootstrap_expiration_date")
-  private DateTime bootstrapExpirationDate = null;
+  private LocalDate bootstrapExpirationDate = null;
 
   @SerializedName("bootstrapped_timestamp")
   private DateTime bootstrappedTimestamp = null;
@@ -51,7 +53,7 @@ public class DeviceData implements Serializable {
   private String caId = null;
 
   @SerializedName("connector_expiration_date")
-  private DateTime connectorExpirationDate = null;
+  private LocalDate connectorExpirationDate = null;
 
   @SerializedName("created_at")
   private DateTime createdAt = null;
@@ -139,11 +141,67 @@ public class DeviceData implements Serializable {
   @SerializedName("firmware_checksum")
   private String firmwareChecksum = null;
 
+  @SerializedName("groups")
+  private List<String> groups = null;
+
   @SerializedName("host_gateway")
   private String hostGateway = null;
 
   @SerializedName("id")
   private String id = null;
+
+  @SerializedName("issuer_fingerprint")
+  private String issuerFingerprint = null;
+
+  /**
+   * The lifecycle status of the device.
+   */
+  @JsonAdapter(LifecycleStatusEnum.Adapter.class)
+  public enum LifecycleStatusEnum {
+    ENABLED("enabled"),
+    
+    BLOCKED("blocked");
+
+    private String value;
+
+    LifecycleStatusEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static LifecycleStatusEnum fromValue(String text) {
+      for (LifecycleStatusEnum b : LifecycleStatusEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<LifecycleStatusEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final LifecycleStatusEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public LifecycleStatusEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return LifecycleStatusEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("lifecycle_status")
+  private LifecycleStatusEnum lifecycleStatus = null;
 
   @SerializedName("manifest")
   private String manifest = null;
@@ -311,7 +369,7 @@ public class DeviceData implements Serializable {
     this.autoUpdate = autoUpdate;
   }
 
-  public DeviceData bootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+  public DeviceData bootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
     return this;
   }
@@ -321,11 +379,11 @@ public class DeviceData implements Serializable {
    * @return bootstrapExpirationDate
   **/
   @ApiModelProperty(value = "The expiration date of the certificate used to connect to bootstrap server.")
-  public DateTime getBootstrapExpirationDate() {
+  public LocalDate getBootstrapExpirationDate() {
     return bootstrapExpirationDate;
   }
 
-  public void setBootstrapExpirationDate(DateTime bootstrapExpirationDate) {
+  public void setBootstrapExpirationDate(LocalDate bootstrapExpirationDate) {
     this.bootstrapExpirationDate = bootstrapExpirationDate;
   }
 
@@ -338,7 +396,7 @@ public class DeviceData implements Serializable {
    * The timestamp of the device&#39;s most recent bootstrap process.
    * @return bootstrappedTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the device's most recent bootstrap process.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the device's most recent bootstrap process.")
   public DateTime getBootstrappedTimestamp() {
     return bootstrappedTimestamp;
   }
@@ -365,21 +423,21 @@ public class DeviceData implements Serializable {
     this.caId = caId;
   }
 
-  public DeviceData connectorExpirationDate(DateTime connectorExpirationDate) {
+  public DeviceData connectorExpirationDate(LocalDate connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
     return this;
   }
 
    /**
-   * The expiration date of the certificate used to connect to LWM2M server.
+   * The expiration date of the certificate used to connect to LwM2M server.
    * @return connectorExpirationDate
   **/
-  @ApiModelProperty(value = "The expiration date of the certificate used to connect to LWM2M server.")
-  public DateTime getConnectorExpirationDate() {
+  @ApiModelProperty(value = "The expiration date of the certificate used to connect to LwM2M server.")
+  public LocalDate getConnectorExpirationDate() {
     return connectorExpirationDate;
   }
 
-  public void setConnectorExpirationDate(DateTime connectorExpirationDate) {
+  public void setConnectorExpirationDate(LocalDate connectorExpirationDate) {
     this.connectorExpirationDate = connectorExpirationDate;
   }
 
@@ -392,7 +450,7 @@ public class DeviceData implements Serializable {
    * The timestamp of when the device was created in the device directory.
    * @return createdAt
   **/
-  @ApiModelProperty(value = "The timestamp of when the device was created in the device directory.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of when the device was created in the device directory.")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -535,11 +593,6 @@ public class DeviceData implements Serializable {
     this.deviceKey = deviceKey;
   }
 
-  public DeviceData endpointName(String endpointName) {
-    this.endpointName = endpointName;
-    return this;
-  }
-
    /**
    * The endpoint name given to the device.
    * @return endpointName
@@ -547,10 +600,6 @@ public class DeviceData implements Serializable {
   @ApiModelProperty(example = "00000000-0000-0000-0000-000000000000", value = "The endpoint name given to the device.")
   public String getEndpointName() {
     return endpointName;
-  }
-
-  public void setEndpointName(String endpointName) {
-    this.endpointName = endpointName;
   }
 
   public DeviceData endpointType(String endpointType) {
@@ -580,7 +629,7 @@ public class DeviceData implements Serializable {
    * The claim date/time.
    * @return enrolmentListTimestamp
   **/
-  @ApiModelProperty(value = "The claim date/time.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The claim date/time.")
   public DateTime getEnrolmentListTimestamp() {
     return enrolmentListTimestamp;
   }
@@ -598,7 +647,7 @@ public class DeviceData implements Serializable {
    * The entity instance signature.
    * @return etag
   **/
-  @ApiModelProperty(value = "The entity instance signature.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The entity instance signature.")
   public DateTime getEtag() {
     return etag;
   }
@@ -625,6 +674,32 @@ public class DeviceData implements Serializable {
     this.firmwareChecksum = firmwareChecksum;
   }
 
+  public DeviceData groups(List<String> groups) {
+    this.groups = groups;
+    return this;
+  }
+
+  public DeviceData addGroupsItem(String groupsItem) {
+    if (this.groups == null) {
+      this.groups = new ArrayList<String>();
+    }
+    this.groups.add(groupsItem);
+    return this;
+  }
+
+   /**
+   * An array containing an ID of each group this device belongs to.
+   * @return groups
+  **/
+  @ApiModelProperty(value = "An array containing an ID of each group this device belongs to.")
+  public List<String> getGroups() {
+    return groups;
+  }
+
+  public void setGroups(List<String> groups) {
+    this.groups = groups;
+  }
+
   public DeviceData hostGateway(String hostGateway) {
     this.hostGateway = hostGateway;
     return this;
@@ -649,16 +724,52 @@ public class DeviceData implements Serializable {
   }
 
    /**
-   * The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.
+   * The ID of the device. The device ID is used across all Device Management APIs.
    * @return id
   **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The ID of the device. The device ID is used to manage a device across all Mbed Cloud APIs.")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "The ID of the device. The device ID is used across all Device Management APIs.")
   public String getId() {
     return id;
   }
 
   public void setId(String id) {
     this.id = id;
+  }
+
+  public DeviceData issuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+    return this;
+  }
+
+   /**
+   * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * @return issuerFingerprint
+  **/
+  @ApiModelProperty(example = "C42EDEFC75871E4CE2146FCDA67D03DDA05CC26FDF93B17B55F42C1EADFDC322", value = "SHA256 fingerprint of the certificate used to validate the signature of the device certificate.")
+  public String getIssuerFingerprint() {
+    return issuerFingerprint;
+  }
+
+  public void setIssuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+  }
+
+  public DeviceData lifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
+    return this;
+  }
+
+   /**
+   * The lifecycle status of the device.
+   * @return lifecycleStatus
+  **/
+  @ApiModelProperty(example = "enabled", value = "The lifecycle status of the device.")
+  public LifecycleStatusEnum getLifecycleStatus() {
+    return lifecycleStatus;
+  }
+
+  public void setLifecycleStatus(LifecycleStatusEnum lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
   }
 
   public DeviceData manifest(String manifest) {
@@ -688,7 +799,7 @@ public class DeviceData implements Serializable {
    * The timestamp of the current manifest version.
    * @return manifestTimestamp
   **/
-  @ApiModelProperty(value = "The timestamp of the current manifest version.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The timestamp of the current manifest version.")
   public DateTime getManifestTimestamp() {
     return manifestTimestamp;
   }
@@ -814,7 +925,7 @@ public class DeviceData implements Serializable {
    * The time the object was updated.
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "The time the object was updated.")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated.")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -870,8 +981,11 @@ public class DeviceData implements Serializable {
         Objects.equals(this.enrolmentListTimestamp, deviceData.enrolmentListTimestamp) &&
         Objects.equals(this.etag, deviceData.etag) &&
         Objects.equals(this.firmwareChecksum, deviceData.firmwareChecksum) &&
+        Objects.equals(this.groups, deviceData.groups) &&
         Objects.equals(this.hostGateway, deviceData.hostGateway) &&
         Objects.equals(this.id, deviceData.id) &&
+        Objects.equals(this.issuerFingerprint, deviceData.issuerFingerprint) &&
+        Objects.equals(this.lifecycleStatus, deviceData.lifecycleStatus) &&
         Objects.equals(this.manifest, deviceData.manifest) &&
         Objects.equals(this.manifestTimestamp, deviceData.manifestTimestamp) &&
         Objects.equals(this.mechanism, deviceData.mechanism) &&
@@ -886,7 +1000,7 @@ public class DeviceData implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, hostGateway, id, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
+    return Objects.hash(accountId, autoUpdate, bootstrapExpirationDate, bootstrappedTimestamp, caId, connectorExpirationDate, createdAt, customAttributes, deployedState, deployment, description, deviceClass, deviceExecutionMode, deviceKey, endpointName, endpointType, enrolmentListTimestamp, etag, firmwareChecksum, groups, hostGateway, id, issuerFingerprint, lifecycleStatus, manifest, manifestTimestamp, mechanism, mechanismUrl, name, object, serialNumber, state, updatedAt, vendorId);
   }
 
 
@@ -914,8 +1028,11 @@ public class DeviceData implements Serializable {
     sb.append("    enrolmentListTimestamp: ").append(toIndentedString(enrolmentListTimestamp)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    firmwareChecksum: ").append(toIndentedString(firmwareChecksum)).append("\n");
+    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
     sb.append("    hostGateway: ").append(toIndentedString(hostGateway)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
+    sb.append("    issuerFingerprint: ").append(toIndentedString(issuerFingerprint)).append("\n");
+    sb.append("    lifecycleStatus: ").append(toIndentedString(lifecycleStatus)).append("\n");
     sb.append("    manifest: ").append(toIndentedString(manifest)).append("\n");
     sb.append("    manifestTimestamp: ").append(toIndentedString(manifestTimestamp)).append("\n");
     sb.append("    mechanism: ").append(toIndentedString(mechanism)).append("\n");

@@ -3,14 +3,14 @@ package com.arm.mbed.cloud.sdk.subscribe;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.annotations.Internal;
-import com.arm.mbed.cloud.sdk.annotations.Nullable;
-import com.arm.mbed.cloud.sdk.annotations.Preamble;
-
 import io.reactivex.BackpressureStrategy;
 import io.reactivex.Flowable;
 import io.reactivex.FlowableEmitter;
 import io.reactivex.FlowableOnSubscribe;
+
+import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Notification emitter/publisher")
 @Internal
@@ -50,7 +50,13 @@ public class NotificationEmitter<T extends NotificationMessageValue> {
      */
     public void complete() {
         for (final FlowableEmitter<T> emitter : emitters) {
-            emitter.onComplete();
+            try {
+                if (!emitter.isCancelled()) {
+                    emitter.onComplete();
+                }
+            } catch (Exception exception) {
+                // Nothing to do
+            }
         }
     }
 

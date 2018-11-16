@@ -199,6 +199,9 @@ public class CertificateEnrollment implements Serializable {
   @SerializedName("object")
   private ObjectEnum object = null;
 
+  @SerializedName("updated_at")
+  private DateTime updatedAt = null;
+
   public CertificateEnrollment certificateName(String certificateName) {
     this.certificateName = certificateName;
     return this;
@@ -343,6 +346,24 @@ public class CertificateEnrollment implements Serializable {
     this.object = object;
   }
 
+  public CertificateEnrollment updatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+    return this;
+  }
+
+   /**
+   * Update UTC time RFC3339.
+   * @return updatedAt
+  **/
+  @ApiModelProperty(example = "2017-01-01T00:00:00Z", value = "Update UTC time RFC3339.")
+  public DateTime getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(DateTime updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
 
   @Override
   public boolean equals(java.lang.Object o) {
@@ -360,12 +381,13 @@ public class CertificateEnrollment implements Serializable {
         Objects.equals(this.enrollStatus, certificateEnrollment.enrollStatus) &&
         Objects.equals(this.etag, certificateEnrollment.etag) &&
         Objects.equals(this.id, certificateEnrollment.id) &&
-        Objects.equals(this.object, certificateEnrollment.object);
+        Objects.equals(this.object, certificateEnrollment.object) &&
+        Objects.equals(this.updatedAt, certificateEnrollment.updatedAt);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(certificateName, createdAt, deviceId, enrollResult, enrollStatus, etag, id, object);
+    return Objects.hash(certificateName, createdAt, deviceId, enrollResult, enrollStatus, etag, id, object, updatedAt);
   }
 
 
@@ -382,6 +404,7 @@ public class CertificateEnrollment implements Serializable {
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
+    sb.append("    updatedAt: ").append(toIndentedString(updatedAt)).append("\n");
     sb.append("}");
     return sb.toString();
   }

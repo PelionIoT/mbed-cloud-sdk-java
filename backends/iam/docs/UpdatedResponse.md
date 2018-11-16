@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **code** | **Integer** | Response code. | 
 **id** | **String** | Entity ID. | 
 **message** | **String** | A human readable message with detailed info. | 
-**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: &#39;user&#39;, &#39;apikey&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;. | 
+**object** | [**ObjectEnum**](#ObjectEnum) | Entity name: &#39;user&#39;, &#39;api-key&#39;, &#39;group&#39;, &#39;policy&#39; or &#39;account&#39;. | 
 **requestId** | **String** | Request ID. | 
 **type** | [**TypeEnum**](#TypeEnum) | Response type: success. | 
 
@@ -19,14 +19,8 @@ Name | Value
 USER | &quot;user&quot;
 API_KEY | &quot;api-key&quot;
 GROUP | &quot;group&quot;
-ACCOUNT | &quot;account&quot;
-ACCOUNT_TEMPLATE | &quot;account-template&quot;
-TRUSTED_CERT | &quot;trusted-cert&quot;
-LIST | &quot;list&quot;
-ERROR | &quot;error&quot;
 POLICY | &quot;policy&quot;
-IDENTITY_PROVIDER | &quot;identity-provider&quot;
-USER_SESSION | &quot;user-session&quot;
+ACCOUNT | &quot;account&quot;
 
 
 <a name="TypeEnum"></a>

@@ -4,18 +4,18 @@ All URIs are relative to *http://api.us-east-1.mbedcloud.com*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**getAllServerCredentials**](ServerCredentialsApi.md#getAllServerCredentials) | **GET** v3/server-credentials | Fetch all (Bootstrap and LWM2M) server credentials.
+[**getAllServerCredentials**](ServerCredentialsApi.md#getAllServerCredentials) | **GET** v3/server-credentials | Fetch all (Bootstrap and LwM2M) server credentials.
 [**getBootstrapServerCredentials**](ServerCredentialsApi.md#getBootstrapServerCredentials) | **GET** v3/server-credentials/bootstrap | Fetch bootstrap server credentials.
-[**getL2M2MServerCredentials**](ServerCredentialsApi.md#getL2M2MServerCredentials) | **GET** v3/server-credentials/lwm2m | Fetch LWM2M server credentials.
+[**getL2M2MServerCredentials**](ServerCredentialsApi.md#getL2M2MServerCredentials) | **GET** v3/server-credentials/lwm2m | Fetch LwM2M server credentials.
 
 
 <a name="getAllServerCredentials"></a>
 # **getAllServerCredentials**
-> AllServerCredentialsResponseData getAllServerCredentials(authorization)
+> AllServerCredentialsResponseData getAllServerCredentials()
 
-Fetch all (Bootstrap and LWM2M) server credentials.
+Fetch all (Bootstrap and LwM2M) server credentials.
 
-This REST API is intended to be used by customers to fetch all (Bootstrap and LWM2M) server credentials that they will need to use with their clients to connect to bootstrap or LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot;         
+This REST API is intended to be used by customers to fetch all (Bootstrap and LwM2M) server credentials that they will need to use with their clients to connect to bootstrap or LwM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
 
 ### Example
 ```java
@@ -35,9 +35,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    AllServerCredentialsResponseData result = apiInstance.getAllServerCredentials(authorization);
+    AllServerCredentialsResponseData result = apiInstance.getAllServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getAllServerCredentials");
@@ -46,10 +45,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -66,7 +62,7 @@ Name | Type | Description  | Notes
 
 <a name="getBootstrapServerCredentials"></a>
 # **getBootstrapServerCredentials**
-> ServerCredentialsResponseData getBootstrapServerCredentials(authorization)
+> ServerCredentialsResponseData getBootstrapServerCredentials()
 
 Fetch bootstrap server credentials.
 
@@ -90,9 +86,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    ServerCredentialsResponseData result = apiInstance.getBootstrapServerCredentials(authorization);
+    ServerCredentialsResponseData result = apiInstance.getBootstrapServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getBootstrapServerCredentials");
@@ -101,10 +96,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 
@@ -121,11 +113,11 @@ Name | Type | Description  | Notes
 
 <a name="getL2M2MServerCredentials"></a>
 # **getL2M2MServerCredentials**
-> ServerCredentialsResponseData getL2M2MServerCredentials(authorization)
+> ServerCredentialsResponseData getL2M2MServerCredentials()
 
-Fetch LWM2M server credentials.
+Fetch LwM2M server credentials.
 
-This REST API is intended to be used by customers to fetch LWM2M server credentials that they will need to use with their clients to connect to LWM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
+This REST API is intended to be used by customers to fetch LwM2M server credentials that they will need to use with their clients to connect to LwM2M server.  **Example usage:** curl -X GET \&quot;http://api.us-east-1.mbedcloud.com/v3/server-credentials/lwm2m\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; 
 
 ### Example
 ```java
@@ -145,9 +137,8 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 ServerCredentialsApi apiInstance = new ServerCredentialsApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    ServerCredentialsResponseData result = apiInstance.getL2M2MServerCredentials(authorization);
+    ServerCredentialsResponseData result = apiInstance.getL2M2MServerCredentials();
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling ServerCredentialsApi#getL2M2MServerCredentials");
@@ -156,10 +147,7 @@ try {
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
+This endpoint does not need any parameter.
 
 ### Return type
 

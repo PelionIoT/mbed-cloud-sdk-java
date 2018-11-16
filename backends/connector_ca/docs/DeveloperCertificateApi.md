@@ -10,11 +10,11 @@ Method | HTTP request | Description
 
 <a name="createDeveloperCertificate"></a>
 # **createDeveloperCertificate**
-> DeveloperCertificateResponseData createDeveloperCertificate(authorization, body)
+> DeveloperCertificateResponseData createDeveloperCertificate(body)
 
 Create a new developer certificate to connect to the bootstrap server.
 
-This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/v1.2/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \&quot;http://api.us-east-1.mbedcloud.com/v3/developer-certificates\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; -H \&quot;content-type: application/json\&quot; -d \&quot;{ \\\&quot;name\\\&quot;: \\\&quot;THE_CERTIFICATE_NAME\\\&quot;, \\\&quot;description\\\&quot;: \\\&quot;THE_CERTIFICATE_DESCRIPTION\\\&quot;}\&quot;         
+This REST API is intended to be used by customers to get a developer certificate (a certificate that can be flashed into multiple devices to connect to bootstrap server).  **Note:** The number of developer certificates allowed per account is limited. Please see [Using your own certificate authority](/docs/current/mbed-cloud-deploy/instructions-for-factory-setup-and-device-provision.html#using-your-own-certificate-authority-with-mbed-cloud).  **Example usage:** curl -X POST \&quot;http://api.us-east-1.mbedcloud.com/v3/developer-certificates\&quot; -H \&quot;accept: application/json\&quot; -H \&quot;Authorization: Bearer THE_ACCESS_TOKEN\&quot; -H \&quot;content-type: application/json\&quot; -d \&quot;{ \\\&quot;name\\\&quot;: \\\&quot;THE_CERTIFICATE_NAME\\\&quot;, \\\&quot;description\\\&quot;: \\\&quot;THE_CERTIFICATE_DESCRIPTION\\\&quot;}\&quot; 
 
 ### Example
 ```java
@@ -34,10 +34,9 @@ Bearer.setApiKey("YOUR API KEY");
 //Bearer.setApiKeyPrefix("Token");
 
 DeveloperCertificateApi apiInstance = new DeveloperCertificateApi();
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 DeveloperCertificateRequestData body = new DeveloperCertificateRequestData(); // DeveloperCertificateRequestData | 
 try {
-    DeveloperCertificateResponseData result = apiInstance.createDeveloperCertificate(authorization, body);
+    DeveloperCertificateResponseData result = apiInstance.createDeveloperCertificate(body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperCertificateApi#createDeveloperCertificate");
@@ -49,7 +48,6 @@ try {
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **authorization** | **String**| Bearer {Access Token}.  |
  **body** | [**DeveloperCertificateRequestData**](DeveloperCertificateRequestData.md)|  |
 
 ### Return type
@@ -67,7 +65,7 @@ Name | Type | Description  | Notes
 
 <a name="getDeveloperCertificate"></a>
 # **getDeveloperCertificate**
-> DeveloperCertificateResponseData getDeveloperCertificate(developerCertificateId, authorization)
+> DeveloperCertificateResponseData getDeveloperCertificate(developerCertificateId)
 
 Fetch an existing developer certificate to connect to the bootstrap server.
 
@@ -92,9 +90,8 @@ Bearer.setApiKey("YOUR API KEY");
 
 DeveloperCertificateApi apiInstance = new DeveloperCertificateApi();
 String developerCertificateId = "developerCertificateId_example"; // String | A unique identifier for the developer certificate. 
-String authorization = "authorization_example"; // String | Bearer {Access Token}. 
 try {
-    DeveloperCertificateResponseData result = apiInstance.getDeveloperCertificate(developerCertificateId, authorization);
+    DeveloperCertificateResponseData result = apiInstance.getDeveloperCertificate(developerCertificateId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling DeveloperCertificateApi#getDeveloperCertificate");
@@ -107,7 +104,6 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **developerCertificateId** | **String**| A unique identifier for the developer certificate.  |
- **authorization** | **String**| Bearer {Access Token}.  |
 
 ### Return type
 

@@ -2,8 +2,6 @@ package com.arm.mbed.cloud.sdk.common;
 
 import java.lang.reflect.ParameterizedType;
 
-import org.jetbrains.annotations.NotNull;
-
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
@@ -38,7 +36,7 @@ public class GenericClient {
      * @param options
      *            connection options.
      */
-    public GenericClient(@NotNull ConnectionOptions options) {
+    public GenericClient(@NonNull ConnectionOptions options) {
         this(new DefaultModule(options));
     }
 
@@ -48,7 +46,7 @@ public class GenericClient {
      * @param module
      *            Pelion module.
      */
-    public GenericClient(@NotNull AbstractApi module) {
+    public GenericClient(@NonNull AbstractApi module) {
         this.module = module;
     }
 
@@ -59,7 +57,7 @@ public class GenericClient {
      *            connection options
      * @return a generic client instance.
      */
-    public static GenericClient newClient(@NotNull ConnectionOptions options) {
+    public static GenericClient newClient(@NonNull ConnectionOptions options) {
         return new GenericClient(options);
     }
 
@@ -83,7 +81,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      */
     public @NonNull <T extends SdkModel, S, O extends ListOptions> Paginator<T>
-           callPaginatedApi(@NotNull CloudListRequest<T, S, O> request, O options,
+           callPaginatedApi(@NonNull CloudListRequest<T, S, O> request, O options,
                             Object... extraRequestParameters) throws MbedCloudException {
         return callPaginatedApi(null, request, options, extraRequestParameters);
     }
@@ -110,7 +108,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      */
     public @NonNull <T extends SdkModel, S, O extends ListOptions> Paginator<T>
-           callPaginatedApi(@Nullable String operationId, @NotNull CloudListRequest<T, S, O> request, O options,
+           callPaginatedApi(@Nullable String operationId, @NonNull CloudListRequest<T, S, O> request, O options,
                             Object... extraRequestParameters) throws MbedCloudException {
         module.checkNotNull(request, REQUEST_PARAMETER_TAG);
         final String finalOperationId = operationId;
@@ -147,7 +145,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      */
     public @Nullable <T extends SdkModel, S, O extends ListOptions> ListResponse<T>
-           callListApi(@NotNull CloudListRequest<T, S, O> request, O options,
+           callListApi(@NonNull CloudListRequest<T, S, O> request, O options,
                        Object... extraRequestParameters) throws MbedCloudException {
         return callListApi(null, request, options, extraRequestParameters);
     }
@@ -174,7 +172,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      */
     public @Nullable <T extends SdkModel, S, O extends ListOptions> ListResponse<T>
-           callListApi(@Nullable String operationId, @NotNull CloudListRequest<T, S, O> request, O options,
+           callListApi(@Nullable String operationId, @NonNull CloudListRequest<T, S, O> request, O options,
                        Object... extraRequestParameters) throws MbedCloudException {
         module.checkNotNull(request, REQUEST_PARAMETER_TAG);
         @SuppressWarnings(UNCHECKED)
@@ -203,7 +201,7 @@ public class GenericClient {
      * @throws MbedCloudException
      *             if an error occurred during the call.
      */
-    public @Nullable <T, S> T callApi(@NotNull CloudRequest<T, S> request,
+    public @Nullable <T, S> T callApi(@NonNull CloudRequest<T, S> request,
                                       Object... requestParameters) throws MbedCloudException {
         return callApi(null, request, requestParameters);
     }
@@ -226,7 +224,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      *
      */
-    public @Nullable <T, S> T callApi(@Nullable String operationId, @NotNull CloudRequest<T, S> request,
+    public @Nullable <T, S> T callApi(@Nullable String operationId, @NonNull CloudRequest<T, S> request,
                                       @Nullable Object... requestParameters) throws MbedCloudException {
         module.checkNotNull(request, REQUEST_PARAMETER_TAG);
         @SuppressWarnings(UNCHECKED)
@@ -258,7 +256,7 @@ public class GenericClient {
      *             if an error occurred during the call.
      */
     public @Nullable <T, U, S> T callApi(@Nullable String operationId, @NonNull Mapper<U, T> mapper,
-                                         @NotNull CloudRequest<U, S> request,
+                                         @NonNull CloudRequest<U, S> request,
                                          @Nullable Object... requestParameters) throws MbedCloudException {
         module.checkNotNull(request, REQUEST_PARAMETER_TAG);
         @SuppressWarnings(UNCHECKED)

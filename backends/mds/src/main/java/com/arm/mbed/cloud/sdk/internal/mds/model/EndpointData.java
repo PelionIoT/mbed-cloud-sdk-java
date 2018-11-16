@@ -1,6 +1,6 @@
 /*
  * Connect API
- * Mbed Cloud Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Mbed Cloud Connect makes connectivity to devices easy by queuing requests and caching resource values.
+ * Pelion Device Management Connect API allows web applications to communicate with devices. You can subscribe to device resources and read/write values to them. Device Management Connect allows connectivity to devices by queueing requests and caching resource values.
  *
  * OpenAPI spec version: 2
  * 
@@ -55,10 +55,10 @@ public class EndpointData implements Serializable {
   }
 
    /**
-   * Unique Mbed Cloud device ID.
+   * Unique Device Management device ID.
    * @return ep
   **/
-  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Mbed Cloud device ID.")
+  @ApiModelProperty(example = "015f3850a657000000000001001002ab", value = "Unique Device Management device ID.")
   public String getEp() {
     return ep;
   }
@@ -91,10 +91,10 @@ public class EndpointData implements Serializable {
   }
 
    /**
-   * In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don&#39;t need to do the mapping again. 
+   * In case of a self-provided endpoint name that is used to initiate the device registration, Device Management provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded as the &#39;ep&#39; property and the original self-provided one as the optional &#39;original-ep&#39; property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so that you don&#39;t need to do the mapping again. 
    * @return originalEp
   **/
-  @ApiModelProperty(example = "my-device-123", value = "In case of a self-provided endpoint name that is used to initiate the device registration, Mbed Cloud provides a new device ID to be used from that point on. The new Mbed-Cloud-provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Mbed Cloud saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. ")
+  @ApiModelProperty(example = "my-device-123", value = "In case of a self-provided endpoint name that is used to initiate the device registration, Device Management provides a new device ID to be used from that point on. The new Pelion platform provided Device ID is forwarded as the 'ep' property and the original self-provided one as the optional 'original-ep' property in a registration notification. The name and ID can then be mapped accordingly. Device Management saves the original endpoint name in the Device Directory for future device registrations so that you don't need to do the mapping again. ")
   public String getOriginalEp() {
     return originalEp;
   }

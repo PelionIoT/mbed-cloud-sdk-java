@@ -20,7 +20,7 @@ include 'backends:enrollment'
 include 'backends:mbedcloud_common'
 include 'backends:connector_bootstrap'
 include 'backends:billing'
-
+include 'backends:certificate_renewal'
 /*
  * Project properties
  */

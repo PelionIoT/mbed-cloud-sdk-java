@@ -15,6 +15,7 @@ package com.arm.mbed.cloud.sdk.internal.iam.model;
 
 import java.util.Objects;
 import com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory;
+import com.arm.mbed.cloud.sdk.internal.iam.model.LoginProfileResp;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -29,9 +30,9 @@ import org.joda.time.DateTime;
 import java.io.Serializable;
 
 /**
- * This object represents a user in mbed Cloud.
+ * This object represents a user in Device Management.
  */
-@ApiModel(description = "This object represents a user in mbed Cloud.")
+@ApiModel(description = "This object represents a user in Device Management.")
 
 public class UserInfoResp implements Serializable {
   private static final long serialVersionUID = 1L;
@@ -80,6 +81,9 @@ public class UserInfoResp implements Serializable {
 
   @SerializedName("login_history")
   private List<LoginHistory> loginHistory = null;
+
+  @SerializedName("login_profiles")
+  private List<LoginProfileResp> loginProfiles = null;
 
   /**
    * Entity name: always &#39;user&#39;
@@ -486,6 +490,32 @@ public class UserInfoResp implements Serializable {
     this.loginHistory = loginHistory;
   }
 
+  public UserInfoResp loginProfiles(List<LoginProfileResp> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+    return this;
+  }
+
+  public UserInfoResp addLoginProfilesItem(LoginProfileResp loginProfilesItem) {
+    if (this.loginProfiles == null) {
+      this.loginProfiles = new ArrayList<LoginProfileResp>();
+    }
+    this.loginProfiles.add(loginProfilesItem);
+    return this;
+  }
+
+   /**
+   * A list of login profiles for the user. Specified as the identity providers the user is associated with.
+   * @return loginProfiles
+  **/
+  @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user is associated with.")
+  public List<LoginProfileResp> getLoginProfiles() {
+    return loginProfiles;
+  }
+
+  public void setLoginProfiles(List<LoginProfileResp> loginProfiles) {
+    this.loginProfiles = loginProfiles;
+  }
+
   public UserInfoResp object(ObjectEnum object) {
     this.object = object;
     return this;
@@ -637,6 +667,7 @@ public class UserInfoResp implements Serializable {
         Objects.equals(this.isTotpEnabled, userInfoResp.isTotpEnabled) &&
         Objects.equals(this.lastLoginTime, userInfoResp.lastLoginTime) &&
         Objects.equals(this.loginHistory, userInfoResp.loginHistory) &&
+        Objects.equals(this.loginProfiles, userInfoResp.loginProfiles) &&
         Objects.equals(this.object, userInfoResp.object) &&
         Objects.equals(this.password, userInfoResp.password) &&
         Objects.equals(this.passwordChangedTime, userInfoResp.passwordChangedTime) &&
@@ -648,7 +679,7 @@ public class UserInfoResp implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(accountId, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, object, password, passwordChangedTime, phoneNumber, status, updatedAt, username);
+    return Objects.hash(accountId, address, createdAt, creationTime, email, emailVerified, etag, fullName, groups, id, isGtcAccepted, isMarketingAccepted, isTotpEnabled, lastLoginTime, loginHistory, loginProfiles, object, password, passwordChangedTime, phoneNumber, status, updatedAt, username);
   }
 
 
@@ -672,6 +703,7 @@ public class UserInfoResp implements Serializable {
     sb.append("    isTotpEnabled: ").append(toIndentedString(isTotpEnabled)).append("\n");
     sb.append("    lastLoginTime: ").append(toIndentedString(lastLoginTime)).append("\n");
     sb.append("    loginHistory: ").append(toIndentedString(loginHistory)).append("\n");
+    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");
     sb.append("    password: ").append(toIndentedString(password)).append("\n");
     sb.append("    passwordChangedTime: ").append(toIndentedString(passwordChangedTime)).append("\n");

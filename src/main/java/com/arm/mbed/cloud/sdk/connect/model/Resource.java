@@ -124,6 +124,32 @@ public class Resource implements SdkModel {
     }
 
     /**
+     * Creates an observable resource.
+     *
+     * @param deviceId
+     *            device id.
+     * @param path
+     *            resource path.
+     * @return corresponding observable resource
+     */
+    public static Resource newObservableResource(String deviceId, String path) {
+        return new Resource(deviceId, path, null, null, true, null);
+    }
+
+    /**
+     * Creates an observable resource.
+     *
+     * @param device
+     *            device .
+     * @param path
+     *            resource path.
+     * @return corresponding observable resource
+     */
+    public static Resource newObservableResource(Device device, String path) {
+        return newObservableResource((device == null) ? null : device.getId(), path);
+    }
+
+    /**
      * Gets device id.
      *
      * @return the deviceId
