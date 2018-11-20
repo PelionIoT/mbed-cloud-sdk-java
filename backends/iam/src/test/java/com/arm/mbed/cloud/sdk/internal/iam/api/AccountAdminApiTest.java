@@ -8,6 +8,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.NotificationEntryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -103,6 +108,18 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Create a new identity provider.
+     *
+     * An endpoint for creating a new identity provider.
+     */
+    @Test
+    public void createIdentityProviderTest() {
+        IdentityProviderCreationReq body = null;
+        // IdentityProviderInfo response = api.createIdentityProvider(body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a user invitation.
      *
      * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -140,6 +157,18 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Delete an identity provider by ID.
+     *
+     * An endpoint for deleting an identity provider by ID.
+     */
+    @Test
+    public void deleteIdentityProviderTest() {
+        String identityProviderId = null;
+        // Void response = api.deleteIdentityProvider(identityProviderId);
+
+        // TODO: test validations
+    }
+    /**
      * Delete a user invitation.
      *
      * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -160,6 +189,33 @@ public class AccountAdminApiTest {
     public void deleteUserTest() {
         String userId = null;
         // Void response = api.deleteUser(userId);
+
+        // TODO: test validations
+    }
+    /**
+     * Generate a new service provider certificate.
+     *
+     * An endpoint for generating a new service provider certificate.
+     */
+    @Test
+    public void generateSpCertificateTest() {
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.generateSpCertificate(identityProviderId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get all identity providers.
+     *
+     * An endpoint for retrieving identity providers in an array.
+     */
+    @Test
+    public void getAllIdentityProvidersTest() {
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // IdentityProviderList response = api.getAllIdentityProviders(limit, after, order, include);
 
         // TODO: test validations
     }
@@ -229,6 +285,18 @@ public class AccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Get identity provider by ID.
+     *
+     * An endpoint for retrieving an identity provider by ID.
+     */
+    @Test
+    public void getIdentityProviderTest() {
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.getIdentityProvider(identityProviderId);
+
+        // TODO: test validations
+    }
+    /**
      * Details of a user invitation.
      *
      * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -237,6 +305,20 @@ public class AccountAdminApiTest {
     public void getInvitationTest() {
         String invitationId = null;
         // UserInvitationResp response = api.getInvitation(invitationId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get the notification events of an account.
+     *
+     * Endpoint for retrieving notifications.
+     */
+    @Test
+    public void getNofificationEntriesTest() {
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        // NotificationEntryList response = api.getNofificationEntries(limit, after, order);
 
         // TODO: test validations
     }
@@ -320,6 +402,19 @@ public class AccountAdminApiTest {
         String groupID = null;
         GroupUpdateInfo body = null;
         // UpdatedResponse response = api.updateGroupName(groupID, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Update an existing identity provider.
+     *
+     * An endpoint for updating an existing identity provider.
+     */
+    @Test
+    public void updateIdentityProviderTest() {
+        String identityProviderId = null;
+        IdentityProviderUpdateReq body = null;
+        // IdentityProviderInfo response = api.updateIdentityProvider(identityProviderId, body);
 
         // TODO: test validations
     }

@@ -12,22 +12,27 @@ Method | HTTP request | Description
 [**createAccount**](AggregatorAccountAdminApi.md#createAccount) | **POST** v3/accounts | Create a new account.
 [**createAccountApiKey**](AggregatorAccountAdminApi.md#createAccountApiKey) | **POST** v3/accounts/{accountID}/api-keys | Create a new API key.
 [**createAccountGroup**](AggregatorAccountAdminApi.md#createAccountGroup) | **POST** v3/accounts/{accountID}/policy-groups | Create a new group.
+[**createAccountIdentityProvider**](AggregatorAccountAdminApi.md#createAccountIdentityProvider) | **POST** v3/accounts/{account_id}/identity-providers | Create a new identity provider.
 [**createAccountInvitation**](AggregatorAccountAdminApi.md#createAccountInvitation) | **POST** v3/accounts/{account-id}/user-invitations | Create a user invitation.
 [**createAccountUser**](AggregatorAccountAdminApi.md#createAccountUser) | **POST** v3/accounts/{accountID}/users | Create a new user.
 [**deleteAccountApiKey**](AggregatorAccountAdminApi.md#deleteAccountApiKey) | **DELETE** v3/accounts/{accountID}/api-keys/{apiKey} | Delete the API key.
 [**deleteAccountCertificate**](AggregatorAccountAdminApi.md#deleteAccountCertificate) | **DELETE** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Delete trusted certificate by ID.
 [**deleteAccountGroup**](AggregatorAccountAdminApi.md#deleteAccountGroup) | **DELETE** v3/accounts/{accountID}/policy-groups/{groupID} | Delete a group.
+[**deleteAccountIdentityProvider**](AggregatorAccountAdminApi.md#deleteAccountIdentityProvider) | **DELETE** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Delete an identity provider by ID.
 [**deleteAccountInvitation**](AggregatorAccountAdminApi.md#deleteAccountInvitation) | **DELETE** v3/accounts/{account-id}/user-invitations/{invitation-id} | Delete a user invitation.
 [**deleteAccountUser**](AggregatorAccountAdminApi.md#deleteAccountUser) | **DELETE** v3/accounts/{accountID}/users/{user-id} | Delete a user.
 [**getAccountApiKey**](AggregatorAccountAdminApi.md#getAccountApiKey) | **GET** v3/accounts/{accountID}/api-keys/{apiKey} | Get API key details.
 [**getAccountCertificate**](AggregatorAccountAdminApi.md#getAccountCertificate) | **GET** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Get trusted certificate by ID.
 [**getAccountGroupSummary**](AggregatorAccountAdminApi.md#getAccountGroupSummary) | **GET** v3/accounts/{accountID}/policy-groups/{groupID} | Get group information.
+[**getAccountIdentityProvider**](AggregatorAccountAdminApi.md#getAccountIdentityProvider) | **GET** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Get identity provider by ID.
 [**getAccountInfo**](AggregatorAccountAdminApi.md#getAccountInfo) | **GET** v3/accounts/{accountID} | Get account info.
 [**getAccountInvitation**](AggregatorAccountAdminApi.md#getAccountInvitation) | **GET** v3/accounts/{account-id}/user-invitations/{invitation-id} | Details of a user invitation.
+[**getAccountNofificationEntries**](AggregatorAccountAdminApi.md#getAccountNofificationEntries) | **GET** v3/accounts/{account_id}/notifications | Get the notification events of an account.
 [**getAccountUser**](AggregatorAccountAdminApi.md#getAccountUser) | **GET** v3/accounts/{accountID}/users/{user-id} | Details of the user.
 [**getAllAccountApiKeys**](AggregatorAccountAdminApi.md#getAllAccountApiKeys) | **GET** v3/accounts/{accountID}/api-keys | Get all API keys.
 [**getAllAccountCertificates**](AggregatorAccountAdminApi.md#getAllAccountCertificates) | **GET** v3/accounts/{accountID}/trusted-certificates | Get all trusted certificates.
 [**getAllAccountGroups**](AggregatorAccountAdminApi.md#getAllAccountGroups) | **GET** v3/accounts/{accountID}/policy-groups | Get all group information.
+[**getAllAccountIdentityProviders**](AggregatorAccountAdminApi.md#getAllAccountIdentityProviders) | **GET** v3/accounts/{account_id}/identity-providers | Get all identity providers.
 [**getAllAccountInvitations**](AggregatorAccountAdminApi.md#getAllAccountInvitations) | **GET** v3/accounts/{account-id}/user-invitations | Get the details of all the user invitations.
 [**getAllAccountUsers**](AggregatorAccountAdminApi.md#getAllAccountUsers) | **GET** v3/accounts/{accountID}/users | Get all user details.
 [**getAllAccounts**](AggregatorAccountAdminApi.md#getAllAccounts) | **GET** v3/accounts | Get all accounts.
@@ -44,6 +49,7 @@ Method | HTTP request | Description
 [**updateAccountApiKey**](AggregatorAccountAdminApi.md#updateAccountApiKey) | **PUT** v3/accounts/{accountID}/api-keys/{apiKey} | Update API key details.
 [**updateAccountCertificate**](AggregatorAccountAdminApi.md#updateAccountCertificate) | **PUT** v3/accounts/{accountID}/trusted-certificates/{cert-id} | Update trusted certificate.
 [**updateAccountGroupName**](AggregatorAccountAdminApi.md#updateAccountGroupName) | **PUT** v3/accounts/{accountID}/policy-groups/{groupID} | Update the group name.
+[**updateAccountIdentityProvider**](AggregatorAccountAdminApi.md#updateAccountIdentityProvider) | **PUT** v3/accounts/{account_id}/identity-providers/{identity_provider_id} | Update an existing identity provider.
 [**updateAccountUser**](AggregatorAccountAdminApi.md#updateAccountUser) | **PUT** v3/accounts/{accountID}/users/{user-id} | Update user details.
 [**validateAccountUserEmail**](AggregatorAccountAdminApi.md#validateAccountUserEmail) | **POST** v3/accounts/{accountID}/users/{user-id}/validate-email | Validate the user email.
 
@@ -510,6 +516,63 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createAccountIdentityProvider"></a>
+# **createAccountIdentityProvider**
+> IdentityProviderInfo createAccountIdentityProvider(accountId, body)
+
+Create a new identity provider.
+
+An endpoint for creating a new identity provider.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+IdentityProviderCreationReq body = new IdentityProviderCreationReq(); // IdentityProviderCreationReq | Details of the identity provider to be created.
+try {
+    IdentityProviderInfo result = apiInstance.createAccountIdentityProvider(accountId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#createAccountIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **body** | [**IdentityProviderCreationReq**](IdentityProviderCreationReq.md)| Details of the identity provider to be created. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createAccountInvitation"></a>
 # **createAccountInvitation**
 > UserInvitationResp createAccountInvitation(accountId, body)
@@ -783,6 +846,63 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountID** | **String**| Account ID. |
  **groupID** | **String**| The ID of the group to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteAccountIdentityProvider"></a>
+# **deleteAccountIdentityProvider**
+> Void deleteAccountIdentityProvider(accountId, identityProviderId)
+
+Delete an identity provider by ID.
+
+An endpoint for deleting an identity provider by ID.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be deleted.
+try {
+    Void result = apiInstance.deleteAccountIdentityProvider(accountId, identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#deleteAccountIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **identityProviderId** | **String**| The ID of the identity provider to be deleted. |
 
 ### Return type
 
@@ -1082,6 +1202,63 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getAccountIdentityProvider"></a>
+# **getAccountIdentityProvider**
+> IdentityProviderInfo getAccountIdentityProvider(accountId, identityProviderId)
+
+Get identity provider by ID.
+
+An endpoint for retrieving an identity provider by ID.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be retrieved.
+try {
+    IdentityProviderInfo result = apiInstance.getAccountIdentityProvider(accountId, identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **identityProviderId** | **String**| The ID of the identity provider to be retrieved. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getAccountInfo"></a>
 # **getAccountInfo**
 > AccountInfo getAccountInfo(accountID, include, properties)
@@ -1188,6 +1365,67 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAccountNofificationEntries"></a>
+# **getAccountNofificationEntries**
+> NotificationEntryList getAccountNofificationEntries(accountId, limit, after, order)
+
+Get the notification events of an account.
+
+Endpoint for retrieving notifications.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+try {
+    NotificationEntryList result = apiInstance.getAccountNofificationEntries(accountId, limit, after, order);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountNofificationEntries");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+
+### Return type
+
+[**NotificationEntryList**](NotificationEntryList.md)
 
 ### Authorization
 
@@ -1466,6 +1704,69 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAllAccountIdentityProviders"></a>
+# **getAllAccountIdentityProviders**
+> IdentityProviderList getAllAccountIdentityProviders(accountId, limit, after, order, include)
+
+Get all identity providers.
+
+An endpoint for retrieving identity providers in an array.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; default ASC.
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count.
+try {
+    IdentityProviderList result = apiInstance.getAllAccountIdentityProviders(accountId, limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountIdentityProviders");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; default ASC. | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count. | [optional]
+
+### Return type
+
+[**IdentityProviderList**](IdentityProviderList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="getAllAccountInvitations"></a>
@@ -2462,6 +2763,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="updateAccountIdentityProvider"></a>
+# **updateAccountIdentityProvider**
+> IdentityProviderInfo updateAccountIdentityProvider(accountId, identityProviderId, body)
+
+Update an existing identity provider.
+
+An endpoint for updating an existing identity provider.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AggregatorAccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
+String accountId = "accountId_example"; // String | Account ID.
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be updated.
+IdentityProviderUpdateReq body = new IdentityProviderUpdateReq(); // IdentityProviderUpdateReq | Details of the identity provider to be updated.
+try {
+    IdentityProviderInfo result = apiInstance.updateAccountIdentityProvider(accountId, identityProviderId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **accountId** | **String**| Account ID. |
+ **identityProviderId** | **String**| The ID of the identity provider to be updated. |
+ **body** | [**IdentityProviderUpdateReq**](IdentityProviderUpdateReq.md)| Details of the identity provider to be updated. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
 
 ### Authorization
 

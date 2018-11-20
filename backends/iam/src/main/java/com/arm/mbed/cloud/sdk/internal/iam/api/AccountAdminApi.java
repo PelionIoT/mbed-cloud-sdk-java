@@ -16,6 +16,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.NotificationEntryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
@@ -108,6 +113,20 @@ public interface AccountAdminApi {
   );
 
   /**
+   * Create a new identity provider.
+   * An endpoint for creating a new identity provider.
+   * @param body Details of the identity provider to be created. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @POST("v3/identity-providers")
+  Call<IdentityProviderInfo> createIdentityProvider(
+    @retrofit2.http.Body IdentityProviderCreationReq body
+  );
+
+  /**
    * Create a user invitation.
    * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param body A user invitation object with attributes. (required)
@@ -148,6 +167,17 @@ public interface AccountAdminApi {
   );
 
   /**
+   * Delete an identity provider by ID.
+   * An endpoint for deleting an identity provider by ID.
+   * @param identityProviderId The ID of the identity provider to be deleted. (required)
+   * @return Call&lt;Void&gt;
+   */
+  @DELETE("v3/identity-providers/{identity_provider_id}")
+  Call<Void> deleteIdentityProvider(
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
+  );
+
+  /**
    * Delete a user invitation.
    * An endpoint for deleting an active user invitation which has been sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl -X DELETE https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param invitationId The ID of the invitation to be deleted. (required)
@@ -167,6 +197,34 @@ public interface AccountAdminApi {
   @DELETE("v3/users/{user-id}")
   Call<Void> deleteUser(
     @retrofit2.http.Path(value = "user-id", encoded = true) String userId
+  );
+
+  /**
+   * Generate a new service provider certificate.
+   * An endpoint for generating a new service provider certificate.
+   * @param identityProviderId The ID of the identity provider to which the certificate should be generated for. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @POST("v3/identity-providers/{identity_provider_id}/generate-sp-certificate")
+  Call<IdentityProviderInfo> generateSpCertificate(
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
+  );
+
+  /**
+   * Get all identity providers.
+   * An endpoint for retrieving identity providers in an array.
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; default ASC. (optional, default to ASC)
+   * @param include Comma separated additional data to return. Currently supported: total_count. (optional)
+   * @return Call&lt;IdentityProviderList&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @GET("v3/identity-providers")
+  Call<IdentityProviderList> getAllIdentityProviders(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -231,6 +289,17 @@ public interface AccountAdminApi {
   );
 
   /**
+   * Get identity provider by ID.
+   * An endpoint for retrieving an identity provider by ID.
+   * @param identityProviderId The ID of the identity provider to be retrieved. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @GET("v3/identity-providers/{identity_provider_id}")
+  Call<IdentityProviderInfo> getIdentityProvider(
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
+  );
+
+  /**
    * Details of a user invitation.
    * An endpoint for retrieving the details of an active user invitation sent for a new or an existing user to join the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/user-invitations/{invitation-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
    * @param invitationId The ID of the invitation to be retrieved. (required)
@@ -239,6 +308,19 @@ public interface AccountAdminApi {
   @GET("v3/user-invitations/{invitation-id}")
   Call<UserInvitationResp> getInvitation(
     @retrofit2.http.Path(value = "invitation-id", encoded = true) String invitationId
+  );
+
+  /**
+   * Get the notification events of an account.
+   * Endpoint for retrieving notifications.
+   * @param limit The number of results to return (2-1000), default is 50. (optional, default to 50)
+   * @param after The entity ID to fetch after the given one. (optional)
+   * @param order The order of the records based on creation time, ASC or DESC; by default ASC (optional, default to ASC)
+   * @return Call&lt;NotificationEntryList&gt;
+   */
+  @GET("v3/accounts/me/notifications")
+  Call<NotificationEntryList> getNofificationEntries(
+    @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
   );
 
   /**
@@ -328,6 +410,21 @@ public interface AccountAdminApi {
   @PUT("v3/policy-groups/{groupID}")
   Call<UpdatedResponse> updateGroupName(
     @retrofit2.http.Path(value = "groupID", encoded = true) String groupID, @retrofit2.http.Body GroupUpdateInfo body
+  );
+
+  /**
+   * Update an existing identity provider.
+   * An endpoint for updating an existing identity provider.
+   * @param identityProviderId The ID of the identity provider to be updated. (required)
+   * @param body Details of the identity provider to be updated. (required)
+   * @return Call&lt;IdentityProviderInfo&gt;
+   */
+  @Headers({
+    "Content-Type:application/json"
+  })
+  @PUT("v3/identity-providers/{identity_provider_id}")
+  Call<IdentityProviderInfo> updateIdentityProvider(
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
   );
 
   /**
