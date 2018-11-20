@@ -43,11 +43,11 @@ public class EventTypeSummary implements Serializable {
    */
   @JsonAdapter(IdEnum.Adapter.class)
   public enum IdEnum {
-    FAILED("failed"),
+    FAIL("fail"),
     
     SUCCESS("success"),
     
-    PENDING("pending"),
+    INFO("info"),
     
     SKIPPED("skipped");
 
@@ -100,11 +100,11 @@ public class EventTypeSummary implements Serializable {
    */
   @JsonAdapter(SummaryStatusEnum.Adapter.class)
   public enum SummaryStatusEnum {
-    FAILED("FAILED"),
+    FAIL("FAIL"),
     
     SUCCESS("SUCCESS"),
     
-    PENDING("PENDING"),
+    INFO("INFO"),
     
     SKIPPED("SKIPPED");
 

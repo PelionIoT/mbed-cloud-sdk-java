@@ -15,9 +15,9 @@ Name | Type | Description | Notes
 ## Enum: IdEnum
 Name | Value
 ---- | -----
-FAILED | &quot;failed&quot;
+FAIL | &quot;fail&quot;
 SUCCESS | &quot;success&quot;
-PENDING | &quot;pending&quot;
+INFO | &quot;info&quot;
 SKIPPED | &quot;skipped&quot;
 
 
@@ -25,9 +25,9 @@ SKIPPED | &quot;skipped&quot;
 ## Enum: SummaryStatusEnum
 Name | Value
 ---- | -----
-FAILED | &quot;FAILED&quot;
+FAIL | &quot;FAIL&quot;
 SUCCESS | &quot;SUCCESS&quot;
-PENDING | &quot;PENDING&quot;
+INFO | &quot;INFO&quot;
 SKIPPED | &quot;SKIPPED&quot;
 
 
