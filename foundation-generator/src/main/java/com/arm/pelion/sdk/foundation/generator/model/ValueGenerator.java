@@ -32,7 +32,7 @@ public class ValueGenerator {
         }
         if (field.getType().isDate()) {
             return String.valueOf("new java.util.Date("
-                                  + String.valueOf(new Date().getTime() + (long) (Math.random() * 10000)) + ")");
+                                  + String.valueOf(new Date().getTime() + (long) (Math.random() * 10000)) + "l)");
         }
         if (field.getType().isNumber()) {
             if (field.getType().isDecimal()) {

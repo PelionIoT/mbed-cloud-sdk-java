@@ -31,6 +31,12 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return getSignature().equals(constructor.getSignature());
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractMethodConstructor> T ignoreModifier() {
+        setNeedsModifier(false);
+        return (T) this;
+    }
+
     /*
      * (non-Javadoc)
      *

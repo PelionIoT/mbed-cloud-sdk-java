@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.lang.model.element.Modifier;
 
@@ -44,7 +45,8 @@ public class Enum extends Model {
     }
 
     private String generateConstantName(String value) {
-        return value == null ? null : ApiUtils.convertCamelToSnake(value).toUpperCase();
+        return value == null ? null : value.toUpperCase(Locale.UK)
+                                           .equals(value) ? value : ApiUtils.convertCamelToSnake(value).toUpperCase();
     }
 
     private static String generateName(String attachedEntity, String name) {
@@ -88,7 +90,7 @@ public class Enum extends Model {
     @Override
     protected void generateMethodsNecessaryAtEachLevel() {
         generateToString(null);
-        overrideMethodIfExist((new MethodConstructorAllFields(this, null)).callSuperConstructor(false)
+        overrideMethodIfExist((new MethodConstructorAllFields(this, null)).callSuperConstructor(false).ignoreModifier()
                                                                           .longDescription(null));
         generateIsDefault();
         generateIsUnknownValue();
@@ -184,10 +186,10 @@ public class Enum extends Model {
     }
 
     protected void generateMerge() {
-        final Method method = new Method(false, "merge", "Merges two states", "@see SdkEnum#(SdkEnum, SdkEnum)", false,
-                                         true, false, false, false, false, false, true)
-                                                                                       .returnType(new GenericParameterType(SdkEnum.class))
-                                                                                       .returnDescription("the merged enumerator");
+        final Method method = new Method(false, "merge", "Merges two states", "@see SdkEnum#merge(SdkEnum, SdkEnum)",
+                                         false, true, false, false, false, false, false, true)
+                                                                                              .returnType(new GenericParameterType(SdkEnum.class))
+                                                                                              .returnDescription("the merged enumerator");
         method.addParameter(new Parameter("obj1", "a " + getDescriptionForDocumentation(), null,
                                           new GenericParameterType(SdkEnum.class), null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,

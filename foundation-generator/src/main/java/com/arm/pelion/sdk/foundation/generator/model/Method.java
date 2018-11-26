@@ -230,7 +230,9 @@ public class Method extends AbstractModelEntity {
     }
 
     protected void addModifiers() {
-        specificationBuilder.addModifiers(isAccessible ? Modifier.PUBLIC : Modifier.PROTECTED);
+        if (needsModifier) {
+            specificationBuilder.addModifiers(isAccessible ? Modifier.PUBLIC : Modifier.PROTECTED);
+        }
         if (isStatic) {
             specificationBuilder.addModifiers(Modifier.STATIC);
         }

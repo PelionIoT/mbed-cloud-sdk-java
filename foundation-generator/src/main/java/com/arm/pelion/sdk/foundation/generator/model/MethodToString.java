@@ -1,12 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import java.lang.reflect.Modifier;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.squareup.javapoet.CodeBlock;
 
 public class MethodToString extends AbstractMethodBasedOnModel {
@@ -31,20 +27,8 @@ public class MethodToString extends AbstractMethodBasedOnModel {
         code.addStatement("return " + generateFullString(currentModel, parentModel, extraFields()));
     }
 
-    // Getting all accessible ListOptions fields
     protected List<Field> extraFields() {
-        final List<Field> list = new LinkedList<>();
-        Class<?> clazz = ListOptions.class;
-        while (clazz != null) {
-            final java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
-            if (fields != null) {
-                Arrays.asList(fields).stream()
-                      .filter(f -> Modifier.isPublic(f.getModifiers()) || Modifier.isProtected(f.getModifiers()))
-                      .forEach(f -> list.add(new Field(f, true, true, null)));
-            }
-            clazz = clazz.getSuperclass();
-        }
-        return list.isEmpty() ? null : list;
+        return null;
     }
 
     private String generateFullString(Model currentModel, Model parentModel, List<Field> extraFields) {
@@ -61,16 +45,18 @@ public class MethodToString extends AbstractMethodBasedOnModel {
                 builder.append(" + \", ");
             }
             builder.append(generateFlattenedListOfElements(parentModel.getFieldList()));
-            if (extraFields != null) {
+            if (extraFields != null && !extraFields.isEmpty()) {
                 builder.append(" + \", ");
                 builder.append(generateFlattenedListOfElements(extraFields));
             }
+            builder.append(" + \"]\"");
         } else {
-            if (extraFields != null) {
+            if (extraFields != null && !extraFields.isEmpty()) {
                 if (currentModel.hasFields()) {
                     builder.append(" + \", ");
                 }
                 builder.append(generateFlattenedListOfElements(extraFields));
+                builder.append(" + \"]\"");
             } else {
                 if (currentModel.hasFields()) {
                     builder.append(" + \"]\"");

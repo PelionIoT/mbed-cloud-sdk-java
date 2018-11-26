@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -96,7 +97,8 @@ public class ModelTranslator {
             builder.append(modelPackage);
         }
         return builder.toString().replace(CommonTranslator.PACKAGE_SEPARATOR + CommonTranslator.PACKAGE_SEPARATOR,
-                                          CommonTranslator.PACKAGE_SEPARATOR);
+                                          CommonTranslator.PACKAGE_SEPARATOR)
+                      .toLowerCase(Locale.UK);
     }
 
     public static Models translate(Configuration config,

@@ -11,6 +11,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
     protected boolean isAccessible;
     protected boolean isAbstract;
     protected boolean isInternal;
+    protected boolean needsModifier;
     /**
      * Specifies whether this instance contains custom code. i.e. code edited manually. If it exists, it must not be
      * overwritten.
@@ -48,6 +49,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
         setContainsCustomCode(containsCustomCode);
         setNeedsCustomCode(needsCustomCode);
         setInternal(isInternal);
+        needsModifier();
     }
 
     /**
@@ -240,6 +242,18 @@ public abstract class AbstractModelEntity implements ModelEntity {
         return has(longDescription);
     }
 
+    public boolean doesNeedModifier() {
+        return needsModifier;
+    }
+
+    public void needsModifier() {
+        setNeedsModifier(true);
+    }
+
+    public void setNeedsModifier(boolean needsModifier) {
+        this.needsModifier = needsModifier;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -251,17 +265,13 @@ public abstract class AbstractModelEntity implements ModelEntity {
         return hasName() ? getName() : UNKOWN_IDENTIFIER;
     }
 
-    /*
-     * (non-Javadoc)
-     *
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "AbstractModelEntity [id=" + getIdentifier() + ", isReadOnly=" + isReadOnly + ", name=" + name
+        return "AbstractModelEntity [id=" + getIdentifier() + "isReadOnly=" + isReadOnly + ", name=" + name
                + ", description=" + description + ", longDescription=" + longDescription + ", isStatic=" + isStatic
                + ", isAccessible=" + isAccessible + ", isAbstract=" + isAbstract + ", isInternal=" + isInternal
-               + ", containsCustomCode=" + containsCustomCode + ", needsCustomCode=" + needsCustomCode + "]";
+               + ", needsModifier=" + needsModifier + ", containsCustomCode=" + containsCustomCode
+               + ", needsCustomCode=" + needsCustomCode + "]";
     }
 
 }
