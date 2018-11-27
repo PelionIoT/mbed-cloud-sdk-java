@@ -198,10 +198,28 @@ public class ParameterType implements Entity {
         }
     }
 
+    public boolean isCharacter() {
+        try {
+            translate();
+            return hasClazz() ? Character.class.isAssignableFrom(getClazz()) || getClazz() == char.class : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
     public boolean isBoolean() {
         try {
             translate();
             return hasClazz() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isPrimitive() {
+        try {
+            translate();
+            return hasClazz() ? getClazz().isPrimitive() : false;
         } catch (TranslationException exception) {
             return false;
         }

@@ -267,7 +267,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
 
     @Override
     public String toString() {
-        return "AbstractModelEntity [id=" + getIdentifier() + "isReadOnly=" + isReadOnly + ", name=" + name
+        return "AbstractModelEntity [id=" + getIdentifier() + ", isReadOnly=" + isReadOnly + ", name=" + name
                + ", description=" + description + ", longDescription=" + longDescription + ", isStatic=" + isStatic
                + ", isAccessible=" + isAccessible + ", isAbstract=" + isAbstract + ", isInternal=" + isInternal
                + ", needsModifier=" + needsModifier + ", containsCustomCode=" + containsCustomCode

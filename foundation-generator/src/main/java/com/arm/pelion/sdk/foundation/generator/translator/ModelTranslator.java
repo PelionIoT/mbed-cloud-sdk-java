@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -106,14 +107,19 @@ public class ModelTranslator {
         if (definition == null) {
             return null;
         }
+        // FIXME TO remove
+        List<String> avoid = Arrays.asList("Account", "DeviceEvents");
         final Models models = new Models();
         if (definition.hasEntities()) {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
-                models.addModel(ModelDefinitionStore.get().store(translate(config, entity)));
+                if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
+                    models.addModel(ModelDefinitionStore.get().store(translate(config, entity)));
+                }
             }
         }
         if (definition.hasEnums()) {
+            // Order enum is defined globally
             List<Enumerator> enums = definition.getEnums().stream()
                                                .filter(e -> e.hasValues() && !e.getName().contains("order_enum"))
                                                .collect(Collectors.toList());

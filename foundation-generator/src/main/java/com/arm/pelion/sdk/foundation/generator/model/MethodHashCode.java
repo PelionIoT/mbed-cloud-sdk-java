@@ -1,5 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Objects;
+
 import com.squareup.javapoet.CodeBlock;
 
 public class MethodHashCode extends AbstractMethodBasedOnModel {
@@ -33,9 +35,19 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
                 code.addStatement("int result = 1");
             }
 
-            currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode())
-                        .forEach(f -> code.addStatement("result = prime * result + (($L == null) ? 0 : $L.hashCode())",
-                                                        f.getName(), f.getName()));
+            currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode()).forEach(f -> {
+                if (f.getType().isPrimitive()) {
+                    if (f.getType().isCharacter() || f.getType().isString()) {
+                        code.addStatement("result = prime * result + (($L == null) ? 0 : $T.hashCode($L))", f.getName(),
+                                          Objects.class, f.getName());
+                    } else {
+                        code.addStatement("result = prime * result +  $T.hashCode($L)", Objects.class, f.getName());
+                    }
+                } else {
+                    code.addStatement("result = prime * result + (($L == null) ? 0 : $L.hashCode())", f.getName(),
+                                      f.getName());
+                }
+            });
             code.addStatement("return result");
         } else {
             if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {

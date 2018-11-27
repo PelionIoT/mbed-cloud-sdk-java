@@ -48,7 +48,9 @@ public class Models {
             storePackageInfo(m);
             processedModels.addAll(m.getProcessedModels());
         });
-        processedModels.stream().filter(m -> !m.isAbstract()).forEach(m -> unitTests.add(new ModelTest(m)));
+        // TODO implement unit tests for enums.
+        processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof Enum))
+                       .forEach(m -> unitTests.add(new ModelTest(m)));
         // processedModels.
     }
 
