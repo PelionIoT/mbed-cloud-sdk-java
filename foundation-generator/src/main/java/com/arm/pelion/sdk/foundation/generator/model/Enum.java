@@ -29,6 +29,10 @@ public class Enum extends Model {
                            false, true, true, generateConstantName(defaultOption)));
     }
 
+    public Enum(String packageName, String name, String group) {
+        this(packageName, null, name, group, null, null, null);
+    }
+
     private String determineDefaultValue(String theDefaultOption, List<String> theOptions) {
         if (theOptions == null || theOptions.isEmpty()) {
             return theDefaultOption;
@@ -213,6 +217,13 @@ public class Enum extends Model {
 
     private String getDescriptionForDocumentation() {
         return description == null ? null : description.toLowerCase().replace(".", "");
+    }
+
+    @Override
+    protected Import toImport() {
+        final Import importPath = super.toImport();
+        importPath.setEnum(true);
+        return importPath;
     }
 
     /*

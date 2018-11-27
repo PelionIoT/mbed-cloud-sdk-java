@@ -18,6 +18,12 @@ public class ValueGenerator {
         if (field == null) {
             return null;
         }
+        if (field.getType().isEnum()) {
+            return (field.getType().hasClass() ? field.getType().getClass().getName()
+                                               : field.getType().getImportPath().getFullyQualifiedName())
+                   + ".getDefault()";
+
+        }
         if (!field.getType().hasClass()) {
             return null;
         }

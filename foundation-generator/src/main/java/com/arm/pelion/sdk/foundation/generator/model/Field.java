@@ -35,8 +35,8 @@ public class Field extends AbstractModelEntity implements Cloneable {
     public Field(boolean isReadOnly, ParameterType type, String name, String description, String longDescription,
                  String pattern, boolean isStatic, boolean needsCustomCode, boolean isInternal, boolean isRequired,
                  String defaultValue) {
-        super(isReadOnly, name, description, longDescription, isStatic, false, false, false, needsCustomCode,
-              isInternal);
+        super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
+              needsCustomCode, isInternal);
         setPattern(pattern);
         setType(type);
         setRequired(isRequired);
@@ -126,6 +126,16 @@ public class Field extends AbstractModelEntity implements Cloneable {
      */
     public ParameterType getType() {
         return type;
+    }
+
+    private static String determineDescription(ParameterType type, String description) {
+        if (description != null) {
+            return description;
+        }
+        if (type != null) {
+            return type.isEnum() ? "enumerator value" : "value";
+        }
+        return null;
     }
 
     /**

@@ -419,8 +419,9 @@ public class Model extends AbstractModelEntity {
                 addMethod(setter);
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();
-                    equivalentF.setName(name + "_" + ApiUtils.convertCamelToSnake(f.getName()));// model name + field
-                                                                                                // name e.g. ApiKeyId
+                    equivalentF.setName(ApiUtils.convertCamelToSnake(name) + "_"
+                                        + ApiUtils.convertCamelToSnake(f.getName()));// model name + field
+                    // name e.g. ApiKeyId
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                "Similar to {@link #" + setter.generateSignature()
                                                                             + "}.",
@@ -628,7 +629,11 @@ public class Model extends AbstractModelEntity {
     }
 
     public ParameterType toType() {
-        return new ParameterType(new Import(name, packageName));
+        return new ParameterType(toImport());
+    }
+
+    protected Import toImport() {
+        return new Import(name, packageName);
     }
 
     public Parameter toParameter() {

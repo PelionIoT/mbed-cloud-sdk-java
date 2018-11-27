@@ -76,7 +76,11 @@ public class Import implements Entity {
     }
 
     public boolean isIncomplete() {
-        return name == null || name.isEmpty() || packageName == null || packageName.isEmpty();
+        return name == null || name.isEmpty() || isPackageNameEmpty();
+    }
+
+    public boolean isPackageNameEmpty() {
+        return packageName == null || packageName.isEmpty();
     }
 
     /**
@@ -92,6 +96,10 @@ public class Import implements Entity {
      */
     public void setEnum(boolean isEnum) {
         this.isEnum = isEnum;
+    }
+
+    public String getFullyQualifiedName() {
+        return isPackageNameEmpty() ? name : packageName + "." + name;
     }
 
     /*

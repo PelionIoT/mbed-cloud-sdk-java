@@ -51,7 +51,7 @@ public class FieldTranslator {
             return determineHashtableType(field, packageName);
         }
         // TODO
-        return determineObjectType(field, packageName);
+        return determineObjectType(field, packageName, group);
     }
 
     private static ParameterType determineHashtableType(com.arm.pelion.sdk.foundation.generator.input.Field field,
@@ -68,9 +68,12 @@ public class FieldTranslator {
     }
 
     private static ParameterType determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
-                                                     String packageName) {
+                                                     String packageName, String group) {
         return field.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName, field.getForeignKey())
-                                     : new ParameterType(field.getType(), field.getFormat());
+                                     : field.hasEnumRef() ? CommonTranslator.FetchNestedEnumType(packageName,
+                                                                                                 field.getEnumRef(),
+                                                                                                 group)
+                                                          : new ParameterType(field.getType(), field.getFormat());
     }
 
     private static ParameterType determineArrayType(com.arm.pelion.sdk.foundation.generator.input.Field field,
