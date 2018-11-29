@@ -42,7 +42,7 @@ public class MethodListOptionsToString extends MethodToString {
                 case INCLUDE_FIELD_NAME:
                     return fieldName + "=\" + encodeInclude() ";
                 case FILTER_FIELD_NAME:
-                    return fieldName + "=\" + retrieveFilterAsJson ";
+                    return fieldName + "=\" + retrieveFilterAsJson() ";
                 default:
                     return fieldName + "=\" + " + fieldName;
             }

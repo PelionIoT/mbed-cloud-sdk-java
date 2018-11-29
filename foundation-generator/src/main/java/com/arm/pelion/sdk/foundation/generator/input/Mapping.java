@@ -2,13 +2,13 @@ package com.arm.pelion.sdk.foundation.generator.input;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Renaming {
+public class Mapping {
     @JsonProperty(InputSchema.API_FIELDNAME_TAG)
     private String from;
     @JsonProperty(InputSchema.KEY_TAG)
     private String to;
 
-    public Renaming() {
+    public Mapping() {
         super();
         from = null;
         to = null;
@@ -47,7 +47,7 @@ public class Renaming {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Renaming other = (Renaming) obj;
+        Mapping other = (Mapping) obj;
         if (from == null) {
             if (other.from != null)
                 return false;

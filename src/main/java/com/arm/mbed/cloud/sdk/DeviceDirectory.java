@@ -107,10 +107,10 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DevicePage> call() {
-                return endpoint.getDirectory().deviceList(finalOptions.getPageSize(),
-                                                          finalOptions.getOrder().toString(), finalOptions.getAfter(),
-                                                          DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                          finalOptions.encodeInclude());
+                return endpoint.getDirectory()
+                               .deviceList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
+                                           finalOptions.getAfter(), finalOptions.encodeInclude(),
+                                           DeviceAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
             }
         });
     }
@@ -385,11 +385,11 @@ public class DeviceDirectory extends AbstractApi {
 
             @Override
             public Call<DeviceQueryPage> call() {
-                return endpoint.getDirectory().deviceQueryList(finalOptions.getPageSize(),
-                                                               finalOptions.getOrder().toString(),
-                                                               finalOptions.getAfter(),
-                                                               new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                               finalOptions.encodeInclude());
+                return endpoint.getDirectory()
+                               .deviceQueryList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
+                                                finalOptions.getAfter(),
+                                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                finalOptions.encodeInclude());
             }
         });
     }
@@ -682,11 +682,12 @@ public class DeviceDirectory extends AbstractApi {
 
                                     @Override
                                     public Call<DeviceEventPage> call() {
-                                        return endpoint.getDirectory().deviceLogList(finalOptions.getPageSize(),
-                                                                                     finalOptions.getOrder().toString(),
-                                                                                     finalOptions.getAfter(),
-                                                                                     DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                                     finalOptions.encodeInclude());
+                                        return endpoint.getDirectory()
+                                                       .deviceLogList(finalOptions.getPageSize(),
+                                                                      finalOptions.getOrder().toString(),
+                                                                      finalOptions.getAfter(),
+                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                      finalOptions.encodeInclude());
                                     }
                                 });
     }

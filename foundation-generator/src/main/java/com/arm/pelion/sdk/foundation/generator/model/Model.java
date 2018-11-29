@@ -442,7 +442,10 @@ public class Model extends AbstractModelEntity {
 
     protected void generateMethodsDependingOnParents(Model theParent) {
         generateToString(theParent);
-        generateIsValid(theParent);
+        // FIXME better handle tests depending on the type of model
+        if (!(this instanceof ListOptionModel)) {
+            generateIsValid(theParent);
+        }
         generateConstructors(theParent);
         generateClone(theParent);
     }

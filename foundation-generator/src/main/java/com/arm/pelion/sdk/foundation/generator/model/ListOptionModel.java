@@ -11,7 +11,7 @@ public class ListOptionModel extends Model {
 
     private static String generateDescription(String name, String description) {
         return description == null ? "Options to use when listing "
-                                     + ApiUtils.convertCamelToSnake(name).replace("_", "")
+                                     + ApiUtils.convertCamelToSnake(name).replace("_", " ").trim() + "s"
                                    : description;
     }
 
@@ -51,7 +51,7 @@ public class ListOptionModel extends Model {
 
     @Override
     protected void generateToString(Model theParent) {
-        overrideMethodIfExist(new MethodToString(this, theParent));
+        overrideMethodIfExist(new MethodListOptionsToString(this, theParent));
     }
 
     @Override

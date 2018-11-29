@@ -13,6 +13,7 @@ import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.model.Enum;
+import com.arm.pelion.sdk.foundation.generator.model.ListOptionModel;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.Models;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
@@ -47,6 +48,20 @@ public class ModelTranslator {
 
         model.generateMethods();
         return model;
+    }
+
+    public static Model translateListOptions(Configuration config, Entity entity,
+                                             Model correspondingModel) throws FoundationGeneratorException {
+        if (entity == null) {
+            return null;
+        }
+        // change null by description if description is set in the intermediate config.
+        final ListOptionModel options = new ListOptionModel(correspondingModel, null, entity.isCustomCode());
+
+        // Do things regarding filters
+
+        options.generateMethods();
+        return options;
     }
 
     private static Model translate(Configuration config, Enumerator enumerator) {
@@ -114,7 +129,11 @@ public class ModelTranslator {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
-                    models.addModel(ModelDefinitionStore.get().store(translate(config, entity)));
+                    final Model model = ModelDefinitionStore.get().store(translate(config, entity));
+                    models.addModel(model);
+                    if (entity.hasListMethod()) {
+                        models.addModel(ModelDefinitionStore.get().store(translateListOptions(config, entity, model)));
+                    }
                 }
             }
         }

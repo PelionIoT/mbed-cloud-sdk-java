@@ -33,6 +33,12 @@ public class Field {
     private String format;
     @JsonProperty(InputSchema.FOREIGN_KEY_TAG)
     private ForeignKey foreignKey;
+    @JsonProperty(InputSchema.PARAMETER_LOCATION_TAG)
+    private String parameterLocation;
+    @JsonProperty(InputSchema.ENTITY_FIELDNAME_TAG)
+    private String entityFieldname;
+    @JsonProperty(InputSchema.PARAMETER_FIELDNAME_TAG)
+    private String parameterFieldname;
 
     // Java specific fields
     @JsonProperty(InputSchema.INTERNAL_TAG)
@@ -306,6 +312,30 @@ public class Field {
         return foreignKey != null;
     }
 
+    public String getParameterLocation() {
+        return parameterLocation;
+    }
+
+    public void setParameterLocation(String parameterLocation) {
+        this.parameterLocation = parameterLocation;
+    }
+
+    public String getEntityFieldname() {
+        return entityFieldname;
+    }
+
+    public void setEntityFieldname(String entityFieldname) {
+        this.entityFieldname = Utils.getKey(entityFieldname, false);
+    }
+
+    public String getParameterFieldname() {
+        return parameterFieldname;
+    }
+
+    public void setParameterFieldname(String parameterFieldname) {
+        this.parameterFieldname = Utils.getKey(parameterFieldname, false);
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -348,10 +378,13 @@ public class Field {
 
     @Override
     public String toString() {
-        return "Field [key=" + getKey() + ", description=" + description + ", apiFieldname=" + apiFieldname
-               + ", required=" + required + ", type=" + type + ", format=" + format + ", example=" + example
-               + ", items=" + items + ", customCode=" + customCode + ", defaultValue=" + defaultValue + ", readOnly="
-               + readOnly + ", pattern=" + pattern + ", enumRef=" + enumRef + ", additionalProperties="
-               + additionalProperties + ", internal=" + internal + ", longDescription=" + longDescription + "]";
+        return "Field [key=" + key + ", description=" + description + ", apiFieldname=" + apiFieldname + ", required="
+               + required + ", example=" + example + ", items=" + items + ", customCode=" + customCode
+               + ", defaultValue=" + defaultValue + ", readOnly=" + readOnly + ", pattern=" + pattern + ", enumRef="
+               + enumRef + ", additionalProperties=" + additionalProperties + ", type=" + type + ", format=" + format
+               + ", foreignKey=" + foreignKey + ", parameterLocation=" + parameterLocation + ", entityFieldname="
+               + entityFieldname + ", parameterFieldname=" + parameterFieldname + ", internal=" + internal
+               + ", longDescription=" + longDescription + "]";
     }
+
 }

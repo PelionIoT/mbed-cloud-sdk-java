@@ -8,6 +8,7 @@ public class MethodClone extends AbstractMethodBasedOnModel {
         super(currentModel, parentModel, false, IDENTIFIER, "Clones this instance", "@see java.lang.Object#clone()",
               false, true, false, false, currentModel == null ? false : currentModel.needsFieldCustomisation(), false,
               false, true);
+        setReturnDescription("a cloned instance");
         setReturnType(getModelType(currentModel));
         setStatement(generateStatement(determineClassShortName(currentModel)));
         shouldTest(true);

@@ -18,8 +18,8 @@ public class MethodListOptionsClone extends MethodClone {
     protected void translateCode() {
         super.translateCode();
         final String shortName = determineClassShortName(currentModel);
-        code.addStatement("final $S opt = new $S()", shortName);
-        code.addStatement("opt.$S(this)", MethodListOptionsSetOptions.IDENTIFIER);
+        code.addStatement("final $L opt = new $L()", shortName, shortName);
+        code.addStatement("opt.$L(this)", MethodListOptionsSetOptions.IDENTIFIER);
         code.addStatement("return opt");
     }
 

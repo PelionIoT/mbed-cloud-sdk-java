@@ -68,7 +68,10 @@ public class ModelTest extends AbstractModelEntity {
         generateCloneTest();
         generateEqualsTest();
         generateHashCodeTest();
-        generateIsValid();
+        // FIXME better handle tests depending on the type of model
+        if (!(modelUnderTest instanceof ListOptionModel)) {
+            generateIsValid();
+        }
     }
 
     private void generateCloneTest() {

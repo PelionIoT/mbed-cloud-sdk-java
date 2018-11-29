@@ -14,8 +14,10 @@ public class Entity {
     private String description;
     @JsonProperty(InputSchema.FIELDS_TAG)
     private List<Field> fields;
+    @JsonProperty(InputSchema.METHODS_TAG)
+    private List<Method> methods;
     @JsonProperty(InputSchema.RENAMES_TAG)
-    private List<Renaming> renames;
+    private List<Mapping> renames;
     @JsonProperty(InputSchema.HASHTABLE_TAG)
     private AdditionalProperty additionalProperties;
     @JsonProperty(InputSchema.PRIMARY_KEY_TAG)
@@ -40,6 +42,7 @@ public class Entity {
         internal = false;
         additionalProperties = null;
         primaryKey = null;
+        methods = null;
     }
 
     public AdditionalProperty getAdditionalProperties() {
@@ -54,11 +57,11 @@ public class Entity {
         return additionalProperties != null;
     }
 
-    public List<Renaming> getRenames() {
+    public List<Mapping> getRenames() {
         return renames;
     }
 
-    public void setRenames(List<Renaming> renames) {
+    public void setRenames(List<Mapping> renames) {
         this.renames = renames;
     }
 
@@ -176,7 +179,45 @@ public class Entity {
     }
 
     public void setPrimaryKey(String primaryKey) {
-        this.primaryKey = primaryKey;
+        this.primaryKey = Utils.getKey(primaryKey, false);
+    }
+
+    public List<Method> getMethods() {
+        return methods;
+    }
+
+    public void setMethods(List<Method> methods) {
+        this.methods = methods;
+    }
+
+    public boolean hasMethods() {
+        return methods != null && !methods.isEmpty();
+    }
+
+    public boolean hasMethod(String method) {
+        final String methodKey = Utils.getKey(method, false);
+        return methodKey == null
+               || !hasMethods() ? false : methods.stream().filter(m -> methodKey.equals(m.getKey())).count() > 0;
+    }
+
+    public boolean hasListMethod() {
+        return hasMethod(InputSchema.LIST_METHOD_TAG);
+    }
+
+    public boolean hasCreateMethod() {
+        return hasMethod(InputSchema.CREATE_METHOD_TAG);
+    }
+
+    public boolean hasReadMethod() {
+        return hasMethod(InputSchema.READ_METHOD_TAG);
+    }
+
+    public boolean hasUpdateMethod() {
+        return hasMethod(InputSchema.UPDATE_METHOD_TAG);
+    }
+
+    public boolean hasDeleteMethod() {
+        return hasMethod(InputSchema.DELETE_METHOD_TAG);
     }
 
     /*
