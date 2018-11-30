@@ -44,7 +44,11 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
      */
     @Override
     public String getIdentifier() {
-        return getClass().getSimpleName();
+        return getConstructorType().getSimpleName();
+    }
+
+    protected Class<? extends AbstractMethodConstructor> getConstructorType() {
+        return getClass();
     }
 
     protected abstract void addConstructorParameters();
@@ -59,7 +63,8 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
     public List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers) {
         final List<Field> fieldsList = new LinkedList<>();
         if (hasCurrentModel()) {
-            fieldsList.addAll(currentModel.getFieldList());
+            fieldsList.addAll(currentModel.getFieldList().stream().filter(f -> !f.isAlreadyDefined())
+                                          .collect(Collectors.toList()));
         }
         if (hasParentModel()) {
             fieldsList.addAll(parentModel.getFieldList());

@@ -2,7 +2,9 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,6 +31,7 @@ public class Model extends AbstractModelEntity {
     private final List<String> contructorsName;
     private final Map<String, Method> methods;
     private final Map<String, Field> fields;
+    private Map<String, Field> superClassFields;
     private ParameterType superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
@@ -122,11 +125,19 @@ public class Model extends AbstractModelEntity {
 
     public void setSuperClassType(ParameterType superClassType) {
         this.superClassType = superClassType;
+        this.superClassFields = getSuperClassFields();
     }
 
     public Model field(Field field) {
         addField(field);
         return this;
+    }
+
+    public void addFields(Collection<Field> fields) {
+        if (fields == null) {
+            return;
+        }
+        fields.forEach(f -> addField(f));
     }
 
     public void addField(Field field) {
@@ -208,7 +219,9 @@ public class Model extends AbstractModelEntity {
      * @return the fields
      */
     public List<Field> getFieldList() {
-        return new ArrayList<>(fields.values());
+        final List<Field> allfields = new ArrayList<>(fields.values());
+        allfields.addAll(superClassFields.values());
+        return allfields;
     }
 
     /**
@@ -313,14 +326,17 @@ public class Model extends AbstractModelEntity {
                 specificationBuilder.addSuperinterface(getSuperInterface());
             }
             if (hasParent()) {
-                specificationBuilder.superclass(ClassName.get(packageName, parent));
-            } else {
-                if (hasSuperClass()) {
-                    getSuperClassType().translate();
-                    specificationBuilder.superclass(getSuperClassType().getTypeName());
+                if (hasAbstractParent()) {
+                    specificationBuilder.superclass(ClassName.get(packageName, parent));
+                } else {
+                    superClassType.translate();
+                    if (superClassType.hasClass()) {
+                        specificationBuilder.superclass(superClassType.getClazz());
+                    } else {
+                        specificationBuilder.superclass(superClassType.getTypeName());
+                    }
                 }
             }
-
         }
     }
 
@@ -343,10 +359,42 @@ public class Model extends AbstractModelEntity {
         return getFieldList().stream().filter(f -> f.needsCustomCode()).count() > 0;
     }
 
+    public Map<String, Field> getSuperClassFields() {
+        if (!hasSuperClass() || !superClassType.hasClazz()) {
+            return new Hashtable<>();
+        }
+        final Map<String, Field> map = new LinkedHashMap<>();
+        Class<?> clazz = superClassType.getClazz();
+        while (clazz != null) {
+            final java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
+            if (fields != null) {
+                Arrays.asList(fields).stream().filter(f -> java.lang.reflect.Modifier.isPublic(f.getModifiers())
+                                                           || java.lang.reflect.Modifier.isProtected(f.getModifiers()))
+                      .forEach(f -> {
+                          final Field field = new Field(f, true, false, null);
+                          map.put(field.getName(), field);
+                      });
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return map;
+    }
+
+    private Model generateParentModel() {
+        final Model parentModel = new Model(superClassType.getPackageName(), superClassType.getShortName(), null, null,
+                                            null, true, false, false, true);
+        parentModel.addFields(superClassFields.values());
+        parentModel.generateMethodsNecessaryAtEachLevel();
+        return parentModel;
+    }
+
     private Model generateAbstractModel() {
         final Model abstractModel = new Model(packageName, name, group, description, longDescription, true, false,
                                               false, isInternal);
-        getFieldList().stream().filter(f -> !f.needsCustomCode()).forEach(f -> {
+        if (hasSuperClass()) {
+            abstractModel.setSuperClassType(superClassType);
+        }
+        getFieldList().stream().filter(f -> !f.needsCustomCode() && !f.isAlreadyDefined()).forEach(f -> {
             f.setAccessible(true);
             abstractModel.addField(f);
         });
@@ -412,7 +460,7 @@ public class Model extends AbstractModelEntity {
     }
 
     protected void generateSettersAndGetters() {
-        getFieldList().stream().forEach(f -> {
+        getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
             addMethod(new MethodGetter(f, null, false));
             if (!f.isReadOnly()) {
                 final MethodSetter setter = new MethodSetter(f, null, false);
@@ -443,7 +491,7 @@ public class Model extends AbstractModelEntity {
     protected void generateMethodsDependingOnParents(Model theParent) {
         generateToString(theParent);
         // FIXME better handle tests depending on the type of model
-        if (!(this instanceof ListOptionModel)) {
+        if (!(this instanceof ModelListOption)) {
             generateIsValid(theParent);
         }
         generateConstructors(theParent);
@@ -477,8 +525,8 @@ public class Model extends AbstractModelEntity {
 
     protected void ensureSdkModelMethodsHaveOverrideAnnotation() {
         if (hasSuperInterface()) {
-            List<java.lang.reflect.Method> sdkModelMethods = Arrays.asList(getSuperInterface().getMethods());
-            sdkModelMethods.forEach(m -> {
+            List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
+            superInterfaceMethods.forEach(m -> {
                 if (hasMethod(m.getName())) {
                     fetchMethod(m.getName()).setAsOverride(true);
                 }
@@ -487,7 +535,9 @@ public class Model extends AbstractModelEntity {
     }
 
     protected void generateHashCodeAndEquals() {
-        addMethod(new MethodHashCode(this, null));
+        if (hasFields()) {
+            addMethod(new MethodHashCode(this, null));
+        }
         addMethod(new MethodEquals(this, null));
     }
 
@@ -532,17 +582,29 @@ public class Model extends AbstractModelEntity {
         List<Model> models = new ArrayList<>(2);
         if (needsCustomisation()) {
             final Model abstractModel = generateAbstractModel();
+            if (hasSuperClass()) {
+                final Model parentModel = generateParentModel();
+                abstractModel.generateMethodsDependingOnParents(parentModel);
+            }
             models.add(abstractModel);
             final Model childModel = generateChildModel();
             childModel.generateMethodsDependingOnParents(abstractModel);
             models.add(childModel);
         } else {
+            if (hasSuperClass()) {
+                final Model parentModel = generateParentModel();
+                generateMethodsDependingOnParents(parentModel);
+            }
             models.add(this);
         }
         return models;
     }
 
     public boolean hasParent() {
+        return hasAbstractParent() || hasSuperClass();
+    }
+
+    protected boolean hasAbstractParent() {
         return has(parent);
     }
 
@@ -582,7 +644,8 @@ public class Model extends AbstractModelEntity {
             return;
         }
         final Field serialVersionUID = new Field(true, new ParameterType(long.class), "serialVersionUID",
-                                                 "Serialisation Id.", null, null, true, false, false, false, null);
+                                                 "Serialisation Id.", null, null, true, false, false, false, null,
+                                                 false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
         serialVersionUID.translate();
         specificationBuilder.addField(serialVersionUID.getSpecificationBuilder().build());
@@ -590,7 +653,7 @@ public class Model extends AbstractModelEntity {
 
     protected void translateFields() throws TranslationException {
         for (final Field f : getFieldList()) {
-            if (!f.needsCustomCode()) {
+            if (!f.needsCustomCode() && !f.isAlreadyDefined()) {
                 f.translate();
                 specificationBuilder.addField(f.getSpecificationBuilder().build());
             }
@@ -606,11 +669,8 @@ public class Model extends AbstractModelEntity {
 
     public String getListOfFieldsToDefineManually() {
         StringBuilder builder = new StringBuilder();
-        getFieldList().forEach(f -> {
-            if (f.needsCustomCode()) {
-                builder.append("- " + f.getName()).append(System.lineSeparator());
-            }
-        });
+        getFieldList().stream().filter(f -> f.needsCustomCode)
+                      .forEach(f -> builder.append("- " + f.getName()).append(System.lineSeparator()));
         return builder.toString();
     }
 

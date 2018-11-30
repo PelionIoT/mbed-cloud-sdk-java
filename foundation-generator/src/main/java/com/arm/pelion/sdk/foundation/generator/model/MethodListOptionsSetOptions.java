@@ -28,15 +28,15 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
         super.translateCode();
         final String shortName = determineClassShortName(currentModel);
         final String castOptionName = "castOptions";
-        code.beginControlFlow("if ($S == null)", OPTIONS_PARAMETER);
-        code.addStatement("$S", MethodListOptionsSetDefault.IDENTIFIER);
+        code.beginControlFlow("if ($L == null)", OPTIONS_PARAMETER);
+        code.addStatement("$L", MethodListOptionsSetDefault.IDENTIFIER);
         code.addStatement("return");
         code.endControlFlow();
-        code.addStatement("super.$S($S);", IDENTIFIER, OPTIONS_PARAMETER);
-        code.beginControlFlow("if ($S.class.isAssignableFrom($S.getClass()))", shortName, OPTIONS_PARAMETER);
-        code.addStatement(" final $S $S = ($S) $S;", shortName, castOptionName, shortName, OPTIONS_PARAMETER);
-        currentModel.getFieldList().stream()
-                    .forEach(f -> code.addStatement("$S($S.$S())", new MethodSetter(f).getName(), castOptionName,
+        code.addStatement("super.$L($L);", IDENTIFIER, OPTIONS_PARAMETER);
+        code.beginControlFlow("if ($L.class.isAssignableFrom($L.getClass()))", shortName, OPTIONS_PARAMETER);
+        code.addStatement(" final $L $L = ($L) $L;", shortName, castOptionName, shortName, OPTIONS_PARAMETER);
+        currentModel.getFieldList().stream().filter(f -> !f.isAlreadyDefined())
+                    .forEach(f -> code.addStatement("$L($L.$L())", new MethodSetter(f).getName(), castOptionName,
                                                     new MethodGetter(f).getName()));
         code.endControlFlow();
     }

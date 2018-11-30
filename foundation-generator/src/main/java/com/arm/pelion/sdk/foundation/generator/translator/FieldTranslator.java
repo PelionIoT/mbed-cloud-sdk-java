@@ -25,7 +25,7 @@ public class FieldTranslator {
         final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group), field.getKey(),
                                            field.getDescription(), field.getLongDescription(),
                                            determinePattern(field.getPattern()), false, field.isCustomCode(),
-                                           field.isInternal(), field.isRequired(), field.getDefaultValue());
+                                           field.isInternal(), field.isRequired(), field.getDefaultValue(), false);
         // TODO do something if needed
         return modelField;
     }

@@ -26,7 +26,7 @@ public class Enum extends Model {
         this.options = options == null ? new LinkedList<>() : options;
         this.defaultOption = determineDefaultValue(defaultOption, options);
         addField(new Field(true, new ParameterType(String.class), "string", "string representation", null, null, false,
-                           false, true, true, generateConstantName(defaultOption)));
+                           false, true, true, generateConstantName(defaultOption), false));
     }
 
     public Enum(String packageName, String name, String group) {

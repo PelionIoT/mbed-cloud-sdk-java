@@ -15,8 +15,8 @@ public class MethodListOptionsSetDefault extends AbstractMethodBasedOnModel {
     @Override
     protected void translateCode() {
         super.translateCode();
-        code.addStatement("super.$S();", IDENTIFIER);
-        currentModel.getFieldList().stream()
-                    .forEach(f -> code.addStatement("$S($S)", new MethodSetter(f).getName(), f.getDefaultValue()));
+        code.addStatement("super.$L();", IDENTIFIER);
+        currentModel.getFieldList().stream().filter(f -> !f.isAlreadyDefined())
+                    .forEach(f -> code.addStatement("$L($L)", new MethodSetter(f).getName(), f.getDefaultValue()));
     }
 }

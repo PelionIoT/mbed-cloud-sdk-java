@@ -1,12 +1,14 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
-public class ListOptionModel extends Model {
+public class ModelListOption extends Model {
 
-    public ListOptionModel(Model model, String description, boolean needsCustomCode) {
+    public ModelListOption(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, needsCustomCode, false);
+        setSuperClassType(new ParameterType(ListOptions.class));
     }
 
     private static String generateDescription(String name, String description) {
@@ -34,6 +36,8 @@ public class ListOptionModel extends Model {
         super.generateMethodsDependingOnParents(theParent);
         generateSetDefault(theParent);
         generateSetOptions(theParent);
+        overrideMethodIfExist((new MethodListOptionsConstructorFromObject(this, theParent)));
+        overrideMethodIfExist((new MethodListOptionsConstructorEmpty(this, theParent)));
     }
 
     private void generateSetOptions(Model theParent) {

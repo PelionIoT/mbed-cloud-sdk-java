@@ -13,7 +13,7 @@ import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.model.Enum;
-import com.arm.pelion.sdk.foundation.generator.model.ListOptionModel;
+import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.Models;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
@@ -56,7 +56,7 @@ public class ModelTranslator {
             return null;
         }
         // change null by description if description is set in the intermediate config.
-        final ListOptionModel options = new ListOptionModel(correspondingModel, null, entity.isCustomCode());
+        final ModelListOption options = new ModelListOption(correspondingModel, null, entity.isCustomCode());
 
         // Do things regarding filters
 

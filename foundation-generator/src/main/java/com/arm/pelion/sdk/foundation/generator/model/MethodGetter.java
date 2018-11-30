@@ -34,7 +34,12 @@ public class MethodGetter extends Method {
     }
 
     private static String generateGetterName(Field field) {
-        return ApiUtils.convertSnakeToCamel("get_" + ApiUtils.convertCamelToSnake(field.getName()), false);
+        final String snakeCase = ApiUtils.convertCamelToSnake(field.getName());
+        String snakeName = "get_" + snakeCase;
+        if (field.getType().isBoolean()) {
+            snakeName = (snakeCase.startsWith("is") ? "" : "is_") + snakeCase;
+        }
+        return ApiUtils.convertSnakeToCamel(snakeName, false);
     }
 
 }

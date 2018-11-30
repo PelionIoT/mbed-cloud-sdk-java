@@ -8,8 +8,18 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
     private boolean callSuperConstructor;
 
     public MethodConstructorAllFields(Model currentModel, Model parentModel) {
-        super(currentModel, parentModel, null, null, true);
+        super(currentModel, parentModel, null, null, hasFields(currentModel, parentModel));
         callSuperConstructor = true;
+    }
+
+    private static boolean hasFields(Model currentModel, Model parentModel) {
+        if (currentModel == null) {
+            return false;
+        }
+        if (currentModel.hasFields()) {
+            return true;
+        }
+        return parentModel == null ? false : parentModel.hasFields();
     }
 
     @Override
@@ -18,7 +28,8 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
             if (hasParentModel()) {
                 final List<Field> parentFields = parentModel.getFieldList();
                 code.addStatement("super(" + String.join("," + System.lineSeparator(),
-                                                         parentFields.stream().map(f -> f.toParameter().getName())
+                                                         parentFields.stream().filter(f -> !f.isAlreadyDefined())
+                                                                     .map(f -> f.toParameter().getName())
                                                                      .collect(Collectors.toList()))
                                   + ")");
             } else {
@@ -26,9 +37,11 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
             }
         }
         if (hasCurrentModel()) {
-            currentModel.getFieldList().stream().filter(f -> f.isReadOnly() && !f.isIdentifier())
+            currentModel.getFieldList().stream()
+                        .filter(f -> (f.isReadOnly() && !f.isIdentifier()) || f.isAlreadyDefined())
                         .forEach(f -> code.addStatement("this.$L = $L", f.getName(), f.toParameter().getName()));
-            currentModel.getFieldList().stream().filter(f -> !f.isReadOnly() || f.isIdentifier())
+            currentModel.getFieldList().stream()
+                        .filter(f -> (!f.isReadOnly() || f.isIdentifier()) && !f.isAlreadyDefined())
                         .forEach(f -> code.addStatement("$L($L)", (new MethodSetter(f)).getName(),
                                                         f.toParameter().getName()));
         }

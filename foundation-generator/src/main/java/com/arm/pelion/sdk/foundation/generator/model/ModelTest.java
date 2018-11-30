@@ -69,7 +69,7 @@ public class ModelTest extends AbstractModelEntity {
         generateEqualsTest();
         generateHashCodeTest();
         // FIXME better handle tests depending on the type of model
-        if (!(modelUnderTest instanceof ListOptionModel)) {
+        if (!(modelUnderTest instanceof ModelListOption)) {
             generateIsValid();
         }
     }
@@ -131,9 +131,7 @@ public class ModelTest extends AbstractModelEntity {
      * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#hashCode()">Official specification</a>
      */
     private void generateHashCodeTest() {
-        final MethodTest test = new MethodTest(MethodHashCode.IDENTIFIER,
-                                               modelUnderTest.fetchMethod(MethodHashCode.IDENTIFIER)
-                                                             .containsCustomCode()
+        final MethodTest test = new MethodTest(MethodHashCode.IDENTIFIER, methodUnderTestContainsCustomCode()
                                                                           || modelUnderTest.needsFieldCustomisation());
 
         final List<String> values = ValueGenerator.generateModelFieldValues(modelUnderTest);
@@ -153,6 +151,11 @@ public class ModelTest extends AbstractModelEntity {
         test.getCode().addStatement("assertEquals(hashCode, " + variable + "1.hashCode())");
         test.getCode().endControlFlow();
         addTest(test);
+    }
+
+    protected boolean methodUnderTestContainsCustomCode() {
+        final Method m = modelUnderTest.fetchMethod(MethodHashCode.IDENTIFIER);
+        return m == null ? false : m.containsCustomCode();
     }
 
     private void generateIsValid() {

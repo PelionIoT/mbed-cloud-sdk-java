@@ -161,6 +161,15 @@ public class ParameterType implements Entity {
         }
     }
 
+    public String getPackageName() {
+        try {
+            translate();
+            return hasClazz() ? getClazz().getPackage().getName() : importPath.getPackageName();
+        } catch (TranslationException exception) {
+            return "";
+        }
+    }
+
     public boolean isDecimal() {
         if (!isNumber()) {
             return false;

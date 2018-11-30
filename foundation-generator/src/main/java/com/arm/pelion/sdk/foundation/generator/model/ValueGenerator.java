@@ -19,7 +19,7 @@ public class ValueGenerator {
             return null;
         }
         if (field.getType().isEnum()) {
-            return (field.getType().hasClass() ? field.getType().getClass().getName()
+            return (field.getType().hasClass() ? field.getType().getClazz().getName()
                                                : field.getType().getImportPath().getFullyQualifiedName())
                    + ".getDefault()";
 

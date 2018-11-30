@@ -1,7 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Hashtable;
-import java.util.List;
 import java.util.Map;
 
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
@@ -52,7 +51,7 @@ public class HashtableType extends ParameterType {
     @Override
     public void translate() throws TranslationException {
         if (contentType == null) {
-            throw new TranslationException("The type definition of the list is unknown ");
+            throw new TranslationException("The type definition of the map is unknown ");
         }
         contentType.translate();
         setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(getCollectionClass(), String.class,
@@ -74,17 +73,12 @@ public class HashtableType extends ParameterType {
      */
     @Override
     public String getShortName() {
-        return List.class.getSimpleName();
+        return Map.class.getSimpleName();
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.lang.Object#toString()
-     */
     @Override
     public String toString() {
-        return "ListType [contentType=" + contentType + "]";
+        return "HashtableType [contentType=" + contentType + ", concreteImplementation=" + concreteImplementation + "]";
     }
 
 }

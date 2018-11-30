@@ -52,7 +52,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
         }
         code.addStatement("final " + currentModel.getName() + " other = (" + currentModel.getName() + ") "
                           + PARAMETER_NAME);
-        currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode()).forEach(f -> {
+        currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode() && !f.isAlreadyDefined()).forEach(f -> {
             if (f.getType().isBoolean() || f.getType().isNumber() || f.getType().isEnum()) {
                 code.beginControlFlow("if ($L != other.$L)", f.getName(), f.getName());
                 code.addStatement("return false");

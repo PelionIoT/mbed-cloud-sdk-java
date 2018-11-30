@@ -17,6 +17,7 @@ public class Field extends AbstractModelEntity implements Cloneable {
     private String defaultValue;
     private String initialiser;
     private boolean isRequired;
+    private boolean alreadyDefined;
     private FieldSpec.Builder specificationBuilder;
 
     /**
@@ -34,7 +35,7 @@ public class Field extends AbstractModelEntity implements Cloneable {
      */
     public Field(boolean isReadOnly, ParameterType type, String name, String description, String longDescription,
                  String pattern, boolean isStatic, boolean needsCustomCode, boolean isInternal, boolean isRequired,
-                 String defaultValue) {
+                 String defaultValue, boolean alreadyDefined) {
         super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
               needsCustomCode, isInternal);
         setPattern(pattern);
@@ -42,12 +43,13 @@ public class Field extends AbstractModelEntity implements Cloneable {
         setRequired(isRequired);
         setDefaultValue(defaultValue);
         setInitialiser(null);
+        setAlreadyDefined(alreadyDefined);
     }
 
     public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue) {
-        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()), new ParameterType(field.getDeclaringClass()),
+        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()), new ParameterType(field.getType()),
              field.getName(), null, null, null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false,
-             isInternal, isRequired, defaultValue);
+             isInternal, isRequired, defaultValue, true);
     }
 
     /*
@@ -206,6 +208,14 @@ public class Field extends AbstractModelEntity implements Cloneable {
         return isRequired;
     }
 
+    public boolean isAlreadyDefined() {
+        return alreadyDefined;
+    }
+
+    public void setAlreadyDefined(boolean alreadyDefined) {
+        this.alreadyDefined = alreadyDefined;
+    }
+
     public boolean needsValidation() {
         return isRequired() || hasPattern();// TODO add more cases where validation is needed.
     }
@@ -265,6 +275,9 @@ public class Field extends AbstractModelEntity implements Cloneable {
 
     @Override
     public void translate() throws TranslationException {
+        if (alreadyDefined) {
+            return;
+        }
         try {
             initialiseBuilder();
             addModifiers();
@@ -281,14 +294,14 @@ public class Field extends AbstractModelEntity implements Cloneable {
     @Override
     public Field clone() {
         return new Field(isReadOnly, type, name, description, longDescription, pattern, isStatic, needsCustomCode,
-                         isInternal, isRequired, defaultValue);
+                         isInternal, isRequired, defaultValue, alreadyDefined);
     }
 
     @Override
     public String toString() {
-        return "Field [" + "parent=" + super.toString() + ", type=" + type + ", pattern=" + pattern + ", defaultValue="
-               + defaultValue + ", initialiser=" + initialiser + ", isRequired=" + isRequired
-               + ", specificationBuilder=" + specificationBuilder + "]";
+        return "Field [type=" + type + ", pattern=" + pattern + ", defaultValue=" + defaultValue + ", initialiser="
+               + initialiser + ", isRequired=" + isRequired + ", alreadyDefined=" + alreadyDefined
+               + ", specificationBuilder=" + specificationBuilder + ", parent=" + super.toString() + "]";
     }
 
 }

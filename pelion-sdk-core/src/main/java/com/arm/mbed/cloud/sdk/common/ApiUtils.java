@@ -76,9 +76,11 @@ public class ApiUtils {
             }
 
         }
-        final StringBuilder errorBuilder = missingFields.isEmpty()
-                ? generateInvalidModelInstanceErrorMessage(model, argName)
-                : generateModelInstanceWithMissingFieldsErrorMessage(model, missingFields, argName);
+        final StringBuilder errorBuilder = missingFields.isEmpty() ? generateInvalidModelInstanceErrorMessage(model,
+                                                                                                              argName)
+                                                                   : generateModelInstanceWithMissingFieldsErrorMessage(model,
+                                                                                                                        missingFields,
+                                                                                                                        argName);
         logger.throwSdkException(new IllegalArgumentException(errorBuilder.toString()));
 
     }
@@ -88,12 +90,13 @@ public class ApiUtils {
         errorBuilder.append("Parameter [");
         errorBuilder.append(argName);
         errorBuilder.append("] is an invalid instance of ").append(model.getClass().getSimpleName())
-                .append(" model. Please ensure all its fields are valid.");
+                    .append(" model. Please ensure all its fields are valid.");
         return errorBuilder;
     }
 
     private static StringBuilder generateModelInstanceWithMissingFieldsErrorMessage(SdkModel model,
-            List<String> missingFields, String argName) {
+                                                                                    List<String> missingFields,
+                                                                                    String argName) {
         final List<String> setters = new LinkedList<>();
         final Method[] modelMethods = model.getClass().getDeclaredMethods();
         for (final Method modelMethod : modelMethods) {
@@ -181,7 +184,7 @@ public class ApiUtils {
             return stringToConvert;
         }
         return stringToConvert.replaceAll("(.)(\\p{Upper})", "$1_$2").replaceAll("(\\p{Upper})(\\p{Upper})", "$1_$2")
-                .toLowerCase();
+                              .toLowerCase().trim();
     }
 
     public interface CaseConverter {
@@ -193,7 +196,8 @@ public class ApiUtils {
      *
      */
     public enum CaseConversion {
-        SNAKE_TO_CAMEL, CAMEL_TO_SNAKE
+        SNAKE_TO_CAMEL,
+        CAMEL_TO_SNAKE
     }
 
     /**
