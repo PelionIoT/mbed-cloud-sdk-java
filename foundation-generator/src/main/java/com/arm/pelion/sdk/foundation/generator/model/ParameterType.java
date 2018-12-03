@@ -4,11 +4,11 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
-import com.arm.pelion.sdk.foundation.generator.Entity;
+import com.arm.pelion.sdk.foundation.generator.Artifact;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.TypeName;
 
-public class ParameterType implements Entity {
+public class ParameterType implements Artifact {
 
     protected Import importPath;
     protected Class<?> clazz;

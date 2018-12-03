@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator;
 
-public class PackageInfo implements Entity {
+public class PackageInfo implements Artifact {
     private String packageName;
     private String description;
     private String longDescription;

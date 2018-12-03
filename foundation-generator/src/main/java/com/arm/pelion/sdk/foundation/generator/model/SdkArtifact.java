@@ -1,8 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.Entity;
+import com.arm.pelion.sdk.foundation.generator.Artifact;
 
-public interface ModelEntity extends Entity {
+public interface SdkArtifact extends Artifact {
 
     void setContainsCustomCode(boolean containsCustomCode);
 
@@ -52,8 +52,8 @@ public interface ModelEntity extends Entity {
 
     boolean hasDescription();
 
-    <T extends ModelEntity> T needsCustomCode(boolean needsCustomCode);
+    <T extends SdkArtifact> T needsCustomCode(boolean needsCustomCode);
 
-    <T extends ModelEntity> T longDescription(String longDescription);
+    <T extends SdkArtifact> T longDescription(String longDescription);
 
 }

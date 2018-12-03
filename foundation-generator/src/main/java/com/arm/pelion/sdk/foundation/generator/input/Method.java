@@ -10,14 +10,16 @@ public class Method {
     private String key;
     @JsonAlias({ InputSchema.DESCRIPTION_TAG, InputSchema.SUMMARY_TAG })
     private String description;
+    @JsonProperty(InputSchema.GROUP_ID_TAG)
+    private List<String> groupId;
     @JsonProperty(InputSchema.DROP_FIELDS_TAG)
     private List<String> dropFields;
     @JsonProperty(InputSchema.RENAMES_TAG)
     private List<Mapping> renames;
     // @JsonProperty(InputSchema.FIELDS_TAG)
     // private List<Field> fields;
-    // @JsonProperty(InputSchema.METHOD_ID_TAG)
-    // private String id;
+    @JsonProperty(InputSchema.METHOD_ID_TAG)
+    private String id;
     @JsonProperty(InputSchema.PAGINATED_RESPONSE_TAG)
     private boolean hasPaginatedResponse;
     // @JsonProperty(InputSchema.METHOD_PARAMETER_MAP_TAG)
@@ -65,13 +67,13 @@ public class Method {
     // this.fields = fields;
     // }
 
-    // public String getId() {
-    // return id;
-    // }
-    //
-    // public void setId(String id) {
-    // this.id = Utils.getKey(id, false);
-    // }
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = Utils.getKey(id, true);
+    }
 
     public boolean hasPaginatedResponse() {
         return hasPaginatedResponse;
@@ -95,6 +97,18 @@ public class Method {
 
     public void setDoesntReturnItself(boolean doesntReturnItself) {
         this.doesntReturnItself = doesntReturnItself;
+    }
+
+    public List<String> getGroupId() {
+        return groupId;
+    }
+
+    /**
+     * @param groupId
+     *            the groupId to set
+     */
+    public void setGroupId(String groupId) {
+        this.groupId = Utils.getGroupId(groupId);
     }
 
     /*
@@ -140,7 +154,7 @@ public class Method {
     @Override
     public String toString() {
         return "Method [key=" + key + ", description=" + description + ", dropFields=" + dropFields + ", renames="
-               + renames + ", hasPaginatedResponse=" + hasPaginatedResponse + ", doesntReturnItself="
+               + renames + ", id=" + id + ", hasPaginatedResponse=" + hasPaginatedResponse + ", doesntReturnItself="
                + doesntReturnItself + "]";
     }
 

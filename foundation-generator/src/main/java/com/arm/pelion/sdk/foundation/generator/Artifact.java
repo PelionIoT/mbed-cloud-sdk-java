@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator;
 
-public interface Entity {
+public interface Artifact {
 
     void translate() throws TranslationException;
 

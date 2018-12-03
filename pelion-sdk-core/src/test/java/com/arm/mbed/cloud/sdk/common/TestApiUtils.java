@@ -188,11 +188,14 @@ public class TestApiUtils {
     public final void testConvertCamelToSnake() {
         String testfunctionString = "thisIsAFunctionName";
         String testClassString = "ThisIsAClassName";
+        String testMalformedFunctionString = "Device_Event_retrieve";
         assertEquals("this_is_a_function_name", ApiUtils.convertCamelToSnake(testfunctionString));
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake(testClassString));
+        assertEquals("device_event_retrieve", ApiUtils.convertCamelToSnake(testMalformedFunctionString));
         assertEquals("", ApiUtils.convertCamelToSnake(""));
         assertEquals(null, ApiUtils.convertCamelToSnake(null));
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake("this_is_a_class_name"));
+
     }
 
     @Test

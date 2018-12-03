@@ -8,7 +8,7 @@ import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ParameterSpec;
 
-public class Parameter extends AbstractModelEntity {
+public class Parameter extends AbstractSdkArtifact {
 
     private ParameterSpec.Builder specificationBuilder;
     private ParameterType type;

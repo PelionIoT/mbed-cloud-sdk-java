@@ -6,8 +6,8 @@ import com.arm.pelion.sdk.foundation.generator.input.FoundationDataLoader;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIFinder;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
-import com.arm.pelion.sdk.foundation.generator.model.ModelsGenerator;
-import com.arm.pelion.sdk.foundation.generator.translator.ModelTranslator;
+import com.arm.pelion.sdk.foundation.generator.model.ArtifactsGenerator;
+import com.arm.pelion.sdk.foundation.generator.translator.ArtifactsTranslator;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
@@ -45,9 +45,10 @@ public class FoundationGenerator {
         File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
         File testDirectory = directory;
         logger.logInfo("Translating generic definitions into Java models");
-        ModelsGenerator generator = new ModelsGenerator(directory, testDirectory,
-                                                        ModelTranslator.translate(config, definition),
-                                                        forceRegenerateUnitTests);
+        ArtifactsGenerator generator = new ArtifactsGenerator(directory, testDirectory,
+                                                              ArtifactsTranslator.translate(config, definition,
+                                                                                            lowLevelAPIs),
+                                                              forceRegenerateUnitTests);
         try {
             generator.clean();
             generator.generate();

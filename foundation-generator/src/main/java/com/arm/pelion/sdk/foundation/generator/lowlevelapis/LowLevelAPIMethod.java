@@ -92,6 +92,14 @@ public class LowLevelAPIMethod {
         return moduleClassName;
     }
 
+    public Class<?> getModuleClazz() {
+        try {
+            return moduleClassName == null ? null : Class.forName(moduleClassName);
+        } catch (ClassNotFoundException exception) {
+            return null;
+        }
+    }
+
     /**
      * @param moduleClass
      *            the moduleClass to set

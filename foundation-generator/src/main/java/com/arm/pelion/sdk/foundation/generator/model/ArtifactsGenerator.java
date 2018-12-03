@@ -8,37 +8,42 @@ import com.arm.pelion.sdk.foundation.generator.PackageInfo;
 import com.arm.pelion.sdk.foundation.generator.PackageInfoGenerator;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
-public class ModelsGenerator extends AbstractGenerator {
+public class ArtifactsGenerator extends AbstractGenerator {
 
-    private final Models models;
+    private final Artifacts artifacts;
     private final boolean forceRegenerateUnitTests;
 
     /**
      * @param destinationDirectory
      * @param model
      */
-    public ModelsGenerator(File sourceDestinationDirectory, File testDestinationDirectory, Models models,
-                           boolean forceRegenerateUnitTests) {
+    public ArtifactsGenerator(File sourceDestinationDirectory, File testDestinationDirectory, Artifacts artifacts,
+                              boolean forceRegenerateUnitTests) {
         super(sourceDestinationDirectory, testDestinationDirectory);
-        this.models = models;
+        this.artifacts = artifacts;
         this.forceRegenerateUnitTests = forceRegenerateUnitTests;
     }
 
     @Override
     public void generate() throws TranslationException {
-        if (models == null) {
+        if (artifacts == null) {
             return;
         }
         logger.logInfo("Generating models");
-        models.process();
-        for (final PackageInfo packageInfo : models.getPackagesInfo()) {
+        artifacts.process();
+        for (final PackageInfo packageInfo : artifacts.getPackagesInfo()) {
             new PackageInfoGenerator(sourceDestinationDirectory, packageInfo).generate();
         }
-        for (final Model model : models.getProcessedModels()) {
+        for (final Model model : artifacts.getProcessedModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).generate();
         }
+        logger.logInfo("Generating endpoints classes");
+        for (final ModelEndpoints endpoints : artifacts.getProcessedEndpoints()) {
+            new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
+        }
+
         logger.logInfo("Generating model unit tests");
-        for (final ModelTest unittest : models.getUnitTests()) {
+        for (final ModelTest unittest : artifacts.getUnitTests()) {
             unittest.generateTests();
             new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
         }
@@ -52,11 +57,11 @@ public class ModelsGenerator extends AbstractGenerator {
      */
     @Override
     public void clean() throws CleanException {
-        if (models == null) {
+        if (artifacts == null) {
             return;
         }
         logger.logInfo("Cleaning models");
-        for (final Model model : models.getRawModels()) {
+        for (final Model model : artifacts.getRawModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).clean();
         }
     }

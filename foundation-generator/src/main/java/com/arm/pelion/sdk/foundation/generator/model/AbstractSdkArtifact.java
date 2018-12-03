@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-public abstract class AbstractModelEntity implements ModelEntity {
+public abstract class AbstractSdkArtifact implements SdkArtifact {
 
     private static final String UNKOWN_IDENTIFIER = "Unknown identifier";
     protected boolean isReadOnly;
@@ -35,7 +35,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
      * @param needsCustomCode
      * @param isInternal
      */
-    public AbstractModelEntity(boolean isReadOnly, String name, String description, String longDescription,
+    public AbstractSdkArtifact(boolean isReadOnly, String name, String description, String longDescription,
                                boolean isStatic, boolean isAccessible, boolean isAbstract, boolean containsCustomCode,
                                boolean needsCustomCode, boolean isInternal) {
         super();
@@ -161,7 +161,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
     }
 
     @Override
-    public <T extends ModelEntity> T needsCustomCode(boolean needsCustomCode) {
+    public <T extends SdkArtifact> T needsCustomCode(boolean needsCustomCode) {
         setNeedsCustomCode(needsCustomCode);
         return (T) this;
     }
@@ -232,7 +232,7 @@ public abstract class AbstractModelEntity implements ModelEntity {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T extends ModelEntity> T longDescription(String longDescription) {
+    public <T extends SdkArtifact> T longDescription(String longDescription) {
         setLongDescription(longDescription);
         return (T) this;
     }

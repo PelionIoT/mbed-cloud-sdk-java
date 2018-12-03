@@ -14,6 +14,7 @@ import java.util.stream.Stream;
 
 import javax.lang.model.element.Modifier;
 
+import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
@@ -22,16 +23,16 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
 
-public class Model extends AbstractModelEntity {
+public class Model extends AbstractSdkArtifact {
     private static final int MAX_LONG_LENGTH = 18 - 2;
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
     protected String packageName;
     private String parent;
     private String group;
-    private final List<String> contructorsName;
-    private final Map<String, Method> methods;
-    private final Map<String, Field> fields;
-    private Map<String, Field> superClassFields;
+    protected final List<String> contructorsName;
+    protected final Map<String, Method> methods;
+    protected final Map<String, Field> fields;
+    protected Map<String, Field> superClassFields;
     private ParameterType superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
@@ -322,6 +323,9 @@ public class Model extends AbstractModelEntity {
                 specificationBuilder.addModifiers(Modifier.ABSTRACT);
             }
             generateDocumentation();
+            if (isInternal) {
+                specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
+            }
             if (hasSuperInterface()) {
                 specificationBuilder.addSuperinterface(getSuperInterface());
             }
@@ -421,7 +425,7 @@ public class Model extends AbstractModelEntity {
         return child;
     }
 
-    public <T extends ModelEntity> boolean requestCustomCode(Class<T> type, String key) {
+    public <T extends SdkArtifact> boolean requestCustomCode(Class<T> type, String key) {
         if (type == null || Model.class.isAssignableFrom(type)) {
             setNeedsCustomCode(true);
             return true;
@@ -552,7 +556,7 @@ public class Model extends AbstractModelEntity {
         constructors.getRefinedList().forEach(c -> addConstructor(c));
     }
 
-    private void addConstructor(AbstractMethodConstructor constructor) {
+    protected void addConstructor(AbstractMethodConstructor constructor) {
         contructorsName.add(constructor.getIdentifier());
         overrideMethodIfExist(constructor);
     }

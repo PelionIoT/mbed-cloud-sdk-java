@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.TypeSpec;
 
-public class ModelTest extends AbstractModelEntity {
+public class ModelTest extends AbstractSdkArtifact {
     private Model modelUnderTest;
     protected TypeSpec.Builder specificationBuilder;
     private final Map<String, Method> tests;
@@ -75,9 +75,12 @@ public class ModelTest extends AbstractModelEntity {
     }
 
     private void generateCloneTest() {
+        final Method method = modelUnderTest.fetchMethod(MethodClone.IDENTIFIER);
+        if (method == null) {
+            return;
+        }
         final MethodTest test = new MethodTest(MethodClone.IDENTIFIER,
-                                               modelUnderTest.fetchMethod(MethodClone.IDENTIFIER).containsCustomCode()
-                                                                       || modelUnderTest.needsFieldCustomisation());
+                                               method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
 
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
         final String fieldValues = String.join("," + System.lineSeparator(),
@@ -93,9 +96,12 @@ public class ModelTest extends AbstractModelEntity {
     }
 
     private void generateEqualsTest() {
+        final Method method = modelUnderTest.fetchMethod(MethodEquals.IDENTIFIER);
+        if (method == null) {
+            return;
+        }
         final MethodTest test = new MethodTest(MethodEquals.IDENTIFIER,
-                                               modelUnderTest.fetchMethod(MethodEquals.IDENTIFIER).containsCustomCode()
-                                                                        || modelUnderTest.needsFieldCustomisation());
+                                               method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
 
         final List<String> values1 = ValueGenerator.generateModelFieldValues(modelUnderTest);
         final List<String> values2 = ValueGenerator.generateModelFieldValues(modelUnderTest);

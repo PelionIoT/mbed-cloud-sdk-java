@@ -66,6 +66,11 @@ public class LowLevelAPIs {
         return methods.get(methodName);
     }
 
+    public Class<?> getModuleClazz(String methodName) {
+        List<LowLevelAPIMethod> method = getMethod(methodName);
+        return method == null || method.isEmpty() ? null : method.iterator().next().getModuleClazz();
+    }
+
     public Set<String> fetchModuleSet() {
         if (modules == null) {
             return null;

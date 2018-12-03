@@ -5,6 +5,7 @@ import java.io.FilenameFilter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.Date;
+import java.util.Locale;
 
 import com.arm.pelion.sdk.foundation.generator.AbstractGenerator;
 import com.arm.pelion.sdk.foundation.generator.CleanException;
@@ -31,7 +32,8 @@ public class ModelGenerator extends AbstractGenerator {
         if (model == null) {
             return;
         }
-        logger.logInfo("Generating model [" + model.getFullName() + "]");
+        logger.logInfo("Generating " + model.getClass().getSimpleName().toLowerCase(Locale.UK) + " ["
+                       + model.getFullName() + "]");
         model.translate();
         TypeSpec modelClass = model.getSpecificationBuilder().build();
         JavaFile file = JavaFile.builder(model.getPackageName(), modelClass).addFileComment(generateFileComment(model))

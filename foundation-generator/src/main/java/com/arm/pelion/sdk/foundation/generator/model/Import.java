@@ -1,10 +1,10 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.Entity;
+import com.arm.pelion.sdk.foundation.generator.Artifact;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.ClassName;
 
-public class Import implements Entity {
+public class Import implements Artifact {
 
     private String name;
     private String packageName;

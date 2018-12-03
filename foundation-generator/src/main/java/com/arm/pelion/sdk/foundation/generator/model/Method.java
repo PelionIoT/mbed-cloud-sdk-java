@@ -16,7 +16,7 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeVariableName;
 
-public class Method extends AbstractModelEntity {
+public class Method extends AbstractSdkArtifact {
 
     protected MethodSpec.Builder specificationBuilder;
 

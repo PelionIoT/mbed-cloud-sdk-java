@@ -10,7 +10,7 @@ import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 
-public class Field extends AbstractModelEntity implements Cloneable {
+public class Field extends AbstractSdkArtifact implements Cloneable {
     private static final String IDENTIFIER_NAME = "id";
     private ParameterType type;
     private String pattern;

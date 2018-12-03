@@ -36,6 +36,14 @@ public class LowLevelAPIModule {
         }
     }
 
+    public Class<?> getClazz() {
+        try {
+            return moduleClassName == null ? null : Class.forName(moduleClassName);
+        } catch (ClassNotFoundException exception) {
+            return null;
+        }
+    }
+
     /**
      * @return the simpleName
      */

@@ -12,16 +12,18 @@ import com.arm.pelion.sdk.foundation.generator.input.Entity;
 import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
+import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
+import com.arm.pelion.sdk.foundation.generator.model.Artifacts;
 import com.arm.pelion.sdk.foundation.generator.model.Enum;
-import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
-import com.arm.pelion.sdk.foundation.generator.model.Models;
+import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
+import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
-public class ModelTranslator {
+public class ArtifactsTranslator {
 
-    private ModelTranslator() {
+    private ArtifactsTranslator() {
         // Do something
     }
 
@@ -62,6 +64,22 @@ public class ModelTranslator {
 
         options.generateMethods();
         return options;
+    }
+
+    private static ModelEndpoints translateEndpointModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
+                                                         Model model) {
+        if (entity == null || !entity.hasMethods() || lowLevelApis == null) {
+            return null;
+        }
+        final ModelEndpoints endpoints = new ModelEndpoints(model, null, entity.isCustomCode());
+        entity.getMethods().forEach(m -> {
+            final Class<?> moduleClazz = lowLevelApis.getModuleClazz(m.getId());
+            if (moduleClazz != null) {
+                endpoints.addModule(moduleClazz);
+            }
+        });
+        endpoints.generateMethods();
+        return endpoints;
     }
 
     private static Model translate(Configuration config, Enumerator enumerator) {
@@ -117,23 +135,29 @@ public class ModelTranslator {
                       .toLowerCase(Locale.UK);
     }
 
-    public static Models translate(Configuration config,
-                                   IntermediateApiDefinition definition) throws FoundationGeneratorException {
+    public static Artifacts translate(Configuration config, IntermediateApiDefinition definition,
+                                      LowLevelAPIs lowLevelApis) throws FoundationGeneratorException {
         if (definition == null) {
             return null;
         }
         // FIXME TO remove
         List<String> avoid = Arrays.asList("Account", "DeviceEvents");
-        final Models models = new Models();
+        final Artifacts artifacts = new Artifacts();
         if (definition.hasEntities()) {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
                     final Model model = ModelDefinitionStore.get().store(translate(config, entity));
-                    models.addModel(model);
+                    artifacts.addModel(model);
                     if (entity.hasListMethod()) {
-                        models.addModel(ModelDefinitionStore.get().store(translateListOptions(config, entity, model)));
+                        artifacts.addModel(ModelDefinitionStore.get()
+                                                               .store(translateListOptions(config, entity, model)));
                     }
+                    artifacts.addEndpoint((ModelEndpoints) ModelDefinitionStore.get()
+                                                                               .store(translateEndpointModel(config,
+                                                                                                             lowLevelApis,
+                                                                                                             entity,
+                                                                                                             model)));
                 }
             }
         }
@@ -143,9 +167,9 @@ public class ModelTranslator {
                                                .filter(e -> e.hasValues() && !e.getName().contains("order_enum"))
                                                .collect(Collectors.toList());
             for (final Enumerator enumerator : enums) {
-                models.addModel(ModelDefinitionStore.get().store(translate(config, enumerator)));
+                artifacts.addModel(ModelDefinitionStore.get().store(translate(config, enumerator)));
             }
         }
-        return models;
+        return artifacts;
     }
 }
