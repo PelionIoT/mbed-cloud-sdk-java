@@ -15,18 +15,17 @@ public class MethodConstructorRequired extends AbstractMethodConstructorWithFiel
      */
     @Override
     protected void setFields() {
-        setFields(this.getFieldList(false, true, false, false));
+        setFields(this.getFieldList(false, true, false, false, false));
     }
 
     @Override
     protected void translateCode() {
-        final List<Field> allFields = this.getFieldList(false, false, true, false);
-        code.addStatement("this("
-                          + String.join("," + System.lineSeparator(),
-                                        allFields.stream()
-                                                 .map(f -> f.isRequired() ? f.toParameter().getName()
-                                                                          : f.getJavaDefaultValue())
-                                                 .collect(Collectors.toList()))
+        final List<Field> allFields = getAllFields();
+        code.addStatement("this(" + String.join("," + System.lineSeparator(),
+                                                allFields.stream()
+                                                         .map(f -> f.isRequired() ? f.toParameter().getName()
+                                                                                  : f.getJavaDefaultValue())
+                                                         .collect(Collectors.toList()))
                           + ")");
     }
 }

@@ -14,7 +14,7 @@ import com.arm.pelion.sdk.foundation.generator.input.Field;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
 import com.arm.pelion.sdk.foundation.generator.model.Artifacts;
-import com.arm.pelion.sdk.foundation.generator.model.Enum;
+import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
@@ -86,7 +86,7 @@ public class ArtifactsTranslator {
         if (enumerator == null) {
             return null;
         }
-        com.arm.pelion.sdk.foundation.generator.model.Enum javaEnum = new Enum(generatePackageName(config,
+        com.arm.pelion.sdk.foundation.generator.model.ModelEnum javaEnum = new ModelEnum(generatePackageName(config,
                                                                                                    enumerator.getGroupId()),
                                                                                null, enumerator.getName(),
                                                                                CommonTranslator.generateGoup(enumerator.getGroupId()),
@@ -147,13 +147,13 @@ public class ArtifactsTranslator {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
-                    final Model model = ModelDefinitionStore.get().store(translate(config, entity));
+                    final Model model = PelionModelDefinitionStore.get().store(translate(config, entity));
                     artifacts.addModel(model);
                     if (entity.hasListMethod()) {
-                        artifacts.addModel(ModelDefinitionStore.get()
+                        artifacts.addModel(PelionModelDefinitionStore.get()
                                                                .store(translateListOptions(config, entity, model)));
                     }
-                    artifacts.addEndpoint((ModelEndpoints) ModelDefinitionStore.get()
+                    artifacts.addEndpoint((ModelEndpoints) PelionModelDefinitionStore.get()
                                                                                .store(translateEndpointModel(config,
                                                                                                              lowLevelApis,
                                                                                                              entity,
@@ -167,7 +167,7 @@ public class ArtifactsTranslator {
                                                .filter(e -> e.hasValues() && !e.getName().contains("order_enum"))
                                                .collect(Collectors.toList());
             for (final Enumerator enumerator : enums) {
-                artifacts.addModel(ModelDefinitionStore.get().store(translate(config, enumerator)));
+                artifacts.addModel(PelionModelDefinitionStore.get().store(translate(config, enumerator)));
             }
         }
         return artifacts;

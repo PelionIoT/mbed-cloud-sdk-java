@@ -85,10 +85,7 @@ public class ValueGenerator {
         if (model == null) {
             return null;
         }
-        final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getFieldList(false,
-                                                                                                                         false,
-                                                                                                                         true,
-                                                                                                                         false);
+        final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getAllFields();
         if (fields.stream().filter(f -> f.needsValidation()).count() == 0) {
             return null;
         }
@@ -100,10 +97,7 @@ public class ValueGenerator {
         if (model == null) {
             return new ArrayList<>();
         }
-        final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getFieldList(false,
-                                                                                                                         false,
-                                                                                                                         true,
-                                                                                                                         false);
+        final List<Field> fields = ((AbstractMethodConstructor) model.fetchMethod(fetchConstructor(model))).getAllFields();
         return fields.stream().map(f -> String.valueOf(generateFieldValue(f))).collect(Collectors.toList());
     }
 

@@ -1,28 +1,21 @@
-package com.arm.pelion.sdk.foundation.generator.translator;
+package com.arm.pelion.sdk.foundation.generator.util;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 
-public class ModelDefinitionStore {
+public class ModelDefinitionStore<T extends Model> {
 
-    private final Map<String, Model> store;
+    private final Map<String, T> store;
 
-    public static ModelDefinitionStore get() {
-        return ModelDefinitionStoreHolder.INSTANCE;
-    }
-
-    private static class ModelDefinitionStoreHolder {
-        public static final ModelDefinitionStore INSTANCE = new ModelDefinitionStore();
-
-    }
-
-    private ModelDefinitionStore() {
+    public ModelDefinitionStore() {
         store = new LinkedHashMap<>();
     }
 
-    public Model store(Model model) {
+    public Model store(T model) {
         if (model == null) {
             return null;
         }
@@ -42,12 +35,15 @@ public class ModelDefinitionStore {
         return model == null ? false : has(model.getIdentifier());
     }
 
-    public Model get(String identifier) {
+    public T get(String identifier) {
         return identifier == null ? null : store.get(identifier);
     }
 
-    public Model get(Model model) {
+    public T get(Model model) {
         return model == null ? null : store.get(model.getIdentifier());
     }
 
+    public List<T> getModels() {
+        return new ArrayList<>(store.values());
+    }
 }

@@ -2,7 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Objects;
 
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodHashCode extends AbstractMethodBasedOnModel {
 
@@ -15,7 +15,7 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
               false, true);
         setReturnType(new ParameterType(int.class));
         setReturnDescription("hash code");
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
         shouldTest(true);
     }
 
@@ -25,7 +25,7 @@ public class MethodHashCode extends AbstractMethodBasedOnModel {
      * @see com.arm.pelion.sdk.foundation.generator.model.Method#translateCode()
      */
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         if (hasCurrentModel() && currentModel.hasFields()) {
             code.addStatement("final int prime = 31");

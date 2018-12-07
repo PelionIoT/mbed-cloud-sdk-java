@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodEquals extends AbstractMethodBasedOnModel {
 
@@ -16,7 +16,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
         addParameter(new Parameter(PARAMETER_NAME, "an object to compare with this instance", null,
                                    new ParameterType(Object.class), null));
         setReturnDescription("true if this object is the same as the obj argument; false otherwise.");
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
         shouldTest(true);
     }
 
@@ -26,7 +26,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
      * @see com.arm.pelion.sdk.foundation.generator.model.Method#translateCode()
      */
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         code.beginControlFlow("if (this == " + PARAMETER_NAME + ")");
         code.addStatement("return true");

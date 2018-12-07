@@ -41,8 +41,15 @@ public class MethodSetter extends Method {
         return field.hasDescription() ? field.getDescription() : field.getName();
     }
 
-    private static String generateSetterName(Field field) {
-        return ApiUtils.convertSnakeToCamel("Set_" + ApiUtils.convertCamelToSnake(field.getName()), false);
+    public static String generateSetterName(Field field) {
+        return getCorrespondingSetterMethodName(field.getName());
+    }
+
+    public static String getCorrespondingSetterMethodName(String fieldName) {
+        if (fieldName == null) {
+            return null;
+        }
+        return ApiUtils.convertSnakeToCamel("set_" + ApiUtils.convertCamelToSnake(fieldName), false);
     }
 
 }

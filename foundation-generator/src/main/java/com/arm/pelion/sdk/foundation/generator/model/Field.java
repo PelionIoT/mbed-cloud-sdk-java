@@ -52,6 +52,10 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
              isInternal, isRequired, defaultValue, true);
     }
 
+    public Field(java.lang.reflect.Field field) {
+        this(field, false, false, null);
+    }
+
     /*
      * (non-Javadoc)
      *

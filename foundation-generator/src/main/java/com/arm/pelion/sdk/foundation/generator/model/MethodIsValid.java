@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodIsValid extends AbstractMethodBasedOnModel {
 
@@ -17,7 +17,7 @@ public class MethodIsValid extends AbstractMethodBasedOnModel {
               findWhetherOverriding(currentModel, parentModel));
         setReturnType(new ParameterType(boolean.class));
         setReturnDescription("true if the model is valid; false otherwise.");
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
     }
 
     private static boolean findWhetherOverriding(Model currentModel, Model parentModel) {
@@ -30,7 +30,7 @@ public class MethodIsValid extends AbstractMethodBasedOnModel {
      * @see com.arm.pelion.sdk.foundation.generator.model.Method#translateCode()
      */
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         List<String> validationMethodList = hasCurrentModel() ? currentModel.getMethodList().stream()
                                                                             .filter(m -> m instanceof MethodIsFieldValid)

@@ -14,6 +14,6 @@ public class MethodConstructorIdentifiers extends AbstractMethodConstructorWithF
 
     @Override
     protected void setFields() {
-        setFields(this.getFieldList(false, false, false, true));
+        setFields(this.getFieldList(false, false, false, true, false));
     }
 }

@@ -1,9 +1,17 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.math.BigDecimal;
+import java.net.URL;
+import java.util.Calendar;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+import org.joda.time.LocalDate;
+
+import io.swagger.annotations.ApiModel;
+
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.pelion.sdk.foundation.generator.Artifact;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.TypeName;
@@ -178,6 +186,13 @@ public class ParameterType implements Artifact {
                || getClazz() == Double.class || getClazz() == Float.class;
     }
 
+    public boolean isInteger() {
+        if (!isNumber()) {
+            return false;
+        }
+        return getClazz() == int.class || getClazz() == Integer.class;
+    }
+
     public boolean isNumber() {
         try {
             translate();
@@ -196,6 +211,24 @@ public class ParameterType implements Artifact {
 
     public boolean isHashtable() {
         return false;
+    }
+
+    public boolean isLowLevelModel() {
+        try {
+            translate();
+            return hasClazz() ? getClazz().isAnnotationPresent(ApiModel.class) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isModel() {
+        try {
+            translate();
+            return hasClazz() ? SdkModel.class.isAssignableFrom(getClazz()) : !importPath.isEnum();
+        } catch (TranslationException exception) {
+            return false;
+        }
     }
 
     public boolean isString() {
@@ -234,6 +267,15 @@ public class ParameterType implements Artifact {
         }
     }
 
+    public boolean isUrl() {
+        try {
+            translate();
+            return hasClazz() ? URL.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
     public boolean isDate() {
         try {
             translate();
@@ -243,11 +285,50 @@ public class ParameterType implements Artifact {
         }
     }
 
-    public boolean isEnum() {
+    public boolean isJodaDate() {
+        try {
+            translate();
+            return hasClazz() ? LocalDate.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isJodaTime() {
+        try {
+            translate();
+            return hasClazz() ? DateTime.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isCalendar() {
+        try {
+            translate();
+            return hasClazz() ? Calendar.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isModelEnum() {
         try {
             translate();
             return hasClazz() ? SdkEnum.class.isAssignableFrom(getClazz())
                               : importPath == null ? false : importPath.isEnum();
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isEnum() {
+        if (isModelEnum()) {
+            return true;
+        }
+        try {
+            translate();
+            return hasClazz() ? getClazz().isEnum() || Enum.class.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }

@@ -44,6 +44,18 @@ public class Method extends AbstractSdkArtifact {
         shouldTest(false);
     }
 
+    public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride) {
+        this(java.lang.reflect.Modifier.isFinal(method.getModifiers()), method.getName(), description, longDescription,
+             java.lang.reflect.Modifier.isStatic(method.getModifiers()),
+             java.lang.reflect.Modifier.isPublic(method.getModifiers()),
+             java.lang.reflect.Modifier.isAbstract(method.getModifiers()), false, false,
+             method.isAnnotationPresent(Internal.class), method.isAnnotationPresent(Required.class), isAnOverride);
+    }
+
+    public void initialiseCodeBuilder() {
+        setCode(CodeBlock.builder());
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -292,11 +304,11 @@ public class Method extends AbstractSdkArtifact {
 
     }
 
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         // TODO Implement
     }
 
-    protected void addCode() {
+    protected void addCode() throws TranslationException {
         if (isAbstract) {
             return;
         }

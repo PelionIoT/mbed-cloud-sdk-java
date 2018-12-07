@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.input.ForeignKey;
-import com.arm.pelion.sdk.foundation.generator.model.Enum;
+import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
 
@@ -28,13 +28,13 @@ public class CommonTranslator {
         if (enumRef == null) {
             return null;
         }
-        final Enum enumerator = new Enum(packageName, enumRef, group);
+        final ModelEnum enumerator = new ModelEnum(packageName, enumRef, group);
         return fetchNestedType(enumerator);
     }
 
     protected static ParameterType fetchNestedType(final Model model) {
-        if (ModelDefinitionStore.get().has(model)) {
-            return ModelDefinitionStore.get().get(model).toType();
+        if (PelionModelDefinitionStore.get().has(model)) {
+            return PelionModelDefinitionStore.get().get(model).toType();
         }
         return model.toType();
     }

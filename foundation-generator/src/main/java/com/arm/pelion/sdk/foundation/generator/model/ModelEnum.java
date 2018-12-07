@@ -10,17 +10,16 @@ import javax.lang.model.element.Modifier;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
-import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.TypeSpec;
 
-public class Enum extends Model {
+public class ModelEnum extends Model {
 
     private static final String UNKNOWN_ENUM = "UNKNOWN_ENUM";
     private final List<String> options;
     private final String defaultOption;
 
-    public Enum(String packageName, String attachedEntity, String name, String group, String longDescription,
-                List<String> options, String defaultOption) {
+    public ModelEnum(String packageName, String attachedEntity, String name, String group, String longDescription,
+                     List<String> options, String defaultOption) {
         super(packageName, generateName(attachedEntity, name), group,
               generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
         this.options = options == null ? new LinkedList<>() : options;
@@ -29,7 +28,7 @@ public class Enum extends Model {
                            false, true, true, generateConstantName(defaultOption), false));
     }
 
-    public Enum(String packageName, String name, String group) {
+    public ModelEnum(String packageName, String name, String group) {
         this(packageName, null, name, group, null, null, null);
     }
 
@@ -175,7 +174,7 @@ public class Enum extends Model {
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + " if not recognised. ");
         method.addParameter(new Parameter("value", "string", null, new ParameterType(String.class), null));
-        method.setCode(CodeBlock.builder());
+        method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (value == null)");
         method.getCode().addStatement("return getDefault()");
         method.getCode().endControlFlow();
@@ -198,7 +197,7 @@ public class Enum extends Model {
                                           new GenericParameterType(SdkEnum.class), null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,
                                           new GenericParameterType(SdkEnum.class), null));
-        method.setCode(CodeBlock.builder());
+        method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (obj1 == null)");
         method.getCode().addStatement("return obj2");
         method.getCode().endControlFlow();

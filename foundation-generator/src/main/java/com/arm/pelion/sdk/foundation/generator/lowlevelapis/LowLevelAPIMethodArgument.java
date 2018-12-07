@@ -4,6 +4,8 @@ import java.lang.reflect.ParameterizedType;
 import java.util.Hashtable;
 import java.util.Map;
 
+import io.swagger.annotations.ApiModel;
+
 public class LowLevelAPIMethodArgument {
     private String name;
     private String type;
@@ -92,6 +94,16 @@ public class LowLevelAPIMethodArgument {
                            || type.getActualTypeArguments() == null ? null
                                                                     : type.getActualTypeArguments()[0].getTypeName();
 
+    }
+
+    public boolean isOpenApiModel() {
+        Class<?> clazz;
+        try {
+            clazz = determineClass();
+        } catch (ClassNotFoundException exception) {
+            return false;
+        }
+        return clazz == null ? false : clazz.isAnnotationPresent(ApiModel.class);
     }
 
     public Class<?> determineClass() throws ClassNotFoundException {

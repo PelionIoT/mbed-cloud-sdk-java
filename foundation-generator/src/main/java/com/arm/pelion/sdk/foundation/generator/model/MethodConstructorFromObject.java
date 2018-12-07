@@ -29,7 +29,7 @@ public class MethodConstructorFromObject extends AbstractMethodConstructor {
     protected void translateCode() {
 
         final String parameterName = parameter == null ? "unknown" : parameter.getName();
-        final List<Field> fields = this.getFieldList(false, false, true, false);
+        final List<Field> fields = getAllFields();
         code.addStatement("this(" + String.join("," + System.lineSeparator(),
                                                 fields.stream()
                                                       .map(f -> parameterName + " == null? " + f.getJavaDefaultValue()

@@ -93,6 +93,12 @@ public class Model extends AbstractSdkArtifact {
         this(packageName, name, group, null, null, false, true);
     }
 
+    public Model(Class<?> clazz) {
+        this(clazz.getPackage().getName(), clazz.getSimpleName(), null, null, null,
+             java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false);
+        Arrays.asList(clazz.getDeclaredFields()).forEach(f -> addField(new Field(f)));
+    }
+
     private static String generateDescription(String name, String description) {
         return description == null || description.isEmpty() ? "Model for " + name : description;
     }
@@ -199,7 +205,15 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public boolean hasField(Field field) {
-        return field == null ? false : fields.containsKey(field.getIdentifier());
+        return field == null ? false : hasField(field.getIdentifier());
+    }
+
+    public boolean hasField(String identifier) {
+        return identifier == null ? false : fields.containsKey(identifier);
+    }
+
+    public Field fetchField(String identifier) {
+        return hasField(identifier) ? fields.get(identifier) : null;
     }
 
     public void overrideMethodIfExist(Method method) {
@@ -455,6 +469,10 @@ public class Model extends AbstractSdkArtifact {
         return contructorsName;
     }
 
+    public boolean hasConstructor(String identifier) {
+        return identifier == null || contructorsName.isEmpty() ? false : contructorsName.contains(identifier);
+    }
+
     public void generateMethods() {
         methods.clear();
         // Adding getters and setters
@@ -547,6 +565,7 @@ public class Model extends AbstractSdkArtifact {
 
     private void generateConstructors(Model theParent) {
         ConstructorList constructors = new ConstructorList();
+        contructorsName.clear();
         constructors.add(new MethodConstructorAllFields(this, theParent));
         constructors.add(new MethodConstructorFromObject(this, theParent));
         constructors.add(new MethodConstructorEmpty(this, theParent));
@@ -703,10 +722,16 @@ public class Model extends AbstractSdkArtifact {
         return new Import(name, packageName);
     }
 
-    public Parameter toParameter() {
+    public Parameter toParameter(String parameterName) {
         final String theDescription = "a " + String.valueOf(name).toLowerCase();
-        final String parameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name), false);
-        return new Parameter(parameterName, theDescription, null, toType(), null);
+        final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
+                                                                                                                          : parameterName),
+                                                                       false);
+        return new Parameter(finalParameterName, theDescription, null, toType(), null);
+    }
+
+    public Parameter toParameter() {
+        return toParameter(null);
     }
 
     /*
@@ -744,4 +769,5 @@ public class Model extends AbstractSdkArtifact {
             return constructors.stream().filter(c -> c.isNecessary()).collect(Collectors.toList());
         }
     }
+
 }

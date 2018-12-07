@@ -28,7 +28,7 @@ public class TestGenericAdapter {
             @SuppressWarnings("boxing")
             @Override
             public Integer map(String toBeMapped) {
-                return TranslationUtils.convertToInteger(toBeMapped, 0);
+                return TranslationUtils.toInt(toBeMapped, 0);
             }
         });
         for (int i = 0; i < 5; i++) {
@@ -67,7 +67,7 @@ public class TestGenericAdapter {
                                                                                                                    @Override
                                                                                                                    public IntegerModel
                                                                                                                           map(String toBeMapped) {
-                                                                                                                       return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped,
+                                                                                                                       return new IntegerModel(TranslationUtils.toInt(toBeMapped,
                                                                                                                                                                                  0));
                                                                                                                    }
                                                                                                                });
@@ -132,7 +132,7 @@ public class TestGenericAdapter {
             @SuppressWarnings("boxing")
             @Override
             public IntegerModel map(String toBeMapped) {
-                return new IntegerModel(TranslationUtils.convertToInteger(toBeMapped, 0));
+                return new IntegerModel(TranslationUtils.toInt(toBeMapped, 0));
             }
         });
         List<IntegerModel> mappedList = listResp.getData();

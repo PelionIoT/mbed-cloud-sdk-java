@@ -4,7 +4,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
 public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnModel {
@@ -18,7 +17,7 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
                                       isInternal),
               false, true, false, false, false, isInternal, false, false);
         addConstructorParameters();
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
         setNecessary(true);
     }
 
@@ -60,7 +59,12 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return has(description) ? description : isInternal ? "Internal constructor" : "Constructor";
     }
 
-    public List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers) {
+    public List<Field> getAllFields() {
+        return this.getFieldList(false, false, true, false, false);
+    }
+
+    public List<Field> getFieldList(boolean readOnly, boolean required, boolean all, boolean justIdentifiers,
+                                    boolean onlySettable) {
         final List<Field> fieldsList = new LinkedList<>();
         if (hasCurrentModel()) {
             fieldsList.addAll(currentModel.getFieldList().stream().filter(f -> !f.isAlreadyDefined())
@@ -75,6 +79,9 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
             }
             if (justIdentifiers) {
                 return f.isIdentifier();
+            }
+            if (onlySettable) {
+                return !f.isReadOnly();
             }
             if (readOnly && required) {
                 return f.isReadOnly() && f.isRequired();

@@ -1,12 +1,12 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodListOptionsClone extends MethodClone {
 
     public MethodListOptionsClone(Model currentModel, Model parentModel) {
         super(currentModel, parentModel);
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
     }
 
     @Override
@@ -15,7 +15,7 @@ public class MethodListOptionsClone extends MethodClone {
     }
 
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         final String shortName = determineClassShortName(currentModel);
         code.addStatement("final $L opt = new $L()", shortName, shortName);

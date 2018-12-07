@@ -6,8 +6,11 @@ import java.util.stream.Collectors;
 
 public class MethodConstructorEmpty extends AbstractMethodConstructor {
 
+    private boolean useParent;
+
     public MethodConstructorEmpty(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, false);
+        setUseParent(false);
     }
 
     @Override
@@ -16,13 +19,33 @@ public class MethodConstructorEmpty extends AbstractMethodConstructor {
 
     }
 
+    public boolean isUseParent() {
+        return useParent;
+    }
+
+    public void setUseParent(boolean useParent) {
+        this.useParent = useParent;
+    }
+
+    public MethodConstructorEmpty useParent(boolean useParent) {
+        setUseParent(useParent);
+        return this;
+    }
+
     @Override
     protected void translateCode() {
-        final List<Field> fields = this.getFieldList(false, false, true, false);
-        code.addStatement("this("
-                          + String.join("," + System.lineSeparator(),
-                                        fields.stream().map(f -> f.getJavaDefaultValue()).collect(Collectors.toList()))
-                          + ")");
+        final List<Field> fields = getAllFields();
+        if (useParent) {
+            code.addStatement("super(" + getFlatFieldValueList(fields) + ")");
+            code.addStatement("// Nothing to do");
+        } else {
+            code.addStatement("this(" + getFlatFieldValueList(fields) + ")");
+        }
+    }
+
+    protected String getFlatFieldValueList(final List<Field> fields) {
+        return String.join("," + System.lineSeparator(),
+                           fields.stream().map(f -> f.getJavaDefaultValue()).collect(Collectors.toList()));
     }
 
     /*

@@ -34,12 +34,28 @@ public class MethodGetter extends Method {
     }
 
     private static String generateGetterName(Field field) {
-        final String snakeCase = ApiUtils.convertCamelToSnake(field.getName());
+        return getCorrespondingGetterMethodName(field.getName(), field.getType().isBoolean());
+    }
+
+    public static String getCorrespondingGetterMethodName(String fieldName, boolean isBoolean) {
+        if (fieldName == null) {
+            return null;
+        }
+        final String snakeCase = ApiUtils.convertCamelToSnake(fieldName);
         String snakeName = "get_" + snakeCase;
-        if (field.getType().isBoolean()) {
+        if (isBoolean) {
             snakeName = (snakeCase.startsWith("is") ? "" : "is_") + snakeCase;
         }
         return ApiUtils.convertSnakeToCamel(snakeName, false);
+    }
+
+    public static String getCorrespondingFieldName(java.lang.reflect.Method methodOfInterest) {
+        if (methodOfInterest == null) {
+            return null;
+        }
+        final String snakeCase = ApiUtils.convertCamelToSnake(methodOfInterest.getName()).replace("get_", "")
+                                         .replace("is_", "");
+        return ApiUtils.convertSnakeToCamel(snakeCase, false);
     }
 
 }

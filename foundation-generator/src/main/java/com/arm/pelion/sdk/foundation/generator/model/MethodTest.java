@@ -3,13 +3,12 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.squareup.javapoet.CodeBlock;
 
 public class MethodTest extends Method {
 
     public MethodTest(String name, String description, boolean containsCustomCode) {
         super(false, name, description, null, false, true, false, containsCustomCode, false, false, false, false);
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
     }
 
     public MethodTest(String methodUnderTest, boolean containsCustomCode) {

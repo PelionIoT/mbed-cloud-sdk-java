@@ -15,6 +15,8 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 @Internal
 public class GenericAdapter {
 
+    public static final String MAP_LIST_FUNCTION_NAME = "mapList";
+
     private GenericAdapter() {
         super();
     }
@@ -30,6 +32,8 @@ public class GenericAdapter {
      *            Type of the object to convert to.
      */
     public interface Mapper<U, T> {
+        String MAP_FUNCTION_NAME = "map";
+
         T map(U toBeMapped);
     }
 
@@ -80,17 +84,31 @@ public class GenericAdapter {
      *            type of objects listed
      */
     public interface RespList<U> {
+        String HAS_MORE_FUNCTION_NAME = "getHasMore";
+
         Boolean getHasMore();
+
+        String TOTAL_COUNT_FUNCTION_NAME = "getTotalCount";
 
         Integer getTotalCount();
 
+        String AFTER_FUNCTION_NAME = "getAfter";
+
         String getAfter();
+
+        String CONTINUATION_MARKER_FUNCTION_NAME = "getContinuationMarker";
 
         String getContinuationMarker();
 
+        String LIMIT_FUNCTION_NAME = "getLimit";
+
         Integer getLimit();
 
+        String ORDER_FUNCTION_NAME = "getOrder";
+
         String getOrder();
+
+        String DATA_FUNCTION_NAME = "getData";
 
         List<U> getData();
     }

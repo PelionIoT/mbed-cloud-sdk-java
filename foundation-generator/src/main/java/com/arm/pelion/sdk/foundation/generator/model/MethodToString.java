@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodToString extends AbstractMethodBasedOnModel {
 
@@ -13,7 +13,7 @@ public class MethodToString extends AbstractMethodBasedOnModel {
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
         setReturnType(new ParameterType(String.class));
         setReturnDescription("the string representation");
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
     }
 
     /*
@@ -22,7 +22,7 @@ public class MethodToString extends AbstractMethodBasedOnModel {
      * @see com.arm.pelion.sdk.foundation.generator.model.Method#translateCode()
      */
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         code.addStatement("return " + generateFullString(currentModel, parentModel, extraFields()));
     }

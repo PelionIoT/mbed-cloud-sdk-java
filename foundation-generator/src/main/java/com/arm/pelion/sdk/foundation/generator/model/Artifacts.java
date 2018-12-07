@@ -7,10 +7,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.arm.pelion.sdk.foundation.generator.PackageInfo;
+import com.arm.pelion.sdk.foundation.generator.util.ModelDefinitionStore;
 
 public class Artifacts {
 
-    private final List<Model> rawModels;
+    private final ModelDefinitionStore<Model> rawModels;
+    private final ArtifactFetcher<Model> modelFetcher;
+    private final ModelDefinitionStore<ModelAdapter> adapterModels;
+    private final ModelAdapterFetcher adapterFetcher;
     private final List<Model> processedModels;
     private final List<ModelTest> unitTests;
     private final Map<String, List<ModelEndpoints>> rawEndpoints;
@@ -24,12 +28,15 @@ public class Artifacts {
      */
     public Artifacts() {
         super();
-        rawModels = new LinkedList<>();
+        rawModels = new ModelDefinitionStore<>();
+        adapterModels = new ModelDefinitionStore<>();
         processedModels = new LinkedList<>();
         unitTests = new LinkedList<>();
         packagesInfo = new HashMap<>();
         rawEndpoints = new HashMap<>();
         processedEndpoints = new LinkedList<>();
+        modelFetcher = new ArtifactFetcher<>(rawModels);
+        adapterFetcher = new ModelAdapterFetcher(adapterModels, modelFetcher);
     }
 
     /**
@@ -38,14 +45,16 @@ public class Artifacts {
     public Artifacts(List<Model> rawModels) {
         this();
         if (rawModels != null) {
-            this.rawModels.addAll(rawModels);
+            rawModels.forEach(m -> addModel(m));
         }
     }
 
     public void addModel(Model model) {
-        if (model != null) {
-            rawModels.add(model);
-        }
+        this.rawModels.store(model);
+    }
+
+    public void addAdapter(ModelAdapter adapter) {
+        this.adapterModels.store(adapter);
     }
 
     public void addEndpoint(ModelEndpoints endpoints) {
@@ -59,18 +68,28 @@ public class Artifacts {
         }
     }
 
+    public ArtifactFetcher<Model> getModelFetcher() {
+        return modelFetcher;
+    }
+
+    public ModelAdapterFetcher getAdapterFetcher() {
+        return adapterFetcher;
+    }
+
     public void process() {
         processedModels.clear();
         processedEndpoints.clear();
         unitTests.clear();
         // Processed models
-        rawModels.forEach(m -> {
+        rawModels.getModels().forEach(m -> {
             storePackageInfo(m);
             processedModels.addAll(m.getProcessedModels());
         });
+        // Add adapter packages
+        adapterModels.getModels().forEach(m -> storePackageInfo(m));
         // Unit tests
         // TODO implement unit tests for enums.
-        processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof Enum))
+        processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof ModelEnum))
                        .forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
         rawEndpoints.values().stream().forEach(l -> processedEndpoints.add(Utils.merge(l)));
@@ -80,7 +99,7 @@ public class Artifacts {
      * @return the rawModels
      */
     public List<Model> getRawModels() {
-        return rawModels;
+        return rawModels.getModels();
     }
 
     /**

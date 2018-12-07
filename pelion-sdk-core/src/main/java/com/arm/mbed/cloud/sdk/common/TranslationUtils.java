@@ -30,6 +30,17 @@ public final class TranslationUtils {
     private static final DateTimeFormatter DATE_ISO_PARSER = ISODateTimeFormat.dateTimeParser();
     private static final DateTimeFormatter DATE_ISO_PRINTER = ISODateTimeFormat.dateTime();
 
+    public static final String METHOD_CONVERT_STRING_TO_DATE = "convertStringToDate";
+    public static final String METHOD_CONVERT_OTHER_TO_DATE = "toDate";
+    public static final String METHOD_CONVERT_DATE_TO_DATETIME = "toDateTime";
+    public static final String METHOD_CONVERT_DATE_TO_LOCALDATE = "toLocalDate";
+    public static final String METHOD_CONVERT_DATE_TO_STRING = "toUtcTimestamp";
+    public static final String METHOD_CONVERT_STRING_TO_URL = "toUrl";
+    public static final String METHOD_CONVERT_BOOL_TO_BOOL = "toBool";
+    public static final String METHOD_CONVERT_NUMBER_TO_LONG = "toLong";
+    public static final String METHOD_CONVERT_NUMBER_TO_INT = "toInt";
+    public static final String METHOD_CONVERT_ANY_TO_STRING = "toString";
+
     private TranslationUtils() {
         super();
     }
@@ -65,6 +76,17 @@ public final class TranslationUtils {
      */
     public static Date toDate(Calendar date) {
         return (date == null) ? null : date.getTime();
+    }
+
+    /**
+     * Converts millisecond timestamp into a date.
+     *
+     * @param timestamp
+     *            timestamp
+     * @return corresponding date.
+     */
+    public static Date toDate(Number timestamp) {
+        return toDate(timestamp, TimeUnit.MILLISECONDS);
     }
 
     /**
@@ -123,12 +145,16 @@ public final class TranslationUtils {
         return (date == null) ? null : new LocalDate(date);
     }
 
-    public static long toTimeStamp(Long time) {
-        return (time == null) ? 0 : time.longValue();
+    public static long toLong(Number longE) {
+        return toLong(longE, 0l);
     }
 
-    public static long toLong(Number longE) {
-        return (longE == null) ? 0 : longE.longValue();
+    public static long toLong(String value) {
+        return toLong(value, 0l);
+    }
+
+    public static long toLong(Number longE, long defaultValue) {
+        return (longE == null) ? defaultValue : longE.longValue();
     }
 
     /**
@@ -145,7 +171,7 @@ public final class TranslationUtils {
             return defaultValue;
         }
         try {
-            return Long.parseLong(stringContainingANumber);
+            return toLong(Long.parseLong(stringContainingANumber), defaultValue);
         } catch (NumberFormatException exception) {
             SdkLogger.getLogger().logError("Error occurred when parsing the string containing a long number ["
                                            + stringContainingANumber + "]. Defaulting to " + defaultValue, exception);
@@ -153,16 +179,86 @@ public final class TranslationUtils {
         }
     }
 
-    public static int toInt(Integer integer) {
-        return toInt(integer, 0);
+    public static int toInt(Number number) {
+        return toInt(number, 0);
     }
 
-    public static int toInt(Integer integer, int defaultV) {
+    public static int toInt(String value) {
+        return toInt(value, 0);
+    }
+
+    public static int toInt(Number integer, int defaultV) {
         return (integer == null) ? defaultV : integer.intValue();
+    }
+
+    /**
+     * Converts a string to an integer.
+     *
+     * @param value
+     *            string containing an integer.
+     * @param defaultV
+     *            default value to consider if string not recognised as an integer representation
+     * @return corresponding integer or default value if not recognised
+     */
+    public static int toInt(String value, int defaultV) {
+        if (value == null) {
+            return defaultV;
+        }
+        try {
+            return toInt(Integer.decode(value.trim()), defaultV);
+        } catch (NumberFormatException exception) {
+            SdkLogger.getLogger()
+                     .logError("Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV,
+                               exception);
+            return defaultV;
+        }
+    }
+
+    public static boolean toBool(Boolean bool) {
+        return toBool(bool, false);
+    }
+
+    public static boolean toBool(String value) {
+        return toBool(value, false);
     }
 
     public static boolean toBool(Boolean bool, boolean defaultB) {
         return (bool == null) ? defaultB : bool.booleanValue();
+    }
+
+    public static boolean toBool(String value, boolean defaultV) {
+        if (value == null) {
+            return defaultV;
+        }
+        return toBool(Boolean.parseBoolean(value.trim()), defaultV);
+    }
+
+    /**
+     * Converts string to URL.
+     *
+     * @param url
+     *            string
+     * @return corresponding URL or null if incorrect.
+     */
+    public static URL toUrl(String url) {
+        try {
+            return url == null || url.isEmpty() ? null : new URL(url);
+        } catch (MalformedURLException exception) {
+            SdkLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null",
+                                           exception);
+        }
+        return null;
+    }
+
+    /**
+     * Converts object to string.
+     *
+     * @param obj
+     *            an object
+     * @return corresponding string
+     */
+    public static String toString(Object obj) {
+        return (obj == null) ? null : obj.toString();
     }
 
     /**
@@ -295,57 +391,6 @@ public final class TranslationUtils {
                  .logError("Error occurred when parsing timestamp [" + timestamp + "]. Defaulting to " + defaultDate,
                            exception);
         return defaultDate;
-    }
-
-    /**
-     * Converts string to URL.
-     *
-     * @param url
-     *            string
-     * @return corresponding URL or null if incorrect.
-     */
-    public static URL toUrl(String url) {
-        try {
-            return url == null || url.isEmpty() ? null : new URL(url);
-        } catch (MalformedURLException exception) {
-            SdkLogger.getLogger().logError("Error occurred when parsing URL [" + url + "]. Defaulting to null",
-                                           exception);
-        }
-        return null;
-    }
-
-    /**
-     * Converts URL to string.
-     *
-     * @param url
-     *            a URL
-     * @return corresponding string
-     */
-    public static String toString(URL url) {
-        return (url == null) ? null : url.toString();
-    }
-
-    /**
-     * Converts a string to an integer.
-     *
-     * @param value
-     *            string containing an integer.
-     * @param defaultV
-     *            default value to consider if string not recognised as an integer representation
-     * @return corresponding integer or default value if not recognised
-     */
-    public static Integer convertToInteger(String value, Integer defaultV) {
-        if (value == null) {
-            return defaultV;
-        }
-        try {
-            return Integer.decode(value.trim());
-        } catch (NumberFormatException exception) {
-            SdkLogger.getLogger()
-                     .logError("Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV,
-                               exception);
-            return defaultV;
-        }
     }
 
     /**

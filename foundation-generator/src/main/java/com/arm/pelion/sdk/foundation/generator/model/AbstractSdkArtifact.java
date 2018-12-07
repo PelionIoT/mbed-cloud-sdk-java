@@ -69,6 +69,12 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
         this.isAccessible = isAccessible;
     }
 
+    @SuppressWarnings("unchecked")
+    public <T extends AbstractSdkArtifact> T accessible(boolean isAccessible) {
+        setAccessible(isAccessible);
+        return (T) this;
+    }
+
     /**
      * @return the isReadOnly
      */

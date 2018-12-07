@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
-import com.squareup.javapoet.CodeBlock;
+import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
     private static final String OPTIONS_PARAMETER = "options";
@@ -12,7 +12,7 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
               currentModel == null ? false : currentModel.needsFieldCustomisation(), true, false, true);
         addParameter(new Parameter(OPTIONS_PARAMETER, "a options", null, new GenericParameterType(ListOptions.class),
                                    null));
-        setCode(CodeBlock.builder());
+        initialiseCodeBuilder();
     }
 
     protected String determineClassShortName(Model currentModel) {
@@ -24,7 +24,7 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
     }
 
     @Override
-    protected void translateCode() {
+    protected void translateCode() throws TranslationException {
         super.translateCode();
         final String shortName = determineClassShortName(currentModel);
         final String castOptionName = "castOptions";

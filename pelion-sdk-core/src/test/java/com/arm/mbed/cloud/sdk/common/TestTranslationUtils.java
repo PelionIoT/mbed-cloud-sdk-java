@@ -198,8 +198,8 @@ public class TestTranslationUtils {
     @SuppressWarnings("boxing")
     @Test
     public void testConvertToInteger() {
-        assertEquals(1234, (int) TranslationUtils.convertToInteger(" 1234 ", 0));
-        assertEquals(0, (int) TranslationUtils.convertToInteger(" 1p234 ", 0));
+        assertEquals(1234, (int) TranslationUtils.toInt(" 1234 ", 0));
+        assertEquals(0, (int) TranslationUtils.toInt(" 1p234 ", 0));
     }
 
     @Test

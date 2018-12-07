@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
@@ -39,7 +40,7 @@ public class LowLevelAPIMethod {
     }
 
     protected static String determineName(Method m) {
-        return m == null ? null : m.getName();
+        return m == null ? null : m.getName().trim();
     }
 
     protected static LowLevelAPIMethodArgument determineReturnType(Method m) {
@@ -83,6 +84,14 @@ public class LowLevelAPIMethod {
      */
     public void setName(String name) {
         this.name = name;
+    }
+
+    public boolean isGetter() {
+        return name == null ? false : name.toLowerCase(Locale.UK).startsWith("get");
+    }
+
+    public boolean isSetter() {
+        return name == null ? false : name.toLowerCase(Locale.UK).startsWith("set");
     }
 
     /**

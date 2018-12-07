@@ -37,9 +37,9 @@ public final class ApiKeyAdapter {
             return null;
         }
         final ApiKey apiKey = new ApiKey(apiKeyInfo.getId(), apiKeyInfo.getKey(),
-                TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
-                TranslationUtils.toTimeStamp(apiKeyInfo.getCreationTime()),
-                TranslationUtils.toTimeStamp(apiKeyInfo.getLastLoginTime()));
+                                         TranslationUtils.toDate(apiKeyInfo.getCreatedAt()),
+                                         TranslationUtils.toLong(apiKeyInfo.getCreationTime()),
+                                         TranslationUtils.toLong(apiKeyInfo.getLastLoginTime()));
         apiKey.setName(apiKeyInfo.getName());
         apiKey.setOwnerId(apiKeyInfo.getOwner());
         apiKey.setGroup(apiKeyInfo.getGroups());

@@ -21,6 +21,14 @@ public class Parameter extends AbstractSdkArtifact {
         setDefaultValue(defaultValue);
     }
 
+    public Parameter(String name, Class<?> elementClass) {
+        this(name == null ? ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(elementClass.getSimpleName()),
+                                                         false)
+                          : name,
+             "a " + ApiUtils.convertCamelToSnake(elementClass.getSimpleName()).replace("_", " "), null,
+             new ParameterType(elementClass), null);
+    }
+
     /*
      * (non-Javadoc)
      *

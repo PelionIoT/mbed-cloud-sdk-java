@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class MethodConstructorAllFields extends AbstractMethodConstructorWithFieldParameters {
-
+    public static final String IDENTIFIER = new MethodConstructorAllFields(null, null).getIdentifier();
     private boolean callSuperConstructor;
 
     public MethodConstructorAllFields(Model currentModel, Model parentModel) {
@@ -49,7 +49,7 @@ public class MethodConstructorAllFields extends AbstractMethodConstructorWithFie
 
     @Override
     protected void setFields() {
-        setFields(this.getFieldList(false, false, true, false));
+        setFields(getAllFields());
 
     }
 

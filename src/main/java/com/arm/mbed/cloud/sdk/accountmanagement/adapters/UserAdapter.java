@@ -37,13 +37,14 @@ public final class UserAdapter {
             return null;
         }
         final User user = new User(apiUser.getId(), apiUser.getAccountId(), apiUser.getGroups(),
-                toStatus(apiUser.getStatus()), TranslationUtils.toBool(apiUser.isEmailVerified(), false),
-                TranslationUtils.toDate(apiUser.getCreatedAt()),
-                TranslationUtils.toTimeStamp(apiUser.getCreationTime()),
-                TranslationUtils.toTimeStamp(apiUser.getPasswordChangedTime()),
-                TranslationUtils.toTimeStamp(apiUser.getLastLoginTime()),
-                TranslationUtils.toBool(apiUser.isIsTotpEnabled(), false),
-                LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
+                                   toStatus(apiUser.getStatus()),
+                                   TranslationUtils.toBool(apiUser.isEmailVerified(), false),
+                                   TranslationUtils.toDate(apiUser.getCreatedAt()),
+                                   TranslationUtils.toLong(apiUser.getCreationTime()),
+                                   TranslationUtils.toLong(apiUser.getPasswordChangedTime()),
+                                   TranslationUtils.toLong(apiUser.getLastLoginTime()),
+                                   TranslationUtils.toBool(apiUser.isIsTotpEnabled(), false),
+                                   LoginHistoryAdapter.mapList(apiUser.getLoginHistory()));
         user.setFullName(apiUser.getFullName());
         user.setUsername(apiUser.getUsername());
         user.setPassword(apiUser.getPassword());

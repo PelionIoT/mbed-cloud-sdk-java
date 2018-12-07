@@ -11,23 +11,32 @@ public class ListType extends ParameterType {
     private ParameterType contentType;
 
     public ListType() {
-        contentType = new ParameterType();
+        this(new ParameterType());
     }
 
     public ListType(ParameterType contentType) {
-        this.contentType = contentType;
+        super();
+        setContentType(contentType);
     }
 
     public ListType(String type, String format) {
-        contentType = new ParameterType(type, format);
+        this(new ParameterType(type, format));
     }
 
     public ListType(Class<?> clazz) {
-        contentType = new ParameterType(clazz);
+        this(new ParameterType(clazz));
     }
 
     public ListType(Import importPath) {
-        contentType = new ParameterType(importPath);
+        this(new ParameterType(importPath));
+    }
+
+    public ParameterType getContentType() {
+        return contentType;
+    }
+
+    public void setContentType(ParameterType contentType) {
+        this.contentType = contentType == null ? new ParameterType() : contentType;
     }
 
     /*
