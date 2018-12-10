@@ -48,7 +48,13 @@ public class LowLevelAPIFinder {
             return lowLevelAPIs;
         }
         methods.stream().filter(m -> m.getDeclaringClass().getSimpleName().matches(lowLevelApiModuleRegex))
-               .forEach(m -> lowLevelAPIs.addLowLevelApi(m));
+               .forEach(m -> {
+                   try {
+                       lowLevelAPIs.addLowLevelApi(m);
+                   } catch (UnknownAPIException exception) {
+                       exception.printStackTrace();
+                   }
+               });
         return lowLevelAPIs;
     }
 

@@ -225,7 +225,9 @@ public class ParameterType implements Artifact {
     public boolean isModel() {
         try {
             translate();
-            return hasClazz() ? SdkModel.class.isAssignableFrom(getClazz()) : !importPath.isEnum();
+            System.out.println(this);
+            return hasClazz() ? SdkModel.class.isAssignableFrom(getClazz())
+                              : importPath != null && !importPath.isEnum();
         } catch (TranslationException exception) {
             return false;
         }

@@ -34,3 +34,5 @@ include 'backends:external_ca'
 project(':backends:external_ca').projectDir = file('../backends/external_ca')
 include 'backends:billing'
 project(':backends:billing').projectDir = file('../backends/billing')
+include 'backends:certificate_renewal'
+project(':backends:certificate_renewal').projectDir = file('../backends/certificate_renewal')

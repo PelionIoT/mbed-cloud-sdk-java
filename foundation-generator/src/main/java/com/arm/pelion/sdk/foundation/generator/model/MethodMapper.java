@@ -3,7 +3,6 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
@@ -18,11 +17,11 @@ public class MethodMapper extends Method {
     protected boolean isFromModel;
     protected final Model fromTo;
     protected final Model currentModel;
-    protected final Map<String, String> toFromRenames;
+    protected final Renames renames;
     private final ModelAdapterFetcher fetcher;
 
     public MethodMapper(String name, boolean isAccessible, Model currentModel, Model fromTo, boolean isFromModel,
-                        Map<String, String> toFromRenames, ModelAdapterFetcher fetcher) {
+                        Renames renames, ModelAdapterFetcher fetcher) {
         super(false, name, generateDescription(currentModel, fromTo, isFromModel), null, true, isAccessible, false,
               false, false, true, false, false);
         setReturn(currentModel, fromTo, isFromModel);
@@ -31,7 +30,7 @@ public class MethodMapper extends Method {
         this.isFromModel = isFromModel;
         this.fromTo = fromTo;
         this.currentModel = currentModel;
-        this.toFromRenames = toFromRenames;
+        this.renames = renames;
         this.fetcher = fetcher;
     }
 
@@ -63,18 +62,18 @@ public class MethodMapper extends Method {
     }
 
     protected void translateCode() throws TranslationException {
-        code.beginControlFlow("$L == null", PARAMETER_NAME);
+        code.beginControlFlow("if($L == null)", PARAMETER_NAME);
         code.addStatement("return null");
         code.endControlFlow();
         final String variableName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(isFromModel ? fromTo.getName()
                                                                                                           : currentModel.getName()),
                                                                  false);
         generateCode(code, isFromModel ? currentModel : fromTo, isFromModel ? fromTo : currentModel, variableName,
-                     PARAMETER_NAME, toFromRenames, name, fetcher);
+                     PARAMETER_NAME, renames, name, fetcher);
     }
 
     private static void generateCode(CodeBlock.Builder code, Model from, Model to, String variableName,
-                                     String fromVariableName, Map<String, String> toFromRenames, String mapFunction,
+                                     String fromVariableName, Renames renames, String mapFunction,
                                      ModelAdapterFetcher fetcher) throws TranslationException {
         StringBuilder statementString = new StringBuilder("final $T $L = new $T(");
         final ParameterType fromType = from.toType();
@@ -100,8 +99,8 @@ public class MethodMapper extends Method {
                     }
                     final ParameterType fType = f.getType();
                     final String toFieldName = f.getName();
-                    final String fromFieldName = toFromRenames.containsKey(toFieldName) ? toFromRenames.get(toFieldName)
-                                                                                        : toFieldName;
+                    final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
+                                                                                         : toFieldName;
                     final Field fromField = to.fetchField(fromFieldName);
                     final ParameterType fromFieldType = fromField.getType();
                     fType.translate();
@@ -168,8 +167,8 @@ public class MethodMapper extends Method {
         for (Field f : settableFields) {
             final ParameterType fType = f.getType();
             final String toFieldName = f.getName();
-            final String fromFieldName = toFromRenames.containsKey(toFieldName) ? toFromRenames.get(toFieldName)
-                                                                                : toFieldName;
+            final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
+                                                                                 : toFieldName;
             final Field fromField = to.fetchField(fromFieldName);
             final ParameterType fromFieldType = fromField.getType();
             fType.translate();
@@ -214,7 +213,7 @@ public class MethodMapper extends Method {
             }
 
         }
-        code.add("return $L", variableName);
+        code.addStatement("return $L", variableName);
     }
 
     private static ModelAdapter fetchAdapterType(ModelAdapterFetcher fetcher, ParameterType toFieldType,

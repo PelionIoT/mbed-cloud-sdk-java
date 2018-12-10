@@ -477,8 +477,14 @@ public class Model extends AbstractSdkArtifact {
         methods.clear();
         // Adding getters and setters
         generateSettersAndGetters();
+        generateOtherMethods();
         generateMethodsNecessaryAtEachLevel();
         generateInterfaceMethods();
+    }
+
+    protected void generateOtherMethods() {
+        // Nothing to do
+
     }
 
     protected void generateSettersAndGetters() {

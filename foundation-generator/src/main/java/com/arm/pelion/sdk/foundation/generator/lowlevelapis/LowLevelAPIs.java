@@ -66,6 +66,11 @@ public class LowLevelAPIs {
         return methods.get(methodName);
     }
 
+    public LowLevelAPIMethod getFirstMethod(String methodName) {
+        final List<LowLevelAPIMethod> methodList = getMethod(methodName);
+        return methodList == null ? null : methodList.stream().findFirst().get();
+    }
+
     public Class<?> getModuleClazz(String methodName) {
         List<LowLevelAPIMethod> method = getMethod(methodName);
         return method == null || method.isEmpty() ? null : method.iterator().next().getModuleClazz();
@@ -114,7 +119,7 @@ public class LowLevelAPIs {
         }
     }
 
-    public void addLowLevelApi(Method m) {
+    public void addLowLevelApi(Method m) throws UnknownAPIException {
         if (m == null) {
             return;
         }

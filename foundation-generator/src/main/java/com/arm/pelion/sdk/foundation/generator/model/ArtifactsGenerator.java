@@ -37,6 +37,10 @@ public class ArtifactsGenerator extends AbstractGenerator {
         for (final Model model : artifacts.getProcessedModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).generate();
         }
+        logger.logInfo("Generating adapter classes");
+        for (final ModelAdapter adapter : artifacts.getAdapterModels()) {
+            new ModelGenerator(sourceDestinationDirectory, adapter).generate();
+        }
         logger.logInfo("Generating endpoints classes");
         for (final ModelEndpoints endpoints : artifacts.getProcessedEndpoints()) {
             new ModelGenerator(sourceDestinationDirectory, endpoints).generate();

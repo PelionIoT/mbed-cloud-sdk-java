@@ -8,18 +8,18 @@ import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class ModelAdapter extends Model {
     private final ModelAdapterFetcher fetcher;
-    private final Map<String, String> defaultToFromRenames;
+    private Renames defaultRenames;
 
     private final Map<String, Conversion> conversions;
 
     public ModelAdapter(Model model, String packageName, String description, ModelAdapterFetcher fetcher,
-                        Map<String, String> defaultToFromRenames) {
+                        Renames renames) {
         super(packageName, generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, false, true);
         setReadOnly(true);
         this.fetcher = fetcher;
         conversions = new LinkedHashMap<>();// Fill
-        this.defaultToFromRenames = defaultToFromRenames;
+        this.defaultRenames = renames;
     }
 
     private static String generateDescription(String name, String description) {
@@ -42,30 +42,64 @@ public class ModelAdapter extends Model {
         return false;
     }
 
-    public Map<String, String> getDefaultToFromRenames() {
-        return defaultToFromRenames;
-    }
-
     @Override
     protected void generateMethodsNecessaryAtEachLevel() {
         // Do not generate anything
     }
 
     @Override
-    protected void generateMethodsDependingOnParents(Model theParent) {
-        addConstructor(new MethodConstructorEmpty(this, theParent).useParent(true).accessible(false));
-        conversions.values().forEach(c -> c.addMethod(this));
+    protected void generateOtherMethods() {
+        System.out.println("generateOtherMethods for " + name);
+        System.out.println(conversions);
+        super.generateOtherMethods();
+        generateMethodsDependingOnParents(null);
+        conversions.values().forEach(c -> c.addMethod(this, defaultRenames));
+
     }
 
-    void addDefaultConversion(Model from, Model to) {
+    public void setDefaultRenames(Renames defaultRenames) {
+        this.defaultRenames = defaultRenames;
+    }
+
+    @Override
+    protected void generateMethodsDependingOnParents(Model theParent) {
+        addConstructor(new MethodConstructorEmpty(this, theParent).useParent(true).accessible(false));
+
+    }
+
+    public void addDefaultConversion(Model from, Model to) {
         if (from == null || to == null) {
             return;
         }
-        final Conversion conversion = new Conversion(from, to, false, false, defaultToFromRenames, null, null);
+        final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null);
         addConversion(conversion);
     }
 
-    void addConversion(Conversion conversion) {
+    // public void enflate() {
+    // List<Conversion> conversionList=new ArrayList(conversions.values());
+    // for(Conversion conversion: conversionList) {
+    // final List<Field> list=
+    // conversion.getFrom().getFieldList().stream().filter(f->needsConversion(f)).collect(Collectors.toList());
+    // for(Field f:list) {
+    // addConversion(new Conversion(conversion.getFrom(), conversion.getTo(), false,
+    // f.getType().isEnum()||f.getType().isModelEnum(), null, null, null));
+    // }
+    // }
+    //
+    // }
+
+    public void addMethodAdapter(Model from, Model to, boolean isList, boolean isEnum, Renames renames,
+                                 Model fromContent, Model toContent) {
+        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent));
+    }
+
+    protected boolean needsConversion(Field f) {
+        return f.getType().isEnum() || f.getType().isModel() || f.getType().isLowLevelModel()
+               || f.getType().isModelEnum();
+    }
+
+    private void addConversion(Conversion conversion) {
+        System.out.println("adding " + conversion);
         if (conversion != null) {
             conversions.put(conversion.getIdentifier(), conversion);
         }
@@ -80,18 +114,18 @@ public class ModelAdapter extends Model {
         private final Model to;
         private final boolean isList;
         private final boolean isEnum;
-        private final Map<String, String> toFromRenames;
+        private final Renames renames;
         private final Model fromContent;
         private final Model toContent;
 
-        public Conversion(Model from, Model to, boolean isList, boolean isEnum, Map<String, String> toFromRenames,
-                          Model fromContent, Model toContent) {
+        public Conversion(Model from, Model to, boolean isList, boolean isEnum, Renames renames, Model fromContent,
+                          Model toContent) {
             super();
             this.from = from;
             this.to = to;
             this.isList = isList;
             this.isEnum = isEnum;
-            this.toFromRenames = toFromRenames;
+            this.renames = renames;
             this.fromContent = fromContent;
             this.toContent = toContent;
         }
@@ -100,7 +134,41 @@ public class ModelAdapter extends Model {
             return to.getIdentifier();
         }
 
-        public void addMethod(ModelAdapter adapter) {
+        public Model getFrom() {
+            return from;
+        }
+
+        public Model getTo() {
+            return to;
+        }
+
+        public boolean isList() {
+            return isList;
+        }
+
+        public boolean isEnum() {
+            return isEnum;
+        }
+
+        public Renames getRenames() {
+            return renames;
+        }
+
+        public Model getFromContent() {
+            return fromContent;
+        }
+
+        public Model getToContent() {
+            return toContent;
+        }
+
+        @Override
+        public String toString() {
+            return "Conversion [from=" + from + ", to=" + to + ", isList=" + isList + ", isEnum=" + isEnum
+                   + ", renames=" + renames + ", fromContent=" + fromContent + ", toContent=" + toContent + "]";
+        }
+
+        public void addMethod(ModelAdapter adapter, Renames renames) {
             final ParameterType fromType = from.toType();
             try {
                 fromType.translate();
@@ -131,7 +199,8 @@ public class ModelAdapter extends Model {
             } else {
                 boolean isFromModel = fromType.isModel();
                 final MethodMapper mapping = new MethodMapper(FUNCTION_NAME_MAP, true, isFromModel ? from : to,
-                                                              isFromModel ? to : from, isFromModel, toFromRenames,
+                                                              isFromModel ? to : from, isFromModel,
+                                                              this.renames == null ? renames : this.renames,
                                                               adapter.fetcher);
                 adapter.addMethod(mapping);
                 if (!isFromModel) {

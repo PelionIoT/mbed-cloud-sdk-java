@@ -18,12 +18,20 @@ public class Mapping {
         return from;
     }
 
+    public String getProcessedFrom() {
+        return Utils.getKey(from, true);
+    }
+
     public void setFrom(String from) {
         this.from = from;
     }
 
     public String getTo() {
         return to;
+    }
+
+    public String getProcessedTo() {
+        return Utils.getKey(to, true);
     }
 
     public void setTo(String to) {

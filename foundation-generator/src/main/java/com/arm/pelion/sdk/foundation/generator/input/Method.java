@@ -103,6 +103,31 @@ public class Method {
         return groupId;
     }
 
+    public boolean isListMethod() {
+        return isMethod(InputSchema.LIST_METHOD_TAG);
+    }
+
+    public boolean isCreateMethod() {
+        return isMethod(InputSchema.CREATE_METHOD_TAG);
+    }
+
+    public boolean isReadMethod() {
+        return isMethod(InputSchema.READ_METHOD_TAG);
+    }
+
+    public boolean isUpdateMethod() {
+        return isMethod(InputSchema.UPDATE_METHOD_TAG);
+    }
+
+    public boolean isDeleteMethod() {
+        return isMethod(InputSchema.DELETE_METHOD_TAG);
+    }
+
+    private boolean isMethod(String methodName) {
+        final String methodKey = Utils.getKey(methodName, false);
+        return methodKey == null ? false : methodKey.equals(key);
+    }
+
     /**
      * @param groupId
      *            the groupId to set

@@ -85,8 +85,11 @@ public class Artifacts {
             storePackageInfo(m);
             processedModels.addAll(m.getProcessedModels());
         });
-        // Add adapter packages
-        adapterModels.getModels().forEach(m -> storePackageInfo(m));
+        // Add adapter packages and generate methods.
+        adapterModels.getModels().forEach(m -> {
+            storePackageInfo(m);
+            m.generateMethods();
+        });
         // Unit tests
         // TODO implement unit tests for enums.
         processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof ModelEnum))
@@ -111,6 +114,10 @@ public class Artifacts {
 
     public List<ModelEndpoints> getProcessedEndpoints() {
         return processedEndpoints;
+    }
+
+    public List<ModelAdapter> getAdapterModels() {
+        return adapterModels.getModels();
     }
 
     public List<PackageInfo> getPackagesInfo() {

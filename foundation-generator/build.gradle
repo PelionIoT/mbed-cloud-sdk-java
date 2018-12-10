@@ -24,6 +24,7 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 // Define the main class for the application
@@ -50,11 +51,22 @@ dependencies {
     compile project(':backends:update_service')
     compile project(':backends:enrollment')
     compile project(':backends:billing')
+    compile project(':backends:certificate_renewal')
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }
 
 allprojects {
+	buildscript {
+	    repositories {
+	        mavenCentral()
+	        jcenter()
+	    }
+	}
+	repositories {
+		mavenCentral()
+	    jcenter()
+	}
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     tasks.withType(JavaCompile) { 

@@ -1,6 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.lowlevelapis;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.Hashtable;
 import java.util.Map;
 
@@ -11,11 +13,11 @@ public class LowLevelAPIMethodArgument {
     private String type;
     private String contentType;
 
-    public LowLevelAPIMethodArgument(String name, Class<?> typeClass, ParameterizedType contentTypeClass) {
+    public LowLevelAPIMethodArgument(String name, Class<?> typeClass, Type type2) {
         super();
         setName(name);
         determineType(typeClass);
-        determineContent(contentTypeClass);
+        determineContent(typeClass, type2);
     }
 
     public LowLevelAPIMethodArgument() {
@@ -89,11 +91,30 @@ public class LowLevelAPIMethodArgument {
         this.type = (type == null) ? null : type.getName();
     }
 
-    public void determineContent(@SuppressWarnings("hiding") ParameterizedType type) {
-        this.contentType = type == null
-                           || type.getActualTypeArguments() == null ? null
-                                                                    : type.getActualTypeArguments()[0].getTypeName();
+    public void determineContent(Class<?> argClass, @SuppressWarnings("hiding") Type type) {
+        this.contentType = type == null || !(type instanceof ParameterizedType)
+                           || ((ParameterizedType) type).getActualTypeArguments() == null ? null
+                                                                                          : ((ParameterizedType) type).getActualTypeArguments()[0].getTypeName();
+        if (contentType == null) {
+            contentType = determinePageContentType(argClass);
+        }
 
+    }
+
+    protected String determinePageContentType(Class<?> argClass) {
+        try {
+            if (argClass.getDeclaredField(LIST_RESPONSE_LIST_FIELD()) != null) {
+                Field dataField = argClass.getDeclaredField(LIST_RESPONSE_LIST_FIELD());
+                return ((ParameterizedType) dataField.getGenericType()).getActualTypeArguments()[0].getTypeName();
+            }
+        } catch (Exception exception) {
+            // Nothing to do
+        }
+        return null;
+    }
+
+    protected String LIST_RESPONSE_LIST_FIELD() {
+        return "data";
     }
 
     public boolean isOpenApiModel() {

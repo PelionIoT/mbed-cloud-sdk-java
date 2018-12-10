@@ -12,6 +12,8 @@ import java.util.stream.Collectors;
 
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
+import retrofit2.Call;
+
 public class LowLevelAPIMethod {
     private String name;
     private LowLevelAPIMethodArgument returnArgument;
@@ -31,7 +33,7 @@ public class LowLevelAPIMethod {
         this(null, null, null, null);
     }
 
-    public LowLevelAPIMethod(Method m) {
+    public LowLevelAPIMethod(Method m) throws UnknownAPIException {
         this(determineName(m), determineReturnType(m), determineMethodArguments(m), determineModule(m));
     }
 
@@ -43,9 +45,22 @@ public class LowLevelAPIMethod {
         return m == null ? null : m.getName().trim();
     }
 
-    protected static LowLevelAPIMethodArgument determineReturnType(Method m) {
-        return m == null ? null : new LowLevelAPIMethodArgument(null, m.getReturnType(),
-                                                                (ParameterizedType) m.getGenericReturnType());
+    protected static LowLevelAPIMethodArgument determineReturnType(Method m) throws UnknownAPIException {
+
+        final Class<?> returnTypeClass = m == null ? null : m.getReturnType();
+        if (m != null && !Call.class.isAssignableFrom(returnTypeClass)) {
+            throw new UnknownAPIException("The return type of the low level API is not " + Call.class.getName());
+        }
+        final ParameterizedType returnType = m == null ? null : (ParameterizedType) m.getGenericReturnType();
+        try {
+            return m == null ? null
+                             : new LowLevelAPIMethodArgument(null,
+                                                             Class.forName(returnType.getActualTypeArguments()[0].getTypeName()),
+                                                             null);
+        } catch (Exception exception) {
+            throw new UnknownAPIException("Could not determine the actual return type of the low level API "
+                                          + returnType);
+        }
     }
 
     private static List<LowLevelAPIMethodArgument> determineMethodArguments(Method m) {
@@ -181,6 +196,26 @@ public class LowLevelAPIMethod {
             argsTypeArray.add(arg.determineClass());
         }
         return argsTypeArray.toArray(new Class[] {});
+    }
+
+    public boolean hasFromModels() {
+        final List<LowLevelAPIMethodArgument> list = getFromModels();
+        return list != null && !list.isEmpty();
+    }
+
+    public List<LowLevelAPIMethodArgument> getFromModels() {
+        if (arguments == null) {
+            return null;
+        }
+        return arguments.stream().filter(a -> a.isOpenApiModel()).collect(Collectors.toList());
+    }
+
+    public boolean hasToModel() {
+        return getToModel() != null;
+    }
+
+    public LowLevelAPIMethodArgument getToModel() {
+        return returnArgument == null || !returnArgument.isOpenApiModel() ? null : returnArgument;
     }
 
     /*

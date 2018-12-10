@@ -6,6 +6,8 @@ public class Configuration {
 
     private String modelPackage = "model";
 
+    private String adapterPackage = "adapters";
+
     private String lowLevelApiModuleNameRegex = ".*Api";
 
     public Configuration() {
@@ -40,6 +42,14 @@ public class Configuration {
      */
     public void setModelPackage(String modelPackage) {
         this.modelPackage = modelPackage;
+    }
+
+    public String getAdapterPackage() {
+        return adapterPackage;
+    }
+
+    public void setAdapterPackage(String adapterPackage) {
+        this.adapterPackage = adapterPackage;
     }
 
     /**
