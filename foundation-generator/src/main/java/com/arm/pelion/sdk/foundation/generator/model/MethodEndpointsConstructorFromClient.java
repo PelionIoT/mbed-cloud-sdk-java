@@ -32,6 +32,6 @@ public class MethodEndpointsConstructorFromClient extends AbstractMethodConstruc
     @Override
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAM_CLIENT, "API client {@link ApiClientWrapper}.", null,
-                                   new ParameterType(ApiClientWrapper.class), null));
+                                   TypeFactory.getCorrespondingType(ApiClientWrapper.class), null));
     }
 }

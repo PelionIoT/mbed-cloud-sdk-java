@@ -8,7 +8,7 @@ public class ModelEndpoints extends Model implements MergeableArtifact {
     public ModelEndpoints(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getGroup()), model.getGroup(),
               generateDescription(model.getGroup(), description), null, false, true);
-        setSuperClassType(new ParameterType(AbstractEndpoints.class));
+        setSuperClassType(TypeFactory.getCorrespondingType(AbstractEndpoints.class));
     }
 
     private static String generateDescription(String group, String description) {
@@ -42,7 +42,7 @@ public class ModelEndpoints extends Model implements MergeableArtifact {
 
     public void addModule(Class<?> moduleClazz) {
         if (moduleClazz != null) {
-            addField(new Field(true, new ParameterType(moduleClazz), moduleClazz.getSimpleName(),
+            addField(new Field(true, TypeFactory.getCorrespondingType(moduleClazz), moduleClazz.getSimpleName(),
                                "Low level endpoints for " + ApiUtils.convertCamelToSnake(moduleClazz.getSimpleName())
                                                                     .replaceAll("_", " "),
                                null, null, isStatic, false, true, false, null, false));

@@ -3,26 +3,26 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.squareup.javapoet.TypeVariableName;
 
-public class GenericParameterType extends ParameterType {
+public class TypeGenericParameter extends TypeParameter {
 
     /**
      *
      */
-    public GenericParameterType() {
+    public TypeGenericParameter() {
         super();
     }
 
     /**
      * @param clazz
      */
-    public GenericParameterType(Class<?> clazz) {
+    public TypeGenericParameter(Class<?> clazz) {
         super(clazz);
     }
 
     /**
      * @param importPath
      */
-    public GenericParameterType(Import importPath) {
+    public TypeGenericParameter(Import importPath) {
         super(importPath);
     }
 
@@ -30,7 +30,7 @@ public class GenericParameterType extends ParameterType {
      * @param type
      * @param format
      */
-    public GenericParameterType(String type, String format) {
+    public TypeGenericParameter(String type, String format) {
         super(type, format);
     }
 

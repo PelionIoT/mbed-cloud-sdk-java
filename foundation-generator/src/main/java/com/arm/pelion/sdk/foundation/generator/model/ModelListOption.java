@@ -8,7 +8,7 @@ public class ModelListOption extends Model {
     public ModelListOption(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, needsCustomCode, false);
-        setSuperClassType(new ParameterType(ListOptions.class));
+        setSuperClassType(TypeFactory.getCorrespondingType(ListOptions.class));
     }
 
     private static String generateDescription(String name, String description) {

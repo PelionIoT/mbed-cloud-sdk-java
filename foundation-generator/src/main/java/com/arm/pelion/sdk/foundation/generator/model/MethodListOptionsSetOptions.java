@@ -10,7 +10,7 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
     public MethodListOptionsSetOptions(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, false, IDENTIFIER, "Sets the option values", null, false, false, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), true, false, true);
-        addParameter(new Parameter(OPTIONS_PARAMETER, "a options", null, new GenericParameterType(ListOptions.class),
+        addParameter(new Parameter(OPTIONS_PARAMETER, "an option", null, new TypeGenericParameter(ListOptions.class),
                                    null));
         initialiseCodeBuilder();
     }
@@ -19,8 +19,8 @@ public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
         return getModelType(currentModel).getShortName();
     }
 
-    private ParameterType getModelType(Model theCurrentModel) {
-        return hasCurrentModel() ? theCurrentModel.toType() : new ParameterType();
+    private TypeParameter getModelType(Model theCurrentModel) {
+        return hasCurrentModel() ? theCurrentModel.toType() : new TypeParameter();
     }
 
     @Override

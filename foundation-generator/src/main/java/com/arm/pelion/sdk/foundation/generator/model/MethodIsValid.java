@@ -15,7 +15,7 @@ public class MethodIsValid extends AbstractMethodBasedOnModel {
               "@see SdkModel#isValid()", false, true, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false,
               findWhetherOverriding(currentModel, parentModel));
-        setReturnType(new ParameterType(boolean.class));
+        setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         setReturnDescription("true if the model is valid; false otherwise.");
         initialiseCodeBuilder();
     }

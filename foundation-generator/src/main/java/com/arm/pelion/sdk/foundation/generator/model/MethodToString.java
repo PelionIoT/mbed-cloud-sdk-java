@@ -11,7 +11,7 @@ public class MethodToString extends AbstractMethodBasedOnModel {
         super(currentModel, parentModel, false, "toString", "Returns a string representation of the object.",
               "@see java.lang.Object#toString()", false, true, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
-        setReturnType(new ParameterType(String.class));
+        setReturnType(TypeFactory.getCorrespondingType(String.class));
         setReturnDescription("the string representation");
         initialiseCodeBuilder();
     }

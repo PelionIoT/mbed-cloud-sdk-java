@@ -76,8 +76,8 @@ public class MethodMapper extends Method {
                                      String fromVariableName, Renames renames, String mapFunction,
                                      ModelAdapterFetcher fetcher) throws TranslationException {
         StringBuilder statementString = new StringBuilder("final $T $L = new $T(");
-        final ParameterType fromType = from.toType();
-        final ParameterType toType = to.toType();
+        final TypeParameter fromType = from.toType();
+        final TypeParameter toType = to.toType();
         fromType.translate();
         toType.translate();
         final List<Object> values = Arrays.asList(toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
@@ -97,12 +97,12 @@ public class MethodMapper extends Method {
                     } else {
                         statementString.append(",");
                     }
-                    final ParameterType fType = f.getType();
+                    final TypeParameter fType = f.getType();
                     final String toFieldName = f.getName();
                     final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                          : toFieldName;
                     final Field fromField = to.fetchField(fromFieldName);
-                    final ParameterType fromFieldType = fromField.getType();
+                    final TypeParameter fromFieldType = fromField.getType();
                     fType.translate();
                     fromFieldType.translate();
                     if (needsTranslation(fromFieldType, fType)) {
@@ -135,7 +135,7 @@ public class MethodMapper extends Method {
                                                                                                   fType.isBoolean())));
 
                     } else if (fType.isLowLevelModel() || fType.isModel()) {
-                        final ParameterType modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
+                        final TypeParameter modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
                         modelAdapterType.translate();
                         statementString.append("$T.$L($L.$L())");
                         values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
@@ -165,12 +165,12 @@ public class MethodMapper extends Method {
         }
         // Not using stream so that exception is thrown
         for (Field f : settableFields) {
-            final ParameterType fType = f.getType();
+            final TypeParameter fType = f.getType();
             final String toFieldName = f.getName();
             final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                  : toFieldName;
             final Field fromField = from.fetchField(fromFieldName);
-            final ParameterType fromFieldType = fromField == null ? null : fromField.getType();
+            final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
             if (fromFieldType == null) {
                 code.addStatement("//No field equivalent to $L in $T was found in $T", toFieldName,
                                   toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
@@ -201,7 +201,7 @@ public class MethodMapper extends Method {
                                   fromVariableName,
                                   MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
             } else if (fType.isLowLevelModel() || fType.isModel()) {
-                final ParameterType modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
+                final TypeParameter modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
                 modelAdapterType.translate();
                 code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
                                   MethodSetter.getCorrespondingSetterMethodName(toFieldName),
@@ -219,13 +219,13 @@ public class MethodMapper extends Method {
         code.addStatement("return $L", variableName);
     }
 
-    private static ModelAdapter fetchAdapterType(ModelAdapterFetcher fetcher, ParameterType toFieldType,
-                                                 ParameterType fromFieldType) {
+    private static ModelAdapter fetchAdapterType(ModelAdapterFetcher fetcher, TypeParameter toFieldType,
+                                                 TypeParameter fromFieldType) {
         return fetcher.fetch(fromFieldType, toFieldType);
     }
 
-    private static String getTranslationMethod(ParameterType fType,
-                                               ParameterType fromFieldType) throws TranslationException {
+    private static String getTranslationMethod(TypeParameter fType,
+                                               TypeParameter fromFieldType) throws TranslationException {
         if (fType.isDate()) {
             if (fromFieldType.isJodaDate() || fromFieldType.isJodaTime() || fromFieldType.isCalendar()
                 || fromFieldType.isNumber()) {
@@ -272,7 +272,7 @@ public class MethodMapper extends Method {
                                        + " to " + fType);
     }
 
-    private static boolean needsTranslation(ParameterType from, ParameterType to) {
+    private static boolean needsTranslation(TypeParameter from, TypeParameter to) {
         if (from.hasClazz() && (from.getClazz() == to.getClazz())) {
             return false;
         }
@@ -285,7 +285,7 @@ public class MethodMapper extends Method {
         return doesTypeNeedTranslation(from) || doesTypeNeedTranslation(to);
     }
 
-    protected static boolean doesTypeNeedTranslation(ParameterType type) {
+    protected static boolean doesTypeNeedTranslation(TypeParameter type) {
         return type.isDate() || type.isJodaDate() || type.isJodaTime() || type.isPrimitive() || type.isUrl();
     }
 

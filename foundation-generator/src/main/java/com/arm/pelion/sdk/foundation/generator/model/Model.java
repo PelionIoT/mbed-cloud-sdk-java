@@ -34,7 +34,7 @@ public class Model extends AbstractSdkArtifact {
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
     protected Map<String, Field> superClassFields;
-    private ParameterType superClassType;
+    private TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
@@ -139,11 +139,11 @@ public class Model extends AbstractSdkArtifact {
         return superClassType != null;
     }
 
-    public ParameterType getSuperClassType() {
+    public TypeParameter getSuperClassType() {
         return superClassType;
     }
 
-    public void setSuperClassType(ParameterType superClassType) {
+    public void setSuperClassType(TypeParameter superClassType) {
         this.superClassType = superClassType;
         this.superClassFields = getSuperClassFields();
     }
@@ -685,7 +685,7 @@ public class Model extends AbstractSdkArtifact {
         if (isAbstract || !isSerialisable()) {
             return;
         }
-        final Field serialVersionUID = new Field(true, new ParameterType(long.class), "serialVersionUID",
+        final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class), "serialVersionUID",
                                                  "Serialisation Id.", null, null, true, false, false, false, null,
                                                  false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
@@ -733,8 +733,8 @@ public class Model extends AbstractSdkArtifact {
         }
     }
 
-    public ParameterType toType() {
-        return concreteClass == null ? new ParameterType(toImport()) : new ParameterType(concreteClass);
+    public TypeParameter toType() {
+        return concreteClass == null ? new TypeParameter(toImport()) : TypeFactory.getCorrespondingType(concreteClass);
     }
 
     protected Import toImport() {

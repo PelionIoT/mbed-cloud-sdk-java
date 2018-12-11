@@ -6,26 +6,26 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class MapperType extends ParameterType {
+public class TypeMapper extends TypeParameter {
 
     private static final Class<?> MAPPER_CLASS = Mapper.class;
-    private ParameterType from;
-    private ParameterType to;
+    private TypeParameter from;
+    private TypeParameter to;
 
-    public MapperType() {
-        this(new ParameterType(), new ParameterType());
+    public TypeMapper() {
+        this(new TypeParameter(), new TypeParameter());
     }
 
-    public MapperType(ParameterType fromType, ParameterType toType) {
+    public TypeMapper(TypeParameter fromType, TypeParameter toType) {
         this.from = fromType;
         this.to = toType;
     }
 
-    public ParameterType getFrom() {
+    public TypeParameter getFrom() {
         return from;
     }
 
-    public ParameterType getTo() {
+    public TypeParameter getTo() {
         return to;
     }
 

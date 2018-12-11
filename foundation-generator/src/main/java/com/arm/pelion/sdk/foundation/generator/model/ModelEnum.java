@@ -24,8 +24,8 @@ public class ModelEnum extends Model {
               generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
         this.options = options == null ? new LinkedList<>() : options;
         this.defaultOption = determineDefaultValue(defaultOption, options);
-        addField(new Field(true, new ParameterType(String.class), "string", "string representation", null, null, false,
-                           false, true, true, generateConstantName(defaultOption), false));
+        addField(new Field(true, TypeFactory.getCorrespondingType(String.class), "string", "string representation",
+                           null, null, false, false, true, true, generateConstantName(defaultOption), false));
     }
 
     public ModelEnum(String packageName, String name, String group) {
@@ -106,7 +106,7 @@ public class ModelEnum extends Model {
     protected void generateIsDefault() {
         overrideMethodIfExist(new Method(false, "isDefault", "States whether it is the default value",
                                          "@see SdkEnum#isDefault()", false, true, false, false, false, false, false,
-                                         false).returnType(new ParameterType(boolean.class))
+                                         false).returnType(TypeFactory.getCorrespondingType(boolean.class))
                                                .returnDescription("true if this is the default value; false otherwise")
                                                .statement("return this == getDefault()"));
     }
@@ -115,7 +115,7 @@ public class ModelEnum extends Model {
         overrideMethodIfExist(new Method(false, "isUnknownValue",
                                          "States whether the value is unknown and an error happened during parsing",
                                          "@see SdkEnum#isUnknownValue()", false, true, false, false, false, false,
-                                         false, false).returnType(new ParameterType(boolean.class))
+                                         false, false).returnType(TypeFactory.getCorrespondingType(boolean.class))
                                                       .returnDescription("true if this is an unknown value; false otherwise")
                                                       .statement("return this == getUnknownEnum()"));
     }
@@ -131,7 +131,7 @@ public class ModelEnum extends Model {
     protected void generateToString(Model theParent) {
         overrideMethodIfExist(new Method(false, "toString", "toString", "@see java.lang.Enum#toString()", false, true,
                                          false, false, false, false, false, true)
-                                                                                 .returnType(new ParameterType(String.class))
+                                                                                 .returnType(TypeFactory.getCorrespondingType(String.class))
                                                                                  .returnDescription("the string representation of this value")
                                                                                  .statement("return getString()"));
     }
@@ -140,7 +140,7 @@ public class ModelEnum extends Model {
         overrideMethodIfExist(new Method(false, "getDefault", "Gets default "
                                                               + getDescriptionForDocumentation(),
                                          null, true, true, false, false, false, false, false, false)
-                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                    .returnType(new TypeParameter(new Import(name,
                                                                                                                                              packageName)))
                                                                                                     .returnDescription("default "
                                                                                                                        + getDescriptionForDocumentation())
@@ -153,7 +153,7 @@ public class ModelEnum extends Model {
                                          "Gets unknown " + getDescriptionForDocumentation()
                                                                   + " value",
                                          null, true, true, false, false, false, false, false, false)
-                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                    .returnType(new TypeParameter(new Import(name,
                                                                                                                                              packageName)))
                                                                                                     .returnDescription("unknown "
                                                                                                                        + getDescriptionForDocumentation())
@@ -166,14 +166,15 @@ public class ModelEnum extends Model {
                                          "Gets " + getDescriptionForDocumentation()
                                                             + " from its string representation",
                                          null, true, true, false, false, false, false, false, false)
-                                                                                                    .returnType(new ParameterType(new Import(name,
+                                                                                                    .returnType(new TypeParameter(new Import(name,
                                                                                                                                              packageName)))
                                                                                                     .returnDescription("corresponding "
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + "  or default "
                                                                                                                        + getDescriptionForDocumentation()
                                                                                                                        + " if not recognised. ");
-        method.addParameter(new Parameter("value", "string", null, new ParameterType(String.class), null));
+        method.addParameter(new Parameter("value", "string", null, TypeFactory.getCorrespondingType(String.class),
+                                          null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (value == null)");
         method.getCode().addStatement("return getDefault()");
@@ -191,12 +192,12 @@ public class ModelEnum extends Model {
     protected void generateMerge() {
         final Method method = new Method(false, "merge", "Merges two states", "@see SdkEnum#merge(SdkEnum, SdkEnum)",
                                          false, true, false, false, false, false, false, true)
-                                                                                              .returnType(new GenericParameterType(SdkEnum.class))
+                                                                                              .returnType(new TypeGenericParameter(SdkEnum.class))
                                                                                               .returnDescription("the merged enumerator");
         method.addParameter(new Parameter("obj1", "a " + getDescriptionForDocumentation(), null,
-                                          new GenericParameterType(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null));
         method.addParameter(new Parameter("obj2", "a " + getDescriptionForDocumentation(), null,
-                                          new GenericParameterType(SdkEnum.class), null));
+                                          new TypeGenericParameter(SdkEnum.class), null));
         method.initialiseCodeBuilder();
         method.getCode().beginControlFlow("if (obj1 == null)");
         method.getCode().addStatement("return obj2");

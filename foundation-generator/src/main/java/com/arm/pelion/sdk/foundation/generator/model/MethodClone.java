@@ -22,8 +22,8 @@ public class MethodClone extends AbstractMethodBasedOnModel {
         return "return new " + shortName + "(this)";
     }
 
-    private ParameterType getModelType(Model theCurrentModel) {
-        return hasCurrentModel() ? theCurrentModel.toType() : new ParameterType();
+    private TypeParameter getModelType(Model theCurrentModel) {
+        return hasCurrentModel() ? theCurrentModel.toType() : new TypeParameter();
     }
 
 }

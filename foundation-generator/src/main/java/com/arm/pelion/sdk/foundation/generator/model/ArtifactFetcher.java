@@ -11,7 +11,7 @@ public class ArtifactFetcher<T extends Model> {
         this.store = store;
     }
 
-    public T fetch(ParameterType modelType) {
+    public T fetch(TypeParameter modelType) {
         if (modelType == null) {
             return null;
         }
@@ -20,9 +20,6 @@ public class ArtifactFetcher<T extends Model> {
         } catch (TranslationException exception) {
             // Nothing to do
             exception.printStackTrace();
-            return null;
-        }
-        if (!modelType.isModel()) {
             return null;
         }
         return store.get(modelType.getShortName());

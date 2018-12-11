@@ -12,9 +12,9 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
               "Indicates whether some other object is \"equal to\" this one.",
               "@see java.lang.Object#equals(java.lang.Object)", false, true, false, false,
               currentModel == null ? false : currentModel.needsFieldCustomisation(), false, false, true);
-        setReturnType(new ParameterType(boolean.class));
+        setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         addParameter(new Parameter(PARAMETER_NAME, "an object to compare with this instance", null,
-                                   new ParameterType(Object.class), null));
+                                   TypeFactory.getCorrespondingType(Object.class), null));
         setReturnDescription("true if this object is the same as the obj argument; false otherwise.");
         initialiseCodeBuilder();
         shouldTest(true);

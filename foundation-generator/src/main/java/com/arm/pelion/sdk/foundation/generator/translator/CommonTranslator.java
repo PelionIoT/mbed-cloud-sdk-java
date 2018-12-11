@@ -5,7 +5,7 @@ import java.util.List;
 import com.arm.pelion.sdk.foundation.generator.input.ForeignKey;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
-import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
+import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 
 public class CommonTranslator {
 
@@ -15,7 +15,7 @@ public class CommonTranslator {
         return groupId == null ? null : String.join(PACKAGE_SEPARATOR, groupId);
     }
 
-    public static ParameterType FetchNestedEntityType(String packageName, ForeignKey key) {
+    public static TypeParameter FetchNestedEntityType(String packageName, ForeignKey key) {
         if (key == null) {
             return null;
         }
@@ -24,7 +24,7 @@ public class CommonTranslator {
         return fetchNestedType(refModel);
     }
 
-    public static ParameterType FetchNestedEnumType(String packageName, String enumRef, String group) {
+    public static TypeParameter FetchNestedEnumType(String packageName, String enumRef, String group) {
         if (enumRef == null) {
             return null;
         }
@@ -32,7 +32,7 @@ public class CommonTranslator {
         return fetchNestedType(enumerator);
     }
 
-    protected static ParameterType fetchNestedType(final Model model) {
+    protected static TypeParameter fetchNestedType(final Model model) {
         if (PelionModelDefinitionStore.get().has(model)) {
             return PelionModelDefinitionStore.get().get(model).toType();
         }

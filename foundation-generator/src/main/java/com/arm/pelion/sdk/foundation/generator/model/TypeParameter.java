@@ -8,15 +8,14 @@ import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 
-import io.swagger.annotations.ApiModel;
-
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.pelion.sdk.foundation.generator.Artifact;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
 import com.squareup.javapoet.TypeName;
 
-public class ParameterType implements Artifact {
+public class TypeParameter implements Artifact {
 
     protected Import importPath;
     protected Class<?> clazz;
@@ -27,7 +26,7 @@ public class ParameterType implements Artifact {
     /**
      *
      */
-    public ParameterType() {
+    public TypeParameter() {
         super();
         setImportPath(null);
         setClazz(null);
@@ -40,7 +39,7 @@ public class ParameterType implements Artifact {
      * @param type
      * @param format
      */
-    public ParameterType(String type, String format) {
+    public TypeParameter(String type, String format) {
         this();
         setType(type);
         setFormat(format);
@@ -49,7 +48,7 @@ public class ParameterType implements Artifact {
     /**
      * @param clazz
      */
-    public ParameterType(Class<?> clazz) {
+    public TypeParameter(Class<?> clazz) {
         this();
         setClazz(clazz);
     }
@@ -58,7 +57,7 @@ public class ParameterType implements Artifact {
      * @param type
      * @param format
      */
-    public ParameterType(Import importPath) {
+    public TypeParameter(Import importPath) {
         this();
         setImportPath(importPath);
     }
@@ -216,7 +215,7 @@ public class ParameterType implements Artifact {
     public boolean isLowLevelModel() {
         try {
             translate();
-            return hasClazz() ? getClazz().isAnnotationPresent(ApiModel.class) : false;
+            return hasClazz() ? LowLevelAPIMethodArgument.isOpenApiModel(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }
@@ -371,7 +370,7 @@ public class ParameterType implements Artifact {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        ParameterType other = (ParameterType) obj;
+        TypeParameter other = (TypeParameter) obj;
         if (clazz == null) {
             if (other.clazz != null) {
                 return false;

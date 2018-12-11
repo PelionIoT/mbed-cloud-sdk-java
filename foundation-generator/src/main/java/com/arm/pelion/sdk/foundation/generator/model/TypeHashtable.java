@@ -8,34 +8,31 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class HashtableType extends ParameterType {
+public class TypeHashtable extends TypeCollection {
 
-    private ParameterType contentType;
-    private boolean concreteImplementation;
-
-    public HashtableType() {
+    public TypeHashtable() {
         this(false);
     }
 
-    public HashtableType(boolean concrete) {
-        this(new ParameterType(), concrete);
+    public TypeHashtable(boolean concrete) {
+        this(new TypeParameter(), concrete);
     }
 
-    public HashtableType(ParameterType contentType, boolean concrete) {
+    public TypeHashtable(TypeParameter contentType, boolean concrete) {
         this.contentType = contentType;
         this.concreteImplementation = concrete;
     }
 
-    public HashtableType(String type, String format) {
-        contentType = new ParameterType(type, format);
+    public TypeHashtable(String type, String format) {
+        contentType = new TypeParameter(type, format);
     }
 
-    public HashtableType(Class<?> clazz) {
-        contentType = new ParameterType(clazz);
+    public TypeHashtable(Class<?> clazz) {
+        contentType = new TypeParameter(clazz);
     }
 
-    public HashtableType(Import importPath) {
-        contentType = new ParameterType(importPath);
+    public TypeHashtable(Import importPath) {
+        contentType = new TypeParameter(importPath);
     }
 
     @Override
@@ -53,16 +50,26 @@ public class HashtableType extends ParameterType {
         if (contentType == null) {
             throw new TranslationException("The type definition of the map is unknown ");
         }
-        contentType.translate();
+        try {
+            contentType.translate();
+            TranslateTypeNameBasedOnContentType();
+        } catch (Exception e) {
+            e.printStackTrace();
+            setClazz(getCollectionClass());
+            super.translate();
+        }
+    }
+
+    protected void TranslateTypeNameBasedOnContentType() {
         setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(getCollectionClass(), String.class,
                                                                        contentType.getClazz())
                                            : ParameterizedTypeName.get(ClassName.get(getCollectionClass()),
                                                                        TypeName.get(String.class),
                                                                        contentType.getTypeName()));
-
     }
 
-    private Class<?> getCollectionClass() {
+    @Override
+    protected Class<?> getCollectionClass() {
         return concreteImplementation ? Hashtable.class : Map.class;
     }
 

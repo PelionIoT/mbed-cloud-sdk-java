@@ -21,7 +21,7 @@ public class Method extends AbstractSdkArtifact {
     protected MethodSpec.Builder specificationBuilder;
 
     protected String statement;
-    protected ParameterType returnType;
+    protected TypeParameter returnType;
     protected String returnDescription;
     protected final List<Parameter> parameters;
     protected CodeBlock.Builder code;
@@ -176,7 +176,7 @@ public class Method extends AbstractSdkArtifact {
     /**
      * @return the returnType
      */
-    public ParameterType getReturnType() {
+    public TypeParameter getReturnType() {
         return returnType;
     }
 
@@ -218,11 +218,11 @@ public class Method extends AbstractSdkArtifact {
      * @param returnType
      *            the returnType to set
      */
-    public void setReturnType(ParameterType returnType) {
+    public void setReturnType(TypeParameter returnType) {
         this.returnType = returnType;
     }
 
-    public <T extends Method> T returnType(ParameterType theReturnType) {
+    public <T extends Method> T returnType(TypeParameter theReturnType) {
         setReturnType(theReturnType);
         return (T) this;
     }
@@ -263,7 +263,7 @@ public class Method extends AbstractSdkArtifact {
     }
 
     protected void addParameters() throws TranslationException {
-        final Map<ParameterType, Boolean> definedTypes = new HashMap<>();
+        final Map<TypeParameter, Boolean> definedTypes = new HashMap<>();
         if (hasDescription()) {
             specificationBuilder.addJavadoc(description + System.lineSeparator());
             if (hasLongDescription()) {

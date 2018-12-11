@@ -10,7 +10,7 @@ public class MethodIsFieldValid extends Method {
     public MethodIsFieldValid(Field field, boolean isInternal) {
         super(false, generateMethodName(field), generateMethodDescription(field), null, false, true, false,
               field.containsCustomCode(), field.needsCustomCode(), isInternal, false, false);
-        setReturnType(new ParameterType(boolean.class));
+        setReturnType(TypeFactory.getCorrespondingType(boolean.class));
         setReturnDescription("true if the value is valid; false otherwise.");
         setStatement(generateStatement(field));
     }

@@ -8,17 +8,22 @@ public class MethodGetMapper extends Method {
 
     private static final String PARAMETER_NAME = "toBeMapped";
     private final Model adapter;
-    private final MapperType type;
+    private final TypeMapper type;
     private final String mapMethod;
 
     public MethodGetMapper(String name, boolean isAccessible, Model adapter, Model currentModel, Model fromTo,
                            boolean isFromModel, String mapMethod) {
+        this(name, isAccessible, adapter, currentModel == null ? null : currentModel.toType(),
+             fromTo == null ? null : fromTo.toType(), isFromModel, mapMethod);
+    }
+
+    public MethodGetMapper(String name, boolean isAccessible, Model adapter, TypeParameter currentModel,
+                           TypeParameter fromTo, boolean isFromModel, String mapMethod) {
         super(false, name, "Gets a mapper.", null, true, isAccessible, false, false, false, true, false, false);
 
-        type = new MapperType(isFromModel ? fromTo == null ? null : currentModel.toType()
-                                          : currentModel == null ? null : fromTo.toType(),
-                              isFromModel ? fromTo == null ? null : fromTo.toType()
-                                          : currentModel == null ? null : currentModel.toType());
+        type = new TypeMapper(isFromModel ? fromTo == null ? null : currentModel : currentModel == null ? null : fromTo,
+                              isFromModel ? fromTo == null ? null : fromTo
+                                          : currentModel == null ? null : currentModel);
 
         this.mapMethod = mapMethod;
         this.adapter = adapter;
@@ -29,7 +34,7 @@ public class MethodGetMapper extends Method {
 
     protected void translateCode() throws TranslationException {
         type.translate();
-        final ParameterType adapterType = adapter.toType();
+        final TypeParameter adapterType = adapter.toType();
         adapterType.translate();
 
         Method map = new Method(false, Mapper.MAP_FUNCTION_NAME, "Maps.", null, false, true, false, false, false, false,

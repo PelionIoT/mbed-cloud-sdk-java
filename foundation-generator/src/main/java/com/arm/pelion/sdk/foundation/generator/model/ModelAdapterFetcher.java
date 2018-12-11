@@ -11,8 +11,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         this.modelFetcher = modelFetcher;
     }
 
-    public ModelAdapter fetch(ParameterType fromFieldType, ParameterType toFieldType) {
-        System.out.println("fetch from " + fromFieldType + " to " + toFieldType);
+    public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType) {
         try {
             fromFieldType.translate();
         } catch (Exception exception) {
@@ -45,7 +44,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         return null;
     }
 
-    protected Model fetchModel(ParameterType modelType) {
+    protected Model fetchModel(TypeParameter modelType) {
         return modelFetcher.fetch(modelType);
     }
 

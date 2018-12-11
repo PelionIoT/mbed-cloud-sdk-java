@@ -3,9 +3,9 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
 import com.arm.pelion.sdk.foundation.generator.input.Item;
 import com.arm.pelion.sdk.foundation.generator.model.Field;
-import com.arm.pelion.sdk.foundation.generator.model.HashtableType;
-import com.arm.pelion.sdk.foundation.generator.model.ListType;
-import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
+import com.arm.pelion.sdk.foundation.generator.model.TypeHashtable;
+import com.arm.pelion.sdk.foundation.generator.model.TypeList;
+import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
 public class FieldTranslator {
@@ -35,7 +35,7 @@ public class FieldTranslator {
         return pattern == null ? null : pattern.replace("$", "$$");
     }
 
-    private static ParameterType determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+    private static TypeParameter determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,
                                                String packageName, String group) throws FoundationGeneratorException {
         switch (field.getType()) {
             case ARRAY_TOKEN:
@@ -54,38 +54,38 @@ public class FieldTranslator {
         return determineObjectType(field, packageName, group);
     }
 
-    private static ParameterType determineHashtableType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+    private static TypeParameter determineHashtableType(com.arm.pelion.sdk.foundation.generator.input.Field field,
                                                         String packageName) throws FoundationGeneratorException {
         final AdditionalProperty mapDef = field.getAdditionalProperties();
         if (mapDef == null) {
             throw new FoundationGeneratorException("The additional properties section of field [" + field
                                                    + "] is missing");
         }
-        return mapDef.hasForeignKey() ? new HashtableType(CommonTranslator.FetchNestedEntityType(packageName,
+        return mapDef.hasForeignKey() ? new TypeHashtable(CommonTranslator.FetchNestedEntityType(packageName,
                                                                                                  mapDef.getForeignKey()),
                                                           false)
-                                      : new HashtableType((String) mapDef.getType(), (String) mapDef.getFormat());
+                                      : new TypeHashtable((String) mapDef.getType(), (String) mapDef.getFormat());
     }
 
-    private static ParameterType determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+    private static TypeParameter determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
                                                      String packageName, String group) {
         return field.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName, field.getForeignKey())
                                      : field.hasEnumRef() ? CommonTranslator.FetchNestedEnumType(packageName,
                                                                                                  field.getEnumRef(),
                                                                                                  group)
-                                                          : new ParameterType(field.getType(), field.getFormat());
+                                                          : new TypeParameter(field.getType(), field.getFormat());
     }
 
-    private static ParameterType determineArrayType(com.arm.pelion.sdk.foundation.generator.input.Field field,
+    private static TypeParameter determineArrayType(com.arm.pelion.sdk.foundation.generator.input.Field field,
                                                     String packageName,
                                                     String group) throws FoundationGeneratorException {
         final Item itemTypes = field.getItems();
         if (itemTypes == null) {
             throw new FoundationGeneratorException("The item section of field [" + field + "] is missing");
         }
-        return itemTypes.hasForeignKey() ? new ListType(CommonTranslator.FetchNestedEntityType(packageName,
+        return itemTypes.hasForeignKey() ? new TypeList(CommonTranslator.FetchNestedEntityType(packageName,
                                                                                                itemTypes.getForeignKey()))
-                                         : new ListType((String) itemTypes.getType(), (String) itemTypes.getFormat());
+                                         : new TypeList((String) itemTypes.getType(), (String) itemTypes.getFormat());
     }
 
 }

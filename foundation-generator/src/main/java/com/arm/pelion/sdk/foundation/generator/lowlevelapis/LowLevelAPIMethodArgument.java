@@ -124,7 +124,14 @@ public class LowLevelAPIMethodArgument {
         } catch (ClassNotFoundException exception) {
             return false;
         }
-        return clazz == null ? false : clazz.isAnnotationPresent(ApiModel.class);
+        return isOpenApiModel(clazz);
+    }
+
+    public static boolean isOpenApiModel(Class<?> clazz) {
+        return clazz == null ? false
+                             : clazz.isAnnotationPresent(ApiModel.class)
+                               || (clazz.getPackage() != null && clazz.getPackage().getName().contains(".model"));
+        // TODO ensure all low level swagger models have the annotation rather than looking at the package.
     }
 
     public Class<?> determineClass() throws ClassNotFoundException {

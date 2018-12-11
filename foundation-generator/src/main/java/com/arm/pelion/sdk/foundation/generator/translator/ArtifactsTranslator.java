@@ -25,8 +25,8 @@ import com.arm.pelion.sdk.foundation.generator.model.ModelAdapterFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
-import com.arm.pelion.sdk.foundation.generator.model.ParameterType;
 import com.arm.pelion.sdk.foundation.generator.model.Renames;
+import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
 public class ArtifactsTranslator {
@@ -53,11 +53,11 @@ public class ArtifactsTranslator {
             }
             if (m.doesntReturnItself()) {
                 // TODO shout
-                System.out.println("ERROR! Cannot generate adapter for " + m);
+                System.out.println("ERROR! Cannot yet generate adapter for " + m);
             } else {
+
                 if (method.hasToModel()) {
                     if (m.isListMethod()) {
-                        System.out.println("List method " + m);
                         try {
                             adapter.addMethodAdapter(Action.READ, new Model(method.getToModel().determineClass()),
                                                      new Model(ListResponse.class), true, false, methodRenames,
@@ -116,7 +116,7 @@ public class ArtifactsTranslator {
             final AdditionalProperty properties = entity.getAdditionalProperties();
             model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
                                                                                                         properties.getForeignKey())
-                                                               : new ParameterType(properties.getType(),
+                                                               : new TypeParameter(properties.getType(),
                                                                                    properties.getFormat()));
         }
         if (entity.hasFields()) {

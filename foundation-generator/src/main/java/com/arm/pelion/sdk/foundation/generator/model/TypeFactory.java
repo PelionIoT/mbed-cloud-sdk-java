@@ -1,5 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
@@ -9,26 +11,57 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 
 public class TypeFactory {
 
-    public static ParameterType getCorrespondingType(Class<?> type) {
+    public static TypeParameter getCorrespondingType(Class<?> type) {
         if (type == null) {
             return null;
         }
-        if (type.isArray() || List.class.isAssignableFrom(type)) {
-            return new ListType();
+        // type.isArray() ||
+        if (List.class.isAssignableFrom(type)) {
+            return new TypeList();
         }
+
         if (Map.class.isAssignableFrom(type)) {
-            return new HashtableType();
+            return new TypeHashtable();
         }
         if (ListResponse.class.isAssignableFrom(type)) {
-            return new ListResponseType();
+            return new TypeListResponse();
         }
         if (RespList.class.isAssignableFrom(type)) {
-            return new ListResponseType().respList();
+            return new TypeListResponse().respList();
         }
         if (Mapper.class.isAssignableFrom(type)) {
-            return new MapperType();
+            return new TypeMapper();
         }
-        return new ParameterType(type);
+        return new TypeParameter(type);
+    }
+
+    public static TypeParameter getCorrespondingType(Class<?> type, TypeParameter contentType) {
+        final TypeParameter topType = getCorrespondingType(type);
+        if (topType instanceof TypeCollection) {
+            ((TypeCollection) topType).setContentType(contentType);
+        }
+        return topType;
+    }
+
+    public static TypeParameter getCorrespondingType(Class<?> type, Type genericType) {
+        final TypeParameter topType = getCorrespondingType(type);
+        if (topType instanceof TypeCollection) {
+            int index = 0;
+            if (topType.isHashtable()) {
+                index = 1;
+            }
+            ((TypeCollection) topType).setContentType(getCorrespondingType(determineContentClass(genericType, index)));
+        }
+        return topType;
+    }
+
+    public static Class<?> determineContentClass(Type genericType, int index) {
+        try {
+            return Class.forName(((ParameterizedType) genericType).getActualTypeArguments()[index].getTypeName());
+        } catch (ClassNotFoundException exception) {
+            exception.printStackTrace();
+            return null;
+        }
     }
 
 }

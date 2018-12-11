@@ -12,7 +12,7 @@ import com.squareup.javapoet.FieldSpec;
 
 public class Field extends AbstractSdkArtifact implements Cloneable {
     private static final String IDENTIFIER_NAME = "id";
-    private ParameterType type;
+    private TypeParameter type;
     private String pattern;
     private String defaultValue;
     private String initialiser;
@@ -33,7 +33,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      * @param isRequired
      * @param defaultValue
      */
-    public Field(boolean isReadOnly, ParameterType type, String name, String description, String longDescription,
+    public Field(boolean isReadOnly, TypeParameter type, String name, String description, String longDescription,
                  String pattern, boolean isStatic, boolean needsCustomCode, boolean isInternal, boolean isRequired,
                  String defaultValue, boolean alreadyDefined) {
         super(isReadOnly, name, determineDescription(type, description), longDescription, isStatic, false, false, false,
@@ -47,9 +47,10 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue) {
-        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()), new ParameterType(field.getType()),
-             field.getName(), null, null, null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false,
-             isInternal, isRequired, defaultValue, true);
+        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()),
+             TypeFactory.getCorrespondingType(field.getType(), field.getGenericType()), field.getName(), null, null,
+             null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
+             defaultValue, true);
     }
 
     public Field(java.lang.reflect.Field field) {
@@ -130,11 +131,11 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     /**
      * @return the type
      */
-    public ParameterType getType() {
+    public TypeParameter getType() {
         return type;
     }
 
-    private static String determineDescription(ParameterType type, String description) {
+    private static String determineDescription(TypeParameter type, String description) {
         if (description != null) {
             return description;
         }
@@ -148,7 +149,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      * @param type
      *            the type to set
      */
-    public void setType(ParameterType type) {
+    public void setType(TypeParameter type) {
         this.type = type;
     }
 

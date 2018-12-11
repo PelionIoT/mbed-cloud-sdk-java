@@ -22,16 +22,16 @@ public class MethodListMapper extends MethodMapper {
 
     @Override
     protected void setReturn(Model currentModel, Model fromTo, boolean isFromModel) {
-        setReturnType(new ListResponseType(currentModel.toType()));
+        setReturnType(new TypeListResponse(currentModel.toType()));
         setReturnDescription("mapped list response");
     }
 
     @Override
     protected void translateCode() throws TranslationException {
-        final ParameterType adapterType = adapterModel.toType();
-        final ParameterType fromType = fromTo.toType();
-        final ParameterType toType = currentModel.toType();
-        final ParameterType tempType = new ListResponseType(fromToContent.toType()).respList();
+        final TypeParameter adapterType = adapterModel.toType();
+        final TypeParameter fromType = fromTo.toType();
+        final TypeParameter toType = currentModel.toType();
+        final TypeParameter tempType = new TypeListResponse(fromToContent.toType()).respList();
         adapterType.translate();
         fromType.translate();
         toType.translate();
@@ -54,24 +54,22 @@ public class MethodListMapper extends MethodMapper {
                 respListDef.addMethod(method.getSpecificationBuilder().build());
             }
         }
-
-        code.addStatement("final $T $L = $T", tempType.hasClass() ? tempType.getClazz() : tempType.getTypeName(),
+        code.addStatement("final $T $L = $L", tempType.hasClass() ? tempType.getClazz() : tempType.getTypeName(),
                           localVariable1, respListDef.build());
         code.addStatement("return $T.$L($L,$T.$L()", GenericAdapter.class, GenericAdapter.MAP_LIST_FUNCTION_NAME,
                           localVariable1, adapterType.getTypeName(), getMapperMethodName);
     }
 
     private static Method generateMethod(java.lang.reflect.Method methodOfInterest, Class<?> sourceClass,
-                                         ParameterType componentType,
+                                         TypeParameter componentType,
                                          String localVariableFrom) throws TranslationException {
         if (methodOfInterest == null) {
             return null;
         }
         final Method method = new Method(methodOfInterest, null, null, true);
-        final ParameterType returnType = TypeFactory.getCorrespondingType(methodOfInterest.getReturnType());
-        if (returnType.isList()) {
-            ((ListType) returnType).setContentType(componentType);
-        }
+        method.setAbstract(false);
+        final TypeParameter returnType = TypeFactory.getCorrespondingType(methodOfInterest.getReturnType(),
+                                                                          componentType);
         final boolean isBoolean = returnType.isBoolean();
         method.setReturnType(returnType);
         method.initialiseCodeBuilder();
@@ -81,7 +79,8 @@ public class MethodListMapper extends MethodMapper {
             final java.lang.reflect.Method correspondingMethod = sourceClass == null ? null
                                                                                      : sourceClass.getDeclaredMethod(MethodGetter.getCorrespondingGetterMethodName(fieldName,
                                                                                                                                                                    isBoolean));
-            method.getCode().addStatement("($L == null) ? null : $L.$L()", localVariableFrom, localVariableFrom,
+
+            method.getCode().addStatement("return ($L == null) ? null : $L.$L()", localVariableFrom, localVariableFrom,
                                           correspondingMethod.getName());
         } catch (NoSuchMethodException | SecurityException | NullPointerException exception) {
             if (isBoolean) {

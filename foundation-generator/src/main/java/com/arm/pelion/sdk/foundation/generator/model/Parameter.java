@@ -11,10 +11,10 @@ import com.squareup.javapoet.ParameterSpec;
 public class Parameter extends AbstractSdkArtifact {
 
     private ParameterSpec.Builder specificationBuilder;
-    private ParameterType type;
+    private TypeParameter type;
     private String defaultValue;
 
-    public Parameter(String name, String description, String longDescription, ParameterType type, String defaultValue) {
+    public Parameter(String name, String description, String longDescription, TypeParameter type, String defaultValue) {
         super(false, name, description, longDescription, false, true, false, false, false, false);
         setSpecification(null);
         setType(type);
@@ -26,7 +26,7 @@ public class Parameter extends AbstractSdkArtifact {
                                                          false)
                           : name,
              "a " + ApiUtils.convertCamelToSnake(elementClass.getSimpleName()).replace("_", " "), null,
-             new ParameterType(elementClass), null);
+             TypeFactory.getCorrespondingType(elementClass), null);
     }
 
     /*
@@ -76,7 +76,7 @@ public class Parameter extends AbstractSdkArtifact {
     /**
      * @return the type
      */
-    public ParameterType getType() {
+    public TypeParameter getType() {
         return type;
     }
 
@@ -84,7 +84,7 @@ public class Parameter extends AbstractSdkArtifact {
      * @param type
      *            the type to set
      */
-    public void setType(ParameterType type) {
+    public void setType(TypeParameter type) {
         this.type = type;
     }
 

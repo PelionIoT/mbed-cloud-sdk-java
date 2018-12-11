@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -55,10 +56,9 @@ public class ModelAdapter extends Model {
 
     @Override
     protected void generateOtherMethods() {
-        // System.out.println("generateOtherMethods for " + name);
-        // System.out.println(conversions);
         super.generateOtherMethods();
         generateMethodsDependingOnParents(null);
+        enflateConversions();
         conversions.values().forEach(c -> c.addMethod(this, defaultRenames));
 
     }
@@ -78,25 +78,54 @@ public class ModelAdapter extends Model {
             return;
         }
         final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null, null);
-        addConversion(conversion);
+        addConversion(conversion, true);
     }
 
-    // public void enflate() {
-    // List<Conversion> conversionList=new ArrayList(conversions.values());
-    // for(Conversion conversion: conversionList) {
-    // final List<Field> list=
-    // conversion.getFrom().getFieldList().stream().filter(f->needsConversion(f)).collect(Collectors.toList());
-    // for(Field f:list) {
-    // addConversion(new Conversion(conversion.getFrom(), conversion.getTo(), false,
-    // f.getType().isEnum()||f.getType().isModelEnum(), null, null, null));
-    // }
-    // }
-    //
-    // }
+    private void enflateConversions() {
+        new ArrayList<>(conversions.values()).forEach(c -> enflate(c));
+    }
+
+    private void enflate(Conversion conversion) {
+        if (conversion == null) {
+            return;
+        }
+        enflate(conversion.getAction(), conversion.getFrom(), conversion.getTo(), conversion.getRenames());
+    }
+
+    private void enflate(Action action, Model from, Model to, Renames renames) {
+        for (Field f : to.getFieldList()) {
+            final TypeParameter fType = f.getType();
+            final String toFieldName = f.getName();
+            final String fromFieldName = renames != null
+                                         && renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
+                                                                                    : toFieldName;
+            final Field fromField = from.fetchField(fromFieldName);
+            if (fromField == null) {
+                continue;
+            }
+            final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
+            if (fromFieldType.isEnum() || fromFieldType.isModelEnum() || fType.isEnum() || fType.isModelEnum()) {
+
+                addConversion(new Conversion(fromFieldType.isModelEnum() ? fetcher.fetchModel(fromFieldType)
+                                                                         : new Model(fromField.getType().getClazz()),
+                                             fType.isModelEnum() ? fetcher.fetchModel(fType)
+                                                                 : new Model(f.getType().getClazz()),
+                                             false, true, renames, null, null, action),
+                              false);
+            }
+
+            if (fType.isLowLevelModel() || fType.isModel() || fromFieldType.isLowLevelModel()
+                || fromFieldType.isModel()) {
+                if (fetcher != null) {
+                    fetcher.fetch(fromFieldType, fType);
+                }
+            }
+        }
+    }
 
     public void addMethodAdapter(Action action, Model from, Model to, boolean isList, boolean isEnum, Renames renames,
                                  Model fromContent, Model toContent) {
-        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action));
+        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action), true);
     }
 
     protected boolean needsConversion(Field f) {
@@ -104,10 +133,13 @@ public class ModelAdapter extends Model {
                || f.getType().isModelEnum();
     }
 
-    private void addConversion(Conversion conversion) {
-        System.out.println("adding " + conversion);
-        if (conversion != null) {
+    private void addConversion(Conversion conversion, boolean enflate) {
+        if (conversion != null && conversion.isValid()) {
+            System.out.println("adding " + conversion);
             conversions.put(conversion.getIdentifier(), conversion);
+            if (enflate) {
+                enflate(conversion);
+            }
         }
     }
 
@@ -139,6 +171,10 @@ public class ModelAdapter extends Model {
             this.fromContent = fromContent;
             this.toContent = toContent;
             this.action = action == null ? Action.READ : action;
+        }
+
+        public boolean isValid() {
+            return from != null && to != null;
         }
 
         public String getIdentifier() {
@@ -173,6 +209,10 @@ public class ModelAdapter extends Model {
             return toContent;
         }
 
+        public Action getAction() {
+            return action;
+        }
+
         @Override
         public String toString() {
             return "Conversion [from=" + from + ", to=" + to + ", isList=" + isList + ", isEnum=" + isEnum
@@ -181,7 +221,7 @@ public class ModelAdapter extends Model {
         }
 
         public void addMethod(ModelAdapter adapter, Renames renames) {
-            final ParameterType fromType = from.toType();
+            final TypeParameter fromType = from.toType();
             try {
                 fromType.translate();
             } catch (TranslationException exception1) {
@@ -190,7 +230,7 @@ public class ModelAdapter extends Model {
             }
             if (isEnum) {
                 boolean isFromModel = fromType.isModelEnum();
-                final ParameterType toType = to.toType();
+                final TypeParameter toType = to.toType();
                 try {
                     toType.translate();
                 } catch (TranslationException exception) {
@@ -202,11 +242,14 @@ public class ModelAdapter extends Model {
                                                                     isFromModel);
                 adapter.addMethod(enumMapping);
             } else if (isList) {
-                final MethodListMapper listMapping = new MethodListMapper(FUNCTION_NAME_MAP_LIST, FUNCTION_NAME_MAP,
-                                                                          true, toContent, from, fromContent, adapter);
+                final MethodListMapper listMapping = new MethodListMapper(FUNCTION_NAME_MAP_LIST,
+                                                                          FUNCTION_NAME_GET_MAPPER, true, toContent,
+                                                                          from, fromContent, adapter);
                 adapter.addMethod(listMapping);
-                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_LIST_MAPPER, true, adapter, to,
-                                                                      from, false, listMapping.getName());
+                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_LIST_MAPPER, true, adapter,
+                                                                      determineListType(to.toType(), toContent),
+                                                                      determineListType(fromType, fromContent), false,
+                                                                      listMapping.getName());
                 adapter.addMethod(getMapper);
             } else {
                 boolean isFromModel = fromType.isModel();
@@ -238,6 +281,10 @@ public class ModelAdapter extends Model {
                 }
             }
 
+        }
+
+        public static TypeParameter determineListType(final TypeParameter type, final Model contentType) {
+            return type instanceof TypeListResponse ? new TypeListResponse(contentType.toType()) : type;
         }
     }
 

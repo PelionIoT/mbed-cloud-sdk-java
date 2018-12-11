@@ -26,6 +26,6 @@ public class MethodEndpointsConstructorFromOptions extends AbstractMethodConstru
     @Override
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAM_OPTIONS, "connection options {@link ConnectionOptions}.", null,
-                                   new ParameterType(ConnectionOptions.class), null));
+                                   TypeFactory.getCorrespondingType(ConnectionOptions.class), null));
     }
 }

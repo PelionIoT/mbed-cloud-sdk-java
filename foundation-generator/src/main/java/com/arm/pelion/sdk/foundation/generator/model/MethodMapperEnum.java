@@ -17,7 +17,7 @@ public class MethodMapperEnum extends Method {
     public MethodMapperEnum(ModelEnum enumModel, Class<?> fromTo, boolean isFromModel) {
         super(false, generateName(enumModel, fromTo, isFromModel), "Maps the enum value", null, true, false, false,
               false, false, true, false, false);
-        setReturnType(isFromModel ? fromTo == null ? null : new ParameterType(fromTo.getClass())
+        setReturnType(isFromModel ? fromTo == null ? null : TypeFactory.getCorrespondingType(fromTo)
                                   : enumModel == null ? null : enumModel.toType());
         setReturnDescription("mapped enum value");
         defineParameter(enumModel, fromTo, isFromModel);
@@ -56,20 +56,20 @@ public class MethodMapperEnum extends Method {
 
     protected void translateCode() throws TranslationException {
         code.beginControlFlow("if($L == null)", PARAMETER_NAME);
-        final ParameterType enumType = enumModel.toType();
+        final TypeParameter enumType = enumModel.toType();
+        enumType.translate();
         if (isFromModel) {
             code.addStatement("return null");
         } else {
-            code.add("return $T.$L()", enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
-                     "getUnknownEnum");
+            code.addStatement("return $T.$L()", enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
+                              "getUnknownEnum");
         }
         code.endControlFlow();
         code.beginControlFlow("switch($L)", PARAMETER_NAME);
         for (Object c : fromTo.getEnumConstants()) {
             code.add("case $L:\n", invokeEnumName(c));
             code.addStatement("return $T.$L",
-                              isFromModel ? fromTo.getClass()
-                                          : enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
+                              isFromModel ? fromTo : enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
                               invokeEnumName(c));
         }
         code.add("default:\n");
