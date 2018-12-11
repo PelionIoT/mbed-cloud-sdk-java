@@ -68,6 +68,34 @@ public abstract class TypeCollection extends TypeParameter {
         this.concreteImplementation = concreteImplementation;
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = super.hashCode();
+        result = prime * result + (concreteImplementation ? 1231 : 1237);
+        result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (!super.equals(obj))
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        TypeCollection other = (TypeCollection) obj;
+        if (concreteImplementation != other.concreteImplementation)
+            return false;
+        if (contentType == null) {
+            if (other.contentType != null)
+                return false;
+        } else if (!contentType.equals(other.contentType))
+            return false;
+        return true;
+    }
+
     protected abstract Class<?> getCollectionClass();
 
     protected abstract void TranslateTypeNameBasedOnContentType();

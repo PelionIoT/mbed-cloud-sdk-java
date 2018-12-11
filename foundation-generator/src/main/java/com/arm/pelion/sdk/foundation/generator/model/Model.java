@@ -29,7 +29,7 @@ public class Model extends AbstractSdkArtifact {
     protected String packageName;
     private String parent;
     private String group;
-    protected final Class<?> concreteClass;
+    protected final TypeParameter concreteType;
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
@@ -72,7 +72,7 @@ public class Model extends AbstractSdkArtifact {
 
     private Model(String packageName, String name, String group, String description, String longDescription,
                   boolean isAbstract, boolean needsCustomCode, boolean containsCustomCode, boolean isInternal,
-                  Class<?> concreteClass) {
+                  TypeParameter concreteType) {
         super(false, name, generateDescription(name, description), longDescription, false, true, isAbstract,
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
@@ -81,7 +81,7 @@ public class Model extends AbstractSdkArtifact {
         setPackageName(packageName);
         setGroup(group);
         setSuperClassType(null);
-        this.concreteClass = concreteClass;
+        this.concreteType = concreteType;
     }
 
     public Model() {
@@ -104,12 +104,19 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public Model(Class<?> clazz) {
-        this(clazz.getPackage().getName(), clazz.getSimpleName(), null, null, null,
-             java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false, clazz);
-        Arrays.asList(clazz.getDeclaredFields()).stream()
-              .filter(f -> !java.lang.reflect.Modifier.isStatic(f.getModifiers())
-                           || !java.lang.reflect.Modifier.isFinal(f.getModifiers()))
-              .forEach(f -> addField(new Field(f)));
+        this(clazz, TypeFactory.getCorrespondingType(clazz));
+    }
+
+    public Model(Class<?> clazz, TypeParameter genericType) {
+        this(clazz == null ? null : clazz.getPackage().getName(), genericType.getShortName(), null, null, null,
+             clazz == null ? false : java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false,
+             genericType);
+        if (clazz != null) {
+            Arrays.asList(clazz.getDeclaredFields()).stream()
+                  .filter(f -> !java.lang.reflect.Modifier.isStatic(f.getModifiers())
+                               || !java.lang.reflect.Modifier.isFinal(f.getModifiers()))
+                  .forEach(f -> addField(new Field(f)));
+        }
     }
 
     private static String generateDescription(String name, String description) {
@@ -734,7 +741,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public TypeParameter toType() {
-        return concreteClass == null ? new TypeParameter(toImport()) : TypeFactory.getCorrespondingType(concreteClass);
+        return concreteType == null ? new TypeParameter(toImport()) : concreteType;
     }
 
     protected Import toImport() {

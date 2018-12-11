@@ -66,18 +66,23 @@ public class MethodMapperEnum extends Method {
         }
         code.endControlFlow();
         code.beginControlFlow("switch($L)", PARAMETER_NAME);
-        for (Object c : fromTo.getEnumConstants()) {
-            code.add("case $L:\n", invokeEnumName(c));
-            code.addStatement("return $T.$L",
-                              isFromModel ? fromTo : enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
-                              invokeEnumName(c));
+        System.out.println(fromTo);
+        System.out.println(fromTo.isEnum());
+        if (fromTo.isEnum()) {
+            for (Object c : fromTo.getEnumConstants()) {
+                code.add("case $L:\n", invokeEnumName(c));
+                code.addStatement("return $T.$L",
+                                  isFromModel ? fromTo
+                                              : enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
+                                  invokeEnumName(c));
+            }
         }
         code.add("default:\n");
         if (isFromModel) {
             code.addStatement("return null");
         } else {
-            code.add("return $T.$L()", enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
-                     "getUnknownEnum");
+            code.addStatement("return $T.$L()", enumType.hasClass() ? enumType.getClazz() : enumType.getTypeName(),
+                              "getUnknownEnum");
         }
         code.endControlFlow();
 

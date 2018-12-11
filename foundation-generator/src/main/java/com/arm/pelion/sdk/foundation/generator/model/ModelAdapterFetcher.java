@@ -11,6 +11,27 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         this.modelFetcher = modelFetcher;
     }
 
+    public ModelAdapter fetchForCollection(TypeCollection fromFieldType, TypeCollection toFieldType) {
+        try {
+            fromFieldType.translate();
+        } catch (Exception exception) {
+            // Nothing to do;
+        }
+
+        try {
+            toFieldType.translate();
+        } catch (Exception exception) {
+            // Nothing to do;
+        }
+        final ModelAdapter adapter = fetch(fromFieldType.getContentType(), toFieldType.getContentType());
+        if (adapter == null) {
+            return null;
+        }
+        adapter.addDefaultConversion(new Model(fromFieldType.getClazz(), fromFieldType),
+                                     new Model(toFieldType.getClazz(), toFieldType));
+        return adapter;
+    }
+
     public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType) {
         try {
             fromFieldType.translate();
@@ -30,7 +51,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
             }
             adapter.addDefaultConversion(fetchModel(fromFieldType),
                                          toFieldType.isModel() ? fetchModel(toFieldType)
-                                                               : new Model(toFieldType.getClazz()));
+                                                               : new Model(toFieldType.getClazz(), toFieldType));
             return adapter;
         }
         if (toFieldType.isModel()) {
@@ -38,7 +59,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
             if (adapter == null) {
                 return null;
             }
-            adapter.addDefaultConversion(new Model(fromFieldType.getClazz()), fetchModel(toFieldType));
+            adapter.addDefaultConversion(new Model(fromFieldType.getClazz(), fromFieldType), fetchModel(toFieldType));
             return adapter;
         }
         return null;

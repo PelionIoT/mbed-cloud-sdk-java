@@ -133,9 +133,23 @@ public class MethodMapper extends Method {
                                                     fromVariableName,
                                                     MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                   fType.isBoolean())));
+                    } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
+                        final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCollection) fType,
+                                                                                          (TypeCollection) fromFieldType)
+                                                                      .toType();
+                        modelAdapterType.translate();
+                        // TODO do what is needed for hashtable
+                        if (fType.isList()) {
+                            statementString.append("$T.$L($L.$L())");
+                            values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                                    : modelAdapterType.getTypeName(),
+                                                        ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST, fromVariableName,
+                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                      fType.isBoolean())));
+                        }
 
-                    } else if (fType.isLowLevelModel() || fType.isModel()) {
-                        final TypeParameter modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
+                    } else if (TypeUtils.checkIfModel(fType)) {
+                        final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType).toType();
                         modelAdapterType.translate();
                         statementString.append("$T.$L($L.$L())");
                         values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
@@ -200,8 +214,22 @@ public class MethodMapper extends Method {
                                                                 toIsLowLevelModel ? f : fromField, toIsLowLevelModel),
                                   fromVariableName,
                                   MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
-            } else if (fType.isLowLevelModel() || fType.isModel()) {
-                final TypeParameter modelAdapterType = fetchAdapterType(fetcher, fType, fromFieldType).toType();
+            } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
+                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCollection) fType,
+                                                                                  (TypeCollection) fromFieldType)
+                                                              .toType();
+                modelAdapterType.translate();
+                // TODO do what is needed for hashtable
+                if (fType.isList()) {
+                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
+                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
+                                      modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                  : modelAdapterType.getTypeName(),
+                                      ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST, fromVariableName,
+                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
+                }
+            } else if (TypeUtils.checkIfModel(fType)) {
+                final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType).toType();
                 modelAdapterType.translate();
                 code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
                                   MethodSetter.getCorrespondingSetterMethodName(toFieldName),
@@ -217,11 +245,6 @@ public class MethodMapper extends Method {
 
         }
         code.addStatement("return $L", variableName);
-    }
-
-    private static ModelAdapter fetchAdapterType(ModelAdapterFetcher fetcher, TypeParameter toFieldType,
-                                                 TypeParameter fromFieldType) {
-        return fetcher.fetch(fromFieldType, toFieldType);
     }
 
     private static String getTranslationMethod(TypeParameter fType,

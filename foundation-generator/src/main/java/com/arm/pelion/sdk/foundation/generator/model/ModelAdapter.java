@@ -10,7 +10,9 @@ import com.arm.pelion.sdk.foundation.generator.TranslationException;
 public class ModelAdapter extends Model {
     public static final String FUNCTION_NAME_GET_MAPPER = "getMapper";
     public static final String FUNCTION_NAME_GET_LIST_MAPPER = "getListMapper";
+    public static final String FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER = "getSimpleListMapper";
     public static final String FUNCTION_NAME_MAP_LIST = "mapList";
+    public static final String FUNCTION_NAME_MAP_SIMPLE_LIST = "mapSimpleList";
     public static final String FUNCTION_NAME_MAP = "map";
     public static final String FUNCTION_NAME_MAP_ADD = "reverseMapAddRequest";
     public static final String FUNCTION_NAME_MAP_UPDATE = "reverseMapUpdateRequest";
@@ -107,15 +109,20 @@ public class ModelAdapter extends Model {
             if (fromFieldType.isEnum() || fromFieldType.isModelEnum() || fType.isEnum() || fType.isModelEnum()) {
 
                 addConversion(new Conversion(fromFieldType.isModelEnum() ? fetcher.fetchModel(fromFieldType)
-                                                                         : new Model(fromField.getType().getClazz()),
+                                                                         : new Model(fromField.getType().getClazz(),
+                                                                                     fromField.getType()),
                                              fType.isModelEnum() ? fetcher.fetchModel(fType)
-                                                                 : new Model(f.getType().getClazz()),
+                                                                 : new Model(f.getType().getClazz(), f.getType()),
                                              false, true, renames, null, null, action),
                               false);
             }
 
-            if (fType.isLowLevelModel() || fType.isModel() || fromFieldType.isLowLevelModel()
-                || fromFieldType.isModel()) {
+            if (TypeUtils.checkIfCollectionOfModel(fType) || TypeUtils.checkIfCollectionOfModel(fromFieldType)) {
+                if (fetcher != null) {
+                    fetcher.fetchForCollection((TypeCollection) fromFieldType, (TypeCollection) fType);
+                }
+            }
+            if (TypeUtils.checkIfModel(fType) || TypeUtils.checkIfModel(fromFieldType)) {
                 if (fetcher != null) {
                     fetcher.fetch(fromFieldType, fType);
                 }
@@ -129,13 +136,12 @@ public class ModelAdapter extends Model {
     }
 
     protected boolean needsConversion(Field f) {
-        return f.getType().isEnum() || f.getType().isModel() || f.getType().isLowLevelModel()
-               || f.getType().isModelEnum();
+        return f.getType().isEnum() || TypeUtils.checkIfModel(f.getType()) || f.getType().isModelEnum();
     }
 
     private void addConversion(Conversion conversion, boolean enflate) {
         if (conversion != null && conversion.isValid()) {
-            System.out.println("adding " + conversion);
+            System.out.println("adding to " + name + " " + conversion);
             conversions.put(conversion.getIdentifier(), conversion);
             if (enflate) {
                 enflate(conversion);
@@ -222,21 +228,22 @@ public class ModelAdapter extends Model {
 
         public void addMethod(ModelAdapter adapter, Renames renames) {
             final TypeParameter fromType = from.toType();
+            final TypeParameter toType = to.toType();
             try {
                 fromType.translate();
             } catch (TranslationException exception1) {
                 // Nothing to do.
                 exception1.printStackTrace();
             }
+            try {
+                toType.translate();
+            } catch (TranslationException exception) {
+                // Nothing to do.
+                exception.printStackTrace();
+            }
             if (isEnum) {
                 boolean isFromModel = fromType.isModelEnum();
-                final TypeParameter toType = to.toType();
-                try {
-                    toType.translate();
-                } catch (TranslationException exception) {
-                    // Nothing to do.
-                    exception.printStackTrace();
-                }
+
                 MethodMapperEnum enumMapping = new MethodMapperEnum((ModelEnum) (isFromModel ? from : to),
                                                                     (isFromModel ? toType : fromType).getClazz(),
                                                                     isFromModel);
@@ -251,36 +258,63 @@ public class ModelAdapter extends Model {
                                                                       determineListType(fromType, fromContent), false,
                                                                       listMapping.getName());
                 adapter.addMethod(getMapper);
-            } else {
-                boolean isFromModel = fromType.isModel();
-                String functionName = null;
-                switch (action) {
-                    case CREATE:
-                        functionName = isFromModel ? FUNCTION_NAME_MAP_ADD : FUNCTION_NAME_MAP;
-                        break;
-                    case DELETE:
-                        break;
-                    case READ:
-                        functionName = FUNCTION_NAME_MAP;
-                        break;
-                    case UPDATE:
-                        functionName = isFromModel ? FUNCTION_NAME_MAP_UPDATE : FUNCTION_NAME_MAP;
-                        break;
+            } else if (fromType.isList() && toType.isList()) {
+                final TypeParameter fromSubType = ((TypeCollection) fromType).getContentType();
+                final TypeParameter toSubType = ((TypeCollection) toType).getContentType();
+                final MethodSimpleListMapper listMapping = new MethodSimpleListMapper(FUNCTION_NAME_MAP_SIMPLE_LIST,
+                                                                                      FUNCTION_NAME_GET_MAPPER, true,
+                                                                                      from, to, toType, adapter);
+                adapter.addMethod(listMapping);
+                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER, true,
+                                                                      adapter,
+                                                                      determineListType(to.toType(), toContent),
+                                                                      determineListType(fromType, fromContent), false,
+                                                                      listMapping.getName());
+                adapter.addMethod(getMapper);
+                if (adapter.fetcher != null) {
+                    addBasicMappingMethods(adapter,
+                                           TypeUtils.checkIfCollectionOfModel(fromSubType) ? adapter.fetcher.fetchModel(fromSubType)
+                                                                                           : new Model(fromSubType.getClazz(),
+                                                                                                       fromSubType),
+                                           TypeUtils.checkIfCollectionOfModel(toSubType) ? adapter.fetcher.fetchModel(toSubType)
+                                                                                         : new Model(toSubType.getClazz(),
+                                                                                                     toSubType),
+                                           renames, fromType);
                 }
-                final MethodMapper mapping = new MethodMapper(functionName, true, isFromModel ? from : to,
-                                                              isFromModel ? to : from, isFromModel,
-                                                              this.renames == null ? renames : this.renames,
-                                                              adapter.fetcher);
-                adapter.addMethod(mapping);
-                if (!isFromModel) {
-                    final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_MAPPER, true, adapter,
-                                                                          isFromModel ? from : to,
-                                                                          isFromModel ? to : from, isFromModel,
-                                                                          mapping.getName());
-                    adapter.addMethod(getMapper);
-                }
+            } else {// TODO mapping for Hashtable
+                addBasicMappingMethods(adapter, from, to, renames, fromType);
             }
 
+        }
+
+        public void addBasicMappingMethods(ModelAdapter adapter, Model from, Model to, Renames renames,
+                                           final TypeParameter fromType) {
+            boolean isFromModel = fromType.isModel();
+            String functionName = null;
+            switch (action) {
+                case CREATE:
+                    functionName = isFromModel ? FUNCTION_NAME_MAP_ADD : FUNCTION_NAME_MAP;
+                    break;
+                case DELETE:
+                    break;
+                case READ:
+                    functionName = FUNCTION_NAME_MAP;
+                    break;
+                case UPDATE:
+                    functionName = isFromModel ? FUNCTION_NAME_MAP_UPDATE : FUNCTION_NAME_MAP;
+                    break;
+            }
+            final MethodMapper mapping = new MethodMapper(functionName, true, isFromModel ? from : to,
+                                                          isFromModel ? to : from, isFromModel,
+                                                          this.renames == null ? renames : this.renames,
+                                                          adapter.fetcher);
+            adapter.addMethod(mapping);
+            if (!isFromModel) {
+                final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_MAPPER, true, adapter,
+                                                                      isFromModel ? from : to, isFromModel ? to : from,
+                                                                      isFromModel, mapping.getName());
+                adapter.addMethod(getMapper);
+            }
         }
 
         public static TypeParameter determineListType(final TypeParameter type, final Model contentType) {
