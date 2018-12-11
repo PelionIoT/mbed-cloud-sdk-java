@@ -7,7 +7,7 @@ import com.squareup.javapoet.TypeSpec;
 public class MethodGetMapper extends Method {
 
     private static final String PARAMETER_NAME = "toBeMapped";
-    private Model adapter;
+    private final Model adapter;
     private final MapperType type;
     private final String mapMethod;
 
@@ -21,6 +21,7 @@ public class MethodGetMapper extends Method {
                                           : currentModel == null ? null : currentModel.toType());
 
         this.mapMethod = mapMethod;
+        this.adapter = adapter;
         setReturnType(type);
         setReturnDescription("a mapper");
         initialiseCodeBuilder();
@@ -33,17 +34,18 @@ public class MethodGetMapper extends Method {
 
         Method map = new Method(false, Mapper.MAP_FUNCTION_NAME, "Maps.", null, false, true, false, false, false, false,
                                 false, true);
+        map.setReturnDescription("a mapped object");
         map.setReturnType(type.getTo());
         map.addParameter(new Parameter(PARAMETER_NAME, "model to be mapped.", null, type.getFrom(), null));
         map.initialiseCodeBuilder();
-        map.getCode().add("return $T.$L($N)",
-                          adapterType.hasClass() ? adapterType.getClazz() : adapterType.getTypeName(), mapMethod,
-                          PARAMETER_NAME);
+        map.getCode().addStatement("return $T.$L($N)",
+                                   adapterType.hasClass() ? adapterType.getClazz() : adapterType.getTypeName(),
+                                   mapMethod, PARAMETER_NAME);
         map.translate();
 
         TypeSpec mapper = TypeSpec.anonymousClassBuilder("").addSuperinterface(type.getTypeName())
                                   .addMethod(map.getSpecificationBuilder().build()).build();
-        code.add("return $L", mapper);
+        code.addStatement("return $L", mapper);
     }
 
 }

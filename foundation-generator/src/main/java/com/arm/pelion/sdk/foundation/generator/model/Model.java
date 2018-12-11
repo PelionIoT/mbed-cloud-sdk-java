@@ -29,6 +29,7 @@ public class Model extends AbstractSdkArtifact {
     protected String packageName;
     private String parent;
     private String group;
+    protected final Class<?> concreteClass;
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
@@ -68,12 +69,10 @@ public class Model extends AbstractSdkArtifact {
     /**
      *
      */
-    public Model() {
-        this(null, null, null, null, null, false, false, false, false);
-    }
 
-    public Model(String packageName, String name, String group, String description, String longDescription,
-                 boolean isAbstract, boolean needsCustomCode, boolean containsCustomCode, boolean isInternal) {
+    private Model(String packageName, String name, String group, String description, String longDescription,
+                  boolean isAbstract, boolean needsCustomCode, boolean containsCustomCode, boolean isInternal,
+                  Class<?> concreteClass) {
         super(false, name, generateDescription(name, description), longDescription, false, true, isAbstract,
               containsCustomCode, needsCustomCode, isInternal);
         methods = new LinkedHashMap<>();
@@ -82,6 +81,17 @@ public class Model extends AbstractSdkArtifact {
         setPackageName(packageName);
         setGroup(group);
         setSuperClassType(null);
+        this.concreteClass = concreteClass;
+    }
+
+    public Model() {
+        this(null, null, null, null, null, false, false, false, false);
+    }
+
+    public Model(String packageName, String name, String group, String description, String longDescription,
+                 boolean isAbstract, boolean needsCustomCode, boolean containsCustomCode, boolean isInternal) {
+        this(packageName, name, group, description, longDescription, isAbstract, needsCustomCode, containsCustomCode,
+             isInternal, null);
     }
 
     public Model(String packageName, String name, String group, String description, String longDescription,
@@ -95,8 +105,11 @@ public class Model extends AbstractSdkArtifact {
 
     public Model(Class<?> clazz) {
         this(clazz.getPackage().getName(), clazz.getSimpleName(), null, null, null,
-             java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false);
-        Arrays.asList(clazz.getDeclaredFields()).forEach(f -> addField(new Field(f)));
+             java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false, clazz);
+        Arrays.asList(clazz.getDeclaredFields()).stream()
+              .filter(f -> !java.lang.reflect.Modifier.isStatic(f.getModifiers())
+                           || !java.lang.reflect.Modifier.isFinal(f.getModifiers()))
+              .forEach(f -> addField(new Field(f)));
     }
 
     private static String generateDescription(String name, String description) {
@@ -721,7 +734,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public ParameterType toType() {
-        return new ParameterType(toImport());
+        return concreteClass == null ? new ParameterType(toImport()) : new ParameterType(concreteClass);
     }
 
     protected Import toImport() {

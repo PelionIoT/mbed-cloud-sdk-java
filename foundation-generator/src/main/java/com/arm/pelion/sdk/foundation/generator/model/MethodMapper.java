@@ -169,11 +169,13 @@ public class MethodMapper extends Method {
             final String toFieldName = f.getName();
             final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                  : toFieldName;
-            final Field fromField = to.fetchField(fromFieldName);
-            final ParameterType fromFieldType = fromField.getType();
-            fType.translate();
-            fromFieldType.translate();
-            if (needsTranslation(fromFieldType, fType)) {
+            final Field fromField = from.fetchField(fromFieldName);
+            final ParameterType fromFieldType = fromField == null ? null : fromField.getType();
+            if (fromFieldType == null) {
+                code.addStatement("//No field equivalent to $L in $T was found in $T", toFieldName,
+                                  toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
+                                  fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
+            } else if (needsTranslation(fromFieldType, fType)) {
                 if (!doesTypeNeedTranslation(fType)) {
                     code.addStatement("$L.$L($L.$L())", variableName,
                                       MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
@@ -186,8 +188,9 @@ public class MethodMapper extends Method {
                                       f.getDefaultValue());
                 } else {
                     code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
-                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
+                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName),
                                       TranslationUtils.class, getTranslationMethod(fType, fromFieldType),
+                                      fromVariableName,
                                       MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
                 }
             } else if (fType.isEnum()) {

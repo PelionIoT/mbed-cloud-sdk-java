@@ -34,6 +34,7 @@ public class MethodMapperEnum extends Method {
     protected static String generateName(String toName, boolean isLowLevel) {
         return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake("translate_to_"
                                                                          + (isLowLevel ? toName.replace(".", "_")
+                                                                                               .replace("$", "_")
                                                                                                .toLowerCase(Locale.UK)
                                                                                        : toName)),
                                             false);

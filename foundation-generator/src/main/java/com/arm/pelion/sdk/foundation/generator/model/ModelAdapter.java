@@ -7,6 +7,12 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.TranslationException;
 
 public class ModelAdapter extends Model {
+    public static final String FUNCTION_NAME_GET_MAPPER = "getMapper";
+    public static final String FUNCTION_NAME_GET_LIST_MAPPER = "getListMapper";
+    public static final String FUNCTION_NAME_MAP_LIST = "mapList";
+    public static final String FUNCTION_NAME_MAP = "map";
+    public static final String FUNCTION_NAME_MAP_ADD = "reverseMapAddRequest";
+    public static final String FUNCTION_NAME_MAP_UPDATE = "reverseMapUpdateRequest";
     private final ModelAdapterFetcher fetcher;
     private Renames defaultRenames;
 
@@ -49,8 +55,8 @@ public class ModelAdapter extends Model {
 
     @Override
     protected void generateOtherMethods() {
-        System.out.println("generateOtherMethods for " + name);
-        System.out.println(conversions);
+        // System.out.println("generateOtherMethods for " + name);
+        // System.out.println(conversions);
         super.generateOtherMethods();
         generateMethodsDependingOnParents(null);
         conversions.values().forEach(c -> c.addMethod(this, defaultRenames));
@@ -71,7 +77,7 @@ public class ModelAdapter extends Model {
         if (from == null || to == null) {
             return;
         }
-        final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null);
+        final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null, null);
         addConversion(conversion);
     }
 
@@ -88,9 +94,9 @@ public class ModelAdapter extends Model {
     //
     // }
 
-    public void addMethodAdapter(Model from, Model to, boolean isList, boolean isEnum, Renames renames,
+    public void addMethodAdapter(Action action, Model from, Model to, boolean isList, boolean isEnum, Renames renames,
                                  Model fromContent, Model toContent) {
-        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent));
+        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action));
     }
 
     protected boolean needsConversion(Field f) {
@@ -105,11 +111,14 @@ public class ModelAdapter extends Model {
         }
     }
 
+    public enum Action {
+        CREATE,
+        READ,
+        UPDATE,
+        DELETE;
+    }
+
     public static class Conversion {
-        private static final String FUNCTION_NAME_GET_MAPPER = "getMapper";
-        private static final String FUNCTION_NAME_GET_LIST_MAPPER = "getListMapper";
-        private static final String FUNCTION_NAME_MAP_LIST = "mapList";
-        private static final String FUNCTION_NAME_MAP = "map";
         private final Model from;
         private final Model to;
         private final boolean isList;
@@ -117,9 +126,10 @@ public class ModelAdapter extends Model {
         private final Renames renames;
         private final Model fromContent;
         private final Model toContent;
+        private final Action action;
 
         public Conversion(Model from, Model to, boolean isList, boolean isEnum, Renames renames, Model fromContent,
-                          Model toContent) {
+                          Model toContent, Action action) {
             super();
             this.from = from;
             this.to = to;
@@ -128,6 +138,7 @@ public class ModelAdapter extends Model {
             this.renames = renames;
             this.fromContent = fromContent;
             this.toContent = toContent;
+            this.action = action == null ? Action.READ : action;
         }
 
         public String getIdentifier() {
@@ -165,7 +176,8 @@ public class ModelAdapter extends Model {
         @Override
         public String toString() {
             return "Conversion [from=" + from + ", to=" + to + ", isList=" + isList + ", isEnum=" + isEnum
-                   + ", renames=" + renames + ", fromContent=" + fromContent + ", toContent=" + toContent + "]";
+                   + ", renames=" + renames + ", fromContent=" + fromContent + ", toContent=" + toContent + ", action="
+                   + action + "]";
         }
 
         public void addMethod(ModelAdapter adapter, Renames renames) {
@@ -198,7 +210,21 @@ public class ModelAdapter extends Model {
                 adapter.addMethod(getMapper);
             } else {
                 boolean isFromModel = fromType.isModel();
-                final MethodMapper mapping = new MethodMapper(FUNCTION_NAME_MAP, true, isFromModel ? from : to,
+                String functionName = null;
+                switch (action) {
+                    case CREATE:
+                        functionName = isFromModel ? FUNCTION_NAME_MAP_ADD : FUNCTION_NAME_MAP;
+                        break;
+                    case DELETE:
+                        break;
+                    case READ:
+                        functionName = FUNCTION_NAME_MAP;
+                        break;
+                    case UPDATE:
+                        functionName = isFromModel ? FUNCTION_NAME_MAP_UPDATE : FUNCTION_NAME_MAP;
+                        break;
+                }
+                final MethodMapper mapping = new MethodMapper(functionName, true, isFromModel ? from : to,
                                                               isFromModel ? to : from, isFromModel,
                                                               this.renames == null ? renames : this.renames,
                                                               adapter.fetcher);

@@ -20,6 +20,7 @@ import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
 import com.arm.pelion.sdk.foundation.generator.model.Artifacts;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
+import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter.Action;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapterFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
@@ -58,7 +59,7 @@ public class ArtifactsTranslator {
                     if (m.isListMethod()) {
                         System.out.println("List method " + m);
                         try {
-                            adapter.addMethodAdapter(new Model(method.getToModel().determineClass()),
+                            adapter.addMethodAdapter(Action.READ, new Model(method.getToModel().determineClass()),
                                                      new Model(ListResponse.class), true, false, methodRenames,
                                                      new Model(method.getToModel().determineContentClass()), model);
                         } catch (ClassNotFoundException exception) {
@@ -67,8 +68,8 @@ public class ArtifactsTranslator {
 
                     } else {
                         try {
-                            adapter.addMethodAdapter(new Model(method.getToModel().determineClass()), model, false,
-                                                     false, methodRenames, null, null);
+                            adapter.addMethodAdapter(Action.READ, new Model(method.getToModel().determineClass()),
+                                                     model, false, false, methodRenames, null, null);
                         } catch (ClassNotFoundException exception) {
                             throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
                         }
@@ -83,7 +84,10 @@ public class ArtifactsTranslator {
                     } else {
                         for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
                             try {
-                                adapter.addMethodAdapter(model, new Model(arg.determineClass()), false, false,
+                                adapter.addMethodAdapter(m.isCreateMethod() ? Action.CREATE
+                                                                            : m.isUpdateMethod() ? Action.UPDATE
+                                                                                                 : Action.READ,
+                                                         model, new Model(arg.determineClass()), false, false,
                                                          methodRenames, null, null);
                             } catch (ClassNotFoundException exception) {
                                 throw new FoundationGeneratorException("Failed generating adapter for " + model,
@@ -96,6 +100,7 @@ public class ArtifactsTranslator {
 
             }
         }
+        adapter.generateMethods();
         return adapter;
     }
 
