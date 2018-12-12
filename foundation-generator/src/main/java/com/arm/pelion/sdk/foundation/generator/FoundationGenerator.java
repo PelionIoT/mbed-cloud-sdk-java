@@ -8,8 +8,10 @@ import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIFinder;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIs;
 import com.arm.pelion.sdk.foundation.generator.model.ArtifactsGenerator;
 import com.arm.pelion.sdk.foundation.generator.translator.ArtifactsTranslator;
+import com.arm.pelion.sdk.foundation.generator.util.CleanException;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class FoundationGenerator {
 

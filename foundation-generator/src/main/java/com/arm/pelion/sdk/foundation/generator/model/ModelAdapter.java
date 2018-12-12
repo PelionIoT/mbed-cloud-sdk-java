@@ -5,7 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class ModelAdapter extends Model {
     public static final String FUNCTION_NAME_GET_MAPPER = "getMapper";

@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.ModelDefinitionStore;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class ArtifactFetcher<T extends Model> {
     protected final ModelDefinitionStore<T> store;

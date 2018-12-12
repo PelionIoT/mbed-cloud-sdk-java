@@ -4,7 +4,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodMapperEnum extends Method {
 

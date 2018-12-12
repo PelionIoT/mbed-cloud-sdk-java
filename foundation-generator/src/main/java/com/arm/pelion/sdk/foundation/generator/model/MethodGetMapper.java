@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeSpec;
 
 public class MethodGetMapper extends Method {

@@ -1,6 +1,8 @@
-package com.arm.pelion.sdk.foundation.generator;
+package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.io.File;
+
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class PackageInfoGenerator extends AbstractGenerator {
 

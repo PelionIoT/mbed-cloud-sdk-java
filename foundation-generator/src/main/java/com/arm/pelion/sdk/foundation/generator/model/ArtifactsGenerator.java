@@ -2,11 +2,8 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.io.File;
 
-import com.arm.pelion.sdk.foundation.generator.AbstractGenerator;
-import com.arm.pelion.sdk.foundation.generator.CleanException;
-import com.arm.pelion.sdk.foundation.generator.PackageInfo;
-import com.arm.pelion.sdk.foundation.generator.PackageInfoGenerator;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.CleanException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class ArtifactsGenerator extends AbstractGenerator {
 

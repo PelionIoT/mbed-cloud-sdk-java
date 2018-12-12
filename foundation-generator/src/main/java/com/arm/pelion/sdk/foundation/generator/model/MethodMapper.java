@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.CodeBlock;
 
 public class MethodMapper extends Method {

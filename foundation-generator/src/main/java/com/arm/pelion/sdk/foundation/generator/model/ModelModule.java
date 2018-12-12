@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.squareup.javapoet.AnnotationSpec;
 
-public class ModelModule extends Model implements MergeableArtifact {
+public class ModelModule extends ModelMergeable {
 
     public ModelModule(Model model, String packageName, String description, boolean needsCustomCode) {
         super(packageName, generateName(model.getGroup()), model.getGroup(),
@@ -53,21 +53,6 @@ public class ModelModule extends Model implements MergeableArtifact {
         // TODO
         // addConstructor(new MethodEndpointsConstructorFromClient(this, theParent));
         // overrideMethodIfExist(new MethodEndpointsClone(this, theParent));
-    }
-
-    @Override
-    public <T extends MergeableArtifact> void merge(T otherArtifact) {
-        if (otherArtifact == null || this == otherArtifact || !(otherArtifact instanceof ModelModule)) {
-            return;
-        }
-        final ModelModule otherModule = (ModelModule) otherArtifact;
-        if (otherModule.methods != null) {
-            otherModule.methods.values().forEach(m -> addMethod(m));
-        }
-        if (otherModule.fields != null) {
-            otherModule.fields.values().forEach(f -> addField(f));
-        }
-        // TODO do more if needed
     }
 
 }

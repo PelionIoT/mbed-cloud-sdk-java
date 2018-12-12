@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 
-public class ModelEndpoints extends Model implements MergeableArtifact {
+public class ModelEndpoints extends ModelMergeable {
 
     public ModelEndpoints(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getGroup()), model.getGroup(),
@@ -15,8 +15,9 @@ public class ModelEndpoints extends Model implements MergeableArtifact {
         return description == null ? "Endpoints for " + group + " API module" : description;
     }
 
-    private static String generateName(String group) {
-        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(group) + "_endpoints", true);
+    public static String generateName(String group) {
+        return group == null ? null
+                             : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(group) + "_endpoints", true);
     }
 
     @Override
@@ -48,21 +49,6 @@ public class ModelEndpoints extends Model implements MergeableArtifact {
                                null, null, isStatic, false, true, false, null, false));
         }
 
-    }
-
-    @Override
-    public <T extends MergeableArtifact> void merge(T otherArtifact) {
-        if (otherArtifact == null || this == otherArtifact || !(otherArtifact instanceof ModelEndpoints)) {
-            return;
-        }
-        final ModelEndpoints otherEndpoints = (ModelEndpoints) otherArtifact;
-        if (otherEndpoints.methods != null) {
-            otherEndpoints.methods.values().forEach(m -> addMethod(m));
-        }
-        if (otherEndpoints.fields != null) {
-            otherEndpoints.fields.values().forEach(f -> addField(f));
-        }
-        // TODO do more if needed
     }
 
 }

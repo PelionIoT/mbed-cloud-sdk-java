@@ -1,7 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.PackageInfo;
-
 public class ModelPackageInfo extends PackageInfo {
 
     /**

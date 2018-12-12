@@ -1,4 +1,6 @@
-package com.arm.pelion.sdk.foundation.generator;
+package com.arm.pelion.sdk.foundation.generator.model;
+
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class PackageInfo implements Artifact {
     private String packageName;

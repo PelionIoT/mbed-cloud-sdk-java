@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public abstract class TypeCollection extends TypeParameter {
 
@@ -46,7 +46,7 @@ public abstract class TypeCollection extends TypeParameter {
             contentType.translate();
             TranslateTypeNameBasedOnContentType();
         } catch (Exception e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
         }

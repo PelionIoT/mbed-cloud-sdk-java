@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodListOptionsSetOptions extends AbstractMethodBasedOnModel {
     private static final String OPTIONS_PARAMETER = "options";

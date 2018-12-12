@@ -6,8 +6,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import com.arm.pelion.sdk.foundation.generator.PackageInfo;
+import com.arm.pelion.sdk.foundation.generator.util.MergeableModelDefinitionStore;
 import com.arm.pelion.sdk.foundation.generator.util.ModelDefinitionStore;
+import com.arm.pelion.sdk.foundation.generator.util.SimpleModelDefinitionStore;
 
 public class Artifacts {
 
@@ -17,7 +18,8 @@ public class Artifacts {
     private final ModelAdapterFetcher adapterFetcher;
     private final List<Model> processedModels;
     private final List<ModelTest> unitTests;
-    private final Map<String, List<ModelEndpoints>> rawEndpoints;
+    private final ModelDefinitionStore<ModelEndpoints> rawEndpoints;
+    private final ArtifactFetcher<ModelEndpoints> endpointsFetcher;
     private final List<ModelEndpoints> processedEndpoints;
 
     // private final DAOs
@@ -28,15 +30,16 @@ public class Artifacts {
      */
     public Artifacts() {
         super();
-        rawModels = new ModelDefinitionStore<>();
-        adapterModels = new ModelDefinitionStore<>();
+        rawModels = new SimpleModelDefinitionStore<>();
+        adapterModels = new SimpleModelDefinitionStore<>();
         processedModels = new LinkedList<>();
         unitTests = new LinkedList<>();
         packagesInfo = new HashMap<>();
-        rawEndpoints = new HashMap<>();
+        rawEndpoints = new MergeableModelDefinitionStore<>();
         processedEndpoints = new LinkedList<>();
         modelFetcher = new ArtifactFetcher<>(rawModels);
         adapterFetcher = new ModelAdapterFetcher(adapterModels, modelFetcher);
+        endpointsFetcher = new ModelEndpointsFetcher(rawEndpoints);
     }
 
     /**
@@ -58,14 +61,7 @@ public class Artifacts {
     }
 
     public void addEndpoint(ModelEndpoints endpoints) {
-        if (endpoints != null && endpoints.getGroup() != null) {
-            List<ModelEndpoints> list = rawEndpoints.get(endpoints.getGroup());
-            if (list == null) {
-                list = new LinkedList<>();
-            }
-            list.add(endpoints);
-            rawEndpoints.put(endpoints.getGroup(), list);
-        }
+        this.rawEndpoints.store(endpoints);
     }
 
     public ArtifactFetcher<Model> getModelFetcher() {
@@ -74,6 +70,10 @@ public class Artifacts {
 
     public ModelAdapterFetcher getAdapterFetcher() {
         return adapterFetcher;
+    }
+
+    public ArtifactFetcher<ModelEndpoints> getEndpointsFetcher() {
+        return endpointsFetcher;
     }
 
     public void process() {
@@ -95,7 +95,7 @@ public class Artifacts {
         processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof ModelEnum))
                        .forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
-        rawEndpoints.values().stream().forEach(l -> processedEndpoints.add(Utils.merge(l)));
+        processedModels.addAll(rawEndpoints.getModels());
     }
 
     /**

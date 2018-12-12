@@ -1,7 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.Artifact;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 
 public class Import implements Artifact {

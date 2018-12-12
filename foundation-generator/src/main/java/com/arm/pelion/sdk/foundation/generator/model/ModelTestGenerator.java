@@ -5,9 +5,8 @@ import java.util.Date;
 
 import org.junit.Assert;
 
-import com.arm.pelion.sdk.foundation.generator.AbstractGenerator;
-import com.arm.pelion.sdk.foundation.generator.CleanException;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.CleanException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.TypeSpec;
 

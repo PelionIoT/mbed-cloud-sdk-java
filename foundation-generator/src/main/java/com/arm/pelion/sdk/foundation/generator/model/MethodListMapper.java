@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeSpec;
 
 public class MethodListMapper extends MethodMapper {

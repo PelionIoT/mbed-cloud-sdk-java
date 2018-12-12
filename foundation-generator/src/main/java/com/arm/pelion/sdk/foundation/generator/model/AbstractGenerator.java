@@ -1,8 +1,10 @@
-package com.arm.pelion.sdk.foundation.generator;
+package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.io.File;
 
+import com.arm.pelion.sdk.foundation.generator.util.CleanException;
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public abstract class AbstractGenerator {
 

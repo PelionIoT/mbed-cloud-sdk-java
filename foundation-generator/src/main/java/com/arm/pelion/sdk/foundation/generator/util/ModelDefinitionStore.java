@@ -1,49 +1,23 @@
 package com.arm.pelion.sdk.foundation.generator.util;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 
-public class ModelDefinitionStore<T extends Model> {
+public interface ModelDefinitionStore<T extends Model> {
 
-    private final Map<String, T> store;
+    Model store(T model);
 
-    public ModelDefinitionStore() {
-        store = new LinkedHashMap<>();
-    }
+    void clear();
 
-    public Model store(T model) {
-        if (model == null) {
-            return null;
-        }
-        store.put(model.getIdentifier(), model);
-        return model;
-    }
+    boolean has(String identifier);
 
-    public void clear() {
-        store.clear();
-    }
+    boolean has(Model model);
 
-    public boolean has(String identifier) {
-        return identifier == null ? false : store.containsKey(identifier);
-    }
+    T get(String identifier);
 
-    public boolean has(Model model) {
-        return model == null ? false : has(model.getIdentifier());
-    }
+    T get(Model model);
 
-    public T get(String identifier) {
-        return identifier == null ? null : store.get(identifier);
-    }
+    List<T> getModels();
 
-    public T get(Model model) {
-        return model == null ? null : store.get(model.getIdentifier());
-    }
-
-    public List<T> getModels() {
-        return new ArrayList<>(store.values());
-    }
 }

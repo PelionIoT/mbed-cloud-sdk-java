@@ -10,9 +10,8 @@ import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import com.arm.pelion.sdk.foundation.generator.Artifact;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeName;
 
 public class TypeParameter implements Artifact {

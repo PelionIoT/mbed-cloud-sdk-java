@@ -1,6 +1,4 @@
-package com.arm.pelion.sdk.foundation.generator;
-
-import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
+package com.arm.pelion.sdk.foundation.generator.util;
 
 public class TranslationException extends FoundationGeneratorException {
 

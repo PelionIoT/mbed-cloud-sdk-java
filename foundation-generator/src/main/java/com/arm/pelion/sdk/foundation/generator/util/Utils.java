@@ -1,6 +1,8 @@
-package com.arm.pelion.sdk.foundation.generator.model;
+package com.arm.pelion.sdk.foundation.generator.util;
 
 import java.util.List;
+
+import com.arm.pelion.sdk.foundation.generator.model.MergeableArtifact;
 
 public class Utils {
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {

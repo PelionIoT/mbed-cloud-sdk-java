@@ -2,7 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Objects;
 
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodHashCode extends AbstractMethodBasedOnModel {
 

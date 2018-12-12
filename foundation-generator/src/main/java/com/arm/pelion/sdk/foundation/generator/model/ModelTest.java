@@ -8,7 +8,7 @@ import java.util.Map;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeSpec;
 
 public class ModelTest extends AbstractSdkArtifact {

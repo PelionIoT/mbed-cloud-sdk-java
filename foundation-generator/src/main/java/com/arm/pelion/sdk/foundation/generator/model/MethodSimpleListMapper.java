@@ -1,7 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodSimpleListMapper extends MethodMapper {
     protected static final String PARAMETER_NAME = "toBeMapped";

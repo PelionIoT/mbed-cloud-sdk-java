@@ -8,6 +8,8 @@ public class Configuration {
 
     private String adapterPackage = "adapters";
 
+    private String modulePackage = "module";
+
     private String lowLevelApiModuleNameRegex = ".*Api";
 
     public Configuration() {
@@ -50,6 +52,14 @@ public class Configuration {
 
     public void setAdapterPackage(String adapterPackage) {
         this.adapterPackage = adapterPackage;
+    }
+
+    public String getModulePackage() {
+        return modulePackage;
+    }
+
+    public void setModulePackage(String modulePackage) {
+        this.modulePackage = modulePackage;
     }
 
     /**

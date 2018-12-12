@@ -1,7 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.pelion.sdk.foundation.generator.Artifact;
-
 public interface SdkArtifact extends Artifact {
 
     void setContainsCustomCode(boolean containsCustomCode);

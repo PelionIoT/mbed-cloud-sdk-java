@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.arm.pelion.sdk.foundation.generator.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodToString extends AbstractMethodBasedOnModel {
 
