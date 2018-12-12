@@ -37,7 +37,7 @@ public class ModelEndpoints extends Model implements MergeableArtifact {
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         addConstructor(new MethodEndpointsConstructorFromClient(this, theParent));
-        addConstructor(new MethodEndpointsConstructorFromOptions(this, theParent));
+        overrideMethodIfExist(new MethodEndpointsClone(this, theParent));
     }
 
     public void addModule(Class<?> moduleClazz) {

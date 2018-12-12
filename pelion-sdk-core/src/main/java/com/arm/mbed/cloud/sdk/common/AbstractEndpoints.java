@@ -6,7 +6,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "Generic endpoints")
 @Internal
 public abstract class AbstractEndpoints implements Cloneable {
-
+    public static final String METHOD_INITIALISE_SERVICE = "initialiseService";
+    public static final String METHOD_CLONE_SERVICE_STORE = "getServicesClone";
     private final ServiceStore serviceStore;
 
     /**

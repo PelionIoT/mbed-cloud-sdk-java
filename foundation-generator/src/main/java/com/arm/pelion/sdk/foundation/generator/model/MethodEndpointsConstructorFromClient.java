@@ -3,10 +3,12 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.Arrays;
 import java.util.List;
 
+import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
 
 public class MethodEndpointsConstructorFromClient extends AbstractMethodConstructor {
-    private static final String PARAM_CLIENT = "client";
+    private static final String PARAM_SERVICE_STORE = "client";
     protected List<Field> fields;
 
     public MethodEndpointsConstructorFromClient(Model currentModel, Model parentModel) {
@@ -16,9 +18,10 @@ public class MethodEndpointsConstructorFromClient extends AbstractMethodConstruc
     @Override
     protected void translateCode() {
 
-        code.addStatement("super($L)", PARAM_CLIENT);
-        currentModel.getFieldList().stream()
-                    .forEach(f -> code.addStatement("this.$L = $L.createService($T.class)", f.getName(), PARAM_CLIENT,
+        code.addStatement("super($L)", PARAM_SERVICE_STORE);
+        currentModel.getFieldList().stream().filter(f -> !f.isStatic() || !f.isReadOnly())
+                    .forEach(f -> code.addStatement("this.$L = $L($T.class)", f.getName(),
+                                                    AbstractEndpoints.METHOD_INITIALISE_SERVICE,
                                                     f.getType().hasClazz() ? f.getType().getClazz()
                                                                            : f.getType().getTypeName()));
 
@@ -31,7 +34,7 @@ public class MethodEndpointsConstructorFromClient extends AbstractMethodConstruc
 
     @Override
     protected void addConstructorParameters() {
-        addParameter(new Parameter(PARAM_CLIENT, "API client {@link ApiClientWrapper}.", null,
-                                   TypeFactory.getCorrespondingType(ApiClientWrapper.class), null));
+        addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceStore}.", null,
+                                   TypeFactory.getCorrespondingType(ServiceStore.class), null));
     }
 }
