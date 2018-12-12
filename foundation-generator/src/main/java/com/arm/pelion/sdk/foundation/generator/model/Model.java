@@ -357,9 +357,7 @@ public class Model extends AbstractSdkArtifact {
                 specificationBuilder.addModifiers(Modifier.ABSTRACT);
             }
             generateDocumentation();
-            if (isInternal) {
-                specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
-            }
+            generateAnnotations();
             if (hasSuperInterface()) {
                 specificationBuilder.addSuperinterface(getSuperInterface());
             }
@@ -375,6 +373,12 @@ public class Model extends AbstractSdkArtifact {
                     }
                 }
             }
+        }
+    }
+
+    public void generateAnnotations() {
+        if (isInternal) {
+            specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
     }
 
