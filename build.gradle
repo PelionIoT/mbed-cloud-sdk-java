@@ -2,8 +2,6 @@
 version = SDKVersion
 group = SDKGroup
 
-
-
 buildscript {
     repositories {
         jcenter()
@@ -46,6 +44,19 @@ repositories {
 
 def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
 allprojects {
+	buildscript {
+	    repositories {
+	        jcenter()
+	        mavenCentral()
+	        maven {
+	            url "https://plugins.gradle.org/m2/"
+	        }
+	    }
+    }
+    repositories {
+	    jcenter()
+	    mavenCentral()
+	}
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'java-library'

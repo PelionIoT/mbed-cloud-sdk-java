@@ -85,30 +85,24 @@ public class GenericAdapter {
      */
     public interface RespList<U> {
         String HAS_MORE_FUNCTION_NAME = "getHasMore";
+        String TOTAL_COUNT_FUNCTION_NAME = "getTotalCount";
+        String AFTER_FUNCTION_NAME = "getAfter";
+        String CONTINUATION_MARKER_FUNCTION_NAME = "getContinuationMarker";
+        String LIMIT_FUNCTION_NAME = "getLimit";
+        String ORDER_FUNCTION_NAME = "getOrder";
+        String DATA_FUNCTION_NAME = "getData";
 
         Boolean getHasMore();
 
-        String TOTAL_COUNT_FUNCTION_NAME = "getTotalCount";
-
         Integer getTotalCount();
-
-        String AFTER_FUNCTION_NAME = "getAfter";
 
         String getAfter();
 
-        String CONTINUATION_MARKER_FUNCTION_NAME = "getContinuationMarker";
-
         String getContinuationMarker();
-
-        String LIMIT_FUNCTION_NAME = "getLimit";
 
         Integer getLimit();
 
-        String ORDER_FUNCTION_NAME = "getOrder";
-
         String getOrder();
-
-        String DATA_FUNCTION_NAME = "getData";
 
         List<U> getData();
     }

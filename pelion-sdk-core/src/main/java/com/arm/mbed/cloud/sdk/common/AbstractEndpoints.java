@@ -5,38 +5,45 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic endpoints")
 @Internal
-public class AbstractEndpoints {
+public abstract class AbstractEndpoints implements Cloneable {
 
-    private final ApiClientWrapper client;
+    private final ServiceStore serviceStore;
 
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * 
+     * @param serviceStore
+     *            store of created services {@link ServiceStore}
      */
-    public AbstractEndpoints(ApiClientWrapper wrapper) {
+    public AbstractEndpoints(ServiceStore serviceStore) {
         super();
-        client = wrapper;
+        this.serviceStore = serviceStore;
     }
 
     /**
-     * Constructor.
+     * Gets the store of created services.
      * 
-     * @param options
-     *            connection options {@link ConnectionOptions}
+     * @return the store
      */
-    public AbstractEndpoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
+    public ServiceStore getServiceStore() {
+        return serviceStore;
     }
 
-    /**
-     * Gets Mbed Cloud client.
-     * 
-     * @return the client
-     */
-    public ApiClientWrapper getClient() {
-        return client;
+    protected <S> S initialiseService(Class<S> serviceClass) {
+        try {
+            return serviceStore == null ? null : serviceStore.getService(serviceClass);
+        } catch (MbedCloudException exception) {
+            return null;
+        }
     }
 
+    protected ConnectionOptions getConfiguration() {
+        final ApiClientWrapper client = serviceStore.getClient();
+        return client == null ? null : client.getConnectionOptions();
+    }
+
+    protected ServiceStore getServicesClone() {
+        return serviceStore == null ? null : serviceStore.clone();
+    }
 }

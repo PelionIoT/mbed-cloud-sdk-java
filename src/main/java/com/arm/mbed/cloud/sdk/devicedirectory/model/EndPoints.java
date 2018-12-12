@@ -3,8 +3,7 @@ package com.arm.mbed.cloud.sdk.devicedirectory.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
 import com.arm.mbed.cloud.sdk.internal.devicedirectory.api.DefaultApi;
 
 @Preamble(description = "Endpoint for Device Directory API")
@@ -16,32 +15,22 @@ public class EndPoints extends AbstractEndpoints {
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * @param services
+     *            created services {@link ServiceStore}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-        this.directory = initialiseDirectory(wrapper);
+    public EndPoints(ServiceStore services) {
+        super(services);
+        this.directory = initialiseService(DefaultApi.class);
 
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-
-    }
-
-    private DefaultApi initialiseDirectory(ApiClientWrapper wrapper) {
-        return wrapper.createService(DefaultApi.class);
     }
 
     public DefaultApi getDirectory() {
         return directory;
+    }
+
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getServicesClone());
     }
 
 }

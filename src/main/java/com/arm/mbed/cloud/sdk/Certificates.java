@@ -47,7 +47,7 @@ public class Certificates extends AbstractApi {
      */
     public Certificates(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceStore);
     }
 
     @SuppressWarnings("unchecked")
@@ -168,8 +168,8 @@ public class Certificates extends AbstractApi {
                                                                            finalOptions.encodeInclude(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.NAME_FILTER),
                                                                            serviceEq,
-                                                                           TranslationUtils.convertToInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
-                                                                                                             null),
+                                                                           TranslationUtils.toInteger(finalOptions.encodeSingleEqualFilter(CertificateListOptions.EXPIRES_FILTER),
+                                                                                                      null),
                                                                            finalOptions.getExecutionModeFilter(),
                                                                            finalOptions.getExecutionModeNotEqualFilter(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),

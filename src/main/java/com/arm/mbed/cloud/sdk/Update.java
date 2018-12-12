@@ -63,7 +63,7 @@ public class Update extends AbstractApi {
      */
     public Update(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceStore);
     }
 
     /**
@@ -108,12 +108,12 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<FirmwareImagePage> call() {
-                                        return endpoint.getUpdate().firmwareImageList(finalOptions.getPageSize(),
-                                                                                      finalOptions.getOrder()
-                                                                                                  .toString(),
-                                                                                      finalOptions.getAfter(),
-                                                                                      new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                                      finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .firmwareImageList(finalOptions.getPageSize(),
+                                                                          finalOptions.getOrder().toString(),
+                                                                          finalOptions.getAfter(),
+                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                          finalOptions.encodeInclude());
                                     }
                                 });
     }
@@ -246,10 +246,10 @@ public class Update extends AbstractApi {
                                     @Override
                                     public Call<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>
                                            call() {
-                                        return endpoint.getUpdate().firmwareImageCreate(
-                                                                                        DataFileAdapter.reverseMap(finalImage.getDataFile()),
-                                                                                        finalImage.getName(),
-                                                                                        finalImage.getDescription());
+                                        return endpoint.getUpdate()
+                                                       .firmwareImageCreate(DataFileAdapter.reverseMap(finalImage.getDataFile()),
+                                                                            finalImage.getName(),
+                                                                            finalImage.getDescription());
                                     }
 
                                 });
@@ -360,12 +360,12 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<FirmwareManifestPage> call() {
-                                        return endpoint.getUpdate().firmwareManifestList(finalOptions.getPageSize(),
-                                                                                         finalOptions.getOrder()
-                                                                                                     .toString(),
-                                                                                         finalOptions.getAfter(),
-                                                                                         new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                                         finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .firmwareManifestList(finalOptions.getPageSize(),
+                                                                             finalOptions.getOrder().toString(),
+                                                                             finalOptions.getAfter(),
+                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()),
+                                                                             finalOptions.encodeInclude());
                                     }
                                 });
     }
@@ -616,12 +616,12 @@ public class Update extends AbstractApi {
 
                                     @Override
                                     public Call<UpdateCampaignPage> call() {
-                                        return endpoint.getUpdate().updateCampaignList(finalOptions.getPageSize(),
-                                                                                       finalOptions.getOrder()
-                                                                                                   .toString(),
-                                                                                       finalOptions.getAfter(),
-                                                                                       CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                                       finalOptions.encodeInclude());
+                                        return endpoint.getUpdate()
+                                                       .updateCampaignList(finalOptions.getPageSize(),
+                                                                           finalOptions.getOrder().toString(),
+                                                                           finalOptions.getAfter(),
+                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
+                                                                           finalOptions.encodeInclude());
                                     }
                                 });
     }

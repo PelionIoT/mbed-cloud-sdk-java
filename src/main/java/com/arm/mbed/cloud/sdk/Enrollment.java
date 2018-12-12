@@ -43,7 +43,7 @@ public class Enrollment extends AbstractApi {
      */
     public Enrollment(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceStore);
     }
 
     /**

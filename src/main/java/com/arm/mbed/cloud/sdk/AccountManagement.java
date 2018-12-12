@@ -62,7 +62,7 @@ public class AccountManagement extends AbstractApi {
      */
     public AccountManagement(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceStore);
     }
 
     /**

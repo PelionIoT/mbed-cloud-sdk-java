@@ -3,8 +3,7 @@ package com.arm.mbed.cloud.sdk.bootstrap.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
 import com.arm.mbed.cloud.sdk.internal.connectorbootstrap.api.PreSharedKeysApi;
 
 @Preamble(description = "Endpoint for bootstrap API")
@@ -15,33 +14,21 @@ public class EndPoints extends AbstractEndpoints {
 
     /**
      * Constructor.
-     *
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * 
+     * @param services
+     *            created services {@link ServiceStore}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-        this.presharedKeys = initialisePreSharedKeys(wrapper);
-
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-
-    }
-
-    private PreSharedKeysApi initialisePreSharedKeys(ApiClientWrapper wrapper) {
-        return wrapper.createService(PreSharedKeysApi.class);
+    public EndPoints(ServiceStore services) {
+        super(services);
+        this.presharedKeys = initialiseService(PreSharedKeysApi.class);
     }
 
     public PreSharedKeysApi getPresharedKeys() {
         return presharedKeys;
     }
 
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getServicesClone());
+    }
 }

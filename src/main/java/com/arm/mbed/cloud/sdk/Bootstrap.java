@@ -42,7 +42,7 @@ public class Bootstrap extends AbstractApi {
      */
     public Bootstrap(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.client);
+        endpoint = new EndPoints(this.serviceStore);
     }
 
     /**

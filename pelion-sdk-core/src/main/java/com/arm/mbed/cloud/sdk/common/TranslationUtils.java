@@ -41,6 +41,9 @@ public final class TranslationUtils {
     public static final String METHOD_CONVERT_NUMBER_TO_INT = "toInt";
     public static final String METHOD_CONVERT_ANY_TO_STRING = "toString";
 
+    /**
+     * Constructor.
+     */
     private TranslationUtils() {
         super();
     }
@@ -141,18 +144,48 @@ public final class TranslationUtils {
         return (date == null) ? null : new DateTime(date);
     }
 
+    /**
+     * Converts to local date.
+     * 
+     * @param date
+     *            date
+     * @return corresponding date.
+     */
     public static LocalDate toLocalDate(Date date) {
         return (date == null) ? null : new LocalDate(date);
     }
 
+    /**
+     * Converts to long.
+     * 
+     * @param longE
+     *            a number
+     * @return corresponding long number.
+     */
     public static long toLong(Number longE) {
-        return toLong(longE, 0l);
+        return toLong(longE, 0L);
     }
 
+    /**
+     * Converts string to a long value.
+     * 
+     * @param value
+     *            string containing a number
+     * @return long contained in string or 0L if parsing failed
+     */
     public static long toLong(String value) {
-        return toLong(value, 0l);
+        return toLong(value, 0L);
     }
 
+    /**
+     * Converts a number to a long.
+     * 
+     * @param longE
+     *            a number
+     * @param defaultValue
+     *            default value.
+     * @return corresponding long number or default value if null.
+     */
     public static long toLong(Number longE, long defaultValue) {
         return (longE == null) ? defaultValue : longE.longValue();
     }
@@ -179,14 +212,37 @@ public final class TranslationUtils {
         }
     }
 
+    /**
+     * Converts number to an integer.
+     * 
+     * @param number
+     *            a number.
+     * @return corresponding integer value or 0 if null;
+     */
     public static int toInt(Number number) {
         return toInt(number, 0);
     }
 
+    /**
+     * Converts string to an integer.
+     * 
+     * @param value
+     *            string containing a number
+     * @return long contained in string or 0 if parsing failed
+     */
     public static int toInt(String value) {
         return toInt(value, 0);
     }
 
+    /**
+     * Converts number to an integer.
+     * 
+     * @param integer
+     *            a number
+     * @param defaultV
+     *            default value
+     * @return corresponding integer value or default value if null;
+     */
     public static int toInt(Number integer, int defaultV) {
         return (integer == null) ? defaultV : integer.intValue();
     }
@@ -201,11 +257,24 @@ public final class TranslationUtils {
      * @return corresponding integer or default value if not recognised
      */
     public static int toInt(String value, int defaultV) {
+        return toInt(toInteger(value, defaultV));
+    }
+
+    /**
+     * Converts a string to an Integer.
+     * 
+     * @param value
+     *            string containing an integer.
+     * @param defaultV
+     *            default value to consider if string not recognised as an integer representation
+     * @return corresponding integer or default value if not recognised
+     */
+    public static Integer toInteger(String value, Integer defaultV) {
         if (value == null) {
             return defaultV;
         }
         try {
-            return toInt(Integer.decode(value.trim()), defaultV);
+            return Integer.decode(value.trim());
         } catch (NumberFormatException exception) {
             SdkLogger.getLogger()
                      .logError("Error occurred when parsing integer [" + value + "]. Defaulting to " + defaultV,
@@ -214,18 +283,50 @@ public final class TranslationUtils {
         }
     }
 
+    /**
+     * Converts a boolean to a boolean.
+     * 
+     * @param bool
+     *            boolean
+     * @return corresponding boolean or false if null.
+     */
     public static boolean toBool(Boolean bool) {
         return toBool(bool, false);
     }
 
+    /**
+     * Converts a string to an boolean.
+     *
+     * @param value
+     *            string containing a boolean.
+     * @return corresponding boolean or false if not recognised
+     */
     public static boolean toBool(String value) {
         return toBool(value, false);
     }
 
+    /**
+     * Converts a boolean to a boolean.
+     * 
+     * @param bool
+     *            boolean
+     * @param defaultB
+     *            default value
+     * @return corresponding boolean or default value if null.
+     */
     public static boolean toBool(Boolean bool, boolean defaultB) {
         return (bool == null) ? defaultB : bool.booleanValue();
     }
 
+    /**
+     * Converts a string to an boolean.
+     *
+     * @param value
+     *            string containing a boolean.
+     * @param defaultV
+     *            default value to consider if string not recognised as a boolean representation
+     * @return corresponding boolean or default value if not recognised
+     */
     public static boolean toBool(String value, boolean defaultV) {
         if (value == null) {
             return defaultV;

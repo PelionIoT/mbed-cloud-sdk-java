@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Store of created services")
 @Internal
-public class ServiceStore {
+public class ServiceStore implements Cloneable {
 
     private final ConcurrentHashMap<Class<?>, Object> store;
     private final ApiClientWrapper client;
@@ -48,9 +48,38 @@ public class ServiceStore {
 
     }
 
-    protected <S> void createService(Class<S> serviceClass) {
+    private <S> void createService(Class<S> serviceClass) throws MbedCloudException {
+        if (serviceClass == null) {
+            return;
+        }
+        if (client == null) {
+            throw new MbedCloudException("Client was not set properly", new Exception("Cloud client cannot be Null"));
+        }
         final S service = client.createService(serviceClass);
-        if (service != null) {
+        registerService(serviceClass, service);
+    }
+
+    /**
+     * Registers a service.
+     * 
+     * @param service
+     *            service to register.
+     */
+    @SuppressWarnings("unchecked")
+    public <S> void registerService(S service) {
+        registerService((Class<S>) service.getClass(), service);
+    }
+
+    /**
+     * Registers a service.
+     * 
+     * @param serviceClass
+     *            class of the service to register.
+     * @param service
+     *            service to register
+     */
+    public <S> void registerService(Class<S> serviceClass, S service) {
+        if (service != null || serviceClass != null) {
             store.putIfAbsent(serviceClass, service);
         }
     }
@@ -58,6 +87,15 @@ public class ServiceStore {
     @SuppressWarnings("unchecked")
     protected <S> S getServiceFromStore(Class<S> serviceClass) {
         return (S) store.get(serviceClass);
+    }
+
+    public ApiClientWrapper getClient() {
+        return client;
+    }
+
+    @Override
+    public ServiceStore clone() {
+        return new ServiceStore(new ApiClientWrapper(getClient()));
     }
 
 }

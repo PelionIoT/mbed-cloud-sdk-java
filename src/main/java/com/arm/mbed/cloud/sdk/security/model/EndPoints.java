@@ -3,8 +3,7 @@ package com.arm.mbed.cloud.sdk.security.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
 import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateEnrollmentsApi;
 import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateRenewalApi;
 import com.arm.mbed.cloud.sdk.internal.externalca.api.CertificateIssuersActivationApi;
@@ -22,27 +21,15 @@ public class EndPoints extends AbstractEndpoints {
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * @param services
+     *            created services {@link ServiceStore}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-
-        certificateEnrollment = wrapper.createService(CertificateEnrollmentsApi.class);
-        certificateRenewal = wrapper.createService(CertificateRenewalApi.class);
-        certificateIssuersActivation = wrapper.createService(CertificateIssuersActivationApi.class);
-        certificateIssuers = wrapper.createService(CertificateIssuersApi.class);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-
+    public EndPoints(ServiceStore services) {
+        super(services);
+        certificateEnrollment = initialiseService(CertificateEnrollmentsApi.class);
+        certificateRenewal = initialiseService(CertificateRenewalApi.class);
+        certificateIssuersActivation = initialiseService(CertificateIssuersActivationApi.class);
+        certificateIssuers = initialiseService(CertificateIssuersApi.class);
     }
 
     public CertificateEnrollmentsApi getCertificateEnrollment() {
@@ -61,4 +48,8 @@ public class EndPoints extends AbstractEndpoints {
         return certificateIssuers;
     }
 
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getServicesClone());
+    }
 }

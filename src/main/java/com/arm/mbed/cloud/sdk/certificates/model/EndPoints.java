@@ -3,8 +3,7 @@ package com.arm.mbed.cloud.sdk.certificates.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
 import com.arm.mbed.cloud.sdk.internal.connectorca.api.DeveloperCertificateApi;
 import com.arm.mbed.cloud.sdk.internal.connectorca.api.ServerCredentialsApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
@@ -21,42 +20,16 @@ public class EndPoints extends AbstractEndpoints {
 
     /**
      * Constructor.
-     *
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
+     * 
+     * @param services
+     *            created services {@link ServiceStore}.
      */
-    public EndPoints(ApiClientWrapper wrapper) {
-        super(wrapper);
-        this.accountDeveloper = initialiseDeveloper(wrapper);
-        this.admin = initialiseAdmin(wrapper);
-        this.server = initialiseServer(wrapper);
-        this.certDeveloper = initialiseCertDeveloper(wrapper);
-    }
-
-    /**
-     * Constructor.
-     *
-     * @param options
-     *            connection options {@link ConnectionOptions}.
-     */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options));
-    }
-
-    private AccountAdminApi initialiseAdmin(ApiClientWrapper wrapper) {
-        return wrapper.createService(AccountAdminApi.class);
-    }
-
-    private DeveloperApi initialiseDeveloper(ApiClientWrapper wrapper) {
-        return wrapper.createService(DeveloperApi.class);
-    }
-
-    private DeveloperCertificateApi initialiseCertDeveloper(ApiClientWrapper wrapper) {
-        return wrapper.createService(DeveloperCertificateApi.class);
-    }
-
-    private ServerCredentialsApi initialiseServer(ApiClientWrapper wrapper) {
-        return wrapper.createService(ServerCredentialsApi.class);
+    public EndPoints(ServiceStore services) {
+        super(services);
+        this.accountDeveloper = initialiseService(DeveloperApi.class);
+        this.admin = initialiseService(AccountAdminApi.class);
+        this.server = initialiseService(ServerCredentialsApi.class);
+        this.certDeveloper = initialiseService(DeveloperCertificateApi.class);
     }
 
     public DeveloperApi getAccountDeveloper() {
@@ -75,4 +48,8 @@ public class EndPoints extends AbstractEndpoints {
         return certDeveloper;
     }
 
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getServicesClone());
+    }
 }

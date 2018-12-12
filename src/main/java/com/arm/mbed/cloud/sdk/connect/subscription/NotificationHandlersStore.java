@@ -21,7 +21,6 @@ import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudCaller.CallFeedback;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
-import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -89,9 +88,9 @@ public class NotificationHandlersStore implements Closeable {
         if (endpoint2 == null) {
             return null;
         }
-        final ConnectionOptions options = endpoint2.getConnectionOptions();
-        options.setRequestTimeout(REQUEST_TIMEOUT);
-        return new EndPoints(options);
+        final EndPoints clone = endpoint2.clone();
+        clone.setRequestTimeout(REQUEST_TIMEOUT);
+        return clone;
     }
 
     public CloudSubscriptionManager getSubscriptionManager() {

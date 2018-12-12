@@ -3,8 +3,9 @@ package com.arm.mbed.cloud.sdk.connect.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
+import com.arm.mbed.cloud.sdk.common.ServiceStore;
+import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.internal.mds.api.DeviceRequestsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.NotificationsApi;
@@ -24,71 +25,25 @@ public class EndPoints extends AbstractEndpoints {
     private final SubscriptionsApi subscriptions;
     private final AccountApi account;
     private final StatisticsApi statistic;
-    private final ConnectionOptions connectionOptions;
-    private final boolean autostartDaemon;
     private boolean forceClear;
 
     /**
      * Constructor.
      * 
-     * @param wrapper
-     *            API client {@link ApiClientWrapper}.
-     *
-     * @param autostartNotificationDaemon
-     *            States whether notification daemon should be started automatically.
-     */
-
-    public EndPoints(ApiClientWrapper wrapper, boolean autostartNotificationDaemon) {
-        super(wrapper);
-        this.connectionOptions = wrapper.getConnectionOptions();
-        this.async = initialiseAsync(wrapper);
-        this.endpoint = initialiseEndpoint(wrapper);
-        this.notifications = initialiseNotification(wrapper);
-        this.resources = initialiseResource(wrapper);
-        this.subscriptions = initialiseSubscription(wrapper);
-        this.account = initialiseAccount(wrapper);
-        this.statistic = initialiseStatistic(wrapper);
-        this.autostartDaemon = autostartNotificationDaemon;
-        forceClear = false;
-    }
-
-    /**
-     * Constructor.
+     * @param services
+     *            created services {@link ServiceStore}.
      * 
-     * @param options
-     *            connection options {@link ConnectionOptions}.
      */
-    public EndPoints(ConnectionOptions options) {
-        this(new ApiClientWrapper(options), options.isAutostartDaemon());
-
-    }
-
-    private DeviceRequestsApi initialiseAsync(ApiClientWrapper wrapper) {
-        return wrapper.createService(DeviceRequestsApi.class);
-    }
-
-    private EndpointsApi initialiseEndpoint(ApiClientWrapper wrapper) {
-        return wrapper.createService(EndpointsApi.class);
-    }
-
-    private NotificationsApi initialiseNotification(ApiClientWrapper wrapper) {
-        return wrapper.createService(NotificationsApi.class);
-    }
-
-    private ResourcesApi initialiseResource(ApiClientWrapper wrapper) {
-        return wrapper.createService(ResourcesApi.class);
-    }
-
-    private AccountApi initialiseAccount(ApiClientWrapper wrapper) {
-        return wrapper.createService(AccountApi.class);
-    }
-
-    private StatisticsApi initialiseStatistic(ApiClientWrapper wrapper) {
-        return wrapper.createService(StatisticsApi.class);
-    }
-
-    private SubscriptionsApi initialiseSubscription(ApiClientWrapper wrapper) {
-        return wrapper.createService(SubscriptionsApi.class);
+    public EndPoints(ServiceStore services) {
+        super(services);
+        this.async = initialiseService(DeviceRequestsApi.class);
+        this.endpoint = initialiseService(EndpointsApi.class);
+        this.notifications = initialiseService(NotificationsApi.class);
+        this.resources = initialiseService(ResourcesApi.class);
+        this.subscriptions = initialiseService(SubscriptionsApi.class);
+        this.account = initialiseService(AccountApi.class);
+        this.statistic = initialiseService(StatisticsApi.class);
+        forceClear = false;
     }
 
     public DeviceRequestsApi getAsync() {
@@ -119,17 +74,14 @@ public class EndPoints extends AbstractEndpoints {
         return statistic;
     }
 
-    public ConnectionOptions getConnectionOptions() {
-        return connectionOptions;
-    }
-
     /**
      * States whether notification daemon will start automatically when needed.
      * 
      * @return true if daemon will be started automatically. False otherwise.
      */
     public boolean isAutostartDaemon() {
-        return autostartDaemon;
+        final ConnectionOptions config = getConfiguration();
+        return config == null ? false : config.isAutostartDaemon();
     }
 
     /**
@@ -149,6 +101,26 @@ public class EndPoints extends AbstractEndpoints {
      */
     public void setForceClear(boolean forceClear) {
         this.forceClear = forceClear;
+    }
+
+    /**
+     * Sets a HTTP client request timeout different from default setting.
+     * <p>
+     * See {@link ConnectionOptions#setRequestTimeout(TimePeriod)}
+     *
+     * @param requestTimeout
+     *            the requestTimeout to set
+     */
+    public void setRequestTimeout(TimePeriod requestTimeout) {
+        final ConnectionOptions config = getConfiguration();
+        if (config != null) {
+            config.setRequestTimeout(requestTimeout);
+        }
+    }
+
+    @Override
+    public EndPoints clone() {
+        return new EndPoints(getServicesClone());
     }
 
 }
