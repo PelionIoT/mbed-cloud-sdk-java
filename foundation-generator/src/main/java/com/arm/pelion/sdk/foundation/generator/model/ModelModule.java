@@ -2,15 +2,37 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.AnnotationSpec;
 
 public class ModelModule extends ModelMergeable {
 
-    public ModelModule(Model model, String packageName, String description, boolean needsCustomCode) {
+    public static final String ENDPOINTS_FIELD_NAME = "endpoints";
+    private final ModelEndpointsFetcher endpointFetcher;
+
+    public ModelModule(Model model, String packageName, String description, ModelEndpointsFetcher fetcher) {
         super(packageName, generateName(model.getGroup()), model.getGroup(),
               generateDescription(model.getGroup(), description),
               generateLongDescription(model.getGroup(), description), false, true);
         setSuperClassType(TypeFactory.getCorrespondingType(AbstractApi.class));
+        endpointFetcher = fetcher;
+        addEndpointField();
+    }
+
+    private void addEndpointField() {
+        ModelEndpoints endpoints = endpointFetcher.fetch(getGroup());
+        if (endpoints == null) {
+            return;
+        }
+        addField(new Field(true, endpoints.toType(), ENDPOINTS_FIELD_NAME, "module endpoints", null, null, false, false,
+                           true, false, null, false));
+
+    }
+
+    @Override
+    protected void translateFields() throws TranslationException {
+        addEndpointField();
+        super.translateFields();
     }
 
     private static String generateDescription(String group, String description) {
@@ -26,7 +48,8 @@ public class ModelModule extends ModelMergeable {
     @Override
     public void generateAnnotations() {
         super.generateAnnotations();
-        specificationBuilder.addAnnotation(AnnotationSpec.builder(Module.class).build());
+        specificationBuilder.addAnnotation(AnnotationSpec.builder(com.arm.mbed.cloud.sdk.annotations.Module.class)
+                                                         .build());
     }
 
     private static String generateName(String group) {

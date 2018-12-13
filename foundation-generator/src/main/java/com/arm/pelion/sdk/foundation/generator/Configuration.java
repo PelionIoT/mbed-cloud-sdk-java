@@ -8,7 +8,7 @@ public class Configuration {
 
     private String adapterPackage = "adapters";
 
-    private String modulePackage = "module";
+    private String modulePackage = null;// "module";
 
     private String lowLevelApiModuleNameRegex = ".*Api";
 

@@ -75,6 +75,7 @@ public class MergeableModelDefinitionStore<T extends ModelMergeable> implements 
      */
     @Override
     public T get(String identifier) {
+        // return identifier == null ? null : store.get(identifier).stream().findFirst().get();
         return identifier == null ? null : Utils.merge(store.get(identifier));
     }
 

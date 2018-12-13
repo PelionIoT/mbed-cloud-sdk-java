@@ -42,7 +42,10 @@ public class ArtifactsGenerator extends AbstractGenerator {
         for (final ModelEndpoints endpoints : artifacts.getProcessedEndpoints()) {
             new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
         }
-
+        logger.logInfo("Generating module classes");
+        for (final ModelModule endpoints : artifacts.getProcessedModules()) {
+            new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
+        }
         logger.logInfo("Generating model unit tests");
         for (final ModelTest unittest : artifacts.getUnitTests()) {
             unittest.generateTests();
@@ -62,7 +65,7 @@ public class ArtifactsGenerator extends AbstractGenerator {
             return;
         }
         logger.logInfo("Cleaning models");
-        for (final Model model : artifacts.getRawModels()) {
+        for (final Model model : artifacts.getAllRawModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).clean();
         }
     }

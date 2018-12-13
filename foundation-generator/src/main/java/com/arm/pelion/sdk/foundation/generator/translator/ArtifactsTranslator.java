@@ -23,8 +23,10 @@ import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter.Action;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapterFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
+import com.arm.pelion.sdk.foundation.generator.model.ModelEndpointsFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
+import com.arm.pelion.sdk.foundation.generator.model.ModelModule;
 import com.arm.pelion.sdk.foundation.generator.model.Renames;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
@@ -33,6 +35,14 @@ public class ArtifactsTranslator {
 
     private ArtifactsTranslator() {
         // Do something
+    }
+
+    private static ModelModule translateModuleModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
+                                                    Model model, ModelAdapterFetcher adapterFetcher,
+                                                    ModelEndpointsFetcher endpointsFetcher) {
+        final ModelModule module = new ModelModule(model, generateModulePackageName(config, entity.getGroupId()), null,
+                                                   endpointsFetcher);
+        return module;
     }
 
     private static ModelAdapter
@@ -191,6 +201,11 @@ public class ArtifactsTranslator {
         return generatePackageName(config.getRootPackageName(), config.getAdapterPackage(), groupId);
     }
 
+    private static String generateModulePackageName(Configuration config, List<String> groupId) {
+        // TODO Can be changed
+        return generatePackageName(config.getRootPackageName(), config.getModulePackage(), null);
+    }
+
     private static String generatePackageName(String rootPackageName, String modelPackage, List<String> groupId) {
         StringBuilder builder = new StringBuilder();
         if (rootPackageName != null) {
@@ -211,9 +226,15 @@ public class ArtifactsTranslator {
             }
             builder.append(modelPackage);
         }
-        return builder.toString().replace(CommonTranslator.PACKAGE_SEPARATOR + CommonTranslator.PACKAGE_SEPARATOR,
-                                          CommonTranslator.PACKAGE_SEPARATOR)
-                      .toLowerCase(Locale.UK);
+        final String packageName = builder.toString()
+                                          .replace(CommonTranslator.PACKAGE_SEPARATOR
+                                                   + CommonTranslator.PACKAGE_SEPARATOR,
+                                                   CommonTranslator.PACKAGE_SEPARATOR)
+                                          .toLowerCase(Locale.UK);
+        if (packageName.endsWith(CommonTranslator.PACKAGE_SEPARATOR)) {
+            return packageName.substring(0, packageName.length() - 1);
+        }
+        return packageName;
     }
 
     public static Artifacts translate(Configuration config, IntermediateApiDefinition definition,
@@ -237,6 +258,9 @@ public class ArtifactsTranslator {
                                                                                                                    model)));
                     artifacts.addAdapter(translateAdapterModel(config, lowLevelApis, entity, model,
                                                                artifacts.getAdapterFetcher()));
+                    artifacts.addModule(translateModuleModel(config, lowLevelApis, entity, model,
+                                                             artifacts.getAdapterFetcher(),
+                                                             artifacts.getEndpointsFetcher()));
                     if (entity.hasListMethod()) {
                         artifacts.addModel(PelionModelDefinitionStore.get().store(translateListOptions(config, entity,
                                                                                                        model)));
@@ -256,5 +280,4 @@ public class ArtifactsTranslator {
         }
         return artifacts;
     }
-
 }

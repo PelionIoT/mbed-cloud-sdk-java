@@ -37,7 +37,7 @@ public class ModelEndpoints extends ModelMergeable {
 
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
-        addConstructor(new MethodEndpointsConstructorFromClient(this, theParent));
+        addConstructor(new MethodEndpointsConstructorFromServiceStore(this, theParent));
         overrideMethodIfExist(new MethodEndpointsClone(this, theParent));
     }
 

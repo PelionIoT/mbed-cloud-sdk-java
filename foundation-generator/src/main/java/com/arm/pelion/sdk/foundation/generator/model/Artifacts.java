@@ -19,8 +19,10 @@ public class Artifacts {
     private final List<Model> processedModels;
     private final List<ModelTest> unitTests;
     private final ModelDefinitionStore<ModelEndpoints> rawEndpoints;
-    private final ArtifactFetcher<ModelEndpoints> endpointsFetcher;
+    private final ModelEndpointsFetcher endpointsFetcher;
     private final List<ModelEndpoints> processedEndpoints;
+    private final ModelDefinitionStore<ModelModule> rawModules;
+    private final List<ModelModule> processedModules;
 
     // private final DAOs
     private final Map<String, PackageInfo> packagesInfo;
@@ -37,6 +39,8 @@ public class Artifacts {
         packagesInfo = new HashMap<>();
         rawEndpoints = new MergeableModelDefinitionStore<>();
         processedEndpoints = new LinkedList<>();
+        rawModules = new MergeableModelDefinitionStore<>();
+        processedModules = new LinkedList<>();
         modelFetcher = new ArtifactFetcher<>(rawModels);
         adapterFetcher = new ModelAdapterFetcher(adapterModels, modelFetcher);
         endpointsFetcher = new ModelEndpointsFetcher(rawEndpoints);
@@ -64,6 +68,10 @@ public class Artifacts {
         this.rawEndpoints.store(endpoints);
     }
 
+    public void addModule(ModelModule module) {
+        this.rawModules.store(module);
+    }
+
     public ArtifactFetcher<Model> getModelFetcher() {
         return modelFetcher;
     }
@@ -72,13 +80,14 @@ public class Artifacts {
         return adapterFetcher;
     }
 
-    public ArtifactFetcher<ModelEndpoints> getEndpointsFetcher() {
+    public ModelEndpointsFetcher getEndpointsFetcher() {
         return endpointsFetcher;
     }
 
     public void process() {
         processedModels.clear();
         processedEndpoints.clear();
+        processedModules.clear();
         unitTests.clear();
         // Processed models
         rawModels.getModels().forEach(m -> {
@@ -96,6 +105,8 @@ public class Artifacts {
                        .forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
         processedModels.addAll(rawEndpoints.getModels());
+        // Process Modules
+        processedModules.addAll(rawModules.getModels());
     }
 
     /**
@@ -103,6 +114,15 @@ public class Artifacts {
      */
     public List<Model> getRawModels() {
         return rawModels.getModels();
+    }
+
+    public List<Model> getAllRawModels() {
+        final List<Model> raw = new ArrayList<>(rawModels.getModels());
+        raw.addAll(adapterModels.getModels());
+        raw.addAll(rawEndpoints.getModels());
+        raw.addAll(rawModules.getModels());
+        // TODO add missing
+        return raw;
     }
 
     /**
@@ -114,6 +134,10 @@ public class Artifacts {
 
     public List<ModelEndpoints> getProcessedEndpoints() {
         return processedEndpoints;
+    }
+
+    public List<ModelModule> getProcessedModules() {
+        return processedModules;
     }
 
     public List<ModelAdapter> getAdapterModels() {

@@ -7,11 +7,11 @@ import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ServiceStore;
 
-public class MethodEndpointsConstructorFromClient extends AbstractMethodConstructor {
+public class MethodModuleConstructorFromServiceStore extends AbstractMethodConstructor {
     private static final String PARAM_SERVICE_STORE = "client";
     protected List<Field> fields;
 
-    public MethodEndpointsConstructorFromClient(Model currentModel, Model parentModel) {
+    public MethodModuleConstructorFromServiceStore(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, false);
     }
 

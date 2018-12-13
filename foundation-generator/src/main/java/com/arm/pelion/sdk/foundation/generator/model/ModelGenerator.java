@@ -105,7 +105,7 @@ public class ModelGenerator extends AbstractGenerator {
 
             @Override
             public boolean accept(File dir, String name) {
-                // TODO can be extended
+                // TODO can be extended. file corresponding to models that got removed.
                 final String lowerCase = name == null ? "" : name.toLowerCase().trim();
                 // Will remove any created abstract class
                 return lowerCase.startsWith("abstract") && lowerCase.endsWith(".java");
