@@ -42,6 +42,8 @@ public class ArtifactsTranslator {
                                                     ModelEndpointsFetcher endpointsFetcher) {
         final ModelModule module = new ModelModule(model, generateModulePackageName(config, entity.getGroupId()), null,
                                                    endpointsFetcher);
+
+        module.generateMethods();
         return module;
     }
 

@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ServiceStore;
 
 public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodConstructor {
@@ -28,7 +27,7 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
 
     @Override
     public List<String> getSignature() {
-        return Arrays.asList(ApiClientWrapper.class.getSimpleName());
+        return Arrays.asList(ServiceStore.class.getSimpleName());
     }
 
     @Override

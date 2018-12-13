@@ -10,6 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public abstract class AbstractApi implements ApiModule {
 
+    public static final String SERVICE_STORE_FIELD_NAME = "serviceStore";
     protected final ApiClientWrapper client;
     protected final ServiceStore serviceStore;
 

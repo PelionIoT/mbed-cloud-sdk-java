@@ -74,7 +74,7 @@ public class ModelModule extends ModelMergeable {
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         // TODO
-        // addConstructor(new MethodEndpointsConstructorFromClient(this, theParent));
+        addConstructor(new MethodModuleConstructorFromConnectionOptions(this, theParent));
         // overrideMethodIfExist(new MethodEndpointsClone(this, theParent));
     }
 
