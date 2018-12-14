@@ -11,7 +11,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         this.modelFetcher = modelFetcher;
     }
 
-    public ModelAdapter fetchForCollection(TypeCollection fromFieldType, TypeCollection toFieldType) {
+    public ModelAdapter fetchForCollection(TypeCompose fromFieldType, TypeCompose toFieldType) {
         try {
             fromFieldType.translate();
         } catch (Exception exception) {
@@ -69,7 +69,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         return modelFetcher.fetch(modelType);
     }
 
-    protected ModelAdapter fetchAdapter(String correspondingModelIdentifier) {
+    public ModelAdapter fetchAdapter(String correspondingModelIdentifier) {
         return store.get(ModelAdapter.generateName(correspondingModelIdentifier));
     }
 

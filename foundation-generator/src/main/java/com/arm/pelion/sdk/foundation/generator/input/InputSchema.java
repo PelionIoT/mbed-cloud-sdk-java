@@ -22,7 +22,6 @@ public interface InputSchema {
     final String ENTITIES_TAG = "entities";
     final String DEFAULT_VALUE_TAG = "default";
     final String DESCRIPTION_TAG = "description";
-    // FIXME remove
     final String SUMMARY_TAG = "summary";
     final String LONG_DESCRIPTION_TAG = "long_description";
     final String FIELDS_TAG = "fields";
@@ -44,6 +43,7 @@ public interface InputSchema {
     final String METHOD_ID_TAG = "operation_id";
     final String PAGINATED_RESPONSE_TAG = "pagination";
     final String METHOD_PARAMETER_MAP_TAG = "parameter_map";
+    final String METHOD_PARAMETER_IS_EXTERNAL = "external_param";
     final String METHOD_DOES_NOT_RETURN_ITSELF_TAG = "unaggregated";
 
     // Method types

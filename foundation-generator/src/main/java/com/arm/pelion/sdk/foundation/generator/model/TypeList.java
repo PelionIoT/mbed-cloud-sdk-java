@@ -6,7 +6,7 @@ import java.util.List;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
-public class TypeList extends TypeCollection {
+public class TypeList extends TypeCompose {
 
     public TypeList() {
         super();

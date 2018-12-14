@@ -251,6 +251,14 @@ public class Method extends AbstractSdkArtifact {
         if (isAbstract) {
             specificationBuilder.addModifiers(Modifier.ABSTRACT);
         }
+        addAnnotations();
+    }
+
+    protected void addExceptions() {
+        // Nothing to do
+    }
+
+    protected void addAnnotations() {
         if (containsCustomCode || isAnOverride) {
             specificationBuilder.addAnnotation(Override.class);
         }
@@ -350,6 +358,7 @@ public class Method extends AbstractSdkArtifact {
         initialiseBuilder();
         addParameters();
         addModifiers();
+        addExceptions();
         addCode();
     }
 

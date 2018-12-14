@@ -20,6 +20,7 @@ import retrofit2.Response;
 @Preamble(description = "Utility in charge of calling Pelion Cloud APIs")
 @Internal
 public class CloudCaller<T, U> {
+    public static final String METHOD_CALL_CLOUD_API = "call";
     private static final String UNCHECKED = "unchecked";
     protected static final String DATE_HEADER = "Date";
     protected static final String DATE_HEADER_LOWERCASE = "date";

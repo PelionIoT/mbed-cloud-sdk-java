@@ -8,7 +8,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 
-public class TypeHashtable extends TypeCollection {
+public class TypeHashtable extends TypeCompose {
 
     public TypeHashtable() {
         this(false);

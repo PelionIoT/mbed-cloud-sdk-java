@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
 
-public class TypeListResponse extends TypeCollection {
+public class TypeListResponse extends TypeCompose {
 
     public TypeListResponse() {
         super();

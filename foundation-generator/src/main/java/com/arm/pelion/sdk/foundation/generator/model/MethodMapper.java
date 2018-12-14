@@ -134,8 +134,8 @@ public class MethodMapper extends Method {
                                                     MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                   fType.isBoolean())));
                     } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                        final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCollection) fType,
-                                                                                          (TypeCollection) fromFieldType)
+                        final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
+                                                                                          (TypeCompose) fromFieldType)
                                                                       .toType();
                         modelAdapterType.translate();
                         // TODO do what is needed for hashtable
@@ -215,8 +215,8 @@ public class MethodMapper extends Method {
                                   fromVariableName,
                                   MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
             } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCollection) fType,
-                                                                                  (TypeCollection) fromFieldType)
+                final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
+                                                                                  (TypeCompose) fromFieldType)
                                                               .toType();
                 modelAdapterType.translate();
                 // TODO do what is needed for hashtable

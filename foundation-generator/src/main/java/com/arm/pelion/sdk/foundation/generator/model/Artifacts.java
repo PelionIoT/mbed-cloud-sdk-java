@@ -14,6 +14,7 @@ public class Artifacts {
 
     private final ModelDefinitionStore<Model> rawModels;
     private final ArtifactFetcher<Model> modelFetcher;
+    private final ModelListOptionFetcher listOptionFetcher;
     private final ModelDefinitionStore<ModelAdapter> adapterModels;
     private final ModelAdapterFetcher adapterFetcher;
     private final List<Model> processedModels;
@@ -42,6 +43,7 @@ public class Artifacts {
         rawModules = new MergeableModelDefinitionStore<>();
         processedModules = new LinkedList<>();
         modelFetcher = new ArtifactFetcher<>(rawModels);
+        listOptionFetcher = new ModelListOptionFetcher(rawModels);
         adapterFetcher = new ModelAdapterFetcher(adapterModels, modelFetcher);
         endpointsFetcher = new ModelEndpointsFetcher(rawEndpoints);
     }
@@ -82,6 +84,10 @@ public class Artifacts {
 
     public ModelEndpointsFetcher getEndpointsFetcher() {
         return endpointsFetcher;
+    }
+
+    public ModelListOptionFetcher getListOptionFetcher() {
+        return listOptionFetcher;
     }
 
     public void process() {

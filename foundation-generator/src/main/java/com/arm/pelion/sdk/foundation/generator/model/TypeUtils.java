@@ -24,7 +24,7 @@ public class TypeUtils {
         if (fType == null || (!fType.isList() && !fType.isHashtable())) {
             return false;
         }
-        final TypeParameter contentType = ((TypeCollection) fType).getContentType();
+        final TypeParameter contentType = ((TypeCompose) fType).getContentType();
         return checkIfModel(contentType);
     }
 
@@ -32,7 +32,7 @@ public class TypeUtils {
         if (fType == null || (!fType.isList() && !fType.isHashtable())) {
             return false;
         }
-        final TypeParameter contentType = ((TypeCollection) fType).getContentType();
+        final TypeParameter contentType = ((TypeCompose) fType).getContentType();
         return checkIfFundationModel(contentType);
     }
 

@@ -2,14 +2,16 @@ package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
 
-import com.fasterxml.jackson.annotation.JsonAlias;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Method {
     @JsonProperty(InputSchema.KEY_TAG)
     private String key;
-    @JsonAlias({ InputSchema.DESCRIPTION_TAG, InputSchema.SUMMARY_TAG })
+    // @JsonAlias({ InputSchema.DESCRIPTION_TAG, InputSchema.SUMMARY_TAG })
+    @JsonProperty(InputSchema.DESCRIPTION_TAG)
     private String description;
+    @JsonProperty(InputSchema.SUMMARY_TAG)
+    private String summary;
     @JsonProperty(InputSchema.GROUP_ID_TAG)
     private List<String> groupId;
     @JsonProperty(InputSchema.DROP_FIELDS_TAG)
@@ -26,6 +28,8 @@ public class Method {
     // private List<Mapping> parameterMap;
     @JsonProperty(InputSchema.METHOD_DOES_NOT_RETURN_ITSELF_TAG)
     private boolean doesntReturnItself;
+    @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
+    private boolean customCode;
 
     public String getKey() {
         return key;
@@ -103,6 +107,14 @@ public class Method {
         return groupId;
     }
 
+    public String getSummary() {
+        return summary;
+    }
+
+    public void setSummary(String summary) {
+        this.summary = summary;
+    }
+
     public boolean isListMethod() {
         return isMethod(InputSchema.LIST_METHOD_TAG);
     }
@@ -126,6 +138,14 @@ public class Method {
     private boolean isMethod(String methodName) {
         final String methodKey = Utils.getKey(methodName, false);
         return methodKey == null ? false : methodKey.equals(key);
+    }
+
+    public boolean isCustomCode() {
+        return customCode;
+    }
+
+    public void setCustomCode(boolean customCode) {
+        this.customCode = customCode;
     }
 
     /**
@@ -178,9 +198,10 @@ public class Method {
 
     @Override
     public String toString() {
-        return "Method [key=" + key + ", description=" + description + ", dropFields=" + dropFields + ", renames="
-               + renames + ", id=" + id + ", hasPaginatedResponse=" + hasPaginatedResponse + ", doesntReturnItself="
-               + doesntReturnItself + "]";
+        return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
+               + ", dropFields=" + dropFields + ", renames=" + renames + ", id=" + id + ", hasPaginatedResponse="
+               + hasPaginatedResponse + ", doesntReturnItself=" + doesntReturnItself + ", customCode=" + customCode
+               + "]";
     }
 
 }

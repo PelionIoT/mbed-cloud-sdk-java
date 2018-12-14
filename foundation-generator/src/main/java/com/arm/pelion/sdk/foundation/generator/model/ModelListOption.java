@@ -11,13 +11,17 @@ public class ModelListOption extends Model {
         setSuperClassType(TypeFactory.getCorrespondingType(ListOptions.class));
     }
 
+    public ModelListOption() {
+        this(new Model(ListOptions.class), "Default list options", false);
+    }
+
     private static String generateDescription(String name, String description) {
         return description == null ? "Options to use when listing "
                                      + ApiUtils.convertCamelToSnake(name).replace("_", " ").trim() + "s"
                                    : description;
     }
 
-    private static String generateName(String name) {
+    public static String generateName(String name) {
         return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name) + "_list_options", true);
     }
 

@@ -39,6 +39,8 @@ public class Field {
     private String entityFieldname;
     @JsonProperty(InputSchema.PARAMETER_FIELDNAME_TAG)
     private String parameterFieldname;
+    @JsonProperty(InputSchema.METHOD_PARAMETER_IS_EXTERNAL)
+    private boolean isExternal;
 
     // Java specific fields
     @JsonProperty(InputSchema.INTERNAL_TAG)
@@ -64,6 +66,7 @@ public class Field {
         additionalProperties = null;
         enumRef = null;
         foreignKey = null;
+        isExternal = false;
     }
 
     /**
@@ -336,6 +339,14 @@ public class Field {
         this.parameterFieldname = Utils.getKey(parameterFieldname, false);
     }
 
+    public boolean isExternal() {
+        return isExternal;
+    }
+
+    public void setExternal(boolean isExternal) {
+        this.isExternal = isExternal;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -383,8 +394,8 @@ public class Field {
                + ", defaultValue=" + defaultValue + ", readOnly=" + readOnly + ", pattern=" + pattern + ", enumRef="
                + enumRef + ", additionalProperties=" + additionalProperties + ", type=" + type + ", format=" + format
                + ", foreignKey=" + foreignKey + ", parameterLocation=" + parameterLocation + ", entityFieldname="
-               + entityFieldname + ", parameterFieldname=" + parameterFieldname + ", internal=" + internal
-               + ", longDescription=" + longDescription + "]";
+               + entityFieldname + ", parameterFieldname=" + parameterFieldname + ", isExternal=" + isExternal
+               + ", internal=" + internal + ", longDescription=" + longDescription + "]";
     }
 
 }

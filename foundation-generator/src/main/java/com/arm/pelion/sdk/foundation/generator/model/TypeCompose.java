@@ -2,45 +2,45 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
-public abstract class TypeCollection extends TypeParameter {
+public abstract class TypeCompose extends TypeParameter {
 
     protected TypeParameter contentType;
     protected boolean concreteImplementation;
 
-    public TypeCollection() {
+    public TypeCompose() {
         this(false);
     }
 
-    public TypeCollection(boolean concrete) {
+    public TypeCompose(boolean concrete) {
         this(new TypeParameter(), concrete);
     }
 
-    public TypeCollection(TypeParameter contentType) {
+    public TypeCompose(TypeParameter contentType) {
         this(contentType, false);
     }
 
-    public TypeCollection(String type, String format) {
+    public TypeCompose(String type, String format) {
         this(new TypeParameter(type, format));
     }
 
-    public TypeCollection(TypeParameter contentType, boolean concrete) {
+    public TypeCompose(TypeParameter contentType, boolean concrete) {
         super();
         this.contentType = contentType;
         this.concreteImplementation = concrete;
     }
 
-    public TypeCollection(Import importPath) {
+    public TypeCompose(Import importPath) {
         this(new TypeParameter(importPath));
     }
 
-    public TypeCollection(Class<?> clazz) {
+    public TypeCompose(Class<?> clazz) {
         this(new TypeParameter(clazz));
     }
 
     @Override
     public void translate() throws TranslationException {
         if (contentType == null) {
-            throw new TranslationException("The type definition of the map is unknown ");
+            throw new TranslationException("The type definition of the composed type is unknown ");
         }
         try {
             contentType.translate();
@@ -85,7 +85,7 @@ public abstract class TypeCollection extends TypeParameter {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        TypeCollection other = (TypeCollection) obj;
+        TypeCompose other = (TypeCompose) obj;
         if (concreteImplementation != other.concreteImplementation)
             return false;
         if (contentType == null) {

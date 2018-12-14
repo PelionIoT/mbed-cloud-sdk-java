@@ -5,9 +5,12 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
+import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+
+import retrofit2.Call;
 
 public class TypeFactory {
 
@@ -32,25 +35,31 @@ public class TypeFactory {
         if (Mapper.class.isAssignableFrom(type)) {
             return new TypeMapper();
         }
+        if (Call.class.isAssignableFrom(type)) {
+            return new TypeRetrofitCall();
+        }
+        if (CloudCall.class.isAssignableFrom(type)) {
+            return new TypeCloudCall();
+        }
         return new TypeParameter(type);
     }
 
     public static TypeParameter getCorrespondingType(Class<?> type, TypeParameter contentType) {
         final TypeParameter topType = getCorrespondingType(type);
-        if (topType instanceof TypeCollection) {
-            ((TypeCollection) topType).setContentType(contentType);
+        if (topType instanceof TypeCompose) {
+            ((TypeCompose) topType).setContentType(contentType);
         }
         return topType;
     }
 
     public static TypeParameter getCorrespondingType(Class<?> type, Type genericType) {
         final TypeParameter topType = getCorrespondingType(type);
-        if (topType instanceof TypeCollection) {
+        if (topType instanceof TypeCompose) {
             int index = 0;
             if (topType.isHashtable()) {
                 index = 1;
             }
-            ((TypeCollection) topType).setContentType(getCorrespondingType(determineContentClass(genericType, index)));
+            ((TypeCompose) topType).setContentType(getCorrespondingType(determineContentClass(genericType, index)));
         }
         return topType;
     }

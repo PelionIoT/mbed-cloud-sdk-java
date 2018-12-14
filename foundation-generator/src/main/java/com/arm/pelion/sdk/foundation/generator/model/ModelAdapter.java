@@ -62,7 +62,6 @@ public class ModelAdapter extends Model {
         generateMethodsDependingOnParents(null);
         enflateConversions();
         conversions.values().forEach(c -> c.addMethod(this, defaultRenames));
-
     }
 
     public void setDefaultRenames(Renames defaultRenames) {
@@ -94,7 +93,7 @@ public class ModelAdapter extends Model {
         enflate(conversion.getAction(), conversion.getFrom(), conversion.getTo(), conversion.getRenames());
     }
 
-    private void enflate(Action action, Model from, Model to, Renames renames) {
+    private void enflate(MethodAction action, Model from, Model to, Renames renames) {
         for (Field f : to.getFieldList()) {
             final TypeParameter fType = f.getType();
             final String toFieldName = f.getName();
@@ -119,7 +118,7 @@ public class ModelAdapter extends Model {
 
             if (TypeUtils.checkIfCollectionOfModel(fType) || TypeUtils.checkIfCollectionOfModel(fromFieldType)) {
                 if (fetcher != null) {
-                    fetcher.fetchForCollection((TypeCollection) fromFieldType, (TypeCollection) fType);
+                    fetcher.fetchForCollection((TypeCompose) fromFieldType, (TypeCompose) fType);
                 }
             }
             if (TypeUtils.checkIfModel(fType) || TypeUtils.checkIfModel(fromFieldType)) {
@@ -130,8 +129,8 @@ public class ModelAdapter extends Model {
         }
     }
 
-    public void addMethodAdapter(Action action, Model from, Model to, boolean isList, boolean isEnum, Renames renames,
-                                 Model fromContent, Model toContent) {
+    public void addMethodAdapter(MethodAction action, Model from, Model to, boolean isList, boolean isEnum,
+                                 Renames renames, Model fromContent, Model toContent) {
         addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action), true);
     }
 
@@ -141,19 +140,11 @@ public class ModelAdapter extends Model {
 
     private void addConversion(Conversion conversion, boolean enflate) {
         if (conversion != null && conversion.isValid()) {
-            System.out.println("adding to " + name + " " + conversion);
             conversions.put(conversion.getIdentifier(), conversion);
             if (enflate) {
                 enflate(conversion);
             }
         }
-    }
-
-    public enum Action {
-        CREATE,
-        READ,
-        UPDATE,
-        DELETE;
     }
 
     public static class Conversion {
@@ -164,10 +155,10 @@ public class ModelAdapter extends Model {
         private final Renames renames;
         private final Model fromContent;
         private final Model toContent;
-        private final Action action;
+        private final MethodAction action;
 
         public Conversion(Model from, Model to, boolean isList, boolean isEnum, Renames renames, Model fromContent,
-                          Model toContent, Action action) {
+                          Model toContent, MethodAction action) {
             super();
             this.from = from;
             this.to = to;
@@ -176,7 +167,7 @@ public class ModelAdapter extends Model {
             this.renames = renames;
             this.fromContent = fromContent;
             this.toContent = toContent;
-            this.action = action == null ? Action.READ : action;
+            this.action = action == null ? MethodAction.READ : action;
         }
 
         public boolean isValid() {
@@ -215,7 +206,7 @@ public class ModelAdapter extends Model {
             return toContent;
         }
 
-        public Action getAction() {
+        public MethodAction getAction() {
             return action;
         }
 
@@ -259,8 +250,8 @@ public class ModelAdapter extends Model {
                                                                       listMapping.getName());
                 adapter.addMethod(getMapper);
             } else if (fromType.isList() && toType.isList()) {
-                final TypeParameter fromSubType = ((TypeCollection) fromType).getContentType();
-                final TypeParameter toSubType = ((TypeCollection) toType).getContentType();
+                final TypeParameter fromSubType = ((TypeCompose) fromType).getContentType();
+                final TypeParameter toSubType = ((TypeCompose) toType).getContentType();
                 final MethodSimpleListMapper listMapping = new MethodSimpleListMapper(FUNCTION_NAME_MAP_SIMPLE_LIST,
                                                                                       FUNCTION_NAME_GET_MAPPER, true,
                                                                                       from, to, toType, adapter);
