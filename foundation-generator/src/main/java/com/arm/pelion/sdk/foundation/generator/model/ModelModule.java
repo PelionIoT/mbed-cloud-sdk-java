@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
@@ -106,10 +107,13 @@ public class ModelModule extends ModelMergeable {
         private final boolean isPaginated;
         private final String description;
         private final String longDescription;
-        private final TypeParameter lowLevelReturnType;
+        private final List<Parameter> methodParameters;
+        private final Method lowLevelMethod;
+        private final Renames parameterRenames;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
-                         Model currentModel, boolean custom, boolean isPaginated, TypeParameter lowLevelReturnType) {
+                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> methodParameters,
+                         Renames parameterRenames, Method lowLevelMethod) {
             super();
             this.action = action;
             this.methodName = methodName;
@@ -118,7 +122,9 @@ public class ModelModule extends ModelMergeable {
             this.description = description;
             this.longDescription = longDescription;
             this.isPaginated = isPaginated;
-            this.lowLevelReturnType = lowLevelReturnType;
+            this.lowLevelMethod = lowLevelMethod;
+            this.parameterRenames = parameterRenames;
+            this.methodParameters = methodParameters;
         }
 
         public String getIdentifier() {
@@ -134,14 +140,15 @@ public class ModelModule extends ModelMergeable {
                 case READ:
                 case UPDATE:
                     method = new MethodModuleCloudApi(currentModel, module.adapterFetcher, methodName, description,
-                                                      longDescription, isCustom, lowLevelReturnType,
-                                                      ENDPOINTS_FIELD_NAME);
+                                                      longDescription, isCustom, ENDPOINTS_FIELD_NAME, methodParameters,
+                                                      parameterRenames, lowLevelMethod);
                     break;
 
                 case LIST:
                     method = new MethodModuleListApi(currentModel, methodName, description, longDescription, isCustom,
                                                      isPaginated, module.listOptionFetcher, module.adapterFetcher,
-                                                     lowLevelReturnType, ENDPOINTS_FIELD_NAME);
+                                                     ENDPOINTS_FIELD_NAME, methodParameters, parameterRenames,
+                                                     lowLevelMethod);
                     break;
                 default:
                     break;

@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Arrays;
+import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -15,20 +16,32 @@ import retrofit2.Call;
 public class MethodModuleCloudApi extends Method {
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
-    protected final TypeParameter lowLevelCallReturnType;
     protected final String endpointVariableName;
+    protected final List<Parameter> methodParameters;
+    protected final Renames parameterRenames;
+    protected final Method lowLevelMethod;
 
     public MethodModuleCloudApi(Model currentModel, ModelAdapterFetcher adapterFetcher, String name, String description,
-                                String longDescription, boolean needsCustomCode, TypeParameter lowLevelCallReturnType,
-                                String endpointVariableName) {
+                                String longDescription, boolean needsCustomCode, String endpointVariableName,
+                                List<Parameter> methodParameters, Renames parameterRenames, Method lowLevelMethod) {
         super(false, name, description, longDescription, false, true, false, false, needsCustomCode, false, false,
               false);
         this.currentModel = currentModel;
         this.adapterFetcher = adapterFetcher;
-        this.lowLevelCallReturnType = lowLevelCallReturnType;
         this.endpointVariableName = endpointVariableName;
+        this.lowLevelMethod = lowLevelMethod;
+        this.parameterRenames = parameterRenames;
+        this.methodParameters = methodParameters;
         initialiseCodeBuilder();
         determineReturnType(currentModel);
+        determineParameters(methodParameters);
+    }
+
+    protected void determineParameters(List<Parameter> methodParameters) {
+        if (methodParameters == null || methodParameters.isEmpty()) {
+            return;
+        }
+        methodParameters.forEach(p -> addParameter(p));
     }
 
     protected void determineReturnType(Model currentModel) {
@@ -78,7 +91,8 @@ public class MethodModuleCloudApi extends Method {
 
     protected Object generateCloudCallCode() throws TranslationException {
         final TypeSpec.Builder cloudCall = TypeSpec.anonymousClassBuilder("");
-        final TypeParameter cloudCallType = TypeFactory.getCorrespondingType(CloudCall.class, lowLevelCallReturnType);
+        final TypeParameter cloudCallType = TypeFactory.getCorrespondingType(CloudCall.class,
+                                                                             lowLevelMethod.getReturnType());
         cloudCallType.translate();
         if (cloudCallType.hasClass()) {
             cloudCall.addSuperinterface(cloudCallType.getClazz());
@@ -89,7 +103,7 @@ public class MethodModuleCloudApi extends Method {
             // Use for loop for exception reason
             final Method method = new Method(m, "Makes the low level call to the Cloud", null, true);
             method.setAbstract(false);
-            method.setReturnType(TypeFactory.getCorrespondingType(Call.class, lowLevelCallReturnType));
+            method.setReturnType(TypeFactory.getCorrespondingType(Call.class, lowLevelMethod.getReturnType()));
             method.setReturnDescription("Corresponding Retrofit2 Call object");
             method.initialiseCodeBuilder();
             generateLowLevelCallCode(method);
@@ -118,7 +132,7 @@ public class MethodModuleCloudApi extends Method {
 
     @Override
     public String toString() {
-        return "MethodModuleCloudApi [currentModel=" + currentModel + "]";
+        return "MethodModuleCloudApi [Method=" + super.toString() + ", currentModel=" + currentModel + "]";
     }
 
 }

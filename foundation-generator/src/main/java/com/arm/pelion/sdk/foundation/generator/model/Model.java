@@ -232,6 +232,14 @@ public class Model extends AbstractSdkArtifact {
         return identifier == null ? false : fields.containsKey(identifier);
     }
 
+    public boolean hasFieldInSuperclass(String identifier) {
+        return hasSuperClass() && superClassFields.containsKey(identifier);
+    }
+
+    public boolean hasFieldInHierachy(String identifier) {
+        return hasField(identifier) || hasFieldInSuperclass(identifier);
+    }
+
     public Field fetchField(String identifier) {
         return hasField(identifier) ? fields.get(identifier) : null;
     }

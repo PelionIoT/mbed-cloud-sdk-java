@@ -1,5 +1,6 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
@@ -20,6 +21,7 @@ import org.joda.time.format.ISODateTimeFormat;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 @Preamble(description = "Utilities for Adapters")
 @Internal
@@ -40,6 +42,7 @@ public final class TranslationUtils {
     public static final String METHOD_CONVERT_NUMBER_TO_LONG = "toLong";
     public static final String METHOD_CONVERT_NUMBER_TO_INT = "toInt";
     public static final String METHOD_CONVERT_ANY_TO_STRING = "toString";
+    public static final String METHOD_CONVERT_TO_DATA_FILE = "toDataFile";
 
     /**
      * Constructor.
@@ -152,7 +155,29 @@ public final class TranslationUtils {
      * @return corresponding date.
      */
     public static LocalDate toLocalDate(Date date) {
-        return (date == null) ? null : new LocalDate(date);
+        return date == null ? null : new LocalDate(date);
+    }
+
+    /**
+     * Converts to data file.
+     * 
+     * @param file
+     *            file to convert
+     * @return corresponding data file
+     */
+    public static DataFile toDataFile(File file) {
+        return file == null ? null : new DataFile(file);
+    }
+
+    /**
+     * Converts to data file.
+     * 
+     * @param filePath
+     *            path to the file to convert
+     * @return corresponding data file
+     */
+    public static DataFile toDataFile(String filePath) {
+        return filePath == null ? null : new DataFile(filePath);
     }
 
     /**

@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.CodeBlock;
 
@@ -111,6 +112,12 @@ public class MethodMapper extends Method {
                             values.addAll(Arrays.asList(fromVariableName,
                                                         MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                       fType.isBoolean())));
+                        } else if (fType.isFormPart()) {
+                            statementString.append("$T.$L($L.$L())");
+                            values.addAll(Arrays.asList(DataFileAdapter.class, DataFileAdapter.METHOD_REVERSE_MAP,
+                                                        fromVariableName,
+                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                      fType.isBoolean())));
                         } else if (f.hasDefaultValue()) {
                             statementString.append("$T.$L($L.$L(),$L)");
                             values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
@@ -194,6 +201,11 @@ public class MethodMapper extends Method {
                     code.addStatement("$L.$L($L.$L())", variableName,
                                       MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
                                       MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
+                } else if (fType.isFormPart()) {
+                    code.addStatement("$L.$L($T.$L($L.$L()))", variableName,
+                                      MethodSetter.getCorrespondingSetterMethodName(toFieldName), DataFileAdapter.class,
+                                      DataFileAdapter.METHOD_REVERSE_MAP, fromVariableName,
+                                      MethodGetter.getCorrespondingGetterMethodName(fromFieldName, fType.isBoolean()));
                 } else if (f.hasDefaultValue()) {
                     code.addStatement("$L.$L($T.$L($L.$L(),$L))", variableName,
                                       MethodSetter.getCorrespondingSetterMethodName(toFieldName), fromVariableName,
@@ -273,6 +285,11 @@ public class MethodMapper extends Method {
                 return TranslationUtils.METHOD_CONVERT_STRING_TO_URL;
             }
         }
+        if (fType.isDataFile()) {
+            if (fromFieldType.isFile() || fromFieldType.isString()) {
+                return TranslationUtils.METHOD_CONVERT_TO_DATA_FILE;
+            }
+        }
         if (fType.isBoolean()) {
             if (fromFieldType.isBoolean() || fromFieldType.isString()) {
                 return TranslationUtils.METHOD_CONVERT_BOOL_TO_BOOL;
@@ -309,7 +326,8 @@ public class MethodMapper extends Method {
     }
 
     protected static boolean doesTypeNeedTranslation(TypeParameter type) {
-        return type.isDate() || type.isJodaDate() || type.isJodaTime() || type.isPrimitive() || type.isUrl();
+        return type.isDate() || type.isJodaDate() || type.isJodaTime() || type.isPrimitive() || type.isUrl()
+               || type.isFormPart() || type.isFile();
     }
 
 }

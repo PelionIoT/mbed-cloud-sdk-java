@@ -182,8 +182,8 @@ public class Field {
      * @param required
      *            the required to set
      */
-    public void setRequired(boolean required) {
-        this.required = required;
+    public void setRequired(Object required) {
+        this.required = Boolean.parseBoolean(required.toString());
     }
 
     /**
@@ -345,6 +345,14 @@ public class Field {
 
     public void setExternal(boolean isExternal) {
         this.isExternal = isExternal;
+    }
+
+    public String getProcessedFrom() {
+        return Utils.getKey(apiFieldname, true);
+    }
+
+    public String getProcessedTo() {
+        return Utils.getKey(key, true);
     }
 
     /*

@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.io.File;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.Calendar;
@@ -10,9 +11,12 @@ import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeName;
+
+import okhttp3.MultipartBody;
 
 public class TypeParameter implements Artifact {
 
@@ -147,7 +151,7 @@ public class TypeParameter implements Artifact {
     @Override
     public void translate() throws TranslationException {
         if (!hasClazz()) {
-            clazz = PrimitiveDataTypes.getDataType(type, format);
+            clazz = TypePrimitive.getDataType(type, format);
         }
         if (!hasClazz()) {
             if (importPath == null || importPath.isIncomplete()) {
@@ -252,6 +256,33 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? Boolean.class.isAssignableFrom(getClazz()) || getClazz() == boolean.class : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isFile() {
+        try {
+            translate();
+            return hasClazz() ? File.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isDataFile() {
+        try {
+            translate();
+            return hasClazz() ? DataFile.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isFormPart() {
+        try {
+            translate();
+            return hasClazz() ? MultipartBody.Part.class.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }

@@ -2,7 +2,9 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Date;
 
-public class PrimitiveDataTypes {
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
+
+public class TypePrimitive {
 
     @SuppressWarnings("incomplete-switch")
     public static Class<?> getDataType(String type, String format) {
@@ -18,6 +20,8 @@ public class PrimitiveDataTypes {
                 return getNumberClass(format);
             case "boolean":
                 return boolean.class;
+            case "file":
+                return DataFile.class;
         }
         return null;
     }

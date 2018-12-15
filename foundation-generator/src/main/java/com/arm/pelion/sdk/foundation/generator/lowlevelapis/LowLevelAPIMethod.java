@@ -172,6 +172,10 @@ public class LowLevelAPIMethod {
         arguments.add(argument);
     }
 
+    public boolean hasArguments() {
+        return arguments != null && !arguments.isEmpty();
+    }
+
     public int determineNumberOfArguments() {
         return (arguments == null) ? 0 : arguments.size();
     }

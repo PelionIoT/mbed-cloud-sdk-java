@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
 import com.arm.pelion.sdk.foundation.generator.input.Item;
 import com.arm.pelion.sdk.foundation.generator.model.Field;
+import com.arm.pelion.sdk.foundation.generator.model.Parameter;
 import com.arm.pelion.sdk.foundation.generator.model.TypeHashtable;
 import com.arm.pelion.sdk.foundation.generator.model.TypeList;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
@@ -28,6 +29,16 @@ public class FieldTranslator {
                                            field.isInternal(), field.isRequired(), field.getDefaultValue(), false);
         // TODO do something if needed
         return modelField;
+    }
+
+    public static Parameter translateToParameter(com.arm.pelion.sdk.foundation.generator.input.Field field,
+                                                 String packageName, String group) throws FoundationGeneratorException {
+        if (field == null) {
+            return null;
+        }
+        final Parameter parameter = new Parameter(field.getKey(), field.getDescription(), field.getDescription(),
+                                                  determineType(field, packageName, group), field.getDefaultValue());
+        return parameter;
     }
 
     private static String determinePattern(String pattern) {

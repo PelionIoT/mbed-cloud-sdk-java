@@ -1,4 +1,4 @@
-package com.arm.mbed.cloud.sdk.update.model;
+package com.arm.mbed.cloud.sdk.common.model;
 
 import java.io.File;
 import java.io.FileInputStream;

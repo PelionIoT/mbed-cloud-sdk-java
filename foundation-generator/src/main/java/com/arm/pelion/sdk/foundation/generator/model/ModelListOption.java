@@ -5,6 +5,8 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
 public class ModelListOption extends Model {
 
+    private static final String FIELD_NAME_FORMER_PAGE_SIZE = "limit";
+
     public ModelListOption(Model model, String description, boolean needsCustomCode) {
         super(model.getPackageName(), generateName(model.getName()), model.getGroup(),
               generateDescription(model.getName(), description), null, needsCustomCode, false);
@@ -33,6 +35,15 @@ public class ModelListOption extends Model {
     @Override
     protected boolean isSerialisable() {
         return false;
+    }
+
+    // FIXME remove when limit is renamed pageSize in intermediate config file.
+    @Override
+    public boolean hasFieldInSuperclass(String identifier) {
+        if (FIELD_NAME_FORMER_PAGE_SIZE.equals(identifier)) {
+            return true;
+        }
+        return super.hasFieldInSuperclass(identifier);
     }
 
     @Override

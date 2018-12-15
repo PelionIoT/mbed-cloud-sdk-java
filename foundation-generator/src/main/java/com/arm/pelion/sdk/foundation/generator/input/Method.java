@@ -18,8 +18,8 @@ public class Method {
     private List<String> dropFields;
     @JsonProperty(InputSchema.RENAMES_TAG)
     private List<Mapping> renames;
-    // @JsonProperty(InputSchema.FIELDS_TAG)
-    // private List<Field> fields;
+    @JsonProperty(InputSchema.FIELDS_TAG)
+    private List<Field> parameters;
     @JsonProperty(InputSchema.METHOD_ID_TAG)
     private String id;
     @JsonProperty(InputSchema.PAGINATED_RESPONSE_TAG)
@@ -63,13 +63,13 @@ public class Method {
         this.renames = renames;
     }
 
-    // public List<Field> getFields() {
-    // return fields;
-    // }
-    //
-    // public void setFields(List<Field> fields) {
-    // this.fields = fields;
-    // }
+    public List<Field> getParameters() {
+        return parameters;
+    }
+
+    public void setParameters(List<Field> parameters) {
+        this.parameters = parameters;
+    }
 
     public String getId() {
         return id;

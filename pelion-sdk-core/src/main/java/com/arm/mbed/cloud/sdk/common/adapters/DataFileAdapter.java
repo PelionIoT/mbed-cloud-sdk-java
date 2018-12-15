@@ -1,8 +1,8 @@
-package com.arm.mbed.cloud.sdk.update.adapters;
+package com.arm.mbed.cloud.sdk.common.adapters;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.update.model.DataFile;
+import com.arm.mbed.cloud.sdk.common.model.DataFile;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -11,7 +11,7 @@ import okhttp3.RequestBody;
 @Preamble(description = "Adapter for data file model")
 @Internal
 public final class DataFileAdapter {
-
+    public static final String METHOD_REVERSE_MAP = "reverseMap";
     private static final String DEFAULT_PART_NAME = "datafile";
 
     private DataFileAdapter() {
