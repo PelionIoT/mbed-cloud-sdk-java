@@ -15,7 +15,10 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 
 @Preamble(description = "Options to use when listing objects")
 public class ListOptions extends FilterOptions {
-
+    public static final String FIELD_NAME_INCLUDE = "include";
+    public static final String FIELD_NAME_FILTER = "filter";
+    public static final String METHOD_INCLUDE_TO_STRING = "encodeInclude";
+    public static final String METHOD_FILTER_TO_STRING = FilterOptions.METHOD_FILTER_TO_STRING;
     /**
      * how many objects to retrieve in the page.
      * <P>

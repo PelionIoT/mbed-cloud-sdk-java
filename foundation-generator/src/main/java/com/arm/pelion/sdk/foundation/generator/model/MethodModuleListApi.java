@@ -1,9 +1,11 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodModuleListApi extends MethodModuleCloudApi {
@@ -23,18 +25,20 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
     }
 
     @Override
-    protected void determineParameters(List<Parameter> methodParameters) {
-        final ModelListOption correspondingListOptions = determineListOptionModel();
-        addParameter(new Parameter(PARAMETER_NAME_OPTIONS, "list options.", null, correspondingListOptions.toType(),
-                                   null).setAsNullable(true));
-        List<Parameter> otherParameters = methodParameters;
-        if (otherParameters != null && !otherParameters.isEmpty()) {
+    protected List<Parameter> extendParameterList(List<Parameter> methodParameters) {
+        List<Parameter> otherParameters = super.extendParameterList(methodParameters);
+        if (isPaginatedList) {
+            final ModelListOption correspondingListOptions = determineListOptionModel();
+            if (otherParameters == null) {
+                otherParameters = new LinkedList<>();
+            }
+            otherParameters.add(new Parameter(PARAMETER_NAME_OPTIONS, "list options.", null,
+                                              correspondingListOptions.toType(), null).setAsNullable(true));
             otherParameters = otherParameters.stream()
                                              .filter(p -> !correspondingListOptions.hasFieldInHierachy(p.getIdentifier()))
                                              .collect(Collectors.toList());
         }
-        super.determineParameters(otherParameters);
-
+        return otherParameters;
     }
 
     @Override
@@ -53,14 +57,52 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
     }
 
     @Override
-    protected void generateVariableInitialisation() throws TranslationException {
-        super.generateVariableInitialisation();
-        if (!isPaginatedList) {
+    protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
+        if (methodParameters == null || methodParameters.isEmpty()) {
             return;
         }
-        code.addStatement("final $T $L = ($L == null)? new $T() : $L", determineListOptionType(),
-                          generateFinalVariable(PARAMETER_NAME_OPTIONS), PARAMETER_NAME_OPTIONS,
-                          determineListOptionType(), PARAMETER_NAME_OPTIONS);
+        for (Parameter p : methodParameters) {
+            if (PARAMETER_NAME_OPTIONS.equals(p.getIdentifier())) {
+                code.addStatement("final $T $L = ($L == null)? new $T() : $L", determineListOptionType(),
+                                  generateFinalVariable(p.getName()), p.getName(), determineListOptionType(),
+                                  p.getName());
+            } else {
+                generateParameterInitialisation(p);
+            }
+        }
+    }
+
+    @Override
+    protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
+                                      List<Object> callElements, boolean isExternalParameter) {
+        if (isPaginatedList) {
+            // FIXME refactor the following when filters are supported.
+            final ModelListOption correspondingListOptions = determineListOptionModel();
+            if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
+                switch (parameterName) {
+                    case ListOptions.FIELD_NAME_INCLUDE:
+                        builder.append("$L.$L()");
+                        callElements.add(generateFinalVariable(PARAMETER_NAME_OPTIONS));
+                        callElements.add(ListOptions.METHOD_INCLUDE_TO_STRING);
+                        break;
+                    case ListOptions.FIELD_NAME_FILTER:
+                        // FIXME encode filters when filters are supported.
+                        builder.append("$L");
+                        callElements.add("null");
+                        break;
+                    default:
+                        builder.append("$L.$L()");
+                        callElements.add(generateFinalVariable(PARAMETER_NAME_OPTIONS));
+                        callElements.add(MethodGetter.getCorrespondingGetterMethodName(parameterName,
+                                                                                       type.isBoolean()));
+                }
+            } else {
+                super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);
+            }
+
+        } else {
+            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);
+        }
     }
 
     public Object determineListOptionType() throws TranslationException {
@@ -78,16 +120,6 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
             correspondingListOptions = new ModelListOption();
         }
         return correspondingListOptions;
-    }
-
-    private Object generateFinalVariable(String variableName) {
-        return ApiUtils.convertSnakeToCamel("final_" + ApiUtils.convertCamelToSnake(variableName), false);
-    }
-
-    @Override
-    protected void generateLowLevelCallCode(Method callMethod) {
-        // TODO Auto-generated method stub
-        super.generateLowLevelCallCode(callMethod);
     }
 
     @Override

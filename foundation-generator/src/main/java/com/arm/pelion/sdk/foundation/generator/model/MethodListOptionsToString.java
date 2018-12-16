@@ -3,10 +3,9 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class MethodListOptionsToString extends MethodToString {
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
-    private static final String INCLUDE_FIELD_NAME = "include";
-    private static final String FILTER_FIELD_NAME = "filter";
+public class MethodListOptionsToString extends MethodToString {
 
     public MethodListOptionsToString(Model currentModel, Model parentModel) {
         super(currentModel, parentModel);
@@ -17,10 +16,10 @@ public class MethodListOptionsToString extends MethodToString {
         return fields == null ? "" : String.join(System.lineSeparator() + "+ \", ", fields.stream().map(f -> {
             final String fieldName = f.getName();
             switch (fieldName) {
-                case INCLUDE_FIELD_NAME:
-                    return fieldName + "=\" + encodeInclude() ";
-                case FILTER_FIELD_NAME:
-                    return fieldName + "=\" + retrieveFilterAsJson() ";
+                case ListOptions.FIELD_NAME_INCLUDE:
+                    return fieldName + "=\" + " + ListOptions.METHOD_INCLUDE_TO_STRING + "() ";
+                case ListOptions.FIELD_NAME_FILTER:
+                    return fieldName + "=\" + " + ListOptions.METHOD_FILTER_TO_STRING + "() ";
                 default:
                     return fieldName + "=\" + " + fieldName;
             }

@@ -17,6 +17,7 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 @Preamble(description = "Options to use when filtering objects")
 public class FilterOptions implements Cloneable {
 
+    public static final String METHOD_FILTER_TO_STRING = "retrieveFilterAsJson";
     /**
      * Optional filters.
      */

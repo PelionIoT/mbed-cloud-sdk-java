@@ -1,10 +1,12 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -17,9 +19,9 @@ public class MethodModuleCloudApi extends Method {
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
     protected final String endpointVariableName;
-    protected final List<Parameter> methodParameters;
     protected final Renames parameterRenames;
     protected final Method lowLevelMethod;
+    protected List<Parameter> methodParameters;
 
     public MethodModuleCloudApi(Model currentModel, ModelAdapterFetcher adapterFetcher, String name, String description,
                                 String longDescription, boolean needsCustomCode, String endpointVariableName,
@@ -32,9 +34,13 @@ public class MethodModuleCloudApi extends Method {
         this.lowLevelMethod = lowLevelMethod;
         this.parameterRenames = parameterRenames;
         this.methodParameters = methodParameters;
+    }
+
+    public void initialise() {
         initialiseCodeBuilder();
-        determineReturnType(currentModel);
+        methodParameters = extendParameterList(methodParameters);
         determineParameters(methodParameters);
+        determineReturnType(currentModel);
     }
 
     protected void determineParameters(List<Parameter> methodParameters) {
@@ -47,6 +53,10 @@ public class MethodModuleCloudApi extends Method {
     protected void determineReturnType(Model currentModel) {
         // Nothing to do
 
+    }
+
+    protected List<Parameter> extendParameterList(List<Parameter> methodParameters) {
+        return methodParameters;
     }
 
     @Override
@@ -68,16 +78,34 @@ public class MethodModuleCloudApi extends Method {
     protected void translateCode() throws TranslationException {
         super.translateCode();
         generateParameterChecks();
-        generateVariableInitialisation();
+        generateVariableInitialisation(methodParameters);
         code.addStatement((hasReturn() ? "return " : "") + "$T.$L(this, $S,"
                           + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
                           CloudCaller.METHOD_CALL_CLOUD_API, name + "()", hasReturn() ? getAdapter() : "null",
                           generateCloudCallCode());
     }
 
-    protected void generateVariableInitialisation() throws TranslationException {
-        // TODO Auto-generated method stub
+    protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
+        if (methodParameters == null || methodParameters.isEmpty()) {
+            return;
+        }
+        for (Parameter p : methodParameters) {
+            generateParameterInitialisation(p);
+        }
+    }
 
+    protected void generateParameterInitialisation(Parameter p) throws TranslationException {
+        if (p == null) {
+            return;
+        }
+        TypeParameter type = p.getType();
+        type.translate();
+        code.addStatement("final $T $L = $L", type.hasClass() ? type.getClazz() : type.getTypeName(),
+                          generateFinalVariable(p.getName()), p.getName());
+    }
+
+    protected String generateFinalVariable(String variableName) {
+        return ApiUtils.convertSnakeToCamel("final_" + ApiUtils.convertCamelToSnake(variableName), false);
     }
 
     protected String getMappingMethod() {
@@ -106,7 +134,7 @@ public class MethodModuleCloudApi extends Method {
             method.setReturnType(TypeFactory.getCorrespondingType(Call.class, lowLevelMethod.getReturnType()));
             method.setReturnDescription("Corresponding Retrofit2 Call object");
             method.initialiseCodeBuilder();
-            generateLowLevelCallCode(method);
+            generateLowLevelCallCode(endpointVariableName, method, lowLevelMethod, parameterRenames);
             method.translate();
             cloudCall.addMethod(method.getSpecificationBuilder().build());
 
@@ -116,8 +144,46 @@ public class MethodModuleCloudApi extends Method {
 
     }
 
-    protected void generateLowLevelCallCode(final Method callMethod) {
-        // TODO
+    protected void generateLowLevelCallCode(String endpointVariableName, Method callMethod, Method lowLevelMethod,
+                                            Renames parameterRenames) {
+        final List<Object> callElements = new LinkedList<>(Arrays.asList(endpointVariableName));
+        StringBuilder builder = new StringBuilder();
+        builder.append("return $L");
+        // TODO add bit about endpoint low level module getter
+        // Adding method name
+        builder.append(".$L(");
+        callElements.add(lowLevelMethod.getName());
+        boolean start = true;
+        if (lowLevelMethod.hasParameters()) {
+            for (Parameter p : lowLevelMethod.getParameters()) {
+                if (!start) {
+                    builder.append(", ");
+                } else {
+                    start = false;
+                }
+                final String parameterName = parameterRenames.containsMappingFor(p.getIdentifier()) ? parameterRenames.getRenamedField(p.getIdentifier())
+                                                                                                    : p.getName();
+                String variableName = parameterName;
+                boolean isExternalParameter = false;
+                if (methodParameters.stream().anyMatch(a -> a.getIdentifier().equals(parameterName))) {
+                    variableName = generateFinalVariable(parameterName);
+                    isExternalParameter = true;
+                }
+                translateParameter(variableName, p.getType(), builder, callElements, isExternalParameter);
+            }
+        }
+        builder.append(")");
+        callMethod.getCode().addStatement(builder.toString(), callElements.toArray());
+    }
+
+    protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
+                                      List<Object> callElements, boolean isExternalParameter) {
+        builder.append("$L");
+        if (isExternalParameter) {
+            callElements.add(parameterName);
+        } else {
+            callElements.add("null");
+        }
     }
 
     protected Object getAdapter() throws TranslationException {

@@ -154,7 +154,7 @@ public class ModelModule extends ModelMergeable {
                     break;
 
             }
-
+            method.initialise();
             module.addMethod(method);
         }
 
