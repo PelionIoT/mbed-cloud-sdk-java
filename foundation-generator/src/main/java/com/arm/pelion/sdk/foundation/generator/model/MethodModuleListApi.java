@@ -83,7 +83,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
 
     @Override
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements, boolean isExternalParameter) {
+                                      List<Object> callElements,
+                                      boolean isExternalParameter) throws TranslationException {
         if (isPaginatedList) {
             // FIXME refactor the following when filters are supported.
             final ModelListOption correspondingListOptions = determineListOptionModel();

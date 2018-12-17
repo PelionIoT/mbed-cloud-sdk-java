@@ -150,8 +150,8 @@ public class MethodModuleCloudApi extends Method {
         generateVariableInitialisation(methodParameters);
         code.addStatement((hasReturn() ? "return " : "") + "$T.$L(this, $S,"
                           + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
-                          CloudCaller.METHOD_CALL_CLOUD_API, name + "()", hasReturn() ? getAdapter() : "null",
-                          generateCloudCallCode());
+                          CloudCaller.METHOD_CALL_CLOUD_API, name + "()",
+                          hasReturn() ? getAdapter(currentModel) : "null", generateCloudCallCode());
     }
 
     protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
@@ -271,7 +271,8 @@ public class MethodModuleCloudApi extends Method {
     }
 
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements, boolean isExternalParameter) {
+                                      List<Object> callElements,
+                                      boolean isExternalParameter) throws TranslationException {
 
         if (isExternalParameter) {
             if (MethodMapper.isLowLevelType(type)) {
@@ -299,8 +300,8 @@ public class MethodModuleCloudApi extends Method {
         }
     }
 
-    protected Object getAdapter() throws TranslationException {
-        final ModelAdapter adapter = adapterFetcher.fetchAdapter(currentModel.getIdentifier());
+    protected Object getAdapter(Model model) throws TranslationException {
+        final ModelAdapter adapter = adapterFetcher.fetchAdapter(model.getIdentifier());
         TypeParameter type = adapter == null ? null : adapter.toType();
         if (type == null) {
             return null;

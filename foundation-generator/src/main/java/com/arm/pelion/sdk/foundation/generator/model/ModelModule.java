@@ -150,17 +150,23 @@ public class ModelModule extends ModelMergeable {
 
             MethodModuleCloudApi method = null;
             switch (action) {
-                case CREATE:
+
                 case DELETE:
                 case OTHER:
                 case READ:
-                case UPDATE:
                     method = new MethodModuleCloudApi(currentModel, module.adapterFetcher, methodName, description,
                                                       longDescription, isCustom, endpoints, ENDPOINTS_FIELD_NAME,
                                                       lowLevelModule, methodParameters, allParameters, parameterRenames,
                                                       lowLevelMethod, true);
                     break;
-
+                case CREATE:
+                case UPDATE:
+                    method = new MethodModuleModifyApi(action == MethodAction.CREATE, currentModel,
+                                                       module.adapterFetcher, methodName, description, longDescription,
+                                                       isCustom, endpoints, ENDPOINTS_FIELD_NAME, lowLevelModule,
+                                                       methodParameters, allParameters, parameterRenames,
+                                                       lowLevelMethod, true);
+                    break;
                 case LIST:
                     method = new MethodModuleListApi(currentModel, methodName, description, longDescription, isCustom,
                                                      isPaginated, module.listOptionFetcher, module.adapterFetcher,
