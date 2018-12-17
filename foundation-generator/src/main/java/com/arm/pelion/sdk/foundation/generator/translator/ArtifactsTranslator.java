@@ -22,6 +22,7 @@ import com.arm.pelion.sdk.foundation.generator.model.MethodAction;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapterFetcher;
+import com.arm.pelion.sdk.foundation.generator.model.ModelDao;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpointsFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
@@ -36,6 +37,15 @@ public class ArtifactsTranslator {
 
     private ArtifactsTranslator() {
         // Do something
+    }
+
+    private static Model translateDao(Model model, ModelModule module, Entity entity) {
+        final ModelDao dao = new ModelDao(model, module, module.needsCustomCode());
+        for (final Method m : entity.getMethods()) {
+            dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m));
+        }
+        dao.generateMethods();
+        return dao;
     }
 
     private static ModelModule
@@ -278,10 +288,12 @@ public class ArtifactsTranslator {
                         artifacts.addModel(PelionModelDefinitionStore.get().store(translateListOptions(config, entity,
                                                                                                        model)));
                     }
-                    artifacts.addModule(translateModuleModel(config, lowLevelApis, entity, model,
-                                                             artifacts.getAdapterFetcher(),
-                                                             artifacts.getEndpointsFetcher(),
-                                                             artifacts.getListOptionFetcher()));
+                    final ModelModule module = translateModuleModel(config, lowLevelApis, entity, model,
+                                                                    artifacts.getAdapterFetcher(),
+                                                                    artifacts.getEndpointsFetcher(),
+                                                                    artifacts.getListOptionFetcher());
+                    artifacts.addModule(module);
+                    // artifacts.addModel(PelionModelDefinitionStore.get().store(translateDao(model, module, entity)));
                 }
             }
         }
@@ -296,4 +308,5 @@ public class ArtifactsTranslator {
         }
         return artifacts;
     }
+
 }

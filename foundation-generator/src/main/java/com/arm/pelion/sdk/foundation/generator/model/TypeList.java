@@ -58,6 +58,7 @@ public class TypeList extends TypeCompose {
         return concreteImplementation ? ArrayList.class : List.class;
     }
 
+    // FIXME remove the following if there is no impact
     @Override
     protected void TranslateTypeNameBasedOnContentType() {
         setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(List.class, contentType.getClazz())

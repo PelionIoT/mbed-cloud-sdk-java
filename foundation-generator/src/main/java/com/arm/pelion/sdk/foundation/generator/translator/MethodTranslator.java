@@ -22,7 +22,7 @@ public class MethodTranslator {
     private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
     private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
 
-    private static MethodAction determineMethodAction(Method m) {
+    public static MethodAction determineMethodAction(Method m) {
         if (m == null) {
             return null;
         }
@@ -42,6 +42,10 @@ public class MethodTranslator {
             return MethodAction.UPDATE;
         }
         return MethodAction.OTHER;
+    }
+
+    public static String generateMethodName(Model currentMode, Method m) {
+        return generateMethodName(determineMethodAction(m), currentMode, m.getKey());
     }
 
     private static String generateMethodName(MethodAction action, Model currentModel, String name) {
