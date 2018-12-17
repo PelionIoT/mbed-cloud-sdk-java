@@ -41,7 +41,10 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     @Override
     public Parameter clone() {
-        return new Parameter(name, description, longDescription, type, defaultValue);
+        final Parameter clone = new Parameter(name, description, longDescription, type, defaultValue);
+        clone.setSetAsNonNull(setAsNonNull);
+        clone.setSetAsNullable(setAsNullable);
+        return clone;
     }
 
     /*

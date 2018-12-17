@@ -177,17 +177,55 @@ public class ModelModule extends ModelMergeable {
                     break;
 
             }
+            method.initialise();
             addMethod(module, method);
-            if (action == MethodAction.LIST) {
-                addMethod(module, new MethodModulePaginationApi((MethodModuleListApi) method, isCustom));
+            MethodModuleCloudApi overloadedMethod = null;
+            switch (action) {
+
+                case DELETE:
+                case OTHER:
+                case READ:
+                    overloadedMethod = new MethodModuleFromEntity(method, methodParameters, false);
+                    break;
+                case CREATE:
+                case UPDATE:
+                    overloadedMethod = new MethodModuleFromEntity(method, methodParameters, true);
+                    break;
+                case LIST:
+                    overloadedMethod = new MethodModulePaginationApi((MethodModuleListApi) method, isCustom);
+                    break;
+                default:
+                    break;
+
+            }
+            overloadedMethod.initialise();
+            if (action == MethodAction.LIST || haveDifferentSignatures(method, overloadedMethod)) {
+                addMethod(module, overloadedMethod);
             }
 
         }
 
         public void addMethod(ModelModule module, MethodModuleCloudApi method) {
-            method.initialise();
+
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
+        }
+
+        private boolean haveDifferentSignatures(MethodModuleCloudApi method, MethodModuleCloudApi overloadedMethod) {
+            if (method.getMethodSignature() == null) {
+                return overloadedMethod.getMethodSignature() != null;
+            }
+            if (method.getMethodSignature().equals(overloadedMethod.getMethodSignature())) {
+                return false;
+            }
+            for (Parameter p : method.getMethodSignature()) {
+                if (!overloadedMethod.getMethodSignature().stream().anyMatch(arg -> {
+                    return arg.equals(p) && arg.getType().equals(p.getType());
+                })) {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }

@@ -65,6 +65,10 @@ public class MethodModuleCloudApi extends Method {
         determineReturnType(currentModel, lowLevelMethod);
     }
 
+    public List<Parameter> getMethodSignature() {
+        return methodParameters;
+    }
+
     public List<Field> getNecessaryConstants() {
         return necessaryConstants;
     }
@@ -121,7 +125,7 @@ public class MethodModuleCloudApi extends Method {
                         final Parameter newP = allParameters.stream()
                                                             .filter(arg -> parameterName.equals(arg.getIdentifier()))
                                                             .findFirst().orElse(p.clone());
-                        newP.setName(parameterName);
+                        newP.setAsNullable(!newP.isSetAsNonNull()).setName(parameterName);
                         extendedMethodParameters.add(newP);
                     }
                 }
