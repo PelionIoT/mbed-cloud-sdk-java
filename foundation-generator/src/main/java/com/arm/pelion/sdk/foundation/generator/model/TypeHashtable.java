@@ -60,6 +60,7 @@ public class TypeHashtable extends TypeCompose {
         }
     }
 
+    @Override
     protected void TranslateTypeNameBasedOnContentType() {
         setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(getCollectionClass(), String.class,
                                                                        contentType.getClazz())

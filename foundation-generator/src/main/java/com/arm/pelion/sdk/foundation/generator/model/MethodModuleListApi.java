@@ -9,9 +9,9 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodModuleListApi extends MethodModuleCloudApi {
-    private static final String PARAMETER_NAME_OPTIONS = "options";
+    protected static final String PARAMETER_NAME_OPTIONS = "options";
     private final boolean isPaginatedList;
-    private final ModelListOptionFetcher fetcher;
+    protected final ModelListOptionFetcher fetcher;
 
     public MethodModuleListApi(Model currentModel, String name, String description, String longDescription,
                                boolean needsCustomCode, boolean isPaginatedList,
@@ -73,12 +73,15 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         for (Parameter p : methodParameters) {
             if (PARAMETER_NAME_OPTIONS.equals(p.getIdentifier())) {
                 code.addStatement("final $T $L = ($L == null)? new $T() : $L", determineListOptionType(),
-                                  generateFinalVariable(p.getName()), p.getName(), determineListOptionType(),
-                                  p.getName());
+                                  getOptionLocalVariable(), p.getName(), determineListOptionType(), p.getName());
             } else {
                 generateParameterInitialisation(p);
             }
         }
+    }
+
+    protected String getOptionLocalVariable() {
+        return generateFinalVariable(PARAMETER_NAME_OPTIONS);
     }
 
     @Override

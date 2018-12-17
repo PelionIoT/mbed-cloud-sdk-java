@@ -177,6 +177,14 @@ public class ModelModule extends ModelMergeable {
                     break;
 
             }
+            addMethod(module, method);
+            if (action == MethodAction.LIST) {
+                addMethod(module, new MethodModulePaginationApi((MethodModuleListApi) method, isCustom));
+            }
+
+        }
+
+        public void addMethod(ModelModule module, MethodModuleCloudApi method) {
             method.initialise();
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);

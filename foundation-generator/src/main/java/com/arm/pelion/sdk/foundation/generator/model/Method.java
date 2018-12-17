@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Method extends AbstractSdkArtifact {
     protected boolean isRequired;
     protected boolean isAnOverride;
     protected boolean shouldTest;
+    protected final List<Class<?>> exceptions;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
                   boolean isAccessible, boolean isAbstract, boolean containsCustomCode, boolean needsCustomCode,
@@ -35,6 +37,7 @@ public class Method extends AbstractSdkArtifact {
         super(isReadOnly, name, description, longDescription, isStatic, isAccessible, isAbstract, containsCustomCode,
               needsCustomCode, isInternal);
         parameters = new LinkedList<>();
+        exceptions = new LinkedList<>();
         setStatement(null);
         setReturnType(null);
         setReturnDescription(null);
@@ -50,6 +53,7 @@ public class Method extends AbstractSdkArtifact {
              java.lang.reflect.Modifier.isPublic(method.getModifiers()),
              java.lang.reflect.Modifier.isAbstract(method.getModifiers()), false, false,
              method.isAnnotationPresent(Internal.class), method.isAnnotationPresent(Required.class), isAnOverride);
+        exceptions.addAll(Arrays.asList(method.getExceptionTypes()));
     }
 
     public void initialiseCodeBuilder() {
@@ -255,7 +259,7 @@ public class Method extends AbstractSdkArtifact {
     }
 
     protected void addExceptions() {
-        // Nothing to do
+        exceptions.forEach(e -> specificationBuilder.addException(e));
     }
 
     protected void addAnnotations() {

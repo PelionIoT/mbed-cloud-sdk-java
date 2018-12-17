@@ -9,6 +9,8 @@ import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
+import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
+import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 import retrofit2.Call;
 
@@ -31,6 +33,12 @@ public class TypeFactory {
         }
         if (RespList.class.isAssignableFrom(type)) {
             return new TypeListResponse().respList();
+        }
+        if (Paginator.class.isAssignableFrom(type)) {
+            return new TypePaginator();
+        }
+        if (PageRequester.class.isAssignableFrom(type)) {
+            return new TypePageRequester();
         }
         if (Mapper.class.isAssignableFrom(type)) {
             return new TypeMapper();

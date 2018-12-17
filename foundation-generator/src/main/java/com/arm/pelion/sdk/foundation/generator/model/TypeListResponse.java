@@ -1,11 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import java.util.List;
-
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.ParameterizedTypeName;
 
 public class TypeListResponse extends TypeCompose {
 
@@ -49,7 +45,7 @@ public class TypeListResponse extends TypeCompose {
      */
     @Override
     public String getShortName() {
-        return List.class.getSimpleName();
+        return ListResponse.class.getSimpleName();
     }
 
     @Override
@@ -60,17 +56,6 @@ public class TypeListResponse extends TypeCompose {
     @Override
     protected Class<?> getCollectionClass() {
         return isRespList() ? RespList.class : ListResponse.class;
-    }
-
-    @Override
-    protected void TranslateTypeNameBasedOnContentType() {
-        setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(isRespList() ? RespList.class
-                                                                                    : ListResponse.class,
-                                                                       contentType.getClazz())
-                                           : ParameterizedTypeName.get(ClassName.get(isRespList() ? RespList.class
-                                                                                                  : ListResponse.class),
-                                                                       contentType.getTypeName()));
-
     }
 
 }

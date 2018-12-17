@@ -51,6 +51,7 @@ public class MethodModuleCloudApi extends Method {
         this.lowLevelModule = lowLevelModule;
         necessaryConstants = new LinkedList<>();
         this.enforceModelValidity = enforceModelValidity;
+        exceptions.add(MbedCloudException.class);
     }
 
     public void initialise() {
@@ -105,27 +106,28 @@ public class MethodModuleCloudApi extends Method {
 
     protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
                                                   Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
+        final List<Parameter> extendedMethodParameters = new LinkedList<>(methodParameters);
         if (lowLevelMethod.hasParameters()) {
             lowLevelMethod.getParameters().forEach(p -> {
                 final String parameterName = parameterRenames.containsMappingFor(p.getName()) ? parameterRenames.getRenamedField(p.getName())
                                                                                               : p.getName();
-                if (!methodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()))) {
+                if (!extendedMethodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()))) {
                     if (p.getType().isLowLevelModel() || shouldCheckModelValidity(p)) {
-                        methodParameters.add(currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
-                                                                                                                                           : parameterName)
-                                                         .setAsNonNull(true));
+                        extendedMethodParameters.add(currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
+                                                                                                                                                   : parameterName)
+                                                                 .setAsNonNull(true));
                     } else {
 
                         final Parameter newP = allParameters.stream()
                                                             .filter(arg -> parameterName.equals(arg.getIdentifier()))
                                                             .findFirst().orElse(p.clone());
                         newP.setName(parameterName);
-                        methodParameters.add(newP);
+                        extendedMethodParameters.add(newP);
                     }
                 }
             });
         }
-        return methodParameters;
+        return extendedMethodParameters;
     }
 
     @Override
@@ -138,16 +140,14 @@ public class MethodModuleCloudApi extends Method {
     }
 
     @Override
-    protected void addExceptions() {
-        super.addExceptions();
-        specificationBuilder.addException(MbedCloudException.class);
-    }
-
-    @Override
     protected void translateCode() throws TranslationException {
         super.translateCode();
         generateParameterChecks();
         generateVariableInitialisation(methodParameters);
+        generateMethodCode();
+    }
+
+    protected void generateMethodCode() throws TranslationException {
         code.addStatement((hasReturn() ? "return " : "") + "$T.$L(this, $S,"
                           + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
                           CloudCaller.METHOD_CALL_CLOUD_API, name + "()",

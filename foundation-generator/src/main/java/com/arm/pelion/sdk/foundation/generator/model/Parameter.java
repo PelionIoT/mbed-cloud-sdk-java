@@ -35,6 +35,10 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
              TypeFactory.getCorrespondingType(elementClass), null);
     }
 
+    public Parameter(java.lang.reflect.Parameter parameter) {
+        this(parameter.getName(), parameter.getType());
+    }
+
     @Override
     public Parameter clone() {
         return new Parameter(name, description, longDescription, type, defaultValue);

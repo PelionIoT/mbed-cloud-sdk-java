@@ -1,6 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.ParameterizedTypeName;
 
 public abstract class TypeCompose extends TypeParameter {
 
@@ -96,7 +98,18 @@ public abstract class TypeCompose extends TypeParameter {
         return true;
     }
 
+    @Override
+    public String getShortName() {
+        return getCollectionClass().getSimpleName();
+    }
+
+    protected void TranslateTypeNameBasedOnContentType() {
+        setTypeName(contentType.hasClass() ? ParameterizedTypeName.get(getCollectionClass(), contentType.getClazz())
+                                           : ParameterizedTypeName.get(ClassName.get(getCollectionClass()),
+                                                                       contentType.getTypeName()));
+
+    }
+
     protected abstract Class<?> getCollectionClass();
 
-    protected abstract void TranslateTypeNameBasedOnContentType();
 }
