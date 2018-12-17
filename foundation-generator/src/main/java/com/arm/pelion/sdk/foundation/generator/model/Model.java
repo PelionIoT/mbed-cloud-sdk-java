@@ -29,7 +29,7 @@ public class Model extends AbstractSdkArtifact {
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
     protected String packageName;
     private String parent;
-    private String group;
+    protected String group;
     protected final TypeParameter concreteType;
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
