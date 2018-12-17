@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 @Preamble(description = "Abstract Cloud DAO")
 @Internal
 public abstract class AbstractCloudDao implements CloudDao {
+    public static final String METHOD_INSTANTIATE_MODULE = "instantiateModule";
 
     private static final String PARAMETER_CLIENT = "client";
     private static final String PARAMETER_CONTEXT = "context";
