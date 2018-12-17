@@ -26,8 +26,9 @@ public class ModelDao extends Model {
         correspondingModel = currentModel;
         correspondingModule = module;
         superinterfaces = new ArrayList<>(4);
-        setSuperClassType(((TypeCompose) TypeFactory.getCorrespondingType(com.arm.mbed.cloud.sdk.common.dao.ModelDao.class,
-                                                                          currentModel.toType())).concreteImplementation(true));
+        // setSuperClassType(((TypeCompose)
+        // TypeFactory.getCorrespondingType(com.arm.mbed.cloud.sdk.common.dao.ModelDao.class,
+        // currentModel.toType())).concreteImplementation(true));
     }
 
     private static String generateDescription(Model currentModel) {
@@ -40,10 +41,10 @@ public class ModelDao extends Model {
         return null;
     }
 
-    // @Override
-    // protected void generateSuperInterface() {
-    // superinterfaces.forEach(i -> specificationBuilder.addSuperinterface(i));
-    // }
+    @Override
+    protected void generateSuperInterface() {
+        superinterfaces.forEach(i -> specificationBuilder.addSuperinterface(i));
+    }
 
     private void checkSuperInterfaces() {
         if (Arrays.asList(CrudDao.class.getInterfaces()).stream()

@@ -368,7 +368,7 @@ public class Model extends AbstractSdkArtifact {
             generateDocumentation();
             generateAnnotations();
             if (hasSuperInterface()) {
-                specificationBuilder.addSuperinterface(getSuperInterface());
+                generateSuperInterface();
             }
             if (hasParent()) {
                 if (hasAbstractParent()) {
@@ -383,6 +383,10 @@ public class Model extends AbstractSdkArtifact {
                 }
             }
         }
+    }
+
+    protected void generateSuperInterface() {
+        specificationBuilder.addSuperinterface(getSuperInterface());
     }
 
     public void generateAnnotations() {

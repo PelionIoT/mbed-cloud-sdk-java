@@ -293,7 +293,7 @@ public class ArtifactsTranslator {
                                                                     artifacts.getEndpointsFetcher(),
                                                                     artifacts.getListOptionFetcher());
                     artifacts.addModule(module);
-                    // artifacts.addModel(PelionModelDefinitionStore.get().store(translateDao(model, module, entity)));
+                    artifacts.addModel(PelionModelDefinitionStore.get().store(translateDao(model, module, entity)));
                 }
             }
         }
