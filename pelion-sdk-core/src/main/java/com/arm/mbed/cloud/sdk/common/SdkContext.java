@@ -4,11 +4,11 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 /**
  *
- * An API Module is a set of Cloud APIs (i.e. endpoints) which can be called to perform some actions towards the Cloud.
+ * Sdk context: all necessary context information to share within an Sdk session.
  *
  */
-@Preamble(description = "Definition of a Pelion Cloud API module")
-public interface ApiModule {
+@Preamble(description = "Definition of a Pelion SDK's context")
+public interface SdkContext {
 
     /**
      * Gets SDK logger.
@@ -34,10 +34,17 @@ public interface ApiModule {
     ApiMetadata getLastApiMetadata();
 
     /**
-     * Gets the SDK module name.
+     * Gets the SDK module name in use.
      *
      * @return module name.
      */
     String getModuleName();
+
+    /**
+     * Gets the Sdk service registry.
+     * 
+     * @return the service registry in use.
+     */
+    ServiceRegistry getServiceRegistry();
 
 }

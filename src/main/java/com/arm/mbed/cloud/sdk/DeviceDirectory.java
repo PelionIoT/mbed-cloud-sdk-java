@@ -57,7 +57,7 @@ public class DeviceDirectory extends AbstractApi {
      */
     public DeviceDirectory(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.serviceStore);
+        endpoint = new EndPoints(this.serviceRegistry);
     }
 
     /**

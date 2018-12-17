@@ -8,13 +8,13 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic SDK module definition")
 @Internal
-public abstract class AbstractApi implements ApiModule {
+public abstract class AbstractApi implements SdkContext {
 
-    public static final String SERVICE_STORE_FIELD_NAME = "serviceStore";
+    public static final String FIELD_NAME_SERVICE_REGISTRY = "serviceRegistry";
     public static final String METHOD_CHECK_NOT_NULL = "checkNotNull";
     public static final String METHOD_CHECK_MODEL_VALIDITY = "checkModelValidity";
     protected final ApiClientWrapper client;
-    protected final ServiceStore serviceStore;
+    protected final ServiceRegistry serviceRegistry;
 
     protected final SdkLogger logger;
     protected final ApiMetadataCache metadataCache;
@@ -32,8 +32,21 @@ public abstract class AbstractApi implements ApiModule {
     protected AbstractApi(ApiClientWrapper client) {
         super();
         this.client = client;
-        serviceStore = new ServiceStore(client);
+        serviceRegistry = new ServiceRegistry(client);
         logger = new SdkLogger();
+        metadataCache = new ApiMetadataCache();
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     */
+    public AbstractApi(SdkContext context) {
+        super();
+        this.client = context.getClient();
+        this.serviceRegistry = context.getServiceRegistry();
+        this.logger = context.getLogger();
         metadataCache = new ApiMetadataCache();
     }
 
@@ -79,6 +92,11 @@ public abstract class AbstractApi implements ApiModule {
         return client;
     }
 
+    @Override
+    public ServiceRegistry getServiceRegistry() {
+        return serviceRegistry;
+    }
+
     /**
      * Gets meta data for the last Arm Mbed Cloud API call.
      *
@@ -114,7 +132,7 @@ public abstract class AbstractApi implements ApiModule {
      *             if a problem occurred during the process.
      */
     public <S> S getService(Class<S> serviceClass) throws MbedCloudException {
-        return serviceStore.getService(serviceClass);
+        return serviceRegistry.getService(serviceClass);
     }
 
     /**

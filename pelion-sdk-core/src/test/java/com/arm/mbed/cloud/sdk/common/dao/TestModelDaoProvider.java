@@ -8,11 +8,12 @@ import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ApiMetadata;
-import com.arm.mbed.cloud.sdk.common.ApiModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
@@ -119,17 +120,17 @@ public class TestModelDaoProvider {
         }
 
         @Override
-        protected ApiModule instantiateModule(ConnectionOptions options) {
+        protected SdkContext instantiateModule(ConnectionOptions options) {
             return generateApiModule(new ApiClientWrapper(options));
         }
 
         @Override
-        protected ApiModule instantiateModule(ApiClientWrapper client) {
+        protected SdkContext instantiateModule(ApiClientWrapper client) {
             return generateApiModule(client);
         }
 
-        public static ApiModule generateApiModule(final ApiClientWrapper client) {
-            return new ApiModule() {
+        public static SdkContext generateApiModule(final ApiClientWrapper client) {
+            return new SdkContext() {
 
                 @Override
                 public String getModuleName() {
@@ -150,6 +151,11 @@ public class TestModelDaoProvider {
                 public ApiClientWrapper getClient() {
                     return client;
                 }
+
+                @Override
+                public ServiceRegistry getServiceRegistry() {
+                    return null;
+                }
             };
         }
     }
@@ -166,7 +172,7 @@ public class TestModelDaoProvider {
         }
 
         @Override
-        protected ApiModule instantiateModule(ConnectionOptions options) {
+        protected SdkContext instantiateModule(ConnectionOptions options) {
             return ModelTestDao.generateApiModule(new ApiClientWrapper(options));
         }
 
@@ -176,7 +182,7 @@ public class TestModelDaoProvider {
         }
 
         @Override
-        protected ApiModule instantiateModule(ApiClientWrapper client) {
+        protected SdkContext instantiateModule(ApiClientWrapper client) {
             return ModelTestDao.generateApiModule(client);
         }
 

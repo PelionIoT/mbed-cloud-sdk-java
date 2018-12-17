@@ -9,9 +9,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
-import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
@@ -63,7 +63,7 @@ public class Update extends AbstractApi {
      */
     public Update(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.serviceStore);
+        endpoint = new EndPoints(this.serviceRegistry);
     }
 
     /**

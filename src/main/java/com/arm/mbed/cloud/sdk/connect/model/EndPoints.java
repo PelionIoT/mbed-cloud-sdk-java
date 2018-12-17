@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
-import com.arm.mbed.cloud.sdk.common.ServiceStore;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
 import com.arm.mbed.cloud.sdk.internal.mds.api.DeviceRequestsApi;
 import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
@@ -34,7 +34,7 @@ public class EndPoints extends AbstractEndpoints {
      *            created services {@link ServiceStore}.
      * 
      */
-    public EndPoints(ServiceStore services) {
+    public EndPoints(ServiceRegistry services) {
         super(services);
         this.async = initialiseService(DeviceRequestsApi.class);
         this.endpoint = initialiseService(EndpointsApi.class);

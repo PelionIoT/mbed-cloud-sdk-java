@@ -47,7 +47,7 @@ public class Certificates extends AbstractApi {
      */
     public Certificates(@NonNull ConnectionOptions options) {
         super(options);
-        endpoint = new EndPoints(this.serviceStore);
+        endpoint = new EndPoints(this.serviceRegistry);
     }
 
     @SuppressWarnings("unchecked")

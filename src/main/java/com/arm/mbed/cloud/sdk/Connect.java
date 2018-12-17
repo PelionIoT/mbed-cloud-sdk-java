@@ -139,7 +139,7 @@ public class Connect extends AbstractApi {
     public Connect(@NonNull ConnectionOptions options, @Nullable ExecutorService notificationHandlingThreadPool,
                    @Nullable ExecutorService notificationPullingThreadPool) {
         super(options);
-        endpoint = new EndPoints(this.serviceStore);
+        endpoint = new EndPoints(this.serviceRegistry);
         deviceDirectory = new DeviceDirectory(options);
         this.handlersStore = new NotificationHandlersStore(this,
                                                            (notificationPullingThreadPool == null) ? createDefaultDaemonThreadPool()

@@ -3,7 +3,7 @@ package com.arm.mbed.cloud.sdk.accountmanagement.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ServiceStore;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
 import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
 
@@ -20,7 +20,7 @@ public class EndPoints extends AbstractEndpoints {
      * @param services
      *            created services {@link ServiceStore}.
      */
-    public EndPoints(ServiceStore services) {
+    public EndPoints(ServiceRegistry services) {
         super(services);
         this.developer = initialiseService(DeveloperApi.class);
         this.admin = initialiseService(AccountAdminApi.class);

@@ -5,7 +5,7 @@ import java.security.InvalidParameterException;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ApiModule;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -22,7 +22,7 @@ public abstract class AbstractCloudDao implements CloudDao {
 
     private static final String PARAMETER_CLIENT = "client";
     private static final String PARAMETER_MODULE = "module";
-    protected ApiModule module;
+    protected SdkContext module;
 
     /**
      * Constructor.
@@ -62,7 +62,7 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public void configure(ApiModule oneModule) throws MbedCloudException {
+    public void configure(SdkContext oneModule) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), oneModule, PARAMETER_MODULE);
         this.module = oneModule;
     }
@@ -73,11 +73,11 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public ApiModule getModule() throws MbedCloudException {
+    public SdkContext getModule() throws MbedCloudException {
         return module;
     }
 
-    protected abstract ApiModule instantiateModule(ConnectionOptions options);
+    protected abstract SdkContext instantiateModule(ConnectionOptions options);
 
-    protected abstract ApiModule instantiateModule(ApiClientWrapper client);
+    protected abstract SdkContext instantiateModule(ApiClientWrapper client);
 }

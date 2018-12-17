@@ -3,7 +3,7 @@ package com.arm.mbed.cloud.sdk.billing.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ServiceStore;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.internal.billing.api.DefaultApi;
 
 @Preamble(description = "Endpoint for Billing API")
@@ -18,7 +18,7 @@ public class EndPoints extends AbstractEndpoints {
      * @param services
      *            created services {@link ServiceStore}.
      */
-    public EndPoints(ServiceStore services) {
+    public EndPoints(ServiceRegistry services) {
         super(services);
         this.billing = initialiseService(DefaultApi.class);
     }

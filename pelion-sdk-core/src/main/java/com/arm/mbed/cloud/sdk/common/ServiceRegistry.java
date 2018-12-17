@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Store of created services")
 @Internal
-public class ServiceStore implements Cloneable {
+public class ServiceRegistry implements Cloneable {
 
     private final ConcurrentHashMap<Class<?>, Object> store;
     private final ApiClientWrapper client;
@@ -18,7 +18,7 @@ public class ServiceStore implements Cloneable {
      * @param client
      *            client to use.
      */
-    public ServiceStore(ApiClientWrapper client) {
+    public ServiceRegistry(ApiClientWrapper client) {
         store = new ConcurrentHashMap<>();
         this.client = client;
     }
@@ -94,8 +94,8 @@ public class ServiceStore implements Cloneable {
     }
 
     @Override
-    public ServiceStore clone() {
-        return new ServiceStore(new ApiClientWrapper(getClient()));
+    public ServiceRegistry clone() {
+        return new ServiceRegistry(new ApiClientWrapper(getClient()));
     }
 
 }

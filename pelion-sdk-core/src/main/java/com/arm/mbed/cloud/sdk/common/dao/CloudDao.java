@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.ApiModule;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 
@@ -56,16 +56,16 @@ public interface CloudDao {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    void configure(@NonNull ApiModule module) throws MbedCloudException;
+    void configure(@NonNull SdkContext module) throws MbedCloudException;
 
     /**
-     * Gets the API module {@link ApiModule} in use.
+     * Gets the API module {@link SdkContext} in use.
      *
      * @return the module in use by this DAO.
      * @throws MbedCloudException
      *             if an error occurs during the process.
      */
-    ApiModule getModule() throws MbedCloudException;
+    SdkContext getModule() throws MbedCloudException;
 
     /**
      * Gets a Data Access Object Provider.

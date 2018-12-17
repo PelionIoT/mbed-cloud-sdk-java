@@ -85,6 +85,7 @@ public class ModelModule extends ModelMergeable {
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         addConstructor(new MethodModuleConstructorFromConnectionOptions(this, theParent));
+        addConstructor(new MethodModuleConstructorFromSdkContext(this, theParent));
     }
 
     @Override

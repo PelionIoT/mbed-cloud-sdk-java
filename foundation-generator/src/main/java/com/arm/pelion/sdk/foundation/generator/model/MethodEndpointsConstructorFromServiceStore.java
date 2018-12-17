@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ServiceStore;
+import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 
 public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodConstructor {
     private static final String PARAM_SERVICE_STORE = "services";
@@ -27,12 +27,12 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
 
     @Override
     public List<String> getSignature() {
-        return Arrays.asList(ServiceStore.class.getSimpleName());
+        return Arrays.asList(ServiceRegistry.class.getSimpleName());
     }
 
     @Override
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceStore}.", null,
-                                   TypeFactory.getCorrespondingType(ServiceStore.class), null));
+                                   TypeFactory.getCorrespondingType(ServiceRegistry.class), null));
     }
 }

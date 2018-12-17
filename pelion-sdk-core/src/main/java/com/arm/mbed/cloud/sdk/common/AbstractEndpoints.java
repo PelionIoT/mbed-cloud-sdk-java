@@ -8,16 +8,16 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public abstract class AbstractEndpoints implements Cloneable {
     public static final String METHOD_INITIALISE_SERVICE = "initialiseService";
     public static final String METHOD_CLONE_SERVICE_STORE = "getServicesClone";
-    private final ServiceStore serviceStore;
+    private final ServiceRegistry serviceStore;
 
     /**
      * Constructor.
      * 
      * 
      * @param serviceStore
-     *            store of created services {@link ServiceStore}
+     *            store of created services {@link ServiceRegistry}
      */
-    public AbstractEndpoints(ServiceStore serviceStore) {
+    public AbstractEndpoints(ServiceRegistry serviceStore) {
         super();
         this.serviceStore = serviceStore;
     }
@@ -27,7 +27,7 @@ public abstract class AbstractEndpoints implements Cloneable {
      * 
      * @return the store
      */
-    public ServiceStore getServiceStore() {
+    public ServiceRegistry getServiceStore() {
         return serviceStore;
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractEndpoints implements Cloneable {
         return client == null ? null : client.getConnectionOptions();
     }
 
-    protected ServiceStore getServicesClone() {
+    protected ServiceRegistry getServicesClone() {
         return serviceStore == null ? null : serviceStore.clone();
     }
 }
