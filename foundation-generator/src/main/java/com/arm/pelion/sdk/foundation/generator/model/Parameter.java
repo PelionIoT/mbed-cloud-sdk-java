@@ -10,7 +10,7 @@ import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ParameterSpec;
 
-public class Parameter extends AbstractSdkArtifact {
+public class Parameter extends AbstractSdkArtifact implements Cloneable {
 
     private ParameterSpec.Builder specificationBuilder;
     private TypeParameter type;
@@ -33,6 +33,11 @@ public class Parameter extends AbstractSdkArtifact {
                           : name,
              "a " + ApiUtils.convertCamelToSnake(elementClass.getSimpleName()).replace("_", " "), null,
              TypeFactory.getCorrespondingType(elementClass), null);
+    }
+
+    @Override
+    public Parameter clone() {
+        return new Parameter(name, description, longDescription, type, defaultValue);
     }
 
     /*

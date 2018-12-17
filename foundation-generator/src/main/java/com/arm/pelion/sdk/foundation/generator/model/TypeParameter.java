@@ -288,6 +288,15 @@ public class TypeParameter implements Artifact {
         }
     }
 
+    public boolean isVoid() {
+        try {
+            translate();
+            return hasClazz() ? Void.class.isAssignableFrom(getClazz()) : importPath == null;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
     public boolean isPrimitive() {
         try {
             translate();

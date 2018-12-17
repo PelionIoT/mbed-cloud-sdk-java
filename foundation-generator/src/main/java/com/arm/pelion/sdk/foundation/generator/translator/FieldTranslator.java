@@ -38,7 +38,7 @@ public class FieldTranslator {
         }
         final Parameter parameter = new Parameter(field.getKey(), field.getDescription(), field.getDescription(),
                                                   determineType(field, packageName, group), field.getDefaultValue());
-        return parameter;
+        return field.isRequired() ? parameter.setAsNonNull(true) : parameter.setAsNullable(true);
     }
 
     private static String determinePattern(String pattern) {

@@ -11,6 +11,8 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public abstract class AbstractApi implements ApiModule {
 
     public static final String SERVICE_STORE_FIELD_NAME = "serviceStore";
+    public static final String METHOD_CHECK_NOT_NULL = "checkNotNull";
+    public static final String METHOD_CHECK_MODEL_VALIDITY = "checkModelValidity";
     protected final ApiClientWrapper client;
     protected final ServiceStore serviceStore;
 

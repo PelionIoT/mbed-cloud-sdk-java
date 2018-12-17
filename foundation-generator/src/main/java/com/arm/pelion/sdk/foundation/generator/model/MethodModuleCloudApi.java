@@ -6,26 +6,38 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
+import com.arm.mbed.cloud.sdk.common.AbstractApi;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.TranslationUtils;
+import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeSpec;
 
 import retrofit2.Call;
 
 public class MethodModuleCloudApi extends Method {
+    private static final String PARAMETER_NAME_LOW_LEVEL_DEFAULT = "body";
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
     protected final String endpointVariableName;
     protected final Renames parameterRenames;
     protected final Method lowLevelMethod;
+    protected final ModelEndpoints endpoints;
+    protected final Class<?> lowLevelModule;
+    protected final List<Parameter> allParameters;
     protected List<Parameter> methodParameters;
+    protected final List<Field> necessaryConstants;
+    protected final boolean enforceModelValidity;
 
     public MethodModuleCloudApi(Model currentModel, ModelAdapterFetcher adapterFetcher, String name, String description,
-                                String longDescription, boolean needsCustomCode, String endpointVariableName,
-                                List<Parameter> methodParameters, Renames parameterRenames, Method lowLevelMethod) {
+                                String longDescription, boolean needsCustomCode, ModelEndpoints endpoints,
+                                String endpointVariableName, Class<?> lowLevelModule, List<Parameter> methodParameters,
+                                List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
+                                boolean enforceModelValidity) {
         super(false, name, description, longDescription, false, true, false, false, needsCustomCode, false, false,
               false);
         this.currentModel = currentModel;
@@ -34,13 +46,41 @@ public class MethodModuleCloudApi extends Method {
         this.lowLevelMethod = lowLevelMethod;
         this.parameterRenames = parameterRenames;
         this.methodParameters = methodParameters;
+        this.allParameters = allParameters;
+        this.endpoints = endpoints;
+        this.lowLevelModule = lowLevelModule;
+        necessaryConstants = new LinkedList<>();
+        this.enforceModelValidity = enforceModelValidity;
     }
 
     public void initialise() {
+        necessaryConstants.clear();
         initialiseCodeBuilder();
-        methodParameters = extendParameterList(methodParameters);
+        methodParameters = extendParameterList(methodParameters, allParameters, lowLevelMethod, parameterRenames,
+                                               currentModel);
+
+        determineNecessaryConstants(methodParameters);
         determineParameters(methodParameters);
-        determineReturnType(currentModel);
+        determineReturnType(currentModel, lowLevelMethod);
+    }
+
+    public List<Field> getNecessaryConstants() {
+        return necessaryConstants;
+    }
+
+    public void determineNecessaryConstants(List<Parameter> methodParameters) {
+        methodParameters.stream().filter(p -> shouldCheckNull(p))
+                        .forEach(p -> necessaryConstants.add(generateConstant(p)));
+        if (enforceModelValidity) {
+            methodParameters.stream().filter(p -> shouldCheckModelValidity(p))
+                            .forEach(p -> necessaryConstants.add(generateConstant(p)));
+        }
+    }
+
+    private Field generateConstant(Parameter p) {
+        return new Field(true, TypeFactory.getCorrespondingType(String.class),
+                         Utils.generateConstantName("tag", p.getName()), "Parameter name", null, null, true, false,
+                         true, false, null, false).initialiser("\"" + p.getName() + "\"");
     }
 
     protected void determineParameters(List<Parameter> methodParameters) {
@@ -50,12 +90,41 @@ public class MethodModuleCloudApi extends Method {
         methodParameters.forEach(p -> addParameter(p));
     }
 
-    protected void determineReturnType(Model currentModel) {
-        // Nothing to do
+    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
+        // TODO override when "not aggregated method"
+        if (lowLevelMethod.hasReturn()) {
+            final TypeParameter type = lowLevelMethod.getReturnType();
+            if (type.isLowLevelModel() || type.isLowLevelModel()) {
+                setReturnType(currentModel.toType());
+            } else if (!type.isVoid()) {
+                setReturnType(type);
+            }
+        }
 
     }
 
-    protected List<Parameter> extendParameterList(List<Parameter> methodParameters) {
+    protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
+                                                  Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
+        if (lowLevelMethod.hasParameters()) {
+            lowLevelMethod.getParameters().forEach(p -> {
+                final String parameterName = parameterRenames.containsMappingFor(p.getName()) ? parameterRenames.getRenamedField(p.getName())
+                                                                                              : p.getName();
+                if (!methodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()))) {
+                    if (p.getType().isLowLevelModel() || shouldCheckModelValidity(p)) {
+                        methodParameters.add(currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
+                                                                                                                                           : parameterName)
+                                                         .setAsNonNull(true));
+                    } else {
+
+                        final Parameter newP = allParameters.stream()
+                                                            .filter(arg -> parameterName.equals(arg.getIdentifier()))
+                                                            .findFirst().orElse(p.clone());
+                        newP.setName(parameterName);
+                        methodParameters.add(newP);
+                    }
+                }
+            });
+        }
         return methodParameters;
     }
 
@@ -113,8 +182,23 @@ public class MethodModuleCloudApi extends Method {
     }
 
     protected void generateParameterChecks() {
-        // TODO Auto-generated method stub
+        methodParameters.stream().filter(p -> shouldCheckNull(p))
+                        .forEach(p -> code.addStatement("$L($L,$L)", AbstractApi.METHOD_CHECK_NOT_NULL, p.getName(),
+                                                        Utils.generateConstantName("tag", p.getName())));
+        if (enforceModelValidity) {
+            methodParameters.stream().filter(p -> shouldCheckModelValidity(p))
+                            .forEach(p -> code.addStatement("$L($L,$L)", AbstractApi.METHOD_CHECK_MODEL_VALIDITY,
+                                                            p.getName(),
+                                                            Utils.generateConstantName("tag", p.getName())));
+        }
+    }
 
+    protected boolean shouldCheckModelValidity(Parameter p) {
+        return p != null && p.getType().isModel();
+    }
+
+    protected boolean shouldCheckNull(Parameter p) {
+        return p != null && p.isSetAsNonNull();
     }
 
     protected Object generateCloudCallCode() throws TranslationException {
@@ -134,7 +218,8 @@ public class MethodModuleCloudApi extends Method {
             method.setReturnType(TypeFactory.getCorrespondingType(Call.class, lowLevelMethod.getReturnType()));
             method.setReturnDescription("Corresponding Retrofit2 Call object");
             method.initialiseCodeBuilder();
-            generateLowLevelCallCode(endpointVariableName, method, lowLevelMethod, parameterRenames);
+            generateLowLevelCallCode(endpointVariableName, endpoints, lowLevelModule, method, lowLevelMethod,
+                                     parameterRenames);
             method.translate();
             cloudCall.addMethod(method.getSpecificationBuilder().build());
 
@@ -144,13 +229,22 @@ public class MethodModuleCloudApi extends Method {
 
     }
 
-    protected void generateLowLevelCallCode(String endpointVariableName, Method callMethod, Method lowLevelMethod,
-                                            Renames parameterRenames) {
+    protected void generateLowLevelCallCode(String endpointVariableName, ModelEndpoints endpoints,
+                                            Class<?> lowLevelModule, Method callMethod, Method lowLevelMethod,
+                                            Renames parameterRenames) throws TranslationException {
         final List<Object> callElements = new LinkedList<>(Arrays.asList(endpointVariableName));
         StringBuilder builder = new StringBuilder();
         builder.append("return $L");
-        // TODO add bit about endpoint low level module getter
-        // Adding method name
+        if (endpoints == null || lowLevelModule == null) {
+            throw new TranslationException("Could not find the endpoint module to use while translating " + this);
+        }
+        Field moduleField = ModelEndpoints.generateCorrespondingField(lowLevelModule);
+        if (!endpoints.hasField(moduleField)) {
+            throw new TranslationException("Could not find module field [" + moduleField + "] in endpoints "
+                                           + endpoints);
+        }
+        builder.append(".$L()");
+        callElements.add(MethodGetter.generateGetterName(moduleField));
         builder.append(".$L(");
         callElements.add(lowLevelMethod.getName());
         boolean start = true;
@@ -178,10 +272,29 @@ public class MethodModuleCloudApi extends Method {
 
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
                                       List<Object> callElements, boolean isExternalParameter) {
-        builder.append("$L");
+
         if (isExternalParameter) {
+            if (MethodMapper.isLowLevelType(type)) {
+                builder.append("$T.$L($L)");
+                // TODO extend the list below if necessary
+                if (type.isFormPart()) {
+                    callElements.add(DataFileAdapter.class);
+                    callElements.add(DataFileAdapter.METHOD_REVERSE_MAP);
+                }
+                if (type.isJodaDate()) {
+                    callElements.add(TranslationUtils.class);
+                    callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_LOCALDATE);
+                }
+                if (type.isJodaTime()) {
+                    callElements.add(TranslationUtils.class);
+                    callElements.add(TranslationUtils.METHOD_CONVERT_DATE_TO_DATETIME);
+                }
+            } else {
+                builder.append("$L");
+            }
             callElements.add(parameterName);
         } else {
+            builder.append("$L");
             callElements.add("null");
         }
     }

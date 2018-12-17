@@ -3,13 +3,13 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeSpec;
 
 public class ModelEnum extends Model {
@@ -48,8 +48,7 @@ public class ModelEnum extends Model {
     }
 
     private String generateConstantName(String value) {
-        return value == null ? null : value.toUpperCase(Locale.UK)
-                                           .equals(value) ? value : ApiUtils.convertCamelToSnake(value).toUpperCase();
+        return Utils.generateConstantName(null, value);
     }
 
     private static String generateName(String attachedEntity, String name) {

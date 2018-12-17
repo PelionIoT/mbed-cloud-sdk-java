@@ -43,12 +43,16 @@ public class ModelEndpoints extends ModelMergeable {
 
     public void addModule(Class<?> moduleClazz) {
         if (moduleClazz != null) {
-            addField(new Field(true, TypeFactory.getCorrespondingType(moduleClazz), moduleClazz.getSimpleName(),
-                               "Low level endpoints for " + ApiUtils.convertCamelToSnake(moduleClazz.getSimpleName())
-                                                                    .replaceAll("_", " "),
-                               null, null, isStatic, false, true, false, null, false));
+            addField(generateCorrespondingField(moduleClazz));
         }
 
+    }
+
+    public static Field generateCorrespondingField(Class<?> moduleClazz) {
+        return new Field(true, TypeFactory.getCorrespondingType(moduleClazz), moduleClazz.getSimpleName(),
+                         "Low level endpoints for " + ApiUtils.convertCamelToSnake(moduleClazz.getSimpleName())
+                                                              .replaceAll("_", " "),
+                         null, null, false, false, true, false, null, false);
     }
 
 }

@@ -155,11 +155,12 @@ public class MethodTranslator {
         }
     }
 
-    public static List<Parameter> translateParameters(Method m, String packageName, String group) {
+    public static List<Parameter> translateParameters(Method m, String packageName, String group,
+                                                      boolean onlyExternal) {
         if (m == null) {
             return null;
         }
-        return m.getParameters().stream().filter(f -> f.isExternal()).map(f -> {
+        return m.getParameters().stream().filter(f -> onlyExternal ? f.isExternal() : true).map(f -> {
             try {
                 return FieldTranslator.translateToParameter(f, packageName, group);
             } catch (FoundationGeneratorException exception) {
@@ -180,8 +181,9 @@ public class MethodTranslator {
                                                        m.hasPaginatedResponse()),
                              generateMethodLongDescription(m.getDescription()), currentModel, m.isCustomCode(),
                              m.hasPaginatedResponse(),
-                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup()),
-                             parameterRenames, translateMethod(method));
+                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), true),
+                             translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), false),
+                             parameterRenames, translateMethod(method), method.getModuleClazz());
     }
 
 }

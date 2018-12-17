@@ -9,7 +9,8 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 public class Utils {
 
     public static String getKey(String key, boolean camel) {
-        return key == null ? null : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(key), !camel);
+        return key == null ? null
+                           : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(key).replace("-", "_"), !camel);
     }
 
     public static List<String> getGroupId(String groupId) {

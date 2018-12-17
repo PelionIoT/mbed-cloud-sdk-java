@@ -40,10 +40,10 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
                                boolean needsCustomCode, boolean isInternal) {
         super();
         setReadOnly(isReadOnly);
+        setStatic(isStatic);
         setName(name);
         setDescription(description);
         setLongDescription(longDescription);
-        setStatic(isStatic);
         setAccessible(isAccessible);
         setAbstract(isAbstract);
         setContainsCustomCode(containsCustomCode);

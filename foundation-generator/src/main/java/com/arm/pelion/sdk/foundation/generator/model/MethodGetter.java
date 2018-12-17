@@ -33,7 +33,7 @@ public class MethodGetter extends Method {
         return field.hasDescription() ? field.getDescription() : field.getName();
     }
 
-    private static String generateGetterName(Field field) {
+    public static String generateGetterName(Field field) {
         return getCorrespondingGetterMethodName(field.getName(), field.getType().isBoolean());
     }
 

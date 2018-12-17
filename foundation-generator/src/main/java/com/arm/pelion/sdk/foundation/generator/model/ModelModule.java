@@ -95,6 +95,7 @@ public class ModelModule extends ModelMergeable {
 
     public void addCloudCall(CloudCall call) {
         if (call != null) {
+            call.setEndpoints(endpointFetcher.fetch(getGroup()));
             cloudCalls.put(call.getIdentifier(), call);
         }
     }
@@ -108,12 +109,16 @@ public class ModelModule extends ModelMergeable {
         private final String description;
         private final String longDescription;
         private final List<Parameter> methodParameters;
+        private final List<Parameter> allParameters;
         private final Method lowLevelMethod;
         private final Renames parameterRenames;
+        private final Class<?> lowLevelModule;
+        private ModelEndpoints endpoints;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
-                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> methodParameters,
-                         Renames parameterRenames, Method lowLevelMethod) {
+                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> externalParameters,
+                         List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
+                         Class<?> lowLevelModule) {
             super();
             this.action = action;
             this.methodName = methodName;
@@ -124,7 +129,17 @@ public class ModelModule extends ModelMergeable {
             this.isPaginated = isPaginated;
             this.lowLevelMethod = lowLevelMethod;
             this.parameterRenames = parameterRenames;
-            this.methodParameters = methodParameters;
+            this.methodParameters = externalParameters;
+            this.allParameters = allParameters;
+            this.lowLevelModule = lowLevelModule;
+        }
+
+        public ModelEndpoints getEndpoints() {
+            return endpoints;
+        }
+
+        public void setEndpoints(ModelEndpoints endpoints) {
+            this.endpoints = endpoints;
         }
 
         public String getIdentifier() {
@@ -132,6 +147,7 @@ public class ModelModule extends ModelMergeable {
         }
 
         public void addMethod(ModelModule module) {
+
             MethodModuleCloudApi method = null;
             switch (action) {
                 case CREATE:
@@ -140,21 +156,23 @@ public class ModelModule extends ModelMergeable {
                 case READ:
                 case UPDATE:
                     method = new MethodModuleCloudApi(currentModel, module.adapterFetcher, methodName, description,
-                                                      longDescription, isCustom, ENDPOINTS_FIELD_NAME, methodParameters,
-                                                      parameterRenames, lowLevelMethod);
+                                                      longDescription, isCustom, endpoints, ENDPOINTS_FIELD_NAME,
+                                                      lowLevelModule, methodParameters, allParameters, parameterRenames,
+                                                      lowLevelMethod, true);
                     break;
 
                 case LIST:
                     method = new MethodModuleListApi(currentModel, methodName, description, longDescription, isCustom,
                                                      isPaginated, module.listOptionFetcher, module.adapterFetcher,
-                                                     ENDPOINTS_FIELD_NAME, methodParameters, parameterRenames,
-                                                     lowLevelMethod);
+                                                     endpoints, ENDPOINTS_FIELD_NAME, lowLevelModule, methodParameters,
+                                                     allParameters, parameterRenames, lowLevelMethod, true);
                     break;
                 default:
                     break;
 
             }
             method.initialise();
+            module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
         }
 

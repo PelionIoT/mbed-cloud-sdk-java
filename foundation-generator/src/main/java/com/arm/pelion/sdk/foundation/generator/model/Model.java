@@ -19,6 +19,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.TypeSpec;
@@ -704,9 +705,9 @@ public class Model extends AbstractSdkArtifact {
         if (isAbstract || !isSerialisable()) {
             return;
         }
-        final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class), "serialVersionUID",
-                                                 "Serialisation Id.", null, null, true, false, false, false, null,
-                                                 false);
+        final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class),
+                                                 Utils.SERIALISATION_UUID, "Serialisation Id.", null, null, true, false,
+                                                 false, false, null, false);
         serialVersionUID.setInitialiser(generateSerialisationId() + "L");
         serialVersionUID.translate();
         specificationBuilder.addField(serialVersionUID.getSpecificationBuilder().build());
@@ -761,7 +762,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public Parameter toParameter(String parameterName) {
-        final String theDescription = "a " + String.valueOf(name).toLowerCase();
+        final String theDescription = "a " + ApiUtils.convertCamelToSnake(name).replace("_", " ");
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);

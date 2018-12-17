@@ -16,17 +16,21 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
     public MethodModuleListApi(Model currentModel, String name, String description, String longDescription,
                                boolean needsCustomCode, boolean isPaginatedList,
                                ModelListOptionFetcher listOptionsFetcher, ModelAdapterFetcher adapterFetcher,
-                               String endpointVariableName, List<Parameter> methodParameters, Renames parameterRenames,
-                               Method lowLevelMethod) {
-        super(currentModel, adapterFetcher, name, description, longDescription, needsCustomCode, endpointVariableName,
-              methodParameters, parameterRenames, lowLevelMethod);
+                               ModelEndpoints endpoints, String endpointVariableName, Class<?> lowLevelModule,
+                               List<Parameter> methodParameters, List<Parameter> allParameters,
+                               Renames parameterRenames, Method lowLevelMethod, boolean enforceModelValidity) {
+        super(currentModel, adapterFetcher, name, description, longDescription, needsCustomCode, endpoints,
+              endpointVariableName, lowLevelModule, methodParameters, allParameters, parameterRenames, lowLevelMethod,
+              enforceModelValidity);
         this.isPaginatedList = isPaginatedList;
         this.fetcher = listOptionsFetcher;
     }
 
     @Override
-    protected List<Parameter> extendParameterList(List<Parameter> methodParameters) {
-        List<Parameter> otherParameters = super.extendParameterList(methodParameters);
+    protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
+                                                  Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
+        List<Parameter> otherParameters = super.extendParameterList(methodParameters, allParameters, lowLevelMethod,
+                                                                    parameterRenames, currentModel);
         if (isPaginatedList) {
             final ModelListOption correspondingListOptions = determineListOptionModel();
             if (otherParameters == null) {
@@ -42,7 +46,12 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
     }
 
     @Override
-    protected void determineReturnType(Model currentModel) {
+    protected boolean shouldCheckModelValidity(Parameter p) {
+        return super.shouldCheckModelValidity(p) && !PARAMETER_NAME_OPTIONS.equals(p.getIdentifier());
+    }
+
+    @Override
+    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
         TypeListResponse returnType = new TypeListResponse();
         returnType.setContentType(currentModel.toType());
         setReturnType(returnType);

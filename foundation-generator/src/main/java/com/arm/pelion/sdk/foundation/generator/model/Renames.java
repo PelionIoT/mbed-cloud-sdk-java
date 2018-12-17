@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class Renames {
@@ -40,7 +41,9 @@ public class Renames {
             return;
         }
         fromTo.put(from, to);
-        toFrom.put(to, from);
+        if (from.toLowerCase(Locale.UK) != to.toLowerCase(Locale.UK)) {
+            toFrom.put(to, from);
+        }
     }
 
 }

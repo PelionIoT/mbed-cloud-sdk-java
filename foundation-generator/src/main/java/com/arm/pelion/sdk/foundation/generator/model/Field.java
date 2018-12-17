@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 
@@ -64,7 +65,8 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      */
     @Override
     public void setName(String name) {
-        super.setName(ApiUtils.convertSnakeToCamel(name, false));
+        super.setName(isStatic && isReadOnly ? Utils.generateConstantName(null, name)
+                                             : ApiUtils.convertSnakeToCamel(name, false));
         ensureIdentifiersAreCorrectlySet();
     }
 
@@ -76,7 +78,18 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     @Override
     public void setReadOnly(boolean isReadOnly) {
         super.setReadOnly(isReadOnly);
+        if (isReadOnly) {
+            setName(name);
+        }
         ensureIdentifiersAreCorrectlySet();
+    }
+
+    @Override
+    public void setStatic(boolean isStatic) {
+        super.setStatic(isStatic);
+        if (isStatic) {
+            setName(name);
+        }
     }
 
     private void ensureIdentifiersAreCorrectlySet() {
@@ -177,6 +190,11 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      */
     public void setInitialiser(String initialiser) {
         this.initialiser = initialiser;
+    }
+
+    public Field initialiser(String initialiser) {
+        setInitialiser(initialiser);
+        return this;
     }
 
     /**

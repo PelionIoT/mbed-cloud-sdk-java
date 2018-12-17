@@ -325,9 +325,12 @@ public class MethodMapper extends Method {
         return doesTypeNeedTranslation(from) || doesTypeNeedTranslation(to);
     }
 
-    protected static boolean doesTypeNeedTranslation(TypeParameter type) {
-        return type.isDate() || type.isJodaDate() || type.isJodaTime() || type.isPrimitive() || type.isUrl()
-               || type.isFormPart() || type.isFile();
+    public static boolean doesTypeNeedTranslation(TypeParameter type) {
+        return type.isDate() || isLowLevelType(type) || type.isPrimitive() || type.isUrl() || type.isFile();
+    }
+
+    public static boolean isLowLevelType(TypeParameter type) {
+        return type.isJodaDate() || type.isJodaTime() || type.isFormPart();
     }
 
 }
