@@ -4,19 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
-import com.arm.mbed.cloud.sdk.common.SdkContext;
+import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 
-public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstructor {
-    private static final String PARAMETER_SDK_CONTEXT = "context";
+public class MethodModuleConstructorFromClient extends AbstractMethodConstructor {
+    private static final String PARAMETER_CLOUD_CLIENT = "client";
     protected List<Field> fields;
 
-    public MethodModuleConstructorFromSdkContext(Model currentModel, Model parentModel) {
+    public MethodModuleConstructorFromClient(Model currentModel, Model parentModel) {
         super(currentModel, parentModel, null, null, false);
     }
 
     @Override
     protected void translateCode() {
-        code.addStatement("super($L)", PARAMETER_SDK_CONTEXT);
+        code.addStatement("super($L)", PARAMETER_CLOUD_CLIENT);
         currentModel.getFieldList().stream().filter(f -> ModelModule.ENDPOINTS_FIELD_NAME.equals(f.getName()))
                     .forEach(f -> code.addStatement("this.$L = new $T(this.$L)", f.getName(),
                                                     f.getType().hasClazz() ? f.getType().getClazz()
@@ -32,12 +32,12 @@ public class MethodModuleConstructorFromSdkContext extends AbstractMethodConstru
 
     @Override
     protected void addConstructorParameters() {
-        addParameter(new Parameter(PARAMETER_SDK_CONTEXT,
-                                   "SDK context @see {@link " + getParameterClass().getSimpleName() + "}.", null,
+        addParameter(new Parameter(PARAMETER_CLOUD_CLIENT,
+                                   "Cloud client @see {@link " + getParameterClass().getSimpleName() + "}.", null,
                                    TypeFactory.getCorrespondingType(getParameterClass()), null));
     }
 
     public Class<?> getParameterClass() {
-        return SdkContext.class;
+        return ApiClientWrapper.class;
     }
 }

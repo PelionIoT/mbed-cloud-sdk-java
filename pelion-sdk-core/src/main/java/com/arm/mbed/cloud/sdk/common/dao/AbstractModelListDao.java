@@ -118,6 +118,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     private IdPageRequester getIdPageRequester() {
         return new IdPageRequester() {
 
+            @SuppressWarnings("unchecked")
             @Override
             public IdListResponse requestNewPage(ListOptions listOptions) throws MbedCloudException {
                 return requestOnePageOfIds((U) listOptions);
@@ -126,7 +127,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
     }
 
     /**
-     * Placeholder for instantiating the underlying list options. This method currently use reflection. It should be
+     * Placeholder for instantiating the underlying list options. This method currently uses reflection. It should be
      * overridden by each DAO with direct call to the list options empty constructor.
      *
      * @return an instance of the model.

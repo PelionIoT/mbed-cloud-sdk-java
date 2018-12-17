@@ -41,11 +41,11 @@ public class TestModelDaoProvider {
             String cloudHost = "http://testHost/";
             String anApiKey = "testApiKey";
             foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
-            assertEquals(anApiKey, foundDao.getModule().getClient().getConnectionOptions().getApiKey());
-            assertEquals(cloudHost, foundDao.getModule().getClient().getConnectionOptions().getHost());
+            assertEquals(anApiKey, foundDao.getContext().getClient().getConnectionOptions().getApiKey());
+            assertEquals(cloudHost, foundDao.getContext().getClient().getConnectionOptions().getHost());
             ModelDao<?> daoWithContext = foundDao.getDaoProvider().getCorrespondingDao(aModel);
-            assertEquals(anApiKey, daoWithContext.getModule().getClient().getConnectionOptions().getApiKey());
-            assertEquals(cloudHost, daoWithContext.getModule().getClient().getConnectionOptions().getHost());
+            assertEquals(anApiKey, daoWithContext.getContext().getClient().getConnectionOptions().getApiKey());
+            assertEquals(cloudHost, daoWithContext.getContext().getClient().getConnectionOptions().getHost());
 
         } catch (MbedCloudException exception) {
             fail(exception.getMessage());
@@ -72,8 +72,8 @@ public class TestModelDaoProvider {
             foundDao.configure(ConnectionOptions.newConfiguration(anApiKey).host(cloudHost));
             ModelTestListDao daoWithContext = foundDao.getDaoProvider().getCorrespondingListDao(ModelTest.class,
                                                                                                 someOptions);
-            assertEquals(anApiKey, daoWithContext.getModule().getClient().getConnectionOptions().getApiKey());
-            assertEquals(cloudHost, daoWithContext.getModule().getClient().getConnectionOptions().getHost());
+            assertEquals(anApiKey, daoWithContext.getContext().getClient().getConnectionOptions().getApiKey());
+            assertEquals(cloudHost, daoWithContext.getContext().getClient().getConnectionOptions().getHost());
             assertEquals(someOptions, daoWithContext.getListOptions());
         } catch (MbedCloudException exception) {
             fail(exception.getMessage());
@@ -129,6 +129,11 @@ public class TestModelDaoProvider {
             return generateApiModule(client);
         }
 
+        @Override
+        protected SdkContext instantiateModule(SdkContext context) {
+            return generateApiModule(context.getClient());
+        }
+
         public static SdkContext generateApiModule(final ApiClientWrapper client) {
             return new SdkContext() {
 
@@ -158,6 +163,7 @@ public class TestModelDaoProvider {
                 }
             };
         }
+
     }
 
     public static class ModelTestListDao extends AbstractModelListDao<ModelTest, ListOptions> {
@@ -184,6 +190,11 @@ public class TestModelDaoProvider {
         @Override
         protected SdkContext instantiateModule(ApiClientWrapper client) {
             return ModelTestDao.generateApiModule(client);
+        }
+
+        @Override
+        protected SdkContext instantiateModule(SdkContext context) {
+            return ModelTestDao.generateApiModule(context.getClient());
         }
 
         @SuppressWarnings("unchecked")

@@ -49,7 +49,11 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
 
     @Override
     public String getIdentifier() {
-        return METHOD_ID_PREFIX + super.getIdentifier();
+        return generateIdentifier(super.getIdentifier());
+    }
+
+    public static String generateIdentifier(String methodIdentifier) {
+        return METHOD_ID_PREFIX + methodIdentifier;
     }
 
     @Override
@@ -77,6 +81,11 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
         }
         builder.append(")");
         code.addStatement(builder.toString(), callElements.toArray());
+    }
+
+    @Override
+    public String toString() {
+        return "MethodModuleFromEntity ";
     }
 
 }

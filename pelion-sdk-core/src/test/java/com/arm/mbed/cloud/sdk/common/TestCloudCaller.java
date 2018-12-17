@@ -348,7 +348,7 @@ public class TestCloudCaller {
 
     }
 
-    public static class TestApi extends AbstractApi {
+    public static class TestApi extends AbstractModule {
 
         public static final String CALL_TEST_METHOD_NAME = "callTest()";
         private final TestApiService testService;

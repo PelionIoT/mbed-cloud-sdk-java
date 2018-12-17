@@ -34,9 +34,9 @@ public class CloudCaller<T, U> {
     private final String apiName;
     private final boolean storeMetadata;
     private final boolean throwExceptionOnNotFound;
-    private final AbstractApi module;
+    private final AbstractModule module;
 
-    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractApi module,
+    private CloudCaller(String apiName, CloudCall<T> caller, Mapper<T, U> mapper, AbstractModule module,
                         boolean storeMetada, boolean throwExceptionOnNotFound) {
         super();
         this.caller = caller;
@@ -70,7 +70,7 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper,
+    public static <T, U> U call(AbstractModule module, String functionName, Mapper<T, U> mapper,
                                 CloudCall<T> caller) throws MbedCloudException {
         return call(module, functionName, mapper, caller, false);
     }
@@ -98,7 +98,7 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+    public static <T, U> U call(AbstractModule module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
                                 boolean throwExceptionOnNotFound) throws MbedCloudException {
         return call(module, functionName, mapper, caller, true, throwExceptionOnNotFound);
     }
@@ -126,7 +126,7 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T, U> U call(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+    public static <T, U> U call(AbstractModule module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
                                 boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
         return callWithFeedback(module, functionName, mapper, caller, storeMetadata,
                                 throwExceptionOnNotFound).getResult();
@@ -151,7 +151,7 @@ public class CloudCaller<T, U> {
      * @throws MbedCloudException
      *             if an error occurred during the call
      */
-    public static <T> String callRaw(AbstractApi module, String functionName, CloudCall<T> caller,
+    public static <T> String callRaw(AbstractModule module, String functionName, CloudCall<T> caller,
                                      boolean throwExceptionOnNotFound) throws MbedCloudException {
         return callWithRawFeedback(module, functionName, caller, true, throwExceptionOnNotFound).getResult();
     }
@@ -180,7 +180,7 @@ public class CloudCaller<T, U> {
      *             if an error occurred during the call
      */
     public static <T, U> CallFeedback<T, U>
-           callWithFeedback(AbstractApi module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
+           callWithFeedback(AbstractModule module, String functionName, Mapper<T, U> mapper, CloudCall<T> caller,
                             boolean storeMetadata, boolean throwExceptionOnNotFound) throws MbedCloudException {
         return new CloudCaller<>(functionName, caller, mapper, module, storeMetadata,
                                  throwExceptionOnNotFound).execute();
@@ -206,7 +206,7 @@ public class CloudCaller<T, U> {
      *             if an error occurred during the call
      */
     public static <T> RawCallFeedback<T>
-           callWithRawFeedback(AbstractApi module, String functionName, CloudCall<T> caller, boolean storeMetadata,
+           callWithRawFeedback(AbstractModule module, String functionName, CloudCall<T> caller, boolean storeMetadata,
                                boolean throwExceptionOnNotFound) throws MbedCloudException {
         return new CloudCaller<>(functionName, caller, null, module, storeMetadata,
                                  throwExceptionOnNotFound).executeRaw();
@@ -220,7 +220,7 @@ public class CloudCaller<T, U> {
      * @param metadata
      *            api metadata
      */
-    public static void storeApiMetadata(AbstractApi module, ApiMetadata metadata) {
+    public static void storeApiMetadata(AbstractModule module, ApiMetadata metadata) {
         new CloudCaller<>(null, null, null, module, true, false).storeApiMetadataInTheCache(metadata);
     }
 

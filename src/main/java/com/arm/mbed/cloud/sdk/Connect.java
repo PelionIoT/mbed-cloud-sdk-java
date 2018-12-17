@@ -20,7 +20,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
@@ -85,7 +85,7 @@ import retrofit2.Call;
  * <p>
  * 3) Setup resource subscriptions and webhooks for resource monitoring
  */
-public class Connect extends AbstractApi {
+public class Connect extends AbstractModule {
     private static final String BUFFER = "BUFFER";
     private static final String TAG_VALUE_TYPE = "valueType";
     private static final String TAG_PRESUBSCRIPTION = "presubscription";
@@ -729,7 +729,7 @@ public class Connect extends AbstractApi {
 
     protected ResourceAction createResourceAction(String functionName,
                                                   Mapper<ResourceActionParameters, DeviceRequest> requestMapper) {
-        final AbstractApi module = this;
+        final AbstractModule module = this;
         final String function = functionName;
         final Mapper<ResourceActionParameters, DeviceRequest> finalMapper = requestMapper;
         return new ResourceAction() {

@@ -5,10 +5,10 @@ import java.security.InvalidParameterException;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
-import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkLogger;
 
 /**
@@ -21,7 +21,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 public abstract class AbstractCloudDao implements CloudDao {
 
     private static final String PARAMETER_CLIENT = "client";
-    private static final String PARAMETER_MODULE = "module";
+    private static final String PARAMETER_CONTEXT = "context";
     protected SdkContext module;
 
     /**
@@ -62,22 +62,24 @@ public abstract class AbstractCloudDao implements CloudDao {
     }
 
     @Override
-    public void configure(SdkContext oneModule) throws MbedCloudException {
-        ApiUtils.checkNotNull(SdkLogger.getLogger(), oneModule, PARAMETER_MODULE);
-        this.module = oneModule;
+    public void configure(SdkContext sdkContext) throws MbedCloudException {
+        ApiUtils.checkNotNull(SdkLogger.getLogger(), sdkContext, PARAMETER_CONTEXT);
+        this.module = instantiateModule(sdkContext);
     }
 
     @Override
     public DaoProvider getDaoProvider() {
-        return module == null ? DaoProvider.newGlobalProvider() : new DaoProvider(module.getClient());
+        return module == null ? DaoProvider.newGlobalProvider() : new DaoProvider(module);
     }
 
     @Override
-    public SdkContext getModule() throws MbedCloudException {
+    public SdkContext getContext() throws MbedCloudException {
         return module;
     }
 
     protected abstract SdkContext instantiateModule(ConnectionOptions options);
 
     protected abstract SdkContext instantiateModule(ApiClientWrapper client);
+
+    protected abstract SdkContext instantiateModule(SdkContext context);
 }

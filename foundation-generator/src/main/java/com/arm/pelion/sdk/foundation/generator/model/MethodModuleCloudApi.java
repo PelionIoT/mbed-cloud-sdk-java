@@ -6,7 +6,7 @@ import java.util.List;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
@@ -187,11 +187,11 @@ public class MethodModuleCloudApi extends Method {
 
     protected void generateParameterChecks() {
         methodParameters.stream().filter(p -> shouldCheckNull(p))
-                        .forEach(p -> code.addStatement("$L($L,$L)", AbstractApi.METHOD_CHECK_NOT_NULL, p.getName(),
+                        .forEach(p -> code.addStatement("$L($L,$L)", AbstractModule.METHOD_CHECK_NOT_NULL, p.getName(),
                                                         Utils.generateConstantName("tag", p.getName())));
         if (enforceModelValidity) {
             methodParameters.stream().filter(p -> shouldCheckModelValidity(p))
-                            .forEach(p -> code.addStatement("$L($L,$L)", AbstractApi.METHOD_CHECK_MODEL_VALIDITY,
+                            .forEach(p -> code.addStatement("$L($L,$L)", AbstractModule.METHOD_CHECK_MODEL_VALIDITY,
                                                             p.getName(),
                                                             Utils.generateConstantName("tag", p.getName())));
         }

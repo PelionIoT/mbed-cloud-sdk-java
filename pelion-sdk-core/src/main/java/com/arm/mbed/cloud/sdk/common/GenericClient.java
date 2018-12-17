@@ -28,7 +28,7 @@ public class GenericClient {
     private static final String UNCHECKED = "unchecked";
     private static final String REQUEST_PARAMETER_TAG = "request";
     private static final String DEFAULT_OPERATION_ID = "customCall()";
-    private final AbstractApi module;
+    private final AbstractModule module;
 
     /**
      * Constructor.
@@ -46,7 +46,7 @@ public class GenericClient {
      * @param module
      *            Pelion module.
      */
-    public GenericClient(@NonNull AbstractApi module) {
+    public GenericClient(@NonNull AbstractModule module) {
         this.module = module;
     }
 
@@ -304,7 +304,7 @@ public class GenericClient {
 
     @Preamble(description = "Default Pelion Cloud module")
     @Internal
-    private static class DefaultModule extends AbstractApi {
+    private static class DefaultModule extends AbstractModule {
 
         private static final String NAME = "Default module";
 

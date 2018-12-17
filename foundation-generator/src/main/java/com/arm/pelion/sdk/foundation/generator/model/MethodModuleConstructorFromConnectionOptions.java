@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.Arrays;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 
 public class MethodModuleConstructorFromConnectionOptions extends AbstractMethodConstructor {
@@ -21,19 +21,23 @@ public class MethodModuleConstructorFromConnectionOptions extends AbstractMethod
                     .forEach(f -> code.addStatement("this.$L = new $T(this.$L)", f.getName(),
                                                     f.getType().hasClazz() ? f.getType().getClazz()
                                                                            : f.getType().getTypeName(),
-                                                    AbstractApi.FIELD_NAME_SERVICE_REGISTRY));
+                                                    AbstractModule.FIELD_NAME_SERVICE_REGISTRY));
 
     }
 
     @Override
     public List<String> getSignature() {
-        return Arrays.asList(ConnectionOptions.class.getSimpleName());
+        return Arrays.asList(getParameterClass().getSimpleName());
     }
 
     @Override
     protected void addConstructorParameters() {
         addParameter(new Parameter(PARAMETER_CONNECTION_OPTIONS,
-                                   "connection options @see {@link " + ConnectionOptions.class.getSimpleName() + "}.",
-                                   null, TypeFactory.getCorrespondingType(ConnectionOptions.class), null));
+                                   "connection options @see {@link " + getParameterClass().getSimpleName() + "}.", null,
+                                   TypeFactory.getCorrespondingType(getParameterClass()), null));
+    }
+
+    public Class<?> getParameterClass() {
+        return ConnectionOptions.class;
     }
 }

@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.certificates.model.Certificate;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateListOptions;
 import com.arm.mbed.cloud.sdk.certificates.model.CertificateType;
 import com.arm.mbed.cloud.sdk.certificates.model.EndPoints;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -33,7 +33,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with certificates.
  */
-public class Certificates extends AbstractApi {
+public class Certificates extends AbstractModule {
 
     private static final String TAG_CERTIFICATE = "certificate";
     private static final String TAG_CERTIFICATE_ID = "certificateId";

@@ -44,8 +44,8 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
     }
 
     /**
-     * Placeholder for instantiating the underlying model. This method currently use reflection. It should be overridden
-     * by each DAO with direct call to the model empty constructor.
+     * Placeholder for instantiating the underlying model. This method currently uses reflection. It should be
+     * overridden by each DAO with direct call to the model empty constructor.
      *
      * @return an instance of the model.
      */

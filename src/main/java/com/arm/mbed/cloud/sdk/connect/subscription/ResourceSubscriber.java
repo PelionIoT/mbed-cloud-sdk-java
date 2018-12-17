@@ -6,7 +6,7 @@ import io.reactivex.BackpressureStrategy;
 import io.reactivex.functions.Consumer;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.listing.FilterOptions;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -23,8 +23,8 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 @Preamble(description = "Object in charge of performing all necessary action to take place when subscribing to a resource")
 public class ResourceSubscriber extends AbstractSubscriptionAction {
 
-    public ResourceSubscriber(AbstractApi api, FirstValue mode) {
-        super(api, mode);
+    public ResourceSubscriber(AbstractModule module, FirstValue mode) {
+        super(module, mode);
     }
 
     @Override
@@ -35,13 +35,13 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
         final SubscriptionFilterOptions filters = (SubscriptionFilterOptions) arg;
         // Setting pre-subscriptions
         final List<Presubscription> correspondingPresubscriptions = PresubscriptionAdapter.mapSubscriptionFilter(filters);
-        api.addSomePresubscriptions(correspondingPresubscriptions);
+        module.addSomePresubscriptions(correspondingPresubscriptions);
         // Subscribe to currently connected devices
         if (mode == FirstValue.ON_VALUE_UPDATE || mode == FirstValue.IMMEDIATELY) {
-            final Paginator<Device> iterator = api.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
+            final Paginator<Device> iterator = module.listAllConnectedDevices(DeviceAdapter.mapSubscriptionOptions(filters));
             while (iterator.hasNext()) {
-                final List<Resource> resourcesToObserve = filters.getVerifiedResources(api.listObservableResources(iterator.next()));
-                api.addResourcesSubscription(resourcesToObserve);
+                final List<Resource> resourcesToObserve = filters.getVerifiedResources(module.listObservableResources(iterator.next()));
+                module.addResourcesSubscription(resourcesToObserve);
                 if (mode == FirstValue.IMMEDIATELY) {
                     for (final Resource resourceToObserve : resourcesToObserve) {
                         requestCurrentResourceValue(resourceToObserve);
@@ -54,31 +54,31 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
 
     private void requestCurrentResourceValue(final Resource resourceToObserve) {
         try {
-            final AsynchronousResponseObserver observer = api.createCurrentResourceValueObserver(resourceToObserve,
+            final AsynchronousResponseObserver observer = module.createCurrentResourceValueObserver(resourceToObserve,
                                                                                                  BackpressureStrategy.BUFFER);
             observer.singleNotification(null).doOnError(new Consumer<Throwable>() {
 
                 @Override
                 public void accept(Throwable exception) throws Exception {
-                    api.getLogger().logError("Could not fetch the current value of " + resourceToObserve, exception);
+                    module.getLogger().logError("Could not fetch the current value of " + resourceToObserve, exception);
 
                 }
             }).subscribe(new Consumer<AsynchronousResponseNotification>() {
 
                 @Override
                 public void accept(AsynchronousResponseNotification notification) throws Exception {
-                    api.getLogger().logDebug("The following asynchronous response was received: " + notification);
+                    module.getLogger().logDebug("The following asynchronous response was received: " + notification);
                     observer.unsubscribe();
                 }
             });
         } catch (MbedCloudException exception) {
-            api.getLogger().logError("Could not fetch the current value of " + resourceToObserve, exception);
+            module.getLogger().logError("Could not fetch the current value of " + resourceToObserve, exception);
         }
     }
 
     @Override
     public ResourceSubscriber clone() {
-        return new ResourceSubscriber(api, mode);
+        return new ResourceSubscriber(module, mode);
     }
 
 }

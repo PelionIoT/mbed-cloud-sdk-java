@@ -48,7 +48,7 @@ public class SynchronousMethod {
      *             if an error occurred during the call or the wait.
      */
 
-    public static <T> T waitForCompletion(@Nullable AbstractApi module, @Nullable String function,
+    public static <T> T waitForCompletion(@Nullable AbstractModule module, @Nullable String function,
             @NonNull AsynchronousMethod<T> asyncMethod, @Nullable TimePeriod timeout) throws MbedCloudException {
         if (asyncMethod == null) {
             throw new MbedCloudException("Asynchronous method is Null");

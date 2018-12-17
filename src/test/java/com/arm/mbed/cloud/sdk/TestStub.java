@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 
@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 /**
  * This stub is used to validate the test infrastructure itself.
  */
-public class TestStub extends AbstractApi {
+public class TestStub extends AbstractModule {
     private final ConnectionOptions opt;
 
     /**
@@ -58,7 +58,7 @@ public class TestStub extends AbstractApi {
     @SuppressWarnings("boxing")
     @API
     public Map<String, Object> success(String testArgument0, int testArgument1, String testArgument2,
-            Date testArgument3) throws MbedCloudException {
+                                       Date testArgument3) throws MbedCloudException {
         Map<String, Object> obj = new HashMap<>(10);
         obj.put("testArgument0", testArgument0);
         obj.put("testArgument1", testArgument1);

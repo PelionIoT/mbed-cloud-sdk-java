@@ -4,7 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.AnnotationSpec;
@@ -22,7 +22,7 @@ public class ModelModule extends ModelMergeable {
         super(packageName, generateName(model.getGroup()), model.getGroup(),
               generateDescription(model.getGroup(), description),
               generateLongDescription(model.getGroup(), description), false, true);
-        setSuperClassType(TypeFactory.getCorrespondingType(AbstractApi.class));
+        setSuperClassType(TypeFactory.getCorrespondingType(AbstractModule.class));
         this.endpointFetcher = endpointFetcher;
         this.listOptionFetcher = listOptionFetcher;
         this.adapterFetcher = adapterFetcher;
@@ -85,6 +85,7 @@ public class ModelModule extends ModelMergeable {
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         addConstructor(new MethodModuleConstructorFromConnectionOptions(this, theParent));
+        addConstructor(new MethodModuleConstructorFromClient(this, theParent));
         addConstructor(new MethodModuleConstructorFromSdkContext(this, theParent));
     }
 
@@ -92,6 +93,17 @@ public class ModelModule extends ModelMergeable {
     protected void generateOtherMethods() {
         super.generateOtherMethods();
         cloudCalls.values().forEach(c -> c.addMethod(this));
+    }
+
+    @Override
+    public boolean hasMethod(String identifier) {
+        return super.hasMethod(MethodModuleFromEntity.generateIdentifier(identifier)) || super.hasMethod(identifier);
+    }
+
+    @Override
+    public Method fetchMethod(String identifier) {
+        final Method overloadingMethod = super.fetchMethod(MethodModuleFromEntity.generateIdentifier(identifier));
+        return overloadingMethod == null ? super.fetchMethod(identifier) : overloadingMethod;
     }
 
     public void addCloudCall(CloudCall call) {

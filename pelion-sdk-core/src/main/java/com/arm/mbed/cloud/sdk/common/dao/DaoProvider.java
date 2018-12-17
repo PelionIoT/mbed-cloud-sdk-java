@@ -5,6 +5,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 
@@ -15,16 +16,25 @@ public final class DaoProvider {
     private static final String DAO_SUFFIX = "Dao";
     private static final String LIST_DAO_SUFFIX = "List" + DAO_SUFFIX;
 
-    private final ApiClientWrapper client;
+    private final SdkContext context;
 
     /**
      * Constructor.
      * 
-     * @param client
-     *            client to use.
+     * @param context
+     *            context to use.
      */
-    protected DaoProvider(ApiClientWrapper client) {
-        this.client = client;
+    protected DaoProvider(SdkContext context) {
+        this.context = context;
+    }
+
+    /**
+     * States whether the underlying SDK context is defined or not.
+     * 
+     * @return true if underlying context is specified. False otherwise.
+     */
+    public boolean isContextSpecified() {
+        return context != null;
     }
 
     /**
@@ -32,8 +42,17 @@ public final class DaoProvider {
      * 
      * @return true if underlying client is specified. False otherwise.
      */
-    public boolean hasClientSpecified() {
-        return client != null;
+    public boolean isClientSpecified() {
+        return isContextSpecified() && context.getClient() != null;
+    }
+
+    /**
+     * Gets provider underlying SDK context.
+     * 
+     * @return underlying context.
+     */
+    public @Nullable SdkContext getContext() {
+        return context;
     }
 
     /**
@@ -42,7 +61,18 @@ public final class DaoProvider {
      * @return underlying cloud client.
      */
     public @Nullable ApiClientWrapper getClient() {
-        return client;
+        return isContextSpecified() ? context.getClient() : null;
+    }
+
+    /**
+     * Gets the name of the corresponding DAO.
+     * 
+     * @param modelName
+     *            name of the model of interest.
+     * @return corresponding DAO name
+     */
+    public static @Nullable String getCorrespondingDaoName(String modelName) {
+        return modelName == null || modelName.isEmpty() ? null : modelName + DAO_SUFFIX;
     }
 
     /**
@@ -58,8 +88,7 @@ public final class DaoProvider {
     public @Nullable static <T extends SdkModel> Class<? extends ModelDao<T>> getCorrespondingDao(Class<T> modelType) {
         try {
             return modelType == null ? null
-                                     : (Class<? extends ModelDao<T>>) DaoProvider.class.forName(modelType.getName()
-                                                                                                + DAO_SUFFIX);
+                                     : (Class<? extends ModelDao<T>>) DaoProvider.class.forName(getCorrespondingDaoName(modelType.getName()));
         } catch (ClassNotFoundException exception) {
             return null;
         }
@@ -117,6 +146,17 @@ public final class DaoProvider {
     }
 
     /**
+     * Gets the name of the corresponding List DAO.
+     * 
+     * @param modelName
+     *            name of the model of interest.
+     * @return corresponding List DAO name
+     */
+    public static @Nullable String getCorrespondingListDaoName(String modelName) {
+        return modelName == null || modelName.isEmpty() ? null : modelName + LIST_DAO_SUFFIX;
+    }
+
+    /**
      * Gets the class of the Model List DAO corresponding to {@code modelType}.
      * <p>
      * Note: this method defers from {@link #getCorrespondingDao(SdkModel)} by the fact that the context is not passed
@@ -135,8 +175,7 @@ public final class DaoProvider {
         try {
             return modelType == null ? null
                                      : (Class<? extends ModelListDao<T,
-                                                                     ? extends ListOptions>>) DaoProvider.class.forName(modelType.getName()
-                                                                                                                        + LIST_DAO_SUFFIX);
+                                                                     ? extends ListOptions>>) DaoProvider.class.forName(getCorrespondingListDaoName(modelType.getName()));
         } catch (ClassNotFoundException exception) {
             return null;
         }
@@ -216,9 +255,9 @@ public final class DaoProvider {
         return new DaoProvider(null);
     }
 
-    private <T extends CloudDao> void specifyDaoClient(T listDao) throws MbedCloudException {
-        if (hasClientSpecified()) {
-            listDao.configure(client);
+    private <T extends CloudDao> void specifyDaoClient(T dao) throws MbedCloudException {
+        if (isContextSpecified()) {
+            dao.configure(context);
         }
     }
 

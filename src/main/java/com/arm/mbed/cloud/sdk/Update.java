@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -44,7 +44,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with updates
  */
-public class Update extends AbstractApi {
+public class Update extends AbstractModule {
 
     private static final String KEY_TABLE_PARAMETER = "key_table";
     private static final String TAG_CAMPAIGN_ID = "campaign id";

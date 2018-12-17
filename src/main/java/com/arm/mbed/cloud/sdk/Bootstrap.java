@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.bootstrap.adapters.PreSharedKeyAdapter;
 import com.arm.mbed.cloud.sdk.bootstrap.model.EndPoints;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKey;
 import com.arm.mbed.cloud.sdk.bootstrap.model.PreSharedKeyListOptions;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
@@ -28,7 +28,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with bootstrap.
  */
-public class Bootstrap extends AbstractApi {
+public class Bootstrap extends AbstractModule {
 
     private final EndPoints endpoint;
     private static final String TAG_KEY = "key";

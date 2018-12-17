@@ -16,7 +16,7 @@ import com.arm.mbed.cloud.sdk.billing.model.EndPoints;
 import com.arm.mbed.cloud.sdk.billing.model.QuotaHistory;
 import com.arm.mbed.cloud.sdk.billing.model.ServicePackage;
 import com.arm.mbed.cloud.sdk.billing.model.ServicePackageQuotaListOptions;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
@@ -42,7 +42,7 @@ import retrofit2.Call;
 /**
  * API exposing functionality for dealing with billing.
  */
-public class Billing extends AbstractApi {
+public class Billing extends AbstractModule {
 
     private static final String REPORT_MONTH_FORMAT = "^\\d{4}-\\d{2}$";
     private static final String TAG_DESTINATION = "destination";

@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.annotations.Module;
 import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.AbstractApi;
+import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -32,7 +32,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 /**
  * Entry point for using the SDK.
  */
-public class Sdk extends AbstractApi implements Closeable {
+public class Sdk extends AbstractModule implements Closeable {
 
     private final Connect connectApi;
 

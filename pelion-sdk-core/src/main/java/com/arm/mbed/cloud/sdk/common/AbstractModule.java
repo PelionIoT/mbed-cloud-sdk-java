@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "Generic SDK module definition")
 @Internal
-public abstract class AbstractApi implements SdkContext {
+public abstract class AbstractModule implements SdkContext {
 
     public static final String FIELD_NAME_SERVICE_REGISTRY = "serviceRegistry";
     public static final String METHOD_CHECK_NOT_NULL = "checkNotNull";
@@ -25,11 +25,11 @@ public abstract class AbstractApi implements SdkContext {
      * @param options
      *            connection options @see {@link ConnectionOptions}
      */
-    public AbstractApi(ConnectionOptions options) {
+    public AbstractModule(ConnectionOptions options) {
         this(options, null);
     }
 
-    protected AbstractApi(ApiClientWrapper client) {
+    protected AbstractModule(ApiClientWrapper client) {
         super();
         this.client = client;
         serviceRegistry = new ServiceRegistry(client);
@@ -42,7 +42,7 @@ public abstract class AbstractApi implements SdkContext {
      * 
      * @param context
      */
-    public AbstractApi(SdkContext context) {
+    public AbstractModule(SdkContext context) {
         super();
         this.client = context.getClient();
         this.serviceRegistry = context.getServiceRegistry();
@@ -58,7 +58,7 @@ public abstract class AbstractApi implements SdkContext {
      * @param userAgentExtension
      *            extension list for the user agent: module name - module version
      */
-    public AbstractApi(ConnectionOptions options, Map<String, String> userAgentExtension) {
+    public AbstractModule(ConnectionOptions options, Map<String, String> userAgentExtension) {
         this(new ApiClientWrapper(options, userAgentExtension));
     }
 
