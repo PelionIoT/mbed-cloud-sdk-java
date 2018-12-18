@@ -2,8 +2,8 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodModuleModifyApi extends MethodModuleCloudApi {
     protected final boolean isForCreation;
@@ -23,7 +23,7 @@ public class MethodModuleModifyApi extends MethodModuleCloudApi {
     protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
         super.determineReturnType(currentModel, lowLevelMethod);
         setReturnDescription((isForCreation ? "added" : "updated") + " "
-                             + ApiUtils.convertCamelToSnake(currentModel.getIdentifier()).replace("_", " "));
+                             + Utils.generateDocumentationString(currentModel.getIdentifier()));
     }
 
     @Override

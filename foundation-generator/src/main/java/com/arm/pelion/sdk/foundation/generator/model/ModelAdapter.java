@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelAdapter extends Model {
     public static final String FUNCTION_NAME_GET_MAPPER = "getMapper";
@@ -32,8 +33,7 @@ public class ModelAdapter extends Model {
     }
 
     private static String generateDescription(String name, String description) {
-        return description == null ? "Adapter for " + ApiUtils.convertCamelToSnake(name).replace("_", " ").trim()
-                                     + " API module"
+        return description == null ? "Adapter for " + Utils.generateDocumentationString(name) + " API module"
                                    : description;
     }
 

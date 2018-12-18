@@ -7,6 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.ParameterSpec;
 
@@ -31,7 +32,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
         this(name == null ? ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(elementClass.getSimpleName()),
                                                          false)
                           : name,
-             "a " + ApiUtils.convertCamelToSnake(elementClass.getSimpleName()).replace("_", " "), null,
+             "a " + Utils.generateDocumentationString(elementClass.getSimpleName()), null,
              TypeFactory.getCorrespondingType(elementClass), null);
     }
 

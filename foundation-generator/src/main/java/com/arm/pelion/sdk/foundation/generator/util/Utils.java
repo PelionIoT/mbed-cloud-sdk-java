@@ -7,6 +7,9 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.model.MergeableArtifact;
 
 public class Utils {
+    private static final String HYPHEN = "-";
+    private static final String WHITE_SPACE = " ";
+    private static final String UNDERSCORE = "_";
     public static final String SERIALISATION_UUID = "serialVersionUID";
 
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {
@@ -39,10 +42,18 @@ public class Utils {
         if (prefix != null && !prefix.isEmpty()) {
             builder.append(prefix.toUpperCase(Locale.UK).equals(prefix) ? prefix
                                                                         : ApiUtils.convertCamelToSnake(prefix));
-            builder.append("_");
+            builder.append(UNDERSCORE);
         }
         builder.append(constantName.toUpperCase(Locale.UK)
                                    .equals(constantName) ? constantName : ApiUtils.convertCamelToSnake(constantName));
         return builder.toString().toUpperCase(Locale.UK);
+    }
+
+    public static String generateDocumentationString(String modelName) {
+        if (modelName == null) {
+            return null;
+        }
+        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
+                       .trim();
     }
 }

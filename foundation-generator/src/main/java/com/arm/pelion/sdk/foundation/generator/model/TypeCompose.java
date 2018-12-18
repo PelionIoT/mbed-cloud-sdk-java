@@ -46,12 +46,17 @@ public abstract class TypeCompose extends TypeParameter {
         }
         try {
             contentType.translate();
+            setImportPath();
             TranslateTypeNameBasedOnContentType();
         } catch (Exception e) {
             // e.printStackTrace();
             setClazz(getCollectionClass());
             super.translate();
         }
+    }
+
+    protected void setImportPath() {
+        setImportPath(new Import(getCollectionClass().getSimpleName(), getCollectionClass().getPackage().getName()));
     }
 
     public TypeParameter getContentType() {
@@ -68,6 +73,12 @@ public abstract class TypeCompose extends TypeParameter {
 
     protected void setConcreteImplementation(boolean concreteImplementation) {
         this.concreteImplementation = concreteImplementation;
+    }
+
+    @SuppressWarnings("unchecked")
+    protected <T extends TypeCompose> T concreteImplementation(boolean concreteImplementation) {
+        setConcreteImplementation(concreteImplementation);
+        return (T) this;
     }
 
     @Override
@@ -96,6 +107,11 @@ public abstract class TypeCompose extends TypeParameter {
         } else if (!contentType.equals(other.contentType))
             return false;
         return true;
+    }
+
+    @Override
+    public boolean isModel() {
+        return false;
     }
 
     @Override

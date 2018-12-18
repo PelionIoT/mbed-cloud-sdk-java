@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelListOption extends Model {
 
@@ -18,8 +19,7 @@ public class ModelListOption extends Model {
     }
 
     private static String generateDescription(String name, String description) {
-        return description == null ? "Options to use when listing "
-                                     + ApiUtils.convertCamelToSnake(name).replace("_", " ").trim() + "s"
+        return description == null ? "Options to use when listing " + Utils.generateDocumentationString(name) + "s"
                                    : description;
     }
 
@@ -76,5 +76,10 @@ public class ModelListOption extends Model {
     @Override
     protected MethodClone instantiateCloneMethod(Model theParent) {
         return new MethodListOptionsClone(this, theParent);
+    }
+
+    @Override
+    protected void generateIsValid(Model theParent) {
+        // Nothing to do
     }
 }

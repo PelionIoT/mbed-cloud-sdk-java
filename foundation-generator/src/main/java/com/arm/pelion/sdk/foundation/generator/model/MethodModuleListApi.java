@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodModuleListApi extends MethodModuleCloudApi {
     protected static final String PARAMETER_NAME_OPTIONS = "options";
@@ -55,7 +55,7 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         TypeListResponse returnType = new TypeListResponse();
         returnType.setContentType(currentModel.toType());
         setReturnType(returnType);
-        setReturnDescription("the list of " + ApiUtils.convertCamelToSnake(currentModel.getName()).replace("_", " ")
+        setReturnDescription("the list of " + Utils.generateDocumentationString(currentModel.getName())
                              + "s corresponding to filter options (One page).");
     }
 

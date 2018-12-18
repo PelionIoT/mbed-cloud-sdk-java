@@ -7,6 +7,7 @@ import java.util.Map;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
 
 public class ModelModule extends ModelMergeable {
@@ -52,7 +53,7 @@ public class ModelModule extends ModelMergeable {
 
     private static String generateLongDescription(String group, String description) {
         return description == null ? " API definitions exposing functionality for dealing with "
-                                     + ApiUtils.convertCamelToSnake(group).replace("_", " ")
+                                     + Utils.generateDocumentationString(group)
                                    : description;
     }
 
