@@ -8,6 +8,7 @@ import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.adapters.DataFileAdapter;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.CodeBlock;
 
 public class MethodMapper extends Method {
@@ -54,12 +55,11 @@ public class MethodMapper extends Method {
         final String otherName = generateModelDescription(fromTo);
         final String from = isFromModel ? modelname : otherName;
         final String to = isFromModel ? otherName : modelname;
-        return "Maps a " + from + " into " + to + ".";
+        return "Maps " + from + " into " + to + ".";
     }
 
     protected static String generateModelDescription(Model currentModel) {
-        return currentModel == null ? UNKNOWN
-                                    : ApiUtils.convertCamelToSnake(currentModel.getName()).replaceAll("_", " ");
+        return currentModel == null ? UNKNOWN : Utils.generateDocumentationString(currentModel.getName());
     }
 
     protected void translateCode() throws TranslationException {

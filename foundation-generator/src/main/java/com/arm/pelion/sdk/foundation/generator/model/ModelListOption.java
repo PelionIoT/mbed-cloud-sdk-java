@@ -19,7 +19,7 @@ public class ModelListOption extends Model {
     }
 
     private static String generateDescription(String name, String description) {
-        return description == null ? "Options to use when listing " + Utils.generateDocumentationString(name) + "s"
+        return description == null ? "Options to use when listing " + Utils.generateDocumentationString(name, true)
                                    : description;
     }
 

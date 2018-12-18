@@ -165,9 +165,12 @@ public class ModelTest extends AbstractSdkArtifact {
     }
 
     private void generateIsValid() {
+        final Method method = modelUnderTest.fetchMethod(MethodIsValid.IDENTIFIER);
+        if (method == null) {
+            return;
+        }
         final MethodTest test = new MethodTest(MethodIsValid.IDENTIFIER,
-                                               modelUnderTest.fetchMethod(MethodIsValid.IDENTIFIER).containsCustomCode()
-                                                                         || modelUnderTest.needsFieldCustomisation());
+                                               method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
 
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
         final String fieldValues = String.join("," + System.lineSeparator(),

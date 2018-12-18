@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelEndpoints extends ModelMergeable {
 
@@ -50,8 +51,8 @@ public class ModelEndpoints extends ModelMergeable {
 
     public static Field generateCorrespondingField(Class<?> moduleClazz) {
         return new Field(true, TypeFactory.getCorrespondingType(moduleClazz), moduleClazz.getSimpleName(),
-                         "Low level endpoints for " + ApiUtils.convertCamelToSnake(moduleClazz.getSimpleName())
-                                                              .replaceAll("_", " "),
+                         "Low level endpoints for " + Utils.generateDocumentationString(moduleClazz.getSimpleName(),
+                                                                                        true),
                          null, null, false, false, true, false, null, false);
     }
 

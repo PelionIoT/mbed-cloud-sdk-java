@@ -21,14 +21,16 @@ public interface ReadDao<T extends SdkModel> extends ModelDao<T> {
      *            identifier of the model as defined by {@link SdkModel#getId()}.
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws UnsupportedOperationException
+     *             if it is not possible to read a model by just setting the identifier.
      */
-    void read(String id) throws MbedCloudException;
+    void read(String id) throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Fetches data from the Cloud.
      * <p>
-     * Note: Similar to {@link #read(String)} but the underlying identifier value set
-     * using{@link ModelDao#setId(String)} is used.
+     * Note: Similar to {@link #read(String)} but the underlying identifier value set using
+     * {@link ModelDao#setId(String)} is used.
      *
      * @throws MbedCloudException
      *             if an error occurs during the process.

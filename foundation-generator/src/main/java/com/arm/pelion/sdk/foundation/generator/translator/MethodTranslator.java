@@ -1,6 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -17,11 +16,9 @@ import com.arm.pelion.sdk.foundation.generator.model.Renames;
 import com.arm.pelion.sdk.foundation.generator.model.TypeFactory;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodTranslator {
-    private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
-    private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
-
     public static MethodAction determineMethodAction(Method m) {
         if (m == null) {
             return null;
@@ -88,12 +85,10 @@ public class MethodTranslator {
         }
         StringBuilder build = new StringBuilder();
         if (action == MethodAction.LIST) {
-            build.append("Lists").append(" ")
-                 .append(ApiUtils.convertCamelToSnake(currentModel.getName()).replaceAll("_", " ").trim()).append("s");
+            build.append("Lists").append(" ").append(Utils.generateDocumentationString(currentModel.getName(), true));
             if (hasFilters) {
                 build.append(" matching filter options");
             }
-            build.append(".");
         } else {
             switch (action) {
                 case CREATE:
@@ -110,16 +105,9 @@ public class MethodTranslator {
                     break;
             }
             build.append(" ");
-            final String name = currentModel.getName().trim();
-            final String firstLetter = currentModel.getName().substring(0, 1).toLowerCase(Locale.UK);
-            if (!WORD_EXCEPTIONS.stream().anyMatch(w -> name.toLowerCase(Locale.UK).startsWith(w))
-                && VOWELS.stream().anyMatch(v -> v.equals(firstLetter))) {
-                build.append("an");
-            } else {
-                build.append("a");
-            }
-            build.append(" ").append(ApiUtils.convertCamelToSnake(name).replaceAll("_", " ")).append(".");
+            build.append(Utils.generateDocumentationString(currentModel.getName()));
         }
+        build.append(".");
         return build.toString();
     }
 

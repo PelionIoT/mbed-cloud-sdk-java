@@ -32,7 +32,7 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
         this(name == null ? ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(elementClass.getSimpleName()),
                                                          false)
                           : name,
-             "a " + Utils.generateDocumentationString(elementClass.getSimpleName()), null,
+             Utils.generateDocumentationString(elementClass.getSimpleName()), null,
              TypeFactory.getCorrespondingType(elementClass), null);
     }
 

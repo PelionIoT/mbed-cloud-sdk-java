@@ -28,14 +28,14 @@ public class Model extends AbstractSdkArtifact {
     private static final int MAX_LONG_LENGTH = 18 - 2;
     private static final String ABSTRACT_CLASS_PREFIX = "Abstract";
     protected String packageName;
-    private String parent;
+    private String abstractParent;
     protected String group;
     protected final TypeParameter concreteType;
     protected final List<String> contructorsName;
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
     protected Map<String, Field> superClassFields;
-    private TypeParameter superClassType;
+    protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
     static {
@@ -79,10 +79,12 @@ public class Model extends AbstractSdkArtifact {
         methods = new LinkedHashMap<>();
         fields = new LinkedHashMap<>();
         contructorsName = new LinkedList<>();
+        abstractParent = null;
         setPackageName(packageName);
         setGroup(group);
         setSuperClassType(null);
         this.concreteType = concreteType;
+
     }
 
     public Model() {
@@ -121,7 +123,8 @@ public class Model extends AbstractSdkArtifact {
     }
 
     private static String generateDescription(String name, String description) {
-        return description == null || description.isEmpty() ? "Model for " + name : description;
+        return description == null || description.isEmpty() ? "Model for " + Utils.generateDocumentationString(name)
+                                                            : description;
     }
 
     /**
@@ -153,6 +156,14 @@ public class Model extends AbstractSdkArtifact {
 
     public void setSuperClassType(TypeParameter superClassType) {
         this.superClassType = superClassType;
+        if (this.superClassType != null) {
+            try {
+                this.superClassType.translate();
+            } catch (TranslationException exception) {
+                // Nothing to do
+                exception.printStackTrace();
+            }
+        }
         this.superClassFields = getSuperClassFields();
     }
 
@@ -188,8 +199,8 @@ public class Model extends AbstractSdkArtifact {
     /**
      * @return the parent
      */
-    public String getParent() {
-        return parent;
+    public String getAbstractParent() {
+        return abstractParent;
     }
 
     public boolean hasMethods() {
@@ -208,21 +219,65 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public boolean hasMethod(Method method) {
-        return hasMethod(method.getIdentifier());
+        return method == null ? false : hasMethod(method.getIdentifier());
     }
 
-    public boolean hasMethod(String identifier) {
+    private List<String> fetchAllOverloadedMethods(String rawIdentifier) {
+        if (rawIdentifier == null || rawIdentifier.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return methods.keySet().stream()
+                      .filter(m -> rawIdentifier.equals(m)
+                                   || rawIdentifier.equals(MethodOverloaded.fetchMethodRawIdentifier(m)))
+                      .collect(Collectors.toList());
+    }
+
+    private boolean hasSpecificMethod(String identifier) {
         return identifier == null ? false : methods.containsKey(identifier);
     }
 
+    private Method getSpecificMethod(String identifier) {
+        return identifier == null ? null : methods.get(identifier);
+    }
+
+    private boolean hasAnyMethod(String identifier) {
+        if (hasSpecificMethod(identifier)) {
+            return true;
+        }
+        final String rawId = MethodOverloaded.isOverloadedMethod(identifier) ? MethodOverloaded.fetchMethodRawIdentifier(identifier)
+                                                                             : identifier;
+        return !fetchAllOverloadedMethods(rawId).isEmpty();
+    }
+
+    private Method fetchAnyMethod(String identifier) {
+        final Method method = getSpecificMethod(identifier);
+        if (method != null) {
+            return method;
+        }
+        final String rawId = MethodOverloaded.isOverloadedMethod(identifier) ? MethodOverloaded.fetchMethodRawIdentifier(identifier)
+                                                                             : identifier;
+        final String id = fetchAllOverloadedMethods(rawId).stream().findFirst().orElse(null);
+        return id == null ? null : getSpecificMethod(id);
+    }
+
+    private List<Method> fetchAllMethods(String identifier) {
+        final String rawId = MethodOverloaded.isOverloadedMethod(identifier) ? MethodOverloaded.fetchMethodRawIdentifier(identifier)
+                                                                             : identifier;
+        return fetchAllOverloadedMethods(rawId).stream().map(id -> getSpecificMethod(id)).collect(Collectors.toList());
+    }
+
+    public boolean hasMethod(String identifier) {
+        return identifier == null || identifier.isEmpty() ? false : hasAnyMethod(identifier.trim());
+    }
+
     public void addMethod(Method method) {
-        if (!hasMethod(method)) {
+        if (!hasMethod(method) || MethodOverloaded.isOverloadedMethod(method)) {
             overrideMethodIfExist(method);
         }
     }
 
     public Method fetchMethod(String identifier) {
-        return hasMethod(identifier) ? methods.get(identifier) : null;
+        return identifier == null || identifier.isEmpty() ? null : fetchAnyMethod(identifier.trim());
     }
 
     public boolean hasField(Field field) {
@@ -311,8 +366,8 @@ public class Model extends AbstractSdkArtifact {
      * @param parent
      *            the parent to set
      */
-    public void setParent(String parent) {
-        this.parent = parent;
+    public void setAbstractParent(String parent) {
+        this.abstractParent = parent;
     }
 
     /**
@@ -367,12 +422,12 @@ public class Model extends AbstractSdkArtifact {
             }
             generateDocumentation();
             generateAnnotations();
-            if (hasSuperInterface()) {
+            if (hasSuperInterface() && !hasAbstractParent()) {
                 generateSuperInterface();
             }
             if (hasParent()) {
                 if (hasAbstractParent()) {
-                    specificationBuilder.superclass(ClassName.get(packageName, parent));
+                    specificationBuilder.superclass(ClassName.get(packageName, abstractParent));
                 } else {
                     superClassType.translate();
                     if (superClassType.hasClass()) {
@@ -444,8 +499,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     private Model generateAbstractModel() {
-        final Model abstractModel = new Model(packageName, name, group, description, longDescription, true, false,
-                                              false, isInternal);
+        final Model abstractModel = generateEmptyAbstractModel();
         if (hasSuperClass()) {
             abstractModel.setSuperClassType(superClassType);
         }
@@ -460,9 +514,8 @@ public class Model extends AbstractSdkArtifact {
     }
 
     private Model generateChildModel() {
-        final Model child = new Model(packageName, name, group, description, longDescription, false, false, true,
-                                      isInternal);
-        child.setParent(generateParentClassName());
+        final Model child = generateEmptyChildModel();
+        child.setAbstractParent(generateParentClassName());
         getFieldList().stream().filter(f -> f.needsCustomCode()).forEach(f -> {
             f.setContainsCustomCode(true);
             child.addField(f);
@@ -474,6 +527,14 @@ public class Model extends AbstractSdkArtifact {
         child.generateMethodsNecessaryAtEachLevel();
         child.ensureSdkModelMethodsHaveOverrideAnnotation();
         return child;
+    }
+
+    protected Model generateEmptyChildModel() {
+        return new Model(packageName, name, group, description, longDescription, false, false, true, isInternal);
+    }
+
+    protected Model generateEmptyAbstractModel() {
+        return new Model(packageName, name, group, description, longDescription, true, false, false, isInternal);
     }
 
     public <T extends SdkArtifact> boolean requestCustomCode(Class<T> type, String key) {
@@ -556,24 +617,36 @@ public class Model extends AbstractSdkArtifact {
     protected void generateMethodsDependingOnParents(Model theParent) {
         generateToString(theParent);
         // FIXME better handle tests depending on the type of model
-        if (!(this instanceof ModelListOption)) {
-            generateIsValid(theParent);
-        }
+
+        generateIsValid(theParent);
         generateConstructors(theParent);
         generateClone(theParent);
     }
 
-    protected void generateInterfaceMethods() {
-        if (hasSuperInterface()) {
-            List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
-            superInterfaceMethods.forEach(m -> {
-                if (hasMethod(m.getName())) {
-                    fetchMethod(m.getName()).setAsOverride(true);
-                } else {
-                    addMethod(new MethodGeneric(m));
-                }
-            });
-        }
+    private void generateInterfaceMethods() {
+        fetchSuperInterfaceMethods().forEach(m -> {
+            final String suffix = MethodOverloaded.generateOverloadSuffix(m);
+            final String methodId = MethodOverloaded.generateIdentifier(m.getName(), suffix);
+            System.out.println(methodId);
+            if (hasSpecificMethod(methodId)) {
+                System.out.println("has");
+                getSpecificMethod(methodId).setAsOverride(true);
+            } else {
+                addMethod(new MethodGeneric(m, suffix));
+            }
+        });
+    }
+
+    private void ensureSdkModelMethodsHaveOverrideAnnotation() {
+        fetchSuperInterfaceMethods().forEach(m -> {
+            if (hasMethod(m.getName())) {
+                fetchAllMethods(m.getName()).forEach(mo -> mo.setAsOverride(true));
+            }
+        });
+    }
+
+    protected List<java.lang.reflect.Method> fetchSuperInterfaceMethods() {
+        return hasSuperInterface() ? Arrays.asList(getSuperInterface().getMethods()) : new ArrayList<>();
     }
 
     protected Class<?> getSuperInterface() {
@@ -586,17 +659,6 @@ public class Model extends AbstractSdkArtifact {
 
     protected boolean isSerialisable() {
         return true;
-    }
-
-    protected void ensureSdkModelMethodsHaveOverrideAnnotation() {
-        if (hasSuperInterface()) {
-            List<java.lang.reflect.Method> superInterfaceMethods = Arrays.asList(getSuperInterface().getMethods());
-            superInterfaceMethods.forEach(m -> {
-                if (hasMethod(m.getName())) {
-                    fetchMethod(m.getName()).setAsOverride(true);
-                }
-            });
-        }
     }
 
     protected void generateHashCodeAndEquals() {
@@ -631,7 +693,7 @@ public class Model extends AbstractSdkArtifact {
         overrideMethodIfExist(new MethodIsValid(this, theParent));
     }
 
-    private void generateClone(Model theParent) {
+    protected void generateClone(Model theParent) {
         final MethodClone cloneMethod = instantiateCloneMethod(theParent);
         if (!this.isAbstract()) {
             overrideMethodIfExist(cloneMethod);
@@ -671,7 +733,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     protected boolean hasAbstractParent() {
-        return has(parent);
+        return has(abstractParent);
     }
 
     private static String generateClassJavadocComment(boolean hasDescription, String description,
@@ -766,11 +828,10 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public Parameter toParameter(String parameterName) {
-        final String theDescription = "a " + ApiUtils.convertCamelToSnake(name).replace("_", " ");
         final String finalParameterName = ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(parameterName == null ? name
                                                                                                                           : parameterName),
                                                                        false);
-        return new Parameter(finalParameterName, theDescription, null, toType(), null);
+        return new Parameter(finalParameterName, Utils.generateDocumentationString(name), null, toType(), null);
     }
 
     public Parameter toParameter() {

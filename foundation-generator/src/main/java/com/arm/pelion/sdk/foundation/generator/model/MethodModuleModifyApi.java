@@ -22,8 +22,8 @@ public class MethodModuleModifyApi extends MethodModuleCloudApi {
     @Override
     protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
         super.determineReturnType(currentModel, lowLevelMethod);
-        setReturnDescription((isForCreation ? "added" : "updated") + " "
-                             + Utils.generateDocumentationString(currentModel.getIdentifier()));
+        setReturnDescription(Utils.generateDocumentationString(isForCreation ? "added" : "updated",
+                                                               currentModel.getIdentifier(), false));
     }
 
     @Override

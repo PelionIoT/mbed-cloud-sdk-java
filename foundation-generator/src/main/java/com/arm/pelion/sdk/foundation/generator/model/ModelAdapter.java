@@ -33,8 +33,7 @@ public class ModelAdapter extends Model {
     }
 
     private static String generateDescription(String name, String description) {
-        return description == null ? "Adapter for " + Utils.generateDocumentationString(name) + " API module"
-                                   : description;
+        return description == null ? "Adapter for " + Utils.generateDocumentationString(name, true) : description;
     }
 
     public static String generateName(String modelName) {

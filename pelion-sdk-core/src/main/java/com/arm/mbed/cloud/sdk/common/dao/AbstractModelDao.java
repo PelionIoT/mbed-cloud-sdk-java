@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -15,32 +16,48 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 @Preamble(description = "Abstract Model DAO")
 public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloudDao implements ModelDao<T> {
 
-    protected T model;
+    protected final AtomicReference<T> model;
 
     public AbstractModelDao() throws MbedCloudException {
         super();
+        model = new AtomicReference<>();
         setModel(null);
     }
 
     @Override
     public void setModel(T model) throws MbedCloudException {
-        this.model = model == null ? instantiateModel() : model;
-
+        this.model.set(model == null ? instantiateModel() : model);
     }
 
     @Override
     public void setId(String id) throws MbedCloudException {
-        model.setId(id);
+        synchronized (model) {
+            if (model.get() == null) {
+                setModel(instantiateModel());
+            }
+            model.get().setId(id);
+        }
     }
 
     @Override
     public String getId() throws MbedCloudException {
-        return model.getId();
+        final T dataModel = model.get();
+        if (dataModel != null) {
+            return dataModel.getId();
+        }
+        synchronized (model) {
+            final T dataModel2 = model.get();
+            if (dataModel2 != null) {
+                return dataModel2.getId();
+            }
+            setModel(instantiateModel());
+            return getModel().getId();
+        }
     }
 
     @Override
     public T getModel() throws MbedCloudException {
-        return model;
+        return model.get();
     }
 
     /**

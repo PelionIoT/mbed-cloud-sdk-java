@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.util;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -11,6 +12,9 @@ public class Utils {
     private static final String WHITE_SPACE = " ";
     private static final String UNDERSCORE = "_";
     public static final String SERIALISATION_UUID = "serialVersionUID";
+    private static final List<String> VOWELS = Arrays.asList("a", "e", "i", "o", "u");
+    private static final List<String> WORD_EXCEPTIONS = Arrays.asList("user");// TODO to extend
+    private static final List<String> WORD_OPPOSITE_EXCEPTIONS = Arrays.asList("sdk");// TODO to extend
 
     public static <T extends MergeableArtifact> T merge(T artifact1, T artifact2) {
         if (artifact1 == null) {
@@ -49,11 +53,38 @@ public class Utils {
         return builder.toString().toUpperCase(Locale.UK);
     }
 
-    public static String generateDocumentationString(String modelName) {
-        if (modelName == null) {
+    public static String generateDocumentationString(String prefix, String modelName, boolean plural) {
+        return generateDocumentationString((prefix + " " + modelName).replace("  ", " "), plural);
+    }
+
+    public static String generateDocumentationString(String modelName, boolean plural) {
+        if (modelName == null || modelName.trim().isEmpty()) {
             return null;
         }
-        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
-                       .trim();
+        final StringBuilder build = new StringBuilder();
+        if (!plural) {
+            final String firstLetter = modelName.trim().substring(0, 1).toLowerCase(Locale.UK);
+            if (WORD_OPPOSITE_EXCEPTIONS.stream().anyMatch(w -> modelName.toLowerCase(Locale.UK).startsWith(w))
+                || (!WORD_EXCEPTIONS.stream().anyMatch(w -> modelName.toLowerCase(Locale.UK).startsWith(w))
+                    && VOWELS.stream().anyMatch(v -> v.equals(firstLetter)))) {
+                build.append("an");
+            } else {
+                build.append("a");
+            }
+            build.append(" ");
+        }
+        build.append(ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE)
+                             .replace(UNDERSCORE, WHITE_SPACE).trim());
+        if (plural) {
+            final String processedName = modelName.trim().toLowerCase(Locale.UK);
+            if (!processedName.endsWith("s")) {
+                build.append("s");
+            }
+        }
+        return build.toString();
+    }
+
+    public static String generateDocumentationString(String modelName) {
+        return generateDocumentationString(modelName, false);
     }
 }

@@ -5,11 +5,11 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeSpec;
 
 public class MethodModulePaginationApi extends MethodModuleListApi {
@@ -37,7 +37,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
     }
 
     private static String generateModelDescription(Model currentModel) {
-        return ApiUtils.convertCamelToSnake(currentModel.getName()).replaceAll("_", " ").trim() + "s";
+        return Utils.generateDocumentationString(currentModel.getName(), true);
     }
 
     private static String generatePaginatorName(MethodModuleListApi listMethod) {

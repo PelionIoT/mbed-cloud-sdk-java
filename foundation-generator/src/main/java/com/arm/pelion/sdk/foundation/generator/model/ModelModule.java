@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.LinkedHashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,7 @@ public class ModelModule extends ModelMergeable {
     private final ModelListOptionFetcher listOptionFetcher;
     private final ModelAdapterFetcher adapterFetcher;
     private final Map<String, CloudCall> cloudCalls;
+    private final MethodRegistry registry;
 
     public ModelModule(Model model, String packageName, String description, ModelEndpointsFetcher endpointFetcher,
                        ModelListOptionFetcher listOptionFetcher, ModelAdapterFetcher adapterFetcher) {
@@ -29,6 +31,7 @@ public class ModelModule extends ModelMergeable {
         this.adapterFetcher = adapterFetcher;
         cloudCalls = new LinkedHashMap<>();
         addEndpointField();
+        registry = new MethodRegistry();
     }
 
     private void addEndpointField() {
@@ -53,7 +56,7 @@ public class ModelModule extends ModelMergeable {
 
     private static String generateLongDescription(String group, String description) {
         return description == null ? " API definitions exposing functionality for dealing with "
-                                     + Utils.generateDocumentationString(group)
+                                     + Utils.generateDocumentationString(group, true)
                                    : description;
     }
 
@@ -98,7 +101,7 @@ public class ModelModule extends ModelMergeable {
 
     @Override
     public boolean hasMethod(String identifier) {
-        return super.hasMethod(MethodModuleFromEntity.generateIdentifier(identifier)) || super.hasMethod(identifier);
+        return super.hasMethod(identifier);
     }
 
     @Override
@@ -112,6 +115,34 @@ public class ModelModule extends ModelMergeable {
             call.setEndpoints(endpointFetcher.fetch(getGroup()));
             cloudCalls.put(call.getIdentifier(), call);
         }
+    }
+
+    public void registerMethod(Model model, MethodAction action, Method method) {
+        if (model == null || action == null || method == null) {
+            return;
+        }
+        registry.add(model, action, method);
+    }
+
+    public boolean hasMethods(Model model, MethodAction action) {
+        if (model == null || action == null) {
+            return false;
+        }
+        return registry.has(model, action);
+    }
+
+    public boolean hasMethods(Model model) {
+        if (model == null) {
+            return false;
+        }
+        return registry.has(model);
+    }
+
+    public List<Method> getAllMethods(Model model, MethodAction action) {
+        if (model == null || action == null) {
+            return null;
+        }
+        return registry.get(model, action);
     }
 
     public static class CloudCall {
@@ -220,9 +251,9 @@ public class ModelModule extends ModelMergeable {
         }
 
         public void addMethod(ModelModule module, MethodModuleCloudApi method) {
-
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
+            module.registerMethod(currentModel, action, method);
         }
 
         private boolean haveDifferentSignatures(MethodModuleCloudApi method, MethodModuleCloudApi overloadedMethod) {
@@ -240,6 +271,86 @@ public class ModelModule extends ModelMergeable {
                 }
             }
             return false;
+        }
+
+    }
+
+    private class MethodRegistry {
+        final Map<String, ModelMethodRegistry> store;
+
+        public MethodRegistry() {
+            super();
+            store = new LinkedHashMap<>();
+        }
+
+        public void add(String modelId, MethodAction action, Method method) {
+            ModelMethodRegistry registry = get(modelId);
+            if (registry == null) {
+                registry = new ModelMethodRegistry();
+            }
+            registry.add(action, method);
+            store.put(modelId, registry);
+        }
+
+        public void add(Model model, MethodAction action, Method method) {
+            add(model.getIdentifier(), action, method);
+        }
+
+        public boolean has(String modelId) {
+            return store.containsKey(modelId);
+        }
+
+        public boolean has(Model model) {
+            return has(model.getIdentifier());
+        }
+
+        public boolean has(String modelId, MethodAction action) {
+            return has(modelId) ? get(modelId).has(action) : false;
+        }
+
+        public boolean has(Model model, MethodAction action) {
+            return has(model.getIdentifier(), action);
+        }
+
+        public ModelMethodRegistry get(String modelId) {
+            return store.get(modelId);
+        }
+
+        public List<Method> get(String modelId, MethodAction action) {
+            if (!has(modelId)) {
+                return null;
+            }
+            return get(modelId).get(action);
+        }
+
+        public List<Method> get(Model model, MethodAction action) {
+            return get(model.getIdentifier(), action);
+        }
+    }
+
+    private class ModelMethodRegistry {
+        final Map<MethodAction, List<Method>> store;
+
+        public ModelMethodRegistry() {
+            super();
+            store = new LinkedHashMap<>();
+        }
+
+        public void add(MethodAction action, Method method) {
+            List<Method> methods = store.get(action);
+            if (methods == null) {
+                methods = new LinkedList<>();
+            }
+            methods.add(method);
+            store.put(action, methods);
+        }
+
+        public boolean has(MethodAction action) {
+            return store.containsKey(action);
+        }
+
+        public List<Method> get(MethodAction action) {
+            return store.get(action);
         }
 
     }

@@ -55,8 +55,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         TypeListResponse returnType = new TypeListResponse();
         returnType.setContentType(currentModel.toType());
         setReturnType(returnType);
-        setReturnDescription("the list of " + Utils.generateDocumentationString(currentModel.getName())
-                             + "s corresponding to filter options (One page).");
+        setReturnDescription("the list of " + Utils.generateDocumentationString(currentModel.getName(), true)
+                             + " corresponding to filter options (One page).");
     }
 
     @Override

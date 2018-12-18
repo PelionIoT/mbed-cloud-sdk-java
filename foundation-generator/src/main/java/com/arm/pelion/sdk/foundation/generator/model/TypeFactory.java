@@ -76,7 +76,7 @@ public class TypeFactory {
         return topType;
     }
 
-    public static Class<?> determineContentClass(Type genericType, int index) {
+    private static Class<?> determineContentClass(Type genericType, int index) {
         try {
             return Class.forName(((ParameterizedType) genericType).getActualTypeArguments()[index].getTypeName());
         } catch (ClassNotFoundException exception) {

@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.dao.AbstractCloudDao;
@@ -26,9 +27,8 @@ public class ModelDao extends Model {
         correspondingModel = currentModel;
         correspondingModule = module;
         superinterfaces = new ArrayList<>(4);
-        // setSuperClassType(((TypeCompose)
-        // TypeFactory.getCorrespondingType(com.arm.mbed.cloud.sdk.common.dao.ModelDao.class,
-        // currentModel.toType())).concreteImplementation(true));
+        setSuperClassType(((TypeCompose) TypeFactory.getCorrespondingType(com.arm.mbed.cloud.sdk.common.dao.ModelDao.class,
+                                                                          currentModel.toType())).concreteImplementation(true));
     }
 
     private static String generateDescription(Model currentModel) {
@@ -46,6 +46,11 @@ public class ModelDao extends Model {
         superinterfaces.forEach(i -> specificationBuilder.addSuperinterface(i));
     }
 
+    @Override
+    protected boolean hasSuperInterface() {
+        return !superinterfaces.isEmpty();
+    }
+
     private void checkSuperInterfaces() {
         if (Arrays.asList(CrudDao.class.getInterfaces()).stream()
                   .allMatch(i -> superinterfaces.stream().anyMatch(subi -> subi != null && subi.equals(i)))) {
@@ -55,7 +60,7 @@ public class ModelDao extends Model {
     }
 
     @SuppressWarnings("incomplete-switch")
-    public void addMethods(MethodAction action, String methodName) {
+    public void addMethods(MethodAction action, String methodName, boolean needsCustomCode) {
         Class<?> correspondingInterface = null;
         switch (action) {
             case CREATE:
@@ -73,7 +78,9 @@ public class ModelDao extends Model {
 
         }
         if (!superinterfaces.contains(CrudDao.class)) {
-            superinterfaces.add(correspondingInterface);
+            if (correspondingInterface != null) {
+                superinterfaces.add(correspondingInterface);
+            }
             checkSuperInterfaces();
         }
         // TODO something
@@ -90,6 +97,22 @@ public class ModelDao extends Model {
     }
 
     @Override
+    protected void generateIsValid(Model theParent) {
+        // Do not generate anything
+    }
+
+    @Override
+    protected void generateClone(Model theParent) {
+        // Do not generate anything
+    }
+
+    @Override
+    protected List<java.lang.reflect.Method> fetchSuperInterfaceMethods() {
+        return superinterfaces.stream().map(i -> i.getDeclaredMethods()).flatMap(x -> Arrays.stream(x))
+                              .collect(Collectors.toList());
+    }
+
+    @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         addConstructor(new MethodModelDaoConstructorEmpty(this, theParent));
     }
@@ -98,9 +121,6 @@ public class ModelDao extends Model {
     protected void generateOtherMethods() {
         super.generateOtherMethods();
         generateModuleIntantiationMethods();
-
-        // private final Map<String, CloudCall> cloudCalls;
-        // cloudCalls.values().forEach(c -> c.addMethod(this));
     }
 
     private void generateModuleIntantiationMethods() {
@@ -111,15 +131,20 @@ public class ModelDao extends Model {
             // Nothing to do
             exception.printStackTrace();
         }
-        List<Method> methods = Arrays.asList(AbstractCloudDao.class.getDeclaredMethods()).stream()
-                                     .filter(m -> AbstractCloudDao.METHOD_INSTANTIATE_MODULE.equals(m.getName()))
-                                     .map(m -> {
-                                         Method method = new Method(m, "Instantiates modules", null, true);
-                                         method.setAbstract(false);
-                                         Arrays.asList(m.getParameters())
-                                               .forEach(p -> method.addParameter(new Parameter(p)));
-                                         return method;
-                                     }).collect(Collectors.toList());
+        final AtomicInteger counter = new AtomicInteger();
+        final List<Method> methods = Arrays.asList(AbstractCloudDao.class.getDeclaredMethods()).stream()
+                                           .filter(m -> AbstractCloudDao.METHOD_INSTANTIATE_MODULE.equals(m.getName()))
+                                           .map(m -> {
+                                               Method method = new MethodOverloaded(m, "Instantiates modules", null,
+                                                                                    true,
+                                                                                    String.valueOf(counter.incrementAndGet()));
+                                               method.setAbstract(false);
+                                               method.setInternal(true);
+                                               // method.setReturnDescription("");
+                                               Arrays.asList(m.getParameters())
+                                                     .forEach(p -> method.addParameter(new Parameter(p)));
+                                               return method;
+                                           }).collect(Collectors.toList());
         for (Method m : methods) {
             m.initialiseCodeBuilder();
             m.getCode().addStatement("return new $T($L)",
@@ -129,4 +154,20 @@ public class ModelDao extends Model {
         }
 
     }
+
+    @Override
+    protected Model generateEmptyChildModel() {
+        final ModelDao model = new ModelDao(correspondingModel, correspondingModule, needsCustomCode);
+        model.setContainsCustomCode(true);
+        return model;
+    }
+
+    @Override
+    protected Model generateEmptyAbstractModel() {
+        final ModelDao model = new ModelDao(correspondingModel, correspondingModule, needsCustomCode);
+        model.setAbstract(true);
+        superinterfaces.forEach(i -> model.superinterfaces.add(i));
+        return model;
+    }
+
 }

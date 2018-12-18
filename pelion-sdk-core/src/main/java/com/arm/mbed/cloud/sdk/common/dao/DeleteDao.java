@@ -16,19 +16,22 @@ public interface DeleteDao<T extends SdkModel> extends ModelDao<T> {
 
     /**
      * Deletes a model on the Cloud.
-     *
+     * <p>
+     * Note: Similar to {@link #delete(SdkModel)}.
+     * 
      * @param id
      *            identifier of the model as defined by {@link SdkModel#getId()}.
      * @throws MbedCloudException
      *             if an error occurs during the process.
+     * @throws UnsupportedOperationException
+     *             if it is not possible to read a model by just setting the identifier.
      */
     void delete(String id) throws MbedCloudException;
 
     /**
      * Deletes a model on the Cloud.
-     * <p>
-     * Note: Similar to {@link #delete(String)}.
      *
+     * 
      * @param modelToDelete
      *            data model to delete.
      * @throws MbedCloudException
@@ -39,7 +42,7 @@ public interface DeleteDao<T extends SdkModel> extends ModelDao<T> {
     /**
      * Deletes a model on the Cloud.
      * <p>
-     * Note: Similar to {@link #delete(String)} but the underlying data model is deleted instead.
+     * Note: Similar to {@link #delete(SdkModel)} but the underlying data model is deleted instead.
      *
      * @throws MbedCloudException
      *             if an error occurs during the process.

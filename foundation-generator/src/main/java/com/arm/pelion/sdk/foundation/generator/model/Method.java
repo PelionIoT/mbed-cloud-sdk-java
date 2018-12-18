@@ -54,6 +54,13 @@ public class Method extends AbstractSdkArtifact {
              java.lang.reflect.Modifier.isAbstract(method.getModifiers()), false, false,
              method.isAnnotationPresent(Internal.class), method.isAnnotationPresent(Required.class), isAnOverride);
         exceptions.addAll(Arrays.asList(method.getExceptionTypes()));
+        if (returnsObjects(method)) {
+            setReturnType(TypeFactory.getCorrespondingType(method.getReturnType(), method.getGenericReturnType()));
+        }
+    }
+
+    private static boolean returnsObjects(java.lang.reflect.Method m) {
+        return m.getReturnType() != Void.class && m.getReturnType() != void.class;
     }
 
     public void initialiseCodeBuilder() {

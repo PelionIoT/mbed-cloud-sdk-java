@@ -8,7 +8,7 @@ import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
 public class MethodModuleFromEntity extends MethodModuleCloudApi {
 
-    public static final String METHOD_ID_PREFIX = "overloaded";
+    public static final String METHOD_ID_SUFFIX = "Overloaded";
 
     public MethodModuleFromEntity(MethodModuleCloudApi methodBasedOn, List<Parameter> methodParameters,
                                   boolean enforceModelValidity) {
@@ -53,7 +53,7 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
     }
 
     public static String generateIdentifier(String methodIdentifier) {
-        return METHOD_ID_PREFIX + methodIdentifier;
+        return MethodOverloaded.generateIdentifier(methodIdentifier, METHOD_ID_SUFFIX);
     }
 
     @Override

@@ -40,9 +40,13 @@ public class ArtifactsTranslator {
     }
 
     private static Model translateDao(Model model, ModelModule module, Entity entity) {
+        if (!entity.hasMethods()) {
+            return null;
+        }
         final ModelDao dao = new ModelDao(model, module, module.needsCustomCode());
         for (final Method m : entity.getMethods()) {
-            dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m));
+            dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m),
+                           m.isCustomCode());
         }
         dao.generateMethods();
         return dao;
