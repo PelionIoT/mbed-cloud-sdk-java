@@ -15,4 +15,10 @@ public class MethodGeneric extends MethodOverloaded {
                                                          Utils.generateDocumentationString(arg.getName()), null,
                                                          TypeFactory.getCorrespondingType(arg.getType()), null)));
     }
+
+    public MethodGeneric(String name, String description, String longDescription, String overloadingSuffix) {
+        super(false, name, description, longDescription, false, true, false, false, true, false, false, false,
+              overloadingSuffix);
+    }
+
 }

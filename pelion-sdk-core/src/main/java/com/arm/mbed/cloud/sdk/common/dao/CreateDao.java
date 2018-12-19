@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Data Access Object definition for creation")
 public interface CreateDao<T extends SdkModel> extends ModelDao<T> {
+    public static final String METHOD_NAME_CREATE = "create";
 
     /**
      * Creates a model on the Cloud.

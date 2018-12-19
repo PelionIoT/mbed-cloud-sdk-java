@@ -4,6 +4,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -131,6 +132,13 @@ public class ModelModule extends ModelMergeable {
         return registry.has(model, action);
     }
 
+    public boolean hasMethod(Model model, MethodAction action, String methodName) {
+        if (model == null || action == null || methodName == null) {
+            return false;
+        }
+        return registry.has(model, action, methodName);
+    }
+
     public boolean hasMethods(Model model) {
         if (model == null) {
             return false;
@@ -143,6 +151,13 @@ public class ModelModule extends ModelMergeable {
             return null;
         }
         return registry.get(model, action);
+    }
+
+    public List<Method> getAllMethods(Model model, MethodAction action, String methodName) {
+        if (model == null || action == null || methodName == null) {
+            return null;
+        }
+        return registry.get(model, action, methodName);
     }
 
     public static class CloudCall {
@@ -296,6 +311,13 @@ public class ModelModule extends ModelMergeable {
             add(model.getIdentifier(), action, method);
         }
 
+        public boolean has(Model model, MethodAction action, String methodName) {
+            if (!has(model, action) || methodName == null) {
+                return false;
+            }
+            return get(model).has(action, methodName);
+        }
+
         public boolean has(String modelId) {
             return store.containsKey(modelId);
         }
@@ -312,6 +334,10 @@ public class ModelModule extends ModelMergeable {
             return has(model.getIdentifier(), action);
         }
 
+        public ModelMethodRegistry get(Model model) {
+            return store.get(model.getIdentifier());
+        }
+
         public ModelMethodRegistry get(String modelId) {
             return store.get(modelId);
         }
@@ -325,6 +351,17 @@ public class ModelModule extends ModelMergeable {
 
         public List<Method> get(Model model, MethodAction action) {
             return get(model.getIdentifier(), action);
+        }
+
+        public List<Method> get(String modelId, MethodAction action, String methodName) {
+            if (!has(modelId)) {
+                return null;
+            }
+            return get(modelId).get(action, methodName);
+        }
+
+        public List<Method> get(Model model, MethodAction action, String methodName) {
+            return get(model.getIdentifier(), action, methodName);
         }
     }
 
@@ -343,6 +380,21 @@ public class ModelModule extends ModelMergeable {
             }
             methods.add(method);
             store.put(action, methods);
+        }
+
+        public boolean has(MethodAction action, String methodName) {
+            if (!has(action) || methodName == null) {
+                return false;
+            }
+            return get(action).stream().anyMatch(m -> methodName.equals(m.getName()));
+        }
+
+        public List<Method> get(MethodAction action, String methodName) {
+            final List<Method> allMethods = get(action);
+            if (allMethods == null) {
+                return null;
+            }
+            return allMethods.stream().filter(m -> methodName.equals(m.getName())).collect(Collectors.toList());
         }
 
         public boolean has(MethodAction action) {

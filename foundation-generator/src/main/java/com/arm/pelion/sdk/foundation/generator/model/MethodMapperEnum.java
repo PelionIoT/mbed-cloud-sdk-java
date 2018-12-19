@@ -66,8 +66,6 @@ public class MethodMapperEnum extends Method {
         }
         code.endControlFlow();
         code.beginControlFlow("switch($L)", PARAMETER_NAME);
-        System.out.println(fromTo);
-        System.out.println(fromTo.isEnum());
         if (fromTo.isEnum()) {
             for (Object c : fromTo.getEnumConstants()) {
                 code.add("case $L:\n", invokeEnumName(c));

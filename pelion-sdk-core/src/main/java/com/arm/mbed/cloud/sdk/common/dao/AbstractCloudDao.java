@@ -20,6 +20,8 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 @Internal
 public abstract class AbstractCloudDao implements CloudDao {
     public static final String METHOD_INSTANTIATE_MODULE = "instantiateModule";
+    public static final String METHOD_CHECK_CONFIGURATION = "checkDaoConfiguration";
+    public static final String FIELD_NAME_MODULE = "module";
 
     private static final String PARAMETER_CLIENT = "client";
     private static final String PARAMETER_CONTEXT = "context";
@@ -76,6 +78,12 @@ public abstract class AbstractCloudDao implements CloudDao {
     @Override
     public SdkContext getContext() throws MbedCloudException {
         return module;
+    }
+
+    protected void checkDaoConfiguration() throws MbedCloudException {
+        if (module == null) {
+            throw new MbedCloudException("The DAO is not configured properly");
+        }
     }
 
     protected abstract SdkContext instantiateModule(ConnectionOptions options);

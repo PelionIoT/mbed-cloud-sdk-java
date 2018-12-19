@@ -232,12 +232,36 @@ public class Model extends AbstractSdkArtifact {
                       .collect(Collectors.toList());
     }
 
-    private boolean hasSpecificMethod(String identifier) {
-        return identifier == null ? false : methods.containsKey(identifier);
+    protected boolean hasSpecificMethod(String identifier) {
+        if (identifier == null) {
+            return false;
+        }
+        if (methods.containsKey(identifier)) {
+            return true;
+        }
+        final String suffix = MethodOverloaded.fetchMethodIdentifierSuffix(identifier);
+        if (suffix == null || suffix.isEmpty()) {
+            return false;
+        }
+        return fetchAllMethods(identifier).stream()
+                                          .anyMatch(m -> suffix.equals(MethodOverloaded.generateOverloadSuffix(m)));
     }
 
-    private Method getSpecificMethod(String identifier) {
-        return identifier == null ? null : methods.get(identifier);
+    protected Method getSpecificMethod(String identifier) {
+        if (identifier == null) {
+            return null;
+        }
+        final Method method = methods.get(identifier);
+        if (method != null) {
+            return method;
+        }
+        final String suffix = MethodOverloaded.fetchMethodIdentifierSuffix(identifier);
+        if (suffix == null || suffix.isEmpty()) {
+            return null;
+        }
+        return fetchAllMethods(identifier).stream()
+                                          .filter(m -> suffix.equals(MethodOverloaded.generateOverloadSuffix(m)))
+                                          .findFirst().orElse(null);
     }
 
     private boolean hasAnyMethod(String identifier) {
@@ -572,7 +596,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     public void generateMethods() {
-        methods.clear();
+        // methods.clear();
         // Adding getters and setters
         generateSettersAndGetters();
         generateOtherMethods();
@@ -624,23 +648,23 @@ public class Model extends AbstractSdkArtifact {
     }
 
     private void generateInterfaceMethods() {
-        fetchSuperInterfaceMethods().forEach(m -> {
-            final String suffix = MethodOverloaded.generateOverloadSuffix(m);
-            final String methodId = MethodOverloaded.generateIdentifier(m.getName(), suffix);
-            System.out.println(methodId);
-            if (hasSpecificMethod(methodId)) {
-                System.out.println("has");
-                getSpecificMethod(methodId).setAsOverride(true);
-            } else {
-                addMethod(new MethodGeneric(m, suffix));
-            }
-        });
+        checkInterfaceMethodsState(true);
     }
 
     private void ensureSdkModelMethodsHaveOverrideAnnotation() {
+        checkInterfaceMethodsState(false);
+    }
+
+    private void checkInterfaceMethodsState(boolean createIfMissing) {
         fetchSuperInterfaceMethods().forEach(m -> {
-            if (hasMethod(m.getName())) {
-                fetchAllMethods(m.getName()).forEach(mo -> mo.setAsOverride(true));
+            final String suffix = MethodOverloaded.generateOverloadSuffix(m);
+            final String methodId = MethodOverloaded.generateIdentifier(m.getName(), suffix);
+            if (hasSpecificMethod(methodId)) {
+                getSpecificMethod(methodId).setAsOverride(true);
+            } else {
+                if (createIfMissing) {
+                    addMethod(new MethodGeneric(m, suffix));
+                }
             }
         });
     }

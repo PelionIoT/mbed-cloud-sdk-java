@@ -377,6 +377,21 @@ public class TypeParameter implements Artifact {
         return false;
     }
 
+    public boolean isModel(Model model) {
+        if (model == null || !isModel()) {
+            return false;
+        }
+        TypeParameter type = model.toType();
+        try {
+            translate();
+            type.translate();
+            return equals(type);
+        } catch (TranslationException exception) {
+            return false;
+        }
+
+    }
+
     /*
      * (non-Javadoc)
      *

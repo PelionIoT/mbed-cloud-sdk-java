@@ -12,6 +12,7 @@ import javax.lang.model.element.Modifier;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -225,6 +226,10 @@ public class Method extends AbstractSdkArtifact {
         return (T) this;
     }
 
+    public <T extends Exception> void addException(Class<T> exception) {
+        exceptions.add(exception);
+    }
+
     /**
      * @param returnType
      *            the returnType to set
@@ -333,6 +338,8 @@ public class Method extends AbstractSdkArtifact {
         }
         if (containsCustomCode) {
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
+            specificationBuilder.addStatement("throw new $T()", NotImplementedException.class);
+            specificationBuilder.addException(NotImplementedException.class);
             if (hasReturn()) {
                 if (returnType.isNumber()) {
                     specificationBuilder.addStatement("return 0");

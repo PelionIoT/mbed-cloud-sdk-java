@@ -13,6 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Data Access Object definition for deleting")
 public interface DeleteDao<T extends SdkModel> extends ModelDao<T> {
+    public static final String METHOD_NAME_DELETE = "delete";
 
     /**
      * Deletes a model on the Cloud.

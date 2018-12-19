@@ -78,7 +78,13 @@ public class TypeFactory {
 
     private static Class<?> determineContentClass(Type genericType, int index) {
         try {
-            return Class.forName(((ParameterizedType) genericType).getActualTypeArguments()[index].getTypeName());
+            final String typeName = ((ParameterizedType) genericType).getActualTypeArguments()[index].getTypeName();
+            // Checks whether it is sensible to actually find corresponding class i.e. checks if typeName is actually a
+            // potential class name.
+            if (typeName == null || typeName.isEmpty() || typeName.length() == 1) {
+                return null;
+            }
+            return Class.forName(typeName);
         } catch (ClassNotFoundException exception) {
             exception.printStackTrace();
             return null;
