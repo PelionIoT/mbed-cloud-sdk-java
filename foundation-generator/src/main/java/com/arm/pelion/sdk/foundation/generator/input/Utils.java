@@ -25,4 +25,8 @@ public class Utils {
         String value = getKey(groupId, false);
         return value == null ? "" : value;
     }
+
+    public static boolean has(String string) {
+        return !(string == null || string.trim().isEmpty());
+    }
 }

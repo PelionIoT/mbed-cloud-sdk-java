@@ -14,8 +14,6 @@ public class Method {
     private String summary;
     @JsonProperty(InputSchema.GROUP_ID_TAG)
     private List<String> groupId;
-    @JsonProperty(InputSchema.DROP_FIELDS_TAG)
-    private List<String> dropFields;
     @JsonProperty(InputSchema.RENAMES_TAG)
     private List<Mapping> renames;
     @JsonProperty(InputSchema.FIELDS_TAG)
@@ -45,14 +43,6 @@ public class Method {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<String> getDropFields() {
-        return dropFields;
-    }
-
-    public void setDropFields(List<String> dropFields) {
-        this.dropFields = dropFields;
     }
 
     public List<Mapping> getRenames() {
@@ -199,7 +189,7 @@ public class Method {
     @Override
     public String toString() {
         return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
-               + ", dropFields=" + dropFields + ", renames=" + renames + ", id=" + id + ", hasPaginatedResponse="
+               + ", renames=" + renames + ", parameters=" + parameters + ", id=" + id + ", hasPaginatedResponse="
                + hasPaginatedResponse + ", doesntReturnItself=" + doesntReturnItself + ", customCode=" + customCode
                + "]";
     }

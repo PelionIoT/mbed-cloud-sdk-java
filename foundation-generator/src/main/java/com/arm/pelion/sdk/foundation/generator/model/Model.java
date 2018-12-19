@@ -621,8 +621,7 @@ public class Model extends AbstractSdkArtifact {
                                         + ApiUtils.convertCamelToSnake(f.getName()));// model name + field
                     // name e.g. ApiKeyId
                     Method equivalentSetter = new MethodSetter(equivalentF,
-                                                               "Similar to {@link #" + setter.generateSignature()
-                                                                            + "}.",
+                                                               Utils.generateDocumentationMethodLink(null, setter),
                                                                true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
                     addMethod(equivalentSetter);
                 }

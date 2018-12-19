@@ -7,8 +7,6 @@ public class Field {
     private String key;
     @JsonProperty(InputSchema.DESCRIPTION_TAG)
     private String description;
-    @JsonProperty(InputSchema.API_FIELDNAME_TAG)
-    private String apiFieldname;
     @JsonProperty(InputSchema.REQUIRED_TAG)
     private boolean required;
     @JsonProperty(InputSchema.EXAMPLE_TAG)
@@ -33,10 +31,6 @@ public class Field {
     private String format;
     @JsonProperty(InputSchema.FOREIGN_KEY_TAG)
     private ForeignKey foreignKey;
-    @JsonProperty(InputSchema.PARAMETER_LOCATION_TAG)
-    private String parameterLocation;
-    @JsonProperty(InputSchema.ENTITY_FIELDNAME_TAG)
-    private String entityFieldname;
     @JsonProperty(InputSchema.PARAMETER_FIELDNAME_TAG)
     private String parameterFieldname;
     @JsonProperty(InputSchema.METHOD_PARAMETER_IS_EXTERNAL)
@@ -51,7 +45,6 @@ public class Field {
     public Field() {
         key = null;
         description = null;
-        apiFieldname = null;
         required = false;
         type = null;
         format = null;
@@ -62,6 +55,7 @@ public class Field {
         readOnly = false;
         internal = false;
         pattern = null;
+        parameterFieldname = null;
         longDescription = null;
         additionalProperties = null;
         enumRef = null;
@@ -81,13 +75,6 @@ public class Field {
      */
     public String getDescription() {
         return description;
-    }
-
-    /**
-     * @return the apiFieldname
-     */
-    public String getApiFieldname() {
-        return apiFieldname;
     }
 
     /**
@@ -168,14 +155,6 @@ public class Field {
      */
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    /**
-     * @param apiFieldname
-     *            the apiFieldname to set
-     */
-    public void setApiFieldname(String apiFieldname) {
-        this.apiFieldname = apiFieldname;
     }
 
     /**
@@ -292,7 +271,7 @@ public class Field {
     }
 
     public boolean hasEnumRef() {
-        return enumRef != null && !enumRef.isEmpty();
+        return com.arm.pelion.sdk.foundation.generator.input.Utils.has(enumRef);
     }
 
     public String getEnumRef() {
@@ -315,28 +294,16 @@ public class Field {
         return foreignKey != null;
     }
 
-    public String getParameterLocation() {
-        return parameterLocation;
-    }
-
-    public void setParameterLocation(String parameterLocation) {
-        this.parameterLocation = parameterLocation;
-    }
-
-    public String getEntityFieldname() {
-        return entityFieldname;
-    }
-
-    public void setEntityFieldname(String entityFieldname) {
-        this.entityFieldname = Utils.getKey(entityFieldname, false);
-    }
-
     public String getParameterFieldname() {
         return parameterFieldname;
     }
 
+    public boolean hasParameterFieldName() {
+        return com.arm.pelion.sdk.foundation.generator.input.Utils.has(parameterFieldname);
+    }
+
     public void setParameterFieldname(String parameterFieldname) {
-        this.parameterFieldname = Utils.getKey(parameterFieldname, false);
+        this.parameterFieldname = Utils.getKey(parameterFieldname, true);
     }
 
     public boolean isExternal() {
@@ -348,7 +315,7 @@ public class Field {
     }
 
     public String getProcessedFrom() {
-        return Utils.getKey(apiFieldname, true);
+        return getParameterFieldname();
     }
 
     public String getProcessedTo() {
@@ -397,13 +364,12 @@ public class Field {
 
     @Override
     public String toString() {
-        return "Field [key=" + key + ", description=" + description + ", apiFieldname=" + apiFieldname + ", required="
-               + required + ", example=" + example + ", items=" + items + ", customCode=" + customCode
-               + ", defaultValue=" + defaultValue + ", readOnly=" + readOnly + ", pattern=" + pattern + ", enumRef="
-               + enumRef + ", additionalProperties=" + additionalProperties + ", type=" + type + ", format=" + format
-               + ", foreignKey=" + foreignKey + ", parameterLocation=" + parameterLocation + ", entityFieldname="
-               + entityFieldname + ", parameterFieldname=" + parameterFieldname + ", isExternal=" + isExternal
-               + ", internal=" + internal + ", longDescription=" + longDescription + "]";
+        return "Field [key=" + key + ", description=" + description + ", required=" + required + ", example=" + example
+               + ", items=" + items + ", customCode=" + customCode + ", defaultValue=" + defaultValue + ", readOnly="
+               + readOnly + ", pattern=" + pattern + ", enumRef=" + enumRef + ", additionalProperties="
+               + additionalProperties + ", type=" + type + ", format=" + format + ", foreignKey=" + foreignKey
+               + ", parameterFieldname=" + parameterFieldname + ", isExternal=" + isExternal + ", internal=" + internal
+               + ", longDescription=" + longDescription + "]";
     }
 
 }

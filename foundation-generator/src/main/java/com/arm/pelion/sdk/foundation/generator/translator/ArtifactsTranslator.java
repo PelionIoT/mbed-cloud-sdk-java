@@ -66,7 +66,7 @@ public class ArtifactsTranslator {
             }
             if (m.doesntReturnItself()) {
                 // TODO shout
-                System.out.println("ERROR! Cannot yet generate method for " + m);
+                System.out.println("ERROR! Cannot yet generate method for " + m.getKey() + "/" + m.getId());
             } else {
                 module.addCloudCall(MethodTranslator.translate(m, method, model));
             }
@@ -86,6 +86,7 @@ public class ArtifactsTranslator {
         for (final Method m : entity.getMethods()) {
             final Renames methodRenames = new Renames();
             m.getRenames().forEach(f -> methodRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
+            System.out.println("Adapter method " + m.getId() + " " + methodRenames);
             final LowLevelAPIMethod method = lowLevelApis.getFirstMethod(m.getId());
             if (method == null) {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
@@ -93,7 +94,7 @@ public class ArtifactsTranslator {
             }
             if (m.doesntReturnItself()) {
                 // TODO shout
-                System.out.println("ERROR! Cannot yet generate adapter for " + m);
+                System.out.println("ERROR! Cannot yet generate adapter for " + m.getKey() + "/" + m.getId());
             } else {
 
                 if (method.hasToModel()) {

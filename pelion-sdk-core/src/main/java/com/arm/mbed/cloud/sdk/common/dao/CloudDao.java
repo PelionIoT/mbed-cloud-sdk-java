@@ -10,7 +10,8 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 
 /**
  *
- * Generic Data Access Object definition for interacting with the Cloud.
+ * Generic <a href="https://www.oracle.com/technetwork/java/dataaccessobject-138824.html">Data Access Object</a>
+ * definition for interacting with the Cloud.
  *
  */
 @Preamble(description = "Generic DAO definition")

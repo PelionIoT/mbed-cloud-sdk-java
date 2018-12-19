@@ -40,10 +40,18 @@ public class Renames {
         if (from == null || to == null) {
             return;
         }
+        if (from.equals(to)) {
+            return;
+        }
         fromTo.put(from, to);
         if (from.toLowerCase(Locale.UK) != to.toLowerCase(Locale.UK)) {
             toFrom.put(to, from);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Renames [fromTo=" + fromTo + ", toFrom=" + toFrom + "]";
     }
 
 }

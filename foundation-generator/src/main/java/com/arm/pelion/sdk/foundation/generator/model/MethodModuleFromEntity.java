@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodModuleFromEntity extends MethodModuleCloudApi {
 
@@ -13,26 +14,10 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
     public MethodModuleFromEntity(MethodModuleCloudApi methodBasedOn, List<Parameter> methodParameters,
                                   boolean enforceModelValidity) {
         super(methodBasedOn.currentModel, methodBasedOn.adapterFetcher, methodBasedOn.getName(),
-              methodBasedOn.description,
-              generateLongDescription(methodBasedOn.getName(), methodBasedOn.methodParameters),
+              methodBasedOn.description, Utils.generateDocumentationMethodLink(null, methodBasedOn),
               methodBasedOn.needsCustomCode(), methodBasedOn.endpoints, methodBasedOn.endpointVariableName,
               methodBasedOn.lowLevelModule, methodParameters, methodBasedOn.methodParameters,
               methodBasedOn.parameterRenames, methodBasedOn.lowLevelMethod, enforceModelValidity);
-    }
-
-    private static String generateLongDescription(String name, List<Parameter> methodParameters) {
-        final StringBuilder builder = new StringBuilder("Similar to  {@link #").append(name).append("(");
-        boolean start = true;
-        for (Parameter p : methodParameters) {
-            if (start) {
-                start = false;
-            } else {
-                builder.append(", ");
-            }
-            builder.append(p.getType().getShortName());
-        }
-        builder.append(")}");
-        return builder.toString();
     }
 
     @Override

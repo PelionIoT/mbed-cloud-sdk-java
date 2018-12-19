@@ -381,8 +381,13 @@ public class Method extends AbstractSdkArtifact {
     }
 
     public String generateSignature() {
-        return name + "("
-               + String.join(",", parameters.stream().map(p -> p.getType().getShortName()).collect(Collectors.toList()))
+        return generateSignature(name, parameters);
+    }
+
+    public static String generateSignature(String methodName, List<Parameter> parameters) {
+        return methodName + "("
+               + (parameters == null ? "" : String.join(",", parameters.stream().map(p -> p.getType().getShortName())
+                                                                       .collect(Collectors.toList())))
                + ")";
     }
 

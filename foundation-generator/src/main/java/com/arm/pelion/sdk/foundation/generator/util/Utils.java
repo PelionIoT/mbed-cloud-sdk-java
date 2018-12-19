@@ -6,6 +6,8 @@ import java.util.Locale;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.model.MergeableArtifact;
+import com.arm.pelion.sdk.foundation.generator.model.Method;
+import com.arm.pelion.sdk.foundation.generator.model.Model;
 
 public class Utils {
     private static final String HYPHEN = "-";
@@ -86,5 +88,20 @@ public class Utils {
 
     public static String generateDocumentationString(String modelName) {
         return generateDocumentationString(modelName, false);
+    }
+
+    public static String generateDocumentationMethodLink(Model model, Method method) {
+        if (model == null && method == null) {
+            return null;
+        }
+        final StringBuilder builder = new StringBuilder("Similar to  {@link ");
+        if (model != null) {
+            builder.append(model.toType().getFullyQualifiedName());
+        }
+        if (method != null) {
+            builder.append("#").append(method.generateSignature());
+        }
+        builder.append("}");
+        return builder.toString();
     }
 }

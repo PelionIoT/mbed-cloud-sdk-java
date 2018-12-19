@@ -17,6 +17,7 @@ import com.arm.mbed.cloud.sdk.common.dao.DeleteDao;
 import com.arm.mbed.cloud.sdk.common.dao.ReadDao;
 import com.arm.mbed.cloud.sdk.common.dao.UpdateDao;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelDao extends Model {
     protected final Model correspondingModel;
@@ -35,13 +36,12 @@ public class ModelDao extends Model {
     }
 
     private static String generateDescription(Model currentModel) {
-        // TODO Auto-generated method stub
-        return null;
+
+        return "Data Access Object (DAO) for " + Utils.generateDocumentationString(currentModel.getName(), true);
     }
 
     private static String generateLongDescription(Model currentModel) {
-        // TODO Auto-generated method stub
-        return null;
+        return "@see <a  href=\"http://www.corej2eepatterns.com/Patterns/DataAccessObject.htm\">Core J2EE Patterns - Data Access Object</a>";
     }
 
     @Override

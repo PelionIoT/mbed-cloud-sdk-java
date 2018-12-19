@@ -171,6 +171,15 @@ public class TypeParameter implements Artifact {
         }
     }
 
+    public String getFullyQualifiedName() {
+        try {
+            translate();
+            return hasClazz() ? getClazz().getName() : importPath.getFullyQualifiedName();
+        } catch (TranslationException exception) {
+            return "";
+        }
+    }
+
     public String getPackageName() {
         try {
             translate();
