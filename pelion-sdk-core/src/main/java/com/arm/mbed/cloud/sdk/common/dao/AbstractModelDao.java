@@ -15,6 +15,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Abstract Model DAO")
 public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloudDao implements ModelDao<T> {
+    public static final String METHOD_INSTANTIATE_MODEL = "instantiateModel";
     public static final String METHOD_SET_MODEL = "setModel";
     public static final String METHOD_GET_MODEL = "getModel";
     private final AtomicReference<T> model;

@@ -143,9 +143,11 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @return one page worth of model IDs.
      * @throws MbedCloudException
      *             if an error occurs during the process
+     * @throws UnsupportedOperationException
+     *             if it is not possible to only list IDs.
      */
     @Nullable
-    IdListResponse idsPage(@Nullable U options) throws MbedCloudException;
+    IdListResponse idsPage(@Nullable U options) throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Gets one page of model IDs.
@@ -154,9 +156,11 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @return one page worth of model IDs.
      * @throws MbedCloudException
      *             if an error occurs during the process
+     * @throws UnsupportedOperationException
+     *             if it is not possible to only list IDs.
      */
     @Nullable
-    IdListResponse idsPage() throws MbedCloudException;
+    IdListResponse idsPage() throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Gets a paginator over the whole collection of data models present in the Cloud.
@@ -220,9 +224,11 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @return a paginator over the whole collection of data model IDs.
      * @throws MbedCloudException
      *             if an error occurs during the process
+     * @throws UnsupportedOperationException
+     *             if it is not possible to only list IDs.
      */
     @NonNull
-    IdPaginator idsPaginator(@Nullable U options) throws MbedCloudException;
+    IdPaginator idsPaginator(@Nullable U options) throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Gets a paginator over the whole collection of data model IDs present in the Cloud.
@@ -230,7 +236,9 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @return a paginator over the whole collection of data model IDs.
      * @throws MbedCloudException
      *             if an error occurs during the process
+     * @throws UnsupportedOperationException
+     *             if it is not possible to only list IDs.
      */
     @NonNull
-    IdPaginator idsPaginator() throws MbedCloudException;
+    IdPaginator idsPaginator() throws MbedCloudException, UnsupportedOperationException;
 }

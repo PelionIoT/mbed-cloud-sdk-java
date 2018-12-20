@@ -1,9 +1,12 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+
 public class MethodModelDaoConstructorEmpty extends MethodConstructorEmpty {
 
     public MethodModelDaoConstructorEmpty(Model currentModel, Model parentModel) {
         super(currentModel, parentModel);
+        addException(MbedCloudException.class);
     }
 
     @SuppressWarnings("unchecked")

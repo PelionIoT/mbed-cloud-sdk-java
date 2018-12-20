@@ -282,23 +282,18 @@ public class ArtifactsTranslator {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
                     final Model model = PelionModelDefinitionStore.get().store(translate(config, entity));
                     artifacts.addModel(model);
-                    artifacts.addEndpoint((ModelEndpoints) PelionModelDefinitionStore.get()
-                                                                                     .store(translateEndpointModel(config,
-                                                                                                                   lowLevelApis,
-                                                                                                                   entity,
-                                                                                                                   model)));
+                    artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
                     artifacts.addAdapter(translateAdapterModel(config, lowLevelApis, entity, model,
                                                                artifacts.getAdapterFetcher()));
                     if (entity.hasListMethod()) {
-                        artifacts.addModel(PelionModelDefinitionStore.get().store(translateListOptions(config, entity,
-                                                                                                       model)));
+                        artifacts.addModel(translateListOptions(config, entity, model));
                     }
                     final ModelModule module = translateModuleModel(config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),
                                                                     artifacts.getEndpointsFetcher(),
                                                                     artifacts.getListOptionFetcher());
                     artifacts.addModule(module);
-                    artifacts.addModel(PelionModelDefinitionStore.get().store(translateDao(model, module, entity)));
+                    artifacts.addModel(translateDao(model, module, entity));
                 }
             }
         }

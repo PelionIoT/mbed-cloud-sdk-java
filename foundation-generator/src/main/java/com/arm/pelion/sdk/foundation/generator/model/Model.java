@@ -115,11 +115,14 @@ public class Model extends AbstractSdkArtifact {
              clazz == null ? false : java.lang.reflect.Modifier.isAbstract(clazz.getModifiers()), false, false, false,
              genericType);
         if (clazz != null) {
-            Arrays.asList(clazz.getDeclaredFields()).stream()
-                  .filter(f -> !java.lang.reflect.Modifier.isStatic(f.getModifiers())
-                               || !java.lang.reflect.Modifier.isFinal(f.getModifiers()))
+            Arrays.asList(clazz.getDeclaredFields()).stream().filter(f -> shouldConsiderField(f))
                   .forEach(f -> addField(new Field(f)));
         }
+    }
+
+    private boolean shouldConsiderField(java.lang.reflect.Field f) {
+        return !java.lang.reflect.Modifier.isStatic(f.getModifiers())
+               || !java.lang.reflect.Modifier.isFinal(f.getModifiers());
     }
 
     private static String generateDescription(String name, String description) {
@@ -502,8 +505,10 @@ public class Model extends AbstractSdkArtifact {
         while (clazz != null) {
             final java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
             if (fields != null) {
-                Arrays.asList(fields).stream().filter(f -> java.lang.reflect.Modifier.isPublic(f.getModifiers())
-                                                           || java.lang.reflect.Modifier.isProtected(f.getModifiers()))
+                Arrays.asList(fields).stream()
+                      .filter(f -> shouldConsiderField(f)
+                                   && (java.lang.reflect.Modifier.isPublic(f.getModifiers())
+                                       || java.lang.reflect.Modifier.isProtected(f.getModifiers())))
                       .forEach(f -> {
                           final Field field = new Field(f, true, false, null);
                           map.put(field.getName(), field);

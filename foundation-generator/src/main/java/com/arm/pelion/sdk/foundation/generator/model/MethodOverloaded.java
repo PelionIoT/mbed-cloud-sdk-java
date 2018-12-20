@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
@@ -79,7 +80,7 @@ public class MethodOverloaded extends Method {
     }
 
     public static String generateOverloadSuffix(java.lang.reflect.Method method) {
-        if (method == null) {
+        if (method == null || method.getParameterCount() == 0) {
             return null;
         }
         return String.join("_", Arrays.asList(method.getParameters()).stream().map(p -> p.getType().getSimpleName())
@@ -90,8 +91,14 @@ public class MethodOverloaded extends Method {
         if (method == null || !method.hasParameters()) {
             return null;
         }
-        return String.join("_", method.getParameters().stream().map(p -> p.getType().getShortName())
-                                      .collect(Collectors.toList()));
+        return generateOverloadSuffix(method.getParameters());
+    }
+
+    protected static String generateOverloadSuffix(List<Parameter> parameters) {
+        if (parameters == null || parameters.isEmpty()) {
+            return null;
+        }
+        return String.join("_", parameters.stream().map(p -> p.getType().getShortName()).collect(Collectors.toList()));
     }
 
 }

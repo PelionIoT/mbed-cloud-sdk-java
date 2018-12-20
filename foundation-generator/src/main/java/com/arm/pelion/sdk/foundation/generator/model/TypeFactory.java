@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.dao.ModelDao;
+import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
@@ -43,6 +44,9 @@ public class TypeFactory {
         }
         if (ModelDao.class.isAssignableFrom(type)) {
             return new TypeModelDao();
+        }
+        if (ModelListDao.class.isAssignableFrom(type)) {
+            return new TypeModelDaoList();
         }
         if (Mapper.class.isAssignableFrom(type)) {
             return new TypeMapper();

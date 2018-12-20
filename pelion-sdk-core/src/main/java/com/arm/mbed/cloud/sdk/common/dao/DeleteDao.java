@@ -25,9 +25,9 @@ public interface DeleteDao<T extends SdkModel> extends ModelDao<T> {
      * @throws MbedCloudException
      *             if an error occurs during the process.
      * @throws UnsupportedOperationException
-     *             if it is not possible to read a model by just setting the identifier.
+     *             if it is not possible to delete a model by just setting the identifier.
      */
-    void delete(String id) throws MbedCloudException;
+    void delete(String id) throws MbedCloudException, UnsupportedOperationException;
 
     /**
      * Deletes a model on the Cloud.

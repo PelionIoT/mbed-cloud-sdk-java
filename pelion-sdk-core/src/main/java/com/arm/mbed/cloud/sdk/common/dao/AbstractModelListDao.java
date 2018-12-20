@@ -1,6 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.dao;
 
 import java.lang.reflect.ParameterizedType;
+import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -15,15 +16,16 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOptions> extends AbstractCloudDao
                                           implements ModelListDao<T, U> {
-    protected U options;
+    private final AtomicReference<U> options;
 
     public AbstractModelListDao() throws MbedCloudException {
+        options = new AtomicReference<>();
         setListOptions(null);
     }
 
     @Override
     public void setListOptions(U options) throws MbedCloudException {
-        this.options = options == null ? instantiateListOptions() : options;
+        this.options.set(options == null ? instantiateListOptions() : options);
     }
 
     @Override
@@ -34,7 +36,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     @Override
     public U getListOptions() throws MbedCloudException {
-        return options;
+        return options.get();
     }
 
     @Override
@@ -45,7 +47,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     @Override
     public ListResponse<T> getOnePage() throws MbedCloudException {
-        return requestOnePage(options);
+        return requestOnePage(getListOptions());
     }
 
     @Override
@@ -66,7 +68,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     @Override
     public IdListResponse idsPage() throws MbedCloudException {
-        return requestOnePageOfIds(options);
+        return requestOnePageOfIds(getListOptions());
     }
 
     @Override
@@ -77,7 +79,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     @Override
     public Paginator<T> getPaginator() throws MbedCloudException {
-        final U finalOptions = options;
+        final U finalOptions = getListOptions();
         return new Paginator<>(finalOptions, getPageRequester());
     }
 
@@ -99,7 +101,7 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     @Override
     public IdPaginator idsPaginator() throws MbedCloudException {
-        final U finalOptions = options;
+        final U finalOptions = getListOptions();
         return new IdPaginator(finalOptions, getIdPageRequester());
     }
 
@@ -145,5 +147,5 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
 
     protected abstract ListResponse<T> requestOnePage(U listOptions);
 
-    protected abstract IdListResponse requestOnePageOfIds(U listOptions);
+    protected abstract IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException;
 }

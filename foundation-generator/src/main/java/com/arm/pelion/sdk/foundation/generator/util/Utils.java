@@ -94,7 +94,7 @@ public class Utils {
         if (model == null && method == null) {
             return null;
         }
-        final StringBuilder builder = new StringBuilder("Similar to  {@link ");
+        final StringBuilder builder = new StringBuilder("Similar to {@link ");
         if (model != null) {
             builder.append(model.toType().getFullyQualifiedName());
         }
