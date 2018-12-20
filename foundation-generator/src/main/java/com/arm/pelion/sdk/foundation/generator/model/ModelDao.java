@@ -2,8 +2,10 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
@@ -23,7 +25,7 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 public class ModelDao extends Model {
     protected final Model correspondingModel;
     protected final ModelModule correspondingModule;
-    private final List<Class<?>> superinterfaces;
+    private final Map<String, Class<?>> superinterfaces;
 
     public ModelDao(Model currentModel, ModelModule module, boolean needsCustom) {
         super(currentModel.packageName, DaoProvider.getCorrespondingDaoName(currentModel.name), currentModel.group,
@@ -31,7 +33,7 @@ public class ModelDao extends Model {
               needsCustom, currentModel.containsCustomCode, currentModel.isInternal);
         correspondingModel = currentModel;
         correspondingModule = module;
-        superinterfaces = new ArrayList<>(4);
+        superinterfaces = new HashMap<>(4);
         setSuperClass(currentModel);
     }
 
@@ -51,7 +53,7 @@ public class ModelDao extends Model {
 
     @Override
     protected void generateSuperInterface() {
-        for (Class<?> i : superinterfaces) {
+        for (Class<?> i : superinterfaces.values()) {
             final TypeParameter type = new TypeModelDao(i, correspondingModel.toType());
             try {
                 type.translate();
@@ -74,9 +76,9 @@ public class ModelDao extends Model {
 
     private void checkSuperInterfaces() {
         if (Arrays.asList(CrudDao.class.getInterfaces()).stream()
-                  .allMatch(i -> superinterfaces.stream().anyMatch(subi -> subi != null && subi.equals(i)))) {
+                  .allMatch(i -> superinterfaces.values().stream().anyMatch(subi -> subi != null && subi.equals(i)))) {
             superinterfaces.clear();
-            superinterfaces.add(CrudDao.class);
+            addSuperInterface(CrudDao.class);
         }
     }
 
@@ -103,22 +105,26 @@ public class ModelDao extends Model {
                 break;
 
         }
-        if (!superinterfaces.contains(CrudDao.class)) {
-            if (correspondingInterface != null) {
-                superinterfaces.add(correspondingInterface);
-            }
+        if (!superinterfaces.containsKey(CrudDao.class.getName())) {
+            addSuperInterface(correspondingInterface);
             checkSuperInterfaces();
         }
         if (correspondingInterface == null) {
-            generateOtherMethod(action, methodName, needsCustomCode);
+            generateOtherMethod(action, methodName, needsCustomCode, true);
         } else {
-            generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode);
+            generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, true);
         }
 
     }
 
-    private void generateCrudMethods(MethodAction action, String daoMethodName, Class<?> correspondingInterface,
-                                     boolean needsCustomCode) {
+    protected void addSuperInterface(Class<?> correspondingInterface) {
+        if (correspondingInterface != null) {
+            superinterfaces.put(correspondingInterface.getName(), correspondingInterface);
+        }
+    }
+
+    protected void generateCrudMethods(MethodAction action, String daoMethodName, Class<?> correspondingInterface,
+                                       boolean needsCustomCode, boolean isPublic) {
         if (!correspondingModule.hasMethods(correspondingModel, action)) {
             final AtomicInteger counter = new AtomicInteger();
             Arrays.asList(correspondingInterface.getDeclaredMethods())
@@ -127,7 +133,8 @@ public class ModelDao extends Model {
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(daoMethodName, needsCustomCode, null, moduleMethod);
+            final MethodOverloaded method = generateMethod(daoMethodName, needsCustomCode, isPublic, null,
+                                                           moduleMethod);
             addMethod(method);
         }
         generateSomeInterfaceMethods(daoMethodName, correspondingInterface, moduleMethods, null, needsCustomCode);
@@ -170,7 +177,8 @@ public class ModelDao extends Model {
         addMethod(method);
     }
 
-    private void generateOtherMethod(MethodAction action, String methodName, boolean needsCustomCode) {
+    private void generateOtherMethod(MethodAction action, String methodName, boolean needsCustomCode,
+                                     boolean isPublic) {
         if (!correspondingModule.hasMethod(correspondingModel, action, methodName)) {
             Method method = new MethodGeneric(methodName, null, null, null);
             addMethod(method);
@@ -178,23 +186,31 @@ public class ModelDao extends Model {
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action, methodName);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(methodName, needsCustomCode, null, moduleMethod);
+            final MethodOverloaded method = generateMethod(methodName, needsCustomCode, isPublic, null, moduleMethod);
             addMethod(method);
         }
 
     }
 
-    private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, String suffix,
+    private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, boolean isPublic, String suffix,
                                             Method moduleMethod) {
         final MethodOverloaded method = new MethodOverloaded(false, methodName, moduleMethod.getDescription(),
                                                              Utils.generateDocumentationMethodLink(correspondingModel,
                                                                                                    moduleMethod),
-                                                             false, true, false, false, false, false, false, false,
+                                                             false, isPublic, false, false, false, false, false, false,
                                                              suffix);
         method.addException(MbedCloudException.class);
         method.setNeedsCustomCode(needsCustomCode);
         method.initialiseCodeBuilder();
         method.getCode().addStatement("$L()", AbstractModelDao.METHOD_CHECK_CONFIGURATION);
+        generateMethodCodeAndReturnType(moduleMethod, method);
+        if (suffix == null) {
+            method.generateSuffix();
+        }
+        return method;
+    }
+
+    protected void generateMethodCodeAndReturnType(Method moduleMethod, final MethodOverloaded method) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
         boolean closeBracket = false;
@@ -236,10 +252,6 @@ public class ModelDao extends Model {
             codeFormat.append("");
         }
         method.getCode().addStatement(codeFormat.toString(), values.toArray());
-        if (suffix == null) {
-            method.generateSuffix();
-        }
-        return method;
     }
 
     @Override
@@ -264,7 +276,7 @@ public class ModelDao extends Model {
 
     @Override
     protected List<java.lang.reflect.Method> fetchSuperInterfaceMethods() {
-        final List<Class<?>> interfaces = new ArrayList<>(superinterfaces);
+        final List<Class<?>> interfaces = new ArrayList<>(superinterfaces.values());
         if (interfaces.contains(CrudDao.class)) {
             interfaces.addAll(Arrays.asList(CrudDao.class.getInterfaces()));
         }
@@ -360,7 +372,7 @@ public class ModelDao extends Model {
     protected Model generateEmptyAbstractModel() {
         final ModelDao model = instantiateDaoModel();
         model.setAbstract(true);
-        superinterfaces.forEach(i -> model.superinterfaces.add(i));
+        superinterfaces.values().forEach(i -> model.addSuperInterface(i));
         return model;
     }
 

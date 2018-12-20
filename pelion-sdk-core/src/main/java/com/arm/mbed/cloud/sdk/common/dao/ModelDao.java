@@ -14,6 +14,14 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Model DAO definition")
 public interface ModelDao<T extends SdkModel> extends CloudDao {
+    /**
+     * Method name.
+     */
+    public static final String METHOD_SET_MODEL = "setModel";
+    /**
+     * Method name.
+     */
+    public static final String METHOD_GET_MODEL = "getModel";
 
     /**
      * Sets the Model Object (POJO) containing the data.

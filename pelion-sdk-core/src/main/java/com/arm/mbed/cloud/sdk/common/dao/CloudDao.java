@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
 
 /**
  *
- * Generic <a href="https://www.oracle.com/technetwork/java/dataaccessobject-138824.html">Data Access Object</a>
+ * Generic <a href="https://www.oracle.com/technetwork/java/dataaccessobject-138824.html">Data Access Object</a> (DAO)
  * definition for interacting with the Cloud.
  *
  */
@@ -50,7 +50,7 @@ public interface CloudDao {
     void configure(@NonNull ApiClientWrapper client) throws MbedCloudException;
 
     /**
-     * Configures the Cloud connection by actually providing directly the module to use.
+     * Configures the Cloud connection by actually providing directly the context to use.
      *
      * @param context
      *            an instance of the context.
@@ -58,6 +58,21 @@ public interface CloudDao {
      *             if an error occurs during the process.
      */
     void configure(@NonNull SdkContext context) throws MbedCloudException;
+
+    /**
+     * Configures the Cloud connection by actually providing directly the context to use.
+     * <p>
+     * Similar to {@link #configure(SdkContext)}
+     * 
+     * @param context
+     *            an instance of the context.
+     * @param <T>
+     *            type of the Cloud DAO.
+     * @return the configured DAO
+     * @throws MbedCloudException
+     *             if an error occurs during the process.
+     */
+    <T extends CloudDao> T configureAndGet(@NonNull SdkContext context) throws MbedCloudException;
 
     /**
      * Gets the Sdk context {@link SdkContext} in use.

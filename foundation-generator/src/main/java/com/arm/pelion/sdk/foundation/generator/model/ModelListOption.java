@@ -6,6 +6,7 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelListOption extends Model {
 
+    public static final String MODEL_NAME_SUFFIX = "ListOptions";
     private static final String FIELD_NAME_FORMER_PAGE_SIZE = "limit";
 
     public ModelListOption(Model model, String description, boolean needsCustomCode) {
@@ -24,7 +25,8 @@ public class ModelListOption extends Model {
     }
 
     public static String generateName(String name) {
-        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name) + "_list_options", true);
+        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name) + "_"
+                                            + ApiUtils.convertCamelToSnake(MODEL_NAME_SUFFIX), true);
     }
 
     @Override

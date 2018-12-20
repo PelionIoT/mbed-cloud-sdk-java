@@ -38,6 +38,11 @@ public class TypeListResponse extends TypeCompose {
         return this;
     }
 
+    @Override
+    public boolean isListResponse() {
+        return true;
+    }
+
     /*
      * (non-Javadoc)
      *

@@ -52,6 +52,12 @@ public class TypeModelDao extends TypeCompose {
                                       : collectionClass == null ? ModelDao.class : collectionClass;
     }
 
+    @Override
+    public String toString() {
+        return "TypeModelDao [collectionClass=" + collectionClass + ", contentType=" + contentType
+               + ", concreteImplementation=" + concreteImplementation + "]";
+    }
+
     /*
      * (non-Javadoc)
      *

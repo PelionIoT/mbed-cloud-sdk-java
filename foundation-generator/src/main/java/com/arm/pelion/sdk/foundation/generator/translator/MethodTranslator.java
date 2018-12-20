@@ -168,7 +168,6 @@ public class MethodTranslator {
         final MethodAction action = determineMethodAction(m);
         final Renames parameterRenames = new Renames();
         m.getParameters().forEach(f -> parameterRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
-        System.out.println("Module method " + m.getId() + " " + parameterRenames);
         return new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
                              generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
                                                        m.hasPaginatedResponse()),

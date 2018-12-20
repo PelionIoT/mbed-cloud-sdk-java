@@ -82,6 +82,9 @@ public class TypeFactory {
 
     private static Class<?> determineContentClass(Type genericType, int index) {
         try {
+            if (!(genericType instanceof ParameterizedType)) {
+                return null;
+            }
             final String typeName = ((ParameterizedType) genericType).getActualTypeArguments()[index].getTypeName();
             // Checks whether it is sensible to actually find corresponding class i.e. checks if typeName is actually a
             // potential class name.

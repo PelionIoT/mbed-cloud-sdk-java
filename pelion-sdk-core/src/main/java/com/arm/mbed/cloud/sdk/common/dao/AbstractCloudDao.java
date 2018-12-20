@@ -3,6 +3,7 @@ package com.arm.mbed.cloud.sdk.common.dao;
 import java.security.InvalidParameterException;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.NonNull;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -21,6 +22,7 @@ import com.arm.mbed.cloud.sdk.common.SdkLogger;
 public abstract class AbstractCloudDao implements CloudDao {
     public static final String METHOD_INSTANTIATE_MODULE = "instantiateModule";
     public static final String METHOD_CHECK_CONFIGURATION = "checkDaoConfiguration";
+    public static final String METHOD_CONFIGURE_AND_GET = "configureAndGet";
     public static final String FIELD_NAME_MODULE = "module";
 
     private static final String PARAMETER_CLIENT = "client";
@@ -68,6 +70,13 @@ public abstract class AbstractCloudDao implements CloudDao {
     public void configure(SdkContext sdkContext) throws MbedCloudException {
         ApiUtils.checkNotNull(SdkLogger.getLogger(), sdkContext, PARAMETER_CONTEXT);
         this.module = instantiateModule(sdkContext);
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T extends CloudDao> T configureAndGet(@NonNull SdkContext context) throws MbedCloudException {
+        configure(context);
+        return (T) this;
     }
 
     @Override

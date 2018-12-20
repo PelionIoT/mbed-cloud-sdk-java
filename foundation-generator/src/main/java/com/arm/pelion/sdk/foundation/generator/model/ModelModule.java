@@ -98,6 +98,19 @@ public class ModelModule extends ModelMergeable {
     protected void generateOtherMethods() {
         super.generateOtherMethods();
         cloudCalls.values().forEach(c -> c.addMethod(this));
+        generateGetModuleName();
+    }
+
+    private void generateGetModuleName() {
+        Method method = new Method(false, AbstractModule.METHOD_GET_MODULE_NAME, "Gets module name", null, false, true,
+                                   false, false, false, true, false, true);
+        method.setReturnType(TypeFactory.getCorrespondingType(String.class));
+        method.setReturnDescription("module name");
+        method.initialiseCodeBuilder();
+        method.getCode().addStatement("return $S",
+                                      ApiUtils.convertSnakeToCamel(Utils.generateModelNameAsText(getName()), true));
+        addMethod(method);
+
     }
 
     @Override

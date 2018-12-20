@@ -11,6 +11,10 @@ import org.joda.time.LocalDate;
 
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import com.arm.mbed.cloud.sdk.common.dao.CloudDao;
+import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.model.DataFile;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
@@ -243,6 +247,36 @@ public class TypeParameter implements Artifact {
         }
     }
 
+    public boolean isModelDao() {
+        try {
+            translate();
+            return hasClazz() ? CloudDao.class.isAssignableFrom(getClazz())
+                              : importPath != null && importPath.isModelDao();
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isModelListDao() {
+        try {
+            translate();
+            return hasClazz() ? ModelListDao.class.isAssignableFrom(getClazz())
+                              : importPath != null && importPath.isModelListDao();
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isListOptions() {
+        try {
+            translate();
+            return hasClazz() ? ListOptions.class.isAssignableFrom(getClazz())
+                              : importPath != null && importPath.isListOptions();
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
     public boolean isString() {
         try {
             translate();
@@ -283,6 +317,15 @@ public class TypeParameter implements Artifact {
         try {
             translate();
             return hasClazz() ? DataFile.class.isAssignableFrom(getClazz()) : false;
+        } catch (TranslationException exception) {
+            return false;
+        }
+    }
+
+    public boolean isListResponse() {
+        try {
+            translate();
+            return hasClazz() ? ListResponse.class.isAssignableFrom(getClazz()) : false;
         } catch (TranslationException exception) {
             return false;
         }

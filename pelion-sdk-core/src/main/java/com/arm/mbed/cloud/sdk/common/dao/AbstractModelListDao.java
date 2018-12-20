@@ -5,6 +5,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.NotImplementedException;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import com.arm.mbed.cloud.sdk.common.listing.IdListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.IdPageRequester;
@@ -16,6 +17,9 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 
 public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOptions> extends AbstractCloudDao
                                           implements ModelListDao<T, U> {
+    public static final String METHOD_REQUEST_ONE_PAGE = "requestOnePage";
+    public static final String METHOD_REQUEST_ONE_PAGE_OF_IDS = "requestOnePageOfIds";
+    public static final String METHOD_INSTANTIATE_LIST_OPTIONS = "instantiateListOptions";
     private final AtomicReference<U> options;
 
     public AbstractModelListDao() throws MbedCloudException {
@@ -145,7 +149,11 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
         }
     }
 
-    protected abstract ListResponse<T> requestOnePage(U listOptions);
+    protected IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException {
+        throw new UnsupportedOperationException("No mechanism is currently in place in the APIs to only list IDs",
+                                                new NotImplementedException());
+    }
 
-    protected abstract IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException;
+    protected abstract ListResponse<T> requestOnePage(U listOptions) throws UnsupportedOperationException;
+
 }

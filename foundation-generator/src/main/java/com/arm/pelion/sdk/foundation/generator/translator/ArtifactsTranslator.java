@@ -23,6 +23,8 @@ import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapter;
 import com.arm.pelion.sdk.foundation.generator.model.ModelAdapterFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelDao;
+import com.arm.pelion.sdk.foundation.generator.model.ModelDaoFactory;
+import com.arm.pelion.sdk.foundation.generator.model.ModelDaoList;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpoints;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEndpointsFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
@@ -39,14 +41,38 @@ public class ArtifactsTranslator {
         // Do something
     }
 
-    private static Model translateDao(Model model, ModelModule module, Entity entity) {
+    private static ModelDaoFactory translateFactory(Configuration config) {
+        // TODO CHANGE
+        return new ModelDaoFactory(config.getModulePackage());
+    }
+
+    private static ModelDaoList translateListDao(Model model, ModelModule module, ModelDao correspondingDao,
+                                                 ModelListOption listOptions, Entity entity) {
+        if (!entity.hasMethods() || !entity.hasListMethod()) {
+            return null;
+        }
+        final ModelDaoList dao = new ModelDaoList(model, module, correspondingDao, listOptions,
+                                                  module.needsCustomCode());
+        for (final Method m : entity.getMethods()) {
+            if (m.isListMethod()) {
+                dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m),
+                               m.isCustomCode());
+            }
+        }
+        dao.generateMethods();
+        return dao;
+    }
+
+    private static ModelDao translateDao(Model model, ModelModule module, Entity entity) {
         if (!entity.hasMethods()) {
             return null;
         }
         final ModelDao dao = new ModelDao(model, module, module.needsCustomCode());
         for (final Method m : entity.getMethods()) {
-            dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m),
-                           m.isCustomCode());
+            if (!m.isListMethod()) {
+                dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m),
+                               m.isCustomCode());
+            }
         }
         dao.generateMethods();
         return dao;
@@ -86,7 +112,6 @@ public class ArtifactsTranslator {
         for (final Method m : entity.getMethods()) {
             final Renames methodRenames = new Renames();
             m.getRenames().forEach(f -> methodRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
-            System.out.println("Adapter method " + m.getId() + " " + methodRenames);
             final LowLevelAPIMethod method = lowLevelApis.getFirstMethod(m.getId());
             if (method == null) {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
@@ -170,8 +195,8 @@ public class ArtifactsTranslator {
         return model;
     }
 
-    public static Model translateListOptions(Configuration config, Entity entity,
-                                             Model correspondingModel) throws FoundationGeneratorException {
+    public static ModelListOption translateListOptions(Configuration config, Entity entity,
+                                                       Model correspondingModel) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
         }
@@ -277,6 +302,7 @@ public class ArtifactsTranslator {
         List<String> avoid = Arrays.asList("Account", "DeviceEvents");
         final Artifacts artifacts = new Artifacts();
         if (definition.hasEntities()) {
+            // ModelDaoFactory factory = translateFactory(config);
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
@@ -285,17 +311,29 @@ public class ArtifactsTranslator {
                     artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
                     artifacts.addAdapter(translateAdapterModel(config, lowLevelApis, entity, model,
                                                                artifacts.getAdapterFetcher()));
+                    ModelListOption listOptions = null;
                     if (entity.hasListMethod()) {
-                        artifacts.addModel(translateListOptions(config, entity, model));
+                        listOptions = translateListOptions(config, entity, model);
+                        artifacts.addModel(listOptions);
                     }
                     final ModelModule module = translateModuleModel(config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),
                                                                     artifacts.getEndpointsFetcher(),
                                                                     artifacts.getListOptionFetcher());
                     artifacts.addModule(module);
-                    artifacts.addModel(translateDao(model, module, entity));
+                    final ModelDao dao = translateDao(model, module, entity);
+                    artifacts.addModel(dao);
+                    // factory.addDao(dao);
+                    if (entity.hasListMethod()) {
+                        final ModelDaoList daoList = translateListDao(model, module, dao, listOptions, entity);
+                        artifacts.addModel(daoList);
+                        // factory.addDao(daoList);
+                    }
+
                 }
             }
+            // factory.generateMethods();
+            // artifacts.addModel(factory);
         }
         if (definition.hasEnums()) {
             // Order enum is defined globally

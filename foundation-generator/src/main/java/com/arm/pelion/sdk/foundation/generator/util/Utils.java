@@ -75,8 +75,7 @@ public class Utils {
             }
             build.append(" ");
         }
-        build.append(ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE)
-                             .replace(UNDERSCORE, WHITE_SPACE).trim());
+        build.append(generateModelNameAsText(modelName));
         if (plural) {
             final String processedName = modelName.trim().toLowerCase(Locale.UK);
             if (!processedName.endsWith("s")) {
@@ -84,6 +83,11 @@ public class Utils {
             }
         }
         return build.toString();
+    }
+
+    public static String generateModelNameAsText(String modelName) {
+        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE)
+                             .replace(UNDERSCORE, WHITE_SPACE).trim();
     }
 
     public static String generateDocumentationString(String modelName) {

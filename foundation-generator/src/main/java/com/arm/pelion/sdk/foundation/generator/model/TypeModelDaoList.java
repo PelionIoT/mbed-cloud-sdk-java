@@ -2,6 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.ParameterizedTypeName;
@@ -11,42 +12,47 @@ public class TypeModelDaoList extends TypeCompose {
 
     public TypeModelDaoList() {
         super();
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(boolean concrete) {
         super(concrete);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(TypeParameter contentType) {
         super(contentType);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(TypeParameter optionsType, TypeParameter contentType) {
         super(contentType);
-        this.optionsType = optionsType;
+        this.optionsType = optionsType == null ? defaultListOptions() : optionsType;
+    }
+
+    public TypeParameter defaultListOptions() {
+        return new TypeParameter(new Import(ListOptions.class.getSimpleName(),
+                                            ListOptions.class.getPackage().getName()));
     }
 
     public TypeModelDaoList(String type, String format) {
         super(type, format);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(TypeParameter contentType, boolean concrete) {
         super(contentType, concrete);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(Import importPath) {
         super(importPath);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     public TypeModelDaoList(Class<?> clazz) {
         super(clazz);
-        optionsType = null;
+        optionsType = defaultListOptions();
     }
 
     @Override
@@ -65,7 +71,14 @@ public class TypeModelDaoList extends TypeCompose {
         if (optionsType == null) {
             throw new TranslationException("The type definition of the list options is unknown ");
         }
+        optionsType.translate();
         super.translate();
+    }
+
+    @Override
+    public String toString() {
+        return "TypeModelDaoList [optionsType=" + optionsType + ", contentType=" + contentType
+               + ", concreteImplementation=" + concreteImplementation + "]";
     }
 
     /*

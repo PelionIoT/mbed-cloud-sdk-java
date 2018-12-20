@@ -13,8 +13,15 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 public final class DaoProvider {
 
     private static final String UNCHECKED = "unchecked";
-    private static final String DAO_SUFFIX = "Dao";
-    private static final String LIST_DAO_SUFFIX = "List" + DAO_SUFFIX;
+    /**
+     * Naming convention within the SDK is that the corresponding DAO of a model is named "model name" + DAO_SUFFIX.
+     */
+    public static final String DAO_SUFFIX = "Dao";
+    /**
+     * Naming convention within the SDK is that the corresponding List DAO of a model is named "model name" +
+     * LIST_DAO_SUFFIX.
+     */
+    public static final String LIST_DAO_SUFFIX = "List" + DAO_SUFFIX;
 
     private final SdkContext context;
 
@@ -72,7 +79,7 @@ public final class DaoProvider {
      * @return corresponding DAO name
      */
     public static @Nullable String getCorrespondingDaoName(String modelName) {
-        return modelName == null || modelName.isEmpty() ? null : modelName + DAO_SUFFIX;
+        return modelName == null || modelName.trim().isEmpty() ? null : modelName.trim() + DAO_SUFFIX;
     }
 
     /**
@@ -153,7 +160,7 @@ public final class DaoProvider {
      * @return corresponding List DAO name
      */
     public static @Nullable String getCorrespondingListDaoName(String modelName) {
-        return modelName == null || modelName.isEmpty() ? null : modelName + LIST_DAO_SUFFIX;
+        return modelName == null || modelName.trim().isEmpty() ? null : modelName.trim() + LIST_DAO_SUFFIX;
     }
 
     /**

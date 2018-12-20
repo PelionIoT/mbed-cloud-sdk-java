@@ -1,5 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Locale;
+
+import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.ClassName;
 
@@ -75,11 +78,11 @@ public class Import implements Artifact {
     }
 
     public boolean isIncomplete() {
-        return name == null || name.isEmpty() || isPackageNameEmpty();
+        return name == null || name.trim().isEmpty() || isPackageNameEmpty();
     }
 
     public boolean isPackageNameEmpty() {
-        return packageName == null || packageName.isEmpty();
+        return packageName == null || packageName.trim().isEmpty();
     }
 
     /**
@@ -87,6 +90,21 @@ public class Import implements Artifact {
      */
     public boolean isEnum() {
         return isEnum;
+    }
+
+    public boolean isModelDao() {
+        return isIncomplete() ? false
+                              : name.toLowerCase(Locale.UK).contains(DaoProvider.DAO_SUFFIX.toLowerCase(Locale.UK));
+    }
+
+    public boolean isModelListDao() {
+        return isIncomplete() ? false : name.toLowerCase(Locale.UK)
+                                            .contains(DaoProvider.LIST_DAO_SUFFIX.toLowerCase(Locale.UK));
+    }
+
+    public boolean isListOptions() {
+        return isIncomplete() ? false : name.toLowerCase(Locale.UK)
+                                            .contains(ModelListOption.MODEL_NAME_SUFFIX.toLowerCase(Locale.UK));
     }
 
     /**
