@@ -48,7 +48,8 @@ public class Method extends AbstractSdkArtifact {
         shouldTest(false);
     }
 
-    public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride) {
+    public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
+                  boolean autodefineParameters) {
         this(java.lang.reflect.Modifier.isFinal(method.getModifiers()), method.getName(), description, longDescription,
              java.lang.reflect.Modifier.isStatic(method.getModifiers()),
              java.lang.reflect.Modifier.isPublic(method.getModifiers()),
@@ -57,6 +58,11 @@ public class Method extends AbstractSdkArtifact {
         exceptions.addAll(Arrays.asList(method.getExceptionTypes()));
         if (returnsObjects(method)) {
             setReturnType(TypeFactory.getCorrespondingType(method.getReturnType(), method.getGenericReturnType()));
+        }
+        if (autodefineParameters) {
+            if (method.getParameterCount() > 0) {
+                Arrays.asList(method.getParameters()).forEach(arg -> addParameter(new Parameter(arg)));
+            }
         }
     }
 
@@ -340,7 +346,11 @@ public class Method extends AbstractSdkArtifact {
             specificationBuilder.addStatement("// TODO Auto-generated method stub.");
             specificationBuilder.addStatement("throw new $T()", NotImplementedException.class);
             specificationBuilder.addException(NotImplementedException.class);
-            if (hasReturn()) {
+            if (hasCode()) {
+                translateCode();
+                specificationBuilder.addCode(code.build());
+            }
+            if (!hasCode() && hasReturn()) {
                 if (returnType.isNumber()) {
                     specificationBuilder.addStatement("return 0");
                 } else if (returnType.isBoolean()) {

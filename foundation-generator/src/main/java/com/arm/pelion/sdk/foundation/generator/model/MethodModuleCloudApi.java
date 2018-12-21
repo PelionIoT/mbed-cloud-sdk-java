@@ -217,7 +217,7 @@ public class MethodModuleCloudApi extends Method {
         }
         for (java.lang.reflect.Method m : Arrays.asList(CloudCall.class.getDeclaredMethods())) {
             // Use for loop for exception reason
-            final Method method = new Method(m, "Makes the low level call to the Cloud", null, true);
+            final Method method = new Method(m, "Makes the low level call to the Cloud", null, true, true);
             method.setAbstract(false);
             method.setReturnType(TypeFactory.getCorrespondingType(Call.class, lowLevelMethod.getReturnType()));
             method.setReturnDescription("Corresponding Retrofit2 Call object");

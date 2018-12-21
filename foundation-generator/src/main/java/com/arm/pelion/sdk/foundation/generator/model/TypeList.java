@@ -52,6 +52,11 @@ public class TypeList extends TypeCompose {
 
     @Override
     protected Class<?> getCollectionClass() {
-        return concreteImplementation ? ArrayList.class : List.class;
+        return concreteImplementation ? getRawClass() : List.class;
+    }
+
+    @Override
+    public Class<?> getRawClass() {
+        return ArrayList.class;
     }
 }

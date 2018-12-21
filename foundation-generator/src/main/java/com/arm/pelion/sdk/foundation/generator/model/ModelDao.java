@@ -249,7 +249,7 @@ public class ModelDao extends Model {
         }
         codeFormat.append(")");
         if (closeBracket) {
-            codeFormat.append("");
+            codeFormat.append(")");
         }
         method.getCode().addStatement(codeFormat.toString(), values.toArray());
     }
@@ -309,13 +309,12 @@ public class ModelDao extends Model {
                                            .filter(m -> AbstractCloudDao.METHOD_INSTANTIATE_MODULE.equals(m.getName()))
                                            .map(m -> {
                                                Method method = new MethodOverloaded(m, "Instantiates modules", null,
-                                                                                    true,
+                                                                                    true, true,
                                                                                     String.valueOf(counter.incrementAndGet()));
                                                method.setAbstract(false);
                                                method.setInternal(true);
-                                               // method.setReturnDescription("");
-                                               Arrays.asList(m.getParameters())
-                                                     .forEach(p -> method.addParameter(new Parameter(p)));
+                                               method.setReturnDescription("instantiated module");
+
                                                return method;
                                            }).collect(Collectors.toList());
         for (Method m : methods) {
@@ -340,18 +339,16 @@ public class ModelDao extends Model {
                                            .filter(m -> AbstractModelDao.METHOD_INSTANTIATE_MODEL.equals(m.getName()))
                                            .map(m -> {
                                                MethodOverloaded method = new MethodOverloaded(m, "Instantiates model",
-                                                                                              null, true, null);
+                                                                                              null, true, true, null);
                                                method.setAbstract(false);
                                                method.setInternal(true);
-                                               method.setReturnDescription("instantiated model");
-                                               Arrays.asList(m.getParameters())
-                                                     .forEach(p -> method.addParameter(new Parameter(p)));
                                                method.generateSuffix();
                                                return method;
                                            }).collect(Collectors.toList());
         for (Method m : methods) {
             if (m.hasReturn() && m.getReturnType().isModel()) {
                 m.setReturnType(modelType);
+                m.setReturnDescription("instantiated model");
             }
             m.initialiseCodeBuilder();
             m.getCode().addStatement("return new $T()",

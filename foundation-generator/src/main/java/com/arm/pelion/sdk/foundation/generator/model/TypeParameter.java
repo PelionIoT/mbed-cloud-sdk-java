@@ -444,6 +444,10 @@ public class TypeParameter implements Artifact {
 
     }
 
+    public Class<?> getRawClass() {
+        return hasClass() ? getClazz() : Object.class;
+    }
+
     /*
      * (non-Javadoc)
      *

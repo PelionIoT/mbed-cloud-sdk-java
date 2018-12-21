@@ -251,7 +251,7 @@ public class ModelModule extends ModelMergeable {
 
             }
             method.initialise();
-            addMethod(module, method);
+            addMethod(module, method, null);
             MethodModuleCloudApi overloadedMethod = null;
             switch (action) {
 
@@ -273,15 +273,15 @@ public class ModelModule extends ModelMergeable {
             }
             overloadedMethod.initialise();
             if (action == MethodAction.LIST || haveDifferentSignatures(method, overloadedMethod)) {
-                addMethod(module, overloadedMethod);
+                addMethod(module, overloadedMethod, action == MethodAction.LIST ? MethodAction.PAGINATION : null);
             }
 
         }
 
-        public void addMethod(ModelModule module, MethodModuleCloudApi method) {
+        private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
-            module.registerMethod(currentModel, action, method);
+            module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);
         }
 
         private boolean haveDifferentSignatures(MethodModuleCloudApi method, MethodModuleCloudApi overloadedMethod) {

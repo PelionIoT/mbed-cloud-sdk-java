@@ -57,7 +57,12 @@ public class TypeModelDaoList extends TypeCompose {
 
     @Override
     protected Class<?> getCollectionClass() {
-        return concreteImplementation ? AbstractModelListDao.class : ModelListDao.class;
+        return concreteImplementation ? getRawClass() : ModelListDao.class;
+    }
+
+    @Override
+    public Class<?> getRawClass() {
+        return AbstractModelListDao.class;
     }
 
     @Override

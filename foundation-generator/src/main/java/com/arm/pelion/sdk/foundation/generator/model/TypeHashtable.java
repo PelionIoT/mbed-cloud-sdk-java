@@ -71,7 +71,12 @@ public class TypeHashtable extends TypeCompose {
 
     @Override
     protected Class<?> getCollectionClass() {
-        return concreteImplementation ? Hashtable.class : Map.class;
+        return concreteImplementation ? getRawClass() : Map.class;
+    }
+
+    @Override
+    public Class<?> getRawClass() {
+        return Hashtable.class;
     }
 
     /*

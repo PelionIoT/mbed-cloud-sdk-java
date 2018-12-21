@@ -6,5 +6,6 @@ public enum MethodAction {
     UPDATE,
     DELETE,
     LIST,
+    PAGINATION,
     OTHER;
 }

@@ -66,7 +66,7 @@ public class MethodListMapper extends MethodMapper {
         if (methodOfInterest == null) {
             return null;
         }
-        final Method method = new Method(methodOfInterest, null, null, true);
+        final Method method = new Method(methodOfInterest, null, null, true, false);
         method.setAbstract(false);
         final TypeParameter returnType = TypeFactory.getCorrespondingType(methodOfInterest.getReturnType(),
                                                                           componentType);

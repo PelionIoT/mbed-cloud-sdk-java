@@ -27,8 +27,8 @@ public class MethodOverloaded extends Method {
     }
 
     public MethodOverloaded(java.lang.reflect.Method method, String description, String longDescription,
-                            boolean isAnOverride, String overloadingSuffix) {
-        super(method, description, longDescription, isAnOverride);
+                            boolean isAnOverride, boolean autodefineParameters, String overloadingSuffix) {
+        super(method, description, longDescription, isAnOverride, autodefineParameters);
         this.overloadingSuffix = overloadingSuffix;
     }
 

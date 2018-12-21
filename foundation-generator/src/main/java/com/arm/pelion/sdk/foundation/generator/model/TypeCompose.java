@@ -126,6 +126,11 @@ public abstract class TypeCompose extends TypeParameter {
 
     }
 
+    @Override
+    public Class<?> getRawClass() {
+        return getCollectionClass();
+    }
+
     protected abstract Class<?> getCollectionClass();
 
 }

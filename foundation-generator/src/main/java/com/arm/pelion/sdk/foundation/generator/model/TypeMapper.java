@@ -8,7 +8,6 @@ import com.squareup.javapoet.TypeName;
 
 public class TypeMapper extends TypeParameter {
 
-    private static final Class<?> MAPPER_CLASS = Mapper.class;
     private TypeParameter from;
     private TypeParameter to;
 
@@ -41,7 +40,7 @@ public class TypeMapper extends TypeParameter {
         }
         from.translate();
         to.translate();
-        setTypeName(ParameterizedTypeName.get(ClassName.get(MAPPER_CLASS),
+        setTypeName(ParameterizedTypeName.get(ClassName.get(getRawClass()),
                                               from.hasClass() ? TypeName.get(from.getClazz()) : from.getTypeName(),
                                               to.hasClass() ? TypeName.get(to.getClazz()) : to.getTypeName()));
     }
@@ -53,7 +52,12 @@ public class TypeMapper extends TypeParameter {
      */
     @Override
     public String getShortName() {
-        return MAPPER_CLASS.getSimpleName();
+        return getRawClass().getSimpleName();
+    }
+
+    @Override
+    public Class<?> getRawClass() {
+        return Mapper.class;
     }
 
     @Override

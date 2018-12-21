@@ -9,6 +9,7 @@ import com.arm.mbed.cloud.sdk.common.dao.AbstractModelDao;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractModelListDao;
 import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
 import com.arm.mbed.cloud.sdk.common.dao.ModelListDao;
+import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -62,12 +63,12 @@ public class ModelDaoList extends ModelDao {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
 
-        // if (moduleMethod.getReturnType().isListResponse()) {
-        // method.setReturnType(TypeFactory.getCorrespondingType(ListResponse.class, correspondingModel.toType()));
-        //
-        // } else {
-        // method.setReturnType(moduleMethod.getReturnType());
-        // }
+        if (moduleMethod.getReturnType().isListResponse()) {
+            method.setReturnType(TypeFactory.getCorrespondingType(ListResponse.class, correspondingModel.toType()));
+
+        } else {
+            method.setReturnType(moduleMethod.getReturnType());
+        }
         method.setReturnDescription("one page of "
                                     + Utils.generateDocumentationString(correspondingModel.getName(), true));
         codeFormat.append("return ");
@@ -82,7 +83,7 @@ public class ModelDaoList extends ModelDao {
                 } else {
                     codeFormat.append(", ");
                 }
-                if (p.getType().isListResponse()) {
+                if (p.getType().isListOptions()) {
                     method.addParameter(new Parameter(p.getName(), "list options", null, listOptions.toType(), null));
                     codeFormat.append("$L");
                     values.add(p.getName());
@@ -134,11 +135,10 @@ public class ModelDaoList extends ModelDao {
         final List<java.lang.reflect.Method> classMethods = new LinkedList<>(Arrays.asList(AbstractModelListDao.class.getDeclaredMethods()));
         classMethods.addAll(Arrays.asList(ModelListDao.class.getDeclaredMethods()));
         final List<Method> methods = classMethods.stream().filter(m -> methodName.equals(m.getName())).map(m -> {
-            MethodOverloaded method = new MethodOverloaded(m, description, null, true, null);
+            MethodOverloaded method = new MethodOverloaded(m, description, null, true, true, null);
             method.setAbstract(false);
             method.setInternal(true);
             method.setReturnDescription(description);
-            Arrays.asList(m.getParameters()).forEach(p -> method.addParameter(new Parameter(p)));
             method.generateSuffix();
             return method;
         }).collect(Collectors.toList());

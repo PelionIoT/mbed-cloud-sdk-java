@@ -86,10 +86,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
         }
         for (java.lang.reflect.Method m : Arrays.asList(PageRequester.class.getMethods())) {
             // Use for loop for exception reasons
-            final Method method = new Method(m, "Makes one page request", null, true);
-            if (m.getParameterCount() > 0) {
-                Arrays.asList(m.getParameters()).forEach(mp -> method.addParameter(new Parameter(mp)));
-            }
+            final Method method = new Method(m, "Makes one page request", null, true, true);
             method.setAbstract(false);
             method.setReturnType(TypeFactory.getCorrespondingType(ListResponse.class, currentModel.toType()));
             method.setReturnDescription("Corresponding page requester");

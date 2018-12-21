@@ -132,6 +132,7 @@ public class MethodTranslator {
             com.arm.pelion.sdk.foundation.generator.model.Method method = new com.arm.pelion.sdk.foundation.generator.model.Method(lowLevelMethod.fetchMethod(),
                                                                                                                                    null,
                                                                                                                                    null,
+                                                                                                                                   false,
                                                                                                                                    false);
             if (lowLevelMethod.hasArguments()) {
                 for (final LowLevelAPIMethodArgument param : lowLevelMethod.getArguments()) {

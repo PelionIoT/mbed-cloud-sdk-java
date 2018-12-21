@@ -35,6 +35,7 @@ public class Model extends AbstractSdkArtifact {
     protected final Map<String, Method> methods;
     protected final Map<String, Field> fields;
     protected Map<String, Field> superClassFields;
+    protected Map<String, Method> superClassMethods;
     protected TypeParameter superClassType;
     protected TypeSpec.Builder specificationBuilder;
     private static final Map<String, Integer> LOOKUP_TABLE = new HashMap<>(26);
@@ -168,6 +169,7 @@ public class Model extends AbstractSdkArtifact {
             }
         }
         this.superClassFields = getSuperClassFields();
+        this.superClassMethods = getSuperClassMethods();
     }
 
     public Model field(Field field) {
@@ -229,17 +231,21 @@ public class Model extends AbstractSdkArtifact {
         if (rawIdentifier == null || rawIdentifier.isEmpty()) {
             return new ArrayList<>();
         }
-        return methods.keySet().stream()
-                      .filter(m -> rawIdentifier.equals(m)
-                                   || rawIdentifier.equals(MethodOverloaded.fetchMethodRawIdentifier(m)))
-                      .collect(Collectors.toList());
+        final List<String> methodIds = new ArrayList<>(methods.keySet());
+        if (hasSuperClass()) {
+            methodIds.addAll(superClassMethods.keySet());
+        }
+        return methodIds.stream()
+                        .filter(m -> rawIdentifier.equals(m)
+                                     || rawIdentifier.equals(MethodOverloaded.fetchMethodRawIdentifier(m)))
+                        .collect(Collectors.toList());
     }
 
     protected boolean hasSpecificMethod(String identifier) {
         if (identifier == null) {
             return false;
         }
-        if (methods.containsKey(identifier)) {
+        if (hasSpecificMethodRegisteredAsIs(identifier)) {
             return true;
         }
         final String suffix = MethodOverloaded.fetchMethodIdentifierSuffix(identifier);
@@ -254,7 +260,7 @@ public class Model extends AbstractSdkArtifact {
         if (identifier == null) {
             return null;
         }
-        final Method method = methods.get(identifier);
+        final Method method = getSpecificMethodRegisteredAsIs(identifier);
         if (method != null) {
             return method;
         }
@@ -265,6 +271,24 @@ public class Model extends AbstractSdkArtifact {
         return fetchAllMethods(identifier).stream()
                                           .filter(m -> suffix.equals(MethodOverloaded.generateOverloadSuffix(m)))
                                           .findFirst().orElse(null);
+    }
+
+    private boolean hasSpecificMethodRegisteredAsIs(String identifier) {
+        return methods.containsKey(identifier) || (hasSuperClass() && superClassMethods.containsKey(identifier));
+    }
+
+    private Method getSpecificMethodRegisteredAsIs(String identifier) {
+        final Method method = methods.get(identifier);
+        if (method != null) {
+            return method;
+        }
+        return hasSuperClass() ? superClassMethods.get(identifier) : null;
+    }
+
+    private List<Method> fetchAllMethods(String identifier) {
+        final String rawId = MethodOverloaded.isOverloadedMethod(identifier) ? MethodOverloaded.fetchMethodRawIdentifier(identifier)
+                                                                             : identifier;
+        return fetchAllOverloadedMethods(rawId).stream().map(id -> getSpecificMethod(id)).collect(Collectors.toList());
     }
 
     private boolean hasAnyMethod(String identifier) {
@@ -285,12 +309,6 @@ public class Model extends AbstractSdkArtifact {
                                                                              : identifier;
         final String id = fetchAllOverloadedMethods(rawId).stream().findFirst().orElse(null);
         return id == null ? null : getSpecificMethod(id);
-    }
-
-    private List<Method> fetchAllMethods(String identifier) {
-        final String rawId = MethodOverloaded.isOverloadedMethod(identifier) ? MethodOverloaded.fetchMethodRawIdentifier(identifier)
-                                                                             : identifier;
-        return fetchAllOverloadedMethods(rawId).stream().map(id -> getSpecificMethod(id)).collect(Collectors.toList());
     }
 
     public boolean hasMethod(String identifier) {
@@ -512,6 +530,32 @@ public class Model extends AbstractSdkArtifact {
                       .forEach(f -> {
                           final Field field = new Field(f, true, false, null);
                           map.put(field.getName(), field);
+                      });
+            }
+            clazz = clazz.getSuperclass();
+        }
+        return map;
+    }
+
+    public Map<String, Method> getSuperClassMethods() {
+        if (!hasSuperClass()) {
+            return new Hashtable<>();
+        }
+        final Map<String, Method> map = new LinkedHashMap<>();
+        Class<?> clazz = superClassType.getRawClass();
+        while (clazz != null) {
+            final java.lang.reflect.Method[] methods = clazz.getDeclaredMethods();
+            if (methods != null) {
+                Arrays.asList(methods).stream()
+                      .filter(m -> (!java.lang.reflect.Modifier.isAbstract(m.getModifiers()))
+                                   && (java.lang.reflect.Modifier.isPublic(m.getModifiers())
+                                       || java.lang.reflect.Modifier.isProtected(m.getModifiers())))
+                      .forEach(m -> {
+                          final MethodOverloaded method = new MethodOverloaded(m, null, null,
+                                                                               m.isAnnotationPresent(Override.class),
+                                                                               true, null);
+                          method.generateSuffix();
+                          map.put(method.getIdentifier(), method);
                       });
             }
             clazz = clazz.getSuperclass();
