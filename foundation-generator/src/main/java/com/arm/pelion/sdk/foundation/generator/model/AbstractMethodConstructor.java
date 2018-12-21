@@ -46,19 +46,6 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         return getConstructorType().getSimpleName();
     }
 
-    protected Class<? extends AbstractMethodConstructor> getConstructorType() {
-        return getClass();
-    }
-
-    protected abstract void addConstructorParameters();
-
-    @Override
-    protected abstract void translateCode();
-
-    private static String generateDescription(String description, boolean isInternal) {
-        return has(description) ? description : isInternal ? "Internal constructor" : "Constructor";
-    }
-
     public List<Field> getAllFields() {
         return this.getFieldList(false, false, true, false, false);
     }
@@ -96,6 +83,25 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
         }).collect(Collectors.toList());
     }
 
+    /**
+     * @return the isNecessary
+     */
+    public boolean isNecessary() {
+        return isNecessary;
+    }
+
+    /**
+     * @param isNecessary
+     *            the isNecessary to set
+     */
+    public void setNecessary(boolean isNecessary) {
+        this.isNecessary = isNecessary;
+    }
+
+    private static String generateDescription(String description, boolean isInternal) {
+        return has(description) ? description : isInternal ? "Internal constructor" : "Constructor";
+    }
+
     private static String generateLongDescription(String name, String longDescription, boolean isInternal) {
         StringBuilder builder = new StringBuilder();
         if (has(longDescription)) {
@@ -111,25 +117,31 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
     }
 
     @Override
+    public void changeInternalStatus(boolean isInternal) {
+        super.changeInternalStatus(isInternal);
+        regnerateDocumentation();
+    }
+
+    protected void regnerateDocumentation() {
+        setDescription(generateDescription(isInternal() ? getDescription() : null, isInternal()));
+        setLongDescription(generateLongDescription(getName(), isInternal() ? getLongDescription() : null,
+                                                   isInternal()));
+    }
+
+    @Override
     protected void initialiseBuilder() {
         if (specificationBuilder == null) {
             specificationBuilder = MethodSpec.constructorBuilder();
         }
     }
 
-    /**
-     * @return the isNecessary
-     */
-    public boolean isNecessary() {
-        return isNecessary;
+    protected Class<? extends AbstractMethodConstructor> getConstructorType() {
+        return getClass();
     }
 
-    /**
-     * @param isNecessary
-     *            the isNecessary to set
-     */
-    public void setNecessary(boolean isNecessary) {
-        this.isNecessary = isNecessary;
-    }
+    protected abstract void addConstructorParameters();
+
+    @Override
+    protected abstract void translateCode();
 
 }

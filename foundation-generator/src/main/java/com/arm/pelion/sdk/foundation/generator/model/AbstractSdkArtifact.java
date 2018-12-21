@@ -219,6 +219,10 @@ public abstract class AbstractSdkArtifact implements SdkArtifact {
         this.isInternal = isInternal;
     }
 
+    public void changeInternalStatus(boolean isInternal) {
+        setInternal(isInternal);
+    }
+
     /**
      * @return the longDescription
      */

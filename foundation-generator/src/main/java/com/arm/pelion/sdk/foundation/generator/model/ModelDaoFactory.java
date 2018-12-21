@@ -32,6 +32,14 @@ public class ModelDaoFactory extends Model {
     }
 
     @Override
+    protected void addConstructor(AbstractMethodConstructor constructor) {
+        if (constructor != null) {
+            constructor.changeInternalStatus(false);
+        }
+        super.addConstructor(constructor);
+    }
+
+    @Override
     protected boolean hasSuperInterface() {
         return false;
     }
@@ -44,6 +52,11 @@ public class ModelDaoFactory extends Model {
     @Override
     protected void generateHashCodeAndEquals() {
         // Do not generate anything
+    }
+
+    @Override
+    protected void generateIsValid(Model theParent) {
+        // Nothing to do
     }
 
     public void addDao(ModelDao dao) {
