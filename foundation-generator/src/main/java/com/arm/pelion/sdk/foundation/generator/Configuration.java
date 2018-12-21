@@ -10,6 +10,8 @@ public class Configuration {
 
     private String modulePackage = null;// "module";
 
+    private String factoryPackage = null;// "factory"
+
     private String lowLevelApiModuleNameRegex = ".*Api";
 
     public Configuration() {
@@ -75,6 +77,14 @@ public class Configuration {
      */
     public void setLowLevelApiModuleNameRegex(String lowLevelApiModuleNameRegex) {
         this.lowLevelApiModuleNameRegex = lowLevelApiModuleNameRegex;
+    }
+
+    public String getFactoryPackage() {
+        return factoryPackage;
+    }
+
+    public void setFactoryPackage(String factoryPackage) {
+        this.factoryPackage = factoryPackage;
     }
 
 }

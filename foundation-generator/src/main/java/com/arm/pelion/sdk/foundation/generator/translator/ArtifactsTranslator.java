@@ -43,7 +43,7 @@ public class ArtifactsTranslator {
 
     private static ModelDaoFactory translateFactory(Configuration config) {
         // TODO CHANGE
-        return new ModelDaoFactory(config.getModulePackage());
+        return new ModelDaoFactory(generateFactoryPackageName(config, null));
     }
 
     private static ModelDaoList translateListDao(Model model, ModelModule module, ModelDao correspondingDao,
@@ -262,6 +262,11 @@ public class ArtifactsTranslator {
         return generatePackageName(config.getRootPackageName(), config.getModulePackage(), null);
     }
 
+    private static String generateFactoryPackageName(Configuration config, List<String> groupId) {
+        // TODO Can be changed
+        return generatePackageName(config.getRootPackageName(), config.getFactoryPackage(), null);
+    }
+
     private static String generatePackageName(String rootPackageName, String modelPackage, List<String> groupId) {
         StringBuilder builder = new StringBuilder();
         if (rootPackageName != null) {
@@ -302,7 +307,7 @@ public class ArtifactsTranslator {
         List<String> avoid = Arrays.asList("Account", "DeviceEvents");
         final Artifacts artifacts = new Artifacts();
         if (definition.hasEntities()) {
-            // ModelDaoFactory factory = translateFactory(config);
+            ModelDaoFactory factory = translateFactory(config);
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
@@ -323,17 +328,17 @@ public class ArtifactsTranslator {
                     artifacts.addModule(module);
                     final ModelDao dao = translateDao(model, module, entity);
                     artifacts.addModel(dao);
-                    // factory.addDao(dao);
+                    factory.addDao(dao);
                     if (entity.hasListMethod()) {
                         final ModelDaoList daoList = translateListDao(model, module, dao, listOptions, entity);
                         artifacts.addModel(daoList);
-                        // factory.addDao(daoList);
+                        factory.addDao(daoList);
                     }
 
                 }
             }
-            // factory.generateMethods();
-            // artifacts.addModel(factory);
+            factory.generateMethods();
+            artifacts.addModel(factory);
         }
         if (definition.hasEnums()) {
             // Order enum is defined globally
