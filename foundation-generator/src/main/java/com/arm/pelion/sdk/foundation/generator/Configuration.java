@@ -1,21 +1,34 @@
 package com.arm.pelion.sdk.foundation.generator;
 
+import java.io.File;
+import java.io.IOException;
+
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 public class Configuration {
+    public static final String TOOL_NAME = "Foundation Generator";
+    private String rootPackageName;
 
-    private String rootPackageName = "com.arm.mbed.cloud.sdk";
+    private String modelPackage;
 
-    private String modelPackage = "model";
+    private String adapterPackage;
 
-    private String adapterPackage = "adapters";
+    private String modulePackage;// "module";
 
-    private String modulePackage = null;// "module";
+    private String factoryPackage;// "factory"
 
-    private String factoryPackage = null;// "factory"
-
-    private String lowLevelApiModuleNameRegex = ".*Api";
+    private String lowLevelApiModuleNameRegex;
 
     public Configuration() {
-        // TODO Auto-generated constructor stub
+        rootPackageName = "com.arm.mbed.cloud.sdk";
+        modelPackage = "model";
+        adapterPackage = "adapters";
+        modulePackage = null;// "module";
+        factoryPackage = null;// "factory"
+        lowLevelApiModuleNameRegex = ".*Api";
     }
 
     /**
@@ -87,4 +100,29 @@ public class Configuration {
         this.factoryPackage = factoryPackage;
     }
 
+    @Override
+    public String toString() {
+        return "Configuration [rootPackageName=" + rootPackageName + ", modelPackage=" + modelPackage
+               + ", adapterPackage=" + adapterPackage + ", modulePackage=" + modulePackage + ", factoryPackage="
+               + factoryPackage + ", lowLevelApiModuleNameRegex=" + lowLevelApiModuleNameRegex + "]";
+    }
+
+    public static Configuration load(Logger logger, File configFile) {
+        Configuration config = new Configuration();
+        if (configFile == null || !configFile.exists() || !configFile.isFile()) {
+            logger.logWarn(TOOL_NAME + " configuration file is invalid: [" + configFile + "]");
+            logger.logInfo("Defaulting to " + config);
+            return config;
+        }
+        ObjectMapper mapper = new ObjectMapper(new JsonFactory());
+        mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
+        mapper.setDefaultMergeable(Boolean.TRUE);
+        try {
+            logger.logInfo("Loading " + TOOL_NAME + " configuration from : " + configFile);
+            mapper.readerForUpdating(config).readValue(configFile);
+        } catch (IOException exception) {
+            logger.logError("Failed loading " + configFile, exception);
+        }
+        return config;
+    }
 }

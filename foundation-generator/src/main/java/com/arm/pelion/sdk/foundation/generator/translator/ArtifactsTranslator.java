@@ -304,7 +304,7 @@ public class ArtifactsTranslator {
             return null;
         }
         // FIXME TO remove
-        List<String> avoid = Arrays.asList("Account", "DeviceEvents");
+        List<String> avoid = Arrays.asList();// "Account", "DeviceEvents");
         final Artifacts artifacts = new Artifacts();
         if (definition.hasEntities()) {
             ModelDaoFactory factory = translateFactory(config);

@@ -32,26 +32,28 @@ mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
-    compile 'com.squareup:javapoet:1.11.+'
-    compile 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
-    compile 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
-    compile 'com.github.mifmif:generex:1.0.+'
-    compile 'org.reflections:reflections:0.9.+'
-    compile 'org.slf4j:slf4j-simple:1.7.7'
-    compile 'junit:junit:4.+'
-    compile project(':pelion-sdk-core')
+    implementation 'com.squareup:javapoet:1.11.+'
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
+    implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
+	implementation 'info.picocli:picocli:3.8.+'
+	implementation 'com.github.dtmo.jfiglet:jfiglet:1.0.0'
+    implementation 'com.github.mifmif:generex:1.0.+'
+    implementation 'org.reflections:reflections:0.9.+'
+    implementation 'org.slf4j:slf4j-simple:1.7.7'
+    implementation 'junit:junit:4.+'
+    implementation project(':pelion-sdk-core')
     // Backends
-    compile project(':backends:connector_ca')
-    compile project(':backends:external_ca')    
-    compile project(':backends:connector_bootstrap')
-    compile project(':backends:device_directory')
-    compile project(':backends:iam')
-    compile project(':backends:mds')
-    compile project(':backends:statistics')
-    compile project(':backends:update_service')
-    compile project(':backends:enrollment')
-    compile project(':backends:billing')
-    compile project(':backends:certificate_renewal')
+    implementation project(':backends:connector_ca')
+    implementation project(':backends:external_ca')    
+    implementation project(':backends:connector_bootstrap')
+    implementation project(':backends:device_directory')
+    implementation project(':backends:iam')
+    implementation project(':backends:mds')
+    implementation project(':backends:statistics')
+    implementation project(':backends:update_service')
+    implementation project(':backends:enrollment')
+    implementation project(':backends:billing')
+    implementation project(':backends:certificate_renewal')
     // Use JUnit test framework
     testCompile 'junit:junit:4.12'
 }

@@ -2,6 +2,8 @@ package com.arm.pelion.sdk.foundation.generator;
 
 import java.io.File;
 
+import com.arm.pelion.sdk.foundation.generator.cli.GeneratorCli;
+import com.arm.pelion.sdk.foundation.generator.cli.Header;
 import com.arm.pelion.sdk.foundation.generator.input.FoundationDataLoader;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIFinder;
@@ -13,23 +15,25 @@ import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException
 import com.arm.pelion.sdk.foundation.generator.util.Logger;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
+import picocli.CommandLine;
+import picocli.CommandLine.ParameterException;
+import picocli.CommandLine.UnmatchedArgumentException;
+
 public class FoundationGenerator {
 
     private IntermediateApiDefinition definition;
     private LowLevelAPIs lowLevelAPIs;
     private boolean forceRegenerateUnitTests;
     private final Logger logger;
-    private final Configuration config;
 
     public FoundationGenerator() {
         definition = null;
         lowLevelAPIs = null;
         logger = Logger.getLogger();
         forceRegenerateUnitTests = true;
-        config = new Configuration();
     }
 
-    public void load() {
+    public void load(GeneratorCli cli, Configuration config) throws FoundationGeneratorException {
         logger.logInfo("Loading low level APIs definition");
         LowLevelAPIFinder apiFinder = new LowLevelAPIFinder(config.getRootPackageName(),
                                                             config.getLowLevelApiModuleNameRegex());
@@ -37,13 +41,14 @@ public class FoundationGenerator {
         // logger.logInfo(new JsonSerialiser().toJson(lowLevelAPIs));
         logger.logInfo("Loading definitions");
         FoundationDataLoader loader = new FoundationDataLoader();
-        loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\inter.yaml");
+        cli.getFiles().forEach(f -> loader.addSource(f));
+        // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\inter.yaml");
         // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test2.yml");
         loader.load();
         definition = loader.getInput();
     }
 
-    public void generateModels() throws FoundationGeneratorException {
+    public void generateModels(GeneratorCli cli, Configuration config) throws FoundationGeneratorException {
         File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
         File testDirectory = directory;
         logger.logInfo("Translating generic definitions into Java models");
@@ -61,13 +66,35 @@ public class FoundationGenerator {
     }
 
     public static void main(String[] args) {
+        GeneratorCli cli = new GeneratorCli();
+        CommandLine cmd = new CommandLine(cli);
         FoundationGenerator generator = new FoundationGenerator();
-        generator.load();
+
         try {
-            generator.generateModels();
-        } catch (FoundationGeneratorException exception) {
-            // TODO Auto-generated catch block
-            exception.printStackTrace();
+            cmd.parse(args);
+            if (cmd.isUsageHelpRequested()) {
+                System.out.println(cli.generateHelp(cmd.getUsageHelpWidth()));
+                return;
+            } else if (cmd.isVersionHelpRequested()) {
+                cmd.printVersionHelp(System.out);
+                return;
+            }
+            generator.logger.logInfo(System.lineSeparator() + Header.getHeader().generateText()
+                                     + System.lineSeparator());
+            Configuration config = Configuration.load(generator.logger, cli.getConfig());
+            generator.load(cli, config);
+            generator.generateModels(cli, config);
+        } catch (ParameterException ex) {
+            System.err.println(ex.getMessage());
+            if (!UnmatchedArgumentException.printSuggestions(ex, System.err)) {
+                System.err.println(cli.generateHelp(cmd.getUsageHelpWidth()));
+            }
+            System.exit(1);
+        } catch (Exception ex) {
+            System.err.println("Error while calling " + cli + " because " + ex.getMessage());
+            ex.printStackTrace();
+            System.exit(1);
         }
+
     }
 }

@@ -27,10 +27,14 @@ public class FoundationDataLoader {
             return;
         }
         File file = new File(path);
-        if (file.exists() && file.isFile() && !sources.contains(file)) {
+        addSource(file);
+
+    }
+
+    public void addSource(File file) {
+        if (file != null && file.exists() && file.isFile() && !sources.contains(file)) {
             sources.add(file);
         }
-
     }
 
     public void load() {

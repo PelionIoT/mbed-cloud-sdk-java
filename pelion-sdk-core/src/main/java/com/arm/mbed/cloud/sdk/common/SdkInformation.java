@@ -13,7 +13,7 @@ public class SdkInformation implements Serializable {
     private static final String MBED_IDENTIFIER = "mbed";
     private static final String DEFAULT_VERSION = "unknown_dev";
     private static final String LICENCE_URL_ATTRIBUTE = "Bundle-License";
-    private static final String DEFAULT_DESCRIPTION = "Arm Mbed Cloud SDK for Java";
+    private static final String DEFAULT_DESCRIPTION = "Arm Pelion Cloud SDK for Java";
     private static final String IMPLEMENTATION_TITLE_ATTRIBUTE = "Implementation-Title";
     private static final String IMPLEMENTATION_VERSION_ATTRIBUTE = "Implementation-Version";
     private static final String MBED_CLOUD_SDK_VERSION_SPECIFIC_ATTRIBUTE = "MbedCloudSdk-Version";
@@ -279,9 +279,9 @@ public class SdkInformation implements Serializable {
     @Override
     public String toString() {
         return "SdkInformation [sdkVersion=" + sdkVersion + ", sdkDescription=" + sdkDescription + ", sdkLicence="
-                + sdkLicence + ", javaVersion=" + javaVersion + ", javaVendor=" + javaVendor + ", javaVendorURL="
-                + javaVendorUrl + ", os=" + os + ", osVersion=" + osVersion + ", osArchitecture=" + osArchitecture
-                + ", locale=" + locale + "]";
+               + sdkLicence + ", javaVersion=" + javaVersion + ", javaVendor=" + javaVendor + ", javaVendorURL="
+               + javaVendorUrl + ", os=" + os + ", osVersion=" + osVersion + ", osArchitecture=" + osArchitecture
+               + ", locale=" + locale + "]";
     }
 
     /**
