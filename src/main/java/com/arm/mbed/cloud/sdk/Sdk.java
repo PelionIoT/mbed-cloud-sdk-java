@@ -1,6 +1,5 @@
 package com.arm.mbed.cloud.sdk;
 
-import java.io.Closeable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,7 +31,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 /**
  * Entry point for using the SDK.
  */
-public class Sdk extends AbstractModule implements Closeable {
+public class Sdk extends AbstractModule {
 
     private final Connect connectApi;
 
@@ -227,12 +226,7 @@ public class Sdk extends AbstractModule implements Closeable {
     @API
     @Daemon(shutdown = true)
     public void quit() {
-        try {
-            stop();
-        } catch (MbedCloudException exception) {
-            // Nothing to do
-        }
-        connectApi.shutdownConnectService();
+        connectApi.close();
     }
 
     /**
@@ -240,6 +234,7 @@ public class Sdk extends AbstractModule implements Closeable {
      */
     @Override
     public void close() {
+        super.close();
         quit();
     }
 

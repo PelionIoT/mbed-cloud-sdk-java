@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public class SdkLogger {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger("Arm Mbed Cloud SDK");
+    private static final Logger LOGGER = LoggerFactory.getLogger("Arm Pelion Cloud SDK");
 
     public static SdkLogger getLogger() {
         return SdkLoggerHolder.INSTANCE;
@@ -42,9 +42,13 @@ public class SdkLogger {
      */
     public void logError(String message, Throwable exception) {
         final String exceptionString = exception == null ? "Unknown Reason"
-                : exception.getMessage() == null ? "An exception [" + exception.toString() + "] was raised"
-                        : exception.getMessage()
-                                + (exception.getCause() == null ? "" : ". Cause: " + exception.getCause());
+                                                         : exception.getMessage() == null ? "An exception ["
+                                                                                            + exception.toString()
+                                                                                            + "] was raised"
+                                                                                          : exception.getMessage()
+                                                                                            + (exception.getCause() == null ? ""
+                                                                                                                            : ". Cause: "
+                                                                                                                              + exception.getCause());
         LOGGER.error(message + ". Reason: " + exceptionString);
     }
 
@@ -62,15 +66,19 @@ public class SdkLogger {
      */
     public void logWarn(String message, Throwable exception) {
         final String exceptionString = exception == null ? "Unknown Reason"
-                : exception.getMessage() == null ? "An exception [" + exception.toString() + "] was raised"
-                        : exception.getMessage()
-                                + (exception.getCause() == null ? "" : ". Cause: " + exception.getCause());
+                                                         : exception.getMessage() == null ? "An exception ["
+                                                                                            + exception.toString()
+                                                                                            + "] was raised"
+                                                                                          : exception.getMessage()
+                                                                                            + (exception.getCause() == null ? ""
+                                                                                                                            : ". Cause: "
+                                                                                                                              + exception.getCause());
         LOGGER.warn(message + ". Reason: " + exceptionString);
     }
 
     public void throwSdkException(Exception exception) throws MbedCloudException {
         throwCloudException(exception instanceof MbedCloudException ? (MbedCloudException) exception
-                : new MbedCloudException(exception));
+                                                                    : new MbedCloudException(exception));
     }
 
     public void throwSdkException(String message, Exception cause) throws MbedCloudException {

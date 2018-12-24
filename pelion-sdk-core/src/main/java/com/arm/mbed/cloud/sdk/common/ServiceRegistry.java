@@ -84,6 +84,13 @@ public class ServiceRegistry implements Cloneable {
         }
     }
 
+    /**
+     * Clears the service registry.
+     */
+    public void clear() {
+        store.clear();
+    }
+
     @SuppressWarnings("unchecked")
     protected <S> S getServiceFromStore(Class<S> serviceClass) {
         return (S) store.get(serviceClass);

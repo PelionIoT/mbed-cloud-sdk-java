@@ -259,6 +259,17 @@ public class Connect extends AbstractModule {
         handlersStore.shutdown();
     }
 
+    @Override
+    public void close() {
+        super.close();
+        try {
+            stopNotifications();
+        } catch (MbedCloudException exception) {
+            // Nothing to do
+        }
+        shutdownConnectService();
+    }
+
     /**
      * Lists connected devices (One page).
      * <p>

@@ -120,6 +120,13 @@ public abstract class AbstractModule implements SdkContext {
         metadataCache.clearMetadata();
     }
 
+    @Override
+    public void close() {
+        logger.logInfo("Closing " + getModuleName());
+        serviceRegistry.clear();
+        clearApiMetadata();
+    }
+
     /**
      *
      * Gets a service.

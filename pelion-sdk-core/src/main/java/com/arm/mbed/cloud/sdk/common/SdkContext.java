@@ -1,5 +1,7 @@
 package com.arm.mbed.cloud.sdk.common;
 
+import java.io.Closeable;
+
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 /**
@@ -8,7 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
  *
  */
 @Preamble(description = "Definition of a Pelion SDK's context")
-public interface SdkContext {
+public interface SdkContext extends Closeable {
 
     /**
      * Gets SDK logger.

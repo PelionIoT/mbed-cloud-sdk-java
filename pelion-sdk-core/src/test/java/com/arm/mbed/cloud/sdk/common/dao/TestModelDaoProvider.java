@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
+import java.io.IOException;
+
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.common.ApiClientWrapper;
@@ -160,6 +162,11 @@ public class TestModelDaoProvider {
                 @Override
                 public ServiceRegistry getServiceRegistry() {
                     return null;
+                }
+
+                @Override
+                public void close() throws IOException {
+                    // Nothing to do
                 }
             };
         }
