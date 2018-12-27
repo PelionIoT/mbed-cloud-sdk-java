@@ -15,6 +15,7 @@ plugins {
     id 'jacoco' //Code coverage
     id 'checkstyle'
     id 'pmd'
+    id "com.diffplug.gradle.spotless" version "3.16.0"
 }
 
 
@@ -56,11 +57,13 @@ jacocoTestReport {
     }
 }
 
-
+def checkStyleConfigFile=new File("$rootDir/../config/checkstyle/checkstyle.xml").canonicalPath
+def pmdConfigFile=new File("$rootDir/../config/pmd/pmd-rules.xml").canonicalPath
+def eclipseConfigFile=new File("$rootDir/../config/eclipse/formatter.xml").canonicalPath
 
 checkstyle {
     toolVersion = '7.2'
-    configFile rootProject.file("$rootDir/../config/checkstyle/checkstyle.xml")
+    configFile rootProject.file(checkStyleConfigFile)
     sourceSets = [sourceSets.main]
     ignoreFailures = false
     maxWarnings = 0
@@ -76,7 +79,7 @@ pmd {
     sourceSets = [sourceSets.main]
     ignoreFailures = false
     ruleSets = []
-    ruleSetFiles = files("$rootDir/../config/pmd/pmd-rules.xml")
+    ruleSetFiles = files(pmdConfigFile)
 }
 pmdMain {
     excludes = []
@@ -85,6 +88,23 @@ pmdMain {
         html.enabled true
     }
 }
+
+spotless {
+    format 'misc', {
+        target '**/*.gradle', '**/*.md', '**/.gitignore'
+        indentWithSpaces()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+  java {
+        removeUnusedImports() // removes any unused imports
+        eclipse().configFile "${eclipseConfigFile}"
+        encoding 'Cp1252' // java will have Cp1252
+  }
+}
+
 walkmod {
-  chains = [ 'checkstyle', 'pmd' ]
+  chains = [ 'checkstyle' ]
+  verbose = true
+  properties = "configurationFile=\"${checkStyleConfigFile}\""
 }
