@@ -109,6 +109,10 @@ public class GeneratorCli implements Runnable {
         return outputModels;
     }
 
+    public boolean hasOutputModels() {
+        return getOutputModels() != null;
+    }
+
     public void setOutputModels(String outputModels) {
         this.outputModels = outputModels;
     }
@@ -119,6 +123,37 @@ public class GeneratorCli implements Runnable {
 
     public void setTop(File top) {
         this.top = top;
+    }
+
+    public File getFoundationSourceOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), getOutput(), true);
+    }
+
+    public File getFoundationModelSourceOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), hasOutputModels() ? getOutputModels() : getOutput(), true);
+    }
+
+    public File getFoundationTestOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), getOutput(), false);
+    }
+
+    public File getFoundationModelTestOuputDirectory() throws FoundationGeneratorException {
+        return generateClassDirectory(getTop(), hasOutputModels() ? getOutputModels() : getOutput(), false);
+    }
+
+    private static File generateClassDirectory(File top, String projectName,
+                                               boolean source) throws FoundationGeneratorException {
+        if (top == null || !top.exists() || !top.isDirectory()) {
+            throw new FoundationGeneratorException(new IllegalArgumentException("Project top directory is invalid: "
+                                                                                + top));
+        }
+        final File project = new File(top, projectName);
+        if (projectName == null || !project.exists() || !project.isDirectory()) {
+            throw new FoundationGeneratorException(new IllegalArgumentException("Project directory is invalid: "
+                                                                                + project));
+        }
+        final File outputDirectory = new File(new File(new File(project, "src"), source ? "main" : "test"), "java");
+        return outputDirectory;
     }
 
     public String generateHelp(int width) {

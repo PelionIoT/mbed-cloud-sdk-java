@@ -3,12 +3,13 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.model.Model;
+import com.arm.pelion.sdk.foundation.generator.model.ModelPojo;
 import com.arm.pelion.sdk.foundation.generator.util.ModelDefinitionStore;
 import com.arm.pelion.sdk.foundation.generator.util.SimpleModelDefinitionStore;
 
-public class PelionModelDefinitionStore implements ModelDefinitionStore<Model> {
+public class PelionModelDefinitionStore implements ModelDefinitionStore<ModelPojo> {
 
-    private final ModelDefinitionStore<Model> store;
+    private final ModelDefinitionStore<ModelPojo> store;
 
     public static PelionModelDefinitionStore get() {
         return ModelDefinitionStoreHolder.INSTANCE;
@@ -24,7 +25,7 @@ public class PelionModelDefinitionStore implements ModelDefinitionStore<Model> {
     }
 
     @Override
-    public Model store(Model model) {
+    public ModelPojo store(ModelPojo model) {
         return store.store(model);
     }
 
@@ -44,17 +45,17 @@ public class PelionModelDefinitionStore implements ModelDefinitionStore<Model> {
     }
 
     @Override
-    public Model get(String identifier) {
+    public ModelPojo get(String identifier) {
         return store.get(identifier);
     }
 
     @Override
-    public Model get(Model model) {
+    public ModelPojo get(Model model) {
         return store.get(model);
     }
 
     @Override
-    public List<Model> getModels() {
+    public List<ModelPojo> getModels() {
         return store.getModels();
     }
 

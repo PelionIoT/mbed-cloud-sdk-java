@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.arm.pelion.sdk.foundation.generator.util.MergeableModelDefinitionStore;
 import com.arm.pelion.sdk.foundation.generator.util.ModelDefinitionStore;
@@ -110,8 +111,10 @@ public class Artifacts {
         processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof ModelEnum))
                        .forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
+        rawEndpoints.getModels().forEach(m -> storePackageInfo(m));
         processedModels.addAll(rawEndpoints.getModels());
         // Process Modules
+        rawModules.getModels().forEach(m -> storePackageInfo(m));
         processedModules.addAll(rawModules.getModels());
     }
 
@@ -134,8 +137,16 @@ public class Artifacts {
     /**
      * @return the processedModels
      */
-    public List<Model> getProcessedModels() {
+    private List<Model> getProcessedModels() {
         return processedModels;
+    }
+
+    public List<Model> getProcessedPojoModels() {
+        return getProcessedModels().stream().filter(m -> m instanceof ModelPojo).collect(Collectors.toList());
+    }
+
+    public List<Model> getProcessedNonPojoModels() {
+        return getProcessedModels().stream().filter(m -> !(m instanceof ModelPojo)).collect(Collectors.toList());
     }
 
     public List<ModelEndpoints> getProcessedEndpoints() {
@@ -150,21 +161,49 @@ public class Artifacts {
         return adapterModels.getModels();
     }
 
-    public List<PackageInfo> getPackagesInfo() {
+    private List<PackageInfo> getPackagesInfo() {
         return new ArrayList<>(packagesInfo.values());
+    }
+
+    public List<PackageInfo> getModelPackagesInfo() {
+        return getPackagesInfo().stream().filter(p -> p instanceof PackageInfoModel).collect(Collectors.toList());
+    }
+
+    public List<PackageInfo> getNonModelPackagesInfo() {
+        return getPackagesInfo().stream().filter(p -> !(p instanceof PackageInfoModel)).collect(Collectors.toList());
     }
 
     /**
      * @return the unitTests
      */
-    public List<ModelTest> getUnitTests() {
+    private List<ModelTest> getUnitTests() {
         return unitTests;
+    }
+
+    public List<ModelTest> getPojoUnitTests() {
+        return getUnitTests().stream().filter(m -> m.getModelUnderTest() instanceof ModelPojo)
+                             .collect(Collectors.toList());
+    }
+
+    public List<ModelTest> getNonPojoUnitTests() {
+        return getUnitTests().stream().filter(m -> !(m.getModelUnderTest() instanceof ModelPojo))
+                             .collect(Collectors.toList());
     }
 
     private void storePackageInfo(Model m) {
         final String packageName = m.getPackageName().trim();
+        PackageInfo info = null;
         if (!packagesInfo.containsKey(packageName)) {
-            packagesInfo.put(packageName, new ModelPackageInfo(packageName, m.getGroup()));
+            if (m instanceof ModelPojo) {
+                info = new PackageInfoModel(packageName, m.getGroup());
+            } else if (m instanceof ModelAdapter) {
+                info = new PackageInfoAdapter(packageName, m.getGroup());
+            } else if (m instanceof ModelModule) {
+                info = new PackageInfoModule(packageName, m.getGroup());
+            } else {
+                info = new PackageInfo(packageName, "Foundation package", null, m.getGroup());
+            }
+            packagesInfo.put(packageName, info);
         }
     }
 

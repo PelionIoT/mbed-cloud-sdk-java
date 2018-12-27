@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.UuidGenerator;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.mifmif.common.regex.Generex;
 
 public class ValueGenerator {
@@ -38,21 +39,29 @@ public class ValueGenerator {
         }
         if (field.getType().isDate()) {
             return String.valueOf("new java.util.Date("
-                                  + String.valueOf(new Date().getTime() + (long) (Math.random() * 10000)) + "l)");
+                                  + String.valueOf(new Date().getTime() + (long) (Math.random() * 10000)) + "L)");
         }
         if (field.getType().isNumber()) {
             if (field.getType().isDecimal()) {
                 return String.valueOf(Math.random() * 100000.0);
             }
-            return String.valueOf((int) (Math.random() * 255) - 128);// A random number wich can be a byte, int, or a
+            return String.valueOf((int) (Math.random() * 255) - 128);// A random number which can be a byte, int, or a
                                                                      // long
         }
         return null;
     }
 
     private static String generateStringBasedOnRegex(String pattern) {
-        final Generex generex = new Generex(pattern);
-        return generex.random().replace("$", "$$").replace("\"", "").replace("\n", "").replace("\r", "");
+        String patternToConsider = Utils.applyPatternReverseHack(pattern.trim());
+        if (patternToConsider.startsWith("^")) {
+            patternToConsider = patternToConsider.substring(1);
+        }
+        if (patternToConsider.endsWith("$")) {
+            patternToConsider = patternToConsider.substring(0, patternToConsider.length() - 1);
+        }
+        final Generex generex = new Generex(patternToConsider);
+        return Utils.applyPatternHack(generex.random()).replace("\"", "").replace("\n", "").replace("\r", "")
+                    .replace("\\", "\\\\");
     }
 
     public static String generateFieldWithInvalidValue(Field field) {

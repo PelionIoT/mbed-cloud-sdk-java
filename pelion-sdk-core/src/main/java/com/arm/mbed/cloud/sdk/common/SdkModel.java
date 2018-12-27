@@ -11,7 +11,7 @@ public interface SdkModel extends Serializable, Cloneable {
      *
      * @return a clone.
      */
-    SdkModel clone();
+    Object clone();
 
     /**
      * Determines whether the model instance is valid i.e. all required fields have been set.

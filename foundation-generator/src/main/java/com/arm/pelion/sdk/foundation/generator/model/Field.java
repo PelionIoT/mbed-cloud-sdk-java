@@ -6,6 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.AnnotationSpec;
@@ -111,19 +112,25 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
             return hasDefaultValue() ? defaultValue : "false";
         }
         if (type.isEnum()) {// TODO ensure the method for getting default type is always valid
-            return hasDefaultValue() ? defaultValue : type.getShortName() + ".getDefault()";
+            return hasDefaultValue() ? type.getShortName() + "." + SdkEnum.METHOD_GET_VALUE_FROM_STRING + "(\""
+                                       + defaultValue + "\")"
+                                     : type.getShortName() + "." + SdkEnum.METHOD_GET_DEFAULT + "()";
         }
         if (type.isNumber()) {
-            return hasDefaultValue() ? defaultValue : "0";
+            return hasDefaultValue() ? defaultValue : type.isInteger() ? "0" : type.isDecimal() ? "0.0" : "0L";
         }
         if (type.isDate()) {// TODO ensure the default date value is called now
             return hasDefaultValue() ? defaultValue.contains("now") ? "new java.util.Date()" : defaultValue
                                      : "new java.util.Date()";
         }
         if (type.isString()) {
-            return hasDefaultValue() ? "\"" + defaultValue + "\"" : "null";
+            return hasDefaultValue() ? "\"" + defaultValue + "\"" : "(String) null";
         }
-        return hasDefaultValue() ? defaultValue : "null";
+        if (type.isList() || type.isHashtable()) {
+            return hasDefaultValue() ? defaultValue : "null";
+        }
+
+        return hasDefaultValue() ? defaultValue : "(" + type.getShortName() + ") null";
     }
 
     /**

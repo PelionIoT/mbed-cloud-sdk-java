@@ -581,6 +581,7 @@ public class Model extends AbstractSdkArtifact {
             abstractModel.addField(f);
         });
         getMethodList().stream().filter(m -> !m.needsCustomCode()).forEach(m -> abstractModel.addMethod(m));
+        abstractModel.addMethod(new MethodCloneDefault());
         abstractModel.generateMethodsNecessaryAtEachLevel();
         abstractModel.ensureSdkModelMethodsHaveOverrideAnnotation();
         return abstractModel;
@@ -840,7 +841,7 @@ public class Model extends AbstractSdkArtifact {
     }
 
     protected void translateSerialisation() throws TranslationException {
-        if (isAbstract || !isSerialisable()) {
+        if (!isSerialisable()) {// isAbstract ||
             return;
         }
         final Field serialVersionUID = new Field(true, TypeFactory.getCorrespondingType(long.class),

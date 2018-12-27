@@ -9,6 +9,9 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Preamble(description = "Generic SDK enum")
 @Internal
 public interface SdkEnum extends Serializable {
+    String METHOD_GET_UNKNOWN_VALUE = "getUnknownEnum";
+    String METHOD_GET_DEFAULT = "getDefault";
+    String METHOD_GET_VALUE_FROM_STRING = "getValue";
     /**
      * Enumerator value stating that there has been a SDK internal issue when parsing enumerator values from the Cloud.
      * <p>

@@ -25,8 +25,9 @@ public class FieldTranslator {
         }
         final Field modelField = new Field(field.isReadOnly(), determineType(field, packageName, group), field.getKey(),
                                            field.getDescription(), field.getLongDescription(),
-                                           determinePattern(field.getPattern()), false, field.isCustomCode(),
-                                           field.isInternal(), field.isRequired(), field.getDefaultValue(), false);
+                                           com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
+                                           false, field.isCustomCode(), field.isInternal(), field.isRequired(),
+                                           field.getDefaultValue(), false);
         // TODO do something if needed
         return modelField;
     }
@@ -39,11 +40,6 @@ public class FieldTranslator {
         final Parameter parameter = new Parameter(field.getKey(), field.getDescription(), field.getDescription(),
                                                   determineType(field, packageName, group), field.getDefaultValue());
         return field.isRequired() ? parameter.setAsNonNull(true) : parameter.setAsNullable(true);
-    }
-
-    private static String determinePattern(String pattern) {
-        // FIXME hack because JavaPoet does not handle well "$"
-        return pattern == null ? null : pattern.replace("$", "$$");
     }
 
     private static TypeParameter determineType(com.arm.pelion.sdk.foundation.generator.input.Field field,

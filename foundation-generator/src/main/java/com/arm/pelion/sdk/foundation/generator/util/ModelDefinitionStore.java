@@ -6,7 +6,7 @@ import com.arm.pelion.sdk.foundation.generator.model.Model;
 
 public interface ModelDefinitionStore<T extends Model> {
 
-    Model store(T model);
+    T store(T model);
 
     void clear();
 

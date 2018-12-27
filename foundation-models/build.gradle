@@ -1,0 +1,90 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
+    }
+}
+plugins {
+    // Apply the java-library plugin to add support for Java Library
+    id 'java-library'
+    id 'eclipse'
+    id 'jacoco' //Code coverage
+    id 'checkstyle'
+    id 'pmd'
+}
+
+
+apply plugin: 'walkmod'
+dependencies {
+    api project(':pelion-sdk-core')
+    // Use JUnit test framework
+    testImplementation 'junit:junit:4.+'
+}
+
+
+compileJava {
+    // Library compatibility
+    sourceCompatibility  JavaVersion.VERSION_1_7.toString()
+    targetCompatibility  JavaVersion.VERSION_1_7.toString()
+}
+
+allprojects {
+    buildscript {
+        repositories {
+            jcenter()
+            mavenCentral()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
+    }
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+}
+
+jacocoTestReport {
+    reports {
+        xml.enabled false
+        csv.enabled false
+        html.enabled true
+    }
+}
+
+
+
+checkstyle {
+    toolVersion = '7.2'
+    configFile rootProject.file("$rootDir/../config/checkstyle/checkstyle.xml")
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    maxWarnings = 0
+}
+checkstyleMain {
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+pmd {
+    toolVersion = "5.0.4"
+    sourceSets = [sourceSets.main]
+    ignoreFailures = false
+    ruleSets = []
+    ruleSetFiles = files("$rootDir/../config/pmd/pmd-rules.xml")
+}
+pmdMain {
+    excludes = []
+    reports {
+        xml.enabled false
+        html.enabled true
+    }
+}
+walkmod {
+  chains = [ 'checkstyle', 'pmd' ]
+}

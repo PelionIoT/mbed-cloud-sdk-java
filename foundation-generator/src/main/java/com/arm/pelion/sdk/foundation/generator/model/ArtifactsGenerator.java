@@ -9,16 +9,22 @@ public class ArtifactsGenerator extends AbstractGenerator {
 
     private final Artifacts artifacts;
     private final boolean forceRegenerateUnitTests;
+    protected final File modelSourceDestinationDirectory;
+    protected final File modelTestDestinationDirectory;
 
     /**
      * @param destinationDirectory
      * @param model
      */
-    public ArtifactsGenerator(File sourceDestinationDirectory, File testDestinationDirectory, Artifacts artifacts,
-                              boolean forceRegenerateUnitTests) {
+    public ArtifactsGenerator(File sourceDestinationDirectory, File testDestinationDirectory,
+                              File modelSourceDestinationDirectory, File modelTestDestinationDirectory,
+                              Artifacts artifacts, boolean forceRegenerateUnitTests) {
         super(sourceDestinationDirectory, testDestinationDirectory);
         this.artifacts = artifacts;
         this.forceRegenerateUnitTests = forceRegenerateUnitTests;
+        this.modelSourceDestinationDirectory = modelSourceDestinationDirectory;
+        this.modelTestDestinationDirectory = modelTestDestinationDirectory;
+
     }
 
     @Override
@@ -26,13 +32,23 @@ public class ArtifactsGenerator extends AbstractGenerator {
         if (artifacts == null) {
             return;
         }
-        logger.logInfo("Generating models");
+        logger.logInfo("Generating foundations");
         artifacts.process();
-        for (final PackageInfo packageInfo : artifacts.getPackagesInfo()) {
-            new PackageInfoGenerator(sourceDestinationDirectory, packageInfo).generate();
+        logger.logInfo("Generating Models");
+        for (final PackageInfo packageInfo : artifacts.getModelPackagesInfo()) {
+            new PackageInfoGenerator(modelSourceDestinationDirectory, packageInfo).generate();
         }
-        for (final Model model : artifacts.getProcessedModels()) {
-            new ModelGenerator(sourceDestinationDirectory, model).generate();
+        for (final Model model : artifacts.getProcessedPojoModels()) {
+            new ModelGenerator(modelSourceDestinationDirectory, model).generate();
+        }
+        logger.logInfo("Generating model unit tests");
+        for (final ModelTest unittest : artifacts.getPojoUnitTests()) {
+            unittest.generateTests();
+            new ModelTestGenerator(modelTestDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
+        }
+        logger.logInfo("Generating Pelion Cloud entities");
+        for (final PackageInfo packageInfo : artifacts.getNonModelPackagesInfo()) {
+            new PackageInfoGenerator(sourceDestinationDirectory, packageInfo).generate();
         }
         logger.logInfo("Generating adapter classes");
         for (final ModelAdapter adapter : artifacts.getAdapterModels()) {
@@ -46,8 +62,12 @@ public class ArtifactsGenerator extends AbstractGenerator {
         for (final ModelModule endpoints : artifacts.getProcessedModules()) {
             new ModelGenerator(sourceDestinationDirectory, endpoints).generate();
         }
-        logger.logInfo("Generating model unit tests");
-        for (final ModelTest unittest : artifacts.getUnitTests()) {
+        logger.logInfo("Generating Pelion other classes");
+        for (final Model model : artifacts.getProcessedNonPojoModels()) {
+            new ModelGenerator(sourceDestinationDirectory, model).generate();
+        }
+        logger.logInfo("Generating unit tests");
+        for (final ModelTest unittest : artifacts.getNonPojoUnitTests()) {
             unittest.generateTests();
             new ModelTestGenerator(testDestinationDirectory, unittest, forceRegenerateUnitTests).generate();
         }
@@ -67,6 +87,7 @@ public class ArtifactsGenerator extends AbstractGenerator {
         logger.logInfo("Cleaning models");
         for (final Model model : artifacts.getAllRawModels()) {
             new ModelGenerator(sourceDestinationDirectory, model).clean();
+            new ModelGenerator(modelSourceDestinationDirectory, model).clean();
         }
     }
 

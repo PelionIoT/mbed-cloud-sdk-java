@@ -32,7 +32,7 @@ public class MethodConstructorFromObject extends AbstractMethodConstructor {
         final List<Field> fields = getAllFields();
         code.addStatement("this(" + String.join("," + System.lineSeparator(),
                                                 fields.stream()
-                                                      .map(f -> parameterName + " == null? " + f.getJavaDefaultValue()
+                                                      .map(f -> parameterName + " == null ? " + f.getJavaDefaultValue()
                                                                 + " : " + parameterName + "." + f.getName())
                                                       .collect(Collectors.toList()))
                           + ")");

@@ -194,6 +194,10 @@ public class ModelTest extends AbstractSdkArtifact {
         return modelUnderTest.hasPackageName() ? modelUnderTest.getPackageName() + "." + getName() : getName();
     }
 
+    public Model getModelUnderTest() {
+        return modelUnderTest;
+    }
+
     /**
      * @return the specificationBuilder
      */

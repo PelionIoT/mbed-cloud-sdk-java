@@ -35,8 +35,8 @@ dependencies {
     implementation 'com.squareup:javapoet:1.11.+'
     implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.+'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.+'
-	implementation 'info.picocli:picocli:3.8.+'
-	implementation 'com.github.dtmo.jfiglet:jfiglet:1.0.0'
+    implementation 'info.picocli:picocli:3.8.+'
+    implementation 'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     implementation 'com.github.mifmif:generex:1.0.+'
     implementation 'org.reflections:reflections:0.9.+'
     implementation 'org.slf4j:slf4j-simple:1.7.7'
@@ -55,20 +55,20 @@ dependencies {
     implementation project(':backends:billing')
     implementation project(':backends:certificate_renewal')
     // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.+'
 }
 
 allprojects {
-	buildscript {
-	    repositories {
-	        mavenCentral()
-	        jcenter()
-	    }
-	}
-	repositories {
-		mavenCentral()
-	    jcenter()
-	}
+    buildscript {
+        repositories {
+            mavenCentral()
+            jcenter()
+        }
+    }
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     tasks.withType(JavaCompile) { 

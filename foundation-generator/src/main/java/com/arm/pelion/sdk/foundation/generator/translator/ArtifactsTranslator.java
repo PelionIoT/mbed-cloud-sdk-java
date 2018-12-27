@@ -31,6 +31,7 @@ import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOption;
 import com.arm.pelion.sdk.foundation.generator.model.ModelListOptionFetcher;
 import com.arm.pelion.sdk.foundation.generator.model.ModelModule;
+import com.arm.pelion.sdk.foundation.generator.model.ModelPojo;
 import com.arm.pelion.sdk.foundation.generator.model.Renames;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
@@ -170,14 +171,14 @@ public class ArtifactsTranslator {
         return adapter;
     }
 
-    public static Model translate(Configuration config, Entity entity) throws FoundationGeneratorException {
+    public static ModelPojo translate(Configuration config, Entity entity) throws FoundationGeneratorException {
         if (entity == null) {
             return null;
         }
         final String packageName = generateModelPackageName(config, entity.getGroupId());
-        Model model = new Model(packageName, generateEntityName(entity.getKey()),
-                                CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
-                                entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
+        ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
+                                        CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
+                                        entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
         if (entity.hasAdditionalProperties()) {
             final AdditionalProperty properties = entity.getAdditionalProperties();
             model.setSuperClassType(properties.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName,
@@ -225,7 +226,7 @@ public class ArtifactsTranslator {
         return endpoints;
     }
 
-    private static Model translate(Configuration config, Enumerator enumerator) {
+    private static ModelPojo translate(Configuration config, Enumerator enumerator) {
         if (enumerator == null) {
             return null;
         }
@@ -311,7 +312,7 @@ public class ArtifactsTranslator {
             // Note: not using streams so that exceptions are raised
             for (final Entity entity : definition.getEntities()) {
                 if (!avoid.stream().anyMatch(n -> n.equals(entity.getKey()))) {
-                    final Model model = PelionModelDefinitionStore.get().store(translate(config, entity));
+                    final ModelPojo model = PelionModelDefinitionStore.get().store(translate(config, entity));
                     artifacts.addModel(model);
                     artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
                     artifacts.addAdapter(translateAdapterModel(config, lowLevelApis, entity, model,

@@ -86,8 +86,8 @@ public class Utils {
     }
 
     public static String generateModelNameAsText(String modelName) {
-        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE)
-                             .replace(UNDERSCORE, WHITE_SPACE).trim();
+        return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
+                       .trim();
     }
 
     public static String generateDocumentationString(String modelName) {
@@ -107,5 +107,15 @@ public class Utils {
         }
         builder.append("}");
         return builder.toString();
+    }
+
+    public static String applyPatternHack(String pattern) {
+        // FIXME hack because JavaPoet does not handle well "$"
+        return pattern == null ? null : pattern.replace("$", "$$");
+    }
+
+    public static String applyPatternReverseHack(String pattern) {
+        // FIXME hack because JavaPoet does not handle well "$"
+        return pattern == null ? null : pattern.replace("$$", "$");
     }
 }

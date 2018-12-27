@@ -21,7 +21,7 @@ public class SimpleModelDefinitionStore<T extends Model> implements ModelDefinit
      * @see com.arm.pelion.sdk.foundation.generator.util.IModelDefinitionStore#store(T)
      */
     @Override
-    public Model store(T model) {
+    public T store(T model) {
         if (model == null || model.getIdentifier() == null) {
             return null;
         }

@@ -350,15 +350,16 @@ public class Method extends AbstractSdkArtifact {
                 translateCode();
                 specificationBuilder.addCode(code.build());
             }
-            if (!hasCode() && hasReturn()) {
-                if (returnType.isNumber()) {
-                    specificationBuilder.addStatement("return 0");
-                } else if (returnType.isBoolean()) {
-                    specificationBuilder.addStatement("return false");
-                } else {
-                    specificationBuilder.addStatement("return null");
-                }
-            }
+            // TODO put back if needed
+            // if (!hasCode() && hasReturn()) {
+            // if (returnType.isNumber()) {
+            // specificationBuilder.addStatement("return 0");
+            // } else if (returnType.isBoolean()) {
+            // specificationBuilder.addStatement("return false");
+            // } else {
+            // specificationBuilder.addStatement("return null");
+            // }
+            // }
             return;
         }
         if (hasStatement()) {

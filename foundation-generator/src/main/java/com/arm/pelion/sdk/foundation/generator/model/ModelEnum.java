@@ -12,7 +12,7 @@ import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeSpec;
 
-public class ModelEnum extends Model {
+public class ModelEnum extends ModelPojo {
 
     private static final String UNKNOWN_ENUM = "UNKNOWN_ENUM";
     private final List<String> options;
@@ -98,7 +98,7 @@ public class ModelEnum extends Model {
         generateIsUnknownValue();
         generateGetDefault();
         generateGetUnknownEnum();
-        generateGetStateFromString();
+        generateGetValueFromString();
         generateMerge();
     }
 
@@ -107,7 +107,7 @@ public class ModelEnum extends Model {
                                          "@see SdkEnum#isDefault()", false, true, false, false, false, false, false,
                                          false).returnType(TypeFactory.getCorrespondingType(boolean.class))
                                                .returnDescription("true if this is the default value; false otherwise")
-                                               .statement("return this == getDefault()"));
+                                               .statement("return this == " + SdkEnum.METHOD_GET_DEFAULT + "()"));
     }
 
     protected void generateIsUnknownValue() {
@@ -116,7 +116,8 @@ public class ModelEnum extends Model {
                                          "@see SdkEnum#isUnknownValue()", false, true, false, false, false, false,
                                          false, false).returnType(TypeFactory.getCorrespondingType(boolean.class))
                                                       .returnDescription("true if this is an unknown value; false otherwise")
-                                                      .statement("return this == getUnknownEnum()"));
+                                                      .statement("return this == " + SdkEnum.METHOD_GET_UNKNOWN_VALUE
+                                                                 + "()"));
     }
 
     /*
@@ -136,21 +137,20 @@ public class ModelEnum extends Model {
     }
 
     protected void generateGetDefault() {
-        overrideMethodIfExist(new Method(false, "getDefault", "Gets default "
-                                                              + getDescriptionForDocumentation(),
-                                         null, true, true, false, false, false, false, false, false)
-                                                                                                    .returnType(new TypeParameter(new Import(name,
-                                                                                                                                             packageName)))
-                                                                                                    .returnDescription("default "
-                                                                                                                       + getDescriptionForDocumentation())
-                                                                                                    .statement("return "
-                                                                                                               + defaultOption));
+        overrideMethodIfExist(new Method(false, SdkEnum.METHOD_GET_DEFAULT,
+                                         "Gets default " + getDescriptionForDocumentation(), null, true, true, false,
+                                         false, false, false, false, false)
+                                                                           .returnType(new TypeParameter(new Import(name,
+                                                                                                                    packageName)))
+                                                                           .returnDescription("default "
+                                                                                              + getDescriptionForDocumentation())
+                                                                           .statement("return " + defaultOption));
     }
 
     protected void generateGetUnknownEnum() {
-        overrideMethodIfExist(new Method(false, "getUnknownEnum",
+        overrideMethodIfExist(new Method(false, SdkEnum.METHOD_GET_UNKNOWN_VALUE,
                                          "Gets unknown " + getDescriptionForDocumentation()
-                                                                  + " value",
+                                                                                  + " value",
                                          null, true, true, false, false, false, false, false, false)
                                                                                                     .returnType(new TypeParameter(new Import(name,
                                                                                                                                              packageName)))
@@ -160,10 +160,9 @@ public class ModelEnum extends Model {
                                                                                                                + UNKNOWN_ENUM));
     }
 
-    protected void generateGetStateFromString() {
-        final Method method = new Method(false, "getState",
-                                         "Gets " + getDescriptionForDocumentation()
-                                                            + " from its string representation",
+    protected void generateGetValueFromString() {
+        final Method method = new Method(false, SdkEnum.METHOD_GET_VALUE_FROM_STRING,
+                                         "Gets " + getDescriptionForDocumentation() + " from its string representation",
                                          null, true, true, false, false, false, false, false, false)
                                                                                                     .returnType(new TypeParameter(new Import(name,
                                                                                                                                              packageName)))

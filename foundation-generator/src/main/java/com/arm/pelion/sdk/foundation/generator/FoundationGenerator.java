@@ -1,7 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator;
 
-import java.io.File;
-
 import com.arm.pelion.sdk.foundation.generator.cli.GeneratorCli;
 import com.arm.pelion.sdk.foundation.generator.cli.Header;
 import com.arm.pelion.sdk.foundation.generator.input.FoundationDataLoader;
@@ -49,10 +47,16 @@ public class FoundationGenerator {
     }
 
     public void generateModels(GeneratorCli cli, Configuration config) throws FoundationGeneratorException {
-        File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
-        File testDirectory = directory;
+        // File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
+        // File testDirectory = directory;
+        // File modelDirectory = new File("C:\\Users\\adrcab01\\OneDrive -
+        // ARM\\Documents\\temp\\test-generation\\results2");
+        // File modelTestDirectory = modelDirectory;
         logger.logInfo("Translating generic definitions into Java models");
-        ArtifactsGenerator generator = new ArtifactsGenerator(directory, testDirectory,
+        ArtifactsGenerator generator = new ArtifactsGenerator(cli.getFoundationSourceOuputDirectory(),
+                                                              cli.getFoundationTestOuputDirectory(),
+                                                              cli.getFoundationModelSourceOuputDirectory(),
+                                                              cli.getFoundationModelTestOuputDirectory(),
                                                               ArtifactsTranslator.translate(config, definition,
                                                                                             lowLevelAPIs),
                                                               forceRegenerateUnitTests);

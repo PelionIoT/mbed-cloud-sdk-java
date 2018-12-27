@@ -104,7 +104,7 @@ public abstract class AbstractMethodConstructor extends AbstractMethodBasedOnMod
 
     private static String generateLongDescription(String name, String longDescription, boolean isInternal) {
         StringBuilder builder = new StringBuilder();
-        if (has(longDescription)) {
+        if (has(longDescription) && !longDescription.equals("null")) {
             builder.append(longDescription);
             if (isInternal) {
                 builder.append(System.lineSeparator()).append("<p>").append(System.lineSeparator());

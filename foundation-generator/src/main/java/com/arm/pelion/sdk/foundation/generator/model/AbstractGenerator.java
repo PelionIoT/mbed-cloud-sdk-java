@@ -10,6 +10,7 @@ public abstract class AbstractGenerator {
 
     protected final File sourceDestinationDirectory;
     protected final File testDestinationDirectory;
+
     protected final Logger logger;
 
     /**
