@@ -182,6 +182,10 @@ public class Entity {
         this.primaryKey = Utils.getKey(primaryKey, false);
     }
 
+    public boolean hasPrimaryKey() {
+        return primaryKey != null && !primaryKey.isEmpty();
+    }
+
     public List<Method> getMethods() {
         return methods;
     }

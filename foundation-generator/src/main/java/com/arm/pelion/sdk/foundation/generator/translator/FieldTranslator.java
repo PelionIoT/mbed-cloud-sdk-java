@@ -19,7 +19,7 @@ public class FieldTranslator {
     }
 
     public static Field translate(com.arm.pelion.sdk.foundation.generator.input.Field field, String packageName,
-                                  String group) throws FoundationGeneratorException {
+                                  String group, String primaryKey) throws FoundationGeneratorException {
         if (field == null) {
             return null;
         }
@@ -28,6 +28,9 @@ public class FieldTranslator {
                                            com.arm.pelion.sdk.foundation.generator.util.Utils.applyPatternHack(field.getPattern()),
                                            false, field.isCustomCode(), field.isInternal(), field.isRequired(),
                                            field.getDefaultValue(), false);
+        if (primaryKey != null && primaryKey.equals(field.getKey())) {
+            modelField.setAsIdentifier(true);
+        }
         // TODO do something if needed
         return modelField;
     }

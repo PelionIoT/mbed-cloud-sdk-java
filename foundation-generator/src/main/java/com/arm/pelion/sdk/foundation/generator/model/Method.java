@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
+import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
@@ -30,6 +31,7 @@ public class Method extends AbstractSdkArtifact {
     protected boolean isRequired;
     protected boolean isAnOverride;
     protected boolean shouldTest;
+    protected boolean doesNotPerformAnything;
     protected final List<Class<?>> exceptions;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
@@ -46,6 +48,7 @@ public class Method extends AbstractSdkArtifact {
         setRequired(isRequired);
         setAsOverride(isAnOverride);
         shouldTest(false);
+        setDoesNotPerformAnything(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -82,6 +85,14 @@ public class Method extends AbstractSdkArtifact {
     @Override
     public void setName(String name) {
         super.setName(ApiUtils.convertSnakeToCamel(name, false));
+    }
+
+    public boolean doesNotPerformAnything() {
+        return doesNotPerformAnything;
+    }
+
+    public void setDoesNotPerformAnything(boolean doesNotPerformAnything) {
+        this.doesNotPerformAnything = doesNotPerformAnything;
     }
 
     /**
@@ -289,6 +300,9 @@ public class Method extends AbstractSdkArtifact {
         }
         if (isRequired) {
             specificationBuilder.addAnnotation(Required.class);
+        }
+        if (doesNotPerformAnything) {
+            specificationBuilder.addAnnotation(PerformsNoOperation.class);
         }
     }
 

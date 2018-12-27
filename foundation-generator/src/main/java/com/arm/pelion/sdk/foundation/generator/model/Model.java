@@ -667,9 +667,13 @@ public class Model extends AbstractSdkArtifact {
                 addMethod(setter);
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();
-                    equivalentF.setName(ApiUtils.convertCamelToSnake(name) + "_"
-                                        + ApiUtils.convertCamelToSnake(f.getName()));// model name + field
-                    // name e.g. ApiKeyId
+                    if (f.isUsualIdentifier()) {
+                        equivalentF.setName(ApiUtils.convertCamelToSnake(name) + "_"
+                                            + ApiUtils.convertCamelToSnake(Field.IDENTIFIER_NAME));// model name + id
+                        // e.g. ApiKeyId
+                    } else {
+                        equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId method
+                    }
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                Utils.generateDocumentationMethodLink(null, setter),
                                                                true).statement(setter.getCallStatement(equivalentF.toParameter()) + System.lineSeparator());
@@ -680,6 +684,19 @@ public class Model extends AbstractSdkArtifact {
                 }
             }
         });
+    }
+
+    public void addNoIdentifierGetterAndSetter() {
+        final Method setter = new MethodSetter(Field.defaultIdentifier());
+        setter.setStatement("// Nothing to do" + System.lineSeparator());
+        setter.setDoesNotPerformAnything(true);
+        setter.setInternal(true);
+        addMethod(setter);
+        final Method getter = new MethodGetter(Field.defaultIdentifier(),
+                                               "Warning: " + name + " model does not have any ID field. This always returns {@code null}.",
+                                               true);
+        getter.setStatement("return null");
+        addMethod(getter);
     }
 
     protected void generateMethodsNecessaryAtEachLevel() {

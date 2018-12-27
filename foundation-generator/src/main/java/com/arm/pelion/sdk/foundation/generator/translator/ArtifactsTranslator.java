@@ -188,8 +188,12 @@ public class ArtifactsTranslator {
         }
         if (entity.hasFields()) {
             for (final Field field : entity.getFields()) {
-                model.addField(FieldTranslator.translate(field, model.getPackageName(), model.getGroup()));
+                model.addField(FieldTranslator.translate(field, model.getPackageName(), model.getGroup(),
+                                                         entity.getPrimaryKey()));
             }
+        }
+        if (!entity.hasPrimaryKey()) {
+            model.addNoIdentifierGetterAndSetter();
         }
 
         model.generateMethods();

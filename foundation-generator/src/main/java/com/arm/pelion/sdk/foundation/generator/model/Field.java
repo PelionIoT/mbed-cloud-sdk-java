@@ -1,5 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.Locale;
+
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.annotations.DefaultValue;
@@ -13,13 +15,14 @@ import com.squareup.javapoet.AnnotationSpec;
 import com.squareup.javapoet.FieldSpec;
 
 public class Field extends AbstractSdkArtifact implements Cloneable {
-    private static final String IDENTIFIER_NAME = "id";
+    public static final String IDENTIFIER_NAME = "id";
     private TypeParameter type;
     private String pattern;
     private String defaultValue;
     private String initialiser;
     private boolean isRequired;
     private boolean alreadyDefined;
+    private boolean isIdentifier;
     private FieldSpec.Builder specificationBuilder;
 
     /**
@@ -46,6 +49,7 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         setDefaultValue(defaultValue);
         setInitialiser(null);
         setAlreadyDefined(alreadyDefined);
+        setAsIdentifier(false);
     }
 
     public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue) {
@@ -57,6 +61,11 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
 
     public Field(java.lang.reflect.Field field) {
         this(field, false, false, null);
+    }
+
+    public static Field defaultIdentifier() {
+        return new Field(false, TypeFactory.getCorrespondingType(String.class), IDENTIFIER_NAME, IDENTIFIER_NAME, null,
+                         null, false, false, true, false, null, false);
     }
 
     /*
@@ -100,7 +109,11 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
     }
 
     public boolean isIdentifier() {
-        return name == null ? false : IDENTIFIER_NAME.equals(name.toLowerCase().trim());
+        return isIdentifier ? true : isUsualIdentifier();
+    }
+
+    public boolean isUsualIdentifier() {
+        return name == null ? false : IDENTIFIER_NAME.equals(name.toLowerCase(Locale.UK).trim());
     }
 
     public boolean hasDefaultValue() {
@@ -146,6 +159,10 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
      */
     public void setDefaultValue(String defaultValue) {
         this.defaultValue = defaultValue;
+    }
+
+    public void setAsIdentifier(boolean isIdentifier) {
+        this.isIdentifier = isIdentifier;
     }
 
     /**
