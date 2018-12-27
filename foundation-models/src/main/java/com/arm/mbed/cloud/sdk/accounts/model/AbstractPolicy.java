@@ -6,275 +6,296 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import java.lang.CloneNotSupportedException;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Objects;
 
 /**
- * Model for a policy. */
-@Preamble(
-    description = "Model for a policy."
-)
+ * Model for a policy.
+ */
+@Preamble(description = "Model for a policy.")
 public abstract class AbstractPolicy implements SdkModel {
-  /**
-   * Serialisation Id. */
-  private static final long serialVersionUID = 1243902668121920L;
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = 1243902668121920L;
 
-  /**
-   * Comma separated list of actions, empty string represents all actions. */
-  protected String action;
+    /**
+     * Comma separated list of actions, empty string represents all actions.
+     */
+    protected String action;
 
-  /**
-   * True or false controlling whether an action is allowed or not. */
-  protected boolean allow;
+    /**
+     * True or false controlling whether an action is allowed or not.
+     */
+    protected boolean allow;
 
-  /**
-   * Feature name corresponding to this policy. */
-  protected String feature;
+    /**
+     * Feature name corresponding to this policy.
+     */
+    protected String feature;
 
-  /**
-   * Flag indicating whether this feature is inherited or overwritten specifically. */
-  protected boolean inherited;
+    /**
+     * Flag indicating whether this feature is inherited or overwritten specifically.
+     */
+    protected boolean inherited;
 
-  /**
-   * Resource that is protected by this policy. */
-  protected String resource;
+    /**
+     * Resource that is protected by this policy.
+     */
+    protected String resource;
 
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #AbstractPolicy()} instead.
-   * @param action Comma separated list of actions, empty string represents all actions.
-   * @param allow True or false controlling whether an action is allowed or not.
-   * @param feature Feature name corresponding to this policy.
-   * @param inherited Flag indicating whether this feature is inherited or overwritten specifically.
-   * @param resource Resource that is protected by this policy.
-   */
-  @Internal
-  public AbstractPolicy(String action, boolean allow, String feature, boolean inherited,
-      String resource) {
-    super();
-    setAction(action);
-    setAllow(allow);
-    setFeature(feature);
-    setInherited(inherited);
-    setResource(resource);
-  }
-
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #AbstractPolicy()} instead.
-   * @param abstractPolicy an abstract policy.
-   */
-  @Internal
-  public AbstractPolicy(AbstractPolicy abstractPolicy) {
-    this(abstractPolicy == null ? (String) null : abstractPolicy.action,
-        abstractPolicy == null ? false : abstractPolicy.allow,
-        abstractPolicy == null ? (String) null : abstractPolicy.feature,
-        abstractPolicy == null ? false : abstractPolicy.inherited,
-        abstractPolicy == null ? (String) null : abstractPolicy.resource);
-  }
-
-  /**
-   * Constructor.
-   */
-  public AbstractPolicy() {
-    this((String) null,
-        false,
-        (String) null,
-        false,
-        (String) null);
-  }
-
-  /**
-   * Gets comma separated list of actions, empty string represents all actions.
-   * @return action
-   */
-  public String getAction() {
-    return action;
-  }
-
-  /**
-   * Sets comma separated list of actions, empty string represents all actions.
-   * @param action Comma separated list of actions, empty string represents all actions.
-   */
-  public void setAction(String action) {
-    this.action = action;
-  }
-
-  /**
-   * Gets true or false controlling whether an action is allowed or not.
-   * @return allow
-   */
-  public boolean isAllow() {
-    return allow;
-  }
-
-  /**
-   * Sets true or false controlling whether an action is allowed or not.
-   * @param allow True or false controlling whether an action is allowed or not.
-   */
-  public void setAllow(boolean allow) {
-    this.allow = allow;
-  }
-
-  /**
-   * Gets feature name corresponding to this policy.
-   * @return feature
-   */
-  public String getFeature() {
-    return feature;
-  }
-
-  /**
-   * Sets feature name corresponding to this policy.
-   * @param feature Feature name corresponding to this policy.
-   */
-  public void setFeature(String feature) {
-    this.feature = feature;
-  }
-
-  /**
-   * Gets flag indicating whether this feature is inherited or overwritten specifically.
-   * @return inherited
-   */
-  public boolean isInherited() {
-    return inherited;
-  }
-
-  /**
-   * Sets flag indicating whether this feature is inherited or overwritten specifically.
-   * @param inherited Flag indicating whether this feature is inherited or overwritten specifically.
-   */
-  public void setInherited(boolean inherited) {
-    this.inherited = inherited;
-  }
-
-  /**
-   * Gets resource that is protected by this policy.
-   * @return resource
-   */
-  public String getResource() {
-    return resource;
-  }
-
-  /**
-   * Sets resource that is protected by this policy.
-   * @param resource Resource that is protected by this policy.
-   */
-  public void setResource(String resource) {
-    this.resource = resource;
-  }
-
-  /**
-   * Calculates the hash code of this instance based on field values.
-   * <p>
-   * @see java.lang.Object#hashCode()
-   * @return hash code
-   */
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((action == null) ? 0 : action.hashCode());
-    result = prime * result +  Objects.hashCode(allow);
-    result = prime * result + ((feature == null) ? 0 : feature.hashCode());
-    result = prime * result +  Objects.hashCode(inherited);
-    result = prime * result + ((resource == null) ? 0 : resource.hashCode());
-    return result;
-  }
-
-  /**
-   * Indicates whether some other object is "equal to" this one.
-   * <p>
-   * @see java.lang.Object#equals(java.lang.Object)
-   * @param obj an object to compare with this instance.
-   * @return true if this object is the same as the obj argument; false otherwise.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #AbstractPolicy()} instead.
+     * 
+     * @param action
+     *            Comma separated list of actions, empty string represents all actions.
+     * @param allow
+     *            True or false controlling whether an action is allowed or not.
+     * @param feature
+     *            Feature name corresponding to this policy.
+     * @param inherited
+     *            Flag indicating whether this feature is inherited or overwritten specifically.
+     * @param resource
+     *            Resource that is protected by this policy.
+     */
+    @Internal
+    public AbstractPolicy(String action, boolean allow, String feature, boolean inherited, String resource) {
+        super();
+        setAction(action);
+        setAllow(allow);
+        setFeature(feature);
+        setInherited(inherited);
+        setResource(resource);
     }
-    if (obj == null) {
-      return false;
-    }
-    if (!getClass().isAssignableFrom(obj.getClass()))  {
-      return false;
-    }
-    final Policy other = (Policy) obj;
-    if (action == null) {
-      if (other.action != null) {
-        return false;
-      }
-    } else if (!action.equals(other.action)) {
-      return false;
-    }
-    if (allow != other.allow) {
-      return false;
-    }
-    if (feature == null) {
-      if (other.feature != null) {
-        return false;
-      }
-    } else if (!feature.equals(other.feature)) {
-      return false;
-    }
-    if (inherited != other.inherited) {
-      return false;
-    }
-    if (resource == null) {
-      if (other.resource != null) {
-        return false;
-      }
-    } else if (!resource.equals(other.resource)) {
-      return false;
-    }
-    return true;
-  }
 
-  /**
-   * Returns a string representation of the object.
-   * <p>
-   * @see java.lang.Object#toString()
-   * @return the string representation
-   */
-  @Override
-  public String toString() {
-    return "AbstractPolicy [action=" + action
-        + ", allow=" + allow
-        + ", feature=" + feature
-        + ", inherited=" + inherited
-        + ", resource=" + resource + "]";
-  }
-
-  /**
-   * Checks whether the model is valid or not.
-   * <p>
-   * @see SdkModel#isValid()
-   * @return true if the model is valid; false otherwise.
-   */
-  @Override
-  public boolean isValid() {
-    return true;
-  }
-
-  /**
-   * Clones this instance.
-   * <p>
-   * @see java.lang.Object#clone()
-   * @return a cloned instance
-   */
-  @Override
-  public Object clone() {
-    try {
-      return super.clone();
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #AbstractPolicy()} instead.
+     * 
+     * @param abstractPolicy
+     *            an abstract policy.
+     */
+    @Internal
+    public AbstractPolicy(AbstractPolicy abstractPolicy) {
+        this(abstractPolicy == null ? (String) null : abstractPolicy.action,
+             abstractPolicy == null ? false : abstractPolicy.allow,
+             abstractPolicy == null ? (String) null : abstractPolicy.feature,
+             abstractPolicy == null ? false : abstractPolicy.inherited,
+             abstractPolicy == null ? (String) null : abstractPolicy.resource);
     }
-    catch(CloneNotSupportedException exception) {
-      return null;
+
+    /**
+     * Constructor.
+     */
+    public AbstractPolicy() {
+        this((String) null, false, (String) null, false, (String) null);
     }
-  }
+
+    /**
+     * Gets comma separated list of actions, empty string represents all actions.
+     * 
+     * @return action
+     */
+    public String getAction() {
+        return action;
+    }
+
+    /**
+     * Sets comma separated list of actions, empty string represents all actions.
+     * 
+     * @param action
+     *            Comma separated list of actions, empty string represents all actions.
+     */
+    public void setAction(String action) {
+        this.action = action;
+    }
+
+    /**
+     * Gets true or false controlling whether an action is allowed or not.
+     * 
+     * @return allow
+     */
+    public boolean isAllow() {
+        return allow;
+    }
+
+    /**
+     * Sets true or false controlling whether an action is allowed or not.
+     * 
+     * @param allow
+     *            True or false controlling whether an action is allowed or not.
+     */
+    public void setAllow(boolean allow) {
+        this.allow = allow;
+    }
+
+    /**
+     * Gets feature name corresponding to this policy.
+     * 
+     * @return feature
+     */
+    public String getFeature() {
+        return feature;
+    }
+
+    /**
+     * Sets feature name corresponding to this policy.
+     * 
+     * @param feature
+     *            Feature name corresponding to this policy.
+     */
+    public void setFeature(String feature) {
+        this.feature = feature;
+    }
+
+    /**
+     * Gets flag indicating whether this feature is inherited or overwritten specifically.
+     * 
+     * @return inherited
+     */
+    public boolean isInherited() {
+        return inherited;
+    }
+
+    /**
+     * Sets flag indicating whether this feature is inherited or overwritten specifically.
+     * 
+     * @param inherited
+     *            Flag indicating whether this feature is inherited or overwritten specifically.
+     */
+    public void setInherited(boolean inherited) {
+        this.inherited = inherited;
+    }
+
+    /**
+     * Gets resource that is protected by this policy.
+     * 
+     * @return resource
+     */
+    public String getResource() {
+        return resource;
+    }
+
+    /**
+     * Sets resource that is protected by this policy.
+     * 
+     * @param resource
+     *            Resource that is protected by this policy.
+     */
+    public void setResource(String resource) {
+        this.resource = resource;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((action == null) ? 0 : action.hashCode());
+        result = prime * result + Objects.hashCode(allow);
+        result = prime * result + ((feature == null) ? 0 : feature.hashCode());
+        result = prime * result + Objects.hashCode(inherited);
+        result = prime * result + ((resource == null) ? 0 : resource.hashCode());
+        return result;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final Policy other = (Policy) obj;
+        if (action == null) {
+            if (other.action != null) {
+                return false;
+            }
+        } else if (!action.equals(other.action)) {
+            return false;
+        }
+        if (allow != other.allow) {
+            return false;
+        }
+        if (feature == null) {
+            if (other.feature != null) {
+                return false;
+            }
+        } else if (!feature.equals(other.feature)) {
+            return false;
+        }
+        if (inherited != other.inherited) {
+            return false;
+        }
+        if (resource == null) {
+            if (other.resource != null) {
+                return false;
+            }
+        } else if (!resource.equals(other.resource)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "AbstractPolicy [action=" + action + ", allow=" + allow + ", feature=" + feature + ", inherited="
+               + inherited + ", resource=" + resource + "]";
+    }
+
+    /**
+     * Checks whether the model is valid or not.
+     * <p>
+     * 
+     * @see SdkModel#isValid()
+     * @return true if the model is valid; false otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException exception) {
+            return null;
+        }
+    }
 }

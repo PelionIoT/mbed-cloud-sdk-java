@@ -5,398 +5,439 @@ package com.arm.mbed.cloud.sdk.security.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Date;
 
 /**
- * Model for a developer certificate. */
-@Preamble(
-    description = "Model for a developer certificate."
-)
+ * Model for a developer certificate.
+ */
+@Preamble(description = "Model for a developer certificate.")
 public class DeveloperCertificate implements SdkModel {
-  /**
-   * Serialisation Id. */
-  private static final long serialVersionUID = -154971195745225L;
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = -154971195745225L;
 
-  /**
-   * account to which the developer certificate belongs. */
-  private String accountId;
+    /**
+     * account to which the developer certificate belongs.
+     */
+    private String accountId;
 
-  /**
-   * PEM format X.509 developer certificate. */
-  private String certificate;
+    /**
+     * PEM format X.509 developer certificate.
+     */
+    private String certificate;
 
-  /**
-   * Creation UTC time RFC3339. */
-  private Date createdAt;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    private Date createdAt;
 
-  /**
-   * Description for the developer certificate. */
-  private String description;
+    /**
+     * Description for the developer certificate.
+     */
+    private String description;
 
-  /**
-   * mUUID that uniquely identifies the developer certificate. */
-  private String id;
+    /**
+     * mUUID that uniquely identifies the developer certificate.
+     */
+    private String id;
 
-  /**
-   * Name of the developer certificate. */
-  private String name;
+    /**
+     * Name of the developer certificate.
+     */
+    private String name;
 
-  /**
-   * PEM format developer private key associated to the certificate. */
-  private String privateKey;
+    /**
+     * PEM format developer private key associated to the certificate.
+     */
+    private String privateKey;
 
-  /**
-   * Content of the security.c file that will be flashed into the device to provide the security credentials. */
-  private String securityFileContent;
+    /**
+     * Content of the security.c file that will be flashed into the device to provide the security credentials.
+     */
+    private String securityFileContent;
 
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
-   * @param accountId account to which the developer certificate belongs.
-   * @param certificate PEM format X.509 developer certificate.
-   * @param createdAt Creation UTC time RFC3339.
-   * @param description Description for the developer certificate.
-   * @param id mUUID that uniquely identifies the developer certificate.
-   * @param name Name of the developer certificate.
-   * @param privateKey PEM format developer private key associated to the certificate.
-   * @param securityFileContent Content of the security.c file that will be flashed into the device to provide the security credentials.
-   */
-  @Internal
-  public DeveloperCertificate(String accountId, String certificate, Date createdAt,
-      String description, String id, String name, String privateKey, String securityFileContent) {
-    super();
-    setAccountId(accountId);
-    setCertificate(certificate);
-    setCreatedAt(createdAt);
-    setDescription(description);
-    setId(id);
-    setName(name);
-    setPrivateKey(privateKey);
-    setSecurityFileContent(securityFileContent);
-  }
-
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
-   * @param developerCertificate a developer certificate.
-   */
-  @Internal
-  public DeveloperCertificate(DeveloperCertificate developerCertificate) {
-    this(developerCertificate == null ? (String) null : developerCertificate.accountId,
-        developerCertificate == null ? (String) null : developerCertificate.certificate,
-        developerCertificate == null ? new java.util.Date() : developerCertificate.createdAt,
-        developerCertificate == null ? (String) null : developerCertificate.description,
-        developerCertificate == null ? (String) null : developerCertificate.id,
-        developerCertificate == null ? (String) null : developerCertificate.name,
-        developerCertificate == null ? (String) null : developerCertificate.privateKey,
-        developerCertificate == null ? (String) null : developerCertificate.securityFileContent);
-  }
-
-  /**
-   * Constructor.
-   */
-  public DeveloperCertificate() {
-    this((String) null,
-        (String) null,
-        new java.util.Date(),
-        (String) null,
-        (String) null,
-        (String) null,
-        (String) null,
-        (String) null);
-  }
-
-  /**
-   * Constructor.
-   * @param id mUUID that uniquely identifies the developer certificate.
-   */
-  public DeveloperCertificate(String id) {
-    this();
-    setId(id);
-  }
-
-  /**
-   * Gets account to which the developer certificate belongs.
-   * @return accountId
-   */
-  public String getAccountId() {
-    return accountId;
-  }
-
-  /**
-   * Sets account to which the developer certificate belongs.
-   * @param accountId account to which the developer certificate belongs.
-   */
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-  /**
-   * Gets pem format x.509 developer certificate.
-   * @return certificate
-   */
-  public String getCertificate() {
-    return certificate;
-  }
-
-  /**
-   * Sets pem format x.509 developer certificate.
-   * @param certificate PEM format X.509 developer certificate.
-   */
-  public void setCertificate(String certificate) {
-    this.certificate = certificate;
-  }
-
-  /**
-   * Gets creation utc time rfc3339.
-   * @return createdAt
-   */
-  public Date getCreatedAt() {
-    return createdAt;
-  }
-
-  /**
-   * Sets creation utc time rfc3339.
-   * @param createdAt Creation UTC time RFC3339.
-   */
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  /**
-   * Gets description for the developer certificate.
-   * @return description
-   */
-  public String getDescription() {
-    return description;
-  }
-
-  /**
-   * Sets description for the developer certificate.
-   * @param description Description for the developer certificate.
-   */
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  /**
-   * Gets muuid that uniquely identifies the developer certificate.
-   * @return id
-   */
-  @Override
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Sets muuid that uniquely identifies the developer certificate.
-   * @param id mUUID that uniquely identifies the developer certificate.
-   */
-  @Override
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * Sets muuid that uniquely identifies the developer certificate.
-   * <p>
-   * Similar to {@link #setId(String)}
-   * @param developerCertificateId mUUID that uniquely identifies the developer certificate.
-   */
-  @Internal
-  public void setDeveloperCertificateId(String developerCertificateId) {
-    setId(developerCertificateId);
-  }
-
-  /**
-   * Gets name of the developer certificate.
-   * @return name
-   */
-  public String getName() {
-    return name;
-  }
-
-  /**
-   * Sets name of the developer certificate.
-   * @param name Name of the developer certificate.
-   */
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  /**
-   * Gets pem format developer private key associated to the certificate.
-   * @return privateKey
-   */
-  public String getPrivateKey() {
-    return privateKey;
-  }
-
-  /**
-   * Sets pem format developer private key associated to the certificate.
-   * @param privateKey PEM format developer private key associated to the certificate.
-   */
-  public void setPrivateKey(String privateKey) {
-    this.privateKey = privateKey;
-  }
-
-  /**
-   * Gets content of the security.c file that will be flashed into the device to provide the security credentials.
-   * @return securityFileContent
-   */
-  public String getSecurityFileContent() {
-    return securityFileContent;
-  }
-
-  /**
-   * Sets content of the security.c file that will be flashed into the device to provide the security credentials.
-   * @param securityFileContent Content of the security.c file that will be flashed into the device to provide the security credentials.
-   */
-  public void setSecurityFileContent(String securityFileContent) {
-    this.securityFileContent = securityFileContent;
-  }
-
-  /**
-   * Calculates the hash code of this instance based on field values.
-   * <p>
-   * @see java.lang.Object#hashCode()
-   * @return hash code
-   */
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-    result = prime * result + ((certificate == null) ? 0 : certificate.hashCode());
-    result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((name == null) ? 0 : name.hashCode());
-    result = prime * result + ((privateKey == null) ? 0 : privateKey.hashCode());
-    result = prime * result + ((securityFileContent == null) ? 0 : securityFileContent.hashCode());
-    return result;
-  }
-
-  /**
-   * Indicates whether some other object is "equal to" this one.
-   * <p>
-   * @see java.lang.Object#equals(java.lang.Object)
-   * @param obj an object to compare with this instance.
-   * @return true if this object is the same as the obj argument; false otherwise.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
+     * 
+     * @param accountId
+     *            account to which the developer certificate belongs.
+     * @param certificate
+     *            PEM format X.509 developer certificate.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param description
+     *            Description for the developer certificate.
+     * @param id
+     *            mUUID that uniquely identifies the developer certificate.
+     * @param name
+     *            Name of the developer certificate.
+     * @param privateKey
+     *            PEM format developer private key associated to the certificate.
+     * @param securityFileContent
+     *            Content of the security.c file that will be flashed into the device to provide the security
+     *            credentials.
+     */
+    @Internal
+    public DeveloperCertificate(String accountId, String certificate, Date createdAt, String description, String id,
+                                String name, String privateKey, String securityFileContent) {
+        super();
+        setAccountId(accountId);
+        setCertificate(certificate);
+        setCreatedAt(createdAt);
+        setDescription(description);
+        setId(id);
+        setName(name);
+        setPrivateKey(privateKey);
+        setSecurityFileContent(securityFileContent);
     }
-    if (obj == null) {
-      return false;
-    }
-    if (!getClass().isAssignableFrom(obj.getClass()))  {
-      return false;
-    }
-    final DeveloperCertificate other = (DeveloperCertificate) obj;
-    if (accountId == null) {
-      if (other.accountId != null) {
-        return false;
-      }
-    } else if (!accountId.equals(other.accountId)) {
-      return false;
-    }
-    if (certificate == null) {
-      if (other.certificate != null) {
-        return false;
-      }
-    } else if (!certificate.equals(other.certificate)) {
-      return false;
-    }
-    if (createdAt == null) {
-      if (other.createdAt != null) {
-        return false;
-      }
-    } else if (!createdAt.equals(other.createdAt)) {
-      return false;
-    }
-    if (description == null) {
-      if (other.description != null) {
-        return false;
-      }
-    } else if (!description.equals(other.description)) {
-      return false;
-    }
-    if (id == null) {
-      if (other.id != null) {
-        return false;
-      }
-    } else if (!id.equals(other.id)) {
-      return false;
-    }
-    if (name == null) {
-      if (other.name != null) {
-        return false;
-      }
-    } else if (!name.equals(other.name)) {
-      return false;
-    }
-    if (privateKey == null) {
-      if (other.privateKey != null) {
-        return false;
-      }
-    } else if (!privateKey.equals(other.privateKey)) {
-      return false;
-    }
-    if (securityFileContent == null) {
-      if (other.securityFileContent != null) {
-        return false;
-      }
-    } else if (!securityFileContent.equals(other.securityFileContent)) {
-      return false;
-    }
-    return true;
-  }
 
-  /**
-   * Returns a string representation of the object.
-   * <p>
-   * @see java.lang.Object#toString()
-   * @return the string representation
-   */
-  @Override
-  public String toString() {
-    return "DeveloperCertificate [accountId=" + accountId
-        + ", certificate=" + certificate
-        + ", createdAt=" + createdAt
-        + ", description=" + description
-        + ", id=" + id
-        + ", name=" + name
-        + ", privateKey=" + privateKey
-        + ", securityFileContent=" + securityFileContent + "]";
-  }
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #DeveloperCertificate()} instead.
+     * 
+     * @param developerCertificate
+     *            a developer certificate.
+     */
+    @Internal
+    public DeveloperCertificate(DeveloperCertificate developerCertificate) {
+        this(developerCertificate == null ? (String) null : developerCertificate.accountId,
+             developerCertificate == null ? (String) null : developerCertificate.certificate,
+             developerCertificate == null ? new java.util.Date() : developerCertificate.createdAt,
+             developerCertificate == null ? (String) null : developerCertificate.description,
+             developerCertificate == null ? (String) null : developerCertificate.id,
+             developerCertificate == null ? (String) null : developerCertificate.name,
+             developerCertificate == null ? (String) null : developerCertificate.privateKey,
+             developerCertificate == null ? (String) null : developerCertificate.securityFileContent);
+    }
 
-  /**
-   * Checks whether the model is valid or not.
-   * <p>
-   * @see SdkModel#isValid()
-   * @return true if the model is valid; false otherwise.
-   */
-  @Override
-  public boolean isValid() {
-    return true;
-  }
+    /**
+     * Constructor.
+     */
+    public DeveloperCertificate() {
+        this((String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
+             (String) null, (String) null);
+    }
 
-  /**
-   * Clones this instance.
-   * <p>
-   * @see java.lang.Object#clone()
-   * @return a cloned instance
-   */
-  @Override
-  public DeveloperCertificate clone() {
-    return new DeveloperCertificate(this);
-  }
+    /**
+     * Constructor.
+     * 
+     * @param id
+     *            mUUID that uniquely identifies the developer certificate.
+     */
+    public DeveloperCertificate(String id) {
+        this();
+        setId(id);
+    }
+
+    /**
+     * Gets account to which the developer certificate belongs.
+     * 
+     * @return accountId
+     */
+    public String getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * Sets account to which the developer certificate belongs.
+     * 
+     * @param accountId
+     *            account to which the developer certificate belongs.
+     */
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * Gets pem format x.509 developer certificate.
+     * 
+     * @return certificate
+     */
+    public String getCertificate() {
+        return certificate;
+    }
+
+    /**
+     * Sets pem format x.509 developer certificate.
+     * 
+     * @param certificate
+     *            PEM format X.509 developer certificate.
+     */
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
+    }
+
+    /**
+     * Gets creation utc time rfc3339.
+     * 
+     * @return createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Sets creation utc time rfc3339.
+     * 
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Gets description for the developer certificate.
+     * 
+     * @return description
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Sets description for the developer certificate.
+     * 
+     * @param description
+     *            Description for the developer certificate.
+     */
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    /**
+     * Gets muuid that uniquely identifies the developer certificate.
+     * 
+     * @return id
+     */
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets muuid that uniquely identifies the developer certificate.
+     * 
+     * @param id
+     *            mUUID that uniquely identifies the developer certificate.
+     */
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets muuid that uniquely identifies the developer certificate.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param developerCertificateId
+     *            mUUID that uniquely identifies the developer certificate.
+     */
+    @Internal
+    public void setDeveloperCertificateId(String developerCertificateId) {
+        setId(developerCertificateId);
+    }
+
+    /**
+     * Gets name of the developer certificate.
+     * 
+     * @return name
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets name of the developer certificate.
+     * 
+     * @param name
+     *            Name of the developer certificate.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Gets pem format developer private key associated to the certificate.
+     * 
+     * @return privateKey
+     */
+    public String getPrivateKey() {
+        return privateKey;
+    }
+
+    /**
+     * Sets pem format developer private key associated to the certificate.
+     * 
+     * @param privateKey
+     *            PEM format developer private key associated to the certificate.
+     */
+    public void setPrivateKey(String privateKey) {
+        this.privateKey = privateKey;
+    }
+
+    /**
+     * Gets content of the security.c file that will be flashed into the device to provide the security credentials.
+     * 
+     * @return securityFileContent
+     */
+    public String getSecurityFileContent() {
+        return securityFileContent;
+    }
+
+    /**
+     * Sets content of the security.c file that will be flashed into the device to provide the security credentials.
+     * 
+     * @param securityFileContent
+     *            Content of the security.c file that will be flashed into the device to provide the security
+     *            credentials.
+     */
+    public void setSecurityFileContent(String securityFileContent) {
+        this.securityFileContent = securityFileContent;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((certificate == null) ? 0 : certificate.hashCode());
+        result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((privateKey == null) ? 0 : privateKey.hashCode());
+        result = prime * result + ((securityFileContent == null) ? 0 : securityFileContent.hashCode());
+        return result;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!getClass().isAssignableFrom(obj.getClass())) {
+            return false;
+        }
+        final DeveloperCertificate other = (DeveloperCertificate) obj;
+        if (accountId == null) {
+            if (other.accountId != null) {
+                return false;
+            }
+        } else if (!accountId.equals(other.accountId)) {
+            return false;
+        }
+        if (certificate == null) {
+            if (other.certificate != null) {
+                return false;
+            }
+        } else if (!certificate.equals(other.certificate)) {
+            return false;
+        }
+        if (createdAt == null) {
+            if (other.createdAt != null) {
+                return false;
+            }
+        } else if (!createdAt.equals(other.createdAt)) {
+            return false;
+        }
+        if (description == null) {
+            if (other.description != null) {
+                return false;
+            }
+        } else if (!description.equals(other.description)) {
+            return false;
+        }
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        if (name == null) {
+            if (other.name != null) {
+                return false;
+            }
+        } else if (!name.equals(other.name)) {
+            return false;
+        }
+        if (privateKey == null) {
+            if (other.privateKey != null) {
+                return false;
+            }
+        } else if (!privateKey.equals(other.privateKey)) {
+            return false;
+        }
+        if (securityFileContent == null) {
+            if (other.securityFileContent != null) {
+                return false;
+            }
+        } else if (!securityFileContent.equals(other.securityFileContent)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "DeveloperCertificate [accountId=" + accountId + ", certificate=" + certificate + ", createdAt="
+               + createdAt + ", description=" + description + ", id=" + id + ", name=" + name + ", privateKey="
+               + privateKey + ", securityFileContent=" + securityFileContent + "]";
+    }
+
+    /**
+     * Checks whether the model is valid or not.
+     * <p>
+     * 
+     * @see SdkModel#isValid()
+     * @return true if the model is valid; false otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public DeveloperCertificate clone() {
+        return new DeveloperCertificate(this);
+    }
 }

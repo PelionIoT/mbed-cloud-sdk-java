@@ -7,8 +7,6 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
-import java.lang.Override;
-import java.lang.String;
 
 /**
  * Certificate enrollment include. */

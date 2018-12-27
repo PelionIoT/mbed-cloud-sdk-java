@@ -7,140 +7,141 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model DeviceEnrollmentBulkCreate. */
+ * Unit tests for Model DeviceEnrollmentBulkCreate.
+ */
 public class TestDeviceEnrollmentBulkCreate {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("852bcdb1-cbdf-4456-9a21-b1d4e96051b8",
-        new java.util.Date(1545929357292L),
-        new java.util.Date(1545929358468L),
-        -107,
-        "21c460fd-4a16-48a3-8d00-6b17901bd8f7",
-        "b0570aea-e07e-4935-ab5c-187db3ce6b20",
-        "8BD14rO5ekI2cJ917xCsOFevd3OJk8q5",
-        -119,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -117);
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = deviceenrollmentbulkcreate1.clone();
-    assertNotNull(deviceenrollmentbulkcreate1);
-    assertNotNull(deviceenrollmentbulkcreate2);
-    assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-  }
-
-  /**
-   * Tests the isvalid method.
-   */
-  @Test
-  public void testIsvalid() {
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("a44aabc7-ba1c-4399-b540-aa5717574136",
-        new java.util.Date(1545929353616L),
-        new java.util.Date(1545929357484L),
-        -101,
-        "b581c23d-6bcf-4efa-9dd6-484884d78286",
-        "a020be81-efc7-4077-ad51-1891838f14b1",
-        "ASBXYVOL9ROfbB97OAl3FdX146Bc6m0z",
-        40,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -34);
-    assertTrue(deviceenrollmentbulkcreate.isValid());
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("71873356-bca4-4358-9335-d86ead6ed839",
-        new java.util.Date(1545929353966L),
-        new java.util.Date(1545929354736L),
-        67,
-        "002de1c9-064f-4073-aa92-97e854c6c4d7",
-        "c4afdf4a-ac86-4143-9fa1-71c407854240",
-        "=S-lf6sLL:USk6H2fLVVUbNL>>2VSbgLXtNSS<Sb6Lf>O6@Otl?UY씫sjLsU苮.S",
-        -119,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -125);
-    assertFalse(deviceenrollmentbulkcreateInvalid.isValid());
-  }
-
-  /**
-   * Tests the hashcode method.
-   */
-  @Test
-  public void testHashcode() {
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("18f0984d-338e-4a23-9126-7664788aca84",
-        new java.util.Date(1545929355079L),
-        new java.util.Date(1545929353705L),
-        20,
-        "56e43121-e5f3-4750-836c-a799ebcc7674",
-        "0d6d0557-9807-4494-88eb-015570c54ed7",
-        "8U4YR2gFf446X11aWGqi31Wb4aNatM3d",
-        105,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        45);
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("18f0984d-338e-4a23-9126-7664788aca84",
-        new java.util.Date(1545929355079L),
-        new java.util.Date(1545929353705L),
-        20,
-        "56e43121-e5f3-4750-836c-a799ebcc7674",
-        "0d6d0557-9807-4494-88eb-015570c54ed7",
-        "8U4YR2gFf446X11aWGqi31Wb4aNatM3d",
-        105,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        45);
-    assertNotNull(deviceenrollmentbulkcreate1);
-    assertNotNull(deviceenrollmentbulkcreate2);
-    assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate2.hashCode(), deviceenrollmentbulkcreate1.hashCode());
-    int hashCode = deviceenrollmentbulkcreate1.hashCode();
-    for (int i = 0; i < 5 ; i++) {
-      assertEquals(hashCode, deviceenrollmentbulkcreate1.hashCode());
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("852bcdb1-cbdf-4456-9a21-b1d4e96051b8",
+                                                                                                new java.util.Date(1545929357292L),
+                                                                                                new java.util.Date(1545929358468L),
+                                                                                                -107,
+                                                                                                "21c460fd-4a16-48a3-8d00-6b17901bd8f7",
+                                                                                                "b0570aea-e07e-4935-ab5c-187db3ce6b20",
+                                                                                                "8BD14rO5ekI2cJ917xCsOFevd3OJk8q5",
+                                                                                                -119,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                -117);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = deviceenrollmentbulkcreate1.clone();
+        assertNotNull(deviceenrollmentbulkcreate1);
+        assertNotNull(deviceenrollmentbulkcreate2);
+        assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
     }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("8b27210b-8291-46e0-a9e4-72cfae18c289",
-        new java.util.Date(1545929358896L),
-        new java.util.Date(1545929356716L),
-        21,
-        "fb0f2baa-2c52-47d6-b432-67f40ce4b7ad",
-        "b57c30a2-0857-4c5d-80d8-2d8e9004a6fe",
-        "aH6Y0l016xRclj5Fw0h5F9k4s94zDFtj",
-        81,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -39);
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("8b27210b-8291-46e0-a9e4-72cfae18c289",
-        new java.util.Date(1545929358896L),
-        new java.util.Date(1545929356716L),
-        21,
-        "fb0f2baa-2c52-47d6-b432-67f40ce4b7ad",
-        "b57c30a2-0857-4c5d-80d8-2d8e9004a6fe",
-        "aH6Y0l016xRclj5Fw0h5F9k4s94zDFtj",
-        81,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -39);
-    DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("8854a846-2234-4a71-823b-35f1501da663",
-        new java.util.Date(1545929355119L),
-        new java.util.Date(1545929356956L),
-        96,
-        "c032830f-dc12-4027-bf5c-9e11d76a0f0e",
-        "c6247c69-be46-4505-be37-182cac1aff86",
-        "sZ2zGCguMzaiMAN7EyRzDrvp5e4m87mT",
-        -64,
-        com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-        -30);
-    assertNotNull(deviceenrollmentbulkcreate1);
-    assertNotNull(deviceenrollmentbulkcreate2);
-    assertNotNull(deviceenrollmentbulkcreate3);
-    assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertNotSame(deviceenrollmentbulkcreate3, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
-    assertEquals(deviceenrollmentbulkcreate1, deviceenrollmentbulkcreate2);
-    assertEquals(deviceenrollmentbulkcreate1, deviceenrollmentbulkcreate1);
-    assertFalse(deviceenrollmentbulkcreate1.equals(null));
-    assertNotEquals(deviceenrollmentbulkcreate3, deviceenrollmentbulkcreate1);
-  }
+    /**
+     * Tests the isvalid method.
+     */
+    @Test
+    public void testIsvalid() {
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("a44aabc7-ba1c-4399-b540-aa5717574136",
+                                                                                               new java.util.Date(1545929353616L),
+                                                                                               new java.util.Date(1545929357484L),
+                                                                                               -101,
+                                                                                               "b581c23d-6bcf-4efa-9dd6-484884d78286",
+                                                                                               "a020be81-efc7-4077-ad51-1891838f14b1",
+                                                                                               "ASBXYVOL9ROfbB97OAl3FdX146Bc6m0z",
+                                                                                               40,
+                                                                                               com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                               -34);
+        assertTrue(deviceenrollmentbulkcreate.isValid());
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("71873356-bca4-4358-9335-d86ead6ed839",
+                                                                                                      new java.util.Date(1545929353966L),
+                                                                                                      new java.util.Date(1545929354736L),
+                                                                                                      67,
+                                                                                                      "002de1c9-064f-4073-aa92-97e854c6c4d7",
+                                                                                                      "c4afdf4a-ac86-4143-9fa1-71c407854240",
+                                                                                                      "=S-lf6sLL:USk6H2fLVVUbNL>>2VSbgLXtNSS<Sb6Lf>O6@Otl?UY씫sjLsU苮.S",
+                                                                                                      -119,
+                                                                                                      com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                      -125);
+        assertFalse(deviceenrollmentbulkcreateInvalid.isValid());
+    }
+
+    /**
+     * Tests the hashcode method.
+     */
+    @Test
+    public void testHashcode() {
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("18f0984d-338e-4a23-9126-7664788aca84",
+                                                                                                new java.util.Date(1545929355079L),
+                                                                                                new java.util.Date(1545929353705L),
+                                                                                                20,
+                                                                                                "56e43121-e5f3-4750-836c-a799ebcc7674",
+                                                                                                "0d6d0557-9807-4494-88eb-015570c54ed7",
+                                                                                                "8U4YR2gFf446X11aWGqi31Wb4aNatM3d",
+                                                                                                105,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                45);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("18f0984d-338e-4a23-9126-7664788aca84",
+                                                                                                new java.util.Date(1545929355079L),
+                                                                                                new java.util.Date(1545929353705L),
+                                                                                                20,
+                                                                                                "56e43121-e5f3-4750-836c-a799ebcc7674",
+                                                                                                "0d6d0557-9807-4494-88eb-015570c54ed7",
+                                                                                                "8U4YR2gFf446X11aWGqi31Wb4aNatM3d",
+                                                                                                105,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                45);
+        assertNotNull(deviceenrollmentbulkcreate1);
+        assertNotNull(deviceenrollmentbulkcreate2);
+        assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate2.hashCode(), deviceenrollmentbulkcreate1.hashCode());
+        int hashCode = deviceenrollmentbulkcreate1.hashCode();
+        for (int i = 0; i < 5; i++) {
+            assertEquals(hashCode, deviceenrollmentbulkcreate1.hashCode());
+        }
+    }
+
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("8b27210b-8291-46e0-a9e4-72cfae18c289",
+                                                                                                new java.util.Date(1545929358896L),
+                                                                                                new java.util.Date(1545929356716L),
+                                                                                                21,
+                                                                                                "fb0f2baa-2c52-47d6-b432-67f40ce4b7ad",
+                                                                                                "b57c30a2-0857-4c5d-80d8-2d8e9004a6fe",
+                                                                                                "aH6Y0l016xRclj5Fw0h5F9k4s94zDFtj",
+                                                                                                81,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                -39);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("8b27210b-8291-46e0-a9e4-72cfae18c289",
+                                                                                                new java.util.Date(1545929358896L),
+                                                                                                new java.util.Date(1545929356716L),
+                                                                                                21,
+                                                                                                "fb0f2baa-2c52-47d6-b432-67f40ce4b7ad",
+                                                                                                "b57c30a2-0857-4c5d-80d8-2d8e9004a6fe",
+                                                                                                "aH6Y0l016xRclj5Fw0h5F9k4s94zDFtj",
+                                                                                                81,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                -39);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("8854a846-2234-4a71-823b-35f1501da663",
+                                                                                                new java.util.Date(1545929355119L),
+                                                                                                new java.util.Date(1545929356956L),
+                                                                                                96,
+                                                                                                "c032830f-dc12-4027-bf5c-9e11d76a0f0e",
+                                                                                                "c6247c69-be46-4505-be37-182cac1aff86",
+                                                                                                "sZ2zGCguMzaiMAN7EyRzDrvp5e4m87mT",
+                                                                                                -64,
+                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
+                                                                                                -30);
+        assertNotNull(deviceenrollmentbulkcreate1);
+        assertNotNull(deviceenrollmentbulkcreate2);
+        assertNotNull(deviceenrollmentbulkcreate3);
+        assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertNotSame(deviceenrollmentbulkcreate3, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
+        assertEquals(deviceenrollmentbulkcreate1, deviceenrollmentbulkcreate2);
+        assertEquals(deviceenrollmentbulkcreate1, deviceenrollmentbulkcreate1);
+        assertFalse(deviceenrollmentbulkcreate1.equals(null));
+        assertNotEquals(deviceenrollmentbulkcreate3, deviceenrollmentbulkcreate1);
+    }
 }

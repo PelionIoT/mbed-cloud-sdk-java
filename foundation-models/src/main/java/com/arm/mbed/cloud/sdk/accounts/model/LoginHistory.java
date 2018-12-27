@@ -5,137 +5,139 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.NotImplementedException;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Date;
 
 /**
- * Model for a login history. */
-@Preamble(
-    description = "Model for a login history."
-)
+ * Model for a login history.
+ */
+@Preamble(description = "Model for a login history.")
 public class LoginHistory extends AbstractLoginHistory {
-  /**
-   * Serialisation Id. */
-  private static final long serialVersionUID = 9919323551215791L;
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = 9919323551215791L;
 
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #LoginHistory()} instead.
-   * @param date UTC time RFC3339 for this login attempt.
-   * @param ipAddress IP address of the client.
-   * @param success Flag indicating whether login attempt was successful or not.
-   * @param userAgent User Agent header from the login request.
-   */
-  @Internal
-  public LoginHistory(Date date, String ipAddress, boolean success, String userAgent) {
-    super(date,
-        ipAddress,
-        success,
-        userAgent);
-  }
-
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #LoginHistory()} instead.
-   * @param loginHistory a login history.
-   */
-  @Internal
-  public LoginHistory(LoginHistory loginHistory) {
-    this(loginHistory == null ? new java.util.Date() : loginHistory.date,
-        loginHistory == null ? (String) null : loginHistory.ipAddress,
-        loginHistory == null ? false : loginHistory.success,
-        loginHistory == null ? (String) null : loginHistory.userAgent);
-  }
-
-  /**
-   * Constructor.
-   */
-  public LoginHistory() {
-    this(new java.util.Date(),
-        (String) null,
-        false,
-        (String) null);
-  }
-
-  /**
-   * @return something
-   */
-  @Override
-  public String getId() throws NotImplementedException {
-    // TODO Auto-generated method stub.;
-    throw new NotImplementedException();
-  }
-
-  /**
-   * @param id a string.
-   */
-  @Override
-  public void setId(String id) throws NotImplementedException {
-    // TODO Auto-generated method stub.;
-    throw new NotImplementedException();
-  }
-
-  /**
-   * Indicates whether some other object is "equal to" this one.
-   * <p>
-   * @see java.lang.Object#equals(java.lang.Object)
-   * @param obj an object to compare with this instance.
-   * @return true if this object is the same as the obj argument; false otherwise.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #LoginHistory()} instead.
+     * 
+     * @param date
+     *            UTC time RFC3339 for this login attempt.
+     * @param ipAddress
+     *            IP address of the client.
+     * @param success
+     *            Flag indicating whether login attempt was successful or not.
+     * @param userAgent
+     *            User Agent header from the login request.
+     */
+    @Internal
+    public LoginHistory(Date date, String ipAddress, boolean success, String userAgent) {
+        super(date, ipAddress, success, userAgent);
     }
-    if (obj == null) {
-      return false;
-    }
-    if (getClass() != obj.getClass())  {
-      return false;
-    }
-    if (!super.equals(obj))  {
-      return false;
-    }
-    return true;
-  }
 
-  /**
-   * Returns a string representation of the object.
-   * <p>
-   * @see java.lang.Object#toString()
-   * @return the string representation
-   */
-  @Override
-  public String toString() {
-    return "LoginHistory [date=" + date
-        + ", ipAddress=" + ipAddress
-        + ", success=" + success
-        + ", userAgent=" + userAgent + "]";
-  }
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #LoginHistory()} instead.
+     * 
+     * @param loginHistory
+     *            a login history.
+     */
+    @Internal
+    public LoginHistory(LoginHistory loginHistory) {
+        this(loginHistory == null ? new java.util.Date() : loginHistory.date,
+             loginHistory == null ? (String) null : loginHistory.ipAddress,
+             loginHistory == null ? false : loginHistory.success,
+             loginHistory == null ? (String) null : loginHistory.userAgent);
+    }
 
-  /**
-   * Checks whether the model is valid or not.
-   * <p>
-   * @see SdkModel#isValid()
-   * @return true if the model is valid; false otherwise.
-   */
-  @Override
-  public boolean isValid() {
-    return super.isValid();
-  }
+    /**
+     * Constructor.
+     */
+    public LoginHistory() {
+        this(new java.util.Date(), (String) null, false, (String) null);
+    }
 
-  /**
-   * Clones this instance.
-   * <p>
-   * @see java.lang.Object#clone()
-   * @return a cloned instance
-   */
-  @Override
-  public LoginHistory clone() {
-    return new LoginHistory(this);
-  }
+    /**
+     * @return something
+     */
+    @Override
+    public String getId() throws NotImplementedException {
+        // TODO Auto-generated method stub.;
+        throw new NotImplementedException();
+    }
+
+    /**
+     * @param id
+     *            a string.
+     */
+    @Override
+    public void setId(String id) throws NotImplementedException {
+        // TODO Auto-generated method stub.;
+        throw new NotImplementedException();
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        if (!super.equals(obj)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
+               + userAgent + "]";
+    }
+
+    /**
+     * Checks whether the model is valid or not.
+     * <p>
+     * 
+     * @see SdkModel#isValid()
+     * @return true if the model is valid; false otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return super.isValid();
+    }
+
+    /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public LoginHistory clone() {
+        return new LoginHistory(this);
+    }
 }

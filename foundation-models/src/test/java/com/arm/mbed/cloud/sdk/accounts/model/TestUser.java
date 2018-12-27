@@ -7,199 +7,109 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model User. */
+ * Unit tests for Model User.
+ */
 public class TestUser {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    User user1 = new User("f93fc094-6a84-4097-8811-1ae817213e14",
-        "3f3ef7f2-aa9b-43bc-8c54-701ec7ec599b",
-        new java.util.Date(1545929361783L),
-        6,
-        "b9759f51-7bbc-40f1-8058-1348947dc737",
-        false,
-        "c8771a5a-e49c-4480-9979-b10f7ed37170",
-        null,
-        "8d4e0566-f230-4405-908c-c1e1beff6088",
-        112,
-        null,
-        true,
-        "99a1d7d5-6d22-4fd9-a469-38f7548577cd",
-        -70,
-        "b7400807-b6ae-46aa-aa93-145133d77d9a",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        true,
-        false,
-        new java.util.Date(1545929356020L),
-        "d0b3b383-d495-4d91-8d11-a7e19c71728c");
-    User user2 = user1.clone();
-    assertNotNull(user1);
-    assertNotNull(user2);
-    assertNotSame(user2, user1);
-    assertEquals(user2, user1);
-  }
-
-  /**
-   * Tests the isvalid method.
-   */
-  @Test
-  public void testIsvalid() {
-    User user = new User("c3a200c9-569a-4b77-8d0f-f882758513a7",
-        "59c1f43d-8975-433f-b7a9-0d5612a2d6d0",
-        new java.util.Date(1545929352724L),
-        -21,
-        "ab3d7df5-008e-433c-a759-777348bd3471",
-        false,
-        "a256d11c-40b2-4691-853f-ecf38db051a2",
-        null,
-        "71b7a214-5fe0-4e61-be64-7ebc94e10526",
-        -51,
-        null,
-        true,
-        "57870e7a-8f79-4c33-8e3a-567bc0f97a9f",
-        104,
-        "59a19015-68ff-47be-9afd-6c164e254bd8",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        false,
-        true,
-        new java.util.Date(1545929356111L),
-        "5f748e85-6761-4f59-af17-05cbb0591434");
-    assertTrue(user.isValid());
-  }
-
-  /**
-   * Tests the hashcode method.
-   */
-  @Test
-  public void testHashcode() {
-    User user1 = new User("3a1e93e0-5024-4419-a472-fbf079e8c47a",
-        "95ec4a88-7695-44e3-90a8-f678088ac291",
-        new java.util.Date(1545929354504L),
-        -6,
-        "1556a2fc-6351-4595-b551-1fddb3aef998",
-        false,
-        "d4a6bbb3-2cc1-473c-9837-44a3a64bbc2a",
-        null,
-        "571cff4c-aec0-471b-84a0-47e8d3bdef6e",
-        46,
-        null,
-        false,
-        "099eff86-7d3e-435b-9d0f-5a6c2b58ffd3",
-        -111,
-        "fa950122-0bcc-4050-a72e-fae50278d9ad",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        false,
-        true,
-        new java.util.Date(1545929354103L),
-        "3f447d01-9590-4904-add6-986b1a410236");
-    User user2 = new User("3a1e93e0-5024-4419-a472-fbf079e8c47a",
-        "95ec4a88-7695-44e3-90a8-f678088ac291",
-        new java.util.Date(1545929354504L),
-        -6,
-        "1556a2fc-6351-4595-b551-1fddb3aef998",
-        false,
-        "d4a6bbb3-2cc1-473c-9837-44a3a64bbc2a",
-        null,
-        "571cff4c-aec0-471b-84a0-47e8d3bdef6e",
-        46,
-        null,
-        false,
-        "099eff86-7d3e-435b-9d0f-5a6c2b58ffd3",
-        -111,
-        "fa950122-0bcc-4050-a72e-fae50278d9ad",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        false,
-        true,
-        new java.util.Date(1545929354103L),
-        "3f447d01-9590-4904-add6-986b1a410236");
-    assertNotNull(user1);
-    assertNotNull(user2);
-    assertNotSame(user2, user1);
-    assertEquals(user2, user1);
-    assertEquals(user2.hashCode(), user1.hashCode());
-    int hashCode = user1.hashCode();
-    for (int i = 0; i < 5 ; i++) {
-      assertEquals(hashCode, user1.hashCode());
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        User user1 = new User("f93fc094-6a84-4097-8811-1ae817213e14", "3f3ef7f2-aa9b-43bc-8c54-701ec7ec599b",
+                              new java.util.Date(1545929361783L), 6, "b9759f51-7bbc-40f1-8058-1348947dc737", false,
+                              "c8771a5a-e49c-4480-9979-b10f7ed37170", null, "8d4e0566-f230-4405-908c-c1e1beff6088", 112,
+                              null, true, "99a1d7d5-6d22-4fd9-a469-38f7548577cd", -70,
+                              "b7400807-b6ae-46aa-aa93-145133d77d9a",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
+                              new java.util.Date(1545929356020L), "d0b3b383-d495-4d91-8d11-a7e19c71728c");
+        User user2 = user1.clone();
+        assertNotNull(user1);
+        assertNotNull(user2);
+        assertNotSame(user2, user1);
+        assertEquals(user2, user1);
     }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    User user1 = new User("65534099-1101-49ed-885b-727ea0e71743",
-        "9ac1a4ec-9906-403a-985c-247ba9ae1a69",
-        new java.util.Date(1545929361926L),
-        -40,
-        "9cc1476b-4711-4c93-bc1d-89bb94d0e375",
-        true,
-        "2f1ae855-d779-474a-ad5a-f18c57562e3a",
-        null,
-        "32ef63fc-a68e-4b43-9fce-548b35545ba5",
-        -126,
-        null,
-        true,
-        "92c3bb17-d945-4d87-972a-c449dfd93a83",
-        105,
-        "3044a8a8-49a2-4b1b-a422-349f9db98482",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        true,
-        true,
-        new java.util.Date(1545929353953L),
-        "0677adbb-1cd7-4cad-9e5f-b6fe610a754c");
-    User user2 = new User("65534099-1101-49ed-885b-727ea0e71743",
-        "9ac1a4ec-9906-403a-985c-247ba9ae1a69",
-        new java.util.Date(1545929361926L),
-        -40,
-        "9cc1476b-4711-4c93-bc1d-89bb94d0e375",
-        true,
-        "2f1ae855-d779-474a-ad5a-f18c57562e3a",
-        null,
-        "32ef63fc-a68e-4b43-9fce-548b35545ba5",
-        -126,
-        null,
-        true,
-        "92c3bb17-d945-4d87-972a-c449dfd93a83",
-        105,
-        "3044a8a8-49a2-4b1b-a422-349f9db98482",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        true,
-        true,
-        new java.util.Date(1545929353953L),
-        "0677adbb-1cd7-4cad-9e5f-b6fe610a754c");
-    User user3 = new User("06d0fa0f-d0bc-4dde-82b2-f0caf897b271",
-        "899c806d-7934-4829-ba1e-30f351f894ca",
-        new java.util.Date(1545929361741L),
-        91,
-        "f891c0c4-f9b7-48de-a83b-5760e717501d",
-        true,
-        "6186d56a-46c2-4563-ae94-26a2248491b2",
-        null,
-        "5ffce350-c15d-471b-bda5-87a605e80011",
-        -43,
-        null,
-        false,
-        "bf5fad1e-7e28-4871-bff6-20f0cde2ddc3",
-        -70,
-        "cde6e999-ac5a-4ad6-a96b-5c2650ca45c3",
-        com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(),
-        true,
-        false,
-        new java.util.Date(1545929357081L),
-        "fb5e7f9e-81f8-4ddb-bbbc-7f3d0fc5d9fa");
-    assertNotNull(user1);
-    assertNotNull(user2);
-    assertNotNull(user3);
-    assertNotSame(user2, user1);
-    assertNotSame(user3, user1);
-    assertEquals(user2, user1);
-    assertEquals(user2, user1);
-    assertEquals(user1, user2);
-    assertEquals(user1, user1);
-    assertFalse(user1.equals(null));
-    assertNotEquals(user3, user1);
-  }
+    /**
+     * Tests the isvalid method.
+     */
+    @Test
+    public void testIsvalid() {
+        User user = new User("c3a200c9-569a-4b77-8d0f-f882758513a7", "59c1f43d-8975-433f-b7a9-0d5612a2d6d0",
+                             new java.util.Date(1545929352724L), -21, "ab3d7df5-008e-433c-a759-777348bd3471", false,
+                             "a256d11c-40b2-4691-853f-ecf38db051a2", null, "71b7a214-5fe0-4e61-be64-7ebc94e10526", -51,
+                             null, true, "57870e7a-8f79-4c33-8e3a-567bc0f97a9f", 104,
+                             "59a19015-68ff-47be-9afd-6c164e254bd8",
+                             com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), false, true,
+                             new java.util.Date(1545929356111L), "5f748e85-6761-4f59-af17-05cbb0591434");
+        assertTrue(user.isValid());
+    }
+
+    /**
+     * Tests the hashcode method.
+     */
+    @Test
+    public void testHashcode() {
+        User user1 = new User("3a1e93e0-5024-4419-a472-fbf079e8c47a", "95ec4a88-7695-44e3-90a8-f678088ac291",
+                              new java.util.Date(1545929354504L), -6, "1556a2fc-6351-4595-b551-1fddb3aef998", false,
+                              "d4a6bbb3-2cc1-473c-9837-44a3a64bbc2a", null, "571cff4c-aec0-471b-84a0-47e8d3bdef6e", 46,
+                              null, false, "099eff86-7d3e-435b-9d0f-5a6c2b58ffd3", -111,
+                              "fa950122-0bcc-4050-a72e-fae50278d9ad",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), false, true,
+                              new java.util.Date(1545929354103L), "3f447d01-9590-4904-add6-986b1a410236");
+        User user2 = new User("3a1e93e0-5024-4419-a472-fbf079e8c47a", "95ec4a88-7695-44e3-90a8-f678088ac291",
+                              new java.util.Date(1545929354504L), -6, "1556a2fc-6351-4595-b551-1fddb3aef998", false,
+                              "d4a6bbb3-2cc1-473c-9837-44a3a64bbc2a", null, "571cff4c-aec0-471b-84a0-47e8d3bdef6e", 46,
+                              null, false, "099eff86-7d3e-435b-9d0f-5a6c2b58ffd3", -111,
+                              "fa950122-0bcc-4050-a72e-fae50278d9ad",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), false, true,
+                              new java.util.Date(1545929354103L), "3f447d01-9590-4904-add6-986b1a410236");
+        assertNotNull(user1);
+        assertNotNull(user2);
+        assertNotSame(user2, user1);
+        assertEquals(user2, user1);
+        assertEquals(user2.hashCode(), user1.hashCode());
+        int hashCode = user1.hashCode();
+        for (int i = 0; i < 5; i++) {
+            assertEquals(hashCode, user1.hashCode());
+        }
+    }
+
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        User user1 = new User("65534099-1101-49ed-885b-727ea0e71743", "9ac1a4ec-9906-403a-985c-247ba9ae1a69",
+                              new java.util.Date(1545929361926L), -40, "9cc1476b-4711-4c93-bc1d-89bb94d0e375", true,
+                              "2f1ae855-d779-474a-ad5a-f18c57562e3a", null, "32ef63fc-a68e-4b43-9fce-548b35545ba5",
+                              -126, null, true, "92c3bb17-d945-4d87-972a-c449dfd93a83", 105,
+                              "3044a8a8-49a2-4b1b-a422-349f9db98482",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, true,
+                              new java.util.Date(1545929353953L), "0677adbb-1cd7-4cad-9e5f-b6fe610a754c");
+        User user2 = new User("65534099-1101-49ed-885b-727ea0e71743", "9ac1a4ec-9906-403a-985c-247ba9ae1a69",
+                              new java.util.Date(1545929361926L), -40, "9cc1476b-4711-4c93-bc1d-89bb94d0e375", true,
+                              "2f1ae855-d779-474a-ad5a-f18c57562e3a", null, "32ef63fc-a68e-4b43-9fce-548b35545ba5",
+                              -126, null, true, "92c3bb17-d945-4d87-972a-c449dfd93a83", 105,
+                              "3044a8a8-49a2-4b1b-a422-349f9db98482",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, true,
+                              new java.util.Date(1545929353953L), "0677adbb-1cd7-4cad-9e5f-b6fe610a754c");
+        User user3 = new User("06d0fa0f-d0bc-4dde-82b2-f0caf897b271", "899c806d-7934-4829-ba1e-30f351f894ca",
+                              new java.util.Date(1545929361741L), 91, "f891c0c4-f9b7-48de-a83b-5760e717501d", true,
+                              "6186d56a-46c2-4563-ae94-26a2248491b2", null, "5ffce350-c15d-471b-bda5-87a605e80011", -43,
+                              null, false, "bf5fad1e-7e28-4871-bff6-20f0cde2ddc3", -70,
+                              "cde6e999-ac5a-4ad6-a96b-5c2650ca45c3",
+                              com.arm.mbed.cloud.sdk.accounts.model.UserStatus.getDefault(), true, false,
+                              new java.util.Date(1545929357081L), "fb5e7f9e-81f8-4ddb-bbbc-7f3d0fc5d9fa");
+        assertNotNull(user1);
+        assertNotNull(user2);
+        assertNotNull(user3);
+        assertNotSame(user2, user1);
+        assertNotSame(user3, user1);
+        assertEquals(user2, user1);
+        assertEquals(user2, user1);
+        assertEquals(user1, user2);
+        assertEquals(user1, user1);
+        assertFalse(user1.equals(null));
+        assertNotEquals(user3, user1);
+    }
 }

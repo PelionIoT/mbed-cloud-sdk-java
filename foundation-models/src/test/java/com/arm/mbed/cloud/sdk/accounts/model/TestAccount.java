@@ -7,388 +7,221 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model Account. */
+ * Unit tests for Model Account.
+ */
 public class TestAccount {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    Account account1 = new Account("7449e96b-2167-4463-ac5b-dfba01b65f47",
-        "8eb34221-1d07-4e91-a947-0d6e7420cf05",
-        "b1bfb9e9-5d36-44cd-8100-935487152dd3",
-        "83346852-d289-46b6-8309-1aa35f93f7bf",
-        "093a99b0-ba39-43f3-9694-1a9fe0ece7b7",
-        "0fa2b232-2bc4-4e09-bb3d-f360bdf8c626",
-        "1345e0b8-7c1c-4904-a951-b4a5aaa8a1ac",
-        "3055bb70-bbbb-4d58-8ef5-155760a26919",
-        null,
-        "9c59d058-5294-419e-bf3a-64888d4f94e9",
-        "aad63620-b2e9-4f6a-8ed8-2b82176dafb0",
-        "70caf05a-7f2e-49c3-a6ab-0b65df72a9f0",
-        "81c071ab-1bed-412b-a604-13b02beeab3f",
-        "0f55c8a6-4564-4f0e-a14b-08efa5beea14",
-        new java.util.Date(1545929356014L),
-        80,
-        null,
-        "3a320142-149b-4f2c-8fd5-5c8bb871afea",
-        "e215fd21-f3cc-47b1-888d-a6204e853744",
-        "4c1e5e97-f0a0-4653-a34f-e261b09f6fa8",
-        "499a7eb6-0e63-47d3-80b5-f2cdcc38c948",
-        "871a3654-8817-4dfb-96e9-7bb2f2c8c9f8",
-        null,
-        "6bc26dbb-33a1-4fa7-9a3e-52c7136b8ad5",
-        "83063165-c581-4cf9-906c-74940b6a67eb",
-        "6fd4e120-cf2a-47b6-8974-a946aaf13a48",
-        -121,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "94779645-3b07-46bc-a2d8-b8ea50791a9c",
-        null,
-        "bfb4c459-116c-42ba-9767-de04a0698bee",
-        "bb22d3c0-2319-46dc-ac9a-303430e12b60",
-        null,
-        "8ba16347-f112-45e7-8fc4-f5f00986b488",
-        null,
-        "c349cea9-f0b7-4b69-9259-5905ff4838a1",
-        "b2809c2f-1f43-4bf3-92d8-f2970f6e4c9c",
-        "904ae57e-b6dd-465d-afdd-6dcd759af21f",
-        "e60611b7-4c7c-4ac1-96a4-d724b75eb4a1",
-        "5d5d04fa-85b6-4297-8fc2-173b1773d6cd",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "daab0c67-63bf-477a-b439-0deb311cd1b4",
-        "dbdac01f-d1a0-4142-92b6-eed7295ac7be",
-        new java.util.Date(1545929355537L),
-        new java.util.Date(1545929358556L));
-    Account account2 = account1.clone();
-    assertNotNull(account1);
-    assertNotNull(account2);
-    assertNotSame(account2, account1);
-    assertEquals(account2, account1);
-  }
-
-  /**
-   * Tests the isvalid method.
-   */
-  @Test
-  public void testIsvalid() {
-    Account account = new Account("dd63e64c-4977-4100-bbf8-9af4e122adcc",
-        "8874f17f-f85f-4d0e-8b40-13b3a4809b42",
-        "6abc6adc-ae5f-4af4-84f5-a928b83abf24",
-        "06165879-d553-40b2-9846-33cdafe20eb0",
-        "c46eab77-3214-4c0e-82e4-dd73e7986663",
-        "d8f5cd2d-c14f-44fd-bed4-2a9b10cf6ed5",
-        "ab18cc17-ff82-4148-b57b-00239f9a89b4",
-        "0f8a917c-14fd-4a54-a6e1-41f0e73e6bce",
-        null,
-        "5f5d59dc-07c3-4c06-9742-47686159a727",
-        "bd98d725-b3f0-4219-9c53-e4a19b82adb5",
-        "d494ebb8-a119-48d6-b543-a7c7c0da6656",
-        "65f13f05-e392-4769-9451-aed965e2c4a4",
-        "f6964577-e841-4bdf-a34f-fed03e83839e",
-        new java.util.Date(1545929353511L),
-        101,
-        null,
-        "ae436438-b30b-463e-a146-3fb53f7a3366",
-        "0ce66f98-725c-4d33-9a86-80e2b4c0a802",
-        "484c1018-57fe-4410-98a5-72e0cbd121be",
-        "23a6e0a0-a04f-4820-a332-ee8eff88e9c1",
-        "71e18f9f-9c95-4e32-996a-8a02f09e8f7e",
-        null,
-        "10eb2765-9399-4225-a1f8-611256405a07",
-        "86bcb59c-ee2f-4f64-82fb-348877dfb1d8",
-        "ee413ec1-8736-4dd2-bdb4-1d0325a44516",
-        61,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "dddb5f21-bb0d-40a7-9f5e-551e1df881b1",
-        null,
-        "d671317a-46ff-41f7-844d-9a64a3c9045e",
-        "6f575b65-d765-4e2a-9147-5418590a8e56",
-        null,
-        "72b87b60-f24c-4501-a277-8b7024a4be80",
-        null,
-        "6aab9024-14e8-4a86-8d13-98f5da82aad5",
-        "482ed3c4-ffaf-4ad9-ab84-7bd9f124ba8c",
-        "a66e4668-a218-4494-9bf4-4dd0a0cda96a",
-        "11897c9c-1ddc-4d84-8aff-305fb36ce563",
-        "a2a2e1cb-4617-45c5-98b0-287571888d91",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "464cd4a1-2e5d-4232-9169-4ea6aa827b85",
-        "10f978a9-6bd0-4ed5-a89f-902ff34249f7",
-        new java.util.Date(1545929355307L),
-        new java.util.Date(1545929354527L));
-    assertTrue(account.isValid());
-  }
-
-  /**
-   * Tests the hashcode method.
-   */
-  @Test
-  public void testHashcode() {
-    Account account1 = new Account("db8faa3f-0075-4468-b181-41117965ef4e",
-        "4e3e2f98-11e5-4798-b416-9df9b713911f",
-        "3f9bed61-68ac-418d-8efa-7c39aca0d818",
-        "9e8545a8-7a06-46ea-b9be-4596d5f184dc",
-        "b4a8312f-97e2-4320-be2d-0348e68df912",
-        "3a1afb4c-b0bb-4abf-a231-1fd19ba2ea2e",
-        "a6aa8049-5872-41fb-a558-87cc9201d65e",
-        "1df75f23-05a9-41eb-951a-a52803877cb4",
-        null,
-        "96f48632-ea6a-4bc1-b2ab-c2763734769e",
-        "521007bb-f695-480a-bbc7-cbd080ea8012",
-        "7ba7b2b6-5f5b-4453-906b-6cab51f85a03",
-        "05b2e532-cb16-4562-b1b8-f43d04f3b660",
-        "17a2a5dd-28ab-4bc4-a575-6eb50501a31a",
-        new java.util.Date(1545929352220L),
-        121,
-        null,
-        "f6f8fc20-d2c0-4f48-b3c1-80296f4b8734",
-        "c196438d-cdd7-4b24-b3a8-3158784a3060",
-        "669f4fe9-1f48-4817-b810-fe1975a67f02",
-        "0667d911-03af-42c0-a531-1f2ee06311f1",
-        "587435c5-4df3-4e3c-887e-1fe6e89f9d7f",
-        null,
-        "e8eb5410-2056-45fd-acc4-023995855da4",
-        "6954ecbc-83ec-483e-8b3c-0d29e9c0aa9d",
-        "67fdc9f9-d11f-4762-be30-949ae550c092",
-        -72,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "c1f05d38-345f-46df-96d8-8c35b7de5209",
-        null,
-        "386cdfff-3329-48f1-94b7-1713e643613a",
-        "b87074e5-c400-43aa-9f55-3def7474150c",
-        null,
-        "6b6e818c-689a-4fe2-8067-498e91761e01",
-        null,
-        "aeaa093e-2f44-49e7-be33-951c8054c91e",
-        "baeb91fa-79a2-4e0e-b632-176e1ba892e9",
-        "32f47fea-afb6-48b2-aeef-c3e81b75db26",
-        "52685d7f-c2f5-4504-a4f2-5e64e7f87600",
-        "592c208e-c281-4355-a54e-897b597e722a",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "39c2e737-77d9-414a-b9b6-014c4a37d9e8",
-        "c80ab006-b00e-4017-b95a-ca2aa607d662",
-        new java.util.Date(1545929358540L),
-        new java.util.Date(1545929356759L));
-    Account account2 = new Account("db8faa3f-0075-4468-b181-41117965ef4e",
-        "4e3e2f98-11e5-4798-b416-9df9b713911f",
-        "3f9bed61-68ac-418d-8efa-7c39aca0d818",
-        "9e8545a8-7a06-46ea-b9be-4596d5f184dc",
-        "b4a8312f-97e2-4320-be2d-0348e68df912",
-        "3a1afb4c-b0bb-4abf-a231-1fd19ba2ea2e",
-        "a6aa8049-5872-41fb-a558-87cc9201d65e",
-        "1df75f23-05a9-41eb-951a-a52803877cb4",
-        null,
-        "96f48632-ea6a-4bc1-b2ab-c2763734769e",
-        "521007bb-f695-480a-bbc7-cbd080ea8012",
-        "7ba7b2b6-5f5b-4453-906b-6cab51f85a03",
-        "05b2e532-cb16-4562-b1b8-f43d04f3b660",
-        "17a2a5dd-28ab-4bc4-a575-6eb50501a31a",
-        new java.util.Date(1545929352220L),
-        121,
-        null,
-        "f6f8fc20-d2c0-4f48-b3c1-80296f4b8734",
-        "c196438d-cdd7-4b24-b3a8-3158784a3060",
-        "669f4fe9-1f48-4817-b810-fe1975a67f02",
-        "0667d911-03af-42c0-a531-1f2ee06311f1",
-        "587435c5-4df3-4e3c-887e-1fe6e89f9d7f",
-        null,
-        "e8eb5410-2056-45fd-acc4-023995855da4",
-        "6954ecbc-83ec-483e-8b3c-0d29e9c0aa9d",
-        "67fdc9f9-d11f-4762-be30-949ae550c092",
-        -72,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "c1f05d38-345f-46df-96d8-8c35b7de5209",
-        null,
-        "386cdfff-3329-48f1-94b7-1713e643613a",
-        "b87074e5-c400-43aa-9f55-3def7474150c",
-        null,
-        "6b6e818c-689a-4fe2-8067-498e91761e01",
-        null,
-        "aeaa093e-2f44-49e7-be33-951c8054c91e",
-        "baeb91fa-79a2-4e0e-b632-176e1ba892e9",
-        "32f47fea-afb6-48b2-aeef-c3e81b75db26",
-        "52685d7f-c2f5-4504-a4f2-5e64e7f87600",
-        "592c208e-c281-4355-a54e-897b597e722a",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "39c2e737-77d9-414a-b9b6-014c4a37d9e8",
-        "c80ab006-b00e-4017-b95a-ca2aa607d662",
-        new java.util.Date(1545929358540L),
-        new java.util.Date(1545929356759L));
-    assertNotNull(account1);
-    assertNotNull(account2);
-    assertNotSame(account2, account1);
-    assertEquals(account2, account1);
-    assertEquals(account2.hashCode(), account1.hashCode());
-    int hashCode = account1.hashCode();
-    for (int i = 0; i < 5 ; i++) {
-      assertEquals(hashCode, account1.hashCode());
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        Account account1 = new Account("7449e96b-2167-4463-ac5b-dfba01b65f47", "8eb34221-1d07-4e91-a947-0d6e7420cf05",
+                                       "b1bfb9e9-5d36-44cd-8100-935487152dd3", "83346852-d289-46b6-8309-1aa35f93f7bf",
+                                       "093a99b0-ba39-43f3-9694-1a9fe0ece7b7", "0fa2b232-2bc4-4e09-bb3d-f360bdf8c626",
+                                       "1345e0b8-7c1c-4904-a951-b4a5aaa8a1ac", "3055bb70-bbbb-4d58-8ef5-155760a26919",
+                                       null, "9c59d058-5294-419e-bf3a-64888d4f94e9",
+                                       "aad63620-b2e9-4f6a-8ed8-2b82176dafb0", "70caf05a-7f2e-49c3-a6ab-0b65df72a9f0",
+                                       "81c071ab-1bed-412b-a604-13b02beeab3f", "0f55c8a6-4564-4f0e-a14b-08efa5beea14",
+                                       new java.util.Date(1545929356014L), 80, null,
+                                       "3a320142-149b-4f2c-8fd5-5c8bb871afea", "e215fd21-f3cc-47b1-888d-a6204e853744",
+                                       "4c1e5e97-f0a0-4653-a34f-e261b09f6fa8", "499a7eb6-0e63-47d3-80b5-f2cdcc38c948",
+                                       "871a3654-8817-4dfb-96e9-7bb2f2c8c9f8", null,
+                                       "6bc26dbb-33a1-4fa7-9a3e-52c7136b8ad5", "83063165-c581-4cf9-906c-74940b6a67eb",
+                                       "6fd4e120-cf2a-47b6-8974-a946aaf13a48", -121, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "94779645-3b07-46bc-a2d8-b8ea50791a9c", null,
+                                       "bfb4c459-116c-42ba-9767-de04a0698bee", "bb22d3c0-2319-46dc-ac9a-303430e12b60",
+                                       null, "8ba16347-f112-45e7-8fc4-f5f00986b488", null,
+                                       "c349cea9-f0b7-4b69-9259-5905ff4838a1", "b2809c2f-1f43-4bf3-92d8-f2970f6e4c9c",
+                                       "904ae57e-b6dd-465d-afdd-6dcd759af21f", "e60611b7-4c7c-4ac1-96a4-d724b75eb4a1",
+                                       "5d5d04fa-85b6-4297-8fc2-173b1773d6cd",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "daab0c67-63bf-477a-b439-0deb311cd1b4", "dbdac01f-d1a0-4142-92b6-eed7295ac7be",
+                                       new java.util.Date(1545929355537L), new java.util.Date(1545929358556L));
+        Account account2 = account1.clone();
+        assertNotNull(account1);
+        assertNotNull(account2);
+        assertNotSame(account2, account1);
+        assertEquals(account2, account1);
     }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    Account account1 = new Account("85e7728b-55ea-4121-baa5-b87bea2b6eee",
-        "bb2dbd32-3e90-4fbc-a7e0-ea9c220e9733",
-        "f1857981-a5d7-4d30-9ec6-8377f1858d34",
-        "a0ccb023-beb9-4567-9600-8d9496cc6653",
-        "c0537676-2d14-4675-a3f2-ad4f95884030",
-        "fe961924-9b2b-4b4a-be75-2c53477ec5e5",
-        "9bca19ca-34ba-4bc6-9799-41102a5b1a2e",
-        "0feed22b-072c-4e83-bcc3-cb16304cb977",
-        null,
-        "c06f78f4-0905-4411-9d85-1fc0760a3eee",
-        "0345c1ac-482e-4760-a3bc-a99590dc7393",
-        "ef12a522-c80b-4997-b44b-d848494d2fc5",
-        "f0d624ac-2f26-452a-8fb4-ce361c22f829",
-        "0b241bc3-a5e0-4fd9-9eb1-9a1ee25e0b9f",
-        new java.util.Date(1545929357625L),
-        -4,
-        null,
-        "2dd35b85-6421-46ff-b640-7ef16e642032",
-        "fc491f81-7e04-47ed-9dd5-23947e116768",
-        "b170afc3-51d3-497b-893a-5e384b57dcd9",
-        "1ca701bb-137c-41fe-ba90-c1b8a2fd2c41",
-        "ed59cc55-3b58-4abd-9103-241dc3e52e28",
-        null,
-        "d6ffcdc9-39f6-4b52-b73d-847b50c173ea",
-        "f78c820f-a78e-4e44-a00f-67487e320dd7",
-        "8d920872-6e99-41ac-b725-04d7e9239baf",
-        -68,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "b3c5c782-7f88-4d67-b19a-4687d009d167",
-        null,
-        "f85e5062-170c-4a80-9474-62cf7abd223a",
-        "3995becf-584e-40c9-a521-78a6f56d0ada",
-        null,
-        "ba391286-9c68-457b-bfa5-93f61dac3b57",
-        null,
-        "97c78e73-ed3d-4c3a-b28c-2f23d5919057",
-        "2c986a0f-1dae-4ae8-a39f-a42eff6fcd15",
-        "3afeb7cd-593e-4d7b-81e2-6229fc044663",
-        "18556f2f-28f3-4f36-bdff-3dc9924befb5",
-        "0e2ced08-ad65-4e1f-90cd-afcefb44f7b3",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "bd67f0d9-aa17-40cd-9589-393568c8d677",
-        "3f6f314d-368d-46c9-845c-f47a3f548b97",
-        new java.util.Date(1545929359229L),
-        new java.util.Date(1545929352147L));
-    Account account2 = new Account("85e7728b-55ea-4121-baa5-b87bea2b6eee",
-        "bb2dbd32-3e90-4fbc-a7e0-ea9c220e9733",
-        "f1857981-a5d7-4d30-9ec6-8377f1858d34",
-        "a0ccb023-beb9-4567-9600-8d9496cc6653",
-        "c0537676-2d14-4675-a3f2-ad4f95884030",
-        "fe961924-9b2b-4b4a-be75-2c53477ec5e5",
-        "9bca19ca-34ba-4bc6-9799-41102a5b1a2e",
-        "0feed22b-072c-4e83-bcc3-cb16304cb977",
-        null,
-        "c06f78f4-0905-4411-9d85-1fc0760a3eee",
-        "0345c1ac-482e-4760-a3bc-a99590dc7393",
-        "ef12a522-c80b-4997-b44b-d848494d2fc5",
-        "f0d624ac-2f26-452a-8fb4-ce361c22f829",
-        "0b241bc3-a5e0-4fd9-9eb1-9a1ee25e0b9f",
-        new java.util.Date(1545929357625L),
-        -4,
-        null,
-        "2dd35b85-6421-46ff-b640-7ef16e642032",
-        "fc491f81-7e04-47ed-9dd5-23947e116768",
-        "b170afc3-51d3-497b-893a-5e384b57dcd9",
-        "1ca701bb-137c-41fe-ba90-c1b8a2fd2c41",
-        "ed59cc55-3b58-4abd-9103-241dc3e52e28",
-        null,
-        "d6ffcdc9-39f6-4b52-b73d-847b50c173ea",
-        "f78c820f-a78e-4e44-a00f-67487e320dd7",
-        "8d920872-6e99-41ac-b725-04d7e9239baf",
-        -68,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "b3c5c782-7f88-4d67-b19a-4687d009d167",
-        null,
-        "f85e5062-170c-4a80-9474-62cf7abd223a",
-        "3995becf-584e-40c9-a521-78a6f56d0ada",
-        null,
-        "ba391286-9c68-457b-bfa5-93f61dac3b57",
-        null,
-        "97c78e73-ed3d-4c3a-b28c-2f23d5919057",
-        "2c986a0f-1dae-4ae8-a39f-a42eff6fcd15",
-        "3afeb7cd-593e-4d7b-81e2-6229fc044663",
-        "18556f2f-28f3-4f36-bdff-3dc9924befb5",
-        "0e2ced08-ad65-4e1f-90cd-afcefb44f7b3",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "bd67f0d9-aa17-40cd-9589-393568c8d677",
-        "3f6f314d-368d-46c9-845c-f47a3f548b97",
-        new java.util.Date(1545929359229L),
-        new java.util.Date(1545929352147L));
-    Account account3 = new Account("79d7fa89-2898-477b-9846-0fab6011c271",
-        "d384bd86-e3c8-420d-b715-cfd6452b5b0f",
-        "396e70e2-6880-4077-ae05-17fb99ea67b8",
-        "d2fffa6a-6ec7-4ee3-b83c-d158cdbe6772",
-        "cd857f8e-b872-47aa-9909-b528d1b87fb2",
-        "f937db85-b1cf-4420-9330-7149cc82b06c",
-        "b84fc54b-ec69-47d6-bb8c-99137f5164d3",
-        "08929b7b-245a-44ce-81fd-9adfab6bc53a",
-        null,
-        "bb1ef82f-ae93-49c4-940b-827c1c496839",
-        "a83d5eb1-6e12-4513-83d4-e73731673075",
-        "b3bfcf8f-1778-4d3b-ad22-b6d35cda350a",
-        "22d5729f-166f-4824-8b53-d04979e2da68",
-        "7be2d879-7f3b-4ca8-81b7-97a4b50de042",
-        new java.util.Date(1545929359472L),
-        125,
-        null,
-        "6f1679d3-6eb6-4e87-a167-ef24d36b68a8",
-        "e2a9a59d-53be-4858-bf7e-52ba859182cd",
-        "9a7e13f5-5112-4909-af8e-5077f1eb1855",
-        "39bdb836-6708-484c-9e9f-26e316837400",
-        "a9b3a990-4f4b-4ab0-af02-ae61eb50395d",
-        null,
-        "d757fba5-07d2-44d1-9cb1-adbd95e208ab",
-        "ab0e01cd-c2ac-416d-a876-29ad7e084180",
-        "d3b6fbf7-ede5-48ea-91f9-327e8d4ad389",
-        -44,
-        null,
-        com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
-        "3c83591b-cf06-4a05-8e39-83bd39ed0023",
-        null,
-        "22bbf648-c7d6-44a7-8a74-8738d701b694",
-        "c8e4c21b-02b2-43de-aea3-b1360986a48b",
-        null,
-        "e7a2a61d-e8e6-48bd-a98b-c6ba4383a4b2",
-        null,
-        "925b03e4-1032-4a6b-9fa0-7eb91fca6943",
-        "d3f93b10-20b4-407e-b496-05451ae664e8",
-        "2719182c-3cf5-4e31-b9d9-51e59aea475e",
-        "c782ab2a-103a-47a2-ad8e-464e0a85c0e4",
-        "40fe92b0-bab0-4c66-8d96-6e68ef79bd8d",
-        com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(),
-        null,
-        "e134c211-e9fa-4014-9447-40d06086ed98",
-        "fe476ec0-12f5-4ca4-bc61-dbffe00adb79",
-        new java.util.Date(1545929358056L),
-        new java.util.Date(1545929350530L));
-    assertNotNull(account1);
-    assertNotNull(account2);
-    assertNotNull(account3);
-    assertNotSame(account2, account1);
-    assertNotSame(account3, account1);
-    assertEquals(account2, account1);
-    assertEquals(account2, account1);
-    assertEquals(account1, account2);
-    assertEquals(account1, account1);
-    assertFalse(account1.equals(null));
-    assertNotEquals(account3, account1);
-  }
+    /**
+     * Tests the isvalid method.
+     */
+    @Test
+    public void testIsvalid() {
+        Account account = new Account("dd63e64c-4977-4100-bbf8-9af4e122adcc", "8874f17f-f85f-4d0e-8b40-13b3a4809b42",
+                                      "6abc6adc-ae5f-4af4-84f5-a928b83abf24", "06165879-d553-40b2-9846-33cdafe20eb0",
+                                      "c46eab77-3214-4c0e-82e4-dd73e7986663", "d8f5cd2d-c14f-44fd-bed4-2a9b10cf6ed5",
+                                      "ab18cc17-ff82-4148-b57b-00239f9a89b4", "0f8a917c-14fd-4a54-a6e1-41f0e73e6bce",
+                                      null, "5f5d59dc-07c3-4c06-9742-47686159a727",
+                                      "bd98d725-b3f0-4219-9c53-e4a19b82adb5", "d494ebb8-a119-48d6-b543-a7c7c0da6656",
+                                      "65f13f05-e392-4769-9451-aed965e2c4a4", "f6964577-e841-4bdf-a34f-fed03e83839e",
+                                      new java.util.Date(1545929353511L), 101, null,
+                                      "ae436438-b30b-463e-a146-3fb53f7a3366", "0ce66f98-725c-4d33-9a86-80e2b4c0a802",
+                                      "484c1018-57fe-4410-98a5-72e0cbd121be", "23a6e0a0-a04f-4820-a332-ee8eff88e9c1",
+                                      "71e18f9f-9c95-4e32-996a-8a02f09e8f7e", null,
+                                      "10eb2765-9399-4225-a1f8-611256405a07", "86bcb59c-ee2f-4f64-82fb-348877dfb1d8",
+                                      "ee413ec1-8736-4dd2-bdb4-1d0325a44516", 61, null,
+                                      com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                      "dddb5f21-bb0d-40a7-9f5e-551e1df881b1", null,
+                                      "d671317a-46ff-41f7-844d-9a64a3c9045e", "6f575b65-d765-4e2a-9147-5418590a8e56",
+                                      null, "72b87b60-f24c-4501-a277-8b7024a4be80", null,
+                                      "6aab9024-14e8-4a86-8d13-98f5da82aad5", "482ed3c4-ffaf-4ad9-ab84-7bd9f124ba8c",
+                                      "a66e4668-a218-4494-9bf4-4dd0a0cda96a", "11897c9c-1ddc-4d84-8aff-305fb36ce563",
+                                      "a2a2e1cb-4617-45c5-98b0-287571888d91",
+                                      com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                      "464cd4a1-2e5d-4232-9169-4ea6aa827b85", "10f978a9-6bd0-4ed5-a89f-902ff34249f7",
+                                      new java.util.Date(1545929355307L), new java.util.Date(1545929354527L));
+        assertTrue(account.isValid());
+    }
+
+    /**
+     * Tests the hashcode method.
+     */
+    @Test
+    public void testHashcode() {
+        Account account1 = new Account("db8faa3f-0075-4468-b181-41117965ef4e", "4e3e2f98-11e5-4798-b416-9df9b713911f",
+                                       "3f9bed61-68ac-418d-8efa-7c39aca0d818", "9e8545a8-7a06-46ea-b9be-4596d5f184dc",
+                                       "b4a8312f-97e2-4320-be2d-0348e68df912", "3a1afb4c-b0bb-4abf-a231-1fd19ba2ea2e",
+                                       "a6aa8049-5872-41fb-a558-87cc9201d65e", "1df75f23-05a9-41eb-951a-a52803877cb4",
+                                       null, "96f48632-ea6a-4bc1-b2ab-c2763734769e",
+                                       "521007bb-f695-480a-bbc7-cbd080ea8012", "7ba7b2b6-5f5b-4453-906b-6cab51f85a03",
+                                       "05b2e532-cb16-4562-b1b8-f43d04f3b660", "17a2a5dd-28ab-4bc4-a575-6eb50501a31a",
+                                       new java.util.Date(1545929352220L), 121, null,
+                                       "f6f8fc20-d2c0-4f48-b3c1-80296f4b8734", "c196438d-cdd7-4b24-b3a8-3158784a3060",
+                                       "669f4fe9-1f48-4817-b810-fe1975a67f02", "0667d911-03af-42c0-a531-1f2ee06311f1",
+                                       "587435c5-4df3-4e3c-887e-1fe6e89f9d7f", null,
+                                       "e8eb5410-2056-45fd-acc4-023995855da4", "6954ecbc-83ec-483e-8b3c-0d29e9c0aa9d",
+                                       "67fdc9f9-d11f-4762-be30-949ae550c092", -72, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "c1f05d38-345f-46df-96d8-8c35b7de5209", null,
+                                       "386cdfff-3329-48f1-94b7-1713e643613a", "b87074e5-c400-43aa-9f55-3def7474150c",
+                                       null, "6b6e818c-689a-4fe2-8067-498e91761e01", null,
+                                       "aeaa093e-2f44-49e7-be33-951c8054c91e", "baeb91fa-79a2-4e0e-b632-176e1ba892e9",
+                                       "32f47fea-afb6-48b2-aeef-c3e81b75db26", "52685d7f-c2f5-4504-a4f2-5e64e7f87600",
+                                       "592c208e-c281-4355-a54e-897b597e722a",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "39c2e737-77d9-414a-b9b6-014c4a37d9e8", "c80ab006-b00e-4017-b95a-ca2aa607d662",
+                                       new java.util.Date(1545929358540L), new java.util.Date(1545929356759L));
+        Account account2 = new Account("db8faa3f-0075-4468-b181-41117965ef4e", "4e3e2f98-11e5-4798-b416-9df9b713911f",
+                                       "3f9bed61-68ac-418d-8efa-7c39aca0d818", "9e8545a8-7a06-46ea-b9be-4596d5f184dc",
+                                       "b4a8312f-97e2-4320-be2d-0348e68df912", "3a1afb4c-b0bb-4abf-a231-1fd19ba2ea2e",
+                                       "a6aa8049-5872-41fb-a558-87cc9201d65e", "1df75f23-05a9-41eb-951a-a52803877cb4",
+                                       null, "96f48632-ea6a-4bc1-b2ab-c2763734769e",
+                                       "521007bb-f695-480a-bbc7-cbd080ea8012", "7ba7b2b6-5f5b-4453-906b-6cab51f85a03",
+                                       "05b2e532-cb16-4562-b1b8-f43d04f3b660", "17a2a5dd-28ab-4bc4-a575-6eb50501a31a",
+                                       new java.util.Date(1545929352220L), 121, null,
+                                       "f6f8fc20-d2c0-4f48-b3c1-80296f4b8734", "c196438d-cdd7-4b24-b3a8-3158784a3060",
+                                       "669f4fe9-1f48-4817-b810-fe1975a67f02", "0667d911-03af-42c0-a531-1f2ee06311f1",
+                                       "587435c5-4df3-4e3c-887e-1fe6e89f9d7f", null,
+                                       "e8eb5410-2056-45fd-acc4-023995855da4", "6954ecbc-83ec-483e-8b3c-0d29e9c0aa9d",
+                                       "67fdc9f9-d11f-4762-be30-949ae550c092", -72, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "c1f05d38-345f-46df-96d8-8c35b7de5209", null,
+                                       "386cdfff-3329-48f1-94b7-1713e643613a", "b87074e5-c400-43aa-9f55-3def7474150c",
+                                       null, "6b6e818c-689a-4fe2-8067-498e91761e01", null,
+                                       "aeaa093e-2f44-49e7-be33-951c8054c91e", "baeb91fa-79a2-4e0e-b632-176e1ba892e9",
+                                       "32f47fea-afb6-48b2-aeef-c3e81b75db26", "52685d7f-c2f5-4504-a4f2-5e64e7f87600",
+                                       "592c208e-c281-4355-a54e-897b597e722a",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "39c2e737-77d9-414a-b9b6-014c4a37d9e8", "c80ab006-b00e-4017-b95a-ca2aa607d662",
+                                       new java.util.Date(1545929358540L), new java.util.Date(1545929356759L));
+        assertNotNull(account1);
+        assertNotNull(account2);
+        assertNotSame(account2, account1);
+        assertEquals(account2, account1);
+        assertEquals(account2.hashCode(), account1.hashCode());
+        int hashCode = account1.hashCode();
+        for (int i = 0; i < 5; i++) {
+            assertEquals(hashCode, account1.hashCode());
+        }
+    }
+
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        Account account1 = new Account("85e7728b-55ea-4121-baa5-b87bea2b6eee", "bb2dbd32-3e90-4fbc-a7e0-ea9c220e9733",
+                                       "f1857981-a5d7-4d30-9ec6-8377f1858d34", "a0ccb023-beb9-4567-9600-8d9496cc6653",
+                                       "c0537676-2d14-4675-a3f2-ad4f95884030", "fe961924-9b2b-4b4a-be75-2c53477ec5e5",
+                                       "9bca19ca-34ba-4bc6-9799-41102a5b1a2e", "0feed22b-072c-4e83-bcc3-cb16304cb977",
+                                       null, "c06f78f4-0905-4411-9d85-1fc0760a3eee",
+                                       "0345c1ac-482e-4760-a3bc-a99590dc7393", "ef12a522-c80b-4997-b44b-d848494d2fc5",
+                                       "f0d624ac-2f26-452a-8fb4-ce361c22f829", "0b241bc3-a5e0-4fd9-9eb1-9a1ee25e0b9f",
+                                       new java.util.Date(1545929357625L), -4, null,
+                                       "2dd35b85-6421-46ff-b640-7ef16e642032", "fc491f81-7e04-47ed-9dd5-23947e116768",
+                                       "b170afc3-51d3-497b-893a-5e384b57dcd9", "1ca701bb-137c-41fe-ba90-c1b8a2fd2c41",
+                                       "ed59cc55-3b58-4abd-9103-241dc3e52e28", null,
+                                       "d6ffcdc9-39f6-4b52-b73d-847b50c173ea", "f78c820f-a78e-4e44-a00f-67487e320dd7",
+                                       "8d920872-6e99-41ac-b725-04d7e9239baf", -68, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "b3c5c782-7f88-4d67-b19a-4687d009d167", null,
+                                       "f85e5062-170c-4a80-9474-62cf7abd223a", "3995becf-584e-40c9-a521-78a6f56d0ada",
+                                       null, "ba391286-9c68-457b-bfa5-93f61dac3b57", null,
+                                       "97c78e73-ed3d-4c3a-b28c-2f23d5919057", "2c986a0f-1dae-4ae8-a39f-a42eff6fcd15",
+                                       "3afeb7cd-593e-4d7b-81e2-6229fc044663", "18556f2f-28f3-4f36-bdff-3dc9924befb5",
+                                       "0e2ced08-ad65-4e1f-90cd-afcefb44f7b3",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "bd67f0d9-aa17-40cd-9589-393568c8d677", "3f6f314d-368d-46c9-845c-f47a3f548b97",
+                                       new java.util.Date(1545929359229L), new java.util.Date(1545929352147L));
+        Account account2 = new Account("85e7728b-55ea-4121-baa5-b87bea2b6eee", "bb2dbd32-3e90-4fbc-a7e0-ea9c220e9733",
+                                       "f1857981-a5d7-4d30-9ec6-8377f1858d34", "a0ccb023-beb9-4567-9600-8d9496cc6653",
+                                       "c0537676-2d14-4675-a3f2-ad4f95884030", "fe961924-9b2b-4b4a-be75-2c53477ec5e5",
+                                       "9bca19ca-34ba-4bc6-9799-41102a5b1a2e", "0feed22b-072c-4e83-bcc3-cb16304cb977",
+                                       null, "c06f78f4-0905-4411-9d85-1fc0760a3eee",
+                                       "0345c1ac-482e-4760-a3bc-a99590dc7393", "ef12a522-c80b-4997-b44b-d848494d2fc5",
+                                       "f0d624ac-2f26-452a-8fb4-ce361c22f829", "0b241bc3-a5e0-4fd9-9eb1-9a1ee25e0b9f",
+                                       new java.util.Date(1545929357625L), -4, null,
+                                       "2dd35b85-6421-46ff-b640-7ef16e642032", "fc491f81-7e04-47ed-9dd5-23947e116768",
+                                       "b170afc3-51d3-497b-893a-5e384b57dcd9", "1ca701bb-137c-41fe-ba90-c1b8a2fd2c41",
+                                       "ed59cc55-3b58-4abd-9103-241dc3e52e28", null,
+                                       "d6ffcdc9-39f6-4b52-b73d-847b50c173ea", "f78c820f-a78e-4e44-a00f-67487e320dd7",
+                                       "8d920872-6e99-41ac-b725-04d7e9239baf", -68, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "b3c5c782-7f88-4d67-b19a-4687d009d167", null,
+                                       "f85e5062-170c-4a80-9474-62cf7abd223a", "3995becf-584e-40c9-a521-78a6f56d0ada",
+                                       null, "ba391286-9c68-457b-bfa5-93f61dac3b57", null,
+                                       "97c78e73-ed3d-4c3a-b28c-2f23d5919057", "2c986a0f-1dae-4ae8-a39f-a42eff6fcd15",
+                                       "3afeb7cd-593e-4d7b-81e2-6229fc044663", "18556f2f-28f3-4f36-bdff-3dc9924befb5",
+                                       "0e2ced08-ad65-4e1f-90cd-afcefb44f7b3",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "bd67f0d9-aa17-40cd-9589-393568c8d677", "3f6f314d-368d-46c9-845c-f47a3f548b97",
+                                       new java.util.Date(1545929359229L), new java.util.Date(1545929352147L));
+        Account account3 = new Account("79d7fa89-2898-477b-9846-0fab6011c271", "d384bd86-e3c8-420d-b715-cfd6452b5b0f",
+                                       "396e70e2-6880-4077-ae05-17fb99ea67b8", "d2fffa6a-6ec7-4ee3-b83c-d158cdbe6772",
+                                       "cd857f8e-b872-47aa-9909-b528d1b87fb2", "f937db85-b1cf-4420-9330-7149cc82b06c",
+                                       "b84fc54b-ec69-47d6-bb8c-99137f5164d3", "08929b7b-245a-44ce-81fd-9adfab6bc53a",
+                                       null, "bb1ef82f-ae93-49c4-940b-827c1c496839",
+                                       "a83d5eb1-6e12-4513-83d4-e73731673075", "b3bfcf8f-1778-4d3b-ad22-b6d35cda350a",
+                                       "22d5729f-166f-4824-8b53-d04979e2da68", "7be2d879-7f3b-4ca8-81b7-97a4b50de042",
+                                       new java.util.Date(1545929359472L), 125, null,
+                                       "6f1679d3-6eb6-4e87-a167-ef24d36b68a8", "e2a9a59d-53be-4858-bf7e-52ba859182cd",
+                                       "9a7e13f5-5112-4909-af8e-5077f1eb1855", "39bdb836-6708-484c-9e9f-26e316837400",
+                                       "a9b3a990-4f4b-4ab0-af02-ae61eb50395d", null,
+                                       "d757fba5-07d2-44d1-9cb1-adbd95e208ab", "ab0e01cd-c2ac-416d-a876-29ad7e084180",
+                                       "d3b6fbf7-ede5-48ea-91f9-327e8d4ad389", -44, null,
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountMfaStatus.getDefault(),
+                                       "3c83591b-cf06-4a05-8e39-83bd39ed0023", null,
+                                       "22bbf648-c7d6-44a7-8a74-8738d701b694", "c8e4c21b-02b2-43de-aea3-b1360986a48b",
+                                       null, "e7a2a61d-e8e6-48bd-a98b-c6ba4383a4b2", null,
+                                       "925b03e4-1032-4a6b-9fa0-7eb91fca6943", "d3f93b10-20b4-407e-b496-05451ae664e8",
+                                       "2719182c-3cf5-4e31-b9d9-51e59aea475e", "c782ab2a-103a-47a2-ad8e-464e0a85c0e4",
+                                       "40fe92b0-bab0-4c66-8d96-6e68ef79bd8d",
+                                       com.arm.mbed.cloud.sdk.accounts.model.AccountStatus.getDefault(), null,
+                                       "e134c211-e9fa-4014-9447-40d06086ed98", "fe476ec0-12f5-4ca4-bc61-dbffe00adb79",
+                                       new java.util.Date(1545929358056L), new java.util.Date(1545929350530L));
+        assertNotNull(account1);
+        assertNotNull(account2);
+        assertNotNull(account3);
+        assertNotSame(account2, account1);
+        assertNotSame(account3, account1);
+        assertEquals(account2, account1);
+        assertEquals(account2, account1);
+        assertEquals(account1, account2);
+        assertEquals(account1, account1);
+        assertFalse(account1.equals(null));
+        assertNotEquals(account3, account1);
+    }
 }
