@@ -24,8 +24,7 @@ public class FileDownload {
     private transient volatile boolean downloaded;
     private transient SdkLogger logger;
 
-    public enum Extension
-    {
+    public enum Extension {
         JSON,
         TXT,
         GZ,

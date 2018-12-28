@@ -5,7 +5,9 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The status of the API key")
 public enum ApiKeyStatus implements SdkEnum {
-    ACTIVE("ACTIVE"), INACTIVE("INACTIVE"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    ACTIVE("ACTIVE"),
+    INACTIVE("INACTIVE"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

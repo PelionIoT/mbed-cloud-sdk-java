@@ -5,8 +5,12 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The status of the user")
 public enum UserStatus implements SdkEnum {
-    ENROLLING("ENROLLING"), INVITED("INVITED"), ACTIVE("ACTIVE"), RESET("RESET"), INACTIVE("INACTIVE"), UNKNOWN_ENUM(
-            SDK_UNKNOWN_ENUM_VALUE);
+    ENROLLING("ENROLLING"),
+    INVITED("INVITED"),
+    ACTIVE("ACTIVE"),
+    RESET("RESET"),
+    INACTIVE("INACTIVE"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

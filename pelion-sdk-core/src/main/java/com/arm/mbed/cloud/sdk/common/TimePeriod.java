@@ -18,8 +18,7 @@ public final class TimePeriod implements Cloneable, Serializable {
     private static final long serialVersionUID = -5978245025854281358L;
 
     @Internal
-    private enum PeriodTimeUnit
-    {
+    private enum PeriodTimeUnit {
         YEARS,
         WEEKS,
         DAYS,

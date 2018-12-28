@@ -6,7 +6,9 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Certificate status")
 public enum CertificateStatus implements SdkEnum {
-    ACTIVE("ACTIVE"), INACTIVE("INACTIVE"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    ACTIVE("ACTIVE"),
+    INACTIVE("INACTIVE"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
     private final String value;
 
     /**

@@ -6,8 +6,11 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "Certificate type")
 public enum CertificateType implements SdkEnum {
-    DEVELOPER("developer"), BOOTSTRAP("bootstrap"), LWM2M("lwm2m"), UNKNOWN("unknown"), UNKNOWN_ENUM(
-            SDK_UNKNOWN_ENUM_VALUE);
+    DEVELOPER("developer"),
+    BOOTSTRAP("bootstrap"),
+    LWM2M("lwm2m"),
+    UNKNOWN("unknown"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

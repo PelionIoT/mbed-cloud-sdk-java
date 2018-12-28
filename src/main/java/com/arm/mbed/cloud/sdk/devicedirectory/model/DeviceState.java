@@ -5,8 +5,12 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The state of the device")
 public enum DeviceState implements SdkEnum {
-    UNENROLLED("unenrolled"), CLOUD_ENROLLING("cloud_enrolling"), BOOTSTRAPPED("bootstrapped"), REGISTERED(
-            "registered"), DEREGISTERED("deregistered"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    UNENROLLED("unenrolled"),
+    CLOUD_ENROLLING("cloud_enrolling"),
+    BOOTSTRAPPED("bootstrapped"),
+    REGISTERED("registered"),
+    DEREGISTERED("deregistered"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

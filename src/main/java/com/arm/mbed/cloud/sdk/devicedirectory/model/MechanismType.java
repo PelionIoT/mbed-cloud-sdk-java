@@ -5,7 +5,9 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 @Preamble(description = "The type of channel used to communicate with a device")
 public enum MechanismType implements SdkEnum {
-    CONNECTOR("connector"), DIRECT("direct"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    CONNECTOR("connector"),
+    DIRECT("direct"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 

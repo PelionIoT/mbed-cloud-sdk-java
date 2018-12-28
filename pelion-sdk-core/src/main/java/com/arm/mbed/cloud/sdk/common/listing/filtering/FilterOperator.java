@@ -7,13 +7,14 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 @Preamble(description = "Filter operator")
 public enum FilterOperator implements SdkEnum {
 
-    NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"), EQUAL("equal to", null,
-            "$eq"), GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte", "$gte"), LESS_THAN(
-                    "less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte",
-                    "$lte"), LIKE("like", FilterMarshaller.SUFFIX_SEPARATOR + "like", "$like"), IN("in",
-                            FilterMarshaller.SUFFIX_SEPARATOR + "in",
-                            "$in"), NOT_IN("not in", FilterMarshaller.SUFFIX_SEPARATOR + "nin", "$nin"), UNKNOWN_ENUM(
-                                    SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE);
+    NOT_EQUAL("not equal to", FilterMarshaller.SUFFIX_SEPARATOR + "neq", "$neq"),
+    EQUAL("equal to", null, "$eq"),
+    GREATER_THAN("greater than", FilterMarshaller.SUFFIX_SEPARATOR + "gte", "$gte"),
+    LESS_THAN("less than", FilterMarshaller.SUFFIX_SEPARATOR + "lte", "$lte"),
+    LIKE("like", FilterMarshaller.SUFFIX_SEPARATOR + "like", "$like"),
+    IN("in", FilterMarshaller.SUFFIX_SEPARATOR + "in", "$in"),
+    NOT_IN("not in", FilterMarshaller.SUFFIX_SEPARATOR + "nin", "$nin"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE, SDK_UNKNOWN_ENUM_VALUE);
 
     private final String suffix;
     private final String string;

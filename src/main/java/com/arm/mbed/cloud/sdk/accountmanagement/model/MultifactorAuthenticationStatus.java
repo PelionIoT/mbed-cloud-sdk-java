@@ -10,7 +10,9 @@ import com.arm.mbed.cloud.sdk.common.SdkEnum;
 @Preamble(description = "The enforcement status of the multi-factor authentication")
 public enum MultifactorAuthenticationStatus implements SdkEnum {
 
-    ENFORCED("enforced"), OPTIONAL("optional"), UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
+    ENFORCED("enforced"),
+    OPTIONAL("optional"),
+    UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
     private final String value;
 
