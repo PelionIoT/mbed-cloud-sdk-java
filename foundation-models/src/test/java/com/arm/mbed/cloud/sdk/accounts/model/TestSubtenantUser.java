@@ -15,17 +15,17 @@ public class TestSubtenantUser {
      */
     @Test
     public void testClone() {
-        SubtenantUser subtenantuser1 = new SubtenantUser("35297be0-99ca-46b7-a735-11dea384ff65",
-                                                         "aa0131b8-96e3-4ca5-89d1-12eb00728e51",
-                                                         new java.util.Date(1546027080915L), 17,
-                                                         "ceaebd4f-c52b-446e-b4a7-4342e944f386", false,
-                                                         "c6cd69e1-e5bb-4aad-865e-10fc5def6668",
-                                                         "1ddd1a41-6bf2-4089-ada2-cc679cf35576", -34, null, null, true,
-                                                         "d9b8b0a7-7062-447a-9ea8-110ed672781d", -58,
-                                                         "ae0b6a94-42fe-47cd-a098-20d10039f59c",
+        SubtenantUser subtenantuser1 = new SubtenantUser("a51a479b-b0c5-40d5-90f6-95fadb7d03ce",
+                                                         "7d222901-3ddd-4927-9c7f-16e23b8eeaa9",
+                                                         new java.util.Date(1546031371593L), -5,
+                                                         "2ffde71a-d1c6-4f85-90ec-bf9424518f36", true,
+                                                         "684129a3-4d85-4b65-ae15-75e3e6d412fe",
+                                                         "cdeaeb5f-31d8-4354-b331-b355e5a30786", 121, null, null, false,
+                                                         "ba9d0408-b0a1-479b-aa77-44ddc87042cd", -16,
+                                                         "179dddae-ebba-44f5-aa74-6b75a7b2b27d",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, false, new java.util.Date(1546027073328L),
-                                                         "5d81db54-ef6a-4202-9dd3-74627a76e9b0");
+                                                         true, false, new java.util.Date(1546031368171L),
+                                                         "72e0010c-a1b6-4f7c-9320-b50fc66d843f");
         SubtenantUser subtenantuser2 = subtenantuser1.clone();
         assertNotNull(subtenantuser1);
         assertNotNull(subtenantuser2);
@@ -38,17 +38,17 @@ public class TestSubtenantUser {
      */
     @Test
     public void testIsvalid() {
-        SubtenantUser subtenantuser = new SubtenantUser("d7263126-f86c-4477-81c9-7c3f5ceff8fd",
-                                                        "266bf611-abfb-4e10-ad01-faa3c1eb2abc",
-                                                        new java.util.Date(1546027081205L), 99,
-                                                        "54f3ba0e-7eed-4f9a-b0eb-74709cfc4df6", false,
-                                                        "332e3497-d264-494c-81fc-94e80cdbb9f1",
-                                                        "b139a8ff-87a5-4322-8f07-08f86c4fce03", -94, null, null, true,
-                                                        "7ca9baf2-9959-4c01-b45e-08ed84edcbec", 56,
-                                                        "c95973aa-edf0-4a81-8f32-302eaf3f8731",
+        SubtenantUser subtenantuser = new SubtenantUser("2ca0c202-9820-4b0d-b9f0-2ad60eb0a631",
+                                                        "7a165358-9f2a-479b-af78-322c65afd631",
+                                                        new java.util.Date(1546031365060L), -60,
+                                                        "8ccd8b7f-ef84-4dd0-b682-a9c093650fef", false,
+                                                        "4839cd6d-11c4-4c2d-b7c9-ca81c3ecc9d2",
+                                                        "802ee91a-c970-4d60-a6f0-071e4af4ecea", -69, null, null, true,
+                                                        "53402e8a-bdaa-4e4a-b865-530e43e95724", -102,
+                                                        "4f034a51-96cc-4c6c-88b9-c4ecb5f16aaf",
                                                         com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                        false, false, new java.util.Date(1546027080333L),
-                                                        "a717b118-45ee-4492-b808-79147aa111c5");
+                                                        false, true, new java.util.Date(1546031374577L),
+                                                        "92560fd0-d788-4d4b-ad36-ac4f92c6f7b1");
         assertTrue(subtenantuser.isValid());
     }
 
@@ -57,28 +57,28 @@ public class TestSubtenantUser {
      */
     @Test
     public void testHashcode() {
-        SubtenantUser subtenantuser1 = new SubtenantUser("708ebcec-8c92-4fac-bf1a-fe4999558fa4",
-                                                         "a5cae9f9-4f9e-46e9-b60a-170f3dc129e0",
-                                                         new java.util.Date(1546027079048L), 12,
-                                                         "c34e8956-66da-4162-8d2d-95ffa3484cd3", false,
-                                                         "0976d695-e880-42be-98c8-73a40980f970",
-                                                         "a35842d4-50a5-430c-9e4b-21903488ee09", 53, null, null, false,
-                                                         "6e377553-4f2e-4516-8360-c7d1812f4d89", -22,
-                                                         "68bacacf-678c-4f3d-a4d6-92f785e00ab6",
+        SubtenantUser subtenantuser1 = new SubtenantUser("066e9f2d-205a-4bbf-ba6c-56fb7bd1c5df",
+                                                         "b82081ec-8304-496d-8039-002875b84744",
+                                                         new java.util.Date(1546031372623L), 18,
+                                                         "994186c4-14c5-4809-b590-c7a07d3df8d8", false,
+                                                         "ccd66b50-b847-4458-945f-0f55c0327b20",
+                                                         "99a398f3-7dd7-43b8-a01f-7a5e71e282f6", 120, null, null, true,
+                                                         "0436dfc9-187b-456c-bd26-52de102f29d7", -65,
+                                                         "aa02e32d-bb7a-450e-a64a-e539683bad7d",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, true, new java.util.Date(1546027079028L),
-                                                         "4ea24ba1-efd0-4e06-8491-81e008b323e4");
-        SubtenantUser subtenantuser2 = new SubtenantUser("708ebcec-8c92-4fac-bf1a-fe4999558fa4",
-                                                         "a5cae9f9-4f9e-46e9-b60a-170f3dc129e0",
-                                                         new java.util.Date(1546027079048L), 12,
-                                                         "c34e8956-66da-4162-8d2d-95ffa3484cd3", false,
-                                                         "0976d695-e880-42be-98c8-73a40980f970",
-                                                         "a35842d4-50a5-430c-9e4b-21903488ee09", 53, null, null, false,
-                                                         "6e377553-4f2e-4516-8360-c7d1812f4d89", -22,
-                                                         "68bacacf-678c-4f3d-a4d6-92f785e00ab6",
+                                                         true, true, new java.util.Date(1546031371999L),
+                                                         "10fdf38c-b85a-4491-838f-61f47d0fd59a");
+        SubtenantUser subtenantuser2 = new SubtenantUser("066e9f2d-205a-4bbf-ba6c-56fb7bd1c5df",
+                                                         "b82081ec-8304-496d-8039-002875b84744",
+                                                         new java.util.Date(1546031372623L), 18,
+                                                         "994186c4-14c5-4809-b590-c7a07d3df8d8", false,
+                                                         "ccd66b50-b847-4458-945f-0f55c0327b20",
+                                                         "99a398f3-7dd7-43b8-a01f-7a5e71e282f6", 120, null, null, true,
+                                                         "0436dfc9-187b-456c-bd26-52de102f29d7", -65,
+                                                         "aa02e32d-bb7a-450e-a64a-e539683bad7d",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, true, new java.util.Date(1546027079028L),
-                                                         "4ea24ba1-efd0-4e06-8491-81e008b323e4");
+                                                         true, true, new java.util.Date(1546031371999L),
+                                                         "10fdf38c-b85a-4491-838f-61f47d0fd59a");
         assertNotNull(subtenantuser1);
         assertNotNull(subtenantuser2);
         assertNotSame(subtenantuser2, subtenantuser1);
@@ -95,39 +95,39 @@ public class TestSubtenantUser {
      */
     @Test
     public void testEquals() {
-        SubtenantUser subtenantuser1 = new SubtenantUser("7de4e7a4-b617-47b5-ba80-bc2793da4c4c",
-                                                         "9a4956de-e7fb-47c2-8631-a32c10c58191",
-                                                         new java.util.Date(1546027080801L), -55,
-                                                         "cb7caa29-ecdf-4e4e-b2e7-24e5fb041d7e", false,
-                                                         "114ef5a0-ad05-4d7a-965b-4d8bd4825e53",
-                                                         "1b2c3e46-1394-4ea3-82fb-3d5b663b32bf", 72, null, null, false,
-                                                         "4f185b8b-b56e-49ac-81cd-b705b1cf9da0", 33,
-                                                         "134dedac-3544-45cf-9abc-0ec0d94d4065",
+        SubtenantUser subtenantuser1 = new SubtenantUser("448a7cc5-1fbd-41b0-8d43-5fded709819f",
+                                                         "f7b4178d-7b94-4beb-aea8-baceab76353c",
+                                                         new java.util.Date(1546031368100L), -69,
+                                                         "ddd43497-dbae-492f-ac02-5a3b4402acef", true,
+                                                         "3dca0f97-2325-4f6b-b950-30c2bdcfaf7f",
+                                                         "50901cb4-6c60-4ecc-8400-80de46ace99a", 99, null, null, true,
+                                                         "e55d5425-c693-4ff3-9959-080e18c2739d", -27,
+                                                         "0e14c712-4528-42fb-b450-ec5d96010772",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, true, new java.util.Date(1546027074092L),
-                                                         "17186316-f1c3-4ab7-8a8a-0c9f465f0aa6");
-        SubtenantUser subtenantuser2 = new SubtenantUser("7de4e7a4-b617-47b5-ba80-bc2793da4c4c",
-                                                         "9a4956de-e7fb-47c2-8631-a32c10c58191",
-                                                         new java.util.Date(1546027080801L), -55,
-                                                         "cb7caa29-ecdf-4e4e-b2e7-24e5fb041d7e", false,
-                                                         "114ef5a0-ad05-4d7a-965b-4d8bd4825e53",
-                                                         "1b2c3e46-1394-4ea3-82fb-3d5b663b32bf", 72, null, null, false,
-                                                         "4f185b8b-b56e-49ac-81cd-b705b1cf9da0", 33,
-                                                         "134dedac-3544-45cf-9abc-0ec0d94d4065",
+                                                         true, true, new java.util.Date(1546031365497L),
+                                                         "849cf7a8-0dd1-454d-8234-64adfccb5f2b");
+        SubtenantUser subtenantuser2 = new SubtenantUser("448a7cc5-1fbd-41b0-8d43-5fded709819f",
+                                                         "f7b4178d-7b94-4beb-aea8-baceab76353c",
+                                                         new java.util.Date(1546031368100L), -69,
+                                                         "ddd43497-dbae-492f-ac02-5a3b4402acef", true,
+                                                         "3dca0f97-2325-4f6b-b950-30c2bdcfaf7f",
+                                                         "50901cb4-6c60-4ecc-8400-80de46ace99a", 99, null, null, true,
+                                                         "e55d5425-c693-4ff3-9959-080e18c2739d", -27,
+                                                         "0e14c712-4528-42fb-b450-ec5d96010772",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, true, new java.util.Date(1546027074092L),
-                                                         "17186316-f1c3-4ab7-8a8a-0c9f465f0aa6");
-        SubtenantUser subtenantuser3 = new SubtenantUser("3af3ee5c-0cc6-47d1-be7e-cf380f1cd977",
-                                                         "d41e3fd5-bd09-41be-a282-d35c5d1f5689",
-                                                         new java.util.Date(1546027082216L), -117,
-                                                         "f89e4c14-a5f6-42a5-9686-070eb6052ee6", false,
-                                                         "19a79b7d-4ca8-4c22-8fdb-45e345bc2bf2",
-                                                         "0027f7da-dc50-4270-9481-887ea295c3ca", 88, null, null, true,
-                                                         "ef331234-b19c-4a18-b1b4-71d8a171ff4f", 82,
-                                                         "0a182d95-3fee-4dea-9521-7698ea01285a",
+                                                         true, true, new java.util.Date(1546031365497L),
+                                                         "849cf7a8-0dd1-454d-8234-64adfccb5f2b");
+        SubtenantUser subtenantuser3 = new SubtenantUser("e3fe5854-d8f9-46a5-acdc-1bc2c7d9570b",
+                                                         "b48f7bbc-b7ba-455d-b6f7-eab25b35a3dc",
+                                                         new java.util.Date(1546031369549L), -31,
+                                                         "e0d5bba5-e8b4-4527-9837-46fcf68e5c05", true,
+                                                         "605a0150-e19a-4a4d-877a-8c0dbce65579",
+                                                         "348f6a24-b2c8-48c9-bb4f-98ef43831f28", -18, null, null, false,
+                                                         "207bfb65-5250-4e60-a441-c4429fee8215", -122,
+                                                         "0e0b778b-4dc0-4ab9-a793-e0ab5656a0e5",
                                                          com.arm.mbed.cloud.sdk.accounts.model.SubtenantUserStatus.getDefault(),
-                                                         false, false, new java.util.Date(1546027076895L),
-                                                         "ec2b15c5-5552-49b8-9eed-f8bda2b12d53");
+                                                         true, false, new java.util.Date(1546031370313L),
+                                                         "a2625a4e-f47b-468d-9a02-f65f9acaa935");
         assertNotNull(subtenantuser1);
         assertNotNull(subtenantuser2);
         assertNotNull(subtenantuser3);

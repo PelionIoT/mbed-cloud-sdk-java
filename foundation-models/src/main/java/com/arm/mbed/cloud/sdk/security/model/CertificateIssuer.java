@@ -44,7 +44,7 @@ public class CertificateIssuer implements SdkModel {
      * provide their own GlobalSign account credentials. - CFSSL_AUTH: Certificates are issued by CFSSL authenticated
      * signing service. The users must provide their own CFSSL host_url and credentials.
      */
-    private CertificateIssuerIssuerType issuerType;
+    private CertificateIssuerType issuerType;
 
     /**
      * Certificate issuer name, unique per account.
@@ -76,7 +76,7 @@ public class CertificateIssuer implements SdkModel {
      */
     @Internal
     public CertificateIssuer(Date createdAt, String description, String id, Map<String, String> issuerAttributes,
-                             CertificateIssuerIssuerType issuerType, String name) {
+                             CertificateIssuerType issuerType, String name) {
         super();
         setCreatedAt(createdAt);
         setDescription(description);
@@ -100,7 +100,7 @@ public class CertificateIssuer implements SdkModel {
              certificateIssuer == null ? (String) null : certificateIssuer.description,
              certificateIssuer == null ? (String) null : certificateIssuer.id,
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
-             certificateIssuer == null ? CertificateIssuerIssuerType.getDefault() : certificateIssuer.issuerType,
+             certificateIssuer == null ? CertificateIssuerType.getDefault() : certificateIssuer.issuerType,
              certificateIssuer == null ? (String) null : certificateIssuer.name);
     }
 
@@ -108,7 +108,7 @@ public class CertificateIssuer implements SdkModel {
      * Constructor.
      */
     public CertificateIssuer() {
-        this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerIssuerType.getDefault(),
+        this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerType.getDefault(),
              (String) null);
     }
 
@@ -225,7 +225,7 @@ public class CertificateIssuer implements SdkModel {
      * 
      * @return issuerType
      */
-    public CertificateIssuerIssuerType getIssuerType() {
+    public CertificateIssuerType getIssuerType() {
         return issuerType;
     }
 
@@ -240,7 +240,7 @@ public class CertificateIssuer implements SdkModel {
      *            CFSSL authenticated signing service. The users must provide their own CFSSL host_url and credentials.
      * 
      */
-    public void setIssuerType(CertificateIssuerIssuerType issuerType) {
+    public void setIssuerType(CertificateIssuerType issuerType) {
         this.issuerType = issuerType;
     }
 

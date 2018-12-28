@@ -8162,7 +8162,7 @@ entities:
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
-    enum_reference: certificate_issuer_issuer_type_enum
+    enum_reference: certificate_issuer_type_enum
     example: GLOBAL_SIGN
     type: string
   - _key: name
@@ -8272,7 +8272,7 @@ entities:
       enum:
       - GLOBAL_SIGN
       - CFSSL_AUTH
-      enum_reference: certificate_issuer_issuer_type_enum
+      enum_reference: certificate_issuer_type_enum
       example: GLOBAL_SIGN
       in: body
       parameter_fieldname: issuer_type
@@ -31510,9 +31510,9 @@ enums:
   values:
   - ASC
   - DESC
-- _key: certificate_issuer_issuer_type_enum
+- _key: certificate_issuer_type_enum
   entity_name: certificate_issuer
-  enum_name: certificate_issuer_issuer_type_enum
+  enum_name: certificate_issuer_type_enum
   field_name: issuer_type
   group_id: Security
   values:
@@ -31705,7 +31705,7 @@ groups:
   - subtenant_trusted_certificate
   - developer_certificate
   enums:
-  - certificate_issuer_issuer_type_enum
+  - certificate_issuer_type_enum
   - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
   - certificate_enrollment_order_enum

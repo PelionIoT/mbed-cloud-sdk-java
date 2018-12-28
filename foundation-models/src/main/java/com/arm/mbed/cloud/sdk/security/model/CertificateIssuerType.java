@@ -9,10 +9,10 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 /**
- * Certificate issuer issuer type.
+ * Certificate issuer type.
  */
-@Preamble(description = "Certificate issuer issuer type.")
-public enum CertificateIssuerIssuerType implements SdkEnum {
+@Preamble(description = "Certificate issuer type.")
+public enum CertificateIssuerType implements SdkEnum {
     CFSSL_AUTH("CFSSL_AUTH"),
 
     GLOBAL_SIGN("GLOBAL_SIGN"),
@@ -22,7 +22,7 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
     /**
      * Serialisation Id.
      */
-    private static final long serialVersionUID = -367214879351820L;
+    private static final long serialVersionUID = 5954602323518209L;
 
     /**
      * string representation.
@@ -39,7 +39,7 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      *            string representation.
      */
     @Internal
-    CertificateIssuerIssuerType(@DefaultValue("CFSSL_AUTH") String string) {
+    CertificateIssuerType(@DefaultValue("CFSSL_AUTH") String string) {
         this.string = string;
     }
 
@@ -90,36 +90,36 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
     }
 
     /**
-     * Gets default certificate issuer issuer type.
+     * Gets default certificate issuer type.
      * 
-     * @return default certificate issuer issuer type
+     * @return default certificate issuer type
      */
-    public static CertificateIssuerIssuerType getDefault() {
+    public static CertificateIssuerType getDefault() {
         return CFSSL_AUTH;
     }
 
     /**
-     * Gets unknown certificate issuer issuer type value.
+     * Gets unknown certificate issuer type value.
      * 
-     * @return unknown certificate issuer issuer type
+     * @return unknown certificate issuer type
      */
-    public static CertificateIssuerIssuerType getUnknownEnum() {
+    public static CertificateIssuerType getUnknownEnum() {
         return UNKNOWN_ENUM;
     }
 
     /**
-     * Gets certificate issuer issuer type from its string representation.
+     * Gets certificate issuer type from its string representation.
      * 
      * @param value
      *            string.
-     * @return corresponding certificate issuer issuer type or default certificate issuer issuer type if not recognised.
+     * @return corresponding certificate issuer type or default certificate issuer type if not recognised.
      */
-    public static CertificateIssuerIssuerType getValue(String value) {
+    public static CertificateIssuerType getValue(String value) {
         if (value == null) {
             return getDefault();
         }
         final String trimmedValue = value.trim();
-        for (final CertificateIssuerIssuerType option : values()) {
+        for (final CertificateIssuerType option : values()) {
             if (option.getString().equalsIgnoreCase(trimmedValue)) {
                 return option;
             }
@@ -133,9 +133,9 @@ public enum CertificateIssuerIssuerType implements SdkEnum {
      * 
      * @see SdkEnum#merge(SdkEnum, SdkEnum)
      * @param obj1
-     *            a certificate issuer issuer type.
+     *            a certificate issuer type.
      * @param obj2
-     *            a certificate issuer issuer type.
+     *            a certificate issuer type.
      * @return the merged enumerator
      */
     @Override

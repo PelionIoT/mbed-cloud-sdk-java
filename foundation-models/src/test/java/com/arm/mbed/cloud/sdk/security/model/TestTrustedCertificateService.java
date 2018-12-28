@@ -28,7 +28,7 @@ public class TestTrustedCertificateService {
         trustedcertificateservice = TrustedCertificateService.getValue("lwm2m");
         assertNotNull(trustedcertificateservice);
         assertFalse(trustedcertificateservice.isDefault());
-        trustedcertificateservice = TrustedCertificateService.getValue("7ac352d9-5565-4406-93bf-20323adba4cf");
+        trustedcertificateservice = TrustedCertificateService.getValue("0717b289-efcf-4b96-9dfe-f745ab05e080");
         assertNotNull(trustedcertificateservice);
         assertTrue(trustedcertificateservice.isDefault());
     }

@@ -15,7 +15,7 @@ public class TestVerificationResponse {
      */
     @Test
     public void testClone() {
-        VerificationResponse verificationresponse1 = new VerificationResponse("1cdafc41-a06d-4878-ab7a-778d60e00528",
+        VerificationResponse verificationresponse1 = new VerificationResponse("a3c0d5d6-4c5e-429b-b9ec-4b9d413ea756",
                                                                               true);
         VerificationResponse verificationresponse2 = verificationresponse1.clone();
         assertNotNull(verificationresponse1);
@@ -29,7 +29,7 @@ public class TestVerificationResponse {
      */
     @Test
     public void testIsvalid() {
-        VerificationResponse verificationresponse = new VerificationResponse("ba0d6a97-4c5d-4155-8d0f-41a6187d864e",
+        VerificationResponse verificationresponse = new VerificationResponse("3d9e35da-4a61-4ce6-9a80-e06f7d9234a2",
                                                                              true);
         assertTrue(verificationresponse.isValid());
     }
@@ -39,9 +39,9 @@ public class TestVerificationResponse {
      */
     @Test
     public void testHashcode() {
-        VerificationResponse verificationresponse1 = new VerificationResponse("9954c280-d37e-470b-b9ca-dec07661d556",
+        VerificationResponse verificationresponse1 = new VerificationResponse("2bd8429b-9da2-419b-9ed7-25d8d12a31c8",
                                                                               false);
-        VerificationResponse verificationresponse2 = new VerificationResponse("9954c280-d37e-470b-b9ca-dec07661d556",
+        VerificationResponse verificationresponse2 = new VerificationResponse("2bd8429b-9da2-419b-9ed7-25d8d12a31c8",
                                                                               false);
         assertNotNull(verificationresponse1);
         assertNotNull(verificationresponse2);
@@ -59,11 +59,11 @@ public class TestVerificationResponse {
      */
     @Test
     public void testEquals() {
-        VerificationResponse verificationresponse1 = new VerificationResponse("c9f4289a-1a34-41b5-b3a6-b97264924f27",
-                                                                              false);
-        VerificationResponse verificationresponse2 = new VerificationResponse("c9f4289a-1a34-41b5-b3a6-b97264924f27",
-                                                                              false);
-        VerificationResponse verificationresponse3 = new VerificationResponse("53bd5f7d-a7bc-4c62-8017-6d7d4c45c49c",
+        VerificationResponse verificationresponse1 = new VerificationResponse("02f46747-7dab-4d69-927c-53366cef2fc4",
+                                                                              true);
+        VerificationResponse verificationresponse2 = new VerificationResponse("02f46747-7dab-4d69-927c-53366cef2fc4",
+                                                                              true);
+        VerificationResponse verificationresponse3 = new VerificationResponse("a96a9cba-2fbf-4929-ade1-bcdbb3a0137e",
                                                                               false);
         assertNotNull(verificationresponse1);
         assertNotNull(verificationresponse2);

@@ -28,7 +28,7 @@ public class TestCertificateEnrollmentEnrollStatus {
         certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
         assertNotNull(certificateenrollmentenrollstatus);
         assertFalse(certificateenrollmentenrollstatus.isDefault());
-        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("4902cd26-7ba5-4974-a831-deaea5df8b44");
+        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("ae4f7699-e3e3-4517-87d4-119f7e6720bd");
         assertNotNull(certificateenrollmentenrollstatus);
         assertTrue(certificateenrollmentenrollstatus.isDefault());
     }
