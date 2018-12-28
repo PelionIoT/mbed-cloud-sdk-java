@@ -74,7 +74,7 @@ public class LoginHistory implements SdkModel {
     public LoginHistory(LoginHistory loginHistory) {
         this(loginHistory == null ? new java.util.Date() : loginHistory.date,
              loginHistory == null ? (String) null : loginHistory.ipAddress,
-             loginHistory == null ? false : loginHistory.success,
+             loginHistory != null && loginHistory.success,
              loginHistory == null ? (String) null : loginHistory.userAgent);
     }
 

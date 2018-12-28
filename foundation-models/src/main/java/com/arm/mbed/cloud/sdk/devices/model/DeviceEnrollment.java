@@ -196,7 +196,7 @@ public class DeviceEnrollment implements SdkModel {
      * <p>
      * null
      * <p>
-     * Note: the value has to match [^[A-Za-z0-9]{32}] to be valid
+     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param enrolledDeviceId
      *            The ID of the device in the Device Directory once it has been registered.
@@ -210,6 +210,7 @@ public class DeviceEnrollment implements SdkModel {
      * 
      * @return true if the value is valid; false otherwise.
      */
+    @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEnrolledDeviceIdValid() {
         return (enrolledDeviceId == null || enrolledDeviceId.matches("^[A-Za-z0-9]{32}"));
     }
@@ -228,7 +229,7 @@ public class DeviceEnrollment implements SdkModel {
      * <p>
      * null
      * <p>
-     * Note: the value has to match [^A-[A-Za-z0-9:]{95}$] to be valid
+     * Note: the value has to match {@code /^A-[A-Za-z0-9:]{95}$/} to be valid
      * 
      * @param enrollmentIdentity
      *            Enrollment identity.
@@ -242,6 +243,7 @@ public class DeviceEnrollment implements SdkModel {
      * 
      * @return true if the value is valid; false otherwise.
      */
+    @SuppressWarnings("PMD.UselessParentheses")
     public boolean isEnrollmentIdentityValid() {
         return (enrollmentIdentity == null || enrollmentIdentity.matches("^A-[A-Za-z0-9:]{95}$"));
     }
@@ -283,7 +285,7 @@ public class DeviceEnrollment implements SdkModel {
      * <p>
      * null
      * <p>
-     * Note: the value has to match [^[A-Za-z0-9]{32}] to be valid
+     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param id
      *            Enrollment identity.
@@ -298,7 +300,7 @@ public class DeviceEnrollment implements SdkModel {
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
-     * Note: the value has to match [^[A-Za-z0-9]{32}] to be valid
+     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param deviceEnrollmentId
      *            Enrollment identity.
@@ -313,6 +315,7 @@ public class DeviceEnrollment implements SdkModel {
      * 
      * @return true if the value is valid; false otherwise.
      */
+    @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
         return (id == null || id.matches("^[A-Za-z0-9]{32}"));
     }

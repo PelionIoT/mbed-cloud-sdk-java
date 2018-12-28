@@ -14,6 +14,7 @@ import java.util.Objects;
  * Model for an account.
  */
 @Preamble(description = "Model for an account.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class Account implements SdkModel {
     /**
      * Serialisation Id.
@@ -360,6 +361,7 @@ public class Account implements SdkModel {
      *            Time when upgraded to commercial account in UTC format RFC3339.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public Account(String addressLine1, String addressLine2, String adminEmail, String adminFullName, String adminId,
                    String adminKey, String adminName, String adminPassword, List<String> aliases, String city,
                    String company, String contact, String contractNumber, String country, Date createdAt,
@@ -1485,6 +1487,7 @@ public class Account implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

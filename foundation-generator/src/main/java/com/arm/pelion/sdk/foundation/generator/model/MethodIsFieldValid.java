@@ -37,6 +37,12 @@ public class MethodIsFieldValid extends Method {
         return "return " + String.join(System.lineSeparator() + "&& ", checkList);
     }
 
+    @Override
+    protected void addAnnotations() {
+        super.addAnnotations();
+        specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreUselessParentheses());
+    }
+
     private String fetchRegex(Field field) {
         return field.getPattern();
     }

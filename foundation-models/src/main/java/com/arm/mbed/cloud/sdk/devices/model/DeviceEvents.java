@@ -139,8 +139,7 @@ public class DeviceEvents implements SdkModel {
              deviceEvents == null ? (String) null : deviceEvents.eventType,
              deviceEvents == null ? (String) null : deviceEvents.eventTypeCategory,
              deviceEvents == null ? (String) null : deviceEvents.eventTypeDescription,
-             deviceEvents == null ? (String) null : deviceEvents.id,
-             deviceEvents == null ? false : deviceEvents.stateChange);
+             deviceEvents == null ? (String) null : deviceEvents.id, deviceEvents != null && deviceEvents.stateChange);
     }
 
     /**

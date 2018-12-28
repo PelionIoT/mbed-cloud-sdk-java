@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for a device.
  */
 @Preamble(description = "Model for a device.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class Device implements SdkModel {
     /**
      * Serialisation Id.
@@ -233,6 +234,7 @@ public class Device implements SdkModel {
      *            The device vendor ID.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
                   String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
@@ -282,7 +284,7 @@ public class Device implements SdkModel {
      */
     @Internal
     public Device(Device device) {
-        this(device == null ? (String) null : device.accountId, device == null ? false : device.autoUpdate,
+        this(device == null ? (String) null : device.accountId, device != null && device.autoUpdate,
              device == null ? new java.util.Date() : device.bootstrapExpirationDate,
              device == null ? new java.util.Date() : device.bootstrappedTimestamp,
              device == null ? (String) null : device.caId,
@@ -966,6 +968,7 @@ public class Device implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

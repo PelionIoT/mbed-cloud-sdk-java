@@ -163,6 +163,7 @@ public class Method extends AbstractSdkArtifact {
         this.returnDescription = returnDescription;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Method> T returnDescription(String returnDesc) {
         setReturnDescription(returnDesc);
         return (T) this;
@@ -255,6 +256,7 @@ public class Method extends AbstractSdkArtifact {
         this.returnType = returnType;
     }
 
+    @SuppressWarnings("unchecked")
     public <T extends Method> T returnType(TypeParameter theReturnType) {
         setReturnType(theReturnType);
         return (T) this;

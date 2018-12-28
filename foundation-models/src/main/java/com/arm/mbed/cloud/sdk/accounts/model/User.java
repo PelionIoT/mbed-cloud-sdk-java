@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for a user.
  */
 @Preamble(description = "Model for a user.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class User implements SdkModel {
     /**
      * Serialisation Id.
@@ -173,6 +174,7 @@ public class User implements SdkModel {
      *            A username containing alphanumerical letters and -,._@+= characters.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public User(String accountId, String address, Date createdAt, long creationTime, String email,
                 boolean emailVerified, String fullName, List<String> groups, String id, long lastLoginTime,
                 List<LoginHistory> loginHistory, boolean marketingAccepted, String password, long passwordChangedTime,
@@ -213,13 +215,13 @@ public class User implements SdkModel {
     public User(User user) {
         this(user == null ? (String) null : user.accountId, user == null ? (String) null : user.address,
              user == null ? new java.util.Date() : user.createdAt, user == null ? 0L : user.creationTime,
-             user == null ? (String) null : user.email, user == null ? false : user.emailVerified,
+             user == null ? (String) null : user.email, user != null && user.emailVerified,
              user == null ? (String) null : user.fullName, user == null ? null : user.groups,
              user == null ? (String) null : user.id, user == null ? 0L : user.lastLoginTime,
-             user == null ? null : user.loginHistory, user == null ? false : user.marketingAccepted,
+             user == null ? null : user.loginHistory, user != null && user.marketingAccepted,
              user == null ? (String) null : user.password, user == null ? 0L : user.passwordChangedTime,
              user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
-             user == null ? false : user.termsAccepted, user == null ? false : user.twoFactorAuthentication,
+             user != null && user.termsAccepted, user != null && user.twoFactorAuthentication,
              user == null ? new java.util.Date() : user.updatedAt, user == null ? (String) null : user.username);
     }
 
@@ -705,6 +707,7 @@ public class User implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

@@ -35,4 +35,12 @@ public abstract class AbstractMethodConstructorWithFieldParameters extends Abstr
         fields.forEach(f -> addParameter(f.toParameter()));
     }
 
+    @Override
+    protected void addAnnotations() {
+        super.addAnnotations();
+        if (fields != null && fields.size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+        }
+    }
+
 }

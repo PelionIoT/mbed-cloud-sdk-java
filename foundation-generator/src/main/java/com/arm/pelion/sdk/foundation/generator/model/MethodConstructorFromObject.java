@@ -30,12 +30,12 @@ public class MethodConstructorFromObject extends AbstractMethodConstructor {
 
         final String parameterName = parameter == null ? "unknown" : parameter.getName();
         final List<Field> fields = getAllFields();
-        code.addStatement("this(" + String.join("," + System.lineSeparator(),
-                                                fields.stream()
-                                                      .map(f -> parameterName + " == null ? " + f.getJavaDefaultValue()
-                                                                + " : " + parameterName + "." + f.getName())
-                                                      .collect(Collectors.toList()))
-                          + ")");
+        code.addStatement("this(" + String.join("," + System.lineSeparator(), fields.stream().map(f -> {
+            if (f.getType().isBoolean() && f.getJavaDefaultBooleanValue() == false) {
+                return parameterName + " != null && " + parameterName + "." + f.getName();
+            }
+            return parameterName + " == null ? " + f.getJavaDefaultValue() + " : " + parameterName + "." + f.getName();
+        }).collect(Collectors.toList())) + ")");
     }
 
     @Override

@@ -24,7 +24,7 @@ public class MethodSetter extends Method {
         String description = has(longDescription) ? longDescription : field.getLongDescription();
         if (field.hasPattern()) {
             description = description + System.lineSeparator() + "<p>" + System.lineSeparator()
-                          + "Note: the value has to match [" + field.getPattern() + "] to be valid";
+                          + "Note: the value has to match {@code /" + field.getPattern() + "/} to be valid";
         }
         return description;
     }

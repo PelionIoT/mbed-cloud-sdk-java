@@ -93,7 +93,7 @@ public class CertificateIssuerConfig implements SdkModel {
         this(certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.certificateIssuerId,
              certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.createdAt,
              certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.id,
-             certificateIssuerConfig == null ? false : certificateIssuerConfig.isCustom,
+             certificateIssuerConfig != null && certificateIssuerConfig.isCustom,
              certificateIssuerConfig == null ? (String) null : certificateIssuerConfig.reference,
              certificateIssuerConfig == null ? new java.util.Date() : certificateIssuerConfig.updatedAt);
     }

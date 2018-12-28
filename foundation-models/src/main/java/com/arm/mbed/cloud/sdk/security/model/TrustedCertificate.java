@@ -12,6 +12,7 @@ import java.util.Objects;
  * Model for a trusted certificate.
  */
 @Preamble(description = "Model for a trusted certificate.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class TrustedCertificate implements SdkModel {
     /**
      * Serialisation Id.
@@ -144,6 +145,7 @@ public class TrustedCertificate implements SdkModel {
      *            Expiration time in UTC formatted as RFC3339.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public TrustedCertificate(String accountId, String certificate, Date createdAt, String description,
                               int deviceExecutionMode, boolean enrollmentMode, String id,
                               boolean isDeveloperCertificate, String issuer, String name, String ownerId,
@@ -184,9 +186,9 @@ public class TrustedCertificate implements SdkModel {
              trustedCertificate == null ? new java.util.Date() : trustedCertificate.createdAt,
              trustedCertificate == null ? (String) null : trustedCertificate.description,
              trustedCertificate == null ? 0 : trustedCertificate.deviceExecutionMode,
-             trustedCertificate == null ? false : trustedCertificate.enrollmentMode,
+             trustedCertificate != null && trustedCertificate.enrollmentMode,
              trustedCertificate == null ? (String) null : trustedCertificate.id,
-             trustedCertificate == null ? false : trustedCertificate.isDeveloperCertificate,
+             trustedCertificate != null && trustedCertificate.isDeveloperCertificate,
              trustedCertificate == null ? (String) null : trustedCertificate.issuer,
              trustedCertificate == null ? (String) null : trustedCertificate.name,
              trustedCertificate == null ? (String) null : trustedCertificate.ownerId,
@@ -610,6 +612,7 @@ public class TrustedCertificate implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

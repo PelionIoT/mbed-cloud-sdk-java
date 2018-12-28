@@ -79,8 +79,8 @@ public class Policy implements SdkModel {
      */
     @Internal
     public Policy(Policy policy) {
-        this(policy == null ? (String) null : policy.action, policy == null ? false : policy.allow,
-             policy == null ? (String) null : policy.feature, policy == null ? false : policy.inherited,
+        this(policy == null ? (String) null : policy.action, policy != null && policy.allow,
+             policy == null ? (String) null : policy.feature, policy != null && policy.inherited,
              policy == null ? (String) null : policy.resource);
     }
 

@@ -112,7 +112,7 @@ public class CertificateIssuer implements SdkModel {
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
              certificateIssuer == null ? CertificateIssuerIssuerType.getDefault() : certificateIssuer.issuerType,
              certificateIssuer == null ? (String) null : certificateIssuer.name,
-             certificateIssuer == null ? false : certificateIssuer.successful);
+             certificateIssuer != null && certificateIssuer.successful);
     }
 
     /**

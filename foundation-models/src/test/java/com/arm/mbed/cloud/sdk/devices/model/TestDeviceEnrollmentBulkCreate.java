@@ -15,16 +15,16 @@ public class TestDeviceEnrollmentBulkCreate {
      */
     @Test
     public void testClone() {
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("2436dfcc-344e-4f66-b7c7-e490844688d5",
-                                                                                                new java.util.Date(1546003510395L),
-                                                                                                new java.util.Date(1546003510804L),
-                                                                                                -81,
-                                                                                                "b19d5299-3e51-403b-9d6c-ee2eaacc42a2",
-                                                                                                "32eadcaa-7586-4331-a716-44ee636a280e",
-                                                                                                "Z1213jrRAj92GhQaJ52yvShNZP52tR0E",
-                                                                                                125,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("d035f149-3d65-41db-8d6c-28ad46e374a9",
+                                                                                                new java.util.Date(1546013404790L),
+                                                                                                new java.util.Date(1546013400381L),
+                                                                                                -89,
+                                                                                                "b111faba-f045-486f-93bd-a228cbdfe7da",
+                                                                                                "89932fe4-f2ea-4f92-8c36-db50aafbc175",
+                                                                                                "FV9Kz1mIC0vQ6tW4RG2ymPAu4JSQnq6P",
+                                                                                                21,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                106);
+                                                                                                5);
         DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = deviceenrollmentbulkcreate1.clone();
         assertNotNull(deviceenrollmentbulkcreate1);
         assertNotNull(deviceenrollmentbulkcreate2);
@@ -37,27 +37,27 @@ public class TestDeviceEnrollmentBulkCreate {
      */
     @Test
     public void testIsvalid() {
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("6103c546-b048-4b29-bfe1-f9a215b21c4d",
-                                                                                               new java.util.Date(1546003516162L),
-                                                                                               new java.util.Date(1546003512709L),
-                                                                                               -3,
-                                                                                               "c672ac29-9cae-4a11-b81e-3596625f975b",
-                                                                                               "fd0fb4d8-7683-4f7e-8cb9-1380a92f63f7",
-                                                                                               "HGhYkFZkWSfTw47rJgo9vVM3V8hqL5H4",
-                                                                                               14,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate = new DeviceEnrollmentBulkCreate("af19d995-f07b-4cd3-b233-aa92101b2ccc",
+                                                                                               new java.util.Date(1546013409352L),
+                                                                                               new java.util.Date(1546013400297L),
+                                                                                               -105,
+                                                                                               "b8d7c2b1-0fe0-46f3-9f69-b07995cb590b",
+                                                                                               "d00befd9-dc31-4ad4-acce-1bb4b395d6c1",
+                                                                                               "MtFmlPr3q9qRk647Zx7FQi2690zt0mcK",
+                                                                                               58,
                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                               35);
+                                                                                               -32);
         assertTrue(deviceenrollmentbulkcreate.isValid());
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("985bc5d3-a448-4b7f-80ed-ac6ca981a1f5",
-                                                                                                      new java.util.Date(1546003514621L),
-                                                                                                      new java.util.Date(1546003514887L),
-                                                                                                      -92,
-                                                                                                      "e0a9c025-30d0-4cbb-ba1a-503bd0512c48",
-                                                                                                      "b375a723-351f-459f-afe4-fcc0ca5c18c6",
-                                                                                                      "f�?�uPSn@I=@PfiIEWNFSjy;y@E77^KjIB[7,;fyyKKfEy`33K3f厃QKNN73uss",
-                                                                                                      -16,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreateInvalid = new DeviceEnrollmentBulkCreate("c63ceba2-f926-470a-a6bb-4b7ec25945eb",
+                                                                                                      new java.util.Date(1546013407810L),
+                                                                                                      new java.util.Date(1546013399830L),
+                                                                                                      -105,
+                                                                                                      "3058f278-6bc8-4adb-91f8-365d6c8eabff",
+                                                                                                      "d3733422-0201-4c3d-87d1-318a08df2f3c",
+                                                                                                      "IMeW[fwof5mw55P.T5m5fLᕺDa_OmODe?TFQ^V+mOmv5WPH:55PV5THf詄:Lrm1乖",
+                                                                                                      91,
                                                                                                       com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                      -19);
+                                                                                                      -5);
         assertFalse(deviceenrollmentbulkcreateInvalid.isValid());
     }
 
@@ -66,26 +66,26 @@ public class TestDeviceEnrollmentBulkCreate {
      */
     @Test
     public void testHashcode() {
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("56a86059-305e-486e-bcca-7ebebafe4b5e",
-                                                                                                new java.util.Date(1546003508141L),
-                                                                                                new java.util.Date(1546003508598L),
-                                                                                                -92,
-                                                                                                "26ce15be-42b0-4ba3-badd-1cd3708ba5b7",
-                                                                                                "a82906f3-62f0-45fc-b0e5-e52df1e4d9e5",
-                                                                                                "TXYw7Q4eC3e2PbQhpSpv5sZ2q060pZzG",
-                                                                                                -22,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("55d719d7-5321-4ea3-8c63-ee30438d50d3",
+                                                                                                new java.util.Date(1546013406627L),
+                                                                                                new java.util.Date(1546013405605L),
+                                                                                                -46,
+                                                                                                "09a1416f-91ec-4cb1-8213-f62f32556869",
+                                                                                                "ea036d89-3dc3-415f-887a-838ebe8e604c",
+                                                                                                "G1Qg7uFM071F2P4cy03MAmFbT2aH2p56",
+                                                                                                48,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                23);
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("56a86059-305e-486e-bcca-7ebebafe4b5e",
-                                                                                                new java.util.Date(1546003508141L),
-                                                                                                new java.util.Date(1546003508598L),
-                                                                                                -92,
-                                                                                                "26ce15be-42b0-4ba3-badd-1cd3708ba5b7",
-                                                                                                "a82906f3-62f0-45fc-b0e5-e52df1e4d9e5",
-                                                                                                "TXYw7Q4eC3e2PbQhpSpv5sZ2q060pZzG",
-                                                                                                -22,
+                                                                                                -64);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("55d719d7-5321-4ea3-8c63-ee30438d50d3",
+                                                                                                new java.util.Date(1546013406627L),
+                                                                                                new java.util.Date(1546013405605L),
+                                                                                                -46,
+                                                                                                "09a1416f-91ec-4cb1-8213-f62f32556869",
+                                                                                                "ea036d89-3dc3-415f-887a-838ebe8e604c",
+                                                                                                "G1Qg7uFM071F2P4cy03MAmFbT2aH2p56",
+                                                                                                48,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                23);
+                                                                                                -64);
         assertNotNull(deviceenrollmentbulkcreate1);
         assertNotNull(deviceenrollmentbulkcreate2);
         assertNotSame(deviceenrollmentbulkcreate2, deviceenrollmentbulkcreate1);
@@ -102,36 +102,36 @@ public class TestDeviceEnrollmentBulkCreate {
      */
     @Test
     public void testEquals() {
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("6b666490-bd5d-45bc-ae9d-452295813fcd",
-                                                                                                new java.util.Date(1546003514242L),
-                                                                                                new java.util.Date(1546003516821L),
-                                                                                                74,
-                                                                                                "7ef6829b-2fab-4ea5-8aa8-809428a3c9c3",
-                                                                                                "f76c60e9-7c20-42ad-850f-1c611d5c271d",
-                                                                                                "Em0IBtl8ZQI3tTrCI14oE5NTD7qVj2E6",
-                                                                                                36,
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate1 = new DeviceEnrollmentBulkCreate("bf43f73f-59c1-429f-b716-1694534da26b",
+                                                                                                new java.util.Date(1546013406103L),
+                                                                                                new java.util.Date(1546013408590L),
+                                                                                                -123,
+                                                                                                "cecd6192-ab16-411b-b690-a315dbd05cb1",
+                                                                                                "c484cddb-46f9-4f88-8d6d-017dad2808df",
+                                                                                                "b2Fkn3sfA08WLK0A7Qh8Ps5AOnmC8rv9",
+                                                                                                52,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                -3);
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("6b666490-bd5d-45bc-ae9d-452295813fcd",
-                                                                                                new java.util.Date(1546003514242L),
-                                                                                                new java.util.Date(1546003516821L),
-                                                                                                74,
-                                                                                                "7ef6829b-2fab-4ea5-8aa8-809428a3c9c3",
-                                                                                                "f76c60e9-7c20-42ad-850f-1c611d5c271d",
-                                                                                                "Em0IBtl8ZQI3tTrCI14oE5NTD7qVj2E6",
-                                                                                                36,
+                                                                                                56);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate2 = new DeviceEnrollmentBulkCreate("bf43f73f-59c1-429f-b716-1694534da26b",
+                                                                                                new java.util.Date(1546013406103L),
+                                                                                                new java.util.Date(1546013408590L),
+                                                                                                -123,
+                                                                                                "cecd6192-ab16-411b-b690-a315dbd05cb1",
+                                                                                                "c484cddb-46f9-4f88-8d6d-017dad2808df",
+                                                                                                "b2Fkn3sfA08WLK0A7Qh8Ps5AOnmC8rv9",
+                                                                                                52,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                -3);
-        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("c8d3811b-408e-4e9c-a563-7edd76c713f0",
-                                                                                                new java.util.Date(1546003507445L),
-                                                                                                new java.util.Date(1546003512698L),
-                                                                                                -73,
-                                                                                                "28d3729f-a90b-4539-bd4f-599b24483cc6",
-                                                                                                "60bca503-12a0-4780-bfdd-06fe5e0bb1c5",
-                                                                                                "3hPI0Q0tFD1XBGzAXYgBM8nh917IiEY0",
-                                                                                                50,
+                                                                                                56);
+        DeviceEnrollmentBulkCreate deviceenrollmentbulkcreate3 = new DeviceEnrollmentBulkCreate("52408b02-2243-46fd-aa77-29081d2b011c",
+                                                                                                new java.util.Date(1546013409209L),
+                                                                                                new java.util.Date(1546013409234L),
+                                                                                                69,
+                                                                                                "dee3640f-2559-431e-ae7c-e559229fcbd5",
+                                                                                                "2142970f-e024-49a4-8288-00c5609cdc0e",
+                                                                                                "g3zd9Y2T9Y78kw102ClSpqv5Hvd44Ip5",
+                                                                                                86,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkCreateStatus.getDefault(),
-                                                                                                0);
+                                                                                                -114);
         assertNotNull(deviceenrollmentbulkcreate1);
         assertNotNull(deviceenrollmentbulkcreate2);
         assertNotNull(deviceenrollmentbulkcreate3);

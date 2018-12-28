@@ -23,7 +23,7 @@ apply plugin: 'walkmod'
 dependencies {
     api project(':pelion-sdk-core')
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.12'
 }
 
 
@@ -104,7 +104,7 @@ spotless {
 }
 
 walkmod {
-  chains = [ 'checkstyle' ]
+  chains = [ 'pmd' ]
   verbose = true
-  properties = "configurationFile=\"${checkStyleConfigFile}\""
+  //properties = "configurationFile=\"${pmdConfigFile}\""
 }

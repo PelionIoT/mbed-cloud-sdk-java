@@ -70,4 +70,13 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
         code.addStatement("return true");
     }
 
+    @Override
+    protected void addAnnotations() {
+        super.addAnnotations();
+        if (currentModel.hasFields()
+            && currentModel.getFieldList().size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreExcessiveMethodLength());
+        }
+    }
+
 }

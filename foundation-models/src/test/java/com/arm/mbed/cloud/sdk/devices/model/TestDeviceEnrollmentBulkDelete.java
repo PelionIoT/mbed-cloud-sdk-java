@@ -15,16 +15,16 @@ public class TestDeviceEnrollmentBulkDelete {
      */
     @Test
     public void testClone() {
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("bddcf881-164b-4905-b55c-0bedf5b6e591",
-                                                                                                new java.util.Date(1546003512893L),
-                                                                                                new java.util.Date(1546003508278L),
-                                                                                                -123,
-                                                                                                "01f8f7f6-5c27-465e-aaa6-72f8d603f43d",
-                                                                                                "b51b2be0-2502-4a5f-bbb7-505d3aed2be0",
-                                                                                                "QRvApxLJ323Z43A8YEjEbc33q5Fi38W2",
-                                                                                                44,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("50ce733e-0168-4fd1-8a36-67918b843d8c",
+                                                                                                new java.util.Date(1546013405734L),
+                                                                                                new java.util.Date(1546013401082L),
+                                                                                                117,
+                                                                                                "319e3f77-7d48-48f8-8c25-71d79956c27c",
+                                                                                                "50c5f9ee-ef29-47e0-8dd0-b7cfe1c6570d",
+                                                                                                "rwSi5EBDybdI1oUrg3kb4VcUu8VlTdFE",
+                                                                                                -30,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                126);
+                                                                                                -78);
         DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = deviceenrollmentbulkdelete1.clone();
         assertNotNull(deviceenrollmentbulkdelete1);
         assertNotNull(deviceenrollmentbulkdelete2);
@@ -37,27 +37,27 @@ public class TestDeviceEnrollmentBulkDelete {
      */
     @Test
     public void testIsvalid() {
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete = new DeviceEnrollmentBulkDelete("e3cd001a-6a01-4bd8-9e90-3fec15303993",
-                                                                                               new java.util.Date(1546003510234L),
-                                                                                               new java.util.Date(1546003513591L),
-                                                                                               -13,
-                                                                                               "1e35dd62-7904-45e0-ac40-459b0c4d753d",
-                                                                                               "462ad975-640b-4e50-8027-d71cdcfc902c",
-                                                                                               "h2QJc52DAP4M30PP81w9B7wb36gM587a",
-                                                                                               86,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete = new DeviceEnrollmentBulkDelete("2f64ffe0-6508-41bc-afa6-f13706b7d56b",
+                                                                                               new java.util.Date(1546013401162L),
+                                                                                               new java.util.Date(1546013403329L),
+                                                                                               -55,
+                                                                                               "8ab5f276-d247-4147-bafd-6f43a50046f6",
+                                                                                               "63b0c0e9-5c4a-41db-ade7-d74cbc40d8d2",
+                                                                                               "gBQR3OKDkRQt2iH7IYzjTJ4Pf0dTeBT5",
+                                                                                               -127,
                                                                                                com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                               40);
+                                                                                               92);
         assertTrue(deviceenrollmentbulkdelete.isValid());
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdeleteInvalid = new DeviceEnrollmentBulkDelete("c88d5e33-822d-4a79-917e-25b538b259ff",
-                                                                                                      new java.util.Date(1546003509029L),
-                                                                                                      new java.util.Date(1546003514474L),
-                                                                                                      -10,
-                                                                                                      "e3d5bc85-e0bb-430d-a548-7b5fbc3ae1a2",
-                                                                                                      "f331e9c0-c9fe-469a-a4af-8d7d422089d4",
-                                                                                                      "iJl(_GE6칢npCdQ3@XsCUdCi篛C䠟3eipdCXCY_73(@l맒iLiTwYq鵓p=XY36",
-                                                                                                      -39,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdeleteInvalid = new DeviceEnrollmentBulkDelete("cb4d5453-5533-469d-83c4-a21358c8b6f6",
+                                                                                                      new java.util.Date(1546013407130L),
+                                                                                                      new java.util.Date(1546013406378L),
+                                                                                                      -51,
+                                                                                                      "5425cd91-8abe-4a4b-9765-bdfb9c0af3d3",
+                                                                                                      "54f96e87-ef81-4193-b593-d94b12ec0760",
+                                                                                                      "Tf8s8?816hj뫮=j]jnNtn8\\rjc4Fjq?�?�NJ朮2T>44BWjwJ2T6Njj�?�jhw84NQ8J",
+                                                                                                      93,
                                                                                                       com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                      19);
+                                                                                                      -120);
         assertFalse(deviceenrollmentbulkdeleteInvalid.isValid());
     }
 
@@ -66,26 +66,26 @@ public class TestDeviceEnrollmentBulkDelete {
      */
     @Test
     public void testHashcode() {
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("2c2e44eb-6697-4072-942b-e8d3f2f9dd45",
-                                                                                                new java.util.Date(1546003515442L),
-                                                                                                new java.util.Date(1546003511466L),
-                                                                                                78,
-                                                                                                "843e2dad-582c-42c1-a6c8-f7ca782cf70b",
-                                                                                                "745edd5e-d225-4ff7-8522-93c968fc0db7",
-                                                                                                "H8Qgvcb973JCLYOC6c31930497L5N9q4",
-                                                                                                -38,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("7e8af7ba-9a92-440a-ab1c-57743bebfa03",
+                                                                                                new java.util.Date(1546013405108L),
+                                                                                                new java.util.Date(1546013406464L),
+                                                                                                93,
+                                                                                                "5fffb6bf-a8e5-4d43-87c1-5bd3e5ff6aa6",
+                                                                                                "c4e0f292-e475-45d9-befa-9e3c7b68d5d3",
+                                                                                                "3zv3l04lt2zdmS7d7O5PW0mvU70ugKn5",
+                                                                                                37,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                113);
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("2c2e44eb-6697-4072-942b-e8d3f2f9dd45",
-                                                                                                new java.util.Date(1546003515442L),
-                                                                                                new java.util.Date(1546003511466L),
-                                                                                                78,
-                                                                                                "843e2dad-582c-42c1-a6c8-f7ca782cf70b",
-                                                                                                "745edd5e-d225-4ff7-8522-93c968fc0db7",
-                                                                                                "H8Qgvcb973JCLYOC6c31930497L5N9q4",
-                                                                                                -38,
+                                                                                                89);
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("7e8af7ba-9a92-440a-ab1c-57743bebfa03",
+                                                                                                new java.util.Date(1546013405108L),
+                                                                                                new java.util.Date(1546013406464L),
+                                                                                                93,
+                                                                                                "5fffb6bf-a8e5-4d43-87c1-5bd3e5ff6aa6",
+                                                                                                "c4e0f292-e475-45d9-befa-9e3c7b68d5d3",
+                                                                                                "3zv3l04lt2zdmS7d7O5PW0mvU70ugKn5",
+                                                                                                37,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                113);
+                                                                                                89);
         assertNotNull(deviceenrollmentbulkdelete1);
         assertNotNull(deviceenrollmentbulkdelete2);
         assertNotSame(deviceenrollmentbulkdelete2, deviceenrollmentbulkdelete1);
@@ -102,36 +102,36 @@ public class TestDeviceEnrollmentBulkDelete {
      */
     @Test
     public void testEquals() {
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("7edb6728-6cd8-4611-83f8-53c35d39d8be",
-                                                                                                new java.util.Date(1546003512297L),
-                                                                                                new java.util.Date(1546003512275L),
-                                                                                                94,
-                                                                                                "419e4190-8a04-46fb-914a-d12c0461df4d",
-                                                                                                "1eb41af2-2635-49dc-b086-8d2e7e27f913",
-                                                                                                "1Ss1R65f890O28z4KVZJ7S7W5CW1TRf1",
-                                                                                                111,
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete1 = new DeviceEnrollmentBulkDelete("f9341504-b6b8-46c8-b3b9-cc982866a1ca",
+                                                                                                new java.util.Date(1546013408962L),
+                                                                                                new java.util.Date(1546013408381L),
+                                                                                                32,
+                                                                                                "fbebe14c-c3f6-4313-8563-d4595fed20a9",
+                                                                                                "a8d17270-b199-44d1-91dd-77e32eeb6766",
+                                                                                                "79lZ0B1452zANJJGjODuB5PBg191ekj5",
+                                                                                                -32,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                6);
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("7edb6728-6cd8-4611-83f8-53c35d39d8be",
-                                                                                                new java.util.Date(1546003512297L),
-                                                                                                new java.util.Date(1546003512275L),
-                                                                                                94,
-                                                                                                "419e4190-8a04-46fb-914a-d12c0461df4d",
-                                                                                                "1eb41af2-2635-49dc-b086-8d2e7e27f913",
-                                                                                                "1Ss1R65f890O28z4KVZJ7S7W5CW1TRf1",
-                                                                                                111,
+                                                                                                93);
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete2 = new DeviceEnrollmentBulkDelete("f9341504-b6b8-46c8-b3b9-cc982866a1ca",
+                                                                                                new java.util.Date(1546013408962L),
+                                                                                                new java.util.Date(1546013408381L),
+                                                                                                32,
+                                                                                                "fbebe14c-c3f6-4313-8563-d4595fed20a9",
+                                                                                                "a8d17270-b199-44d1-91dd-77e32eeb6766",
+                                                                                                "79lZ0B1452zANJJGjODuB5PBg191ekj5",
+                                                                                                -32,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                6);
-        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete3 = new DeviceEnrollmentBulkDelete("44c20f09-621c-4302-9025-f0ba44f6a200",
-                                                                                                new java.util.Date(1546003513657L),
-                                                                                                new java.util.Date(1546003510630L),
-                                                                                                -117,
-                                                                                                "0676eaef-68fe-4a12-974d-9d74ac8012c2",
-                                                                                                "253975cd-df45-4e94-a432-169c75a1a6d0",
-                                                                                                "CGG530c9Y5lRvh6yhP9gwXCS1hQCxb17",
-                                                                                                -17,
+                                                                                                93);
+        DeviceEnrollmentBulkDelete deviceenrollmentbulkdelete3 = new DeviceEnrollmentBulkDelete("9e7aceb1-07be-4b2a-9c60-3ba18c9f8111",
+                                                                                                new java.util.Date(1546013405345L),
+                                                                                                new java.util.Date(1546013407242L),
+                                                                                                -36,
+                                                                                                "9021d0a0-b522-462f-9f07-c7938dff20b6",
+                                                                                                "e79fe90d-7f43-40a0-b462-29be66664b5a",
+                                                                                                "10MwptHD8698K0CCc5p1qhwHgzRwIgEV",
+                                                                                                85,
                                                                                                 com.arm.mbed.cloud.sdk.devices.model.DeviceEnrollmentBulkDeleteStatus.getDefault(),
-                                                                                                -20);
+                                                                                                46);
         assertNotNull(deviceenrollmentbulkdelete1);
         assertNotNull(deviceenrollmentbulkdelete2);
         assertNotNull(deviceenrollmentbulkdelete3);

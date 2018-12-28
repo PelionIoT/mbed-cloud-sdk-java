@@ -216,6 +216,10 @@ public class Model extends AbstractSdkArtifact {
         return !fields.isEmpty();
     }
 
+    public boolean hasFieldsWithDefaultValues() {
+        return hasFields() && fields.values().stream().anyMatch(f -> f.hasDefaultValue());
+    }
+
     /**
      * @return the methods
      */
@@ -492,6 +496,12 @@ public class Model extends AbstractSdkArtifact {
     public void generateAnnotations() {
         if (isInternal) {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
+        }
+        if (fields != null && fields.size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
+        }
+        if (hasFieldsWithDefaultValues()) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreAvoidDuplicateLiterals());
         }
     }
 

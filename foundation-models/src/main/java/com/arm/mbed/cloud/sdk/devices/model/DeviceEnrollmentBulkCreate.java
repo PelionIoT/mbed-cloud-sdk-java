@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for a device enrollment bulk create.
  */
 @Preamble(description = "Model for a device enrollment bulk create.")
+@SuppressWarnings("PMD.AvoidDuplicateLiterals")
 public class DeviceEnrollmentBulkCreate implements SdkModel {
     /**
      * Serialisation Id.
@@ -296,7 +297,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * <p>
      * null
      * <p>
-     * Note: the value has to match [^[A-Za-z0-9]{32}] to be valid
+     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param id
      *            Bulk ID.
@@ -311,7 +312,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * <p>
      * Similar to {@link #setId(String)}
      * <p>
-     * Note: the value has to match [^[A-Za-z0-9]{32}] to be valid
+     * Note: the value has to match {@code /^[A-Za-z0-9]{32}/} to be valid
      * 
      * @param deviceEnrollmentBulkCreateId
      *            Bulk ID.
@@ -326,6 +327,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * 
      * @return true if the value is valid; false otherwise.
      */
+    @SuppressWarnings("PMD.UselessParentheses")
     public boolean isIdValid() {
         return (id == null || id.matches("^[A-Za-z0-9]{32}"));
     }

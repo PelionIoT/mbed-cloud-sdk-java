@@ -146,6 +146,13 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         return hasDefaultValue() ? defaultValue : "(" + type.getShortName() + ") null";
     }
 
+    public boolean getJavaDefaultBooleanValue() {
+        if (type.isBoolean()) {
+            return hasDefaultValue() ? Boolean.valueOf(defaultValue) : false;
+        }
+        return false;
+    }
+
     /**
      * @return the defaultValue
      */
