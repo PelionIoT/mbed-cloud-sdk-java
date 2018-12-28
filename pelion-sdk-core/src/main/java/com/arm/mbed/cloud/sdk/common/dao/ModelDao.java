@@ -17,11 +17,11 @@ public interface ModelDao<T extends SdkModel> extends CloudDao {
     /**
      * Method name.
      */
-    public static final String METHOD_SET_MODEL = "setModel";
+    String METHOD_SET_MODEL = "setModel";
     /**
      * Method name.
      */
-    public static final String METHOD_GET_MODEL = "getModel";
+    String METHOD_GET_MODEL = "getModel";
 
     /**
      * Sets the Model Object (POJO) containing the data.

@@ -64,6 +64,8 @@ public class ServiceRegistry implements Cloneable {
      * 
      * @param service
      *            service to register.
+     * @param <S>
+     *            type of the service.
      */
     @SuppressWarnings("unchecked")
     public <S> void registerService(S service) {
@@ -77,6 +79,8 @@ public class ServiceRegistry implements Cloneable {
      *            class of the service to register.
      * @param service
      *            service to register
+     * @param <S>
+     *            type of the service.
      */
     public <S> void registerService(Class<S> serviceClass, S service) {
         if (service != null || serviceClass != null) {

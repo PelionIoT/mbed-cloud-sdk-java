@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Data Access Object definition for updating")
 public interface UpdateDao<T extends SdkModel> extends ModelDao<T> {
-    public static final String METHOD_NAME_UPDATE = "update";
+    String METHOD_NAME_UPDATE = "update";
 
     /**
      * Updates a model on the Cloud.

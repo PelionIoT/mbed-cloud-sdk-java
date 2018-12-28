@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
  */
 @Preamble(description = "Data Access Object definition for reading")
 public interface ReadDao<T extends SdkModel> extends ModelDao<T> {
-    public static final String METHOD_NAME_READ = "read";
+    String METHOD_NAME_READ = "read";
 
     /**
      * Fetches data from the Cloud.

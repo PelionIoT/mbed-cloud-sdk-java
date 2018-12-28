@@ -22,8 +22,8 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
  */
 @Preamble(description = "Data Access Object definition for listing data models")
 public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends CloudDao {
-    public static final String METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION = "getCorrespondingModelDaoDefinition";
-    public static final String METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE = "getCorrespondingModelDao";
+    String METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION = "getCorrespondingModelDaoDefinition";
+    String METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE = "getCorrespondingModelDao";
 
     /**
      * Sets the {@link ListOptions} this DAO should use for listing models.
@@ -68,6 +68,8 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * <p>
      * Note: See {@link ModelDao}
      * 
+     * @param <V>
+     *            type of model DAO.
      * @return the definition of the corresponding model DAO.
      */
     @Nullable
@@ -78,6 +80,8 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * <p>
      * Note: See {@link ModelDao}
      * 
+     * @param <V>
+     *            type of model DAO.
      * @return an instance of corresponding model DAO.
      */
     @Nullable
