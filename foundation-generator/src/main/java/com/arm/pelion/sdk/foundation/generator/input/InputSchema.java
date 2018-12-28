@@ -47,12 +47,11 @@ public interface InputSchema {
     final String METHOD_DOES_NOT_RETURN_ITSELF_TAG = "unaggregated";
 
     // Method types
+    final String CUSTOM_METHOD_TAG = "custom_method";
     final String LIST_METHOD_TAG = "list";
     final String CREATE_METHOD_TAG = "create";
     final String READ_METHOD_TAG = "get";
     final String UPDATE_METHOD_TAG = "update";
     final String DELETE_METHOD_TAG = "delete";
-    // Parameter location
-    final String PATH_PARAMETER_LOCATION_TAG = "path";
-    final String BODY_PARAMETER_LOCATION_TAG = "body";
+
 }

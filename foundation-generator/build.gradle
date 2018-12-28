@@ -44,7 +44,7 @@ dependencies {
     implementation project(':pelion-sdk-core')
     // Backends
     implementation project(':backends:connector_ca')
-    implementation project(':backends:external_ca')    
+    implementation project(':backends:external_ca')
     implementation project(':backends:connector_bootstrap')
     implementation project(':backends:device_directory')
     implementation project(':backends:iam')
@@ -71,7 +71,7 @@ allprojects {
     }
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
-    tasks.withType(JavaCompile) { 
+    tasks.withType(JavaCompile) {
         if (name == 'compileJava') {
             if (project.name != rootProject.name){
                 sourceCompatibility JavaVersion.VERSION_1_8.toString()
@@ -85,7 +85,7 @@ allprojects {
             }
             options.fork = true
             doFirst {
-                //println  options.dump()            
+                //println  options.dump()
                 println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
             }
         }

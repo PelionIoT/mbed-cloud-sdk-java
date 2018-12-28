@@ -48,7 +48,8 @@ public class ArtifactsTranslator {
     }
 
     private static ModelDaoList translateListDao(Model model, ModelModule module, ModelDao correspondingDao,
-                                                 ModelListOption listOptions, Entity entity) {
+                                                 ModelListOption listOptions,
+                                                 Entity entity) throws FoundationGeneratorException {
         if (!entity.hasMethods() || !entity.hasListMethod()) {
             return null;
         }
@@ -64,7 +65,8 @@ public class ArtifactsTranslator {
         return dao;
     }
 
-    private static ModelDao translateDao(Model model, ModelModule module, Entity entity) {
+    private static ModelDao translateDao(Model model, ModelModule module,
+                                         Entity entity) throws FoundationGeneratorException {
         if (!entity.hasMethods()) {
             return null;
         }
@@ -72,7 +74,7 @@ public class ArtifactsTranslator {
         for (final Method m : entity.getMethods()) {
             if (!m.isListMethod()) {
                 dao.addMethods(MethodTranslator.determineMethodAction(m), MethodTranslator.generateMethodName(model, m),
-                               m.isCustomCode());
+                               m.getSummary(), m.getDescription(), m.isCustomCode() || m.isCustomMethod());
             }
         }
         dao.generateMethods();
@@ -86,6 +88,14 @@ public class ArtifactsTranslator {
         final ModelModule module = new ModelModule(model, generateModulePackageName(config, entity.getGroupId()), null,
                                                    endpointsFetcher, listOptionFetcher, adapterFetcher);
         for (final Method m : entity.getMethods()) {
+            if (m.getId() == null) {
+                if (m.isCustomMethod()) {
+                    continue;
+                }
+                throw new FoundationGeneratorException("Failed generating module for " + module + " as method ["
+                                                       + m.getKey() + " of " + entity.getKey()
+                                                       + "] does not have an ID.");
+            }
             final LowLevelAPIMethod method = lowLevelApis.getFirstMethod(m.getId());
             if (method == null) {
                 throw new FoundationGeneratorException("Failed generating module " + module + " as method [" + m.getId()
@@ -111,6 +121,13 @@ public class ArtifactsTranslator {
                                                       null, adapterFetcher, defaultRenames);
 
         for (final Method m : entity.getMethods()) {
+            if (m.getId() == null) {
+                if (m.isCustomMethod()) {
+                    continue;
+                }
+                throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
+                                                       + m.getKey() + "] does not have an ID.");
+            }
             final Renames methodRenames = new Renames();
             m.getRenames().forEach(f -> methodRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
             final LowLevelAPIMethod method = lowLevelApis.getFirstMethod(m.getId());

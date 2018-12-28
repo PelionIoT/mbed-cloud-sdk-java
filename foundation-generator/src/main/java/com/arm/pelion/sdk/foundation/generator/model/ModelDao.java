@@ -83,7 +83,8 @@ public class ModelDao extends Model {
     }
 
     @SuppressWarnings("incomplete-switch")
-    public void addMethods(MethodAction action, String methodName, boolean needsCustomCode) {
+    public void addMethods(MethodAction action, String methodName, String description, String longDescription,
+                           boolean needsCustomCode) {
         Class<?> correspondingInterface = null;
         String daoMethodName = null;
         switch (action) {
@@ -110,7 +111,7 @@ public class ModelDao extends Model {
             checkSuperInterfaces();
         }
         if (correspondingInterface == null) {
-            generateOtherMethod(action, methodName, needsCustomCode, true);
+            generateOtherMethod(action, methodName, description, longDescription, needsCustomCode, true);
         } else {
             generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, true);
         }
@@ -177,10 +178,10 @@ public class ModelDao extends Model {
         addMethod(method);
     }
 
-    private void generateOtherMethod(MethodAction action, String methodName, boolean needsCustomCode,
-                                     boolean isPublic) {
+    private void generateOtherMethod(MethodAction action, String methodName, String description, String longDescription,
+                                     boolean needsCustomCode, boolean isPublic) {
         if (!correspondingModule.hasMethod(correspondingModel, action, methodName)) {
-            Method method = new MethodGeneric(methodName, null, null, null);
+            Method method = new MethodGeneric(methodName, description, longDescription, null);
             addMethod(method);
             return;
         }

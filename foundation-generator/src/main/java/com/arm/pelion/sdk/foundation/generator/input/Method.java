@@ -29,6 +29,9 @@ public class Method {
     @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
 
+    @JsonProperty(InputSchema.CUSTOM_METHOD_TAG)
+    private boolean customMethod;
+
     public String getKey() {
         return key;
     }
@@ -144,6 +147,14 @@ public class Method {
      */
     public void setGroupId(String groupId) {
         this.groupId = Utils.getGroupId(groupId);
+    }
+
+    public boolean isCustomMethod() {
+        return customMethod;
+    }
+
+    public void setCustomMethod(Object customMethod) {
+        this.customMethod = customMethod != null;
     }
 
     /*
