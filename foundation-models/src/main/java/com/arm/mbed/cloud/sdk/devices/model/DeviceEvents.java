@@ -13,6 +13,7 @@ import java.util.Objects;
  * Model for a device events.
  */
 @Preamble(description = "Model for a device events.")
+@SuppressWarnings("PMD.CyclomaticComplexity")
 public class DeviceEvents implements SdkModel {
     /**
      * Serialisation Id.
@@ -103,6 +104,7 @@ public class DeviceEvents implements SdkModel {
      *            value.
      */
     @Internal
+    @SuppressWarnings("PMD.CyclomaticComplexity")
     public DeviceEvents(Map<String, String> changes, Date createdAt, Map<String, String> data, Date dateTime,
                         String description, String deviceId, String eventType, String eventTypeCategory,
                         String eventTypeDescription, String id, boolean stateChange) {
@@ -433,6 +435,7 @@ public class DeviceEvents implements SdkModel {
      * @return true if this object is the same as the obj argument; false otherwise.
      */
     @Override
+    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;

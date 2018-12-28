@@ -27,7 +27,7 @@ public class TestUserStatus {
         userstatus = UserStatus.getValue("ENROLLING");
         assertNotNull(userstatus);
         assertFalse(userstatus.isDefault());
-        userstatus = UserStatus.getValue("ad338be4-6bba-4b38-9666-4340be04cd58");
+        userstatus = UserStatus.getValue("6dd50734-600d-4d76-b9e9-1dec49b03af2");
         assertNotNull(userstatus);
         assertTrue(userstatus.isDefault());
     }

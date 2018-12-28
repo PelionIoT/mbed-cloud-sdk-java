@@ -15,20 +15,20 @@ public class TestTrustedCertificate {
      */
     @Test
     public void testClone() {
-        TrustedCertificate trustedcertificate1 = new TrustedCertificate("f01a6de2-b8c6-41be-845f-2aac24451434",
-                                                                        "b1ccfc30-6dce-43dc-bfa4-f9e7f70d9b31",
-                                                                        new java.util.Date(1546013402983L),
-                                                                        "207bf88c-b073-4aed-bb4a-62cfa34aa002", -30,
-                                                                        true, "160c7608-8eca-4aa0-9e07-f7433f3beb2e",
-                                                                        true, "ee20d5de-19a8-4f0f-9456-5444a316c90f",
-                                                                        "d5a0fdfd-75ce-4613-b6eb-b4614a3061f1",
-                                                                        "c70d763d-3503-432e-aec5-ce017e1b3283",
-                                                                        "d7c552f6-0b5f-48b3-84fd-25f7ae5a1701",
+        TrustedCertificate trustedcertificate1 = new TrustedCertificate("78081b5a-6dd0-4af3-a782-141d3cdccb69",
+                                                                        "db08c400-cd05-45d6-9297-310cce1abe8d",
+                                                                        new java.util.Date(1546014231827L),
+                                                                        "c48c4b76-88b5-4c10-a5de-4c0130819fc2", -118,
+                                                                        true, "738051fb-662a-4d0a-809e-5282f1d79d15",
+                                                                        false, "905e68c2-a32f-465f-90c5-56171fbcd124",
+                                                                        "b02e21f5-8977-4f5c-b65b-04b1aa01dc37",
+                                                                        "2f32c20c-42bb-4884-ba3e-5b3e7f4818ad",
+                                                                        "69e0ec46-a921-44cd-adf0-c941a5e24ef8",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "aac846f2-afa7-48b2-bb21-afa43c446de9",
-                                                                        new java.util.Date(1546013401444L),
-                                                                        new java.util.Date(1546013405269L));
+                                                                        "8dce0f6f-e226-4828-8862-2814e5955d54",
+                                                                        new java.util.Date(1546014234095L),
+                                                                        new java.util.Date(1546014232306L));
         TrustedCertificate trustedcertificate2 = trustedcertificate1.clone();
         assertNotNull(trustedcertificate1);
         assertNotNull(trustedcertificate2);
@@ -41,20 +41,20 @@ public class TestTrustedCertificate {
      */
     @Test
     public void testIsvalid() {
-        TrustedCertificate trustedcertificate = new TrustedCertificate("57a9f93d-c655-49f1-b2d9-33bb07431f14",
-                                                                       "f7391600-dd4f-4a3a-998f-31dc6dcce771",
-                                                                       new java.util.Date(1546013400492L),
-                                                                       "459df705-2226-4d3a-bbee-dc279b307ea5", -33,
-                                                                       true, "ee81f260-6cac-4ea5-a768-047bb4ed55b0",
-                                                                       true, "133dce62-7242-4158-91ac-50e8950e573d",
-                                                                       "bd9d2582-0f03-40b8-b38f-1ae54cf8f9a9",
-                                                                       "1415fb01-533d-4167-a7e0-db01b5942d57",
-                                                                       "0fe52b81-498e-41dc-ac10-dcb6b85a8d49",
+        TrustedCertificate trustedcertificate = new TrustedCertificate("592feddb-5370-41dc-a5f1-a9b743249e36",
+                                                                       "1666b360-0598-41aa-aea9-fb068b93165a",
+                                                                       new java.util.Date(1546014241213L),
+                                                                       "0a382e46-f116-4dbe-b2fe-4109556ea6b0", 76, true,
+                                                                       "4f1d1663-2d1c-49c7-bb9a-55b2323eb58c", false,
+                                                                       "0fa243dd-5eb1-404b-af35-6fe7c6971d68",
+                                                                       "7f42cfdc-7a0c-4c5e-b23b-2997d321b852",
+                                                                       "54d39b4f-942e-40d1-be92-f146ca196183",
+                                                                       "79c78f8c-8db1-4add-8a90-12923e3fff78",
                                                                        com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                        com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                       "efe6ac68-7e91-404f-98d1-6e174311bba6",
-                                                                       new java.util.Date(1546013404026L),
-                                                                       new java.util.Date(1546013400983L));
+                                                                       "9dabdf67-4938-463d-b31c-fb0fd1c248c8",
+                                                                       new java.util.Date(1546014235099L),
+                                                                       new java.util.Date(1546014232297L));
         assertTrue(trustedcertificate.isValid());
     }
 
@@ -63,34 +63,34 @@ public class TestTrustedCertificate {
      */
     @Test
     public void testHashcode() {
-        TrustedCertificate trustedcertificate1 = new TrustedCertificate("79a2827f-6647-46df-808e-8c51a890d43b",
-                                                                        "f2f91ec2-6e43-4593-9080-c60a425f2541",
-                                                                        new java.util.Date(1546013407667L),
-                                                                        "06d50bc2-26e9-400b-a4c1-c382cbcc43a3", 60,
-                                                                        true, "5ae0e969-7ac3-4ba3-a2be-d106620872d3",
-                                                                        false, "a4422c08-501d-46a8-b8b3-8c2fed6d320b",
-                                                                        "ded5ba3b-f6c8-40ca-bc82-ec97e167cdb5",
-                                                                        "89313b1f-15ba-432a-9cc0-594e871bad7b",
-                                                                        "c5b28e52-8e7b-4834-a906-2119bd250715",
+        TrustedCertificate trustedcertificate1 = new TrustedCertificate("6199abf4-faed-4c77-98c9-cbfdfd826a89",
+                                                                        "2c158b05-ff8e-4147-a901-6713afb9f719",
+                                                                        new java.util.Date(1546014231452L),
+                                                                        "aab8d1a3-3772-48c9-b8e0-ca2919690487", 110,
+                                                                        false, "b4c09de4-463f-4f01-a157-2363dfe0bb9c",
+                                                                        true, "d1d50e4a-c36d-40ff-a135-0a1df515f71f",
+                                                                        "d1915c14-afd8-4939-adf9-0018212ac3db",
+                                                                        "33810147-d682-4868-af1e-b02488f932cd",
+                                                                        "1ae522ae-41b7-49fc-9fa3-b778d4045946",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "547e5ef4-a4db-47d8-9553-f7d37f5d4803",
-                                                                        new java.util.Date(1546013409829L),
-                                                                        new java.util.Date(1546013401746L));
-        TrustedCertificate trustedcertificate2 = new TrustedCertificate("79a2827f-6647-46df-808e-8c51a890d43b",
-                                                                        "f2f91ec2-6e43-4593-9080-c60a425f2541",
-                                                                        new java.util.Date(1546013407667L),
-                                                                        "06d50bc2-26e9-400b-a4c1-c382cbcc43a3", 60,
-                                                                        true, "5ae0e969-7ac3-4ba3-a2be-d106620872d3",
-                                                                        false, "a4422c08-501d-46a8-b8b3-8c2fed6d320b",
-                                                                        "ded5ba3b-f6c8-40ca-bc82-ec97e167cdb5",
-                                                                        "89313b1f-15ba-432a-9cc0-594e871bad7b",
-                                                                        "c5b28e52-8e7b-4834-a906-2119bd250715",
+                                                                        "b515e700-2df2-4496-bbd4-035c96bed87d",
+                                                                        new java.util.Date(1546014234026L),
+                                                                        new java.util.Date(1546014241216L));
+        TrustedCertificate trustedcertificate2 = new TrustedCertificate("6199abf4-faed-4c77-98c9-cbfdfd826a89",
+                                                                        "2c158b05-ff8e-4147-a901-6713afb9f719",
+                                                                        new java.util.Date(1546014231452L),
+                                                                        "aab8d1a3-3772-48c9-b8e0-ca2919690487", 110,
+                                                                        false, "b4c09de4-463f-4f01-a157-2363dfe0bb9c",
+                                                                        true, "d1d50e4a-c36d-40ff-a135-0a1df515f71f",
+                                                                        "d1915c14-afd8-4939-adf9-0018212ac3db",
+                                                                        "33810147-d682-4868-af1e-b02488f932cd",
+                                                                        "1ae522ae-41b7-49fc-9fa3-b778d4045946",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "547e5ef4-a4db-47d8-9553-f7d37f5d4803",
-                                                                        new java.util.Date(1546013409829L),
-                                                                        new java.util.Date(1546013401746L));
+                                                                        "b515e700-2df2-4496-bbd4-035c96bed87d",
+                                                                        new java.util.Date(1546014234026L),
+                                                                        new java.util.Date(1546014241216L));
         assertNotNull(trustedcertificate1);
         assertNotNull(trustedcertificate2);
         assertNotSame(trustedcertificate2, trustedcertificate1);
@@ -107,48 +107,48 @@ public class TestTrustedCertificate {
      */
     @Test
     public void testEquals() {
-        TrustedCertificate trustedcertificate1 = new TrustedCertificate("c1cdc02a-7fb8-47c1-b872-e98a16c7c1df",
-                                                                        "2bf55297-ceef-4428-81b3-482e8c04023a",
-                                                                        new java.util.Date(1546013407424L),
-                                                                        "5ec8684e-ff3e-412f-adfd-cc66654d29aa", 79,
-                                                                        false, "6e63fa68-75e6-4d71-a5be-ce4c51ae7ffe",
-                                                                        false, "2acdd806-32b1-421e-9572-7d342d52845b",
-                                                                        "7687f20e-ac5f-4c2c-aada-7301adf8b125",
-                                                                        "3021b689-8fcd-4cb6-8e84-4cf9a00de120",
-                                                                        "78f53994-de36-4ed0-b940-881ebfbb71b7",
+        TrustedCertificate trustedcertificate1 = new TrustedCertificate("6b028e5e-b229-41bc-9234-477e50832374",
+                                                                        "5a2bf7b0-29f8-4a0d-bd81-4d1f0f327731",
+                                                                        new java.util.Date(1546014240198L),
+                                                                        "c3cfdcce-6299-4324-b2f9-e5eb6efc15bb", -73,
+                                                                        true, "625036df-27df-4686-8c59-94934519961e",
+                                                                        true, "870924d3-2bfa-4323-a95c-599b52117eda",
+                                                                        "ecdcfe85-51e4-483a-a913-eadd7e070c4d",
+                                                                        "60eb849c-286f-428f-a158-454931ef8d54",
+                                                                        "eb8e7aef-132b-4373-aff6-73e2253ab42c",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "3e56525b-ccdf-4459-a340-0256fbc60248",
-                                                                        new java.util.Date(1546013400816L),
-                                                                        new java.util.Date(1546013402121L));
-        TrustedCertificate trustedcertificate2 = new TrustedCertificate("c1cdc02a-7fb8-47c1-b872-e98a16c7c1df",
-                                                                        "2bf55297-ceef-4428-81b3-482e8c04023a",
-                                                                        new java.util.Date(1546013407424L),
-                                                                        "5ec8684e-ff3e-412f-adfd-cc66654d29aa", 79,
-                                                                        false, "6e63fa68-75e6-4d71-a5be-ce4c51ae7ffe",
-                                                                        false, "2acdd806-32b1-421e-9572-7d342d52845b",
-                                                                        "7687f20e-ac5f-4c2c-aada-7301adf8b125",
-                                                                        "3021b689-8fcd-4cb6-8e84-4cf9a00de120",
-                                                                        "78f53994-de36-4ed0-b940-881ebfbb71b7",
+                                                                        "47664f5f-2fd8-4f04-ab85-07ab43070782",
+                                                                        new java.util.Date(1546014238349L),
+                                                                        new java.util.Date(1546014238139L));
+        TrustedCertificate trustedcertificate2 = new TrustedCertificate("6b028e5e-b229-41bc-9234-477e50832374",
+                                                                        "5a2bf7b0-29f8-4a0d-bd81-4d1f0f327731",
+                                                                        new java.util.Date(1546014240198L),
+                                                                        "c3cfdcce-6299-4324-b2f9-e5eb6efc15bb", -73,
+                                                                        true, "625036df-27df-4686-8c59-94934519961e",
+                                                                        true, "870924d3-2bfa-4323-a95c-599b52117eda",
+                                                                        "ecdcfe85-51e4-483a-a913-eadd7e070c4d",
+                                                                        "60eb849c-286f-428f-a158-454931ef8d54",
+                                                                        "eb8e7aef-132b-4373-aff6-73e2253ab42c",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "3e56525b-ccdf-4459-a340-0256fbc60248",
-                                                                        new java.util.Date(1546013400816L),
-                                                                        new java.util.Date(1546013402121L));
-        TrustedCertificate trustedcertificate3 = new TrustedCertificate("e57be4f5-f340-4a0c-8bb9-2f2a4d312697",
-                                                                        "240f2d01-54e1-4196-a30c-0ba4737b125c",
-                                                                        new java.util.Date(1546013402553L),
-                                                                        "d7cf5811-893f-4d51-8c78-64afbf326a2d", -59,
-                                                                        false, "7dcc31d5-f727-42f6-b58c-da1e196e00a0",
-                                                                        false, "0f55db1d-d150-4c1a-bb55-02c673ad8ba8",
-                                                                        "19b8a9b7-26bf-4f27-8a4d-c0e28dbc78a7",
-                                                                        "fb27cc1b-ad92-4910-b5c2-0bdec6f12a4e",
-                                                                        "d441a36f-f63f-400d-92b2-40d93df966c0",
+                                                                        "47664f5f-2fd8-4f04-ab85-07ab43070782",
+                                                                        new java.util.Date(1546014238349L),
+                                                                        new java.util.Date(1546014238139L));
+        TrustedCertificate trustedcertificate3 = new TrustedCertificate("28c938f7-b544-44ec-9763-672c84e6b725",
+                                                                        "3f0fee12-b426-4a5a-a085-d5ea1bed6bcf",
+                                                                        new java.util.Date(1546014240624L),
+                                                                        "9dbd5c7c-d29f-425e-b071-f37e5bc75173", 1, true,
+                                                                        "7773d992-702f-44bf-9e9c-a68d7ef5cb91", true,
+                                                                        "5a0ec54e-4c4d-4270-a8bd-0125183b8e0e",
+                                                                        "9269f5c6-efbe-41f5-b64d-66e5926e72d6",
+                                                                        "3d62b67a-176e-4ca6-bb9a-642b6707e840",
+                                                                        "fd5495d5-3840-4fa9-9a2f-fe9a3d0683d1",
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateService.getDefault(),
                                                                         com.arm.mbed.cloud.sdk.security.model.TrustedCertificateStatus.getDefault(),
-                                                                        "63f1f843-88ac-4965-bc60-f6a84808e73c",
-                                                                        new java.util.Date(1546013400786L),
-                                                                        new java.util.Date(1546013400309L));
+                                                                        "72a8da15-6b79-486a-8d9f-ed2cf8c56740",
+                                                                        new java.util.Date(1546014235415L),
+                                                                        new java.util.Date(1546014232865L));
         assertNotNull(trustedcertificate1);
         assertNotNull(trustedcertificate2);
         assertNotNull(trustedcertificate3);

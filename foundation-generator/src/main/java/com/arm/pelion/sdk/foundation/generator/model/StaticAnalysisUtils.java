@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import com.squareup.javapoet.AnnotationSpec;
 
 public class StaticAnalysisUtils {
-    public static final int FIELD_LIMIT_FOR_IGNORING_WARNINGS = 16;
+    public static final int FIELD_LIMIT_FOR_IGNORING_WARNINGS = 10;
 
     private StaticAnalysisUtils() {
         // Nothing to do

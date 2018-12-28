@@ -15,13 +15,13 @@ public class TestCertificateEnrollment {
      */
     @Test
     public void testClone() {
-        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("d63d2336-b74e-4a7e-b24c-51f5ea41c723",
-                                                                                 new java.util.Date(1546013406306L),
-                                                                                 "c915a93c-151a-4af7-80a1-913ff8035491",
+        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("163d559a-5c8f-4b41-b6a6-d3f4126927ec",
+                                                                                 new java.util.Date(1546014236617L),
+                                                                                 "15b88d55-3a94-4ae0-b851-40a651c96265",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "5eabc97d-c830-4143-b3c5-ba4eb66a0540",
-                                                                                 new java.util.Date(1546013398844L));
+                                                                                 "85124f43-74fc-45ec-bd63-7922056a5f16",
+                                                                                 new java.util.Date(1546014238074L));
         CertificateEnrollment certificateenrollment2 = certificateenrollment1.clone();
         assertNotNull(certificateenrollment1);
         assertNotNull(certificateenrollment2);
@@ -34,13 +34,13 @@ public class TestCertificateEnrollment {
      */
     @Test
     public void testIsvalid() {
-        CertificateEnrollment certificateenrollment = new CertificateEnrollment("bfe27b3b-5c9e-404e-bda7-b08d0cbb9608",
-                                                                                new java.util.Date(1546013408316L),
-                                                                                "3d1e3982-afe2-4fbf-b0d7-3060a742bc2f",
+        CertificateEnrollment certificateenrollment = new CertificateEnrollment("4e792481-03b3-41e3-b0dd-b53b7dd42308",
+                                                                                new java.util.Date(1546014234479L),
+                                                                                "d1932898-3f43-4f6f-a87a-a93b487baee0",
                                                                                 com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                 com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                "464b8ab4-5433-4d7b-be58-54e5074b90af",
-                                                                                new java.util.Date(1546013407989L));
+                                                                                "376390c9-f61b-4153-9ae7-6911467f05cc",
+                                                                                new java.util.Date(1546014240503L));
         assertTrue(certificateenrollment.isValid());
     }
 
@@ -49,20 +49,20 @@ public class TestCertificateEnrollment {
      */
     @Test
     public void testHashcode() {
-        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("999c2c02-7b06-45ad-bdf5-1c88ce45537f",
-                                                                                 new java.util.Date(1546013399854L),
-                                                                                 "0e9f9dae-7621-4c26-91c3-2364182217ba",
+        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("f0bb80eb-82c0-46f0-b2bf-22bd5a44c2ad",
+                                                                                 new java.util.Date(1546014230876L),
+                                                                                 "ca13184d-149c-49ed-99e2-fdcd5c5f0741",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "020ecb75-7b0a-4a39-9681-0fd09a7cba68",
-                                                                                 new java.util.Date(1546013402974L));
-        CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("999c2c02-7b06-45ad-bdf5-1c88ce45537f",
-                                                                                 new java.util.Date(1546013399854L),
-                                                                                 "0e9f9dae-7621-4c26-91c3-2364182217ba",
+                                                                                 "5e948678-9354-43ec-915c-73340163ab3b",
+                                                                                 new java.util.Date(1546014233759L));
+        CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("f0bb80eb-82c0-46f0-b2bf-22bd5a44c2ad",
+                                                                                 new java.util.Date(1546014230876L),
+                                                                                 "ca13184d-149c-49ed-99e2-fdcd5c5f0741",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "020ecb75-7b0a-4a39-9681-0fd09a7cba68",
-                                                                                 new java.util.Date(1546013402974L));
+                                                                                 "5e948678-9354-43ec-915c-73340163ab3b",
+                                                                                 new java.util.Date(1546014233759L));
         assertNotNull(certificateenrollment1);
         assertNotNull(certificateenrollment2);
         assertNotSame(certificateenrollment2, certificateenrollment1);
@@ -79,27 +79,27 @@ public class TestCertificateEnrollment {
      */
     @Test
     public void testEquals() {
-        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("a4fc3e8a-ad67-4df6-b76e-2888693b6ab7",
-                                                                                 new java.util.Date(1546013407697L),
-                                                                                 "6636acd0-1928-4f4d-804f-6a7d11ff6cab",
+        CertificateEnrollment certificateenrollment1 = new CertificateEnrollment("8ebebab9-ab0d-4a0e-8e4e-3807362cf7ce",
+                                                                                 new java.util.Date(1546014235798L),
+                                                                                 "9cc76ba4-a3dc-40f7-8ec8-dfc7d821f7b5",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "249a2ef6-06d3-4b0f-bc35-89d45f1473e6",
-                                                                                 new java.util.Date(1546013402330L));
-        CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("a4fc3e8a-ad67-4df6-b76e-2888693b6ab7",
-                                                                                 new java.util.Date(1546013407697L),
-                                                                                 "6636acd0-1928-4f4d-804f-6a7d11ff6cab",
+                                                                                 "08a5b7b9-9763-476f-bf48-b330a007875d",
+                                                                                 new java.util.Date(1546014236512L));
+        CertificateEnrollment certificateenrollment2 = new CertificateEnrollment("8ebebab9-ab0d-4a0e-8e4e-3807362cf7ce",
+                                                                                 new java.util.Date(1546014235798L),
+                                                                                 "9cc76ba4-a3dc-40f7-8ec8-dfc7d821f7b5",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "249a2ef6-06d3-4b0f-bc35-89d45f1473e6",
-                                                                                 new java.util.Date(1546013402330L));
-        CertificateEnrollment certificateenrollment3 = new CertificateEnrollment("713ee39b-8a0e-4785-b768-ec96b2922a37",
-                                                                                 new java.util.Date(1546013402908L),
-                                                                                 "e373e292-6554-4699-b51c-ced46d7d48e2",
+                                                                                 "08a5b7b9-9763-476f-bf48-b330a007875d",
+                                                                                 new java.util.Date(1546014236512L));
+        CertificateEnrollment certificateenrollment3 = new CertificateEnrollment("7188ae1d-81be-4ac6-aa7b-5e9eab25d73e",
+                                                                                 new java.util.Date(1546014233225L),
+                                                                                 "e11f7f86-f85b-4a8a-8c2d-7808dd6bccf8",
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult.getDefault(),
                                                                                  com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus.getDefault(),
-                                                                                 "5bee1051-1b14-4380-8a35-404a946c40d7",
-                                                                                 new java.util.Date(1546013406527L));
+                                                                                 "3ca1403a-782f-4a84-94ec-44359bb1ac34",
+                                                                                 new java.util.Date(1546014233433L));
         assertNotNull(certificateenrollment1);
         assertNotNull(certificateenrollment2);
         assertNotNull(certificateenrollment3);
