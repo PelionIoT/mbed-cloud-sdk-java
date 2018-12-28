@@ -9,6 +9,7 @@
 include 'support-annotations'
 include 'lwm2m'
 include 'pelion-sdk-core'
+include 'foundation-models'
 include 'backends:connector_ca'
 include 'backends:external_ca'
 include 'backends:device_directory'

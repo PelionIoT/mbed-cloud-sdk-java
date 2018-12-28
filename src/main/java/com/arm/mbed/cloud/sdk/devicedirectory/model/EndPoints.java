@@ -16,7 +16,7 @@ public class EndPoints extends AbstractEndpoints {
      * Constructor.
      * 
      * @param services
-     *            created services {@link ServiceStore}.
+     *            created services {@link ServiceRegistry}.
      */
     public EndPoints(ServiceRegistry services) {
         super(services);
@@ -30,7 +30,7 @@ public class EndPoints extends AbstractEndpoints {
 
     @Override
     public EndPoints clone() {
-        return new EndPoints(getServicesClone());
+        return new EndPoints(getRegistryClone());
     }
 
 }

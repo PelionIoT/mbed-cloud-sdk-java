@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 public abstract class AbstractEndpoints implements Cloneable {
     public static final String METHOD_INITIALISE_SERVICE = "initialiseService";
     public static final String METHOD_CLONE_SERVICE_STORE = "getServicesClone";
-    private final ServiceRegistry serviceStore;
+    private final ServiceRegistry serviceRegistry;
 
     /**
      * Constructor.
@@ -19,7 +19,7 @@ public abstract class AbstractEndpoints implements Cloneable {
      */
     public AbstractEndpoints(ServiceRegistry serviceStore) {
         super();
-        this.serviceStore = serviceStore;
+        this.serviceRegistry = serviceStore;
     }
 
     /**
@@ -27,24 +27,24 @@ public abstract class AbstractEndpoints implements Cloneable {
      * 
      * @return the store
      */
-    public ServiceRegistry getServiceStore() {
-        return serviceStore;
+    public ServiceRegistry getServiceRegistry() {
+        return serviceRegistry;
     }
 
     protected <S> S initialiseService(Class<S> serviceClass) {
         try {
-            return serviceStore == null ? null : serviceStore.getService(serviceClass);
+            return serviceRegistry == null ? null : serviceRegistry.getService(serviceClass);
         } catch (MbedCloudException exception) {
             return null;
         }
     }
 
     protected ConnectionOptions getConfiguration() {
-        final ApiClientWrapper client = serviceStore.getClient();
+        final ApiClientWrapper client = serviceRegistry.getClient();
         return client == null ? null : client.getConnectionOptions();
     }
 
-    protected ServiceRegistry getServicesClone() {
-        return serviceStore == null ? null : serviceStore.clone();
+    protected ServiceRegistry getRegistryClone() {
+        return serviceRegistry == null ? null : serviceRegistry.clone();
     }
 }

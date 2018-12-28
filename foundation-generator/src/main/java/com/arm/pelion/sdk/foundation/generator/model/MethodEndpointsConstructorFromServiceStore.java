@@ -32,7 +32,7 @@ public class MethodEndpointsConstructorFromServiceStore extends AbstractMethodCo
 
     @Override
     protected void addConstructorParameters() {
-        addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceStore}.", null,
+        addParameter(new Parameter(PARAM_SERVICE_STORE, "created services {@link ServiceRegistry}.", null,
                                    TypeFactory.getCorrespondingType(ServiceRegistry.class), null));
     }
 }

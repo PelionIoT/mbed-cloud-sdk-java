@@ -5,6 +5,7 @@ group = SDKGroup
 buildscript {
     repositories {
         jcenter()
+        mavenCentral()
         maven {
             url "https://plugins.gradle.org/m2/"
         }
@@ -18,7 +19,9 @@ buildscript {
         classpath 'gradle.plugin.com.dorongold.plugins:task-tree:1.3'
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:latest.release'
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
-        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.+"        
+        classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.+"
+        classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.16.0'        
     }
 }
 
@@ -103,6 +106,8 @@ allprojects {
         apply plugin: 'com.github.spotbugs' //static analysis
         apply plugin: 'pmd' //static analysis
         apply plugin: 'de.aaschmid.cpd' //Code duplication
+        apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
+        apply plugin: 'walkmod' // automatic code fix
     }
     apply plugin: 'license-report'
     apply plugin: 'com.github.hierynomus.license-report'
@@ -159,7 +164,7 @@ allprojects {
 
     jar {
         manifest {
-            attributes('Implementation-Title': 'Arm Mbed Cloud SDK for Java',
+            attributes('Implementation-Title': 'Arm Pelion Cloud SDK for Java',
                     'Implementation-Version': project.version,
                     'MbedCloudSdk-Version': project.version,
                     'MbedCloudTestRunner-Version': SDKTestrunnerVersion,
@@ -219,12 +224,12 @@ allprojects {
                     artifact javadocJar
 
                     pom.withXml {
-                        asNode().appendNode('name', 'Arm Mbed Cloud SDK')
+                        asNode().appendNode('name', 'Arm Pelion Cloud SDK')
                         asNode().appendNode('url', 'https://github.com/ARMmbed/mbed-cloud-sdk-java')
-                        asNode().appendNode('description', 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
+                        asNode().appendNode('description', 'The Pelion Cloud SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the Pelion Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.')
                         asNode().appendNode('packaging', 'jar')
                         asNode().appendNode('licenses').appendNode('license').appendNode('url','http://www.apache.org/licenses/LICENSE-2.0.txt').parent().appendNode('name','The Apache License, Version 2.0')
-                        asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Mbed').parent().appendNode('organizationUrl','https://www.mbed.com/')
+                        asNode().appendNode('developers').appendNode('developer').appendNode('name','Adrien CABARBAYE').parent().appendNode('email','adrien.cabarbaye@arm.com').parent().appendNode('organization','Arm Pelion').parent().appendNode('organizationUrl','https://cloud.mbed.com/')
                         asNode().appendNode('scm').appendNode('connection','scm:git:git://github.com/ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('developerConnection','scm:git:ssh://github.com:ARMmbed/mbed-cloud-sdk-java.git').parent().appendNode('url','https://github.com/ARMmbed/mbed-cloud-sdk-java/tree/master')
                     }
                 }
@@ -252,8 +257,8 @@ allprojects {
                     } else {
                         name = 'mbed-cloud-' + project.name
                     }
-                    labels = ["Mbed","Mbed Cloud","Cloud","SDK","Java","IoT"]
-                    desc = 'The Mbed Cloud SDK provides a simplified interface to the Mbed Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
+                    labels = ["Mbed","Mbed Cloud","Pelion","Pelion Cloud","Cloud","SDK","Java","IoT"]
+                    desc = 'The Pelion Cloud SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the Pelion Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
                     userOrg = 'armmbed'        
                     licenses = ['Apache-2.0']
                     websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
@@ -282,9 +287,13 @@ allprojects {
         }
     }
     if  (! isInExcludeList){
+	    def checkStyleConfigFile=new File("$rootProject.projectDir/config/checkstyle/checkstyle.xml").canonicalPath
+		def pmdConfigFile=new File("$rootProject.projectDir/config/pmd/pmd-rules.xml").canonicalPath
+		def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath
+		def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
         checkstyle {
             toolVersion = '7.2'
-            configFile rootProject.file("$rootDir/config/checkstyle/checkstyle.xml")
+            configFile rootProject.file(checkStyleConfigFile)
             sourceSets = [sourceSets.main]
             ignoreFailures = false
             maxWarnings = 0
@@ -309,7 +318,7 @@ allprojects {
             sourceSets = [sourceSets.main]
             ignoreFailures = false
             ruleSets = []
-            ruleSetFiles = files("$rootDir/config/pmd/pmd-rules.xml")
+            ruleSetFiles = files(pmdConfigFile)
         }
         pmdMain {
             excludes = []
@@ -335,7 +344,7 @@ allprojects {
             ignoreFailures = false
             effort = "max"
             reportLevel = "high"
-            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+            excludeFilter = file(findBugsConfigFile)
         }
         spotbugs {
           //toolVersion = '3.1.5'
@@ -343,7 +352,7 @@ allprojects {
             ignoreFailures = false
             effort = "max"
             reportLevel = "high"
-            excludeFilter = file("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml")
+            excludeFilter = file(findBugsConfigFile)
         }
         tasks.withType(FindBugs) {
             reports {
@@ -358,6 +367,24 @@ allprojects {
                 html.enabled = true
             }
         }
+        spotless {
+			format 'misc', {
+			    target '**/*.gradle', '**/*.md', '**/.gitignore'
+			    indentWithSpaces()
+			    trimTrailingWhitespace()
+			    endWithNewline()
+			}
+			java {
+				removeUnusedImports() // removes any unused imports
+				eclipse().configFile "${eclipseConfigFile}"
+				encoding 'Cp1252' // java will have Cp1252
+			}
+		}		
+		walkmod {
+		  chains = [ 'pmd' , 'override']
+		  verbose = true
+		  //properties = "configurationFile=\"${pmdConfigFile}\""
+		}
     }
 }
 
@@ -366,8 +393,8 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
-// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list below.
-def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs'].collect{it.toLowerCase()}
+// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
+def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs','walkmod','spotless'].collect{it.toLowerCase()}
 tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
 
 configurations {
@@ -381,6 +408,7 @@ dependencies {
     compile project(':support-annotations')
     compile project(':lwm2m')
     compile project(':pelion-sdk-core')
+    compile project(':foundation-models')
     compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:external_ca')
