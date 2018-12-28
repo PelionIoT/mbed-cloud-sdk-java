@@ -104,7 +104,7 @@ spotless {
 }
 
 walkmod {
-  chains = [ 'pmd' ]
+  chains = [ 'pmd' , 'override']
   verbose = true
   //properties = "configurationFile=\"${pmdConfigFile}\""
 }
