@@ -145,25 +145,6 @@ entities:
     items:
       type: string
     type: array
-  - _key: parent_account
-    api_fieldname: parent_account
-    description: This object represents parent account contact details in responses.
-    properties:
-    - _key: admin_email
-      description: The email address of the admin user who is the contact person of
-        the parent account.
-      example: info@arm.com
-      type: string
-    - _key: admin_name
-      description: The name of the admin user who is the contact person of the parent
-        account.
-      example: J. Doe
-      type: string
-    - _key: id
-      description: The ID of the parent account
-      example: 01619571dad80242ac12000600000000
-      type: string
-    type: object
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if it has any.
