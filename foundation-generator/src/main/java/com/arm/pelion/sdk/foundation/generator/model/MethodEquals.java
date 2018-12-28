@@ -34,11 +34,7 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
         code.beginControlFlow("if (" + PARAMETER_NAME + " == null)");
         code.addStatement("return false");
         code.endControlFlow();
-        if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
-            code.beginControlFlow("if (getClass() != " + PARAMETER_NAME + ".getClass()) ");
-        } else {
-            code.beginControlFlow("if (!getClass().isAssignableFrom(" + PARAMETER_NAME + ".getClass())) ");
-        }
+        code.beginControlFlow("if( !($L instanceof $L))", PARAMETER_NAME, currentModel.getName());
         code.addStatement("return false");
         code.endControlFlow();
         if (hasParentModel() || (hasCurrentModel() && currentModel.hasParent())) {
@@ -50,19 +46,23 @@ public class MethodEquals extends AbstractMethodBasedOnModel {
             code.addStatement("return true");
             return;
         }
-        code.addStatement("final " + currentModel.getName() + " other = (" + currentModel.getName() + ") "
-                          + PARAMETER_NAME);
+        final String localVariable = "other";
+        code.addStatement("final $L $L = ($L) $L", currentModel.getName(), localVariable, currentModel.getName(),
+                          PARAMETER_NAME);
+        code.beginControlFlow("if( !$L.$L(this))", localVariable, MethodCanEqual.IDENTIFIER);
+        code.addStatement("return false");
+        code.endControlFlow();
         currentModel.getFieldList().stream().filter(f -> !f.needsCustomCode() && !f.isAlreadyDefined()).forEach(f -> {
             if (f.getType().isBoolean() || f.getType().isNumber() || f.getType().isEnum()) {
-                code.beginControlFlow("if ($L != other.$L)", f.getName(), f.getName());
+                code.beginControlFlow("if ($L != $L.$L)", f.getName(), localVariable, f.getName());
                 code.addStatement("return false");
                 code.endControlFlow();
             } else {
                 code.beginControlFlow("if ($L == null)", f.getName());
-                code.beginControlFlow("if (other.$L != null)", f.getName());
+                code.beginControlFlow("if ($L.$L != null)", localVariable, f.getName());
                 code.addStatement("return false");
                 code.endControlFlow();
-                code.nextControlFlow("else if (!$L.equals(other.$L))", f.getName(), f.getName());
+                code.nextControlFlow("else if (!$L.equals($L.$L))", f.getName(), localVariable, f.getName());
                 code.addStatement("return false");
                 code.endControlFlow();
             }

@@ -266,4 +266,59 @@ public class DataFile implements SdkModel {
     public boolean isValid() {
         return contentType != null && file != null;
     }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((contentType == null) ? 0 : contentType.hashCode());
+        result = prime * result + ((file == null) ? 0 : file.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof DataFile)) {
+            return false;
+        }
+        final DataFile other = (DataFile) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        if (contentType == null) {
+            if (other.contentType != null) {
+                return false;
+            }
+        } else if (!contentType.equals(other.contentType)) {
+            return false;
+        }
+        if (file == null) {
+            if (other.file != null) {
+                return false;
+            }
+        } else if (!file.equals(other.file)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     *
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof DataFile;
+    }
+
 }

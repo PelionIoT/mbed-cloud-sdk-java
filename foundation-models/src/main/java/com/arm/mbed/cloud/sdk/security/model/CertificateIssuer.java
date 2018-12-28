@@ -316,6 +316,19 @@ public class CertificateIssuer implements SdkModel {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    public boolean canEqual(Object other) {
+        return other instanceof CertificateIssuer;
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      * <p>
      * 
@@ -332,10 +345,13 @@ public class CertificateIssuer implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
+        if (!(obj instanceof CertificateIssuer)) {
             return false;
         }
         final CertificateIssuer other = (CertificateIssuer) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         if (createdAt == null) {
             if (other.createdAt != null) {
                 return false;

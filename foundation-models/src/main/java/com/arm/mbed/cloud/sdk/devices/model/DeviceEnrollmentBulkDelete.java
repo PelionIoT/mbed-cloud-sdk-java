@@ -419,6 +419,19 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    public boolean canEqual(Object other) {
+        return other instanceof DeviceEnrollmentBulkDelete;
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      * <p>
      * 
@@ -435,10 +448,13 @@ public class DeviceEnrollmentBulkDelete implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
+        if (!(obj instanceof DeviceEnrollmentBulkDelete)) {
             return false;
         }
         final DeviceEnrollmentBulkDelete other = (DeviceEnrollmentBulkDelete) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         if (accountId == null) {
             if (other.accountId != null) {
                 return false;

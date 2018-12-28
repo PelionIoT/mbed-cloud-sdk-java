@@ -15,9 +15,9 @@ public class TestPolicy {
      */
     @Test
     public void testClone() {
-        Policy policy1 = new Policy("4353d718-55d3-47c4-9745-77a689fd0de7", false,
-                                    "d40ce86a-0345-4ea4-acda-c8c94eabe060", true,
-                                    "43b55478-03d3-4791-a2e8-3eec6041b7ae");
+        Policy policy1 = new Policy("a404b728-fd7f-447a-acca-035dfa2c75a0", true,
+                                    "aaf9f3fe-ac59-42e0-889e-3e7f28e8b86b", false,
+                                    "b59261ef-f4e9-475a-94b1-ad623a85eefb");
         Policy policy2 = policy1.clone();
         assertNotNull(policy1);
         assertNotNull(policy2);
@@ -30,8 +30,8 @@ public class TestPolicy {
      */
     @Test
     public void testIsvalid() {
-        Policy policy = new Policy("768429ab-a253-4d91-a4c3-18b31d925ad3", true, "0ce97105-f287-4d4c-9439-9977535c637f",
-                                   true, "b076169d-4024-43e9-b98b-adf72cffaef1");
+        Policy policy = new Policy("b1646240-864a-45b6-9307-697376b650d6", true, "74cf7872-6fd8-4a0e-8d9b-766d5017173d",
+                                   true, "bc1cf83f-ffec-4797-b030-b2ee41b2d256");
         assertTrue(policy.isValid());
     }
 
@@ -40,12 +40,12 @@ public class TestPolicy {
      */
     @Test
     public void testHashcode() {
-        Policy policy1 = new Policy("f3e7071b-770c-4c2f-8c8c-cc1de8407d15", false,
-                                    "83a64215-828a-435d-b218-cad7bb30d52f", true,
-                                    "55952b52-cae0-45ed-be08-672823b4c3de");
-        Policy policy2 = new Policy("f3e7071b-770c-4c2f-8c8c-cc1de8407d15", false,
-                                    "83a64215-828a-435d-b218-cad7bb30d52f", true,
-                                    "55952b52-cae0-45ed-be08-672823b4c3de");
+        Policy policy1 = new Policy("1b1e01cd-b270-485d-aebc-e222dd59223e", true,
+                                    "6a458f4f-e3f9-4c65-a7ad-ac41737d7357", true,
+                                    "980bf847-4431-43a4-86da-42b150afe8aa");
+        Policy policy2 = new Policy("1b1e01cd-b270-485d-aebc-e222dd59223e", true,
+                                    "6a458f4f-e3f9-4c65-a7ad-ac41737d7357", true,
+                                    "980bf847-4431-43a4-86da-42b150afe8aa");
         assertNotNull(policy1);
         assertNotNull(policy2);
         assertNotSame(policy2, policy1);
@@ -62,15 +62,15 @@ public class TestPolicy {
      */
     @Test
     public void testEquals() {
-        Policy policy1 = new Policy("d5ea75df-0f0e-4cff-aef4-01bee3a95c51", true,
-                                    "0a4fdcd7-c1b5-4483-bba3-17de0ba33ddd", false,
-                                    "9db3e122-66c5-4bb6-ae7b-0041142784a4");
-        Policy policy2 = new Policy("d5ea75df-0f0e-4cff-aef4-01bee3a95c51", true,
-                                    "0a4fdcd7-c1b5-4483-bba3-17de0ba33ddd", false,
-                                    "9db3e122-66c5-4bb6-ae7b-0041142784a4");
-        Policy policy3 = new Policy("50a7be95-3489-400e-b39a-bdf379e5c504", false,
-                                    "e8675c2f-309b-4680-a9cb-1a2e77b9d358", false,
-                                    "370c008e-755f-4147-8a6d-69bd783f96fb");
+        Policy policy1 = new Policy("740069b0-f6f0-4db1-8246-11d449494eee", true,
+                                    "4df30894-3ea2-457e-a002-1f8a976d0189", true,
+                                    "9631b797-2930-4c66-acf0-a7f0f5695e1e");
+        Policy policy2 = new Policy("740069b0-f6f0-4db1-8246-11d449494eee", true,
+                                    "4df30894-3ea2-457e-a002-1f8a976d0189", true,
+                                    "9631b797-2930-4c66-acf0-a7f0f5695e1e");
+        Policy policy3 = new Policy("5d2867ed-a297-4d05-ac4c-870475982eca", true,
+                                    "d49b641f-c03f-40f4-bc72-7e7999efb4a0", true,
+                                    "7b4bbd55-cd9e-401e-b5eb-c0d353670e0e");
         assertNotNull(policy1);
         assertNotNull(policy2);
         assertNotNull(policy3);

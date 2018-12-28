@@ -683,6 +683,19 @@ public class User implements SdkModel {
     }
 
     /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    public boolean canEqual(Object other) {
+        return other instanceof User;
+    }
+
+    /**
      * Indicates whether some other object is "equal to" this one.
      * <p>
      * 
@@ -699,10 +712,13 @@ public class User implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!getClass().isAssignableFrom(obj.getClass())) {
+        if (!(obj instanceof User)) {
             return false;
         }
         final User other = (User) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
         if (accountId == null) {
             if (other.accountId != null) {
                 return false;
