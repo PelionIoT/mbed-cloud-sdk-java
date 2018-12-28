@@ -9,14 +9,14 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Model for a user invitation.
+ * Model for a subtenant user invitation.
  */
-@Preamble(description = "Model for a user invitation.")
-public class UserInvitation implements SdkModel {
+@Preamble(description = "Model for a subtenant user invitation.")
+public class SubtenantUserInvitation implements SdkModel {
     /**
      * Serialisation Id.
      */
-    private static final long serialVersionUID = 1155551388211951L;
+    private static final long serialVersionUID = 1700052454192122L;
 
     /**
      * The ID of the account the user is invited to.
@@ -61,7 +61,7 @@ public class UserInvitation implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #UserInvitation()} instead.
+     * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
      * 
      * @param accountId
      *            The ID of the account the user is invited to.
@@ -82,8 +82,8 @@ public class UserInvitation implements SdkModel {
      *            The ID of the invited user.
      */
     @Internal
-    public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-                          List loginProfiles, Date updatedAt, String userId) {
+    public SubtenantUserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
+                                   List loginProfiles, Date updatedAt, String userId) {
         super();
         setAccountId(accountId);
         setCreatedAt(createdAt);
@@ -98,27 +98,27 @@ public class UserInvitation implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #UserInvitation()} instead.
+     * Note: Should not be used. Use {@link #SubtenantUserInvitation()} instead.
      * 
-     * @param userInvitation
-     *            a user invitation.
+     * @param subtenantUserInvitation
+     *            a subtenant user invitation.
      */
     @Internal
-    public UserInvitation(UserInvitation userInvitation) {
-        this(userInvitation == null ? (String) null : userInvitation.accountId,
-             userInvitation == null ? new java.util.Date() : userInvitation.createdAt,
-             userInvitation == null ? (String) null : userInvitation.email,
-             userInvitation == null ? new java.util.Date() : userInvitation.expiration,
-             userInvitation == null ? (String) null : userInvitation.id,
-             userInvitation == null ? null : userInvitation.loginProfiles,
-             userInvitation == null ? new java.util.Date() : userInvitation.updatedAt,
-             userInvitation == null ? (String) null : userInvitation.userId);
+    public SubtenantUserInvitation(SubtenantUserInvitation subtenantUserInvitation) {
+        this(subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.accountId,
+             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.createdAt,
+             subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.email,
+             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.expiration,
+             subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.id,
+             subtenantUserInvitation == null ? null : subtenantUserInvitation.loginProfiles,
+             subtenantUserInvitation == null ? new java.util.Date() : subtenantUserInvitation.updatedAt,
+             subtenantUserInvitation == null ? (String) null : subtenantUserInvitation.userId);
     }
 
     /**
      * Constructor.
      */
-    public UserInvitation() {
+    public SubtenantUserInvitation() {
         this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
              new java.util.Date(), (String) null);
     }
@@ -129,7 +129,7 @@ public class UserInvitation implements SdkModel {
      * @param id
      *            The ID of the invitation.
      */
-    public UserInvitation(String id) {
+    public SubtenantUserInvitation(String id) {
         this();
         setId(id);
     }
@@ -236,12 +236,12 @@ public class UserInvitation implements SdkModel {
      * <p>
      * Similar to {@link #setId(String)}
      * 
-     * @param userInvitationId
+     * @param subtenantUserInvitationId
      *            The ID of the invitation.
      */
     @Internal
-    public void setUserInvitationId(String userInvitationId) {
-        setId(userInvitationId);
+    public void setSubtenantUserInvitationId(String subtenantUserInvitationId) {
+        setId(subtenantUserInvitationId);
     }
 
     /**
@@ -334,7 +334,7 @@ public class UserInvitation implements SdkModel {
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
     protected boolean canEqual(Object other) {
-        return other instanceof UserInvitation;
+        return other instanceof SubtenantUserInvitation;
     }
 
     /**
@@ -354,10 +354,10 @@ public class UserInvitation implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof UserInvitation)) {
+        if (!(obj instanceof SubtenantUserInvitation)) {
             return false;
         }
-        final UserInvitation other = (UserInvitation) obj;
+        final SubtenantUserInvitation other = (SubtenantUserInvitation) obj;
         if (!other.canEqual(this)) {
             return false;
         }
@@ -429,7 +429,7 @@ public class UserInvitation implements SdkModel {
      */
     @Override
     public String toString() {
-        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
+        return "SubtenantUserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
                + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
                + updatedAt + ", userId=" + userId + "]";
     }
@@ -454,7 +454,7 @@ public class UserInvitation implements SdkModel {
      * @return a cloned instance
      */
     @Override
-    public UserInvitation clone() {
-        return new UserInvitation(this);
+    public SubtenantUserInvitation clone() {
+        return new SubtenantUserInvitation(this);
     }
 }

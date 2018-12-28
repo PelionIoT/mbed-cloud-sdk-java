@@ -21,7 +21,7 @@ public class DeviceEvents implements SdkModel {
     private static final long serialVersionUID = 3306736964522935L;
 
     /**
-     * Additional data relevant to the event.
+     * value.
      */
     private Map<String, String> changes;
 
@@ -31,7 +31,7 @@ public class DeviceEvents implements SdkModel {
     private Date createdAt;
 
     /**
-     * value.
+     * Additional data relevant to the event.
      */
     private Map<String, String> data;
 
@@ -81,11 +81,11 @@ public class DeviceEvents implements SdkModel {
      * Note: Should not be used. Use {@link #DeviceEvents()} instead.
      * 
      * @param changes
-     *            Additional data relevant to the event.
+     *            value.
      * @param createdAt
      *            value.
      * @param data
-     *            value.
+     *            Additional data relevant to the event.
      * @param dateTime
      *            value.
      * @param description
@@ -164,7 +164,7 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Gets additional data relevant to the event.
+     * Gets value.
      * 
      * @return changes
      */
@@ -173,10 +173,10 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets additional data relevant to the event.
+     * Sets value.
      * 
      * @param changes
-     *            Additional data relevant to the event.
+     *            value.
      */
     public void setChanges(Map<String, String> changes) {
         this.changes = changes;
@@ -202,7 +202,7 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Gets value.
+     * Gets additional data relevant to the event.
      * 
      * @return data
      */
@@ -211,10 +211,10 @@ public class DeviceEvents implements SdkModel {
     }
 
     /**
-     * Sets value.
+     * Sets additional data relevant to the event.
      * 
      * @param data
-     *            value.
+     *            Additional data relevant to the event.
      */
     public void setData(Map<String, String> data) {
         this.data = data;

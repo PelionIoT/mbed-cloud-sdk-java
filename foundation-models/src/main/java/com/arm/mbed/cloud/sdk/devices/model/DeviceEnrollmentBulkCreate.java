@@ -26,7 +26,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     private String accountId;
 
     /**
-     * The time of completing the bulk creation task.
+     * The time of completing the bulk creation task. Null when creating bulk upload or delete.
      */
     private Date completedAt;
 
@@ -41,12 +41,12 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     private int errorsCount;
 
     /**
-     * value.
+     * Link to error report file. Null when creating bulk upload or delete.
      */
     private String errorsReportFile;
 
     /**
-     * value.
+     * Link to full report file. Null when creating bulk upload or delete.
      */
     private String fullReportFile;
 
@@ -80,7 +80,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      * @param accountId
      *            ID.
      * @param completedAt
-     *            The time of completing the bulk creation task.
+     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
      * 
      * @param createdAt
      *            The time of receiving the bulk creation task.
@@ -89,9 +89,11 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
      *            The number of enrollment identities with failed processing.
      * 
      * @param errorsReportFile
-     *            value.
+     *            Link to error report file. Null when creating bulk upload or delete.
+     * 
      * @param fullReportFile
-     *            value.
+     *            Link to full report file. Null when creating bulk upload or delete.
+     * 
      * @param id
      *            Bulk ID.
      * @param processedCount
@@ -185,7 +187,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Gets the time of completing the bulk creation task.
+     * Gets the time of completing the bulk creation task. null when creating bulk upload or delete.
      * 
      * @return completedAt
      */
@@ -194,10 +196,10 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets the time of completing the bulk creation task.
+     * Sets the time of completing the bulk creation task. null when creating bulk upload or delete.
      * 
      * @param completedAt
-     *            The time of completing the bulk creation task.
+     *            The time of completing the bulk creation task. Null when creating bulk upload or delete.
      * 
      */
     public void setCompletedAt(Date completedAt) {
@@ -245,7 +247,7 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Gets value.
+     * Gets link to error report file. null when creating bulk upload or delete.
      * 
      * @return errorsReportFile
      */
@@ -254,17 +256,18 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets value.
+     * Sets link to error report file. null when creating bulk upload or delete.
      * 
      * @param errorsReportFile
-     *            value.
+     *            Link to error report file. Null when creating bulk upload or delete.
+     * 
      */
     public void setErrorsReportFile(String errorsReportFile) {
         this.errorsReportFile = errorsReportFile;
     }
 
     /**
-     * Gets value.
+     * Gets link to full report file. null when creating bulk upload or delete.
      * 
      * @return fullReportFile
      */
@@ -273,10 +276,11 @@ public class DeviceEnrollmentBulkCreate implements SdkModel {
     }
 
     /**
-     * Sets value.
+     * Sets link to full report file. null when creating bulk upload or delete.
      * 
      * @param fullReportFile
-     *            value.
+     *            Link to full report file. Null when creating bulk upload or delete.
+     * 
      */
     public void setFullReportFile(String fullReportFile) {
         this.fullReportFile = fullReportFile;

@@ -9,15 +9,15 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * Model for a trusted certificate.
+ * Model for a subtenant trusted certificate.
  */
-@Preamble(description = "Model for a trusted certificate.")
+@Preamble(description = "Model for a subtenant trusted certificate.")
 @SuppressWarnings("PMD.CyclomaticComplexity")
-public class TrustedCertificate implements SdkModel {
+public class SubtenantTrustedCertificate implements SdkModel {
     /**
      * Serialisation Id.
      */
-    private static final long serialVersionUID = 1727697502201821L;
+    private static final long serialVersionUID = 8306879121921220L;
 
     /**
      * The ID of the account.
@@ -82,12 +82,12 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Service name where the certificate is to be used.
      */
-    private TrustedCertificateService service;
+    private SubtenantTrustedCertificateService service;
 
     /**
      * Status of the certificate.
      */
-    private TrustedCertificateStatus status;
+    private SubtenantTrustedCertificateStatus status;
 
     /**
      * Subject of the certificate.
@@ -107,7 +107,7 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #TrustedCertificate()} instead.
+     * Note: Should not be used. Use {@link #SubtenantTrustedCertificate()} instead.
      * 
      * @param accountId
      *            The ID of the account.
@@ -146,11 +146,12 @@ public class TrustedCertificate implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public TrustedCertificate(String accountId, String certificate, String certificateFingerprint, Date createdAt,
-                              String description, int deviceExecutionMode, boolean enrollmentMode, String id,
-                              boolean isDeveloperCertificate, String issuer, String name, String ownerId,
-                              TrustedCertificateService service, TrustedCertificateStatus status, String subject,
-                              Date updatedAt, Date validity) {
+    public SubtenantTrustedCertificate(String accountId, String certificate, String certificateFingerprint,
+                                       Date createdAt, String description, int deviceExecutionMode,
+                                       boolean enrollmentMode, String id, boolean isDeveloperCertificate, String issuer,
+                                       String name, String ownerId, SubtenantTrustedCertificateService service,
+                                       SubtenantTrustedCertificateStatus status, String subject, Date updatedAt,
+                                       Date validity) {
         super();
         setAccountId(accountId);
         setCertificate(certificate);
@@ -174,39 +175,41 @@ public class TrustedCertificate implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #TrustedCertificate()} instead.
+     * Note: Should not be used. Use {@link #SubtenantTrustedCertificate()} instead.
      * 
-     * @param trustedCertificate
-     *            a trusted certificate.
+     * @param subtenantTrustedCertificate
+     *            a subtenant trusted certificate.
      */
     @Internal
-    public TrustedCertificate(TrustedCertificate trustedCertificate) {
-        this(trustedCertificate == null ? (String) null : trustedCertificate.accountId,
-             trustedCertificate == null ? (String) null : trustedCertificate.certificate,
-             trustedCertificate == null ? (String) null : trustedCertificate.certificateFingerprint,
-             trustedCertificate == null ? new java.util.Date() : trustedCertificate.createdAt,
-             trustedCertificate == null ? (String) null : trustedCertificate.description,
-             trustedCertificate == null ? 0 : trustedCertificate.deviceExecutionMode,
-             trustedCertificate != null && trustedCertificate.enrollmentMode,
-             trustedCertificate == null ? (String) null : trustedCertificate.id,
-             trustedCertificate != null && trustedCertificate.isDeveloperCertificate,
-             trustedCertificate == null ? (String) null : trustedCertificate.issuer,
-             trustedCertificate == null ? (String) null : trustedCertificate.name,
-             trustedCertificate == null ? (String) null : trustedCertificate.ownerId,
-             trustedCertificate == null ? TrustedCertificateService.getDefault() : trustedCertificate.service,
-             trustedCertificate == null ? TrustedCertificateStatus.getDefault() : trustedCertificate.status,
-             trustedCertificate == null ? (String) null : trustedCertificate.subject,
-             trustedCertificate == null ? new java.util.Date() : trustedCertificate.updatedAt,
-             trustedCertificate == null ? new java.util.Date() : trustedCertificate.validity);
+    public SubtenantTrustedCertificate(SubtenantTrustedCertificate subtenantTrustedCertificate) {
+        this(subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.accountId,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.certificate,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.certificateFingerprint,
+             subtenantTrustedCertificate == null ? new java.util.Date() : subtenantTrustedCertificate.createdAt,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.description,
+             subtenantTrustedCertificate == null ? 0 : subtenantTrustedCertificate.deviceExecutionMode,
+             subtenantTrustedCertificate != null && subtenantTrustedCertificate.enrollmentMode,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.id,
+             subtenantTrustedCertificate != null && subtenantTrustedCertificate.isDeveloperCertificate,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.issuer,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.name,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.ownerId,
+             subtenantTrustedCertificate == null ? SubtenantTrustedCertificateService.getDefault()
+                                                 : subtenantTrustedCertificate.service,
+             subtenantTrustedCertificate == null ? SubtenantTrustedCertificateStatus.getDefault()
+                                                 : subtenantTrustedCertificate.status,
+             subtenantTrustedCertificate == null ? (String) null : subtenantTrustedCertificate.subject,
+             subtenantTrustedCertificate == null ? new java.util.Date() : subtenantTrustedCertificate.updatedAt,
+             subtenantTrustedCertificate == null ? new java.util.Date() : subtenantTrustedCertificate.validity);
     }
 
     /**
      * Constructor.
      */
-    public TrustedCertificate() {
+    public SubtenantTrustedCertificate() {
         this((String) null, (String) null, (String) null, new java.util.Date(), (String) null, 0, false, (String) null,
-             false, (String) null, (String) null, (String) null, TrustedCertificateService.getDefault(),
-             TrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), new java.util.Date());
+             false, (String) null, (String) null, (String) null, SubtenantTrustedCertificateService.getDefault(),
+             SubtenantTrustedCertificateStatus.getDefault(), (String) null, new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -215,7 +218,7 @@ public class TrustedCertificate implements SdkModel {
      * @param id
      *            Entity ID.
      */
-    public TrustedCertificate(String id) {
+    public SubtenantTrustedCertificate(String id) {
         this();
         setId(id);
     }
@@ -379,12 +382,12 @@ public class TrustedCertificate implements SdkModel {
      * <p>
      * Similar to {@link #setId(String)}
      * 
-     * @param trustedCertificateId
+     * @param subtenantTrustedCertificateId
      *            Entity ID.
      */
     @Internal
-    public void setTrustedCertificateId(String trustedCertificateId) {
-        setId(trustedCertificateId);
+    public void setSubtenantTrustedCertificateId(String subtenantTrustedCertificateId) {
+        setId(subtenantTrustedCertificateId);
     }
 
     /**
@@ -468,7 +471,7 @@ public class TrustedCertificate implements SdkModel {
      * 
      * @return service
      */
-    public TrustedCertificateService getService() {
+    public SubtenantTrustedCertificateService getService() {
         return service;
     }
 
@@ -478,7 +481,7 @@ public class TrustedCertificate implements SdkModel {
      * @param service
      *            Service name where the certificate is to be used.
      */
-    public void setService(TrustedCertificateService service) {
+    public void setService(SubtenantTrustedCertificateService service) {
         this.service = service;
     }
 
@@ -487,7 +490,7 @@ public class TrustedCertificate implements SdkModel {
      * 
      * @return status
      */
-    public TrustedCertificateStatus getStatus() {
+    public SubtenantTrustedCertificateStatus getStatus() {
         return status;
     }
 
@@ -497,7 +500,7 @@ public class TrustedCertificate implements SdkModel {
      * @param status
      *            Status of the certificate.
      */
-    public void setStatus(TrustedCertificateStatus status) {
+    public void setStatus(SubtenantTrustedCertificateStatus status) {
         this.status = status;
     }
 
@@ -599,7 +602,7 @@ public class TrustedCertificate implements SdkModel {
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
     protected boolean canEqual(Object other) {
-        return other instanceof TrustedCertificate;
+        return other instanceof SubtenantTrustedCertificate;
     }
 
     /**
@@ -620,10 +623,10 @@ public class TrustedCertificate implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof TrustedCertificate)) {
+        if (!(obj instanceof SubtenantTrustedCertificate)) {
             return false;
         }
-        final TrustedCertificate other = (TrustedCertificate) obj;
+        final SubtenantTrustedCertificate other = (SubtenantTrustedCertificate) obj;
         if (!other.canEqual(this)) {
             return false;
         }
@@ -738,7 +741,7 @@ public class TrustedCertificate implements SdkModel {
      */
     @Override
     public String toString() {
-        return "TrustedCertificate [accountId=" + accountId + ", certificate=" + certificate
+        return "SubtenantTrustedCertificate [accountId=" + accountId + ", certificate=" + certificate
                + ", certificateFingerprint=" + certificateFingerprint + ", createdAt=" + createdAt + ", description="
                + description + ", deviceExecutionMode=" + deviceExecutionMode + ", enrollmentMode=" + enrollmentMode
                + ", id=" + id + ", isDeveloperCertificate=" + isDeveloperCertificate + ", issuer=" + issuer + ", name="
@@ -766,7 +769,7 @@ public class TrustedCertificate implements SdkModel {
      * @return a cloned instance
      */
     @Override
-    public TrustedCertificate clone() {
-        return new TrustedCertificate(this);
+    public SubtenantTrustedCertificate clone() {
+        return new SubtenantTrustedCertificate(this);
     }
 }

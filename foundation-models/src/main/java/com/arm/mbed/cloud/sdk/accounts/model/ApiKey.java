@@ -6,7 +6,6 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -20,6 +19,11 @@ public class ApiKey implements SdkModel {
     private static final long serialVersionUID = -211973305911691L;
 
     /**
+     * The ID of the account.
+     */
+    private String accountId;
+
+    /**
      * Creation UTC time RFC3339.
      */
     private Date createdAt;
@@ -30,12 +34,7 @@ public class ApiKey implements SdkModel {
     private long creationTime;
 
     /**
-     * A list of group IDs this API key belongs to.
-     */
-    private List<String> groups;
-
-    /**
-     * The UUID of the API key.
+     * The ID of the API key.
      */
     private String id;
 
@@ -74,14 +73,14 @@ public class ApiKey implements SdkModel {
      * <p>
      * Note: Should not be used. Use {@link #ApiKey()} instead.
      * 
+     * @param accountId
+     *            The ID of the account.
      * @param createdAt
      *            Creation UTC time RFC3339.
      * @param creationTime
      *            The timestamp of the API key creation in the storage, in milliseconds.
-     * @param groups
-     *            A list of group IDs this API key belongs to.
      * @param id
-     *            The UUID of the API key.
+     *            The ID of the API key.
      * @param key
      *            The API key.
      * @param lastLoginTime
@@ -96,12 +95,12 @@ public class ApiKey implements SdkModel {
      *            Last update UTC time RFC3339.
      */
     @Internal
-    public ApiKey(Date createdAt, long creationTime, List<String> groups, String id, String key, long lastLoginTime,
+    public ApiKey(String accountId, Date createdAt, long creationTime, String id, String key, long lastLoginTime,
                   String name, String owner, ApiKeyStatus status, Date updatedAt) {
         super();
+        setAccountId(accountId);
         setCreatedAt(createdAt);
         setCreationTime(creationTime);
-        setGroups(groups);
         setId(id);
         setKey(key);
         setLastLoginTime(lastLoginTime);
@@ -121,11 +120,11 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     public ApiKey(ApiKey apiKey) {
-        this(apiKey == null ? new java.util.Date() : apiKey.createdAt, apiKey == null ? 0L : apiKey.creationTime,
-             apiKey == null ? null : apiKey.groups, apiKey == null ? (String) null : apiKey.id,
-             apiKey == null ? (String) null : apiKey.key, apiKey == null ? 0L : apiKey.lastLoginTime,
-             apiKey == null ? (String) null : apiKey.name, apiKey == null ? (String) null : apiKey.owner,
-             apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
+        this(apiKey == null ? (String) null : apiKey.accountId,
+             apiKey == null ? new java.util.Date() : apiKey.createdAt, apiKey == null ? 0L : apiKey.creationTime,
+             apiKey == null ? (String) null : apiKey.id, apiKey == null ? (String) null : apiKey.key,
+             apiKey == null ? 0L : apiKey.lastLoginTime, apiKey == null ? (String) null : apiKey.name,
+             apiKey == null ? (String) null : apiKey.owner, apiKey == null ? ApiKeyStatus.getDefault() : apiKey.status,
              apiKey == null ? new java.util.Date() : apiKey.updatedAt);
     }
 
@@ -133,7 +132,7 @@ public class ApiKey implements SdkModel {
      * Constructor.
      */
     public ApiKey() {
-        this(new java.util.Date(), 0L, null, (String) null, (String) null, 0L, (String) null, (String) null,
+        this((String) null, new java.util.Date(), 0L, (String) null, (String) null, 0L, (String) null, (String) null,
              ApiKeyStatus.getDefault(), new java.util.Date());
     }
 
@@ -141,11 +140,44 @@ public class ApiKey implements SdkModel {
      * Constructor.
      * 
      * @param id
-     *            The UUID of the API key.
+     *            The ID of the API key.
      */
     public ApiKey(String id) {
         this();
         setId(id);
+    }
+
+    /**
+     * Gets the id of the account.
+     * 
+     * @return accountId
+     */
+    public String getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * Sets the id of the account.
+     * <p>
+     * null
+     * <p>
+     * Note: the value has to match {@code /[a-f0-9]{32}/} to be valid
+     * 
+     * @param accountId
+     *            The ID of the account.
+     */
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * Checks whether accountId value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isAccountIdValid() {
+        return (accountId == null || accountId.matches("[a-f0-9]{32}"));
     }
 
     /**
@@ -187,26 +219,7 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Gets a list of group ids this api key belongs to.
-     * 
-     * @return groups
-     */
-    public List<String> getGroups() {
-        return groups;
-    }
-
-    /**
-     * Sets a list of group ids this api key belongs to.
-     * 
-     * @param groups
-     *            A list of group IDs this API key belongs to.
-     */
-    public void setGroups(List<String> groups) {
-        this.groups = groups;
-    }
-
-    /**
-     * Gets the uuid of the api key.
+     * Gets the id of the api key.
      * 
      * @return id
      */
@@ -216,10 +229,10 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Sets the uuid of the api key.
+     * Sets the id of the api key.
      * 
      * @param id
-     *            The UUID of the API key.
+     *            The ID of the API key.
      */
     @Override
     public void setId(String id) {
@@ -227,12 +240,12 @@ public class ApiKey implements SdkModel {
     }
 
     /**
-     * Sets the uuid of the api key.
+     * Sets the id of the api key.
      * <p>
      * Similar to {@link #setId(String)}
      * 
      * @param apiKeyId
-     *            The UUID of the API key.
+     *            The ID of the API key.
      */
     @Internal
     public void setApiKeyId(String apiKeyId) {
@@ -364,9 +377,9 @@ public class ApiKey implements SdkModel {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
+        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
         result = prime * result + Objects.hashCode(creationTime);
-        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((key == null) ? 0 : key.hashCode());
         result = prime * result + Objects.hashCode(lastLoginTime);
@@ -414,6 +427,13 @@ public class ApiKey implements SdkModel {
         if (!other.canEqual(this)) {
             return false;
         }
+        if (accountId == null) {
+            if (other.accountId != null) {
+                return false;
+            }
+        } else if (!accountId.equals(other.accountId)) {
+            return false;
+        }
         if (createdAt == null) {
             if (other.createdAt != null) {
                 return false;
@@ -422,13 +442,6 @@ public class ApiKey implements SdkModel {
             return false;
         }
         if (creationTime != other.creationTime) {
-            return false;
-        }
-        if (groups == null) {
-            if (other.groups != null) {
-                return false;
-            }
-        } else if (!groups.equals(other.groups)) {
             return false;
         }
         if (id == null) {
@@ -484,9 +497,9 @@ public class ApiKey implements SdkModel {
      */
     @Override
     public String toString() {
-        return "ApiKey [createdAt=" + createdAt + ", creationTime=" + creationTime + ", groups=" + groups + ", id=" + id
-               + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name=" + name + ", owner=" + owner
-               + ", status=" + status + ", updatedAt=" + updatedAt + "]";
+        return "ApiKey [accountId=" + accountId + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+               + ", id=" + id + ", key=" + key + ", lastLoginTime=" + lastLoginTime + ", name=" + name + ", owner="
+               + owner + ", status=" + status + ", updatedAt=" + updatedAt + "]";
     }
 
     /**
@@ -498,7 +511,7 @@ public class ApiKey implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isAccountIdValid();
     }
 
     /**

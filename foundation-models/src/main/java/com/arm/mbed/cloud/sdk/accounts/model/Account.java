@@ -8,7 +8,6 @@ import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Model for an account.
@@ -98,11 +97,6 @@ public class Account implements SdkModel {
     private Date createdAt;
 
     /**
-     * The timestamp of the API key creation in the storage, in milliseconds.
-     */
-    private long creationTime;
-
-    /**
      * Account's custom properties as key-value pairs.
      */
     private Map<String, String> customFields;
@@ -133,11 +127,6 @@ public class Account implements SdkModel {
     private String expirationWarningThreshold;
 
     /**
-     * A list of group IDs this API key belongs to.
-     */
-    private List<String> groups;
-
-    /**
      * Account ID.
      */
     private String id;
@@ -146,16 +135,6 @@ public class Account implements SdkModel {
      * The reference token expiration time in minutes for this account.
      */
     private String idleTimeout;
-
-    /**
-     * The API key.
-     */
-    private String key;
-
-    /**
-     * The timestamp of the latest API key usage, in milliseconds.
-     */
-    private long lastLoginTime;
 
     /**
      * List of limits as key-value pairs if requested.
@@ -168,19 +147,9 @@ public class Account implements SdkModel {
     private AccountMfaStatus mfaStatus;
 
     /**
-     * The display name for the API key.
-     */
-    private String name;
-
-    /**
      * A list of notification email addresses.
      */
     private List<String> notificationEmails;
-
-    /**
-     * The owner of this API key, who is the creator by default.
-     */
-    private String owner;
 
     /**
      * The ID of the parent account, if it has any.
@@ -231,11 +200,6 @@ public class Account implements SdkModel {
      * The status of the account.
      */
     private AccountStatus status;
-
-    /**
-     * List of sub accounts. Not available for developer users.
-     */
-    private List subAccounts;
 
     /**
      * Account template ID.
@@ -294,8 +258,6 @@ public class Account implements SdkModel {
      *            The country part of the postal address.
      * @param createdAt
      *            Creation UTC time RFC3339.
-     * @param creationTime
-     *            The timestamp of the API key creation in the storage, in milliseconds.
      * @param customFields
      *            Account's custom properties as key-value pairs.
      * @param customerNumber
@@ -308,26 +270,16 @@ public class Account implements SdkModel {
      *            Account end market.
      * @param expirationWarningThreshold
      *            Indicates how many days (1-180) before account expiration a notification email should be sent.
-     * @param groups
-     *            A list of group IDs this API key belongs to.
      * @param id
      *            Account ID.
      * @param idleTimeout
      *            The reference token expiration time in minutes for this account.
-     * @param key
-     *            The API key.
-     * @param lastLoginTime
-     *            The timestamp of the latest API key usage, in milliseconds.
      * @param limits
      *            List of limits as key-value pairs if requested.
      * @param mfaStatus
      *            The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
-     * @param name
-     *            The display name for the API key.
      * @param notificationEmails
      *            A list of notification email addresses.
-     * @param owner
-     *            The owner of this API key, who is the creator by default.
      * @param parentId
      *            The ID of the parent account, if it has any.
      * @param passwordPolicy
@@ -348,8 +300,6 @@ public class Account implements SdkModel {
      *            The state part of the postal address.
      * @param status
      *            The status of the account.
-     * @param subAccounts
-     *            List of sub accounts. Not available for developer users.
      * @param templateId
      *            Account template ID.
      * @param tier
@@ -365,14 +315,12 @@ public class Account implements SdkModel {
     public Account(String addressLine1, String addressLine2, String adminEmail, String adminFullName, String adminId,
                    String adminKey, String adminName, String adminPassword, List<String> aliases, String city,
                    String company, String contact, String contractNumber, String country, Date createdAt,
-                   long creationTime, Map<String, String> customFields, String customerNumber, String displayName,
-                   String email, String endMarket, String expirationWarningThreshold, List<String> groups, String id,
-                   String idleTimeout, String key, long lastLoginTime, Map<String, String> limits,
-                   AccountMfaStatus mfaStatus, String name, List<String> notificationEmails, String owner,
+                   Map<String, String> customFields, String customerNumber, String displayName, String email,
+                   String endMarket, String expirationWarningThreshold, String id, String idleTimeout,
+                   Map<String, String> limits, AccountMfaStatus mfaStatus, List<String> notificationEmails,
                    String parentId, PasswordPolicy passwordPolicy, String phoneNumber, List<Policy> policies,
                    String postalCode, String reason, String referenceNote, String salesContact, String state,
-                   AccountStatus status, List subAccounts, String templateId, String tier, Date updatedAt,
-                   Date upgradedAt) {
+                   AccountStatus status, String templateId, String tier, Date updatedAt, Date upgradedAt) {
         super();
         setAddressLine1(addressLine1);
         setAddressLine2(addressLine2);
@@ -389,23 +337,17 @@ public class Account implements SdkModel {
         setContractNumber(contractNumber);
         setCountry(country);
         setCreatedAt(createdAt);
-        setCreationTime(creationTime);
         setCustomFields(customFields);
         setCustomerNumber(customerNumber);
         setDisplayName(displayName);
         setEmail(email);
         setEndMarket(endMarket);
         setExpirationWarningThreshold(expirationWarningThreshold);
-        setGroups(groups);
         setId(id);
         setIdleTimeout(idleTimeout);
-        setKey(key);
-        setLastLoginTime(lastLoginTime);
         setLimits(limits);
         setMfaStatus(mfaStatus);
-        setName(name);
         setNotificationEmails(notificationEmails);
-        setOwner(owner);
         setParentId(parentId);
         setPasswordPolicy(passwordPolicy);
         setPhoneNumber(phoneNumber);
@@ -416,7 +358,6 @@ public class Account implements SdkModel {
         setSalesContact(salesContact);
         setState(state);
         setStatus(status);
-        setSubAccounts(subAccounts);
         setTemplateId(templateId);
         setTier(tier);
         setUpdatedAt(updatedAt);
@@ -443,25 +384,23 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.contact,
              account == null ? (String) null : account.contractNumber,
              account == null ? (String) null : account.country,
-             account == null ? new java.util.Date() : account.createdAt, account == null ? 0L : account.creationTime,
-             account == null ? null : account.customFields, account == null ? (String) null : account.customerNumber,
+             account == null ? new java.util.Date() : account.createdAt, account == null ? null : account.customFields,
+             account == null ? (String) null : account.customerNumber,
              account == null ? (String) null : account.displayName, account == null ? (String) null : account.email,
              account == null ? (String) null : account.endMarket,
              account == null ? (String) null : account.expirationWarningThreshold,
-             account == null ? null : account.groups, account == null ? (String) null : account.id,
-             account == null ? (String) null : account.idleTimeout, account == null ? (String) null : account.key,
-             account == null ? 0L : account.lastLoginTime, account == null ? null : account.limits,
+             account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
+             account == null ? null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
-             account == null ? (String) null : account.name, account == null ? null : account.notificationEmails,
-             account == null ? (String) null : account.owner, account == null ? (String) null : account.parentId,
+             account == null ? null : account.notificationEmails, account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
              account == null ? (String) null : account.phoneNumber, account == null ? null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
              account == null ? (String) null : account.referenceNote,
              account == null ? (String) null : account.salesContact, account == null ? (String) null : account.state,
              account == null ? AccountStatus.getDefault() : account.status,
-             account == null ? null : account.subAccounts, account == null ? (String) null : account.templateId,
-             account == null ? (String) null : account.tier, account == null ? new java.util.Date() : account.updatedAt,
+             account == null ? (String) null : account.templateId, account == null ? (String) null : account.tier,
+             account == null ? new java.util.Date() : account.updatedAt,
              account == null ? new java.util.Date() : account.upgradedAt);
     }
 
@@ -471,11 +410,11 @@ public class Account implements SdkModel {
     public Account() {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             new java.util.Date(), 0L, null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             null, (String) null, (String) null, (String) null, 0L, null, AccountMfaStatus.getDefault(), (String) null,
-             null, (String) null, (String) null, (PasswordPolicy) null, (String) null, null, (String) null,
-             (String) null, (String) null, (String) null, (String) null, AccountStatus.getDefault(), null,
-             (String) null, (String) null, new java.util.Date(), new java.util.Date());
+             new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, (String) null, null, AccountMfaStatus.getDefault(), null, (String) null,
+             (PasswordPolicy) null, (String) null, null, (String) null, (String) null, (String) null, (String) null,
+             (String) null, AccountStatus.getDefault(), (String) null, (String) null, new java.util.Date(),
+             new java.util.Date());
     }
 
     /**
@@ -778,25 +717,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the timestamp of the api key creation in the storage, in milliseconds.
-     * 
-     * @return creationTime
-     */
-    public long getCreationTime() {
-        return creationTime;
-    }
-
-    /**
-     * Sets the timestamp of the api key creation in the storage, in milliseconds.
-     * 
-     * @param creationTime
-     *            The timestamp of the API key creation in the storage, in milliseconds.
-     */
-    public void setCreationTime(long creationTime) {
-        this.creationTime = creationTime;
-    }
-
-    /**
      * Gets account's custom properties as key-value pairs.
      * 
      * @return customFields
@@ -911,25 +831,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets a list of group ids this api key belongs to.
-     * 
-     * @return groups
-     */
-    public List<String> getGroups() {
-        return groups;
-    }
-
-    /**
-     * Sets a list of group ids this api key belongs to.
-     * 
-     * @param groups
-     *            A list of group IDs this API key belongs to.
-     */
-    public void setGroups(List<String> groups) {
-        this.groups = groups;
-    }
-
-    /**
      * Gets account id.
      * 
      * @return id
@@ -983,44 +884,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the api key.
-     * 
-     * @return key
-     */
-    public String getKey() {
-        return key;
-    }
-
-    /**
-     * Sets the api key.
-     * 
-     * @param key
-     *            The API key.
-     */
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    /**
-     * Gets the timestamp of the latest api key usage, in milliseconds.
-     * 
-     * @return lastLoginTime
-     */
-    public long getLastLoginTime() {
-        return lastLoginTime;
-    }
-
-    /**
-     * Sets the timestamp of the latest api key usage, in milliseconds.
-     * 
-     * @param lastLoginTime
-     *            The timestamp of the latest API key usage, in milliseconds.
-     */
-    public void setLastLoginTime(long lastLoginTime) {
-        this.lastLoginTime = lastLoginTime;
-    }
-
-    /**
      * Gets list of limits as key-value pairs if requested.
      * 
      * @return limits
@@ -1059,25 +922,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets the display name for the api key.
-     * 
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the display name for the api key.
-     * 
-     * @param name
-     *            The display name for the API key.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
      * Gets a list of notification email addresses.
      * 
      * @return notificationEmails
@@ -1094,25 +938,6 @@ public class Account implements SdkModel {
      */
     public void setNotificationEmails(List<String> notificationEmails) {
         this.notificationEmails = notificationEmails;
-    }
-
-    /**
-     * Gets the owner of this api key, who is the creator by default.
-     * 
-     * @return owner
-     */
-    public String getOwner() {
-        return owner;
-    }
-
-    /**
-     * Sets the owner of this api key, who is the creator by default.
-     * 
-     * @param owner
-     *            The owner of this API key, who is the creator by default.
-     */
-    public void setOwner(String owner) {
-        this.owner = owner;
     }
 
     /**
@@ -1306,25 +1131,6 @@ public class Account implements SdkModel {
     }
 
     /**
-     * Gets list of sub accounts. not available for developer users.
-     * 
-     * @return subAccounts
-     */
-    public List getSubAccounts() {
-        return subAccounts;
-    }
-
-    /**
-     * Sets list of sub accounts. not available for developer users.
-     * 
-     * @param subAccounts
-     *            List of sub accounts. Not available for developer users.
-     */
-    public void setSubAccounts(List subAccounts) {
-        this.subAccounts = subAccounts;
-    }
-
-    /**
      * Gets account template id.
      * 
      * @return templateId
@@ -1429,23 +1235,17 @@ public class Account implements SdkModel {
         result = prime * result + ((contractNumber == null) ? 0 : contractNumber.hashCode());
         result = prime * result + ((country == null) ? 0 : country.hashCode());
         result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + Objects.hashCode(creationTime);
         result = prime * result + ((customFields == null) ? 0 : customFields.hashCode());
         result = prime * result + ((customerNumber == null) ? 0 : customerNumber.hashCode());
         result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
         result = prime * result + ((email == null) ? 0 : email.hashCode());
         result = prime * result + ((endMarket == null) ? 0 : endMarket.hashCode());
         result = prime * result + ((expirationWarningThreshold == null) ? 0 : expirationWarningThreshold.hashCode());
-        result = prime * result + ((groups == null) ? 0 : groups.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((idleTimeout == null) ? 0 : idleTimeout.hashCode());
-        result = prime * result + ((key == null) ? 0 : key.hashCode());
-        result = prime * result + Objects.hashCode(lastLoginTime);
         result = prime * result + ((limits == null) ? 0 : limits.hashCode());
         result = prime * result + ((mfaStatus == null) ? 0 : mfaStatus.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((notificationEmails == null) ? 0 : notificationEmails.hashCode());
-        result = prime * result + ((owner == null) ? 0 : owner.hashCode());
         result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
         result = prime * result + ((passwordPolicy == null) ? 0 : passwordPolicy.hashCode());
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
@@ -1456,7 +1256,6 @@ public class Account implements SdkModel {
         result = prime * result + ((salesContact == null) ? 0 : salesContact.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         result = prime * result + ((status == null) ? 0 : status.hashCode());
-        result = prime * result + ((subAccounts == null) ? 0 : subAccounts.hashCode());
         result = prime * result + ((templateId == null) ? 0 : templateId.hashCode());
         result = prime * result + ((tier == null) ? 0 : tier.hashCode());
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
@@ -1607,9 +1406,6 @@ public class Account implements SdkModel {
         } else if (!createdAt.equals(other.createdAt)) {
             return false;
         }
-        if (creationTime != other.creationTime) {
-            return false;
-        }
         if (customFields == null) {
             if (other.customFields != null) {
                 return false;
@@ -1652,13 +1448,6 @@ public class Account implements SdkModel {
         } else if (!expirationWarningThreshold.equals(other.expirationWarningThreshold)) {
             return false;
         }
-        if (groups == null) {
-            if (other.groups != null) {
-                return false;
-            }
-        } else if (!groups.equals(other.groups)) {
-            return false;
-        }
         if (id == null) {
             if (other.id != null) {
                 return false;
@@ -1673,16 +1462,6 @@ public class Account implements SdkModel {
         } else if (!idleTimeout.equals(other.idleTimeout)) {
             return false;
         }
-        if (key == null) {
-            if (other.key != null) {
-                return false;
-            }
-        } else if (!key.equals(other.key)) {
-            return false;
-        }
-        if (lastLoginTime != other.lastLoginTime) {
-            return false;
-        }
         if (limits == null) {
             if (other.limits != null) {
                 return false;
@@ -1693,25 +1472,11 @@ public class Account implements SdkModel {
         if (mfaStatus != other.mfaStatus) {
             return false;
         }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
         if (notificationEmails == null) {
             if (other.notificationEmails != null) {
                 return false;
             }
         } else if (!notificationEmails.equals(other.notificationEmails)) {
-            return false;
-        }
-        if (owner == null) {
-            if (other.owner != null) {
-                return false;
-            }
-        } else if (!owner.equals(other.owner)) {
             return false;
         }
         if (parentId == null) {
@@ -1780,13 +1545,6 @@ public class Account implements SdkModel {
         if (status != other.status) {
             return false;
         }
-        if (subAccounts == null) {
-            if (other.subAccounts != null) {
-                return false;
-            }
-        } else if (!subAccounts.equals(other.subAccounts)) {
-            return false;
-        }
         if (templateId == null) {
             if (other.templateId != null) {
                 return false;
@@ -1831,16 +1589,14 @@ public class Account implements SdkModel {
                + ", adminFullName=" + adminFullName + ", adminId=" + adminId + ", adminKey=" + adminKey + ", adminName="
                + adminName + ", adminPassword=" + adminPassword + ", aliases=" + aliases + ", city=" + city
                + ", company=" + company + ", contact=" + contact + ", contractNumber=" + contractNumber + ", country="
-               + country + ", createdAt=" + createdAt + ", creationTime=" + creationTime + ", customFields="
-               + customFields + ", customerNumber=" + customerNumber + ", displayName=" + displayName + ", email="
-               + email + ", endMarket=" + endMarket + ", expirationWarningThreshold=" + expirationWarningThreshold
-               + ", groups=" + groups + ", id=" + id + ", idleTimeout=" + idleTimeout + ", key=" + key
-               + ", lastLoginTime=" + lastLoginTime + ", limits=" + limits + ", mfaStatus=" + mfaStatus + ", name="
-               + name + ", notificationEmails=" + notificationEmails + ", owner=" + owner + ", parentId=" + parentId
-               + ", passwordPolicy=" + passwordPolicy + ", phoneNumber=" + phoneNumber + ", policies=" + policies
-               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
-               + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", subAccounts="
-               + subAccounts + ", templateId=" + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt
+               + country + ", createdAt=" + createdAt + ", customFields=" + customFields + ", customerNumber="
+               + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
+               + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id=" + id + ", idleTimeout="
+               + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus + ", notificationEmails="
+               + notificationEmails + ", parentId=" + parentId + ", passwordPolicy=" + passwordPolicy + ", phoneNumber="
+               + phoneNumber + ", policies=" + policies + ", postalCode=" + postalCode + ", reason=" + reason
+               + ", referenceNote=" + referenceNote + ", salesContact=" + salesContact + ", state=" + state
+               + ", status=" + status + ", templateId=" + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt
                + ", upgradedAt=" + upgradedAt + "]";
     }
 

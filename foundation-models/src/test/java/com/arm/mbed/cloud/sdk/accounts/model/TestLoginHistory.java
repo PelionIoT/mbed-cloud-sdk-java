@@ -15,9 +15,9 @@ public class TestLoginHistory {
      */
     @Test
     public void testClone() {
-        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546014238862L),
-                                                      "7fcd8032-c976-426c-bb5c-830e229feebc", true,
-                                                      "eb0c1e86-b5cf-4afb-a291-a09cc7ddc5d8");
+        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546027077666L),
+                                                      "11080ed1-909e-41b7-991f-1d90f7c1cbf9", true,
+                                                      "b619bee1-2e46-4d2a-9227-9297b372bfc5");
         LoginHistory loginhistory2 = loginhistory1.clone();
         assertNotNull(loginhistory1);
         assertNotNull(loginhistory2);
@@ -30,9 +30,9 @@ public class TestLoginHistory {
      */
     @Test
     public void testIsvalid() {
-        LoginHistory loginhistory = new LoginHistory(new java.util.Date(1546014236183L),
-                                                     "b0e9d172-c4f4-4d20-9ae0-091a2f29cda6", true,
-                                                     "4a56347b-c5fb-4434-ae6c-9fd60a097336");
+        LoginHistory loginhistory = new LoginHistory(new java.util.Date(1546027076072L),
+                                                     "4d633fa3-3dba-439d-a193-1611688c8835", false,
+                                                     "91f85f02-26e7-4bb7-aeec-3366d7455e57");
         assertTrue(loginhistory.isValid());
     }
 
@@ -41,12 +41,12 @@ public class TestLoginHistory {
      */
     @Test
     public void testHashcode() {
-        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546014237279L),
-                                                      "47384403-af4d-495b-819e-b49ce1b6b279", false,
-                                                      "7ff30f8c-4f3e-49ef-aefc-add5fd715344");
-        LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546014237279L),
-                                                      "47384403-af4d-495b-819e-b49ce1b6b279", false,
-                                                      "7ff30f8c-4f3e-49ef-aefc-add5fd715344");
+        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546027082154L),
+                                                      "75da9c98-6dd2-494d-8c1e-d88e9571d193", false,
+                                                      "63d5b97a-d5ea-4c45-9ac4-7a185e5dac5f");
+        LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546027082154L),
+                                                      "75da9c98-6dd2-494d-8c1e-d88e9571d193", false,
+                                                      "63d5b97a-d5ea-4c45-9ac4-7a185e5dac5f");
         assertNotNull(loginhistory1);
         assertNotNull(loginhistory2);
         assertNotSame(loginhistory2, loginhistory1);
@@ -63,15 +63,15 @@ public class TestLoginHistory {
      */
     @Test
     public void testEquals() {
-        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546014239681L),
-                                                      "1f43b0ce-851c-470c-9c9f-8119431a18b2", false,
-                                                      "029eafb4-1d22-4fa1-aa88-feb19964b66f");
-        LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546014239681L),
-                                                      "1f43b0ce-851c-470c-9c9f-8119431a18b2", false,
-                                                      "029eafb4-1d22-4fa1-aa88-feb19964b66f");
-        LoginHistory loginhistory3 = new LoginHistory(new java.util.Date(1546014238289L),
-                                                      "427144a4-faea-4abc-ab08-589661dbe764", true,
-                                                      "71d53ba0-ede6-4437-9e51-516d79def016");
+        LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546027082609L),
+                                                      "09340084-6bbd-4fd7-a6ff-a826535717f5", true,
+                                                      "7bfdc40e-2de5-4496-ba0a-2da32ee3b5e8");
+        LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546027082609L),
+                                                      "09340084-6bbd-4fd7-a6ff-a826535717f5", true,
+                                                      "7bfdc40e-2de5-4496-ba0a-2da32ee3b5e8");
+        LoginHistory loginhistory3 = new LoginHistory(new java.util.Date(1546027074985L),
+                                                      "77a70355-ec19-474e-ad7a-220566a4ba2d", true,
+                                                      "1992bf07-0983-4299-97b7-3172bd7fd7e9");
         assertNotNull(loginhistory1);
         assertNotNull(loginhistory2);
         assertNotNull(loginhistory3);

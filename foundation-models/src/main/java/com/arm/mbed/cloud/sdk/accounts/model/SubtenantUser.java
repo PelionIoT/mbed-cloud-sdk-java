@@ -10,15 +10,15 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Model for a user.
+ * Model for a subtenant user.
  */
-@Preamble(description = "Model for a user.")
+@Preamble(description = "Model for a subtenant user.")
 @SuppressWarnings("PMD.CyclomaticComplexity")
-public class User implements SdkModel {
+public class SubtenantUser implements SdkModel {
     /**
      * Serialisation Id.
      */
-    private static final long serialVersionUID = 2103476832119518L;
+    private static final long serialVersionUID = -206161294719212L;
 
     /**
      * The ID of the account.
@@ -101,7 +101,7 @@ public class User implements SdkModel {
      * INVITED means that the user has not accepted the invitation request. RESET means that the password must be
      * changed immediately. INACTIVE users are locked out and not permitted to use the system.
      */
-    private UserStatus status;
+    private SubtenantUserStatus status;
 
     /**
      * A flag indicating that the General Terms and Conditions has been accepted.
@@ -126,7 +126,7 @@ public class User implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #User()} instead.
+     * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
      * @param accountId
      *            The ID of the account.
@@ -176,11 +176,11 @@ public class User implements SdkModel {
      */
     @Internal
     @SuppressWarnings("PMD.CyclomaticComplexity")
-    public User(String accountId, String address, Date createdAt, long creationTime, String email,
-                boolean emailVerified, String fullName, String id, long lastLoginTime, List<LoginHistory> loginHistory,
-                List loginProfiles, boolean marketingAccepted, String password, long passwordChangedTime,
-                String phoneNumber, UserStatus status, boolean termsAccepted, boolean twoFactorAuthentication,
-                Date updatedAt, String username) {
+    public SubtenantUser(String accountId, String address, Date createdAt, long creationTime, String email,
+                         boolean emailVerified, String fullName, String id, long lastLoginTime,
+                         List<LoginHistory> loginHistory, List loginProfiles, boolean marketingAccepted,
+                         String password, long passwordChangedTime, String phoneNumber, SubtenantUserStatus status,
+                         boolean termsAccepted, boolean twoFactorAuthentication, Date updatedAt, String username) {
         super();
         setAccountId(accountId);
         setAddress(address);
@@ -207,31 +207,41 @@ public class User implements SdkModel {
     /**
      * Internal constructor.
      * <p>
-     * Note: Should not be used. Use {@link #User()} instead.
+     * Note: Should not be used. Use {@link #SubtenantUser()} instead.
      * 
-     * @param user
-     *            a user.
+     * @param subtenantUser
+     *            a subtenant user.
      */
     @Internal
-    public User(User user) {
-        this(user == null ? (String) null : user.accountId, user == null ? (String) null : user.address,
-             user == null ? new java.util.Date() : user.createdAt, user == null ? 0L : user.creationTime,
-             user == null ? (String) null : user.email, user != null && user.emailVerified,
-             user == null ? (String) null : user.fullName, user == null ? (String) null : user.id,
-             user == null ? 0L : user.lastLoginTime, user == null ? null : user.loginHistory,
-             user == null ? null : user.loginProfiles, user != null && user.marketingAccepted,
-             user == null ? (String) null : user.password, user == null ? 0L : user.passwordChangedTime,
-             user == null ? (String) null : user.phoneNumber, user == null ? UserStatus.getDefault() : user.status,
-             user != null && user.termsAccepted, user != null && user.twoFactorAuthentication,
-             user == null ? new java.util.Date() : user.updatedAt, user == null ? (String) null : user.username);
+    public SubtenantUser(SubtenantUser subtenantUser) {
+        this(subtenantUser == null ? (String) null : subtenantUser.accountId,
+             subtenantUser == null ? (String) null : subtenantUser.address,
+             subtenantUser == null ? new java.util.Date() : subtenantUser.createdAt,
+             subtenantUser == null ? 0L : subtenantUser.creationTime,
+             subtenantUser == null ? (String) null : subtenantUser.email,
+             subtenantUser != null && subtenantUser.emailVerified,
+             subtenantUser == null ? (String) null : subtenantUser.fullName,
+             subtenantUser == null ? (String) null : subtenantUser.id,
+             subtenantUser == null ? 0L : subtenantUser.lastLoginTime,
+             subtenantUser == null ? null : subtenantUser.loginHistory,
+             subtenantUser == null ? null : subtenantUser.loginProfiles,
+             subtenantUser != null && subtenantUser.marketingAccepted,
+             subtenantUser == null ? (String) null : subtenantUser.password,
+             subtenantUser == null ? 0L : subtenantUser.passwordChangedTime,
+             subtenantUser == null ? (String) null : subtenantUser.phoneNumber,
+             subtenantUser == null ? SubtenantUserStatus.getDefault() : subtenantUser.status,
+             subtenantUser != null && subtenantUser.termsAccepted,
+             subtenantUser != null && subtenantUser.twoFactorAuthentication,
+             subtenantUser == null ? new java.util.Date() : subtenantUser.updatedAt,
+             subtenantUser == null ? (String) null : subtenantUser.username);
     }
 
     /**
      * Constructor.
      */
-    public User() {
+    public SubtenantUser() {
         this((String) null, (String) null, new java.util.Date(), 0L, (String) null, false, (String) null, (String) null,
-             0L, null, null, false, (String) null, 0L, (String) null, UserStatus.getDefault(), false, false,
+             0L, null, null, false, (String) null, 0L, (String) null, SubtenantUserStatus.getDefault(), false, false,
              new java.util.Date(), (String) null);
     }
 
@@ -241,7 +251,7 @@ public class User implements SdkModel {
      * @param id
      *            The ID of the user.
      */
-    public User(String id) {
+    public SubtenantUser(String id) {
         this();
         setId(id);
     }
@@ -405,12 +415,12 @@ public class User implements SdkModel {
      * <p>
      * Similar to {@link #setId(String)}
      * 
-     * @param userId
+     * @param subtenantUserId
      *            The ID of the user.
      */
     @Internal
-    public void setUserId(String userId) {
-        setId(userId);
+    public void setSubtenantUserId(String subtenantUserId) {
+        setId(subtenantUserId);
     }
 
     /**
@@ -557,7 +567,7 @@ public class User implements SdkModel {
      * 
      * @return status
      */
-    public UserStatus getStatus() {
+    public SubtenantUserStatus getStatus() {
         return status;
     }
 
@@ -572,7 +582,7 @@ public class User implements SdkModel {
      *            password must be changed immediately. INACTIVE users are locked out and not permitted to use the
      *            system.
      */
-    public void setStatus(UserStatus status) {
+    public void setStatus(SubtenantUserStatus status) {
         this.status = status;
     }
 
@@ -696,7 +706,7 @@ public class User implements SdkModel {
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
     protected boolean canEqual(Object other) {
-        return other instanceof User;
+        return other instanceof SubtenantUser;
     }
 
     /**
@@ -717,10 +727,10 @@ public class User implements SdkModel {
         if (obj == null) {
             return false;
         }
-        if (!(obj instanceof User)) {
+        if (!(obj instanceof SubtenantUser)) {
             return false;
         }
-        final User other = (User) obj;
+        final SubtenantUser other = (SubtenantUser) obj;
         if (!other.canEqual(this)) {
             return false;
         }
@@ -844,12 +854,12 @@ public class User implements SdkModel {
      */
     @Override
     public String toString() {
-        return "User [accountId=" + accountId + ", address=" + address + ", createdAt=" + createdAt + ", creationTime="
-               + creationTime + ", email=" + email + ", emailVerified=" + emailVerified + ", fullName=" + fullName
-               + ", id=" + id + ", lastLoginTime=" + lastLoginTime + ", loginHistory=" + loginHistory
-               + ", loginProfiles=" + loginProfiles + ", marketingAccepted=" + marketingAccepted + ", password="
-               + password + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber=" + phoneNumber
-               + ", status=" + status + ", termsAccepted=" + termsAccepted + ", twoFactorAuthentication="
+        return "SubtenantUser [accountId=" + accountId + ", address=" + address + ", createdAt=" + createdAt
+               + ", creationTime=" + creationTime + ", email=" + email + ", emailVerified=" + emailVerified
+               + ", fullName=" + fullName + ", id=" + id + ", lastLoginTime=" + lastLoginTime + ", loginHistory="
+               + loginHistory + ", loginProfiles=" + loginProfiles + ", marketingAccepted=" + marketingAccepted
+               + ", password=" + password + ", passwordChangedTime=" + passwordChangedTime + ", phoneNumber="
+               + phoneNumber + ", status=" + status + ", termsAccepted=" + termsAccepted + ", twoFactorAuthentication="
                + twoFactorAuthentication + ", updatedAt=" + updatedAt + ", username=" + username + "]";
     }
 
@@ -873,7 +883,7 @@ public class User implements SdkModel {
      * @return a cloned instance
      */
     @Override
-    public User clone() {
-        return new User(this);
+    public SubtenantUser clone() {
+        return new SubtenantUser(this);
     }
 }

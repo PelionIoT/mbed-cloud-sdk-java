@@ -48,11 +48,6 @@ public class DeveloperCertificate implements SdkModel {
     private String name;
 
     /**
-     * PEM format developer private key associated to the certificate.
-     */
-    private String privateKey;
-
-    /**
      * Content of the security.c file that will be flashed into the device to provide the security credentials.
      */
     private String securityFileContent;
@@ -74,15 +69,13 @@ public class DeveloperCertificate implements SdkModel {
      *            mUUID that uniquely identifies the developer certificate.
      * @param name
      *            Name of the developer certificate.
-     * @param privateKey
-     *            PEM format developer private key associated to the certificate.
      * @param securityFileContent
      *            Content of the security.c file that will be flashed into the device to provide the security
      *            credentials.
      */
     @Internal
     public DeveloperCertificate(String accountId, String certificate, Date createdAt, String description, String id,
-                                String name, String privateKey, String securityFileContent) {
+                                String name, String securityFileContent) {
         super();
         setAccountId(accountId);
         setCertificate(certificate);
@@ -90,7 +83,6 @@ public class DeveloperCertificate implements SdkModel {
         setDescription(description);
         setId(id);
         setName(name);
-        setPrivateKey(privateKey);
         setSecurityFileContent(securityFileContent);
     }
 
@@ -110,7 +102,6 @@ public class DeveloperCertificate implements SdkModel {
              developerCertificate == null ? (String) null : developerCertificate.description,
              developerCertificate == null ? (String) null : developerCertificate.id,
              developerCertificate == null ? (String) null : developerCertificate.name,
-             developerCertificate == null ? (String) null : developerCertificate.privateKey,
              developerCertificate == null ? (String) null : developerCertificate.securityFileContent);
     }
 
@@ -119,7 +110,7 @@ public class DeveloperCertificate implements SdkModel {
      */
     public DeveloperCertificate() {
         this((String) null, (String) null, new java.util.Date(), (String) null, (String) null, (String) null,
-             (String) null, (String) null);
+             (String) null);
     }
 
     /**
@@ -263,25 +254,6 @@ public class DeveloperCertificate implements SdkModel {
     }
 
     /**
-     * Gets pem format developer private key associated to the certificate.
-     * 
-     * @return privateKey
-     */
-    public String getPrivateKey() {
-        return privateKey;
-    }
-
-    /**
-     * Sets pem format developer private key associated to the certificate.
-     * 
-     * @param privateKey
-     *            PEM format developer private key associated to the certificate.
-     */
-    public void setPrivateKey(String privateKey) {
-        this.privateKey = privateKey;
-    }
-
-    /**
      * Gets content of the security.c file that will be flashed into the device to provide the security credentials.
      * 
      * @return securityFileContent
@@ -318,7 +290,6 @@ public class DeveloperCertificate implements SdkModel {
         result = prime * result + ((description == null) ? 0 : description.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((privateKey == null) ? 0 : privateKey.hashCode());
         result = prime * result + ((securityFileContent == null) ? 0 : securityFileContent.hashCode());
         return result;
     }
@@ -402,13 +373,6 @@ public class DeveloperCertificate implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (privateKey == null) {
-            if (other.privateKey != null) {
-                return false;
-            }
-        } else if (!privateKey.equals(other.privateKey)) {
-            return false;
-        }
         if (securityFileContent == null) {
             if (other.securityFileContent != null) {
                 return false;
@@ -429,8 +393,8 @@ public class DeveloperCertificate implements SdkModel {
     @Override
     public String toString() {
         return "DeveloperCertificate [accountId=" + accountId + ", certificate=" + certificate + ", createdAt="
-               + createdAt + ", description=" + description + ", id=" + id + ", name=" + name + ", privateKey="
-               + privateKey + ", securityFileContent=" + securityFileContent + "]";
+               + createdAt + ", description=" + description + ", id=" + id + ", name=" + name + ", securityFileContent="
+               + securityFileContent + "]";
     }
 
     /**

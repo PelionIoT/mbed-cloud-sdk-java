@@ -56,7 +56,8 @@ public class Device implements SdkModel {
     private Date createdAt;
 
     /**
-     * Up to five custom key-value attributes.
+     * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
+     * limited to 128 characters. Updating this field replaces existing contents.
      */
     private Map<String, String> customAttributes;
 
@@ -123,6 +124,46 @@ public class Device implements SdkModel {
     private String id;
 
     /**
+     * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+     */
+    private String issuerFingerprint;
+
+    /**
+     * The reference of the block category.
+     */
+    private String lastOperatorSuspendedCategory;
+
+    /**
+     * The most recent description why the device was suspended or returned to service.
+     */
+    private String lastOperatorSuspendedDescription;
+
+    /**
+     * The timestamp of the most recent suspension activity.
+     */
+    private Date lastOperatorSuspendedUpdatedAt;
+
+    /**
+     * The reference of the block category.
+     */
+    private String lastSystemSuspendedCategory;
+
+    /**
+     * The most recent description of why the device was blocked or unblocked by the system.
+     */
+    private String lastSystemSuspendedDescription;
+
+    /**
+     * The timestamp of the most recent system block activity.
+     */
+    private Date lastSystemSuspendedUpdatedAt;
+
+    /**
+     * The lifecycle status of the device.
+     */
+    private DeviceLifecycleStatus lifecycleStatus;
+
+    /**
      * DEPRECATED: The URL for the current device manifest.
      */
     private String manifest;
@@ -148,6 +189,11 @@ public class Device implements SdkModel {
     private String name;
 
     /**
+     * Is the device suspended by the operator?.
+     */
+    private boolean operatorSuspended;
+
+    /**
      * The serial number of the device.
      */
     private String serialNumber;
@@ -156,6 +202,11 @@ public class Device implements SdkModel {
      * The current state of the device.
      */
     private DeviceState state;
+
+    /**
+     * Is the device suspended by the system?.
+     */
+    private boolean systemSuspended;
 
     /**
      * The time the object was updated.
@@ -187,7 +238,8 @@ public class Device implements SdkModel {
      * @param createdAt
      *            The timestamp of when the device was created in the device directory.
      * @param customAttributes
-     *            Up to five custom key-value attributes.
+     *            Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and
+     *            values are limited to 128 characters. Updating this field replaces existing contents.
      * @param deployedState
      *            DEPRECATED: The state of the device's deployment.
      * @param deployment
@@ -214,6 +266,22 @@ public class Device implements SdkModel {
      *            The `endpoint_name` of the host gateway, if appropriate.
      * @param id
      *            The ID of the device. The device ID is used across all Device Management APIs.
+     * @param issuerFingerprint
+     *            SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+     * @param lastOperatorSuspendedCategory
+     *            The reference of the block category.
+     * @param lastOperatorSuspendedDescription
+     *            The most recent description why the device was suspended or returned to service.
+     * @param lastOperatorSuspendedUpdatedAt
+     *            The timestamp of the most recent suspension activity.
+     * @param lastSystemSuspendedCategory
+     *            The reference of the block category.
+     * @param lastSystemSuspendedDescription
+     *            The most recent description of why the device was blocked or unblocked by the system.
+     * @param lastSystemSuspendedUpdatedAt
+     *            The timestamp of the most recent system block activity.
+     * @param lifecycleStatus
+     *            The lifecycle status of the device.
      * @param manifest
      *            DEPRECATED: The URL for the current device manifest.
      * @param manifestTimestamp
@@ -224,10 +292,14 @@ public class Device implements SdkModel {
      *            The address of the connector to use.
      * @param name
      *            The name of the device.
+     * @param operatorSuspended
+     *            Is the device suspended by the operator?.
      * @param serialNumber
      *            The serial number of the device.
      * @param state
      *            The current state of the device.
+     * @param systemSuspended
+     *            Is the device suspended by the system?.
      * @param updatedAt
      *            The time the object was updated.
      * @param vendorId
@@ -239,9 +311,14 @@ public class Device implements SdkModel {
                   String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
                   DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
                   int deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
-                  Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id, String manifest,
+                  Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id,
+                  String issuerFingerprint, String lastOperatorSuspendedCategory,
+                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
+                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
+                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, String manifest,
                   Date manifestTimestamp, DeviceMechanism mechanism, String mechanismUrl, String name,
-                  String serialNumber, DeviceState state, Date updatedAt, String vendorId) {
+                  boolean operatorSuspended, String serialNumber, DeviceState state, boolean systemSuspended,
+                  Date updatedAt, String vendorId) {
         super();
         setAccountId(accountId);
         setAutoUpdate(autoUpdate);
@@ -263,13 +340,23 @@ public class Device implements SdkModel {
         setFirmwareChecksum(firmwareChecksum);
         setHostGateway(hostGateway);
         setId(id);
+        setIssuerFingerprint(issuerFingerprint);
+        setLastOperatorSuspendedCategory(lastOperatorSuspendedCategory);
+        setLastOperatorSuspendedDescription(lastOperatorSuspendedDescription);
+        setLastOperatorSuspendedUpdatedAt(lastOperatorSuspendedUpdatedAt);
+        setLastSystemSuspendedCategory(lastSystemSuspendedCategory);
+        setLastSystemSuspendedDescription(lastSystemSuspendedDescription);
+        setLastSystemSuspendedUpdatedAt(lastSystemSuspendedUpdatedAt);
+        setLifecycleStatus(lifecycleStatus);
         setManifest(manifest);
         setManifestTimestamp(manifestTimestamp);
         setMechanism(mechanism);
         setMechanismUrl(mechanismUrl);
         setName(name);
+        setOperatorSuspended(operatorSuspended);
         setSerialNumber(serialNumber);
         setState(state);
+        setSystemSuspended(systemSuspended);
         setUpdatedAt(updatedAt);
         setVendorId(vendorId);
     }
@@ -298,12 +385,20 @@ public class Device implements SdkModel {
              device == null ? new java.util.Date() : device.enrolmentListTimestamp,
              device == null ? (String) null : device.firmwareChecksum,
              device == null ? (String) null : device.hostGateway, device == null ? (String) null : device.id,
+             device == null ? (String) null : device.issuerFingerprint,
+             device == null ? (String) null : device.lastOperatorSuspendedCategory,
+             device == null ? (String) null : device.lastOperatorSuspendedDescription,
+             device == null ? new java.util.Date() : device.lastOperatorSuspendedUpdatedAt,
+             device == null ? (String) null : device.lastSystemSuspendedCategory,
+             device == null ? (String) null : device.lastSystemSuspendedDescription,
+             device == null ? new java.util.Date() : device.lastSystemSuspendedUpdatedAt,
+             device == null ? DeviceLifecycleStatus.getDefault() : device.lifecycleStatus,
              device == null ? (String) null : device.manifest,
              device == null ? new java.util.Date() : device.manifestTimestamp,
              device == null ? DeviceMechanism.getDefault() : device.mechanism,
              device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
-             device == null ? (String) null : device.serialNumber,
-             device == null ? DeviceState.getDefault() : device.state,
+             device != null && device.operatorSuspended, device == null ? (String) null : device.serialNumber,
+             device == null ? DeviceState.getDefault() : device.state, device != null && device.systemSuspended,
              device == null ? new java.util.Date() : device.updatedAt,
              device == null ? (String) null : device.vendorId);
     }
@@ -315,8 +410,10 @@ public class Device implements SdkModel {
         this((String) null, false, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
              new java.util.Date(), null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
              0, (String) null, (String) null, (String) null, new java.util.Date(), (String) null, (String) null,
-             (String) null, (String) null, new java.util.Date(), DeviceMechanism.getDefault(), (String) null,
-             (String) null, (String) null, DeviceState.getDefault(), new java.util.Date(), (String) null);
+             (String) null, (String) null, (String) null, (String) null, new java.util.Date(), (String) null,
+             (String) null, new java.util.Date(), DeviceLifecycleStatus.getDefault(), (String) null,
+             new java.util.Date(), DeviceMechanism.getDefault(), (String) null, (String) null, false, (String) null,
+             DeviceState.getDefault(), false, new java.util.Date(), (String) null);
     }
 
     /**
@@ -464,7 +561,8 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Gets up to five custom key-value attributes.
+     * Gets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
+     * limited to 128 characters. updating this field replaces existing contents.
      * 
      * @return customAttributes
      */
@@ -473,10 +571,12 @@ public class Device implements SdkModel {
     }
 
     /**
-     * Sets up to five custom key-value attributes.
+     * Sets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
+     * limited to 128 characters. updating this field replaces existing contents.
      * 
      * @param customAttributes
-     *            Up to five custom key-value attributes.
+     *            Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and
+     *            values are limited to 128 characters. Updating this field replaces existing contents.
      */
     public void setCustomAttributes(Map<String, String> customAttributes) {
         this.customAttributes = customAttributes;
@@ -732,6 +832,200 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Gets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
+     * 
+     * @return issuerFingerprint
+     */
+    public String getIssuerFingerprint() {
+        return issuerFingerprint;
+    }
+
+    /**
+     * Sets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
+     * <p>
+     * null
+     * <p>
+     * Note: the value has to match {@code /[A-Fa-f0-9]{64}/} to be valid
+     * 
+     * @param issuerFingerprint
+     *            SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+     */
+    public void setIssuerFingerprint(String issuerFingerprint) {
+        this.issuerFingerprint = issuerFingerprint;
+    }
+
+    /**
+     * Checks whether issuerFingerprint value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isIssuerFingerprintValid() {
+        return (issuerFingerprint == null || issuerFingerprint.matches("[A-Fa-f0-9]{64}"));
+    }
+
+    /**
+     * Gets the reference of the block category.
+     * 
+     * @return lastOperatorSuspendedCategory
+     */
+    public String getLastOperatorSuspendedCategory() {
+        return lastOperatorSuspendedCategory;
+    }
+
+    /**
+     * Sets the reference of the block category.
+     * <p>
+     * null
+     * <p>
+     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
+     * 
+     * @param lastOperatorSuspendedCategory
+     *            The reference of the block category.
+     */
+    public void setLastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
+        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
+    }
+
+    /**
+     * Checks whether lastOperatorSuspendedCategory value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isLastOperatorSuspendedCategoryValid() {
+        return (lastOperatorSuspendedCategory == null || lastOperatorSuspendedCategory.matches("[a-f0-9_]{32}"));
+    }
+
+    /**
+     * Gets the most recent description why the device was suspended or returned to service.
+     * 
+     * @return lastOperatorSuspendedDescription
+     */
+    public String getLastOperatorSuspendedDescription() {
+        return lastOperatorSuspendedDescription;
+    }
+
+    /**
+     * Sets the most recent description why the device was suspended or returned to service.
+     * 
+     * @param lastOperatorSuspendedDescription
+     *            The most recent description why the device was suspended or returned to service.
+     */
+    public void setLastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
+        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
+    }
+
+    /**
+     * Gets the timestamp of the most recent suspension activity.
+     * 
+     * @return lastOperatorSuspendedUpdatedAt
+     */
+    public Date getLastOperatorSuspendedUpdatedAt() {
+        return lastOperatorSuspendedUpdatedAt;
+    }
+
+    /**
+     * Sets the timestamp of the most recent suspension activity.
+     * 
+     * @param lastOperatorSuspendedUpdatedAt
+     *            The timestamp of the most recent suspension activity.
+     */
+    public void setLastOperatorSuspendedUpdatedAt(Date lastOperatorSuspendedUpdatedAt) {
+        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
+    }
+
+    /**
+     * Gets the reference of the block category.
+     * 
+     * @return lastSystemSuspendedCategory
+     */
+    public String getLastSystemSuspendedCategory() {
+        return lastSystemSuspendedCategory;
+    }
+
+    /**
+     * Sets the reference of the block category.
+     * <p>
+     * null
+     * <p>
+     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
+     * 
+     * @param lastSystemSuspendedCategory
+     *            The reference of the block category.
+     */
+    public void setLastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
+        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
+    }
+
+    /**
+     * Checks whether lastSystemSuspendedCategory value is valid.
+     * 
+     * @return true if the value is valid; false otherwise.
+     */
+    @SuppressWarnings("PMD.UselessParentheses")
+    public boolean isLastSystemSuspendedCategoryValid() {
+        return (lastSystemSuspendedCategory == null || lastSystemSuspendedCategory.matches("[a-f0-9_]{32}"));
+    }
+
+    /**
+     * Gets the most recent description of why the device was blocked or unblocked by the system.
+     * 
+     * @return lastSystemSuspendedDescription
+     */
+    public String getLastSystemSuspendedDescription() {
+        return lastSystemSuspendedDescription;
+    }
+
+    /**
+     * Sets the most recent description of why the device was blocked or unblocked by the system.
+     * 
+     * @param lastSystemSuspendedDescription
+     *            The most recent description of why the device was blocked or unblocked by the system.
+     */
+    public void setLastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
+        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
+    }
+
+    /**
+     * Gets the timestamp of the most recent system block activity.
+     * 
+     * @return lastSystemSuspendedUpdatedAt
+     */
+    public Date getLastSystemSuspendedUpdatedAt() {
+        return lastSystemSuspendedUpdatedAt;
+    }
+
+    /**
+     * Sets the timestamp of the most recent system block activity.
+     * 
+     * @param lastSystemSuspendedUpdatedAt
+     *            The timestamp of the most recent system block activity.
+     */
+    public void setLastSystemSuspendedUpdatedAt(Date lastSystemSuspendedUpdatedAt) {
+        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
+    }
+
+    /**
+     * Gets the lifecycle status of the device.
+     * 
+     * @return lifecycleStatus
+     */
+    public DeviceLifecycleStatus getLifecycleStatus() {
+        return lifecycleStatus;
+    }
+
+    /**
+     * Sets the lifecycle status of the device.
+     * 
+     * @param lifecycleStatus
+     *            The lifecycle status of the device.
+     */
+    public void setLifecycleStatus(DeviceLifecycleStatus lifecycleStatus) {
+        this.lifecycleStatus = lifecycleStatus;
+    }
+
+    /**
      * Gets deprecated: the url for the current device manifest.
      * 
      * @return manifest
@@ -827,6 +1121,25 @@ public class Device implements SdkModel {
     }
 
     /**
+     * Gets is the device suspended by the operator?.
+     * 
+     * @return operatorSuspended
+     */
+    public boolean isOperatorSuspended() {
+        return operatorSuspended;
+    }
+
+    /**
+     * Sets is the device suspended by the operator?.
+     * 
+     * @param operatorSuspended
+     *            Is the device suspended by the operator?.
+     */
+    public void setOperatorSuspended(boolean operatorSuspended) {
+        this.operatorSuspended = operatorSuspended;
+    }
+
+    /**
      * Gets the serial number of the device.
      * 
      * @return serialNumber
@@ -862,6 +1175,25 @@ public class Device implements SdkModel {
      */
     public void setState(DeviceState state) {
         this.state = state;
+    }
+
+    /**
+     * Gets is the device suspended by the system?.
+     * 
+     * @return systemSuspended
+     */
+    public boolean isSystemSuspended() {
+        return systemSuspended;
+    }
+
+    /**
+     * Sets is the device suspended by the system?.
+     * 
+     * @param systemSuspended
+     *            Is the device suspended by the system?.
+     */
+    public void setSystemSuspended(boolean systemSuspended) {
+        this.systemSuspended = systemSuspended;
     }
 
     /**
@@ -933,13 +1265,28 @@ public class Device implements SdkModel {
         result = prime * result + ((firmwareChecksum == null) ? 0 : firmwareChecksum.hashCode());
         result = prime * result + ((hostGateway == null) ? 0 : hostGateway.hashCode());
         result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((issuerFingerprint == null) ? 0 : issuerFingerprint.hashCode());
+        result = prime * result
+                 + ((lastOperatorSuspendedCategory == null) ? 0 : lastOperatorSuspendedCategory.hashCode());
+        result = prime * result
+                 + ((lastOperatorSuspendedDescription == null) ? 0 : lastOperatorSuspendedDescription.hashCode());
+        result = prime * result
+                 + ((lastOperatorSuspendedUpdatedAt == null) ? 0 : lastOperatorSuspendedUpdatedAt.hashCode());
+        result = prime * result + ((lastSystemSuspendedCategory == null) ? 0 : lastSystemSuspendedCategory.hashCode());
+        result = prime * result
+                 + ((lastSystemSuspendedDescription == null) ? 0 : lastSystemSuspendedDescription.hashCode());
+        result = prime * result
+                 + ((lastSystemSuspendedUpdatedAt == null) ? 0 : lastSystemSuspendedUpdatedAt.hashCode());
+        result = prime * result + ((lifecycleStatus == null) ? 0 : lifecycleStatus.hashCode());
         result = prime * result + ((manifest == null) ? 0 : manifest.hashCode());
         result = prime * result + ((manifestTimestamp == null) ? 0 : manifestTimestamp.hashCode());
         result = prime * result + ((mechanism == null) ? 0 : mechanism.hashCode());
         result = prime * result + ((mechanismUrl == null) ? 0 : mechanismUrl.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + Objects.hashCode(operatorSuspended);
         result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + Objects.hashCode(systemSuspended);
         result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
         result = prime * result + ((vendorId == null) ? 0 : vendorId.hashCode());
         return result;
@@ -1111,6 +1458,58 @@ public class Device implements SdkModel {
         } else if (!id.equals(other.id)) {
             return false;
         }
+        if (issuerFingerprint == null) {
+            if (other.issuerFingerprint != null) {
+                return false;
+            }
+        } else if (!issuerFingerprint.equals(other.issuerFingerprint)) {
+            return false;
+        }
+        if (lastOperatorSuspendedCategory == null) {
+            if (other.lastOperatorSuspendedCategory != null) {
+                return false;
+            }
+        } else if (!lastOperatorSuspendedCategory.equals(other.lastOperatorSuspendedCategory)) {
+            return false;
+        }
+        if (lastOperatorSuspendedDescription == null) {
+            if (other.lastOperatorSuspendedDescription != null) {
+                return false;
+            }
+        } else if (!lastOperatorSuspendedDescription.equals(other.lastOperatorSuspendedDescription)) {
+            return false;
+        }
+        if (lastOperatorSuspendedUpdatedAt == null) {
+            if (other.lastOperatorSuspendedUpdatedAt != null) {
+                return false;
+            }
+        } else if (!lastOperatorSuspendedUpdatedAt.equals(other.lastOperatorSuspendedUpdatedAt)) {
+            return false;
+        }
+        if (lastSystemSuspendedCategory == null) {
+            if (other.lastSystemSuspendedCategory != null) {
+                return false;
+            }
+        } else if (!lastSystemSuspendedCategory.equals(other.lastSystemSuspendedCategory)) {
+            return false;
+        }
+        if (lastSystemSuspendedDescription == null) {
+            if (other.lastSystemSuspendedDescription != null) {
+                return false;
+            }
+        } else if (!lastSystemSuspendedDescription.equals(other.lastSystemSuspendedDescription)) {
+            return false;
+        }
+        if (lastSystemSuspendedUpdatedAt == null) {
+            if (other.lastSystemSuspendedUpdatedAt != null) {
+                return false;
+            }
+        } else if (!lastSystemSuspendedUpdatedAt.equals(other.lastSystemSuspendedUpdatedAt)) {
+            return false;
+        }
+        if (lifecycleStatus != other.lifecycleStatus) {
+            return false;
+        }
         if (manifest == null) {
             if (other.manifest != null) {
                 return false;
@@ -1142,6 +1541,9 @@ public class Device implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
+        if (operatorSuspended != other.operatorSuspended) {
+            return false;
+        }
         if (serialNumber == null) {
             if (other.serialNumber != null) {
                 return false;
@@ -1150,6 +1552,9 @@ public class Device implements SdkModel {
             return false;
         }
         if (state != other.state) {
+            return false;
+        }
+        if (systemSuspended != other.systemSuspended) {
             return false;
         }
         if (updatedAt == null) {
@@ -1185,10 +1590,16 @@ public class Device implements SdkModel {
                + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
                + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
                + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
-               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", manifest=" + manifest
-               + ", manifestTimestamp=" + manifestTimestamp + ", mechanism=" + mechanism + ", mechanismUrl="
-               + mechanismUrl + ", name=" + name + ", serialNumber=" + serialNumber + ", state=" + state
-               + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
+               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
+               + issuerFingerprint + ", lastOperatorSuspendedCategory=" + lastOperatorSuspendedCategory
+               + ", lastOperatorSuspendedDescription=" + lastOperatorSuspendedDescription
+               + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt + ", lastSystemSuspendedCategory="
+               + lastSystemSuspendedCategory + ", lastSystemSuspendedDescription=" + lastSystemSuspendedDescription
+               + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt + ", lifecycleStatus="
+               + lifecycleStatus + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
+               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name
+               + ", operatorSuspended=" + operatorSuspended + ", serialNumber=" + serialNumber + ", state=" + state
+               + ", systemSuspended=" + systemSuspended + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
     }
 
     /**
@@ -1200,7 +1611,8 @@ public class Device implements SdkModel {
      */
     @Override
     public boolean isValid() {
-        return true;
+        return isIssuerFingerprintValid() && isLastOperatorSuspendedCategoryValid()
+               && isLastSystemSuspendedCategoryValid();
     }
 
     /**

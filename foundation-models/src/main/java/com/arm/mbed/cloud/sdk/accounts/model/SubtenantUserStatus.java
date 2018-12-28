@@ -9,24 +9,26 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 
 /**
- * Account status. */
+ * Subtenant user status. */
 @Preamble(
-    description = "Account status."
+    description = "Subtenant user status."
 )
-public enum AccountStatus implements SdkEnum {
+public enum SubtenantUserStatus implements SdkEnum {
   ACTIVE("ACTIVE"),
 
   ENROLLING("ENROLLING"),
 
-  RESTRICTED("RESTRICTED"),
+  INACTIVE("INACTIVE"),
 
-  SUSPENDED("SUSPENDED"),
+  INVITED("INVITED"),
+
+  RESET("RESET"),
 
   UNKNOWN_ENUM(SDK_UNKNOWN_ENUM_VALUE);
 
   /**
    * Serialisation Id. */
-  private static final long serialVersionUID = 1373406951331521L;
+  private static final long serialVersionUID = 6136895351921220L;
 
   /**
    * string representation. */
@@ -40,7 +42,7 @@ public enum AccountStatus implements SdkEnum {
    * @param string string representation.
    */
   @Internal
-  AccountStatus(@DefaultValue("ACTIVE") String string) {
+  SubtenantUserStatus(@DefaultValue("ACTIVE") String string) {
     this.string = string;
   }
 
@@ -87,32 +89,32 @@ public enum AccountStatus implements SdkEnum {
   }
 
   /**
-   * Gets default account status.
-   * @return default account status
+   * Gets default subtenant user status.
+   * @return default subtenant user status
    */
-  public static AccountStatus getDefault() {
+  public static SubtenantUserStatus getDefault() {
     return ACTIVE;
   }
 
   /**
-   * Gets unknown account status value.
-   * @return unknown account status
+   * Gets unknown subtenant user status value.
+   * @return unknown subtenant user status
    */
-  public static AccountStatus getUnknownEnum() {
+  public static SubtenantUserStatus getUnknownEnum() {
     return UNKNOWN_ENUM;
   }
 
   /**
-   * Gets account status from its string representation.
+   * Gets subtenant user status from its string representation.
    * @param value string.
-   * @return corresponding account status  or default account status if not recognised. 
+   * @return corresponding subtenant user status  or default subtenant user status if not recognised. 
    */
-  public static AccountStatus getValue(String value) {
+  public static SubtenantUserStatus getValue(String value) {
     if (value == null) {
       return getDefault();
     }
     final String trimmedValue = value.trim();
-    for (final AccountStatus option : values()) {
+    for (final SubtenantUserStatus option : values()) {
       if (option.getString().equalsIgnoreCase(trimmedValue)) {
         return option;
       }
@@ -124,8 +126,8 @@ public enum AccountStatus implements SdkEnum {
    * Merges two states.
    * <p>
    * @see SdkEnum#merge(SdkEnum, SdkEnum)
-   * @param obj1 a account status.
-   * @param obj2 a account status.
+   * @param obj1 a subtenant user status.
+   * @param obj2 a subtenant user status.
    * @return the merged enumerator
    */
   @Override

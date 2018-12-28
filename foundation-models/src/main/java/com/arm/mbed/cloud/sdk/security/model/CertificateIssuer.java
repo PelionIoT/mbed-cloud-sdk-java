@@ -7,7 +7,6 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
 import java.util.Date;
 import java.util.Map;
-import java.util.Objects;
 
 /**
  * Model for a certificate issuer.
@@ -53,11 +52,6 @@ public class CertificateIssuer implements SdkModel {
     private String name;
 
     /**
-     * Indicates whether the certificate issuer was verified successfully.
-     */
-    private boolean successful;
-
-    /**
      * Internal constructor.
      * <p>
      * Note: Should not be used. Use {@link #CertificateIssuer()} instead.
@@ -79,13 +73,10 @@ public class CertificateIssuer implements SdkModel {
      * 
      * @param name
      *            Certificate issuer name, unique per account.
-     * @param successful
-     *            Indicates whether the certificate issuer was verified successfully.
-     * 
      */
     @Internal
     public CertificateIssuer(Date createdAt, String description, String id, Map<String, String> issuerAttributes,
-                             CertificateIssuerIssuerType issuerType, String name, boolean successful) {
+                             CertificateIssuerIssuerType issuerType, String name) {
         super();
         setCreatedAt(createdAt);
         setDescription(description);
@@ -93,7 +84,6 @@ public class CertificateIssuer implements SdkModel {
         setIssuerAttributes(issuerAttributes);
         setIssuerType(issuerType);
         setName(name);
-        setSuccessful(successful);
     }
 
     /**
@@ -111,8 +101,7 @@ public class CertificateIssuer implements SdkModel {
              certificateIssuer == null ? (String) null : certificateIssuer.id,
              certificateIssuer == null ? null : certificateIssuer.issuerAttributes,
              certificateIssuer == null ? CertificateIssuerIssuerType.getDefault() : certificateIssuer.issuerType,
-             certificateIssuer == null ? (String) null : certificateIssuer.name,
-             certificateIssuer != null && certificateIssuer.successful);
+             certificateIssuer == null ? (String) null : certificateIssuer.name);
     }
 
     /**
@@ -120,7 +109,7 @@ public class CertificateIssuer implements SdkModel {
      */
     public CertificateIssuer() {
         this(new java.util.Date(), (String) null, (String) null, null, CertificateIssuerIssuerType.getDefault(),
-             (String) null, false);
+             (String) null);
     }
 
     /**
@@ -275,26 +264,6 @@ public class CertificateIssuer implements SdkModel {
     }
 
     /**
-     * Gets indicates whether the certificate issuer was verified successfully.
-     * 
-     * @return successful
-     */
-    public boolean isSuccessful() {
-        return successful;
-    }
-
-    /**
-     * Sets indicates whether the certificate issuer was verified successfully.
-     * 
-     * @param successful
-     *            Indicates whether the certificate issuer was verified successfully.
-     * 
-     */
-    public void setSuccessful(boolean successful) {
-        this.successful = successful;
-    }
-
-    /**
      * Calculates the hash code of this instance based on field values.
      * <p>
      * 
@@ -311,7 +280,6 @@ public class CertificateIssuer implements SdkModel {
         result = prime * result + ((issuerAttributes == null) ? 0 : issuerAttributes.hashCode());
         result = prime * result + ((issuerType == null) ? 0 : issuerType.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + Objects.hashCode(successful);
         return result;
     }
 
@@ -390,9 +358,6 @@ public class CertificateIssuer implements SdkModel {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (successful != other.successful) {
-            return false;
-        }
         return true;
     }
 
@@ -406,8 +371,7 @@ public class CertificateIssuer implements SdkModel {
     @Override
     public String toString() {
         return "CertificateIssuer [createdAt=" + createdAt + ", description=" + description + ", id=" + id
-               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name
-               + ", successful=" + successful + "]";
+               + ", issuerAttributes=" + issuerAttributes + ", issuerType=" + issuerType + ", name=" + name + "]";
     }
 
     /**
