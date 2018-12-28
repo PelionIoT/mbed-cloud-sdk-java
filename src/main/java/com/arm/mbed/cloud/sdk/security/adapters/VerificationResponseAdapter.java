@@ -26,7 +26,7 @@ public final class VerificationResponseAdapter {
         if (response == null) {
             return null;
         }
-        return new VerificationResponse(TranslationUtils.toBool(response.isSuccessful(), false), response.getMessage());
+        return new VerificationResponse(response.getMessage(), TranslationUtils.toBool(response.isSuccessful(), false));
     }
 
     /**
