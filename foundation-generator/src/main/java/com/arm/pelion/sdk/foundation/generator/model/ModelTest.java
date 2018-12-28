@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.lang.model.element.Modifier;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.squareup.javapoet.TypeSpec;
 
@@ -68,6 +69,7 @@ public class ModelTest extends AbstractSdkArtifact {
         generateCloneTest();
         generateEqualsTest();
         generateHashCodeTest();
+        generateGetValueTest();
         // FIXME better handle tests depending on the type of model
         if (!(modelUnderTest instanceof ModelListOption)) {
             generateIsValid();
@@ -92,6 +94,46 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertNotNull(" + variable + "2)");
         test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
         test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
+        addTest(test);
+    }
+
+    private void generateGetValueTest() {
+        if (!(modelUnderTest instanceof ModelEnum)) {
+            return;
+        }
+        final Method method = modelUnderTest.fetchMethod(SdkEnum.METHOD_GET_VALUE_FROM_STRING);
+        if (method == null) {
+            return;
+        }
+        final MethodTest test = new MethodTest(SdkEnum.METHOD_GET_VALUE_FROM_STRING,
+                                               method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
+        final ModelEnum enumModel = (ModelEnum) modelUnderTest;
+        final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
+        test.getCode().addStatement("$L $L = $L.$L($L)", enumModel.getName(), variable, enumModel.getName(),
+                                    SdkEnum.METHOD_GET_VALUE_FROM_STRING, null);
+        test.getCode().addStatement("assertNotNull($L)", variable);
+        test.getCode().addStatement("assertTrue($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
+        test.getCode().addStatement("$L = $L.$L($L.$L().$L())", variable, enumModel.getName(),
+                                    SdkEnum.METHOD_GET_VALUE_FROM_STRING, enumModel.getName(),
+                                    SdkEnum.METHOD_GET_DEFAULT, SdkEnum.METHOD_GET_STRING);
+        test.getCode().addStatement("assertNotNull($L)", variable);
+        test.getCode().addStatement("assertTrue($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
+        test.getCode().addStatement("$L = $L.$L($S)", variable, enumModel.getName(),
+                                    SdkEnum.METHOD_GET_VALUE_FROM_STRING, enumModel.getDefaultOption());
+        test.getCode().addStatement("assertNotNull($L)", variable);
+        test.getCode().addStatement("assertTrue($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
+        if (enumModel.getOptions().size() > 1) {
+            String option = enumModel.getOptions().stream().filter(o -> !o.equals(enumModel.getRawDefaultOption()))
+                                     .findFirst().orElse(null);
+            test.getCode().addStatement("$L = $L.$L($S)", variable, enumModel.getName(),
+                                        SdkEnum.METHOD_GET_VALUE_FROM_STRING, option);
+            test.getCode().addStatement("assertNotNull($L)", variable);
+            test.getCode().addStatement("assertFalse($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
+        }
+        test.getCode().addStatement("$L = $L.$L($S)", variable, enumModel.getName(),
+                                    SdkEnum.METHOD_GET_VALUE_FROM_STRING, ValueGenerator.generateRandomString());
+        test.getCode().addStatement("assertNotNull($L)", variable);
+        test.getCode().addStatement("assertTrue($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
         addTest(test);
     }
 
@@ -137,6 +179,10 @@ public class ModelTest extends AbstractSdkArtifact {
      * <a href="https://docs.oracle.com/javase/7/docs/api/java/lang/Object.html#hashCode()">Official specification</a>
      */
     private void generateHashCodeTest() {
+        final Method method = modelUnderTest.fetchMethod(MethodHashCode.IDENTIFIER);
+        if (method == null) {
+            return;
+        }
         final MethodTest test = new MethodTest(MethodHashCode.IDENTIFIER, methodUnderTestContainsCustomCode()
                                                                           || modelUnderTest.needsFieldCustomisation());
 

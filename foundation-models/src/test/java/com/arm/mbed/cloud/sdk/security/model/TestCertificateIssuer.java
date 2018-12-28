@@ -15,11 +15,11 @@ public class TestCertificateIssuer {
      */
     @Test
     public void testClone() {
-        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1545996956982L),
-                                                                     "b4fd5d12-6b88-48e6-941a-94d64c1c20f2",
-                                                                     "1d209123-bdb4-42c1-affc-291b9547bf70", null,
+        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1546003507560L),
+                                                                     "d1d58672-12d9-4a74-87ee-f7c9ce63a73e",
+                                                                     "707051b9-9d46-4e78-a5a3-2a385b7e76e5", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "b942a384-3c62-460d-98cd-9ebb50088e1a", true);
+                                                                     "ecc8aa8c-ad48-4dd2-a069-19ea4e052dc7", false);
         CertificateIssuer certificateissuer2 = certificateissuer1.clone();
         assertNotNull(certificateissuer1);
         assertNotNull(certificateissuer2);
@@ -28,33 +28,33 @@ public class TestCertificateIssuer {
     }
 
     /**
-     * Tests the isvalid method.
+     * Tests the isValid method.
      */
     @Test
     public void testIsvalid() {
-        CertificateIssuer certificateissuer = new CertificateIssuer(new java.util.Date(1545996954882L),
-                                                                    "565f7636-880d-41b9-ba20-dacac5f72269",
-                                                                    "32fe1f9f-aa05-4d0d-809e-c31aa15c3614", null,
+        CertificateIssuer certificateissuer = new CertificateIssuer(new java.util.Date(1546003510880L),
+                                                                    "d7e1b56b-2433-49e0-8474-a4438a1835e1",
+                                                                    "85c59178-22ce-4081-a7a5-9b5a10fcc85a", null,
                                                                     com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                    "6bc22e12-78b9-4bef-bd90-231bce6adedd", true);
+                                                                    "3453f560-7d0b-4d52-bd43-5e1437de5da4", true);
         assertTrue(certificateissuer.isValid());
     }
 
     /**
-     * Tests the hashcode method.
+     * Tests the hashCode method.
      */
     @Test
     public void testHashcode() {
-        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1545996951112L),
-                                                                     "42b4d9a1-1ac3-42f1-b2a8-9cbb366a4e04",
-                                                                     "9fcaa19d-c98f-48b9-9952-12ba647b966d", null,
+        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1546003513361L),
+                                                                     "953fcc80-4fda-48b8-b6bc-3844a40f4865",
+                                                                     "ef3b548c-ab41-4bc8-adc4-f8562083f2a1", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "247c6eb1-2601-4a79-be50-d941497a2937", true);
-        CertificateIssuer certificateissuer2 = new CertificateIssuer(new java.util.Date(1545996951112L),
-                                                                     "42b4d9a1-1ac3-42f1-b2a8-9cbb366a4e04",
-                                                                     "9fcaa19d-c98f-48b9-9952-12ba647b966d", null,
+                                                                     "a085d414-3acf-4461-9204-4bc83ac212bf", false);
+        CertificateIssuer certificateissuer2 = new CertificateIssuer(new java.util.Date(1546003513361L),
+                                                                     "953fcc80-4fda-48b8-b6bc-3844a40f4865",
+                                                                     "ef3b548c-ab41-4bc8-adc4-f8562083f2a1", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "247c6eb1-2601-4a79-be50-d941497a2937", true);
+                                                                     "a085d414-3acf-4461-9204-4bc83ac212bf", false);
         assertNotNull(certificateissuer1);
         assertNotNull(certificateissuer2);
         assertNotSame(certificateissuer2, certificateissuer1);
@@ -71,21 +71,21 @@ public class TestCertificateIssuer {
      */
     @Test
     public void testEquals() {
-        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1545996956680L),
-                                                                     "6f6b00bb-9da2-43f5-9b36-75e90a40f08d",
-                                                                     "b43fd0a9-868e-4163-a779-efd2ff22a249", null,
+        CertificateIssuer certificateissuer1 = new CertificateIssuer(new java.util.Date(1546003510844L),
+                                                                     "232b367e-38e7-49df-853a-453cec7d6bb8",
+                                                                     "c58e94f3-596c-42db-a9a5-6be059ea3adf", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "0c71623e-e050-4764-acbc-8f4517436a79", false);
-        CertificateIssuer certificateissuer2 = new CertificateIssuer(new java.util.Date(1545996956680L),
-                                                                     "6f6b00bb-9da2-43f5-9b36-75e90a40f08d",
-                                                                     "b43fd0a9-868e-4163-a779-efd2ff22a249", null,
+                                                                     "346e73a4-9156-48bf-8b38-16a22f8c130c", true);
+        CertificateIssuer certificateissuer2 = new CertificateIssuer(new java.util.Date(1546003510844L),
+                                                                     "232b367e-38e7-49df-853a-453cec7d6bb8",
+                                                                     "c58e94f3-596c-42db-a9a5-6be059ea3adf", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "0c71623e-e050-4764-acbc-8f4517436a79", false);
-        CertificateIssuer certificateissuer3 = new CertificateIssuer(new java.util.Date(1545996953233L),
-                                                                     "329c3a29-e498-450a-8393-5ae277075772",
-                                                                     "e9d6bd5a-3219-448e-b512-92e11cb3b677", null,
+                                                                     "346e73a4-9156-48bf-8b38-16a22f8c130c", true);
+        CertificateIssuer certificateissuer3 = new CertificateIssuer(new java.util.Date(1546003509337L),
+                                                                     "c934267a-5d9a-451a-a139-d34baaf5bd7d",
+                                                                     "a7f6ad37-a24e-431a-8493-7c9714c6493b", null,
                                                                      com.arm.mbed.cloud.sdk.security.model.CertificateIssuerIssuerType.getDefault(),
-                                                                     "f6b8dc51-369e-4598-8e2f-18c2b43c3efb", false);
+                                                                     "1f78498a-8d42-4330-bc00-1a9dba43ed74", false);
         assertNotNull(certificateissuer1);
         assertNotNull(certificateissuer2);
         assertNotNull(certificateissuer3);

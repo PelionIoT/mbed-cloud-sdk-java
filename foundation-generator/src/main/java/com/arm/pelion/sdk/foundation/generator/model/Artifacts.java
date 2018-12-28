@@ -107,9 +107,7 @@ public class Artifacts {
             m.generateMethods();
         });
         // Unit tests
-        // TODO implement unit tests for enums.
-        processedModels.stream().filter(m -> !m.isAbstract() && !(m instanceof ModelEnum))
-                       .forEach(m -> unitTests.add(new ModelTest(m)));
+        processedModels.stream().filter(m -> !m.isAbstract()).forEach(m -> unitTests.add(new ModelTest(m)));
         // Process Endpoints
         rawEndpoints.getModels().forEach(m -> storePackageInfo(m));
         processedModels.addAll(rawEndpoints.getModels());

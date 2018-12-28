@@ -17,7 +17,7 @@ public class MethodTest extends Method {
     }
 
     private static String processMethodName(String methodUnderTest) {
-        return String.valueOf(methodUnderTest).trim().toLowerCase();
+        return String.valueOf(methodUnderTest).trim();
     }
 
     /*

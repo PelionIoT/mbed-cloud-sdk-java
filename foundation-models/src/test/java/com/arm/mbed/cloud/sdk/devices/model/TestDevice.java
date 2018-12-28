@@ -15,21 +15,21 @@ public class TestDevice {
      */
     @Test
     public void testClone() {
-        Device device1 = new Device("c9d98c07-7dea-4c1e-9ceb-2b083a7c6952", true, new java.util.Date(1545996949683L),
-                                    new java.util.Date(1545996950006L), "c83a8fbe-d24c-4583-88d5-c4ee5a71179f",
-                                    new java.util.Date(1545996953941L), new java.util.Date(1545996956329L), null,
+        Device device1 = new Device("804b3410-4cf2-444d-9270-92780fda9a37", true, new java.util.Date(1546003507891L),
+                                    new java.util.Date(1546003510953L), "b6a00db2-dc1e-4b4a-a66d-00553c34061c",
+                                    new java.util.Date(1546003509532L), new java.util.Date(1546003507651L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "31aa44f0-4d21-4d19-9255-f76772f7c835", "cbd8af1e-3bf8-4986-9752-aac452fae48f",
-                                    "4c0a38e3-70af-43bf-af0d-d272831fbe85", -44, "f32cdcb2-c2d5-4aad-9c1f-991231c8371d",
-                                    "64923686-2c88-4bbf-890d-0e16c3ae59fa", "39cc370a-b4a1-4243-8a6c-f7d7e76dcc53",
-                                    new java.util.Date(1545996950568L), "d37ec5c6-8c09-4c21-baec-9c554e201a49",
-                                    "6d153e16-5fd4-4973-af71-facae77f61f4", "8a9b9036-f9ca-4339-9c29-73e6781b131a",
-                                    "496a3497-43da-4a8a-b0c9-189ab4a9bebb", new java.util.Date(1545996950295L),
+                                    "7135b083-ece7-43bd-94a1-60b01f13f43d", "7ea1dce9-9652-4e3e-a722-eaf2b7af1dfb",
+                                    "253453e9-1dd4-4d0c-affd-aad08416ed20", 45, "52912a6c-1bee-4d70-aba8-de1815613512",
+                                    "2afe794d-66d8-4867-899d-58f099a47585", "32d40674-0b85-42e2-9604-778b45edc68a",
+                                    new java.util.Date(1546003516444L), "03e28fca-abb5-4e4f-b709-82f0898d34bb",
+                                    "5777948e-c234-44b0-aace-075f14dc5392", "5b6f79b3-6b79-4173-81ef-ab5effc2cc5e",
+                                    "e7c4e6cc-17d0-4ab6-aad2-1b1a5c907b7d", new java.util.Date(1546003508311L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "23bea30c-f16e-47b9-9537-e2c4b59a157d", "e21694f5-302a-4eac-884c-8cfb9be6e683",
-                                    "3df47a73-56f9-4562-ba6d-b997d8e32150",
+                                    "59c9ba0e-3069-46e9-8b64-fb69f7491490", "8df6b2b9-8cbb-438c-a4a1-53754bab2917",
+                                    "d7478823-77e4-4436-b72a-e15e47b25cd1",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996955950L), "05c3a3a0-b0da-4436-9795-603d860b83e3");
+                                    new java.util.Date(1546003508448L), "b27b796f-81e0-4f54-b538-4d201a3372e5");
         Device device2 = device1.clone();
         assertNotNull(device1);
         assertNotNull(device2);
@@ -38,63 +38,63 @@ public class TestDevice {
     }
 
     /**
-     * Tests the isvalid method.
+     * Tests the isValid method.
      */
     @Test
     public void testIsvalid() {
-        Device device = new Device("8bcee1aa-a356-4dd2-b363-f2e1424bf95a", true, new java.util.Date(1545996958388L),
-                                   new java.util.Date(1545996952141L), "8004e71f-14f4-4097-b2ff-1e90a18618e5",
-                                   new java.util.Date(1545996952134L), new java.util.Date(1545996952041L), null,
+        Device device = new Device("f4e96398-7dd3-48b6-b2f5-ec33aeb8f404", false, new java.util.Date(1546003515960L),
+                                   new java.util.Date(1546003516061L), "9251f289-8703-497f-8135-8fa97c10c87d",
+                                   new java.util.Date(1546003513567L), new java.util.Date(1546003513704L), null,
                                    com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                   "54165094-7ab1-404a-a1bd-5d4032790870", "73206912-6880-44c5-a361-249d3223b6f5",
-                                   "c05e16bf-a018-4b24-afed-effde2c3ae78", -70, "ee53d2c7-969c-4fd7-81f7-3a6b6494c487",
-                                   "04d1857c-f087-4136-84d3-2154dd4aab7d", "67f1a215-5277-466a-b0e6-1bc31339e0c5",
-                                   new java.util.Date(1545996957174L), "db3f53b4-cec5-449f-b394-17b486bb7866",
-                                   "2e0e94de-a88d-4286-808b-8a32b6f484c1", "6ef571a7-a81b-4157-aa19-24a40f269910",
-                                   "28827351-3e3d-487a-82a4-8465e4c7dd13", new java.util.Date(1545996958032L),
+                                   "7be094af-d46c-4b97-b75f-56d603c4493c", "621c225a-c7b0-41b0-8a27-bb9c73c57287",
+                                   "90ecd477-7d93-42b7-a616-62d51aa06065", -54, "39bf3469-a824-42e7-a7b0-fdd34ee67a4d",
+                                   "f99af533-99ad-4c23-a8db-32f0289be25e", "1be86c00-af0d-4f67-8f2c-1da4b96723c4",
+                                   new java.util.Date(1546003515952L), "0ecf60ea-9318-4653-a019-b9e51bd2a6f0",
+                                   "bf565a40-c51d-4e85-8feb-c1f112680d0e", "56fb2f9c-4c2d-40ed-9061-ef1bc3d995c5",
+                                   "49fa46c3-e07a-485c-96f1-1db7c66e9b9a", new java.util.Date(1546003514251L),
                                    com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                   "db875183-16b1-4218-b41a-fb8752506969", "06ddc5f0-f8c7-406e-b20d-ae9f1f3c1cf7",
-                                   "884b8c18-b84e-4f11-84e9-8bd8c5c90484",
+                                   "5a99de60-31f0-46d9-8854-cc813f478226", "11c99dee-abf1-4276-bfc3-cce2ce48c331",
+                                   "6e43513c-d546-45c1-8a08-849903ed04cf",
                                    com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                   new java.util.Date(1545996952278L), "06fa60c8-5260-43e7-a9b2-41311fcf0fb4");
+                                   new java.util.Date(1546003514644L), "6cac4741-3f4d-4bd5-9e19-01c12e2bbf2d");
         assertTrue(device.isValid());
     }
 
     /**
-     * Tests the hashcode method.
+     * Tests the hashCode method.
      */
     @Test
     public void testHashcode() {
-        Device device1 = new Device("0006f0c6-d7b3-44b9-94fa-48b43801478d", true, new java.util.Date(1545996954540L),
-                                    new java.util.Date(1545996957147L), "90ed4fda-0239-40b4-9741-c91894eafdcf",
-                                    new java.util.Date(1545996956549L), new java.util.Date(1545996954540L), null,
+        Device device1 = new Device("0e23dd92-06b1-4d0b-92ce-cd56f963dc56", false, new java.util.Date(1546003509364L),
+                                    new java.util.Date(1546003511938L), "ee6d4a5f-50ca-435a-99dd-0cb6bfe86582",
+                                    new java.util.Date(1546003513279L), new java.util.Date(1546003513267L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "5e1cc560-158b-4664-9438-4a93bec62d01", "5d8bbdfc-e4d2-436a-83fd-ec4861ef886a",
-                                    "f16c1cc8-d3ac-42d6-812c-e267edf90375", 111, "fea45cd0-a9b8-4ded-bee3-532a01e80c83",
-                                    "e42ebf25-fad9-48a7-81b6-0c15abb7b341", "8c310956-292a-4485-aee0-18e0035166a4",
-                                    new java.util.Date(1545996952310L), "81395ea6-a02c-4dc6-904f-fa12ff917bbc",
-                                    "b9743a98-d9e9-4ab6-a18e-6252b76c98d7", "91ba89bf-ac95-4d36-959a-e3963af98805",
-                                    "650d89ad-f5bd-456f-99de-ad6347de00d0", new java.util.Date(1545996952870L),
+                                    "5fc7242f-7323-47c0-817d-dfc68aa746c3", "ea27e724-8f6b-4c11-8616-a351974f56c3",
+                                    "eb3f341d-8caf-4ac0-9299-b0b36b17ed50", -76, "8e90fc97-0e0f-4f31-bdf5-851c37361ce2",
+                                    "cec9e82d-dd9f-4708-999f-8da2b0dfb5f8", "0eda9c79-2d54-42df-8ab0-25343d62c16b",
+                                    new java.util.Date(1546003513727L), "3a069812-f138-4e3f-a7c8-dc4c8e918865",
+                                    "7c0f5309-b8dc-4a7e-913c-30e127efd68c", "e5bfa1b3-83ae-42be-9dc9-4705a0ed3295",
+                                    "874b10de-3fb4-4a1c-be36-0a79bef629a5", new java.util.Date(1546003510170L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "84064e10-9ca3-4c22-9460-216899035743", "4bf5944e-61fd-40b2-89fa-8334a13637b9",
-                                    "a25a67e5-b2a3-4cfa-85f4-2ec3bac4beb7",
+                                    "12223e6f-9faf-4fb8-a264-01c7c03b47d0", "822698c7-f02b-4ec0-a221-187643e8fa25",
+                                    "fe97fbbf-085c-4e4f-9667-96a6a267d7e0",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996950721L), "0f90cf25-89aa-4985-bfa0-7de90921888a");
-        Device device2 = new Device("0006f0c6-d7b3-44b9-94fa-48b43801478d", true, new java.util.Date(1545996954540L),
-                                    new java.util.Date(1545996957147L), "90ed4fda-0239-40b4-9741-c91894eafdcf",
-                                    new java.util.Date(1545996956549L), new java.util.Date(1545996954540L), null,
+                                    new java.util.Date(1546003507287L), "f5d5eb99-1cea-401f-b39a-30fa77fbe725");
+        Device device2 = new Device("0e23dd92-06b1-4d0b-92ce-cd56f963dc56", false, new java.util.Date(1546003509364L),
+                                    new java.util.Date(1546003511938L), "ee6d4a5f-50ca-435a-99dd-0cb6bfe86582",
+                                    new java.util.Date(1546003513279L), new java.util.Date(1546003513267L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "5e1cc560-158b-4664-9438-4a93bec62d01", "5d8bbdfc-e4d2-436a-83fd-ec4861ef886a",
-                                    "f16c1cc8-d3ac-42d6-812c-e267edf90375", 111, "fea45cd0-a9b8-4ded-bee3-532a01e80c83",
-                                    "e42ebf25-fad9-48a7-81b6-0c15abb7b341", "8c310956-292a-4485-aee0-18e0035166a4",
-                                    new java.util.Date(1545996952310L), "81395ea6-a02c-4dc6-904f-fa12ff917bbc",
-                                    "b9743a98-d9e9-4ab6-a18e-6252b76c98d7", "91ba89bf-ac95-4d36-959a-e3963af98805",
-                                    "650d89ad-f5bd-456f-99de-ad6347de00d0", new java.util.Date(1545996952870L),
+                                    "5fc7242f-7323-47c0-817d-dfc68aa746c3", "ea27e724-8f6b-4c11-8616-a351974f56c3",
+                                    "eb3f341d-8caf-4ac0-9299-b0b36b17ed50", -76, "8e90fc97-0e0f-4f31-bdf5-851c37361ce2",
+                                    "cec9e82d-dd9f-4708-999f-8da2b0dfb5f8", "0eda9c79-2d54-42df-8ab0-25343d62c16b",
+                                    new java.util.Date(1546003513727L), "3a069812-f138-4e3f-a7c8-dc4c8e918865",
+                                    "7c0f5309-b8dc-4a7e-913c-30e127efd68c", "e5bfa1b3-83ae-42be-9dc9-4705a0ed3295",
+                                    "874b10de-3fb4-4a1c-be36-0a79bef629a5", new java.util.Date(1546003510170L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "84064e10-9ca3-4c22-9460-216899035743", "4bf5944e-61fd-40b2-89fa-8334a13637b9",
-                                    "a25a67e5-b2a3-4cfa-85f4-2ec3bac4beb7",
+                                    "12223e6f-9faf-4fb8-a264-01c7c03b47d0", "822698c7-f02b-4ec0-a221-187643e8fa25",
+                                    "fe97fbbf-085c-4e4f-9667-96a6a267d7e0",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996950721L), "0f90cf25-89aa-4985-bfa0-7de90921888a");
+                                    new java.util.Date(1546003507287L), "f5d5eb99-1cea-401f-b39a-30fa77fbe725");
         assertNotNull(device1);
         assertNotNull(device2);
         assertNotSame(device2, device1);
@@ -111,51 +111,53 @@ public class TestDevice {
      */
     @Test
     public void testEquals() {
-        Device device1 = new Device("1e2f4275-2fcd-489a-a205-113b2d81dc9c", false, new java.util.Date(1545996953276L),
-                                    new java.util.Date(1545996955901L), "01f2e817-cdcc-4d3a-9ea0-42bafa98b283",
-                                    new java.util.Date(1545996951668L), new java.util.Date(1545996949566L), null,
+        Device device1 = new Device("6e8100f3-e575-4ac8-a289-0989f31f2f18", false, new java.util.Date(1546003516154L),
+                                    new java.util.Date(1546003514842L), "a9b2c3b7-c22b-4760-84f9-89d307f5dcfd",
+                                    new java.util.Date(1546003514694L), new java.util.Date(1546003514885L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "d67aa075-d2ab-47ad-a053-621936d3ef65", "e101ebc3-2fb0-4628-8bf8-d96031b8e3ba",
-                                    "a5f407a1-7db0-4774-99eb-857833619628", -98, "871e6698-3286-48c6-8164-0d30cc313f8e",
-                                    "a2a90248-0a1d-4a2b-ab45-d61ea37c93e6", "c65fc977-1af2-44c4-bbd5-6b5fc8c57179",
-                                    new java.util.Date(1545996955206L), "d6e92584-3cc5-4d28-861c-f75e658f992e",
-                                    "cda57e8c-b203-42a5-8d66-276906b86146", "2930a96e-ad2c-4084-b5a0-17e0bc465d1b",
-                                    "61d1923f-fea0-4b63-9b5e-ded63b123f51", new java.util.Date(1545996958737L),
+                                    "19207b67-5345-4351-bb27-26ec099532f4", "c8c4bc10-07cd-40cf-9809-b2929d8fb563",
+                                    "cee91cc4-a4d3-44de-b8bd-e0a9895bbd92", -104,
+                                    "e2cd09ef-34fc-4883-a8c2-ef96166eee91", "9f17a701-788d-4359-a9bc-36825031e9eb",
+                                    "f9b3db62-ae29-47ea-a0f8-57dee337690f", new java.util.Date(1546003512493L),
+                                    "48f6af92-2a95-4765-af66-6b6ba7e201d3", "ff744efa-9bde-44de-92d8-e542b595b1ee",
+                                    "987dcf6f-75fe-411b-9b32-c1f05d49177a", "ce7ba6eb-495e-445c-8ed2-a3ad52159ddf",
+                                    new java.util.Date(1546003515902L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "a3cc55f1-fdaf-4a9c-9170-d070fdbf2031", "8b6b86cb-d8a1-4fee-8cad-a50bd1a60e95",
-                                    "ef391fa1-560b-4385-a952-d2445adf3f08",
+                                    "303314e2-5b20-458a-9148-3dc5c51bac89", "e42e083a-c7f7-4b55-b3ab-d8569780c840",
+                                    "0daea8f3-5bcf-4b31-b12a-9f24645a094e",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996950173L), "557ed1d2-cc2d-444a-9439-f89571dd9e62");
-        Device device2 = new Device("1e2f4275-2fcd-489a-a205-113b2d81dc9c", false, new java.util.Date(1545996953276L),
-                                    new java.util.Date(1545996955901L), "01f2e817-cdcc-4d3a-9ea0-42bafa98b283",
-                                    new java.util.Date(1545996951668L), new java.util.Date(1545996949566L), null,
+                                    new java.util.Date(1546003514640L), "c7bc10a1-95fc-46a2-a34b-ac89274f9bb1");
+        Device device2 = new Device("6e8100f3-e575-4ac8-a289-0989f31f2f18", false, new java.util.Date(1546003516154L),
+                                    new java.util.Date(1546003514842L), "a9b2c3b7-c22b-4760-84f9-89d307f5dcfd",
+                                    new java.util.Date(1546003514694L), new java.util.Date(1546003514885L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "d67aa075-d2ab-47ad-a053-621936d3ef65", "e101ebc3-2fb0-4628-8bf8-d96031b8e3ba",
-                                    "a5f407a1-7db0-4774-99eb-857833619628", -98, "871e6698-3286-48c6-8164-0d30cc313f8e",
-                                    "a2a90248-0a1d-4a2b-ab45-d61ea37c93e6", "c65fc977-1af2-44c4-bbd5-6b5fc8c57179",
-                                    new java.util.Date(1545996955206L), "d6e92584-3cc5-4d28-861c-f75e658f992e",
-                                    "cda57e8c-b203-42a5-8d66-276906b86146", "2930a96e-ad2c-4084-b5a0-17e0bc465d1b",
-                                    "61d1923f-fea0-4b63-9b5e-ded63b123f51", new java.util.Date(1545996958737L),
+                                    "19207b67-5345-4351-bb27-26ec099532f4", "c8c4bc10-07cd-40cf-9809-b2929d8fb563",
+                                    "cee91cc4-a4d3-44de-b8bd-e0a9895bbd92", -104,
+                                    "e2cd09ef-34fc-4883-a8c2-ef96166eee91", "9f17a701-788d-4359-a9bc-36825031e9eb",
+                                    "f9b3db62-ae29-47ea-a0f8-57dee337690f", new java.util.Date(1546003512493L),
+                                    "48f6af92-2a95-4765-af66-6b6ba7e201d3", "ff744efa-9bde-44de-92d8-e542b595b1ee",
+                                    "987dcf6f-75fe-411b-9b32-c1f05d49177a", "ce7ba6eb-495e-445c-8ed2-a3ad52159ddf",
+                                    new java.util.Date(1546003515902L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "a3cc55f1-fdaf-4a9c-9170-d070fdbf2031", "8b6b86cb-d8a1-4fee-8cad-a50bd1a60e95",
-                                    "ef391fa1-560b-4385-a952-d2445adf3f08",
+                                    "303314e2-5b20-458a-9148-3dc5c51bac89", "e42e083a-c7f7-4b55-b3ab-d8569780c840",
+                                    "0daea8f3-5bcf-4b31-b12a-9f24645a094e",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996950173L), "557ed1d2-cc2d-444a-9439-f89571dd9e62");
-        Device device3 = new Device("43b47014-e651-4c10-83b0-e5db5f1db016", false, new java.util.Date(1545996958816L),
-                                    new java.util.Date(1545996951963L), "f111dd1d-5527-47f8-a827-1afb885e6e59",
-                                    new java.util.Date(1545996949681L), new java.util.Date(1545996951599L), null,
+                                    new java.util.Date(1546003514640L), "c7bc10a1-95fc-46a2-a34b-ac89274f9bb1");
+        Device device3 = new Device("f8abcbc9-6811-48c7-966c-000823f21e7c", true, new java.util.Date(1546003515986L),
+                                    new java.util.Date(1546003510087L), "1ce06514-8043-4c43-8aa0-27dc7f4a2948",
+                                    new java.util.Date(1546003514289L), new java.util.Date(1546003512290L), null,
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceDeployedState.getDefault(),
-                                    "6b4d4d10-0d5a-438f-8a45-b78e9767483d", "22e2e5ed-72ad-4c4f-9e52-a6d674110a51",
-                                    "230dfeaf-05e7-4a92-8bee-55455a87e13b", -44, "b0a9708b-331f-4706-a861-18a74cac12ee",
-                                    "7fdcaf14-a9c3-4cf1-8942-2a833f563a21", "efb50561-161d-46b6-a518-90ef136c21d3",
-                                    new java.util.Date(1545996958342L), "0ade0278-fec2-44ff-b360-b9baf732363c",
-                                    "429cd0e0-3d88-4eab-b946-fe7f52e38d7b", "b55f34f0-fd10-4da9-a89b-15561c39d36e",
-                                    "3fd721e6-bafc-4576-8666-1d41a881597e", new java.util.Date(1545996953431L),
+                                    "c6346847-63a1-4b8d-82b3-ca2908a89731", "8a6b4f58-42a9-4a6f-9e5f-a7b188520fa0",
+                                    "5cf7394a-2e1b-48eb-944a-c2d0dc0075ac", 41, "308c4c3a-0354-41a2-ba0e-3c86e47b8b28",
+                                    "cc519609-281a-4197-bd81-9978af10cdf4", "add5ae95-187f-45d8-8986-ae1f7d610d23",
+                                    new java.util.Date(1546003507273L), "cbf56acb-ac53-45b2-ad89-2c87bf124cb4",
+                                    "fd6b37d2-fde3-4581-9888-0a44514ff46b", "043c1e41-773f-454f-b3c4-58d3fd8f709e",
+                                    "fa85230a-9202-405b-9484-e1a0b12b5c35", new java.util.Date(1546003510507L),
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceMechanism.getDefault(),
-                                    "622cb5d5-460e-4863-84f6-d3289ba2bcf6", "b2c96ebe-0281-4ab1-9685-54f8c3931264",
-                                    "cb285acf-30e8-4662-a3d2-6118b138937b",
+                                    "b032af50-3ffb-4c11-a923-c65c6bae4ce6", "e020525f-74ef-4dc7-916b-d662af608179",
+                                    "f980608f-78cb-47bf-bff2-1e6fd680428d",
                                     com.arm.mbed.cloud.sdk.devices.model.DeviceState.getDefault(),
-                                    new java.util.Date(1545996950791L), "365dc4bb-9529-4fd7-83eb-b757797c5ea6");
+                                    new java.util.Date(1546003514257L), "b9b3031b-c505-449d-addd-3214a5bb569d");
         assertNotNull(device1);
         assertNotNull(device2);
         assertNotNull(device3);

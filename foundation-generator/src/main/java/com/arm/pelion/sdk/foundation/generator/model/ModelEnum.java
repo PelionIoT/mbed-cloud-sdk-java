@@ -17,12 +17,14 @@ public class ModelEnum extends ModelPojo {
     private static final String UNKNOWN_ENUM = "UNKNOWN_ENUM";
     private final List<String> options;
     private final String defaultOption;
+    private final String rawDefaultOption;
 
     public ModelEnum(String packageName, String attachedEntity, String name, String group, String longDescription,
                      List<String> options, String defaultOption) {
         super(packageName, generateName(attachedEntity, name), group,
               generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
         this.options = options == null ? new LinkedList<>() : options;
+        this.rawDefaultOption = defaultOption;
         this.defaultOption = determineDefaultValue(defaultOption, options);
         addField(new Field(true, TypeFactory.getCorrespondingType(String.class), "string", "string representation",
                            null, null, false, false, true, true, generateConstantName(defaultOption), false));
@@ -211,6 +213,18 @@ public class ModelEnum extends ModelPojo {
         method.getCode().endControlFlow();
         method.getCode().addStatement("return obj2");
         overrideMethodIfExist(method);
+    }
+
+    public List<String> getOptions() {
+        return options;
+    }
+
+    public String getDefaultOption() {
+        return defaultOption;
+    }
+
+    public String getRawDefaultOption() {
+        return rawDefaultOption;
     }
 
     private String getDescriptionForDocumentation() {

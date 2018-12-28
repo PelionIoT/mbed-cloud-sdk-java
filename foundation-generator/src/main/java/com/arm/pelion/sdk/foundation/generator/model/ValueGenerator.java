@@ -32,7 +32,7 @@ public class ValueGenerator {
             if (field.hasPattern()) {
                 return "\"" + generateStringBasedOnRegex(field.getPattern()) + "\"";
             }
-            return "\"" + UuidGenerator.generate() + "\"";
+            return "\"" + generateRandomString() + "\"";
         }
         if (field.getType().isBoolean()) {
             return String.valueOf(Math.random() > 0.5);
@@ -49,6 +49,10 @@ public class ValueGenerator {
                                                                      // long
         }
         return null;
+    }
+
+    public static String generateRandomString() {
+        return UuidGenerator.generate();
     }
 
     private static String generateStringBasedOnRegex(String pattern) {

@@ -304,7 +304,7 @@ public class CertificateEnrollment implements SdkModel {
      *            another object.
      * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
      */
-    public boolean canEqual(Object other) {
+    protected boolean canEqual(Object other) {
         return other instanceof CertificateEnrollment;
     }
 
