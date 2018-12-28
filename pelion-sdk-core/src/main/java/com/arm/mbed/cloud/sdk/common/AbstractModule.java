@@ -42,6 +42,7 @@ public abstract class AbstractModule implements SdkContext {
      * Constructor.
      * 
      * @param context
+     *            module context
      */
     public AbstractModule(SdkContext context) {
         super();

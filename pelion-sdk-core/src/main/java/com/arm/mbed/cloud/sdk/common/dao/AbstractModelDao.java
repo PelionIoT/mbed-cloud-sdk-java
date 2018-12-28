@@ -18,6 +18,12 @@ public abstract class AbstractModelDao<T extends SdkModel> extends AbstractCloud
     public static final String METHOD_INSTANTIATE_MODEL = "instantiateModel";
     private final AtomicReference<T> model;
 
+    /**
+     * Constructor.
+     * 
+     * @throws MbedCloudException
+     *             if an error happens during instantiation.
+     */
     public AbstractModelDao() throws MbedCloudException {
         super();
         model = new AtomicReference<>();
