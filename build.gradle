@@ -430,6 +430,7 @@ dependencies {
     testCompile 'org.reflections:reflections:0.9.10'
     testCompile 'org.slf4j:slf4j-simple:1.7.7'
     testCompile 'com.squareup.okhttp:mockwebserver:2.7.5'
+    testCompile  'com.github.dtmo.jfiglet:jfiglet:1.0.0'
     testImplementation 'junit:junit:4.12'
     coverage 'org.jacoco:org.jacoco.agent:0.7.9:runtime@jar'
     coverage 'org.jacoco:org.jacoco.cli:0.8.1:nodeps@jar'
