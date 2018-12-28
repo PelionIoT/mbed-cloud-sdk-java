@@ -23,9 +23,13 @@ public class ModelModule extends ModelMergeable {
 
     public ModelModule(Model model, String packageName, String description, ModelEndpointsFetcher endpointFetcher,
                        ModelListOptionFetcher listOptionFetcher, ModelAdapterFetcher adapterFetcher) {
-        super(packageName, generateName(model.getGroup()), model.getGroup(),
-              generateDescription(model.getGroup(), description),
-              generateLongDescription(model.getGroup(), description), false, true);
+        this(model.getGroup(), packageName, description, endpointFetcher, listOptionFetcher, adapterFetcher);
+    }
+
+    protected ModelModule(String group, String packageName, String description, ModelEndpointsFetcher endpointFetcher,
+                          ModelListOptionFetcher listOptionFetcher, ModelAdapterFetcher adapterFetcher) {
+        super(packageName, generateName(group), group, generateDescription(group, description),
+              generateLongDescription(group, description), false, true);
         setSuperClassType(TypeFactory.getCorrespondingType(AbstractModule.class));
         this.endpointFetcher = endpointFetcher;
         this.listOptionFetcher = listOptionFetcher;
@@ -171,6 +175,22 @@ public class ModelModule extends ModelMergeable {
             return null;
         }
         return registry.get(model, action, methodName);
+    }
+
+    @Override
+    protected Model generateEmptyChildModel() {
+        final ModelModule model = new ModelModule(group, packageName, description, endpointFetcher, listOptionFetcher,
+                                                  adapterFetcher);
+        model.setContainsCustomCode(true);
+        return model;
+    }
+
+    @Override
+    protected Model generateEmptyAbstractModel() {
+        final ModelModule model = new ModelModule(group, packageName, null, endpointFetcher, listOptionFetcher,
+                                                  adapterFetcher);
+        model.setAbstract(true);
+        return model;
     }
 
     public static class CloudCall {
