@@ -154,8 +154,8 @@ public class Certificate implements SdkModel {
      */
     @Internal
     public Certificate(String id, String accountId, String subject, Date validity, String issuer, Date createdAt,
-            String serverUri, String serverCertificate, String headerFile, String developerCertificate,
-            String developerPrivateKey, String ownerId) {
+                       String serverUri, String serverCertificate, String headerFile, String developerCertificate,
+                       String developerPrivateKey, String ownerId) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -227,11 +227,12 @@ public class Certificate implements SdkModel {
      */
     @Internal
     public Certificate(String id, String name, String accountId, CertificateStatus status, CertificateType type,
-            String description, String subject, Date validity, String issuer, Date createdAt, String serverUri,
-            String serverCertificate, String headerFile, String developerCertificate, String developerPrivateKey,
-            String ownerId, String certificateData, String signature, boolean enrollmentMode) {
+                       String description, String subject, Date validity, String issuer, Date createdAt,
+                       String serverUri, String serverCertificate, String headerFile, String developerCertificate,
+                       String developerPrivateKey, String ownerId, String certificateData, String signature,
+                       boolean enrollmentMode) {
         this(id, accountId, subject, validity, issuer, createdAt, serverUri, serverCertificate, headerFile,
-                developerCertificate, developerPrivateKey, ownerId);
+             developerCertificate, developerPrivateKey, ownerId);
         setCertificateData(certificateData);
         setDescription(description);
         setName(name);
@@ -635,25 +636,28 @@ public class Certificate implements SdkModel {
             return partial1;
         }
         final Certificate merge = new Certificate(mergeField(partial1.getId(), partial2.getId()),
-                mergeField(partial1.getAccountId(), partial2.getAccountId()),
-                mergeField(partial1.getSubject(), partial2.getSubject()),
-                mergeField(partial1.getValidity(), partial2.getValidity()),
-                mergeField(partial1.getIssuer(), partial2.getIssuer()),
-                mergeField(partial1.getCreatedAt(), partial2.getCreatedAt()),
-                mergeField(partial1.getServerUri(), partial2.getServerUri()),
-                mergeField(partial1.getServerCertificate(), partial2.getServerCertificate()),
-                mergeField(partial1.getHeaderFile(), partial2.getHeaderFile()),
-                mergeField(partial1.getDeveloperCertificate(), partial2.getDeveloperCertificate()),
-                mergeField(partial1.getDeveloperPrivateKey(), partial2.getDeveloperPrivateKey()),
-                mergeField(partial1.getOwnerId(), partial2.getOwnerId()));
+                                                  mergeField(partial1.getAccountId(), partial2.getAccountId()),
+                                                  mergeField(partial1.getSubject(), partial2.getSubject()),
+                                                  mergeField(partial1.getValidity(), partial2.getValidity()),
+                                                  mergeField(partial1.getIssuer(), partial2.getIssuer()),
+                                                  mergeField(partial1.getCreatedAt(), partial2.getCreatedAt()),
+                                                  mergeField(partial1.getServerUri(), partial2.getServerUri()),
+                                                  mergeField(partial1.getServerCertificate(),
+                                                             partial2.getServerCertificate()),
+                                                  mergeField(partial1.getHeaderFile(), partial2.getHeaderFile()),
+                                                  mergeField(partial1.getDeveloperCertificate(),
+                                                             partial2.getDeveloperCertificate()),
+                                                  mergeField(partial1.getDeveloperPrivateKey(),
+                                                             partial2.getDeveloperPrivateKey()),
+                                                  mergeField(partial1.getOwnerId(), partial2.getOwnerId()));
         merge.setCertificateData(mergeField(partial1.getCertificateData(), partial2.getCertificateData()));
         merge.setDescription(mergeField(partial1.getDescription(), partial2.getDescription()));
         merge.setName(mergeField(partial1.getName(), partial2.getName()));
         merge.setSignature(mergeField(partial1.getSignature(), partial2.getSignature()));
         merge.setStatus(mergeField(partial1.getStatus(), partial2.getStatus()));
         merge.setType(mergeField(partial1.getType(), partial2.getType()));
-        merge.setEnrollmentMode(
-                mergeField(Boolean.valueOf(partial1.isEnrollmentMode()), Boolean.valueOf(partial2.isEnrollmentMode())));
+        merge.setEnrollmentMode(mergeField(Boolean.valueOf(partial1.isEnrollmentMode()),
+                                           Boolean.valueOf(partial2.isEnrollmentMode())));
         merge.setAsNew();
         return merge;
     }
@@ -668,8 +672,8 @@ public class Certificate implements SdkModel {
     @Override
     public Certificate clone() {
         return new Certificate(id, name, accountId, status, type, description, subject, validity, issuer, createdAt,
-                serverUri, serverCertificate, headerFile, developerCertificate, developerPrivateKey, ownerId,
-                certificateData, signature, enrollmentMode);
+                               serverUri, serverCertificate, headerFile, developerCertificate, developerPrivateKey,
+                               ownerId, certificateData, signature, enrollmentMode);
     }
 
     /**
@@ -690,11 +694,11 @@ public class Certificate implements SdkModel {
     @Override
     public String toString() {
         return "Certificate [id=" + id + ", name=" + name + ", accountId=" + accountId + ", status=" + status
-                + ", type=" + type + ", description=" + description + ", subject=" + subject + ", validity=" + validity
-                + ", issuer=" + issuer + ", createdAt=" + createdAt + ", serverUri=" + serverUri
-                + ", serverCertificate=" + serverCertificate + ", headerFile=" + headerFile + ", developerCertificate="
-                + developerCertificate + ", developerPrivateKey=" + developerPrivateKey + ", ownerId=" + ownerId
-                + ", certificateData=" + certificateData + ", enrollmentMode=" + enrollmentMode + "]";
+               + ", type=" + type + ", description=" + description + ", subject=" + subject + ", validity=" + validity
+               + ", issuer=" + issuer + ", createdAt=" + createdAt + ", serverUri=" + serverUri + ", serverCertificate="
+               + serverCertificate + ", headerFile=" + headerFile + ", developerCertificate=" + developerCertificate
+               + ", developerPrivateKey=" + developerPrivateKey + ", ownerId=" + ownerId + ", certificateData="
+               + certificateData + ", enrollmentMode=" + enrollmentMode + "]";
     }
 
 }

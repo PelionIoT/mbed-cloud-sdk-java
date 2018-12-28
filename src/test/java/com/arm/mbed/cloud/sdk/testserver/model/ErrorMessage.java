@@ -10,14 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
@@ -26,91 +22,89 @@ import java.io.Serializable;
  */
 
 public class ErrorMessage implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @JsonProperty("message")
-  private String message = null;
+    @JsonProperty("message")
+    private String message = null;
 
-  @JsonProperty("traceback")
-  private String traceback = null;
+    @JsonProperty("traceback")
+    private String traceback = null;
 
-  public ErrorMessage message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Get message
-   * @return message
-  **/
-  @ApiModelProperty(value = "")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public ErrorMessage traceback(String traceback) {
-    this.traceback = traceback;
-    return this;
-  }
-
-   /**
-   * Get traceback
-   * @return traceback
-  **/
-  @ApiModelProperty(value = "")
-  public String getTraceback() {
-    return traceback;
-  }
-
-  public void setTraceback(String traceback) {
-    this.traceback = traceback;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public ErrorMessage message(String message) {
+        this.message = message;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get message
+     * 
+     * @return message
+     **/
+    @ApiModelProperty(value = "")
+    public String getMessage() {
+        return message;
     }
-    ErrorMessage errorMessage = (ErrorMessage) o;
-    return Objects.equals(this.message, errorMessage.message) &&
-        Objects.equals(this.traceback, errorMessage.traceback);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(message, traceback);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorMessage {\n");
-    
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    traceback: ").append(toIndentedString(traceback)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setMessage(String message) {
+        this.message = message;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public ErrorMessage traceback(String traceback) {
+        this.traceback = traceback;
+        return this;
+    }
+
+    /**
+     * Get traceback
+     * 
+     * @return traceback
+     **/
+    @ApiModelProperty(value = "")
+    public String getTraceback() {
+        return traceback;
+    }
+
+    public void setTraceback(String traceback) {
+        this.traceback = traceback;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ErrorMessage errorMessage = (ErrorMessage) o;
+        return Objects.equals(this.message, errorMessage.message)
+               && Objects.equals(this.traceback, errorMessage.traceback);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, traceback);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ErrorMessage {\n");
+
+        sb.append("    message: ").append(toIndentedString(message)).append("\n");
+        sb.append("    traceback: ").append(toIndentedString(traceback)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

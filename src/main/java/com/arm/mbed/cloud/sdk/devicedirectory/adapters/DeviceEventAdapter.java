@@ -45,10 +45,11 @@ public final class DeviceEventAdapter {
             return null;
         }
         return new DeviceEvent(deviceEventData.getId(), deviceEventData.getDeviceId(),
-                TranslationUtils.toDate(deviceEventData.getDateTime()),
-                TranslationUtils.toBool(deviceEventData.isStateChange(), false), deviceEventData.getDescription(),
-                deviceEventData.getChanges(), deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
-                deviceEventData.getData());
+                               TranslationUtils.toDate(deviceEventData.getDateTime()),
+                               TranslationUtils.toBool(deviceEventData.isStateChange(), false),
+                               deviceEventData.getDescription(), deviceEventData.getChanges(),
+                               deviceEventData.getEventTypeDescription(), deviceEventData.getEventType(),
+                               deviceEventData.getData());
     }
 
     /**

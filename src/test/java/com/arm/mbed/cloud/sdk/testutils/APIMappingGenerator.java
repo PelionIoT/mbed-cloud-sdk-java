@@ -88,7 +88,7 @@ public class APIMappingGenerator {
                 String defaultValue = determineParameterDefaultValue(parameter);
                 determineContentType(parameter);
                 APIMethodArgument arg = new APIMethodArgument(parameter.getName(), parameter.getType(),
-                        determineContentType(parameter), defaultValue);
+                                                              determineContentType(parameter), defaultValue);
                 m.addArgument(arg);
             }
         }

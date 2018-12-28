@@ -33,10 +33,10 @@ public final class GroupAdapter {
             return null;
         }
         return new Group(groupSummary.getId(), groupSummary.getAccountId(), groupSummary.getName(),
-                TranslationUtils.toInt(groupSummary.getUserCount()),
-                TranslationUtils.toInt(groupSummary.getApikeyCount()),
-                TranslationUtils.toDate(groupSummary.getCreatedAt()),
-                TranslationUtils.toDate(groupSummary.getUpdatedAt()));
+                         TranslationUtils.toInt(groupSummary.getUserCount()),
+                         TranslationUtils.toInt(groupSummary.getApikeyCount()),
+                         TranslationUtils.toDate(groupSummary.getCreatedAt()),
+                         TranslationUtils.toDate(groupSummary.getUpdatedAt()));
     }
 
     /**

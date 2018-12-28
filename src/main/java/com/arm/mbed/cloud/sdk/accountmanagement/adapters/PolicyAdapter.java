@@ -30,7 +30,7 @@ public final class PolicyAdapter {
             return null;
         }
         return new Policy(featurePolicy.getAction(), featurePolicy.getResource(), featurePolicy.getFeature(),
-                TranslationUtils.toBool(featurePolicy.isAllow(), false));
+                          TranslationUtils.toBool(featurePolicy.isAllow(), false));
     }
 
     /**

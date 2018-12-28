@@ -34,22 +34,22 @@ public final class MetricAdapter {
             return null;
         }
         return new Metric(apiMetric.getId(), TranslationUtils.toDate(apiMetric.getTimestamp()),
-                TranslationUtils.toLong(apiMetric.getTransactions()),
-                TranslationUtils.toLong(apiMetric.getConnectRestApiSuccess()),
-                TranslationUtils.toLong(apiMetric.getConnectRestApiError()),
-                TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()),
-                TranslationUtils.toLong(apiMetric.getBootstrapsPending()),
-                TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()),
-                TranslationUtils.toLong(apiMetric.getBootstrapsFailed()),
-                TranslationUtils.toLong(apiMetric.getFullRegistrations()),
-                TranslationUtils.toLong(apiMetric.getRegistrationUpdates()),
-                TranslationUtils.toLong(apiMetric.getExpiredRegistrations()),
-                TranslationUtils.toLong(apiMetric.getDeletedRegistrations()),
-                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestSuccess()),
-                TranslationUtils.toLong(apiMetric.getDeviceProxyRequestError()),
-                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestSuccess()),
-                TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestError()),
-                TranslationUtils.toLong(apiMetric.getDeviceObservations())
+                          TranslationUtils.toLong(apiMetric.getTransactions()),
+                          TranslationUtils.toLong(apiMetric.getConnectRestApiSuccess()),
+                          TranslationUtils.toLong(apiMetric.getConnectRestApiError()),
+                          TranslationUtils.toLong(apiMetric.getHandshakesSuccessful()),
+                          TranslationUtils.toLong(apiMetric.getBootstrapsPending()),
+                          TranslationUtils.toLong(apiMetric.getBootstrapsSuccessful()),
+                          TranslationUtils.toLong(apiMetric.getBootstrapsFailed()),
+                          TranslationUtils.toLong(apiMetric.getFullRegistrations()),
+                          TranslationUtils.toLong(apiMetric.getRegistrationUpdates()),
+                          TranslationUtils.toLong(apiMetric.getExpiredRegistrations()),
+                          TranslationUtils.toLong(apiMetric.getDeletedRegistrations()),
+                          TranslationUtils.toLong(apiMetric.getDeviceProxyRequestSuccess()),
+                          TranslationUtils.toLong(apiMetric.getDeviceProxyRequestError()),
+                          TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestSuccess()),
+                          TranslationUtils.toLong(apiMetric.getDeviceSubscriptionRequestError()),
+                          TranslationUtils.toLong(apiMetric.getDeviceObservations())
 
         );
 

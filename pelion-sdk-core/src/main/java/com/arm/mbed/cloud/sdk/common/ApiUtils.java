@@ -195,7 +195,8 @@ public class ApiUtils {
      * Case conversion types.
      *
      */
-    public enum CaseConversion {
+    public enum CaseConversion
+    {
         SNAKE_TO_CAMEL,
         CAMEL_TO_SNAKE
     }

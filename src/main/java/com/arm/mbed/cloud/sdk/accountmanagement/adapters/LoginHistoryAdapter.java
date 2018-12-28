@@ -29,7 +29,7 @@ public final class LoginHistoryAdapter {
             return null;
         }
         return new LoginHistory(TranslationUtils.toDate(history.getDate()), history.getUserAgent(),
-                history.getIpAddress(), TranslationUtils.toBool(history.isSuccess(), false));
+                                history.getIpAddress(), TranslationUtils.toBool(history.isSuccess(), false));
     }
 
     /**
@@ -55,8 +55,8 @@ public final class LoginHistoryAdapter {
      *            login history list.
      * @return a list of login history.
      */
-    public static List<LoginHistory> mapList(
-            List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> loginHistory) {
+    public static List<LoginHistory>
+           mapList(List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory> loginHistory) {
         return GenericAdapter.mapList(loginHistory, getMapper());
     }
 
@@ -65,7 +65,8 @@ public final class LoginHistoryAdapter {
      * 
      * @return list mapper.
      */
-    public static Mapper<List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory>, List<LoginHistory>> getListMapper() {
+    public static Mapper<List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory>, List<LoginHistory>>
+           getListMapper() {
         return new Mapper<List<com.arm.mbed.cloud.sdk.internal.iam.model.LoginHistory>, List<LoginHistory>>() {
 
             @Override

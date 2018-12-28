@@ -24,7 +24,8 @@ public class FileDownload {
     private transient volatile boolean downloaded;
     private transient SdkLogger logger;
 
-    public enum Extension {
+    public enum Extension
+    {
         JSON,
         TXT,
         GZ,
@@ -133,7 +134,8 @@ public class FileDownload {
      */
     public FileDownload(Extension extension) throws MbedCloudException {
         this(generateTempFile((String) null,
-                              extension == Extension.DEFAULT ? null : EXTENSION_SEPARATOR + extension.toString().toLowerCase()));
+                              extension == Extension.DEFAULT ? null : EXTENSION_SEPARATOR
+                                                                      + extension.toString().toLowerCase()));
     }
 
     /**
@@ -290,7 +292,8 @@ public class FileDownload {
         final String finalFileName = fileName == null ? UNDEFINED_DESTINATION_FILENAME : fileName;
         try {
             return File.createTempFile(getFileNameWithoutExtension(finalFileName),
-                                       extension == null ? EXTENSION_SEPARATOR + getFileExtension(finalFileName) : extension);
+                                       extension == null ? EXTENSION_SEPARATOR + getFileExtension(finalFileName)
+                                                         : extension);
         } catch (IOException exception) {
             throw new MbedCloudException(exception);
         }

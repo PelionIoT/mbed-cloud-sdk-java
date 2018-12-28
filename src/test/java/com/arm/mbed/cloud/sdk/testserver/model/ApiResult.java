@@ -10,13 +10,10 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.testserver.model;
 
 import java.util.Objects;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
@@ -27,68 +24,65 @@ import java.io.Serializable;
 @ApiModel(description = "JSON string representation of the method call result")
 
 public class ApiResult implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @JsonProperty("payload")
-  private Object payload = null;
+    @JsonProperty("payload")
+    private Object payload = null;
 
-  public ApiResult payload(Object payload) {
-    this.payload = payload;
-    return this;
-  }
-
-   /**
-   * Get payload
-   * @return payload
-  **/
-  @ApiModelProperty(value = "")
-  public Object getPayload() {
-    return payload;
-  }
-
-  public void setPayload(Object payload) {
-    this.payload = payload;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public ApiResult payload(Object payload) {
+        this.payload = payload;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get payload
+     * 
+     * @return payload
+     **/
+    @ApiModelProperty(value = "")
+    public Object getPayload() {
+        return payload;
     }
-    ApiResult apiResult = (ApiResult) o;
-    return Objects.equals(this.payload, apiResult.payload);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(payload);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ApiResult {\n");
-    
-    sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setPayload(Object payload) {
+        this.payload = payload;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ApiResult apiResult = (ApiResult) o;
+        return Objects.equals(this.payload, apiResult.payload);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(payload);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ApiResult {\n");
+
+        sb.append("    payload: ").append(toIndentedString(payload)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

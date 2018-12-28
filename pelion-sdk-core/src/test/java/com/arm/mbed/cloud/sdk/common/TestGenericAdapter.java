@@ -68,7 +68,7 @@ public class TestGenericAdapter {
                                                                                                                    public IntegerModel
                                                                                                                           map(String toBeMapped) {
                                                                                                                        return new IntegerModel(TranslationUtils.toInt(toBeMapped,
-                                                                                                                                                                                 0));
+                                                                                                                                                                      0));
                                                                                                                    }
                                                                                                                });
         for (int i = 0; i < data.size(); i++) {

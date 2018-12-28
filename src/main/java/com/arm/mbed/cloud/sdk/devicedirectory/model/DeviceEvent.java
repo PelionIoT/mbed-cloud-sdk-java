@@ -81,7 +81,7 @@ public class DeviceEvent implements SdkModel {
      */
     @Internal
     public DeviceEvent(String id, String deviceId, Date eventDate, boolean stateChanged, String description,
-            Object changes, String typeDescription, String type, Object data) {
+                       Object changes, String typeDescription, String type, Object data) {
         super();
         this.id = id;
         this.deviceId = deviceId;
@@ -203,7 +203,7 @@ public class DeviceEvent implements SdkModel {
     @Override
     public DeviceEvent clone() {
         return new DeviceEvent(id, deviceId, eventDate, stateChanged, description, changes, typeDescription, type,
-                data);
+                               data);
     }
 
     /**
@@ -224,8 +224,8 @@ public class DeviceEvent implements SdkModel {
     @Override
     public String toString() {
         return "DeviceEvent [id=" + id + ", deviceId=" + deviceId + ", eventDate=" + eventDate + ", stateChanged="
-                + stateChanged + ", description=" + description + ", changes=" + changes + ", typeDescription="
-                + typeDescription + ", type=" + type + ", data=" + data + "]";
+               + stateChanged + ", description=" + description + ", changes=" + changes + ", typeDescription="
+               + typeDescription + ", type=" + type + ", data=" + data + "]";
     }
 
 }

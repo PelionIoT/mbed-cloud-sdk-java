@@ -42,16 +42,18 @@ public final class CertificateAdapter {
             return null;
         }
         final Certificate certificate = new Certificate(iamCertificate.getId(), iamCertificate.getAccountId(),
-                iamCertificate.getSubject(), TranslationUtils.toDate(iamCertificate.getValidity()),
-                iamCertificate.getIssuer(), TranslationUtils.toDate(iamCertificate.getCreatedAt()), null, null, null,
-                null, null, iamCertificate.getOwnerId());
+                                                        iamCertificate.getSubject(),
+                                                        TranslationUtils.toDate(iamCertificate.getValidity()),
+                                                        iamCertificate.getIssuer(),
+                                                        TranslationUtils.toDate(iamCertificate.getCreatedAt()), null,
+                                                        null, null, null, null, iamCertificate.getOwnerId());
         certificate.setCertificateData(iamCertificate.getCertificate());
         certificate.setDescription(iamCertificate.getDescription());
         certificate.setName(iamCertificate.getName());
         certificate.setStatus(toStatus(iamCertificate.getStatus()));
         certificate.setType(toType(iamCertificate.getDeviceExecutionMode(), iamCertificate.getService()));
-        certificate.setEnrollmentMode(
-                TranslationUtils.toBool(iamCertificate.isEnrollmentMode(), Certificate.DEFAULT_ENROLMENT_MODE));
+        certificate.setEnrollmentMode(TranslationUtils.toBool(iamCertificate.isEnrollmentMode(),
+                                                              Certificate.DEFAULT_ENROLMENT_MODE));
         return certificate;
     }
 
@@ -67,7 +69,7 @@ public final class CertificateAdapter {
             return null;
         }
         return new Certificate(null, null, null, null, null, null, serverResponse.getServerUri(),
-                serverResponse.getServerCertificate(), null, null, null, null);
+                               serverResponse.getServerCertificate(), null, null, null, null);
     }
 
     /**
@@ -82,8 +84,8 @@ public final class CertificateAdapter {
             return null;
         }
         return new Certificate(developerData.getId(), null, null, null, null, null, null, null,
-                developerData.getSecurityFileContent(), developerData.getDeveloperCertificate(),
-                developerData.getDeveloperPrivateKey(), null);
+                               developerData.getSecurityFileContent(), developerData.getDeveloperCertificate(),
+                               developerData.getDeveloperPrivateKey(), null);
     }
 
     /**

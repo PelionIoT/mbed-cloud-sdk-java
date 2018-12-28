@@ -32,10 +32,13 @@ public final class FirmwareManifestAdapter {
             return null;
         }
         final FirmwareManifest firmwareManifest = new FirmwareManifest(manifest.getId(),
-                TranslationUtils.toUrl(manifest.getDatafile()), manifest.getDeviceClass(),
-                TranslationUtils.toLong(manifest.getDatafileSize()), TranslationUtils.toDate(manifest.getCreatedAt()),
-                TranslationUtils.toDate(manifest.getUpdatedAt()), TranslationUtils.toDate(manifest.getTimestamp()),
-                TranslationUtils.toUrl(manifest.getKeyTable()));
+                                                                       TranslationUtils.toUrl(manifest.getDatafile()),
+                                                                       manifest.getDeviceClass(),
+                                                                       TranslationUtils.toLong(manifest.getDatafileSize()),
+                                                                       TranslationUtils.toDate(manifest.getCreatedAt()),
+                                                                       TranslationUtils.toDate(manifest.getUpdatedAt()),
+                                                                       TranslationUtils.toDate(manifest.getTimestamp()),
+                                                                       TranslationUtils.toUrl(manifest.getKeyTable()));
         firmwareManifest.setDataFile(null);
         firmwareManifest.setDecryptionKeysFile(null);
         firmwareManifest.setDescription(manifest.getDescription());
@@ -48,12 +51,13 @@ public final class FirmwareManifestAdapter {
      *
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest> getMapper() {
+    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest>
+           getMapper() {
         return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest, FirmwareManifest>() {
 
             @Override
-            public FirmwareManifest map(
-                    com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest toBeMapped) {
+            public FirmwareManifest
+                   map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest toBeMapped) {
                 return FirmwareManifestAdapter.map(toBeMapped);
             }
 

@@ -97,7 +97,7 @@ public class FirmwareManifest implements SdkModel {
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, long datafileSize, Date createdAt, Date updatedAt,
-            Date timestamp, URL keyTableUrl) {
+                            Date timestamp, URL keyTableUrl) {
         this(id, url, deviceClass, createdAt, updatedAt, timestamp, null, null, datafileSize, null, null, keyTableUrl);
     }
 
@@ -133,8 +133,8 @@ public class FirmwareManifest implements SdkModel {
      */
     @Internal
     public FirmwareManifest(String id, URL url, String deviceClass, Date createdAt, Date updatedAt, Date timestamp,
-            String name, String description, long datafileSize, DataFile dataFile, DataFile keyTableFile,
-            URL keyTableUrl) {
+                            String name, String description, long datafileSize, DataFile dataFile,
+                            DataFile keyTableFile, URL keyTableUrl) {
         super();
         setId(id);
         this.url = url;
@@ -401,7 +401,7 @@ public class FirmwareManifest implements SdkModel {
     @Override
     public FirmwareManifest clone() {
         return new FirmwareManifest(id, decryptionKeysUrl, deviceClass, createdAt, updatedAt, timestamp, name,
-                description, datafileSize, dataFile, decryptionKeysFile, decryptionKeysUrl);
+                                    description, datafileSize, dataFile, decryptionKeysFile, decryptionKeysUrl);
     }
 
     /**
@@ -422,9 +422,9 @@ public class FirmwareManifest implements SdkModel {
     @Override
     public String toString() {
         return "FirmwareManifest [id=" + id + ", url=" + url + ", decryptionKeysUrl=" + decryptionKeysUrl
-                + ", deviceClass=" + deviceClass + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", timestamp=" + timestamp + ", name=" + name + ", description=" + description + ", datafileSize="
-                + datafileSize + ", dataFile=" + dataFile + ", decryptionKeysFile=" + decryptionKeysFile + "]";
+               + ", deviceClass=" + deviceClass + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
+               + ", timestamp=" + timestamp + ", name=" + name + ", description=" + description + ", datafileSize="
+               + datafileSize + ", dataFile=" + dataFile + ", decryptionKeysFile=" + decryptionKeysFile + "]";
     }
 
 }

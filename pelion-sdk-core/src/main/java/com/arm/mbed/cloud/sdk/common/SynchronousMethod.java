@@ -49,7 +49,8 @@ public class SynchronousMethod {
      */
 
     public static <T> T waitForCompletion(@Nullable AbstractModule module, @Nullable String function,
-            @NonNull AsynchronousMethod<T> asyncMethod, @Nullable TimePeriod timeout) throws MbedCloudException {
+                                          @NonNull AsynchronousMethod<T> asyncMethod,
+                                          @Nullable TimePeriod timeout) throws MbedCloudException {
         if (asyncMethod == null) {
             throw new MbedCloudException("Asynchronous method is Null");
         }

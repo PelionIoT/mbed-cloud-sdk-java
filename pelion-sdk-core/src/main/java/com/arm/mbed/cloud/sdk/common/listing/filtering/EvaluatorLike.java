@@ -64,7 +64,7 @@ public class EvaluatorLike implements FilterEvaluator {
         }
         // If filterValue is a SQL like entry i.e.
         final String javaPattern = pattern.toLowerCase(Locale.getDefault()).replace(".", "\\.").replace("*", "\\*")
-                .replace("?", ".").replace("_", ".").replace("%", ".*");
+                                          .replace("?", ".").replace("_", ".").replace("%", ".*");
         try {
             return Pattern.matches(javaPattern, valueString);
         } catch (PatternSyntaxException exception) {

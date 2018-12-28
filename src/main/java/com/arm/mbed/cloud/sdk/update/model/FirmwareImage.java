@@ -78,7 +78,7 @@ public class FirmwareImage implements SdkModel {
      */
     @Internal
     public FirmwareImage(String id, URL url, String datafileChecksum, long datafileSize, Date createdAt,
-            Date updatedAt) {
+                         Date updatedAt) {
         this(id, null, null, null, datafileSize, datafileChecksum, url, createdAt, updatedAt);
     }
 
@@ -108,7 +108,7 @@ public class FirmwareImage implements SdkModel {
      */
     @Internal
     public FirmwareImage(String id, String name, String description, DataFile dataFile, long datafileSize,
-            String datafileChecksum, URL url, Date createdAt, Date updatedAt) {
+                         String datafileChecksum, URL url, Date createdAt, Date updatedAt) {
         super();
         setId(id);
         this.datafileSize = datafileSize;
@@ -287,7 +287,7 @@ public class FirmwareImage implements SdkModel {
     @Override
     public FirmwareImage clone() {
         return new FirmwareImage(id, name, description, dataFile, datafileSize, datafileChecksum, url, createdAt,
-                updatedAt);
+                                 updatedAt);
     }
 
     /**
@@ -308,8 +308,8 @@ public class FirmwareImage implements SdkModel {
     @Override
     public String toString() {
         return "FirmwareImage [id=" + id + ", name=" + name + ", description=" + description + ", dataFile=" + dataFile
-                + ", datafileSize=" + datafileSize + ", datafileChecksum=" + datafileChecksum + ", url=" + url
-                + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+               + ", datafileSize=" + datafileSize + ", datafileChecksum=" + datafileChecksum + ", url=" + url
+               + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
 }

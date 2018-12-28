@@ -9,8 +9,8 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
-	id 'eclipse'
-	id 'jacoco' //Code coverage
+    id 'eclipse'
+    id 'jacoco' //Code coverage
 }
 
 dependencies {

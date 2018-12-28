@@ -35,9 +35,10 @@ public final class CampaignDeviceStateAdapter {
             return null;
         }
         return new CampaignDeviceState(metadata.getId(), metadata.getDeviceId(), metadata.getCampaign(),
-                toDeviceState(metadata.getDeploymentState()), metadata.getName(), metadata.getDescription(),
-                TranslationUtils.toDate(metadata.getCreatedAt()), TranslationUtils.toDate(metadata.getUpdatedAt()),
-                metadata.getMechanism(), TranslationUtils.toUrl(metadata.getMechanismUrl()));
+                                       toDeviceState(metadata.getDeploymentState()), metadata.getName(),
+                                       metadata.getDescription(), TranslationUtils.toDate(metadata.getCreatedAt()),
+                                       TranslationUtils.toDate(metadata.getUpdatedAt()), metadata.getMechanism(),
+                                       TranslationUtils.toUrl(metadata.getMechanismUrl()));
     }
 
     /**

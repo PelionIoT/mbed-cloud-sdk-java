@@ -35,7 +35,7 @@ public final class QueryAdapter {
             return null;
         }
         final Query query = new Query(deviceQuery.getId(), TranslationUtils.toDate(deviceQuery.getCreatedAt()),
-                TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
+                                      TranslationUtils.toDate(deviceQuery.getUpdatedAt()));
         query.setName(deviceQuery.getName());
         query.setFilters(decodeFilters(deviceQuery.getQuery()));
         return query;

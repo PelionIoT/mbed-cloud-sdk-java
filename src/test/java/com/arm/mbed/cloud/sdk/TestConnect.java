@@ -41,8 +41,7 @@ public class TestConnect {
             opt.setHost(baseUrl.toString());
             // opt.setClientLogLevel(CallLogLevel.BODY);
             Connect connect = new Connect(opt);
-            GenericAdapter.MappedObjectRegistry<Presubscription> registry = connect
-                    .getCurrentPresubscriptionRegistry("method name");
+            GenericAdapter.MappedObjectRegistry<Presubscription> registry = connect.getCurrentPresubscriptionRegistry("method name");
             RecordedRequest request = server.takeRequest();
             assertEquals("/" + PRESUBSCRIPTION_ENDPOINT_PATH, request.getPath());
             assertNotNull(registry);

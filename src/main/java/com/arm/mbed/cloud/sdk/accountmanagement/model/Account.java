@@ -165,7 +165,7 @@ public class Account implements SdkModel {
      */
     public Account() {
         this(null, AccountStatus.getDefault(), null, null, null, null, null, new Date(), new Date(), new Date(), null,
-                null, null, null);
+             null, null, null);
 
     }
 
@@ -205,11 +205,12 @@ public class Account implements SdkModel {
      */
     @Internal
     public Account(String id, AccountStatus status, String customerNumber, String salesContactEmail,
-            String contractNumber, String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
-            Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
+                   String contractNumber, String referenceNote, String tier, Date createdAt, Date upgradedAt,
+                   Date updatedAt, Map<String, String> limits, List<Policy> policies, String templateId,
+                   String reason) {
         this(id, status, null, null, null, null, null, null, null, null, null, null, customerNumber, salesContactEmail,
-                contractNumber, null, DEFAULT_EXPIRY_WARNING, null, MultifactorAuthenticationStatus.getDefault(), null,
-                referenceNote, tier, createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
+             contractNumber, null, DEFAULT_EXPIRY_WARNING, null, MultifactorAuthenticationStatus.getDefault(), null,
+             referenceNote, tier, createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -279,12 +280,12 @@ public class Account implements SdkModel {
      */
     @Internal
     protected Account(String id, AccountStatus status, String displayName, String contact, String company,
-            String phoneNumber, String postcode, String addressLine1, String addressLine2, String city, String state,
-            String country, String email, String customerNumber, String salesContactEmail, String contractNumber,
-            long expiryWarning, List<String> notificationEmailAddresses,
-            MultifactorAuthenticationStatus multifactorAuthenticationStatus, List<String> aliases, String referenceNote,
-            String tier, Date createdAt, Date upgradedAt, Date updatedAt, Map<String, String> limits,
-            List<Policy> policies, String templateId, String reason) {
+                      String phoneNumber, String postcode, String addressLine1, String addressLine2, String city,
+                      String state, String country, String email, String customerNumber, String salesContactEmail,
+                      String contractNumber, long expiryWarning, List<String> notificationEmailAddresses,
+                      MultifactorAuthenticationStatus multifactorAuthenticationStatus, List<String> aliases,
+                      String referenceNote, String tier, Date createdAt, Date upgradedAt, Date updatedAt,
+                      Map<String, String> limits, List<Policy> policies, String templateId, String reason) {
         super();
         setId(id);
         this.status = status;
@@ -799,9 +800,9 @@ public class Account implements SdkModel {
     @Override
     public Account clone() {
         return new Account(id, status, displayName, contact, company, phoneNumber, postcode, addressLine1, addressLine2,
-                city, state, country, email, customerNumber, salesContactEmail, contractNumber, expiryWarning,
-                notificationEmails, multifactorAuthenticationStatus, aliases, referenceNote, tier, createdAt,
-                upgradedAt, updatedAt, limits, policies, templateId, reason);
+                           city, state, country, email, customerNumber, salesContactEmail, contractNumber,
+                           expiryWarning, notificationEmails, multifactorAuthenticationStatus, aliases, referenceNote,
+                           tier, createdAt, upgradedAt, updatedAt, limits, policies, templateId, reason);
     }
 
     /**
@@ -822,15 +823,15 @@ public class Account implements SdkModel {
     @Override
     public String toString() {
         return "Account [id=" + id + ", status=" + status + ", displayName=" + displayName + ", contact=" + contact
-                + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postcode=" + postcode + ", addressLine1="
-                + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
-                + country + ", email=" + email + ", customerNumber=" + customerNumber + ", salesContactEmail="
-                + salesContactEmail + ", contractNumber=" + contractNumber + ", expiryWarning=" + expiryWarning
-                + ", notificationEmails=" + notificationEmails + ", multifactorAuthenticationStatus="
-                + multifactorAuthenticationStatus + ", aliases=" + aliases + ", referenceNote=" + referenceNote
-                + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", updatedAt="
-                + updatedAt + ", limits=" + limits + ", policies=" + policies + ", templateId=" + templateId
-                + ", reason=" + reason + "]";
+               + ", company=" + company + ", phoneNumber=" + phoneNumber + ", postcode=" + postcode + ", addressLine1="
+               + addressLine1 + ", addressLine2=" + addressLine2 + ", city=" + city + ", state=" + state + ", country="
+               + country + ", email=" + email + ", customerNumber=" + customerNumber + ", salesContactEmail="
+               + salesContactEmail + ", contractNumber=" + contractNumber + ", expiryWarning=" + expiryWarning
+               + ", notificationEmails=" + notificationEmails + ", multifactorAuthenticationStatus="
+               + multifactorAuthenticationStatus + ", aliases=" + aliases + ", referenceNote=" + referenceNote
+               + ", tier=" + tier + ", createdAt=" + createdAt + ", upgradedAt=" + upgradedAt + ", updatedAt="
+               + updatedAt + ", limits=" + limits + ", policies=" + policies + ", templateId=" + templateId
+               + ", reason=" + reason + "]";
     }
 
 }

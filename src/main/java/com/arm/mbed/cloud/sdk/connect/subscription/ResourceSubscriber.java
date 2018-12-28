@@ -55,7 +55,7 @@ public class ResourceSubscriber extends AbstractSubscriptionAction {
     private void requestCurrentResourceValue(final Resource resourceToObserve) {
         try {
             final AsynchronousResponseObserver observer = module.createCurrentResourceValueObserver(resourceToObserve,
-                                                                                                 BackpressureStrategy.BUFFER);
+                                                                                                    BackpressureStrategy.BUFFER);
             observer.singleNotification(null).doOnError(new Consumer<Throwable>() {
 
                 @Override

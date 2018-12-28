@@ -640,7 +640,7 @@ public class Query implements SdkModel {
     @Override
     public String toString() {
         return "Query [id=" + id + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + ", name=" + name
-                + ", filter=" + retrieveFilterAsJson() + "]";
+               + ", filter=" + retrieveFilterAsJson() + "]";
     }
 
 }

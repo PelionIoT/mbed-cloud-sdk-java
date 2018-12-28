@@ -32,10 +32,11 @@ public final class FirmwareImageAdapter {
             return null;
         }
         final FirmwareImage image = new FirmwareImage(firmwareImage.getId(),
-                TranslationUtils.toUrl(firmwareImage.getDatafile()), firmwareImage.getDatafileChecksum(),
-                TranslationUtils.toLong(firmwareImage.getDatafileSize()),
-                TranslationUtils.toDate(firmwareImage.getCreatedAt()),
-                TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
+                                                      TranslationUtils.toUrl(firmwareImage.getDatafile()),
+                                                      firmwareImage.getDatafileChecksum(),
+                                                      TranslationUtils.toLong(firmwareImage.getDatafileSize()),
+                                                      TranslationUtils.toDate(firmwareImage.getCreatedAt()),
+                                                      TranslationUtils.toDate(firmwareImage.getUpdatedAt()));
         image.setDataFile(null);
         image.setDescription(firmwareImage.getDescription());
         image.setName(firmwareImage.getName());

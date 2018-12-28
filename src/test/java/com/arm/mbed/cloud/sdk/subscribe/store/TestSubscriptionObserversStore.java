@@ -175,9 +175,9 @@ public class TestSubscriptionObserversStore {
             List<ResourceValueNotification> notifications = Stream.iterate(0, n -> n + 1).limit(102).map(i -> {
                 final ResourceValueNotification notification = (i
                                                                 % 2 == 0) ? new ResourceValueNotification("0161661e9ce10000000000010010033e",
-                                                                                                          (i % 5 == 0)
-                                                                                                                       ? "/1/0/3/"
-                                                                                                                       : "/1/2/3").payload(i)
+                                                                                                          (i
+                                                                                                           % 5 == 0) ? "/1/0/3/"
+                                                                                                                     : "/1/2/3").payload(i)
                                                                           : new ResourceValueNotification("0161661edbab000000000001001002b7",
                                                                                                           (i
                                                                                                            % 5 == 0) ? "/1/0/3/"

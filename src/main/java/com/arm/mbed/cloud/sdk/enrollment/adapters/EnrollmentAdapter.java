@@ -33,10 +33,11 @@ public final class EnrollmentAdapter {
             return null;
         }
         final EnrollmentClaim claim = new EnrollmentClaim(enrollmentClaim.getId(),
-                TranslationUtils.toDate(enrollmentClaim.getCreatedAt()),
-                TranslationUtils.toDate(enrollmentClaim.getClaimedAt()),
-                TranslationUtils.toDate(enrollmentClaim.getExpiresAt()), enrollmentClaim.getAccountId(),
-                enrollmentClaim.getEnrolledDeviceId());
+                                                          TranslationUtils.toDate(enrollmentClaim.getCreatedAt()),
+                                                          TranslationUtils.toDate(enrollmentClaim.getClaimedAt()),
+                                                          TranslationUtils.toDate(enrollmentClaim.getExpiresAt()),
+                                                          enrollmentClaim.getAccountId(),
+                                                          enrollmentClaim.getEnrolledDeviceId());
         claim.setClaimId(enrollmentClaim.getEnrollmentIdentity());
         return claim;
     }

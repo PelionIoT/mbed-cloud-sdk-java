@@ -32,12 +32,13 @@ public final class AccountAdapter {
             return null;
         }
         final Account account = new Account(accountInfo.getId(), toStatus(accountInfo.getStatus()),
-                accountInfo.getCustomerNumber(), accountInfo.getSalesContact(), accountInfo.getContractNumber(),
-                accountInfo.getReferenceNote(), accountInfo.getTier(),
-                TranslationUtils.toDate(accountInfo.getCreatedAt()),
-                TranslationUtils.toDate(accountInfo.getUpgradedAt()),
-                TranslationUtils.toDate(accountInfo.getUpdatedAt()), accountInfo.getLimits(),
-                PolicyAdapter.mapList(accountInfo.getPolicies()), accountInfo.getTemplateId(), accountInfo.getReason());
+                                            accountInfo.getCustomerNumber(), accountInfo.getSalesContact(),
+                                            accountInfo.getContractNumber(), accountInfo.getReferenceNote(),
+                                            accountInfo.getTier(), TranslationUtils.toDate(accountInfo.getCreatedAt()),
+                                            TranslationUtils.toDate(accountInfo.getUpgradedAt()),
+                                            TranslationUtils.toDate(accountInfo.getUpdatedAt()),
+                                            accountInfo.getLimits(), PolicyAdapter.mapList(accountInfo.getPolicies()),
+                                            accountInfo.getTemplateId(), accountInfo.getReason());
         account.setDisplayName(accountInfo.getDisplayName());
         account.setContact(accountInfo.getContact());
         account.setCompany(accountInfo.getCompany());
@@ -50,8 +51,8 @@ public final class AccountAdapter {
         account.setCountry(accountInfo.getCountry());
         account.setEmail(accountInfo.getEmail());
         account.setAliases(accountInfo.getAliases());
-        account.setExpiryWarning(
-                TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(), Account.DEFAULT_EXPIRY_WARNING));
+        account.setExpiryWarning(TranslationUtils.toLong(accountInfo.getExpirationWarningThreshold(),
+                                                         Account.DEFAULT_EXPIRY_WARNING));
         account.setMultifactorAuthenticationStatus(toMultifactorAuthenticationStatus(accountInfo.getMfaStatus()));
         account.setNotificationEmails(accountInfo.getNotificationEmails());
         return account;
@@ -108,8 +109,8 @@ public final class AccountAdapter {
         return MultifactorAuthenticationStatus.getUnknownEnum();
     }
 
-    private static AccountUpdateReq.MfaStatusEnum toMfaStatus(
-            MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
+    private static AccountUpdateReq.MfaStatusEnum
+            toMfaStatus(MultifactorAuthenticationStatus multifactorAuthenticationStatus) {
         if (multifactorAuthenticationStatus == null) {
             return null;
         }

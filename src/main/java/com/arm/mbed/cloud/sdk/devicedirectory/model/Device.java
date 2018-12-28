@@ -154,7 +154,7 @@ public class Device implements SdkModel {
     @Internal
     public Device(String id, String accountId, Date createdAt, Date updatedAt, Date claimedAt, Date manifestTimestamp) {
         this(id, accountId, createdAt, updatedAt, claimedAt, manifestTimestamp, null, null, null, null, null, null,
-                null, null, null, null, null, null, null, null, null, null, null, null, null);
+             null, null, null, null, null, null, null, null, null, null, null, null, null);
 
     }
 
@@ -169,11 +169,11 @@ public class Device implements SdkModel {
     @Internal
     protected Device(@NonNull Device device) {
         this(device.id, device.accountId, device.createdAt, device.updatedAt, device.claimedAt,
-                device.manifestTimestamp, device.certificateIssuerId, device.certificateFingerprint, device.name,
-                device.alias, device.description, device.deviceType, device.hostGateway, device.customAttributes,
-                device.state, device.deviceClass, device.deviceExecutionMode, device.serialNumber, device.vendorId,
-                device.connectorCertificateExpiration, device.bootstrapCertificateExpiration,
-                device.bootstrappedTimestamp, device.mechanism, device.mechanismUrl, device.firmwareChecksum);
+             device.manifestTimestamp, device.certificateIssuerId, device.certificateFingerprint, device.name,
+             device.alias, device.description, device.deviceType, device.hostGateway, device.customAttributes,
+             device.state, device.deviceClass, device.deviceExecutionMode, device.serialNumber, device.vendorId,
+             device.connectorCertificateExpiration, device.bootstrapCertificateExpiration, device.bootstrappedTimestamp,
+             device.mechanism, device.mechanismUrl, device.firmwareChecksum);
     }
 
     /**
@@ -234,11 +234,11 @@ public class Device implements SdkModel {
      */
     @Internal
     public Device(String id, String accountId, Date createdAt, Date updatedAt, Date claimedAt, Date manifestTimestamp,
-            String certificateIssuerId, String certificateFingerprint, String name, String alias, String description,
-            String deviceType, String hostGateway, Map<String, String> customAttributes, DeviceState state,
-            String deviceClass, Integer deviceExecutionMode, String serialNumber, String vendorId,
-            Date connectorCertificateExpiration, Date bootstrapCertificateExpiration, Date bootstrappedTimestamp,
-            MechanismType mechanism, URL mechanismUrl, String firmwareChecksum) {
+                  String certificateIssuerId, String certificateFingerprint, String name, String alias,
+                  String description, String deviceType, String hostGateway, Map<String, String> customAttributes,
+                  DeviceState state, String deviceClass, Integer deviceExecutionMode, String serialNumber,
+                  String vendorId, Date connectorCertificateExpiration, Date bootstrapCertificateExpiration,
+                  Date bootstrappedTimestamp, MechanismType mechanism, URL mechanismUrl, String firmwareChecksum) {
         super();
         this.id = id;
         this.accountId = accountId;
@@ -774,15 +774,15 @@ public class Device implements SdkModel {
     @Override
     public String toString() {
         return "Device [id=" + id + ", accountId=" + accountId + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt
-                + ", claimedAt=" + claimedAt + ", manifestTimestamp=" + manifestTimestamp + ", certificateIssuerId="
-                + certificateIssuerId + ", certificateFingerprint=" + certificateFingerprint + ", name=" + name
-                + ", alias=" + alias + ", description=" + description + ", deviceType=" + deviceType + ", hostGateway="
-                + hostGateway + ", customAttributes=" + customAttributes + ", state=" + state + ", deviceClass="
-                + deviceClass + ", deviceExecutionMode=" + deviceExecutionMode + ", serialNumber=" + serialNumber
-                + ", vendorId=" + vendorId + ", connectorCertificateExpiration=" + connectorCertificateExpiration
-                + ", bootstrapCertificateExpiration=" + bootstrapCertificateExpiration + ", bootstrappedTimestamp="
-                + bootstrappedTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl
-                + ", firmwareChecksum=" + firmwareChecksum + "]";
+               + ", claimedAt=" + claimedAt + ", manifestTimestamp=" + manifestTimestamp + ", certificateIssuerId="
+               + certificateIssuerId + ", certificateFingerprint=" + certificateFingerprint + ", name=" + name
+               + ", alias=" + alias + ", description=" + description + ", deviceType=" + deviceType + ", hostGateway="
+               + hostGateway + ", customAttributes=" + customAttributes + ", state=" + state + ", deviceClass="
+               + deviceClass + ", deviceExecutionMode=" + deviceExecutionMode + ", serialNumber=" + serialNumber
+               + ", vendorId=" + vendorId + ", connectorCertificateExpiration=" + connectorCertificateExpiration
+               + ", bootstrapCertificateExpiration=" + bootstrapCertificateExpiration + ", bootstrappedTimestamp="
+               + bootstrappedTimestamp + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl
+               + ", firmwareChecksum=" + firmwareChecksum + "]";
     }
 
 }

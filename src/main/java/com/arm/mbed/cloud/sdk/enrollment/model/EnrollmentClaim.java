@@ -71,7 +71,7 @@ public class EnrollmentClaim implements SdkModel {
      */
     @Internal
     public EnrollmentClaim(String id, Date createdAt, Date claimedAt, Date expiresAt, String accountId, String deviceId,
-            String identity) {
+                           String identity) {
         this(id, createdAt, claimedAt, expiresAt, accountId, deviceId);
         setClaimId(identity);
     }
@@ -96,7 +96,7 @@ public class EnrollmentClaim implements SdkModel {
      */
     @Internal
     public EnrollmentClaim(String id, Date createdAt, Date claimedAt, Date expiresAt, String accountId,
-            String deviceId) {
+                           String deviceId) {
         super();
         setId(id);
         this.createdAt = createdAt;
@@ -249,7 +249,7 @@ public class EnrollmentClaim implements SdkModel {
     @Override
     public String toString() {
         return "EnrollmentClaim [id=" + id + ", createdAt=" + createdAt + ", claimedAt=" + claimedAt + ", expiresAt="
-                + expiresAt + ", claimId=" + claimId + ", accountId=" + accountId + ", deviceId=" + deviceId + "]";
+               + expiresAt + ", claimId=" + claimId + ", accountId=" + accountId + ", deviceId=" + deviceId + "]";
     }
 
 }

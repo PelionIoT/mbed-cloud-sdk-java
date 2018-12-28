@@ -21,7 +21,7 @@ buildscript {
         classpath 'gradle.plugin.nl.javadude.gradle.plugins:license-gradle-plugin:0.14.0'
         classpath "gradle.plugin.com.github.spotbugs:spotbugs-gradle-plugin:1.6.+"
         classpath 'org.walkmod:gradle-walkmod-plugin:0.0.+'
-        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.16.0'        
+        classpath 'com.diffplug.spotless:spotless-plugin-gradle:3.16.0'
     }
 }
 
@@ -47,19 +47,19 @@ repositories {
 
 def projectToExclude = ['lwm2m', 'backends', 'annotations'].collect{it.toLowerCase()}
 allprojects {
-	buildscript {
-	    repositories {
-	        jcenter()
-	        mavenCentral()
-	        maven {
-	            url "https://plugins.gradle.org/m2/"
-	        }
-	    }
+    buildscript {
+        repositories {
+            jcenter()
+            mavenCentral()
+            maven {
+                url "https://plugins.gradle.org/m2/"
+            }
+        }
     }
     repositories {
-	    jcenter()
-	    mavenCentral()
-	}
+        jcenter()
+        mavenCentral()
+    }
     apply plugin: 'eclipse'
     apply plugin: 'idea'
     apply plugin: 'java-library'
@@ -95,8 +95,8 @@ allprojects {
         sourceSets = [sourceSets.main]
         ignoreFailures = false
     }
-    
-    
+
+
     def isInExcludeList = projectToExclude.findAll{ex -> project.path.toLowerCase().contains(ex)}.size() != 0
 
     if  (! isInExcludeList){
@@ -135,8 +135,8 @@ allprojects {
         }
     }
     compileJava.dependsOn info
-    
-    tasks.withType(JavaCompile) { 
+
+    tasks.withType(JavaCompile) {
         if ( options.compilerArgs == null || !options.compilerArgs.contains("-deprecation")){
             options.compilerArgs += ["-deprecation"]
         }
@@ -147,17 +147,17 @@ allprojects {
         options.encoding = "UTF-8"
         if (name == 'compileJava') {
             sourceCompatibility JavaVersion.VERSION_1_7.toString()
-            targetCompatibility JavaVersion.VERSION_1_7.toString()        
+            targetCompatibility JavaVersion.VERSION_1_7.toString()
         }
         if (name == 'compileTestJava'){
             sourceCompatibility JavaVersion.VERSION_1_8.toString()
-            targetCompatibility JavaVersion.VERSION_1_8.toString()        
+            targetCompatibility JavaVersion.VERSION_1_8.toString()
             if ( options.compilerArgs == null || !options.compilerArgs.contains("-g")){
                 options.compilerArgs += ["-g"]
             }
         }
         doFirst {
-                //println  options.dump()            
+                //println  options.dump()
                 println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
         }
     }
@@ -183,7 +183,7 @@ allprojects {
             }
         }
     }
-    
+
     if (project != project(':lwm2m') ) {
         task sourcesJar(type: Jar, dependsOn: classes) {
             classifier = 'sources'
@@ -235,7 +235,7 @@ allprojects {
                 }
             }
         }
-        if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){ 
+        if (!project.hasProperty('maven_central_user') || !project.hasProperty('maven_central_password')){
             if(rootProject.hasProperty('maven_central_user') && rootProject.hasProperty('maven_central_password')){
                 project.maven_central_user=rootProject.maven_central_user
                 project.maven_central_password=rootProject.maven_central_password
@@ -259,7 +259,7 @@ allprojects {
                     }
                     labels = ["Mbed","Mbed Cloud","Pelion","Pelion Cloud","Cloud","SDK","Java","IoT"]
                     desc = 'The Pelion Cloud SDK (formerly known as Mbed Cloud SDK) provides a simplified interface to the Pelion Cloud APIs by exposing functionality using conventions and paradigms familiar to Java developers.'
-                    userOrg = 'armmbed'        
+                    userOrg = 'armmbed'
                     licenses = ['Apache-2.0']
                     websiteUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java'
                     issueTrackerUrl = 'https://github.com/ARMmbed/mbed-cloud-sdk-java/issues'
@@ -273,24 +273,24 @@ allprojects {
                         //gpg {
                         //    sign = true //Determines whether to GPG sign the files. The default is false
                         //}
-                        if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){ 
+                        if (project.hasProperty('maven_central_user') && project.hasProperty('maven_central_password')){
                             mavenCentralSync {
                                 sync = true
                                 user = "${maven_central_user}" //OSS user token
                                 password = "${maven_central_password}" //OSS user password
                                 close = '1' // By default the staging repository is closed and artifacts are released to Maven Central. You can optionally turn this behaviour off (by puting 0 as value) and release the version manually.
                             }
-                        }    
+                        }
                     }
                 }
             }
         }
     }
     if  (! isInExcludeList){
-	    def checkStyleConfigFile=new File("$rootProject.projectDir/config/checkstyle/checkstyle.xml").canonicalPath
-		def pmdConfigFile=new File("$rootProject.projectDir/config/pmd/pmd-rules.xml").canonicalPath
-		def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath
-		def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
+        def checkStyleConfigFile=new File("$rootProject.projectDir/config/checkstyle/checkstyle.xml").canonicalPath
+        def pmdConfigFile=new File("$rootProject.projectDir/config/pmd/pmd-rules.xml").canonicalPath
+        def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath
+        def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
         checkstyle {
             toolVersion = '7.2'
             configFile rootProject.file(checkStyleConfigFile)
@@ -368,23 +368,23 @@ allprojects {
             }
         }
         spotless {
-			format 'misc', {
-			    target '**/*.gradle', '**/*.md', '**/.gitignore'
-			    indentWithSpaces()
-			    trimTrailingWhitespace()
-			    endWithNewline()
-			}
-			java {
-				removeUnusedImports() // removes any unused imports
-				eclipse().configFile "${eclipseConfigFile}"
-				encoding 'Cp1252' // java will have Cp1252
-			}
-		}		
-		walkmod {
-		  chains = [ 'pmd' , 'override']
-		  verbose = true
-		  //properties = "configurationFile=\"${pmdConfigFile}\""
-		}
+            format 'misc', {
+                target '**/*.gradle', '**/*.md', '**/.gitignore'
+                indentWithSpaces()
+                trimTrailingWhitespace()
+                endWithNewline()
+            }
+            java {
+                removeUnusedImports() // removes any unused imports
+                eclipse().configFile "${eclipseConfigFile}"
+                encoding 'Cp1252' // java will have Cp1252
+            }
+        }
+        walkmod {
+          chains = [ 'pmd' , 'override']
+          verbose = true
+          //properties = "configurationFile=\"${pmdConfigFile}\""
+        }
     }
 }
 
@@ -436,7 +436,7 @@ dependencies {
     spotbugsPlugins 'com.h3xstream.findsecbugs:findsecbugs-plugin:1.7.1'
 }
 
-def setJavadocOptions = { options, toProject -> 
+def setJavadocOptions = { options, toProject ->
   options.overview = "src/main/javadoc/overview.html"
     // Add --allow-script-in-comments if available (since 1.8.0_121) see related issue https://github.com/gradle/gradle/issues/1393
     try {
@@ -492,15 +492,15 @@ def disableJavadoc = {
 disableJavadoc()
 
 task aggregateJavadocs(type: Javadoc) {
-	// Based on Nebula implementation: https://github.com/nebula-plugins/gradle-aggregate-javadocs-plugin/
-	def projectionsToAggregateJavadoc = allprojects.findAll{p ->  projectToExcludeJavadoc.findAll{ex -> p.path.toLowerCase().contains(ex)}.size() == 0}
+    // Based on Nebula implementation: https://github.com/nebula-plugins/gradle-aggregate-javadocs-plugin/
+    def projectionsToAggregateJavadoc = allprojects.findAll{p ->  projectToExcludeJavadoc.findAll{ex -> p.path.toLowerCase().contains(ex)}.size() == 0}
     description 'Aggregates Javadoc API documentation of all projects'
     group 'Documentation'
     dependsOn projectionsToAggregateJavadoc.javadoc
     setJavadocOptions(options,rootProject)
     source projectionsToAggregateJavadoc.javadoc.source
     destinationDir rootProject.file("$buildDir/docs/javadoc")
-	classpath = rootProject.files(projectionsToAggregateJavadoc.javadoc.classpath)
+    classpath = rootProject.files(projectionsToAggregateJavadoc.javadoc.classpath)
 }
 
 javadoc {
@@ -545,7 +545,7 @@ downloadLicenses {
     includeProjectDependencies = true
     reportByDependencyFileName='tpip-report'
     reportByLicenseFileName ='used-licences'
-    
+
     licenses = [
         (group( project(':lwm2m').group)) : apacheTwo,
         (group( 'com.arm.mbed.cloud')) : apacheTwo,
@@ -673,11 +673,11 @@ if (project.hasProperty('artifactory_contextUrl')){
             defaults {
                 //List of Gradle Publications (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
                 publications('mavenJava')
-                ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory. 
+                ////List of Gradle Configurations (names or objects) from which to collect the list of artifacts to be deployed to Artifactory.
                 publishConfigs('archives')
                 publishBuildInfo = true   //Publish build-info to Artifactory.
                 publishArtifacts = true   //Publish artifacts to Artifactory.
-                publishPom = true   //Publish generated POM files to Artifactory.                
+                publishPom = true   //Publish generated POM files to Artifactory.
             }
         }
     }

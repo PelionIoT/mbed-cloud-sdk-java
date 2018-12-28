@@ -158,10 +158,11 @@ public class Metric implements SdkModel {
      */
     @Internal
     public Metric(String id, Date timestamp, long transactions, long successfulApiCalls, long failedApiCalls,
-            long successfulHandshakes, long pendingBootstraps, long successfulBootstraps, long failedBootstraps,
-            long registrations, long updatedRegistrations, long expiredRegistrations, long deletedRegistrations,
-            long successfulDeviceProxyRequests, long failedDeviceProxyRequests,
-            long successfulDeviceSubscriptionRequests, long failedDeviceSubscriptionRequests, long deviceObservations) {
+                  long successfulHandshakes, long pendingBootstraps, long successfulBootstraps, long failedBootstraps,
+                  long registrations, long updatedRegistrations, long expiredRegistrations, long deletedRegistrations,
+                  long successfulDeviceProxyRequests, long failedDeviceProxyRequests,
+                  long successfulDeviceSubscriptionRequests, long failedDeviceSubscriptionRequests,
+                  long deviceObservations) {
         super();
         setId(id);
         this.timestamp = timestamp;
@@ -373,9 +374,10 @@ public class Metric implements SdkModel {
     @Override
     public Metric clone() {
         return new Metric(id, timestamp, transactions, successfulApiCalls, failedApiCalls, handshakes,
-                pendingBootstraps, successfulBootstraps, failedBootstraps, fullRegistrations, updatedRegistrations,
-                expiredRegistrations, deletedRegistrations, successfulProxyRequests, failedProxyRequests,
-                successfulSubscriptionRequests, failedSubscriptionRequests, observations);
+                          pendingBootstraps, successfulBootstraps, failedBootstraps, fullRegistrations,
+                          updatedRegistrations, expiredRegistrations, deletedRegistrations, successfulProxyRequests,
+                          failedProxyRequests, successfulSubscriptionRequests, failedSubscriptionRequests,
+                          observations);
     }
 
     /**
@@ -396,14 +398,14 @@ public class Metric implements SdkModel {
     @Override
     public String toString() {
         return "Metric [id=" + id + ", timestamp=" + timestamp + ", transactions=" + transactions
-                + ", successfulApiCalls=" + successfulApiCalls + ", failedApiCalls=" + failedApiCalls + ", handshakes="
-                + handshakes + ", pendingBootstraps=" + pendingBootstraps + ", successfulBootstraps="
-                + successfulBootstraps + ", failedBootstraps=" + failedBootstraps + ", fullRegistrations="
-                + fullRegistrations + ", updatedRegistrations=" + updatedRegistrations + ", expiredRegistrations="
-                + expiredRegistrations + ", deletedRegistrations=" + deletedRegistrations + ", successfulProxyRequests="
-                + successfulProxyRequests + ", failedProxyRequests=" + failedProxyRequests
-                + ", successfulSubscriptionRequests=" + successfulSubscriptionRequests + ", failedSubscriptionRequests="
-                + failedSubscriptionRequests + ", observations=" + observations + "]";
+               + ", successfulApiCalls=" + successfulApiCalls + ", failedApiCalls=" + failedApiCalls + ", handshakes="
+               + handshakes + ", pendingBootstraps=" + pendingBootstraps + ", successfulBootstraps="
+               + successfulBootstraps + ", failedBootstraps=" + failedBootstraps + ", fullRegistrations="
+               + fullRegistrations + ", updatedRegistrations=" + updatedRegistrations + ", expiredRegistrations="
+               + expiredRegistrations + ", deletedRegistrations=" + deletedRegistrations + ", successfulProxyRequests="
+               + successfulProxyRequests + ", failedProxyRequests=" + failedProxyRequests
+               + ", successfulSubscriptionRequests=" + successfulSubscriptionRequests + ", failedSubscriptionRequests="
+               + failedSubscriptionRequests + ", observations=" + observations + "]";
     }
 
 }

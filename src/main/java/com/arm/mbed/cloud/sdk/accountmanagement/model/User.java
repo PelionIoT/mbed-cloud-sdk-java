@@ -137,10 +137,10 @@ public class User implements SdkModel {
      */
     @Internal
     public User(String id, String accountId, List<String> groups, UserStatus status, boolean isEmailVerified,
-            Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
-            boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
+                Date createdAt, long creationTime, long passwordChangedTime, long lastLoginTime,
+                boolean twoFactorAuthentication, List<LoginHistory> loginHistory) {
         this(id, accountId, null, null, null, null, null, null, true, true, groups, status, isEmailVerified, createdAt,
-                twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime);
+             twoFactorAuthentication, loginHistory, creationTime, passwordChangedTime, lastLoginTime);
     }
 
     /**
@@ -189,10 +189,10 @@ public class User implements SdkModel {
      */
     @Internal
     protected User(String id, String accountId, String fullName, String username, String password, String email,
-            String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
-            List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
-            boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
-            long passwordChangedTime, long lastLoginTime) {
+                   String phoneNumber, String address, boolean areTermsAccepted, boolean isMarketingAccepted,
+                   List<String> groups, UserStatus status, boolean isEmailVerified, Date createdAt,
+                   boolean twoFactorAuthentication, List<LoginHistory> loginHistory, long creationTime,
+                   long passwordChangedTime, long lastLoginTime) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -550,8 +550,8 @@ public class User implements SdkModel {
     @Override
     public User clone() {
         return new User(id, accountId, fullName, username, password, email, phoneNumber, address, areTermsAccepted,
-                isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication, loginHistory,
-                creationTime, passwordChangedTime, lastLoginTime);
+                        isMarketingAccepted, groups, status, isEmailVerified, createdAt, twoFactorAuthentication,
+                        loginHistory, creationTime, passwordChangedTime, lastLoginTime);
     }
 
     /**
@@ -572,12 +572,12 @@ public class User implements SdkModel {
     @Override
     public String toString() {
         return "User [id=" + id + ", accountId=" + accountId + ", fullName=" + fullName + ", username=" + username
-                + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address="
-                + address + ", areTermsAccepted=" + areTermsAccepted + ", isMarketingAccepted=" + isMarketingAccepted
-                + ", groups=" + groups + ", status=" + status + ", isEmailVerified=" + isEmailVerified + ", createdAt="
-                + createdAt + ", twoFactorAuthentication=" + twoFactorAuthentication + ", loginHistory=" + loginHistory
-                + ", creationTime=" + creationTime + ", passwordChangedTime=" + passwordChangedTime + ", lastLoginTime="
-                + lastLoginTime + "]";
+               + ", password=" + password + ", email=" + email + ", phoneNumber=" + phoneNumber + ", address=" + address
+               + ", areTermsAccepted=" + areTermsAccepted + ", isMarketingAccepted=" + isMarketingAccepted + ", groups="
+               + groups + ", status=" + status + ", isEmailVerified=" + isEmailVerified + ", createdAt=" + createdAt
+               + ", twoFactorAuthentication=" + twoFactorAuthentication + ", loginHistory=" + loginHistory
+               + ", creationTime=" + creationTime + ", passwordChangedTime=" + passwordChangedTime + ", lastLoginTime="
+               + lastLoginTime + "]";
     }
 
 }

@@ -52,9 +52,11 @@ public final class CampaignAdapter {
             return null;
         }
         final Campaign updateCampaign = new Campaign(campaign.getId(), campaign.getPhase(),
-                TranslationUtils.toUrl(campaign.getRootManifestUrl()), TranslationUtils.toDate(campaign.getCreatedAt()),
-                TranslationUtils.toDate(campaign.getStartedAt()), TranslationUtils.toDate(campaign.getFinished()),
-                TranslationUtils.toDate(campaign.getUpdatedAt()));
+                                                     TranslationUtils.toUrl(campaign.getRootManifestUrl()),
+                                                     TranslationUtils.toDate(campaign.getCreatedAt()),
+                                                     TranslationUtils.toDate(campaign.getStartedAt()),
+                                                     TranslationUtils.toDate(campaign.getFinished()),
+                                                     TranslationUtils.toDate(campaign.getUpdatedAt()));
         updateCampaign.setDescription(campaign.getDescription());
         updateCampaign.setManifestId(campaign.getRootManifestId());
         updateCampaign.setName(campaign.getName());

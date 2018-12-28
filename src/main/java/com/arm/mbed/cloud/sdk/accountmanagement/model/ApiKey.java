@@ -86,7 +86,7 @@ public class ApiKey implements SdkModel {
      */
     @Internal
     public ApiKey(String id, String name, String ownerId, List<String> groups, ApiKeyStatus status, String key,
-            Date createdAt, long creationTime, long lastLoginTime) {
+                  Date createdAt, long creationTime, long lastLoginTime) {
         super();
         setId(id);
         this.key = key;
@@ -343,8 +343,8 @@ public class ApiKey implements SdkModel {
     @Override
     public String toString() {
         return "ApiKey [id=" + id + ", name=" + name + ", ownerId=" + ownerId + ", groups=" + groups + ", status="
-                + status + ", key=" + key + ", createdAt=" + createdAt + ", creationTime=" + creationTime
-                + ", lastLoginTime=" + lastLoginTime + "]";
+               + status + ", key=" + key + ", createdAt=" + createdAt + ", creationTime=" + creationTime
+               + ", lastLoginTime=" + lastLoginTime + "]";
     }
 
 }

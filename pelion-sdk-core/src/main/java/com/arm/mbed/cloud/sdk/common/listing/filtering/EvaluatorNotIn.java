@@ -17,7 +17,7 @@ public class EvaluatorNotIn implements FilterEvaluator {
         }
         try {
             final List<?> filterValues = filter.getValue() instanceof List ? (List<?>) filter.getValue()
-                    : Arrays.asList(filter.getValue());
+                                                                           : Arrays.asList(filter.getValue());
             return !EvaluatorIn.verify(value, filterValues);
         } catch (Exception exception) {
             return false;

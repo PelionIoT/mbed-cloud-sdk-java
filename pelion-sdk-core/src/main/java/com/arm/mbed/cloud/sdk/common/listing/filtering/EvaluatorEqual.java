@@ -29,17 +29,17 @@ public class EvaluatorEqual implements FilterEvaluator {
                 return false;
             }
             if (filterValue instanceof Long || filterValue instanceof Integer || filterValue instanceof Byte
-                    || filterValue instanceof Short) {
+                || filterValue instanceof Short) {
                 if (!(value instanceof Double || value instanceof Float)) {
                     return Long.valueOf(((Number) filterValue).longValue())
-                            .equals(Long.valueOf(((Number) value).longValue()));
+                               .equals(Long.valueOf(((Number) value).longValue()));
                 }
                 return Double.valueOf(((Number) filterValue).doubleValue())
-                        .equals(Double.valueOf(((Number) value).doubleValue()));
+                             .equals(Double.valueOf(((Number) value).doubleValue()));
             }
             if (filterValue instanceof Double || filterValue instanceof Float) {
                 return Double.valueOf(((Number) filterValue).doubleValue())
-                        .equals(Double.valueOf(((Number) value).doubleValue()));
+                             .equals(Double.valueOf(((Number) value).doubleValue()));
             }
         }
         return filterValue.equals(value);

@@ -70,7 +70,7 @@ public class Group implements SdkModel {
      */
     @Internal
     public Group(String id, String accountId, String name, long userCount, long apiKeyCount, Date createdAt,
-            Date updatedAt) {
+                 Date updatedAt) {
         super();
         setId(id);
         this.accountId = accountId;
@@ -206,7 +206,7 @@ public class Group implements SdkModel {
     @Override
     public String toString() {
         return "Group [id=" + id + ", accountId=" + accountId + ", name=" + name + ", userCount=" + userCount
-                + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
+               + ", apiKeyCount=" + apiKeyCount + ", createdAt=" + createdAt + ", updatedAt=" + updatedAt + "]";
     }
 
 }

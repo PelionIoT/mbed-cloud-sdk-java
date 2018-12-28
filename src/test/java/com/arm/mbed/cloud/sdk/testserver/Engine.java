@@ -87,12 +87,13 @@ public class Engine {
         return (module == null) ? null : module.fetchAllMethod();
     }
 
-    public ModuleInstance createInstance(String moduleId, ConnectionOptions config)
-            throws ServerCacheException, UnknownAPIException {
+    public ModuleInstance createInstance(String moduleId, ConnectionOptions config) throws ServerCacheException,
+                                                                                    UnknownAPIException {
         logger.logInfo("Creating an instance of SDK module [" + moduleId + "]");
         String javaModuleId = ApiUtils.convertSnakeToCamel(moduleId, true);
         ModuleInstance instance = new ModuleInstance(javaModuleId,
-                createAnApiCaller().retrieveModuleDescription(javaModuleId), config);
+                                                     createAnApiCaller().retrieveModuleDescription(javaModuleId),
+                                                     config);
         logger.logInfo("Host in use: " + instance.getHostInUse());
         checkInstanceValidity(instance);
         cache.storeInstance(instance);
@@ -112,12 +113,13 @@ public class Engine {
         return true;
     }
 
-    public APIMethodResult callAPIOnInstance(String instanceId, String methodId, Map<String, Object> params)
-            throws ServerCacheException, UnknownAPIException, APICallException {
+    public APIMethodResult callAPIOnInstance(String instanceId, String methodId,
+                                             Map<String, Object> params) throws ServerCacheException,
+                                                                         UnknownAPIException, APICallException {
         logger.logInfo("CALLING " + String.valueOf(methodId) + " ON " + String.valueOf(instanceId) + " USING "
-                + String.valueOf(toString(params)));
+                       + String.valueOf(toString(params)));
         return createAnApiCaller().callAPIOnModuleInstance(retrieveInstance(instanceId),
-                ApiUtils.convertSnakeToCamel(methodId, false), params);
+                                                           ApiUtils.convertSnakeToCamel(methodId, false), params);
     }
 
     private void stopInstanceDaemons(String instanceId) throws ServerCacheException, MissingInstanceException {
