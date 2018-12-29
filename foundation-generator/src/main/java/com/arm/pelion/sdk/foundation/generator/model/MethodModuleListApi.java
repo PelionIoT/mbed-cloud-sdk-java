@@ -20,10 +20,18 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                                List<Parameter> methodParameters, List<Parameter> allParameters,
                                Renames parameterRenames, Method lowLevelMethod, boolean enforceModelValidity) {
         super(currentModel, adapterFetcher, name, description, longDescription, needsCustomCode, endpoints,
-              endpointVariableName, lowLevelModule, methodParameters, allParameters, parameterRenames, lowLevelMethod,
-              enforceModelValidity);
+              endpointVariableName, lowLevelModule, methodParameters, allParameters, extendRenames(parameterRenames),
+              lowLevelMethod, enforceModelValidity);
         this.isPaginatedList = isPaginatedList;
         this.fetcher = listOptionsFetcher;
+    }
+
+    private static Renames extendRenames(Renames parameterRenames) {
+        if (parameterRenames == null) {
+            return null;
+        }
+        parameterRenames.addEntry(ListOptions.FIELD_NAME_FORMER_PAGESIZE, ListOptions.FIELD_NAME_PAGESIZE);
+        return parameterRenames;
     }
 
     @Override
@@ -108,6 +116,9 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                         callElements.add(generateFinalVariable(PARAMETER_NAME_OPTIONS));
                         callElements.add(MethodGetter.getCorrespondingGetterMethodName(parameterName,
                                                                                        type.isBoolean()));
+                        if (parameterName.equals(ListOptions.FIELD_NAME_ORDER)) {
+                            builder.append(".toString()");
+                        }
                 }
             } else {
                 super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);

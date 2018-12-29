@@ -99,13 +99,13 @@ public class ModelAdapter extends Model {
             final String fromFieldName = renames != null
                                          && renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                     : toFieldName;
+
             final Field fromField = from.fetchField(fromFieldName);
             if (fromField == null) {
                 continue;
             }
             final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
             if (fromFieldType.isEnum() || fromFieldType.isModelEnum() || fType.isEnum() || fType.isModelEnum()) {
-
                 addConversion(new Conversion(fromFieldType.isModelEnum() ? fetcher.fetchModel(fromFieldType)
                                                                          : new Model(fromField.getType().getClazz(),
                                                                                      fromField.getType()),
@@ -174,7 +174,7 @@ public class ModelAdapter extends Model {
         }
 
         public String getIdentifier() {
-            return to.getIdentifier();
+            return to.getIdentifier() + "#" + from.getIdentifier();
         }
 
         public Model getFrom() {

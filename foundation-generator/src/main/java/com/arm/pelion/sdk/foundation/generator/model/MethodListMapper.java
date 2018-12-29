@@ -56,7 +56,7 @@ public class MethodListMapper extends MethodMapper {
         }
         code.addStatement("final $T $L = $L", tempType.hasClass() ? tempType.getClazz() : tempType.getTypeName(),
                           localVariable1, respListDef.build());
-        code.addStatement("return $T.$L($L,$T.$L()", GenericAdapter.class, GenericAdapter.MAP_LIST_FUNCTION_NAME,
+        code.addStatement("return $T.$L($L,$T.$L())", GenericAdapter.class, GenericAdapter.MAP_LIST_FUNCTION_NAME,
                           localVariable1, adapterType.getTypeName(), getMapperMethodName);
     }
 
@@ -79,9 +79,20 @@ public class MethodListMapper extends MethodMapper {
             final java.lang.reflect.Method correspondingMethod = sourceClass == null ? null
                                                                                      : sourceClass.getDeclaredMethod(MethodGetter.getCorrespondingGetterMethodName(fieldName,
                                                                                                                                                                    isBoolean));
-
-            method.getCode().addStatement("return ($L == null) ? null : $L.$L()", localVariableFrom, localVariableFrom,
-                                          correspondingMethod.getName());
+            final TypeParameter lowLevelReturnType = TypeFactory.getCorrespondingType(correspondingMethod.getReturnType());
+            lowLevelReturnType.translate();
+            if (!lowLevelReturnType.equals(returnType) && !lowLevelReturnType.isComposed()) {
+                if (returnType.isString()) {
+                    method.getCode().addStatement("return ($L == null) ? null : $L.$L().toString()", localVariableFrom,
+                                                  localVariableFrom, correspondingMethod.getName());
+                } else {
+                    throw new TranslationException("Mapper error: Cannot convert " + lowLevelReturnType + " into "
+                                                   + returnType);
+                }
+            } else {
+                method.getCode().addStatement("return ($L == null) ? null : $L.$L()", localVariableFrom,
+                                              localVariableFrom, correspondingMethod.getName());
+            }
         } catch (NoSuchMethodException | SecurityException | NullPointerException exception) {
             if (isBoolean) {
                 method.getCode().addStatement("return false");

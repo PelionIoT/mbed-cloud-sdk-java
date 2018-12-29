@@ -169,10 +169,15 @@ public class TypeParameter implements Artifact {
     public String getShortName() {
         try {
             translate();
-            return hasClazz() ? getClazz().getSimpleName() : importPath.getName();
+            return hasClazz() ? getClassSimpleName() : importPath.getName();
         } catch (TranslationException exception) {
             return "";
         }
+    }
+
+    private String getClassSimpleName() {
+        return (getClazz().isMemberClass() ? getClazz().getEnclosingClass().getSimpleName() + "_" : "")
+               + getClazz().getSimpleName();
     }
 
     public String getFullyQualifiedName() {
@@ -426,6 +431,10 @@ public class TypeParameter implements Artifact {
     }
 
     public boolean isGeneric() {
+        return false;
+    }
+
+    public boolean isComposed() {
         return false;
     }
 

@@ -115,6 +115,11 @@ public abstract class TypeCompose extends TypeParameter {
     }
 
     @Override
+    public boolean isComposed() {
+        return true;
+    }
+
+    @Override
     public String getShortName() {
         return getCollectionClass().getSimpleName();
     }

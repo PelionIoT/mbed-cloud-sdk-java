@@ -13,7 +13,7 @@ public class ModelEndpoints extends ModelMergeable {
     }
 
     private static String generateDescription(String group, String description) {
-        return description == null ? "Endpoints for " + group + " API module" : description;
+        return description == null ? "Endpoints for " + group + " APIs module" : description;
     }
 
     public static String generateName(String group) {

@@ -85,7 +85,6 @@ public class Model extends AbstractSdkArtifact {
         setGroup(group);
         setSuperClassType(null);
         this.concreteType = concreteType;
-
     }
 
     public Model() {

@@ -21,7 +21,7 @@ public class GeneratorCli implements Runnable {
 
     static final String COMMAND_TITLE = "foundation-generator";
 
-    private static final String OUTPUT_PROJECT = "generate";// "mbed-cloud-sdk-java";
+    private static final String OUTPUT_PROJECT = null;// "generate";// "mbed-cloud-sdk-java";
     @Option(names = { "-c", "--config" }, paramLabel = "<GENERATOR_CONFIG>",
             description = "generator configuration file")
     private File config;
@@ -147,8 +147,9 @@ public class GeneratorCli implements Runnable {
             throw new FoundationGeneratorException(new IllegalArgumentException("Project top directory is invalid: "
                                                                                 + top));
         }
-        final File project = new File(top, projectName);
-        if (projectName == null || !project.exists() || !project.isDirectory()) {
+
+        final File project = projectName == null ? top : new File(top, projectName);
+        if (!project.exists() || !project.isDirectory()) {
             throw new FoundationGeneratorException(new IllegalArgumentException("Project directory is invalid: "
                                                                                 + project));
         }

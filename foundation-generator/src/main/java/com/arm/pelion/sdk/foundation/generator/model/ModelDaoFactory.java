@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.dao.AbstractCloudDao;
 import com.arm.mbed.cloud.sdk.common.dao.DaoProvider;
@@ -66,6 +67,7 @@ public class ModelDaoFactory extends Model {
         final Method daoGetter = new Method(false, MethodGetter.getCorrespondingGetterMethodName(dao.getName(), false),
                                             "Gets " + Utils.generateDocumentationString(dao.getName()), null, false,
                                             true, false, false, false, false, false, false);
+        daoGetter.addException(MbedCloudException.class);
         TypeParameter daoType = dao.toType();
         try {
             daoType.translate();
