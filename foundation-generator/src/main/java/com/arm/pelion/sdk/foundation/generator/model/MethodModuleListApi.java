@@ -114,8 +114,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                     default:
                         builder.append("$L.$L()");
                         callElements.add(generateFinalVariable(PARAMETER_NAME_OPTIONS));
-                        callElements.add(MethodGetter.getCorrespondingGetterMethodName(parameterName,
-                                                                                       type.isBoolean()));
+                        callElements.add(MethodGetter.getCorrespondingGetterMethodName(parameterName, type.isBoolean(),
+                                                                                       false));
                         if (parameterName.equals(ListOptions.FIELD_NAME_ORDER)) {
                             builder.append(".toString()");
                         }

@@ -59,7 +59,8 @@ public class ModelDaoList extends ModelDao {
     }
 
     @Override
-    protected void generateMethodCodeAndReturnType(Method moduleMethod, final MethodOverloaded method) {
+    protected void generateMethodCodeAndReturnType(Method moduleMethod, MethodOverloaded method,
+                                                   TypeParameter moduleType) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
 
@@ -71,8 +72,16 @@ public class ModelDaoList extends ModelDao {
         }
         method.setReturnDescription("one page of "
                                     + Utils.generateDocumentationString(correspondingModel.getName(), true));
+        method.setAsOverride(true);
         codeFormat.append("return ");
-        codeFormat.append("$L.$L(");
+        codeFormat.append("(($T)$L).$L(");
+        try {
+            moduleType.translate();
+        } catch (TranslationException exception) {
+            // Nothing to do
+            exception.printStackTrace();
+        }
+        values.add(moduleType.hasClass() ? moduleType.getClazz() : moduleType.getTypeName());
         values.add(AbstractModelDao.FIELD_NAME_MODULE);
         values.add(moduleMethod.getName());
         if (moduleMethod.hasParameters()) {
@@ -115,23 +124,23 @@ public class ModelDaoList extends ModelDao {
                                 "return new $T()",
                                 Arrays.asList(listOptionsType.hasClass() ? listOptionsType.getClazz()
                                                                          : listOptionsType.getTypeName()),
-                                Utils.generateDocumentationString(listOptions.getName()));
+                                Utils.generateDocumentationString(listOptions.getName()), false);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_DEFINITION, daoModelClassType,
                                 "return $T.class",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName()),
-                                Utils.generateDocumentationString(correspondingDao.getName()) + " class");
+                                Utils.generateDocumentationString(correspondingDao.getName()) + " class", true);
         addInstantiationMethods(AbstractModelListDao.METHOD_GET_CORRESPONDING_MODEL_DAO_INSTANCE, daoModelType,
                                 "return new $T().$L($L)",
                                 Arrays.asList(daoModelType.hasClass() ? daoModelType.getClazz()
                                                                       : daoModelType.getTypeName(),
                                               AbstractModelListDao.METHOD_CONFIGURE_AND_GET,
                                               AbstractModelListDao.FIELD_NAME_MODULE),
-                                Utils.generateDocumentationString(correspondingDao.getName()));
+                                Utils.generateDocumentationString(correspondingDao.getName()), true);
     }
 
     private void addInstantiationMethods(String methodName, TypeParameter returnType, String format,
-                                         List<Object> values, String description) {
+                                         List<Object> values, String description, boolean setAsUnchecked) {
         final List<java.lang.reflect.Method> classMethods = new LinkedList<>(Arrays.asList(AbstractModelListDao.class.getDeclaredMethods()));
         classMethods.addAll(Arrays.asList(ModelListDao.class.getDeclaredMethods()));
         final List<Method> methods = classMethods.stream().filter(m -> methodName.equals(m.getName())).map(m -> {
@@ -140,6 +149,7 @@ public class ModelDaoList extends ModelDao {
             method.setInternal(true);
             method.setReturnDescription(description);
             method.generateSuffix();
+            method.setUnchecked(setAsUnchecked);
             return method;
         }).collect(Collectors.toList());
         for (Method m : methods) {
@@ -158,4 +168,8 @@ public class ModelDaoList extends ModelDao {
                                 needsCustomCode);
     }
 
+    @Override
+    protected TypeParameter generateSuperInterfaceType(Class<?> superinterface) {
+        return new TypeModelDaoList(listOptions == null ? null : listOptions.toType(), correspondingModel.toType());
+    }
 }

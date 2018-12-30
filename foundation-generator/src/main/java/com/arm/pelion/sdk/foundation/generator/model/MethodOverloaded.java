@@ -15,7 +15,7 @@ public class MethodOverloaded extends Method {
     private static final String REGEX = "^(?<" + RAW_GROUP + ">[\\w$]+)" + OVERLOAD_SEPARATOR + "(?<" + SUFFIX_GROUP
                                         + ">[\\w$]+)$";
     private static final Pattern REGEX_PATTERN = Pattern.compile(REGEX);
-    private String overloadingSuffix;
+    protected String overloadingSuffix;
 
     public MethodOverloaded(boolean isReadOnly, String name, String description, String longDescription,
                             boolean isStatic, boolean isAccessible, boolean isAbstract, boolean containsCustomCode,
@@ -38,7 +38,9 @@ public class MethodOverloaded extends Method {
     }
 
     public void generateSuffix() {
-        overloadingSuffix = generateOverloadSuffix(this);
+        if (overloadingSuffix == null) {
+            overloadingSuffix = generateOverloadSuffix(this);
+        }
     }
 
     public static String generateIdentifier(String methodIdentifier, String overloadingSuffix) {

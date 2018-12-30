@@ -75,13 +75,23 @@ public class Utils {
             }
             build.append(" ");
         }
-        build.append(generateModelNameAsText(modelName));
+        String text = generateModelNameAsText(modelName);
         if (plural) {
             final String processedName = modelName.trim().toLowerCase(Locale.UK);
             if (!processedName.endsWith("s")) {
-                build.append("s");
+                if (processedName.endsWith("y")) {
+                    if (VOWELS.stream().anyMatch(v -> processedName.endsWith(v + "y"))) {
+                        text += "s";
+                    } else {
+                        text = generateModelNameAsText(modelName.trim().substring(0, processedName.length() - 1)
+                                                       + "ies");
+                    }
+                } else {
+                    text += "s";
+                }
             }
         }
+        build.append(text);
         return build.toString();
     }
 
@@ -103,7 +113,7 @@ public class Utils {
             builder.append(model.toType().getFullyQualifiedName());
         }
         if (method != null) {
-            builder.append("#").append(method.generateSignature());
+            builder.append("#").append(method.generateSignatureForDocumentation());
         }
         builder.append("}");
         return builder.toString();

@@ -14,7 +14,7 @@ public class MethodListMapper extends MethodMapper {
 
     public MethodListMapper(String name, String getMapperMethodName, boolean isAccessible, Model currentModel,
                             Model fromTo, Model fromToContent, Model adapterModel) {
-        super(name, isAccessible, currentModel, fromTo, false, null, null);
+        super(name, MethodAction.LIST, isAccessible, currentModel, fromTo, false, null, null);
         this.adapterModel = adapterModel;
         this.getMapperMethodName = getMapperMethodName;
         this.fromToContent = fromToContent;
@@ -78,7 +78,8 @@ public class MethodListMapper extends MethodMapper {
         try {
             final java.lang.reflect.Method correspondingMethod = sourceClass == null ? null
                                                                                      : sourceClass.getDeclaredMethod(MethodGetter.getCorrespondingGetterMethodName(fieldName,
-                                                                                                                                                                   isBoolean));
+                                                                                                                                                                   isBoolean,
+                                                                                                                                                                   false));
             final TypeParameter lowLevelReturnType = TypeFactory.getCorrespondingType(correspondingMethod.getReturnType());
             lowLevelReturnType.translate();
             if (!lowLevelReturnType.equals(returnType) && !lowLevelReturnType.isComposed()) {

@@ -73,11 +73,11 @@ public class ModelAdapter extends Model {
 
     }
 
-    public void addDefaultConversion(Model from, Model to) {
+    public void addDefaultConversion(Model from, Model to, MethodAction action) {
         if (from == null || to == null) {
             return;
         }
-        final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null, null);
+        final Conversion conversion = new Conversion(from, to, false, false, defaultRenames, null, null, action);
         addConversion(conversion, true);
     }
 
@@ -117,12 +117,12 @@ public class ModelAdapter extends Model {
 
             if (TypeUtils.checkIfCollectionOfModel(fType) || TypeUtils.checkIfCollectionOfModel(fromFieldType)) {
                 if (fetcher != null) {
-                    fetcher.fetchForCollection((TypeCompose) fromFieldType, (TypeCompose) fType);
+                    fetcher.fetchForCollection((TypeCompose) fromFieldType, (TypeCompose) fType, action);
                 }
             }
             if (TypeUtils.checkIfModel(fType) || TypeUtils.checkIfModel(fromFieldType)) {
                 if (fetcher != null) {
-                    fetcher.fetch(fromFieldType, fType);
+                    fetcher.fetch(fromFieldType, fType, action);
                 }
             }
         }
@@ -174,7 +174,7 @@ public class ModelAdapter extends Model {
         }
 
         public String getIdentifier() {
-            return to.getIdentifier() + "#" + from.getIdentifier();
+            return to.getIdentifier() + "#+" + from.getIdentifier();
         }
 
         public Model getFrom() {
@@ -294,7 +294,7 @@ public class ModelAdapter extends Model {
                     functionName = isFromModel ? FUNCTION_NAME_MAP_UPDATE : FUNCTION_NAME_MAP;
                     break;
             }
-            final MethodMapper mapping = new MethodMapper(functionName, true, isFromModel ? from : to,
+            final MethodMapper mapping = new MethodMapper(functionName, action, true, isFromModel ? from : to,
                                                           isFromModel ? to : from, isFromModel,
                                                           this.renames == null ? renames : this.renames,
                                                           adapter.fetcher);

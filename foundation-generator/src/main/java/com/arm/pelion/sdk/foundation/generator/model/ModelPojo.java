@@ -39,4 +39,10 @@ public class ModelPojo extends Model {
         return new ModelPojo(packageName, name, group, description, longDescription, true, false, false, isInternal);
     }
 
+    @Override
+    protected void modifyChildMethod(Method m) {
+        super.modifyChildMethod(m);
+        m.setAsOverride(true);
+    }
+
 }

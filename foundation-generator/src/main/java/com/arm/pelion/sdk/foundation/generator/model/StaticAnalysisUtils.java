@@ -28,4 +28,7 @@ public class StaticAnalysisUtils {
                              .build();
     }
 
+    public static AnnotationSpec setAsUnchecked() {
+        return AnnotationSpec.builder(SuppressWarnings.class).addMember("value", "\"unchecked\"").build();
+    }
 }

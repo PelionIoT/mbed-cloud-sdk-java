@@ -32,6 +32,7 @@ public class Method extends AbstractSdkArtifact {
     protected boolean isAnOverride;
     protected boolean shouldTest;
     protected boolean doesNotPerformAnything;
+    protected boolean isUnchecked;
     protected final List<Class<?>> exceptions;
 
     public Method(boolean isReadOnly, String name, String description, String longDescription, boolean isStatic,
@@ -49,6 +50,7 @@ public class Method extends AbstractSdkArtifact {
         setAsOverride(isAnOverride);
         shouldTest(false);
         setDoesNotPerformAnything(false);
+        setUnchecked(false);
     }
 
     public Method(java.lang.reflect.Method method, String description, String longDescription, boolean isAnOverride,
@@ -138,6 +140,14 @@ public class Method extends AbstractSdkArtifact {
      */
     public boolean isShouldTest() {
         return shouldTest;
+    }
+
+    public boolean isUnchecked() {
+        return isUnchecked;
+    }
+
+    public void setUnchecked(boolean isUnchecked) {
+        this.isUnchecked = isUnchecked;
     }
 
     /**
@@ -294,7 +304,7 @@ public class Method extends AbstractSdkArtifact {
     }
 
     protected void addAnnotations() {
-        if (containsCustomCode || isAnOverride) {
+        if (isAnOverride) {
             specificationBuilder.addAnnotation(Override.class);
         }
         if (isInternal) {
@@ -305,6 +315,9 @@ public class Method extends AbstractSdkArtifact {
         }
         if (doesNotPerformAnything) {
             specificationBuilder.addAnnotation(PerformsNoOperation.class);
+        }
+        if (isUnchecked) {
+            specificationBuilder.addAnnotation(StaticAnalysisUtils.setAsUnchecked());
         }
     }
 
@@ -407,11 +420,11 @@ public class Method extends AbstractSdkArtifact {
         addCode();
     }
 
-    public String generateSignature() {
-        return generateSignature(name, parameters);
+    public String generateSignatureForDocumentation() {
+        return generateSignatureForDocumentation(name, parameters);
     }
 
-    public static String generateSignature(String methodName, List<Parameter> parameters) {
+    public static String generateSignatureForDocumentation(String methodName, List<Parameter> parameters) {
         return methodName + "("
                + (parameters == null ? "" : String.join(",", parameters.stream().map(p -> p.getType().getShortName())
                                                                        .collect(Collectors.toList())))

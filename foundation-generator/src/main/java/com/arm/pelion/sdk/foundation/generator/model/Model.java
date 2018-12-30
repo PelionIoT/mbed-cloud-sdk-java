@@ -604,12 +604,16 @@ public class Model extends AbstractSdkArtifact {
             child.addField(f);
         });
         getMethodList().stream().filter(m -> m.needsCustomCode()).forEach(m -> {
-            m.setContainsCustomCode(true);
+            modifyChildMethod(m);
             child.addMethod(m);
         });
         child.generateMethodsNecessaryAtEachLevel();
         child.ensureSdkModelMethodsHaveOverrideAnnotation();
         return child;
+    }
+
+    protected void modifyChildMethod(Method m) {
+        m.setContainsCustomCode(true);
     }
 
     protected Model generateEmptyChildModel() {
@@ -738,10 +742,14 @@ public class Model extends AbstractSdkArtifact {
                 getSpecificMethod(methodId).setAsOverride(true);
             } else {
                 if (createIfMissing) {
-                    addMethod(new MethodGeneric(m, suffix));
+                    addMethod(createMissingInterfaceMethod(m, suffix));
                 }
             }
         });
+    }
+
+    protected MethodGeneric createMissingInterfaceMethod(java.lang.reflect.Method m, final String suffix) {
+        return new MethodGeneric(m, suffix);
     }
 
     protected List<java.lang.reflect.Method> fetchSuperInterfaceMethods() {

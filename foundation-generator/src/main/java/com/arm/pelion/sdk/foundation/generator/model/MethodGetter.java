@@ -34,17 +34,17 @@ public class MethodGetter extends Method {
     }
 
     public static String generateGetterName(Field field) {
-        return getCorrespondingGetterMethodName(field.getName(), field.getType().isBoolean());
+        return getCorrespondingGetterMethodName(field.getName(), field.getType().isBoolean(), false);
     }
 
-    public static String getCorrespondingGetterMethodName(String fieldName, boolean isBoolean) {
+    public static String getCorrespondingGetterMethodName(String fieldName, boolean isBoolean, boolean isFromLowLevel) {
         if (fieldName == null) {
             return null;
         }
         final String snakeCase = ApiUtils.convertCamelToSnake(fieldName);
         String snakeName = "get_" + snakeCase;
         if (isBoolean) {
-            snakeName = (snakeCase.startsWith("is") ? "" : "is_") + snakeCase;
+            snakeName = (!isFromLowLevel && snakeCase.startsWith("is") ? "" : "is_") + snakeCase;
         }
         return ApiUtils.convertSnakeToCamel(snakeName, false);
     }

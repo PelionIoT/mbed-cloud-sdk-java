@@ -64,7 +64,8 @@ public class ModelDaoFactory extends Model {
         if (dao == null) {
             return;
         }
-        final Method daoGetter = new Method(false, MethodGetter.getCorrespondingGetterMethodName(dao.getName(), false),
+        final Method daoGetter = new Method(false,
+                                            MethodGetter.getCorrespondingGetterMethodName(dao.getName(), false, false),
                                             "Gets " + Utils.generateDocumentationString(dao.getName()), null, false,
                                             true, false, false, false, false, false, false);
         daoGetter.addException(MbedCloudException.class);
@@ -89,7 +90,7 @@ public class ModelDaoFactory extends Model {
         super.generateOtherMethods();
         final Method daoProviderGetter = new Method(false,
                                                     MethodGetter.getCorrespondingGetterMethodName(DaoProvider.class.getSimpleName(),
-                                                                                                  false),
+                                                                                                  false, false),
                                                     "Gets " + Utils.generateDocumentationString(DaoProvider.class.getSimpleName()),
                                                     null, false, true, false, false, false, false, false, false);
         TypeParameter daoProviderType = TypeFactory.getCorrespondingType(DaoProvider.class);

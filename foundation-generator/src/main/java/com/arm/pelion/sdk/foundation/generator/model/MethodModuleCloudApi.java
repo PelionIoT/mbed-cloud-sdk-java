@@ -19,7 +19,7 @@ import com.squareup.javapoet.TypeSpec;
 
 import retrofit2.Call;
 
-public class MethodModuleCloudApi extends Method {
+public class MethodModuleCloudApi extends MethodOverloaded {
     private static final String PARAMETER_NAME_LOW_LEVEL_DEFAULT = "body";
     protected final Model currentModel;
     protected final ModelAdapterFetcher adapterFetcher;
@@ -39,7 +39,7 @@ public class MethodModuleCloudApi extends Method {
                                 List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
                                 boolean enforceModelValidity) {
         super(false, name, description, longDescription, false, true, false, false, needsCustomCode, false, false,
-              false);
+              false, null);
         this.currentModel = currentModel;
         this.adapterFetcher = adapterFetcher;
         this.endpointVariableName = endpointVariableName;
@@ -117,9 +117,11 @@ public class MethodModuleCloudApi extends Method {
                                                                                               : p.getName();
                 if (!extendedMethodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()))) {
                     if (p.getType().isLowLevelModel() || shouldCheckModelValidity(p)) {
-                        extendedMethodParameters.add(currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
+                        final Parameter modelParam = currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
                                                                                                                                                    : parameterName)
-                                                                 .setAsNonNull(true));
+                                                                 .setAsNonNull(true);
+                        parameterRenames.addEntry(parameterName, modelParam.getName());
+                        extendedMethodParameters.add(modelParam);
                     } else {
 
                         final Parameter newP = allParameters.stream()
@@ -319,4 +321,25 @@ public class MethodModuleCloudApi extends Method {
         return "MethodModuleCloudApi [Method=" + super.toString() + ", currentModel=" + currentModel + "]";
     }
 
+    public boolean hasSameSignature(MethodModuleCloudApi otherMethod) {
+        otherMethod.generateSuffix();
+        generateSuffix();
+        if (getIdentifier().equals(otherMethod.getIdentifier())) {
+            return true;
+        }
+        if (getMethodSignature() == null) {
+            return otherMethod.getMethodSignature() == null;
+        }
+        if (getMethodSignature().equals(otherMethod.getMethodSignature())) {
+            return true;
+        }
+        for (Parameter p : getMethodSignature()) {
+            if (!otherMethod.getMethodSignature().stream().anyMatch(arg -> {
+                return arg.equals(p) && arg.getType().equals(p.getType());
+            })) {
+                return false;
+            }
+        }
+        return true;
+    }
 }

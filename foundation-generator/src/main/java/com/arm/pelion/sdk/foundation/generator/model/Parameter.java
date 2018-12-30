@@ -144,11 +144,9 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
     }
 
     protected void initialiseBuilder() throws TranslationException {
-        if (specificationBuilder == null) {
-            type.translate();
-            specificationBuilder = type.hasClass() ? ParameterSpec.builder(type.getClazz(), name)
-                                                   : ParameterSpec.builder(type.getTypeName(), name);
-        }
+        type.translate();
+        specificationBuilder = type.hasClass() ? ParameterSpec.builder(type.getClazz(), name)
+                                               : ParameterSpec.builder(type.getTypeName(), name);
     }
 
     protected void addModifiers() {

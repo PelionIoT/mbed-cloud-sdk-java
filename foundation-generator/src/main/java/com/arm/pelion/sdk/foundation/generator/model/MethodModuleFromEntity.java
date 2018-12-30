@@ -9,8 +9,6 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodModuleFromEntity extends MethodModuleCloudApi {
 
-    public static final String METHOD_ID_SUFFIX = "Overloaded";
-
     public MethodModuleFromEntity(MethodModuleCloudApi methodBasedOn, List<Parameter> methodParameters,
                                   boolean enforceModelValidity) {
         super(methodBasedOn.currentModel, methodBasedOn.adapterFetcher, methodBasedOn.getName(),
@@ -33,15 +31,6 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
     }
 
     @Override
-    public String getIdentifier() {
-        return generateIdentifier(super.getIdentifier());
-    }
-
-    public static String generateIdentifier(String methodIdentifier) {
-        return MethodOverloaded.generateIdentifier(methodIdentifier, METHOD_ID_SUFFIX);
-    }
-
-    @Override
     protected void generateMethodCode() throws TranslationException {
         final String entityVariableName = generateFinalVariable(currentModel.toParameter().getName());
         final List<Object> callElements = new LinkedList<>();
@@ -61,7 +50,8 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
             } else {
                 builder.append("$L.$L()");
                 callElements.add(entityVariableName);
-                callElements.add(MethodGetter.getCorrespondingGetterMethodName(p.getName(), p.getType().isBoolean()));
+                callElements.add(MethodGetter.getCorrespondingGetterMethodName(p.getName(), p.getType().isBoolean(),
+                                                                               false));
             }
         }
         builder.append(")");

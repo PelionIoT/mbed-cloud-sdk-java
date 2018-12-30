@@ -11,7 +11,7 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         this.modelFetcher = modelFetcher;
     }
 
-    public ModelAdapter fetchForCollection(TypeCompose fromFieldType, TypeCompose toFieldType) {
+    public ModelAdapter fetchForCollection(TypeCompose fromFieldType, TypeCompose toFieldType, MethodAction action) {
         try {
             fromFieldType.translate();
         } catch (Exception exception) {
@@ -23,16 +23,16 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         } catch (Exception exception) {
             // Nothing to do;
         }
-        final ModelAdapter adapter = fetch(fromFieldType.getContentType(), toFieldType.getContentType());
+        final ModelAdapter adapter = fetch(fromFieldType.getContentType(), toFieldType.getContentType(), action);
         if (adapter == null) {
             return null;
         }
         adapter.addDefaultConversion(new Model(fromFieldType.getClazz(), fromFieldType),
-                                     new Model(toFieldType.getClazz(), toFieldType));
+                                     new Model(toFieldType.getClazz(), toFieldType), action);
         return adapter;
     }
 
-    public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType) {
+    public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType, MethodAction action) {
         try {
             fromFieldType.translate();
         } catch (Exception exception) {
@@ -51,7 +51,8 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
             }
             adapter.addDefaultConversion(fetchModel(fromFieldType),
                                          toFieldType.isModel() ? fetchModel(toFieldType)
-                                                               : new Model(toFieldType.getClazz(), toFieldType));
+                                                               : new Model(toFieldType.getClazz(), toFieldType),
+                                         action);
             return adapter;
         }
         if (toFieldType.isModel()) {
@@ -59,7 +60,8 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
             if (adapter == null) {
                 return null;
             }
-            adapter.addDefaultConversion(new Model(fromFieldType.getClazz(), fromFieldType), fetchModel(toFieldType));
+            adapter.addDefaultConversion(new Model(fromFieldType.getClazz(), fromFieldType), fetchModel(toFieldType),
+                                         action);
             return adapter;
         }
         return null;

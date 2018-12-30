@@ -43,7 +43,6 @@ public class ModelDao extends Model {
     }
 
     private static String generateDescription(Model currentModel) {
-
         return "Data Access Object (DAO) for " + Utils.generateDocumentationString(currentModel.getName(), true);
     }
 
@@ -54,7 +53,7 @@ public class ModelDao extends Model {
     @Override
     protected void generateSuperInterface() {
         for (Class<?> i : superinterfaces.values()) {
-            final TypeParameter type = new TypeModelDao(i, correspondingModel.toType());
+            final TypeParameter type = generateSuperInterfaceType(i);
             try {
                 type.translate();
                 if (type.hasClass()) {
@@ -67,6 +66,10 @@ public class ModelDao extends Model {
                 e.printStackTrace();
             }
         }
+    }
+
+    protected TypeParameter generateSuperInterfaceType(Class<?> i) {
+        return new TypeModelDao(i, correspondingModel.toType());
     }
 
     @Override
@@ -134,8 +137,8 @@ public class ModelDao extends Model {
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(daoMethodName, needsCustomCode, isPublic, null,
-                                                           moduleMethod);
+            final MethodOverloaded method = generateMethod(daoMethodName, needsCustomCode, isPublic, null, moduleMethod,
+                                                           correspondingModule.toType());
             addMethod(method);
         }
         generateSomeInterfaceMethods(daoMethodName, correspondingInterface, moduleMethods, null, needsCustomCode);
@@ -182,19 +185,21 @@ public class ModelDao extends Model {
                                      boolean needsCustomCode, boolean isPublic) {
         if (!correspondingModule.hasMethod(correspondingModel, action, methodName)) {
             Method method = new MethodGeneric(methodName, description, longDescription, null);
+            method.setAsOverride(false);
             addMethod(method);
             return;
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action, methodName);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(methodName, needsCustomCode, isPublic, null, moduleMethod);
+            final MethodOverloaded method = generateMethod(methodName, needsCustomCode, isPublic, null, moduleMethod,
+                                                           correspondingModule.toType());
             addMethod(method);
         }
 
     }
 
     private MethodOverloaded generateMethod(String methodName, boolean needsCustomCode, boolean isPublic, String suffix,
-                                            Method moduleMethod) {
+                                            Method moduleMethod, TypeParameter moduleType) {
         final MethodOverloaded method = new MethodOverloaded(false, methodName, moduleMethod.getDescription(),
                                                              Utils.generateDocumentationMethodLink(correspondingModel,
                                                                                                    moduleMethod),
@@ -204,14 +209,15 @@ public class ModelDao extends Model {
         method.setNeedsCustomCode(needsCustomCode);
         method.initialiseCodeBuilder();
         method.getCode().addStatement("$L()", AbstractModelDao.METHOD_CHECK_CONFIGURATION);
-        generateMethodCodeAndReturnType(moduleMethod, method);
+        generateMethodCodeAndReturnType(moduleMethod, method, moduleType);
         if (suffix == null) {
             method.generateSuffix();
         }
         return method;
     }
 
-    protected void generateMethodCodeAndReturnType(Method moduleMethod, final MethodOverloaded method) {
+    protected void generateMethodCodeAndReturnType(Method moduleMethod, final MethodOverloaded method,
+                                                   TypeParameter moduleType) {
         StringBuilder codeFormat = new StringBuilder();
         List<Object> values = new LinkedList<>();
         boolean closeBracket = false;
@@ -227,7 +233,14 @@ public class ModelDao extends Model {
                 codeFormat.append("return ");
             }
         }
-        codeFormat.append("$L.$L(");
+        codeFormat.append("(($T)$L).$L(");
+        try {
+            moduleType.translate();
+        } catch (TranslationException exception) {
+            // Nothing to do
+            exception.printStackTrace();
+        }
+        values.add(moduleType.hasClass() ? moduleType.getClazz() : moduleType.getTypeName());
         values.add(AbstractModelDao.FIELD_NAME_MODULE);
         values.add(moduleMethod.getName());
         if (moduleMethod.hasParameters()) {
@@ -253,6 +266,15 @@ public class ModelDao extends Model {
             codeFormat.append(")");
         }
         method.getCode().addStatement(codeFormat.toString(), values.toArray());
+    }
+
+    @Override
+    protected MethodGeneric createMissingInterfaceMethod(java.lang.reflect.Method m, String suffix) {
+        final MethodGeneric missingMethod = super.createMissingInterfaceMethod(m, suffix);
+        missingMethod.getParameters().stream().filter(p -> p.getType().isModel())
+                     .forEach(p -> p.setType(correspondingModel.toType()));
+        return missingMethod;
+
     }
 
     @Override
@@ -298,7 +320,7 @@ public class ModelDao extends Model {
     }
 
     private void generateModuleIntantiationMethods() {
-        TypeParameter moduleType = correspondingModule.toType();
+        final TypeParameter moduleType = correspondingModule.toType();
         try {
             moduleType.translate();
         } catch (TranslationException exception) {

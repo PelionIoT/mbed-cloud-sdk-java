@@ -117,17 +117,6 @@ public class ModelModule extends ModelMergeable {
 
     }
 
-    @Override
-    public boolean hasMethod(String identifier) {
-        return super.hasMethod(identifier);
-    }
-
-    @Override
-    public Method fetchMethod(String identifier) {
-        final Method overloadingMethod = super.fetchMethod(MethodModuleFromEntity.generateIdentifier(identifier));
-        return overloadingMethod == null ? super.fetchMethod(identifier) : overloadingMethod;
-    }
-
     public void addCloudCall(CloudCall call) {
         if (call != null) {
             call.setEndpoints(endpointFetcher.fetch(getGroup()));
@@ -299,26 +288,14 @@ public class ModelModule extends ModelMergeable {
         }
 
         private void addMethod(ModelModule module, MethodModuleCloudApi method, MethodAction overridingAction) {
+            method.generateSuffix();
             module.addFields(method.getNecessaryConstants());
             module.addMethod(method);
             module.registerMethod(currentModel, overridingAction == null ? action : overridingAction, method);
         }
 
         private boolean haveDifferentSignatures(MethodModuleCloudApi method, MethodModuleCloudApi overloadedMethod) {
-            if (method.getMethodSignature() == null) {
-                return overloadedMethod.getMethodSignature() != null;
-            }
-            if (method.getMethodSignature().equals(overloadedMethod.getMethodSignature())) {
-                return false;
-            }
-            for (Parameter p : method.getMethodSignature()) {
-                if (!overloadedMethod.getMethodSignature().stream().anyMatch(arg -> {
-                    return arg.equals(p) && arg.getType().equals(p.getType());
-                })) {
-                    return true;
-                }
-            }
-            return false;
+            return !method.hasSameSignature(overloadedMethod);
         }
 
     }
