@@ -9,22 +9,29 @@ Method | HTTP request | Description
 [**addSubjectsToGroup**](AccountAdminApi.md#addSubjectsToGroup) | **POST** v3/policy-groups/{groupID} | Add members to a group.
 [**addUserToGroups**](AccountAdminApi.md#addUserToGroups) | **POST** v3/users/{user-id}/groups | Add user to a list of groups.
 [**createGroup**](AccountAdminApi.md#createGroup) | **POST** v3/policy-groups | Create a new group.
+[**createIdentityProvider**](AccountAdminApi.md#createIdentityProvider) | **POST** v3/identity-providers | Create a new identity provider.
 [**createInvitation**](AccountAdminApi.md#createInvitation) | **POST** v3/user-invitations | Create a user invitation.
 [**createUser**](AccountAdminApi.md#createUser) | **POST** v3/users | Create a new user.
 [**deleteGroup**](AccountAdminApi.md#deleteGroup) | **DELETE** v3/policy-groups/{groupID} | Delete a group.
+[**deleteIdentityProvider**](AccountAdminApi.md#deleteIdentityProvider) | **DELETE** v3/identity-providers/{identity_provider_id} | Delete an identity provider by ID.
 [**deleteInvitation**](AccountAdminApi.md#deleteInvitation) | **DELETE** v3/user-invitations/{invitation-id} | Delete a user invitation.
 [**deleteUser**](AccountAdminApi.md#deleteUser) | **DELETE** v3/users/{user-id} | Delete a user.
+[**generateSpCertificate**](AccountAdminApi.md#generateSpCertificate) | **POST** v3/identity-providers/{identity_provider_id}/generate-sp-certificate | Generate a new service provider certificate.
+[**getAllIdentityProviders**](AccountAdminApi.md#getAllIdentityProviders) | **GET** v3/identity-providers | Get all identity providers.
 [**getAllInvitations**](AccountAdminApi.md#getAllInvitations) | **GET** v3/user-invitations | Get the details of all the user invitations.
 [**getAllUsers**](AccountAdminApi.md#getAllUsers) | **GET** v3/users | Get the details of all users.
 [**getGroupsOfApikey**](AccountAdminApi.md#getGroupsOfApikey) | **GET** v3/api-keys/{apiKey}/groups | Get groups of the API key.
 [**getGroupsOfUser**](AccountAdminApi.md#getGroupsOfUser) | **GET** v3/users/{user-id}/groups | Get groups of the user.
+[**getIdentityProvider**](AccountAdminApi.md#getIdentityProvider) | **GET** v3/identity-providers/{identity_provider_id} | Get identity provider by ID.
 [**getInvitation**](AccountAdminApi.md#getInvitation) | **GET** v3/user-invitations/{invitation-id} | Details of a user invitation.
+[**getNofificationEntries**](AccountAdminApi.md#getNofificationEntries) | **GET** v3/accounts/me/notifications | Get the notification events of an account.
 [**getUser**](AccountAdminApi.md#getUser) | **GET** v3/users/{user-id} | Details of a user.
 [**getUsersOfGroup**](AccountAdminApi.md#getUsersOfGroup) | **GET** v3/policy-groups/{groupID}/users | Get users of a group.
 [**removeApiKeyFromGroups**](AccountAdminApi.md#removeApiKeyFromGroups) | **DELETE** v3/api-keys/{apiKey}/groups | Remove API key from groups.
 [**removeUserFromGroups**](AccountAdminApi.md#removeUserFromGroups) | **DELETE** v3/users/{user-id}/groups | Remove user from groups.
 [**removeUsersFromGroup**](AccountAdminApi.md#removeUsersFromGroup) | **DELETE** v3/policy-groups/{groupID}/users | Remove users from a group.
 [**updateGroupName**](AccountAdminApi.md#updateGroupName) | **PUT** v3/policy-groups/{groupID} | Update the group name.
+[**updateIdentityProvider**](AccountAdminApi.md#updateIdentityProvider) | **PUT** v3/identity-providers/{identity_provider_id} | Update an existing identity provider.
 [**updateMyAccount**](AccountAdminApi.md#updateMyAccount) | **PUT** v3/accounts/me | Updates attributes of the account.
 [**updateUser**](AccountAdminApi.md#updateUser) | **PUT** v3/users/{user-id} | Update user details.
 
@@ -310,6 +317,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="createIdentityProvider"></a>
+# **createIdentityProvider**
+> IdentityProviderInfo createIdentityProvider(body)
+
+Create a new identity provider.
+
+An endpoint for creating a new identity provider.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+IdentityProviderCreationReq body = new IdentityProviderCreationReq(); // IdentityProviderCreationReq | Details of the identity provider to be created.
+try {
+    IdentityProviderInfo result = apiInstance.createIdentityProvider(body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#createIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **body** | [**IdentityProviderCreationReq**](IdentityProviderCreationReq.md)| Details of the identity provider to be created. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="createInvitation"></a>
 # **createInvitation**
 > UserInvitationResp createInvitation(body)
@@ -477,6 +539,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteIdentityProvider"></a>
+# **deleteIdentityProvider**
+> Void deleteIdentityProvider(identityProviderId)
+
+Delete an identity provider by ID.
+
+An endpoint for deleting an identity provider by ID.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be deleted.
+try {
+    Void result = apiInstance.deleteIdentityProvider(identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#deleteIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identityProviderId** | **String**| The ID of the identity provider to be deleted. |
+
+### Return type
+
+[**Void**](.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteInvitation"></a>
 # **deleteInvitation**
 > Void deleteInvitation(invitationId)
@@ -585,6 +702,122 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="generateSpCertificate"></a>
+# **generateSpCertificate**
+> IdentityProviderInfo generateSpCertificate(identityProviderId)
+
+Generate a new service provider certificate.
+
+An endpoint for generating a new service provider certificate.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to which the certificate should be generated for.
+try {
+    IdentityProviderInfo result = apiInstance.generateSpCertificate(identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#generateSpCertificate");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identityProviderId** | **String**| The ID of the identity provider to which the certificate should be generated for. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getAllIdentityProviders"></a>
+# **getAllIdentityProviders**
+> IdentityProviderList getAllIdentityProviders(limit, after, order, include)
+
+Get all identity providers.
+
+An endpoint for retrieving identity providers in an array.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; default ASC.
+String include = "include_example"; // String | Comma separated additional data to return. Currently supported: total_count.
+try {
+    IdentityProviderList result = apiInstance.getAllIdentityProviders(limit, after, order, include);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getAllIdentityProviders");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; default ASC. | [optional] [default to ASC]
+ **include** | **String**| Comma separated additional data to return. Currently supported: total_count. | [optional]
+
+### Return type
+
+[**IdentityProviderList**](IdentityProviderList.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="getAllInvitations"></a>
@@ -841,6 +1074,61 @@ Name | Type | Description  | Notes
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getIdentityProvider"></a>
+# **getIdentityProvider**
+> IdentityProviderInfo getIdentityProvider(identityProviderId)
+
+Get identity provider by ID.
+
+An endpoint for retrieving an identity provider by ID.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be retrieved.
+try {
+    IdentityProviderInfo result = apiInstance.getIdentityProvider(identityProviderId);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identityProviderId** | **String**| The ID of the identity provider to be retrieved. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getInvitation"></a>
 # **getInvitation**
 > UserInvitationResp getInvitation(invitationId)
@@ -886,6 +1174,65 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UserInvitationResp**](UserInvitationResp.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getNofificationEntries"></a>
+# **getNofificationEntries**
+> NotificationEntryList getNofificationEntries(limit, after, order)
+
+Get the notification events of an account.
+
+Endpoint for retrieving notifications.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+Integer limit = 50; // Integer | The number of results to return (2-1000), default is 50.
+String after = "after_example"; // String | The entity ID to fetch after the given one.
+String order = "ASC"; // String | The order of the records based on creation time, ASC or DESC; by default ASC
+try {
+    NotificationEntryList result = apiInstance.getNofificationEntries(limit, after, order);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#getNofificationEntries");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **limit** | **Integer**| The number of results to return (2-1000), default is 50. | [optional] [default to 50]
+ **after** | **String**| The entity ID to fetch after the given one. | [optional]
+ **order** | **String**| The order of the records based on creation time, ASC or DESC; by default ASC | [optional] [default to ASC]
+
+### Return type
+
+[**NotificationEntryList**](NotificationEntryList.md)
 
 ### Authorization
 
@@ -1238,6 +1585,63 @@ Name | Type | Description  | Notes
 ### Return type
 
 [**UpdatedResponse**](UpdatedResponse.md)
+
+### Authorization
+
+[Bearer](../README.md#Bearer)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
+<a name="updateIdentityProvider"></a>
+# **updateIdentityProvider**
+> IdentityProviderInfo updateIdentityProvider(identityProviderId, body)
+
+Update an existing identity provider.
+
+An endpoint for updating an existing identity provider.
+
+### Example
+```java
+// Import classes:
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiClient;
+//import com.arm.mbed.cloud.sdk.internal.iam.ApiException;
+//import com.arm.mbed.cloud.sdk.internal.iam.Configuration;
+//import com.arm.mbed.cloud.sdk.internal.iam.auth.*;
+//import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
+
+ApiClient defaultClient = Configuration.getDefaultApiClient();
+
+// Configure API key authorization: Bearer
+ApiKeyAuth Bearer = (ApiKeyAuth) defaultClient.getAuthentication("Bearer");
+Bearer.setApiKey("YOUR API KEY");
+// Uncomment the following line to set a prefix for the API key, e.g. "Token" (defaults to null)
+//Bearer.setApiKeyPrefix("Token");
+
+AccountAdminApi apiInstance = new AccountAdminApi();
+String identityProviderId = "identityProviderId_example"; // String | The ID of the identity provider to be updated.
+IdentityProviderUpdateReq body = new IdentityProviderUpdateReq(); // IdentityProviderUpdateReq | Details of the identity provider to be updated.
+try {
+    IdentityProviderInfo result = apiInstance.updateIdentityProvider(identityProviderId, body);
+    System.out.println(result);
+} catch (ApiException e) {
+    System.err.println("Exception when calling AccountAdminApi#updateIdentityProvider");
+    e.printStackTrace();
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **identityProviderId** | **String**| The ID of the identity provider to be updated. |
+ **body** | [**IdentityProviderUpdateReq**](IdentityProviderUpdateReq.md)| Details of the identity provider to be updated. |
+
+### Return type
+
+[**IdentityProviderInfo**](IdentityProviderInfo.md)
 
 ### Authorization
 

@@ -15,6 +15,11 @@ import com.arm.mbed.cloud.sdk.internal.iam.model.GroupCreationInfo;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.GroupUpdateInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderCreationReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderInfo;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderList;
+import com.arm.mbed.cloud.sdk.internal.iam.model.IdentityProviderUpdateReq;
+import com.arm.mbed.cloud.sdk.internal.iam.model.NotificationEntryList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.SubjectList;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalResp;
 import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateInternalRespList;
@@ -157,6 +162,19 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Create a new identity provider.
+     *
+     * An endpoint for creating a new identity provider.
+     */
+    @Test
+    public void createAccountIdentityProviderTest() {
+        String accountId = null;
+        IdentityProviderCreationReq body = null;
+        // IdentityProviderInfo response = api.createAccountIdentityProvider(accountId, body);
+
+        // TODO: test validations
+    }
+    /**
      * Create a user invitation.
      *
      * An endpoint for inviting a new or an existing user to join the account.   **Example usage:** &#x60;curl -X POST https://api.us-east-1.mbedcloud.com/v3/accouns/{account-id}/user-invitations -d {\&quot;email\&quot;: \&quot;myemail@company.com\&quot;} -H &#39;content-type: application/json&#39; -H &#39;Authorization: Bearer API_KEY&#39;&#x60;
@@ -219,6 +237,19 @@ public class AggregatorAccountAdminApiTest {
         String accountID = null;
         String groupID = null;
         // Void response = api.deleteAccountGroup(accountID, groupID);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete an identity provider by ID.
+     *
+     * An endpoint for deleting an identity provider by ID.
+     */
+    @Test
+    public void deleteAccountIdentityProviderTest() {
+        String accountId = null;
+        String identityProviderId = null;
+        // Void response = api.deleteAccountIdentityProvider(accountId, identityProviderId);
 
         // TODO: test validations
     }
@@ -288,6 +319,19 @@ public class AggregatorAccountAdminApiTest {
         // TODO: test validations
     }
     /**
+     * Get identity provider by ID.
+     *
+     * An endpoint for retrieving an identity provider by ID.
+     */
+    @Test
+    public void getAccountIdentityProviderTest() {
+        String accountId = null;
+        String identityProviderId = null;
+        // IdentityProviderInfo response = api.getAccountIdentityProvider(accountId, identityProviderId);
+
+        // TODO: test validations
+    }
+    /**
      * Get account info.
      *
      * Returns detailed information about the account.   **Example usage:** &#x60;curl https://api.us-east-1.mbedcloud.com/v3/accounts/{account-id} -H &#39;Authorization: Bearer API_KEY&#39;&#x60;.
@@ -311,6 +355,21 @@ public class AggregatorAccountAdminApiTest {
         String accountId = null;
         String invitationId = null;
         // UserInvitationResp response = api.getAccountInvitation(accountId, invitationId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get the notification events of an account.
+     *
+     * Endpoint for retrieving notifications.
+     */
+    @Test
+    public void getAccountNofificationEntriesTest() {
+        String accountId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        // NotificationEntryList response = api.getAccountNofificationEntries(accountId, limit, after, order);
 
         // TODO: test validations
     }
@@ -384,6 +443,22 @@ public class AggregatorAccountAdminApiTest {
         String include = null;
         String nameEq = null;
         // GroupSummaryList response = api.getAllAccountGroups(accountID, limit, after, order, include, nameEq);
+
+        // TODO: test validations
+    }
+    /**
+     * Get all identity providers.
+     *
+     * An endpoint for retrieving identity providers in an array.
+     */
+    @Test
+    public void getAllAccountIdentityProvidersTest() {
+        String accountId = null;
+        Integer limit = null;
+        String after = null;
+        String order = null;
+        String include = null;
+        // IdentityProviderList response = api.getAllAccountIdentityProviders(accountId, limit, after, order, include);
 
         // TODO: test validations
     }
@@ -638,6 +713,20 @@ public class AggregatorAccountAdminApiTest {
         String groupID = null;
         GroupUpdateInfo body = null;
         // UpdatedResponse response = api.updateAccountGroupName(accountID, groupID, body);
+
+        // TODO: test validations
+    }
+    /**
+     * Update an existing identity provider.
+     *
+     * An endpoint for updating an existing identity provider.
+     */
+    @Test
+    public void updateAccountIdentityProviderTest() {
+        String accountId = null;
+        String identityProviderId = null;
+        IdentityProviderUpdateReq body = null;
+        // IdentityProviderInfo response = api.updateAccountIdentityProvider(accountId, identityProviderId, body);
 
         // TODO: test validations
     }
