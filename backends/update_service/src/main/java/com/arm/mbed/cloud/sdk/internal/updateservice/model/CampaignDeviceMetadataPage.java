@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API documentation for the Mbed deployment service, which is part of the update service.
+ * This is the API documentation for the Device Management deployment service, which is part of the Update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -152,10 +152,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Flag indicating whether there are more results
+   * A flag indicating whether there are more results
    * @return hasMore
   **/
-  @ApiModelProperty(example = "false", value = "Flag indicating whether there are more results")
+  @ApiModelProperty(example = "false", value = "A flag indicating whether there are more results")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -170,10 +170,12 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The number of results to return, (range: 2-1000), or equals to total_count
+   * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.
+   * minimum: 2
+   * maximum: 1000
    * @return limit
   **/
-  @ApiModelProperty(example = "50", value = "The number of results to return, (range: 2-1000), or equals to total_count")
+  @ApiModelProperty(example = "50", value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
   public Integer getLimit() {
     return limit;
   }
@@ -188,10 +190,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * Entity name: always &#39;list&#39;
+   * The entity name: always &#39;list&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "list", value = "Entity name: always 'list'")
+  @ApiModelProperty(example = "list", value = "The entity name: always 'list'")
   public String getObject() {
     return object;
   }
@@ -224,10 +226,10 @@ public class CampaignDeviceMetadataPage implements Serializable {
   }
 
    /**
-   * The total number or records, if requested. It might be returned also for small lists.
+   * The total number or records, if requested. It may be returned also for small lists.
    * @return totalCount
   **/
-  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It might be returned also for small lists.")
+  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It may be returned also for small lists.")
   public Integer getTotalCount() {
     return totalCount;
   }

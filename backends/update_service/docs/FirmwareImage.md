@@ -6,8 +6,8 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **createdAt** | [**DateTime**](DateTime.md) | The time the object was created | 
 **datafile** | **String** | The firmware image file URL | 
-**datafileChecksum** | **String** | Checksum (sha256) generated for the datafile | 
-**datafileSize** | **Long** | Size of the datafile in bytes |  [optional]
+**datafileChecksum** | **String** | The checksum (sha256) generated for the datafile | 
+**datafileSize** | **Long** | The size of the datafile in bytes |  [optional]
 **description** | **String** | The description of the object | 
 **etag** | [**DateTime**](DateTime.md) | The entity instance signature | 
 **id** | **String** | The firmware image ID | 

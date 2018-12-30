@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummary;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,17 +28,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * FirmwareManifestPage
+ * EventTypeSummaryList
  */
 
-public class FirmwareManifestPage implements Serializable {
+public class EventTypeSummaryList implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("after")
   private String after = null;
 
   @SerializedName("data")
-  private List<FirmwareManifest> data = null;
+  private List<EventTypeSummary> data = null;
 
   @SerializedName("has_more")
   private Boolean hasMore = null;
@@ -102,16 +102,16 @@ public class FirmwareManifestPage implements Serializable {
   @SerializedName("total_count")
   private Integer totalCount = null;
 
-  public FirmwareManifestPage after(String after) {
+  public EventTypeSummaryList after(String after) {
     this.after = after;
     return this;
   }
 
    /**
-   * Get after
+   * The entity ID to fetch after the given one
    * @return after
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(value = "The entity ID to fetch after the given one")
   public String getAfter() {
     return after;
   }
@@ -120,14 +120,14 @@ public class FirmwareManifestPage implements Serializable {
     this.after = after;
   }
 
-  public FirmwareManifestPage data(List<FirmwareManifest> data) {
+  public EventTypeSummaryList data(List<EventTypeSummary> data) {
     this.data = data;
     return this;
   }
 
-  public FirmwareManifestPage addDataItem(FirmwareManifest dataItem) {
+  public EventTypeSummaryList addDataItem(EventTypeSummary dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<FirmwareManifest>();
+      this.data = new ArrayList<EventTypeSummary>();
     }
     this.data.add(dataItem);
     return this;
@@ -137,25 +137,25 @@ public class FirmwareManifestPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "\"[]\"", value = "")
-  public List<FirmwareManifest> getData() {
+  @ApiModelProperty(value = "")
+  public List<EventTypeSummary> getData() {
     return data;
   }
 
-  public void setData(List<FirmwareManifest> data) {
+  public void setData(List<EventTypeSummary> data) {
     this.data = data;
   }
 
-  public FirmwareManifestPage hasMore(Boolean hasMore) {
+  public EventTypeSummaryList hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
 
    /**
-   * Get hasMore
+   * A flag indicating whether there are more results
    * @return hasMore
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "false", value = "A flag indicating whether there are more results")
   public Boolean isHasMore() {
     return hasMore;
   }
@@ -164,16 +164,16 @@ public class FirmwareManifestPage implements Serializable {
     this.hasMore = hasMore;
   }
 
-  public FirmwareManifestPage limit(Integer limit) {
+  public EventTypeSummaryList limit(Integer limit) {
     this.limit = limit;
     return this;
   }
 
    /**
-   * Get limit
+   * The number of results to return, (range: 2-1000), or equals to total_count
    * @return limit
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "50", value = "The number of results to return, (range: 2-1000), or equals to total_count")
   public Integer getLimit() {
     return limit;
   }
@@ -182,16 +182,16 @@ public class FirmwareManifestPage implements Serializable {
     this.limit = limit;
   }
 
-  public FirmwareManifestPage object(String object) {
+  public EventTypeSummaryList object(String object) {
     this.object = object;
     return this;
   }
 
    /**
-   * Get object
+   * The entity name: always &#39;list&#39;
    * @return object
   **/
-  @ApiModelProperty(example = "list", value = "")
+  @ApiModelProperty(example = "list", value = "The entity name: always 'list'")
   public String getObject() {
     return object;
   }
@@ -200,7 +200,7 @@ public class FirmwareManifestPage implements Serializable {
     this.object = object;
   }
 
-  public FirmwareManifestPage order(OrderEnum order) {
+  public EventTypeSummaryList order(OrderEnum order) {
     this.order = order;
     return this;
   }
@@ -218,16 +218,16 @@ public class FirmwareManifestPage implements Serializable {
     this.order = order;
   }
 
-  public FirmwareManifestPage totalCount(Integer totalCount) {
+  public EventTypeSummaryList totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
 
    /**
-   * Get totalCount
+   * The total number or records, if requested. It may be returned also for small lists.
    * @return totalCount
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "1", value = "The total number or records, if requested. It may be returned also for small lists.")
   public Integer getTotalCount() {
     return totalCount;
   }
@@ -245,14 +245,14 @@ public class FirmwareManifestPage implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FirmwareManifestPage firmwareManifestPage = (FirmwareManifestPage) o;
-    return Objects.equals(this.after, firmwareManifestPage.after) &&
-        Objects.equals(this.data, firmwareManifestPage.data) &&
-        Objects.equals(this.hasMore, firmwareManifestPage.hasMore) &&
-        Objects.equals(this.limit, firmwareManifestPage.limit) &&
-        Objects.equals(this.object, firmwareManifestPage.object) &&
-        Objects.equals(this.order, firmwareManifestPage.order) &&
-        Objects.equals(this.totalCount, firmwareManifestPage.totalCount);
+    EventTypeSummaryList eventTypeSummaryList = (EventTypeSummaryList) o;
+    return Objects.equals(this.after, eventTypeSummaryList.after) &&
+        Objects.equals(this.data, eventTypeSummaryList.data) &&
+        Objects.equals(this.hasMore, eventTypeSummaryList.hasMore) &&
+        Objects.equals(this.limit, eventTypeSummaryList.limit) &&
+        Objects.equals(this.object, eventTypeSummaryList.object) &&
+        Objects.equals(this.order, eventTypeSummaryList.order) &&
+        Objects.equals(this.totalCount, eventTypeSummaryList.totalCount);
   }
 
   @Override
@@ -264,7 +264,7 @@ public class FirmwareManifestPage implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FirmwareManifestPage {\n");
+    sb.append("class EventTypeSummaryList {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");

@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API documentation for the Mbed deployment service, which is part of the update service.
+ * This is the API documentation for the Device Management deployment service, which is part of the Update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -48,7 +48,7 @@ public class UpdateCampaignPutRequest implements Serializable {
   private String rootManifestId = null;
 
   /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
@@ -143,7 +143,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * An optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(example = "", required = true, value = "An optional description of the campaign")
+  @ApiModelProperty(example = "", value = "An optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -158,10 +158,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The filter for the devices the campaign will target
+   * The filter for the devices the campaign is targeting at
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", required = true, value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign is targeting at")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -179,7 +179,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The campaign&#39;s name
    * @return name
   **/
-  @ApiModelProperty(example = "campaign", required = true, value = "The campaign's name")
+  @ApiModelProperty(example = "campaign", value = "The campaign's name")
   public String getName() {
     return name;
   }
@@ -197,7 +197,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * The API resource entity
    * @return object
   **/
-  @ApiModelProperty(example = "update-campaign", required = true, value = "The API resource entity")
+  @ApiModelProperty(example = "update-campaign", value = "The API resource entity")
   public String getObject() {
     return object;
   }
@@ -215,7 +215,7 @@ public class UpdateCampaignPutRequest implements Serializable {
    * Get rootManifestId
    * @return rootManifestId
   **/
-  @ApiModelProperty(example = "00000000000000000000000000000000", required = true, value = "")
+  @ApiModelProperty(example = "00000000000000000000000000000000", value = "")
   public String getRootManifestId() {
     return rootManifestId;
   }
@@ -230,10 +230,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    * @return state
   **/
-  @ApiModelProperty(required = true, value = "The state of the campaign")
+  @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
   public StateEnum getState() {
     return state;
   }
@@ -248,10 +248,10 @@ public class UpdateCampaignPutRequest implements Serializable {
   }
 
    /**
-   * The scheduled start time for the update campaign
+   * The scheduled start time for the update campaign. Not in use.
    * @return when
   **/
-  @ApiModelProperty(required = true, value = "The scheduled start time for the update campaign")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The scheduled start time for the update campaign. Not in use.")
   public DateTime getWhen() {
     return when;
   }

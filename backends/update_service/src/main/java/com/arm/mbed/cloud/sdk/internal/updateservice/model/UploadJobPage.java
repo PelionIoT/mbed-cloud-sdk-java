@@ -14,7 +14,7 @@
 package com.arm.mbed.cloud.sdk.internal.updateservice.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareManifest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob;
 import com.google.gson.TypeAdapter;
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
@@ -28,17 +28,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * FirmwareManifestPage
+ * UploadJobPage
  */
 
-public class FirmwareManifestPage implements Serializable {
+public class UploadJobPage implements Serializable {
   private static final long serialVersionUID = 1L;
 
   @SerializedName("after")
   private String after = null;
 
   @SerializedName("data")
-  private List<FirmwareManifest> data = null;
+  private List<UploadJob> data = null;
 
   @SerializedName("has_more")
   private Boolean hasMore = null;
@@ -102,7 +102,7 @@ public class FirmwareManifestPage implements Serializable {
   @SerializedName("total_count")
   private Integer totalCount = null;
 
-  public FirmwareManifestPage after(String after) {
+  public UploadJobPage after(String after) {
     this.after = after;
     return this;
   }
@@ -120,14 +120,14 @@ public class FirmwareManifestPage implements Serializable {
     this.after = after;
   }
 
-  public FirmwareManifestPage data(List<FirmwareManifest> data) {
+  public UploadJobPage data(List<UploadJob> data) {
     this.data = data;
     return this;
   }
 
-  public FirmwareManifestPage addDataItem(FirmwareManifest dataItem) {
+  public UploadJobPage addDataItem(UploadJob dataItem) {
     if (this.data == null) {
-      this.data = new ArrayList<FirmwareManifest>();
+      this.data = new ArrayList<UploadJob>();
     }
     this.data.add(dataItem);
     return this;
@@ -137,16 +137,16 @@ public class FirmwareManifestPage implements Serializable {
    * Get data
    * @return data
   **/
-  @ApiModelProperty(example = "\"[]\"", value = "")
-  public List<FirmwareManifest> getData() {
+  @ApiModelProperty(value = "")
+  public List<UploadJob> getData() {
     return data;
   }
 
-  public void setData(List<FirmwareManifest> data) {
+  public void setData(List<UploadJob> data) {
     this.data = data;
   }
 
-  public FirmwareManifestPage hasMore(Boolean hasMore) {
+  public UploadJobPage hasMore(Boolean hasMore) {
     this.hasMore = hasMore;
     return this;
   }
@@ -164,7 +164,7 @@ public class FirmwareManifestPage implements Serializable {
     this.hasMore = hasMore;
   }
 
-  public FirmwareManifestPage limit(Integer limit) {
+  public UploadJobPage limit(Integer limit) {
     this.limit = limit;
     return this;
   }
@@ -182,7 +182,7 @@ public class FirmwareManifestPage implements Serializable {
     this.limit = limit;
   }
 
-  public FirmwareManifestPage object(String object) {
+  public UploadJobPage object(String object) {
     this.object = object;
     return this;
   }
@@ -200,7 +200,7 @@ public class FirmwareManifestPage implements Serializable {
     this.object = object;
   }
 
-  public FirmwareManifestPage order(OrderEnum order) {
+  public UploadJobPage order(OrderEnum order) {
     this.order = order;
     return this;
   }
@@ -218,7 +218,7 @@ public class FirmwareManifestPage implements Serializable {
     this.order = order;
   }
 
-  public FirmwareManifestPage totalCount(Integer totalCount) {
+  public UploadJobPage totalCount(Integer totalCount) {
     this.totalCount = totalCount;
     return this;
   }
@@ -245,14 +245,14 @@ public class FirmwareManifestPage implements Serializable {
     if (o == null || getClass() != o.getClass()) {
       return false;
     }
-    FirmwareManifestPage firmwareManifestPage = (FirmwareManifestPage) o;
-    return Objects.equals(this.after, firmwareManifestPage.after) &&
-        Objects.equals(this.data, firmwareManifestPage.data) &&
-        Objects.equals(this.hasMore, firmwareManifestPage.hasMore) &&
-        Objects.equals(this.limit, firmwareManifestPage.limit) &&
-        Objects.equals(this.object, firmwareManifestPage.object) &&
-        Objects.equals(this.order, firmwareManifestPage.order) &&
-        Objects.equals(this.totalCount, firmwareManifestPage.totalCount);
+    UploadJobPage uploadJobPage = (UploadJobPage) o;
+    return Objects.equals(this.after, uploadJobPage.after) &&
+        Objects.equals(this.data, uploadJobPage.data) &&
+        Objects.equals(this.hasMore, uploadJobPage.hasMore) &&
+        Objects.equals(this.limit, uploadJobPage.limit) &&
+        Objects.equals(this.object, uploadJobPage.object) &&
+        Objects.equals(this.order, uploadJobPage.order) &&
+        Objects.equals(this.totalCount, uploadJobPage.totalCount);
   }
 
   @Override
@@ -264,7 +264,7 @@ public class FirmwareManifestPage implements Serializable {
   @Override
   public String toString() {
     StringBuilder sb = new StringBuilder();
-    sb.append("class FirmwareManifestPage {\n");
+    sb.append("class UploadJobPage {\n");
     
     sb.append("    after: ").append(toIndentedString(after)).append("\n");
     sb.append("    data: ").append(toIndentedString(data)).append("\n");

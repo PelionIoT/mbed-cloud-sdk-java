@@ -4,11 +4,13 @@
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**autostopReason** | **String** | Text description of why a campaign failed to start or why a campaign stopped. |  [optional]
 **createdAt** | [**DateTime**](DateTime.md) | The time the update campaign was created |  [optional]
-**description** | **String** | The optional description of the campaign |  [optional]
-**deviceFilter** | **String** | The filter for the devices the campaign will target |  [optional]
+**description** | **String** | An optional description of the campaign |  [optional]
+**deviceFilter** | **String** | The filter for the devices the campaign is targeting at |  [optional]
 **etag** | **String** | The entity instance signature |  [optional]
 **finished** | [**DateTime**](DateTime.md) | The campaign finish timestamp |  [optional]
+**healthIndicator** | [**HealthIndicatorEnum**](#HealthIndicatorEnum) | An indication to the condition of the campaign. |  [optional]
 **id** | **String** | The campaign ID |  [optional]
 **name** | **String** | The campaign name |  [optional]
 **object** | **String** | The API resource entity |  [optional]
@@ -16,9 +18,18 @@ Name | Type | Description | Notes
 **rootManifestId** | **String** |  |  [optional]
 **rootManifestUrl** | **String** |  |  [optional]
 **startedAt** | [**DateTime**](DateTime.md) |  |  [optional]
-**state** | [**StateEnum**](#StateEnum) | The state of the campaign |  [optional]
+**state** | [**StateEnum**](#StateEnum) | DEPRECATED: The state of the campaign (use phase instead). |  [optional]
 **updatedAt** | [**DateTime**](DateTime.md) | The time the object was updated |  [optional]
-**when** | [**DateTime**](DateTime.md) | The scheduled start time for the update campaign |  [optional]
+**when** | [**DateTime**](DateTime.md) | The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed. |  [optional]
+
+
+<a name="HealthIndicatorEnum"></a>
+## Enum: HealthIndicatorEnum
+Name | Value
+---- | -----
+OK | &quot;ok&quot;
+WARNING | &quot;warning&quot;
+ERROR | &quot;error&quot;
 
 
 <a name="StateEnum"></a>

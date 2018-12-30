@@ -1,6 +1,6 @@
 /*
  * Update Service API
- * This is the API documentation for the Mbed deployment service, which is part of the update service.
+ * This is the API documentation for the Device Management deployment service, which is part of the Update service.
  *
  * OpenAPI spec version: 3
  * 
@@ -32,6 +32,9 @@ import java.io.Serializable;
 public class UpdateCampaign implements Serializable {
   private static final long serialVersionUID = 1L;
 
+  @SerializedName("autostop_reason")
+  private String autostopReason = null;
+
   @SerializedName("created_at")
   private DateTime createdAt = null;
 
@@ -46,6 +49,58 @@ public class UpdateCampaign implements Serializable {
 
   @SerializedName("finished")
   private DateTime finished = null;
+
+  /**
+   * An indication to the condition of the campaign.
+   */
+  @JsonAdapter(HealthIndicatorEnum.Adapter.class)
+  public enum HealthIndicatorEnum {
+    OK("ok"),
+    
+    WARNING("warning"),
+    
+    ERROR("error");
+
+    private String value;
+
+    HealthIndicatorEnum(String value) {
+      this.value = value;
+    }
+
+    public String getValue() {
+      return value;
+    }
+
+    @Override
+    public String toString() {
+      return String.valueOf(value);
+    }
+
+    public static HealthIndicatorEnum fromValue(String text) {
+      for (HealthIndicatorEnum b : HealthIndicatorEnum.values()) {
+        if (String.valueOf(b.value).equals(text)) {
+          return b;
+        }
+      }
+      return null;
+    }
+
+    public static class Adapter extends TypeAdapter<HealthIndicatorEnum> {
+      @Override
+      public void write(final JsonWriter jsonWriter, final HealthIndicatorEnum enumeration) throws IOException {
+        jsonWriter.value(enumeration.getValue());
+      }
+
+      @Override
+      public HealthIndicatorEnum read(final JsonReader jsonReader) throws IOException {
+        String value = jsonReader.nextString();
+        return HealthIndicatorEnum.fromValue(String.valueOf(value));
+      }
+    }
+  }
+
+  @SerializedName("health_indicator")
+  private HealthIndicatorEnum healthIndicator = null;
 
   @SerializedName("id")
   private String id = null;
@@ -69,7 +124,7 @@ public class UpdateCampaign implements Serializable {
   private DateTime startedAt = null;
 
   /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    */
   @JsonAdapter(StateEnum.Adapter.class)
   public enum StateEnum {
@@ -158,6 +213,24 @@ public class UpdateCampaign implements Serializable {
   @SerializedName("when")
   private DateTime when = null;
 
+  public UpdateCampaign autostopReason(String autostopReason) {
+    this.autostopReason = autostopReason;
+    return this;
+  }
+
+   /**
+   * Text description of why a campaign failed to start or why a campaign stopped.
+   * @return autostopReason
+  **/
+  @ApiModelProperty(example = "Insufficient billing credit.", value = "Text description of why a campaign failed to start or why a campaign stopped.")
+  public String getAutostopReason() {
+    return autostopReason;
+  }
+
+  public void setAutostopReason(String autostopReason) {
+    this.autostopReason = autostopReason;
+  }
+
   public UpdateCampaign createdAt(DateTime createdAt) {
     this.createdAt = createdAt;
     return this;
@@ -167,7 +240,7 @@ public class UpdateCampaign implements Serializable {
    * The time the update campaign was created
    * @return createdAt
   **/
-  @ApiModelProperty(value = "The time the update campaign was created")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the update campaign was created")
   public DateTime getCreatedAt() {
     return createdAt;
   }
@@ -182,10 +255,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The optional description of the campaign
+   * An optional description of the campaign
    * @return description
   **/
-  @ApiModelProperty(example = "", value = "The optional description of the campaign")
+  @ApiModelProperty(example = "", value = "An optional description of the campaign")
   public String getDescription() {
     return description;
   }
@@ -200,10 +273,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The filter for the devices the campaign will target
+   * The filter for the devices the campaign is targeting at
    * @return deviceFilter
   **/
-  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign will target")
+  @ApiModelProperty(example = "id__eq=00000000000000000000000000000000", value = "The filter for the devices the campaign is targeting at")
   public String getDeviceFilter() {
     return deviceFilter;
   }
@@ -239,13 +312,31 @@ public class UpdateCampaign implements Serializable {
    * The campaign finish timestamp
    * @return finished
   **/
-  @ApiModelProperty(value = "The campaign finish timestamp")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The campaign finish timestamp")
   public DateTime getFinished() {
     return finished;
   }
 
   public void setFinished(DateTime finished) {
     this.finished = finished;
+  }
+
+  public UpdateCampaign healthIndicator(HealthIndicatorEnum healthIndicator) {
+    this.healthIndicator = healthIndicator;
+    return this;
+  }
+
+   /**
+   * An indication to the condition of the campaign.
+   * @return healthIndicator
+  **/
+  @ApiModelProperty(example = "ok", value = "An indication to the condition of the campaign.")
+  public HealthIndicatorEnum getHealthIndicator() {
+    return healthIndicator;
+  }
+
+  public void setHealthIndicator(HealthIndicatorEnum healthIndicator) {
+    this.healthIndicator = healthIndicator;
   }
 
   public UpdateCampaign id(String id) {
@@ -356,7 +447,7 @@ public class UpdateCampaign implements Serializable {
    * Get startedAt
    * @return startedAt
   **/
-  @ApiModelProperty(value = "")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "")
   public DateTime getStartedAt() {
     return startedAt;
   }
@@ -371,10 +462,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The state of the campaign
+   * DEPRECATED: The state of the campaign (use phase instead).
    * @return state
   **/
-  @ApiModelProperty(value = "The state of the campaign")
+  @ApiModelProperty(value = "DEPRECATED: The state of the campaign (use phase instead).")
   public StateEnum getState() {
     return state;
   }
@@ -392,7 +483,7 @@ public class UpdateCampaign implements Serializable {
    * The time the object was updated
    * @return updatedAt
   **/
-  @ApiModelProperty(value = "The time the object was updated")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The time the object was updated")
   public DateTime getUpdatedAt() {
     return updatedAt;
   }
@@ -407,10 +498,10 @@ public class UpdateCampaign implements Serializable {
   }
 
    /**
-   * The scheduled start time for the update campaign
+   * The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.
    * @return when
   **/
-  @ApiModelProperty(value = "The scheduled start time for the update campaign")
+  @ApiModelProperty(example = "2017-05-22T12:37:55.576563Z", value = "The scheduled start time for the campaign. The campaign will start within 1 minute when then start time has elapsed.")
   public DateTime getWhen() {
     return when;
   }
@@ -429,11 +520,13 @@ public class UpdateCampaign implements Serializable {
       return false;
     }
     UpdateCampaign updateCampaign = (UpdateCampaign) o;
-    return Objects.equals(this.createdAt, updateCampaign.createdAt) &&
+    return Objects.equals(this.autostopReason, updateCampaign.autostopReason) &&
+        Objects.equals(this.createdAt, updateCampaign.createdAt) &&
         Objects.equals(this.description, updateCampaign.description) &&
         Objects.equals(this.deviceFilter, updateCampaign.deviceFilter) &&
         Objects.equals(this.etag, updateCampaign.etag) &&
         Objects.equals(this.finished, updateCampaign.finished) &&
+        Objects.equals(this.healthIndicator, updateCampaign.healthIndicator) &&
         Objects.equals(this.id, updateCampaign.id) &&
         Objects.equals(this.name, updateCampaign.name) &&
         Objects.equals(this.object, updateCampaign.object) &&
@@ -448,7 +541,7 @@ public class UpdateCampaign implements Serializable {
 
   @Override
   public int hashCode() {
-    return Objects.hash(createdAt, description, deviceFilter, etag, finished, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
+    return Objects.hash(autostopReason, createdAt, description, deviceFilter, etag, finished, healthIndicator, id, name, object, phase, rootManifestId, rootManifestUrl, startedAt, state, updatedAt, when);
   }
 
 
@@ -457,11 +550,13 @@ public class UpdateCampaign implements Serializable {
     StringBuilder sb = new StringBuilder();
     sb.append("class UpdateCampaign {\n");
     
+    sb.append("    autostopReason: ").append(toIndentedString(autostopReason)).append("\n");
     sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
     sb.append("    description: ").append(toIndentedString(description)).append("\n");
     sb.append("    deviceFilter: ").append(toIndentedString(deviceFilter)).append("\n");
     sb.append("    etag: ").append(toIndentedString(etag)).append("\n");
     sb.append("    finished: ").append(toIndentedString(finished)).append("\n");
+    sb.append("    healthIndicator: ").append(toIndentedString(healthIndicator)).append("\n");
     sb.append("    id: ").append(toIndentedString(id)).append("\n");
     sb.append("    name: ").append(toIndentedString(name)).append("\n");
     sb.append("    object: ").append(toIndentedString(object)).append("\n");

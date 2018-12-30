@@ -3,6 +3,12 @@ package com.arm.mbed.cloud.sdk.internal.updateservice.api;
 import com.arm.mbed.cloud.sdk.internal.updateservice.ApiClient;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadata;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignDeviceMetadataPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.CampaignMetrics;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.ErrorResponse;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventType;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeList;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummary;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.EventTypeSummaryList;
 import java.io.File;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
@@ -12,6 +18,11 @@ import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaign;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.internal.updateservice.model.UpdateCampaignPutRequest;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfo;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadChunkInfoPage;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJob1;
+import com.arm.mbed.cloud.sdk.internal.updateservice.model.UploadJobPage;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -35,7 +46,7 @@ public class DefaultApiTest {
     /**
      * Create an image
      *
-     * Create firmware image.
+     * Create a firmware image.
      */
     @Test
     public void firmwareImageCreateTest() {
@@ -49,7 +60,7 @@ public class DefaultApiTest {
     /**
      * Delete an image
      *
-     * Delete firmware image.
+     * Delete a firmware image.
      */
     @Test
     public void firmwareImageDestroyTest() {
@@ -68,16 +79,16 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // FirmwareImagePage response = api.firmwareImageList(limit, order, after, filter, include);
+        String filter = null;
+        // FirmwareImagePage response = api.firmwareImageList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
     /**
      * Get an image
      *
-     * Retrieve firmware image.
+     * Retrieve a firmware image.
      */
     @Test
     public void firmwareImageRetrieveTest() {
@@ -87,9 +98,9 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Create a manifest
+     * Upload a manifest
      *
-     * Create firmware manifest.
+     * Upload a firmware manifest. The API enforces a maximum size of manifests of 2 KB.
      */
     @Test
     public void firmwareManifestCreateTest() {
@@ -104,7 +115,7 @@ public class DefaultApiTest {
     /**
      * Delete a manifest
      *
-     * Delete firmware manifest.
+     * Delete a firmware manifest.
      */
     @Test
     public void firmwareManifestDestroyTest() {
@@ -123,21 +134,33 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // FirmwareManifestPage response = api.firmwareManifestList(limit, order, after, filter, include);
+        String filter = null;
+        // FirmwareManifestPage response = api.firmwareManifestList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
     /**
      * Get a manifest
      *
-     * Retrieve firmware manifest.
+     * Retrieve a firmware manifest.
      */
     @Test
     public void firmwareManifestRetrieveTest() {
         String manifestId = null;
         // FirmwareManifest response = api.firmwareManifestRetrieve(manifestId);
+
+        // TODO: test validations
+    }
+    /**
+     * Archive a campaign.
+     *
+     * This command will archive a campaign.
+     */
+    @Test
+    public void updateCampaignArchiveTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignArchive(campaignId);
 
         // TODO: test validations
     }
@@ -166,6 +189,33 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Get a list of events grouped by summary
+     *
+     * Get a list of events grouped by summary
+     */
+    @Test
+    public void updateCampaignEventTypesListTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        // EventTypeList response = api.updateCampaignEventTypesList(campaignId, summaryStatusId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get an event type for a campaign
+     *
+     * Get an event type for a campaign
+     */
+    @Test
+    public void updateCampaignEventTypesRetrieveTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        String eventTypeId = null;
+        // EventType response = api.updateCampaignEventTypesRetrieve(campaignId, summaryStatusId, eventTypeId);
+
+        // TODO: test validations
+    }
+    /**
      * List all campaigns
      *
      * Get update campaigns for devices specified by a filter.
@@ -175,9 +225,9 @@ public class DefaultApiTest {
         Integer limit = null;
         String order = null;
         String after = null;
-        String filter = null;
         String include = null;
-        // UpdateCampaignPage response = api.updateCampaignList(limit, order, after, filter, include);
+        String filter = null;
+        // UpdateCampaignPage response = api.updateCampaignList(limit, order, after, include, filter);
 
         // TODO: test validations
     }
@@ -211,14 +261,14 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
-     * Stop a running campaign
+     * Get campaign metrics
      *
-     * Stop a running update campaign.
+     * Get detailed statistics of a campaign.
      */
     @Test
-    public void updateCampaignMetadataStopTest() {
+    public void updateCampaignMetricsTest() {
         String campaignId = null;
-        // Void response = api.updateCampaignMetadataStop(campaignId);
+        // CampaignMetrics response = api.updateCampaignMetrics(campaignId);
 
         // TODO: test validations
     }
@@ -235,6 +285,55 @@ public class DefaultApiTest {
         // TODO: test validations
     }
     /**
+     * Start a campaign.
+     *
+     * This command will begin the process of starting a campaign.
+     */
+    @Test
+    public void updateCampaignStartTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignStart(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a list of statistics for a campaign
+     *
+     * Get a list of statistics for a campaign
+     */
+    @Test
+    public void updateCampaignStatisticsListTest() {
+        String campaignId = null;
+        // EventTypeSummaryList response = api.updateCampaignStatisticsList(campaignId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get a summary status
+     *
+     * Get a summary status
+     */
+    @Test
+    public void updateCampaignStatisticsRetrieveTest() {
+        String campaignId = null;
+        String summaryStatusId = null;
+        // EventTypeSummary response = api.updateCampaignStatisticsRetrieve(campaignId, summaryStatusId);
+
+        // TODO: test validations
+    }
+    /**
+     * Stop a campaign.
+     *
+     * This command will begin the process of stopping a campaign.
+     */
+    @Test
+    public void updateCampaignStopTest() {
+        String campaignId = null;
+        // Void response = api.updateCampaignStop(campaignId);
+
+        // TODO: test validations
+    }
+    /**
      * Modify a campaign
      *
      * Modify an update campaign.
@@ -244,6 +343,116 @@ public class DefaultApiTest {
         String campaignId = null;
         UpdateCampaignPutRequest campaign = null;
         // UpdateCampaign response = api.updateCampaignUpdate(campaignId, campaign);
+
+        // TODO: test validations
+    }
+    /**
+     * Append a chunks to an upload job
+     *
+     * Append a chunks to an upload job. To finish a job upload a zero-length chunk.
+     */
+    @Test
+    public void uploadJobChunkCreateTest() {
+        String contentMD5 = null;
+        Integer contentLength = null;
+        String uploadJobId = null;
+        byte[] chunk = null;
+        // UploadChunkInfo response = api.uploadJobChunkCreate(contentMD5, contentLength, uploadJobId, chunk);
+
+        // TODO: test validations
+    }
+    /**
+     * List all metadata for uploaded chunks
+     *
+     * List all metadata for uploaded chunks
+     */
+    @Test
+    public void uploadJobChunkListTest() {
+        String uploadJobId = null;
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // UploadChunkInfoPage response = api.uploadJobChunkList(uploadJobId, limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get metadata about a chunk
+     *
+     * Get metadata about a chunk
+     */
+    @Test
+    public void uploadJobChunkRetreiveTest() {
+        String uploadJobId = null;
+        String chunkId = null;
+        // UploadChunkInfo response = api.uploadJobChunkRetreive(uploadJobId, chunkId);
+
+        // TODO: test validations
+    }
+    /**
+     * Create a new upload job
+     *
+     * Create a new upload job
+     */
+    @Test
+    public void uploadJobCreateTest() {
+        UploadJob uploadJob = null;
+        // UploadJob response = api.uploadJobCreate(uploadJob);
+
+        // TODO: test validations
+    }
+    /**
+     * Delete an upload job
+     *
+     * Delete an upload job
+     */
+    @Test
+    public void uploadJobDeleteTest() {
+        String uploadJobId = null;
+        // Void response = api.uploadJobDelete(uploadJobId);
+
+        // TODO: test validations
+    }
+    /**
+     * Get all upload jobs
+     *
+     * Get all upload jobs
+     */
+    @Test
+    public void uploadJobListTest() {
+        Integer limit = null;
+        String order = null;
+        String after = null;
+        String include = null;
+        String filter = null;
+        // UploadJobPage response = api.uploadJobList(limit, order, after, include, filter);
+
+        // TODO: test validations
+    }
+    /**
+     * Get an upload job
+     *
+     * Get an upload job
+     */
+    @Test
+    public void uploadJobRetrieveTest() {
+        String uploadJobId = null;
+        // UploadJob response = api.uploadJobRetrieve(uploadJobId);
+
+        // TODO: test validations
+    }
+    /**
+     * Update an upload job
+     *
+     * Update an upload job
+     */
+    @Test
+    public void uploadJobUpdateTest() {
+        String uploadJobId = null;
+        UploadJob1 uploadJob = null;
+        // UploadJob response = api.uploadJobUpdate(uploadJobId, uploadJob);
 
         // TODO: test validations
     }
