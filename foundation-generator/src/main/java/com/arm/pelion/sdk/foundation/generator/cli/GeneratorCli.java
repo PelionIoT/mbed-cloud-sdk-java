@@ -160,8 +160,8 @@ public class GeneratorCli implements Runnable {
     public String generateHelp(int width) {
         final Help help = new Help(this);
         final StringBuilder sb = new StringBuilder().append(help.headerHeading())
-                                                    .append(help.join(help.ansi(), width, Header.CLI_HEADER,
-                                                                      new StringBuilder(), null)
+                                                    .append(Help.join(help.ansi(), width, Header.CLI_HEADER,
+                                                                      new StringBuilder())
                                                                 .toString())
                                                     .append(help.synopsisHeading()) // e.g. Usage:
                                                     .append(help.synopsis(help.synopsisHeadingLength())) // e.g.

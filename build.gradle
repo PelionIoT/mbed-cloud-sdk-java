@@ -393,9 +393,20 @@ subprojects {
     targetCompatibility = JavaVersion.VERSION_1_7
 }
 
+walkmodApply.doFirst {
+	tasks.spotlessApply.execute()
+}
+walkmodApply.doLast {
+	tasks.spotlessApply.execute()
+}
 // The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
 def tasksNeedinSubprojectTasks = ['animalsniffer','pmd','jacoco','test','checkstyle','cpd','findbugs','jdepend','spotbugs','walkmod','spotless'].collect{it.toLowerCase()}
 tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
+project.afterEvaluate{
+	compileJava.dependsOn("spotlessApply") 
+  //compileJava.dependsOn("walkmodApply") // cannot do this because walkmod needs the compilation to have occurred
+}
+
 
 configurations {
     coverage

@@ -37,9 +37,6 @@ repositories {
     mavenCentral()
 }
 
-// Define the main class for the application
-mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
-
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.squareup:javapoet:1.11.+'
@@ -122,6 +119,15 @@ spotless {
     }    
 }
 
+// Define the main class for the application
+mainClassName = 'com.arm.pelion.sdk.foundation.generator.FoundationGenerator'
+
+run {
+	classpath sourceSets.main.runtimeClasspath
+	main = mainClassName
+	args = ["-i", "$rootProject.projectDir/$foundationSourceDir/$foundationSourceFileName", "-c", "$rootProject.projectDir/$openApiCodegenConfigDir/$foundationConfigFile", "-m", "$foundationModelDestProject", "$rootProject.projectDir/../"]
+}
+
 swaggerSources {
   def lowlevelTemplatesDir = new File("$rootProject.projectDir/$openApiCodegenTemplatesDir").canonicalPath
   common {
@@ -159,5 +165,3 @@ project.afterEvaluate{
   spotlessApply.dependsOn("generateSwaggerCode")
   compileJava.dependsOn("spotlessApply")
 }
- //compileJava.dependsOn swaggerSource
- //generateSwaggerCode

@@ -48,10 +48,4 @@ public class GeneratorVersion implements IVersionProvider {
 
         }
     }
-    // CommandLine commandLine = new CommandLine(new VersionedCommand());
-    // commandLine.parse(args);
-    // if (commandLine.isVersionHelpRequested()) {
-    // commandLine.printVersionHelp(System.out);
-    // return;
-    // }
 }
