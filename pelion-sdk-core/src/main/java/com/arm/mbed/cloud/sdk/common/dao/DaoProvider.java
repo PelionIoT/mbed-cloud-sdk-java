@@ -31,7 +31,7 @@ public final class DaoProvider {
      * @param context
      *            context to use.
      */
-    protected DaoProvider(SdkContext context) {
+    public DaoProvider(SdkContext context) {
         this.context = context;
     }
 

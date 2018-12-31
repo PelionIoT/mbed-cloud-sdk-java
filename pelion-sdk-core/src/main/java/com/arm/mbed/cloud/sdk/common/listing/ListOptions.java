@@ -17,6 +17,9 @@ import com.arm.mbed.cloud.sdk.common.listing.filtering.Filters;
 public class ListOptions extends FilterOptions {
     public static final String FIELD_NAME_INCLUDE = "include";
     public static final String FIELD_NAME_FILTER = "filter";
+    public static final String FIELD_NAME_PAGESIZE = "pageSize";
+    public static final String FIELD_NAME_FORMER_PAGESIZE = "limit";
+    public static final String FIELD_NAME_ORDER = "order";
     public static final String METHOD_INCLUDE_TO_STRING = "encodeInclude";
     public static final String METHOD_FILTER_TO_STRING = FilterOptions.METHOD_FILTER_TO_STRING;
     /**

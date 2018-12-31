@@ -49,7 +49,8 @@ public class TestGenericClient {
 
                              @Override
                              public com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall<UserListResponse>
-                                    defineCall(PelionApi service, Object... parameters) throws MbedCloudException {
+                                    defineCall(final PelionApi service,
+                                               final Object... parameters) throws MbedCloudException {
 
                                  return new CloudCall<UserListResponse>() {
 
@@ -109,7 +110,7 @@ public class TestGenericClient {
 
                                               @Override
                                               public CloudCall<ListResponse<User>>
-                                                     defineCall(PelionListApi service, ListOptions options,
+                                                     defineCall(final PelionListApi service, final ListOptions options,
                                                                 Object... extraParameters) throws MbedCloudException {
                                                   return new CloudCall<ListResponse<User>>() {
 

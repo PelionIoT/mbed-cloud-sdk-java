@@ -83,9 +83,11 @@ public interface ModelListDao<T extends SdkModel, U extends ListOptions> extends
      * @param <V>
      *            type of model DAO.
      * @return an instance of corresponding model DAO.
+     * @throws MbedCloudException
+     *             if an error occurs during DAO configuration
      */
     @Nullable
-    <V extends ModelDao<T>> V getCorrespondingModelDao();
+    <V extends ModelDao<T>> V getCorrespondingModelDao() throws MbedCloudException;
 
     /**
      * Gets one page of models.

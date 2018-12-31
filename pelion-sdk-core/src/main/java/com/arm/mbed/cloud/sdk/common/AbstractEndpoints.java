@@ -7,7 +7,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 @Internal
 public abstract class AbstractEndpoints implements Cloneable {
     public static final String METHOD_INITIALISE_SERVICE = "initialiseService";
-    public static final String METHOD_CLONE_SERVICE_STORE = "getServicesClone";
+    public static final String METHOD_CLONE_SERVICE_STORE = "getRegistryClone";
     private final ServiceRegistry serviceRegistry;
 
     /**

@@ -149,11 +149,13 @@ public abstract class AbstractModelListDao<T extends SdkModel, U extends ListOpt
         }
     }
 
+    // FIXME implement when the APIs allow this mechanism.
     protected IdListResponse requestOnePageOfIds(U listOptions) throws UnsupportedOperationException {
         throw new UnsupportedOperationException("No mechanism is currently in place in the APIs to only list IDs",
                                                 new NotImplementedException());
     }
 
-    protected abstract ListResponse<T> requestOnePage(U listOptions) throws UnsupportedOperationException;
+    protected abstract ListResponse<T> requestOnePage(U listOptions) throws MbedCloudException,
+                                                                     UnsupportedOperationException;
 
 }
