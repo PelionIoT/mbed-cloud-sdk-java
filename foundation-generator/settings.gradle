@@ -7,7 +7,7 @@
  * in the user guide at https://docs.gradle.org/4.9/userguide/multi_project_builds.html
  */
 
-rootProject.name = 'foundation-generator'
+rootProject.name = toolName
 include 'pelion-sdk-core'
 project(':pelion-sdk-core').projectDir = file('../pelion-sdk-core')
 include 'support-annotations'
