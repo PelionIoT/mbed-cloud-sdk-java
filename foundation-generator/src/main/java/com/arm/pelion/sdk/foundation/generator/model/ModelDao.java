@@ -293,8 +293,8 @@ public class ModelDao extends Model {
     }
 
     @Override
-    protected void generateClone(Model theParent) {
-        // Do not generate anything
+    protected MethodClone instantiateCloneMethod(Model theParent) {
+        return new MethodDaoClone(this, theParent);
     }
 
     @Override
@@ -310,6 +310,7 @@ public class ModelDao extends Model {
     @Override
     protected void generateMethodsDependingOnParents(Model theParent) {
         addConstructor(new MethodModelDaoConstructorEmpty(this, theParent));
+        generateClone(theParent);
     }
 
     @Override

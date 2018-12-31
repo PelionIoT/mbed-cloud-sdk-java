@@ -100,4 +100,6 @@ public abstract class AbstractCloudDao implements CloudDao {
     protected abstract SdkContext instantiateModule(ApiClientWrapper client);
 
     protected abstract SdkContext instantiateModule(SdkContext context);
+
+    public abstract CloudDao clone();
 }

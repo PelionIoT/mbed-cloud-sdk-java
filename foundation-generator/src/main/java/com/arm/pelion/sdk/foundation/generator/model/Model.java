@@ -590,7 +590,7 @@ public class Model extends AbstractSdkArtifact {
             abstractModel.addField(f);
         });
         getMethodList().stream().filter(m -> !m.needsCustomCode()).forEach(m -> abstractModel.addMethod(m));
-        abstractModel.addMethod(new MethodCloneDefault());
+        // abstractModel.addMethod(new MethodCloneDefault());
         abstractModel.generateMethodsNecessaryAtEachLevel();
         abstractModel.ensureSdkModelMethodsHaveOverrideAnnotation();
         return abstractModel;

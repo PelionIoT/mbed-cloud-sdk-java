@@ -395,6 +395,11 @@ public class TestCloudCaller {
             return "TestApi";
         }
 
+        @Override
+        public SdkContext clone() {
+            return this;
+        }
+
     }
 
     private static class BodyTest {

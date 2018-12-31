@@ -112,8 +112,11 @@ public class Artifacts {
         rawEndpoints.getModels().forEach(m -> storePackageInfo(m));
         processedModels.addAll(rawEndpoints.getModels());
         // Process Modules
-        rawModules.getModels().forEach(m -> storePackageInfo(m));
-        processedModules.addAll(rawModules.getModels());
+        rawModules.getModels().forEach(m -> {
+            storePackageInfo(m);
+            processedModules.addAll(m.getProcessedModels().stream().map(c -> (ModelModule) c)
+                                     .collect(Collectors.toList()));
+        });
     }
 
     /**

@@ -15,7 +15,7 @@ import com.arm.mbed.cloud.sdk.common.SdkContext;
  *
  */
 @Preamble(description = "Generic DAO definition")
-public interface CloudDao {
+public interface CloudDao extends Cloneable {
     /**
      * Initialises the Cloud connection using default/environment values as described in {@link ConnectionOptions}.
      *
@@ -91,4 +91,13 @@ public interface CloudDao {
      * @return a DAO provider.
      */
     DaoProvider getDaoProvider();
+
+    /**
+     * Clones this instance.
+     * 
+     * @return a cloned instance.
+     * @throws MbedCloudException
+     *             if an error occurs during configuration
+     */
+    CloudDao clone();
 }

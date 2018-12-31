@@ -165,10 +165,26 @@ public class TestModelDaoProvider {
                 }
 
                 @Override
+                public SdkContext clone() {
+                    return this;
+                }
+
+                @Override
+                public ConnectionOptions getConnectionOption() {
+                    return null;
+                }
+
+                @Override
                 public void close() throws IOException {
                     // Nothing to do
                 }
             };
+        }
+
+        @Override
+        public CloudDao clone() {
+            // TODO Auto-generated method stub
+            return null;
         }
 
     }
@@ -219,6 +235,12 @@ public class TestModelDaoProvider {
                 exception.printStackTrace();
                 return null;
             }
+        }
+
+        @Override
+        public CloudDao clone() {
+            // TODO Auto-generated method stub
+            return null;
         }
 
     }

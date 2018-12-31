@@ -96,6 +96,7 @@ public class ModelModule extends ModelMergeable {
         addConstructor(new MethodModuleConstructorFromConnectionOptions(this, theParent));
         addConstructor(new MethodModuleConstructorFromClient(this, theParent));
         addConstructor(new MethodModuleConstructorFromSdkContext(this, theParent));
+        generateClone(theParent);
     }
 
     @Override

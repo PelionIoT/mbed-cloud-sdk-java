@@ -318,9 +318,18 @@ public class GenericClient {
             super(options);
         }
 
+        public DefaultModule(SdkContext context) {
+            super(context);
+        }
+
         @Override
         public String getModuleName() {
             return NAME;
+        }
+
+        @Override
+        public DefaultModule clone() {
+            return new DefaultModule(this);
         }
 
     }

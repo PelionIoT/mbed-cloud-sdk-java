@@ -76,6 +76,18 @@ public class ModelTest extends AbstractSdkArtifact {
         }
     }
 
+    private void addExceptionHandlingStart(final MethodTest test) {
+        test.getCode().beginControlFlow("try");
+    }
+
+    private void addExceptionHandlingEnd(final MethodTest test) {
+        final String exceptionVariable = "exception";
+        test.getCode().endControlFlow();
+        test.getCode().beginControlFlow("catch(Exception $L)", exceptionVariable);
+        test.getCode().addStatement("fail($L.getMessage())", exceptionVariable);
+        test.getCode().endControlFlow();
+    }
+
     private void generateCloneTest() {
         final Method method = modelUnderTest.fetchMethod(MethodClone.IDENTIFIER);
         if (method == null) {
@@ -87,6 +99,7 @@ public class ModelTest extends AbstractSdkArtifact {
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
         final String fieldValues = String.join("," + System.lineSeparator(),
                                                ValueGenerator.generateModelFieldValues(modelUnderTest));
+        addExceptionHandlingStart(test);
         test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
                                     modelUnderTest.getName());
         test.getCode().addStatement("$L " + variable + "2 = " + variable + "1.clone()", modelUnderTest.getName());
@@ -94,6 +107,7 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertNotNull(" + variable + "2)");
         test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
         test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
+        addExceptionHandlingEnd(test);
         addTest(test);
     }
 
@@ -109,6 +123,7 @@ public class ModelTest extends AbstractSdkArtifact {
                                                method.containsCustomCode() || modelUnderTest.needsFieldCustomisation());
         final ModelEnum enumModel = (ModelEnum) modelUnderTest;
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
+        addExceptionHandlingStart(test);
         test.getCode().addStatement("$L $L = $L.$L($L)", enumModel.getName(), variable, enumModel.getName(),
                                     SdkEnum.METHOD_GET_VALUE_FROM_STRING, null);
         test.getCode().addStatement("assertNotNull($L)", variable);
@@ -134,6 +149,7 @@ public class ModelTest extends AbstractSdkArtifact {
                                     SdkEnum.METHOD_GET_VALUE_FROM_STRING, ValueGenerator.generateRandomString());
         test.getCode().addStatement("assertNotNull($L)", variable);
         test.getCode().addStatement("assertTrue($L.$L())", variable, SdkEnum.METHOD_IS_DEFAULT);
+        addExceptionHandlingEnd(test);
         addTest(test);
     }
 
@@ -150,6 +166,7 @@ public class ModelTest extends AbstractSdkArtifact {
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
         final String fieldValues1 = String.join("," + System.lineSeparator(), values1);
         final String fieldValues2 = String.join("," + System.lineSeparator(), values2);
+        addExceptionHandlingStart(test);
         test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues1 + ")", modelUnderTest.getName(),
                                     modelUnderTest.getName());
         test.getCode().addStatement("$L " + variable + "2 = new $L(" + fieldValues1 + ")", modelUnderTest.getName(),
@@ -167,6 +184,7 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().addStatement("assertEquals(" + variable + "1, " + variable + "1)");
         test.getCode().addStatement("assertFalse(" + variable + "1.equals(null))");
         test.getCode().addStatement("assertNotEquals(" + variable + "3, " + variable + "1)");
+        addExceptionHandlingEnd(test);
         addTest(test);
     }
 
@@ -189,6 +207,7 @@ public class ModelTest extends AbstractSdkArtifact {
         final List<String> values = ValueGenerator.generateModelFieldValues(modelUnderTest);
         final String variable = modelUnderTest.getName().toLowerCase().replace(" ", "").trim();
         final String fieldValues = String.join("," + System.lineSeparator(), values);
+        addExceptionHandlingStart(test);
         test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
                                     modelUnderTest.getName());
         test.getCode().addStatement("$L " + variable + "2 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
@@ -202,6 +221,7 @@ public class ModelTest extends AbstractSdkArtifact {
         test.getCode().beginControlFlow("for (int i = 0; i < $L ; i++)", Integer.valueOf(5));
         test.getCode().addStatement("assertEquals(hashCode, " + variable + "1.hashCode())");
         test.getCode().endControlFlow();
+        addExceptionHandlingEnd(test);
         addTest(test);
     }
 

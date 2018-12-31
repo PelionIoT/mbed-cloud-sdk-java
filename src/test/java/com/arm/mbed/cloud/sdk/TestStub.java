@@ -12,6 +12,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 
 @Preamble(description = "Specifies test stub API")
 @Module
@@ -72,6 +73,11 @@ public class TestStub extends AbstractModule {
         obj.put("apiKey", opt.getApiKey());
         obj.put("host", opt.getHost());
         return obj;
+    }
+
+    @Override
+    public SdkContext clone() {
+        return null;
     }
 
 }

@@ -30,6 +30,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.SynchronousMethod.AsynchronousMethod;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
@@ -117,6 +118,21 @@ public class Connect extends AbstractModule {
      */
     public Connect(@NonNull ConnectionOptions options) {
         this(options, null, null);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Connect(SdkContext context) {
+        this(context == null ? null : context.getConnectionOption());
+    }
+
+    @Override
+    public Connect clone() {
+        return new Connect(this);
     }
 
     /**

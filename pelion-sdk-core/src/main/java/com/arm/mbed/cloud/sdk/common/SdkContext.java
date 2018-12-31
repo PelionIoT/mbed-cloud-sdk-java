@@ -10,7 +10,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
  *
  */
 @Preamble(description = "Definition of a Pelion SDK's context")
-public interface SdkContext extends Closeable {
+public interface SdkContext extends Closeable, Cloneable {
 
     /**
      * Gets SDK logger.
@@ -26,6 +26,13 @@ public interface SdkContext extends Closeable {
      * @return the client
      */
     ApiClientWrapper getClient();
+
+    /**
+     * Gets the options used for connection to the Cloud.
+     * 
+     * @return connection options.
+     */
+    ConnectionOptions getConnectionOption();
 
     /**
      * Gets meta data for the last Arm Mbed Cloud API call.
@@ -48,5 +55,12 @@ public interface SdkContext extends Closeable {
      * @return the service registry in use.
      */
     ServiceRegistry getServiceRegistry();
+
+    /**
+     * Clones this instance.
+     * 
+     * @return a cloned context.
+     */
+    SdkContext clone();
 
 }

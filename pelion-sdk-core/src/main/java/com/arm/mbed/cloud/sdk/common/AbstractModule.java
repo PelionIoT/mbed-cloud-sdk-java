@@ -46,9 +46,9 @@ public abstract class AbstractModule implements SdkContext {
      */
     public AbstractModule(SdkContext context) {
         super();
-        this.client = context.getClient();
-        this.serviceRegistry = context.getServiceRegistry();
-        this.logger = context.getLogger();
+        this.client = context == null ? null : context.getClient();
+        this.serviceRegistry = context == null ? null : context.getServiceRegistry();
+        this.logger = context == null ? null : context.getLogger();
         metadataCache = new ApiMetadataCache();
     }
 
@@ -122,6 +122,11 @@ public abstract class AbstractModule implements SdkContext {
     }
 
     @Override
+    public ConnectionOptions getConnectionOption() {
+        return client == null ? null : client.getConnectionOptions();
+    }
+
+    @Override
     public void close() {
         logger.logInfo("Closing " + getModuleName());
         serviceRegistry.clear();
@@ -151,5 +156,8 @@ public abstract class AbstractModule implements SdkContext {
      */
     @Override
     public abstract String getModuleName();
+
+    @Override
+    public abstract SdkContext clone();
 
 }

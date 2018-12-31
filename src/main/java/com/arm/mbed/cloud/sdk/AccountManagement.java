@@ -22,6 +22,7 @@ import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
@@ -63,6 +64,22 @@ public class AccountManagement extends AbstractModule {
     public AccountManagement(@NonNull ConnectionOptions options) {
         super(options);
         endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public AccountManagement(SdkContext context) {
+        super(context);
+        endpoint = new EndPoints(this.serviceRegistry);
+    }
+
+    @Override
+    public AccountManagement clone() {
+        return new AccountManagement(this);
     }
 
     /**
@@ -1201,4 +1218,5 @@ public class AccountManagement extends AbstractModule {
     public String getModuleName() {
         return "Account Management";
     }
+
 }

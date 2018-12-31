@@ -16,6 +16,7 @@ import com.arm.mbed.cloud.sdk.common.AbstractModule;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
+import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
 import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
@@ -44,6 +45,21 @@ public class Sdk extends AbstractModule {
     public Sdk(ConnectionOptions options) {
         super(options, extendUserAgent());
         connectApi = new Connect(options);
+    }
+
+    /**
+     * Constructor.
+     * 
+     * @param context
+     *            SDK context
+     */
+    public Sdk(SdkContext context) {
+        this(context == null ? null : context.getConnectionOption());
+    }
+
+    @Override
+    public Sdk clone() {
+        return new Sdk(this);
     }
 
     /**
