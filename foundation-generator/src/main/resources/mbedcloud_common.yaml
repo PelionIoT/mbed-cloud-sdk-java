@@ -1,0 +1,32 @@
+swagger: '2.0'
+info:
+  description: Common HTTP client code.
+  title: Common API
+  version: '3'
+host: api.us-east-1.mbedcloud.com
+schemes:
+  - https
+produces:
+- application/json
+securityDefinitions:
+ Bearer:
+     type: apiKey
+     name: Authorization
+     in: header
+
+# Global security (applies to all operations):
+security:
+- Bearer: []
+definitions:
+  MockModel:
+    properties:
+      mocked_property:
+        type: string
+        description: A mocked property.
+paths:
+  /:
+    get:
+      operationId: test
+      responses:
+        '200':
+          description: Request successful

@@ -14,6 +14,11 @@ include 'support-annotations'
 project(':support-annotations').projectDir = file('../support-annotations')
 include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
+project(':backends:mbedcloud_common').name = commonClientBackendName
+include 'backends:pelioncloud_devicemanagement'
+project(':backends:pelioncloud_devicemanagement').projectDir = file('../backends/pelioncloud_devicemanagement')
+project(':backends:pelioncloud_devicemanagement').name = pelionBackendName
+/*
 include 'backends:connector_ca'
 project(':backends:connector_ca').projectDir = file('../backends/connector_ca')
 include 'backends:connector_bootstrap'
@@ -36,3 +41,4 @@ include 'backends:billing'
 project(':backends:billing').projectDir = file('../backends/billing')
 include 'backends:certificate_renewal'
 project(':backends:certificate_renewal').projectDir = file('../backends/certificate_renewal')
+*/

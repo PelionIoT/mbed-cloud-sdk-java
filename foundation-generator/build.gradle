@@ -2,6 +2,9 @@ buildscript {
     repositories {
         mavenCentral()
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
@@ -16,8 +19,15 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+    id "com.diffplug.gradle.spotless" version "3.16.0"
+    id "org.hidetake.swagger.generator" version '2.16.0'
 }
 apply plugin: 'walkmod'
+
+configurations {
+    openapiCodegen
+}
+
 
 // In this section you declare where to find the dependencies of your project
 repositories {
@@ -43,7 +53,9 @@ dependencies {
     implementation 'junit:junit:4.+'
     implementation project(':pelion-sdk-core')
     // Backends
-    implementation project(':backends:connector_ca')
+    implementation project(':backends:mbedcloud_common')
+    implementation project(':backends:pelioncloud_devicemanagement')
+   /* implementation project(':backends:connector_ca')
     implementation project(':backends:external_ca')
     implementation project(':backends:connector_bootstrap')
     implementation project(':backends:device_directory')
@@ -53,10 +65,14 @@ dependencies {
     implementation project(':backends:update_service')
     implementation project(':backends:enrollment')
     implementation project(':backends:billing')
-    implementation project(':backends:certificate_renewal')
+    implementation project(':backends:certificate_renewal')*/
+    openapiCodegen 'io.swagger:swagger-codegen-cli:2.3.1'   // Swagger Codegen V2
+    //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'	// Uncomment when help is needed
     // Use JUnit test framework
     testCompile 'junit:junit:4.+'
 }
+
+def eclipseConfigFile=new File("$rootProject.projectDir/../config/eclipse/formatter.xml").canonicalPath
 
 allprojects {
     buildscript {
@@ -90,8 +106,58 @@ allprojects {
             }
         }
     }
+    apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
 }
 
 walkmod {
-  chains = [ 'pmd' ]
+	chains = [ 'pmd' , 'override']
+	verbose = true
 }
+
+spotless {
+    java {
+        removeUnusedImports() // removes any unused imports
+        eclipse().configFile "${eclipseConfigFile}"
+        encoding 'Cp1252' // java will have Cp1252
+    }    
+}
+
+swaggerSources {
+  def lowlevelTemplatesDir = new File("$rootProject.projectDir/$openApiCodegenTemplatesDir").canonicalPath
+  common {
+    inputFile = file(new File("$rootProject.projectDir/$commonClientBackendSourceDir/$commonClientBackendSourceFileName").canonicalPath)    
+    code {
+      language = 'java'	  
+      wipeOutputDir = true
+	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:mbedcloud_common').name}.json").canonicalPath)
+	  outputDir = file("${project(':backends:mbedcloud_common').projectDir}")
+	  templateDir = file(lowlevelTemplatesDir)
+      configuration = configurations.openapiCodegen
+      // Validate YAML before code generation
+      dependsOn validation
+    }
+  }
+  pelion {
+    inputFile = file(new File("$rootProject.projectDir/$pelionBackendSourceDir/$pelionBackendSourceFileName").canonicalPath)    
+    code {
+      language = 'java'	  
+      wipeOutputDir = true
+	  configFile = file(new File("$rootProject.projectDir/$openApiCodegenConfigDir/${project(':backends:pelioncloud_devicemanagement').name}.json").canonicalPath)
+	  outputDir = file("${project(':backends:pelioncloud_devicemanagement').projectDir}")
+	  templateDir = file(lowlevelTemplatesDir)
+      configuration = configurations.openapiCodegen
+      // Validate YAML before code generation
+      //dependsOn validation
+    }
+  }
+}
+
+project.afterEvaluate{
+  generateSwaggerCode.outputs.upToDateWhen { false }
+  spotlessApply.outputs.upToDateWhen { false }
+  compileJava.outputs.upToDateWhen { false }
+  spotlessApply.dependsOn("generateSwaggerCode")
+  compileJava.dependsOn("spotlessApply")
+}
+ //compileJava.dependsOn swaggerSource
+ //generateSwaggerCode
