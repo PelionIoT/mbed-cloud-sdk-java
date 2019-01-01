@@ -294,7 +294,7 @@ public class ModelDao extends Model {
 
     @Override
     protected MethodClone instantiateCloneMethod(Model theParent) {
-        return new MethodDaoClone(this, theParent);
+        return new MethodCloneDao(this, theParent);
     }
 
     @Override
