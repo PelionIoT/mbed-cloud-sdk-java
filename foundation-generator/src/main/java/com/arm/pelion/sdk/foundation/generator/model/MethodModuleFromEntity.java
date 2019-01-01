@@ -24,15 +24,26 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
         final List<Parameter> clonedMethodParameters = new ArrayList<>(methodParameters.size());
         methodParameters.forEach(p -> clonedMethodParameters.add(p.clone()));
         final Parameter entityParameter = currentModel.toParameter().setAsNonNull(true);
-        if (!clonedMethodParameters.stream().anyMatch(p -> entityParameter.getIdentifier().equals(p.getIdentifier()))) {
+        if (!doesParameterExist(clonedMethodParameters, entityParameter.getIdentifier())) {
             clonedMethodParameters.add(entityParameter);
         }
         return clonedMethodParameters;
     }
 
     @Override
+    protected boolean mustParametersBeFinal() {
+        return false;
+    }
+
+    @Override
     protected void generateMethodCode() throws TranslationException {
         final String entityVariableName = generateFinalVariable(currentModel.toParameter().getName());
+        final TypeParameter currentEntityType = currentModel.toType();
+        try {
+            currentEntityType.translate();
+        } catch (TranslationException exception) {
+            // Nothing to do
+        }
         final List<Object> callElements = new LinkedList<>();
         final StringBuilder builder = new StringBuilder();
         builder.append(hasReturn() ? "return " : "").append(" $L(");
@@ -45,8 +56,23 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
                 builder.append(", ");
             }
             if (methodParameters.stream().anyMatch(arg -> p.equals(arg))) {
+                if (!entityVariableName.equals(p.getName()) || p.getType().equals(currentEntityType)) {
+                    builder.append("$L");
+                    callElements.add(generateFinalVariable(p.getName()));
+                } else {
+                    // Bit of a hack in case the Id is not called Id but called as the entity name
+                    if (p.getType().isString()) {
+                        builder.append("$L.$L()");
+                        callElements.add(entityVariableName);
+                        callElements.add(MethodGetter.getCorrespondingGetterMethodName(Field.IDENTIFIER_NAME, false,
+                                                                                       false));
+                    } else {
+                        throw new TranslationException("Cannot determine what the following parameter is " + p);
+                    }
+                }
+            } else if (p.getType().isModel() && p.getType().equals(currentEntityType)) {
                 builder.append("$L");
-                callElements.add(generateFinalVariable(p.getName()));
+                callElements.add(entityVariableName);
             } else {
                 builder.append("$L.$L()");
                 callElements.add(entityVariableName);

@@ -674,7 +674,8 @@ public class Model extends AbstractSdkArtifact {
 
     protected void generateSettersAndGetters() {
         getFieldList().stream().filter(f -> !f.isAlreadyDefined()).forEach(f -> {
-            addMethod(new MethodGetter(f, null, false));
+            final MethodGetter getter = new MethodGetter(f, null, false);
+            addMethod(getter);
             if (!f.isReadOnly()) {
                 final MethodSetter setter = new MethodSetter(f, null, false);
                 addMethod(setter);
@@ -685,7 +686,14 @@ public class Model extends AbstractSdkArtifact {
                                             + ApiUtils.convertCamelToSnake(Field.IDENTIFIER_NAME));// model name + id
                         // e.g. ApiKeyId
                     } else {
-                        equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId method
+                        equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId/getId methods
+                        // a getId method needs to also be added
+                        final Method equivalentGetter = new MethodGetter(equivalentF,
+                                                                         Utils.generateDocumentationMethodLink(null,
+                                                                                                               getter),
+                                                                         true).statement(getter.getCallStatement() + System.lineSeparator());
+                        addMethod(equivalentGetter);
+
                     }
                     Method equivalentSetter = new MethodSetter(equivalentF,
                                                                Utils.generateDocumentationMethodLink(null, setter),

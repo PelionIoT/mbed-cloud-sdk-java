@@ -3,6 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
@@ -115,15 +116,16 @@ public class MethodModuleCloudApi extends MethodOverloaded {
             lowLevelMethod.getParameters().forEach(p -> {
                 final String parameterName = parameterRenames.containsMappingFor(p.getName()) ? parameterRenames.getRenamedField(p.getName())
                                                                                               : p.getName();
-                if (!extendedMethodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()))) {
+                if (!doesParameterExist(extendedMethodParameters, parameterName)) {
                     if (p.getType().isLowLevelModel() || shouldCheckModelValidity(p)) {
                         final Parameter modelParam = currentModel.toParameter(PARAMETER_NAME_LOW_LEVEL_DEFAULT.equals(parameterName.toLowerCase()) ? null
                                                                                                                                                    : parameterName)
                                                                  .setAsNonNull(true);
+                        modelParam.setName(ensureParameterNameUniqueness(extendedMethodParameters,
+                                                                         modelParam.getName()));
                         parameterRenames.addEntry(parameterName, modelParam.getName());
                         extendedMethodParameters.add(modelParam);
                     } else {
-
                         final Parameter newP = allParameters.stream()
                                                             .filter(arg -> parameterName.equals(arg.getIdentifier()))
                                                             .findFirst().orElse(p.clone());
@@ -134,6 +136,19 @@ public class MethodModuleCloudApi extends MethodOverloaded {
             });
         }
         return extendedMethodParameters;
+    }
+
+    protected static boolean doesParameterExist(List<Parameter> extendedMethodParameters, final String parameterName) {
+        return extendedMethodParameters.stream().anyMatch(arg -> parameterName.equals(arg.getIdentifier()));
+    }
+
+    private String ensureParameterNameUniqueness(List<Parameter> extendedMethodParameters, String name) {
+        final AtomicInteger count = new AtomicInteger(0);
+        String newName = name;
+        while (doesParameterExist(extendedMethodParameters, newName)) {
+            newName = name + String.valueOf(count.incrementAndGet());
+        }
+        return newName;
     }
 
     @Override
@@ -149,7 +164,9 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     protected void translateCode() throws TranslationException {
         super.translateCode();
         generateParameterChecks();
-        generateVariableInitialisation(methodParameters);
+        if (mustParametersBeFinal()) {
+            generateVariableInitialisation(methodParameters);
+        }
         generateMethodCode();
     }
 
@@ -158,6 +175,10 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                           + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
                           CloudCaller.METHOD_CALL_CLOUD_API, name + "()",
                           hasReturn() ? getAdapter(currentModel) : "null", generateCloudCallCode());
+    }
+
+    protected boolean mustParametersBeFinal() {
+        return true;
     }
 
     protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
@@ -180,7 +201,8 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     protected String generateFinalVariable(String variableName) {
-        return ApiUtils.convertSnakeToCamel("final_" + ApiUtils.convertCamelToSnake(variableName), false);
+        return ApiUtils.convertSnakeToCamel((mustParametersBeFinal() ? "final_" : "")
+                                            + ApiUtils.convertCamelToSnake(variableName), false);
     }
 
     protected String getMappingMethod() {

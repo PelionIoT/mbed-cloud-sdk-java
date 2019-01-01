@@ -49,6 +49,10 @@ public class MethodGetter extends Method {
         return ApiUtils.convertSnakeToCamel(snakeName, false);
     }
 
+    protected String getCallStatement() {
+        return getName() + "();";
+    }
+
     public static String getCorrespondingFieldName(java.lang.reflect.Method methodOfInterest) {
         if (methodOfInterest == null) {
             return null;

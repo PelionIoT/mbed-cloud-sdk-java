@@ -149,6 +149,19 @@ public class Parameter extends AbstractSdkArtifact implements Cloneable {
                                                : ParameterSpec.builder(type.getTypeName(), name);
     }
 
+    public boolean hasSameType(Parameter other) {
+        if (other == null) {
+            return false;
+        }
+        try {
+            type.translate();
+            other.getType().translate();
+            return type.equals(other.getType());
+        } catch (Exception exception) {
+            return false;
+        }
+    }
+
     protected void addModifiers() {
         if (isReadOnly) {
             specificationBuilder.addModifiers(Modifier.FINAL);
