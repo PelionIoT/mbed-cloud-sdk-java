@@ -94,8 +94,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
 
     @Override
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements,
-                                      boolean isExternalParameter) throws TranslationException {
+                                      List<Object> callElements, boolean isExternalParameter,
+                                      List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
             // FIXME refactor the following when filters are supported.
             final ModelListOption correspondingListOptions = determineListOptionModel();
@@ -121,11 +121,12 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                         }
                 }
             } else {
-                super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);
+                super.translateParameter(parameterName, type, builder, callElements, isExternalParameter,
+                                         unusedParameters);
             }
 
         } else {
-            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);
+            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter, unusedParameters);
         }
     }
 

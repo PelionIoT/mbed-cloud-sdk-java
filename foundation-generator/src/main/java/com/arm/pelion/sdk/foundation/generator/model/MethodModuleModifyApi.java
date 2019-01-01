@@ -28,16 +28,19 @@ public class MethodModuleModifyApi extends MethodModuleCloudApi {
 
     @Override
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements,
-                                      boolean isExternalParameter) throws TranslationException {
+                                      List<Object> callElements, boolean isExternalParameter,
+                                      List<Parameter> unusedParameters) throws TranslationException {
         if (type.isLowLevelModel()) {
             builder.append("$T.$L($L)");
             callElements.add(getAdapter(currentModel));
             callElements.add(isForCreation ? ModelAdapter.FUNCTION_NAME_MAP_ADD
                                            : ModelAdapter.FUNCTION_NAME_MAP_UPDATE);
             callElements.add(parameterName);
+            if (!unusedParameters.isEmpty()) {
+                addUnusedParametersToBodyParameter(unusedParameters, builder, callElements);
+            }
         } else {
-            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter);
+            super.translateParameter(parameterName, type, builder, callElements, isExternalParameter, unusedParameters);
         }
     }
 }

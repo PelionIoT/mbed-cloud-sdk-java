@@ -45,11 +45,19 @@ public class MethodSetter extends Method {
         return getCorrespondingSetterMethodName(field.getName());
     }
 
+    public static String generateSetterName(Field field, boolean fluent) {
+        return getCorrespondingSetterMethodName(field.getName(), fluent);
+    }
+
     public static String getCorrespondingSetterMethodName(String fieldName) {
+        return getCorrespondingSetterMethodName(fieldName, false);
+    }
+
+    public static String getCorrespondingSetterMethodName(String fieldName, boolean fluent) {
         if (fieldName == null) {
             return null;
         }
-        return ApiUtils.convertSnakeToCamel("set_" + ApiUtils.convertCamelToSnake(fieldName), false);
+        return ApiUtils.convertSnakeToCamel((fluent ? "" : "set_") + ApiUtils.convertCamelToSnake(fieldName), false);
     }
 
 }

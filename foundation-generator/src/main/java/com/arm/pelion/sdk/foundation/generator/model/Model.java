@@ -496,7 +496,8 @@ public class Model extends AbstractSdkArtifact {
         if (isInternal) {
             specificationBuilder.addAnnotation(AnnotationSpec.builder(Internal.class).build());
         }
-        if (fields != null && fields.size() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
+        if (fields != null && fields.values().stream().filter(f -> !f.isStatic() || !f.isReadOnly())
+                                    .count() > StaticAnalysisUtils.FIELD_LIMIT_FOR_IGNORING_WARNINGS) {
             specificationBuilder.addAnnotation(StaticAnalysisUtils.ignoreCyclomaticComplexity());
         }
         if (hasFieldsWithDefaultValues()) {

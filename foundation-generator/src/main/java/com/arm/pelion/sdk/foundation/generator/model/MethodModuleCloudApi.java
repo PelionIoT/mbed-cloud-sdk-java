@@ -257,6 +257,26 @@ public class MethodModuleCloudApi extends MethodOverloaded {
 
     }
 
+    private List<Parameter> determineUnusedParameters(List<Parameter> lowLevelParameters, Renames parameterRenames) {
+        // According to the specification, there can be only one body parameter:
+        // https://swagger.io/docs/specification/2-0/describing-request-body/. Thus, it is assumed that all unused
+        // parameters are fields of the body parameter.
+
+        final List<Parameter> unusedParameters = new LinkedList<>();
+        methodParameters.forEach(p -> unusedParameters.add(p.clone()));
+        if (lowLevelParameters != null) {
+            lowLevelParameters.forEach(p -> {
+                final String parameterName = parameterRenames.containsMappingFor(p.getIdentifier()) ? parameterRenames.getRenamedField(p.getIdentifier())
+                                                                                                    : p.getName();
+
+                if (doesParameterExist(methodParameters, parameterName)) {
+                    unusedParameters.removeIf(param -> parameterName.equals(param.getIdentifier()));
+                }
+            });
+        }
+        return unusedParameters;
+    }
+
     protected void generateLowLevelCallCode(String endpointVariableName, ModelEndpoints endpoints,
                                             Class<?> lowLevelModule, Method callMethod, Method lowLevelMethod,
                                             Renames parameterRenames) throws TranslationException {
@@ -277,6 +297,8 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         callElements.add(lowLevelMethod.getName());
         boolean start = true;
         if (lowLevelMethod.hasParameters()) {
+            final List<Parameter> unusedParameters = determineUnusedParameters(lowLevelMethod.getParameters(),
+                                                                               parameterRenames);
             for (Parameter p : lowLevelMethod.getParameters()) {
                 if (!start) {
                     builder.append(", ");
@@ -287,11 +309,12 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                                                                                                     : p.getName();
                 String variableName = parameterName;
                 boolean isExternalParameter = false;
-                if (methodParameters.stream().anyMatch(a -> a.getIdentifier().equals(parameterName))) {
+                if (doesParameterExist(methodParameters, parameterName)) {
                     variableName = generateFinalVariable(parameterName);
                     isExternalParameter = true;
                 }
-                translateParameter(variableName, p.getType(), builder, callElements, isExternalParameter);
+                translateParameter(variableName, p.getType(), builder, callElements, isExternalParameter,
+                                   unusedParameters);
             }
         }
         builder.append(")");
@@ -299,8 +322,8 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     protected void translateParameter(String parameterName, TypeParameter type, StringBuilder builder,
-                                      List<Object> callElements,
-                                      boolean isExternalParameter) throws TranslationException {
+                                      List<Object> callElements, boolean isExternalParameter,
+                                      List<Parameter> unusedParameters) throws TranslationException {
 
         if (isExternalParameter) {
             if (MethodMapper.isLowLevelType(type)) {
@@ -322,10 +345,24 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                 builder.append("$L");
             }
             callElements.add(parameterName);
+            if (type.isLowLevelModel() && !unusedParameters.isEmpty()) {
+                addUnusedParametersToBodyParameter(unusedParameters, builder, callElements);
+            }
         } else {
             builder.append("$L");
             callElements.add("null");
         }
+    }
+
+    protected void addUnusedParametersToBodyParameter(List<Parameter> unusedParameters, StringBuilder builder,
+                                                      List<Object> callElements) {
+        // If body parameter
+        for (Parameter p : unusedParameters) {
+            builder.append(".$L($L)");
+            callElements.add(MethodSetter.getCorrespondingSetterMethodName(p.getName(), true));
+            callElements.add(generateFinalVariable(p.getName()));
+        }
+        unusedParameters.clear();
     }
 
     protected Object getAdapter(Model model) throws TranslationException {
