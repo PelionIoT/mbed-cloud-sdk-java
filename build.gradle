@@ -68,6 +68,7 @@ allprojects {
     apply plugin: 'build-dashboard'
     apply plugin: 'project-report' //Generate project reports
     apply plugin: 'ru.vyarus.animalsniffer' //Checks that SDK will work on Java 1.7 onwards
+    apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
 
     test {
         reports {
@@ -105,8 +106,7 @@ allprojects {
         apply plugin: 'findbugs' //static analysis
         apply plugin: 'com.github.spotbugs' //static analysis
         apply plugin: 'pmd' //static analysis
-        apply plugin: 'de.aaschmid.cpd' //Code duplication
-        apply plugin: 'com.diffplug.gradle.spotless' // Code formatting
+        apply plugin: 'de.aaschmid.cpd' //Code duplication        
         apply plugin: 'walkmod' // automatic code fix
     }
     apply plugin: 'license-report'
@@ -159,6 +159,21 @@ allprojects {
         doFirst {
                 //println  options.dump()
                 println 'Compiler args for compiling '+ project.name +' : ' + options.compilerArgs
+        }
+    }
+    
+    def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
+    spotless {
+        //format 'misc', {
+        //    target '**/*.gradle', '**/*.md', '**/.gitignore'
+        //    indentWithSpaces()
+        //    trimTrailingWhitespace()
+        //    endWithNewline()
+        //}
+        java {
+            removeUnusedImports() // removes any unused imports
+            eclipse().configFile "${eclipseConfigFile}"
+            encoding 'Cp1252' // java will have Cp1252
         }
     }
 
@@ -289,8 +304,7 @@ allprojects {
     if  (! isInExcludeList){
         def checkStyleConfigFile=new File("$rootProject.projectDir/config/checkstyle/checkstyle.xml").canonicalPath
         def pmdConfigFile=new File("$rootProject.projectDir/config/pmd/pmd-rules.xml").canonicalPath
-        def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath
-        def eclipseConfigFile=new File("$rootProject.projectDir/config/eclipse/formatter.xml").canonicalPath
+        def findBugsConfigFile=new File("$rootProject.projectDir/config/findbugs/findbugs-exlude.xml").canonicalPath 
         checkstyle {
             toolVersion = '7.2'
             configFile rootProject.file(checkStyleConfigFile)
@@ -367,19 +381,7 @@ allprojects {
                 html.enabled = true
             }
         }
-        spotless {
-            //format 'misc', {
-            //    target '**/*.gradle', '**/*.md', '**/.gitignore'
-            //    indentWithSpaces()
-            //    trimTrailingWhitespace()
-            //    endWithNewline()
-            //}
-            java {
-                removeUnusedImports() // removes any unused imports
-                eclipse().configFile "${eclipseConfigFile}"
-                encoding 'Cp1252' // java will have Cp1252
-            }
-        }
+
         walkmod {
           chains = [ 'pmd' , 'override']
           verbose = true

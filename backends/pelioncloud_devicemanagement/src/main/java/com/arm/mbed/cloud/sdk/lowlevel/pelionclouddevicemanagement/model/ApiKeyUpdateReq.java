@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
@@ -32,192 +31,191 @@ import java.io.Serializable;
 @ApiModel(description = "This object represents an API key in requests towards Device Management.")
 
 public class ApiKeyUpdateReq implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+    @SerializedName("groups")
+    private List<String> groups = null;
 
-  @SerializedName("name")
-  private String name = null;
+    @SerializedName("name")
+    private String name = null;
 
-  @SerializedName("owner")
-  private String owner = null;
+    @SerializedName("owner")
+    private String owner = null;
 
-  /**
-   * The status of the API key.
-   */
-  @JsonAdapter(StatusEnum.Adapter.class)
-  public enum StatusEnum {
-    ACTIVE("ACTIVE"),
-    
-    INACTIVE("INACTIVE");
+    /**
+     * The status of the API key.
+     */
+    @JsonAdapter(StatusEnum.Adapter.class)
+    public enum StatusEnum {
+        ACTIVE("ACTIVE"),
 
-    private String value;
+        INACTIVE("INACTIVE");
 
-    StatusEnum(String value) {
-      this.value = value;
+        private String value;
+
+        StatusEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static StatusEnum fromValue(String text) {
+            for (StatusEnum b : StatusEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<StatusEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public StatusEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return StatusEnum.fromValue(String.valueOf(value));
+            }
+        }
     }
 
-    public String getValue() {
-      return value;
+    @SerializedName("status")
+    private StatusEnum status = null;
+
+    public ApiKeyUpdateReq groups(List<String> groups) {
+        this.groups = groups;
+        return this;
+    }
+
+    public ApiKeyUpdateReq addGroupsItem(String groupsItem) {
+        if (this.groups == null) {
+            this.groups = new ArrayList<String>();
+        }
+        this.groups.add(groupsItem);
+        return this;
+    }
+
+    /**
+     * A list of group IDs this API key belongs to.
+     * 
+     * @return groups
+     **/
+    @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    public ApiKeyUpdateReq name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * The display name for the API key, not longer than 100 characters.
+     * 
+     * @return name
+     **/
+    @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public ApiKeyUpdateReq owner(String owner) {
+        this.owner = owner;
+        return this;
+    }
+
+    /**
+     * The owner of this API key.
+     * 
+     * @return owner
+     **/
+    @ApiModelProperty(value = "The owner of this API key.")
+    public String getOwner() {
+        return owner;
+    }
+
+    public void setOwner(String owner) {
+        this.owner = owner;
+    }
+
+    public ApiKeyUpdateReq status(StatusEnum status) {
+        this.status = status;
+        return this;
+    }
+
+    /**
+     * The status of the API key.
+     * 
+     * @return status
+     **/
+    @ApiModelProperty(value = "The status of the API key.")
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ApiKeyUpdateReq apiKeyUpdateReq = (ApiKeyUpdateReq) o;
+        return Objects.equals(this.groups, apiKeyUpdateReq.groups) && Objects.equals(this.name, apiKeyUpdateReq.name)
+               && Objects.equals(this.owner, apiKeyUpdateReq.owner)
+               && Objects.equals(this.status, apiKeyUpdateReq.status);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(groups, name, owner, status);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ApiKeyUpdateReq {\n");
+
+        sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
+        sb.append("    status: ").append(toIndentedString(status)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    public static StatusEnum fromValue(String text) {
-      for (StatusEnum b : StatusEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      return null;
+        return o.toString().replace("\n", "\n    ");
     }
-
-    public static class Adapter extends TypeAdapter<StatusEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final StatusEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public StatusEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return StatusEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("status")
-  private StatusEnum status = null;
-
-  public ApiKeyUpdateReq groups(List<String> groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public ApiKeyUpdateReq addGroupsItem(String groupsItem) {
-    if (this.groups == null) {
-      this.groups = new ArrayList<String>();
-    }
-    this.groups.add(groupsItem);
-    return this;
-  }
-
-   /**
-   * A list of group IDs this API key belongs to.
-   * @return groups
-  **/
-  @ApiModelProperty(value = "A list of group IDs this API key belongs to.")
-  public List<String> getGroups() {
-    return groups;
-  }
-
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
-  }
-
-  public ApiKeyUpdateReq name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * The display name for the API key, not longer than 100 characters.
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "The display name for the API key, not longer than 100 characters.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ApiKeyUpdateReq owner(String owner) {
-    this.owner = owner;
-    return this;
-  }
-
-   /**
-   * The owner of this API key.
-   * @return owner
-  **/
-  @ApiModelProperty(value = "The owner of this API key.")
-  public String getOwner() {
-    return owner;
-  }
-
-  public void setOwner(String owner) {
-    this.owner = owner;
-  }
-
-  public ApiKeyUpdateReq status(StatusEnum status) {
-    this.status = status;
-    return this;
-  }
-
-   /**
-   * The status of the API key.
-   * @return status
-  **/
-  @ApiModelProperty(value = "The status of the API key.")
-  public StatusEnum getStatus() {
-    return status;
-  }
-
-  public void setStatus(StatusEnum status) {
-    this.status = status;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    ApiKeyUpdateReq apiKeyUpdateReq = (ApiKeyUpdateReq) o;
-    return Objects.equals(this.groups, apiKeyUpdateReq.groups) &&
-        Objects.equals(this.name, apiKeyUpdateReq.name) &&
-        Objects.equals(this.owner, apiKeyUpdateReq.owner) &&
-        Objects.equals(this.status, apiKeyUpdateReq.status);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(groups, name, owner, status);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ApiKeyUpdateReq {\n");
-    
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("    owner: ").append(toIndentedString(owner)).append("\n");
-    sb.append("    status: ").append(toIndentedString(status)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 
 }
-

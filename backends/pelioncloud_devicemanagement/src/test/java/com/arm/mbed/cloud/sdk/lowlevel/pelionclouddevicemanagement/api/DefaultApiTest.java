@@ -1,67 +1,21 @@
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.ApiClient;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BadRequestErrorResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BillingReportRawDataResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Block1;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColor;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingColorList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.BrandingImageList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadata;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignDeviceMetadataPage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CampaignMetrics;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceBlockCategory;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceBlockCategoryPage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroup;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupManipulation;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceGroupPage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQuery;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPostPutRequest;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ErrorResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EventType;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EventTypeList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EventTypeSummary;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EventTypeSummaryList;
 import java.io.File;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImagePage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifest;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareManifestPage;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ForbiddenErrorResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Group1;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.InternalServerErrorResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ReportNotFoundErrorResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ReportResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuota;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackageQuotaHistoryResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServicePackagesResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UnauthorizedErrorResponse;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaign;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPostRequest;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdateCampaignPutRequest;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadChunkInfo;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadChunkInfoPage;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJob;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJob1;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UploadJobPage;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * API tests for DefaultApi
@@ -78,7 +32,8 @@ public class DefaultApiTest {
     /**
      * List all device block categories
      *
-     * List all device block categories. A block category is a short description of why a device was suspended or returned to service.
+     * List all device block categories. A block category is a short description of why a device was suspended or
+     * returned to service.
      */
     @Test
     public void blockCategoriesListTest() {
@@ -91,10 +46,12 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a device block category
      *
-     * Get a device block category. A block category is a short description of why a device was suspended or returned to service.
+     * Get a device block category. A block category is a short description of why a device was suspended or returned to
+     * service.
      */
     @Test
     public void blockCategoriesRetrieveTest() {
@@ -103,6 +60,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create a device
      *
@@ -115,10 +73,12 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete a device.
      *
-     * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a production certicate will return a 400 response.
+     * Delete device. Only available for devices with a developer certificate. Attempts to delete a device with a
+     * production certicate will return a 400 response.
      */
     @Test
     public void deviceDestroyTest() {
@@ -127,6 +87,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all device events.
      *
@@ -143,6 +104,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Retrieve a device event.
      *
@@ -155,6 +117,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all devices.
      *
@@ -171,6 +134,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * DEPRECATED: List all device events.
      *
@@ -187,6 +151,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * DEPRECATED: Retrieve a device event.
      *
@@ -199,6 +164,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create a device query
      *
@@ -211,6 +177,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete a device query
      *
@@ -223,6 +190,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List device queries.
      *
@@ -239,6 +207,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Retrieve a device query.
      *
@@ -251,6 +220,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Update a device query
      *
@@ -264,6 +234,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Return a device to service.
      *
@@ -277,6 +248,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a device
      *
@@ -289,10 +261,12 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Suspend a device.
      *
-     * Suspending a device prevents a device from connecting. If a device is currently connected, it will be disconnected. Some API operations will fail while a device is suspended.
+     * Suspending a device prevents a device from connecting. If a device is currently connected, it will be
+     * disconnected. Some API operations will fail while a device is suspended.
      */
     @Test
     public void deviceSuspendTest() {
@@ -302,6 +276,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Update a device
      *
@@ -315,6 +290,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create an image
      *
@@ -329,6 +305,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete an image
      *
@@ -341,6 +318,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all images
      *
@@ -357,6 +335,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get an image
      *
@@ -369,6 +348,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Upload a manifest
      *
@@ -384,6 +364,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete a manifest
      *
@@ -396,6 +377,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List manifests
      *
@@ -412,6 +394,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a manifest
      *
@@ -424,10 +407,14 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get billing report.
      *
-     * Fetch the billing report generated for the currently authenticated commercial non-subtenant account. Billing reports for subtenant accounts are included in their aggregator&#39;s billing report response.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
+     * Fetch the billing report generated for the currently authenticated commercial non-subtenant account. Billing
+     * reports for subtenant accounts are included in their aggregator&#39;s billing report response. **Example usage:**
+     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report?month&#x3D;2018-07 -H &#39;authorization:
+     * Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportTest() {
@@ -436,10 +423,17 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get raw billing data of the active devices for the month.
      *
-     * Fetch the raw billing data of the active devices for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the active devices for subtenant accounts are included in their aggregator&#39;s raw billing data of the active devices. The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the active devices. For example, the ID of an active device.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
+     * Fetch the raw billing data of the active devices for the currently authenticated commercial non-subtenant
+     * account. This is supplementary data for the billing report. The raw billing data of the active devices for
+     * subtenant accounts are included in their aggregator&#39;s raw billing data of the active devices. The endpoint
+     * returns the URL to download the gzipped CSV file. The first line is the header providing information on the
+     * active devices. For example, the ID of an active device. **Example usage:** curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-active-devices?month&#x3D;2018-07 -H &#39;authorization:
+     * Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportActiveDevicesTest() {
@@ -448,10 +442,17 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get raw billing data of the firmware updates for the month.
      *
-     * Fetch raw billing data of the firmware updates for the currently authenticated commercial non-subtenant account. This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant accounts are included in their aggregator&#39;s raw billing data of the firmware updates. The endpoint returns the URL to download the gzipped CSV file. The first line is the header providing information on the firmware updates. For example, the ID of an firmware update.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 -H &#39;authorization: Bearer {api-key}&#39;
+     * Fetch raw billing data of the firmware updates for the currently authenticated commercial non-subtenant account.
+     * This is supplementary data for the billing report. The raw billing data of the firmware updates for subtenant
+     * accounts are included in their aggregator&#39;s raw billing data of the firmware updates. The endpoint returns
+     * the URL to download the gzipped CSV file. The first line is the header providing information on the firmware
+     * updates. For example, the ID of an firmware update. **Example usage:** curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/billing-report-firmware-updates?month&#x3D;2018-07 -H &#39;authorization:
+     * Bearer {api-key}&#39;
      */
     @Test
     public void getBillingReportFirmwareUpdatesTest() {
@@ -460,6 +461,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get branding colors of the dark theme.
      *
@@ -472,6 +474,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get metadata of all images of the dark theme.
      *
@@ -484,6 +487,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get branding colors of the light theme.
      *
@@ -496,6 +500,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get metadata of all images of the light theme.
      *
@@ -508,6 +513,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get branding color of the dark theme.
      *
@@ -521,6 +527,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get metadata of an image of the dark theme.
      *
@@ -534,6 +541,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get branding color of the light theme.
      *
@@ -547,6 +555,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get metadata of an image of the light theme.
      *
@@ -560,10 +569,13 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Service package quota.
      *
-     * Get the available firmware update quota for the currently authenticated commercial account.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H &#39;authorization: Bearer {api-key}&#39; 
+     * Get the available firmware update quota for the currently authenticated commercial account. **Example usage:**
+     * curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota -H &#39;authorization: Bearer
+     * {api-key}&#39;
      */
     @Test
     public void getServicePackageQuotaTest() {
@@ -571,10 +583,14 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Service package quota history.
      *
-     * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and subtenant quota usage data. History data is ordered in ascending order based on the added timestamp.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history -H &#39;authorization: Bearer {api-key}&#39; 
+     * Get your quota usage history. This API is available for commercial accounts. Aggregator accounts can see own and
+     * subtenant quota usage data. History data is ordered in ascending order based on the added timestamp. **Example
+     * usage:** curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages-quota-history -H &#39;authorization:
+     * Bearer {api-key}&#39;
      */
     @Test
     public void getServicePackageQuotaHistoryTest() {
@@ -584,10 +600,14 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get all service packages.
      *
-     * Get information of all service packages for the currently authenticated commercial account. The response is returned in descending order by service package created timestamp, listing first the pending service package, then the active service package and finally the previous service packages.  **Example usage:**      curl -X GET https://api.us-east-1.mbedcloud.com/v3/service-packages -H &#39;authorization: Bearer {api-key}&#39;
+     * Get information of all service packages for the currently authenticated commercial account. The response is
+     * returned in descending order by service package created timestamp, listing first the pending service package,
+     * then the active service package and finally the previous service packages. **Example usage:** curl -X GET
+     * https://api.us-east-1.mbedcloud.com/v3/service-packages -H &#39;authorization: Bearer {api-key}&#39;
      */
     @Test
     public void getServicePackagesTest() {
@@ -595,6 +615,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create a group
      *
@@ -607,6 +628,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete a group
      *
@@ -619,6 +641,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all groups.
      *
@@ -635,6 +658,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Add a device to a group
      *
@@ -648,6 +672,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Remove a device from a group
      *
@@ -661,6 +686,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a page of devices
      *
@@ -678,6 +704,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a group.
      *
@@ -690,6 +717,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Modify the attributes of a group.
      *
@@ -703,6 +731,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Archive a campaign.
      *
@@ -715,6 +744,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create a campaign
      *
@@ -727,6 +757,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete a campaign
      *
@@ -739,6 +770,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a list of events grouped by summary
      *
@@ -752,6 +784,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get an event type for a campaign
      *
@@ -766,6 +799,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all campaigns
      *
@@ -782,6 +816,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all campaign device metadata
      *
@@ -794,10 +829,12 @@ public class DefaultApiTest {
         String order = null;
         String after = null;
         String include = null;
-        // CampaignDeviceMetadataPage response = api.updateCampaignMetadataList(campaignId, limit, order, after, include);
+        // CampaignDeviceMetadataPage response = api.updateCampaignMetadataList(campaignId, limit, order, after,
+        // include);
 
         // TODO: test validations
     }
+
     /**
      * Get a campaign device metadata
      *
@@ -811,6 +848,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get campaign metrics
      *
@@ -823,6 +861,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a campaign.
      *
@@ -835,6 +874,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Start a campaign.
      *
@@ -847,6 +887,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a list of statistics for a campaign
      *
@@ -859,6 +900,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get a summary status
      *
@@ -872,6 +914,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Stop a campaign.
      *
@@ -884,6 +927,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Modify a campaign
      *
@@ -897,6 +941,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Append a chunks to an upload job
      *
@@ -912,6 +957,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * List all metadata for uploaded chunks
      *
@@ -929,6 +975,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get metadata about a chunk
      *
@@ -942,6 +989,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Create a new upload job
      *
@@ -954,6 +1002,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Delete an upload job
      *
@@ -966,6 +1015,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get all upload jobs
      *
@@ -982,6 +1032,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Get an upload job
      *
@@ -994,6 +1045,7 @@ public class DefaultApiTest {
 
         // TODO: test validations
     }
+
     /**
      * Update an upload job
      *

@@ -10,18 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.Serializable;
@@ -32,153 +26,155 @@ import java.io.Serializable;
 @ApiModel(description = "This object represents a user invitation in requests towards Device Management.")
 
 public class UserInvitationReq implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("email")
-  private String email = null;
+    @SerializedName("email")
+    private String email = null;
 
-  @SerializedName("groups")
-  private List<String> groups = null;
+    @SerializedName("groups")
+    private List<String> groups = null;
 
-  @SerializedName("login_profiles")
-  private List<String> loginProfiles = null;
+    @SerializedName("login_profiles")
+    private List<String> loginProfiles = null;
 
-  @SerializedName("valid_for_days")
-  private Integer validForDays = null;
+    @SerializedName("valid_for_days")
+    private Integer validForDays = null;
 
-  public UserInvitationReq email(String email) {
-    this.email = email;
-    return this;
-  }
-
-   /**
-   * The email address, not longer than 254 characters.
-   * @return email
-  **/
-  @ApiModelProperty(required = true, value = "The email address, not longer than 254 characters.")
-  public String getEmail() {
-    return email;
-  }
-
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  public UserInvitationReq groups(List<String> groups) {
-    this.groups = groups;
-    return this;
-  }
-
-  public UserInvitationReq addGroupsItem(String groupsItem) {
-    if (this.groups == null) {
-      this.groups = new ArrayList<String>();
+    public UserInvitationReq email(String email) {
+        this.email = email;
+        return this;
     }
-    this.groups.add(groupsItem);
-    return this;
-  }
 
-   /**
-   * A list of IDs of the groups this user has been invited to.
-   * @return groups
-  **/
-  @ApiModelProperty(value = "A list of IDs of the groups this user has been invited to.")
-  public List<String> getGroups() {
-    return groups;
-  }
-
-  public void setGroups(List<String> groups) {
-    this.groups = groups;
-  }
-
-  public UserInvitationReq loginProfiles(List<String> loginProfiles) {
-    this.loginProfiles = loginProfiles;
-    return this;
-  }
-
-  public UserInvitationReq addLoginProfilesItem(String loginProfilesItem) {
-    if (this.loginProfiles == null) {
-      this.loginProfiles = new ArrayList<String>();
+    /**
+     * The email address, not longer than 254 characters.
+     * 
+     * @return email
+     **/
+    @ApiModelProperty(required = true, value = "The email address, not longer than 254 characters.")
+    public String getEmail() {
+        return email;
     }
-    this.loginProfiles.add(loginProfilesItem);
-    return this;
-  }
 
-   /**
-   * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.
-   * @return loginProfiles
-  **/
-  @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
-  public List<String> getLoginProfiles() {
-    return loginProfiles;
-  }
-
-  public void setLoginProfiles(List<String> loginProfiles) {
-    this.loginProfiles = loginProfiles;
-  }
-
-  public UserInvitationReq validForDays(Integer validForDays) {
-    this.validForDays = validForDays;
-    return this;
-  }
-
-   /**
-   * Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.
-   * @return validForDays
-  **/
-  @ApiModelProperty(value = "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.")
-  public Integer getValidForDays() {
-    return validForDays;
-  }
-
-  public void setValidForDays(Integer validForDays) {
-    this.validForDays = validForDays;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public void setEmail(String email) {
+        this.email = email;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    public UserInvitationReq groups(List<String> groups) {
+        this.groups = groups;
+        return this;
     }
-    UserInvitationReq userInvitationReq = (UserInvitationReq) o;
-    return Objects.equals(this.email, userInvitationReq.email) &&
-        Objects.equals(this.groups, userInvitationReq.groups) &&
-        Objects.equals(this.loginProfiles, userInvitationReq.loginProfiles) &&
-        Objects.equals(this.validForDays, userInvitationReq.validForDays);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(email, groups, loginProfiles, validForDays);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UserInvitationReq {\n");
-    
-    sb.append("    email: ").append(toIndentedString(email)).append("\n");
-    sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
-    sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
-    sb.append("    validForDays: ").append(toIndentedString(validForDays)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public UserInvitationReq addGroupsItem(String groupsItem) {
+        if (this.groups == null) {
+            this.groups = new ArrayList<String>();
+        }
+        this.groups.add(groupsItem);
+        return this;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    /**
+     * A list of IDs of the groups this user has been invited to.
+     * 
+     * @return groups
+     **/
+    @ApiModelProperty(value = "A list of IDs of the groups this user has been invited to.")
+    public List<String> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<String> groups) {
+        this.groups = groups;
+    }
+
+    public UserInvitationReq loginProfiles(List<String> loginProfiles) {
+        this.loginProfiles = loginProfiles;
+        return this;
+    }
+
+    public UserInvitationReq addLoginProfilesItem(String loginProfilesItem) {
+        if (this.loginProfiles == null) {
+            this.loginProfiles = new ArrayList<String>();
+        }
+        this.loginProfiles.add(loginProfilesItem);
+        return this;
+    }
+
+    /**
+     * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated
+     * with. The list cannot be empty. A limit of 100 profiles.
+     * 
+     * @return loginProfiles
+     **/
+    @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
+    public List<String> getLoginProfiles() {
+        return loginProfiles;
+    }
+
+    public void setLoginProfiles(List<String> loginProfiles) {
+        this.loginProfiles = loginProfiles;
+    }
+
+    public UserInvitationReq validForDays(Integer validForDays) {
+        this.validForDays = validForDays;
+        return this;
+    }
+
+    /**
+     * Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and
+     * 100 days.
+     * 
+     * @return validForDays
+     **/
+    @ApiModelProperty(value = "Specifies how many days the invitation will be valid for. The default is 30 days. Value should be between 1 and 100 days.")
+    public Integer getValidForDays() {
+        return validForDays;
+    }
+
+    public void setValidForDays(Integer validForDays) {
+        this.validForDays = validForDays;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UserInvitationReq userInvitationReq = (UserInvitationReq) o;
+        return Objects.equals(this.email, userInvitationReq.email)
+               && Objects.equals(this.groups, userInvitationReq.groups)
+               && Objects.equals(this.loginProfiles, userInvitationReq.loginProfiles)
+               && Objects.equals(this.validForDays, userInvitationReq.validForDays);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(email, groups, loginProfiles, validForDays);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UserInvitationReq {\n");
+
+        sb.append("    email: ").append(toIndentedString(email)).append("\n");
+        sb.append("    groups: ").append(toIndentedString(groups)).append("\n");
+        sb.append("    loginProfiles: ").append(toIndentedString(loginProfiles)).append("\n");
+        sb.append("    validForDays: ").append(toIndentedString(validForDays)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

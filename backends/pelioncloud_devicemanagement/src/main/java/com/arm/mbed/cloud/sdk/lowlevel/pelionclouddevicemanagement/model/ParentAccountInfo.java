@@ -10,18 +10,12 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -30,114 +24,115 @@ import java.io.Serializable;
 @ApiModel(description = "This object represents parent account contact details in responses.")
 
 public class ParentAccountInfo implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("admin_email")
-  private String adminEmail = null;
+    @SerializedName("admin_email")
+    private String adminEmail = null;
 
-  @SerializedName("admin_name")
-  private String adminName = null;
+    @SerializedName("admin_name")
+    private String adminName = null;
 
-  @SerializedName("id")
-  private String id = null;
+    @SerializedName("id")
+    private String id = null;
 
-  public ParentAccountInfo adminEmail(String adminEmail) {
-    this.adminEmail = adminEmail;
-    return this;
-  }
-
-   /**
-   * The email address of the admin user who is the contact person of the parent account.
-   * @return adminEmail
-  **/
-  @ApiModelProperty(example = "info@arm.com", value = "The email address of the admin user who is the contact person of the parent account.")
-  public String getAdminEmail() {
-    return adminEmail;
-  }
-
-  public void setAdminEmail(String adminEmail) {
-    this.adminEmail = adminEmail;
-  }
-
-  public ParentAccountInfo adminName(String adminName) {
-    this.adminName = adminName;
-    return this;
-  }
-
-   /**
-   * The name of the admin user who is the contact person of the parent account.
-   * @return adminName
-  **/
-  @ApiModelProperty(example = "J. Doe", value = "The name of the admin user who is the contact person of the parent account.")
-  public String getAdminName() {
-    return adminName;
-  }
-
-  public void setAdminName(String adminName) {
-    this.adminName = adminName;
-  }
-
-  public ParentAccountInfo id(String id) {
-    this.id = id;
-    return this;
-  }
-
-   /**
-   * The ID of the parent account
-   * @return id
-  **/
-  @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account")
-  public String getId() {
-    return id;
-  }
-
-  public void setId(String id) {
-    this.id = id;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public ParentAccountInfo adminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The email address of the admin user who is the contact person of the parent account.
+     * 
+     * @return adminEmail
+     **/
+    @ApiModelProperty(example = "info@arm.com",
+                      value = "The email address of the admin user who is the contact person of the parent account.")
+    public String getAdminEmail() {
+        return adminEmail;
     }
-    ParentAccountInfo parentAccountInfo = (ParentAccountInfo) o;
-    return Objects.equals(this.adminEmail, parentAccountInfo.adminEmail) &&
-        Objects.equals(this.adminName, parentAccountInfo.adminName) &&
-        Objects.equals(this.id, parentAccountInfo.id);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(adminEmail, adminName, id);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ParentAccountInfo {\n");
-    
-    sb.append("    adminEmail: ").append(toIndentedString(adminEmail)).append("\n");
-    sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
-    sb.append("    id: ").append(toIndentedString(id)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setAdminEmail(String adminEmail) {
+        this.adminEmail = adminEmail;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public ParentAccountInfo adminName(String adminName) {
+        this.adminName = adminName;
+        return this;
+    }
+
+    /**
+     * The name of the admin user who is the contact person of the parent account.
+     * 
+     * @return adminName
+     **/
+    @ApiModelProperty(example = "J. Doe",
+                      value = "The name of the admin user who is the contact person of the parent account.")
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
+    public ParentAccountInfo id(String id) {
+        this.id = id;
+        return this;
+    }
+
+    /**
+     * The ID of the parent account
+     * 
+     * @return id
+     **/
+    @ApiModelProperty(example = "01619571dad80242ac12000600000000", value = "The ID of the parent account")
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ParentAccountInfo parentAccountInfo = (ParentAccountInfo) o;
+        return Objects.equals(this.adminEmail, parentAccountInfo.adminEmail)
+               && Objects.equals(this.adminName, parentAccountInfo.adminName)
+               && Objects.equals(this.id, parentAccountInfo.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(adminEmail, adminName, id);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ParentAccountInfo {\n");
+
+        sb.append("    adminEmail: ").append(toIndentedString(adminEmail)).append("\n");
+        sb.append("    adminName: ").append(toIndentedString(adminName)).append("\n");
+        sb.append("    id: ").append(toIndentedString(id)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

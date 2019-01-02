@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import org.joda.time.DateTime;
 import java.io.Serializable;
 
@@ -30,114 +23,113 @@ import java.io.Serializable;
  */
 
 public class DeviceBlockCategory implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("created_at")
-  private DateTime createdAt = null;
+    @SerializedName("created_at")
+    private DateTime createdAt = null;
 
-  @SerializedName("description")
-  private String description = null;
+    @SerializedName("description")
+    private String description = null;
 
-  @SerializedName("reference")
-  private String reference = null;
+    @SerializedName("reference")
+    private String reference = null;
 
-  public DeviceBlockCategory createdAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-    return this;
-  }
-
-   /**
-   * Get createdAt
-   * @return createdAt
-  **/
-  @ApiModelProperty(value = "")
-  public DateTime getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(DateTime createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  public DeviceBlockCategory description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Get description
-   * @return description
-  **/
-  @ApiModelProperty(example = "Suspended for maintenance.", value = "")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public DeviceBlockCategory reference(String reference) {
-    this.reference = reference;
-    return this;
-  }
-
-   /**
-   * Get reference
-   * @return reference
-  **/
-  @ApiModelProperty(example = "maintenance", value = "")
-  public String getReference() {
-    return reference;
-  }
-
-  public void setReference(String reference) {
-    this.reference = reference;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public DeviceBlockCategory createdAt(DateTime createdAt) {
+        this.createdAt = createdAt;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get createdAt
+     * 
+     * @return createdAt
+     **/
+    @ApiModelProperty(value = "")
+    public DateTime getCreatedAt() {
+        return createdAt;
     }
-    DeviceBlockCategory deviceBlockCategory = (DeviceBlockCategory) o;
-    return Objects.equals(this.createdAt, deviceBlockCategory.createdAt) &&
-        Objects.equals(this.description, deviceBlockCategory.description) &&
-        Objects.equals(this.reference, deviceBlockCategory.reference);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(createdAt, description, reference);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DeviceBlockCategory {\n");
-    
-    sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setCreatedAt(DateTime createdAt) {
+        this.createdAt = createdAt;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public DeviceBlockCategory description(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
+     * Get description
+     * 
+     * @return description
+     **/
+    @ApiModelProperty(example = "Suspended for maintenance.", value = "")
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public DeviceBlockCategory reference(String reference) {
+        this.reference = reference;
+        return this;
+    }
+
+    /**
+     * Get reference
+     * 
+     * @return reference
+     **/
+    @ApiModelProperty(example = "maintenance", value = "")
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DeviceBlockCategory deviceBlockCategory = (DeviceBlockCategory) o;
+        return Objects.equals(this.createdAt, deviceBlockCategory.createdAt)
+               && Objects.equals(this.description, deviceBlockCategory.description)
+               && Objects.equals(this.reference, deviceBlockCategory.reference);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(createdAt, description, reference);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DeviceBlockCategory {\n");
+
+        sb.append("    createdAt: ").append(toIndentedString(createdAt)).append("\n");
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

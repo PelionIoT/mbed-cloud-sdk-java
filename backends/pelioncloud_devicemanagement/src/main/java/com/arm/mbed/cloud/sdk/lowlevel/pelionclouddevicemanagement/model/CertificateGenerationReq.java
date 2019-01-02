@@ -10,7 +10,6 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
@@ -30,154 +29,152 @@ import java.io.Serializable;
 @ApiModel(description = "This object is used for generating a new service provider certificate.")
 
 public class CertificateGenerationReq implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  /**
-   * The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
-   */
-  @JsonAdapter(AlgorithmEnum.Adapter.class)
-  public enum AlgorithmEnum {
-    RSA2048("RSA2048"),
-    
-    RSA3072("RSA3072"),
-    
-    EC224("EC224"),
-    
-    EC256("EC256"),
-    
-    EC384("EC384"),
-    
-    EC521("EC521"),
-    
-    ECDSA224("ECDSA224"),
-    
-    ECDSA256("ECDSA256"),
-    
-    ECDSA384("ECDSA384"),
-    
-    ECDSA521("ECDSA521");
+    /**
+     * The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     */
+    @JsonAdapter(AlgorithmEnum.Adapter.class)
+    public enum AlgorithmEnum {
+        RSA2048("RSA2048"),
 
-    private String value;
+        RSA3072("RSA3072"),
 
-    AlgorithmEnum(String value) {
-      this.value = value;
+        EC224("EC224"),
+
+        EC256("EC256"),
+
+        EC384("EC384"),
+
+        EC521("EC521"),
+
+        ECDSA224("ECDSA224"),
+
+        ECDSA256("ECDSA256"),
+
+        ECDSA384("ECDSA384"),
+
+        ECDSA521("ECDSA521");
+
+        private String value;
+
+        AlgorithmEnum(String value) {
+            this.value = value;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        @Override
+        public String toString() {
+            return String.valueOf(value);
+        }
+
+        public static AlgorithmEnum fromValue(String text) {
+            for (AlgorithmEnum b : AlgorithmEnum.values()) {
+                if (String.valueOf(b.value).equals(text)) {
+                    return b;
+                }
+            }
+            return null;
+        }
+
+        public static class Adapter extends TypeAdapter<AlgorithmEnum> {
+            @Override
+            public void write(final JsonWriter jsonWriter, final AlgorithmEnum enumeration) throws IOException {
+                jsonWriter.value(enumeration.getValue());
+            }
+
+            @Override
+            public AlgorithmEnum read(final JsonReader jsonReader) throws IOException {
+                String value = jsonReader.nextString();
+                return AlgorithmEnum.fromValue(String.valueOf(value));
+            }
+        }
     }
 
-    public String getValue() {
-      return value;
+    @SerializedName("algorithm")
+    private AlgorithmEnum algorithm = null;
+
+    @SerializedName("validity")
+    private Integer validity = null;
+
+    public CertificateGenerationReq algorithm(AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
+        return this;
+    }
+
+    /**
+     * The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
+     * 
+     * @return algorithm
+     **/
+    @ApiModelProperty(value = "The algorithm and its key size used for generating the certificate. Defaults to RSA2048.")
+    public AlgorithmEnum getAlgorithm() {
+        return algorithm;
+    }
+
+    public void setAlgorithm(AlgorithmEnum algorithm) {
+        this.algorithm = algorithm;
+    }
+
+    public CertificateGenerationReq validity(Integer validity) {
+        this.validity = validity;
+        return this;
+    }
+
+    /**
+     * Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.
+     * 
+     * @return validity
+     **/
+    @ApiModelProperty(value = "Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.")
+    public Integer getValidity() {
+        return validity;
+    }
+
+    public void setValidity(Integer validity) {
+        this.validity = validity;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CertificateGenerationReq certificateGenerationReq = (CertificateGenerationReq) o;
+        return Objects.equals(this.algorithm, certificateGenerationReq.algorithm)
+               && Objects.equals(this.validity, certificateGenerationReq.validity);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(algorithm, validity);
     }
 
     @Override
     public String toString() {
-      return String.valueOf(value);
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CertificateGenerationReq {\n");
+
+        sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
+        sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
+        sb.append("}");
+        return sb.toString();
     }
 
-    public static AlgorithmEnum fromValue(String text) {
-      for (AlgorithmEnum b : AlgorithmEnum.values()) {
-        if (String.valueOf(b.value).equals(text)) {
-          return b;
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
         }
-      }
-      return null;
+        return o.toString().replace("\n", "\n    ");
     }
-
-    public static class Adapter extends TypeAdapter<AlgorithmEnum> {
-      @Override
-      public void write(final JsonWriter jsonWriter, final AlgorithmEnum enumeration) throws IOException {
-        jsonWriter.value(enumeration.getValue());
-      }
-
-      @Override
-      public AlgorithmEnum read(final JsonReader jsonReader) throws IOException {
-        String value = jsonReader.nextString();
-        return AlgorithmEnum.fromValue(String.valueOf(value));
-      }
-    }
-  }
-
-  @SerializedName("algorithm")
-  private AlgorithmEnum algorithm = null;
-
-  @SerializedName("validity")
-  private Integer validity = null;
-
-  public CertificateGenerationReq algorithm(AlgorithmEnum algorithm) {
-    this.algorithm = algorithm;
-    return this;
-  }
-
-   /**
-   * The algorithm and its key size used for generating the certificate. Defaults to RSA2048.
-   * @return algorithm
-  **/
-  @ApiModelProperty(value = "The algorithm and its key size used for generating the certificate. Defaults to RSA2048.")
-  public AlgorithmEnum getAlgorithm() {
-    return algorithm;
-  }
-
-  public void setAlgorithm(AlgorithmEnum algorithm) {
-    this.algorithm = algorithm;
-  }
-
-  public CertificateGenerationReq validity(Integer validity) {
-    this.validity = validity;
-    return this;
-  }
-
-   /**
-   * Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.
-   * @return validity
-  **/
-  @ApiModelProperty(value = "Validity for the certificate in days. Value can be in the range of 1 to 3650. Defaults to 365 days.")
-  public Integer getValidity() {
-    return validity;
-  }
-
-  public void setValidity(Integer validity) {
-    this.validity = validity;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-    CertificateGenerationReq certificateGenerationReq = (CertificateGenerationReq) o;
-    return Objects.equals(this.algorithm, certificateGenerationReq.algorithm) &&
-        Objects.equals(this.validity, certificateGenerationReq.validity);
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(algorithm, validity);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CertificateGenerationReq {\n");
-    
-    sb.append("    algorithm: ").append(toIndentedString(algorithm)).append("\n");
-    sb.append("    validity: ").append(toIndentedString(validity)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
-    }
-    return o.toString().replace("\n", "\n    ");
-  }
 
 }
-

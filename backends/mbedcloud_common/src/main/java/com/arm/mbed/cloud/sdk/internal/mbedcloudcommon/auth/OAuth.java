@@ -37,12 +37,12 @@ public class OAuth implements Interceptor {
 
     private AccessTokenListener accessTokenListener;
 
-    public OAuth( OkHttpClient client, TokenRequestBuilder requestBuilder ) {
+    public OAuth(OkHttpClient client, TokenRequestBuilder requestBuilder) {
         this.oauthClient = new OAuthClient(new OAuthOkHttpClient(client));
         this.tokenRequestBuilder = requestBuilder;
     }
 
-    public OAuth(TokenRequestBuilder requestBuilder ) {
+    public OAuth(TokenRequestBuilder requestBuilder) {
         this(new OkHttpClient(), requestBuilder);
     }
 
@@ -53,30 +53,30 @@ public class OAuth implements Interceptor {
     }
 
     public void setFlow(OAuthFlow flow) {
-        switch(flow) {
-        case accessCode:
-        case implicit:
-            tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
-            break;
-        case password:
-            tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
-            break;
-        case application:
-            tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
-            break;
-        default:
-            break;
-        }            
+        switch (flow) {
+            case accessCode:
+            case implicit:
+                tokenRequestBuilder.setGrantType(GrantType.AUTHORIZATION_CODE);
+                break;
+            case password:
+                tokenRequestBuilder.setGrantType(GrantType.PASSWORD);
+                break;
+            case application:
+                tokenRequestBuilder.setGrantType(GrantType.CLIENT_CREDENTIALS);
+                break;
+            default:
+                break;
+        }
     }
 
     @Override
-    public Response intercept(Chain chain)
-            throws IOException {
+    public Response intercept(Chain chain) throws IOException {
 
         return retryingIntercept(chain, true);
     }
 
-    private Response retryingIntercept(Chain chain, boolean updateTokenAndRetryOnAuthorizationFailure) throws IOException {
+    private Response retryingIntercept(Chain chain,
+                                       boolean updateTokenAndRetryOnAuthorizationFailure) throws IOException {
         Request request = chain.request();
 
         // If the request already have an authorization (eg. Basic auth), do nothing
@@ -96,25 +96,25 @@ public class OAuth implements Interceptor {
 
             String requestAccessToken = new String(getAccessToken());
             try {
-                oAuthRequest = new OAuthBearerClientRequest(request.url().toString())
-                        .setAccessToken(requestAccessToken)
-                        .buildHeaderMessage();
+                oAuthRequest = new OAuthBearerClientRequest(request.url().toString()).setAccessToken(requestAccessToken)
+                                                                                     .buildHeaderMessage();
             } catch (OAuthSystemException e) {
                 throw new IOException(e);
             }
 
-            for ( Map.Entry<String, String> header : oAuthRequest.getHeaders().entrySet() ) {
+            for (Map.Entry<String, String> header : oAuthRequest.getHeaders().entrySet()) {
                 rb.addHeader(header.getKey(), header.getValue());
             }
-            rb.url( oAuthRequest.getLocationUri());
+            rb.url(oAuthRequest.getLocationUri());
 
-            //Execute the request
+            // Execute the request
             Response response = chain.proceed(rb.build());
 
             // 401/403 most likely indicates that access token has expired. Unless it happens two times in a row.
-            if ( response != null && (response.code() == HTTP_UNAUTHORIZED || response.code() == HTTP_FORBIDDEN) && updateTokenAndRetryOnAuthorizationFailure ) {
+            if (response != null && (response.code() == HTTP_UNAUTHORIZED || response.code() == HTTP_FORBIDDEN)
+                && updateTokenAndRetryOnAuthorizationFailure) {
                 if (updateAccessToken(requestAccessToken)) {
-                    return retryingIntercept( chain, false );
+                    return retryingIntercept(chain, false);
                 }
             }
             return response;
@@ -127,7 +127,7 @@ public class OAuth implements Interceptor {
      * Returns true if the access token has been updated
      */
     public synchronized boolean updateAccessToken(String requestAccessToken) throws IOException {
-        if (getAccessToken() == null || getAccessToken().equals(requestAccessToken)) {    
+        if (getAccessToken() == null || getAccessToken().equals(requestAccessToken)) {
             try {
                 OAuthJSONAccessTokenResponse accessTokenResponse = oauthClient.accessToken(this.tokenRequestBuilder.buildBodyMessage());
                 if (accessTokenResponse != null && accessTokenResponse.getAccessToken() != null) {

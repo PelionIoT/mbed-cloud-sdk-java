@@ -10,9 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.auth;
 
 public enum OAuthFlow {
-    accessCode, implicit, password, application
+    accessCode,
+    implicit,
+    password,
+    application
 }

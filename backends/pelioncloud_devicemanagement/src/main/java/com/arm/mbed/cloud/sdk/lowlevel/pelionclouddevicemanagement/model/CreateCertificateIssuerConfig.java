@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,91 +22,92 @@ import java.io.Serializable;
  */
 
 public class CreateCertificateIssuerConfig implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("certificate_issuer_id")
-  private String certificateIssuerId = null;
+    @SerializedName("certificate_issuer_id")
+    private String certificateIssuerId = null;
 
-  @SerializedName("reference")
-  private String reference = null;
+    @SerializedName("reference")
+    private String reference = null;
 
-  public CreateCertificateIssuerConfig certificateIssuerId(String certificateIssuerId) {
-    this.certificateIssuerId = certificateIssuerId;
-    return this;
-  }
-
-   /**
-   * The ID of the certificate issuer. 
-   * @return certificateIssuerId
-  **/
-  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", required = true, value = "The ID of the certificate issuer. ")
-  public String getCertificateIssuerId() {
-    return certificateIssuerId;
-  }
-
-  public void setCertificateIssuerId(String certificateIssuerId) {
-    this.certificateIssuerId = certificateIssuerId;
-  }
-
-  public CreateCertificateIssuerConfig reference(String reference) {
-    this.reference = reference;
-    return this;
-  }
-
-   /**
-   * The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. 
-   * @return reference
-  **/
-  @ApiModelProperty(example = "customer.dlms", required = true, value = "The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. ")
-  public String getReference() {
-    return reference;
-  }
-
-  public void setReference(String reference) {
-    this.reference = reference;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public CreateCertificateIssuerConfig certificateIssuerId(String certificateIssuerId) {
+        this.certificateIssuerId = certificateIssuerId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The ID of the certificate issuer.
+     * 
+     * @return certificateIssuerId
+     **/
+    @ApiModelProperty(example = "01648415a2a30242ac18000500000000", required = true,
+                      value = "The ID of the certificate issuer. ")
+    public String getCertificateIssuerId() {
+        return certificateIssuerId;
     }
-    CreateCertificateIssuerConfig createCertificateIssuerConfig = (CreateCertificateIssuerConfig) o;
-    return Objects.equals(this.certificateIssuerId, createCertificateIssuerConfig.certificateIssuerId) &&
-        Objects.equals(this.reference, createCertificateIssuerConfig.reference);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(certificateIssuerId, reference);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CreateCertificateIssuerConfig {\n");
-    
-    sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
-    sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setCertificateIssuerId(String certificateIssuerId) {
+        this.certificateIssuerId = certificateIssuerId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public CreateCertificateIssuerConfig reference(String reference) {
+        this.reference = reference;
+        return this;
+    }
+
+    /**
+     * The certificate name, as created in the factory, to which the certificate issuer configuration applies. The
+     * following names are reserved and cannot be configured: LwM2M, BOOTSTRAP.
+     * 
+     * @return reference
+     **/
+    @ApiModelProperty(example = "customer.dlms", required = true,
+                      value = "The certificate name, as created in the factory, to which the certificate issuer configuration applies. The following names are reserved and cannot be configured: LwM2M, BOOTSTRAP. ")
+    public String getReference() {
+        return reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CreateCertificateIssuerConfig createCertificateIssuerConfig = (CreateCertificateIssuerConfig) o;
+        return Objects.equals(this.certificateIssuerId, createCertificateIssuerConfig.certificateIssuerId)
+               && Objects.equals(this.reference, createCertificateIssuerConfig.reference);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(certificateIssuerId, reference);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CreateCertificateIssuerConfig {\n");
+
+        sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
+        sb.append("    reference: ").append(toIndentedString(reference)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

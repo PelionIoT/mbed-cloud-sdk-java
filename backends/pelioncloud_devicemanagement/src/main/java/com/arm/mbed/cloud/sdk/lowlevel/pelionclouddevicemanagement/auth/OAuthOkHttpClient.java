@@ -11,15 +11,11 @@ import org.apache.oltu.oauth2.client.response.OAuthClientResponseFactory;
 import org.apache.oltu.oauth2.common.exception.OAuthProblemException;
 import org.apache.oltu.oauth2.common.exception.OAuthSystemException;
 
-
-import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import okhttp3.Request.Builder;
 import okhttp3.Response;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-
 
 public class OAuthOkHttpClient implements HttpClient {
 
@@ -33,14 +29,14 @@ public class OAuthOkHttpClient implements HttpClient {
         this.client = client;
     }
 
-    public <T extends OAuthClientResponse> T execute(OAuthClientRequest request, Map<String, String> headers,
-            String requestMethod, Class<T> responseClass)
-                    throws OAuthSystemException, OAuthProblemException {
+    public <T extends OAuthClientResponse> T
+           execute(OAuthClientRequest request, Map<String, String> headers, String requestMethod,
+                   Class<T> responseClass) throws OAuthSystemException, OAuthProblemException {
 
         MediaType mediaType = MediaType.parse("application/json");
         Request.Builder requestBuilder = new Request.Builder().url(request.getLocationUri());
 
-        if(headers != null) {
+        if (headers != null) {
             for (Entry<String, String> entry : headers.entrySet()) {
                 if (entry.getKey().equalsIgnoreCase("Content-Type")) {
                     mediaType = MediaType.parse(entry.getValue());
@@ -55,11 +51,9 @@ public class OAuthOkHttpClient implements HttpClient {
 
         try {
             Response response = client.newCall(requestBuilder.build()).execute();
-            return OAuthClientResponseFactory.createCustomResponse(
-                    response.body().string(), 
-                    response.body().contentType().toString(),
-                    response.code(),
-                    responseClass);
+            return OAuthClientResponseFactory.createCustomResponse(response.body().string(),
+                                                                   response.body().contentType().toString(),
+                                                                   response.code(), responseClass);
         } catch (IOException e) {
             throw new OAuthSystemException(e);
         }

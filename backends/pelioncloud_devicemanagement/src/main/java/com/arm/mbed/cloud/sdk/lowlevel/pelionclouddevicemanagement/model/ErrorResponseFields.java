@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,91 +22,89 @@ import java.io.Serializable;
  */
 
 public class ErrorResponseFields implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("message")
-  private String message = null;
+    @SerializedName("message")
+    private String message = null;
 
-  @SerializedName("name")
-  private String name = null;
+    @SerializedName("name")
+    private String name = null;
 
-  public ErrorResponseFields message(String message) {
-    this.message = message;
-    return this;
-  }
-
-   /**
-   * Message describing the error condition.
-   * @return message
-  **/
-  @ApiModelProperty(required = true, value = "Message describing the error condition.")
-  public String getMessage() {
-    return message;
-  }
-
-  public void setMessage(String message) {
-    this.message = message;
-  }
-
-  public ErrorResponseFields name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of the field which caused the error.
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name of the field which caused the error.")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public ErrorResponseFields message(String message) {
+        this.message = message;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Message describing the error condition.
+     * 
+     * @return message
+     **/
+    @ApiModelProperty(required = true, value = "Message describing the error condition.")
+    public String getMessage() {
+        return message;
     }
-    ErrorResponseFields errorResponseFields = (ErrorResponseFields) o;
-    return Objects.equals(this.message, errorResponseFields.message) &&
-        Objects.equals(this.name, errorResponseFields.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(message, name);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class ErrorResponseFields {\n");
-    
-    sb.append("    message: ").append(toIndentedString(message)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setMessage(String message) {
+        this.message = message;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public ErrorResponseFields name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Name of the field which caused the error.
+     * 
+     * @return name
+     **/
+    @ApiModelProperty(required = true, value = "Name of the field which caused the error.")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        ErrorResponseFields errorResponseFields = (ErrorResponseFields) o;
+        return Objects.equals(this.message, errorResponseFields.message)
+               && Objects.equals(this.name, errorResponseFields.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(message, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class ErrorResponseFields {\n");
+
+        sb.append("    message: ").append(toIndentedString(message)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

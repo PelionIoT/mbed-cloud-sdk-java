@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,68 +22,67 @@ import java.io.Serializable;
  */
 
 public class CertificateIssuerConfigRequest implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("certificate_issuer_id")
-  private String certificateIssuerId = null;
+    @SerializedName("certificate_issuer_id")
+    private String certificateIssuerId = null;
 
-  public CertificateIssuerConfigRequest certificateIssuerId(String certificateIssuerId) {
-    this.certificateIssuerId = certificateIssuerId;
-    return this;
-  }
-
-   /**
-   * The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. 
-   * @return certificateIssuerId
-  **/
-  @ApiModelProperty(example = "01648415a2a30242ac18000500000000", value = "The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. ")
-  public String getCertificateIssuerId() {
-    return certificateIssuerId;
-  }
-
-  public void setCertificateIssuerId(String certificateIssuerId) {
-    this.certificateIssuerId = certificateIssuerId;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public CertificateIssuerConfigRequest certificateIssuerId(String certificateIssuerId) {
+        this.certificateIssuerId = certificateIssuerId;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is
+     * used.
+     * 
+     * @return certificateIssuerId
+     **/
+    @ApiModelProperty(example = "01648415a2a30242ac18000500000000",
+                      value = "The ID of the certificate issuer. For LwM2M, it may be null if Device Management internal certificate issuer is used. ")
+    public String getCertificateIssuerId() {
+        return certificateIssuerId;
     }
-    CertificateIssuerConfigRequest certificateIssuerConfigRequest = (CertificateIssuerConfigRequest) o;
-    return Objects.equals(this.certificateIssuerId, certificateIssuerConfigRequest.certificateIssuerId);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(certificateIssuerId);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CertificateIssuerConfigRequest {\n");
-    
-    sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setCertificateIssuerId(String certificateIssuerId) {
+        this.certificateIssuerId = certificateIssuerId;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CertificateIssuerConfigRequest certificateIssuerConfigRequest = (CertificateIssuerConfigRequest) o;
+        return Objects.equals(this.certificateIssuerId, certificateIssuerConfigRequest.certificateIssuerId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(certificateIssuerId);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CertificateIssuerConfigRequest {\n");
+
+        sb.append("    certificateIssuerId: ").append(toIndentedString(certificateIssuerId)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,91 +22,92 @@ import java.io.Serializable;
  */
 
 public class DeveloperCertificateRequestData implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("description")
-  private String description = null;
+    @SerializedName("description")
+    private String description = null;
 
-  @SerializedName("name")
-  private String name = null;
+    @SerializedName("name")
+    private String name = null;
 
-  public DeveloperCertificateRequestData description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
-   * @return description
-  **/
-  @ApiModelProperty(value = "Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public DeveloperCertificateRequestData name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
-   * @return name
-  **/
-  @ApiModelProperty(required = true, value = "Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public DeveloperCertificateRequestData description(String description) {
+        this.description = description;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Description for the developer certificate. There is a limit on the length of the description. Please see
+     * [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+     * 
+     * @return description
+     **/
+    @ApiModelProperty(value = "Description for the developer certificate. There is a limit on the length of the description. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
+    public String getDescription() {
+        return description;
     }
-    DeveloperCertificateRequestData developerCertificateRequestData = (DeveloperCertificateRequestData) o;
-    return Objects.equals(this.description, developerCertificateRequestData.description) &&
-        Objects.equals(this.name, developerCertificateRequestData.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, name);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class DeveloperCertificateRequestData {\n");
-    
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setDescription(String description) {
+        this.description = description;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public DeveloperCertificateRequestData name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see
+     * [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)
+     * 
+     * @return name
+     **/
+    @ApiModelProperty(required = true,
+                      value = "Name of the developer certificate, must be unique. There is a limit on the length of the name. Please see [TrustedCertificateReq](/docs/current/api-references/account-management-api.html#trustedcertificatereq)")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        DeveloperCertificateRequestData developerCertificateRequestData = (DeveloperCertificateRequestData) o;
+        return Objects.equals(this.description, developerCertificateRequestData.description)
+               && Objects.equals(this.name, developerCertificateRequestData.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class DeveloperCertificateRequestData {\n");
+
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

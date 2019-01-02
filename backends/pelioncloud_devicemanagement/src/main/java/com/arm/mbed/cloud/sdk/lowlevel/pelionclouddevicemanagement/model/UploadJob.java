@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,91 +22,88 @@ import java.io.Serializable;
  */
 
 public class UploadJob implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("description")
-  private String description = null;
+    @SerializedName("description")
+    private String description = null;
 
-  @SerializedName("name")
-  private String name = null;
+    @SerializedName("name")
+    private String name = null;
 
-  public UploadJob description(String description) {
-    this.description = description;
-    return this;
-  }
-
-   /**
-   * Human-readable description
-   * @return description
-  **/
-  @ApiModelProperty(example = "New Linux update for my devices", value = "Human-readable description")
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
-  }
-
-  public UploadJob name(String name) {
-    this.name = name;
-    return this;
-  }
-
-   /**
-   * Human-readable name
-   * @return name
-  **/
-  @ApiModelProperty(example = "New Linux update", value = "Human-readable name")
-  public String getName() {
-    return name;
-  }
-
-  public void setName(String name) {
-    this.name = name;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public UploadJob description(String description) {
+        this.description = description;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Human-readable description
+     * 
+     * @return description
+     **/
+    @ApiModelProperty(example = "New Linux update for my devices", value = "Human-readable description")
+    public String getDescription() {
+        return description;
     }
-    UploadJob uploadJob = (UploadJob) o;
-    return Objects.equals(this.description, uploadJob.description) &&
-        Objects.equals(this.name, uploadJob.name);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(description, name);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class UploadJob {\n");
-    
-    sb.append("    description: ").append(toIndentedString(description)).append("\n");
-    sb.append("    name: ").append(toIndentedString(name)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setDescription(String description) {
+        this.description = description;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public UploadJob name(String name) {
+        this.name = name;
+        return this;
+    }
+
+    /**
+     * Human-readable name
+     * 
+     * @return name
+     **/
+    @ApiModelProperty(example = "New Linux update", value = "Human-readable name")
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        UploadJob uploadJob = (UploadJob) o;
+        return Objects.equals(this.description, uploadJob.description) && Objects.equals(this.name, uploadJob.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, name);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class UploadJob {\n");
+
+        sb.append("    description: ").append(toIndentedString(description)).append("\n");
+        sb.append("    name: ").append(toIndentedString(name)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

@@ -10,19 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CredentialsResponseData;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -30,91 +22,89 @@ import java.io.Serializable;
  */
 
 public class AllServerCredentialsResponseData implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("bootstrap")
-  private CredentialsResponseData bootstrap = null;
+    @SerializedName("bootstrap")
+    private CredentialsResponseData bootstrap = null;
 
-  @SerializedName("lwm2m")
-  private CredentialsResponseData lwm2m = null;
+    @SerializedName("lwm2m")
+    private CredentialsResponseData lwm2m = null;
 
-  public AllServerCredentialsResponseData bootstrap(CredentialsResponseData bootstrap) {
-    this.bootstrap = bootstrap;
-    return this;
-  }
-
-   /**
-   * Get bootstrap
-   * @return bootstrap
-  **/
-  @ApiModelProperty(value = "")
-  public CredentialsResponseData getBootstrap() {
-    return bootstrap;
-  }
-
-  public void setBootstrap(CredentialsResponseData bootstrap) {
-    this.bootstrap = bootstrap;
-  }
-
-  public AllServerCredentialsResponseData lwm2m(CredentialsResponseData lwm2m) {
-    this.lwm2m = lwm2m;
-    return this;
-  }
-
-   /**
-   * Get lwm2m
-   * @return lwm2m
-  **/
-  @ApiModelProperty(value = "")
-  public CredentialsResponseData getLwm2m() {
-    return lwm2m;
-  }
-
-  public void setLwm2m(CredentialsResponseData lwm2m) {
-    this.lwm2m = lwm2m;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public AllServerCredentialsResponseData bootstrap(CredentialsResponseData bootstrap) {
+        this.bootstrap = bootstrap;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * Get bootstrap
+     * 
+     * @return bootstrap
+     **/
+    @ApiModelProperty(value = "")
+    public CredentialsResponseData getBootstrap() {
+        return bootstrap;
     }
-    AllServerCredentialsResponseData allServerCredentialsResponseData = (AllServerCredentialsResponseData) o;
-    return Objects.equals(this.bootstrap, allServerCredentialsResponseData.bootstrap) &&
-        Objects.equals(this.lwm2m, allServerCredentialsResponseData.lwm2m);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(bootstrap, lwm2m);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class AllServerCredentialsResponseData {\n");
-    
-    sb.append("    bootstrap: ").append(toIndentedString(bootstrap)).append("\n");
-    sb.append("    lwm2m: ").append(toIndentedString(lwm2m)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setBootstrap(CredentialsResponseData bootstrap) {
+        this.bootstrap = bootstrap;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public AllServerCredentialsResponseData lwm2m(CredentialsResponseData lwm2m) {
+        this.lwm2m = lwm2m;
+        return this;
+    }
+
+    /**
+     * Get lwm2m
+     * 
+     * @return lwm2m
+     **/
+    @ApiModelProperty(value = "")
+    public CredentialsResponseData getLwm2m() {
+        return lwm2m;
+    }
+
+    public void setLwm2m(CredentialsResponseData lwm2m) {
+        this.lwm2m = lwm2m;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AllServerCredentialsResponseData allServerCredentialsResponseData = (AllServerCredentialsResponseData) o;
+        return Objects.equals(this.bootstrap, allServerCredentialsResponseData.bootstrap)
+               && Objects.equals(this.lwm2m, allServerCredentialsResponseData.lwm2m);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(bootstrap, lwm2m);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class AllServerCredentialsResponseData {\n");
+
+        sb.append("    bootstrap: ").append(toIndentedString(bootstrap)).append("\n");
+        sb.append("    lwm2m: ").append(toIndentedString(lwm2m)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

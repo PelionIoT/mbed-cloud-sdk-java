@@ -69,7 +69,7 @@ public class LWM2MResource extends LWM2MResourceInstance {
     @Override
     public String toString() {
         return "Resource [id:" + getId() + ", value: "
-                + (hasNestedInstances() ? instances.toString() : HexArray.toHex(getValue())) + "]";
+               + (hasNestedInstances() ? instances.toString() : HexArray.toHex(getValue())) + "]";
     }
 
     private void validate() throws IllegalArgumentException {

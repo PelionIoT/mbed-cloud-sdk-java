@@ -10,88 +10,81 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
- * Describes the credentials required when using CFSSL authenticated signing. 
+ * Describes the credentials required when using CFSSL authenticated signing.
  */
 @ApiModel(description = "Describes the credentials required when using CFSSL authenticated signing. ")
 
 public class CfsslAuthCredentials implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("hmac_hex_key")
-  private String hmacHexKey = null;
+    @SerializedName("hmac_hex_key")
+    private String hmacHexKey = null;
 
-  public CfsslAuthCredentials hmacHexKey(String hmacHexKey) {
-    this.hmacHexKey = hmacHexKey;
-    return this;
-  }
-
-   /**
-   * The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even number of hexadecimal characters. 
-   * @return hmacHexKey
-  **/
-  @ApiModelProperty(example = "0010203ABCD708EF", required = true, value = "The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even number of hexadecimal characters. ")
-  public String getHmacHexKey() {
-    return hmacHexKey;
-  }
-
-  public void setHmacHexKey(String hmacHexKey) {
-    this.hmacHexKey = hmacHexKey;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public CfsslAuthCredentials hmacHexKey(String hmacHexKey) {
+        this.hmacHexKey = hmacHexKey;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even
+     * number of hexadecimal characters.
+     * 
+     * @return hmacHexKey
+     **/
+    @ApiModelProperty(example = "0010203ABCD708EF", required = true,
+                      value = "The key that is used to compute the HMAC of the request using the HMAC-SHA-256 algorithm. Must contain an even number of hexadecimal characters. ")
+    public String getHmacHexKey() {
+        return hmacHexKey;
     }
-    CfsslAuthCredentials cfsslAuthCredentials = (CfsslAuthCredentials) o;
-    return Objects.equals(this.hmacHexKey, cfsslAuthCredentials.hmacHexKey);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(hmacHexKey);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CfsslAuthCredentials {\n");
-    
-    sb.append("    hmacHexKey: ").append(toIndentedString(hmacHexKey)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setHmacHexKey(String hmacHexKey) {
+        this.hmacHexKey = hmacHexKey;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CfsslAuthCredentials cfsslAuthCredentials = (CfsslAuthCredentials) o;
+        return Objects.equals(this.hmacHexKey, cfsslAuthCredentials.hmacHexKey);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(hmacHexKey);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CfsslAuthCredentials {\n");
+
+        sb.append("    hmacHexKey: ").append(toIndentedString(hmacHexKey)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-

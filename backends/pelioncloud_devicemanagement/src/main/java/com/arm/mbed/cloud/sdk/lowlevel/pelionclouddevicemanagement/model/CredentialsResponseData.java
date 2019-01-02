@@ -10,18 +10,11 @@
  * Do not edit the class manually.
  */
 
-
 package com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model;
 
 import java.util.Objects;
-import com.google.gson.TypeAdapter;
-import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
-import com.google.gson.stream.JsonReader;
-import com.google.gson.stream.JsonWriter;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import java.io.IOException;
 import java.io.Serializable;
 
 /**
@@ -29,91 +22,90 @@ import java.io.Serializable;
  */
 
 public class CredentialsResponseData implements Serializable {
-  private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-  @SerializedName("certificate")
-  private String certificate = null;
+    @SerializedName("certificate")
+    private String certificate = null;
 
-  @SerializedName("url")
-  private String url = null;
+    @SerializedName("url")
+    private String url = null;
 
-  public CredentialsResponseData certificate(String certificate) {
-    this.certificate = certificate;
-    return this;
-  }
-
-   /**
-   * PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.
-   * @return certificate
-  **/
-  @ApiModelProperty(value = "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.")
-  public String getCertificate() {
-    return certificate;
-  }
-
-  public void setCertificate(String certificate) {
-    this.certificate = certificate;
-  }
-
-  public CredentialsResponseData url(String url) {
-    this.url = url;
-    return this;
-  }
-
-   /**
-   * Server URI to which the client needs to connect to.
-   * @return url
-  **/
-  @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
-  public String getUrl() {
-    return url;
-  }
-
-  public void setUrl(String url) {
-    this.url = url;
-  }
-
-
-  @Override
-  public boolean equals(java.lang.Object o) {
-    if (this == o) {
-      return true;
+    public CredentialsResponseData certificate(String certificate) {
+        this.certificate = certificate;
+        return this;
     }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
+
+    /**
+     * PEM format X.509 server certificate that will be used to validate the server certificate that will be received
+     * during the TLS/DTLS handshake.
+     * 
+     * @return certificate
+     **/
+    @ApiModelProperty(value = "PEM format X.509 server certificate that will be used to validate the server certificate that will be received during the TLS/DTLS handshake.")
+    public String getCertificate() {
+        return certificate;
     }
-    CredentialsResponseData credentialsResponseData = (CredentialsResponseData) o;
-    return Objects.equals(this.certificate, credentialsResponseData.certificate) &&
-        Objects.equals(this.url, credentialsResponseData.url);
-  }
 
-  @Override
-  public int hashCode() {
-    return Objects.hash(certificate, url);
-  }
-
-
-  @Override
-  public String toString() {
-    StringBuilder sb = new StringBuilder();
-    sb.append("class CredentialsResponseData {\n");
-    
-    sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
-    sb.append("    url: ").append(toIndentedString(url)).append("\n");
-    sb.append("}");
-    return sb.toString();
-  }
-
-  /**
-   * Convert the given object to string with each line indented by 4 spaces
-   * (except the first line).
-   */
-  private String toIndentedString(java.lang.Object o) {
-    if (o == null) {
-      return "null";
+    public void setCertificate(String certificate) {
+        this.certificate = certificate;
     }
-    return o.toString().replace("\n", "\n    ");
-  }
+
+    public CredentialsResponseData url(String url) {
+        this.url = url;
+        return this;
+    }
+
+    /**
+     * Server URI to which the client needs to connect to.
+     * 
+     * @return url
+     **/
+    @ApiModelProperty(value = "Server URI to which the client needs to connect to.")
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    @Override
+    public boolean equals(java.lang.Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        CredentialsResponseData credentialsResponseData = (CredentialsResponseData) o;
+        return Objects.equals(this.certificate, credentialsResponseData.certificate)
+               && Objects.equals(this.url, credentialsResponseData.url);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(certificate, url);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("class CredentialsResponseData {\n");
+
+        sb.append("    certificate: ").append(toIndentedString(certificate)).append("\n");
+        sb.append("    url: ").append(toIndentedString(url)).append("\n");
+        sb.append("}");
+        return sb.toString();
+    }
+
+    /**
+     * Convert the given object to string with each line indented by 4 spaces (except the first line).
+     */
+    private String toIndentedString(java.lang.Object o) {
+        if (o == null) {
+            return "null";
+        }
+        return o.toString().replace("\n", "\n    ");
+    }
 
 }
-
