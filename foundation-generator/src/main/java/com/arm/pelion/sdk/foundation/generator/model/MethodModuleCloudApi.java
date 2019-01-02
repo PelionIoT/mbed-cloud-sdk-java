@@ -56,14 +56,18 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     public void initialise() {
-        necessaryConstants.clear();
         initialiseCodeBuilder();
+        initialiseParameters();
+        determineReturnType(currentModel, lowLevelMethod);
+    }
+
+    protected void initialiseParameters() {
+        necessaryConstants.clear();
         methodParameters = extendParameterList(methodParameters, allParameters, lowLevelMethod, parameterRenames,
                                                currentModel);
 
         determineNecessaryConstants(methodParameters);
         determineParameters(methodParameters);
-        determineReturnType(currentModel, lowLevelMethod);
     }
 
     public List<Parameter> getMethodSignature() {
@@ -74,7 +78,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         return necessaryConstants;
     }
 
-    public void determineNecessaryConstants(List<Parameter> methodParameters) {
+    private void determineNecessaryConstants(List<Parameter> methodParameters) {
         methodParameters.stream().filter(p -> shouldCheckNull(p))
                         .forEach(p -> necessaryConstants.add(generateConstant(p)));
         if (enforceModelValidity) {
@@ -89,19 +93,19 @@ public class MethodModuleCloudApi extends MethodOverloaded {
                          true, false, null, false).initialiser("\"" + p.getName() + "\"");
     }
 
-    protected void determineParameters(List<Parameter> methodParameters) {
+    private void determineParameters(List<Parameter> methodParameters) {
         if (methodParameters == null || methodParameters.isEmpty()) {
             return;
         }
         methodParameters.forEach(p -> addParameter(p));
     }
 
-    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
+    protected void determineReturnType(Model correspondingModel, Method lowLevelMethod) {
         // TODO override when "not aggregated method"
         if (lowLevelMethod.hasReturn()) {
             final TypeParameter type = lowLevelMethod.getReturnType();
             if (type.isLowLevelModel() || type.isLowLevelModel()) {
-                setReturnType(currentModel.toType());
+                setReturnType(correspondingModel.toType());
             } else if (!type.isVoid()) {
                 setReturnType(type);
             }
@@ -173,8 +177,12 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     protected void generateMethodCode() throws TranslationException {
         code.addStatement((hasReturn() ? "return " : "") + "$T.$L(this, $S,"
                           + (hasReturn() ? "$T." + getMappingMethod() + "()" : "$L") + ",$L )", CloudCaller.class,
-                          CloudCaller.METHOD_CALL_CLOUD_API, name + "()",
-                          hasReturn() ? getAdapter(currentModel) : "null", generateCloudCallCode());
+                          CloudCaller.METHOD_CALL_CLOUD_API, name + "()", hasReturn() ? getReturnAdapter() : "null",
+                          generateCloudCallCode());
+    }
+
+    protected Object getReturnAdapter() throws TranslationException {
+        return getAdapter(currentModel);
     }
 
     protected boolean mustParametersBeFinal() {
@@ -209,7 +217,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         return ModelAdapter.FUNCTION_NAME_GET_MAPPER;
     }
 
-    protected void generateParameterChecks() {
+    private void generateParameterChecks() {
         methodParameters.stream().filter(p -> shouldCheckNull(p))
                         .forEach(p -> code.addStatement("$L($L,$L)", AbstractModule.METHOD_CHECK_NOT_NULL, p.getName(),
                                                         Utils.generateConstantName("tag", p.getName())));
@@ -225,11 +233,11 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         return p != null && p.getType().isModel();
     }
 
-    protected boolean shouldCheckNull(Parameter p) {
+    private boolean shouldCheckNull(Parameter p) {
         return p != null && p.isSetAsNonNull();
     }
 
-    protected Object generateCloudCallCode() throws TranslationException {
+    private Object generateCloudCallCode() throws TranslationException {
         final TypeSpec.Builder cloudCall = TypeSpec.anonymousClassBuilder("");
         final TypeParameter cloudCallType = TypeFactory.getCorrespondingType(CloudCall.class,
                                                                              lowLevelMethod.getReturnType());
@@ -277,9 +285,9 @@ public class MethodModuleCloudApi extends MethodOverloaded {
         return unusedParameters;
     }
 
-    protected void generateLowLevelCallCode(String endpointVariableName, ModelEndpoints endpoints,
-                                            Class<?> lowLevelModule, Method callMethod, Method lowLevelMethod,
-                                            Renames parameterRenames) throws TranslationException {
+    private void generateLowLevelCallCode(String endpointVariableName, ModelEndpoints endpoints,
+                                          Class<?> lowLevelModule, Method callMethod, Method lowLevelMethod,
+                                          Renames parameterRenames) throws TranslationException {
         final List<Object> callElements = new LinkedList<>(Arrays.asList(endpointVariableName));
         StringBuilder builder = new StringBuilder();
         builder.append("return $L");

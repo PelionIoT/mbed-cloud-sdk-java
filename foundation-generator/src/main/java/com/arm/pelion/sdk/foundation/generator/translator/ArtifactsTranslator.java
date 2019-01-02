@@ -34,6 +34,7 @@ import com.arm.pelion.sdk.foundation.generator.model.ModelPojo;
 import com.arm.pelion.sdk.foundation.generator.model.Renames;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
+import com.arm.pelion.sdk.foundation.generator.util.Logger;
 
 public class ArtifactsTranslator {
 
@@ -81,12 +82,14 @@ public class ArtifactsTranslator {
     }
 
     private static ModelModule
-            translateModuleModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity, Model model,
-                                 ModelAdapterFetcher adapterFetcher, ModelEndpointsFetcher endpointsFetcher,
+            translateModuleModel(Logger logger, Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
+                                 Model model, ModelAdapterFetcher adapterFetcher,
+                                 ModelEndpointsFetcher endpointsFetcher,
                                  ModelListOptionFetcher listOptionFetcher) throws FoundationGeneratorException {
         final ModelModule module = new ModelModule(model, generateModulePackageName(config, entity.getGroupId()), null,
                                                    endpointsFetcher, listOptionFetcher, adapterFetcher);
         for (final Method m : entity.getMethods()) {
+            Model returnModel = null;
             if (m.getId() == null) {
                 if (m.isCustomMethod()) {
                     continue;
@@ -101,19 +104,22 @@ public class ArtifactsTranslator {
                                                        + "] was not found in the backends");
             }
             if (m.doesntReturnItself()) {
-                // TODO shout
-                System.out.println("ERROR! Cannot yet generate method for " + m.getKey() + "/" + m.getId());
-            } else {
-                module.addCloudCall(MethodTranslator.translate(m, method, model));
+                if (!m.hasForeignKey()) {
+                    logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
+                                    new IllegalArgumentException("Missing foreign key data"));
+                    continue;
+                }
+                returnModel = CommonTranslator.fetchCorrespondingModel(config, m.getForeignKey());
             }
+            module.addCloudCall(MethodTranslator.translate(m, method, model, returnModel));
         }
         module.generateMethods();
         return module;
     }
 
     private static ModelAdapter
-            translateAdapterModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity, Model model,
-                                  ModelAdapterFetcher adapterFetcher) throws FoundationGeneratorException {
+            translateAdapterModel(Logger logger, Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
+                                  Model model, ModelAdapterFetcher adapterFetcher) throws FoundationGeneratorException {
         final Renames defaultRenames = new Renames();
         entity.getRenames().forEach(m -> defaultRenames.addEntry(m.getProcessedFrom(), m.getProcessedTo()));
         ModelAdapter adapter = adapterFetcher.fetchAdapter(model.getIdentifier());
@@ -147,9 +153,8 @@ public class ArtifactsTranslator {
                 // needs to be added.
                 isExternal = true;
                 if (!m.hasForeignKey()) {
-                    System.out.println("ERROR! Cannot generate adapter for " + m.getKey() + "/" + m.getId()
-                                       + " because missing foreign key");
-                    // TODO shout
+                    logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
+                                    new IllegalArgumentException("Missing foreign key data"));
                     continue;
                 }
                 modelToConsider = CommonTranslator.fetchCorrespondingModel(config, m.getForeignKey());
@@ -299,7 +304,7 @@ public class ArtifactsTranslator {
         return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getFactoryPackage(), null);
     }
 
-    public static Artifacts translate(Configuration config, IntermediateApiDefinition definition,
+    public static Artifacts translate(Logger logger, Configuration config, IntermediateApiDefinition definition,
                                       LowLevelAPIs lowLevelApis) throws FoundationGeneratorException {
         if (definition == null) {
             return null;
@@ -315,14 +320,14 @@ public class ArtifactsTranslator {
                     final ModelPojo model = PelionModelDefinitionStore.get().store(translate(config, entity));
                     artifacts.addModel(model);
                     artifacts.addEndpoint(translateEndpointModel(config, lowLevelApis, entity, model));
-                    artifacts.addAdapter(translateAdapterModel(config, lowLevelApis, entity, model,
+                    artifacts.addAdapter(translateAdapterModel(logger, config, lowLevelApis, entity, model,
                                                                artifacts.getAdapterFetcher()));
                     ModelListOption listOptions = null;
                     if (entity.hasListMethod()) {
                         listOptions = translateListOptions(config, entity, model);
                         artifacts.addModel(listOptions);
                     }
-                    final ModelModule module = translateModuleModel(config, lowLevelApis, entity, model,
+                    final ModelModule module = translateModuleModel(logger, config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),
                                                                     artifacts.getEndpointsFetcher(),
                                                                     artifacts.getListOptionFetcher());

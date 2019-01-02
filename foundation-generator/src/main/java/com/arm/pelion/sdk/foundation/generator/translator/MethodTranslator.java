@@ -164,16 +164,16 @@ public class MethodTranslator {
         }).collect(Collectors.toList());
     }
 
-    public static CloudCall translate(Method m, LowLevelAPIMethod method,
-                                      Model currentModel) throws FoundationGeneratorException {
+    public static CloudCall translate(Method m, LowLevelAPIMethod method, Model currentModel,
+                                      Model returnModel) throws FoundationGeneratorException {
         final MethodAction action = determineMethodAction(m);
         final Renames parameterRenames = new Renames();
         m.getParameters().forEach(f -> parameterRenames.addEntry(f.getProcessedFrom(), f.getProcessedTo()));
         return new CloudCall(action, generateMethodName(action, currentModel, m.getKey()),
                              generateMethodDescription(action, currentModel, m.getSummary(), m.getKey(),
                                                        m.hasPaginatedResponse()),
-                             generateMethodLongDescription(m.getDescription()), currentModel, m.isCustomCode(),
-                             m.hasPaginatedResponse(),
+                             generateMethodLongDescription(m.getDescription()), currentModel, returnModel,
+                             m.isCustomCode(), m.hasPaginatedResponse(),
                              translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), true),
                              translateParameters(m, currentModel.getPackageName(), currentModel.getGroup(), false),
                              parameterRenames, translateMethod(method), method.getModuleClazz());

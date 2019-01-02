@@ -26,12 +26,12 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
         this.correspondingMethod = listMethod;
     }
 
-    private static String generateLongDescription(MethodModuleListApi listMethod) {
+    public static String generateLongDescription(MethodModuleCloudApi listMethod) {
         return "Gets an iterator over all " + generateModelDescription(listMethod.currentModel)
                + " matching filter options.";
     }
 
-    private static String generateDescription(MethodModuleListApi listMethod) {
+    public static String generateDescription(MethodModuleCloudApi listMethod) {
         return "Creates a {@link Paginator} for the list of " + generateModelDescription(listMethod.currentModel)
                + " matching filter options.";
     }
@@ -40,7 +40,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
         return Utils.generateDocumentationString(currentModel.getName(), true);
     }
 
-    private static String generatePaginatorName(MethodModuleListApi listMethod) {
+    public static String generatePaginatorName(MethodModuleCloudApi listMethod) {
         return listMethod.getName().replace(PREFIX_LIST_METHOD, PREFIX_LIST_METHOD + PAGINATOR_METHOD_IDENTIFIER);
     }
 
@@ -52,32 +52,48 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
     @Override
     protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
                                                   Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
+        return extendParameterList(methodParameters);
+    }
+
+    public static List<Parameter> extendParameterList(List<Parameter> methodParameters) {
         final List<Parameter> clonedMethodParameters = new ArrayList<>(methodParameters.size());
         methodParameters.forEach(p -> clonedMethodParameters.add(p.clone()));
         return clonedMethodParameters;
     }
 
     @Override
-    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
+    protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
+        setReturnType(this, returnModel);
+    }
+
+    public static void setReturnType(Method method, Model returnModel) {
         TypePaginator returnType = new TypePaginator();
-        returnType.setContentType(currentModel.toType());
-        setReturnType(returnType);
-        setReturnDescription("paginator over the list of " + generateModelDescription(currentModel));
+        returnType.setContentType(returnModel.toType());
+        method.setReturnType(returnType);
+        method.setReturnDescription("paginator over the list of " + generateModelDescription(returnModel));
     }
 
     @Override
     protected void generateMethodCode() throws TranslationException {
-        final TypeParameter paginatorType = TypeFactory.getCorrespondingType(Paginator.class, currentModel.toType());
-        paginatorType.translate();
-        code.addStatement((hasReturn() ? "return " : "") + "new $T($L, $L)",
-                          paginatorType.hasClass() ? paginatorType.getClazz() : paginatorType.getTypeName(),
-                          getOptionLocalVariable(), generateOnePageRequest());
+        generateMethodCode(currentModel, this, correspondingMethod);
     }
 
-    protected Object generateOnePageRequest() throws TranslationException {
+    public static void generateMethodCode(Model returnModel, MethodModuleCloudApi method,
+                                          MethodModuleCloudApi correspondingMethod) throws TranslationException {
+        final TypeParameter paginatorType = TypeFactory.getCorrespondingType(Paginator.class, returnModel.toType());
+        paginatorType.translate();
+        method.code.addStatement((method.hasReturn() ? "return " : "") + "new $T($L, $L)",
+                                 paginatorType.hasClass() ? paginatorType.getClazz() : paginatorType.getTypeName(),
+                                 getOptionLocalVariable(method),
+                                 generateOnePageRequest(returnModel, correspondingMethod));
+
+    }
+
+    private static Object generateOnePageRequest(Model returnModel,
+                                                 MethodModuleCloudApi correspondingMethod) throws TranslationException {
         final TypeSpec.Builder pageRequest = TypeSpec.anonymousClassBuilder("");
         final TypeParameter pageRequestType = TypeFactory.getCorrespondingType(PageRequester.class,
-                                                                               currentModel.toType());
+                                                                               returnModel.toType());
         pageRequestType.translate();
         if (pageRequestType.hasClass()) {
             pageRequest.addSuperinterface(pageRequestType.getClazz());
@@ -88,7 +104,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
             // Use for loop for exception reasons
             final Method method = new Method(m, "Makes one page request", null, true, true);
             method.setAbstract(false);
-            method.setReturnType(TypeFactory.getCorrespondingType(ListResponse.class, currentModel.toType()));
+            method.setReturnType(TypeFactory.getCorrespondingType(ListResponse.class, returnModel.toType()));
             method.setReturnDescription("Corresponding page requester");
             method.initialiseCodeBuilder();
             final List<Object> callElements = new LinkedList<>();
@@ -111,7 +127,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
                     callElements.add(parameter == null ? "null" : parameter.getName());
                 } else {
                     builder.append("$L");
-                    callElements.add(generateFinalVariable(p.getName()));
+                    callElements.add(correspondingMethod.generateFinalVariable(p.getName()));
                 }
             }
             builder.append(")");

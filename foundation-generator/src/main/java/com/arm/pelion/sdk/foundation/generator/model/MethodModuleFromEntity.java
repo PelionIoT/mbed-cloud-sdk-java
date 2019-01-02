@@ -21,6 +21,10 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
     @Override
     protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
                                                   Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
+        return extendParameterList(methodParameters, currentModel);
+    }
+
+    public static List<Parameter> extendParameterList(List<Parameter> methodParameters, Model currentModel) {
         final List<Parameter> clonedMethodParameters = new ArrayList<>(methodParameters.size());
         methodParameters.forEach(p -> clonedMethodParameters.add(p.clone()));
         final Parameter entityParameter = currentModel.toParameter().setAsNonNull(true);
@@ -37,8 +41,12 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
 
     @Override
     protected void generateMethodCode() throws TranslationException {
-        final String entityVariableName = generateFinalVariable(currentModel.toParameter().getName());
-        final TypeParameter currentEntityType = currentModel.toType();
+        generateMethodCode(this);
+    }
+
+    public static void generateMethodCode(MethodModuleCloudApi method) throws TranslationException {
+        final String entityVariableName = method.generateFinalVariable(method.currentModel.toParameter().getName());
+        final TypeParameter currentEntityType = method.currentModel.toType();
         try {
             currentEntityType.translate();
         } catch (TranslationException exception) {
@@ -46,19 +54,19 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
         }
         final List<Object> callElements = new LinkedList<>();
         final StringBuilder builder = new StringBuilder();
-        builder.append(hasReturn() ? "return " : "").append(" $L(");
-        callElements.add(getName());
+        builder.append(method.hasReturn() ? "return " : "").append(" $L(");
+        callElements.add(method.getName());
         boolean start = true;
-        for (Parameter p : allParameters) {
+        for (Parameter p : method.allParameters) {
             if (start) {
                 start = false;
             } else {
                 builder.append(", ");
             }
-            if (methodParameters.stream().anyMatch(arg -> p.equals(arg))) {
+            if (method.methodParameters.stream().anyMatch(arg -> p.equals(arg))) {
                 if (!entityVariableName.equals(p.getName()) || p.getType().equals(currentEntityType)) {
                     builder.append("$L");
-                    callElements.add(generateFinalVariable(p.getName()));
+                    callElements.add(method.generateFinalVariable(p.getName()));
                 } else {
                     // Bit of a hack in case the Id is not called Id but called as the entity name
                     if (p.getType().isString()) {
@@ -81,7 +89,7 @@ public class MethodModuleFromEntity extends MethodModuleCloudApi {
             }
         }
         builder.append(")");
-        code.addStatement(builder.toString(), callElements.toArray());
+        method.code.addStatement(builder.toString(), callElements.toArray());
     }
 
     @Override

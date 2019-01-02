@@ -187,6 +187,7 @@ public class ModelModule extends ModelMergeable {
         private final MethodAction action;
         private final String methodName;
         private final Model currentModel;
+        private final Model returnModel;
         private final boolean isCustom;
         private final boolean isPaginated;
         private final String description;
@@ -199,13 +200,14 @@ public class ModelModule extends ModelMergeable {
         private ModelEndpoints endpoints;
 
         public CloudCall(MethodAction action, String methodName, String description, String longDescription,
-                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> externalParameters,
-                         List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
-                         Class<?> lowLevelModule) {
+                         Model currentModel, Model returnModel, boolean custom, boolean isPaginated,
+                         List<Parameter> externalParameters, List<Parameter> allParameters, Renames parameterRenames,
+                         Method lowLevelMethod, Class<?> lowLevelModule) {
             super();
             this.action = action;
             this.methodName = methodName;
             this.currentModel = currentModel;
+            this.returnModel = returnModel;
             this.isCustom = custom;
             this.description = description;
             this.longDescription = longDescription;
@@ -215,6 +217,14 @@ public class ModelModule extends ModelMergeable {
             this.methodParameters = externalParameters;
             this.allParameters = allParameters;
             this.lowLevelModule = lowLevelModule;
+        }
+
+        public CloudCall(MethodAction action, String methodName, String description, String longDescription,
+                         Model currentModel, boolean custom, boolean isPaginated, List<Parameter> externalParameters,
+                         List<Parameter> allParameters, Renames parameterRenames, Method lowLevelMethod,
+                         Class<?> lowLevelModule) {
+            this(action, methodName, description, longDescription, currentModel, null, custom, isPaginated,
+                 externalParameters, allParameters, parameterRenames, lowLevelMethod, lowLevelModule);
         }
 
         public ModelEndpoints getEndpoints() {
@@ -237,24 +247,62 @@ public class ModelModule extends ModelMergeable {
                 case DELETE:
                 case OTHER:
                 case READ:
-                    method = new MethodModuleCloudApi(currentModel, module.adapterFetcher, methodName, description,
-                                                      longDescription, isCustom, endpoints, ENDPOINTS_FIELD_NAME,
-                                                      lowLevelModule, methodParameters, allParameters, parameterRenames,
-                                                      lowLevelMethod, true);
+                    method = returnModel == null ? new MethodModuleCloudApi(currentModel, module.adapterFetcher,
+                                                                            methodName, description, longDescription,
+                                                                            isCustom, endpoints, ENDPOINTS_FIELD_NAME,
+                                                                            lowLevelModule, methodParameters,
+                                                                            allParameters, parameterRenames,
+                                                                            lowLevelMethod, true)
+                                                 : new MethodModuleCloudApiUnaggregated(currentModel, returnModel,
+                                                                                        module.adapterFetcher,
+                                                                                        methodName, description,
+                                                                                        longDescription, isCustom,
+                                                                                        endpoints, ENDPOINTS_FIELD_NAME,
+                                                                                        lowLevelModule,
+                                                                                        methodParameters, allParameters,
+                                                                                        parameterRenames,
+                                                                                        lowLevelMethod, true);
                     break;
                 case CREATE:
                 case UPDATE:
-                    method = new MethodModuleModifyApi(action == MethodAction.CREATE, currentModel,
-                                                       module.adapterFetcher, methodName, description, longDescription,
-                                                       isCustom, endpoints, ENDPOINTS_FIELD_NAME, lowLevelModule,
-                                                       methodParameters, allParameters, parameterRenames,
-                                                       lowLevelMethod, true);
+                    method = returnModel == null ? new MethodModuleModifyApi(action == MethodAction.CREATE,
+                                                                             currentModel, module.adapterFetcher,
+                                                                             methodName, description, longDescription,
+                                                                             isCustom, endpoints, ENDPOINTS_FIELD_NAME,
+                                                                             lowLevelModule, methodParameters,
+                                                                             allParameters, parameterRenames,
+                                                                             lowLevelMethod, true)
+                                                 : new MethodModuleModifyApiUnaggregated(action == MethodAction.CREATE,
+                                                                                         currentModel, returnModel,
+                                                                                         module.adapterFetcher,
+                                                                                         methodName, description,
+                                                                                         longDescription, isCustom,
+                                                                                         endpoints,
+                                                                                         ENDPOINTS_FIELD_NAME,
+                                                                                         lowLevelModule,
+                                                                                         methodParameters,
+                                                                                         allParameters,
+                                                                                         parameterRenames,
+                                                                                         lowLevelMethod, true);
                     break;
                 case LIST:
-                    method = new MethodModuleListApi(currentModel, methodName, description, longDescription, isCustom,
-                                                     isPaginated, module.listOptionFetcher, module.adapterFetcher,
-                                                     endpoints, ENDPOINTS_FIELD_NAME, lowLevelModule, methodParameters,
-                                                     allParameters, parameterRenames, lowLevelMethod, true);
+                    method = returnModel == null ? new MethodModuleListApi(currentModel, methodName, description,
+                                                                           longDescription, isCustom, isPaginated,
+                                                                           module.listOptionFetcher,
+                                                                           module.adapterFetcher, endpoints,
+                                                                           ENDPOINTS_FIELD_NAME, lowLevelModule,
+                                                                           methodParameters, allParameters,
+                                                                           parameterRenames, lowLevelMethod, true)
+                                                 : new MethodModuleListApiUnaggregated(currentModel, returnModel,
+                                                                                       methodName, description,
+                                                                                       longDescription, isCustom,
+                                                                                       isPaginated,
+                                                                                       module.listOptionFetcher,
+                                                                                       module.adapterFetcher, endpoints,
+                                                                                       ENDPOINTS_FIELD_NAME,
+                                                                                       lowLevelModule, methodParameters,
+                                                                                       allParameters, parameterRenames,
+                                                                                       lowLevelMethod, true);
                     break;
                 default:
                     break;
@@ -268,14 +316,23 @@ public class ModelModule extends ModelMergeable {
                 case DELETE:
                 case OTHER:
                 case READ:
-                    overloadedMethod = new MethodModuleFromEntity(method, methodParameters, false);
+                    overloadedMethod = returnModel == null ? new MethodModuleFromEntity(method, methodParameters, false)
+                                                           : new MethodModuleFromEntityUnaggregated((MethodModuleCloudApiUnaggregated) method,
+                                                                                                    methodParameters,
+                                                                                                    false);
                     break;
                 case CREATE:
                 case UPDATE:
-                    overloadedMethod = new MethodModuleFromEntity(method, methodParameters, true);
+                    overloadedMethod = returnModel == null ? new MethodModuleFromEntity(method, methodParameters, true)
+                                                           : new MethodModuleFromEntityUnaggregated((MethodModuleCloudApiUnaggregated) method,
+                                                                                                    methodParameters,
+                                                                                                    true);
                     break;
                 case LIST:
-                    overloadedMethod = new MethodModulePaginationApi((MethodModuleListApi) method, isCustom);
+                    overloadedMethod = returnModel == null ? new MethodModulePaginationApi((MethodModuleListApi) method,
+                                                                                           isCustom)
+                                                           : new MethodModulePaginationApiUnaggregated((MethodModuleListApiUnaggregated) method,
+                                                                                                       isCustom);
                     break;
                 default:
                     break;
