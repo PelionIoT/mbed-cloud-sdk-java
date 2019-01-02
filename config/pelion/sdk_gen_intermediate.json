@@ -4,6 +4,7 @@
       "entities": [
         "password_policy",
         "login_history",
+        "parent_account",
         "policy",
         "user",
         "subtenant_user",
@@ -1313,22 +1314,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -1651,22 +1662,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -2430,22 +2451,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -2746,22 +2777,32 @@
                                     "type": "string",
                                     "example": "info@arm.com",
                                     "description": "The email address of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_email",
+                                    "entity_fieldname": "admin_email",
                                     "_key": "admin_email"
                                   },
                                   {
                                     "type": "string",
                                     "example": "J. Doe",
                                     "description": "The name of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_name",
+                                    "entity_fieldname": "admin_name",
                                     "_key": "admin_name"
                                   },
                                   {
                                     "type": "string",
                                     "example": "01619571dad80242ac12000600000000",
                                     "description": "The ID of the parent account",
+                                    "api_fieldname": "id",
+                                    "entity_fieldname": "id",
                                     "_key": "id"
                                   }
                                 ],
                                 "description": "This object represents parent account contact details in responses.",
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "parent_account"
+                                },
                                 "_key": "parent_account"
                               },
                               {
@@ -3442,22 +3483,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -3780,22 +3831,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -5278,22 +5339,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -5616,22 +5687,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -7599,22 +7680,32 @@
               "type": "string",
               "example": "info@arm.com",
               "description": "The email address of the admin user who is the contact person of the parent account.",
+              "api_fieldname": "admin_email",
+              "entity_fieldname": "admin_email",
               "_key": "admin_email"
             },
             {
               "type": "string",
               "example": "J. Doe",
               "description": "The name of the admin user who is the contact person of the parent account.",
+              "api_fieldname": "admin_name",
+              "entity_fieldname": "admin_name",
               "_key": "admin_name"
             },
             {
               "type": "string",
               "example": "01619571dad80242ac12000600000000",
               "description": "The ID of the parent account",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
               "_key": "id"
             }
           ],
           "description": "This object represents parent account contact details in responses.",
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "parent_account"
+          },
           "api_fieldname": "parent_account",
           "_key": "parent_account"
         },
@@ -10316,12 +10407,6 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
-                    "in": "path",
-                    "name": "certificate-name",
-                    "required": true,
-                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                    "external_param": true,
-                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -10377,9 +10462,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "device-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -10786,14 +10868,6 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
-                          "api_fieldname": "certificate-name",
-                          "entity_fieldname": "certificate_name",
-                          "in": "path",
-                          "name": "certificate-name",
-                          "required": true,
-                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-                          "external_param": true,
-                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -10801,16 +10875,12 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
-                          "api_fieldname": "device_id",
-                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -10821,8 +10891,6 @@
                             "forbidden",
                             "failure"
                           ],
-                          "api_fieldname": "enroll_result",
-                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -10831,27 +10899,18 @@
                             "new",
                             "completed"
                           ],
-                          "api_fieldname": "enroll_status",
-                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
-                          "parameter_fieldname": "device-id",
-                          "in": "path",
-                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -10859,8 +10918,6 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -10868,8 +10925,6 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -11180,11 +11235,6 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
-          "in": "path",
-          "name": "certificate-name",
-          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
-          "external_param": true,
-          "parameter_fieldname": "certificate-name",
           "_key": "certificate_name"
         },
         {
@@ -11229,8 +11279,6 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
-          "parameter_fieldname": "device-id",
-          "in": "path",
           "_key": "id"
         },
         {
@@ -19588,6 +19636,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "certificate-enrollment-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -24572,6 +24623,40 @@
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_history"
+    },
+    {
+      "swagger_models": [
+        "ParentAccountInfo"
+      ],
+      "primary_key_field": "id",
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "example": "info@arm.com",
+          "description": "The email address of the admin user who is the contact person of the parent account.",
+          "api_fieldname": "admin_email",
+          "_key": "admin_email"
+        },
+        {
+          "type": "string",
+          "example": "J. Doe",
+          "description": "The name of the admin user who is the contact person of the parent account.",
+          "api_fieldname": "admin_name",
+          "_key": "admin_name"
+        },
+        {
+          "type": "string",
+          "example": "01619571dad80242ac12000600000000",
+          "description": "The ID of the parent account",
+          "api_fieldname": "id",
+          "_key": "id"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "parent_account"
     },
     {
       "swagger_models": [
