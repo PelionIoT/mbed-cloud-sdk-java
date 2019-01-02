@@ -96,8 +96,6 @@ public interface CloudDao extends Cloneable {
      * Clones this instance.
      * 
      * @return a cloned instance.
-     * @throws MbedCloudException
-     *             if an error occurs during configuration
      */
     CloudDao clone();
 }

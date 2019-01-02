@@ -59,6 +59,11 @@ dependencies {
 }
 
 def eclipseConfigFile=new File("$rootProject.projectDir/../config/eclipse/formatter.xml").canonicalPath
+def projectToExclude = ['annotations'].collect{it.toLowerCase()}
+// The following is to ensure that tasks in the following list are carried out in subprojects which are not in the exclude list above.
+def tasksNeedinSubprojectTasks = ['pmd','jacoco','test','walkmod','spotless'].collect{it.toLowerCase()}
+tasks.findAll{t -> tasksNeedinSubprojectTasks.findAll{n -> t.name.toLowerCase().contains(n)}.size()>0 }.each{ t -> subprojects.findAll{s -> projectToExclude.findAll{ex -> s.path.toLowerCase().contains(ex)}.size() == 0 }.each{s -> if(s.tasks.findAll{st -> st.name == t.name}.size() > 0){t.dependsOn("${s.path}:${t.name}")} }}
+
 
 allprojects {
     buildscript {
