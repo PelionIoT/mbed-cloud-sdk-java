@@ -149,6 +149,31 @@ public abstract class AbstractModule implements SdkContext {
         return serviceRegistry.getService(serviceClass);
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((client == null) ? 0 : client.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        AbstractModule other = (AbstractModule) obj;
+        if (client == null) {
+            if (other.client != null)
+                return false;
+        } else if (!client.equals(other.client))
+            return false;
+        return true;
+    }
+
     /**
      * Gets the SDK module name.
      *

@@ -100,8 +100,11 @@ public class ModelTest extends AbstractSdkArtifact {
         final String fieldValues = String.join("," + System.lineSeparator(),
                                                ValueGenerator.generateModelFieldValues(modelUnderTest));
         addExceptionHandlingStart(test);
-        test.getCode().addStatement("$L " + variable + "1 = new $L(" + fieldValues + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
+        test.getCode()
+            .addStatement("$L " + variable + "1 = new $L("
+                          + (ValueGenerator.DEFAULT_VALUE.equals(fieldValues) ? "(" + modelUnderTest.getName() + ")"
+                                                                              : "")
+                          + fieldValues + ")", modelUnderTest.getName(), modelUnderTest.getName());
         test.getCode().addStatement("$L " + variable + "2 = " + variable + "1.clone()", modelUnderTest.getName());
         test.getCode().addStatement("assertNotNull(" + variable + "1)");
         test.getCode().addStatement("assertNotNull(" + variable + "2)");
@@ -171,19 +174,27 @@ public class ModelTest extends AbstractSdkArtifact {
                                     modelUnderTest.getName());
         test.getCode().addStatement("$L " + variable + "2 = new $L(" + fieldValues1 + ")", modelUnderTest.getName(),
                                     modelUnderTest.getName());
-        test.getCode().addStatement("$L " + variable + "3 = new $L(" + fieldValues2 + ")", modelUnderTest.getName(),
-                                    modelUnderTest.getName());
+        if (!values2.isEmpty()) {
+            test.getCode().addStatement("$L " + variable + "3 = new $L(" + fieldValues2 + ")", modelUnderTest.getName(),
+                                        modelUnderTest.getName());
+        }
         test.getCode().addStatement("assertNotNull(" + variable + "1)");
         test.getCode().addStatement("assertNotNull(" + variable + "2)");
-        test.getCode().addStatement("assertNotNull(" + variable + "3)");
+        if (!values2.isEmpty()) {
+            test.getCode().addStatement("assertNotNull(" + variable + "3)");
+        }
         test.getCode().addStatement("assertNotSame(" + variable + "2, " + variable + "1)");
-        test.getCode().addStatement("assertNotSame(" + variable + "3, " + variable + "1)");
+        if (!values2.isEmpty()) {
+            test.getCode().addStatement("assertNotSame(" + variable + "3, " + variable + "1)");
+        }
         test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
         test.getCode().addStatement("assertEquals(" + variable + "2, " + variable + "1)");
         test.getCode().addStatement("assertEquals(" + variable + "1, " + variable + "2)");
         test.getCode().addStatement("assertEquals(" + variable + "1, " + variable + "1)");
         test.getCode().addStatement("assertFalse(" + variable + "1.equals(null))");
-        test.getCode().addStatement("assertNotEquals(" + variable + "3, " + variable + "1)");
+        if (!values2.isEmpty()) {
+            test.getCode().addStatement("assertNotEquals(" + variable + "3, " + variable + "1)");
+        }
         addExceptionHandlingEnd(test);
         addTest(test);
     }

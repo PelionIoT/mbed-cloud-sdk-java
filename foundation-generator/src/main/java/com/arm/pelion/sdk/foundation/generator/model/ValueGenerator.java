@@ -10,6 +10,7 @@ import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.mifmif.common.regex.Generex;
 
 public class ValueGenerator {
+    public static final String DEFAULT_VALUE = String.valueOf((String) null);
 
     private ValueGenerator() {
 
@@ -17,7 +18,7 @@ public class ValueGenerator {
 
     public static String generateFieldValue(Field field) {
         if (field == null) {
-            return null;
+            return DEFAULT_VALUE;
         }
         if (field.getType().isEnum()) {
             return (field.getType().hasClass() ? field.getType().getClazz().getName()
@@ -26,7 +27,7 @@ public class ValueGenerator {
 
         }
         if (!field.getType().hasClass()) {
-            return null;
+            return DEFAULT_VALUE;
         }
         if (field.getType().isString()) {
             if (field.hasPattern()) {
@@ -43,12 +44,19 @@ public class ValueGenerator {
         }
         if (field.getType().isNumber()) {
             if (field.getType().isDecimal()) {
-                return String.valueOf(Math.random() * 100000.0);
+                final double value = Math.random() * 100000.0;
+                return field.getType().isPrimitive() ? String.valueOf(value)
+                                                     : "Double.valueOf(" + String.valueOf(value) + ")";
             }
-            return String.valueOf((int) (Math.random() * 255) - 128);// A random number which can be a byte, int, or a
-                                                                     // long
+            final int value = (int) (Math.random() * 255) - 128;// A random number which can be a byte, int, or a
+            // long;
+            if (field.getType().isPrimitive()) {
+                return String.valueOf(value);
+            } else {
+                return (field.getType().isInteger() ? "Integer" : "Long") + ".valueOf(" + String.valueOf(value) + ")";
+            }
         }
-        return null;
+        return DEFAULT_VALUE;
     }
 
     public static String generateRandomString() {
