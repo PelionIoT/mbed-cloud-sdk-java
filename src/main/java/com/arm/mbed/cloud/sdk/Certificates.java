@@ -22,10 +22,10 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeveloperCertificateResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 
 import retrofit2.Call;
 
@@ -191,6 +191,7 @@ public class Certificates extends AbstractModule {
                                                                            finalOptions.getExecutionModeNotEqualFilter(),
                                                                            finalOptions.encodeSingleEqualFilter(CertificateListOptions.OWNER_ID_FILTER),
                                                                            finalOptions.getEnrollmentFilter(),
+                                                                           finalOptions.encodeSingleEqualFilter(CertificateListOptions.STATUS_FILTER),
                                                                            finalOptions.encodeSingleLikeFilter(CertificateListOptions.ISSUER_FILTER),
                                                                            finalOptions.encodeSingleLikeFilter(CertificateListOptions.SUBJECT_FILTER));
                                     }

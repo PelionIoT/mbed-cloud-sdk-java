@@ -27,12 +27,12 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.EndPoints;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Query;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.QueryListOptions;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQuery;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceQueryPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQuery;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceQueryPage;
 
 import retrofit2.Call;
 
@@ -404,9 +404,8 @@ public class DeviceDirectory extends AbstractModule {
             public Call<DeviceQueryPage> call() {
                 return endpoint.getDirectory()
                                .deviceQueryList(finalOptions.getPageSize(), finalOptions.getOrder().toString(),
-                                                finalOptions.getAfter(),
-                                                new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                finalOptions.encodeInclude());
+                                                finalOptions.getAfter(), finalOptions.encodeInclude(),
+                                                new FilterMarshaller(null).encode(finalOptions.getFilter()));
             }
         });
     }
@@ -703,8 +702,8 @@ public class DeviceDirectory extends AbstractModule {
                                                        .deviceLogList(finalOptions.getPageSize(),
                                                                       finalOptions.getOrder().toString(),
                                                                       finalOptions.getAfter(),
-                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                      finalOptions.encodeInclude());
+                                                                      finalOptions.encodeInclude(),
+                                                                      DeviceEventAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
                                     }
                                 });
     }

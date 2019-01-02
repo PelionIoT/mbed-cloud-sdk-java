@@ -69,7 +69,7 @@ public interface DeveloperApi {
    */
   @DELETE("v3/api-keys/{apikey_id}")
   Call<Void> deleteApiKey(
-    @retrofit2.http.Path("apikey_id") String apikeyId
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId
   );
 
   /**
@@ -80,7 +80,7 @@ public interface DeveloperApi {
    */
   @DELETE("v3/trusted-certificates/{cert_id}")
   Call<Void> deleteCertificate(
-    @retrofit2.http.Path("cert_id") String certId
+    @retrofit2.http.Path(value = "cert_id", encoded = true) String certId
   );
 
   /**
@@ -164,7 +164,7 @@ public interface DeveloperApi {
    */
   @GET("v3/api-keys/{apikey_id}")
   Call<ApiKeyInfoResp> getApiKey(
-    @retrofit2.http.Path("apikey_id") String apikeyId
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId
   );
 
   /**
@@ -179,7 +179,7 @@ public interface DeveloperApi {
    */
   @GET("v3/policy-groups/{group_id}/api-keys")
   Call<ApiKeyInfoRespList> getApiKeysOfGroup(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -190,7 +190,7 @@ public interface DeveloperApi {
    */
   @GET("v3/trusted-certificates/{cert_id}")
   Call<TrustedCertificateResp> getCertificate(
-    @retrofit2.http.Path("cert_id") String certId
+    @retrofit2.http.Path(value = "cert_id", encoded = true) String certId
   );
 
   /**
@@ -201,7 +201,7 @@ public interface DeveloperApi {
    */
   @GET("v3/branding-colors/dark/{reference}")
   Call<BrandingColor> getDarkColor(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -221,7 +221,7 @@ public interface DeveloperApi {
    */
   @GET("v3/branding-images/dark/{reference}")
   Call<BrandingImage> getDarkImageData(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -232,7 +232,7 @@ public interface DeveloperApi {
    */
   @GET("v3/policy-groups/{group_id}")
   Call<GroupSummary> getGroupSummary(
-    @retrofit2.http.Path("group_id") String groupId
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId
   );
 
   /**
@@ -257,7 +257,7 @@ public interface DeveloperApi {
    */
   @GET("v3/branding-colors/light/{reference}")
   Call<BrandingColor> getLightColor(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -277,7 +277,7 @@ public interface DeveloperApi {
    */
   @GET("v3/branding-images/light/{reference}")
   Call<BrandingImage> getLightImageData(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -313,7 +313,7 @@ public interface DeveloperApi {
   })
   @DELETE("v3/policy-groups/{group_id}/api-keys")
   Call<UpdatedResponse> removeApiKeysFromGroup(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -339,7 +339,7 @@ public interface DeveloperApi {
    */
   @PUT("v3/api-keys/{apikey_id}")
   Call<ApiKeyInfoResp> updateApiKey(
-    @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body ApiKeyUpdateReq body
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body ApiKeyUpdateReq body
   );
 
   /**
@@ -354,7 +354,7 @@ public interface DeveloperApi {
   })
   @PUT("v3/trusted-certificates/{cert_id}")
   Call<TrustedCertificateResp> updateCertificate(
-    @retrofit2.http.Path("cert_id") String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
+    @retrofit2.http.Path(value = "cert_id", encoded = true) String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
   );
 
   /**

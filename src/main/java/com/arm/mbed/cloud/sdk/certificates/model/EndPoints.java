@@ -4,10 +4,10 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.internal.connectorca.api.DeveloperCertificateApi;
-import com.arm.mbed.cloud.sdk.internal.connectorca.api.ServerCredentialsApi;
-import com.arm.mbed.cloud.sdk.internal.iam.api.AccountAdminApi;
-import com.arm.mbed.cloud.sdk.internal.iam.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.AccountAdminApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeveloperCertificateApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ServerCredentialsApi;
 
 @Preamble(description = "Endpoint for Certificates")
 @Internal

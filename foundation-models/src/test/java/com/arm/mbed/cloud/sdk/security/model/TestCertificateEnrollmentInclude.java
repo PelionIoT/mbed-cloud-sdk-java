@@ -7,30 +7,29 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model CertificateEnrollmentInclude.
- */
+ * Unit tests for Model CertificateEnrollmentInclude. */
 public class TestCertificateEnrollmentInclude {
-    /**
-     * Tests the getValue method.
-     */
-    @Test
-    public void testGetvalue() {
-        try {
-            CertificateEnrollmentInclude certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(null);
-            assertNotNull(certificateenrollmentinclude);
-            assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(CertificateEnrollmentInclude.getDefault()
-                                                                                                             .getString());
-            assertNotNull(certificateenrollmentinclude);
-            assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
-            assertNotNull(certificateenrollmentinclude);
-            assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("92a26da1-510d-45f2-ba71-67e71f664389");
-            assertNotNull(certificateenrollmentinclude);
-            assertTrue(certificateenrollmentinclude.isDefault());
-        } catch (Exception exception) {
-            fail(exception.getMessage());
-        }
+  /**
+   * Tests the getValue method.
+   */
+  @Test
+  public void testGetvalue() {
+    try {
+      CertificateEnrollmentInclude certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(null);
+      assertNotNull(certificateenrollmentinclude);
+      assertTrue(certificateenrollmentinclude.isDefault());
+      certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(CertificateEnrollmentInclude.getDefault().getString());
+      assertNotNull(certificateenrollmentinclude);
+      assertTrue(certificateenrollmentinclude.isDefault());
+      certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
+      assertNotNull(certificateenrollmentinclude);
+      assertTrue(certificateenrollmentinclude.isDefault());
+      certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("46f413f2-8752-4840-baa8-073ec14101f6");
+      assertNotNull(certificateenrollmentinclude);
+      assertTrue(certificateenrollmentinclude.isDefault());
     }
+    catch(Exception exception) {
+      fail(exception.getMessage());
+    }
+  }
 }

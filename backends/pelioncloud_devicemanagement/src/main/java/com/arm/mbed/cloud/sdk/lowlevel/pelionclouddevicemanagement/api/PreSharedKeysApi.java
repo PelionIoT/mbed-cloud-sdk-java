@@ -27,7 +27,7 @@ public interface PreSharedKeysApi {
    */
   @DELETE("v2/device-shared-keys/{endpoint_name}")
   Call<Void> deletePreSharedKey(
-    @retrofit2.http.Path("endpoint_name") String endpointName
+    @retrofit2.http.Path(value = "endpoint_name", encoded = true) String endpointName
   );
 
   /**
@@ -38,7 +38,7 @@ public interface PreSharedKeysApi {
    */
   @GET("v2/device-shared-keys/{endpoint_name}")
   Call<PreSharedKeyWithoutSecret> getPreSharedKey(
-    @retrofit2.http.Path("endpoint_name") String endpointName
+    @retrofit2.http.Path(value = "endpoint_name", encoded = true) String endpointName
   );
 
   /**

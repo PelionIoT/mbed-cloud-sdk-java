@@ -63,10 +63,10 @@ import com.arm.mbed.cloud.sdk.connect.subscription.adapters.ResourceActionAdapte
 import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
-import com.arm.mbed.cloud.sdk.internal.mds.model.DeviceRequest;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
-import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationMessageValue;
 import com.arm.mbed.cloud.sdk.subscribe.Observer;
@@ -400,10 +400,11 @@ public class Connect extends AbstractModule {
         final String finalDeviceId = device.getId();
 
         return CloudCaller.call(this, "listResources()", ResourceAdapter.getListMapper(finalDeviceId),
-                                new CloudCall<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>>() {
+                                new CloudCall<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Resource>>() {
 
                                     @Override
-                                    public Call<List<com.arm.mbed.cloud.sdk.internal.mds.model.Resource>> call() {
+                                    public Call<List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Resource>>
+                                           call() {
                                         return endpoint.getEndpoints().getEndpointResources(finalDeviceId);
                                     }
                                 });
@@ -2720,10 +2721,11 @@ public class Connect extends AbstractModule {
     @API
     public Webhook getWebhook() throws MbedCloudException {
         return CloudCaller.call(this, "getWebhook()", WebhookAdapter.getMapper(),
-                                new CloudCall<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook>() {
+                                new CloudCall<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook>() {
 
                                     @Override
-                                    public Call<com.arm.mbed.cloud.sdk.internal.mds.model.Webhook> call() {
+                                    public Call<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Webhook>
+                                           call() {
                                         return endpoint.getNotifications().getWebhook();
                                     }
                                 });

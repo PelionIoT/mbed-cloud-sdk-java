@@ -27,7 +27,7 @@ public interface CertificateEnrollmentsApi {
    */
   @GET("v3/certificate-enrollments/{certificate-enrollment-id}")
   Call<CertificateEnrollment> getCertificateEnrollment(
-    @retrofit2.http.Path("certificate-enrollment-id") String certificateEnrollmentId
+    @retrofit2.http.Path(value = "certificate-enrollment-id", encoded = true) String certificateEnrollmentId
   );
 
   /**

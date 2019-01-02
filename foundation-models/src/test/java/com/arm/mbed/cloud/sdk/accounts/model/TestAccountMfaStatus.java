@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model AccountMfaStatus.
- */
+ * Unit tests for Model AccountMfaStatus. */
 public class TestAccountMfaStatus {
-    /**
-     * Tests the getValue method.
-     */
-    @Test
-    public void testGetvalue() {
-        try {
-            AccountMfaStatus accountmfastatus = AccountMfaStatus.getValue(null);
-            assertNotNull(accountmfastatus);
-            assertTrue(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue(AccountMfaStatus.getDefault().getString());
-            assertNotNull(accountmfastatus);
-            assertTrue(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue("ENFORCED");
-            assertNotNull(accountmfastatus);
-            assertTrue(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue("optional");
-            assertNotNull(accountmfastatus);
-            assertFalse(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue("662aec11-0fa3-4580-a816-79e31047d496");
-            assertNotNull(accountmfastatus);
-            assertTrue(accountmfastatus.isDefault());
-        } catch (Exception exception) {
-            fail(exception.getMessage());
-        }
+  /**
+   * Tests the getValue method.
+   */
+  @Test
+  public void testGetvalue() {
+    try {
+      AccountMfaStatus accountmfastatus = AccountMfaStatus.getValue(null);
+      assertNotNull(accountmfastatus);
+      assertTrue(accountmfastatus.isDefault());
+      accountmfastatus = AccountMfaStatus.getValue(AccountMfaStatus.getDefault().getString());
+      assertNotNull(accountmfastatus);
+      assertTrue(accountmfastatus.isDefault());
+      accountmfastatus = AccountMfaStatus.getValue("ENFORCED");
+      assertNotNull(accountmfastatus);
+      assertTrue(accountmfastatus.isDefault());
+      accountmfastatus = AccountMfaStatus.getValue("optional");
+      assertNotNull(accountmfastatus);
+      assertFalse(accountmfastatus.isDefault());
+      accountmfastatus = AccountMfaStatus.getValue("1441f736-6dc2-4509-9821-c7669930b8a1");
+      assertNotNull(accountmfastatus);
+      assertTrue(accountmfastatus.isDefault());
     }
+    catch(Exception exception) {
+      fail(exception.getMessage());
+    }
+  }
 }

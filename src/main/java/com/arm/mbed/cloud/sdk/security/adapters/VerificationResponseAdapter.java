@@ -4,7 +4,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.externalca.model.CertificateIssuerVerifyResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateIssuerVerifyResponse;
 import com.arm.mbed.cloud.sdk.security.model.VerificationResponse;
 
 @Preamble(description = "Adapter for verification response model")

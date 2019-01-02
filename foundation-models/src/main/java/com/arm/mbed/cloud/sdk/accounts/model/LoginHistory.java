@@ -6,303 +6,277 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.PerformsNoOperation;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
 import java.util.Date;
 import java.util.Objects;
 
 /**
- * Model for a login history.
- */
-@Preamble(description = "Model for a login history.")
+ * Model for a login history. */
+@Preamble(
+    description = "Model for a login history."
+)
 public class LoginHistory implements SdkModel {
-    /**
-     * Serialisation Id.
-     */
-    private static final long serialVersionUID = 9919323551215791L;
+  /**
+   * Serialisation Id. */
+  private static final long serialVersionUID = 9919323551215791L;
 
-    /**
-     * UTC time RFC3339 for this login attempt.
-     */
-    private Date date;
+  /**
+   * UTC time RFC3339 for this login attempt. */
+  private Date date;
 
-    /**
-     * IP address of the client.
-     */
-    private String ipAddress;
+  /**
+   * IP address of the client. */
+  private String ipAddress;
 
-    /**
-     * Flag indicating whether login attempt was successful or not.
-     */
-    private boolean success;
+  /**
+   * Flag indicating whether login attempt was successful or not. */
+  private boolean success;
 
-    /**
-     * User Agent header from the login request.
-     */
-    private String userAgent;
+  /**
+   * User Agent header from the login request. */
+  private String userAgent;
 
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #LoginHistory()} instead.
-     * 
-     * @param date
-     *            UTC time RFC3339 for this login attempt.
-     * @param ipAddress
-     *            IP address of the client.
-     * @param success
-     *            Flag indicating whether login attempt was successful or not.
-     * @param userAgent
-     *            User Agent header from the login request.
-     */
-    @Internal
-    public LoginHistory(Date date, String ipAddress, boolean success, String userAgent) {
-        super();
-        setDate(date);
-        setIpAddress(ipAddress);
-        setSuccess(success);
-        setUserAgent(userAgent);
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #LoginHistory()} instead.
+   * @param date UTC time RFC3339 for this login attempt.
+   * @param ipAddress IP address of the client.
+   * @param success Flag indicating whether login attempt was successful or not.
+   * @param userAgent User Agent header from the login request.
+   */
+  @Internal
+  public LoginHistory(Date date, String ipAddress, boolean success, String userAgent) {
+    super();
+    setDate(date);
+    setIpAddress(ipAddress);
+    setSuccess(success);
+    setUserAgent(userAgent);
+  }
+
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #LoginHistory()} instead.
+   * @param loginHistory a login history.
+   */
+  @Internal
+  public LoginHistory(LoginHistory loginHistory) {
+    this(loginHistory == null ? new java.util.Date() : loginHistory.date,
+        loginHistory == null ? (String) null : loginHistory.ipAddress,
+        loginHistory != null && loginHistory.success,
+        loginHistory == null ? (String) null : loginHistory.userAgent);
+  }
+
+  /**
+   * Constructor.
+   */
+  public LoginHistory() {
+    this(new java.util.Date(),
+        (String) null,
+        false,
+        (String) null);
+  }
+
+  /**
+   * Sets id.
+   * @param id id.
+   */
+  @Override
+  @Internal
+  @PerformsNoOperation
+  public void setId(String id) {
+    // Nothing to do
+  }
+
+  /**
+   * Gets id.
+   * <p>
+   * Warning: LoginHistory model does not have any ID field. This always returns {@code null}.
+   * @return id
+   */
+  @Override
+  @Internal
+  public String getId() {
+    return null;
+  }
+
+  /**
+   * Gets utc time rfc3339 for this login attempt.
+   * @return date
+   */
+  public Date getDate() {
+    return date;
+  }
+
+  /**
+   * Sets utc time rfc3339 for this login attempt.
+   * @param date UTC time RFC3339 for this login attempt.
+   */
+  public void setDate(Date date) {
+    this.date = date;
+  }
+
+  /**
+   * Gets ip address of the client.
+   * @return ipAddress
+   */
+  public String getIpAddress() {
+    return ipAddress;
+  }
+
+  /**
+   * Sets ip address of the client.
+   * @param ipAddress IP address of the client.
+   */
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
+  }
+
+  /**
+   * Gets flag indicating whether login attempt was successful or not.
+   * @return success
+   */
+  public boolean isSuccess() {
+    return success;
+  }
+
+  /**
+   * Sets flag indicating whether login attempt was successful or not.
+   * @param success Flag indicating whether login attempt was successful or not.
+   */
+  public void setSuccess(boolean success) {
+    this.success = success;
+  }
+
+  /**
+   * Gets user agent header from the login request.
+   * @return userAgent
+   */
+  public String getUserAgent() {
+    return userAgent;
+  }
+
+  /**
+   * Sets user agent header from the login request.
+   * @param userAgent User Agent header from the login request.
+   */
+  public void setUserAgent(String userAgent) {
+    this.userAgent = userAgent;
+  }
+
+  /**
+   * Calculates the hash code of this instance based on field values.
+   * <p>
+   * @see java.lang.Object#hashCode()
+   * @return hash code
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((date == null) ? 0 : date.hashCode());
+    result = prime * result + ((ipAddress == null) ? 0 : ipAddress.hashCode());
+    result = prime * result +  Objects.hashCode(success);
+    result = prime * result + ((userAgent == null) ? 0 : userAgent.hashCode());
+    return result;
+  }
+
+  /**
+   *  Method to ensure {@link #equals(Object)} is correct.
+   * <p>
+   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+   * @param other another object.
+   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected boolean canEqual(Object other) {
+    return other instanceof LoginHistory;
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * <p>
+   * @see java.lang.Object#equals(java.lang.Object)
+   * @param obj an object to compare with this instance.
+   * @return true if this object is the same as the obj argument; false otherwise.
+   */
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
     }
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #LoginHistory()} instead.
-     * 
-     * @param loginHistory
-     *            a login history.
-     */
-    @Internal
-    public LoginHistory(LoginHistory loginHistory) {
-        this(loginHistory == null ? new java.util.Date() : loginHistory.date,
-             loginHistory == null ? (String) null : loginHistory.ipAddress,
-             loginHistory != null && loginHistory.success,
-             loginHistory == null ? (String) null : loginHistory.userAgent);
+    if (obj == null) {
+      return false;
     }
-
-    /**
-     * Constructor.
-     */
-    public LoginHistory() {
-        this(new java.util.Date(), (String) null, false, (String) null);
+    if( !(obj instanceof LoginHistory)) {
+      return false;
     }
-
-    /**
-     * Sets id.
-     * 
-     * @param id
-     *            id.
-     */
-    @Override
-    @Internal
-    @PerformsNoOperation
-    public void setId(String id) {
-        // Nothing to do
+    final LoginHistory other = (LoginHistory) obj;
+    if( !other.canEqual(this)) {
+      return false;
     }
-
-    /**
-     * Gets id.
-     * <p>
-     * Warning: LoginHistory model does not have any ID field. This always returns {@code null}.
-     * 
-     * @return id
-     */
-    @Override
-    @Internal
-    public String getId() {
-        return null;
+    if (date == null) {
+      if (other.date != null) {
+        return false;
+      }
+    } else if (!date.equals(other.date)) {
+      return false;
     }
-
-    /**
-     * Gets utc time rfc3339 for this login attempt.
-     * 
-     * @return date
-     */
-    public Date getDate() {
-        return date;
+    if (ipAddress == null) {
+      if (other.ipAddress != null) {
+        return false;
+      }
+    } else if (!ipAddress.equals(other.ipAddress)) {
+      return false;
     }
-
-    /**
-     * Sets utc time rfc3339 for this login attempt.
-     * 
-     * @param date
-     *            UTC time RFC3339 for this login attempt.
-     */
-    public void setDate(Date date) {
-        this.date = date;
+    if (success != other.success) {
+      return false;
     }
-
-    /**
-     * Gets ip address of the client.
-     * 
-     * @return ipAddress
-     */
-    public String getIpAddress() {
-        return ipAddress;
+    if (userAgent == null) {
+      if (other.userAgent != null) {
+        return false;
+      }
+    } else if (!userAgent.equals(other.userAgent)) {
+      return false;
     }
+    return true;
+  }
 
-    /**
-     * Sets ip address of the client.
-     * 
-     * @param ipAddress
-     *            IP address of the client.
-     */
-    public void setIpAddress(String ipAddress) {
-        this.ipAddress = ipAddress;
-    }
+  /**
+   * Returns a string representation of the object.
+   * <p>
+   * @see java.lang.Object#toString()
+   * @return the string representation
+   */
+  @Override
+  public String toString() {
+    return "LoginHistory [date=" + date
+        + ", ipAddress=" + ipAddress
+        + ", success=" + success
+        + ", userAgent=" + userAgent + "]";
+  }
 
-    /**
-     * Gets flag indicating whether login attempt was successful or not.
-     * 
-     * @return success
-     */
-    public boolean isSuccess() {
-        return success;
-    }
+  /**
+   * Checks whether the model is valid or not.
+   * <p>
+   * @see SdkModel#isValid()
+   * @return true if the model is valid; false otherwise.
+   */
+  @Override
+  public boolean isValid() {
+    return true;
+  }
 
-    /**
-     * Sets flag indicating whether login attempt was successful or not.
-     * 
-     * @param success
-     *            Flag indicating whether login attempt was successful or not.
-     */
-    public void setSuccess(boolean success) {
-        this.success = success;
-    }
-
-    /**
-     * Gets user agent header from the login request.
-     * 
-     * @return userAgent
-     */
-    public String getUserAgent() {
-        return userAgent;
-    }
-
-    /**
-     * Sets user agent header from the login request.
-     * 
-     * @param userAgent
-     *            User Agent header from the login request.
-     */
-    public void setUserAgent(String userAgent) {
-        this.userAgent = userAgent;
-    }
-
-    /**
-     * Calculates the hash code of this instance based on field values.
-     * <p>
-     * 
-     * @see java.lang.Object#hashCode()
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((date == null) ? 0 : date.hashCode());
-        result = prime * result + ((ipAddress == null) ? 0 : ipAddress.hashCode());
-        result = prime * result + Objects.hashCode(success);
-        result = prime * result + ((userAgent == null) ? 0 : userAgent.hashCode());
-        return result;
-    }
-
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof LoginHistory;
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            an object to compare with this instance.
-     * @return true if this object is the same as the obj argument; false otherwise.
-     */
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof LoginHistory)) {
-            return false;
-        }
-        final LoginHistory other = (LoginHistory) obj;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (date == null) {
-            if (other.date != null) {
-                return false;
-            }
-        } else if (!date.equals(other.date)) {
-            return false;
-        }
-        if (ipAddress == null) {
-            if (other.ipAddress != null) {
-                return false;
-            }
-        } else if (!ipAddress.equals(other.ipAddress)) {
-            return false;
-        }
-        if (success != other.success) {
-            return false;
-        }
-        if (userAgent == null) {
-            if (other.userAgent != null) {
-                return false;
-            }
-        } else if (!userAgent.equals(other.userAgent)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "LoginHistory [date=" + date + ", ipAddress=" + ipAddress + ", success=" + success + ", userAgent="
-               + userAgent + "]";
-    }
-
-    /**
-     * Checks whether the model is valid or not.
-     * <p>
-     * 
-     * @see SdkModel#isValid()
-     * @return true if the model is valid; false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return true;
-    }
-
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public LoginHistory clone() {
-        return new LoginHistory(this);
-    }
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public LoginHistory clone() {
+    return new LoginHistory(this);
+  }
 }

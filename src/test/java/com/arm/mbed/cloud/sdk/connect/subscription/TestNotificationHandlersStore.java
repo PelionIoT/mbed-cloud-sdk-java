@@ -25,11 +25,11 @@ import com.arm.mbed.cloud.sdk.common.CallLogLevel;
 import com.arm.mbed.cloud.sdk.common.Callback;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.internal.mds.model.EndpointData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationData;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
-import com.arm.mbed.cloud.sdk.internal.mds.model.ResourcesData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EndpointData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ResourcesData;
 import com.arm.mbed.cloud.sdk.subscribe.NotificationCallback;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceState;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
@@ -128,7 +128,7 @@ public class TestNotificationHandlersStore {
     private PresubscriptionArray generatePresubscriptions(int number) {
         PresubscriptionArray array = new PresubscriptionArray();
         for (int j = 0; j < number; j++) {
-            com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+            com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription();
             for (int i = 0; i <= j; i++) {
                 presubscription.addResourcePathItem(i + "/" + (i + j) + "/" + j);
             }

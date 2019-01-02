@@ -4,10 +4,10 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateEnrollmentsApi;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.api.CertificateRenewalApi;
-import com.arm.mbed.cloud.sdk.internal.externalca.api.CertificateIssuersActivationApi;
-import com.arm.mbed.cloud.sdk.internal.externalca.api.CertificateIssuersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateEnrollmentsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersActivationApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateIssuersApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.CertificateRenewalApi;
 
 @Preamble(description = "Endpoint for Security API module")
 @Internal
@@ -26,6 +26,7 @@ public class EndPoints extends AbstractEndpoints {
      */
     public EndPoints(ServiceRegistry services) {
         super(services);
+
         certificateEnrollment = initialiseService(CertificateEnrollmentsApi.class);
         certificateRenewal = initialiseService(CertificateRenewalApi.class);
         certificateIssuersActivation = initialiseService(CertificateIssuersActivationApi.class);
@@ -48,8 +49,4 @@ public class EndPoints extends AbstractEndpoints {
         return certificateIssuers;
     }
 
-    @Override
-    public EndPoints clone() {
-        return new EndPoints(getRegistryClone());
-    }
 }

@@ -38,7 +38,7 @@ public interface DeveloperCertificateApi {
    */
   @GET("v3/developer-certificates/{developerCertificateId}")
   Call<DeveloperCertificateResponseData> getDeveloperCertificate(
-    @retrofit2.http.Path("developerCertificateId") String developerCertificateId
+    @retrofit2.http.Path(value = "developerCertificateId", encoded = true) String developerCertificateId
   );
 
 }

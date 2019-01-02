@@ -11,11 +11,11 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserUpdateReq;
 
 @Preamble(description = "Adapter for user model")
 @Internal

@@ -27,7 +27,7 @@ public interface SubscriptionsApi {
    */
   @PUT("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> addResourceSubscription(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -39,7 +39,7 @@ public interface SubscriptionsApi {
    */
   @GET("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> checkResourceSubscription(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -50,7 +50,7 @@ public interface SubscriptionsApi {
    */
   @DELETE("v2/subscriptions/{device-id}")
   Call<Void> deleteEndpointSubscriptions(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**
@@ -71,7 +71,7 @@ public interface SubscriptionsApi {
    */
   @DELETE("v2/subscriptions/{device-id}/{resourcePath}")
   Call<Void> deleteResourceSubscription(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath
   );
 
   /**
@@ -82,7 +82,7 @@ public interface SubscriptionsApi {
    */
   @GET("v2/subscriptions/{device-id}")
   Call<String> getEndpointSubscriptions(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
   /**

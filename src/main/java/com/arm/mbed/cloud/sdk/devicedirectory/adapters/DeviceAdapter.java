@@ -17,12 +17,12 @@ import com.arm.mbed.cloud.sdk.devicedirectory.model.Device;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceListOptions;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceState;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.MechanismType;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.MechanismEnum;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPostRequest.StateEnum;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceDataPutRequest;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DevicePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest.MechanismEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPostRequest.StateEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceDataPutRequest;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DevicePage;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Adapter for device model")

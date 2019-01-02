@@ -6,13 +6,12 @@ import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
 import com.arm.mbed.cloud.sdk.common.ConnectionOptions;
 import com.arm.mbed.cloud.sdk.common.ServiceRegistry;
 import com.arm.mbed.cloud.sdk.common.TimePeriod;
-import com.arm.mbed.cloud.sdk.internal.mds.api.DeviceRequestsApi;
-import com.arm.mbed.cloud.sdk.internal.mds.api.EndpointsApi;
-import com.arm.mbed.cloud.sdk.internal.mds.api.NotificationsApi;
-import com.arm.mbed.cloud.sdk.internal.mds.api.ResourcesApi;
-import com.arm.mbed.cloud.sdk.internal.mds.api.SubscriptionsApi;
-import com.arm.mbed.cloud.sdk.internal.statistics.api.AccountApi;
-import com.arm.mbed.cloud.sdk.internal.statistics.api.StatisticsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.DeviceRequestsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.EndpointsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.NotificationsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.ResourcesApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.StatisticsApi;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.api.SubscriptionsApi;
 
 @Preamble(description = "Endpoint for Connect API")
 @Internal
@@ -23,7 +22,6 @@ public class EndPoints extends AbstractEndpoints {
     private final NotificationsApi notifications;
     private final ResourcesApi resources;
     private final SubscriptionsApi subscriptions;
-    private final AccountApi account;
     private final StatisticsApi statistic;
     private boolean forceClear;
 
@@ -41,7 +39,6 @@ public class EndPoints extends AbstractEndpoints {
         this.notifications = initialiseService(NotificationsApi.class);
         this.resources = initialiseService(ResourcesApi.class);
         this.subscriptions = initialiseService(SubscriptionsApi.class);
-        this.account = initialiseService(AccountApi.class);
         this.statistic = initialiseService(StatisticsApi.class);
         forceClear = false;
     }
@@ -64,10 +61,6 @@ public class EndPoints extends AbstractEndpoints {
 
     public SubscriptionsApi getSubscriptions() {
         return subscriptions;
-    }
-
-    public AccountApi getAccount() {
-        return account;
     }
 
     public StatisticsApi getStatistic() {

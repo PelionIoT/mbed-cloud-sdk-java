@@ -27,7 +27,7 @@ public interface ResourcesApi {
    */
   @DELETE("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> deleteResourcePath(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -44,7 +44,7 @@ public interface ResourcesApi {
   })
   @POST("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> executeOrCreateResource(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Body String resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body String resourceFunction, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -58,7 +58,7 @@ public interface ResourcesApi {
    */
   @GET("v2/endpoints/{device-id}/{resourcePath}")
   Call<Void> getResourceValue(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Query("cacheOnly") Boolean cacheOnly, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Query("cacheOnly") Boolean cacheOnly, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
   /**
@@ -75,7 +75,7 @@ public interface ResourcesApi {
   })
   @PUT("v2/endpoints/{device-id}/{resourcePath}")
   Call<AsyncID> updateResourceValue(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("resourcePath") String resourcePath, @retrofit2.http.Body String resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "resourcePath", encoded = true) String resourcePath, @retrofit2.http.Body String resourceValue, @retrofit2.http.Query("noResp") Boolean noResp
   );
 
 }

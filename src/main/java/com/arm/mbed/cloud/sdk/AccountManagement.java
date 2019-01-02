@@ -27,13 +27,13 @@ import com.arm.mbed.cloud.sdk.common.listing.ListOptions;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.PageRequester;
 import com.arm.mbed.cloud.sdk.common.listing.Paginator;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.ApiKeyInfoRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummary;
-import com.arm.mbed.cloud.sdk.internal.iam.model.GroupSummaryList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.UserInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ApiKeyInfoRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummary;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupSummaryList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoRespList;
 
 import retrofit2.Call;
 
@@ -499,7 +499,8 @@ public class AccountManagement extends AbstractModule {
                                             finalOptions.encodeSingleEqualFilter(UserListOptions.EMAIL_FILTER),
                                             finalOptions.encodeSingleEqualFilter(UserListOptions.STATUS_FILTER),
                                             finalOptions.encodeSingleInFilter(UserListOptions.STATUS_FILTER),
-                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER));
+                                            finalOptions.encodeSingleNotInFilter(UserListOptions.STATUS_FILTER),
+                                            finalOptions.encodeSingleNotInFilter(UserListOptions.LOGIN_PROFILE_FILTER));
             }
         });
     }

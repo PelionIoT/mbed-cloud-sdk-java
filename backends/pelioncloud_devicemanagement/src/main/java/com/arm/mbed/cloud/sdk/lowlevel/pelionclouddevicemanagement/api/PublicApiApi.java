@@ -31,7 +31,7 @@ public interface PublicApiApi {
   @retrofit2.http.Multipart
   @POST("v3/device-enrollments-bulk-uploads")
   Call<BulkResponse> createBulkDeviceEnrollment(
-    @retrofit2.http.Part("enrollment_identities\"; filename=\"enrollment_identities") RequestBody enrollmentIdentities
+    @retrofit2.http.Part() MultipartBody.Part enrollmentIdentities
   );
 
   /**
@@ -54,7 +54,7 @@ public interface PublicApiApi {
   @retrofit2.http.Multipart
   @POST("v3/device-enrollments-bulk-deletes")
   Call<BulkResponse> deleteBulkDeviceEnrollment(
-    @retrofit2.http.Part("enrollment_identities\"; filename=\"enrollment_identities") RequestBody enrollmentIdentities
+    @retrofit2.http.Part() MultipartBody.Part enrollmentIdentities
   );
 
   /**
@@ -65,7 +65,7 @@ public interface PublicApiApi {
    */
   @DELETE("v3/device-enrollments/{id}")
   Call<Void> deleteDeviceEnrollment(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -76,7 +76,7 @@ public interface PublicApiApi {
    */
   @GET("v3/device-enrollments-bulk-uploads/{id}")
   Call<BulkResponse> getBulkDeviceEnrollment(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -87,7 +87,7 @@ public interface PublicApiApi {
    */
   @GET("v3/device-enrollments-bulk-deletes/{id}")
   Call<BulkResponse> getBulkDeviceEnrollmentDelete(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -98,7 +98,7 @@ public interface PublicApiApi {
    */
   @GET("v3/device-enrollments/{id}")
   Call<EnrollmentIdentity> getDeviceEnrollment(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**

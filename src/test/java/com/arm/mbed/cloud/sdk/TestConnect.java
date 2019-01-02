@@ -17,7 +17,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.connect.adapters.PresubscriptionAdapter;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.google.gson.Gson;
 import com.squareup.okhttp.HttpUrl;
 import com.squareup.okhttp.mockwebserver.MockResponse;
@@ -356,7 +356,7 @@ public class TestConnect {
     private PresubscriptionArray generatePresubscriptions(int number) {
         PresubscriptionArray array = new PresubscriptionArray();
         for (int j = 0; j < number; j++) {
-            com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+            com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription presubscription = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription();
             for (int i = 0; i <= j; i++) {
                 presubscription.addResourcePathItem(i + "/" + (i + j) + "/" + j);
             }

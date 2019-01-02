@@ -18,7 +18,7 @@ import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkContext;
 import com.arm.mbed.cloud.sdk.connect.model.Resource;
-import com.arm.mbed.cloud.sdk.internal.mds.model.NotificationMessage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationMessage;
 import com.arm.mbed.cloud.sdk.subscribe.CloudSubscriptionManager;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateFilterOptions;
 import com.arm.mbed.cloud.sdk.subscribe.model.DeviceStateObserver;
@@ -55,11 +55,6 @@ public class Sdk extends AbstractModule {
      */
     public Sdk(SdkContext context) {
         this(context == null ? null : context.getConnectionOption());
-    }
-
-    @Override
-    public Sdk clone() {
-        return new Sdk(this);
     }
 
     /**
@@ -252,6 +247,11 @@ public class Sdk extends AbstractModule {
     public void close() {
         super.close();
         quit();
+    }
+
+    @Override
+    public Sdk clone() {
+        return new Sdk(this);
     }
 
     @Override

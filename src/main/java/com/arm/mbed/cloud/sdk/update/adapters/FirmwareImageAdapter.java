@@ -9,7 +9,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImagePage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImagePage;
 import com.arm.mbed.cloud.sdk.update.model.FirmwareImage;
 
 @Preamble(description = "Adapter for firmware image model")
@@ -27,7 +27,8 @@ public final class FirmwareImageAdapter {
      *            image
      * @return image.
      */
-    public static FirmwareImage map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage firmwareImage) {
+    public static FirmwareImage
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage firmwareImage) {
         if (firmwareImage == null) {
             return null;
         }
@@ -48,11 +49,14 @@ public final class FirmwareImageAdapter {
      *
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage, FirmwareImage>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage, FirmwareImage>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage,
+                          FirmwareImage>() {
 
             @Override
-            public FirmwareImage map(com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage toBeMapped) {
+            public FirmwareImage
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage toBeMapped) {
                 return FirmwareImageAdapter.map(toBeMapped);
             }
         };
@@ -68,7 +72,7 @@ public final class FirmwareImageAdapter {
     public static ListResponse<FirmwareImage> mapList(FirmwareImagePage list) {
 
         final FirmwareImagePage imageList = list;
-        final RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> respList = new RespList<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage>() {
+        final RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage> respList = new RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage>() {
 
             @Override
             public Boolean getHasMore() {
@@ -101,7 +105,7 @@ public final class FirmwareImageAdapter {
             }
 
             @Override
-            public List<com.arm.mbed.cloud.sdk.internal.updateservice.model.FirmwareImage> getData() {
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FirmwareImage> getData() {
                 return (imageList == null) ? null : imageList.getData();
             }
         };

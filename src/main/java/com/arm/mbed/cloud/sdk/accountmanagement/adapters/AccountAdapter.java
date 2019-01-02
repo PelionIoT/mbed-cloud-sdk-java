@@ -7,10 +7,10 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.MfaStatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountInfo.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo.MfaStatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq;
 
 @Preamble(description = "Adapter for account model")
 @Internal
@@ -116,9 +116,9 @@ public final class AccountAdapter {
         }
         switch (multifactorAuthenticationStatus) {
             case ENFORCED:
-                return com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq.MfaStatusEnum.ENFORCED;
+                return com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq.MfaStatusEnum.ENFORCED;
             case OPTIONAL:
-                return com.arm.mbed.cloud.sdk.internal.iam.model.AccountUpdateReq.MfaStatusEnum.OPTIONAL;
+                return com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateReq.MfaStatusEnum.OPTIONAL;
             case UNKNOWN_ENUM:
                 break;
             default:

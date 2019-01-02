@@ -67,7 +67,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/api-keys/{apikey_id}/groups")
   Call<UpdatedResponse> addAccountApiKeyToGroups(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -82,7 +82,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/trusted-certificates")
   Call<TrustedCertificateResp> addAccountCertificate(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body TrustedCertificateRootReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body TrustedCertificateRootReq body
   );
 
   /**
@@ -98,7 +98,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/users/{user_id}/groups")
   Call<UpdatedResponse> addAccountUserToGroups(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -114,7 +114,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/policy-groups/{group_id}")
   Call<UpdatedResponse> addSubjectsToAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -129,7 +129,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/branding-colors/dark")
   Call<Void> bulkSetAccountDarkColors(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body List<BrandingColor> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body List<BrandingColor> body
   );
 
   /**
@@ -144,7 +144,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/branding-colors/light")
   Call<Void> bulkSetAccountLightColors(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body List<BrandingColor> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body List<BrandingColor> body
   );
 
   /**
@@ -156,7 +156,7 @@ public interface AggregatorAccountAdminApi {
    */
   @POST("v3/accounts/{account_id}/branding-images/dark/{reference}/clear")
   Call<Void> clearAccountDarkImage(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -168,7 +168,7 @@ public interface AggregatorAccountAdminApi {
    */
   @POST("v3/accounts/{account_id}/branding-images/light/{reference}/clear")
   Call<Void> clearAccountLightImage(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -198,7 +198,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/api-keys")
   Call<ApiKeyInfoResp> createAccountApiKey(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body ApiKeyInfoReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body ApiKeyInfoReq body
   );
 
   /**
@@ -213,7 +213,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/policy-groups")
   Call<GroupSummary> createAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body GroupCreationInfo body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body GroupCreationInfo body
   );
 
   /**
@@ -228,7 +228,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/identity-providers")
   Call<IdentityProviderInfo> createAccountIdentityProvider(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body IdentityProviderCreationReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body IdentityProviderCreationReq body
   );
 
   /**
@@ -243,7 +243,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/user-invitations")
   Call<UserInvitationResp> createAccountInvitation(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body UserInvitationReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body UserInvitationReq body
   );
 
   /**
@@ -259,7 +259,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/users")
   Call<UserInfoResp> createAccountUser(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body UserInfoReq body, @retrofit2.http.Query("action") String action
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body UserInfoReq body, @retrofit2.http.Query("action") String action
   );
 
   /**
@@ -271,7 +271,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/api-keys/{apikey_id}")
   Call<Void> deleteAccountApiKey(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId
   );
 
   /**
@@ -283,7 +283,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/trusted-certificates/{cert_id}")
   Call<Void> deleteAccountCertificate(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("cert_id") String certId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "cert_id", encoded = true) String certId
   );
 
   /**
@@ -295,7 +295,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/policy-groups/{group_id}")
   Call<Void> deleteAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId
   );
 
   /**
@@ -307,7 +307,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
   Call<Void> deleteAccountIdentityProvider(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("identity_provider_id") String identityProviderId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
   );
 
   /**
@@ -319,7 +319,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/user-invitations/{invitation_id}")
   Call<Void> deleteAccountInvitation(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("invitation_id") String invitationId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId
   );
 
   /**
@@ -331,7 +331,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/users/{user_id}")
   Call<Void> deleteAccountUser(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId
   );
 
   /**
@@ -347,7 +347,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/identity-providers/{identity_provider_id}/generate-sp-certificate")
   Call<IdentityProviderInfo> generateAccountSpCertificate(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("identity_provider_id") String identityProviderId, @retrofit2.http.Body CertificateGenerationReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body CertificateGenerationReq body
   );
 
   /**
@@ -359,7 +359,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/api-keys/{apikey_id}")
   Call<ApiKeyInfoResp> getAccountApiKey(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId
   );
 
   /**
@@ -371,7 +371,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/trusted-certificates/{cert_id}")
   Call<TrustedCertificateInternalResp> getAccountCertificate(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("cert_id") String certId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "cert_id", encoded = true) String certId
   );
 
   /**
@@ -383,7 +383,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-colors/dark/{reference}")
   Call<BrandingColor> getAccountDarkColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -394,7 +394,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-colors/dark")
   Call<BrandingColorList> getAccountDarkColors(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -406,7 +406,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-images/dark/{reference}")
   Call<BrandingImage> getAccountDarkImageData(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -418,7 +418,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/policy-groups/{group_id}")
   Call<GroupSummary> getAccountGroupSummary(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId
   );
 
   /**
@@ -430,7 +430,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
   Call<IdentityProviderInfo> getAccountIdentityProvider(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("identity_provider_id") String identityProviderId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
   );
 
   /**
@@ -443,7 +443,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}")
   Call<AccountInfo> getAccountInfo(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("properties") String properties
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("properties") String properties
   );
 
   /**
@@ -455,7 +455,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/user-invitations/{invitation_id}")
   Call<UserInvitationResp> getAccountInvitation(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("invitation_id") String invitationId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId
   );
 
   /**
@@ -467,7 +467,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-colors/light/{reference}")
   Call<BrandingColor> getAccountLightColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -478,7 +478,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-colors/light")
   Call<BrandingColorList> getAccountLightColors(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -490,7 +490,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-images/light/{reference}")
   Call<BrandingImage> getAccountLightImageData(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -504,7 +504,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/notifications")
   Call<NotificationEntryList> getAccountNofificationEntries(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order
   );
 
   /**
@@ -516,7 +516,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/users/{user_id}")
   Call<UserInfoResp> getAccountUser(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId
   );
 
   /**
@@ -533,7 +533,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/api-keys")
   Call<ApiKeyInfoRespList> getAllAccountApiKeys(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("key__eq") String keyEq, @retrofit2.http.Query("owner__eq") String ownerEq
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("key__eq") String keyEq, @retrofit2.http.Query("owner__eq") String ownerEq
   );
 
   /**
@@ -558,7 +558,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/trusted-certificates")
   Call<TrustedCertificateInternalRespList> getAllAccountCertificates(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("service__eq") String serviceEq, @retrofit2.http.Query("expire__eq") Integer expireEq, @retrofit2.http.Query("device_execution_mode__eq") Integer deviceExecutionModeEq, @retrofit2.http.Query("device_execution_mode__neq") Integer deviceExecutionModeNeq, @retrofit2.http.Query("owner__eq") String ownerEq, @retrofit2.http.Query("enrollment_mode__eq") Boolean enrollmentModeEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("issuer__like") String issuerLike, @retrofit2.http.Query("subject__like") String subjectLike
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq, @retrofit2.http.Query("service__eq") String serviceEq, @retrofit2.http.Query("expire__eq") Integer expireEq, @retrofit2.http.Query("device_execution_mode__eq") Integer deviceExecutionModeEq, @retrofit2.http.Query("device_execution_mode__neq") Integer deviceExecutionModeNeq, @retrofit2.http.Query("owner__eq") String ownerEq, @retrofit2.http.Query("enrollment_mode__eq") Boolean enrollmentModeEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("issuer__like") String issuerLike, @retrofit2.http.Query("subject__like") String subjectLike
   );
 
   /**
@@ -569,7 +569,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-images/dark")
   Call<BrandingImageList> getAllAccountDarkImageData(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -585,7 +585,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/policy-groups")
   Call<GroupSummaryList> getAllAccountGroups(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("name__eq") String nameEq
   );
 
   /**
@@ -603,7 +603,7 @@ public interface AggregatorAccountAdminApi {
   })
   @GET("v3/accounts/{account_id}/identity-providers")
   Call<IdentityProviderList> getAllAccountIdentityProviders(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -618,7 +618,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/user-invitations")
   Call<UserInvitationRespList> getAllAccountInvitations(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("login_profile__eq") String loginProfileEq
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("login_profile__eq") String loginProfileEq
   );
 
   /**
@@ -629,7 +629,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/branding-images/light")
   Call<BrandingImageList> getAllAccountLightImageData(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -649,7 +649,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/users")
   Call<UserInfoRespList> getAllAccountUsers(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin, @retrofit2.http.Query("login_profile__eq") String loginProfileEq
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("email__eq") String emailEq, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin, @retrofit2.http.Query("login_profile__eq") String loginProfileEq
   );
 
   /**
@@ -688,7 +688,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys")
   Call<ApiKeyInfoRespList> getApiKeysOfAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -704,7 +704,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/api-keys/{apikey_id}/groups")
   Call<GroupSummaryList> getGroupsOfAccountApikey(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -720,7 +720,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/users/{user_id}/groups")
   Call<GroupSummaryList> getGroupsOfAccountUser(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -739,7 +739,7 @@ public interface AggregatorAccountAdminApi {
    */
   @GET("v3/accounts/{account_id}/policy-groups/{group_id}/users")
   Call<UserInfoRespList> getUsersOfAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
@@ -755,7 +755,7 @@ public interface AggregatorAccountAdminApi {
   })
   @DELETE("v3/accounts/{account_id}/api-keys/{apikey_id}/groups")
   Call<UpdatedResponse> removeAccountApiKeyFromGroups(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -771,7 +771,7 @@ public interface AggregatorAccountAdminApi {
   })
   @DELETE("v3/accounts/{account_id}/users/{user_id}/groups")
   Call<UpdatedResponse> removeAccountUserFromGroups(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -787,7 +787,7 @@ public interface AggregatorAccountAdminApi {
   })
   @DELETE("v3/accounts/{account_id}/policy-groups/{group_id}/api-keys")
   Call<UpdatedResponse> removeApiKeysFromAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -803,7 +803,7 @@ public interface AggregatorAccountAdminApi {
   })
   @DELETE("v3/accounts/{account_id}/policy-groups/{group_id}/users")
   Call<UpdatedResponse> removeUsersFromAccountGroup(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -815,7 +815,7 @@ public interface AggregatorAccountAdminApi {
    */
   @POST("v3/accounts/{account_id}/api-keys/{apikey_id}/reset-secret")
   Call<ApiKeyInfoResp> resetAccountApiKeySecret(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId
   );
 
   /**
@@ -827,7 +827,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/branding-colors/dark/{reference}")
   Call<BrandingColor> resetAccountDarkColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -839,7 +839,7 @@ public interface AggregatorAccountAdminApi {
    */
   @DELETE("v3/accounts/{account_id}/branding-colors/light/{reference}")
   Call<BrandingColor> resetAccountLightColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -855,7 +855,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/branding-colors/dark/{reference}")
   Call<BrandingColor> setAccountDarkColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body BrandingColor body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body BrandingColor body
   );
 
   /**
@@ -871,7 +871,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/branding-colors/light/{reference}")
   Call<BrandingColor> setAccountLightColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body BrandingColor body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body BrandingColor body
   );
 
   /**
@@ -886,7 +886,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}")
   Call<AccountInfo> updateAccount(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Body AccountUpdateRootReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Body AccountUpdateRootReq body
   );
 
   /**
@@ -899,7 +899,7 @@ public interface AggregatorAccountAdminApi {
    */
   @PUT("v3/accounts/{account_id}/api-keys/{apikey_id}")
   Call<ApiKeyInfoResp> updateAccountApiKey(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body ApiKeyUpdateReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body ApiKeyUpdateReq body
   );
 
   /**
@@ -915,7 +915,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/trusted-certificates/{cert_id}")
   Call<TrustedCertificateInternalResp> updateAccountCertificate(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("cert_id") String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "cert_id", encoded = true) String certId, @retrofit2.http.Body TrustedCertificateUpdateReq body
   );
 
   /**
@@ -931,7 +931,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/policy-groups/{group_id}")
   Call<UpdatedResponse> updateAccountGroupName(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body GroupUpdateInfo body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body GroupUpdateInfo body
   );
 
   /**
@@ -947,7 +947,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/identity-providers/{identity_provider_id}")
   Call<IdentityProviderInfo> updateAccountIdentityProvider(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("identity_provider_id") String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
   );
 
   /**
@@ -963,7 +963,7 @@ public interface AggregatorAccountAdminApi {
   })
   @PUT("v3/accounts/{account_id}/users/{user_id}")
   Call<UserInfoResp> updateAccountUser(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body UserUpdateReq body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**
@@ -979,7 +979,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/branding-images/dark/{reference}/upload")
   Call<BrandingImage> uploadAccountDarkImage(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body String body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body String body
   );
 
   /**
@@ -995,7 +995,7 @@ public interface AggregatorAccountAdminApi {
   })
   @POST("v3/accounts/{account_id}/branding-images/light/{reference}/upload")
   Call<BrandingImage> uploadAccountLightImage(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body String body
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body String body
   );
 
   /**
@@ -1007,7 +1007,7 @@ public interface AggregatorAccountAdminApi {
    */
   @POST("v3/accounts/{account_id}/users/{user_id}/validate-email")
   Call<Void> validateAccountUserEmail(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("user_id") String userId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "user_id", encoded = true) String userId
   );
 
 }

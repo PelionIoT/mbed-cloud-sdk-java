@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model ApiKeyStatus.
- */
+ * Unit tests for Model ApiKeyStatus. */
 public class TestApiKeyStatus {
-    /**
-     * Tests the getValue method.
-     */
-    @Test
-    public void testGetvalue() {
-        try {
-            ApiKeyStatus apikeystatus = ApiKeyStatus.getValue(null);
-            assertNotNull(apikeystatus);
-            assertTrue(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue(ApiKeyStatus.getDefault().getString());
-            assertNotNull(apikeystatus);
-            assertTrue(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("ACTIVE");
-            assertNotNull(apikeystatus);
-            assertTrue(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("INACTIVE");
-            assertNotNull(apikeystatus);
-            assertFalse(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("962666ea-7a6a-4128-8a52-99f87d05f642");
-            assertNotNull(apikeystatus);
-            assertTrue(apikeystatus.isDefault());
-        } catch (Exception exception) {
-            fail(exception.getMessage());
-        }
+  /**
+   * Tests the getValue method.
+   */
+  @Test
+  public void testGetvalue() {
+    try {
+      ApiKeyStatus apikeystatus = ApiKeyStatus.getValue(null);
+      assertNotNull(apikeystatus);
+      assertTrue(apikeystatus.isDefault());
+      apikeystatus = ApiKeyStatus.getValue(ApiKeyStatus.getDefault().getString());
+      assertNotNull(apikeystatus);
+      assertTrue(apikeystatus.isDefault());
+      apikeystatus = ApiKeyStatus.getValue("ACTIVE");
+      assertNotNull(apikeystatus);
+      assertTrue(apikeystatus.isDefault());
+      apikeystatus = ApiKeyStatus.getValue("INACTIVE");
+      assertNotNull(apikeystatus);
+      assertFalse(apikeystatus.isDefault());
+      apikeystatus = ApiKeyStatus.getValue("7be873b6-bde4-4b44-9913-e39bbe7e606f");
+      assertNotNull(apikeystatus);
+      assertTrue(apikeystatus.isDefault());
     }
+    catch(Exception exception) {
+      fail(exception.getMessage());
+    }
+  }
 }

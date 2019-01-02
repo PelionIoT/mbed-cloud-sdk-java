@@ -14,8 +14,8 @@ import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEvent;
 import com.arm.mbed.cloud.sdk.devicedirectory.model.DeviceEventListOptions;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventData;
-import com.arm.mbed.cloud.sdk.internal.devicedirectory.model.DeviceEventPage;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeviceEventPage;
 
 @Preamble(description = "Adapter for device event model")
 @Internal

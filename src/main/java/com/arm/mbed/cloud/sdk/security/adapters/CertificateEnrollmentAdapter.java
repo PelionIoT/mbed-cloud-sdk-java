@@ -9,9 +9,9 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment.EnrollResultEnum;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment.EnrollStatusEnum;
-import com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollmentListResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment.EnrollResultEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment.EnrollStatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollmentListResponse;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollment;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollResult;
 import com.arm.mbed.cloud.sdk.security.model.CertificateEnrollmentEnrollStatus;
@@ -36,7 +36,7 @@ public final class CertificateEnrollmentAdapter {
      * @return mapped certificate enrollment.
      */
     public static CertificateEnrollment
-           map(com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment toBeMapped) {
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
         if (toBeMapped == null) {
             return null;
         }
@@ -56,15 +56,15 @@ public final class CertificateEnrollmentAdapter {
      * 
      * @return a mapper.
      */
-    public static
-           Mapper<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment, CertificateEnrollment>
+    public static Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
+                         CertificateEnrollment>
            getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment,
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment,
                           CertificateEnrollment>() {
 
             @Override
             public CertificateEnrollment
-                   map(com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment toBeMapped) {
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment toBeMapped) {
                 return CertificateEnrollmentAdapter.map(toBeMapped);
             }
 
@@ -113,7 +113,7 @@ public final class CertificateEnrollmentAdapter {
     public static ListResponse<CertificateEnrollment> mapList(CertificateEnrollmentListResponse list) {
 
         final CertificateEnrollmentListResponse finalList = list;
-        final RespList<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment> respList = new RespList<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment>() {
+        final RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment> respList = new RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>() {
 
             @Override
             public Boolean getHasMore() {
@@ -141,7 +141,8 @@ public final class CertificateEnrollmentAdapter {
             }
 
             @Override
-            public List<com.arm.mbed.cloud.sdk.internal.certificaterenewal.model.CertificateEnrollment> getData() {
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.CertificateEnrollment>
+                   getData() {
                 return (finalList == null) ? null : finalList.getData();
             }
 

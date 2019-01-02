@@ -40,7 +40,7 @@ public interface CertificateIssuersActivationApi {
    */
   @DELETE("v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}")
   Call<Void> deleteCertificateIssuerConfigByID(
-    @retrofit2.http.Path("certificate-issuer-configuration-id") String certificateIssuerConfigurationId
+    @retrofit2.http.Path(value = "certificate-issuer-configuration-id", encoded = true) String certificateIssuerConfigurationId
   );
 
   /**
@@ -60,7 +60,7 @@ public interface CertificateIssuersActivationApi {
    */
   @GET("v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}")
   Call<CertificateIssuerConfigResponse> getCertificateIssuerConfigByID(
-    @retrofit2.http.Path("certificate-issuer-configuration-id") String certificateIssuerConfigurationId
+    @retrofit2.http.Path(value = "certificate-issuer-configuration-id", encoded = true) String certificateIssuerConfigurationId
   );
 
   /**
@@ -98,7 +98,7 @@ public interface CertificateIssuersActivationApi {
    */
   @PUT("v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}")
   Call<CertificateIssuerConfigResponse> updateCertificateIssuerConfigByID(
-    @retrofit2.http.Body CertificateIssuerConfigRequest certificateIssuerConfigRequest, @retrofit2.http.Path("certificate-issuer-configuration-id") String certificateIssuerConfigurationId
+    @retrofit2.http.Body CertificateIssuerConfigRequest certificateIssuerConfigRequest, @retrofit2.http.Path(value = "certificate-issuer-configuration-id", encoded = true) String certificateIssuerConfigurationId
   );
 
 }

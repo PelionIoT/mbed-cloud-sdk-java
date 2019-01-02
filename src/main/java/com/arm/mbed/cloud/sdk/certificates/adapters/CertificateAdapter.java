@@ -12,15 +12,15 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateRequestData;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.DeveloperCertificateResponseData;
-import com.arm.mbed.cloud.sdk.internal.connectorca.model.ServerCredentialsResponseData;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateReq;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp.ServiceEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateResp.StatusEnum;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateRespList;
-import com.arm.mbed.cloud.sdk.internal.iam.model.TrustedCertificateUpdateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeveloperCertificateRequestData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.DeveloperCertificateResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.ServerCredentialsResponseData;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp.ServiceEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp.StatusEnum;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateUpdateReq;
 
 @Preamble(description = "Adapter for certificate")
 @Internal

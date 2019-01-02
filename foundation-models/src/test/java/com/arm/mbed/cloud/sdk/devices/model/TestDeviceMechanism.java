@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model DeviceMechanism.
- */
+ * Unit tests for Model DeviceMechanism. */
 public class TestDeviceMechanism {
-    /**
-     * Tests the getValue method.
-     */
-    @Test
-    public void testGetvalue() {
-        try {
-            DeviceMechanism devicemechanism = DeviceMechanism.getValue(null);
-            assertNotNull(devicemechanism);
-            assertTrue(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue(DeviceMechanism.getDefault().getString());
-            assertNotNull(devicemechanism);
-            assertTrue(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("CONNECTOR");
-            assertNotNull(devicemechanism);
-            assertTrue(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("direct");
-            assertNotNull(devicemechanism);
-            assertFalse(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("8849c278-dd03-458a-b652-bff19ca3564b");
-            assertNotNull(devicemechanism);
-            assertTrue(devicemechanism.isDefault());
-        } catch (Exception exception) {
-            fail(exception.getMessage());
-        }
+  /**
+   * Tests the getValue method.
+   */
+  @Test
+  public void testGetvalue() {
+    try {
+      DeviceMechanism devicemechanism = DeviceMechanism.getValue(null);
+      assertNotNull(devicemechanism);
+      assertTrue(devicemechanism.isDefault());
+      devicemechanism = DeviceMechanism.getValue(DeviceMechanism.getDefault().getString());
+      assertNotNull(devicemechanism);
+      assertTrue(devicemechanism.isDefault());
+      devicemechanism = DeviceMechanism.getValue("CONNECTOR");
+      assertNotNull(devicemechanism);
+      assertTrue(devicemechanism.isDefault());
+      devicemechanism = DeviceMechanism.getValue("direct");
+      assertNotNull(devicemechanism);
+      assertFalse(devicemechanism.isDefault());
+      devicemechanism = DeviceMechanism.getValue("2a52a44e-b0de-4924-9b08-df11c29e9b6a");
+      assertNotNull(devicemechanism);
+      assertTrue(devicemechanism.isDefault());
     }
+    catch(Exception exception) {
+      fail(exception.getMessage());
+    }
+  }
 }

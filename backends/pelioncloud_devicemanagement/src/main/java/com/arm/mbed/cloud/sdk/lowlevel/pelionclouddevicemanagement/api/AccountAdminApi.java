@@ -54,7 +54,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/api-keys/{apikey_id}/groups")
   Call<UpdatedResponse> addApiKeyToGroups(
-    @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -83,7 +83,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/policy-groups/{group_id}")
   Call<UpdatedResponse> addSubjectsToGroup(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -98,7 +98,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/users/{user_id}/groups")
   Call<UpdatedResponse> addUserToGroups(
-    @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -137,7 +137,7 @@ public interface AccountAdminApi {
    */
   @POST("v3/branding-images/dark/{reference}/clear")
   Call<Void> clearDarkImage(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -148,7 +148,7 @@ public interface AccountAdminApi {
    */
   @POST("v3/branding-images/light/{reference}/clear")
   Call<Void> clearLightImage(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -216,7 +216,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/policy-groups/{group_id}")
   Call<Void> deleteGroup(
-    @retrofit2.http.Path("group_id") String groupId
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId
   );
 
   /**
@@ -227,7 +227,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/identity-providers/{identity_provider_id}")
   Call<Void> deleteIdentityProvider(
-    @retrofit2.http.Path("identity_provider_id") String identityProviderId
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
   );
 
   /**
@@ -238,7 +238,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/user-invitations/{invitation_id}")
   Call<Void> deleteInvitation(
-    @retrofit2.http.Path("invitation_id") String invitationId
+    @retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId
   );
 
   /**
@@ -249,7 +249,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/users/{user_id}")
   Call<Void> deleteUser(
-    @retrofit2.http.Path("user_id") String userId
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId
   );
 
   /**
@@ -264,7 +264,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/identity-providers/{identity_provider_id}/generate-sp-certificate")
   Call<IdentityProviderInfo> generateSpCertificate(
-    @retrofit2.http.Path("identity_provider_id") String identityProviderId, @retrofit2.http.Body CertificateGenerationReq body
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body CertificateGenerationReq body
   );
 
   /**
@@ -329,7 +329,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/api-keys/{apikey_id}/groups")
   Call<GroupSummaryList> getGroupsOfApikey(
-    @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -344,7 +344,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/users/{user_id}/groups")
   Call<GroupSummaryList> getGroupsOfUser(
-    @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -355,7 +355,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/identity-providers/{identity_provider_id}")
   Call<IdentityProviderInfo> getIdentityProvider(
-    @retrofit2.http.Path("identity_provider_id") String identityProviderId
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId
   );
 
   /**
@@ -366,7 +366,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/user-invitations/{invitation_id}")
   Call<UserInvitationResp> getInvitation(
-    @retrofit2.http.Path("invitation_id") String invitationId
+    @retrofit2.http.Path(value = "invitation_id", encoded = true) String invitationId
   );
 
   /**
@@ -390,7 +390,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/users/{user_id}")
   Call<UserInfoResp> getUser(
-    @retrofit2.http.Path("user_id") String userId
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId
   );
 
   /**
@@ -408,7 +408,7 @@ public interface AccountAdminApi {
    */
   @GET("v3/policy-groups/{group_id}/users")
   Call<UserInfoRespList> getUsersOfGroup(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("status__eq") String statusEq, @retrofit2.http.Query("status__in") String statusIn, @retrofit2.http.Query("status__nin") String statusNin
   );
 
   /**
@@ -423,7 +423,7 @@ public interface AccountAdminApi {
   })
   @DELETE("v3/api-keys/{apikey_id}/groups")
   Call<UpdatedResponse> removeApiKeyFromGroups(
-    @retrofit2.http.Path("apikey_id") String apikeyId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "apikey_id", encoded = true) String apikeyId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -438,7 +438,7 @@ public interface AccountAdminApi {
   })
   @DELETE("v3/users/{user_id}/groups")
   Call<UpdatedResponse> removeUserFromGroups(
-    @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body List<String> body
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body List<String> body
   );
 
   /**
@@ -453,7 +453,7 @@ public interface AccountAdminApi {
   })
   @DELETE("v3/policy-groups/{group_id}/users")
   Call<UpdatedResponse> removeUsersFromGroup(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body SubjectList body
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body SubjectList body
   );
 
   /**
@@ -464,7 +464,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/branding-colors/dark/{reference}")
   Call<BrandingColor> resetDarkColor(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -475,7 +475,7 @@ public interface AccountAdminApi {
    */
   @DELETE("v3/branding-colors/light/{reference}")
   Call<BrandingColor> resetLightColor(
-    @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -490,7 +490,7 @@ public interface AccountAdminApi {
   })
   @PUT("v3/branding-colors/dark/{reference}")
   Call<BrandingColor> setDarkColor(
-    @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body BrandingColor body
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body BrandingColor body
   );
 
   /**
@@ -505,7 +505,7 @@ public interface AccountAdminApi {
   })
   @PUT("v3/branding-colors/light/{reference}")
   Call<BrandingColor> setLightColor(
-    @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body BrandingColor body
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body BrandingColor body
   );
 
   /**
@@ -520,7 +520,7 @@ public interface AccountAdminApi {
   })
   @PUT("v3/policy-groups/{group_id}")
   Call<UpdatedResponse> updateGroupName(
-    @retrofit2.http.Path("group_id") String groupId, @retrofit2.http.Body GroupUpdateInfo body
+    @retrofit2.http.Path(value = "group_id", encoded = true) String groupId, @retrofit2.http.Body GroupUpdateInfo body
   );
 
   /**
@@ -535,7 +535,7 @@ public interface AccountAdminApi {
   })
   @PUT("v3/identity-providers/{identity_provider_id}")
   Call<IdentityProviderInfo> updateIdentityProvider(
-    @retrofit2.http.Path("identity_provider_id") String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
+    @retrofit2.http.Path(value = "identity_provider_id", encoded = true) String identityProviderId, @retrofit2.http.Body IdentityProviderUpdateReq body
   );
 
   /**
@@ -564,7 +564,7 @@ public interface AccountAdminApi {
   })
   @PUT("v3/users/{user_id}")
   Call<UserInfoResp> updateUser(
-    @retrofit2.http.Path("user_id") String userId, @retrofit2.http.Body UserUpdateReq body
+    @retrofit2.http.Path(value = "user_id", encoded = true) String userId, @retrofit2.http.Body UserUpdateReq body
   );
 
   /**
@@ -579,7 +579,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/branding-images/dark/{reference}/upload")
   Call<BrandingImage> uploadDarkImage(
-    @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body String body
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body String body
   );
 
   /**
@@ -594,7 +594,7 @@ public interface AccountAdminApi {
   })
   @POST("v3/branding-images/light/{reference}/upload")
   Call<BrandingImage> uploadLightImage(
-    @retrofit2.http.Path("reference") String reference, @retrofit2.http.Body String body
+    @retrofit2.http.Path(value = "reference", encoded = true) String reference, @retrofit2.http.Body String body
   );
 
 }

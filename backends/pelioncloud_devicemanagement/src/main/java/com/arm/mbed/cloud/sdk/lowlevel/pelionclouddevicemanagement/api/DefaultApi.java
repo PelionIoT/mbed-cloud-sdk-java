@@ -93,7 +93,7 @@ public interface DefaultApi {
    */
   @GET("v3/device-block-categories/{block_category_reference}")
   Call<DeviceBlockCategory> blockCategoriesRetrieve(
-    @retrofit2.http.Path("block_category_reference") String blockCategoryReference
+    @retrofit2.http.Path(value = "block_category_reference", encoded = true) String blockCategoryReference
   );
 
   /**
@@ -115,7 +115,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/devices/{id}/")
   Call<Void> deviceDestroy(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -141,7 +141,7 @@ public interface DefaultApi {
    */
   @GET("v3/device-events/{device_event_id}/")
   Call<DeviceEventData> deviceEventRetrieve(
-    @retrofit2.http.Path("device_event_id") String deviceEventId
+    @retrofit2.http.Path(value = "device_event_id", encoded = true) String deviceEventId
   );
 
   /**
@@ -182,7 +182,7 @@ public interface DefaultApi {
    */
   @GET("v3/devicelog/{device_event_id}/")
   Call<DeviceEventData> deviceLogRetrieve(
-    @retrofit2.http.Path("device_event_id") String deviceEventId
+    @retrofit2.http.Path(value = "device_event_id", encoded = true) String deviceEventId
   );
 
   /**
@@ -204,7 +204,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/device-queries/{query_id}/")
   Call<Void> deviceQueryDestroy(
-    @retrofit2.http.Path("query_id") String queryId
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId
   );
 
   /**
@@ -230,7 +230,7 @@ public interface DefaultApi {
    */
   @GET("v3/device-queries/{query_id}/")
   Call<DeviceQuery> deviceQueryRetrieve(
-    @retrofit2.http.Path("query_id") String queryId
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId
   );
 
   /**
@@ -242,7 +242,7 @@ public interface DefaultApi {
    */
   @PUT("v3/device-queries/{query_id}/")
   Call<DeviceQuery> deviceQueryUpdate(
-    @retrofit2.http.Path("query_id") String queryId, @retrofit2.http.Body DeviceQueryPostPutRequest body
+    @retrofit2.http.Path(value = "query_id", encoded = true) String queryId, @retrofit2.http.Body DeviceQueryPostPutRequest body
   );
 
   /**
@@ -254,7 +254,7 @@ public interface DefaultApi {
    */
   @POST("v3/devices/{id}/resume")
   Call<Void> deviceResume(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Body Block block
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body Block block
   );
 
   /**
@@ -265,7 +265,7 @@ public interface DefaultApi {
    */
   @GET("v3/devices/{id}/")
   Call<DeviceData> deviceRetrieve(
-    @retrofit2.http.Path("id") String id
+    @retrofit2.http.Path(value = "id", encoded = true) String id
   );
 
   /**
@@ -277,7 +277,7 @@ public interface DefaultApi {
    */
   @POST("v3/devices/{id}/suspend")
   Call<Void> deviceSuspend(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Body Block1 block
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body Block1 block
   );
 
   /**
@@ -289,7 +289,7 @@ public interface DefaultApi {
    */
   @PUT("v3/devices/{id}/")
   Call<DeviceData> deviceUpdate(
-    @retrofit2.http.Path("id") String id, @retrofit2.http.Body DeviceDataPutRequest device
+    @retrofit2.http.Path(value = "id", encoded = true) String id, @retrofit2.http.Body DeviceDataPutRequest device
   );
 
   /**
@@ -303,7 +303,7 @@ public interface DefaultApi {
   @retrofit2.http.Multipart
   @POST("v3/firmware-images/")
   Call<FirmwareImage> firmwareImageCreate(
-    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
+    @retrofit2.http.Part() MultipartBody.Part datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description
   );
 
   /**
@@ -314,7 +314,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/firmware-images/{image_id}/")
   Call<Void> firmwareImageDestroy(
-    @retrofit2.http.Path("image_id") String imageId
+    @retrofit2.http.Path(value = "image_id", encoded = true) String imageId
   );
 
   /**
@@ -340,7 +340,7 @@ public interface DefaultApi {
    */
   @GET("v3/firmware-images/{image_id}/")
   Call<FirmwareImage> firmwareImageRetrieve(
-    @retrofit2.http.Path("image_id") String imageId
+    @retrofit2.http.Path(value = "image_id", encoded = true) String imageId
   );
 
   /**
@@ -355,7 +355,7 @@ public interface DefaultApi {
   @retrofit2.http.Multipart
   @POST("v3/firmware-manifests/")
   Call<FirmwareManifest> firmwareManifestCreate(
-    @retrofit2.http.Part("datafile\"; filename=\"datafile") RequestBody datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description, @retrofit2.http.Part("key_table\"; filename=\"key_table") RequestBody keyTable
+    @retrofit2.http.Part() MultipartBody.Part datafile, @retrofit2.http.Part("name") String name, @retrofit2.http.Part("description") String description, @retrofit2.http.Part() MultipartBody.Part keyTable
   );
 
   /**
@@ -366,7 +366,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/firmware-manifests/{manifest_id}/")
   Call<Void> firmwareManifestDestroy(
-    @retrofit2.http.Path("manifest_id") String manifestId
+    @retrofit2.http.Path(value = "manifest_id", encoded = true) String manifestId
   );
 
   /**
@@ -392,7 +392,7 @@ public interface DefaultApi {
    */
   @GET("v3/firmware-manifests/{manifest_id}/")
   Call<FirmwareManifest> firmwareManifestRetrieve(
-    @retrofit2.http.Path("manifest_id") String manifestId
+    @retrofit2.http.Path(value = "manifest_id", encoded = true) String manifestId
   );
 
   /**
@@ -436,7 +436,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-colors/dark")
   Call<BrandingColorList> getLoginPageAllDarkColors(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -447,7 +447,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-images/dark")
   Call<BrandingImageList> getLoginPageAllDarkImageData(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -458,7 +458,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-colors/light")
   Call<BrandingColorList> getLoginPageAllLightColors(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -469,7 +469,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-images/light")
   Call<BrandingImageList> getLoginPageAllLightImageData(
-    @retrofit2.http.Path("account_id") String accountId
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId
   );
 
   /**
@@ -481,7 +481,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-colors/dark/{reference}")
   Call<BrandingColor> getLoginPageDarkColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -493,7 +493,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-images/dark/{reference}")
   Call<BrandingImage> getLoginPageDarkImageData(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -505,7 +505,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-colors/light/{reference}")
   Call<BrandingColor> getLoginPageLightColor(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -517,7 +517,7 @@ public interface DefaultApi {
    */
   @GET("auth/accounts/{account_id}/branding-images/light/{reference}")
   Call<BrandingImage> getLoginPageLightImageData(
-    @retrofit2.http.Path("account_id") String accountId, @retrofit2.http.Path("reference") String reference
+    @retrofit2.http.Path(value = "account_id", encoded = true) String accountId, @retrofit2.http.Path(value = "reference", encoded = true) String reference
   );
 
   /**
@@ -569,7 +569,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/device-groups/{device-group-id}/")
   Call<Void> groupDelete(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId
   );
 
   /**
@@ -596,7 +596,7 @@ public interface DefaultApi {
    */
   @POST("v3/device-groups/{device-group-id}/devices/add/")
   Call<Void> groupMembersAdd(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
   );
 
   /**
@@ -608,7 +608,7 @@ public interface DefaultApi {
    */
   @POST("v3/device-groups/{device-group-id}/devices/remove/")
   Call<Void> groupMembersRemove(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body DeviceGroupManipulation body
   );
 
   /**
@@ -624,7 +624,7 @@ public interface DefaultApi {
    */
   @GET("v3/device-groups/{device-group-id}/devices/")
   Call<DevicePage> groupMembersRetrieve(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
   );
 
   /**
@@ -635,7 +635,7 @@ public interface DefaultApi {
    */
   @GET("v3/device-groups/{device-group-id}/")
   Call<DeviceGroup> groupRetrieve(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId
   );
 
   /**
@@ -647,7 +647,7 @@ public interface DefaultApi {
    */
   @PUT("v3/device-groups/{device-group-id}/")
   Call<DeviceGroup> groupUpdate(
-    @retrofit2.http.Path("device-group-id") String deviceGroupId, @retrofit2.http.Body Group1 group
+    @retrofit2.http.Path(value = "device-group-id", encoded = true) String deviceGroupId, @retrofit2.http.Body Group1 group
   );
 
   /**
@@ -658,7 +658,7 @@ public interface DefaultApi {
    */
   @POST("v3/update-campaigns/{campaign_id}/archive")
   Call<Void> updateCampaignArchive(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -680,7 +680,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/update-campaigns/{campaign_id}/")
   Call<Void> updateCampaignDestroy(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -692,7 +692,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/")
   Call<EventTypeList> updateCampaignEventTypesList(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("summary_status_id") String summaryStatusId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId
   );
 
   /**
@@ -705,7 +705,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}/event_types/{event_type_id}")
   Call<EventType> updateCampaignEventTypesRetrieve(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("summary_status_id") String summaryStatusId, @retrofit2.http.Path("event_type_id") String eventTypeId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId, @retrofit2.http.Path(value = "event_type_id", encoded = true) String eventTypeId
   );
 
   /**
@@ -735,7 +735,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/")
   Call<CampaignDeviceMetadataPage> updateCampaignMetadataList(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include
   );
 
   /**
@@ -747,7 +747,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/campaign-device-metadata/{campaign_device_metadata_id}/")
   Call<CampaignDeviceMetadata> updateCampaignMetadataRetrieve(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("campaign_device_metadata_id") String campaignDeviceMetadataId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "campaign_device_metadata_id", encoded = true) String campaignDeviceMetadataId
   );
 
   /**
@@ -758,7 +758,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/metrics")
   Call<CampaignMetrics> updateCampaignMetrics(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -769,7 +769,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignRetrieve(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -780,7 +780,7 @@ public interface DefaultApi {
    */
   @POST("v3/update-campaigns/{campaign_id}/start")
   Call<Void> updateCampaignStart(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -791,7 +791,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/statistics/")
   Call<EventTypeSummaryList> updateCampaignStatisticsList(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -803,7 +803,7 @@ public interface DefaultApi {
    */
   @GET("v3/update-campaigns/{campaign_id}/statistics/{summary_status_id}")
   Call<EventTypeSummary> updateCampaignStatisticsRetrieve(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Path("summary_status_id") String summaryStatusId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Path(value = "summary_status_id", encoded = true) String summaryStatusId
   );
 
   /**
@@ -814,7 +814,7 @@ public interface DefaultApi {
    */
   @POST("v3/update-campaigns/{campaign_id}/stop")
   Call<Void> updateCampaignStop(
-    @retrofit2.http.Path("campaign_id") String campaignId
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId
   );
 
   /**
@@ -826,7 +826,7 @@ public interface DefaultApi {
    */
   @PUT("v3/update-campaigns/{campaign_id}/")
   Call<UpdateCampaign> updateCampaignUpdate(
-    @retrofit2.http.Path("campaign_id") String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
+    @retrofit2.http.Path(value = "campaign_id", encoded = true) String campaignId, @retrofit2.http.Body UpdateCampaignPutRequest campaign
   );
 
   /**
@@ -843,7 +843,7 @@ public interface DefaultApi {
   })
   @POST("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
   Call<UploadChunkInfo> uploadJobChunkCreate(
-    @retrofit2.http.Header("Content-MD5") String contentMD5, @retrofit2.http.Header("Content-Length") Integer contentLength, @retrofit2.http.Path("upload_job_id") String uploadJobId, @retrofit2.http.Body byte[] chunk
+    @retrofit2.http.Header("Content-MD5") String contentMD5, @retrofit2.http.Header("Content-Length") Integer contentLength, @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Body byte[] chunk
   );
 
   /**
@@ -859,7 +859,7 @@ public interface DefaultApi {
    */
   @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks")
   Call<UploadChunkInfoPage> uploadJobChunkList(
-    @retrofit2.http.Path("upload_job_id") String uploadJobId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Query("limit") Integer limit, @retrofit2.http.Query("order") String order, @retrofit2.http.Query("after") String after, @retrofit2.http.Query("include") String include, @retrofit2.http.Query("filter") String filter
   );
 
   /**
@@ -871,7 +871,7 @@ public interface DefaultApi {
    */
   @GET("v3/firmware-images/upload-jobs/{upload_job_id}/chunks/{chunk_id}")
   Call<UploadChunkInfo> uploadJobChunkRetreive(
-    @retrofit2.http.Path("upload_job_id") String uploadJobId, @retrofit2.http.Path("chunk_id") String chunkId
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Path(value = "chunk_id", encoded = true) String chunkId
   );
 
   /**
@@ -893,7 +893,7 @@ public interface DefaultApi {
    */
   @DELETE("v3/firmware-images/upload-jobs/{upload_job_id}")
   Call<Void> uploadJobDelete(
-    @retrofit2.http.Path("upload_job_id") String uploadJobId
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId
   );
 
   /**
@@ -919,7 +919,7 @@ public interface DefaultApi {
    */
   @GET("v3/firmware-images/upload-jobs/{upload_job_id}")
   Call<UploadJob> uploadJobRetrieve(
-    @retrofit2.http.Path("upload_job_id") String uploadJobId
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId
   );
 
   /**
@@ -931,7 +931,7 @@ public interface DefaultApi {
    */
   @PUT("v3/firmware-images/upload-jobs/{upload_job_id}")
   Call<UploadJob> uploadJobUpdate(
-    @retrofit2.http.Path("upload_job_id") String uploadJobId, @retrofit2.http.Body UploadJob1 uploadJob
+    @retrofit2.http.Path(value = "upload_job_id", encoded = true) String uploadJobId, @retrofit2.http.Body UploadJob1 uploadJob
   );
 
 }

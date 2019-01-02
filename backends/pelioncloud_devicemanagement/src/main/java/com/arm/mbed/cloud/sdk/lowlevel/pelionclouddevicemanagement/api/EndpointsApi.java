@@ -37,7 +37,7 @@ public interface EndpointsApi {
    */
   @GET("v2/endpoints/{device-id}")
   Call<List<Resource>> getEndpointResources(
-    @retrofit2.http.Path("device-id") String deviceId
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId
   );
 
 }

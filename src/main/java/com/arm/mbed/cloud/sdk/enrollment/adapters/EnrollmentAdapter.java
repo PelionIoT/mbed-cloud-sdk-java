@@ -10,8 +10,8 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.RespList;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.enrollment.model.EnrollmentClaim;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentities;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentities;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentity;
 
 @Preamble(description = "Adapter for enrollment claim model")
 @Internal

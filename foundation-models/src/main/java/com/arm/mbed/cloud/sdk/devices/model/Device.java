@@ -5,1625 +5,1481 @@ package com.arm.mbed.cloud.sdk.devices.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
+import java.lang.Object;
+import java.lang.Override;
+import java.lang.String;
+import java.lang.SuppressWarnings;
 import java.util.Date;
 import java.util.Map;
 import java.util.Objects;
 
 /**
- * Model for a device.
- */
-@Preamble(description = "Model for a device.")
+ * Model for a device. */
+@Preamble(
+    description = "Model for a device."
+)
 @SuppressWarnings("PMD.CyclomaticComplexity")
 public class Device implements SdkModel {
-    /**
-     * Serialisation Id.
-     */
-    private static final long serialVersionUID = -757526169452293L;
-
-    /**
-     * The ID of the associated account.
-     */
-    private String accountId;
-
-    /**
-     * DEPRECATED: Mark this device for automatic firmware update.
-     */
-    private boolean autoUpdate;
-
-    /**
-     * The expiration date of the certificate used to connect to bootstrap server.
-     */
-    private Date bootstrapExpirationDate;
-
-    /**
-     * The timestamp of the device's most recent bootstrap process.
-     */
-    private Date bootstrappedTimestamp;
-
-    /**
-     * The certificate issuer's ID.
-     */
-    private String caId;
-
-    /**
-     * The expiration date of the certificate used to connect to LwM2M server.
-     */
-    private Date connectorExpirationDate;
-
-    /**
-     * The timestamp of when the device was created in the device directory.
-     */
-    private Date createdAt;
-
-    /**
-     * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are
-     * limited to 128 characters. Updating this field replaces existing contents.
-     */
-    private Map<String, String> customAttributes;
-
-    /**
-     * DEPRECATED: The state of the device's deployment.
-     */
-    private DeviceDeployedState deployedState;
-
-    /**
-     * DEPRECATED: The last deployment used on the device.
-     */
-    private String deployment;
-
-    /**
-     * The description of the device.
-     */
-    private String description;
-
-    /**
-     * An ID representing the model and hardware revision of the device.
-     */
-    private String deviceClass;
-
-    /**
-     * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device. Permitted
-     * values: - 0 - unspecified execution mode (default if host_gateway invalid or not set) - 1 - development devices -
-     * 5 - production devices.
-     */
-    private int deviceExecutionMode;
-
-    /**
-     * The fingerprint of the device certificate.
-     */
-    private String deviceKey;
-
-    /**
-     * The endpoint name given to the device.
-     */
-    private String endpointName;
-
-    /**
-     * The endpoint type of the device. For example, the device is a gateway.
-     */
-    private String endpointType;
-
-    /**
-     * The claim date/time.
-     */
-    private Date enrolmentListTimestamp;
-
-    /**
-     * The SHA256 checksum of the current firmware image.
-     */
-    private String firmwareChecksum;
-
-    /**
-     * The `endpoint_name` of the host gateway, if appropriate.
-     */
-    private String hostGateway;
-
-    /**
-     * The ID of the device. The device ID is used across all Device Management APIs.
-     */
-    private String id;
-
-    /**
-     * SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
-     */
-    private String issuerFingerprint;
-
-    /**
-     * The reference of the block category.
-     */
-    private String lastOperatorSuspendedCategory;
-
-    /**
-     * The most recent description why the device was suspended or returned to service.
-     */
-    private String lastOperatorSuspendedDescription;
-
-    /**
-     * The timestamp of the most recent suspension activity.
-     */
-    private Date lastOperatorSuspendedUpdatedAt;
-
-    /**
-     * The reference of the block category.
-     */
-    private String lastSystemSuspendedCategory;
-
-    /**
-     * The most recent description of why the device was blocked or unblocked by the system.
-     */
-    private String lastSystemSuspendedDescription;
-
-    /**
-     * The timestamp of the most recent system block activity.
-     */
-    private Date lastSystemSuspendedUpdatedAt;
-
-    /**
-     * The lifecycle status of the device.
-     */
-    private DeviceLifecycleStatus lifecycleStatus;
-
-    /**
-     * DEPRECATED: The URL for the current device manifest.
-     */
-    private String manifest;
-
-    /**
-     * The timestamp of the current manifest version.
-     */
-    private Date manifestTimestamp;
-
-    /**
-     * The ID of the channel used to communicate with the device.
-     */
-    private DeviceMechanism mechanism;
-
-    /**
-     * The address of the connector to use.
-     */
-    private String mechanismUrl;
-
-    /**
-     * The name of the device.
-     */
-    private String name;
-
-    /**
-     * Is the device suspended by the operator?.
-     */
-    private boolean operatorSuspended;
-
-    /**
-     * The serial number of the device.
-     */
-    private String serialNumber;
-
-    /**
-     * The current state of the device.
-     */
-    private DeviceState state;
-
-    /**
-     * Is the device suspended by the system?.
-     */
-    private boolean systemSuspended;
-
-    /**
-     * The time the object was updated.
-     */
-    private Date updatedAt;
-
-    /**
-     * The device vendor ID.
-     */
-    private String vendorId;
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #Device()} instead.
-     * 
-     * @param accountId
-     *            The ID of the associated account.
-     * @param autoUpdate
-     *            DEPRECATED: Mark this device for automatic firmware update.
-     * @param bootstrapExpirationDate
-     *            The expiration date of the certificate used to connect to bootstrap server.
-     * @param bootstrappedTimestamp
-     *            The timestamp of the device's most recent bootstrap process.
-     * @param caId
-     *            The certificate issuer's ID.
-     * @param connectorExpirationDate
-     *            The expiration date of the certificate used to connect to LwM2M server.
-     * @param createdAt
-     *            The timestamp of when the device was created in the device directory.
-     * @param customAttributes
-     *            Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and
-     *            values are limited to 128 characters. Updating this field replaces existing contents.
-     * @param deployedState
-     *            DEPRECATED: The state of the device's deployment.
-     * @param deployment
-     *            DEPRECATED: The last deployment used on the device.
-     * @param description
-     *            The description of the device.
-     * @param deviceClass
-     *            An ID representing the model and hardware revision of the device.
-     * @param deviceExecutionMode
-     *            The execution mode from the certificate of the device. Defaults to inheriting from host_gateway
-     *            device. Permitted values: - 0 - unspecified execution mode (default if host_gateway invalid or not
-     *            set) - 1 - development devices - 5 - production devices.
-     * @param deviceKey
-     *            The fingerprint of the device certificate.
-     * @param endpointName
-     *            The endpoint name given to the device.
-     * @param endpointType
-     *            The endpoint type of the device. For example, the device is a gateway.
-     * @param enrolmentListTimestamp
-     *            The claim date/time.
-     * @param firmwareChecksum
-     *            The SHA256 checksum of the current firmware image.
-     * @param hostGateway
-     *            The `endpoint_name` of the host gateway, if appropriate.
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     * @param issuerFingerprint
-     *            SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
-     * @param lastOperatorSuspendedCategory
-     *            The reference of the block category.
-     * @param lastOperatorSuspendedDescription
-     *            The most recent description why the device was suspended or returned to service.
-     * @param lastOperatorSuspendedUpdatedAt
-     *            The timestamp of the most recent suspension activity.
-     * @param lastSystemSuspendedCategory
-     *            The reference of the block category.
-     * @param lastSystemSuspendedDescription
-     *            The most recent description of why the device was blocked or unblocked by the system.
-     * @param lastSystemSuspendedUpdatedAt
-     *            The timestamp of the most recent system block activity.
-     * @param lifecycleStatus
-     *            The lifecycle status of the device.
-     * @param manifest
-     *            DEPRECATED: The URL for the current device manifest.
-     * @param manifestTimestamp
-     *            The timestamp of the current manifest version.
-     * @param mechanism
-     *            The ID of the channel used to communicate with the device.
-     * @param mechanismUrl
-     *            The address of the connector to use.
-     * @param name
-     *            The name of the device.
-     * @param operatorSuspended
-     *            Is the device suspended by the operator?.
-     * @param serialNumber
-     *            The serial number of the device.
-     * @param state
-     *            The current state of the device.
-     * @param systemSuspended
-     *            Is the device suspended by the system?.
-     * @param updatedAt
-     *            The time the object was updated.
-     * @param vendorId
-     *            The device vendor ID.
-     */
-    @Internal
-    @SuppressWarnings("PMD.CyclomaticComplexity")
-    public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate, Date bootstrappedTimestamp,
-                  String caId, Date connectorExpirationDate, Date createdAt, Map<String, String> customAttributes,
-                  DeviceDeployedState deployedState, String deployment, String description, String deviceClass,
-                  int deviceExecutionMode, String deviceKey, String endpointName, String endpointType,
-                  Date enrolmentListTimestamp, String firmwareChecksum, String hostGateway, String id,
-                  String issuerFingerprint, String lastOperatorSuspendedCategory,
-                  String lastOperatorSuspendedDescription, Date lastOperatorSuspendedUpdatedAt,
-                  String lastSystemSuspendedCategory, String lastSystemSuspendedDescription,
-                  Date lastSystemSuspendedUpdatedAt, DeviceLifecycleStatus lifecycleStatus, String manifest,
-                  Date manifestTimestamp, DeviceMechanism mechanism, String mechanismUrl, String name,
-                  boolean operatorSuspended, String serialNumber, DeviceState state, boolean systemSuspended,
-                  Date updatedAt, String vendorId) {
-        super();
-        setAccountId(accountId);
-        setAutoUpdate(autoUpdate);
-        setBootstrapExpirationDate(bootstrapExpirationDate);
-        setBootstrappedTimestamp(bootstrappedTimestamp);
-        setCaId(caId);
-        setConnectorExpirationDate(connectorExpirationDate);
-        setCreatedAt(createdAt);
-        setCustomAttributes(customAttributes);
-        setDeployedState(deployedState);
-        setDeployment(deployment);
-        setDescription(description);
-        setDeviceClass(deviceClass);
-        setDeviceExecutionMode(deviceExecutionMode);
-        setDeviceKey(deviceKey);
-        setEndpointName(endpointName);
-        setEndpointType(endpointType);
-        setEnrolmentListTimestamp(enrolmentListTimestamp);
-        setFirmwareChecksum(firmwareChecksum);
-        setHostGateway(hostGateway);
-        setId(id);
-        setIssuerFingerprint(issuerFingerprint);
-        setLastOperatorSuspendedCategory(lastOperatorSuspendedCategory);
-        setLastOperatorSuspendedDescription(lastOperatorSuspendedDescription);
-        setLastOperatorSuspendedUpdatedAt(lastOperatorSuspendedUpdatedAt);
-        setLastSystemSuspendedCategory(lastSystemSuspendedCategory);
-        setLastSystemSuspendedDescription(lastSystemSuspendedDescription);
-        setLastSystemSuspendedUpdatedAt(lastSystemSuspendedUpdatedAt);
-        setLifecycleStatus(lifecycleStatus);
-        setManifest(manifest);
-        setManifestTimestamp(manifestTimestamp);
-        setMechanism(mechanism);
-        setMechanismUrl(mechanismUrl);
-        setName(name);
-        setOperatorSuspended(operatorSuspended);
-        setSerialNumber(serialNumber);
-        setState(state);
-        setSystemSuspended(systemSuspended);
-        setUpdatedAt(updatedAt);
-        setVendorId(vendorId);
-    }
-
-    /**
-     * Internal constructor.
-     * <p>
-     * Note: Should not be used. Use {@link #Device()} instead.
-     * 
-     * @param device
-     *            a device.
-     */
-    @Internal
-    public Device(Device device) {
-        this(device == null ? (String) null : device.accountId, device != null && device.autoUpdate,
-             device == null ? new java.util.Date() : device.bootstrapExpirationDate,
-             device == null ? new java.util.Date() : device.bootstrappedTimestamp,
-             device == null ? (String) null : device.caId,
-             device == null ? new java.util.Date() : device.connectorExpirationDate,
-             device == null ? new java.util.Date() : device.createdAt, device == null ? null : device.customAttributes,
-             device == null ? DeviceDeployedState.getDefault() : device.deployedState,
-             device == null ? (String) null : device.deployment, device == null ? (String) null : device.description,
-             device == null ? (String) null : device.deviceClass, device == null ? 0 : device.deviceExecutionMode,
-             device == null ? (String) null : device.deviceKey, device == null ? (String) null : device.endpointName,
-             device == null ? (String) null : device.endpointType,
-             device == null ? new java.util.Date() : device.enrolmentListTimestamp,
-             device == null ? (String) null : device.firmwareChecksum,
-             device == null ? (String) null : device.hostGateway, device == null ? (String) null : device.id,
-             device == null ? (String) null : device.issuerFingerprint,
-             device == null ? (String) null : device.lastOperatorSuspendedCategory,
-             device == null ? (String) null : device.lastOperatorSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastOperatorSuspendedUpdatedAt,
-             device == null ? (String) null : device.lastSystemSuspendedCategory,
-             device == null ? (String) null : device.lastSystemSuspendedDescription,
-             device == null ? new java.util.Date() : device.lastSystemSuspendedUpdatedAt,
-             device == null ? DeviceLifecycleStatus.getDefault() : device.lifecycleStatus,
-             device == null ? (String) null : device.manifest,
-             device == null ? new java.util.Date() : device.manifestTimestamp,
-             device == null ? DeviceMechanism.getDefault() : device.mechanism,
-             device == null ? (String) null : device.mechanismUrl, device == null ? (String) null : device.name,
-             device != null && device.operatorSuspended, device == null ? (String) null : device.serialNumber,
-             device == null ? DeviceState.getDefault() : device.state, device != null && device.systemSuspended,
-             device == null ? new java.util.Date() : device.updatedAt,
-             device == null ? (String) null : device.vendorId);
-    }
-
-    /**
-     * Constructor.
-     */
-    public Device() {
-        this((String) null, false, new java.util.Date(), new java.util.Date(), (String) null, new java.util.Date(),
-             new java.util.Date(), null, DeviceDeployedState.getDefault(), (String) null, (String) null, (String) null,
-             0, (String) null, (String) null, (String) null, new java.util.Date(), (String) null, (String) null,
-             (String) null, (String) null, (String) null, (String) null, new java.util.Date(), (String) null,
-             (String) null, new java.util.Date(), DeviceLifecycleStatus.getDefault(), (String) null,
-             new java.util.Date(), DeviceMechanism.getDefault(), (String) null, (String) null, false, (String) null,
-             DeviceState.getDefault(), false, new java.util.Date(), (String) null);
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     */
-    public Device(String id) {
-        this();
-        setId(id);
-    }
-
-    /**
-     * Gets the id of the associated account.
-     * 
-     * @return accountId
-     */
-    public String getAccountId() {
-        return accountId;
-    }
-
-    /**
-     * Sets the id of the associated account.
-     * 
-     * @param accountId
-     *            The ID of the associated account.
-     */
-    public void setAccountId(String accountId) {
-        this.accountId = accountId;
-    }
-
-    /**
-     * Gets deprecated: mark this device for automatic firmware update.
-     * 
-     * @return autoUpdate
-     */
-    public boolean isAutoUpdate() {
-        return autoUpdate;
-    }
-
-    /**
-     * Sets deprecated: mark this device for automatic firmware update.
-     * 
-     * @param autoUpdate
-     *            DEPRECATED: Mark this device for automatic firmware update.
-     */
-    public void setAutoUpdate(boolean autoUpdate) {
-        this.autoUpdate = autoUpdate;
-    }
-
-    /**
-     * Gets the expiration date of the certificate used to connect to bootstrap server.
-     * 
-     * @return bootstrapExpirationDate
-     */
-    public Date getBootstrapExpirationDate() {
-        return bootstrapExpirationDate;
-    }
-
-    /**
-     * Sets the expiration date of the certificate used to connect to bootstrap server.
-     * 
-     * @param bootstrapExpirationDate
-     *            The expiration date of the certificate used to connect to bootstrap server.
-     */
-    public void setBootstrapExpirationDate(Date bootstrapExpirationDate) {
-        this.bootstrapExpirationDate = bootstrapExpirationDate;
-    }
-
-    /**
-     * Gets the timestamp of the device's most recent bootstrap process.
-     * 
-     * @return bootstrappedTimestamp
-     */
-    public Date getBootstrappedTimestamp() {
-        return bootstrappedTimestamp;
-    }
-
-    /**
-     * Sets the timestamp of the device's most recent bootstrap process.
-     * 
-     * @param bootstrappedTimestamp
-     *            The timestamp of the device's most recent bootstrap process.
-     */
-    public void setBootstrappedTimestamp(Date bootstrappedTimestamp) {
-        this.bootstrappedTimestamp = bootstrappedTimestamp;
-    }
-
-    /**
-     * Gets the certificate issuer's id.
-     * 
-     * @return caId
-     */
-    public String getCaId() {
-        return caId;
-    }
-
-    /**
-     * Sets the certificate issuer's id.
-     * 
-     * @param caId
-     *            The certificate issuer's ID.
-     */
-    public void setCaId(String caId) {
-        this.caId = caId;
-    }
-
-    /**
-     * Gets the expiration date of the certificate used to connect to lwm2m server.
-     * 
-     * @return connectorExpirationDate
-     */
-    public Date getConnectorExpirationDate() {
-        return connectorExpirationDate;
-    }
-
-    /**
-     * Sets the expiration date of the certificate used to connect to lwm2m server.
-     * 
-     * @param connectorExpirationDate
-     *            The expiration date of the certificate used to connect to LwM2M server.
-     */
-    public void setConnectorExpirationDate(Date connectorExpirationDate) {
-        this.connectorExpirationDate = connectorExpirationDate;
-    }
-
-    /**
-     * Gets the timestamp of when the device was created in the device directory.
-     * 
-     * @return createdAt
-     */
-    public Date getCreatedAt() {
-        return createdAt;
-    }
-
-    /**
-     * Sets the timestamp of when the device was created in the device directory.
-     * 
-     * @param createdAt
-     *            The timestamp of when the device was created in the device directory.
-     */
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    /**
-     * Gets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
-     * limited to 128 characters. updating this field replaces existing contents.
-     * 
-     * @return customAttributes
-     */
-    public Map<String, String> getCustomAttributes() {
-        return customAttributes;
-    }
-
-    /**
-     * Sets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are
-     * limited to 128 characters. updating this field replaces existing contents.
-     * 
-     * @param customAttributes
-     *            Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and
-     *            values are limited to 128 characters. Updating this field replaces existing contents.
-     */
-    public void setCustomAttributes(Map<String, String> customAttributes) {
-        this.customAttributes = customAttributes;
-    }
-
-    /**
-     * Gets deprecated: the state of the device's deployment.
-     * 
-     * @return deployedState
-     */
-    public DeviceDeployedState getDeployedState() {
-        return deployedState;
-    }
-
-    /**
-     * Sets deprecated: the state of the device's deployment.
-     * 
-     * @param deployedState
-     *            DEPRECATED: The state of the device's deployment.
-     */
-    public void setDeployedState(DeviceDeployedState deployedState) {
-        this.deployedState = deployedState;
-    }
-
-    /**
-     * Gets deprecated: the last deployment used on the device.
-     * 
-     * @return deployment
-     */
-    public String getDeployment() {
-        return deployment;
-    }
-
-    /**
-     * Sets deprecated: the last deployment used on the device.
-     * 
-     * @param deployment
-     *            DEPRECATED: The last deployment used on the device.
-     */
-    public void setDeployment(String deployment) {
-        this.deployment = deployment;
-    }
-
-    /**
-     * Gets the description of the device.
-     * 
-     * @return description
-     */
-    public String getDescription() {
-        return description;
-    }
-
-    /**
-     * Sets the description of the device.
-     * 
-     * @param description
-     *            The description of the device.
-     */
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    /**
-     * Gets an id representing the model and hardware revision of the device.
-     * 
-     * @return deviceClass
-     */
-    public String getDeviceClass() {
-        return deviceClass;
-    }
-
-    /**
-     * Sets an id representing the model and hardware revision of the device.
-     * 
-     * @param deviceClass
-     *            An ID representing the model and hardware revision of the device.
-     */
-    public void setDeviceClass(String deviceClass) {
-        this.deviceClass = deviceClass;
-    }
-
-    /**
-     * Gets the execution mode from the certificate of the device. defaults to inheriting from host_gateway device.
-     * permitted values: - 0 - unspecified execution mode (default if host_gateway invalid or not set) - 1 - development
-     * devices - 5 - production devices.
-     * 
-     * @return deviceExecutionMode
-     */
-    public int getDeviceExecutionMode() {
-        return deviceExecutionMode;
-    }
-
-    /**
-     * Sets the execution mode from the certificate of the device. defaults to inheriting from host_gateway device.
-     * permitted values: - 0 - unspecified execution mode (default if host_gateway invalid or not set) - 1 - development
-     * devices - 5 - production devices.
-     * 
-     * @param deviceExecutionMode
-     *            The execution mode from the certificate of the device. Defaults to inheriting from host_gateway
-     *            device. Permitted values: - 0 - unspecified execution mode (default if host_gateway invalid or not
-     *            set) - 1 - development devices - 5 - production devices.
-     */
-    public void setDeviceExecutionMode(int deviceExecutionMode) {
-        this.deviceExecutionMode = deviceExecutionMode;
-    }
-
-    /**
-     * Gets the fingerprint of the device certificate.
-     * 
-     * @return deviceKey
-     */
-    public String getDeviceKey() {
-        return deviceKey;
-    }
-
-    /**
-     * Sets the fingerprint of the device certificate.
-     * 
-     * @param deviceKey
-     *            The fingerprint of the device certificate.
-     */
-    public void setDeviceKey(String deviceKey) {
-        this.deviceKey = deviceKey;
-    }
-
-    /**
-     * Gets the endpoint name given to the device.
-     * 
-     * @return endpointName
-     */
-    public String getEndpointName() {
-        return endpointName;
-    }
-
-    /**
-     * Sets the endpoint name given to the device.
-     * 
-     * @param endpointName
-     *            The endpoint name given to the device.
-     */
-    public void setEndpointName(String endpointName) {
-        this.endpointName = endpointName;
-    }
-
-    /**
-     * Gets the endpoint type of the device. for example, the device is a gateway.
-     * 
-     * @return endpointType
-     */
-    public String getEndpointType() {
-        return endpointType;
-    }
-
-    /**
-     * Sets the endpoint type of the device. for example, the device is a gateway.
-     * 
-     * @param endpointType
-     *            The endpoint type of the device. For example, the device is a gateway.
-     */
-    public void setEndpointType(String endpointType) {
-        this.endpointType = endpointType;
-    }
-
-    /**
-     * Gets the claim date/time.
-     * 
-     * @return enrolmentListTimestamp
-     */
-    public Date getEnrolmentListTimestamp() {
-        return enrolmentListTimestamp;
-    }
-
-    /**
-     * Sets the claim date/time.
-     * 
-     * @param enrolmentListTimestamp
-     *            The claim date/time.
-     */
-    public void setEnrolmentListTimestamp(Date enrolmentListTimestamp) {
-        this.enrolmentListTimestamp = enrolmentListTimestamp;
-    }
-
-    /**
-     * Gets the sha256 checksum of the current firmware image.
-     * 
-     * @return firmwareChecksum
-     */
-    public String getFirmwareChecksum() {
-        return firmwareChecksum;
-    }
-
-    /**
-     * Sets the sha256 checksum of the current firmware image.
-     * 
-     * @param firmwareChecksum
-     *            The SHA256 checksum of the current firmware image.
-     */
-    public void setFirmwareChecksum(String firmwareChecksum) {
-        this.firmwareChecksum = firmwareChecksum;
-    }
-
-    /**
-     * Gets the `endpoint_name` of the host gateway, if appropriate.
-     * 
-     * @return hostGateway
-     */
-    public String getHostGateway() {
-        return hostGateway;
-    }
-
-    /**
-     * Sets the `endpoint_name` of the host gateway, if appropriate.
-     * 
-     * @param hostGateway
-     *            The `endpoint_name` of the host gateway, if appropriate.
-     */
-    public void setHostGateway(String hostGateway) {
-        this.hostGateway = hostGateway;
-    }
-
-    /**
-     * Gets the id of the device. the device id is used across all device management apis.
-     * 
-     * @return id
-     */
-    @Override
-    public String getId() {
-        return id;
-    }
-
-    /**
-     * Sets the id of the device. the device id is used across all device management apis.
-     * 
-     * @param id
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     */
-    @Override
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    /**
-     * Sets the id of the device. the device id is used across all device management apis.
-     * <p>
-     * Similar to {@link #setId(String)}
-     * 
-     * @param deviceId
-     *            The ID of the device. The device ID is used across all Device Management APIs.
-     */
-    @Internal
-    public void setDeviceId(String deviceId) {
-        setId(deviceId);
-    }
-
-    /**
-     * Gets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
-     * 
-     * @return issuerFingerprint
-     */
-    public String getIssuerFingerprint() {
-        return issuerFingerprint;
-    }
-
-    /**
-     * Sets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[A-Fa-f0-9]{64}/} to be valid
-     * 
-     * @param issuerFingerprint
-     *            SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
-     */
-    public void setIssuerFingerprint(String issuerFingerprint) {
-        this.issuerFingerprint = issuerFingerprint;
-    }
-
-    /**
-     * Checks whether issuerFingerprint value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isIssuerFingerprintValid() {
-        return (issuerFingerprint == null || issuerFingerprint.matches("[A-Fa-f0-9]{64}"));
-    }
-
-    /**
-     * Gets the reference of the block category.
-     * 
-     * @return lastOperatorSuspendedCategory
-     */
-    public String getLastOperatorSuspendedCategory() {
-        return lastOperatorSuspendedCategory;
-    }
-
-    /**
-     * Sets the reference of the block category.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
-     * 
-     * @param lastOperatorSuspendedCategory
-     *            The reference of the block category.
-     */
-    public void setLastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
-        this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
-    }
-
-    /**
-     * Checks whether lastOperatorSuspendedCategory value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isLastOperatorSuspendedCategoryValid() {
-        return (lastOperatorSuspendedCategory == null || lastOperatorSuspendedCategory.matches("[a-f0-9_]{32}"));
-    }
-
-    /**
-     * Gets the most recent description why the device was suspended or returned to service.
-     * 
-     * @return lastOperatorSuspendedDescription
-     */
-    public String getLastOperatorSuspendedDescription() {
-        return lastOperatorSuspendedDescription;
-    }
-
-    /**
-     * Sets the most recent description why the device was suspended or returned to service.
-     * 
-     * @param lastOperatorSuspendedDescription
-     *            The most recent description why the device was suspended or returned to service.
-     */
-    public void setLastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
-        this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
-    }
-
-    /**
-     * Gets the timestamp of the most recent suspension activity.
-     * 
-     * @return lastOperatorSuspendedUpdatedAt
-     */
-    public Date getLastOperatorSuspendedUpdatedAt() {
-        return lastOperatorSuspendedUpdatedAt;
-    }
-
-    /**
-     * Sets the timestamp of the most recent suspension activity.
-     * 
-     * @param lastOperatorSuspendedUpdatedAt
-     *            The timestamp of the most recent suspension activity.
-     */
-    public void setLastOperatorSuspendedUpdatedAt(Date lastOperatorSuspendedUpdatedAt) {
-        this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
-    }
-
-    /**
-     * Gets the reference of the block category.
-     * 
-     * @return lastSystemSuspendedCategory
-     */
-    public String getLastSystemSuspendedCategory() {
-        return lastSystemSuspendedCategory;
-    }
-
-    /**
-     * Sets the reference of the block category.
-     * <p>
-     * null
-     * <p>
-     * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
-     * 
-     * @param lastSystemSuspendedCategory
-     *            The reference of the block category.
-     */
-    public void setLastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
-        this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
-    }
-
-    /**
-     * Checks whether lastSystemSuspendedCategory value is valid.
-     * 
-     * @return true if the value is valid; false otherwise.
-     */
-    @SuppressWarnings("PMD.UselessParentheses")
-    public boolean isLastSystemSuspendedCategoryValid() {
-        return (lastSystemSuspendedCategory == null || lastSystemSuspendedCategory.matches("[a-f0-9_]{32}"));
-    }
-
-    /**
-     * Gets the most recent description of why the device was blocked or unblocked by the system.
-     * 
-     * @return lastSystemSuspendedDescription
-     */
-    public String getLastSystemSuspendedDescription() {
-        return lastSystemSuspendedDescription;
-    }
-
-    /**
-     * Sets the most recent description of why the device was blocked or unblocked by the system.
-     * 
-     * @param lastSystemSuspendedDescription
-     *            The most recent description of why the device was blocked or unblocked by the system.
-     */
-    public void setLastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
-        this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
-    }
-
-    /**
-     * Gets the timestamp of the most recent system block activity.
-     * 
-     * @return lastSystemSuspendedUpdatedAt
-     */
-    public Date getLastSystemSuspendedUpdatedAt() {
-        return lastSystemSuspendedUpdatedAt;
-    }
-
-    /**
-     * Sets the timestamp of the most recent system block activity.
-     * 
-     * @param lastSystemSuspendedUpdatedAt
-     *            The timestamp of the most recent system block activity.
-     */
-    public void setLastSystemSuspendedUpdatedAt(Date lastSystemSuspendedUpdatedAt) {
-        this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
-    }
-
-    /**
-     * Gets the lifecycle status of the device.
-     * 
-     * @return lifecycleStatus
-     */
-    public DeviceLifecycleStatus getLifecycleStatus() {
-        return lifecycleStatus;
-    }
-
-    /**
-     * Sets the lifecycle status of the device.
-     * 
-     * @param lifecycleStatus
-     *            The lifecycle status of the device.
-     */
-    public void setLifecycleStatus(DeviceLifecycleStatus lifecycleStatus) {
-        this.lifecycleStatus = lifecycleStatus;
-    }
-
-    /**
-     * Gets deprecated: the url for the current device manifest.
-     * 
-     * @return manifest
-     */
-    public String getManifest() {
-        return manifest;
-    }
-
-    /**
-     * Sets deprecated: the url for the current device manifest.
-     * 
-     * @param manifest
-     *            DEPRECATED: The URL for the current device manifest.
-     */
-    public void setManifest(String manifest) {
-        this.manifest = manifest;
-    }
-
-    /**
-     * Gets the timestamp of the current manifest version.
-     * 
-     * @return manifestTimestamp
-     */
-    public Date getManifestTimestamp() {
-        return manifestTimestamp;
-    }
-
-    /**
-     * Sets the timestamp of the current manifest version.
-     * 
-     * @param manifestTimestamp
-     *            The timestamp of the current manifest version.
-     */
-    public void setManifestTimestamp(Date manifestTimestamp) {
-        this.manifestTimestamp = manifestTimestamp;
-    }
-
-    /**
-     * Gets the id of the channel used to communicate with the device.
-     * 
-     * @return mechanism
-     */
-    public DeviceMechanism getMechanism() {
-        return mechanism;
-    }
-
-    /**
-     * Sets the id of the channel used to communicate with the device.
-     * 
-     * @param mechanism
-     *            The ID of the channel used to communicate with the device.
-     */
-    public void setMechanism(DeviceMechanism mechanism) {
-        this.mechanism = mechanism;
-    }
-
-    /**
-     * Gets the address of the connector to use.
-     * 
-     * @return mechanismUrl
-     */
-    public String getMechanismUrl() {
-        return mechanismUrl;
-    }
-
-    /**
-     * Sets the address of the connector to use.
-     * 
-     * @param mechanismUrl
-     *            The address of the connector to use.
-     */
-    public void setMechanismUrl(String mechanismUrl) {
-        this.mechanismUrl = mechanismUrl;
-    }
-
-    /**
-     * Gets the name of the device.
-     * 
-     * @return name
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Sets the name of the device.
-     * 
-     * @param name
-     *            The name of the device.
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    /**
-     * Gets is the device suspended by the operator?.
-     * 
-     * @return operatorSuspended
-     */
-    public boolean isOperatorSuspended() {
-        return operatorSuspended;
-    }
-
-    /**
-     * Sets is the device suspended by the operator?.
-     * 
-     * @param operatorSuspended
-     *            Is the device suspended by the operator?.
-     */
-    public void setOperatorSuspended(boolean operatorSuspended) {
-        this.operatorSuspended = operatorSuspended;
-    }
-
-    /**
-     * Gets the serial number of the device.
-     * 
-     * @return serialNumber
-     */
-    public String getSerialNumber() {
-        return serialNumber;
-    }
-
-    /**
-     * Sets the serial number of the device.
-     * 
-     * @param serialNumber
-     *            The serial number of the device.
-     */
-    public void setSerialNumber(String serialNumber) {
-        this.serialNumber = serialNumber;
-    }
-
-    /**
-     * Gets the current state of the device.
-     * 
-     * @return state
-     */
-    public DeviceState getState() {
-        return state;
-    }
-
-    /**
-     * Sets the current state of the device.
-     * 
-     * @param state
-     *            The current state of the device.
-     */
-    public void setState(DeviceState state) {
-        this.state = state;
-    }
-
-    /**
-     * Gets is the device suspended by the system?.
-     * 
-     * @return systemSuspended
-     */
-    public boolean isSystemSuspended() {
-        return systemSuspended;
-    }
-
-    /**
-     * Sets is the device suspended by the system?.
-     * 
-     * @param systemSuspended
-     *            Is the device suspended by the system?.
-     */
-    public void setSystemSuspended(boolean systemSuspended) {
-        this.systemSuspended = systemSuspended;
-    }
-
-    /**
-     * Gets the time the object was updated.
-     * 
-     * @return updatedAt
-     */
-    public Date getUpdatedAt() {
-        return updatedAt;
-    }
-
-    /**
-     * Sets the time the object was updated.
-     * 
-     * @param updatedAt
-     *            The time the object was updated.
-     */
-    public void setUpdatedAt(Date updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    /**
-     * Gets the device vendor id.
-     * 
-     * @return vendorId
-     */
-    public String getVendorId() {
-        return vendorId;
-    }
-
-    /**
-     * Sets the device vendor id.
-     * 
-     * @param vendorId
-     *            The device vendor ID.
-     */
-    public void setVendorId(String vendorId) {
-        this.vendorId = vendorId;
-    }
-
-    /**
-     * Calculates the hash code of this instance based on field values.
-     * <p>
-     * 
-     * @see java.lang.Object#hashCode()
-     * @return hash code
-     */
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-        result = prime * result + Objects.hashCode(autoUpdate);
-        result = prime * result + ((bootstrapExpirationDate == null) ? 0 : bootstrapExpirationDate.hashCode());
-        result = prime * result + ((bootstrappedTimestamp == null) ? 0 : bootstrappedTimestamp.hashCode());
-        result = prime * result + ((caId == null) ? 0 : caId.hashCode());
-        result = prime * result + ((connectorExpirationDate == null) ? 0 : connectorExpirationDate.hashCode());
-        result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-        result = prime * result + ((customAttributes == null) ? 0 : customAttributes.hashCode());
-        result = prime * result + ((deployedState == null) ? 0 : deployedState.hashCode());
-        result = prime * result + ((deployment == null) ? 0 : deployment.hashCode());
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((deviceClass == null) ? 0 : deviceClass.hashCode());
-        result = prime * result + Objects.hashCode(deviceExecutionMode);
-        result = prime * result + ((deviceKey == null) ? 0 : deviceKey.hashCode());
-        result = prime * result + ((endpointName == null) ? 0 : endpointName.hashCode());
-        result = prime * result + ((endpointType == null) ? 0 : endpointType.hashCode());
-        result = prime * result + ((enrolmentListTimestamp == null) ? 0 : enrolmentListTimestamp.hashCode());
-        result = prime * result + ((firmwareChecksum == null) ? 0 : firmwareChecksum.hashCode());
-        result = prime * result + ((hostGateway == null) ? 0 : hostGateway.hashCode());
-        result = prime * result + ((id == null) ? 0 : id.hashCode());
-        result = prime * result + ((issuerFingerprint == null) ? 0 : issuerFingerprint.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedCategory == null) ? 0 : lastOperatorSuspendedCategory.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedDescription == null) ? 0 : lastOperatorSuspendedDescription.hashCode());
-        result = prime * result
-                 + ((lastOperatorSuspendedUpdatedAt == null) ? 0 : lastOperatorSuspendedUpdatedAt.hashCode());
-        result = prime * result + ((lastSystemSuspendedCategory == null) ? 0 : lastSystemSuspendedCategory.hashCode());
-        result = prime * result
-                 + ((lastSystemSuspendedDescription == null) ? 0 : lastSystemSuspendedDescription.hashCode());
-        result = prime * result
-                 + ((lastSystemSuspendedUpdatedAt == null) ? 0 : lastSystemSuspendedUpdatedAt.hashCode());
-        result = prime * result + ((lifecycleStatus == null) ? 0 : lifecycleStatus.hashCode());
-        result = prime * result + ((manifest == null) ? 0 : manifest.hashCode());
-        result = prime * result + ((manifestTimestamp == null) ? 0 : manifestTimestamp.hashCode());
-        result = prime * result + ((mechanism == null) ? 0 : mechanism.hashCode());
-        result = prime * result + ((mechanismUrl == null) ? 0 : mechanismUrl.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + Objects.hashCode(operatorSuspended);
-        result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
-        result = prime * result + Objects.hashCode(systemSuspended);
-        result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-        result = prime * result + ((vendorId == null) ? 0 : vendorId.hashCode());
-        return result;
-    }
-
-    /**
-     * Method to ensure {@link #equals(Object)} is correct.
-     * <p>
-     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-     * 
-     * @param other
-     *            another object.
-     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-     */
-    protected boolean canEqual(Object other) {
-        return other instanceof Device;
-    }
-
-    /**
-     * Indicates whether some other object is "equal to" this one.
-     * <p>
-     * 
-     * @see java.lang.Object#equals(java.lang.Object)
-     * @param obj
-     *            an object to compare with this instance.
-     * @return true if this object is the same as the obj argument; false otherwise.
-     */
-    @Override
-    @SuppressWarnings({ "PMD.ExcessiveMethodLength", "PMD.NcssMethodCount" })
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (!(obj instanceof Device)) {
-            return false;
-        }
-        final Device other = (Device) obj;
-        if (!other.canEqual(this)) {
-            return false;
-        }
-        if (accountId == null) {
-            if (other.accountId != null) {
-                return false;
-            }
-        } else if (!accountId.equals(other.accountId)) {
-            return false;
-        }
-        if (autoUpdate != other.autoUpdate) {
-            return false;
-        }
-        if (bootstrapExpirationDate == null) {
-            if (other.bootstrapExpirationDate != null) {
-                return false;
-            }
-        } else if (!bootstrapExpirationDate.equals(other.bootstrapExpirationDate)) {
-            return false;
-        }
-        if (bootstrappedTimestamp == null) {
-            if (other.bootstrappedTimestamp != null) {
-                return false;
-            }
-        } else if (!bootstrappedTimestamp.equals(other.bootstrappedTimestamp)) {
-            return false;
-        }
-        if (caId == null) {
-            if (other.caId != null) {
-                return false;
-            }
-        } else if (!caId.equals(other.caId)) {
-            return false;
-        }
-        if (connectorExpirationDate == null) {
-            if (other.connectorExpirationDate != null) {
-                return false;
-            }
-        } else if (!connectorExpirationDate.equals(other.connectorExpirationDate)) {
-            return false;
-        }
-        if (createdAt == null) {
-            if (other.createdAt != null) {
-                return false;
-            }
-        } else if (!createdAt.equals(other.createdAt)) {
-            return false;
-        }
-        if (customAttributes == null) {
-            if (other.customAttributes != null) {
-                return false;
-            }
-        } else if (!customAttributes.equals(other.customAttributes)) {
-            return false;
-        }
-        if (deployedState != other.deployedState) {
-            return false;
-        }
-        if (deployment == null) {
-            if (other.deployment != null) {
-                return false;
-            }
-        } else if (!deployment.equals(other.deployment)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (deviceClass == null) {
-            if (other.deviceClass != null) {
-                return false;
-            }
-        } else if (!deviceClass.equals(other.deviceClass)) {
-            return false;
-        }
-        if (deviceExecutionMode != other.deviceExecutionMode) {
-            return false;
-        }
-        if (deviceKey == null) {
-            if (other.deviceKey != null) {
-                return false;
-            }
-        } else if (!deviceKey.equals(other.deviceKey)) {
-            return false;
-        }
-        if (endpointName == null) {
-            if (other.endpointName != null) {
-                return false;
-            }
-        } else if (!endpointName.equals(other.endpointName)) {
-            return false;
-        }
-        if (endpointType == null) {
-            if (other.endpointType != null) {
-                return false;
-            }
-        } else if (!endpointType.equals(other.endpointType)) {
-            return false;
-        }
-        if (enrolmentListTimestamp == null) {
-            if (other.enrolmentListTimestamp != null) {
-                return false;
-            }
-        } else if (!enrolmentListTimestamp.equals(other.enrolmentListTimestamp)) {
-            return false;
-        }
-        if (firmwareChecksum == null) {
-            if (other.firmwareChecksum != null) {
-                return false;
-            }
-        } else if (!firmwareChecksum.equals(other.firmwareChecksum)) {
-            return false;
-        }
-        if (hostGateway == null) {
-            if (other.hostGateway != null) {
-                return false;
-            }
-        } else if (!hostGateway.equals(other.hostGateway)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (issuerFingerprint == null) {
-            if (other.issuerFingerprint != null) {
-                return false;
-            }
-        } else if (!issuerFingerprint.equals(other.issuerFingerprint)) {
-            return false;
-        }
-        if (lastOperatorSuspendedCategory == null) {
-            if (other.lastOperatorSuspendedCategory != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedCategory.equals(other.lastOperatorSuspendedCategory)) {
-            return false;
-        }
-        if (lastOperatorSuspendedDescription == null) {
-            if (other.lastOperatorSuspendedDescription != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedDescription.equals(other.lastOperatorSuspendedDescription)) {
-            return false;
-        }
-        if (lastOperatorSuspendedUpdatedAt == null) {
-            if (other.lastOperatorSuspendedUpdatedAt != null) {
-                return false;
-            }
-        } else if (!lastOperatorSuspendedUpdatedAt.equals(other.lastOperatorSuspendedUpdatedAt)) {
-            return false;
-        }
-        if (lastSystemSuspendedCategory == null) {
-            if (other.lastSystemSuspendedCategory != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedCategory.equals(other.lastSystemSuspendedCategory)) {
-            return false;
-        }
-        if (lastSystemSuspendedDescription == null) {
-            if (other.lastSystemSuspendedDescription != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedDescription.equals(other.lastSystemSuspendedDescription)) {
-            return false;
-        }
-        if (lastSystemSuspendedUpdatedAt == null) {
-            if (other.lastSystemSuspendedUpdatedAt != null) {
-                return false;
-            }
-        } else if (!lastSystemSuspendedUpdatedAt.equals(other.lastSystemSuspendedUpdatedAt)) {
-            return false;
-        }
-        if (lifecycleStatus != other.lifecycleStatus) {
-            return false;
-        }
-        if (manifest == null) {
-            if (other.manifest != null) {
-                return false;
-            }
-        } else if (!manifest.equals(other.manifest)) {
-            return false;
-        }
-        if (manifestTimestamp == null) {
-            if (other.manifestTimestamp != null) {
-                return false;
-            }
-        } else if (!manifestTimestamp.equals(other.manifestTimestamp)) {
-            return false;
-        }
-        if (mechanism != other.mechanism) {
-            return false;
-        }
-        if (mechanismUrl == null) {
-            if (other.mechanismUrl != null) {
-                return false;
-            }
-        } else if (!mechanismUrl.equals(other.mechanismUrl)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (operatorSuspended != other.operatorSuspended) {
-            return false;
-        }
-        if (serialNumber == null) {
-            if (other.serialNumber != null) {
-                return false;
-            }
-        } else if (!serialNumber.equals(other.serialNumber)) {
-            return false;
-        }
-        if (state != other.state) {
-            return false;
-        }
-        if (systemSuspended != other.systemSuspended) {
-            return false;
-        }
-        if (updatedAt == null) {
-            if (other.updatedAt != null) {
-                return false;
-            }
-        } else if (!updatedAt.equals(other.updatedAt)) {
-            return false;
-        }
-        if (vendorId == null) {
-            if (other.vendorId != null) {
-                return false;
-            }
-        } else if (!vendorId.equals(other.vendorId)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * Returns a string representation of the object.
-     * <p>
-     * 
-     * @see java.lang.Object#toString()
-     * @return the string representation
-     */
-    @Override
-    public String toString() {
-        return "Device [accountId=" + accountId + ", autoUpdate=" + autoUpdate + ", bootstrapExpirationDate="
-               + bootstrapExpirationDate + ", bootstrappedTimestamp=" + bootstrappedTimestamp + ", caId=" + caId
-               + ", connectorExpirationDate=" + connectorExpirationDate + ", createdAt=" + createdAt
-               + ", customAttributes=" + customAttributes + ", deployedState=" + deployedState + ", deployment="
-               + deployment + ", description=" + description + ", deviceClass=" + deviceClass + ", deviceExecutionMode="
-               + deviceExecutionMode + ", deviceKey=" + deviceKey + ", endpointName=" + endpointName + ", endpointType="
-               + endpointType + ", enrolmentListTimestamp=" + enrolmentListTimestamp + ", firmwareChecksum="
-               + firmwareChecksum + ", hostGateway=" + hostGateway + ", id=" + id + ", issuerFingerprint="
-               + issuerFingerprint + ", lastOperatorSuspendedCategory=" + lastOperatorSuspendedCategory
-               + ", lastOperatorSuspendedDescription=" + lastOperatorSuspendedDescription
-               + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt + ", lastSystemSuspendedCategory="
-               + lastSystemSuspendedCategory + ", lastSystemSuspendedDescription=" + lastSystemSuspendedDescription
-               + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt + ", lifecycleStatus="
-               + lifecycleStatus + ", manifest=" + manifest + ", manifestTimestamp=" + manifestTimestamp
-               + ", mechanism=" + mechanism + ", mechanismUrl=" + mechanismUrl + ", name=" + name
-               + ", operatorSuspended=" + operatorSuspended + ", serialNumber=" + serialNumber + ", state=" + state
-               + ", systemSuspended=" + systemSuspended + ", updatedAt=" + updatedAt + ", vendorId=" + vendorId + "]";
-    }
-
-    /**
-     * Checks whether the model is valid or not.
-     * <p>
-     * 
-     * @see SdkModel#isValid()
-     * @return true if the model is valid; false otherwise.
-     */
-    @Override
-    public boolean isValid() {
-        return isIssuerFingerprintValid() && isLastOperatorSuspendedCategoryValid()
-               && isLastSystemSuspendedCategoryValid();
-    }
-
-    /**
-     * Clones this instance.
-     * <p>
-     * 
-     * @see java.lang.Object#clone()
-     * @return a cloned instance
-     */
-    @Override
-    public Device clone() {
-        return new Device(this);
-    }
+  /**
+   * Serialisation Id. */
+  private static final long serialVersionUID = -757526169452293L;
+
+  /**
+   * The ID of the associated account. */
+  private String accountId;
+
+  /**
+   * DEPRECATED: Mark this device for automatic firmware update. */
+  private boolean autoUpdate;
+
+  /**
+   * The expiration date of the certificate used to connect to bootstrap server. */
+  private Date bootstrapExpirationDate;
+
+  /**
+   * The timestamp of the device's most recent bootstrap process. */
+  private Date bootstrappedTimestamp;
+
+  /**
+   * The certificate issuer's ID. */
+  private String caId;
+
+  /**
+   * The expiration date of the certificate used to connect to LwM2M server. */
+  private Date connectorExpirationDate;
+
+  /**
+   * The timestamp of when the device was created in the device directory. */
+  private Date createdAt;
+
+  /**
+   * Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents. */
+  private Map<String, String> customAttributes;
+
+  /**
+   * DEPRECATED: The state of the device's deployment. */
+  private DeviceDeployedState deployedState;
+
+  /**
+   * DEPRECATED: The last deployment used on the device. */
+  private String deployment;
+
+  /**
+   * The description of the device. */
+  private String description;
+
+  /**
+   * An ID representing the model and hardware revision of the device. */
+  private String deviceClass;
+
+  /**
+   * The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
+   * Permitted values:
+   *   - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+   *   - 1 - development devices
+   *   - 5 - production devices. */
+  private int deviceExecutionMode;
+
+  /**
+   * The fingerprint of the device certificate. */
+  private String deviceKey;
+
+  /**
+   * The endpoint name given to the device. */
+  private String endpointName;
+
+  /**
+   * The endpoint type of the device. For example, the device is a gateway. */
+  private String endpointType;
+
+  /**
+   * The claim date/time. */
+  private Date enrolmentListTimestamp;
+
+  /**
+   * The SHA256 checksum of the current firmware image. */
+  private String firmwareChecksum;
+
+  /**
+   * The `endpoint_name` of the host gateway, if appropriate. */
+  private String hostGateway;
+
+  /**
+   * The ID of the device. The device ID is used across all Device Management APIs. */
+  private String id;
+
+  /**
+   * SHA256 fingerprint of the certificate used to validate the signature of the device certificate. */
+  private String issuerFingerprint;
+
+  /**
+   * The reference of the block category. */
+  private String lastOperatorSuspendedCategory;
+
+  /**
+   * The most recent description why the device was suspended or returned to service. */
+  private String lastOperatorSuspendedDescription;
+
+  /**
+   * The timestamp of the most recent suspension activity. */
+  private Date lastOperatorSuspendedUpdatedAt;
+
+  /**
+   * The reference of the block category. */
+  private String lastSystemSuspendedCategory;
+
+  /**
+   * The most recent description of why the device was blocked or unblocked by the system. */
+  private String lastSystemSuspendedDescription;
+
+  /**
+   * The timestamp of the most recent system block activity. */
+  private Date lastSystemSuspendedUpdatedAt;
+
+  /**
+   * The lifecycle status of the device. */
+  private DeviceLifecycleStatus lifecycleStatus;
+
+  /**
+   * DEPRECATED: The URL for the current device manifest. */
+  private String manifest;
+
+  /**
+   * The timestamp of the current manifest version. */
+  private Date manifestTimestamp;
+
+  /**
+   * The ID of the channel used to communicate with the device. */
+  private DeviceMechanism mechanism;
+
+  /**
+   * The address of the connector to use. */
+  private String mechanismUrl;
+
+  /**
+   * The name of the device. */
+  private String name;
+
+  /**
+   * Is the device suspended by the operator?. */
+  private boolean operatorSuspended;
+
+  /**
+   * The serial number of the device. */
+  private String serialNumber;
+
+  /**
+   * The current state of the device. */
+  private DeviceState state;
+
+  /**
+   * Is the device suspended by the system?. */
+  private boolean systemSuspended;
+
+  /**
+   * The time the object was updated. */
+  private Date updatedAt;
+
+  /**
+   * The device vendor ID. */
+  private String vendorId;
+
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #Device()} instead.
+   * @param accountId The ID of the associated account.
+   * @param autoUpdate DEPRECATED: Mark this device for automatic firmware update.
+   * @param bootstrapExpirationDate The expiration date of the certificate used to connect to bootstrap server.
+   * @param bootstrappedTimestamp The timestamp of the device's most recent bootstrap process.
+   * @param caId The certificate issuer's ID.
+   * @param connectorExpirationDate The expiration date of the certificate used to connect to LwM2M server.
+   * @param createdAt The timestamp of when the device was created in the device directory.
+   * @param customAttributes Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+   * @param deployedState DEPRECATED: The state of the device's deployment.
+   * @param deployment DEPRECATED: The last deployment used on the device.
+   * @param description The description of the device.
+   * @param deviceClass An ID representing the model and hardware revision of the device.
+   * @param deviceExecutionMode The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
+   * Permitted values:
+   *   - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+   *   - 1 - development devices
+   *   - 5 - production devices.
+   * @param deviceKey The fingerprint of the device certificate.
+   * @param endpointName The endpoint name given to the device.
+   * @param endpointType The endpoint type of the device. For example, the device is a gateway.
+   * @param enrolmentListTimestamp The claim date/time.
+   * @param firmwareChecksum The SHA256 checksum of the current firmware image.
+   * @param hostGateway The `endpoint_name` of the host gateway, if appropriate.
+   * @param id The ID of the device. The device ID is used across all Device Management APIs.
+   * @param issuerFingerprint SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * @param lastOperatorSuspendedCategory The reference of the block category.
+   * @param lastOperatorSuspendedDescription The most recent description why the device was suspended or returned to service.
+   * @param lastOperatorSuspendedUpdatedAt The timestamp of the most recent suspension activity.
+   * @param lastSystemSuspendedCategory The reference of the block category.
+   * @param lastSystemSuspendedDescription The most recent description of why the device was blocked or unblocked by the system.
+   * @param lastSystemSuspendedUpdatedAt The timestamp of the most recent system block activity.
+   * @param lifecycleStatus The lifecycle status of the device.
+   * @param manifest DEPRECATED: The URL for the current device manifest.
+   * @param manifestTimestamp The timestamp of the current manifest version.
+   * @param mechanism The ID of the channel used to communicate with the device.
+   * @param mechanismUrl The address of the connector to use.
+   * @param name The name of the device.
+   * @param operatorSuspended Is the device suspended by the operator?.
+   * @param serialNumber The serial number of the device.
+   * @param state The current state of the device.
+   * @param systemSuspended Is the device suspended by the system?.
+   * @param updatedAt The time the object was updated.
+   * @param vendorId The device vendor ID.
+   */
+  @Internal
+  @SuppressWarnings("PMD.CyclomaticComplexity")
+  public Device(String accountId, boolean autoUpdate, Date bootstrapExpirationDate,
+      Date bootstrappedTimestamp, String caId, Date connectorExpirationDate, Date createdAt,
+      Map<String, String> customAttributes, DeviceDeployedState deployedState, String deployment,
+      String description, String deviceClass, int deviceExecutionMode, String deviceKey,
+      String endpointName, String endpointType, Date enrolmentListTimestamp,
+      String firmwareChecksum, String hostGateway, String id, String issuerFingerprint,
+      String lastOperatorSuspendedCategory, String lastOperatorSuspendedDescription,
+      Date lastOperatorSuspendedUpdatedAt, String lastSystemSuspendedCategory,
+      String lastSystemSuspendedDescription, Date lastSystemSuspendedUpdatedAt,
+      DeviceLifecycleStatus lifecycleStatus, String manifest, Date manifestTimestamp,
+      DeviceMechanism mechanism, String mechanismUrl, String name, boolean operatorSuspended,
+      String serialNumber, DeviceState state, boolean systemSuspended, Date updatedAt,
+      String vendorId) {
+    super();
+    setAccountId(accountId);
+    setAutoUpdate(autoUpdate);
+    setBootstrapExpirationDate(bootstrapExpirationDate);
+    setBootstrappedTimestamp(bootstrappedTimestamp);
+    setCaId(caId);
+    setConnectorExpirationDate(connectorExpirationDate);
+    setCreatedAt(createdAt);
+    setCustomAttributes(customAttributes);
+    setDeployedState(deployedState);
+    setDeployment(deployment);
+    setDescription(description);
+    setDeviceClass(deviceClass);
+    setDeviceExecutionMode(deviceExecutionMode);
+    setDeviceKey(deviceKey);
+    setEndpointName(endpointName);
+    setEndpointType(endpointType);
+    setEnrolmentListTimestamp(enrolmentListTimestamp);
+    setFirmwareChecksum(firmwareChecksum);
+    setHostGateway(hostGateway);
+    setId(id);
+    setIssuerFingerprint(issuerFingerprint);
+    setLastOperatorSuspendedCategory(lastOperatorSuspendedCategory);
+    setLastOperatorSuspendedDescription(lastOperatorSuspendedDescription);
+    setLastOperatorSuspendedUpdatedAt(lastOperatorSuspendedUpdatedAt);
+    setLastSystemSuspendedCategory(lastSystemSuspendedCategory);
+    setLastSystemSuspendedDescription(lastSystemSuspendedDescription);
+    setLastSystemSuspendedUpdatedAt(lastSystemSuspendedUpdatedAt);
+    setLifecycleStatus(lifecycleStatus);
+    setManifest(manifest);
+    setManifestTimestamp(manifestTimestamp);
+    setMechanism(mechanism);
+    setMechanismUrl(mechanismUrl);
+    setName(name);
+    setOperatorSuspended(operatorSuspended);
+    setSerialNumber(serialNumber);
+    setState(state);
+    setSystemSuspended(systemSuspended);
+    setUpdatedAt(updatedAt);
+    setVendorId(vendorId);
+  }
+
+  /**
+   * Internal constructor.
+   * <p>
+   * Note: Should not be used. Use {@link #Device()} instead.
+   * @param device a device.
+   */
+  @Internal
+  public Device(Device device) {
+    this(device == null ? (String) null : device.accountId,
+        device != null && device.autoUpdate,
+        device == null ? new java.util.Date() : device.bootstrapExpirationDate,
+        device == null ? new java.util.Date() : device.bootstrappedTimestamp,
+        device == null ? (String) null : device.caId,
+        device == null ? new java.util.Date() : device.connectorExpirationDate,
+        device == null ? new java.util.Date() : device.createdAt,
+        device == null ? null : device.customAttributes,
+        device == null ? DeviceDeployedState.getDefault() : device.deployedState,
+        device == null ? (String) null : device.deployment,
+        device == null ? (String) null : device.description,
+        device == null ? (String) null : device.deviceClass,
+        device == null ? 0 : device.deviceExecutionMode,
+        device == null ? (String) null : device.deviceKey,
+        device == null ? (String) null : device.endpointName,
+        device == null ? (String) null : device.endpointType,
+        device == null ? new java.util.Date() : device.enrolmentListTimestamp,
+        device == null ? (String) null : device.firmwareChecksum,
+        device == null ? (String) null : device.hostGateway,
+        device == null ? (String) null : device.id,
+        device == null ? (String) null : device.issuerFingerprint,
+        device == null ? (String) null : device.lastOperatorSuspendedCategory,
+        device == null ? (String) null : device.lastOperatorSuspendedDescription,
+        device == null ? new java.util.Date() : device.lastOperatorSuspendedUpdatedAt,
+        device == null ? (String) null : device.lastSystemSuspendedCategory,
+        device == null ? (String) null : device.lastSystemSuspendedDescription,
+        device == null ? new java.util.Date() : device.lastSystemSuspendedUpdatedAt,
+        device == null ? DeviceLifecycleStatus.getDefault() : device.lifecycleStatus,
+        device == null ? (String) null : device.manifest,
+        device == null ? new java.util.Date() : device.manifestTimestamp,
+        device == null ? DeviceMechanism.getDefault() : device.mechanism,
+        device == null ? (String) null : device.mechanismUrl,
+        device == null ? (String) null : device.name,
+        device != null && device.operatorSuspended,
+        device == null ? (String) null : device.serialNumber,
+        device == null ? DeviceState.getDefault() : device.state,
+        device != null && device.systemSuspended,
+        device == null ? new java.util.Date() : device.updatedAt,
+        device == null ? (String) null : device.vendorId);
+  }
+
+  /**
+   * Constructor.
+   */
+  public Device() {
+    this((String) null,
+        false,
+        new java.util.Date(),
+        new java.util.Date(),
+        (String) null,
+        new java.util.Date(),
+        new java.util.Date(),
+        null,
+        DeviceDeployedState.getDefault(),
+        (String) null,
+        (String) null,
+        (String) null,
+        0,
+        (String) null,
+        (String) null,
+        (String) null,
+        new java.util.Date(),
+        (String) null,
+        (String) null,
+        (String) null,
+        (String) null,
+        (String) null,
+        (String) null,
+        new java.util.Date(),
+        (String) null,
+        (String) null,
+        new java.util.Date(),
+        DeviceLifecycleStatus.getDefault(),
+        (String) null,
+        new java.util.Date(),
+        DeviceMechanism.getDefault(),
+        (String) null,
+        (String) null,
+        false,
+        (String) null,
+        DeviceState.getDefault(),
+        false,
+        new java.util.Date(),
+        (String) null);
+  }
+
+  /**
+   * Constructor.
+   * @param id The ID of the device. The device ID is used across all Device Management APIs.
+   */
+  public Device(String id) {
+    this();
+    setId(id);
+  }
+
+  /**
+   * Gets the id of the associated account.
+   * @return accountId
+   */
+  public String getAccountId() {
+    return accountId;
+  }
+
+  /**
+   * Sets the id of the associated account.
+   * @param accountId The ID of the associated account.
+   */
+  public void setAccountId(String accountId) {
+    this.accountId = accountId;
+  }
+
+  /**
+   * Gets deprecated: mark this device for automatic firmware update.
+   * @return autoUpdate
+   */
+  public boolean isAutoUpdate() {
+    return autoUpdate;
+  }
+
+  /**
+   * Sets deprecated: mark this device for automatic firmware update.
+   * @param autoUpdate DEPRECATED: Mark this device for automatic firmware update.
+   */
+  public void setAutoUpdate(boolean autoUpdate) {
+    this.autoUpdate = autoUpdate;
+  }
+
+  /**
+   * Gets the expiration date of the certificate used to connect to bootstrap server.
+   * @return bootstrapExpirationDate
+   */
+  public Date getBootstrapExpirationDate() {
+    return bootstrapExpirationDate;
+  }
+
+  /**
+   * Sets the expiration date of the certificate used to connect to bootstrap server.
+   * @param bootstrapExpirationDate The expiration date of the certificate used to connect to bootstrap server.
+   */
+  public void setBootstrapExpirationDate(Date bootstrapExpirationDate) {
+    this.bootstrapExpirationDate = bootstrapExpirationDate;
+  }
+
+  /**
+   * Gets the timestamp of the device's most recent bootstrap process.
+   * @return bootstrappedTimestamp
+   */
+  public Date getBootstrappedTimestamp() {
+    return bootstrappedTimestamp;
+  }
+
+  /**
+   * Sets the timestamp of the device's most recent bootstrap process.
+   * @param bootstrappedTimestamp The timestamp of the device's most recent bootstrap process.
+   */
+  public void setBootstrappedTimestamp(Date bootstrappedTimestamp) {
+    this.bootstrappedTimestamp = bootstrappedTimestamp;
+  }
+
+  /**
+   * Gets the certificate issuer's id.
+   * @return caId
+   */
+  public String getCaId() {
+    return caId;
+  }
+
+  /**
+   * Sets the certificate issuer's id.
+   * @param caId The certificate issuer's ID.
+   */
+  public void setCaId(String caId) {
+    this.caId = caId;
+  }
+
+  /**
+   * Gets the expiration date of the certificate used to connect to lwm2m server.
+   * @return connectorExpirationDate
+   */
+  public Date getConnectorExpirationDate() {
+    return connectorExpirationDate;
+  }
+
+  /**
+   * Sets the expiration date of the certificate used to connect to lwm2m server.
+   * @param connectorExpirationDate The expiration date of the certificate used to connect to LwM2M server.
+   */
+  public void setConnectorExpirationDate(Date connectorExpirationDate) {
+    this.connectorExpirationDate = connectorExpirationDate;
+  }
+
+  /**
+   * Gets the timestamp of when the device was created in the device directory.
+   * @return createdAt
+   */
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  /**
+   * Sets the timestamp of when the device was created in the device directory.
+   * @param createdAt The timestamp of when the device was created in the device directory.
+   */
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  /**
+   * Gets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are limited to 128 characters. updating this field replaces existing contents.
+   * @return customAttributes
+   */
+  public Map<String, String> getCustomAttributes() {
+    return customAttributes;
+  }
+
+  /**
+   * Sets up to five custom key-value attributes. note that keys cannot begin with a number. both keys and values are limited to 128 characters. updating this field replaces existing contents.
+   * @param customAttributes Up to five custom key-value attributes. Note that keys cannot begin with a number. Both keys and values are limited to 128 characters. Updating this field replaces existing contents.
+   */
+  public void setCustomAttributes(Map<String, String> customAttributes) {
+    this.customAttributes = customAttributes;
+  }
+
+  /**
+   * Gets deprecated: the state of the device's deployment.
+   * @return deployedState
+   */
+  public DeviceDeployedState getDeployedState() {
+    return deployedState;
+  }
+
+  /**
+   * Sets deprecated: the state of the device's deployment.
+   * @param deployedState DEPRECATED: The state of the device's deployment.
+   */
+  public void setDeployedState(DeviceDeployedState deployedState) {
+    this.deployedState = deployedState;
+  }
+
+  /**
+   * Gets deprecated: the last deployment used on the device.
+   * @return deployment
+   */
+  public String getDeployment() {
+    return deployment;
+  }
+
+  /**
+   * Sets deprecated: the last deployment used on the device.
+   * @param deployment DEPRECATED: The last deployment used on the device.
+   */
+  public void setDeployment(String deployment) {
+    this.deployment = deployment;
+  }
+
+  /**
+   * Gets the description of the device.
+   * @return description
+   */
+  public String getDescription() {
+    return description;
+  }
+
+  /**
+   * Sets the description of the device.
+   * @param description The description of the device.
+   */
+  public void setDescription(String description) {
+    this.description = description;
+  }
+
+  /**
+   * Gets an id representing the model and hardware revision of the device.
+   * @return deviceClass
+   */
+  public String getDeviceClass() {
+    return deviceClass;
+  }
+
+  /**
+   * Sets an id representing the model and hardware revision of the device.
+   * @param deviceClass An ID representing the model and hardware revision of the device.
+   */
+  public void setDeviceClass(String deviceClass) {
+    this.deviceClass = deviceClass;
+  }
+
+  /**
+   * Gets the execution mode from the certificate of the device. defaults to inheriting from host_gateway device.
+   * permitted values:
+   *   - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+   *   - 1 - development devices
+   *   - 5 - production devices.
+   * @return deviceExecutionMode
+   */
+  public int getDeviceExecutionMode() {
+    return deviceExecutionMode;
+  }
+
+  /**
+   * Sets the execution mode from the certificate of the device. defaults to inheriting from host_gateway device.
+   * permitted values:
+   *   - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+   *   - 1 - development devices
+   *   - 5 - production devices.
+   * @param deviceExecutionMode The execution mode from the certificate of the device. Defaults to inheriting from host_gateway device.
+   * Permitted values:
+   *   - 0 - unspecified execution mode (default if host_gateway invalid or not set)
+   *   - 1 - development devices
+   *   - 5 - production devices.
+   */
+  public void setDeviceExecutionMode(int deviceExecutionMode) {
+    this.deviceExecutionMode = deviceExecutionMode;
+  }
+
+  /**
+   * Gets the fingerprint of the device certificate.
+   * @return deviceKey
+   */
+  public String getDeviceKey() {
+    return deviceKey;
+  }
+
+  /**
+   * Sets the fingerprint of the device certificate.
+   * @param deviceKey The fingerprint of the device certificate.
+   */
+  public void setDeviceKey(String deviceKey) {
+    this.deviceKey = deviceKey;
+  }
+
+  /**
+   * Gets the endpoint name given to the device.
+   * @return endpointName
+   */
+  public String getEndpointName() {
+    return endpointName;
+  }
+
+  /**
+   * Sets the endpoint name given to the device.
+   * @param endpointName The endpoint name given to the device.
+   */
+  public void setEndpointName(String endpointName) {
+    this.endpointName = endpointName;
+  }
+
+  /**
+   * Gets the endpoint type of the device. for example, the device is a gateway.
+   * @return endpointType
+   */
+  public String getEndpointType() {
+    return endpointType;
+  }
+
+  /**
+   * Sets the endpoint type of the device. for example, the device is a gateway.
+   * @param endpointType The endpoint type of the device. For example, the device is a gateway.
+   */
+  public void setEndpointType(String endpointType) {
+    this.endpointType = endpointType;
+  }
+
+  /**
+   * Gets the claim date/time.
+   * @return enrolmentListTimestamp
+   */
+  public Date getEnrolmentListTimestamp() {
+    return enrolmentListTimestamp;
+  }
+
+  /**
+   * Sets the claim date/time.
+   * @param enrolmentListTimestamp The claim date/time.
+   */
+  public void setEnrolmentListTimestamp(Date enrolmentListTimestamp) {
+    this.enrolmentListTimestamp = enrolmentListTimestamp;
+  }
+
+  /**
+   * Gets the sha256 checksum of the current firmware image.
+   * @return firmwareChecksum
+   */
+  public String getFirmwareChecksum() {
+    return firmwareChecksum;
+  }
+
+  /**
+   * Sets the sha256 checksum of the current firmware image.
+   * @param firmwareChecksum The SHA256 checksum of the current firmware image.
+   */
+  public void setFirmwareChecksum(String firmwareChecksum) {
+    this.firmwareChecksum = firmwareChecksum;
+  }
+
+  /**
+   * Gets the `endpoint_name` of the host gateway, if appropriate.
+   * @return hostGateway
+   */
+  public String getHostGateway() {
+    return hostGateway;
+  }
+
+  /**
+   * Sets the `endpoint_name` of the host gateway, if appropriate.
+   * @param hostGateway The `endpoint_name` of the host gateway, if appropriate.
+   */
+  public void setHostGateway(String hostGateway) {
+    this.hostGateway = hostGateway;
+  }
+
+  /**
+   * Gets the id of the device. the device id is used across all device management apis.
+   * @return id
+   */
+  @Override
+  public String getId() {
+    return id;
+  }
+
+  /**
+   * Sets the id of the device. the device id is used across all device management apis.
+   * @param id The ID of the device. The device ID is used across all Device Management APIs.
+   */
+  @Override
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  /**
+   * Sets the id of the device. the device id is used across all device management apis.
+   * <p>
+   * Similar to {@link #setId(String)}
+   * @param deviceId The ID of the device. The device ID is used across all Device Management APIs.
+   */
+  @Internal
+  public void setDeviceId(String deviceId) {
+    setId(deviceId);
+  }
+
+  /**
+   * Gets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * @return issuerFingerprint
+   */
+  public String getIssuerFingerprint() {
+    return issuerFingerprint;
+  }
+
+  /**
+   * Sets sha256 fingerprint of the certificate used to validate the signature of the device certificate.
+   * <p>
+   * null
+   * <p>
+   * Note: the value has to match {@code /[A-Fa-f0-9]{64}/} to be valid
+   * @param issuerFingerprint SHA256 fingerprint of the certificate used to validate the signature of the device certificate.
+   */
+  public void setIssuerFingerprint(String issuerFingerprint) {
+    this.issuerFingerprint = issuerFingerprint;
+  }
+
+  /**
+   * Checks whether issuerFingerprint value is valid.
+   * @return true if the value is valid; false otherwise.
+   */
+  @SuppressWarnings("PMD.UselessParentheses")
+  public boolean isIssuerFingerprintValid() {
+    return (issuerFingerprint == null || issuerFingerprint.matches("[A-Fa-f0-9]{64}"));
+  }
+
+  /**
+   * Gets the reference of the block category.
+   * @return lastOperatorSuspendedCategory
+   */
+  public String getLastOperatorSuspendedCategory() {
+    return lastOperatorSuspendedCategory;
+  }
+
+  /**
+   * Sets the reference of the block category.
+   * <p>
+   * null
+   * <p>
+   * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
+   * @param lastOperatorSuspendedCategory The reference of the block category.
+   */
+  public void setLastOperatorSuspendedCategory(String lastOperatorSuspendedCategory) {
+    this.lastOperatorSuspendedCategory = lastOperatorSuspendedCategory;
+  }
+
+  /**
+   * Checks whether lastOperatorSuspendedCategory value is valid.
+   * @return true if the value is valid; false otherwise.
+   */
+  @SuppressWarnings("PMD.UselessParentheses")
+  public boolean isLastOperatorSuspendedCategoryValid() {
+    return (lastOperatorSuspendedCategory == null || lastOperatorSuspendedCategory.matches("[a-f0-9_]{32}"));
+  }
+
+  /**
+   * Gets the most recent description why the device was suspended or returned to service.
+   * @return lastOperatorSuspendedDescription
+   */
+  public String getLastOperatorSuspendedDescription() {
+    return lastOperatorSuspendedDescription;
+  }
+
+  /**
+   * Sets the most recent description why the device was suspended or returned to service.
+   * @param lastOperatorSuspendedDescription The most recent description why the device was suspended or returned to service.
+   */
+  public void setLastOperatorSuspendedDescription(String lastOperatorSuspendedDescription) {
+    this.lastOperatorSuspendedDescription = lastOperatorSuspendedDescription;
+  }
+
+  /**
+   * Gets the timestamp of the most recent suspension activity.
+   * @return lastOperatorSuspendedUpdatedAt
+   */
+  public Date getLastOperatorSuspendedUpdatedAt() {
+    return lastOperatorSuspendedUpdatedAt;
+  }
+
+  /**
+   * Sets the timestamp of the most recent suspension activity.
+   * @param lastOperatorSuspendedUpdatedAt The timestamp of the most recent suspension activity.
+   */
+  public void setLastOperatorSuspendedUpdatedAt(Date lastOperatorSuspendedUpdatedAt) {
+    this.lastOperatorSuspendedUpdatedAt = lastOperatorSuspendedUpdatedAt;
+  }
+
+  /**
+   * Gets the reference of the block category.
+   * @return lastSystemSuspendedCategory
+   */
+  public String getLastSystemSuspendedCategory() {
+    return lastSystemSuspendedCategory;
+  }
+
+  /**
+   * Sets the reference of the block category.
+   * <p>
+   * null
+   * <p>
+   * Note: the value has to match {@code /[a-f0-9_]{32}/} to be valid
+   * @param lastSystemSuspendedCategory The reference of the block category.
+   */
+  public void setLastSystemSuspendedCategory(String lastSystemSuspendedCategory) {
+    this.lastSystemSuspendedCategory = lastSystemSuspendedCategory;
+  }
+
+  /**
+   * Checks whether lastSystemSuspendedCategory value is valid.
+   * @return true if the value is valid; false otherwise.
+   */
+  @SuppressWarnings("PMD.UselessParentheses")
+  public boolean isLastSystemSuspendedCategoryValid() {
+    return (lastSystemSuspendedCategory == null || lastSystemSuspendedCategory.matches("[a-f0-9_]{32}"));
+  }
+
+  /**
+   * Gets the most recent description of why the device was blocked or unblocked by the system.
+   * @return lastSystemSuspendedDescription
+   */
+  public String getLastSystemSuspendedDescription() {
+    return lastSystemSuspendedDescription;
+  }
+
+  /**
+   * Sets the most recent description of why the device was blocked or unblocked by the system.
+   * @param lastSystemSuspendedDescription The most recent description of why the device was blocked or unblocked by the system.
+   */
+  public void setLastSystemSuspendedDescription(String lastSystemSuspendedDescription) {
+    this.lastSystemSuspendedDescription = lastSystemSuspendedDescription;
+  }
+
+  /**
+   * Gets the timestamp of the most recent system block activity.
+   * @return lastSystemSuspendedUpdatedAt
+   */
+  public Date getLastSystemSuspendedUpdatedAt() {
+    return lastSystemSuspendedUpdatedAt;
+  }
+
+  /**
+   * Sets the timestamp of the most recent system block activity.
+   * @param lastSystemSuspendedUpdatedAt The timestamp of the most recent system block activity.
+   */
+  public void setLastSystemSuspendedUpdatedAt(Date lastSystemSuspendedUpdatedAt) {
+    this.lastSystemSuspendedUpdatedAt = lastSystemSuspendedUpdatedAt;
+  }
+
+  /**
+   * Gets the lifecycle status of the device.
+   * @return lifecycleStatus
+   */
+  public DeviceLifecycleStatus getLifecycleStatus() {
+    return lifecycleStatus;
+  }
+
+  /**
+   * Sets the lifecycle status of the device.
+   * @param lifecycleStatus The lifecycle status of the device.
+   */
+  public void setLifecycleStatus(DeviceLifecycleStatus lifecycleStatus) {
+    this.lifecycleStatus = lifecycleStatus;
+  }
+
+  /**
+   * Gets deprecated: the url for the current device manifest.
+   * @return manifest
+   */
+  public String getManifest() {
+    return manifest;
+  }
+
+  /**
+   * Sets deprecated: the url for the current device manifest.
+   * @param manifest DEPRECATED: The URL for the current device manifest.
+   */
+  public void setManifest(String manifest) {
+    this.manifest = manifest;
+  }
+
+  /**
+   * Gets the timestamp of the current manifest version.
+   * @return manifestTimestamp
+   */
+  public Date getManifestTimestamp() {
+    return manifestTimestamp;
+  }
+
+  /**
+   * Sets the timestamp of the current manifest version.
+   * @param manifestTimestamp The timestamp of the current manifest version.
+   */
+  public void setManifestTimestamp(Date manifestTimestamp) {
+    this.manifestTimestamp = manifestTimestamp;
+  }
+
+  /**
+   * Gets the id of the channel used to communicate with the device.
+   * @return mechanism
+   */
+  public DeviceMechanism getMechanism() {
+    return mechanism;
+  }
+
+  /**
+   * Sets the id of the channel used to communicate with the device.
+   * @param mechanism The ID of the channel used to communicate with the device.
+   */
+  public void setMechanism(DeviceMechanism mechanism) {
+    this.mechanism = mechanism;
+  }
+
+  /**
+   * Gets the address of the connector to use.
+   * @return mechanismUrl
+   */
+  public String getMechanismUrl() {
+    return mechanismUrl;
+  }
+
+  /**
+   * Sets the address of the connector to use.
+   * @param mechanismUrl The address of the connector to use.
+   */
+  public void setMechanismUrl(String mechanismUrl) {
+    this.mechanismUrl = mechanismUrl;
+  }
+
+  /**
+   * Gets the name of the device.
+   * @return name
+   */
+  public String getName() {
+    return name;
+  }
+
+  /**
+   * Sets the name of the device.
+   * @param name The name of the device.
+   */
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  /**
+   * Gets is the device suspended by the operator?.
+   * @return operatorSuspended
+   */
+  public boolean isOperatorSuspended() {
+    return operatorSuspended;
+  }
+
+  /**
+   * Sets is the device suspended by the operator?.
+   * @param operatorSuspended Is the device suspended by the operator?.
+   */
+  public void setOperatorSuspended(boolean operatorSuspended) {
+    this.operatorSuspended = operatorSuspended;
+  }
+
+  /**
+   * Gets the serial number of the device.
+   * @return serialNumber
+   */
+  public String getSerialNumber() {
+    return serialNumber;
+  }
+
+  /**
+   * Sets the serial number of the device.
+   * @param serialNumber The serial number of the device.
+   */
+  public void setSerialNumber(String serialNumber) {
+    this.serialNumber = serialNumber;
+  }
+
+  /**
+   * Gets the current state of the device.
+   * @return state
+   */
+  public DeviceState getState() {
+    return state;
+  }
+
+  /**
+   * Sets the current state of the device.
+   * @param state The current state of the device.
+   */
+  public void setState(DeviceState state) {
+    this.state = state;
+  }
+
+  /**
+   * Gets is the device suspended by the system?.
+   * @return systemSuspended
+   */
+  public boolean isSystemSuspended() {
+    return systemSuspended;
+  }
+
+  /**
+   * Sets is the device suspended by the system?.
+   * @param systemSuspended Is the device suspended by the system?.
+   */
+  public void setSystemSuspended(boolean systemSuspended) {
+    this.systemSuspended = systemSuspended;
+  }
+
+  /**
+   * Gets the time the object was updated.
+   * @return updatedAt
+   */
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  /**
+   * Sets the time the object was updated.
+   * @param updatedAt The time the object was updated.
+   */
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
+  }
+
+  /**
+   * Gets the device vendor id.
+   * @return vendorId
+   */
+  public String getVendorId() {
+    return vendorId;
+  }
+
+  /**
+   * Sets the device vendor id.
+   * @param vendorId The device vendor ID.
+   */
+  public void setVendorId(String vendorId) {
+    this.vendorId = vendorId;
+  }
+
+  /**
+   * Calculates the hash code of this instance based on field values.
+   * <p>
+   * @see java.lang.Object#hashCode()
+   * @return hash code
+   */
+  @Override
+  public int hashCode() {
+    final int prime = 31;
+    int result = 1;
+    result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+    result = prime * result +  Objects.hashCode(autoUpdate);
+    result = prime * result + ((bootstrapExpirationDate == null) ? 0 : bootstrapExpirationDate.hashCode());
+    result = prime * result + ((bootstrappedTimestamp == null) ? 0 : bootstrappedTimestamp.hashCode());
+    result = prime * result + ((caId == null) ? 0 : caId.hashCode());
+    result = prime * result + ((connectorExpirationDate == null) ? 0 : connectorExpirationDate.hashCode());
+    result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+    result = prime * result + ((customAttributes == null) ? 0 : customAttributes.hashCode());
+    result = prime * result + ((deployedState == null) ? 0 : deployedState.hashCode());
+    result = prime * result + ((deployment == null) ? 0 : deployment.hashCode());
+    result = prime * result + ((description == null) ? 0 : description.hashCode());
+    result = prime * result + ((deviceClass == null) ? 0 : deviceClass.hashCode());
+    result = prime * result +  Objects.hashCode(deviceExecutionMode);
+    result = prime * result + ((deviceKey == null) ? 0 : deviceKey.hashCode());
+    result = prime * result + ((endpointName == null) ? 0 : endpointName.hashCode());
+    result = prime * result + ((endpointType == null) ? 0 : endpointType.hashCode());
+    result = prime * result + ((enrolmentListTimestamp == null) ? 0 : enrolmentListTimestamp.hashCode());
+    result = prime * result + ((firmwareChecksum == null) ? 0 : firmwareChecksum.hashCode());
+    result = prime * result + ((hostGateway == null) ? 0 : hostGateway.hashCode());
+    result = prime * result + ((id == null) ? 0 : id.hashCode());
+    result = prime * result + ((issuerFingerprint == null) ? 0 : issuerFingerprint.hashCode());
+    result = prime * result + ((lastOperatorSuspendedCategory == null) ? 0 : lastOperatorSuspendedCategory.hashCode());
+    result = prime * result + ((lastOperatorSuspendedDescription == null) ? 0 : lastOperatorSuspendedDescription.hashCode());
+    result = prime * result + ((lastOperatorSuspendedUpdatedAt == null) ? 0 : lastOperatorSuspendedUpdatedAt.hashCode());
+    result = prime * result + ((lastSystemSuspendedCategory == null) ? 0 : lastSystemSuspendedCategory.hashCode());
+    result = prime * result + ((lastSystemSuspendedDescription == null) ? 0 : lastSystemSuspendedDescription.hashCode());
+    result = prime * result + ((lastSystemSuspendedUpdatedAt == null) ? 0 : lastSystemSuspendedUpdatedAt.hashCode());
+    result = prime * result + ((lifecycleStatus == null) ? 0 : lifecycleStatus.hashCode());
+    result = prime * result + ((manifest == null) ? 0 : manifest.hashCode());
+    result = prime * result + ((manifestTimestamp == null) ? 0 : manifestTimestamp.hashCode());
+    result = prime * result + ((mechanism == null) ? 0 : mechanism.hashCode());
+    result = prime * result + ((mechanismUrl == null) ? 0 : mechanismUrl.hashCode());
+    result = prime * result + ((name == null) ? 0 : name.hashCode());
+    result = prime * result +  Objects.hashCode(operatorSuspended);
+    result = prime * result + ((serialNumber == null) ? 0 : serialNumber.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
+    result = prime * result +  Objects.hashCode(systemSuspended);
+    result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+    result = prime * result + ((vendorId == null) ? 0 : vendorId.hashCode());
+    return result;
+  }
+
+  /**
+   *  Method to ensure {@link #equals(Object)} is correct.
+   * <p>
+   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+   * @param other another object.
+   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+   */
+  protected boolean canEqual(Object other) {
+    return other instanceof Device;
+  }
+
+  /**
+   * Indicates whether some other object is "equal to" this one.
+   * <p>
+   * @see java.lang.Object#equals(java.lang.Object)
+   * @param obj an object to compare with this instance.
+   * @return true if this object is the same as the obj argument; false otherwise.
+   */
+  @Override
+  @SuppressWarnings({"PMD.ExcessiveMethodLength", "PMD.NcssMethodCount"})
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null) {
+      return false;
+    }
+    if( !(obj instanceof Device)) {
+      return false;
+    }
+    final Device other = (Device) obj;
+    if( !other.canEqual(this)) {
+      return false;
+    }
+    if (accountId == null) {
+      if (other.accountId != null) {
+        return false;
+      }
+    } else if (!accountId.equals(other.accountId)) {
+      return false;
+    }
+    if (autoUpdate != other.autoUpdate) {
+      return false;
+    }
+    if (bootstrapExpirationDate == null) {
+      if (other.bootstrapExpirationDate != null) {
+        return false;
+      }
+    } else if (!bootstrapExpirationDate.equals(other.bootstrapExpirationDate)) {
+      return false;
+    }
+    if (bootstrappedTimestamp == null) {
+      if (other.bootstrappedTimestamp != null) {
+        return false;
+      }
+    } else if (!bootstrappedTimestamp.equals(other.bootstrappedTimestamp)) {
+      return false;
+    }
+    if (caId == null) {
+      if (other.caId != null) {
+        return false;
+      }
+    } else if (!caId.equals(other.caId)) {
+      return false;
+    }
+    if (connectorExpirationDate == null) {
+      if (other.connectorExpirationDate != null) {
+        return false;
+      }
+    } else if (!connectorExpirationDate.equals(other.connectorExpirationDate)) {
+      return false;
+    }
+    if (createdAt == null) {
+      if (other.createdAt != null) {
+        return false;
+      }
+    } else if (!createdAt.equals(other.createdAt)) {
+      return false;
+    }
+    if (customAttributes == null) {
+      if (other.customAttributes != null) {
+        return false;
+      }
+    } else if (!customAttributes.equals(other.customAttributes)) {
+      return false;
+    }
+    if (deployedState != other.deployedState) {
+      return false;
+    }
+    if (deployment == null) {
+      if (other.deployment != null) {
+        return false;
+      }
+    } else if (!deployment.equals(other.deployment)) {
+      return false;
+    }
+    if (description == null) {
+      if (other.description != null) {
+        return false;
+      }
+    } else if (!description.equals(other.description)) {
+      return false;
+    }
+    if (deviceClass == null) {
+      if (other.deviceClass != null) {
+        return false;
+      }
+    } else if (!deviceClass.equals(other.deviceClass)) {
+      return false;
+    }
+    if (deviceExecutionMode != other.deviceExecutionMode) {
+      return false;
+    }
+    if (deviceKey == null) {
+      if (other.deviceKey != null) {
+        return false;
+      }
+    } else if (!deviceKey.equals(other.deviceKey)) {
+      return false;
+    }
+    if (endpointName == null) {
+      if (other.endpointName != null) {
+        return false;
+      }
+    } else if (!endpointName.equals(other.endpointName)) {
+      return false;
+    }
+    if (endpointType == null) {
+      if (other.endpointType != null) {
+        return false;
+      }
+    } else if (!endpointType.equals(other.endpointType)) {
+      return false;
+    }
+    if (enrolmentListTimestamp == null) {
+      if (other.enrolmentListTimestamp != null) {
+        return false;
+      }
+    } else if (!enrolmentListTimestamp.equals(other.enrolmentListTimestamp)) {
+      return false;
+    }
+    if (firmwareChecksum == null) {
+      if (other.firmwareChecksum != null) {
+        return false;
+      }
+    } else if (!firmwareChecksum.equals(other.firmwareChecksum)) {
+      return false;
+    }
+    if (hostGateway == null) {
+      if (other.hostGateway != null) {
+        return false;
+      }
+    } else if (!hostGateway.equals(other.hostGateway)) {
+      return false;
+    }
+    if (id == null) {
+      if (other.id != null) {
+        return false;
+      }
+    } else if (!id.equals(other.id)) {
+      return false;
+    }
+    if (issuerFingerprint == null) {
+      if (other.issuerFingerprint != null) {
+        return false;
+      }
+    } else if (!issuerFingerprint.equals(other.issuerFingerprint)) {
+      return false;
+    }
+    if (lastOperatorSuspendedCategory == null) {
+      if (other.lastOperatorSuspendedCategory != null) {
+        return false;
+      }
+    } else if (!lastOperatorSuspendedCategory.equals(other.lastOperatorSuspendedCategory)) {
+      return false;
+    }
+    if (lastOperatorSuspendedDescription == null) {
+      if (other.lastOperatorSuspendedDescription != null) {
+        return false;
+      }
+    } else if (!lastOperatorSuspendedDescription.equals(other.lastOperatorSuspendedDescription)) {
+      return false;
+    }
+    if (lastOperatorSuspendedUpdatedAt == null) {
+      if (other.lastOperatorSuspendedUpdatedAt != null) {
+        return false;
+      }
+    } else if (!lastOperatorSuspendedUpdatedAt.equals(other.lastOperatorSuspendedUpdatedAt)) {
+      return false;
+    }
+    if (lastSystemSuspendedCategory == null) {
+      if (other.lastSystemSuspendedCategory != null) {
+        return false;
+      }
+    } else if (!lastSystemSuspendedCategory.equals(other.lastSystemSuspendedCategory)) {
+      return false;
+    }
+    if (lastSystemSuspendedDescription == null) {
+      if (other.lastSystemSuspendedDescription != null) {
+        return false;
+      }
+    } else if (!lastSystemSuspendedDescription.equals(other.lastSystemSuspendedDescription)) {
+      return false;
+    }
+    if (lastSystemSuspendedUpdatedAt == null) {
+      if (other.lastSystemSuspendedUpdatedAt != null) {
+        return false;
+      }
+    } else if (!lastSystemSuspendedUpdatedAt.equals(other.lastSystemSuspendedUpdatedAt)) {
+      return false;
+    }
+    if (lifecycleStatus != other.lifecycleStatus) {
+      return false;
+    }
+    if (manifest == null) {
+      if (other.manifest != null) {
+        return false;
+      }
+    } else if (!manifest.equals(other.manifest)) {
+      return false;
+    }
+    if (manifestTimestamp == null) {
+      if (other.manifestTimestamp != null) {
+        return false;
+      }
+    } else if (!manifestTimestamp.equals(other.manifestTimestamp)) {
+      return false;
+    }
+    if (mechanism != other.mechanism) {
+      return false;
+    }
+    if (mechanismUrl == null) {
+      if (other.mechanismUrl != null) {
+        return false;
+      }
+    } else if (!mechanismUrl.equals(other.mechanismUrl)) {
+      return false;
+    }
+    if (name == null) {
+      if (other.name != null) {
+        return false;
+      }
+    } else if (!name.equals(other.name)) {
+      return false;
+    }
+    if (operatorSuspended != other.operatorSuspended) {
+      return false;
+    }
+    if (serialNumber == null) {
+      if (other.serialNumber != null) {
+        return false;
+      }
+    } else if (!serialNumber.equals(other.serialNumber)) {
+      return false;
+    }
+    if (state != other.state) {
+      return false;
+    }
+    if (systemSuspended != other.systemSuspended) {
+      return false;
+    }
+    if (updatedAt == null) {
+      if (other.updatedAt != null) {
+        return false;
+      }
+    } else if (!updatedAt.equals(other.updatedAt)) {
+      return false;
+    }
+    if (vendorId == null) {
+      if (other.vendorId != null) {
+        return false;
+      }
+    } else if (!vendorId.equals(other.vendorId)) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * Returns a string representation of the object.
+   * <p>
+   * @see java.lang.Object#toString()
+   * @return the string representation
+   */
+  @Override
+  public String toString() {
+    return "Device [accountId=" + accountId
+        + ", autoUpdate=" + autoUpdate
+        + ", bootstrapExpirationDate=" + bootstrapExpirationDate
+        + ", bootstrappedTimestamp=" + bootstrappedTimestamp
+        + ", caId=" + caId
+        + ", connectorExpirationDate=" + connectorExpirationDate
+        + ", createdAt=" + createdAt
+        + ", customAttributes=" + customAttributes
+        + ", deployedState=" + deployedState
+        + ", deployment=" + deployment
+        + ", description=" + description
+        + ", deviceClass=" + deviceClass
+        + ", deviceExecutionMode=" + deviceExecutionMode
+        + ", deviceKey=" + deviceKey
+        + ", endpointName=" + endpointName
+        + ", endpointType=" + endpointType
+        + ", enrolmentListTimestamp=" + enrolmentListTimestamp
+        + ", firmwareChecksum=" + firmwareChecksum
+        + ", hostGateway=" + hostGateway
+        + ", id=" + id
+        + ", issuerFingerprint=" + issuerFingerprint
+        + ", lastOperatorSuspendedCategory=" + lastOperatorSuspendedCategory
+        + ", lastOperatorSuspendedDescription=" + lastOperatorSuspendedDescription
+        + ", lastOperatorSuspendedUpdatedAt=" + lastOperatorSuspendedUpdatedAt
+        + ", lastSystemSuspendedCategory=" + lastSystemSuspendedCategory
+        + ", lastSystemSuspendedDescription=" + lastSystemSuspendedDescription
+        + ", lastSystemSuspendedUpdatedAt=" + lastSystemSuspendedUpdatedAt
+        + ", lifecycleStatus=" + lifecycleStatus
+        + ", manifest=" + manifest
+        + ", manifestTimestamp=" + manifestTimestamp
+        + ", mechanism=" + mechanism
+        + ", mechanismUrl=" + mechanismUrl
+        + ", name=" + name
+        + ", operatorSuspended=" + operatorSuspended
+        + ", serialNumber=" + serialNumber
+        + ", state=" + state
+        + ", systemSuspended=" + systemSuspended
+        + ", updatedAt=" + updatedAt
+        + ", vendorId=" + vendorId + "]";
+  }
+
+  /**
+   * Checks whether the model is valid or not.
+   * <p>
+   * @see SdkModel#isValid()
+   * @return true if the model is valid; false otherwise.
+   */
+  @Override
+  public boolean isValid() {
+    return isIssuerFingerprintValid()
+        && isLastOperatorSuspendedCategoryValid()
+        && isLastSystemSuspendedCategoryValid();
+  }
+
+  /**
+   * Clones this instance.
+   * <p>
+   * @see java.lang.Object#clone()
+   * @return a cloned instance
+   */
+  @Override
+  public Device clone() {
+    return new Device(this);
+  }
 }

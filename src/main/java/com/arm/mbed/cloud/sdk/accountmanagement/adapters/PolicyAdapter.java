@@ -8,7 +8,7 @@ import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter;
 import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
-import com.arm.mbed.cloud.sdk.internal.iam.model.FeaturePolicy;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.FeaturePolicy;
 
 @Preamble(description = "Adapter for policy model")
 @Internal

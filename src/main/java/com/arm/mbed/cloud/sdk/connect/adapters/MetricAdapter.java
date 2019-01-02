@@ -13,7 +13,7 @@ import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.IncludeField;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.connect.model.Metric;
-import com.arm.mbed.cloud.sdk.internal.statistics.model.SuccessfulResponse;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SuccessfulResponse;
 
 @Preamble(description = "Adapter for metric model")
 public final class MetricAdapter {
@@ -29,7 +29,7 @@ public final class MetricAdapter {
      *            metrics to map
      * @return metrics
      */
-    public static Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric apiMetric) {
+    public static Metric map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric apiMetric) {
         if (apiMetric == null) {
             return null;
         }
@@ -60,11 +60,11 @@ public final class MetricAdapter {
      *
      * @return a mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric, Metric>() {
+    public static Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric, Metric> getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric, Metric>() {
 
             @Override
-            public Metric map(com.arm.mbed.cloud.sdk.internal.statistics.model.Metric toBeMapped) {
+            public Metric map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric toBeMapped) {
                 return MetricAdapter.map(toBeMapped);
             }
 
@@ -80,7 +80,7 @@ public final class MetricAdapter {
      */
     public static ListResponse<Metric> mapList(SuccessfulResponse list) {
         final SuccessfulResponse metricsList = list;
-        final RespList<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> respList = new RespList<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric>() {
+        final RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric> respList = new RespList<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric>() {
 
             @Override
             public Boolean getHasMore() {
@@ -108,7 +108,7 @@ public final class MetricAdapter {
             }
 
             @Override
-            public List<com.arm.mbed.cloud.sdk.internal.statistics.model.Metric> getData() {
+            public List<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Metric> getData() {
                 return (metricsList == null) ? null : metricsList.getData();
             }
 

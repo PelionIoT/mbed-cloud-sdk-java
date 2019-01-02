@@ -27,7 +27,7 @@ public interface CertificateRenewalApi {
    */
   @POST("v3/devices/{device-id}/certificates/{certificate-name}/renew")
   Call<CertificateEnrollment> requestCertificateRenewal(
-    @retrofit2.http.Path("device-id") String deviceId, @retrofit2.http.Path("certificate-name") String certificateName
+    @retrofit2.http.Path(value = "device-id", encoded = true) String deviceId, @retrofit2.http.Path(value = "certificate-name", encoded = true) String certificateName
   );
 
 }

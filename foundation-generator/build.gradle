@@ -52,17 +52,6 @@ dependencies {
     // Backends
     implementation project(':backends:mbedcloud_common')
     implementation project(':backends:pelioncloud_devicemanagement')
-   /* implementation project(':backends:connector_ca')
-    implementation project(':backends:external_ca')
-    implementation project(':backends:connector_bootstrap')
-    implementation project(':backends:device_directory')
-    implementation project(':backends:iam')
-    implementation project(':backends:mds')
-    implementation project(':backends:statistics')
-    implementation project(':backends:update_service')
-    implementation project(':backends:enrollment')
-    implementation project(':backends:billing')
-    implementation project(':backends:certificate_renewal')*/
     openapiCodegen 'io.swagger:swagger-codegen-cli:2.3.1'   // Swagger Codegen V2
     //swaggerCodegen 'io.swagger:swagger-codegen-cli:2.3.1'	// Uncomment when help is needed
     // Use JUnit test framework

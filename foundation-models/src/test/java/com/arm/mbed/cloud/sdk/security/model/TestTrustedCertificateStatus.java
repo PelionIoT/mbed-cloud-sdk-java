@@ -7,33 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model TrustedCertificateStatus.
- */
+ * Unit tests for Model TrustedCertificateStatus. */
 public class TestTrustedCertificateStatus {
-    /**
-     * Tests the getValue method.
-     */
-    @Test
-    public void testGetvalue() {
-        try {
-            TrustedCertificateStatus trustedcertificatestatus = TrustedCertificateStatus.getValue(null);
-            assertNotNull(trustedcertificatestatus);
-            assertTrue(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue(TrustedCertificateStatus.getDefault()
-                                                                                                 .getString());
-            assertNotNull(trustedcertificatestatus);
-            assertTrue(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue("ACTIVE");
-            assertNotNull(trustedcertificatestatus);
-            assertTrue(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue("INACTIVE");
-            assertNotNull(trustedcertificatestatus);
-            assertFalse(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue("54ecca88-aadd-4fce-bb17-a57b6a993e85");
-            assertNotNull(trustedcertificatestatus);
-            assertTrue(trustedcertificatestatus.isDefault());
-        } catch (Exception exception) {
-            fail(exception.getMessage());
-        }
+  /**
+   * Tests the getValue method.
+   */
+  @Test
+  public void testGetvalue() {
+    try {
+      TrustedCertificateStatus trustedcertificatestatus = TrustedCertificateStatus.getValue(null);
+      assertNotNull(trustedcertificatestatus);
+      assertTrue(trustedcertificatestatus.isDefault());
+      trustedcertificatestatus = TrustedCertificateStatus.getValue(TrustedCertificateStatus.getDefault().getString());
+      assertNotNull(trustedcertificatestatus);
+      assertTrue(trustedcertificatestatus.isDefault());
+      trustedcertificatestatus = TrustedCertificateStatus.getValue("ACTIVE");
+      assertNotNull(trustedcertificatestatus);
+      assertTrue(trustedcertificatestatus.isDefault());
+      trustedcertificatestatus = TrustedCertificateStatus.getValue("INACTIVE");
+      assertNotNull(trustedcertificatestatus);
+      assertFalse(trustedcertificatestatus.isDefault());
+      trustedcertificatestatus = TrustedCertificateStatus.getValue("8001356a-a118-45da-8816-1cd244e85acd");
+      assertNotNull(trustedcertificatestatus);
+      assertTrue(trustedcertificatestatus.isDefault());
     }
+    catch(Exception exception) {
+      fail(exception.getMessage());
+    }
+  }
 }

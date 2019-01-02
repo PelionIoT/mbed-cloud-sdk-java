@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.common.GenericAdapter.Mapper;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterOperator;
 import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
-import com.arm.mbed.cloud.sdk.internal.mds.model.PresubscriptionArray;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.PresubscriptionArray;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
 @Preamble(description = "Adapter for presubscription model")
@@ -186,7 +186,8 @@ public final class PresubscriptionAdapter {
      *            presubscription to map
      * @return mapped presubscription
      */
-    public static Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription) {
+    public static Presubscription
+           map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription apiPresubscription) {
         if (apiPresubscription == null) {
             return null;
         }
@@ -204,12 +205,12 @@ public final class PresubscriptionAdapter {
      *            presubscription
      * @return presubscription
      */
-    public static com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription
+    public static com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription
            reverseMap(Presubscription presubscription) {
         if (presubscription == null) {
             return null;
         }
-        final com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription();
+        final com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription apiPresubscription = new com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription();
         apiPresubscription.setEndpointName(presubscription.getDeviceId());
         apiPresubscription.setEndpointType(presubscription.getDeviceType());
         apiPresubscription.setResourcePath(presubscription.getResourcePaths());
@@ -221,11 +222,15 @@ public final class PresubscriptionAdapter {
      *
      * @return mapper
      */
-    public static Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription> getMapper() {
-        return new Mapper<com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription, Presubscription>() {
+    public static
+           Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription, Presubscription>
+           getMapper() {
+        return new Mapper<com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription,
+                          Presubscription>() {
 
             @Override
-            public Presubscription map(com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription toBeMapped) {
+            public Presubscription
+                   map(com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription toBeMapped) {
                 return PresubscriptionAdapter.map(toBeMapped);
             }
 
@@ -237,12 +242,15 @@ public final class PresubscriptionAdapter {
      *
      * @return reverse mapper
      */
-    public static Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription>
+    public static
+           Mapper<Presubscription, com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription>
            getReverseMapper() {
-        return new Mapper<Presubscription, com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription>() {
+        return new Mapper<Presubscription,
+                          com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription>() {
 
             @Override
-            public com.arm.mbed.cloud.sdk.internal.mds.model.Presubscription map(Presubscription toBeMapped) {
+            public com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Presubscription
+                   map(Presubscription toBeMapped) {
                 return PresubscriptionAdapter.reverseMap(toBeMapped);
             }
 

@@ -41,7 +41,7 @@ public interface CertificateIssuersApi {
    */
   @DELETE("v3/certificate-issuers/{certificate-issuer-id}")
   Call<Void> deleteCertificateIssuer(
-    @retrofit2.http.Path("certificate-issuer-id") String certificateIssuerId
+    @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId
   );
 
   /**
@@ -52,7 +52,7 @@ public interface CertificateIssuersApi {
    */
   @GET("v3/certificate-issuers/{certificate-issuer-id}")
   Call<CertificateIssuerInfo> getCertificateIssuer(
-    @retrofit2.http.Path("certificate-issuer-id") String certificateIssuerId
+    @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId
   );
 
   /**
@@ -78,7 +78,7 @@ public interface CertificateIssuersApi {
    */
   @PUT("v3/certificate-issuers/{certificate-issuer-id}")
   Call<CertificateIssuerInfo> updateCertificateIssuer(
-    @retrofit2.http.Path("certificate-issuer-id") String certificateIssuerId, @retrofit2.http.Body CertificateIssuerUpdateRequest certificateIssuerUpdateRequest
+    @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId, @retrofit2.http.Body CertificateIssuerUpdateRequest certificateIssuerUpdateRequest
   );
 
   /**
@@ -89,7 +89,7 @@ public interface CertificateIssuersApi {
    */
   @POST("v3/certificate-issuers/{certificate-issuer-id}/verify")
   Call<CertificateIssuerVerifyResponse> verifyCertificateIssuer(
-    @retrofit2.http.Path("certificate-issuer-id") String certificateIssuerId
+    @retrofit2.http.Path(value = "certificate-issuer-id", encoded = true) String certificateIssuerId
   );
 
 }

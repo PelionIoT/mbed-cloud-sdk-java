@@ -18,9 +18,9 @@ import com.arm.mbed.cloud.sdk.common.listing.Paginator;
 import com.arm.mbed.cloud.sdk.enrollment.adapters.EnrollmentAdapter;
 import com.arm.mbed.cloud.sdk.enrollment.model.EndPoints;
 import com.arm.mbed.cloud.sdk.enrollment.model.EnrollmentClaim;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentId;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentities;
-import com.arm.mbed.cloud.sdk.internal.enrollment.model.EnrollmentIdentity;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentId;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentities;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.EnrollmentIdentity;
 
 import retrofit2.Call;
 

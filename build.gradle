@@ -420,6 +420,8 @@ dependencies {
     compile project(':lwm2m')
     compile project(':pelion-sdk-core')
     compile project(':foundation-models')
+    compile project(':backends:pelioncloud_devicemanagement')
+ /*
     compile project(':backends:mbedcloud_common')
     compile project(':backends:connector_ca')
     compile project(':backends:external_ca')
@@ -433,6 +435,7 @@ dependencies {
     compile project(':backends:billing')
     compile project(':backends:mbedcloud_common')
     compile project(':backends:certificate_renewal')
+*/
     compile 'io.reactivex.rxjava2:rxjava:2.1.6'
     compile 'joda-time:joda-time:2.9.9'
     compile 'com.jcabi:jcabi-manifests:1.1'
