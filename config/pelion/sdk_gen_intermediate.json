@@ -4332,30 +4332,18 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The ID of the account.",
-                          "api_fieldname": "account_id",
-                          "entity_fieldname": "account_id",
-                          "parameter_fieldname": "account_id",
-                          "in": "path",
-                          "required": true,
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
                           "description": "X509.v3 trusted certificate in PEM format.",
-                          "api_fieldname": "certificate",
-                          "entity_fieldname": "certificate",
-                          "parameter_fieldname": "certificate",
-                          "in": "body",
-                          "required": false,
                           "_key": "certificate"
                         },
                         {
                           "type": "string",
                           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
                           "description": "A SHA-256 fingerprint of the certificate.",
-                          "api_fieldname": "certificate_fingerprint",
-                          "entity_fieldname": "certificate_fingerprint",
                           "_key": "certificate_fingerprint"
                         },
                         {
@@ -4363,19 +4351,12 @@
                           "format": "date-time",
                           "example": "2018-02-13T09:35:20Z",
                           "description": "Creation UTC time RFC3339.",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
-                          "api_fieldname": "description",
-                          "entity_fieldname": "description",
-                          "parameter_fieldname": "description",
-                          "in": "body",
-                          "required": false,
                           "_key": "description"
                         },
                         {
@@ -4385,54 +4366,36 @@
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
                           "_override": true,
-                          "api_fieldname": "device_execution_mode",
-                          "entity_fieldname": "device_execution_mode",
                           "_key": "device_execution_mode"
                         },
                         {
                           "type": "boolean",
                           "example": false,
                           "description": "If true, signature is not required. Default value false.",
-                          "api_fieldname": "enrollment_mode",
-                          "entity_fieldname": "enrollment_mode",
-                          "parameter_fieldname": "enrollment_mode",
-                          "in": "body",
-                          "required": false,
                           "_key": "enrollment_mode"
                         },
                         {
                           "type": "string",
                           "example": "1",
                           "description": "API resource entity version.",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "example": "01619571d01d0242ac12000600000000",
                           "description": "Entity ID.",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
                           "example": "CN=issuer",
                           "description": "Issuer of the certificate.",
-                          "api_fieldname": "issuer",
-                          "entity_fieldname": "issuer",
                           "_key": "issuer"
                         },
                         {
                           "type": "string",
                           "example": "My certificate",
                           "description": "Certificate name.",
-                          "api_fieldname": "name",
-                          "entity_fieldname": "name",
-                          "parameter_fieldname": "name",
-                          "in": "body",
-                          "required": false,
                           "_key": "name"
                         },
                         {
@@ -4441,24 +4404,18 @@
                           "enum": [
                             "trusted-cert"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
-                          "api_fieldname": "owner_id",
-                          "entity_fieldname": "owner_id",
                           "_key": "owner_id"
                         },
                         {
                           "type": "string",
                           "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
                           "description": "Private key of the certificate in PEM or base64 encoded DER format.",
-                          "api_fieldname": "private_key",
-                          "entity_fieldname": "private_key",
                           "_key": "private_key"
                         },
                         {
@@ -4468,12 +4425,6 @@
                             "lwm2m",
                             "bootstrap"
                           ],
-                          "api_fieldname": "service",
-                          "entity_fieldname": "service",
-                          "parameter_fieldname": "service",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_service_enum",
                           "_key": "service"
                         },
                         {
@@ -4484,20 +4435,12 @@
                             "ACTIVE",
                             "INACTIVE"
                           ],
-                          "api_fieldname": "status",
-                          "entity_fieldname": "status",
-                          "parameter_fieldname": "status",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_status_enum",
                           "_key": "status"
                         },
                         {
                           "type": "string",
                           "example": "CN=subject",
                           "description": "Subject of the certificate.",
-                          "api_fieldname": "subject",
-                          "entity_fieldname": "subject",
                           "_key": "subject"
                         },
                         {
@@ -4505,8 +4448,6 @@
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         },
                         {
@@ -4514,8 +4455,6 @@
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
                           "description": "Expiration time in UTC formatted as RFC3339.",
-                          "api_fieldname": "validity",
-                          "entity_fieldname": "validity",
                           "_key": "validity"
                         }
                       ],
@@ -10377,6 +10316,12 @@
                     "example": "customer.dlms",
                     "api_fieldname": "certificate_name",
                     "entity_fieldname": "certificate_name",
+                    "in": "path",
+                    "name": "certificate-name",
+                    "required": true,
+                    "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                    "external_param": true,
+                    "parameter_fieldname": "certificate-name",
                     "_key": "certificate_name"
                   },
                   {
@@ -10432,6 +10377,9 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
+                    "parameter_fieldname": "device-id",
+                    "in": "path",
+                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -10838,6 +10786,14 @@
                           "maxLength": 50,
                           "description": "The certificate name.",
                           "example": "customer.dlms",
+                          "api_fieldname": "certificate-name",
+                          "entity_fieldname": "certificate_name",
+                          "in": "path",
+                          "name": "certificate-name",
+                          "required": true,
+                          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+                          "external_param": true,
+                          "parameter_fieldname": "certificate-name",
                           "_key": "certificate_name"
                         },
                         {
@@ -10845,12 +10801,16 @@
                           "format": "date-time",
                           "description": "Creation UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "description": "The device ID.",
                           "example": "01625daa23230a580a0100bd00000000",
+                          "api_fieldname": "device_id",
+                          "entity_fieldname": "device_id",
                           "_key": "device_id"
                         },
                         {
@@ -10861,6 +10821,8 @@
                             "forbidden",
                             "failure"
                           ],
+                          "api_fieldname": "enroll_result",
+                          "entity_fieldname": "enroll_result",
                           "_key": "enroll_result"
                         },
                         {
@@ -10869,18 +10831,27 @@
                             "new",
                             "completed"
                           ],
+                          "api_fieldname": "enroll_status",
+                          "entity_fieldname": "enroll_status",
                           "_key": "enroll_status"
                         },
                         {
                           "type": "string",
                           "description": "Entity instance signature.",
                           "example": "1",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "description": "The ID of the certificate enrollment.",
                           "example": "01612df56f3b0a580a010fc700000000",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
+                          "parameter_fieldname": "device-id",
+                          "in": "path",
+                          "required": true,
                           "_key": "id"
                         },
                         {
@@ -10888,6 +10859,8 @@
                           "enum": [
                             "certificate-enrollment"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
@@ -10895,6 +10868,8 @@
                           "format": "date-time",
                           "description": "Update UTC time RFC3339.",
                           "example": "2017-01-01T00:00:00Z",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         }
                       ],
@@ -11205,6 +11180,11 @@
           "description": "The certificate name.",
           "example": "customer.dlms",
           "api_fieldname": "certificate_name",
+          "in": "path",
+          "name": "certificate-name",
+          "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
+          "external_param": true,
+          "parameter_fieldname": "certificate-name",
           "_key": "certificate_name"
         },
         {
@@ -11249,6 +11229,8 @@
           "description": "The ID of the certificate enrollment.",
           "example": "01612df56f3b0a580a010fc700000000",
           "api_fieldname": "id",
+          "parameter_fieldname": "device-id",
+          "in": "path",
           "_key": "id"
         },
         {
@@ -11323,22 +11305,6 @@
               "parameter_fieldname": "issuer_credentials",
               "required": false,
               "_key": "issuer_credentials"
-            },
-            {
-              "type": "string",
-              "enum": [
-                "GLOBAL_SIGN",
-                "CFSSL_AUTH"
-              ],
-              "description": "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates are issued by GlobalSign service. The users must provide their own GlobalSign account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL authenticated signing service.\n  The users must provide their own CFSSL host_url and credentials.\n",
-              "example": "GLOBAL_SIGN",
-              "api_fieldname": "issuer_type",
-              "entity_fieldname": "issuer_type",
-              "parameter_fieldname": "issuer_type",
-              "in": "body",
-              "required": false,
-              "enum_reference": "certificate_issuer_issuer_type_enum",
-              "_key": "issuer_type"
             },
             {
               "type": "string",
@@ -11776,11 +11742,13 @@
             "private_key",
             "sub_accounts",
             "created_at",
-            "id"
+            "id",
+            "issuer_type"
           ],
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "operation_id": "createCertificateIssuer",
           "pagination": false,
@@ -12078,7 +12046,8 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "operation_id": "deleteCertificateIssuer",
           "pagination": false,
@@ -12467,7 +12436,8 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "operation_id": "getCertificateIssuer",
           "pagination": false,
@@ -12837,7 +12807,8 @@
           "foreign_key_priority": "self",
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "operation_id": "getCertificateIssuers",
           "pagination": true,
@@ -13408,7 +13379,8 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "operation_id": "updateCertificateIssuer",
           "pagination": false,
@@ -13796,7 +13768,8 @@
           ],
           "group_id": "Security",
           "parameter_map": {
-            "certificate-issuer-id": "id"
+            "certificate-issuer-id": "id",
+            "issuer_type": "type"
           },
           "unaggregated": true,
           "operation_id": "verifyCertificateIssuer",
@@ -19615,9 +19588,6 @@
                     "example": "01612df56f3b0a580a010fc700000000",
                     "api_fieldname": "id",
                     "entity_fieldname": "id",
-                    "parameter_fieldname": "certificate-enrollment-id",
-                    "in": "path",
-                    "required": true,
                     "_key": "id"
                   },
                   {
@@ -25879,10 +25849,6 @@
           ],
           "group_id": "Security",
           "model": "TrustedCertificateInternalResp",
-          "parameter_map": {
-            "cert-id": "id",
-            "accountID": "account_id"
-          },
           "operation_id": "addAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -26178,10 +26144,6 @@
           ],
           "group_id": "Security",
           "model": "TrustedCertificateInternalResp",
-          "parameter_map": {
-            "cert-id": "id",
-            "accountID": "account_id"
-          },
           "operation_id": "deleteAccountCertificate",
           "pagination": false,
           "_key": "delete"
@@ -26584,13 +26546,11 @@
           ],
           "group_id": "Security",
           "model": "TrustedCertificateInternalResp",
-          "parameter_map": {
-            "cert-id": "id",
-            "accountID": "account_id",
-            "developerCertificateId": "id"
-          },
           "operation_id": "getDeveloperCertificate",
           "unaggregated": true,
+          "parameter_map": {
+            "developerCertificateId": "id"
+          },
           "foreign_key": {
             "entity": "developer_certificate",
             "group": "Security"
@@ -27095,10 +27055,6 @@
           ],
           "group_id": "Security",
           "model": "TrustedCertificateInternalResp",
-          "parameter_map": {
-            "cert-id": "id",
-            "accountID": "account_id"
-          },
           "models": [
             "TrustedCertificateInternalResp"
           ],
@@ -27746,10 +27702,6 @@
           ],
           "group_id": "Security",
           "model": "TrustedCertificateInternalResp",
-          "parameter_map": {
-            "cert-id": "id",
-            "accountID": "account_id"
-          },
           "operation_id": "updateAccountCertificate",
           "notes": "Signature is not used by the SDK as it is a deprecated field.",
           "pagination": false,
@@ -28832,8 +28784,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "user_id": "id",
-            "accountID": "account_id"
+            "user_id": "id"
           },
           "operation_id": "createAccountUser",
           "pagination": false,
@@ -29196,8 +29147,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "user_id": "id",
-            "accountID": "account_id"
+            "user_id": "id"
           },
           "operation_id": "deleteAccountUser",
           "pagination": false,
@@ -29842,8 +29792,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "user_id": "id",
-            "accountID": "account_id"
+            "user_id": "id"
           },
           "operation_id": "getAccountUser",
           "pagination": false,
@@ -30746,8 +30695,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "user_id": "id",
-            "accountID": "account_id"
+            "user_id": "id"
           },
           "operation_id": "updateAccountUser",
           "pagination": false,
@@ -31037,8 +30985,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "user_id": "id",
-            "accountID": "account_id"
+            "user_id": "id"
           },
           "operation_id": "validateAccountUserEmail",
           "pagination": false,
@@ -31819,8 +31766,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "invitation_id": "id",
-            "account_id": "account_id"
+            "invitation_id": "id"
           },
           "operation_id": "createAccountInvitation",
           "pagination": false,
@@ -32097,8 +32043,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "invitation_id": "id",
-            "account_id": "account_id"
+            "invitation_id": "id"
           },
           "operation_id": "deleteAccountInvitation",
           "pagination": false,
@@ -32538,8 +32483,7 @@
           ],
           "group_id": "Accounts",
           "parameter_map": {
-            "invitation_id": "id",
-            "account_id": "account_id"
+            "invitation_id": "id"
           },
           "operation_id": "getAccountInvitation",
           "pagination": false,

@@ -145,6 +145,34 @@ entities:
     items:
       type: string
     type: array
+  - _key: parent_account
+    api_fieldname: parent_account
+    description: This object represents parent account contact details in responses.
+    foreign_key:
+      entity: parent_account
+      group: Accounts
+    properties:
+    - _key: admin_email
+      api_fieldname: admin_email
+      description: The email address of the admin user who is the contact person of
+        the parent account.
+      entity_fieldname: admin_email
+      example: info@arm.com
+      type: string
+    - _key: admin_name
+      api_fieldname: admin_name
+      description: The name of the admin user who is the contact person of the parent
+        account.
+      entity_fieldname: admin_name
+      example: J. Doe
+      type: string
+    - _key: id
+      api_fieldname: id
+      description: The ID of the parent account
+      entity_fieldname: id
+      example: 01619571dad80242ac12000600000000
+      type: string
+    type: object
   - _key: parent_id
     api_fieldname: parent_id
     description: The ID of the parent account, if it has any.
@@ -1057,19 +1085,28 @@ entities:
           api_fieldname: parent_account
           description: This object represents parent account contact details in responses.
           entity_fieldname: parent_account
+          foreign_key:
+            entity: parent_account
+            group: Accounts
           properties:
           - _key: admin_email
+            api_fieldname: admin_email
             description: The email address of the admin user who is the contact person
               of the parent account.
+            entity_fieldname: admin_email
             example: info@arm.com
             type: string
           - _key: admin_name
+            api_fieldname: admin_name
             description: The name of the admin user who is the contact person of the
               parent account.
+            entity_fieldname: admin_name
             example: J. Doe
             type: string
           - _key: id
+            api_fieldname: id
             description: The ID of the parent account
+            entity_fieldname: id
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
@@ -1297,19 +1334,28 @@ entities:
             - _key: parent_account
               description: This object represents parent account contact details in
                 responses.
+              foreign_key:
+                entity: parent_account
+                group: Accounts
               properties:
               - _key: admin_email
+                api_fieldname: admin_email
                 description: The email address of the admin user who is the contact
                   person of the parent account.
+                entity_fieldname: admin_email
                 example: info@arm.com
                 type: string
               - _key: admin_name
+                api_fieldname: admin_name
                 description: The name of the admin user who is the contact person
                   of the parent account.
+                entity_fieldname: admin_name
                 example: J. Doe
                 type: string
               - _key: id
+                api_fieldname: id
                 description: The ID of the parent account
+                entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
@@ -1860,19 +1906,28 @@ entities:
             - _key: parent_account
               description: This object represents parent account contact details in
                 responses.
+              foreign_key:
+                entity: parent_account
+                group: Accounts
               properties:
               - _key: admin_email
+                api_fieldname: admin_email
                 description: The email address of the admin user who is the contact
                   person of the parent account.
+                entity_fieldname: admin_email
                 example: info@arm.com
                 type: string
               - _key: admin_name
+                api_fieldname: admin_name
                 description: The name of the admin user who is the contact person
                   of the parent account.
+                entity_fieldname: admin_name
                 example: J. Doe
                 type: string
               - _key: id
+                api_fieldname: id
                 description: The ID of the parent account
+                entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
@@ -2079,19 +2134,28 @@ entities:
                 - _key: parent_account
                   description: This object represents parent account contact details
                     in responses.
+                  foreign_key:
+                    entity: parent_account
+                    group: Accounts
                   properties:
                   - _key: admin_email
+                    api_fieldname: admin_email
                     description: The email address of the admin user who is the contact
                       person of the parent account.
+                    entity_fieldname: admin_email
                     example: info@arm.com
                     type: string
                   - _key: admin_name
+                    api_fieldname: admin_name
                     description: The name of the admin user who is the contact person
                       of the parent account.
+                    entity_fieldname: admin_name
                     example: J. Doe
                     type: string
                   - _key: id
+                    api_fieldname: id
                     description: The ID of the parent account
+                    entity_fieldname: id
                     example: 01619571dad80242ac12000600000000
                     type: string
                   type: object
@@ -2637,19 +2701,28 @@ entities:
           api_fieldname: parent_account
           description: This object represents parent account contact details in responses.
           entity_fieldname: parent_account
+          foreign_key:
+            entity: parent_account
+            group: Accounts
           properties:
           - _key: admin_email
+            api_fieldname: admin_email
             description: The email address of the admin user who is the contact person
               of the parent account.
+            entity_fieldname: admin_email
             example: info@arm.com
             type: string
           - _key: admin_name
+            api_fieldname: admin_name
             description: The name of the admin user who is the contact person of the
               parent account.
+            entity_fieldname: admin_name
             example: J. Doe
             type: string
           - _key: id
+            api_fieldname: id
             description: The ID of the parent account
+            entity_fieldname: id
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
@@ -2877,19 +2950,28 @@ entities:
             - _key: parent_account
               description: This object represents parent account contact details in
                 responses.
+              foreign_key:
+                entity: parent_account
+                group: Accounts
               properties:
               - _key: admin_email
+                api_fieldname: admin_email
                 description: The email address of the admin user who is the contact
                   person of the parent account.
+                entity_fieldname: admin_email
                 example: info@arm.com
                 type: string
               - _key: admin_name
+                api_fieldname: admin_name
                 description: The name of the admin user who is the contact person
                   of the parent account.
+                entity_fieldname: admin_name
                 example: J. Doe
                 type: string
               - _key: id
+                api_fieldname: id
                 description: The ID of the parent account
+                entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
@@ -3288,152 +3370,91 @@ entities:
               group: Security
             properties:
             - _key: account_id
-              api_fieldname: account_id
               description: The ID of the account.
-              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
-              in: path
-              parameter_fieldname: account_id
-              required: true
               type: string
             - _key: certificate
-              api_fieldname: certificate
               description: X509.v3 trusted certificate in PEM format.
-              entity_fieldname: certificate
               example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
-              in: body
-              parameter_fieldname: certificate
-              required: false
               type: string
             - _key: certificate_fingerprint
-              api_fieldname: certificate_fingerprint
               description: A SHA-256 fingerprint of the certificate.
-              entity_fieldname: certificate_fingerprint
               example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
               type: string
             - _key: created_at
-              api_fieldname: created_at
               description: Creation UTC time RFC3339.
-              entity_fieldname: created_at
               example: '2018-02-13T09:35:20Z'
               format: date-time
               type: string
             - _key: description
-              api_fieldname: description
               description: Human readable description of this certificate.
-              entity_fieldname: description
               example: Certificate created by me.
-              in: body
-              parameter_fieldname: description
-              required: false
               type: string
             - _key: device_execution_mode
               _override: true
-              api_fieldname: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
-              entity_fieldname: device_execution_mode
               example: 1
               format: int32
               private_field: true
               type: integer
             - _key: enrollment_mode
-              api_fieldname: enrollment_mode
               description: If true, signature is not required. Default value false.
-              entity_fieldname: enrollment_mode
               example: false
-              in: body
-              parameter_fieldname: enrollment_mode
-              required: false
               type: boolean
             - _key: etag
-              api_fieldname: etag
               description: API resource entity version.
-              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
-              api_fieldname: id
               description: Entity ID.
-              entity_fieldname: id
               example: 01619571d01d0242ac12000600000000
               type: string
             - _key: issuer
-              api_fieldname: issuer
               description: Issuer of the certificate.
-              entity_fieldname: issuer
               example: CN=issuer
               type: string
             - _key: name
-              api_fieldname: name
               description: Certificate name.
-              entity_fieldname: name
               example: My certificate
-              in: body
-              parameter_fieldname: name
-              required: false
               type: string
             - _key: object
-              api_fieldname: object
               description: 'Entity name: always ''trusted-cert'''
-              entity_fieldname: object
               enum:
               - trusted-cert
               type: string
             - _key: owner_id
-              api_fieldname: owner_id
               description: The ID of the owner.
-              entity_fieldname: owner_id
               example: 01619571dad80242ac12000600000000
               type: string
             - _key: private_key
-              api_fieldname: private_key
               description: Private key of the certificate in PEM or base64 encoded
                 DER format.
-              entity_fieldname: private_key
               example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
               type: string
             - _key: service
-              api_fieldname: service
               description: Service name where the certificate is to be used.
-              entity_fieldname: service
               enum:
               - lwm2m
               - bootstrap
-              enum_reference: subtenant_trusted_certificate_service_enum
-              in: body
-              parameter_fieldname: service
-              required: false
               type: string
             - _key: status
-              api_fieldname: status
               description: Status of the certificate.
-              entity_fieldname: status
               enum:
               - ACTIVE
               - INACTIVE
-              enum_reference: subtenant_trusted_certificate_status_enum
               example: ACTIVE
-              in: body
-              parameter_fieldname: status
-              required: false
               type: string
             - _key: subject
-              api_fieldname: subject
               description: Subject of the certificate.
-              entity_fieldname: subject
               example: CN=subject
               type: string
             - _key: updated_at
-              api_fieldname: updated_at
               description: Last update UTC time RFC3339.
-              entity_fieldname: updated_at
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
             - _key: validity
-              api_fieldname: validity
               description: Expiration time in UTC formatted as RFC3339.
-              entity_fieldname: validity
               example: '2038-02-14T15:24:14Z'
               format: date-time
               type: string
@@ -4063,19 +4084,28 @@ entities:
           api_fieldname: parent_account
           description: This object represents parent account contact details in responses.
           entity_fieldname: parent_account
+          foreign_key:
+            entity: parent_account
+            group: Accounts
           properties:
           - _key: admin_email
+            api_fieldname: admin_email
             description: The email address of the admin user who is the contact person
               of the parent account.
+            entity_fieldname: admin_email
             example: info@arm.com
             type: string
           - _key: admin_name
+            api_fieldname: admin_name
             description: The name of the admin user who is the contact person of the
               parent account.
+            entity_fieldname: admin_name
             example: J. Doe
             type: string
           - _key: id
+            api_fieldname: id
             description: The ID of the parent account
+            entity_fieldname: id
             example: 01619571dad80242ac12000600000000
             type: string
           type: object
@@ -4303,19 +4333,28 @@ entities:
             - _key: parent_account
               description: This object represents parent account contact details in
                 responses.
+              foreign_key:
+                entity: parent_account
+                group: Accounts
               properties:
               - _key: admin_email
+                api_fieldname: admin_email
                 description: The email address of the admin user who is the contact
                   person of the parent account.
+                entity_fieldname: admin_email
                 example: info@arm.com
                 type: string
               - _key: admin_name
+                api_fieldname: admin_name
                 description: The name of the admin user who is the contact person
                   of the parent account.
+                entity_fieldname: admin_name
                 example: J. Doe
                 type: string
               - _key: id
+                api_fieldname: id
                 description: The ID of the parent account
+                entity_fieldname: id
                 example: 01619571dad80242ac12000600000000
                 type: string
               type: object
@@ -8162,7 +8201,7 @@ entities:
     enum:
     - GLOBAL_SIGN
     - CFSSL_AUTH
-    enum_reference: certificate_issuer_type_enum
+    enum_reference: certificate_issuer_issuer_type_enum
     example: GLOBAL_SIGN
     type: string
   - _key: name
@@ -8212,6 +8251,7 @@ entities:
     - sub_accounts
     - created_at
     - id
+    - issuer_type
     field_renames: []
     fields:
     - _key: description
@@ -8261,23 +8301,6 @@ entities:
       required: false
       schema_param: true
       type: object
-    - _key: issuer_type
-      api_fieldname: issuer_type
-      description: "The type of the certificate issuer.\n- GLOBAL_SIGN:\n  Certificates\
-        \ are issued by GlobalSign service. The users must provide their own GlobalSign\
-        \ account credentials.\n- CFSSL_AUTH:\n  Certificates are issued by CFSSL\
-        \ authenticated signing service.\n  The users must provide their own CFSSL\
-        \ host_url and credentials.\n"
-      entity_fieldname: issuer_type
-      enum:
-      - GLOBAL_SIGN
-      - CFSSL_AUTH
-      enum_reference: certificate_issuer_type_enum
-      example: GLOBAL_SIGN
-      in: body
-      parameter_fieldname: issuer_type
-      required: false
-      type: string
     - _key: name
       api_fieldname: name
       description: Certificate issuer name, unique per account.
@@ -8295,6 +8318,7 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '201'
@@ -8633,6 +8657,7 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '204'
@@ -8835,6 +8860,7 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -9157,6 +9183,7 @@ entities:
     pagination: true
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers
     responses:
     - _key: '200'
@@ -9461,6 +9488,7 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}
     responses:
     - _key: '200'
@@ -9856,6 +9884,7 @@ entities:
     pagination: false
     parameter_map:
       certificate-issuer-id: id
+      issuer_type: type
     path: /v3/certificate-issuers/{certificate-issuer-id}/verify
     responses:
     - _key: '200'
@@ -18964,6 +18993,32 @@ entities:
   swagger_models:
   - LoginHistory
   tags: []
+- _key: parent_account
+  field_renames: []
+  fields:
+  - _key: admin_email
+    api_fieldname: admin_email
+    description: The email address of the admin user who is the contact person of
+      the parent account.
+    example: info@arm.com
+    type: string
+  - _key: admin_name
+    api_fieldname: admin_name
+    description: The name of the admin user who is the contact person of the parent
+      account.
+    example: J. Doe
+    type: string
+  - _key: id
+    api_fieldname: id
+    description: The ID of the parent account
+    example: 01619571dad80242ac12000600000000
+    type: string
+  group_id: Accounts
+  methods: []
+  primary_key_field: id
+  swagger_models:
+  - ParentAccountInfo
+  tags: []
 - _key: password_policy
   field_renames: []
   fields:
@@ -19668,9 +19723,6 @@ entities:
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: addAccountCertificate
     pagination: false
-    parameter_map:
-      accountID: account_id
-      cert-id: id
     path: /v3/accounts/{account_id}/trusted-certificates
     responses:
     - _key: '201'
@@ -20089,9 +20141,6 @@ entities:
     model: TrustedCertificateInternalResp
     operation_id: deleteAccountCertificate
     pagination: false
-    parameter_map:
-      accountID: account_id
-      cert-id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '204'
@@ -20305,8 +20354,6 @@ entities:
     operation_id: getDeveloperCertificate
     pagination: false
     parameter_map:
-      accountID: account_id
-      cert-id: id
       developerCertificateId: id
     path: /v3/developer-certificates/{developerCertificateId}
     responses:
@@ -20808,9 +20855,6 @@ entities:
     - TrustedCertificateInternalResp
     operation_id: getAccountCertificate
     pagination: false
-    parameter_map:
-      accountID: account_id
-      cert-id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -21242,9 +21286,6 @@ entities:
     notes: Signature is not used by the SDK as it is a deprecated field.
     operation_id: updateAccountCertificate
     pagination: false
-    parameter_map:
-      accountID: account_id
-      cert-id: id
     path: /v3/accounts/{account_id}/trusted-certificates/{cert_id}
     responses:
     - _key: '200'
@@ -21985,7 +22026,6 @@ entities:
     operation_id: createAccountUser
     pagination: false
     parameter_map:
-      accountID: account_id
       user_id: id
     path: /v3/accounts/{account_id}/users
     responses:
@@ -22561,7 +22601,6 @@ entities:
     operation_id: deleteAccountUser
     pagination: false
     parameter_map:
-      accountID: account_id
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
     responses:
@@ -22828,7 +22867,6 @@ entities:
     operation_id: getAccountUser
     pagination: false
     parameter_map:
-      accountID: account_id
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
     responses:
@@ -23408,7 +23446,6 @@ entities:
     operation_id: updateAccountUser
     pagination: false
     parameter_map:
-      accountID: account_id
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}
     responses:
@@ -23984,7 +24021,6 @@ entities:
     operation_id: validateAccountUserEmail
     pagination: false
     parameter_map:
-      accountID: account_id
       user_id: id
     path: /v3/accounts/{account_id}/users/{user_id}/validate-email
     responses:
@@ -24312,7 +24348,6 @@ entities:
     operation_id: createAccountInvitation
     pagination: false
     parameter_map:
-      account_id: account_id
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations
     responses:
@@ -24632,7 +24667,6 @@ entities:
     operation_id: deleteAccountInvitation
     pagination: false
     parameter_map:
-      account_id: account_id
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations/{invitation_id}
     responses:
@@ -24834,7 +24868,6 @@ entities:
     operation_id: getAccountInvitation
     pagination: false
     parameter_map:
-      account_id: account_id
       invitation_id: id
     path: /v3/accounts/{account_id}/user-invitations/{invitation_id}
     responses:
@@ -31510,9 +31543,9 @@ enums:
   values:
   - ASC
   - DESC
-- _key: certificate_issuer_type_enum
+- _key: certificate_issuer_issuer_type_enum
   entity_name: certificate_issuer
-  enum_name: certificate_issuer_type_enum
+  enum_name: certificate_issuer_issuer_type_enum
   field_name: issuer_type
   group_id: Security
   values:
@@ -31662,6 +31695,7 @@ groups:
   entities:
   - password_policy
   - login_history
+  - parent_account
   - policy
   - user
   - subtenant_user
@@ -31705,7 +31739,7 @@ groups:
   - subtenant_trusted_certificate
   - developer_certificate
   enums:
-  - certificate_issuer_type_enum
+  - certificate_issuer_issuer_type_enum
   - certificate_enrollment_enroll_status_enum
   - certificate_enrollment_enroll_result_enum
   - certificate_enrollment_order_enum
