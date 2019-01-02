@@ -15,21 +15,25 @@ public class TestTrustedCertificateService {
      */
     @Test
     public void testGetvalue() {
-        TrustedCertificateService trustedcertificateservice = TrustedCertificateService.getValue(null);
-        assertNotNull(trustedcertificateservice);
-        assertTrue(trustedcertificateservice.isDefault());
-        trustedcertificateservice = TrustedCertificateService.getValue(TrustedCertificateService.getDefault()
-                                                                                                .getString());
-        assertNotNull(trustedcertificateservice);
-        assertTrue(trustedcertificateservice.isDefault());
-        trustedcertificateservice = TrustedCertificateService.getValue("BOOTSTRAP");
-        assertNotNull(trustedcertificateservice);
-        assertTrue(trustedcertificateservice.isDefault());
-        trustedcertificateservice = TrustedCertificateService.getValue("lwm2m");
-        assertNotNull(trustedcertificateservice);
-        assertFalse(trustedcertificateservice.isDefault());
-        trustedcertificateservice = TrustedCertificateService.getValue("0717b289-efcf-4b96-9dfe-f745ab05e080");
-        assertNotNull(trustedcertificateservice);
-        assertTrue(trustedcertificateservice.isDefault());
+        try {
+            TrustedCertificateService trustedcertificateservice = TrustedCertificateService.getValue(null);
+            assertNotNull(trustedcertificateservice);
+            assertTrue(trustedcertificateservice.isDefault());
+            trustedcertificateservice = TrustedCertificateService.getValue(TrustedCertificateService.getDefault()
+                                                                                                    .getString());
+            assertNotNull(trustedcertificateservice);
+            assertTrue(trustedcertificateservice.isDefault());
+            trustedcertificateservice = TrustedCertificateService.getValue("BOOTSTRAP");
+            assertNotNull(trustedcertificateservice);
+            assertTrue(trustedcertificateservice.isDefault());
+            trustedcertificateservice = TrustedCertificateService.getValue("lwm2m");
+            assertNotNull(trustedcertificateservice);
+            assertFalse(trustedcertificateservice.isDefault());
+            trustedcertificateservice = TrustedCertificateService.getValue("441141f5-b4c2-4fd2-b31b-6aa97ddd2ae4");
+            assertNotNull(trustedcertificateservice);
+            assertTrue(trustedcertificateservice.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

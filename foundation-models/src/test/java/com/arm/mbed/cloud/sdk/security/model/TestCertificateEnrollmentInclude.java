@@ -15,18 +15,22 @@ public class TestCertificateEnrollmentInclude {
      */
     @Test
     public void testGetvalue() {
-        CertificateEnrollmentInclude certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(null);
-        assertNotNull(certificateenrollmentinclude);
-        assertTrue(certificateenrollmentinclude.isDefault());
-        certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(CertificateEnrollmentInclude.getDefault()
-                                                                                                         .getString());
-        assertNotNull(certificateenrollmentinclude);
-        assertTrue(certificateenrollmentinclude.isDefault());
-        certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
-        assertNotNull(certificateenrollmentinclude);
-        assertTrue(certificateenrollmentinclude.isDefault());
-        certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("27e27e2c-ff0a-4438-97bd-ddc658aa6857");
-        assertNotNull(certificateenrollmentinclude);
-        assertTrue(certificateenrollmentinclude.isDefault());
+        try {
+            CertificateEnrollmentInclude certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(null);
+            assertNotNull(certificateenrollmentinclude);
+            assertTrue(certificateenrollmentinclude.isDefault());
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(CertificateEnrollmentInclude.getDefault()
+                                                                                                             .getString());
+            assertNotNull(certificateenrollmentinclude);
+            assertTrue(certificateenrollmentinclude.isDefault());
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
+            assertNotNull(certificateenrollmentinclude);
+            assertTrue(certificateenrollmentinclude.isDefault());
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("92a26da1-510d-45f2-ba71-67e71f664389");
+            assertNotNull(certificateenrollmentinclude);
+            assertTrue(certificateenrollmentinclude.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

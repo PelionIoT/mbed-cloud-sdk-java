@@ -15,21 +15,25 @@ public class TestCertificateEnrollmentEnrollResult {
      */
     @Test
     public void testGetvalue() {
-        CertificateEnrollmentEnrollResult certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(null);
-        assertNotNull(certificateenrollmentenrollresult);
-        assertTrue(certificateenrollmentenrollresult.isDefault());
-        certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(CertificateEnrollmentEnrollResult.getDefault()
-                                                                                                                        .getString());
-        assertNotNull(certificateenrollmentenrollresult);
-        assertTrue(certificateenrollmentenrollresult.isDefault());
-        certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("FAILURE");
-        assertNotNull(certificateenrollmentenrollresult);
-        assertTrue(certificateenrollmentenrollresult.isDefault());
-        certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("forbidden");
-        assertNotNull(certificateenrollmentenrollresult);
-        assertFalse(certificateenrollmentenrollresult.isDefault());
-        certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("72685cb1-ffba-416d-9043-0f7fcb3395c4");
-        assertNotNull(certificateenrollmentenrollresult);
-        assertTrue(certificateenrollmentenrollresult.isDefault());
+        try {
+            CertificateEnrollmentEnrollResult certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(null);
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(CertificateEnrollmentEnrollResult.getDefault()
+                                                                                                                            .getString());
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("FAILURE");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("forbidden");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertFalse(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("c2f1db65-9ed0-4460-b601-7f4198189e94");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

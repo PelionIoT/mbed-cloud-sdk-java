@@ -53,4 +53,11 @@ public class TestSdkUtils {
         }
     }
 
+    @Test
+    public void testHexArray() {
+        assertNull(SdkUtils.toHex(null));
+        byte[] value = { (byte) 255, (byte) 255 };
+        assertEquals("ffff", SdkUtils.toHex(value));
+    }
+
 }

@@ -14,10 +14,11 @@ plugins {
 }
 
 dependencies {
+    api project(':support-annotations')
+    api project(':backends:mbedcloud_common')
     api 'org.slf4j:slf4j-api:1.7.7'
     api 'com.squareup.okhttp3:logging-interceptor:3.8.0'
-    api project(':support-annotations')
-    compile project(':backends:mbedcloud_common')
+    api 'commons-codec:commons-codec:1.9'
     api 'joda-time:joda-time:2.9.9'
     api 'com.jcabi:jcabi-manifests:1.1'
     api 'io.github.cdimascio:java-dotenv:3.1.1'

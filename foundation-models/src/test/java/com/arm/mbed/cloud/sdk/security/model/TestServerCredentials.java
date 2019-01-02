@@ -15,15 +15,19 @@ public class TestServerCredentials {
      */
     @Test
     public void testClone() {
-        ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546031373118L),
-                                                                     "feb625bc-acb2-4fff-a71a-6d0b4418f22f",
-                                                                     "9839948c-a015-4020-8d6c-df6b5aa4560e",
-                                                                     "fc4a4cb4-f7b1-4d31-a826-b01f850d918d");
-        ServerCredentials servercredentials2 = servercredentials1.clone();
-        assertNotNull(servercredentials1);
-        assertNotNull(servercredentials2);
-        assertNotSame(servercredentials2, servercredentials1);
-        assertEquals(servercredentials2, servercredentials1);
+        try {
+            ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546448711687L),
+                                                                         "5a1ec28e-203a-4b36-bd11-269f560a0ef4",
+                                                                         "3b6f69ce-fd58-4ab3-bedd-ac39bf513a0c",
+                                                                         "854034e5-598a-4b88-8790-d44d6d7447ce");
+            ServerCredentials servercredentials2 = servercredentials1.clone();
+            assertNotNull(servercredentials1);
+            assertNotNull(servercredentials2);
+            assertNotSame(servercredentials2, servercredentials1);
+            assertEquals(servercredentials2, servercredentials1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 
     /**
@@ -31,10 +35,10 @@ public class TestServerCredentials {
      */
     @Test
     public void testIsvalid() {
-        ServerCredentials servercredentials = new ServerCredentials(new java.util.Date(1546031366758L),
-                                                                    "cdcead5d-5bd5-4aec-ba4c-1457f77f33a2",
-                                                                    "fed699f5-3c3d-42d8-a173-1a28def86e3d",
-                                                                    "e8d08472-e769-49c9-8a77-fa0998a41c7c");
+        ServerCredentials servercredentials = new ServerCredentials(new java.util.Date(1546448716750L),
+                                                                    "53dc6a8e-e34b-4a92-97c8-1b43f9ef2db0",
+                                                                    "3396d8ae-f57a-4315-bc2b-f1e617cc7d91",
+                                                                    "9f9433e0-d81e-4c57-a032-2bfe71228d9e");
         assertTrue(servercredentials.isValid());
     }
 
@@ -43,22 +47,26 @@ public class TestServerCredentials {
      */
     @Test
     public void testHashcode() {
-        ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546031372114L),
-                                                                     "65c3497e-a095-49b8-baf5-ad6e432ea517",
-                                                                     "5cf60ae9-0239-4228-98d2-6525a7e7d688",
-                                                                     "9c64b21b-4c0c-4829-baf9-af70c7304fce");
-        ServerCredentials servercredentials2 = new ServerCredentials(new java.util.Date(1546031372114L),
-                                                                     "65c3497e-a095-49b8-baf5-ad6e432ea517",
-                                                                     "5cf60ae9-0239-4228-98d2-6525a7e7d688",
-                                                                     "9c64b21b-4c0c-4829-baf9-af70c7304fce");
-        assertNotNull(servercredentials1);
-        assertNotNull(servercredentials2);
-        assertNotSame(servercredentials2, servercredentials1);
-        assertEquals(servercredentials2, servercredentials1);
-        assertEquals(servercredentials2.hashCode(), servercredentials1.hashCode());
-        int hashCode = servercredentials1.hashCode();
-        for (int i = 0; i < 5; i++) {
-            assertEquals(hashCode, servercredentials1.hashCode());
+        try {
+            ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546448718609L),
+                                                                         "cfc3c6fe-451a-413f-a4b7-57cee20ee693",
+                                                                         "f728e0c9-87e9-493d-87d0-6317c0e189ce",
+                                                                         "8a0b076b-0c34-4da8-a509-29bfd3691ed2");
+            ServerCredentials servercredentials2 = new ServerCredentials(new java.util.Date(1546448718609L),
+                                                                         "cfc3c6fe-451a-413f-a4b7-57cee20ee693",
+                                                                         "f728e0c9-87e9-493d-87d0-6317c0e189ce",
+                                                                         "8a0b076b-0c34-4da8-a509-29bfd3691ed2");
+            assertNotNull(servercredentials1);
+            assertNotNull(servercredentials2);
+            assertNotSame(servercredentials2, servercredentials1);
+            assertEquals(servercredentials2, servercredentials1);
+            assertEquals(servercredentials2.hashCode(), servercredentials1.hashCode());
+            int hashCode = servercredentials1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, servercredentials1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
         }
     }
 
@@ -67,28 +75,32 @@ public class TestServerCredentials {
      */
     @Test
     public void testEquals() {
-        ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546031368704L),
-                                                                     "1829096c-96f4-41cf-9da2-8fbe2fe839ba",
-                                                                     "a181ca17-95d8-47c4-8332-a3f49bde6f8a",
-                                                                     "fcd5e164-56a0-4057-9a6b-7c4082c4a60f");
-        ServerCredentials servercredentials2 = new ServerCredentials(new java.util.Date(1546031368704L),
-                                                                     "1829096c-96f4-41cf-9da2-8fbe2fe839ba",
-                                                                     "a181ca17-95d8-47c4-8332-a3f49bde6f8a",
-                                                                     "fcd5e164-56a0-4057-9a6b-7c4082c4a60f");
-        ServerCredentials servercredentials3 = new ServerCredentials(new java.util.Date(1546031373000L),
-                                                                     "c47724f6-8032-4753-9621-f4b9140b79cc",
-                                                                     "9282a832-6a1b-45b3-9aac-560d144664a9",
-                                                                     "8b094db5-f604-430e-8a90-d2789070be40");
-        assertNotNull(servercredentials1);
-        assertNotNull(servercredentials2);
-        assertNotNull(servercredentials3);
-        assertNotSame(servercredentials2, servercredentials1);
-        assertNotSame(servercredentials3, servercredentials1);
-        assertEquals(servercredentials2, servercredentials1);
-        assertEquals(servercredentials2, servercredentials1);
-        assertEquals(servercredentials1, servercredentials2);
-        assertEquals(servercredentials1, servercredentials1);
-        assertFalse(servercredentials1.equals(null));
-        assertNotEquals(servercredentials3, servercredentials1);
+        try {
+            ServerCredentials servercredentials1 = new ServerCredentials(new java.util.Date(1546448717578L),
+                                                                         "de0abe1e-8281-447e-aa1e-a8b0dab65ad4",
+                                                                         "1b3f9d8e-9c7c-461b-a3ed-ac3652336116",
+                                                                         "d295c914-8929-4980-b4c6-4d34de750a3d");
+            ServerCredentials servercredentials2 = new ServerCredentials(new java.util.Date(1546448717578L),
+                                                                         "de0abe1e-8281-447e-aa1e-a8b0dab65ad4",
+                                                                         "1b3f9d8e-9c7c-461b-a3ed-ac3652336116",
+                                                                         "d295c914-8929-4980-b4c6-4d34de750a3d");
+            ServerCredentials servercredentials3 = new ServerCredentials(new java.util.Date(1546448716452L),
+                                                                         "9c8e66c7-e106-400a-890c-d523b3b1067b",
+                                                                         "d932bf3e-4a88-44e2-8244-73a1fc5775f1",
+                                                                         "b79371fc-17e5-4f37-a51c-daa3497d81ad");
+            assertNotNull(servercredentials1);
+            assertNotNull(servercredentials2);
+            assertNotNull(servercredentials3);
+            assertNotSame(servercredentials2, servercredentials1);
+            assertNotSame(servercredentials3, servercredentials1);
+            assertEquals(servercredentials2, servercredentials1);
+            assertEquals(servercredentials2, servercredentials1);
+            assertEquals(servercredentials1, servercredentials2);
+            assertEquals(servercredentials1, servercredentials1);
+            assertFalse(servercredentials1.equals(null));
+            assertNotEquals(servercredentials3, servercredentials1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

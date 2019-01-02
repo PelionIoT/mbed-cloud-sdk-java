@@ -15,20 +15,24 @@ public class TestUserStatus {
      */
     @Test
     public void testGetvalue() {
-        UserStatus userstatus = UserStatus.getValue(null);
-        assertNotNull(userstatus);
-        assertTrue(userstatus.isDefault());
-        userstatus = UserStatus.getValue(UserStatus.getDefault().getString());
-        assertNotNull(userstatus);
-        assertTrue(userstatus.isDefault());
-        userstatus = UserStatus.getValue("ACTIVE");
-        assertNotNull(userstatus);
-        assertTrue(userstatus.isDefault());
-        userstatus = UserStatus.getValue("ENROLLING");
-        assertNotNull(userstatus);
-        assertFalse(userstatus.isDefault());
-        userstatus = UserStatus.getValue("78762268-ada3-4860-801c-078ab5d2c987");
-        assertNotNull(userstatus);
-        assertTrue(userstatus.isDefault());
+        try {
+            UserStatus userstatus = UserStatus.getValue(null);
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue(UserStatus.getDefault().getString());
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue("ACTIVE");
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue("ENROLLING");
+            assertNotNull(userstatus);
+            assertFalse(userstatus.isDefault());
+            userstatus = UserStatus.getValue("10149481-1a45-415e-b121-03d3e1360e7b");
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

@@ -15,18 +15,22 @@ public class TestDeviceEnrollment {
      */
     @Test
     public void testClone() {
-        DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("ec1f240a-2ebf-452f-8d7d-4b85a783fde2",
-                                                                  new java.util.Date(1546031371762L),
-                                                                  new java.util.Date(1546031367813L),
-                                                                  "9N273084EwhP6bMXUJu3z6tG94866st9",
-                                                                  "A-vEGdl2959MuvVLgdPDG7i065:r:R2II2g9i80D:EJ5bV36X93KY1Eit0WwbsgQdLK50RgGa:O7o3UXWstb2s45E:y:p4Jje",
-                                                                  new java.util.Date(1546031369528L),
-                                                                  "t76d5ZN065g7F5ce0goUGqbMGwHEUF9q");
-        DeviceEnrollment deviceenrollment2 = deviceenrollment1.clone();
-        assertNotNull(deviceenrollment1);
-        assertNotNull(deviceenrollment2);
-        assertNotSame(deviceenrollment2, deviceenrollment1);
-        assertEquals(deviceenrollment2, deviceenrollment1);
+        try {
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("e4ba4eef-272b-4a3d-b4ff-9707650b6c20",
+                                                                      new java.util.Date(1546448716310L),
+                                                                      new java.util.Date(1546448713840L),
+                                                                      "6aEel226W04Mrvm8x16XIEIP63aL44F5",
+                                                                      "A-fd913A2wDLdzI7NwbN52aKPlOc9WEn44lPMNA8:mq27v8RaDT7iZy5yqmm022kXZ74A7k6zGbi2Jvp4KsNj244R84x4R341",
+                                                                      new java.util.Date(1546448711896L),
+                                                                      "Ni2kkMhXr8tNb2640YKr00706gq11n83");
+            DeviceEnrollment deviceenrollment2 = deviceenrollment1.clone();
+            assertNotNull(deviceenrollment1);
+            assertNotNull(deviceenrollment2);
+            assertNotSame(deviceenrollment2, deviceenrollment1);
+            assertEquals(deviceenrollment2, deviceenrollment1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 
     /**
@@ -34,21 +38,21 @@ public class TestDeviceEnrollment {
      */
     @Test
     public void testIsvalid() {
-        DeviceEnrollment deviceenrollment = new DeviceEnrollment("057178a7-efc1-4145-9833-7c8afc84fcf4",
-                                                                 new java.util.Date(1546031373772L),
-                                                                 new java.util.Date(1546031370342L),
-                                                                 "KTgz2W5W75adUxFq33drjnDc5jV5xqih",
-                                                                 "A-qPA307CAxlBIa2:r6N9p3hX75ee8:VP1dqA9::SWqd05G3jP6:AQXq8hEy79s8rnk5fHm0QX46KTYsI5aUyYyN6mmx4h:2U",
-                                                                 new java.util.Date(1546031372551L),
-                                                                 "71pkXN7H6e5v2b3M4f7JNcZx4Z976PTJ");
+        DeviceEnrollment deviceenrollment = new DeviceEnrollment("f0ee5e80-e5d8-4ed2-9a40-87b68a84d486",
+                                                                 new java.util.Date(1546448719400L),
+                                                                 new java.util.Date(1546448720342L),
+                                                                 "5EiIP56tkA2p1UP13J9ty30W7OKZ02bn",
+                                                                 "A-wj89pDL8PB7jOV6x4K3r1MOUoOlxG4SxVDXiJ4bf3V3Kje1HOpWGED0PqkzhR0eyyW9KK5a71KNNRvc:GUHGdPY:rqk2I1b",
+                                                                 new java.util.Date(1546448713135L),
+                                                                 "8iTL67B4ujv1lQvrPu8Oq604Ztv3Ai54");
         assertTrue(deviceenrollment.isValid());
-        DeviceEnrollment deviceenrollmentInvalid = new DeviceEnrollment("fe215c32-29da-429d-bcf3-3320f81acd96",
-                                                                        new java.util.Date(1546031371120L),
-                                                                        new java.util.Date(1546031365290L),
-                                                                        "R6JHﱌWHqfWl=⯚FH辎kq6H삹OBp@[N>R?>KFj웻6x>WR:6I(%BFF6Ie^RWFCN6_J",
-                                                                        "<Pvg>Kn7HKyVdv;gnLP7�?�@LInWppPnVk=Lydy3pG3jg@P;PynyPd?ppPvGngvv",
-                                                                        new java.util.Date(1546031370107L),
-                                                                        "vCF]SFVY맩C8㊜V㞄cnn^nkev8wC_;↸n:kRYRYV\\EPVV6qcSCErYCJg5c6gV66gY");
+        DeviceEnrollment deviceenrollmentInvalid = new DeviceEnrollment("7ac29dce-c385-484d-bb0c-ab0a43f43cef",
+                                                                        new java.util.Date(1546448713665L),
+                                                                        new java.util.Date(1546448713089L),
+                                                                        "l1;v,gjFmdmxN夹<dFll,KmiPFVB瑫g4BVltN雺5`KKimKR4#B:^Wl1GHQ4^N�?�3",
+                                                                        "LLjxVxVbvVDXgg⨻æVgugRxT\\RxVRbbYvVjx㙽�?�TLL_DbRkRDb︰Rpkp画,!黯Lgm",
+                                                                        new java.util.Date(1546448718920L),
+                                                                        ";VNl!fb3UV@3b:碆f]\\Sl33NRbVlSb邯N3rNUUf3K@JSfo	jJb`ldqUG\\bhVe");
         assertFalse(deviceenrollmentInvalid.isValid());
     }
 
@@ -57,28 +61,32 @@ public class TestDeviceEnrollment {
      */
     @Test
     public void testHashcode() {
-        DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("a9a606fd-9041-46b3-88bb-336f0e5abedd",
-                                                                  new java.util.Date(1546031372640L),
-                                                                  new java.util.Date(1546031365104L),
-                                                                  "Kj6Ecpag16wWTPYvr28a2Sxl2uB6tcw1",
-                                                                  "A-Ew5dQ9c8G32TE181HvOHBliQEYB6z934abvf22eoCg03Z144AvuUq8JVPFU0t8RcOab:W0mFuK:2irf9A88r934fmMWeDg7",
-                                                                  new java.util.Date(1546031367908L),
-                                                                  "qH2aege7bLqCnyL2e486a6A8274iim9b");
-        DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("a9a606fd-9041-46b3-88bb-336f0e5abedd",
-                                                                  new java.util.Date(1546031372640L),
-                                                                  new java.util.Date(1546031365104L),
-                                                                  "Kj6Ecpag16wWTPYvr28a2Sxl2uB6tcw1",
-                                                                  "A-Ew5dQ9c8G32TE181HvOHBliQEYB6z934abvf22eoCg03Z144AvuUq8JVPFU0t8RcOab:W0mFuK:2irf9A88r934fmMWeDg7",
-                                                                  new java.util.Date(1546031367908L),
-                                                                  "qH2aege7bLqCnyL2e486a6A8274iim9b");
-        assertNotNull(deviceenrollment1);
-        assertNotNull(deviceenrollment2);
-        assertNotSame(deviceenrollment2, deviceenrollment1);
-        assertEquals(deviceenrollment2, deviceenrollment1);
-        assertEquals(deviceenrollment2.hashCode(), deviceenrollment1.hashCode());
-        int hashCode = deviceenrollment1.hashCode();
-        for (int i = 0; i < 5; i++) {
-            assertEquals(hashCode, deviceenrollment1.hashCode());
+        try {
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("8b1176ec-aef7-4125-86a1-0fc26fa48808",
+                                                                      new java.util.Date(1546448712905L),
+                                                                      new java.util.Date(1546448713299L),
+                                                                      "96BOsd9N0StHxc53JCOXg5yb5n8Vfp17",
+                                                                      "A-V3ABn1mRY0MF1okDhp8TTH191ut6z865Vs3N21:IZ36q1:juBlVlB8KLNto3S4CX:BbvrtVisUbObJ3h:94h4H95:fR1zX6",
+                                                                      new java.util.Date(1546448719313L),
+                                                                      "8nNB8wbTqbqMCHmOHDxLryv3406m794P");
+            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("8b1176ec-aef7-4125-86a1-0fc26fa48808",
+                                                                      new java.util.Date(1546448712905L),
+                                                                      new java.util.Date(1546448713299L),
+                                                                      "96BOsd9N0StHxc53JCOXg5yb5n8Vfp17",
+                                                                      "A-V3ABn1mRY0MF1okDhp8TTH191ut6z865Vs3N21:IZ36q1:juBlVlB8KLNto3S4CX:BbvrtVisUbObJ3h:94h4H95:fR1zX6",
+                                                                      new java.util.Date(1546448719313L),
+                                                                      "8nNB8wbTqbqMCHmOHDxLryv3406m794P");
+            assertNotNull(deviceenrollment1);
+            assertNotNull(deviceenrollment2);
+            assertNotSame(deviceenrollment2, deviceenrollment1);
+            assertEquals(deviceenrollment2, deviceenrollment1);
+            assertEquals(deviceenrollment2.hashCode(), deviceenrollment1.hashCode());
+            int hashCode = deviceenrollment1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, deviceenrollment1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
         }
     }
 
@@ -87,37 +95,41 @@ public class TestDeviceEnrollment {
      */
     @Test
     public void testEquals() {
-        DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("f18fa0e1-6b06-41c9-a890-e84aa350d1cf",
-                                                                  new java.util.Date(1546031370620L),
-                                                                  new java.util.Date(1546031368106L),
-                                                                  "XVtp34QX0R1tb0207rtgn4ANfL0Zf18q",
-                                                                  "A-5Hz2MnXEiEqAhd6YRjbI2xEQ7h2Ua421b:I8I2lwoAjK5g1N:661I3fZ77H5hTs3HuZpRWs:cDzvb2z4gRv47zBj2voy725",
-                                                                  new java.util.Date(1546031368080L),
-                                                                  "qBfWP2Nsdq5739SPz6A22i3Y52UvBatC");
-        DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("f18fa0e1-6b06-41c9-a890-e84aa350d1cf",
-                                                                  new java.util.Date(1546031370620L),
-                                                                  new java.util.Date(1546031368106L),
-                                                                  "XVtp34QX0R1tb0207rtgn4ANfL0Zf18q",
-                                                                  "A-5Hz2MnXEiEqAhd6YRjbI2xEQ7h2Ua421b:I8I2lwoAjK5g1N:661I3fZ77H5hTs3HuZpRWs:cDzvb2z4gRv47zBj2voy725",
-                                                                  new java.util.Date(1546031368080L),
-                                                                  "qBfWP2Nsdq5739SPz6A22i3Y52UvBatC");
-        DeviceEnrollment deviceenrollment3 = new DeviceEnrollment("aed6d796-291e-4d83-8fbc-70ff0b645937",
-                                                                  new java.util.Date(1546031372645L),
-                                                                  new java.util.Date(1546031365546L),
-                                                                  "W0e041U3MO8fW4EXdB737jqCTzm21173",
-                                                                  "A-P7HXR56piZsr3u2zdNxW3s1Tjs6RH2Zi07H0k64qUnVsQo0O:G5sh::9vQDtOKnv0Hlbk9O71A7I1Rh7eC:1qPnIbkbyMH1",
-                                                                  new java.util.Date(1546031369520L),
-                                                                  "8x0mn03uaM0HH894e4ut425I9PgAY6Kn");
-        assertNotNull(deviceenrollment1);
-        assertNotNull(deviceenrollment2);
-        assertNotNull(deviceenrollment3);
-        assertNotSame(deviceenrollment2, deviceenrollment1);
-        assertNotSame(deviceenrollment3, deviceenrollment1);
-        assertEquals(deviceenrollment2, deviceenrollment1);
-        assertEquals(deviceenrollment2, deviceenrollment1);
-        assertEquals(deviceenrollment1, deviceenrollment2);
-        assertEquals(deviceenrollment1, deviceenrollment1);
-        assertFalse(deviceenrollment1.equals(null));
-        assertNotEquals(deviceenrollment3, deviceenrollment1);
+        try {
+            DeviceEnrollment deviceenrollment1 = new DeviceEnrollment("68e52907-14a2-45a5-888c-947dbfbd0f74",
+                                                                      new java.util.Date(1546448716658L),
+                                                                      new java.util.Date(1546448714391L),
+                                                                      "71i2XpdZa5f96ZXxXMEJyHAVZXE7ldHB",
+                                                                      "A-Diy6DP88xxuwZqDBIJ1KHH7NB1pfFe7131cLnyv69:392HgM1270CEljn9fr81eodLXYPMCJ8D1L0ud44:wPIbh64cHu2J:",
+                                                                      new java.util.Date(1546448716779L),
+                                                                      "7tjBBXnwLPdzDOPnl1Wm1QMpteEujvAu");
+            DeviceEnrollment deviceenrollment2 = new DeviceEnrollment("68e52907-14a2-45a5-888c-947dbfbd0f74",
+                                                                      new java.util.Date(1546448716658L),
+                                                                      new java.util.Date(1546448714391L),
+                                                                      "71i2XpdZa5f96ZXxXMEJyHAVZXE7ldHB",
+                                                                      "A-Diy6DP88xxuwZqDBIJ1KHH7NB1pfFe7131cLnyv69:392HgM1270CEljn9fr81eodLXYPMCJ8D1L0ud44:wPIbh64cHu2J:",
+                                                                      new java.util.Date(1546448716779L),
+                                                                      "7tjBBXnwLPdzDOPnl1Wm1QMpteEujvAu");
+            DeviceEnrollment deviceenrollment3 = new DeviceEnrollment("bb6fa35d-676d-4c50-89bb-6b79676364ea",
+                                                                      new java.util.Date(1546448715628L),
+                                                                      new java.util.Date(1546448711390L),
+                                                                      "S9XiF71RGaXnns0k1Xwtc56A5lxm5zEb",
+                                                                      "A-1C7lM7Qq:TOnelm4Hzk77W3Mn1UJZz39605V2wdkq2EziPC9LXWXfxTODpsLba1E193A08oNCJOi1RlFZKE6F0dPk:9N64y",
+                                                                      new java.util.Date(1546448716140L),
+                                                                      "Dw9p2V19ov2pORP2j4Ztt8IB078IN52q");
+            assertNotNull(deviceenrollment1);
+            assertNotNull(deviceenrollment2);
+            assertNotNull(deviceenrollment3);
+            assertNotSame(deviceenrollment2, deviceenrollment1);
+            assertNotSame(deviceenrollment3, deviceenrollment1);
+            assertEquals(deviceenrollment2, deviceenrollment1);
+            assertEquals(deviceenrollment2, deviceenrollment1);
+            assertEquals(deviceenrollment1, deviceenrollment2);
+            assertEquals(deviceenrollment1, deviceenrollment1);
+            assertFalse(deviceenrollment1.equals(null));
+            assertNotEquals(deviceenrollment3, deviceenrollment1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

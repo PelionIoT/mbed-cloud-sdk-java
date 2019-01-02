@@ -15,20 +15,24 @@ public class TestDeviceMechanism {
      */
     @Test
     public void testGetvalue() {
-        DeviceMechanism devicemechanism = DeviceMechanism.getValue(null);
-        assertNotNull(devicemechanism);
-        assertTrue(devicemechanism.isDefault());
-        devicemechanism = DeviceMechanism.getValue(DeviceMechanism.getDefault().getString());
-        assertNotNull(devicemechanism);
-        assertTrue(devicemechanism.isDefault());
-        devicemechanism = DeviceMechanism.getValue("CONNECTOR");
-        assertNotNull(devicemechanism);
-        assertTrue(devicemechanism.isDefault());
-        devicemechanism = DeviceMechanism.getValue("direct");
-        assertNotNull(devicemechanism);
-        assertFalse(devicemechanism.isDefault());
-        devicemechanism = DeviceMechanism.getValue("0e37a28b-a533-4e52-a540-26e554d1e0fa");
-        assertNotNull(devicemechanism);
-        assertTrue(devicemechanism.isDefault());
+        try {
+            DeviceMechanism devicemechanism = DeviceMechanism.getValue(null);
+            assertNotNull(devicemechanism);
+            assertTrue(devicemechanism.isDefault());
+            devicemechanism = DeviceMechanism.getValue(DeviceMechanism.getDefault().getString());
+            assertNotNull(devicemechanism);
+            assertTrue(devicemechanism.isDefault());
+            devicemechanism = DeviceMechanism.getValue("CONNECTOR");
+            assertNotNull(devicemechanism);
+            assertTrue(devicemechanism.isDefault());
+            devicemechanism = DeviceMechanism.getValue("direct");
+            assertNotNull(devicemechanism);
+            assertFalse(devicemechanism.isDefault());
+            devicemechanism = DeviceMechanism.getValue("8849c278-dd03-458a-b652-bff19ca3564b");
+            assertNotNull(devicemechanism);
+            assertTrue(devicemechanism.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

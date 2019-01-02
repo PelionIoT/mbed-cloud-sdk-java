@@ -15,20 +15,24 @@ public class TestAccountStatus {
      */
     @Test
     public void testGetvalue() {
-        AccountStatus accountstatus = AccountStatus.getValue(null);
-        assertNotNull(accountstatus);
-        assertTrue(accountstatus.isDefault());
-        accountstatus = AccountStatus.getValue(AccountStatus.getDefault().getString());
-        assertNotNull(accountstatus);
-        assertTrue(accountstatus.isDefault());
-        accountstatus = AccountStatus.getValue("ACTIVE");
-        assertNotNull(accountstatus);
-        assertTrue(accountstatus.isDefault());
-        accountstatus = AccountStatus.getValue("ENROLLING");
-        assertNotNull(accountstatus);
-        assertFalse(accountstatus.isDefault());
-        accountstatus = AccountStatus.getValue("f5bc3456-1917-4509-b23b-ec3dcc96a211");
-        assertNotNull(accountstatus);
-        assertTrue(accountstatus.isDefault());
+        try {
+            AccountStatus accountstatus = AccountStatus.getValue(null);
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue(AccountStatus.getDefault().getString());
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("ACTIVE");
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("ENROLLING");
+            assertNotNull(accountstatus);
+            assertFalse(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("9d9c004e-1c4a-474d-84b5-c652625a721f");
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

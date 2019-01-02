@@ -152,6 +152,11 @@ public class Account implements SdkModel {
     private List<String> notificationEmails;
 
     /**
+     * This object represents parent account contact details in responses.
+     */
+    private ParentAccount parentAccount;
+
+    /**
      * The ID of the parent account, if it has any.
      */
     private String parentId;
@@ -280,6 +285,8 @@ public class Account implements SdkModel {
      *            The enforcement status of the multi-factor authentication, either 'enforced' or 'optional'.
      * @param notificationEmails
      *            A list of notification email addresses.
+     * @param parentAccount
+     *            This object represents parent account contact details in responses.
      * @param parentId
      *            The ID of the parent account, if it has any.
      * @param passwordPolicy
@@ -318,9 +325,10 @@ public class Account implements SdkModel {
                    Map<String, String> customFields, String customerNumber, String displayName, String email,
                    String endMarket, String expirationWarningThreshold, String id, String idleTimeout,
                    Map<String, String> limits, AccountMfaStatus mfaStatus, List<String> notificationEmails,
-                   String parentId, PasswordPolicy passwordPolicy, String phoneNumber, List<Policy> policies,
-                   String postalCode, String reason, String referenceNote, String salesContact, String state,
-                   AccountStatus status, String templateId, String tier, Date updatedAt, Date upgradedAt) {
+                   ParentAccount parentAccount, String parentId, PasswordPolicy passwordPolicy, String phoneNumber,
+                   List<Policy> policies, String postalCode, String reason, String referenceNote, String salesContact,
+                   String state, AccountStatus status, String templateId, String tier, Date updatedAt,
+                   Date upgradedAt) {
         super();
         setAddressLine1(addressLine1);
         setAddressLine2(addressLine2);
@@ -348,6 +356,7 @@ public class Account implements SdkModel {
         setLimits(limits);
         setMfaStatus(mfaStatus);
         setNotificationEmails(notificationEmails);
+        setParentAccount(parentAccount);
         setParentId(parentId);
         setPasswordPolicy(passwordPolicy);
         setPhoneNumber(phoneNumber);
@@ -392,7 +401,9 @@ public class Account implements SdkModel {
              account == null ? (String) null : account.id, account == null ? (String) null : account.idleTimeout,
              account == null ? null : account.limits,
              account == null ? AccountMfaStatus.getDefault() : account.mfaStatus,
-             account == null ? null : account.notificationEmails, account == null ? (String) null : account.parentId,
+             account == null ? null : account.notificationEmails,
+             account == null ? (ParentAccount) null : account.parentAccount,
+             account == null ? (String) null : account.parentId,
              account == null ? (PasswordPolicy) null : account.passwordPolicy,
              account == null ? (String) null : account.phoneNumber, account == null ? null : account.policies,
              account == null ? (String) null : account.postalCode, account == null ? (String) null : account.reason,
@@ -411,10 +422,10 @@ public class Account implements SdkModel {
         this((String) null, (String) null, (String) null, (String) null, (String) null, (String) null, (String) null,
              (String) null, null, (String) null, (String) null, (String) null, (String) null, (String) null,
              new java.util.Date(), null, (String) null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, (String) null, null, AccountMfaStatus.getDefault(), null, (String) null,
-             (PasswordPolicy) null, (String) null, null, (String) null, (String) null, (String) null, (String) null,
-             (String) null, AccountStatus.getDefault(), (String) null, (String) null, new java.util.Date(),
-             new java.util.Date());
+             (String) null, (String) null, null, AccountMfaStatus.getDefault(), null, (ParentAccount) null,
+             (String) null, (PasswordPolicy) null, (String) null, null, (String) null, (String) null, (String) null,
+             (String) null, (String) null, AccountStatus.getDefault(), (String) null, (String) null,
+             new java.util.Date(), new java.util.Date());
     }
 
     /**
@@ -941,6 +952,25 @@ public class Account implements SdkModel {
     }
 
     /**
+     * Gets this object represents parent account contact details in responses.
+     * 
+     * @return parentAccount
+     */
+    public ParentAccount getParentAccount() {
+        return parentAccount;
+    }
+
+    /**
+     * Sets this object represents parent account contact details in responses.
+     * 
+     * @param parentAccount
+     *            This object represents parent account contact details in responses.
+     */
+    public void setParentAccount(ParentAccount parentAccount) {
+        this.parentAccount = parentAccount;
+    }
+
+    /**
      * Gets the id of the parent account, if it has any.
      * 
      * @return parentId
@@ -1246,6 +1276,7 @@ public class Account implements SdkModel {
         result = prime * result + ((limits == null) ? 0 : limits.hashCode());
         result = prime * result + ((mfaStatus == null) ? 0 : mfaStatus.hashCode());
         result = prime * result + ((notificationEmails == null) ? 0 : notificationEmails.hashCode());
+        result = prime * result + ((parentAccount == null) ? 0 : parentAccount.hashCode());
         result = prime * result + ((parentId == null) ? 0 : parentId.hashCode());
         result = prime * result + ((passwordPolicy == null) ? 0 : passwordPolicy.hashCode());
         result = prime * result + ((phoneNumber == null) ? 0 : phoneNumber.hashCode());
@@ -1479,6 +1510,13 @@ public class Account implements SdkModel {
         } else if (!notificationEmails.equals(other.notificationEmails)) {
             return false;
         }
+        if (parentAccount == null) {
+            if (other.parentAccount != null) {
+                return false;
+            }
+        } else if (!parentAccount.equals(other.parentAccount)) {
+            return false;
+        }
         if (parentId == null) {
             if (other.parentId != null) {
                 return false;
@@ -1593,11 +1631,11 @@ public class Account implements SdkModel {
                + customerNumber + ", displayName=" + displayName + ", email=" + email + ", endMarket=" + endMarket
                + ", expirationWarningThreshold=" + expirationWarningThreshold + ", id=" + id + ", idleTimeout="
                + idleTimeout + ", limits=" + limits + ", mfaStatus=" + mfaStatus + ", notificationEmails="
-               + notificationEmails + ", parentId=" + parentId + ", passwordPolicy=" + passwordPolicy + ", phoneNumber="
-               + phoneNumber + ", policies=" + policies + ", postalCode=" + postalCode + ", reason=" + reason
-               + ", referenceNote=" + referenceNote + ", salesContact=" + salesContact + ", state=" + state
-               + ", status=" + status + ", templateId=" + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt
-               + ", upgradedAt=" + upgradedAt + "]";
+               + notificationEmails + ", parentAccount=" + parentAccount + ", parentId=" + parentId
+               + ", passwordPolicy=" + passwordPolicy + ", phoneNumber=" + phoneNumber + ", policies=" + policies
+               + ", postalCode=" + postalCode + ", reason=" + reason + ", referenceNote=" + referenceNote
+               + ", salesContact=" + salesContact + ", state=" + state + ", status=" + status + ", templateId="
+               + templateId + ", tier=" + tier + ", updatedAt=" + updatedAt + ", upgradedAt=" + upgradedAt + "]";
     }
 
     /**

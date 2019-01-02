@@ -15,20 +15,24 @@ public class TestApiKeyStatus {
      */
     @Test
     public void testGetvalue() {
-        ApiKeyStatus apikeystatus = ApiKeyStatus.getValue(null);
-        assertNotNull(apikeystatus);
-        assertTrue(apikeystatus.isDefault());
-        apikeystatus = ApiKeyStatus.getValue(ApiKeyStatus.getDefault().getString());
-        assertNotNull(apikeystatus);
-        assertTrue(apikeystatus.isDefault());
-        apikeystatus = ApiKeyStatus.getValue("ACTIVE");
-        assertNotNull(apikeystatus);
-        assertTrue(apikeystatus.isDefault());
-        apikeystatus = ApiKeyStatus.getValue("INACTIVE");
-        assertNotNull(apikeystatus);
-        assertFalse(apikeystatus.isDefault());
-        apikeystatus = ApiKeyStatus.getValue("850b429f-ac92-4c31-b97a-c0f72937bf5e");
-        assertNotNull(apikeystatus);
-        assertTrue(apikeystatus.isDefault());
+        try {
+            ApiKeyStatus apikeystatus = ApiKeyStatus.getValue(null);
+            assertNotNull(apikeystatus);
+            assertTrue(apikeystatus.isDefault());
+            apikeystatus = ApiKeyStatus.getValue(ApiKeyStatus.getDefault().getString());
+            assertNotNull(apikeystatus);
+            assertTrue(apikeystatus.isDefault());
+            apikeystatus = ApiKeyStatus.getValue("ACTIVE");
+            assertNotNull(apikeystatus);
+            assertTrue(apikeystatus.isDefault());
+            apikeystatus = ApiKeyStatus.getValue("INACTIVE");
+            assertNotNull(apikeystatus);
+            assertFalse(apikeystatus.isDefault());
+            apikeystatus = ApiKeyStatus.getValue("962666ea-7a6a-4128-8a52-99f87d05f642");
+            assertNotNull(apikeystatus);
+            assertTrue(apikeystatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

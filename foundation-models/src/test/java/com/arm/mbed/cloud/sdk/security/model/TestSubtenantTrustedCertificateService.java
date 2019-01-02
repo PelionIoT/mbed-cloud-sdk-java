@@ -15,21 +15,25 @@ public class TestSubtenantTrustedCertificateService {
      */
     @Test
     public void testGetvalue() {
-        SubtenantTrustedCertificateService subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(null);
-        assertNotNull(subtenanttrustedcertificateservice);
-        assertTrue(subtenanttrustedcertificateservice.isDefault());
-        subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(SubtenantTrustedCertificateService.getDefault()
-                                                                                                                           .getString());
-        assertNotNull(subtenanttrustedcertificateservice);
-        assertTrue(subtenanttrustedcertificateservice.isDefault());
-        subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("BOOTSTRAP");
-        assertNotNull(subtenanttrustedcertificateservice);
-        assertTrue(subtenanttrustedcertificateservice.isDefault());
-        subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
-        assertNotNull(subtenanttrustedcertificateservice);
-        assertFalse(subtenanttrustedcertificateservice.isDefault());
-        subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("30215334-46c9-4ae5-9174-61d54e1c9758");
-        assertNotNull(subtenanttrustedcertificateservice);
-        assertTrue(subtenanttrustedcertificateservice.isDefault());
+        try {
+            SubtenantTrustedCertificateService subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(null);
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(SubtenantTrustedCertificateService.getDefault()
+                                                                                                                               .getString());
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("BOOTSTRAP");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertFalse(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("c9828ee2-e0e8-424f-86bb-679cfd8c3d78");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

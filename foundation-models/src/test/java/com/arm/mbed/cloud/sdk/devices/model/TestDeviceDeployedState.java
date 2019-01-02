@@ -15,20 +15,24 @@ public class TestDeviceDeployedState {
      */
     @Test
     public void testGetvalue() {
-        DeviceDeployedState devicedeployedstate = DeviceDeployedState.getValue(null);
-        assertNotNull(devicedeployedstate);
-        assertTrue(devicedeployedstate.isDefault());
-        devicedeployedstate = DeviceDeployedState.getValue(DeviceDeployedState.getDefault().getString());
-        assertNotNull(devicedeployedstate);
-        assertTrue(devicedeployedstate.isDefault());
-        devicedeployedstate = DeviceDeployedState.getValue("DEVELOPMENT");
-        assertNotNull(devicedeployedstate);
-        assertTrue(devicedeployedstate.isDefault());
-        devicedeployedstate = DeviceDeployedState.getValue("production");
-        assertNotNull(devicedeployedstate);
-        assertFalse(devicedeployedstate.isDefault());
-        devicedeployedstate = DeviceDeployedState.getValue("6291da4d-87c7-4784-82be-bb470ef45d04");
-        assertNotNull(devicedeployedstate);
-        assertTrue(devicedeployedstate.isDefault());
+        try {
+            DeviceDeployedState devicedeployedstate = DeviceDeployedState.getValue(null);
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue(DeviceDeployedState.getDefault().getString());
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("DEVELOPMENT");
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("production");
+            assertNotNull(devicedeployedstate);
+            assertFalse(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("f8af389b-fc5a-41eb-bd78-05c76117f9cd");
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

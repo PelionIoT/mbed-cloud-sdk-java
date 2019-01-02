@@ -15,21 +15,25 @@ public class TestDeviceEnrollmentBulkCreateStatus {
      */
     @Test
     public void testGetvalue() {
-        DeviceEnrollmentBulkCreateStatus deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue(null);
-        assertNotNull(deviceenrollmentbulkcreatestatus);
-        assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
-        deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue(DeviceEnrollmentBulkCreateStatus.getDefault()
-                                                                                                                     .getString());
-        assertNotNull(deviceenrollmentbulkcreatestatus);
-        assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
-        deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("COMPLETED");
-        assertNotNull(deviceenrollmentbulkcreatestatus);
-        assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
-        deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("new");
-        assertNotNull(deviceenrollmentbulkcreatestatus);
-        assertFalse(deviceenrollmentbulkcreatestatus.isDefault());
-        deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("145ecc99-564c-4101-a47c-2301b2bd8ea1");
-        assertNotNull(deviceenrollmentbulkcreatestatus);
-        assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
+        try {
+            DeviceEnrollmentBulkCreateStatus deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue(null);
+            assertNotNull(deviceenrollmentbulkcreatestatus);
+            assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
+            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue(DeviceEnrollmentBulkCreateStatus.getDefault()
+                                                                                                                         .getString());
+            assertNotNull(deviceenrollmentbulkcreatestatus);
+            assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
+            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("COMPLETED");
+            assertNotNull(deviceenrollmentbulkcreatestatus);
+            assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
+            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("new");
+            assertNotNull(deviceenrollmentbulkcreatestatus);
+            assertFalse(deviceenrollmentbulkcreatestatus.isDefault());
+            deviceenrollmentbulkcreatestatus = DeviceEnrollmentBulkCreateStatus.getValue("25b67c79-30c1-496d-b7fe-76b18c27af02");
+            assertNotNull(deviceenrollmentbulkcreatestatus);
+            assertTrue(deviceenrollmentbulkcreatestatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

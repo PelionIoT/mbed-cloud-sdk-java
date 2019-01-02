@@ -15,20 +15,24 @@ public class TestDeviceState {
      */
     @Test
     public void testGetvalue() {
-        DeviceState devicestate = DeviceState.getValue(null);
-        assertNotNull(devicestate);
-        assertTrue(devicestate.isDefault());
-        devicestate = DeviceState.getValue(DeviceState.getDefault().getString());
-        assertNotNull(devicestate);
-        assertTrue(devicestate.isDefault());
-        devicestate = DeviceState.getValue("BOOTSTRAPPED");
-        assertNotNull(devicestate);
-        assertTrue(devicestate.isDefault());
-        devicestate = DeviceState.getValue("cloud_enrolling");
-        assertNotNull(devicestate);
-        assertFalse(devicestate.isDefault());
-        devicestate = DeviceState.getValue("d348f500-0b30-42d5-bd41-86c78b8e7420");
-        assertNotNull(devicestate);
-        assertTrue(devicestate.isDefault());
+        try {
+            DeviceState devicestate = DeviceState.getValue(null);
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue(DeviceState.getDefault().getString());
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue("BOOTSTRAPPED");
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue("cloud_enrolling");
+            assertNotNull(devicestate);
+            assertFalse(devicestate.isDefault());
+            devicestate = DeviceState.getValue("9fdc2bb4-6024-4153-bb27-d0338093b308");
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

@@ -15,21 +15,25 @@ public class TestSubtenantTrustedCertificateStatus {
      */
     @Test
     public void testGetvalue() {
-        SubtenantTrustedCertificateStatus subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue(null);
-        assertNotNull(subtenanttrustedcertificatestatus);
-        assertTrue(subtenanttrustedcertificatestatus.isDefault());
-        subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue(SubtenantTrustedCertificateStatus.getDefault()
-                                                                                                                        .getString());
-        assertNotNull(subtenanttrustedcertificatestatus);
-        assertTrue(subtenanttrustedcertificatestatus.isDefault());
-        subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("ACTIVE");
-        assertNotNull(subtenanttrustedcertificatestatus);
-        assertTrue(subtenanttrustedcertificatestatus.isDefault());
-        subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("INACTIVE");
-        assertNotNull(subtenanttrustedcertificatestatus);
-        assertFalse(subtenanttrustedcertificatestatus.isDefault());
-        subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("8af166f5-fdf6-47d3-9e4b-0ba56dbb9747");
-        assertNotNull(subtenanttrustedcertificatestatus);
-        assertTrue(subtenanttrustedcertificatestatus.isDefault());
+        try {
+            SubtenantTrustedCertificateStatus subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue(null);
+            assertNotNull(subtenanttrustedcertificatestatus);
+            assertTrue(subtenanttrustedcertificatestatus.isDefault());
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue(SubtenantTrustedCertificateStatus.getDefault()
+                                                                                                                            .getString());
+            assertNotNull(subtenanttrustedcertificatestatus);
+            assertTrue(subtenanttrustedcertificatestatus.isDefault());
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("ACTIVE");
+            assertNotNull(subtenanttrustedcertificatestatus);
+            assertTrue(subtenanttrustedcertificatestatus.isDefault());
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("INACTIVE");
+            assertNotNull(subtenanttrustedcertificatestatus);
+            assertFalse(subtenanttrustedcertificatestatus.isDefault());
+            subtenanttrustedcertificatestatus = SubtenantTrustedCertificateStatus.getValue("b1a61552-f616-4829-9d52-1fcd047efe1d");
+            assertNotNull(subtenanttrustedcertificatestatus);
+            assertTrue(subtenanttrustedcertificatestatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

@@ -15,20 +15,24 @@ public class TestSubtenantUserStatus {
      */
     @Test
     public void testGetvalue() {
-        SubtenantUserStatus subtenantuserstatus = SubtenantUserStatus.getValue(null);
-        assertNotNull(subtenantuserstatus);
-        assertTrue(subtenantuserstatus.isDefault());
-        subtenantuserstatus = SubtenantUserStatus.getValue(SubtenantUserStatus.getDefault().getString());
-        assertNotNull(subtenantuserstatus);
-        assertTrue(subtenantuserstatus.isDefault());
-        subtenantuserstatus = SubtenantUserStatus.getValue("ACTIVE");
-        assertNotNull(subtenantuserstatus);
-        assertTrue(subtenantuserstatus.isDefault());
-        subtenantuserstatus = SubtenantUserStatus.getValue("ENROLLING");
-        assertNotNull(subtenantuserstatus);
-        assertFalse(subtenantuserstatus.isDefault());
-        subtenantuserstatus = SubtenantUserStatus.getValue("ff0bc55b-fd07-4353-8ccb-d56e9854d66d");
-        assertNotNull(subtenantuserstatus);
-        assertTrue(subtenantuserstatus.isDefault());
+        try {
+            SubtenantUserStatus subtenantuserstatus = SubtenantUserStatus.getValue(null);
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue(SubtenantUserStatus.getDefault().getString());
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("ACTIVE");
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("ENROLLING");
+            assertNotNull(subtenantuserstatus);
+            assertFalse(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("aef3defa-2f79-4861-bd47-a3a4c8953b89");
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

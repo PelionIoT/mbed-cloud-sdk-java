@@ -15,20 +15,24 @@ public class TestDeviceLifecycleStatus {
      */
     @Test
     public void testGetvalue() {
-        DeviceLifecycleStatus devicelifecyclestatus = DeviceLifecycleStatus.getValue(null);
-        assertNotNull(devicelifecyclestatus);
-        assertTrue(devicelifecyclestatus.isDefault());
-        devicelifecyclestatus = DeviceLifecycleStatus.getValue(DeviceLifecycleStatus.getDefault().getString());
-        assertNotNull(devicelifecyclestatus);
-        assertTrue(devicelifecyclestatus.isDefault());
-        devicelifecyclestatus = DeviceLifecycleStatus.getValue("BLOCKED");
-        assertNotNull(devicelifecyclestatus);
-        assertTrue(devicelifecyclestatus.isDefault());
-        devicelifecyclestatus = DeviceLifecycleStatus.getValue("enabled");
-        assertNotNull(devicelifecyclestatus);
-        assertFalse(devicelifecyclestatus.isDefault());
-        devicelifecyclestatus = DeviceLifecycleStatus.getValue("0eacd3ce-eb69-4ea4-aa59-6a81ebc54e9a");
-        assertNotNull(devicelifecyclestatus);
-        assertTrue(devicelifecyclestatus.isDefault());
+        try {
+            DeviceLifecycleStatus devicelifecyclestatus = DeviceLifecycleStatus.getValue(null);
+            assertNotNull(devicelifecyclestatus);
+            assertTrue(devicelifecyclestatus.isDefault());
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue(DeviceLifecycleStatus.getDefault().getString());
+            assertNotNull(devicelifecyclestatus);
+            assertTrue(devicelifecyclestatus.isDefault());
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("BLOCKED");
+            assertNotNull(devicelifecyclestatus);
+            assertTrue(devicelifecyclestatus.isDefault());
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("enabled");
+            assertNotNull(devicelifecyclestatus);
+            assertFalse(devicelifecyclestatus.isDefault());
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("e11c95e2-c679-4b5f-b26b-a3f822f879c8");
+            assertNotNull(devicelifecyclestatus);
+            assertTrue(devicelifecyclestatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

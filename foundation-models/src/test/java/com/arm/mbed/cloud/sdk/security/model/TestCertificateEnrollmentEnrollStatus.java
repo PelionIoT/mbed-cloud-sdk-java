@@ -15,21 +15,25 @@ public class TestCertificateEnrollmentEnrollStatus {
      */
     @Test
     public void testGetvalue() {
-        CertificateEnrollmentEnrollStatus certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(null);
-        assertNotNull(certificateenrollmentenrollstatus);
-        assertTrue(certificateenrollmentenrollstatus.isDefault());
-        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(CertificateEnrollmentEnrollStatus.getDefault()
-                                                                                                                        .getString());
-        assertNotNull(certificateenrollmentenrollstatus);
-        assertTrue(certificateenrollmentenrollstatus.isDefault());
-        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("COMPLETED");
-        assertNotNull(certificateenrollmentenrollstatus);
-        assertTrue(certificateenrollmentenrollstatus.isDefault());
-        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
-        assertNotNull(certificateenrollmentenrollstatus);
-        assertFalse(certificateenrollmentenrollstatus.isDefault());
-        certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("ae4f7699-e3e3-4517-87d4-119f7e6720bd");
-        assertNotNull(certificateenrollmentenrollstatus);
-        assertTrue(certificateenrollmentenrollstatus.isDefault());
+        try {
+            CertificateEnrollmentEnrollStatus certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(null);
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(CertificateEnrollmentEnrollStatus.getDefault()
+                                                                                                                            .getString());
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("COMPLETED");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertFalse(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("272d6d99-b436-465a-b6bd-15294019c0ed");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

@@ -6,7 +6,7 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.annotations.Required;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import com.mbed.lwm2m.utils.HexArray;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "Definition of a pre-shared key")
 /**
@@ -199,7 +199,7 @@ public class PreSharedKey implements SdkModel {
      *            the secret to set
      */
     public void setSecretFromByteArray(byte[] secret) {
-        setSecret(HexArray.toHex(secret));
+        setSecret(SdkUtils.toHex(secret));
     }
 
     /**

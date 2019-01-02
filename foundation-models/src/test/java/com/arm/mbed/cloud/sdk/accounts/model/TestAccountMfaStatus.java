@@ -15,20 +15,24 @@ public class TestAccountMfaStatus {
      */
     @Test
     public void testGetvalue() {
-        AccountMfaStatus accountmfastatus = AccountMfaStatus.getValue(null);
-        assertNotNull(accountmfastatus);
-        assertTrue(accountmfastatus.isDefault());
-        accountmfastatus = AccountMfaStatus.getValue(AccountMfaStatus.getDefault().getString());
-        assertNotNull(accountmfastatus);
-        assertTrue(accountmfastatus.isDefault());
-        accountmfastatus = AccountMfaStatus.getValue("ENFORCED");
-        assertNotNull(accountmfastatus);
-        assertTrue(accountmfastatus.isDefault());
-        accountmfastatus = AccountMfaStatus.getValue("optional");
-        assertNotNull(accountmfastatus);
-        assertFalse(accountmfastatus.isDefault());
-        accountmfastatus = AccountMfaStatus.getValue("838103a6-3b3e-49ed-a5a5-3d4fac387895");
-        assertNotNull(accountmfastatus);
-        assertTrue(accountmfastatus.isDefault());
+        try {
+            AccountMfaStatus accountmfastatus = AccountMfaStatus.getValue(null);
+            assertNotNull(accountmfastatus);
+            assertTrue(accountmfastatus.isDefault());
+            accountmfastatus = AccountMfaStatus.getValue(AccountMfaStatus.getDefault().getString());
+            assertNotNull(accountmfastatus);
+            assertTrue(accountmfastatus.isDefault());
+            accountmfastatus = AccountMfaStatus.getValue("ENFORCED");
+            assertNotNull(accountmfastatus);
+            assertTrue(accountmfastatus.isDefault());
+            accountmfastatus = AccountMfaStatus.getValue("optional");
+            assertNotNull(accountmfastatus);
+            assertFalse(accountmfastatus.isDefault());
+            accountmfastatus = AccountMfaStatus.getValue("662aec11-0fa3-4580-a816-79e31047d496");
+            assertNotNull(accountmfastatus);
+            assertTrue(accountmfastatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
 }

@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.codec.binary.Hex;
+
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 
 @Preamble(description = "SDK Utilities")
@@ -102,6 +104,20 @@ public final class SdkUtils {
             return 0;
         }
         return url.toString().hashCode();
+    }
+
+    /**
+     * Converts byte array to String.
+     * 
+     * @param value
+     *            byte array
+     * @return corresponding hexadecimal string
+     */
+    public static String toHex(byte[] value) {
+        if (value == null) {
+            return null;
+        }
+        return Hex.encodeHexString(value);
     }
 
 }
