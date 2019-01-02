@@ -105,18 +105,23 @@ public abstract class AbstractCloudDao implements CloudDao {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
-        AbstractCloudDao other = (AbstractCloudDao) obj;
+        }
+        final AbstractCloudDao other = (AbstractCloudDao) obj;
         if (module == null) {
-            if (other.module != null)
+            if (other.module != null) {
                 return false;
-        } else if (!module.equals(other.module))
+            }
+        } else if (!module.equals(other.module)) {
             return false;
+        }
         return true;
     }
 
