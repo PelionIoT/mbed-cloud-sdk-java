@@ -129,8 +129,8 @@ public class Update extends AbstractModule {
                                                        .firmwareImageList(finalOptions.getPageSize(),
                                                                           finalOptions.getOrder().toString(),
                                                                           finalOptions.getAfter(),
-                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                          finalOptions.encodeInclude());
+                                                                          finalOptions.encodeInclude(),
+                                                                          new FilterMarshaller(null).encode(finalOptions.getFilter()));
                                     }
                                 });
     }
@@ -381,8 +381,8 @@ public class Update extends AbstractModule {
                                                        .firmwareManifestList(finalOptions.getPageSize(),
                                                                              finalOptions.getOrder().toString(),
                                                                              finalOptions.getAfter(),
-                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()),
-                                                                             finalOptions.encodeInclude());
+                                                                             finalOptions.encodeInclude(),
+                                                                             new FilterMarshaller(null).encode(finalOptions.getFilter()));
                                     }
                                 });
     }
@@ -637,8 +637,8 @@ public class Update extends AbstractModule {
                                                        .updateCampaignList(finalOptions.getPageSize(),
                                                                            finalOptions.getOrder().toString(),
                                                                            finalOptions.getAfter(),
-                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()),
-                                                                           finalOptions.encodeInclude());
+                                                                           finalOptions.encodeInclude(),
+                                                                           CampaignAdapter.FILTERS_MARSHALLER.encode(finalOptions.getFilter()));
                                     }
                                 });
     }
