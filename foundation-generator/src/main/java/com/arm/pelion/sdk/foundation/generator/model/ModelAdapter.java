@@ -89,7 +89,13 @@ public class ModelAdapter extends Model {
         if (conversion == null) {
             return;
         }
-        enflate(conversion.getAction(), conversion.getFrom(), conversion.getTo(), conversion.getRenames());
+        if (conversion.isExternal()) {
+            if (fetcher != null) {
+                fetcher.fetch(conversion.getFrom().toType(), conversion.getTo().toType(), conversion.getAction());
+            }
+        } else {
+            enflate(conversion.getAction(), conversion.getFrom(), conversion.getTo(), conversion.getRenames());
+        }
     }
 
     private void enflate(MethodAction action, Model from, Model to, Renames renames) {
@@ -129,8 +135,14 @@ public class ModelAdapter extends Model {
     }
 
     public void addMethodAdapter(MethodAction action, Model from, Model to, boolean isList, boolean isEnum,
+                                 Renames renames, Model fromContent, Model toContent, boolean external) {
+        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action, external),
+                      true);
+    }
+
+    public void addMethodAdapter(MethodAction action, Model from, Model to, boolean isList, boolean isEnum,
                                  Renames renames, Model fromContent, Model toContent) {
-        addConversion(new Conversion(from, to, isList, isEnum, renames, fromContent, toContent, action), true);
+        addMethodAdapter(action, from, to, isList, isEnum, renames, fromContent, toContent, false);
     }
 
     protected boolean needsConversion(Field f) {
@@ -155,9 +167,10 @@ public class ModelAdapter extends Model {
         private final Model fromContent;
         private final Model toContent;
         private final MethodAction action;
+        private final boolean external;
 
         public Conversion(Model from, Model to, boolean isList, boolean isEnum, Renames renames, Model fromContent,
-                          Model toContent, MethodAction action) {
+                          Model toContent, MethodAction action, boolean external) {
             super();
             this.from = from;
             this.to = to;
@@ -167,6 +180,16 @@ public class ModelAdapter extends Model {
             this.fromContent = fromContent;
             this.toContent = toContent;
             this.action = action == null ? MethodAction.READ : action;
+            this.external = external;
+        }
+
+        public Conversion(Model from, Model to, boolean isList, boolean isEnum, Renames renames, Model fromContent,
+                          Model toContent, MethodAction action) {
+            this(from, to, isList, isEnum, renames, fromContent, toContent, action, false);
+        }
+
+        public boolean isExternal() {
+            return external;
         }
 
         public boolean isValid() {
@@ -217,6 +240,9 @@ public class ModelAdapter extends Model {
         }
 
         public void addMethod(ModelAdapter adapter, Renames renames) {
+            if (external) {
+                return;
+            }
             final TypeParameter fromType = from.toType();
             final TypeParameter toType = to.toType();
             try {
@@ -277,6 +303,7 @@ public class ModelAdapter extends Model {
 
         }
 
+        @SuppressWarnings("incomplete-switch")
         public void addBasicMappingMethods(ModelAdapter adapter, Model from, Model to, Renames renames,
                                            final TypeParameter fromType) {
             boolean isFromModel = fromType.isModel();

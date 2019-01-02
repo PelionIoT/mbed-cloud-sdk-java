@@ -2,7 +2,6 @@ package com.arm.pelion.sdk.foundation.generator.translator;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
@@ -117,10 +116,18 @@ public class ArtifactsTranslator {
                                   ModelAdapterFetcher adapterFetcher) throws FoundationGeneratorException {
         final Renames defaultRenames = new Renames();
         entity.getRenames().forEach(m -> defaultRenames.addEntry(m.getProcessedFrom(), m.getProcessedTo()));
-        final ModelAdapter adapter = new ModelAdapter(model, generateAdapterPackageName(config, entity.getGroupId()),
-                                                      null, adapterFetcher, defaultRenames);
+        ModelAdapter adapter = adapterFetcher.fetchAdapter(model.getIdentifier());
+        if (adapter == null) {
+            adapter = new ModelAdapter(model, generateAdapterPackageName(config, entity.getGroupId()), null,
+                                       adapterFetcher, defaultRenames);
+        } else {
+            adapter.setDefaultRenames(defaultRenames);
+            adapter.setPackageName(generateAdapterPackageName(config, entity.getGroupId()));
+        }
 
         for (final Method m : entity.getMethods()) {
+            Model modelToConsider = model;
+            boolean isExternal = false;
             if (m.getId() == null) {
                 if (m.isCustomMethod()) {
                     continue;
@@ -136,50 +143,57 @@ public class ArtifactsTranslator {
                                                        + m.getId() + "] was not found in the backends");
             }
             if (m.doesntReturnItself()) {
-                // TODO shout
-                System.out.println("ERROR! Cannot yet generate adapter for " + m.getKey() + "/" + m.getId());
-            } else {
-
-                if (method.hasToModel()) {
-                    if (m.isListMethod()) {
-                        try {
-                            adapter.addMethodAdapter(MethodAction.READ, new Model(method.getToModel().determineClass()),
-                                                     new Model(ListResponse.class), true, false, methodRenames,
-                                                     new Model(method.getToModel().determineContentClass()), model);
-                        } catch (ClassNotFoundException exception) {
-                            throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
-                        }
-
-                    } else {
-                        try {
-                            adapter.addMethodAdapter(MethodAction.READ, new Model(method.getToModel().determineClass()),
-                                                     model, false, false, methodRenames, null, null);
-                        } catch (ClassNotFoundException exception) {
-                            throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
-                        }
-
-                    }
+                // This specifies that a different entity is returned. A mapping method to the corresponding adapter
+                // needs to be added.
+                isExternal = true;
+                if (!m.hasForeignKey()) {
+                    System.out.println("ERROR! Cannot generate adapter for " + m.getKey() + "/" + m.getId()
+                                       + " because missing foreign key");
+                    // TODO shout
+                    continue;
                 }
-                if (method.hasFromModels()) {
-                    if (m.isListMethod()) {
-                        // TODO shout, not handled
-                        throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
-                                                               + m);
-                    } else {
-                        for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
-                            try {
-                                adapter.addMethodAdapter(m.isCreateMethod() ? MethodAction.CREATE
-                                                                            : m.isUpdateMethod() ? MethodAction.UPDATE
-                                                                                                 : MethodAction.READ,
-                                                         model, new Model(arg.determineClass()), false, false,
-                                                         methodRenames, null, null);
-                            } catch (ClassNotFoundException exception) {
-                                throw new FoundationGeneratorException("Failed generating adapter for " + model,
-                                                                       exception);
-                            }
-                        }
+                modelToConsider = CommonTranslator.fetchCorrespondingModel(config, m.getForeignKey());
+            }
+            if (method.hasToModel()) {
+                if (m.isListMethod()) {
+                    try {
+                        adapter.addMethodAdapter(MethodAction.READ, new Model(method.getToModel().determineClass()),
+                                                 new Model(ListResponse.class), true, false, methodRenames,
+                                                 new Model(method.getToModel().determineContentClass()),
+                                                 modelToConsider, isExternal);
+                    } catch (ClassNotFoundException exception) {
+                        throw new FoundationGeneratorException("Failed generating adapter for " + modelToConsider,
+                                                               exception);
                     }
 
+                } else {
+                    try {
+                        adapter.addMethodAdapter(MethodAction.READ, new Model(method.getToModel().determineClass()),
+                                                 modelToConsider, false, false, methodRenames, null, null, isExternal);
+                    } catch (ClassNotFoundException exception) {
+                        throw new FoundationGeneratorException("Failed generating adapter for " + modelToConsider,
+                                                               exception);
+                    }
+
+                }
+            }
+            if (method.hasFromModels()) {
+                if (m.isListMethod()) {
+                    // TODO shout, not handled
+                    throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
+                                                           + m);
+                } else {
+                    for (LowLevelAPIMethodArgument arg : method.getFromModels()) {
+                        try {
+                            adapter.addMethodAdapter(m.isCreateMethod() ? MethodAction.CREATE
+                                                                        : m.isUpdateMethod() ? MethodAction.UPDATE
+                                                                                             : MethodAction.READ,
+                                                     model, new Model(arg.determineClass()), false, false,
+                                                     methodRenames, null, null);
+                        } catch (ClassNotFoundException exception) {
+                            throw new FoundationGeneratorException("Failed generating adapter for " + model, exception);
+                        }
+                    }
                 }
 
             }
@@ -192,7 +206,7 @@ public class ArtifactsTranslator {
         if (entity == null) {
             return null;
         }
-        final String packageName = generateModelPackageName(config, entity.getGroupId());
+        final String packageName = CommonTranslator.generateModelPackageName(config, entity.getGroupId());
         ModelPojo model = new ModelPojo(packageName, generateEntityName(entity.getKey()),
                                         CommonTranslator.generateGoup(entity.getGroupId()), entity.getDescription(),
                                         entity.getLongDescription(), entity.isCustomCode(), entity.isInternal());
@@ -251,8 +265,8 @@ public class ArtifactsTranslator {
         if (enumerator == null) {
             return null;
         }
-        com.arm.pelion.sdk.foundation.generator.model.ModelEnum javaEnum = new ModelEnum(generateModelPackageName(config,
-                                                                                                                  enumerator.getGroupId()),
+        com.arm.pelion.sdk.foundation.generator.model.ModelEnum javaEnum = new ModelEnum(CommonTranslator.generateModelPackageName(config,
+                                                                                                                                   enumerator.getGroupId()),
                                                                                          null, enumerator.getName(),
                                                                                          CommonTranslator.generateGoup(enumerator.getGroupId()),
                                                                                          enumerator.getLongDescription(),
@@ -271,53 +285,18 @@ public class ArtifactsTranslator {
         return ApiUtils.convertSnakeToCamel(key, true);
     }
 
-    private static String generateModelPackageName(Configuration config, List<String> groupId) {
-        return generatePackageName(config.getRootPackageName(), config.getModelPackage(), groupId);
-    }
-
     private static String generateAdapterPackageName(Configuration config, List<String> groupId) {
-        return generatePackageName(config.getRootPackageName(), config.getAdapterPackage(), groupId);
+        return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getAdapterPackage(), groupId);
     }
 
     private static String generateModulePackageName(Configuration config, List<String> groupId) {
         // TODO Can be changed
-        return generatePackageName(config.getRootPackageName(), config.getModulePackage(), null);
+        return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getModulePackage(), null);
     }
 
     private static String generateFactoryPackageName(Configuration config, List<String> groupId) {
         // TODO Can be changed
-        return generatePackageName(config.getRootPackageName(), config.getFactoryPackage(), null);
-    }
-
-    private static String generatePackageName(String rootPackageName, String modelPackage, List<String> groupId) {
-        StringBuilder builder = new StringBuilder();
-        if (rootPackageName != null) {
-            builder.append(rootPackageName);
-            if (!rootPackageName.endsWith(CommonTranslator.PACKAGE_SEPARATOR)) {
-                builder.append(CommonTranslator.PACKAGE_SEPARATOR);
-            }
-        }
-        final String specificPackage = CommonTranslator.generateGoup(groupId);
-        if (specificPackage != null) {
-            builder.append(specificPackage);
-        }
-        if (modelPackage != null) {
-            if (!modelPackage.startsWith(CommonTranslator.PACKAGE_SEPARATOR)) {
-                if (specificPackage != null && !specificPackage.endsWith(CommonTranslator.PACKAGE_SEPARATOR)) {
-                    builder.append(CommonTranslator.PACKAGE_SEPARATOR);
-                }
-            }
-            builder.append(modelPackage);
-        }
-        final String packageName = builder.toString()
-                                          .replace(CommonTranslator.PACKAGE_SEPARATOR
-                                                   + CommonTranslator.PACKAGE_SEPARATOR,
-                                                   CommonTranslator.PACKAGE_SEPARATOR)
-                                          .toLowerCase(Locale.UK);
-        if (packageName.endsWith(CommonTranslator.PACKAGE_SEPARATOR)) {
-            return packageName.substring(0, packageName.length() - 1);
-        }
-        return packageName;
+        return CommonTranslator.generatePackageName(config.getRootPackageName(), config.getFactoryPackage(), null);
     }
 
     public static Artifacts translate(Configuration config, IntermediateApiDefinition definition,

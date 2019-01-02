@@ -28,6 +28,8 @@ public class Method {
     private boolean doesntReturnItself;
     @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
+    @JsonProperty(InputSchema.FOREIGN_KEY_TAG)
+    private ForeignKey foreignKey;
 
     @JsonProperty(InputSchema.CUSTOM_METHOD_TAG)
     private boolean customMethod;
@@ -157,6 +159,18 @@ public class Method {
         this.customMethod = customMethod != null;
     }
 
+    public ForeignKey getForeignKey() {
+        return foreignKey;
+    }
+
+    public void setForeignKey(ForeignKey foreignKey) {
+        this.foreignKey = foreignKey;
+    }
+
+    public boolean hasForeignKey() {
+        return foreignKey != null;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -202,7 +216,7 @@ public class Method {
         return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
                + ", renames=" + renames + ", parameters=" + parameters + ", id=" + id + ", hasPaginatedResponse="
                + hasPaginatedResponse + ", doesntReturnItself=" + doesntReturnItself + ", customCode=" + customCode
-               + "]";
+               + ", foreignKey=" + foreignKey + ", customMethod=" + customMethod + "]";
     }
 
 }
