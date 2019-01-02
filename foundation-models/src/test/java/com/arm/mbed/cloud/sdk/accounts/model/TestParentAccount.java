@@ -7,95 +7,93 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model ParentAccount. */
+ * Unit tests for Model ParentAccount.
+ */
 public class TestParentAccount {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    try {
-      ParentAccount parentaccount1 = new ParentAccount("85ab3bf3-83f7-4dfd-9df0-f2fad780b81a",
-          "730b8ee7-0414-4e84-b978-b2ed0b831903",
-          "a75f317e-d854-4724-831b-95b11e9bf8d6");
-      ParentAccount parentaccount2 = parentaccount1.clone();
-      assertNotNull(parentaccount1);
-      assertNotNull(parentaccount2);
-      assertNotSame(parentaccount2, parentaccount1);
-      assertEquals(parentaccount2, parentaccount1);
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        try {
+            ParentAccount parentaccount1 = new ParentAccount("85ab3bf3-83f7-4dfd-9df0-f2fad780b81a",
+                                                             "730b8ee7-0414-4e84-b978-b2ed0b831903",
+                                                             "a75f317e-d854-4724-831b-95b11e9bf8d6");
+            ParentAccount parentaccount2 = parentaccount1.clone();
+            assertNotNull(parentaccount1);
+            assertNotNull(parentaccount2);
+            assertNotSame(parentaccount2, parentaccount1);
+            assertEquals(parentaccount2, parentaccount1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the isValid method.
-   */
-  @Test
-  public void testIsvalid() {
-    ParentAccount parentaccount = new ParentAccount("73d5bc96-2ae4-49f9-848a-1422a978ac07",
-        "2fdbde6a-c06f-465c-98e2-9fbb9dcc6b58",
-        "dcf21f68-2b9d-4679-916a-5d7fb27fff11");
-    assertTrue(parentaccount.isValid());
-  }
+    /**
+     * Tests the isValid method.
+     */
+    @Test
+    public void testIsvalid() {
+        ParentAccount parentaccount = new ParentAccount("73d5bc96-2ae4-49f9-848a-1422a978ac07",
+                                                        "2fdbde6a-c06f-465c-98e2-9fbb9dcc6b58",
+                                                        "dcf21f68-2b9d-4679-916a-5d7fb27fff11");
+        assertTrue(parentaccount.isValid());
+    }
 
-  /**
-   * Tests the hashCode method.
-   */
-  @Test
-  public void testHashcode() {
-    try {
-      ParentAccount parentaccount1 = new ParentAccount("93364173-9f6a-4dfd-b00a-606e2022cbf8",
-          "01250250-247f-4b31-854a-4c70d99d5369",
-          "0d01165c-4108-4946-9c53-042f2d079b73");
-      ParentAccount parentaccount2 = new ParentAccount("93364173-9f6a-4dfd-b00a-606e2022cbf8",
-          "01250250-247f-4b31-854a-4c70d99d5369",
-          "0d01165c-4108-4946-9c53-042f2d079b73");
-      assertNotNull(parentaccount1);
-      assertNotNull(parentaccount2);
-      assertNotSame(parentaccount2, parentaccount1);
-      assertEquals(parentaccount2, parentaccount1);
-      assertEquals(parentaccount2.hashCode(), parentaccount1.hashCode());
-      int hashCode = parentaccount1.hashCode();
-      for (int i = 0; i < 5 ; i++) {
-        assertEquals(hashCode, parentaccount1.hashCode());
-      }
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    public void testHashcode() {
+        try {
+            ParentAccount parentaccount1 = new ParentAccount("93364173-9f6a-4dfd-b00a-606e2022cbf8",
+                                                             "01250250-247f-4b31-854a-4c70d99d5369",
+                                                             "0d01165c-4108-4946-9c53-042f2d079b73");
+            ParentAccount parentaccount2 = new ParentAccount("93364173-9f6a-4dfd-b00a-606e2022cbf8",
+                                                             "01250250-247f-4b31-854a-4c70d99d5369",
+                                                             "0d01165c-4108-4946-9c53-042f2d079b73");
+            assertNotNull(parentaccount1);
+            assertNotNull(parentaccount2);
+            assertNotSame(parentaccount2, parentaccount1);
+            assertEquals(parentaccount2, parentaccount1);
+            assertEquals(parentaccount2.hashCode(), parentaccount1.hashCode());
+            int hashCode = parentaccount1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, parentaccount1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    try {
-      ParentAccount parentaccount1 = new ParentAccount("ca9b1b4f-cbe4-4d31-a111-f4e2d0c2c35d",
-          "8c2fe3f8-9449-4e6e-9967-1d22fa2c4979",
-          "433c0fc8-ac9c-47d3-8f57-1ea5c1b569b8");
-      ParentAccount parentaccount2 = new ParentAccount("ca9b1b4f-cbe4-4d31-a111-f4e2d0c2c35d",
-          "8c2fe3f8-9449-4e6e-9967-1d22fa2c4979",
-          "433c0fc8-ac9c-47d3-8f57-1ea5c1b569b8");
-      ParentAccount parentaccount3 = new ParentAccount("7547bc51-a615-431b-a70c-d88d8a8e8328",
-          "8faaabd8-6a31-4cbc-be0f-ce9d62bd5201",
-          "3926a796-6c53-427c-88ff-300926a1f176");
-      assertNotNull(parentaccount1);
-      assertNotNull(parentaccount2);
-      assertNotNull(parentaccount3);
-      assertNotSame(parentaccount2, parentaccount1);
-      assertNotSame(parentaccount3, parentaccount1);
-      assertEquals(parentaccount2, parentaccount1);
-      assertEquals(parentaccount2, parentaccount1);
-      assertEquals(parentaccount1, parentaccount2);
-      assertEquals(parentaccount1, parentaccount1);
-      assertFalse(parentaccount1.equals(null));
-      assertNotEquals(parentaccount3, parentaccount1);
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        try {
+            ParentAccount parentaccount1 = new ParentAccount("ca9b1b4f-cbe4-4d31-a111-f4e2d0c2c35d",
+                                                             "8c2fe3f8-9449-4e6e-9967-1d22fa2c4979",
+                                                             "433c0fc8-ac9c-47d3-8f57-1ea5c1b569b8");
+            ParentAccount parentaccount2 = new ParentAccount("ca9b1b4f-cbe4-4d31-a111-f4e2d0c2c35d",
+                                                             "8c2fe3f8-9449-4e6e-9967-1d22fa2c4979",
+                                                             "433c0fc8-ac9c-47d3-8f57-1ea5c1b569b8");
+            ParentAccount parentaccount3 = new ParentAccount("7547bc51-a615-431b-a70c-d88d8a8e8328",
+                                                             "8faaabd8-6a31-4cbc-be0f-ce9d62bd5201",
+                                                             "3926a796-6c53-427c-88ff-300926a1f176");
+            assertNotNull(parentaccount1);
+            assertNotNull(parentaccount2);
+            assertNotNull(parentaccount3);
+            assertNotSame(parentaccount2, parentaccount1);
+            assertNotSame(parentaccount3, parentaccount1);
+            assertEquals(parentaccount2, parentaccount1);
+            assertEquals(parentaccount2, parentaccount1);
+            assertEquals(parentaccount1, parentaccount2);
+            assertEquals(parentaccount1, parentaccount1);
+            assertFalse(parentaccount1.equals(null));
+            assertNotEquals(parentaccount3, parentaccount1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

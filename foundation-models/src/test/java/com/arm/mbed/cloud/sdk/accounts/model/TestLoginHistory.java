@@ -7,102 +7,93 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model LoginHistory. */
+ * Unit tests for Model LoginHistory.
+ */
 public class TestLoginHistory {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    try {
-      LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452540481L),
-          "5d71cd54-f570-488e-b7b8-5992fc7b24e3",
-          true,
-          "809669f5-35fd-4703-a651-062361c59efc");
-      LoginHistory loginhistory2 = loginhistory1.clone();
-      assertNotNull(loginhistory1);
-      assertNotNull(loginhistory2);
-      assertNotSame(loginhistory2, loginhistory1);
-      assertEquals(loginhistory2, loginhistory1);
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        try {
+            LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452540481L),
+                                                          "5d71cd54-f570-488e-b7b8-5992fc7b24e3", true,
+                                                          "809669f5-35fd-4703-a651-062361c59efc");
+            LoginHistory loginhistory2 = loginhistory1.clone();
+            assertNotNull(loginhistory1);
+            assertNotNull(loginhistory2);
+            assertNotSame(loginhistory2, loginhistory1);
+            assertEquals(loginhistory2, loginhistory1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the isValid method.
-   */
-  @Test
-  public void testIsvalid() {
-    LoginHistory loginhistory = new LoginHistory(new java.util.Date(1546452540885L),
-        "92aef4ba-8d2b-45b6-b919-dea8b49024d4",
-        true,
-        "8d54d936-7426-4a5c-bc93-eba2007a7296");
-    assertTrue(loginhistory.isValid());
-  }
+    /**
+     * Tests the isValid method.
+     */
+    @Test
+    public void testIsvalid() {
+        LoginHistory loginhistory = new LoginHistory(new java.util.Date(1546452540885L),
+                                                     "92aef4ba-8d2b-45b6-b919-dea8b49024d4", true,
+                                                     "8d54d936-7426-4a5c-bc93-eba2007a7296");
+        assertTrue(loginhistory.isValid());
+    }
 
-  /**
-   * Tests the hashCode method.
-   */
-  @Test
-  public void testHashcode() {
-    try {
-      LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452533891L),
-          "a39e17ed-de06-44d2-a8f3-29a46bea6efb",
-          false,
-          "02bccf48-7a56-4760-8638-ee60e688dcf4");
-      LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546452533891L),
-          "a39e17ed-de06-44d2-a8f3-29a46bea6efb",
-          false,
-          "02bccf48-7a56-4760-8638-ee60e688dcf4");
-      assertNotNull(loginhistory1);
-      assertNotNull(loginhistory2);
-      assertNotSame(loginhistory2, loginhistory1);
-      assertEquals(loginhistory2, loginhistory1);
-      assertEquals(loginhistory2.hashCode(), loginhistory1.hashCode());
-      int hashCode = loginhistory1.hashCode();
-      for (int i = 0; i < 5 ; i++) {
-        assertEquals(hashCode, loginhistory1.hashCode());
-      }
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    public void testHashcode() {
+        try {
+            LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452533891L),
+                                                          "a39e17ed-de06-44d2-a8f3-29a46bea6efb", false,
+                                                          "02bccf48-7a56-4760-8638-ee60e688dcf4");
+            LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546452533891L),
+                                                          "a39e17ed-de06-44d2-a8f3-29a46bea6efb", false,
+                                                          "02bccf48-7a56-4760-8638-ee60e688dcf4");
+            assertNotNull(loginhistory1);
+            assertNotNull(loginhistory2);
+            assertNotSame(loginhistory2, loginhistory1);
+            assertEquals(loginhistory2, loginhistory1);
+            assertEquals(loginhistory2.hashCode(), loginhistory1.hashCode());
+            int hashCode = loginhistory1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, loginhistory1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    try {
-      LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452533629L),
-          "65ccfc08-6ec2-4028-9298-3715c8f5fb59",
-          true,
-          "62fee6bd-db2b-438d-926b-c8a89b471cf0");
-      LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546452533629L),
-          "65ccfc08-6ec2-4028-9298-3715c8f5fb59",
-          true,
-          "62fee6bd-db2b-438d-926b-c8a89b471cf0");
-      LoginHistory loginhistory3 = new LoginHistory(new java.util.Date(1546452537195L),
-          "8e7c5c46-360f-4788-ac58-9a4920fdc470",
-          false,
-          "b4c38955-0f78-4c57-b5e8-59b2fe31f70c");
-      assertNotNull(loginhistory1);
-      assertNotNull(loginhistory2);
-      assertNotNull(loginhistory3);
-      assertNotSame(loginhistory2, loginhistory1);
-      assertNotSame(loginhistory3, loginhistory1);
-      assertEquals(loginhistory2, loginhistory1);
-      assertEquals(loginhistory2, loginhistory1);
-      assertEquals(loginhistory1, loginhistory2);
-      assertEquals(loginhistory1, loginhistory1);
-      assertFalse(loginhistory1.equals(null));
-      assertNotEquals(loginhistory3, loginhistory1);
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        try {
+            LoginHistory loginhistory1 = new LoginHistory(new java.util.Date(1546452533629L),
+                                                          "65ccfc08-6ec2-4028-9298-3715c8f5fb59", true,
+                                                          "62fee6bd-db2b-438d-926b-c8a89b471cf0");
+            LoginHistory loginhistory2 = new LoginHistory(new java.util.Date(1546452533629L),
+                                                          "65ccfc08-6ec2-4028-9298-3715c8f5fb59", true,
+                                                          "62fee6bd-db2b-438d-926b-c8a89b471cf0");
+            LoginHistory loginhistory3 = new LoginHistory(new java.util.Date(1546452537195L),
+                                                          "8e7c5c46-360f-4788-ac58-9a4920fdc470", false,
+                                                          "b4c38955-0f78-4c57-b5e8-59b2fe31f70c");
+            assertNotNull(loginhistory1);
+            assertNotNull(loginhistory2);
+            assertNotNull(loginhistory3);
+            assertNotSame(loginhistory2, loginhistory1);
+            assertNotSame(loginhistory3, loginhistory1);
+            assertEquals(loginhistory2, loginhistory1);
+            assertEquals(loginhistory2, loginhistory1);
+            assertEquals(loginhistory1, loginhistory2);
+            assertEquals(loginhistory1, loginhistory1);
+            assertFalse(loginhistory1.equals(null));
+            assertNotEquals(loginhistory3, loginhistory1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

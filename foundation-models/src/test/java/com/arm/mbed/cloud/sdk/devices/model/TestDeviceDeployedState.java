@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model DeviceDeployedState. */
+ * Unit tests for Model DeviceDeployedState.
+ */
 public class TestDeviceDeployedState {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      DeviceDeployedState devicedeployedstate = DeviceDeployedState.getValue(null);
-      assertNotNull(devicedeployedstate);
-      assertTrue(devicedeployedstate.isDefault());
-      devicedeployedstate = DeviceDeployedState.getValue(DeviceDeployedState.getDefault().getString());
-      assertNotNull(devicedeployedstate);
-      assertTrue(devicedeployedstate.isDefault());
-      devicedeployedstate = DeviceDeployedState.getValue("DEVELOPMENT");
-      assertNotNull(devicedeployedstate);
-      assertTrue(devicedeployedstate.isDefault());
-      devicedeployedstate = DeviceDeployedState.getValue("production");
-      assertNotNull(devicedeployedstate);
-      assertFalse(devicedeployedstate.isDefault());
-      devicedeployedstate = DeviceDeployedState.getValue("08d7a38b-9804-4fbd-ab52-46eceae8094f");
-      assertNotNull(devicedeployedstate);
-      assertTrue(devicedeployedstate.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            DeviceDeployedState devicedeployedstate = DeviceDeployedState.getValue(null);
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue(DeviceDeployedState.getDefault().getString());
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("DEVELOPMENT");
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("production");
+            assertNotNull(devicedeployedstate);
+            assertFalse(devicedeployedstate.isDefault());
+            devicedeployedstate = DeviceDeployedState.getValue("08d7a38b-9804-4fbd-ab52-46eceae8094f");
+            assertNotNull(devicedeployedstate);
+            assertTrue(devicedeployedstate.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

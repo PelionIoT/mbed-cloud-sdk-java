@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model AccountStatus. */
+ * Unit tests for Model AccountStatus.
+ */
 public class TestAccountStatus {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      AccountStatus accountstatus = AccountStatus.getValue(null);
-      assertNotNull(accountstatus);
-      assertTrue(accountstatus.isDefault());
-      accountstatus = AccountStatus.getValue(AccountStatus.getDefault().getString());
-      assertNotNull(accountstatus);
-      assertTrue(accountstatus.isDefault());
-      accountstatus = AccountStatus.getValue("ACTIVE");
-      assertNotNull(accountstatus);
-      assertTrue(accountstatus.isDefault());
-      accountstatus = AccountStatus.getValue("ENROLLING");
-      assertNotNull(accountstatus);
-      assertFalse(accountstatus.isDefault());
-      accountstatus = AccountStatus.getValue("b9831c5a-eaa6-4b75-bb06-9450453e40fa");
-      assertNotNull(accountstatus);
-      assertTrue(accountstatus.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            AccountStatus accountstatus = AccountStatus.getValue(null);
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue(AccountStatus.getDefault().getString());
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("ACTIVE");
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("ENROLLING");
+            assertNotNull(accountstatus);
+            assertFalse(accountstatus.isDefault());
+            accountstatus = AccountStatus.getValue("b9831c5a-eaa6-4b75-bb06-9450453e40fa");
+            assertNotNull(accountstatus);
+            assertTrue(accountstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

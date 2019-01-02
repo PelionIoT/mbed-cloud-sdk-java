@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model SubtenantUserStatus. */
+ * Unit tests for Model SubtenantUserStatus.
+ */
 public class TestSubtenantUserStatus {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      SubtenantUserStatus subtenantuserstatus = SubtenantUserStatus.getValue(null);
-      assertNotNull(subtenantuserstatus);
-      assertTrue(subtenantuserstatus.isDefault());
-      subtenantuserstatus = SubtenantUserStatus.getValue(SubtenantUserStatus.getDefault().getString());
-      assertNotNull(subtenantuserstatus);
-      assertTrue(subtenantuserstatus.isDefault());
-      subtenantuserstatus = SubtenantUserStatus.getValue("ACTIVE");
-      assertNotNull(subtenantuserstatus);
-      assertTrue(subtenantuserstatus.isDefault());
-      subtenantuserstatus = SubtenantUserStatus.getValue("ENROLLING");
-      assertNotNull(subtenantuserstatus);
-      assertFalse(subtenantuserstatus.isDefault());
-      subtenantuserstatus = SubtenantUserStatus.getValue("4450251a-b5e3-4945-b84a-ebc5b2865005");
-      assertNotNull(subtenantuserstatus);
-      assertTrue(subtenantuserstatus.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            SubtenantUserStatus subtenantuserstatus = SubtenantUserStatus.getValue(null);
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue(SubtenantUserStatus.getDefault().getString());
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("ACTIVE");
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("ENROLLING");
+            assertNotNull(subtenantuserstatus);
+            assertFalse(subtenantuserstatus.isDefault());
+            subtenantuserstatus = SubtenantUserStatus.getValue("4450251a-b5e3-4945-b84a-ebc5b2865005");
+            assertNotNull(subtenantuserstatus);
+            assertTrue(subtenantuserstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

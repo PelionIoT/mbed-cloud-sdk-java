@@ -7,88 +7,86 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model VerificationResponse. */
+ * Unit tests for Model VerificationResponse.
+ */
 public class TestVerificationResponse {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    try {
-      VerificationResponse verificationresponse1 = new VerificationResponse("2d0ee469-4216-4f58-a887-7e30a714194b",
-          false);
-      VerificationResponse verificationresponse2 = verificationresponse1.clone();
-      assertNotNull(verificationresponse1);
-      assertNotNull(verificationresponse2);
-      assertNotSame(verificationresponse2, verificationresponse1);
-      assertEquals(verificationresponse2, verificationresponse1);
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        try {
+            VerificationResponse verificationresponse1 = new VerificationResponse("2d0ee469-4216-4f58-a887-7e30a714194b",
+                                                                                  false);
+            VerificationResponse verificationresponse2 = verificationresponse1.clone();
+            assertNotNull(verificationresponse1);
+            assertNotNull(verificationresponse2);
+            assertNotSame(verificationresponse2, verificationresponse1);
+            assertEquals(verificationresponse2, verificationresponse1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the isValid method.
-   */
-  @Test
-  public void testIsvalid() {
-    VerificationResponse verificationresponse = new VerificationResponse("8114ba2f-77b7-4fd3-8477-ff1b60dc4571",
-        true);
-    assertTrue(verificationresponse.isValid());
-  }
+    /**
+     * Tests the isValid method.
+     */
+    @Test
+    public void testIsvalid() {
+        VerificationResponse verificationresponse = new VerificationResponse("8114ba2f-77b7-4fd3-8477-ff1b60dc4571",
+                                                                             true);
+        assertTrue(verificationresponse.isValid());
+    }
 
-  /**
-   * Tests the hashCode method.
-   */
-  @Test
-  public void testHashcode() {
-    try {
-      VerificationResponse verificationresponse1 = new VerificationResponse("d6262618-d6bc-4e51-82ad-c524b867791e",
-          false);
-      VerificationResponse verificationresponse2 = new VerificationResponse("d6262618-d6bc-4e51-82ad-c524b867791e",
-          false);
-      assertNotNull(verificationresponse1);
-      assertNotNull(verificationresponse2);
-      assertNotSame(verificationresponse2, verificationresponse1);
-      assertEquals(verificationresponse2, verificationresponse1);
-      assertEquals(verificationresponse2.hashCode(), verificationresponse1.hashCode());
-      int hashCode = verificationresponse1.hashCode();
-      for (int i = 0; i < 5 ; i++) {
-        assertEquals(hashCode, verificationresponse1.hashCode());
-      }
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    public void testHashcode() {
+        try {
+            VerificationResponse verificationresponse1 = new VerificationResponse("d6262618-d6bc-4e51-82ad-c524b867791e",
+                                                                                  false);
+            VerificationResponse verificationresponse2 = new VerificationResponse("d6262618-d6bc-4e51-82ad-c524b867791e",
+                                                                                  false);
+            assertNotNull(verificationresponse1);
+            assertNotNull(verificationresponse2);
+            assertNotSame(verificationresponse2, verificationresponse1);
+            assertEquals(verificationresponse2, verificationresponse1);
+            assertEquals(verificationresponse2.hashCode(), verificationresponse1.hashCode());
+            int hashCode = verificationresponse1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, verificationresponse1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    try {
-      VerificationResponse verificationresponse1 = new VerificationResponse("93d9f4a6-72a0-4ff8-b4a6-63d94f833fcd",
-          true);
-      VerificationResponse verificationresponse2 = new VerificationResponse("93d9f4a6-72a0-4ff8-b4a6-63d94f833fcd",
-          true);
-      VerificationResponse verificationresponse3 = new VerificationResponse("d33d76c0-e4fd-4c17-9a84-61c783ed4ffd",
-          true);
-      assertNotNull(verificationresponse1);
-      assertNotNull(verificationresponse2);
-      assertNotNull(verificationresponse3);
-      assertNotSame(verificationresponse2, verificationresponse1);
-      assertNotSame(verificationresponse3, verificationresponse1);
-      assertEquals(verificationresponse2, verificationresponse1);
-      assertEquals(verificationresponse2, verificationresponse1);
-      assertEquals(verificationresponse1, verificationresponse2);
-      assertEquals(verificationresponse1, verificationresponse1);
-      assertFalse(verificationresponse1.equals(null));
-      assertNotEquals(verificationresponse3, verificationresponse1);
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        try {
+            VerificationResponse verificationresponse1 = new VerificationResponse("93d9f4a6-72a0-4ff8-b4a6-63d94f833fcd",
+                                                                                  true);
+            VerificationResponse verificationresponse2 = new VerificationResponse("93d9f4a6-72a0-4ff8-b4a6-63d94f833fcd",
+                                                                                  true);
+            VerificationResponse verificationresponse3 = new VerificationResponse("d33d76c0-e4fd-4c17-9a84-61c783ed4ffd",
+                                                                                  true);
+            assertNotNull(verificationresponse1);
+            assertNotNull(verificationresponse2);
+            assertNotNull(verificationresponse3);
+            assertNotSame(verificationresponse2, verificationresponse1);
+            assertNotSame(verificationresponse3, verificationresponse1);
+            assertEquals(verificationresponse2, verificationresponse1);
+            assertEquals(verificationresponse2, verificationresponse1);
+            assertEquals(verificationresponse1, verificationresponse2);
+            assertEquals(verificationresponse1, verificationresponse1);
+            assertFalse(verificationresponse1.equals(null));
+            assertNotEquals(verificationresponse3, verificationresponse1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

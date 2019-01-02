@@ -7,32 +7,33 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model CertificateEnrollmentEnrollResult. */
+ * Unit tests for Model CertificateEnrollmentEnrollResult.
+ */
 public class TestCertificateEnrollmentEnrollResult {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      CertificateEnrollmentEnrollResult certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(null);
-      assertNotNull(certificateenrollmentenrollresult);
-      assertTrue(certificateenrollmentenrollresult.isDefault());
-      certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(CertificateEnrollmentEnrollResult.getDefault().getString());
-      assertNotNull(certificateenrollmentenrollresult);
-      assertTrue(certificateenrollmentenrollresult.isDefault());
-      certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("FAILURE");
-      assertNotNull(certificateenrollmentenrollresult);
-      assertTrue(certificateenrollmentenrollresult.isDefault());
-      certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("forbidden");
-      assertNotNull(certificateenrollmentenrollresult);
-      assertFalse(certificateenrollmentenrollresult.isDefault());
-      certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("c2016052-9e3d-415b-b597-2d8e7c82d64d");
-      assertNotNull(certificateenrollmentenrollresult);
-      assertTrue(certificateenrollmentenrollresult.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            CertificateEnrollmentEnrollResult certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(null);
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue(CertificateEnrollmentEnrollResult.getDefault()
+                                                                                                                            .getString());
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("FAILURE");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("forbidden");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertFalse(certificateenrollmentenrollresult.isDefault());
+            certificateenrollmentenrollresult = CertificateEnrollmentEnrollResult.getValue("c2016052-9e3d-415b-b597-2d8e7c82d64d");
+            assertNotNull(certificateenrollmentenrollresult);
+            assertTrue(certificateenrollmentenrollresult.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

@@ -5,413 +5,456 @@ package com.arm.mbed.cloud.sdk.accounts.model;
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.SdkModel;
-import java.lang.Object;
-import java.lang.Override;
-import java.lang.String;
 import java.util.Date;
 import java.util.List;
 
 /**
- * Model for a user invitation. */
-@Preamble(
-    description = "Model for a user invitation."
-)
+ * Model for a user invitation.
+ */
+@Preamble(description = "Model for a user invitation.")
 public class UserInvitation implements SdkModel {
-  /**
-   * Serialisation Id. */
-  private static final long serialVersionUID = 1155551388211951L;
+    /**
+     * Serialisation Id.
+     */
+    private static final long serialVersionUID = 1155551388211951L;
 
-  /**
-   * The ID of the account the user is invited to. */
-  private String accountId;
+    /**
+     * The ID of the account the user is invited to.
+     */
+    private String accountId;
 
-  /**
-   * Creation UTC time RFC3339. */
-  private Date createdAt;
+    /**
+     * Creation UTC time RFC3339.
+     */
+    private Date createdAt;
 
-  /**
-   * Email address of the invited user. */
-  private String email;
+    /**
+     * Email address of the invited user.
+     */
+    private String email;
 
-  /**
-   * Invitation expiration as UTC time RFC3339. */
-  private Date expiration;
+    /**
+     * Invitation expiration as UTC time RFC3339.
+     */
+    private Date expiration;
 
-  /**
-   * The ID of the invitation. */
-  private String id;
+    /**
+     * The ID of the invitation.
+     */
+    private String id;
 
-  /**
-   * A list of login profiles for the user. Specified as the identity providers the user is associated with. */
-  private List loginProfiles;
+    /**
+     * A list of login profiles for the user. Specified as the identity providers the user is associated with.
+     */
+    private List loginProfiles;
 
-  /**
-   * Last update UTC time RFC3339. */
-  private Date updatedAt;
+    /**
+     * Last update UTC time RFC3339.
+     */
+    private Date updatedAt;
 
-  /**
-   * The ID of the invited user. */
-  private String userId;
+    /**
+     * The ID of the invited user.
+     */
+    private String userId;
 
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #UserInvitation()} instead.
-   * @param accountId The ID of the account the user is invited to.
-   * @param createdAt Creation UTC time RFC3339.
-   * @param email Email address of the invited user.
-   * @param expiration Invitation expiration as UTC time RFC3339.
-   * @param id The ID of the invitation.
-   * @param loginProfiles A list of login profiles for the user. Specified as the identity providers the user is associated with.
-   * @param updatedAt Last update UTC time RFC3339.
-   * @param userId The ID of the invited user.
-   */
-  @Internal
-  public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
-      List loginProfiles, Date updatedAt, String userId) {
-    super();
-    setAccountId(accountId);
-    setCreatedAt(createdAt);
-    setEmail(email);
-    setExpiration(expiration);
-    setId(id);
-    setLoginProfiles(loginProfiles);
-    setUpdatedAt(updatedAt);
-    setUserId(userId);
-  }
-
-  /**
-   * Internal constructor.
-   * <p>
-   * Note: Should not be used. Use {@link #UserInvitation()} instead.
-   * @param userInvitation a user invitation.
-   */
-  @Internal
-  public UserInvitation(UserInvitation userInvitation) {
-    this(userInvitation == null ? (String) null : userInvitation.accountId,
-        userInvitation == null ? new java.util.Date() : userInvitation.createdAt,
-        userInvitation == null ? (String) null : userInvitation.email,
-        userInvitation == null ? new java.util.Date() : userInvitation.expiration,
-        userInvitation == null ? (String) null : userInvitation.id,
-        userInvitation == null ? null : userInvitation.loginProfiles,
-        userInvitation == null ? new java.util.Date() : userInvitation.updatedAt,
-        userInvitation == null ? (String) null : userInvitation.userId);
-  }
-
-  /**
-   * Constructor.
-   */
-  public UserInvitation() {
-    this((String) null,
-        new java.util.Date(),
-        (String) null,
-        new java.util.Date(),
-        (String) null,
-        null,
-        new java.util.Date(),
-        (String) null);
-  }
-
-  /**
-   * Constructor.
-   * @param id The ID of the invitation.
-   */
-  public UserInvitation(String id) {
-    this();
-    setId(id);
-  }
-
-  /**
-   * Gets the id of the account the user is invited to.
-   * @return accountId
-   */
-  public String getAccountId() {
-    return accountId;
-  }
-
-  /**
-   * Sets the id of the account the user is invited to.
-   * @param accountId The ID of the account the user is invited to.
-   */
-  public void setAccountId(String accountId) {
-    this.accountId = accountId;
-  }
-
-  /**
-   * Gets creation utc time rfc3339.
-   * @return createdAt
-   */
-  public Date getCreatedAt() {
-    return createdAt;
-  }
-
-  /**
-   * Sets creation utc time rfc3339.
-   * @param createdAt Creation UTC time RFC3339.
-   */
-  public void setCreatedAt(Date createdAt) {
-    this.createdAt = createdAt;
-  }
-
-  /**
-   * Gets email address of the invited user.
-   * @return email
-   */
-  public String getEmail() {
-    return email;
-  }
-
-  /**
-   * Sets email address of the invited user.
-   * @param email Email address of the invited user.
-   */
-  public void setEmail(String email) {
-    this.email = email;
-  }
-
-  /**
-   * Gets invitation expiration as utc time rfc3339.
-   * @return expiration
-   */
-  public Date getExpiration() {
-    return expiration;
-  }
-
-  /**
-   * Sets invitation expiration as utc time rfc3339.
-   * @param expiration Invitation expiration as UTC time RFC3339.
-   */
-  public void setExpiration(Date expiration) {
-    this.expiration = expiration;
-  }
-
-  /**
-   * Gets the id of the invitation.
-   * @return id
-   */
-  @Override
-  public String getId() {
-    return id;
-  }
-
-  /**
-   * Sets the id of the invitation.
-   * @param id The ID of the invitation.
-   */
-  @Override
-  public void setId(String id) {
-    this.id = id;
-  }
-
-  /**
-   * Sets the id of the invitation.
-   * <p>
-   * Similar to {@link #setId(String)}
-   * @param userInvitationId The ID of the invitation.
-   */
-  @Internal
-  public void setUserInvitationId(String userInvitationId) {
-    setId(userInvitationId);
-  }
-
-  /**
-   * Gets a list of login profiles for the user. specified as the identity providers the user is associated with.
-   * @return loginProfiles
-   */
-  public List getLoginProfiles() {
-    return loginProfiles;
-  }
-
-  /**
-   * Sets a list of login profiles for the user. specified as the identity providers the user is associated with.
-   * @param loginProfiles A list of login profiles for the user. Specified as the identity providers the user is associated with.
-   */
-  public void setLoginProfiles(List loginProfiles) {
-    this.loginProfiles = loginProfiles;
-  }
-
-  /**
-   * Gets last update utc time rfc3339.
-   * @return updatedAt
-   */
-  public Date getUpdatedAt() {
-    return updatedAt;
-  }
-
-  /**
-   * Sets last update utc time rfc3339.
-   * @param updatedAt Last update UTC time RFC3339.
-   */
-  public void setUpdatedAt(Date updatedAt) {
-    this.updatedAt = updatedAt;
-  }
-
-  /**
-   * Gets the id of the invited user.
-   * @return userId
-   */
-  public String getUserId() {
-    return userId;
-  }
-
-  /**
-   * Sets the id of the invited user.
-   * @param userId The ID of the invited user.
-   */
-  public void setUserId(String userId) {
-    this.userId = userId;
-  }
-
-  /**
-   * Calculates the hash code of this instance based on field values.
-   * <p>
-   * @see java.lang.Object#hashCode()
-   * @return hash code
-   */
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
-    result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
-    result = prime * result + ((email == null) ? 0 : email.hashCode());
-    result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
-    result = prime * result + ((id == null) ? 0 : id.hashCode());
-    result = prime * result + ((loginProfiles == null) ? 0 : loginProfiles.hashCode());
-    result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
-    result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-    return result;
-  }
-
-  /**
-   *  Method to ensure {@link #equals(Object)} is correct.
-   * <p>
-   *  Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
-   * @param other another object.
-   * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
-   */
-  protected boolean canEqual(Object other) {
-    return other instanceof UserInvitation;
-  }
-
-  /**
-   * Indicates whether some other object is "equal to" this one.
-   * <p>
-   * @see java.lang.Object#equals(java.lang.Object)
-   * @param obj an object to compare with this instance.
-   * @return true if this object is the same as the obj argument; false otherwise.
-   */
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #UserInvitation()} instead.
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     * @param email
+     *            Email address of the invited user.
+     * @param expiration
+     *            Invitation expiration as UTC time RFC3339.
+     * @param id
+     *            The ID of the invitation.
+     * @param loginProfiles
+     *            A list of login profiles for the user. Specified as the identity providers the user is associated
+     *            with.
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     * @param userId
+     *            The ID of the invited user.
+     */
+    @Internal
+    public UserInvitation(String accountId, Date createdAt, String email, Date expiration, String id,
+                          List loginProfiles, Date updatedAt, String userId) {
+        super();
+        setAccountId(accountId);
+        setCreatedAt(createdAt);
+        setEmail(email);
+        setExpiration(expiration);
+        setId(id);
+        setLoginProfiles(loginProfiles);
+        setUpdatedAt(updatedAt);
+        setUserId(userId);
     }
-    if (obj == null) {
-      return false;
-    }
-    if( !(obj instanceof UserInvitation)) {
-      return false;
-    }
-    final UserInvitation other = (UserInvitation) obj;
-    if( !other.canEqual(this)) {
-      return false;
-    }
-    if (accountId == null) {
-      if (other.accountId != null) {
-        return false;
-      }
-    } else if (!accountId.equals(other.accountId)) {
-      return false;
-    }
-    if (createdAt == null) {
-      if (other.createdAt != null) {
-        return false;
-      }
-    } else if (!createdAt.equals(other.createdAt)) {
-      return false;
-    }
-    if (email == null) {
-      if (other.email != null) {
-        return false;
-      }
-    } else if (!email.equals(other.email)) {
-      return false;
-    }
-    if (expiration == null) {
-      if (other.expiration != null) {
-        return false;
-      }
-    } else if (!expiration.equals(other.expiration)) {
-      return false;
-    }
-    if (id == null) {
-      if (other.id != null) {
-        return false;
-      }
-    } else if (!id.equals(other.id)) {
-      return false;
-    }
-    if (loginProfiles == null) {
-      if (other.loginProfiles != null) {
-        return false;
-      }
-    } else if (!loginProfiles.equals(other.loginProfiles)) {
-      return false;
-    }
-    if (updatedAt == null) {
-      if (other.updatedAt != null) {
-        return false;
-      }
-    } else if (!updatedAt.equals(other.updatedAt)) {
-      return false;
-    }
-    if (userId == null) {
-      if (other.userId != null) {
-        return false;
-      }
-    } else if (!userId.equals(other.userId)) {
-      return false;
-    }
-    return true;
-  }
 
-  /**
-   * Returns a string representation of the object.
-   * <p>
-   * @see java.lang.Object#toString()
-   * @return the string representation
-   */
-  @Override
-  public String toString() {
-    return "UserInvitation [accountId=" + accountId
-        + ", createdAt=" + createdAt
-        + ", email=" + email
-        + ", expiration=" + expiration
-        + ", id=" + id
-        + ", loginProfiles=" + loginProfiles
-        + ", updatedAt=" + updatedAt
-        + ", userId=" + userId + "]";
-  }
+    /**
+     * Internal constructor.
+     * <p>
+     * Note: Should not be used. Use {@link #UserInvitation()} instead.
+     * 
+     * @param userInvitation
+     *            a user invitation.
+     */
+    @Internal
+    public UserInvitation(UserInvitation userInvitation) {
+        this(userInvitation == null ? (String) null : userInvitation.accountId,
+             userInvitation == null ? new java.util.Date() : userInvitation.createdAt,
+             userInvitation == null ? (String) null : userInvitation.email,
+             userInvitation == null ? new java.util.Date() : userInvitation.expiration,
+             userInvitation == null ? (String) null : userInvitation.id,
+             userInvitation == null ? null : userInvitation.loginProfiles,
+             userInvitation == null ? new java.util.Date() : userInvitation.updatedAt,
+             userInvitation == null ? (String) null : userInvitation.userId);
+    }
 
-  /**
-   * Checks whether the model is valid or not.
-   * <p>
-   * @see SdkModel#isValid()
-   * @return true if the model is valid; false otherwise.
-   */
-  @Override
-  public boolean isValid() {
-    return true;
-  }
+    /**
+     * Constructor.
+     */
+    public UserInvitation() {
+        this((String) null, new java.util.Date(), (String) null, new java.util.Date(), (String) null, null,
+             new java.util.Date(), (String) null);
+    }
 
-  /**
-   * Clones this instance.
-   * <p>
-   * @see java.lang.Object#clone()
-   * @return a cloned instance
-   */
-  @Override
-  public UserInvitation clone() {
-    return new UserInvitation(this);
-  }
+    /**
+     * Constructor.
+     * 
+     * @param id
+     *            The ID of the invitation.
+     */
+    public UserInvitation(String id) {
+        this();
+        setId(id);
+    }
+
+    /**
+     * Gets the id of the account the user is invited to.
+     * 
+     * @return accountId
+     */
+    public String getAccountId() {
+        return accountId;
+    }
+
+    /**
+     * Sets the id of the account the user is invited to.
+     * 
+     * @param accountId
+     *            The ID of the account the user is invited to.
+     */
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
+    }
+
+    /**
+     * Gets creation utc time rfc3339.
+     * 
+     * @return createdAt
+     */
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    /**
+     * Sets creation utc time rfc3339.
+     * 
+     * @param createdAt
+     *            Creation UTC time RFC3339.
+     */
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    /**
+     * Gets email address of the invited user.
+     * 
+     * @return email
+     */
+    public String getEmail() {
+        return email;
+    }
+
+    /**
+     * Sets email address of the invited user.
+     * 
+     * @param email
+     *            Email address of the invited user.
+     */
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    /**
+     * Gets invitation expiration as utc time rfc3339.
+     * 
+     * @return expiration
+     */
+    public Date getExpiration() {
+        return expiration;
+    }
+
+    /**
+     * Sets invitation expiration as utc time rfc3339.
+     * 
+     * @param expiration
+     *            Invitation expiration as UTC time RFC3339.
+     */
+    public void setExpiration(Date expiration) {
+        this.expiration = expiration;
+    }
+
+    /**
+     * Gets the id of the invitation.
+     * 
+     * @return id
+     */
+    @Override
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Sets the id of the invitation.
+     * 
+     * @param id
+     *            The ID of the invitation.
+     */
+    @Override
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    /**
+     * Sets the id of the invitation.
+     * <p>
+     * Similar to {@link #setId(String)}
+     * 
+     * @param userInvitationId
+     *            The ID of the invitation.
+     */
+    @Internal
+    public void setUserInvitationId(String userInvitationId) {
+        setId(userInvitationId);
+    }
+
+    /**
+     * Gets a list of login profiles for the user. specified as the identity providers the user is associated with.
+     * 
+     * @return loginProfiles
+     */
+    public List getLoginProfiles() {
+        return loginProfiles;
+    }
+
+    /**
+     * Sets a list of login profiles for the user. specified as the identity providers the user is associated with.
+     * 
+     * @param loginProfiles
+     *            A list of login profiles for the user. Specified as the identity providers the user is associated
+     *            with.
+     */
+    public void setLoginProfiles(List loginProfiles) {
+        this.loginProfiles = loginProfiles;
+    }
+
+    /**
+     * Gets last update utc time rfc3339.
+     * 
+     * @return updatedAt
+     */
+    public Date getUpdatedAt() {
+        return updatedAt;
+    }
+
+    /**
+     * Sets last update utc time rfc3339.
+     * 
+     * @param updatedAt
+     *            Last update UTC time RFC3339.
+     */
+    public void setUpdatedAt(Date updatedAt) {
+        this.updatedAt = updatedAt;
+    }
+
+    /**
+     * Gets the id of the invited user.
+     * 
+     * @return userId
+     */
+    public String getUserId() {
+        return userId;
+    }
+
+    /**
+     * Sets the id of the invited user.
+     * 
+     * @param userId
+     *            The ID of the invited user.
+     */
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    /**
+     * Calculates the hash code of this instance based on field values.
+     * <p>
+     * 
+     * @see java.lang.Object#hashCode()
+     * @return hash code
+     */
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((accountId == null) ? 0 : accountId.hashCode());
+        result = prime * result + ((createdAt == null) ? 0 : createdAt.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
+        result = prime * result + ((expiration == null) ? 0 : expiration.hashCode());
+        result = prime * result + ((id == null) ? 0 : id.hashCode());
+        result = prime * result + ((loginProfiles == null) ? 0 : loginProfiles.hashCode());
+        result = prime * result + ((updatedAt == null) ? 0 : updatedAt.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+        return result;
+    }
+
+    /**
+     * Method to ensure {@link #equals(Object)} is correct.
+     * <p>
+     * Note: see this article: <a href="https://www.artima.com/lejava/articles/equality.html">canEqual()</a>
+     * 
+     * @param other
+     *            another object.
+     * @return true if the other object is an instance of the class in which canEqual is (re)defined, false otherwise.
+     */
+    protected boolean canEqual(Object other) {
+        return other instanceof UserInvitation;
+    }
+
+    /**
+     * Indicates whether some other object is "equal to" this one.
+     * <p>
+     * 
+     * @see java.lang.Object#equals(java.lang.Object)
+     * @param obj
+     *            an object to compare with this instance.
+     * @return true if this object is the same as the obj argument; false otherwise.
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (!(obj instanceof UserInvitation)) {
+            return false;
+        }
+        final UserInvitation other = (UserInvitation) obj;
+        if (!other.canEqual(this)) {
+            return false;
+        }
+        if (accountId == null) {
+            if (other.accountId != null) {
+                return false;
+            }
+        } else if (!accountId.equals(other.accountId)) {
+            return false;
+        }
+        if (createdAt == null) {
+            if (other.createdAt != null) {
+                return false;
+            }
+        } else if (!createdAt.equals(other.createdAt)) {
+            return false;
+        }
+        if (email == null) {
+            if (other.email != null) {
+                return false;
+            }
+        } else if (!email.equals(other.email)) {
+            return false;
+        }
+        if (expiration == null) {
+            if (other.expiration != null) {
+                return false;
+            }
+        } else if (!expiration.equals(other.expiration)) {
+            return false;
+        }
+        if (id == null) {
+            if (other.id != null) {
+                return false;
+            }
+        } else if (!id.equals(other.id)) {
+            return false;
+        }
+        if (loginProfiles == null) {
+            if (other.loginProfiles != null) {
+                return false;
+            }
+        } else if (!loginProfiles.equals(other.loginProfiles)) {
+            return false;
+        }
+        if (updatedAt == null) {
+            if (other.updatedAt != null) {
+                return false;
+            }
+        } else if (!updatedAt.equals(other.updatedAt)) {
+            return false;
+        }
+        if (userId == null) {
+            if (other.userId != null) {
+                return false;
+            }
+        } else if (!userId.equals(other.userId)) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * Returns a string representation of the object.
+     * <p>
+     * 
+     * @see java.lang.Object#toString()
+     * @return the string representation
+     */
+    @Override
+    public String toString() {
+        return "UserInvitation [accountId=" + accountId + ", createdAt=" + createdAt + ", email=" + email
+               + ", expiration=" + expiration + ", id=" + id + ", loginProfiles=" + loginProfiles + ", updatedAt="
+               + updatedAt + ", userId=" + userId + "]";
+    }
+
+    /**
+     * Checks whether the model is valid or not.
+     * <p>
+     * 
+     * @see SdkModel#isValid()
+     * @return true if the model is valid; false otherwise.
+     */
+    @Override
+    public boolean isValid() {
+        return true;
+    }
+
+    /**
+     * Clones this instance.
+     * <p>
+     * 
+     * @see java.lang.Object#clone()
+     * @return a cloned instance
+     */
+    @Override
+    public UserInvitation clone() {
+        return new UserInvitation(this);
+    }
 }

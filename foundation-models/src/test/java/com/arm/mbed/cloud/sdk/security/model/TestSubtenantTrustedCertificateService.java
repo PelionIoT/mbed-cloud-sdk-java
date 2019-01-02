@@ -7,32 +7,33 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model SubtenantTrustedCertificateService. */
+ * Unit tests for Model SubtenantTrustedCertificateService.
+ */
 public class TestSubtenantTrustedCertificateService {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      SubtenantTrustedCertificateService subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(null);
-      assertNotNull(subtenanttrustedcertificateservice);
-      assertTrue(subtenanttrustedcertificateservice.isDefault());
-      subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(SubtenantTrustedCertificateService.getDefault().getString());
-      assertNotNull(subtenanttrustedcertificateservice);
-      assertTrue(subtenanttrustedcertificateservice.isDefault());
-      subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("BOOTSTRAP");
-      assertNotNull(subtenanttrustedcertificateservice);
-      assertTrue(subtenanttrustedcertificateservice.isDefault());
-      subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
-      assertNotNull(subtenanttrustedcertificateservice);
-      assertFalse(subtenanttrustedcertificateservice.isDefault());
-      subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("92779033-ac58-409d-b342-ecd9432b3cb9");
-      assertNotNull(subtenanttrustedcertificateservice);
-      assertTrue(subtenanttrustedcertificateservice.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            SubtenantTrustedCertificateService subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(null);
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(SubtenantTrustedCertificateService.getDefault()
+                                                                                                                               .getString());
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("BOOTSTRAP");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertFalse(subtenanttrustedcertificateservice.isDefault());
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("92779033-ac58-409d-b342-ecd9432b3cb9");
+            assertNotNull(subtenanttrustedcertificateservice);
+            assertTrue(subtenanttrustedcertificateservice.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

@@ -7,109 +7,92 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model Policy. */
+ * Unit tests for Model Policy.
+ */
 public class TestPolicy {
-  /**
-   * Tests the clone method.
-   */
-  @Test
-  public void testClone() {
-    try {
-      Policy policy1 = new Policy("1284f8ad-6ed8-434f-84c4-9a695e9a6e82",
-          false,
-          "89ba1fb0-928e-4772-a42f-4deb6d008d29",
-          false,
-          "54ec91f8-7f46-4111-9f82-9193cdb3bdd4");
-      Policy policy2 = policy1.clone();
-      assertNotNull(policy1);
-      assertNotNull(policy2);
-      assertNotSame(policy2, policy1);
-      assertEquals(policy2, policy1);
+    /**
+     * Tests the clone method.
+     */
+    @Test
+    public void testClone() {
+        try {
+            Policy policy1 = new Policy("1284f8ad-6ed8-434f-84c4-9a695e9a6e82", false,
+                                        "89ba1fb0-928e-4772-a42f-4deb6d008d29", false,
+                                        "54ec91f8-7f46-4111-9f82-9193cdb3bdd4");
+            Policy policy2 = policy1.clone();
+            assertNotNull(policy1);
+            assertNotNull(policy2);
+            assertNotSame(policy2, policy1);
+            assertEquals(policy2, policy1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the isValid method.
-   */
-  @Test
-  public void testIsvalid() {
-    Policy policy = new Policy("e978cf05-c6a3-4d38-a2c8-e5cacc58cf99",
-        true,
-        "3b06f0ae-3586-4abb-ba0f-6aa49307e811",
-        true,
-        "2b006440-9324-4306-be7b-26228a1e226e");
-    assertTrue(policy.isValid());
-  }
+    /**
+     * Tests the isValid method.
+     */
+    @Test
+    public void testIsvalid() {
+        Policy policy = new Policy("e978cf05-c6a3-4d38-a2c8-e5cacc58cf99", true, "3b06f0ae-3586-4abb-ba0f-6aa49307e811",
+                                   true, "2b006440-9324-4306-be7b-26228a1e226e");
+        assertTrue(policy.isValid());
+    }
 
-  /**
-   * Tests the hashCode method.
-   */
-  @Test
-  public void testHashcode() {
-    try {
-      Policy policy1 = new Policy("0e3aebf7-4e38-4ef2-a845-8a6312365f18",
-          true,
-          "aa05b09f-e7ab-4739-b293-22ac4f080e20",
-          false,
-          "7134dc6e-e155-4d79-85c3-26e125c58a55");
-      Policy policy2 = new Policy("0e3aebf7-4e38-4ef2-a845-8a6312365f18",
-          true,
-          "aa05b09f-e7ab-4739-b293-22ac4f080e20",
-          false,
-          "7134dc6e-e155-4d79-85c3-26e125c58a55");
-      assertNotNull(policy1);
-      assertNotNull(policy2);
-      assertNotSame(policy2, policy1);
-      assertEquals(policy2, policy1);
-      assertEquals(policy2.hashCode(), policy1.hashCode());
-      int hashCode = policy1.hashCode();
-      for (int i = 0; i < 5 ; i++) {
-        assertEquals(hashCode, policy1.hashCode());
-      }
+    /**
+     * Tests the hashCode method.
+     */
+    @Test
+    public void testHashcode() {
+        try {
+            Policy policy1 = new Policy("0e3aebf7-4e38-4ef2-a845-8a6312365f18", true,
+                                        "aa05b09f-e7ab-4739-b293-22ac4f080e20", false,
+                                        "7134dc6e-e155-4d79-85c3-26e125c58a55");
+            Policy policy2 = new Policy("0e3aebf7-4e38-4ef2-a845-8a6312365f18", true,
+                                        "aa05b09f-e7ab-4739-b293-22ac4f080e20", false,
+                                        "7134dc6e-e155-4d79-85c3-26e125c58a55");
+            assertNotNull(policy1);
+            assertNotNull(policy2);
+            assertNotSame(policy2, policy1);
+            assertEquals(policy2, policy1);
+            assertEquals(policy2.hashCode(), policy1.hashCode());
+            int hashCode = policy1.hashCode();
+            for (int i = 0; i < 5; i++) {
+                assertEquals(hashCode, policy1.hashCode());
+            }
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 
-  /**
-   * Tests the equals method.
-   */
-  @Test
-  public void testEquals() {
-    try {
-      Policy policy1 = new Policy("af2ebb0a-eb4f-4d7f-b9ce-7825a1c71799",
-          true,
-          "2da70ad4-f0c2-4df5-99d6-6cbabe8a90e1",
-          false,
-          "796c2e58-4b89-43a8-aaeb-cbb6ee315cc0");
-      Policy policy2 = new Policy("af2ebb0a-eb4f-4d7f-b9ce-7825a1c71799",
-          true,
-          "2da70ad4-f0c2-4df5-99d6-6cbabe8a90e1",
-          false,
-          "796c2e58-4b89-43a8-aaeb-cbb6ee315cc0");
-      Policy policy3 = new Policy("2e92c0d9-8ba7-4293-ae5f-2363c7735e1f",
-          true,
-          "2bbd9aba-f591-44df-8c7c-8c8033638913",
-          false,
-          "182da394-957c-4dfb-b277-6fa6af46144d");
-      assertNotNull(policy1);
-      assertNotNull(policy2);
-      assertNotNull(policy3);
-      assertNotSame(policy2, policy1);
-      assertNotSame(policy3, policy1);
-      assertEquals(policy2, policy1);
-      assertEquals(policy2, policy1);
-      assertEquals(policy1, policy2);
-      assertEquals(policy1, policy1);
-      assertFalse(policy1.equals(null));
-      assertNotEquals(policy3, policy1);
+    /**
+     * Tests the equals method.
+     */
+    @Test
+    public void testEquals() {
+        try {
+            Policy policy1 = new Policy("af2ebb0a-eb4f-4d7f-b9ce-7825a1c71799", true,
+                                        "2da70ad4-f0c2-4df5-99d6-6cbabe8a90e1", false,
+                                        "796c2e58-4b89-43a8-aaeb-cbb6ee315cc0");
+            Policy policy2 = new Policy("af2ebb0a-eb4f-4d7f-b9ce-7825a1c71799", true,
+                                        "2da70ad4-f0c2-4df5-99d6-6cbabe8a90e1", false,
+                                        "796c2e58-4b89-43a8-aaeb-cbb6ee315cc0");
+            Policy policy3 = new Policy("2e92c0d9-8ba7-4293-ae5f-2363c7735e1f", true,
+                                        "2bbd9aba-f591-44df-8c7c-8c8033638913", false,
+                                        "182da394-957c-4dfb-b277-6fa6af46144d");
+            assertNotNull(policy1);
+            assertNotNull(policy2);
+            assertNotNull(policy3);
+            assertNotSame(policy2, policy1);
+            assertNotSame(policy3, policy1);
+            assertEquals(policy2, policy1);
+            assertEquals(policy2, policy1);
+            assertEquals(policy1, policy2);
+            assertEquals(policy1, policy1);
+            assertFalse(policy1.equals(null));
+            assertNotEquals(policy3, policy1);
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

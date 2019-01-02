@@ -7,32 +7,33 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model CertificateEnrollmentEnrollStatus. */
+ * Unit tests for Model CertificateEnrollmentEnrollStatus.
+ */
 public class TestCertificateEnrollmentEnrollStatus {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      CertificateEnrollmentEnrollStatus certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(null);
-      assertNotNull(certificateenrollmentenrollstatus);
-      assertTrue(certificateenrollmentenrollstatus.isDefault());
-      certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(CertificateEnrollmentEnrollStatus.getDefault().getString());
-      assertNotNull(certificateenrollmentenrollstatus);
-      assertTrue(certificateenrollmentenrollstatus.isDefault());
-      certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("COMPLETED");
-      assertNotNull(certificateenrollmentenrollstatus);
-      assertTrue(certificateenrollmentenrollstatus.isDefault());
-      certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
-      assertNotNull(certificateenrollmentenrollstatus);
-      assertFalse(certificateenrollmentenrollstatus.isDefault());
-      certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("f0127bb0-e5b9-4b11-b6a3-445ce0140f9f");
-      assertNotNull(certificateenrollmentenrollstatus);
-      assertTrue(certificateenrollmentenrollstatus.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            CertificateEnrollmentEnrollStatus certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(null);
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(CertificateEnrollmentEnrollStatus.getDefault()
+                                                                                                                            .getString());
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("COMPLETED");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertFalse(certificateenrollmentenrollstatus.isDefault());
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("f0127bb0-e5b9-4b11-b6a3-445ce0140f9f");
+            assertNotNull(certificateenrollmentenrollstatus);
+            assertTrue(certificateenrollmentenrollstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

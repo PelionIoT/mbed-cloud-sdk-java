@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model UserStatus. */
+ * Unit tests for Model UserStatus.
+ */
 public class TestUserStatus {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      UserStatus userstatus = UserStatus.getValue(null);
-      assertNotNull(userstatus);
-      assertTrue(userstatus.isDefault());
-      userstatus = UserStatus.getValue(UserStatus.getDefault().getString());
-      assertNotNull(userstatus);
-      assertTrue(userstatus.isDefault());
-      userstatus = UserStatus.getValue("ACTIVE");
-      assertNotNull(userstatus);
-      assertTrue(userstatus.isDefault());
-      userstatus = UserStatus.getValue("ENROLLING");
-      assertNotNull(userstatus);
-      assertFalse(userstatus.isDefault());
-      userstatus = UserStatus.getValue("311c33a2-47d8-4496-ae24-bb3004c8de45");
-      assertNotNull(userstatus);
-      assertTrue(userstatus.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            UserStatus userstatus = UserStatus.getValue(null);
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue(UserStatus.getDefault().getString());
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue("ACTIVE");
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+            userstatus = UserStatus.getValue("ENROLLING");
+            assertNotNull(userstatus);
+            assertFalse(userstatus.isDefault());
+            userstatus = UserStatus.getValue("311c33a2-47d8-4496-ae24-bb3004c8de45");
+            assertNotNull(userstatus);
+            assertTrue(userstatus.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }

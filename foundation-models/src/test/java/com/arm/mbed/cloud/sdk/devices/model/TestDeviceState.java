@@ -7,32 +7,32 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 /**
- * Unit tests for Model DeviceState. */
+ * Unit tests for Model DeviceState.
+ */
 public class TestDeviceState {
-  /**
-   * Tests the getValue method.
-   */
-  @Test
-  public void testGetvalue() {
-    try {
-      DeviceState devicestate = DeviceState.getValue(null);
-      assertNotNull(devicestate);
-      assertTrue(devicestate.isDefault());
-      devicestate = DeviceState.getValue(DeviceState.getDefault().getString());
-      assertNotNull(devicestate);
-      assertTrue(devicestate.isDefault());
-      devicestate = DeviceState.getValue("BOOTSTRAPPED");
-      assertNotNull(devicestate);
-      assertTrue(devicestate.isDefault());
-      devicestate = DeviceState.getValue("cloud_enrolling");
-      assertNotNull(devicestate);
-      assertFalse(devicestate.isDefault());
-      devicestate = DeviceState.getValue("5e633cf2-df04-45c0-9a31-e001245d3dc1");
-      assertNotNull(devicestate);
-      assertTrue(devicestate.isDefault());
+    /**
+     * Tests the getValue method.
+     */
+    @Test
+    public void testGetvalue() {
+        try {
+            DeviceState devicestate = DeviceState.getValue(null);
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue(DeviceState.getDefault().getString());
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue("BOOTSTRAPPED");
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+            devicestate = DeviceState.getValue("cloud_enrolling");
+            assertNotNull(devicestate);
+            assertFalse(devicestate.isDefault());
+            devicestate = DeviceState.getValue("5e633cf2-df04-45c0-9a31-e001245d3dc1");
+            assertNotNull(devicestate);
+            assertTrue(devicestate.isDefault());
+        } catch (Exception exception) {
+            fail(exception.getMessage());
+        }
     }
-    catch(Exception exception) {
-      fail(exception.getMessage());
-    }
-  }
 }
