@@ -40,18 +40,11 @@ public class FoundationGenerator {
         logger.logInfo("Loading definitions");
         FoundationDataLoader loader = new FoundationDataLoader();
         cli.getFiles().forEach(f -> loader.addSource(f));
-        // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\inter.yaml");
-        // loader.addSource("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\test2.yml");
         loader.load();
         definition = loader.getInput();
     }
 
     public void generateModels(GeneratorCli cli, Configuration config) throws FoundationGeneratorException {
-        // File directory = new File("C:\\Users\\adrcab01\\OneDrive - ARM\\Documents\\temp\\test-generation\\results");
-        // File testDirectory = directory;
-        // File modelDirectory = new File("C:\\Users\\adrcab01\\OneDrive -
-        // ARM\\Documents\\temp\\test-generation\\results2");
-        // File modelTestDirectory = modelDirectory;
         logger.logInfo("Translating generic definitions into Java models");
         ArtifactsGenerator generator = new ArtifactsGenerator(cli.getFoundationSourceOuputDirectory(),
                                                               cli.getFoundationTestOuputDirectory(),
@@ -64,7 +57,6 @@ public class FoundationGenerator {
             generator.clean();
             generator.generate();
         } catch (TranslationException | CleanException exception) {
-            // TODO Auto-generated catch block
             exception.printStackTrace();
         }
     }
