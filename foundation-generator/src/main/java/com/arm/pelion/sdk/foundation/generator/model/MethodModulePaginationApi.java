@@ -41,7 +41,10 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
     }
 
     public static String generatePaginatorName(MethodModuleCloudApi listMethod) {
-        return listMethod.getName().replace(PREFIX_LIST_METHOD, PREFIX_LIST_METHOD + PAGINATOR_METHOD_IDENTIFIER);
+        final String oldName = listMethod.getName();
+        final String newName = listMethod.getName().replace(PREFIX_LIST_METHOD,
+                                                            PREFIX_LIST_METHOD + PAGINATOR_METHOD_IDENTIFIER);
+        return oldName.equals(newName) ? Utils.combineNames(false, PAGINATOR_METHOD_IDENTIFIER, newName) : newName;
     }
 
     @Override

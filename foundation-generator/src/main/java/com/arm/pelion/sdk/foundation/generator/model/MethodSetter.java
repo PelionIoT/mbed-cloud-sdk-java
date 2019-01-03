@@ -1,6 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodSetter extends Method {
 
@@ -57,7 +57,7 @@ public class MethodSetter extends Method {
         if (fieldName == null) {
             return null;
         }
-        return ApiUtils.convertSnakeToCamel((fluent ? "" : "set_") + ApiUtils.convertCamelToSnake(fieldName), false);
+        return Utils.combineNames(false, "set", fieldName);
     }
 
 }

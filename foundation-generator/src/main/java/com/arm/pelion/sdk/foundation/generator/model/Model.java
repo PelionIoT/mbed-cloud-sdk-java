@@ -683,8 +683,7 @@ public class Model extends AbstractSdkArtifact {
                 if (f.isIdentifier()) {
                     final Field equivalentF = f.clone();
                     if (f.isUsualIdentifier()) {
-                        equivalentF.setName(ApiUtils.convertCamelToSnake(name) + "_"
-                                            + ApiUtils.convertCamelToSnake(Field.IDENTIFIER_NAME));// model name + id
+                        equivalentF.setName(Utils.combineNames(false, name, Field.IDENTIFIER_NAME));// model name + id
                         // e.g. ApiKeyId
                     } else {
                         equivalentF.setName(Field.IDENTIFIER_NAME);// Have a setId/getId methods

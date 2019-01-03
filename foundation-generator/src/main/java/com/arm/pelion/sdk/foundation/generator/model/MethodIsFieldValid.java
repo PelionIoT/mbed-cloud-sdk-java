@@ -3,7 +3,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodIsFieldValid extends Method {
 
@@ -52,7 +52,7 @@ public class MethodIsFieldValid extends Method {
     }
 
     private static String generateMethodName(Field field) {
-        return ApiUtils.convertSnakeToCamel("is_" + ApiUtils.convertCamelToSnake(field.getName()) + "_valid", false);
+        return Utils.combineNames(false, "is", field.getName(), "valid");
     }
 
 }

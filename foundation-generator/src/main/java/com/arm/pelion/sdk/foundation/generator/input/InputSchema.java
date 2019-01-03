@@ -44,7 +44,9 @@ public interface InputSchema {
     final String PAGINATED_RESPONSE_TAG = "pagination";
     final String METHOD_PARAMETER_MAP_TAG = "parameter_map";
     final String METHOD_PARAMETER_IS_EXTERNAL = "external_param";
-    final String METHOD_DOES_NOT_RETURN_ITSELF_TAG = "unaggregated";
+    final String METHOD_RETURN_INFORMATION_TAG = "return_info";
+    final String METHOD_DOES_RETURN_ITSELF_TAG = "self";
+    final String METHOD_DOES_RETURN_CUSTOM_TAG = "custom";
 
     // Method types
     final String CUSTOM_METHOD_TAG = "custom_method";

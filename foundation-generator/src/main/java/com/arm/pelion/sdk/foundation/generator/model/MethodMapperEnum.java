@@ -3,8 +3,8 @@ package com.arm.pelion.sdk.foundation.generator.model;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Locale;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodMapperEnum extends Method {
 
@@ -32,12 +32,10 @@ public class MethodMapperEnum extends Method {
     }
 
     protected static String generateName(String toName, boolean isLowLevel) {
-        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake("translate_to_"
-                                                                         + (isLowLevel ? toName.replace(".", "_")
-                                                                                               .replace("$", "_")
-                                                                                               .toLowerCase(Locale.UK)
-                                                                                       : toName)),
-                                            false);
+        return Utils.combineNames(false, "translate", "to",
+                                  (isLowLevel ? toName.replace(".", "_").replace("$", "_").toLowerCase(Locale.UK)
+                                              : toName));
+
     }
 
     public static String generateName(Field fieldModel, Field fieldLowLevel, boolean isFromModel) {

@@ -24,12 +24,10 @@ public class Method {
     private boolean hasPaginatedResponse;
     // @JsonProperty(InputSchema.METHOD_PARAMETER_MAP_TAG)
     // private List<Mapping> parameterMap;
-    @JsonProperty(InputSchema.METHOD_DOES_NOT_RETURN_ITSELF_TAG)
-    private boolean doesntReturnItself;
+    @JsonProperty(InputSchema.METHOD_RETURN_INFORMATION_TAG)
+    private ReturnInformation returnInformation;
     @JsonProperty(InputSchema.CUSTOM_CODE_TAG)
     private boolean customCode;
-    @JsonProperty(InputSchema.FOREIGN_KEY_TAG)
-    private ForeignKey foreignKey;
 
     @JsonProperty(InputSchema.CUSTOM_METHOD_TAG)
     private boolean customMethod;
@@ -90,14 +88,6 @@ public class Method {
     // this.parameterMap = parameterMap;
     // }
 
-    public boolean doesntReturnItself() {
-        return doesntReturnItself;
-    }
-
-    public void setDoesntReturnItself(boolean doesntReturnItself) {
-        this.doesntReturnItself = doesntReturnItself;
-    }
-
     public List<String> getGroupId() {
         return groupId;
     }
@@ -111,7 +101,7 @@ public class Method {
     }
 
     public boolean isListMethod() {
-        return isMethod(InputSchema.LIST_METHOD_TAG);
+        return isMethod(InputSchema.LIST_METHOD_TAG) || hasPaginatedResponse();
     }
 
     public boolean isCreateMethod() {
@@ -159,16 +149,12 @@ public class Method {
         this.customMethod = customMethod != null;
     }
 
-    public ForeignKey getForeignKey() {
-        return foreignKey;
+    public ReturnInformation getReturnInformation() {
+        return returnInformation;
     }
 
-    public void setForeignKey(ForeignKey foreignKey) {
-        this.foreignKey = foreignKey;
-    }
-
-    public boolean hasForeignKey() {
-        return foreignKey != null;
+    public void setReturnInformation(ReturnInformation returnInformation) {
+        this.returnInformation = returnInformation;
     }
 
     /*
@@ -215,8 +201,8 @@ public class Method {
     public String toString() {
         return "Method [key=" + key + ", description=" + description + ", summary=" + summary + ", groupId=" + groupId
                + ", renames=" + renames + ", parameters=" + parameters + ", id=" + id + ", hasPaginatedResponse="
-               + hasPaginatedResponse + ", doesntReturnItself=" + doesntReturnItself + ", customCode=" + customCode
-               + ", foreignKey=" + foreignKey + ", customMethod=" + customMethod + "]";
+               + hasPaginatedResponse + ", returnInformation=" + returnInformation + ", customCode=" + customCode
+               + ", customMethod=" + customMethod + "]";
     }
 
 }

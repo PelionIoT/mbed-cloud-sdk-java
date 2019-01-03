@@ -1,7 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
 import com.arm.mbed.cloud.sdk.common.AbstractEndpoints;
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class ModelEndpoints extends ModelMergeable {
@@ -17,8 +16,7 @@ public class ModelEndpoints extends ModelMergeable {
     }
 
     public static String generateName(String group) {
-        return group == null ? null
-                             : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(group) + "_endpoints", true);
+        return group == null ? null : Utils.combineNames(true, group, "endpoints");
     }
 
     @Override

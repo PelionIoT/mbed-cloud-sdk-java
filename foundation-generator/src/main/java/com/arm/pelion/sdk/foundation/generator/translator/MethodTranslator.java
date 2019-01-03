@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.input.Method;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethod;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethodArgument;
@@ -52,15 +51,12 @@ public class MethodTranslator {
             case LIST:
             case READ:
             case UPDATE:
-                return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name) + "_"
-                                                    + ApiUtils.convertCamelToSnake(currentModel.getName()
-                                                                                   + (action.equals(MethodAction.LIST) ? "s"
-                                                                                                                       : "")),
-                                                    false);
+                return Utils.combineNames(false, name,
+                                          currentModel.getName() + (action.equals(MethodAction.LIST) ? "s" : ""));
 
             case OTHER:
             default:
-                return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name), false);
+                return Utils.combineNames(false, name);
         }
 
     }
@@ -77,7 +73,7 @@ public class MethodTranslator {
             if (summary != null) {
                 return summary;
             }
-            String description = ApiUtils.convertCamelToSnake(methodName).replaceAll("_", " ");
+            String description = Utils.generateModelNameAsText(methodName);
             if (description != null && !description.isEmpty()) {
                 description = description.substring(0, 1).toUpperCase(Locale.UK) + description.substring(1);
             }

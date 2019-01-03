@@ -7,9 +7,9 @@ import java.util.Map;
 
 import javax.lang.model.element.Modifier;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 import com.squareup.javapoet.TypeSpec;
 
 public class ModelTest extends AbstractSdkArtifact {
@@ -29,10 +29,7 @@ public class ModelTest extends AbstractSdkArtifact {
     }
 
     private static String generateTestName(Model modelUndertest) {
-        return modelUndertest == null ? null
-                                      : ApiUtils.convertSnakeToCamel("test_"
-                                                                     + ApiUtils.convertCamelToSnake(modelUndertest.getName()),
-                                                                     true);
+        return modelUndertest == null ? null : Utils.combineNames(true, "test", modelUndertest.getName());
     }
 
     private static boolean containsCustomCode(Model modelUndertest) {

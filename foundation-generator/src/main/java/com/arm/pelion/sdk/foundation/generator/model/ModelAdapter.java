@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
@@ -37,7 +36,7 @@ public class ModelAdapter extends Model {
     }
 
     public static String generateName(String modelName) {
-        return ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(modelName) + "_adapter", true);
+        return Utils.combineNames(true, modelName, "adapter");
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.arm.pelion.sdk.foundation.generator.model;
 
 import org.junit.Test;
 
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
 public class MethodTest extends Method {
 
@@ -12,7 +12,7 @@ public class MethodTest extends Method {
     }
 
     public MethodTest(String methodUnderTest, boolean containsCustomCode) {
-        this(ApiUtils.convertSnakeToCamel("test_" + processMethodName(methodUnderTest), false),
+        this(Utils.combineNames(false, "test", processMethodName(methodUnderTest)),
              "Tests the " + processMethodName(methodUnderTest) + " method", containsCustomCode);
     }
 

@@ -40,14 +40,14 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         List<Parameter> otherParameters = super.extendParameterList(methodParameters, allParameters, lowLevelMethod,
                                                                     parameterRenames, currentModel);
         if (isPaginatedList) {
-            otherParameters = addListOptionParameter(otherParameters, this, fetcher);
+            otherParameters = addListOptionParameter(otherParameters, currentModel, fetcher);
         }
         return otherParameters;
     }
 
-    public static List<Parameter> addListOptionParameter(List<Parameter> otherParameters, MethodModuleCloudApi method,
+    public static List<Parameter> addListOptionParameter(List<Parameter> otherParameters, Model correspondingModel,
                                                          ModelListOptionFetcher fetcher) {
-        final ModelListOption correspondingListOptions = determineListOptionModel(method, fetcher);
+        final ModelListOption correspondingListOptions = determineListOptionModel(correspondingModel, fetcher);
         if (otherParameters == null) {
             otherParameters = new LinkedList<>();
         }
@@ -89,10 +89,11 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
 
     @Override
     protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
-        generateVariableInitialisation(this, fetcher, methodParameters);
+        generateVariableInitialisation(this, currentModel, fetcher, methodParameters);
     }
 
-    public static void generateVariableInitialisation(MethodModuleCloudApi method, ModelListOptionFetcher fetcher,
+    public static void generateVariableInitialisation(MethodModuleCloudApi method, Model listOptionCorrespondingModel,
+                                                      ModelListOptionFetcher fetcher,
                                                       List<Parameter> methodParameters) throws TranslationException {
         if (methodParameters == null || methodParameters.isEmpty()) {
             return;
@@ -100,8 +101,9 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         for (Parameter p : methodParameters) {
             if (PARAMETER_NAME_OPTIONS.equals(p.getIdentifier())) {
                 method.code.addStatement("final $T $L = ($L == null)? new $T() : $L",
-                                         determineListOptionType(method, fetcher), getOptionLocalVariable(method),
-                                         p.getName(), determineListOptionType(method, fetcher), p.getName());
+                                         determineListOptionType(listOptionCorrespondingModel, fetcher),
+                                         getOptionLocalVariable(method), p.getName(),
+                                         determineListOptionType(listOptionCorrespondingModel, fetcher), p.getName());
             } else {
                 method.generateParameterInitialisation(p);
             }
@@ -118,7 +120,7 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
             // FIXME refactor the following when filters are supported.
-            final ModelListOption correspondingListOptions = determineListOptionModel(this, fetcher);
+            final ModelListOption correspondingListOptions = determineListOptionModel(currentModel, fetcher);
             if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
                 translateListOptionParameter(this, parameterName, type, builder, callElements);
             } else {
@@ -155,18 +157,17 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         }
     }
 
-    private static Object determineListOptionType(MethodModuleCloudApi method,
+    private static Object determineListOptionType(Model correspondingModel,
                                                   ModelListOptionFetcher fetcher) throws TranslationException {
-        final ModelListOption correspondingListOptions = determineListOptionModel(method, fetcher);
+        final ModelListOption correspondingListOptions = determineListOptionModel(correspondingModel, fetcher);
         final TypeParameter type = correspondingListOptions.toType();
         type.translate();
         return type.hasClass() ? type.getClazz() : type.getTypeName();
     }
 
-    public static ModelListOption determineListOptionModel(MethodModuleCloudApi method,
-                                                           ModelListOptionFetcher fetcher) {
+    public static ModelListOption determineListOptionModel(Model correspondingModel, ModelListOptionFetcher fetcher) {
         ModelListOption correspondingListOptions = fetcher == null ? null
-                                                                   : fetcher.fetchFromAssociatedModel(method.currentModel.toType());
+                                                                   : fetcher.fetchFromAssociatedModel(correspondingModel.toType());
 
         if (correspondingListOptions == null) {
             correspondingListOptions = new ModelListOption();

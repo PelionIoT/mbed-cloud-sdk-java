@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -12,6 +13,7 @@ import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
 public class CommonTranslator {
 
     public static final String PACKAGE_SEPARATOR = ".";
+    public static final List<String> PRIMITIVE_TYPES = Arrays.asList("File", "Integer", "Int", "String");
 
     public static String generateGoup(List<String> groupId) {
         return groupId == null ? null : String.join(PACKAGE_SEPARATOR, groupId);
@@ -26,12 +28,22 @@ public class CommonTranslator {
         return fetchNestedType(refModel);
     }
 
-    public static Model fetchCorrespondingModel(Configuration config, ForeignKey key) {
-        if (key == null) {
+    public static boolean isPrimitiveType(String returnType) {
+        if (returnType == null) {
+            return false;
+        }
+        return PRIMITIVE_TYPES.stream()
+                              .anyMatch(t -> t.trim().toLowerCase(Locale.UK)
+                                              .equals(returnType == null ? null
+                                                                         : returnType.trim().toLowerCase(Locale.UK)));
+    }
+
+    public static Model fetchCorrespondingModel(Configuration config, String entityName, List<String> currentGroupId) {
+        if (entityName == null) {
             return null;
         }
-        final Model refModel = new Model(generateModelPackageName(config, key.getGroupId()), key.getEntityRef(),
-                                         CommonTranslator.generateGoup(key.getGroupId()));
+        final Model refModel = new Model(generateModelPackageName(config, currentGroupId), entityName,
+                                         CommonTranslator.generateGoup(currentGroupId));
         if (PelionModelDefinitionStore.get().has(refModel)) {
             return PelionModelDefinitionStore.get().get(refModel);
         }

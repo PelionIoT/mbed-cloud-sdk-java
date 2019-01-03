@@ -1,5 +1,6 @@
 package com.arm.pelion.sdk.foundation.generator.util;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -93,6 +94,23 @@ public class Utils {
         }
         build.append(text);
         return build.toString();
+    }
+
+    public static String combineNames(boolean capitalAtStart, String name1, String... names) {
+        if (name1 == null && names == null) {
+            return null;
+        }
+        final List<String> strings = new ArrayList<>((name1 == null ? 0 : 1) + (names == null ? 0 : names.length));
+        if (name1 != null && !name1.trim().isEmpty()) {
+            strings.add(ApiUtils.convertCamelToSnake(name1));
+        }
+        if (names != null && names.length > 0) {
+            Arrays.asList(names).forEach(n -> strings.add(ApiUtils.convertCamelToSnake(n)));
+        }
+        if (strings.isEmpty()) {
+            return null;
+        }
+        return ApiUtils.convertSnakeToCamel(String.join(UNDERSCORE, strings), capitalAtStart);
     }
 
     public static String generateModelNameAsText(String modelName) {

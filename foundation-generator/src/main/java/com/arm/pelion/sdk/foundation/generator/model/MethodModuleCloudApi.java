@@ -8,7 +8,6 @@ import java.util.concurrent.atomic.AtomicInteger;
 import com.arm.mbed.cloud.sdk.annotations.API;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.common.AbstractModule;
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
 import com.arm.mbed.cloud.sdk.common.CloudCaller;
 import com.arm.mbed.cloud.sdk.common.CloudRequest.CloudCall;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
@@ -209,8 +208,7 @@ public class MethodModuleCloudApi extends MethodOverloaded {
     }
 
     protected String generateFinalVariable(String variableName) {
-        return ApiUtils.convertSnakeToCamel((mustParametersBeFinal() ? "final_" : "")
-                                            + ApiUtils.convertCamelToSnake(variableName), false);
+        return Utils.combineNames(false, mustParametersBeFinal() ? "final" : "", variableName);
     }
 
     protected String getMappingMethod() {

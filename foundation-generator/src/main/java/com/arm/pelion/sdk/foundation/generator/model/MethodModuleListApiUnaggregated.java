@@ -29,7 +29,7 @@ public class MethodModuleListApiUnaggregated extends MethodModuleCloudApiUnaggre
         List<Parameter> otherParameters = super.extendParameterList(methodParameters, allParameters, lowLevelMethod,
                                                                     parameterRenames, currentModel);
         if (isPaginatedList) {
-            otherParameters = MethodModuleListApi.addListOptionParameter(otherParameters, this, fetcher);
+            otherParameters = MethodModuleListApi.addListOptionParameter(otherParameters, returnModel, fetcher);
         }
         return otherParameters;
     }
@@ -52,7 +52,7 @@ public class MethodModuleListApiUnaggregated extends MethodModuleCloudApiUnaggre
 
     @Override
     protected void generateVariableInitialisation(List<Parameter> methodParameters) throws TranslationException {
-        MethodModuleListApi.generateVariableInitialisation(this, fetcher, methodParameters);
+        MethodModuleListApi.generateVariableInitialisation(this, returnModel, fetcher, methodParameters);
     }
 
     @Override
@@ -61,7 +61,7 @@ public class MethodModuleListApiUnaggregated extends MethodModuleCloudApiUnaggre
                                       List<Parameter> unusedParameters) throws TranslationException {
         if (isPaginatedList) {
             // FIXME refactor the following when filters are supported.
-            final ModelListOption correspondingListOptions = MethodModuleListApi.determineListOptionModel(this,
+            final ModelListOption correspondingListOptions = MethodModuleListApi.determineListOptionModel(returnModel,
                                                                                                           fetcher);
             if (correspondingListOptions.hasFieldInHierachy(parameterName)) {
                 MethodModuleListApi.translateListOptionParameter(this, parameterName, type, builder, callElements);

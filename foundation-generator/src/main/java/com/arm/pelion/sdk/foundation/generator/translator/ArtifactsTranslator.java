@@ -103,13 +103,14 @@ public class ArtifactsTranslator {
                 throw new FoundationGeneratorException("Failed generating module " + module + " as method [" + m.getId()
                                                        + "] was not found in the backends");
             }
-            if (m.doesntReturnItself()) {
-                if (!m.hasForeignKey()) {
+            if (!m.getReturnInformation().doesReturnItSelf()) {
+                if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
                     logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
-                                    new IllegalArgumentException("Missing foreign key data"));
+                                    new IllegalArgumentException("Primitive return type is currently not supported"));
                     continue;
                 }
-                returnModel = CommonTranslator.fetchCorrespondingModel(config, m.getForeignKey());
+                returnModel = CommonTranslator.fetchCorrespondingModel(config, m.getReturnInformation().getReturnType(),
+                                                                       entity.getGroupId());
             }
             module.addCloudCall(MethodTranslator.translate(m, method, model, returnModel));
         }
@@ -148,17 +149,21 @@ public class ArtifactsTranslator {
                 throw new FoundationGeneratorException("Failed generating adapter for " + model + " as method ["
                                                        + m.getId() + "] was not found in the backends");
             }
-            if (m.doesntReturnItself()) {
+
+            if (!m.getReturnInformation().doesReturnItSelf()) {
                 // This specifies that a different entity is returned. A mapping method to the corresponding adapter
                 // needs to be added.
                 isExternal = true;
-                if (!m.hasForeignKey()) {
+                if (CommonTranslator.isPrimitiveType(m.getReturnInformation().getReturnType())) {
                     logger.logError("Cannot generate adapter for " + m.getKey() + "/" + m.getId(),
-                                    new IllegalArgumentException("Missing foreign key data"));
+                                    new IllegalArgumentException("Primitive return type is currently not supported"));
                     continue;
                 }
-                modelToConsider = CommonTranslator.fetchCorrespondingModel(config, m.getForeignKey());
+                modelToConsider = CommonTranslator.fetchCorrespondingModel(config,
+                                                                           m.getReturnInformation().getReturnType(),
+                                                                           entity.getGroupId());
             }
+
             if (method.hasToModel()) {
                 if (m.isListMethod()) {
                     try {
