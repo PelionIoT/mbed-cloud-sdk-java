@@ -1038,6 +1038,11 @@
           "path": "/v3/accounts",
           "summary": "Create a new account.",
           "return_type": "account",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -2100,6 +2105,11 @@
           "path": "/v3/accounts/{account_id}",
           "summary": "Get account info.",
           "return_type": "account",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -3170,6 +3180,11 @@
           "path": "/v3/accounts",
           "summary": "Get all accounts.",
           "return_type": "paginated_response(account)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -4156,6 +4171,11 @@
           "path": "/v3/accounts/me",
           "summary": "Get account info.",
           "return_type": "account",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -4747,6 +4767,11 @@
           "path": "/v3/accounts/{account_id}/trusted-certificates",
           "summary": "Get all trusted certificates.",
           "return_type": "paginated_response(subtenant_trusted_certificate)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "subtenant_trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -6138,6 +6163,11 @@
           "path": "/v3/accounts/{account_id}",
           "summary": "Update attributes of an existing account.",
           "return_type": "account",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "account"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -6686,6 +6716,11 @@
           "path": "/v3/accounts/{account_id}/user-invitations",
           "summary": "Get the details of all the user invitations.",
           "return_type": "paginated_response(subtenant_user_invitation)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "subtenant_user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -7365,6 +7400,11 @@
           "path": "/v3/accounts/{account_id}/users",
           "summary": "Get all user details.",
           "return_type": "paginated_response(subtenant_user)",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -8211,6 +8251,11 @@
           "path": "/v3/api-keys",
           "summary": "Create a new API key.",
           "return_type": "api_key",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -8483,6 +8528,11 @@
           "path": "/v3/api-keys/{apikey_id}",
           "summary": "Delete API key.",
           "return_type": "api_key",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -8881,6 +8931,11 @@
           "path": "/v3/api-keys/{apikey_id}",
           "summary": "Get API key details.",
           "return_type": "api_key",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -9315,6 +9370,11 @@
           "path": "/v3/api-keys",
           "summary": "Get all API keys",
           "return_type": "paginated_response(api_key)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -9638,6 +9698,11 @@
           "path": "/v3/api-keys/me",
           "summary": "Get API key details.",
           "return_type": "api_key",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -10158,6 +10223,11 @@
           "path": "/v3/api-keys/{apikey_id}",
           "summary": "Update API key details.",
           "return_type": "api_key",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "api_key"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -10671,6 +10741,11 @@
           "path": "/v3/certificate-enrollments/{certificate-enrollment-id}",
           "summary": "Get a certificate enrollment by ID.",
           "return_type": "certificate_enrollment",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -11136,6 +11211,11 @@
           "path": "/v3/certificate-enrollments",
           "summary": "Get certificate enrollments list.",
           "return_type": "paginated_response(certificate_enrollment)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -11732,6 +11812,11 @@
           "path": "/v3/certificate-issuers",
           "summary": "Create certificate issuer.",
           "return_type": "certificate_issuer",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12034,6 +12119,11 @@
           "path": "/v3/certificate-issuers/{certificate-issuer-id}",
           "summary": "Delete certificate issuer.",
           "return_type": "certificate_issuer",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12419,6 +12509,11 @@
           "path": "/v3/certificate-issuers/{certificate-issuer-id}",
           "summary": "Get certificate issuer by ID.",
           "return_type": "certificate_issuer",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -12791,6 +12886,11 @@
           "path": "/v3/certificate-issuers",
           "summary": "Get certificate issuers list.",
           "return_type": "paginated_response(certificate_issuer)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -13365,6 +13465,11 @@
           "path": "/v3/certificate-issuers/{certificate-issuer-id}",
           "summary": "Update certificate issuer.",
           "return_type": "certificate_issuer",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -13754,6 +13859,11 @@
           "path": "/v3/certificate-issuers/{certificate-issuer-id}/verify",
           "summary": "Verify certificate issuer.",
           "return_type": "verification_response",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "verification_response"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -14222,6 +14332,11 @@
           "path": "/v3/certificate-issuer-configurations",
           "summary": "Create certificate issuer configuration.",
           "return_type": "certificate_issuer_config",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -14528,6 +14643,11 @@
           "path": "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
           "summary": "Delete certificate issuer configuration.",
           "return_type": "certificate_issuer_config",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -14905,6 +15025,11 @@
           "path": "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
           "summary": "Get certificate issuer configuration.",
           "return_type": "certificate_issuer_config",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -15316,6 +15441,11 @@
           "path": "/v3/certificate-issuer-configurations",
           "summary": "Get certificate issuer configurations.",
           "return_type": "paginated_response(certificate_issuer_config)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -15627,6 +15757,11 @@
           "path": "/v3/certificate-issuer-configurations/lwm2m",
           "summary": "Get certificate issuer configuration.",
           "return_type": "certificate_issuer_config",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -16020,6 +16155,11 @@
           "path": "/v3/certificate-issuer-configurations/{certificate-issuer-configuration-id}",
           "summary": "Update certificate issuer configuration.",
           "return_type": "certificate_issuer_config",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "certificate_issuer_config"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -16594,6 +16734,11 @@
           "path": "/v3/developer-certificates",
           "summary": "Create a new developer certificate to connect to the bootstrap server.",
           "return_type": "developer_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "developer_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -16873,6 +17018,11 @@
           "path": "/v3/trusted-certificates/{cert_id}",
           "summary": "Delete a trusted certificate by ID.",
           "return_type": "developer_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "developer_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -17261,6 +17411,11 @@
           "path": "/v3/developer-certificates/{developerCertificateId}",
           "summary": "Fetch an existing developer certificate to connect to the bootstrap server.",
           "return_type": "developer_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "developer_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -17734,6 +17889,11 @@
           "path": "/v3/trusted-certificates/{cert_id}",
           "summary": "Get trusted certificate by ID.",
           "return_type": "trusted_certificate",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -18518,6 +18678,11 @@
           "path": "/v3/devices/",
           "summary": "Create a device",
           "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -18588,6 +18753,11 @@
           "path": "/v3/devices/{id}/",
           "summary": "Delete a device.",
           "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -18995,6 +19165,11 @@
           "path": "/v3/devices/{id}/",
           "summary": "Get a device",
           "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -19463,6 +19638,11 @@
           "path": "/v3/devices/",
           "summary": "List all devices.",
           "return_type": "paginated_response(device)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -20005,6 +20185,11 @@
           "path": "/v3/devices/{device-id}/certificates/{certificate-name}/renew",
           "summary": "Request certificate renewal.",
           "return_type": "certificate_enrollment",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "certificate_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -20538,6 +20723,11 @@
           "path": "/v3/devices/{id}/",
           "summary": "Update a device",
           "return_type": "device",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -21266,6 +21456,11 @@
           "path": "/v3/device-enrollments",
           "summary": "Place an enrollment claim for one or several devices.",
           "return_type": "device_enrollment",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -21461,6 +21656,11 @@
           "path": "/v3/device-enrollments/{id}",
           "summary": "Delete an enrollment by ID.",
           "return_type": "device_enrollment",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -21747,6 +21947,11 @@
           "path": "/v3/device-enrollments/{id}",
           "summary": "Get details of an enrollment by ID.",
           "return_type": "device_enrollment",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -22151,6 +22356,11 @@
           "path": "/v3/device-enrollments",
           "summary": "Get enrollment list.",
           "return_type": "paginated_response(device_enrollment)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -22544,6 +22754,11 @@
           "path": "/v3/device-enrollments-bulk-uploads",
           "summary": "Bulk upload",
           "return_type": "device_enrollment_bulk_create",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_bulk_create"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -22579,6 +22794,11 @@
           "path": null,
           "summary": "Download the error report file for the created the bulk enrollment.",
           "return_type": "file",
+          "return_info": {
+            "self": false,
+            "custom": true,
+            "type": "file"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -22608,6 +22828,11 @@
           "path": null,
           "summary": "Download the full report file for the created of the bulk enrollment.",
           "return_type": "file",
+          "return_info": {
+            "self": false,
+            "custom": true,
+            "type": "file"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -23001,6 +23226,11 @@
           "path": "/v3/device-enrollments-bulk-uploads/{id}",
           "summary": "Get bulk upload entity",
           "return_type": "device_enrollment_bulk_create",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_bulk_create"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -23423,6 +23653,11 @@
           "path": "/v3/device-enrollments-bulk-deletes",
           "summary": "Bulk delete",
           "return_type": "device_enrollment_bulk_delete",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_bulk_delete"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -23458,6 +23693,11 @@
           "path": null,
           "summary": "Download the error report file for the bulk enrollment deletion.",
           "return_type": "file",
+          "return_info": {
+            "self": false,
+            "custom": true,
+            "type": "file"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -23487,6 +23727,11 @@
           "path": null,
           "summary": "Download the full report file for the bulk enrollment deletion.",
           "return_type": "file",
+          "return_info": {
+            "self": false,
+            "custom": true,
+            "type": "file"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -23883,6 +24128,11 @@
           "path": "/v3/device-enrollments-bulk-deletes/{id}",
           "summary": "Get bulk delete entity",
           "return_type": "device_enrollment_bulk_delete",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_enrollment_bulk_delete"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -24160,6 +24410,11 @@
           "path": "/v3/device-events/{device_event_id}/",
           "summary": "Retrieve a device event.",
           "return_type": "device_events",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_events"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -24420,6 +24675,11 @@
           "path": "/v3/device-events/",
           "summary": "List all device events.",
           "return_type": "paginated_response(device_events)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "device_events"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -24881,6 +25141,11 @@
           "path": "/v3/server-credentials/bootstrap",
           "summary": "Fetch bootstrap server credentials.",
           "return_type": "server_credentials",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "server_credentials"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -25140,6 +25405,11 @@
           "path": "/v3/server-credentials/lwm2m",
           "summary": "Fetch LwM2M server credentials.",
           "return_type": "server_credentials",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "server_credentials"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -25828,6 +26098,11 @@
           "path": "/v3/accounts/{account_id}/trusted-certificates",
           "summary": "Upload new trusted certificate.",
           "return_type": "subtenant_trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -26132,6 +26407,11 @@
           "path": "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
           "summary": "Delete trusted certificate by ID.",
           "return_type": "subtenant_trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -26527,6 +26807,11 @@
           "path": "/v3/developer-certificates/{developerCertificateId}",
           "summary": "Fetch an existing developer certificate to connect to the bootstrap server.",
           "return_type": "developer_certificate",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "developer_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -27029,6 +27314,11 @@
           "path": "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
           "summary": "Get trusted certificate by ID.",
           "return_type": "subtenant_trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -27681,6 +27971,11 @@
           "path": "/v3/accounts/{account_id}/trusted-certificates/{cert_id}",
           "summary": "Update trusted certificate.",
           "return_type": "subtenant_trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -28762,6 +29057,11 @@
           "path": "/v3/accounts/{account_id}/users",
           "summary": "Create a new user.",
           "return_type": "subtenant_user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -29135,6 +29435,11 @@
           "path": "/v3/accounts/{account_id}/users/{user_id}",
           "summary": "Delete a user.",
           "return_type": "subtenant_user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -29762,6 +30067,11 @@
           "path": "/v3/accounts/{account_id}/users/{user_id}",
           "summary": "Details of the user.",
           "return_type": "subtenant_user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -30672,6 +30982,11 @@
           "path": "/v3/accounts/{account_id}/users/{user_id}",
           "summary": "Update user details.",
           "return_type": "subtenant_user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -30973,6 +31288,11 @@
           "path": "/v3/accounts/{account_id}/users/{user_id}/validate-email",
           "summary": "Validate the user email.",
           "return_type": "subtenant_user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -31749,6 +32069,11 @@
           "path": "/v3/accounts/{account_id}/user-invitations",
           "summary": "Create a user invitation.",
           "return_type": "subtenant_user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -32031,6 +32356,11 @@
           "path": "/v3/accounts/{account_id}/user-invitations/{invitation_id}",
           "summary": "Delete a user invitation.",
           "return_type": "subtenant_user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -32465,6 +32795,11 @@
           "path": "/v3/accounts/{account_id}/user-invitations/{invitation_id}",
           "summary": "Details of a user invitation.",
           "return_type": "subtenant_user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "subtenant_user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -33193,6 +33528,11 @@
           "path": "/v3/trusted-certificates",
           "summary": "Upload a new trusted certificate.",
           "return_type": "trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -33489,6 +33829,11 @@
           "path": "/v3/trusted-certificates/{cert_id}",
           "summary": "Delete a trusted certificate by ID.",
           "return_type": "trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -33887,6 +34232,11 @@
           "path": "/v3/developer-certificates/{developerCertificateId}",
           "summary": "Fetch an existing developer certificate to connect to the bootstrap server.",
           "return_type": "developer_certificate",
+          "return_info": {
+            "self": false,
+            "custom": false,
+            "type": "developer_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -34370,6 +34720,11 @@
           "path": "/v3/trusted-certificates/{cert_id}",
           "summary": "Get trusted certificate by ID.",
           "return_type": "trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -34871,6 +35226,11 @@
           "path": "/v3/trusted-certificates",
           "summary": "Get all trusted certificates.",
           "return_type": "paginated_response(trusted_certificate)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -35580,6 +35940,11 @@
           "path": "/v3/trusted-certificates/{cert_id}",
           "summary": "Update trusted certificate.",
           "return_type": "trusted_certificate",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "trusted_certificate"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -36529,6 +36894,11 @@
           "path": "/v3/users",
           "summary": "Create a new user.",
           "return_type": "user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -36891,6 +37261,11 @@
           "path": "/v3/users/{user_id}",
           "summary": "Delete a user.",
           "return_type": "user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -37465,6 +37840,11 @@
           "path": "/v3/users/{user_id}",
           "summary": "Details of a user.",
           "return_type": "user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -38065,6 +38445,11 @@
           "path": "/v3/users",
           "summary": "Get the details of all users.",
           "return_type": "paginated_response(user)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -38917,6 +39302,11 @@
           "path": "/v3/users/{user_id}",
           "summary": "Update user details.",
           "return_type": "user",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -39656,6 +40046,11 @@
           "path": "/v3/user-invitations",
           "summary": "Create a user invitation.",
           "return_type": "user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -39927,6 +40322,11 @@
           "path": "/v3/user-invitations/{invitation_id}",
           "summary": "Delete a user invitation.",
           "return_type": "user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -40335,6 +40735,11 @@
           "path": "/v3/user-invitations/{invitation_id}",
           "summary": "Details of a user invitation.",
           "return_type": "user_invitation",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",
@@ -40769,6 +41174,11 @@
           "path": "/v3/user-invitations",
           "summary": "Get the details of all the user invitations.",
           "return_type": "paginated_response(user_invitation)",
+          "return_info": {
+            "self": true,
+            "custom": false,
+            "type": "user_invitation"
+          },
           "drop_fields": [
             "object",
             "etag",

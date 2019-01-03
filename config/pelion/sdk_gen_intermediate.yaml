@@ -840,6 +840,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
     return_type: account
     summary: Create a new account.
   - _key: get
@@ -1670,6 +1674,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
     return_type: account
     summary: Get account info.
   - _key: list
@@ -2462,6 +2470,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
     return_type: paginated_response(account)
     summary: Get all accounts.
   - _key: me
@@ -3238,6 +3250,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
     return_type: account
     summary: Get account info.
   - _key: trusted_certificates
@@ -3662,6 +3678,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
     summary: Get all trusted certificates.
   - _key: update
@@ -4717,6 +4737,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: account
     return_type: account
     summary: Update attributes of an existing account.
   - _key: user_invitations
@@ -5116,6 +5140,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
     summary: Get the details of all the user invitations.
   - _key: users
@@ -5635,6 +5663,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: subtenant_user
     return_type: paginated_response(subtenant_user)
     summary: Get all user details.
   primary_key_field: id
@@ -6028,6 +6060,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: api_key
     summary: Create a new API key.
   - _key: delete
@@ -6214,6 +6250,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: api_key
     summary: Delete API key.
   - _key: get
@@ -6509,6 +6549,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: api_key
     summary: Get API key details.
   - _key: list
@@ -6836,6 +6880,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: paginated_response(api_key)
     summary: Get all API keys
   - _key: me
@@ -7077,6 +7125,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: api_key
     summary: Get API key details.
   - _key: update
@@ -7451,6 +7503,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: api_key
     return_type: api_key
     summary: Update API key details.
   primary_key_field: id
@@ -7798,6 +7854,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_enrollment
     return_type: certificate_enrollment
     summary: Get a certificate enrollment by ID.
   - _key: list
@@ -8151,6 +8211,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_enrollment
     return_type: paginated_response(certificate_enrollment)
     summary: Get certificate enrollments list.
   primary_key_field: id
@@ -8604,6 +8668,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer
     return_type: certificate_issuer
     summary: Create certificate issuer.
   - _key: delete
@@ -8824,6 +8892,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer
     return_type: certificate_issuer
     summary: Delete certificate issuer.
   - _key: get
@@ -9102,6 +9174,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer
     return_type: certificate_issuer
     summary: Get certificate issuer by ID.
   - _key: list
@@ -9394,6 +9470,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer
     return_type: paginated_response(certificate_issuer)
     summary: Get certificate issuers list.
   - _key: update
@@ -9814,6 +9894,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer
     return_type: certificate_issuer
     summary: Update certificate issuer.
   - _key: verify
@@ -10113,6 +10197,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: verification_response
     return_type: verification_response
     summary: Verify certificate issuer.
     unaggregated: true
@@ -10448,6 +10536,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Create certificate issuer configuration.
   - _key: delete
@@ -10652,6 +10744,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Delete certificate issuer configuration.
   - _key: get
@@ -10919,6 +11015,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
   - _key: list
@@ -11257,6 +11357,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
     summary: Get certificate issuer configurations.
   - _key: lwm2m
@@ -11477,6 +11581,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Get certificate issuer configuration.
   - _key: update
@@ -11760,6 +11868,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: certificate_issuer_config
     return_type: certificate_issuer_config
     summary: Update certificate issuer configuration.
   primary_key_field: id
@@ -12366,6 +12478,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: developer_certificate
     return_type: developer_certificate
     summary: Create a new developer certificate to connect to the bootstrap server.
   - _key: delete
@@ -12557,6 +12673,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: developer_certificate
     return_type: developer_certificate
     summary: Delete a trusted certificate by ID.
   - _key: get
@@ -13026,6 +13146,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
   - _key: trusted_certificate_info
@@ -13383,6 +13507,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: trusted_certificate
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
     unaggregated: true
@@ -14250,6 +14378,10 @@ entities:
       description: Account limit reached. Could not create device.
     - _key: '409'
       description: Unique-constrained fields are used by other resources.
+    return_info:
+      custom: false
+      self: true
+      type: device
     return_type: device
     summary: Create a device
   - _key: delete
@@ -14290,6 +14422,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to delete device because it can't be found.
+    return_info:
+      custom: false
+      self: true
+      type: device
     return_type: device
     summary: Delete a device.
   - _key: get
@@ -14681,6 +14817,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to find device.
+    return_info:
+      custom: false
+      self: true
+      type: device
     return_type: device
     summary: Get a device
   - _key: list
@@ -15049,6 +15189,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to find page.
+    return_info:
+      custom: false
+      self: true
+      type: device
     return_type: paginated_response(device)
     summary: List all devices.
   - _key: renew_certificate
@@ -15446,6 +15590,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: certificate_enrollment
     return_type: certificate_enrollment
     summary: Request certificate renewal.
     unaggregated: true
@@ -15925,6 +16073,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to update device because it can't be found.
+    return_info:
+      custom: false
+      self: true
+      type: device
     return_type: device
     summary: Update a device
   primary_key_field: id
@@ -16263,6 +16415,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment
     return_type: device_enrollment
     summary: Place an enrollment claim for one or several devices.
   - _key: delete
@@ -16412,6 +16568,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment
     return_type: device_enrollment
     summary: Delete an enrollment by ID.
   - _key: get
@@ -16640,6 +16800,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment
     return_type: device_enrollment
     summary: Get details of an enrollment by ID.
   - _key: list
@@ -16966,6 +17130,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment
     return_type: paginated_response(device_enrollment)
     summary: Get enrollment list.
   primary_key_field: id
@@ -17353,6 +17521,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Bulk upload
   - _key: download_errors_report_file
@@ -17375,6 +17547,10 @@ entities:
     mode: download_errors_report_file
     path: null
     responses: []
+    return_info:
+      custom: true
+      self: false
+      type: file
     return_type: file
     spec:
       description: This method will download the CSV file containing detailed information
@@ -17402,6 +17578,10 @@ entities:
     mode: download_full_report_file
     path: null
     responses: []
+    return_info:
+      custom: true
+      self: false
+      type: file
     return_type: file
     spec:
       description: This method will download the CSV file containing detailed information
@@ -17763,6 +17943,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
     summary: Get bulk upload entity
   primary_key_field: id
@@ -18153,6 +18337,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Bulk delete
   - _key: download_errors_report_file
@@ -18175,6 +18363,10 @@ entities:
     mode: download_errors_report_file
     path: null
     responses: []
+    return_info:
+      custom: true
+      self: false
+      type: file
     return_type: file
     spec:
       description: This method will download the CSV file containing detailed information
@@ -18202,6 +18394,10 @@ entities:
     mode: download_full_report_file
     path: null
     responses: []
+    return_info:
+      custom: true
+      self: false
+      type: file
     return_type: file
     spec:
       description: This method will download the CSV file containing detailed information
@@ -18566,6 +18762,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
     summary: Get bulk delete entity
   primary_key_field: id
@@ -18767,6 +18967,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to find device.
+    return_info:
+      custom: false
+      self: true
+      type: device_events
     return_type: device_events
     summary: Retrieve a device event.
   - _key: list
@@ -18955,6 +19159,10 @@ entities:
       description: Not authenticated.
     - _key: '404'
       description: Unable to find page.
+    return_info:
+      custom: false
+      self: true
+      type: device_events
     return_type: paginated_response(device_events)
     summary: List all device events.
   primary_key_field: id
@@ -19281,6 +19489,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: server_credentials
     return_type: server_credentials
     summary: Fetch bootstrap server credentials.
   - _key: get_lwm2m
@@ -19473,6 +19685,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: server_credentials
     return_type: server_credentials
     summary: Fetch LwM2M server credentials.
   primary_key_field: id
@@ -20079,6 +20295,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Upload new trusted certificate.
   - _key: delete
@@ -20289,6 +20509,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Delete trusted certificate by ID.
   - _key: developer_certificate_info
@@ -20774,6 +20998,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
@@ -21150,6 +21378,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Get trusted certificate by ID.
   - _key: update
@@ -21630,6 +21862,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
     summary: Update trusted certificate.
   primary_key_field: id
@@ -22548,6 +22784,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user
     return_type: subtenant_user
     summary: Create a new user.
   - _key: delete
@@ -22798,6 +23038,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user
     return_type: subtenant_user
     summary: Delete a user.
   - _key: get
@@ -23293,6 +23537,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user
     return_type: subtenant_user
     summary: Details of the user.
   - _key: update
@@ -23968,6 +24216,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user
     return_type: subtenant_user
     summary: Update user details.
   - _key: validate_email
@@ -24170,6 +24422,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user
     return_type: subtenant_user
     summary: Validate the user email.
   primary_key_field: id
@@ -24619,6 +24875,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Create a user invitation.
   - _key: delete
@@ -24816,6 +25076,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Delete a user invitation.
   - _key: get
@@ -25139,6 +25403,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: subtenant_user_invitation
     return_type: subtenant_user_invitation
     summary: Details of a user invitation.
   primary_key_field: id
@@ -25707,6 +25975,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
     return_type: trusted_certificate
     summary: Upload a new trusted certificate.
   - _key: delete
@@ -25909,6 +26181,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
     return_type: trusted_certificate
     summary: Delete a trusted certificate by ID.
   - _key: developer_certificate_info
@@ -26395,6 +26671,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: false
+      type: developer_certificate
     return_type: developer_certificate
     summary: Fetch an existing developer certificate to connect to the bootstrap server.
     unaggregated: true
@@ -26757,6 +27037,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
     return_type: trusted_certificate
     summary: Get trusted certificate by ID.
   - _key: list
@@ -27134,6 +27418,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
     return_type: paginated_response(trusted_certificate)
     summary: Get all trusted certificates.
   - _key: update
@@ -27643,6 +27931,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: trusted_certificate
     return_type: trusted_certificate
     summary: Update trusted certificate.
   primary_key_field: id
@@ -28441,6 +28733,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user
     return_type: user
     summary: Create a new user.
   - _key: delete
@@ -28681,6 +28977,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user
     return_type: user
     summary: Delete a user.
   - _key: get
@@ -29126,6 +29426,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user
     return_type: user
     summary: Details of a user.
   - _key: list
@@ -29577,6 +29881,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user
     return_type: paginated_response(user)
     summary: Get the details of all users.
   - _key: update
@@ -30202,6 +30510,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user
     return_type: user
     summary: Update user details.
   primary_key_field: id
@@ -30623,6 +30935,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user_invitation
     return_type: user_invitation
     summary: Create a user invitation.
   - _key: delete
@@ -30810,6 +31126,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user_invitation
     return_type: user_invitation
     summary: Delete a user invitation.
   - _key: get
@@ -31110,6 +31430,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user_invitation
     return_type: user_invitation
     summary: Details of a user invitation.
   - _key: list
@@ -31435,6 +31759,10 @@ entities:
         - request_id
         - type
         type: object
+    return_info:
+      custom: false
+      self: true
+      type: user_invitation
     return_type: paginated_response(user_invitation)
     summary: Get the details of all the user invitations.
   primary_key_field: id
