@@ -1042,7 +1042,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account"
+            "type": "account",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -2129,7 +2130,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account"
+            "type": "account",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -3224,7 +3226,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account"
+            "type": "account",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -4235,7 +4238,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account"
+            "type": "account",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -4413,18 +4417,30 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The ID of the account.",
+                          "api_fieldname": "account_id",
+                          "entity_fieldname": "account_id",
+                          "parameter_fieldname": "account_id",
+                          "in": "path",
+                          "required": true,
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
                           "description": "X509.v3 trusted certificate in PEM format.",
+                          "api_fieldname": "certificate",
+                          "entity_fieldname": "certificate",
+                          "parameter_fieldname": "certificate",
+                          "in": "body",
+                          "required": false,
                           "_key": "certificate"
                         },
                         {
                           "type": "string",
                           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
                           "description": "A SHA-256 fingerprint of the certificate.",
+                          "api_fieldname": "certificate_fingerprint",
+                          "entity_fieldname": "certificate_fingerprint",
                           "_key": "certificate_fingerprint"
                         },
                         {
@@ -4432,12 +4448,19 @@
                           "format": "date-time",
                           "example": "2018-02-13T09:35:20Z",
                           "description": "Creation UTC time RFC3339.",
+                          "api_fieldname": "created_at",
+                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
+                          "api_fieldname": "description",
+                          "entity_fieldname": "description",
+                          "parameter_fieldname": "description",
+                          "in": "body",
+                          "required": false,
                           "_key": "description"
                         },
                         {
@@ -4447,36 +4470,54 @@
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
                           "_override": true,
+                          "api_fieldname": "device_execution_mode",
+                          "entity_fieldname": "device_execution_mode",
                           "_key": "device_execution_mode"
                         },
                         {
                           "type": "boolean",
                           "example": false,
                           "description": "If true, signature is not required. Default value false.",
+                          "api_fieldname": "enrollment_mode",
+                          "entity_fieldname": "enrollment_mode",
+                          "parameter_fieldname": "enrollment_mode",
+                          "in": "body",
+                          "required": false,
                           "_key": "enrollment_mode"
                         },
                         {
                           "type": "string",
                           "example": "1",
                           "description": "API resource entity version.",
+                          "api_fieldname": "etag",
+                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "example": "01619571d01d0242ac12000600000000",
                           "description": "Entity ID.",
+                          "api_fieldname": "id",
+                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
                           "example": "CN=issuer",
                           "description": "Issuer of the certificate.",
+                          "api_fieldname": "issuer",
+                          "entity_fieldname": "issuer",
                           "_key": "issuer"
                         },
                         {
                           "type": "string",
                           "example": "My certificate",
                           "description": "Certificate name.",
+                          "api_fieldname": "name",
+                          "entity_fieldname": "name",
+                          "parameter_fieldname": "name",
+                          "in": "body",
+                          "required": false,
                           "_key": "name"
                         },
                         {
@@ -4485,18 +4526,24 @@
                           "enum": [
                             "trusted-cert"
                           ],
+                          "api_fieldname": "object",
+                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
+                          "api_fieldname": "owner_id",
+                          "entity_fieldname": "owner_id",
                           "_key": "owner_id"
                         },
                         {
                           "type": "string",
                           "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
                           "description": "Private key of the certificate in PEM or base64 encoded DER format.",
+                          "api_fieldname": "private_key",
+                          "entity_fieldname": "private_key",
                           "_key": "private_key"
                         },
                         {
@@ -4506,6 +4553,12 @@
                             "lwm2m",
                             "bootstrap"
                           ],
+                          "api_fieldname": "service",
+                          "entity_fieldname": "service",
+                          "parameter_fieldname": "service",
+                          "in": "body",
+                          "required": false,
+                          "enum_reference": "subtenant_trusted_certificate_service_enum",
                           "_key": "service"
                         },
                         {
@@ -4516,12 +4569,20 @@
                             "ACTIVE",
                             "INACTIVE"
                           ],
+                          "api_fieldname": "status",
+                          "entity_fieldname": "status",
+                          "parameter_fieldname": "status",
+                          "in": "body",
+                          "required": false,
+                          "enum_reference": "subtenant_trusted_certificate_status_enum",
                           "_key": "status"
                         },
                         {
                           "type": "string",
                           "example": "CN=subject",
                           "description": "Subject of the certificate.",
+                          "api_fieldname": "subject",
+                          "entity_fieldname": "subject",
                           "_key": "subject"
                         },
                         {
@@ -4529,6 +4590,8 @@
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
+                          "api_fieldname": "updated_at",
+                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         },
                         {
@@ -4536,6 +4599,8 @@
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
                           "description": "Expiration time in UTC formatted as RFC3339.",
+                          "api_fieldname": "validity",
+                          "entity_fieldname": "validity",
                           "_key": "validity"
                         }
                       ],
@@ -4831,7 +4896,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_trusted_certificate"
+            "type": "subtenant_trusted_certificate",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -6247,7 +6313,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account"
+            "type": "account",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -6800,7 +6867,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_user_invitation"
+            "type": "subtenant_user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -7484,7 +7552,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -8345,7 +8414,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -8622,7 +8692,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -9025,7 +9096,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -9464,7 +9536,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -9792,7 +9865,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -10317,7 +10391,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key"
+            "type": "api_key",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -10826,7 +10901,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_enrollment"
+            "type": "certificate_enrollment",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -11269,7 +11345,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_enrollment"
+            "type": "certificate_enrollment",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -11863,7 +11940,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer"
+            "type": "certificate_issuer",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -12170,7 +12248,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer"
+            "type": "certificate_issuer",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -12560,7 +12639,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer"
+            "type": "certificate_issuer",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -12937,7 +13017,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer"
+            "type": "certificate_issuer",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -13516,7 +13597,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer"
+            "type": "certificate_issuer",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -13910,7 +13992,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "verification_response"
+            "type": "verification_response",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -14383,7 +14466,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -14694,7 +14778,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -15076,7 +15161,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -15492,7 +15578,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -15808,7 +15895,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -16206,7 +16294,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config"
+            "type": "certificate_issuer_config",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -16785,7 +16874,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "developer_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -17069,7 +17159,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "developer_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -17462,7 +17553,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "developer_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -17940,7 +18032,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -18729,7 +18822,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device"
+            "type": "device",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -18804,7 +18898,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device"
+            "type": "device",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -19216,7 +19311,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device"
+            "type": "device",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -19689,7 +19785,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device"
+            "type": "device",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -20239,7 +20336,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "certificate_enrollment"
+            "type": "certificate_enrollment",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -20777,7 +20875,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device"
+            "type": "device",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -21510,7 +21609,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment"
+            "type": "device_enrollment",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -21710,7 +21810,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment"
+            "type": "device_enrollment",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -22001,7 +22102,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment"
+            "type": "device_enrollment",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -22410,7 +22512,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment"
+            "type": "device_enrollment",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -22808,7 +22911,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_create"
+            "type": "device_enrollment_bulk_create",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -22848,7 +22952,8 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file"
+            "type": "file",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -22882,7 +22987,8 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file"
+            "type": "file",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -23280,7 +23386,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_create"
+            "type": "device_enrollment_bulk_create",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -23707,7 +23814,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_delete"
+            "type": "device_enrollment_bulk_delete",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -23747,7 +23855,8 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file"
+            "type": "file",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -23781,7 +23890,8 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file"
+            "type": "file",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -24182,7 +24292,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_delete"
+            "type": "device_enrollment_bulk_delete",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -24464,7 +24575,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_events"
+            "type": "device_events",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -24729,7 +24841,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_events"
+            "type": "device_events",
+            "group": "Devices"
           },
           "drop_fields": [
             "object",
@@ -25229,7 +25342,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "server_credentials"
+            "type": "server_credentials",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -25493,7 +25607,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "server_credentials"
+            "type": "server_credentials",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -26186,7 +26301,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate"
+            "type": "subtenant_trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -26495,7 +26611,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate"
+            "type": "subtenant_trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -26895,7 +27012,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "developer_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -27402,7 +27520,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate"
+            "type": "subtenant_trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -28059,7 +28178,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate"
+            "type": "subtenant_trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -29145,7 +29265,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -29523,7 +29644,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -30155,7 +30277,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -31070,7 +31193,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -31376,7 +31500,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user"
+            "type": "subtenant_user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -32157,7 +32282,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation"
+            "type": "subtenant_user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -32444,7 +32570,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation"
+            "type": "subtenant_user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -32883,7 +33010,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation"
+            "type": "subtenant_user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -33616,7 +33744,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -33917,7 +34046,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -34320,7 +34450,8 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "developer_certificate"
+            "type": "developer_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -34808,7 +34939,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -35314,7 +35446,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -36028,7 +36161,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate"
+            "type": "trusted_certificate",
+            "group": "Security"
           },
           "drop_fields": [
             "object",
@@ -36982,7 +37116,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user"
+            "type": "user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -37349,7 +37484,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user"
+            "type": "user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -37928,7 +38064,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user"
+            "type": "user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -38533,7 +38670,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user"
+            "type": "user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -39390,7 +39528,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user"
+            "type": "user",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -40134,7 +40273,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation"
+            "type": "user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -40410,7 +40550,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation"
+            "type": "user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -40823,7 +40964,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation"
+            "type": "user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
@@ -41262,7 +41404,8 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation"
+            "type": "user_invitation",
+            "group": "Accounts"
           },
           "drop_fields": [
             "object",
