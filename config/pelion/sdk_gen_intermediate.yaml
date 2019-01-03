@@ -842,6 +842,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: account
     return_type: account
@@ -1676,6 +1677,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: account
     return_type: account
@@ -2472,6 +2474,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: account
     return_type: paginated_response(account)
@@ -3252,6 +3255,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: account
     return_type: account
@@ -3386,91 +3390,152 @@ entities:
               group: Security
             properties:
             - _key: account_id
+              api_fieldname: account_id
               description: The ID of the account.
+              entity_fieldname: account_id
               example: 01619571e2e90242ac12000600000000
+              in: path
+              parameter_fieldname: account_id
+              required: true
               type: string
             - _key: certificate
+              api_fieldname: certificate
               description: X509.v3 trusted certificate in PEM format.
+              entity_fieldname: certificate
               example: '-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----'
+              in: body
+              parameter_fieldname: certificate
+              required: false
               type: string
             - _key: certificate_fingerprint
+              api_fieldname: certificate_fingerprint
               description: A SHA-256 fingerprint of the certificate.
+              entity_fieldname: certificate_fingerprint
               example: a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1
               type: string
             - _key: created_at
+              api_fieldname: created_at
               description: Creation UTC time RFC3339.
+              entity_fieldname: created_at
               example: '2018-02-13T09:35:20Z'
               format: date-time
               type: string
             - _key: description
+              api_fieldname: description
               description: Human readable description of this certificate.
+              entity_fieldname: description
               example: Certificate created by me.
+              in: body
+              parameter_fieldname: description
+              required: false
               type: string
             - _key: device_execution_mode
               _override: true
+              api_fieldname: device_execution_mode
               description: Device execution mode where 1 means a developer certificate.
+              entity_fieldname: device_execution_mode
               example: 1
               format: int32
               private_field: true
               type: integer
             - _key: enrollment_mode
+              api_fieldname: enrollment_mode
               description: If true, signature is not required. Default value false.
+              entity_fieldname: enrollment_mode
               example: false
+              in: body
+              parameter_fieldname: enrollment_mode
+              required: false
               type: boolean
             - _key: etag
+              api_fieldname: etag
               description: API resource entity version.
+              entity_fieldname: etag
               example: '1'
               type: string
             - _key: id
+              api_fieldname: id
               description: Entity ID.
+              entity_fieldname: id
               example: 01619571d01d0242ac12000600000000
               type: string
             - _key: issuer
+              api_fieldname: issuer
               description: Issuer of the certificate.
+              entity_fieldname: issuer
               example: CN=issuer
               type: string
             - _key: name
+              api_fieldname: name
               description: Certificate name.
+              entity_fieldname: name
               example: My certificate
+              in: body
+              parameter_fieldname: name
+              required: false
               type: string
             - _key: object
+              api_fieldname: object
               description: 'Entity name: always ''trusted-cert'''
+              entity_fieldname: object
               enum:
               - trusted-cert
               type: string
             - _key: owner_id
+              api_fieldname: owner_id
               description: The ID of the owner.
+              entity_fieldname: owner_id
               example: 01619571dad80242ac12000600000000
               type: string
             - _key: private_key
+              api_fieldname: private_key
               description: Private key of the certificate in PEM or base64 encoded
                 DER format.
+              entity_fieldname: private_key
               example: MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...
               type: string
             - _key: service
+              api_fieldname: service
               description: Service name where the certificate is to be used.
+              entity_fieldname: service
               enum:
               - lwm2m
               - bootstrap
+              enum_reference: subtenant_trusted_certificate_service_enum
+              in: body
+              parameter_fieldname: service
+              required: false
               type: string
             - _key: status
+              api_fieldname: status
               description: Status of the certificate.
+              entity_fieldname: status
               enum:
               - ACTIVE
               - INACTIVE
+              enum_reference: subtenant_trusted_certificate_status_enum
               example: ACTIVE
+              in: body
+              parameter_fieldname: status
+              required: false
               type: string
             - _key: subject
+              api_fieldname: subject
               description: Subject of the certificate.
+              entity_fieldname: subject
               example: CN=subject
               type: string
             - _key: updated_at
+              api_fieldname: updated_at
               description: Last update UTC time RFC3339.
+              entity_fieldname: updated_at
               example: '2018-02-14T15:24:14Z'
               format: date-time
               type: string
             - _key: validity
+              api_fieldname: validity
               description: Expiration time in UTC formatted as RFC3339.
+              entity_fieldname: validity
               example: '2038-02-14T15:24:14Z'
               format: date-time
               type: string
@@ -3680,6 +3745,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: false
       type: subtenant_trusted_certificate
     return_type: paginated_response(subtenant_trusted_certificate)
@@ -4739,6 +4805,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: account
     return_type: account
@@ -5142,6 +5209,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: false
       type: subtenant_user_invitation
     return_type: paginated_response(subtenant_user_invitation)
@@ -5665,6 +5733,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: false
       type: subtenant_user
     return_type: paginated_response(subtenant_user)
@@ -6062,6 +6131,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: api_key
@@ -6252,6 +6322,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: api_key
@@ -6551,6 +6622,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: api_key
@@ -6882,6 +6954,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: paginated_response(api_key)
@@ -7127,6 +7200,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: api_key
@@ -7505,6 +7579,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: api_key
     return_type: api_key
@@ -7856,6 +7931,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_enrollment
     return_type: certificate_enrollment
@@ -8213,6 +8289,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_enrollment
     return_type: paginated_response(certificate_enrollment)
@@ -8670,6 +8747,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer
     return_type: certificate_issuer
@@ -8894,6 +8972,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer
     return_type: certificate_issuer
@@ -9176,6 +9255,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer
     return_type: certificate_issuer
@@ -9472,6 +9552,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer
     return_type: paginated_response(certificate_issuer)
@@ -9896,6 +9977,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer
     return_type: certificate_issuer
@@ -10199,6 +10281,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: false
       type: verification_response
     return_type: verification_response
@@ -10538,6 +10621,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: certificate_issuer_config
@@ -10746,6 +10830,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: certificate_issuer_config
@@ -11017,6 +11102,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: certificate_issuer_config
@@ -11359,6 +11445,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: paginated_response(certificate_issuer_config)
@@ -11583,6 +11670,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: certificate_issuer_config
@@ -11870,6 +11958,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: certificate_issuer_config
     return_type: certificate_issuer_config
@@ -12480,6 +12569,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: developer_certificate
     return_type: developer_certificate
@@ -12675,6 +12765,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: developer_certificate
     return_type: developer_certificate
@@ -13148,6 +13239,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: developer_certificate
     return_type: developer_certificate
@@ -13509,6 +13601,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: false
       type: trusted_certificate
     return_type: trusted_certificate
@@ -14380,6 +14473,7 @@ entities:
       description: Unique-constrained fields are used by other resources.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device
     return_type: device
@@ -14424,6 +14518,7 @@ entities:
       description: Unable to delete device because it can't be found.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device
     return_type: device
@@ -14819,6 +14914,7 @@ entities:
       description: Unable to find device.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device
     return_type: device
@@ -15191,6 +15287,7 @@ entities:
       description: Unable to find page.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device
     return_type: paginated_response(device)
@@ -15592,6 +15689,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: false
       type: certificate_enrollment
     return_type: certificate_enrollment
@@ -16075,6 +16173,7 @@ entities:
       description: Unable to update device because it can't be found.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device
     return_type: device
@@ -16417,6 +16516,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment
     return_type: device_enrollment
@@ -16570,6 +16670,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment
     return_type: device_enrollment
@@ -16802,6 +16903,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment
     return_type: device_enrollment
@@ -17132,6 +17234,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment
     return_type: paginated_response(device_enrollment)
@@ -17523,6 +17626,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
@@ -17549,6 +17653,7 @@ entities:
     responses: []
     return_info:
       custom: true
+      group: Devices
       self: false
       type: file
     return_type: file
@@ -17580,6 +17685,7 @@ entities:
     responses: []
     return_info:
       custom: true
+      group: Devices
       self: false
       type: file
     return_type: file
@@ -17945,6 +18051,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment_bulk_create
     return_type: device_enrollment_bulk_create
@@ -18339,6 +18446,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
@@ -18365,6 +18473,7 @@ entities:
     responses: []
     return_info:
       custom: true
+      group: Devices
       self: false
       type: file
     return_type: file
@@ -18396,6 +18505,7 @@ entities:
     responses: []
     return_info:
       custom: true
+      group: Devices
       self: false
       type: file
     return_type: file
@@ -18764,6 +18874,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_enrollment_bulk_delete
     return_type: device_enrollment_bulk_delete
@@ -18969,6 +19080,7 @@ entities:
       description: Unable to find device.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_events
     return_type: device_events
@@ -19161,6 +19273,7 @@ entities:
       description: Unable to find page.
     return_info:
       custom: false
+      group: Devices
       self: true
       type: device_events
     return_type: paginated_response(device_events)
@@ -19491,6 +19604,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: server_credentials
     return_type: server_credentials
@@ -19687,6 +19801,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: server_credentials
     return_type: server_credentials
@@ -20297,6 +20412,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
@@ -20511,6 +20627,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
@@ -21000,6 +21117,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: false
       type: developer_certificate
     return_type: developer_certificate
@@ -21380,6 +21498,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
@@ -21864,6 +21983,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: subtenant_trusted_certificate
     return_type: subtenant_trusted_certificate
@@ -22786,6 +22906,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user
     return_type: subtenant_user
@@ -23040,6 +23161,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user
     return_type: subtenant_user
@@ -23539,6 +23661,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user
     return_type: subtenant_user
@@ -24218,6 +24341,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user
     return_type: subtenant_user
@@ -24424,6 +24548,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user
     return_type: subtenant_user
@@ -24877,6 +25002,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
@@ -25078,6 +25204,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
@@ -25405,6 +25532,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: subtenant_user_invitation
     return_type: subtenant_user_invitation
@@ -25977,6 +26105,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: trusted_certificate
     return_type: trusted_certificate
@@ -26183,6 +26312,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: trusted_certificate
     return_type: trusted_certificate
@@ -26673,6 +26803,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: false
       type: developer_certificate
     return_type: developer_certificate
@@ -27039,6 +27170,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: trusted_certificate
     return_type: trusted_certificate
@@ -27420,6 +27552,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: trusted_certificate
     return_type: paginated_response(trusted_certificate)
@@ -27933,6 +28066,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Security
       self: true
       type: trusted_certificate
     return_type: trusted_certificate
@@ -28735,6 +28869,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user
     return_type: user
@@ -28979,6 +29114,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user
     return_type: user
@@ -29428,6 +29564,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user
     return_type: user
@@ -29883,6 +30020,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user
     return_type: paginated_response(user)
@@ -30512,6 +30650,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user
     return_type: user
@@ -30937,6 +31076,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user_invitation
     return_type: user_invitation
@@ -31128,6 +31268,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user_invitation
     return_type: user_invitation
@@ -31432,6 +31573,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user_invitation
     return_type: user_invitation
@@ -31761,6 +31903,7 @@ entities:
         type: object
     return_info:
       custom: false
+      group: Accounts
       self: true
       type: user_invitation
     return_type: paginated_response(user_invitation)
