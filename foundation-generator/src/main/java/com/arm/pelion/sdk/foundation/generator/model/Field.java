@@ -52,20 +52,31 @@ public class Field extends AbstractSdkArtifact implements Cloneable {
         setAsIdentifier(false);
     }
 
-    public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue) {
-        this(java.lang.reflect.Modifier.isFinal(field.getModifiers()),
+    public Field(java.lang.reflect.Field field, boolean isInternal, boolean isRequired, String defaultValue,
+                 boolean hasSetter) {
+        this(isFieldReadOnly(field, hasSetter),
              TypeFactory.getCorrespondingType(field.getType(), field.getGenericType()), field.getName(), null, null,
              null, java.lang.reflect.Modifier.isStatic(field.getModifiers()), false, isInternal, isRequired,
              defaultValue, true);
     }
 
-    public Field(java.lang.reflect.Field field) {
-        this(field, false, false, null);
+    public Field(java.lang.reflect.Field field, boolean hasSetter) {
+        this(field, false, false, null, hasSetter);
     }
 
     public static Field defaultIdentifier() {
         return new Field(false, TypeFactory.getCorrespondingType(String.class), IDENTIFIER_NAME, IDENTIFIER_NAME, null,
                          null, false, false, true, false, null, false);
+    }
+
+    private static boolean isFieldReadOnly(java.lang.reflect.Field field, boolean hasSetter) {
+        if (java.lang.reflect.Modifier.isFinal(field.getModifiers())) {
+            return true;
+        }
+        if (hasSetter) {
+            return false;
+        }
+        return !java.lang.reflect.Modifier.isPublic(field.getModifiers());
     }
 
     /*

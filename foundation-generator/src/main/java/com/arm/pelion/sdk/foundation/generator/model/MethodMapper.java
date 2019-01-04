@@ -192,7 +192,7 @@ public class MethodMapper extends Method {
                 final MethodConstructorAllFields constructor = (MethodConstructorAllFields) to.fetchMethod((MethodConstructorAllFields.IDENTIFIER));
                 settableFields = constructor == null ? new ArrayList<>() : constructor.getAllFields();
             } else {
-                settableFields = to.getFieldList();
+                settableFields = to.getSettableFields();
             }
         }
         // Not using stream so that exception is thrown
@@ -204,9 +204,9 @@ public class MethodMapper extends Method {
             final Field fromField = from.fetchField(fromFieldName);
             final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
             if (fromFieldType == null) {
-                code.addStatement("//No field equivalent to $L in $T was found in $T", toFieldName,
-                                  toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
-                                  fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
+                code.add("//No field equivalent to $L in $T was found in $T" + System.lineSeparator(), toFieldName,
+                         toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
+                         fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
             } else if (needsTranslation(fromFieldType, fType)) {
                 if (!doesTypeNeedTranslation(fType)) {
                     code.addStatement("$L.$L($L.$L())", variableName,

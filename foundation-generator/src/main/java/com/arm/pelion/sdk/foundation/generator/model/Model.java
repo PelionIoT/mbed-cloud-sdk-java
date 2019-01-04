@@ -116,8 +116,20 @@ public class Model extends AbstractSdkArtifact {
              genericType);
         if (clazz != null) {
             Arrays.asList(clazz.getDeclaredFields()).stream().filter(f -> shouldConsiderField(f))
-                  .forEach(f -> addField(new Field(f)));
+                  .forEach(f -> addField(new Field(f, hasASetter(clazz, f))));
         }
+    }
+
+    private boolean hasASetter(Class<?> clazz, java.lang.reflect.Field f) {
+        if (clazz == null) {
+            return false;
+        }
+        return Arrays.asList(clazz.getMethods()).stream()
+                     .anyMatch(m -> (m.getName().equals(MethodSetter.getCorrespondingSetterMethodName(f.getName()))
+                                     && m.getReturnType().equals(Void.class) && m.getParameterCount() == 1)
+                                    || (m.getName()
+                                         .equals(MethodSetter.getCorrespondingSetterMethodName(f.getName(), true))
+                                        && !m.getReturnType().equals(Void.class)));
     }
 
     private boolean shouldConsiderField(java.lang.reflect.Field f) {
@@ -371,6 +383,10 @@ public class Model extends AbstractSdkArtifact {
         return allfields;
     }
 
+    public List<Field> getSettableFields() {
+        return getFieldList().stream().filter(f -> !f.isReadOnly()).collect(Collectors.toList());
+    }
+
     /**
      * @return the methods
      */
@@ -531,6 +547,7 @@ public class Model extends AbstractSdkArtifact {
         final Map<String, Field> map = new LinkedHashMap<>();
         Class<?> clazz = superClassType.getClazz();
         while (clazz != null) {
+            final Class<?> currentClazz = clazz;
             final java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
             if (fields != null) {
                 Arrays.asList(fields).stream()
@@ -538,7 +555,7 @@ public class Model extends AbstractSdkArtifact {
                                    && (java.lang.reflect.Modifier.isPublic(f.getModifiers())
                                        || java.lang.reflect.Modifier.isProtected(f.getModifiers())))
                       .forEach(f -> {
-                          final Field field = new Field(f, true, false, null);
+                          final Field field = new Field(f, true, false, null, hasASetter(currentClazz, f));
                           map.put(field.getName(), field);
                       });
             }
