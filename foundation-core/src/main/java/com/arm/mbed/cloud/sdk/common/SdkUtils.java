@@ -124,6 +124,15 @@ public final class SdkUtils {
         return Hex.encodeHexString(value);
     }
 
+    /**
+     * Generates an error message for invalid models.
+     * 
+     * @param model
+     *            corresponding model
+     * @param argName
+     *            model instance name.
+     * @return error message
+     */
     public static StringBuilder generateInvalidModelInstanceErrorMessage(SdkModel model, String argName) {
         final StringBuilder errorBuilder = new StringBuilder(200);
         errorBuilder.append("Parameter [");
@@ -133,6 +142,19 @@ public final class SdkUtils {
         return errorBuilder;
     }
 
+    /**
+     * Generates an error message for invalid models.
+     * <p>
+     * Determines which fields are problematic and describe some mitigation actions.
+     * 
+     * @param model
+     *            corresponding model.
+     * @param missingFields
+     *            missing fields
+     * @param argName
+     *            model instance name
+     * @return error message
+     */
     public static StringBuilder generateModelInstanceWithMissingFieldsErrorMessage(SdkModel model,
                                                                                    List<String> missingFields,
                                                                                    String argName) {
