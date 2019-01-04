@@ -377,7 +377,11 @@ public class Method extends AbstractSdkArtifact {
             specificationBuilder.addException(NotImplementedException.class);
             if (hasCode()) {
                 translateCode();
+                specificationBuilder.addComment("The following code is auto-generated and can be used if carrying out what $L() intends/is meant to do.",
+                                                getName());
+                specificationBuilder.addCode("/*");
                 specificationBuilder.addCode(code.build());
+                specificationBuilder.addCode("*/");
             }
             // TODO put back if needed
             // if (!hasCode() && hasReturn()) {

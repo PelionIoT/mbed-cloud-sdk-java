@@ -37,7 +37,7 @@ public class MethodModulePaginationApiUnself extends MethodModuleListApiUnself {
 
     @Override
     protected void generateMethodCode() throws TranslationException {
-        MethodModulePaginationApi.generateMethodCode(returnModel, this, correspondingMethod);
+        MethodModulePaginationApi.generateMethodCode(returnModel, this, correspondingMethod, false);
     }
 
     @Override

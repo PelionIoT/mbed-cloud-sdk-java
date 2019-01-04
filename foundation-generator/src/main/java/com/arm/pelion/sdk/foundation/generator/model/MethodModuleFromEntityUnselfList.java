@@ -1,6 +1,8 @@
 package com.arm.pelion.sdk.foundation.generator.model;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
@@ -27,16 +29,40 @@ public class MethodModuleFromEntityUnselfList extends MethodModuleCloudApiUnself
     @Override
     protected List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
                                                   Method lowLevelMethod, Renames parameterRenames, Model currentModel) {
-        List<Parameter> otherParameters = MethodModuleFromEntity.extendParameterList(methodParameters, currentModel);
+        // FIXME change to methodParameters when methodParameters deals with filters in intermediate config.
+        List<Parameter> otherParameters = extendParameterList(methodParameters, allParameters, currentModel);
         if (isPaginatedList) {
             otherParameters = MethodModuleListApi.addListOptionParameter(otherParameters, returnModel, fetcher);
         }
+        otherParameters = MethodModuleFromEntity.extendParameterList(otherParameters.stream()
+                                                                                    .filter(p -> !currentModel.hasFieldInHierachy(p.getName()))
+                                                                                    .collect(Collectors.toList()),
+                                                                     currentModel);
+
         return otherParameters;
+    }
+
+    public static List<Parameter> extendParameterList(List<Parameter> methodParameters, List<Parameter> allParameters,
+                                                      Model currentModel) {
+        if (allParameters == null) {
+            return new ArrayList<>();
+        }
+        final List<Parameter> clonedMethodParameters = new ArrayList<>(allParameters.size());
+        allParameters.forEach(p -> clonedMethodParameters.add(p.clone()));
+        return clonedMethodParameters;
     }
 
     @Override
     protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
         MethodModuleListApi.setReturnType(this, returnModel);
+    }
+
+    @Override
+    protected boolean shouldCheckModelValidity(Parameter p) {
+        if (!super.shouldCheckModelValidity(p)) {
+            return false;
+        }
+        return !p.getType().isListOptions();
     }
 
     @Override

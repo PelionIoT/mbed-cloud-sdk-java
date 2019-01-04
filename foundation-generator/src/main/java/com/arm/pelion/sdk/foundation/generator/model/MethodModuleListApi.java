@@ -51,8 +51,11 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
         if (otherParameters == null) {
             otherParameters = new LinkedList<>();
         }
-        otherParameters.add(new Parameter(PARAMETER_NAME_OPTIONS, "list options.", null,
-                                          correspondingListOptions.toType(), null).setAsNullable(true));
+        final Parameter optionParameter = new Parameter(PARAMETER_NAME_OPTIONS, "list options.", null,
+                                                        correspondingListOptions.toType(), null).setAsNullable(true);
+        if (!doesParameterExist(otherParameters, optionParameter.getName())) {
+            otherParameters.add(optionParameter);
+        }
         otherParameters = otherParameters.stream()
                                          .filter(p -> !correspondingListOptions.hasFieldInHierachy(p.getIdentifier()))
                                          .collect(Collectors.toList());

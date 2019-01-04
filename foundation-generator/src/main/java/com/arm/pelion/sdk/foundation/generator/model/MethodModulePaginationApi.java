@@ -78,22 +78,25 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
 
     @Override
     protected void generateMethodCode() throws TranslationException {
-        generateMethodCode(currentModel, this, correspondingMethod);
+        generateMethodCode(currentModel, this, correspondingMethod, false);
     }
 
     public static void generateMethodCode(Model returnModel, MethodModuleCloudApi method,
-                                          MethodModuleCloudApi correspondingMethod) throws TranslationException {
+                                          MethodModuleCloudApi correspondingMethod,
+                                          boolean useThisFinalVariableMethod) throws TranslationException {
         final TypeParameter paginatorType = TypeFactory.getCorrespondingType(Paginator.class, returnModel.toType());
         paginatorType.translate();
         method.code.addStatement((method.hasReturn() ? "return " : "") + "new $T($L, $L)",
                                  paginatorType.hasClass() ? paginatorType.getClazz() : paginatorType.getTypeName(),
                                  getOptionLocalVariable(method),
-                                 generateOnePageRequest(returnModel, correspondingMethod));
+                                 generateOnePageRequest(returnModel, method, correspondingMethod,
+                                                        useThisFinalVariableMethod));
 
     }
 
-    private static Object generateOnePageRequest(Model returnModel,
-                                                 MethodModuleCloudApi correspondingMethod) throws TranslationException {
+    private static Object generateOnePageRequest(Model returnModel, MethodModuleCloudApi thisMethod,
+                                                 MethodModuleCloudApi correspondingMethod,
+                                                 boolean useThisFinalVariableMethod) throws TranslationException {
         final TypeSpec.Builder pageRequest = TypeSpec.anonymousClassBuilder("");
         final TypeParameter pageRequestType = TypeFactory.getCorrespondingType(PageRequester.class,
                                                                                returnModel.toType());
@@ -130,7 +133,8 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
                     callElements.add(parameter == null ? "null" : parameter.getName());
                 } else {
                     builder.append("$L");
-                    callElements.add(correspondingMethod.generateFinalVariable(p.getName()));
+                    callElements.add((useThisFinalVariableMethod ? thisMethod
+                                                                 : correspondingMethod).generateFinalVariable(p.getName()));
                 }
             }
             builder.append(")");
