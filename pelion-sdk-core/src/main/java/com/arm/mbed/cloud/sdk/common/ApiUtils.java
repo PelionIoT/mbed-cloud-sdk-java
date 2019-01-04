@@ -1,11 +1,9 @@
 package com.arm.mbed.cloud.sdk.common;
 
 import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Locale;
 
 import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
@@ -76,165 +74,13 @@ public class ApiUtils {
             }
 
         }
-        final StringBuilder errorBuilder = missingFields.isEmpty() ? generateInvalidModelInstanceErrorMessage(model,
-                                                                                                              argName)
-                                                                   : generateModelInstanceWithMissingFieldsErrorMessage(model,
-                                                                                                                        missingFields,
-                                                                                                                        argName);
+        final StringBuilder errorBuilder = missingFields.isEmpty() ? SdkUtils.generateInvalidModelInstanceErrorMessage(model,
+                                                                                                                       argName)
+                                                                   : SdkUtils.generateModelInstanceWithMissingFieldsErrorMessage(model,
+                                                                                                                                 missingFields,
+                                                                                                                                 argName);
         logger.throwSdkException(new IllegalArgumentException(errorBuilder.toString()));
 
-    }
-
-    private static StringBuilder generateInvalidModelInstanceErrorMessage(SdkModel model, String argName) {
-        final StringBuilder errorBuilder = new StringBuilder(200);
-        errorBuilder.append("Parameter [");
-        errorBuilder.append(argName);
-        errorBuilder.append("] is an invalid instance of ").append(model.getClass().getSimpleName())
-                    .append(" model. Please ensure all its fields are valid.");
-        return errorBuilder;
-    }
-
-    private static StringBuilder generateModelInstanceWithMissingFieldsErrorMessage(SdkModel model,
-                                                                                    List<String> missingFields,
-                                                                                    String argName) {
-        final List<String> setters = new LinkedList<>();
-        final Method[] modelMethods = model.getClass().getDeclaredMethods();
-        for (final Method modelMethod : modelMethods) {
-            if (modelMethod.isAnnotationPresent(Required.class)) {
-                for (final String missingField : missingFields) {
-                    if (modelMethod.getName().toLowerCase(Locale.UK).contains(missingField.toLowerCase(Locale.UK))) {
-                        setters.add(modelMethod.getName());
-                        break;
-                    }
-                }
-            }
-            if (setters.size() == missingFields.size()) {
-                break;
-            }
-        }
-        final StringBuilder errorBuilder = new StringBuilder(200);
-        boolean start = true;
-        errorBuilder.append("Fields [");
-        for (final String missingField : missingFields) {
-            if (!start) {
-                errorBuilder.append(", ");
-            }
-            errorBuilder.append(missingField);
-            start = false;
-        }
-        errorBuilder.append("] of parameter [");
-        errorBuilder.append(argName);
-        errorBuilder.append("] are required. Please ensure they get set using the following setters: ");
-        start = true;
-        for (final String setter : setters) {
-            if (!start) {
-                errorBuilder.append(", ");
-            }
-            errorBuilder.append(setter);
-            start = false;
-        }
-        errorBuilder.append('.');
-        return errorBuilder;
-    }
-
-    /**
-     * Converts strings from snake to camel case.
-     *
-     * @param stringToConvert
-     *            string to convert
-     * @param capitalAtStart
-     *            should the first letter be a uppercase or not.
-     * @return camel case string.
-     */
-    public static String convertSnakeToCamel(String stringToConvert, boolean capitalAtStart) {
-        if (stringToConvert == null || stringToConvert.isEmpty()) {
-            return stringToConvert;
-        }
-        final StringBuffer sb = new StringBuffer();
-        boolean start = true;
-        final String[] stringElements = stringToConvert.split("_");
-        final int numberOfElements = stringElements.length;
-        for (final String s : stringElements) {
-            if (start) {
-                sb.append(capitalAtStart ? Character.toUpperCase(s.charAt(0)) : Character.toLowerCase(s.charAt(0)));
-                start = false;
-            } else {
-                sb.append(Character.toUpperCase(s.charAt(0)));
-            }
-            if (s.length() > 1) {
-                String subString = s.substring(1, s.length());
-                if (numberOfElements > 1) {
-                    subString = subString.toLowerCase(Locale.getDefault());
-                }
-                sb.append(subString);
-            }
-        }
-        return sb.toString();
-    }
-
-    /**
-     * Converts strings from camel to snake case.
-     *
-     * @param stringToConvert
-     *            string to convert
-     * @return snake case string.
-     */
-    public static String convertCamelToSnake(String stringToConvert) {
-        if (stringToConvert == null || stringToConvert.isEmpty()) {
-            return stringToConvert;
-        }
-        return stringToConvert.replaceAll("(.)(\\p{Upper})", "$1_$2").replaceAll("(\\p{Upper})(\\p{Upper})", "$1_$2")
-                              .replace("__", "_").toLowerCase(Locale.UK).trim();
-    }
-
-    public interface CaseConverter {
-        String convert(String strToConvert, boolean capitalAtStart);
-    }
-
-    /**
-     * Case conversion types.
-     *
-     */
-    public enum CaseConversion {
-        SNAKE_TO_CAMEL,
-        CAMEL_TO_SNAKE
-    }
-
-    /**
-     * Case converter factory.
-     * <p>
-     * Gets a case converter from a type.
-     *
-     * @param conversion
-     *            conversion type
-     * @return case converter
-     */
-    public static CaseConverter getCaseConverter(CaseConversion conversion) {
-        CaseConverter converter = null;
-        switch (conversion) {
-            case CAMEL_TO_SNAKE:
-                converter = new CaseConverter() {
-
-                    @Override
-                    public String convert(String strToConvert, boolean capitalAtStart) {
-                        return convertCamelToSnake(strToConvert);
-                    }
-                };
-                break;
-            case SNAKE_TO_CAMEL:
-                converter = new CaseConverter() {
-
-                    @Override
-                    public String convert(String strToConvert, boolean capitalAtStart) {
-                        return convertSnakeToCamel(strToConvert, capitalAtStart);
-                    }
-                };
-                break;
-            default:
-                break;
-
-        }
-        return converter;
     }
 
     /**
@@ -308,5 +154,29 @@ public class ApiUtils {
      */
     public static Date convertStringToDate(String valueStr) throws MbedCloudException {
         return TranslationUtils.convertStringToDate(valueStr);
+    }
+
+    /**
+     * Converts strings from camel to snake case.
+     *
+     * @param stringToConvert
+     *            string to convert
+     * @return snake case string.
+     */
+    public static String convertCamelToSnake(String stringToConvert) {
+        return SdkUtils.convertCamelToSnake(stringToConvert);
+    }
+
+    /**
+     * Converts strings from snake to camel case.
+     *
+     * @param stringToConvert
+     *            string to convert
+     * @param capitalAtStart
+     *            should the first letter be a uppercase or not.
+     * @return camel case string.
+     */
+    public static String convertSnakeToCamel(String stringToConvert, boolean capitalAtStart) {
+        return SdkUtils.convertSnakeToCamel(stringToConvert, capitalAtStart);
     }
 }

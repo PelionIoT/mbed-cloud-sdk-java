@@ -12,14 +12,15 @@ import com.arm.mbed.cloud.sdk.annotations.Internal;
 import com.arm.mbed.cloud.sdk.annotations.Nullable;
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
-import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConverter;
 import com.arm.mbed.cloud.sdk.common.JsonSerialiser;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
+import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConversion;
+import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConverter;
 
 @Preamble(description = "Filters marshaller for serialisation/deserialisation")
 public class FilterMarshaller {
     private static final String CUSTOM_ATTRIBUTES_FIELD_NAME = "custom_attributes";
-    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
+    private static final CaseConverter SNAKE_TO_CAMEL_CONVERTER = SdkUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL);
     private static final String CUSTOM_ATTRIBUTES_FIELD_NAME_CAMEL_CASE = SNAKE_TO_CAMEL_CONVERTER.convert(CUSTOM_ATTRIBUTES_FIELD_NAME,
                                                                                                            false);
 
@@ -204,7 +205,7 @@ public class FilterMarshaller {
         if (filter.hasPrefix()) {
             builder.append(filter.getPrefix());
         }
-        builder.append(ApiUtils.convertCamelToSnake((fieldName == null) ? filter.getFieldName() : fieldName));
+        builder.append(SdkUtils.convertCamelToSnake((fieldName == null) ? filter.getFieldName() : fieldName));
         String suffix = filter.getOperator().getSuffix();
         if (suffix != null) {
             builder.append(suffix);
@@ -318,7 +319,7 @@ public class FilterMarshaller {
         if (fieldNameReverseMapping != null && fieldNameReverseMapping.containsKey(fieldName)) {
             return fieldNameReverseMapping.get(fieldName);
         }
-        return ApiUtils.convertSnakeToCamel(fieldName, false);
+        return SdkUtils.convertSnakeToCamel(fieldName, false);
     }
 
     protected static void parseFilter(String jsonObj, String fieldName, Filters filters, boolean isCustom) {

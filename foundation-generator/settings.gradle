@@ -17,4 +17,6 @@ project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_c
 project(':backends:mbedcloud_common').name = commonClientBackendName
 include 'backends:pelioncloud_devicemanagement'
 project(':backends:pelioncloud_devicemanagement').projectDir = file('../backends/pelioncloud_devicemanagement')
+include 'foundation-core'
+project(':foundation-core').projectDir = file('../foundation-core')
 project(':backends:pelioncloud_devicemanagement').name = pelionBackendName

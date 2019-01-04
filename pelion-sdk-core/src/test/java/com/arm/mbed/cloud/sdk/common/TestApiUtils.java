@@ -3,7 +3,6 @@ package com.arm.mbed.cloud.sdk.common;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -13,7 +12,6 @@ import java.util.Date;
 import org.junit.Test;
 
 import com.arm.mbed.cloud.sdk.annotations.Required;
-import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 
 public class TestApiUtils {
 
@@ -193,24 +191,9 @@ public class TestApiUtils {
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake(testClassString));
         assertEquals("device_event_retrieve", ApiUtils.convertCamelToSnake(testMalformedFunctionString));
         assertEquals("", ApiUtils.convertCamelToSnake(""));
-        assertEquals(null, ApiUtils.convertCamelToSnake(null));
+        assertNull(ApiUtils.convertCamelToSnake(null));
         assertEquals("this_is_a_class_name", ApiUtils.convertCamelToSnake("this_is_a_class_name"));
 
-    }
-
-    @Test
-    public final void testGetCaseConverter() {
-        String testfunctionString = "thisIsAFunctionName";
-        String testClassString = "ThisIsAClassName";
-        String tempText = ApiUtils.getCaseConverter(CaseConversion.CAMEL_TO_SNAKE).convert(testfunctionString, false);
-        assertNotNull(tempText);
-        assertNotEquals(testfunctionString, tempText);
-        assertEquals(testfunctionString,
-                     ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL).convert(tempText, false));
-        tempText = ApiUtils.getCaseConverter(CaseConversion.CAMEL_TO_SNAKE).convert(testClassString, true);
-        assertNotNull(tempText);
-        assertNotEquals(testClassString, tempText);
-        assertEquals(testClassString, ApiUtils.getCaseConverter(CaseConversion.SNAKE_TO_CAMEL).convert(tempText, true));
     }
 
     @Test

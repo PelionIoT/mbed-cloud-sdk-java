@@ -9,6 +9,8 @@
 
 include 'support-annotations'
 project(':support-annotations').projectDir = file('../support-annotations')
+include 'foundation-core'
+project(':foundation-core').projectDir = file('../foundation-core')
 include 'backends:mbedcloud_common'
 project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
 rootProject.name = libraryName

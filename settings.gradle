@@ -8,24 +8,11 @@
  */
 include 'support-annotations'
 include 'lwm2m'
+include 'foundation-core'
 include 'pelion-sdk-core'
 include 'foundation-models'
 include 'backends:mbedcloud_common'
 include 'backends:pelioncloud_devicemanagement'
-/*
-include 'backends:connector_ca'
-include 'backends:external_ca'
-include 'backends:device_directory'
-include 'backends:iam'
-include 'backends:mds'
-include 'backends:statistics'
-include 'backends:update_service'
-include 'backends:enrollment'
-
-include 'backends:connector_bootstrap'
-include 'backends:billing'
-include 'backends:certificate_renewal'
-*/
 /*
  * Project properties
  */

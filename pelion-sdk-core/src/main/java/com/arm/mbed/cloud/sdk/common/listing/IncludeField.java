@@ -1,7 +1,7 @@
 package com.arm.mbed.cloud.sdk.common.listing;
 
 import com.arm.mbed.cloud.sdk.annotations.Preamble;
-import com.arm.mbed.cloud.sdk.common.ApiUtils;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
 
 @Preamble(description = "Possible optional fields to request when listing")
 public class IncludeField implements Cloneable {
@@ -35,7 +35,7 @@ public class IncludeField implements Cloneable {
      * @return processed string.
      */
     public String encode() {
-        return ApiUtils.convertCamelToSnake(toString());
+        return SdkUtils.convertCamelToSnake(toString());
     }
 
     /*

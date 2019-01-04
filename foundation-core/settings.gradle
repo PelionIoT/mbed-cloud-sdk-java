@@ -9,11 +9,4 @@
 
 include 'support-annotations'
 project(':support-annotations').projectDir = file('../support-annotations')
-include 'backends:mbedcloud_common'
-project(':backends:mbedcloud_common').projectDir = file('../backends/mbedcloud_common')
-include 'foundation-core'
-project(':foundation-core').projectDir = file('../foundation-core')
-// When possible, remove dependency on Pelion core
-include 'pelion-sdk-core'
-project(':pelion-sdk-core').projectDir = file('../pelion-sdk-core')
-rootProject.name = modelLibraryName
+rootProject.name = modelCoreLibraryName

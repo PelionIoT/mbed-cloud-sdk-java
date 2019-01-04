@@ -13,10 +13,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import io.vertx.core.json.Json;
+import io.vertx.core.json.JsonArray;
+import io.vertx.core.json.JsonObject;
+
 import com.arm.mbed.cloud.sdk.common.ApiUtils;
-import com.arm.mbed.cloud.sdk.common.ApiUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.MbedCloudException;
 import com.arm.mbed.cloud.sdk.common.SdkEnum;
+import com.arm.mbed.cloud.sdk.common.SdkUtils;
+import com.arm.mbed.cloud.sdk.common.SdkUtils.CaseConversion;
 import com.arm.mbed.cloud.sdk.common.TranslationUtils;
 import com.arm.mbed.cloud.sdk.common.listing.ListResponse;
 import com.arm.mbed.cloud.sdk.common.listing.filtering.FilterMarshaller;
@@ -30,10 +35,6 @@ import com.fasterxml.jackson.databind.SerializerProvider;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.StdSerializer;
-
-import io.vertx.core.json.Json;
-import io.vertx.core.json.JsonArray;
-import io.vertx.core.json.JsonObject;
 
 /**
  * This class performs Json transformation for understanding/translating data coming from or going to the testrunner.
@@ -617,7 +618,7 @@ public class Serializer {
                                                              boolean capitalAtStart) {
         Map<String, Object> formattedResult = new LinkedHashMap<>();
         resultMap.forEach((k, v) -> formattedResult.put(
-                                                        ApiUtils.getCaseConverter(conversion).convert(k,
+                                                        SdkUtils.getCaseConverter(conversion).convert(k,
                                                                                                       capitalAtStart),
                                                         (v instanceof Map<?,
                                                                           ?>) ? reformatResultJsonMap((Map<String, Object>) v, conversion, capitalAtStart) : (v instanceof List<?>) ? reformatJsonList((List<?>) v, true) : v));
