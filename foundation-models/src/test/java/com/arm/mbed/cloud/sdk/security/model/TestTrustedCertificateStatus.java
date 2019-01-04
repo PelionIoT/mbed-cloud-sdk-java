@@ -14,7 +14,7 @@ public class TestTrustedCertificateStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             TrustedCertificateStatus trustedcertificatestatus = TrustedCertificateStatus.getValue(null);
             assertNotNull(trustedcertificatestatus);
@@ -29,7 +29,7 @@ public class TestTrustedCertificateStatus {
             trustedcertificatestatus = TrustedCertificateStatus.getValue("INACTIVE");
             assertNotNull(trustedcertificatestatus);
             assertFalse(trustedcertificatestatus.isDefault());
-            trustedcertificatestatus = TrustedCertificateStatus.getValue("8001356a-a118-45da-8816-1cd244e85acd");
+            trustedcertificatestatus = TrustedCertificateStatus.getValue("6befb5d5-d549-430d-bba3-229fde674313");
             assertNotNull(trustedcertificatestatus);
             assertTrue(trustedcertificatestatus.isDefault());
         } catch (Exception exception) {

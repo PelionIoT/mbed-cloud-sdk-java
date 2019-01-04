@@ -14,7 +14,7 @@ public class TestDeviceEnrollmentBulkDeleteStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             DeviceEnrollmentBulkDeleteStatus deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue(null);
             assertNotNull(deviceenrollmentbulkdeletestatus);
@@ -29,7 +29,7 @@ public class TestDeviceEnrollmentBulkDeleteStatus {
             deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("new");
             assertNotNull(deviceenrollmentbulkdeletestatus);
             assertFalse(deviceenrollmentbulkdeletestatus.isDefault());
-            deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("bebefd20-680d-4ed8-81a6-f179b2b5b2a3");
+            deviceenrollmentbulkdeletestatus = DeviceEnrollmentBulkDeleteStatus.getValue("837aa5b7-894c-4ed3-bc9d-62057a89f613");
             assertNotNull(deviceenrollmentbulkdeletestatus);
             assertTrue(deviceenrollmentbulkdeletestatus.isDefault());
         } catch (Exception exception) {

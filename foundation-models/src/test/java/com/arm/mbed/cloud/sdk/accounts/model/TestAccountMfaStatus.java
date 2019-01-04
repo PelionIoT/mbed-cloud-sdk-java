@@ -14,7 +14,7 @@ public class TestAccountMfaStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             AccountMfaStatus accountmfastatus = AccountMfaStatus.getValue(null);
             assertNotNull(accountmfastatus);
@@ -28,7 +28,7 @@ public class TestAccountMfaStatus {
             accountmfastatus = AccountMfaStatus.getValue("optional");
             assertNotNull(accountmfastatus);
             assertFalse(accountmfastatus.isDefault());
-            accountmfastatus = AccountMfaStatus.getValue("1441f736-6dc2-4509-9821-c7669930b8a1");
+            accountmfastatus = AccountMfaStatus.getValue("3e33020e-7480-42f3-b815-3d50e4d8ae62");
             assertNotNull(accountmfastatus);
             assertTrue(accountmfastatus.isDefault());
         } catch (Exception exception) {

@@ -14,7 +14,7 @@ public class TestDeviceLifecycleStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             DeviceLifecycleStatus devicelifecyclestatus = DeviceLifecycleStatus.getValue(null);
             assertNotNull(devicelifecyclestatus);
@@ -28,7 +28,7 @@ public class TestDeviceLifecycleStatus {
             devicelifecyclestatus = DeviceLifecycleStatus.getValue("enabled");
             assertNotNull(devicelifecyclestatus);
             assertFalse(devicelifecyclestatus.isDefault());
-            devicelifecyclestatus = DeviceLifecycleStatus.getValue("aa4b4d94-9450-4ffe-8d3d-699dacedc7c3");
+            devicelifecyclestatus = DeviceLifecycleStatus.getValue("1e68a1a1-f362-4558-9f26-b92e9061e895");
             assertNotNull(devicelifecyclestatus);
             assertTrue(devicelifecyclestatus.isDefault());
         } catch (Exception exception) {

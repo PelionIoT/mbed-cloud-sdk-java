@@ -14,7 +14,7 @@ public class TestCertificateEnrollmentEnrollStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             CertificateEnrollmentEnrollStatus certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue(null);
             assertNotNull(certificateenrollmentenrollstatus);
@@ -29,7 +29,7 @@ public class TestCertificateEnrollmentEnrollStatus {
             certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("new");
             assertNotNull(certificateenrollmentenrollstatus);
             assertFalse(certificateenrollmentenrollstatus.isDefault());
-            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("f0127bb0-e5b9-4b11-b6a3-445ce0140f9f");
+            certificateenrollmentenrollstatus = CertificateEnrollmentEnrollStatus.getValue("d4c6dab9-1012-4191-b2ea-7a7332968933");
             assertNotNull(certificateenrollmentenrollstatus);
             assertTrue(certificateenrollmentenrollstatus.isDefault());
         } catch (Exception exception) {

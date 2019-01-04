@@ -14,7 +14,7 @@ public class TestDeviceMechanism {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             DeviceMechanism devicemechanism = DeviceMechanism.getValue(null);
             assertNotNull(devicemechanism);
@@ -28,7 +28,7 @@ public class TestDeviceMechanism {
             devicemechanism = DeviceMechanism.getValue("direct");
             assertNotNull(devicemechanism);
             assertFalse(devicemechanism.isDefault());
-            devicemechanism = DeviceMechanism.getValue("2a52a44e-b0de-4924-9b08-df11c29e9b6a");
+            devicemechanism = DeviceMechanism.getValue("43c79076-e2d5-437c-b812-5aefe4b1a5ce");
             assertNotNull(devicemechanism);
             assertTrue(devicemechanism.isDefault());
         } catch (Exception exception) {

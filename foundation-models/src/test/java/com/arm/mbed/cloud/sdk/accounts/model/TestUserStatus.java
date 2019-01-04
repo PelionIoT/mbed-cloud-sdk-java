@@ -14,7 +14,7 @@ public class TestUserStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             UserStatus userstatus = UserStatus.getValue(null);
             assertNotNull(userstatus);
@@ -28,7 +28,7 @@ public class TestUserStatus {
             userstatus = UserStatus.getValue("ENROLLING");
             assertNotNull(userstatus);
             assertFalse(userstatus.isDefault());
-            userstatus = UserStatus.getValue("311c33a2-47d8-4496-ae24-bb3004c8de45");
+            userstatus = UserStatus.getValue("8e96245a-2f9b-4dfa-939a-d421c6d6e803");
             assertNotNull(userstatus);
             assertTrue(userstatus.isDefault());
         } catch (Exception exception) {

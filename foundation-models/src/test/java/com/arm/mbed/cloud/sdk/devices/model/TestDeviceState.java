@@ -14,7 +14,7 @@ public class TestDeviceState {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             DeviceState devicestate = DeviceState.getValue(null);
             assertNotNull(devicestate);
@@ -28,7 +28,7 @@ public class TestDeviceState {
             devicestate = DeviceState.getValue("cloud_enrolling");
             assertNotNull(devicestate);
             assertFalse(devicestate.isDefault());
-            devicestate = DeviceState.getValue("5e633cf2-df04-45c0-9a31-e001245d3dc1");
+            devicestate = DeviceState.getValue("f2f4e36d-1343-4498-80bb-e9fe7fedf367");
             assertNotNull(devicestate);
             assertTrue(devicestate.isDefault());
         } catch (Exception exception) {

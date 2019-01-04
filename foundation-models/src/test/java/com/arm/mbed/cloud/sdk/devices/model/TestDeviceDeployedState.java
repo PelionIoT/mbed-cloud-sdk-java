@@ -14,7 +14,7 @@ public class TestDeviceDeployedState {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             DeviceDeployedState devicedeployedstate = DeviceDeployedState.getValue(null);
             assertNotNull(devicedeployedstate);
@@ -28,7 +28,7 @@ public class TestDeviceDeployedState {
             devicedeployedstate = DeviceDeployedState.getValue("production");
             assertNotNull(devicedeployedstate);
             assertFalse(devicedeployedstate.isDefault());
-            devicedeployedstate = DeviceDeployedState.getValue("08d7a38b-9804-4fbd-ab52-46eceae8094f");
+            devicedeployedstate = DeviceDeployedState.getValue("38aa4ce0-fae3-4fb6-8578-e1d17324c890");
             assertNotNull(devicedeployedstate);
             assertTrue(devicedeployedstate.isDefault());
         } catch (Exception exception) {

@@ -14,7 +14,7 @@ public class TestSubtenantTrustedCertificateService {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             SubtenantTrustedCertificateService subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue(null);
             assertNotNull(subtenanttrustedcertificateservice);
@@ -29,7 +29,7 @@ public class TestSubtenantTrustedCertificateService {
             subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("lwm2m");
             assertNotNull(subtenanttrustedcertificateservice);
             assertFalse(subtenanttrustedcertificateservice.isDefault());
-            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("92779033-ac58-409d-b342-ecd9432b3cb9");
+            subtenanttrustedcertificateservice = SubtenantTrustedCertificateService.getValue("25f64846-9168-4e15-9bad-422f32a2be13");
             assertNotNull(subtenanttrustedcertificateservice);
             assertTrue(subtenanttrustedcertificateservice.isDefault());
         } catch (Exception exception) {

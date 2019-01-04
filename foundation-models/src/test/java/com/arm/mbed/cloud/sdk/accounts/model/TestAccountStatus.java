@@ -14,7 +14,7 @@ public class TestAccountStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             AccountStatus accountstatus = AccountStatus.getValue(null);
             assertNotNull(accountstatus);
@@ -28,7 +28,7 @@ public class TestAccountStatus {
             accountstatus = AccountStatus.getValue("ENROLLING");
             assertNotNull(accountstatus);
             assertFalse(accountstatus.isDefault());
-            accountstatus = AccountStatus.getValue("b9831c5a-eaa6-4b75-bb06-9450453e40fa");
+            accountstatus = AccountStatus.getValue("9522fa52-5a13-4c8f-a8f0-6ae486e06f25");
             assertNotNull(accountstatus);
             assertTrue(accountstatus.isDefault());
         } catch (Exception exception) {

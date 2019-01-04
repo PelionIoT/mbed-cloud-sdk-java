@@ -14,7 +14,7 @@ public class TestApiKeyStatus {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             ApiKeyStatus apikeystatus = ApiKeyStatus.getValue(null);
             assertNotNull(apikeystatus);
@@ -28,7 +28,7 @@ public class TestApiKeyStatus {
             apikeystatus = ApiKeyStatus.getValue("INACTIVE");
             assertNotNull(apikeystatus);
             assertFalse(apikeystatus.isDefault());
-            apikeystatus = ApiKeyStatus.getValue("7be873b6-bde4-4b44-9913-e39bbe7e606f");
+            apikeystatus = ApiKeyStatus.getValue("efa14721-0703-46b1-9c97-ca04745e155d");
             assertNotNull(apikeystatus);
             assertTrue(apikeystatus.isDefault());
         } catch (Exception exception) {

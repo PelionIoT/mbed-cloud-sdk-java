@@ -16,22 +16,22 @@ public class TestSubtenantTrustedCertificate {
     @Test
     public void testClone() {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("abb5a4c7-f00c-45a5-8ba1-463874dda68a",
-                                                                                                       "4c1babd3-3a56-4766-b485-997b3c48fe36",
-                                                                                                       "024833c7-29e0-4e8f-8876-eea0e38b1ee0",
-                                                                                                       new java.util.Date(1546452533581L),
-                                                                                                       "e5f84247-affa-4563-ac67-56929d7aea23",
-                                                                                                       -68, false,
-                                                                                                       "d2f1f51b-c5a0-40c4-b359-69e69aa0e664",
-                                                                                                       true,
-                                                                                                       "ee470b2f-8a3d-479e-90ca-7f244617a69c",
-                                                                                                       "a7e4b1b7-a949-4f13-b2fd-49eda5775350",
-                                                                                                       "e554809f-259f-4345-ad61-5b6ea3a0b3ed",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("12c3a85f-ac2d-4c74-b987-e97ef6e1e884",
+                                                                                                       "faa70186-c01d-4666-a1d9-3ca156062edc",
+                                                                                                       "362384e9-99ad-4aa2-8f16-6d553cab93a1",
+                                                                                                       new java.util.Date(1546622510525L),
+                                                                                                       "573ec3c3-2cd1-4818-b2b1-6a9054fad98e",
+                                                                                                       48, true,
+                                                                                                       "b087ff9d-8bd3-4366-9be7-5318402409eb",
+                                                                                                       false,
+                                                                                                       "f6edc75d-d8a9-4579-beeb-e9d9069f181e",
+                                                                                                       "be6453f5-7884-4e6e-8b92-44e078935b46",
+                                                                                                       "514468ae-963f-442f-b78e-fbd423e651aa",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "120e225e-0159-4301-9c5f-cc76186dbe44",
-                                                                                                       new java.util.Date(1546452538816L),
-                                                                                                       new java.util.Date(1546452538549L));
+                                                                                                       "6936ee0a-0997-403a-9337-b449eafcd119",
+                                                                                                       new java.util.Date(1546622511192L),
+                                                                                                       new java.util.Date(1546622509661L));
             SubtenantTrustedCertificate subtenanttrustedcertificate2 = subtenanttrustedcertificate1.clone();
             assertNotNull(subtenanttrustedcertificate1);
             assertNotNull(subtenanttrustedcertificate2);
@@ -43,67 +43,43 @@ public class TestSubtenantTrustedCertificate {
     }
 
     /**
-     * Tests the isValid method.
-     */
-    @Test
-    public void testIsvalid() {
-        SubtenantTrustedCertificate subtenanttrustedcertificate = new SubtenantTrustedCertificate("8d5a8cd9-0168-4dae-b473-8cae7d3f5eb7",
-                                                                                                  "ca033548-7c50-435a-bf6b-73f814e564cd",
-                                                                                                  "db5304a4-437a-4e3c-9d96-5f5a62784d9d",
-                                                                                                  new java.util.Date(1546452538823L),
-                                                                                                  "1bac7b59-56f6-4020-8ac0-c40b770740a9",
-                                                                                                  -74, true,
-                                                                                                  "e7e2c364-14fa-44f2-b318-7a7497229997",
-                                                                                                  true,
-                                                                                                  "05583693-076e-460c-ac82-79a12e4d0fd4",
-                                                                                                  "e4b44905-34b4-4ab1-944b-4ee54a480391",
-                                                                                                  "5109cfe0-d6ff-4c3a-b1f2-92d63e30d4df",
-                                                                                                  com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
-                                                                                                  com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                  "a8993424-bf83-44db-90af-415b49a1532a",
-                                                                                                  new java.util.Date(1546452534476L),
-                                                                                                  new java.util.Date(1546452541728L));
-        assertTrue(subtenanttrustedcertificate.isValid());
-    }
-
-    /**
      * Tests the hashCode method.
      */
     @Test
-    public void testHashcode() {
+    public void testHashCode() {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("92215636-39e6-416c-b4d5-098b8ae1e8aa",
-                                                                                                       "7d28717d-c11c-468f-9333-d319064e20c4",
-                                                                                                       "a35ab646-8620-418e-a2bd-f0ad50480844",
-                                                                                                       new java.util.Date(1546452537581L),
-                                                                                                       "7a4fbc70-48cf-4b43-bdbb-40cafa88d87e",
-                                                                                                       -20, true,
-                                                                                                       "1174e9d2-92ad-4fe6-8463-15065c31d667",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("3b2b7223-fd69-4cf1-9a39-c106e4871c31",
+                                                                                                       "94d596b9-f59a-49f3-9289-1859fc3f7015",
+                                                                                                       "3ce7eb44-9714-413c-bb56-24514059767a",
+                                                                                                       new java.util.Date(1546622516246L),
+                                                                                                       "2b2ebd41-f6ff-486f-bc72-f961e3c7a4e4",
+                                                                                                       65, true,
+                                                                                                       "fdcd5c3c-a547-4cf3-88ef-1dc39bfc3738",
                                                                                                        true,
-                                                                                                       "bbf948c3-056c-457c-b6f3-12cd01043db3",
-                                                                                                       "09f5a109-04ff-42df-b70c-97628669cbb5",
-                                                                                                       "238a3ac2-ed1d-4537-916d-07f75ce97d25",
+                                                                                                       "d8ec806e-cf4b-44a9-9d78-8dbd777a6974",
+                                                                                                       "2f2cf435-ff04-4beb-b3ad-1476c3be9f18",
+                                                                                                       "dcafa1ac-7f8a-4252-905e-5bc58a439b96",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "d8abf4b2-3051-49cf-a7ca-61cc7bdbaac6",
-                                                                                                       new java.util.Date(1546452532979L),
-                                                                                                       new java.util.Date(1546452533891L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("92215636-39e6-416c-b4d5-098b8ae1e8aa",
-                                                                                                       "7d28717d-c11c-468f-9333-d319064e20c4",
-                                                                                                       "a35ab646-8620-418e-a2bd-f0ad50480844",
-                                                                                                       new java.util.Date(1546452537581L),
-                                                                                                       "7a4fbc70-48cf-4b43-bdbb-40cafa88d87e",
-                                                                                                       -20, true,
-                                                                                                       "1174e9d2-92ad-4fe6-8463-15065c31d667",
+                                                                                                       "2fd323fe-ac65-4cdc-9461-3bc21dc00f48",
+                                                                                                       new java.util.Date(1546622509613L),
+                                                                                                       new java.util.Date(1546622517267L));
+            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("3b2b7223-fd69-4cf1-9a39-c106e4871c31",
+                                                                                                       "94d596b9-f59a-49f3-9289-1859fc3f7015",
+                                                                                                       "3ce7eb44-9714-413c-bb56-24514059767a",
+                                                                                                       new java.util.Date(1546622516246L),
+                                                                                                       "2b2ebd41-f6ff-486f-bc72-f961e3c7a4e4",
+                                                                                                       65, true,
+                                                                                                       "fdcd5c3c-a547-4cf3-88ef-1dc39bfc3738",
                                                                                                        true,
-                                                                                                       "bbf948c3-056c-457c-b6f3-12cd01043db3",
-                                                                                                       "09f5a109-04ff-42df-b70c-97628669cbb5",
-                                                                                                       "238a3ac2-ed1d-4537-916d-07f75ce97d25",
+                                                                                                       "d8ec806e-cf4b-44a9-9d78-8dbd777a6974",
+                                                                                                       "2f2cf435-ff04-4beb-b3ad-1476c3be9f18",
+                                                                                                       "dcafa1ac-7f8a-4252-905e-5bc58a439b96",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "d8abf4b2-3051-49cf-a7ca-61cc7bdbaac6",
-                                                                                                       new java.util.Date(1546452532979L),
-                                                                                                       new java.util.Date(1546452533891L));
+                                                                                                       "2fd323fe-ac65-4cdc-9461-3bc21dc00f48",
+                                                                                                       new java.util.Date(1546622509613L),
+                                                                                                       new java.util.Date(1546622517267L));
             assertNotNull(subtenanttrustedcertificate1);
             assertNotNull(subtenanttrustedcertificate2);
             assertNotSame(subtenanttrustedcertificate2, subtenanttrustedcertificate1);
@@ -119,59 +95,83 @@ public class TestSubtenantTrustedCertificate {
     }
 
     /**
+     * Tests the isValid method.
+     */
+    @Test
+    public void testIsValid() {
+        SubtenantTrustedCertificate subtenanttrustedcertificate = new SubtenantTrustedCertificate("9e10c82f-db03-4797-8505-7b0e1d2acc8c",
+                                                                                                  "88838082-6a67-43d9-9ee2-05e645396f0c",
+                                                                                                  "d8e0d8a9-f8d2-489f-a5ce-c08e97224065",
+                                                                                                  new java.util.Date(1546622516879L),
+                                                                                                  "38be5652-1f9c-4025-b01d-5ddf6ab8ef86",
+                                                                                                  9, false,
+                                                                                                  "1292ade8-a75b-4b8a-ab3a-f49b76624d29",
+                                                                                                  false,
+                                                                                                  "6c8d2122-10a4-47f6-8a1a-99f8434d34d2",
+                                                                                                  "535e81f6-31fa-4c77-a556-9a682c5aeeab",
+                                                                                                  "1f04be7b-efc7-4a8d-8026-0897680dff0c",
+                                                                                                  com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
+                                                                                                  com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
+                                                                                                  "4737e0e7-2c9b-4909-b0c1-ea1db3d3cba5",
+                                                                                                  new java.util.Date(1546622516576L),
+                                                                                                  new java.util.Date(1546622513988L));
+        assertTrue(subtenanttrustedcertificate.isValid());
+    }
+
+    /**
      * Tests the equals method.
      */
     @Test
     public void testEquals() {
         try {
-            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("5f527231-0cc0-4801-bde4-d1290755ec1f",
-                                                                                                       "bfcb486a-2b37-4082-8063-2986af5a70be",
-                                                                                                       "75f35169-8d95-4163-8c49-d2687e313bbb",
-                                                                                                       new java.util.Date(1546452539417L),
-                                                                                                       "126f70e6-2596-4e3b-9141-44fc0cebd1cd",
-                                                                                                       76, true,
-                                                                                                       "e4dad27f-60c3-419a-a662-f7715c1ed93c",
+            SubtenantTrustedCertificate subtenanttrustedcertificate1 = new SubtenantTrustedCertificate("51882894-c670-4c40-8945-cef584ae9e1e",
+                                                                                                       "1ba38458-c8fd-488a-a044-f08068d1f6ed",
+                                                                                                       "8871aecb-e8b3-4d04-958e-af33547fadef",
+                                                                                                       new java.util.Date(1546622512849L),
+                                                                                                       "0a8b6dc8-823d-446b-9210-e767b93c632c",
+                                                                                                       106, false,
+                                                                                                       "05ac1adb-3b72-46df-8d57-9c6497104340",
                                                                                                        false,
-                                                                                                       "87681d91-6334-4d18-80ef-f2529d23b80f",
-                                                                                                       "4f8c0190-eff6-49c1-bc24-eabdb38cb717",
-                                                                                                       "0c4d77a4-65a0-42b8-81c7-292f6554fc8f",
+                                                                                                       "495bb2f9-3e25-4dba-b09a-1026ea73d7ac",
+                                                                                                       "f0d157f5-a078-4e29-ac70-9ba49a2f8aea",
+                                                                                                       "fd6ca702-6221-441e-9509-e700eb3589ea",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "9ad73487-d982-46bd-a7af-3ce41e4e80cc",
-                                                                                                       new java.util.Date(1546452536158L),
-                                                                                                       new java.util.Date(1546452540318L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("5f527231-0cc0-4801-bde4-d1290755ec1f",
-                                                                                                       "bfcb486a-2b37-4082-8063-2986af5a70be",
-                                                                                                       "75f35169-8d95-4163-8c49-d2687e313bbb",
-                                                                                                       new java.util.Date(1546452539417L),
-                                                                                                       "126f70e6-2596-4e3b-9141-44fc0cebd1cd",
-                                                                                                       76, true,
-                                                                                                       "e4dad27f-60c3-419a-a662-f7715c1ed93c",
+                                                                                                       "7634d625-6deb-4c8e-bf58-52a964fad5bb",
+                                                                                                       new java.util.Date(1546622511032L),
+                                                                                                       new java.util.Date(1546622517383L));
+            SubtenantTrustedCertificate subtenanttrustedcertificate2 = new SubtenantTrustedCertificate("51882894-c670-4c40-8945-cef584ae9e1e",
+                                                                                                       "1ba38458-c8fd-488a-a044-f08068d1f6ed",
+                                                                                                       "8871aecb-e8b3-4d04-958e-af33547fadef",
+                                                                                                       new java.util.Date(1546622512849L),
+                                                                                                       "0a8b6dc8-823d-446b-9210-e767b93c632c",
+                                                                                                       106, false,
+                                                                                                       "05ac1adb-3b72-46df-8d57-9c6497104340",
                                                                                                        false,
-                                                                                                       "87681d91-6334-4d18-80ef-f2529d23b80f",
-                                                                                                       "4f8c0190-eff6-49c1-bc24-eabdb38cb717",
-                                                                                                       "0c4d77a4-65a0-42b8-81c7-292f6554fc8f",
+                                                                                                       "495bb2f9-3e25-4dba-b09a-1026ea73d7ac",
+                                                                                                       "f0d157f5-a078-4e29-ac70-9ba49a2f8aea",
+                                                                                                       "fd6ca702-6221-441e-9509-e700eb3589ea",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "9ad73487-d982-46bd-a7af-3ce41e4e80cc",
-                                                                                                       new java.util.Date(1546452536158L),
-                                                                                                       new java.util.Date(1546452540318L));
-            SubtenantTrustedCertificate subtenanttrustedcertificate3 = new SubtenantTrustedCertificate("b1a349d9-8e7d-42ec-88e6-efe64a51dbd8",
-                                                                                                       "b61b557c-99c3-4226-b4d5-b74b8fa72f23",
-                                                                                                       "0a8eb028-432e-4bb9-b973-53b0a70cb28b",
-                                                                                                       new java.util.Date(1546452537036L),
-                                                                                                       "e048f21f-8413-4f0c-a545-56db39d3b127",
-                                                                                                       -84, false,
-                                                                                                       "18a725b5-cb49-4f13-82f9-73f1309a7779",
-                                                                                                       true,
-                                                                                                       "274751e3-bd4a-4ef4-8e0e-900f82f780af",
-                                                                                                       "dc896b81-00a9-4580-ac25-3fff6e650142",
-                                                                                                       "dd0a2ab8-6aad-4889-9555-8f727fee3704",
+                                                                                                       "7634d625-6deb-4c8e-bf58-52a964fad5bb",
+                                                                                                       new java.util.Date(1546622511032L),
+                                                                                                       new java.util.Date(1546622517383L));
+            SubtenantTrustedCertificate subtenanttrustedcertificate3 = new SubtenantTrustedCertificate("15f711c2-6102-416c-9eb0-ad4512808272",
+                                                                                                       "162cb232-0769-42a9-a220-b971d8a95879",
+                                                                                                       "e76d02be-e11a-47d8-bf96-18966edf005e",
+                                                                                                       new java.util.Date(1546622512476L),
+                                                                                                       "efa7150f-3c93-4b94-99c8-ede8af254983",
+                                                                                                       -78, true,
+                                                                                                       "26ca2a9b-210e-4df9-af4d-6e026206c76b",
+                                                                                                       false,
+                                                                                                       "7bbc7439-d5f1-43b6-821b-b9df238fe9de",
+                                                                                                       "a6abc803-9220-45bd-b082-ae7dc34158e7",
+                                                                                                       "188a6902-8878-4308-b42c-e970c93349b6",
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateService.getDefault(),
                                                                                                        com.arm.mbed.cloud.sdk.security.model.SubtenantTrustedCertificateStatus.getDefault(),
-                                                                                                       "680ef723-dc9d-4f98-97a3-a2db81f37f4b",
-                                                                                                       new java.util.Date(1546452539101L),
-                                                                                                       new java.util.Date(1546452541383L));
+                                                                                                       "306254b5-b5b7-4df5-b01b-11485a040902",
+                                                                                                       new java.util.Date(1546622509881L),
+                                                                                                       new java.util.Date(1546622518928L));
             assertNotNull(subtenanttrustedcertificate1);
             assertNotNull(subtenanttrustedcertificate2);
             assertNotNull(subtenanttrustedcertificate3);

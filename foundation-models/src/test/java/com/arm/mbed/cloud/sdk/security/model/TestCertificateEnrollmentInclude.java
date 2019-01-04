@@ -14,7 +14,7 @@ public class TestCertificateEnrollmentInclude {
      * Tests the getValue method.
      */
     @Test
-    public void testGetvalue() {
+    public void testGetValue() {
         try {
             CertificateEnrollmentInclude certificateenrollmentinclude = CertificateEnrollmentInclude.getValue(null);
             assertNotNull(certificateenrollmentinclude);
@@ -26,7 +26,7 @@ public class TestCertificateEnrollmentInclude {
             certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("TOTAL_COUNT");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
-            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("46f413f2-8752-4840-baa8-073ec14101f6");
+            certificateenrollmentinclude = CertificateEnrollmentInclude.getValue("57aecadd-dce1-4093-bec4-bbf53cb6d120");
             assertNotNull(certificateenrollmentinclude);
             assertTrue(certificateenrollmentinclude.isDefault());
         } catch (Exception exception) {
