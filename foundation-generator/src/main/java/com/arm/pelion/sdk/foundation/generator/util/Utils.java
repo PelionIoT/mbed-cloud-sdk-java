@@ -113,6 +113,12 @@ public class Utils {
         return ApiUtils.convertSnakeToCamel(String.join(UNDERSCORE, strings), capitalAtStart);
     }
 
+    public static String generateDescriptionFromName(String name) {
+        return name == null ? null
+                            : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name).replace("_", "+"), true)
+                                      .replace("+", " ");
+    }
+
     public static String generateModelNameAsText(String modelName) {
         return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
                        .trim();

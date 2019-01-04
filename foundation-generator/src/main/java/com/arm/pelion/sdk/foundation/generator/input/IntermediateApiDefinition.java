@@ -2,10 +2,15 @@ package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
 
-public class IntermediateApiDefinition {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class IntermediateApiDefinition {
+    @JsonProperty(InputSchema.ENTITIES_TAG)
     private List<Entity> entities;
+    @JsonProperty(InputSchema.ENUMS_TAG)
     private List<Enumerator> enums;
+    @JsonProperty(InputSchema.GROUPS_TAG)
+    private List<Group> groups;
 
     public IntermediateApiDefinition() {
     }
@@ -19,6 +24,18 @@ public class IntermediateApiDefinition {
 
     public boolean hasEntities() {
         return entities != null && !entities.isEmpty();
+    }
+
+    public boolean hasGroups() {
+        return groups != null && !entities.isEmpty();
+    }
+
+    public List<Group> getGroups() {
+        return groups;
+    }
+
+    public void setGroups(List<Group> groups) {
+        this.groups = groups;
     }
 
     /**
@@ -48,11 +65,14 @@ public class IntermediateApiDefinition {
         if (enums != null) {
             enums.clear();
         }
+        if (groups != null) {
+            groups.clear();
+        }
     }
 
     @Override
     public String toString() {
-        return "IntermediateApiDefinition [entities=" + entities + ", enums=" + enums + "]";
+        return "IntermediateApiDefinition [entities=" + entities + ", enums=" + enums + ", groups=" + groups + "]";
     }
 
 }

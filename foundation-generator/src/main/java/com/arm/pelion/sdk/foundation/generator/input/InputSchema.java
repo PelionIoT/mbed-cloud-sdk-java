@@ -20,6 +20,7 @@ public interface InputSchema {
     final String FORMAT_TAG = "format";
     final String EXAMPLE_TAG = "example";
     final String ENTITIES_TAG = "entities";
+    final String GROUPS_TAG = "groups";
     final String DEFAULT_VALUE_TAG = "default";
     final String DESCRIPTION_TAG = "description";
     final String SUMMARY_TAG = "summary";
@@ -30,6 +31,7 @@ public interface InputSchema {
     final String ITEMS_TAG = "items";
     final String PATTERN_TAG = "pattern";
     final String HASHTABLE_TAG = "additionalProperties";
+    final String ENUMS_TAG = "enums";
     final String ENUM_REFERENCE_TAG = "enum_reference";
     final String ENUM_VALUES_TAG = "values";
     final String ENTITY_REFERENCE_TAG = "entity_name";
@@ -55,5 +57,6 @@ public interface InputSchema {
     final String READ_METHOD_TAG = "get";
     final String UPDATE_METHOD_TAG = "update";
     final String DELETE_METHOD_TAG = "delete";
+    final String ME_METHOD_TAG = "me";
 
 }

@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -202,6 +203,18 @@ public class Entity {
         final String methodKey = Utils.getKey(method, false);
         return methodKey == null
                || !hasMethods() ? false : methods.stream().filter(m -> methodKey.equals(m.getKey())).count() > 0;
+    }
+
+    public boolean hasOtherPaginatedMethod() {
+        return !hasMethods() ? false : methods.stream().filter(m -> isOtherPaginatedMethod(m)).count() > 0;
+    }
+
+    public List<Method> getOtherPaginatedMethod() {
+        return methods.stream().filter(m -> isOtherPaginatedMethod(m)).collect(Collectors.toList());
+    }
+
+    private boolean isOtherPaginatedMethod(Method m) {
+        return m.hasPaginatedResponse() && !(m.isListMethod() || m.getReturnInformation().doesReturnItSelf());
     }
 
     public boolean hasListMethod() {

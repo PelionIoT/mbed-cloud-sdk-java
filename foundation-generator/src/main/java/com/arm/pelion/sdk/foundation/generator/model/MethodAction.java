@@ -7,5 +7,8 @@ public enum MethodAction {
     DELETE,
     LIST,
     PAGINATION,
+    ME,
+    LIST_OTHER,
+    PAGINATION_OTHER,
     OTHER;
 }

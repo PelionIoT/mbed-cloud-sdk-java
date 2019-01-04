@@ -101,7 +101,7 @@ public class Method {
     }
 
     public boolean isListMethod() {
-        return isMethod(InputSchema.LIST_METHOD_TAG) || hasPaginatedResponse();
+        return isMethod(InputSchema.LIST_METHOD_TAG);
     }
 
     public boolean isCreateMethod() {
@@ -118,6 +118,10 @@ public class Method {
 
     public boolean isDeleteMethod() {
         return isMethod(InputSchema.DELETE_METHOD_TAG);
+    }
+
+    public boolean isMeMethod() {
+        return isMethod(InputSchema.ME_METHOD_TAG);
     }
 
     private boolean isMethod(String methodName) {

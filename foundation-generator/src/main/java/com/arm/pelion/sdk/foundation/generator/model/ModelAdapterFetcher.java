@@ -32,6 +32,16 @@ public class ModelAdapterFetcher extends ArtifactFetcher<ModelAdapter> {
         return adapter;
     }
 
+    public ModelAdapter fetchForCollection(Model from, Model to, Model fromContent, Model toContent, boolean isList,
+                                           MethodAction action) {
+        final ModelAdapter adapter = fetch(fromContent.toType(), toContent.toType(), action);
+        if (adapter == null) {
+            return null;
+        }
+        adapter.addDefaultConversion(from, to, fromContent, toContent, isList, action);
+        return adapter;
+    }
+
     public ModelAdapter fetch(TypeParameter fromFieldType, TypeParameter toFieldType, MethodAction action) {
         try {
             fromFieldType.translate();

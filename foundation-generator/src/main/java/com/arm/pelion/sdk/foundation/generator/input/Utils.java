@@ -1,6 +1,5 @@
 package com.arm.pelion.sdk.foundation.generator.input;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -16,7 +15,7 @@ public class Utils {
     }
 
     public static List<String> getGroupId(String groupId) {
-        return groupId == null ? new ArrayList<>() : processGroupIds(groupId);
+        return groupId == null ? null : processGroupIds(groupId);
     }
 
     private static List<String> processGroupIds(String groupId) {

@@ -44,4 +44,10 @@ public class ReturnInformation {
         this.returnType = Utils.getKey(returnType, false);
     }
 
+    @Override
+    public String toString() {
+        return "ReturnInformation [doesReturnItSelf=" + doesReturnItSelf + ", doesReturnCustomType="
+               + doesReturnCustomType + ", returnType=" + returnType + "]";
+    }
+
 }

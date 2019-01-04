@@ -18,7 +18,7 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
     private final MethodModuleListApi correspondingMethod;
 
     public MethodModulePaginationApi(MethodModuleListApi listMethod, boolean needsCustomCode) {
-        super(listMethod.currentModel, generatePaginatorName(listMethod), generateDescription(listMethod),
+        super(listMethod.currentModel, generatePaginatorName(listMethod), generateDescription(listMethod.currentModel),
               generateLongDescription(listMethod), needsCustomCode, false, listMethod.fetcher,
               listMethod.adapterFetcher, listMethod.endpoints, listMethod.endpointVariableName,
               listMethod.lowLevelModule, listMethod.methodParameters, listMethod.allParameters,
@@ -31,8 +31,8 @@ public class MethodModulePaginationApi extends MethodModuleListApi {
                + " matching filter options.";
     }
 
-    public static String generateDescription(MethodModuleCloudApi listMethod) {
-        return "Creates a {@link Paginator} for the list of " + generateModelDescription(listMethod.currentModel)
+    public static String generateDescription(Model listedModels) {
+        return "Creates a {@link Paginator} for the list of " + generateModelDescription(listedModels)
                + " matching filter options.";
     }
 

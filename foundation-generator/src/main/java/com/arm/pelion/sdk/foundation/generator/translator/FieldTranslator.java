@@ -78,11 +78,11 @@ public class FieldTranslator {
     }
 
     private static TypeParameter determineObjectType(com.arm.pelion.sdk.foundation.generator.input.Field field,
-                                                     String packageName, String group) {
+                                                     String packageName,
+                                                     String group) throws FoundationGeneratorException {
         return field.hasForeignKey() ? CommonTranslator.FetchNestedEntityType(packageName, field.getForeignKey())
                                      : field.hasEnumRef() ? CommonTranslator.FetchNestedEnumType(packageName,
-                                                                                                 field.getEnumRef(),
-                                                                                                 group)
+                                                                                                 field.getEnumRef())
                                                           : new TypeParameter(field.getType(), field.getFormat());
     }
 

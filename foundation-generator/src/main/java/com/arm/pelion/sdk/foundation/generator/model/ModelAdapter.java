@@ -80,6 +80,17 @@ public class ModelAdapter extends Model {
         addConversion(conversion, true);
     }
 
+    public void addDefaultConversion(Model from, Model to, Model fromContent, Model toContent, boolean isList,
+                                     MethodAction action) {
+        if (from == null || to == null || fromContent == null || toContent == null) {
+            return;
+        }
+        addDefaultConversion(from, to, action);
+        final Conversion conversion = new Conversion(from, to, isList, false, defaultRenames, fromContent, toContent,
+                                                     action);
+        addConversion(conversion, true);
+    }
+
     private void enflateConversions() {
         new ArrayList<>(conversions.values()).forEach(c -> enflate(c));
     }
@@ -91,6 +102,13 @@ public class ModelAdapter extends Model {
         if (conversion.isExternal()) {
             if (fetcher != null) {
                 fetcher.fetch(conversion.getFrom().toType(), conversion.getTo().toType(), conversion.getAction());
+                if (conversion.isList()
+                    || conversion.getFrom().toType().isList() && conversion.getTo().toType().isList()) {
+                    fetcher.fetchForCollection(conversion.getFrom(), conversion.getTo(), conversion.getFromContent(),
+                                               conversion.getToContent(), conversion.isList(), conversion.getAction());
+
+                    // TODO hashtables
+                }
             }
         } else {
             enflate(conversion.getAction(), conversion.getFrom(), conversion.getTo(), conversion.getRenames());
@@ -242,8 +260,12 @@ public class ModelAdapter extends Model {
             if (external) {
                 return;
             }
-            final TypeParameter fromType = from.toType();
-            final TypeParameter toType = to.toType();
+            final Model fromToConsider = FetchUtils.getLatestModelDefinition(from, adapter.fetcher);
+            final Model toToConsider = FetchUtils.getLatestModelDefinition(to, adapter.fetcher);
+            final Model fromContentToConsider = FetchUtils.getLatestModelDefinition(fromContent, adapter.fetcher);
+            final Model toContentToConsider = FetchUtils.getLatestModelDefinition(toContent, adapter.fetcher);
+            final TypeParameter fromType = fromToConsider.toType();
+            final TypeParameter toType = toToConsider.toType();
             try {
                 fromType.translate();
             } catch (TranslationException exception1) {
@@ -259,32 +281,39 @@ public class ModelAdapter extends Model {
             if (isEnum) {
                 boolean isFromModel = fromType.isModelEnum();
 
-                MethodMapperEnum enumMapping = new MethodMapperEnum((ModelEnum) (isFromModel ? from : to),
+                MethodMapperEnum enumMapping = new MethodMapperEnum((ModelEnum) (isFromModel ? fromToConsider
+                                                                                             : toToConsider),
                                                                     (isFromModel ? toType : fromType).getClazz(),
                                                                     isFromModel);
                 adapter.addMethod(enumMapping);
             } else if (isList) {
                 final MethodListMapper listMapping = new MethodListMapper(FUNCTION_NAME_MAP_LIST,
-                                                                          FUNCTION_NAME_GET_MAPPER, true, toContent,
-                                                                          from, fromContent, adapter);
+                                                                          FUNCTION_NAME_GET_MAPPER, true,
+                                                                          toContentToConsider, fromToConsider,
+                                                                          fromContentToConsider, adapter);
                 adapter.addMethod(listMapping);
                 final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_LIST_MAPPER, true, adapter,
-                                                                      determineListType(to.toType(), toContent),
-                                                                      determineListType(fromType, fromContent), false,
-                                                                      listMapping.getName());
+                                                                      determineListType(toToConsider.toType(),
+                                                                                        toContentToConsider),
+                                                                      determineListType(fromType,
+                                                                                        fromContentToConsider),
+                                                                      false, listMapping.getName());
                 adapter.addMethod(getMapper);
             } else if (fromType.isList() && toType.isList()) {
                 final TypeParameter fromSubType = ((TypeCompose) fromType).getContentType();
                 final TypeParameter toSubType = ((TypeCompose) toType).getContentType();
                 final MethodSimpleListMapper listMapping = new MethodSimpleListMapper(FUNCTION_NAME_MAP_SIMPLE_LIST,
                                                                                       FUNCTION_NAME_GET_MAPPER, true,
-                                                                                      from, to, toType, adapter);
+                                                                                      fromToConsider, toToConsider,
+                                                                                      toType, adapter);
                 adapter.addMethod(listMapping);
                 final MethodGetMapper getMapper = new MethodGetMapper(FUNCTION_NAME_GET_SIMPLE_LIST_MAPPER, true,
                                                                       adapter,
-                                                                      determineListType(to.toType(), toContent),
-                                                                      determineListType(fromType, fromContent), false,
-                                                                      listMapping.getName());
+                                                                      determineListType(toToConsider.toType(),
+                                                                                        toContentToConsider),
+                                                                      determineListType(fromType,
+                                                                                        fromContentToConsider),
+                                                                      false, listMapping.getName());
                 adapter.addMethod(getMapper);
                 if (adapter.fetcher != null) {
                     addBasicMappingMethods(adapter,
@@ -297,7 +326,7 @@ public class ModelAdapter extends Model {
                                            renames, fromType);
                 }
             } else {// TODO mapping for Hashtable
-                addBasicMappingMethods(adapter, from, to, renames, fromType);
+                addBasicMappingMethods(adapter, fromToConsider, toToConsider, renames, fromType);
             }
 
         }

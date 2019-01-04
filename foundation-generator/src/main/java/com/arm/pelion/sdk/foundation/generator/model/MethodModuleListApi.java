@@ -65,8 +65,8 @@ public class MethodModuleListApi extends MethodModuleCloudApi {
     }
 
     @Override
-    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
-        setReturnType(this, currentModel);
+    protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
+        setReturnType(this, returnModel);
     }
 
     public static void setReturnType(Method method, Model currentModel) {

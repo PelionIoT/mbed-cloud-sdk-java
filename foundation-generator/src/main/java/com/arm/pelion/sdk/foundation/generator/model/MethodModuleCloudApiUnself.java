@@ -4,10 +4,10 @@ import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
-public class MethodModuleCloudApiUnaggregated extends MethodModuleCloudApi {
+public class MethodModuleCloudApiUnself extends MethodModuleCloudApi {
     protected final Model returnModel;
 
-    public MethodModuleCloudApiUnaggregated(Model currentModel, Model returnModel, ModelAdapterFetcher adapterFetcher,
+    public MethodModuleCloudApiUnself(Model currentModel, Model returnModel, ModelAdapterFetcher adapterFetcher,
                                             String name, String description, String longDescription,
                                             boolean needsCustomCode, ModelEndpoints endpoints,
                                             String endpointVariableName, Class<?> lowLevelModule,

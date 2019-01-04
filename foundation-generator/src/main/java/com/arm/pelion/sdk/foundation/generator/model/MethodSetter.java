@@ -57,7 +57,7 @@ public class MethodSetter extends Method {
         if (fieldName == null) {
             return null;
         }
-        return Utils.combineNames(false, "set", fieldName);
+        return Utils.combineNames(false, fluent ? "" : "set", fieldName);
     }
 
 }

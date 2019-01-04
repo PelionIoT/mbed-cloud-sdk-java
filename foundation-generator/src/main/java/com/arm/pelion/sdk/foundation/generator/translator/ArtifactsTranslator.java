@@ -1,6 +1,7 @@
 package com.arm.pelion.sdk.foundation.generator.translator;
 
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +12,7 @@ import com.arm.pelion.sdk.foundation.generator.input.AdditionalProperty;
 import com.arm.pelion.sdk.foundation.generator.input.Entity;
 import com.arm.pelion.sdk.foundation.generator.input.Enumerator;
 import com.arm.pelion.sdk.foundation.generator.input.Field;
+import com.arm.pelion.sdk.foundation.generator.input.Group;
 import com.arm.pelion.sdk.foundation.generator.input.IntermediateApiDefinition;
 import com.arm.pelion.sdk.foundation.generator.input.Method;
 import com.arm.pelion.sdk.foundation.generator.lowlevelapis.LowLevelAPIMethod;
@@ -109,8 +111,8 @@ public class ArtifactsTranslator {
                                     new IllegalArgumentException("Primitive return type is currently not supported"));
                     continue;
                 }
-                returnModel = CommonTranslator.fetchCorrespondingModel(config, m.getReturnInformation().getReturnType(),
-                                                                       entity.getGroupId());
+                returnModel = CommonTranslator.fetchCorrespondingModel(config,
+                                                                       m.getReturnInformation().getReturnType());
             }
             module.addCloudCall(MethodTranslator.translate(m, method, model, returnModel));
         }
@@ -160,12 +162,11 @@ public class ArtifactsTranslator {
                     continue;
                 }
                 modelToConsider = CommonTranslator.fetchCorrespondingModel(config,
-                                                                           m.getReturnInformation().getReturnType(),
-                                                                           entity.getGroupId());
+                                                                           m.getReturnInformation().getReturnType());
             }
 
             if (method.hasToModel()) {
-                if (m.isListMethod()) {
+                if (m.isListMethod() || m.hasPaginatedResponse()) {
                     try {
                         adapter.addMethodAdapter(MethodAction.READ, new Model(method.getToModel().determineClass()),
                                                  new Model(ListResponse.class), true, false, methodRenames,
@@ -188,7 +189,7 @@ public class ArtifactsTranslator {
                 }
             }
             if (method.hasFromModels()) {
-                if (m.isListMethod()) {
+                if (m.isListMethod() || m.hasPaginatedResponse()) {
                     // TODO shout, not handled
                     throw new FoundationGeneratorException("The generator does not handle list method with model parameter such as "
                                                            + m);
@@ -255,6 +256,33 @@ public class ArtifactsTranslator {
         return options;
     }
 
+    public static List<ModelListOption>
+           translateOtherPaginatedListOptions(Configuration config, Entity entity) throws FoundationGeneratorException {
+        if (entity == null) {
+            return null;
+        }
+        final List<ModelListOption> allOptions = new LinkedList<>();
+        for (Method otherPaginatedMethod : entity.getOtherPaginatedMethod()) {
+            if (CommonTranslator.isPrimitiveType(otherPaginatedMethod.getReturnInformation().getReturnType())) {
+                throw new FoundationGeneratorException(new IllegalArgumentException("Paginated response only works on entities: "
+                                                                                    + otherPaginatedMethod));
+            }
+            final Model correspondingModel = CommonTranslator.fetchCorrespondingModel(config,
+                                                                                      otherPaginatedMethod.getReturnInformation()
+                                                                                                          .getReturnType());
+            // change null by description if description is set in the intermediate config.
+            final ModelListOption options = new ModelListOption(correspondingModel, null,
+                                                                correspondingModel.needsCustomCode()
+                                                                                          || correspondingModel.containsCustomCode());
+
+            // Do things regarding filters
+
+            options.generateMethods();
+            allOptions.add(options);
+        }
+        return allOptions;
+    }
+
     private static ModelEndpoints translateEndpointModel(Configuration config, LowLevelAPIs lowLevelApis, Entity entity,
                                                          Model model) {
         if (entity == null || !entity.hasMethods() || lowLevelApis == null) {
@@ -288,7 +316,7 @@ public class ArtifactsTranslator {
 
     private static String determineDefaultOption(Enumerator enumerator) {
         // FIXME default option should be specified in the intermediate configuration file.
-        return enumerator.getValues().iterator().next();
+        return enumerator.getValues().stream().findFirst().orElse(null);
     }
 
     private static String generateEntityName(String key) {
@@ -317,6 +345,12 @@ public class ArtifactsTranslator {
         // FIXME TO remove
         List<String> avoid = Arrays.asList();// "Account", "DeviceEvents");
         final Artifacts artifacts = new Artifacts();
+        if (definition.hasGroups()) {
+            for (final Group group : definition.getGroups()) {
+                PelionModelDefinitionStore.get().storeGroup(group.getGroupId(), group.getEntities());
+                PelionModelDefinitionStore.get().storeGroup(group.getGroupId(), group.getEnums());
+            }
+        }
         if (definition.hasEntities()) {
             ModelDaoFactory factory = translateFactory(config);
             // Note: not using streams so that exceptions are raised
@@ -332,6 +366,9 @@ public class ArtifactsTranslator {
                         listOptions = translateListOptions(config, entity, model);
                         artifacts.addModel(listOptions);
                     }
+                    if (entity.hasOtherPaginatedMethod()) {
+                        artifacts.addModels(translateOtherPaginatedListOptions(config, entity));
+                    }
                     final ModelModule module = translateModuleModel(logger, config, lowLevelApis, entity, model,
                                                                     artifacts.getAdapterFetcher(),
                                                                     artifacts.getEndpointsFetcher(),
@@ -345,7 +382,6 @@ public class ArtifactsTranslator {
                         artifacts.addModel(daoList);
                         factory.addDao(daoList);
                     }
-
                 }
             }
             factory.generateMethods();
@@ -362,5 +398,4 @@ public class ArtifactsTranslator {
         }
         return artifacts;
     }
-
 }

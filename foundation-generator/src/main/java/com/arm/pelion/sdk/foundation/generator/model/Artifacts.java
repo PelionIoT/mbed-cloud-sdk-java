@@ -54,9 +54,14 @@ public class Artifacts {
      */
     public Artifacts(List<Model> rawModels) {
         this();
-        if (rawModels != null) {
-            rawModels.forEach(m -> addModel(m));
+        addModels(rawModels);
+    }
+
+    public <T extends Model> void addModels(List<T> models) {
+        if (models == null || models.isEmpty()) {
+            return;
         }
+        models.forEach(m -> addModel(m));
     }
 
     public void addModel(Model model) {

@@ -4,18 +4,16 @@ import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
-public class MethodModuleListApiUnaggregated extends MethodModuleCloudApiUnaggregated {
-    private final boolean isPaginatedList;
+public class MethodModuleListApiUnself extends MethodModuleCloudApiUnself {
+    protected final boolean isPaginatedList;
     protected final ModelListOptionFetcher fetcher;
 
-    public MethodModuleListApiUnaggregated(Model currentModel, Model returnModel, String name, String description,
-                                           String longDescription, boolean needsCustomCode, boolean isPaginatedList,
-                                           ModelListOptionFetcher listOptionsFetcher,
-                                           ModelAdapterFetcher adapterFetcher, ModelEndpoints endpoints,
-                                           String endpointVariableName, Class<?> lowLevelModule,
-                                           List<Parameter> methodParameters, List<Parameter> allParameters,
-                                           Renames parameterRenames, Method lowLevelMethod,
-                                           boolean enforceModelValidity) {
+    public MethodModuleListApiUnself(Model currentModel, Model returnModel, String name, String description,
+                                     String longDescription, boolean needsCustomCode, boolean isPaginatedList,
+                                     ModelListOptionFetcher listOptionsFetcher, ModelAdapterFetcher adapterFetcher,
+                                     ModelEndpoints endpoints, String endpointVariableName, Class<?> lowLevelModule,
+                                     List<Parameter> methodParameters, List<Parameter> allParameters,
+                                     Renames parameterRenames, Method lowLevelMethod, boolean enforceModelValidity) {
         super(currentModel, returnModel, adapterFetcher, name, description, longDescription, needsCustomCode, endpoints,
               endpointVariableName, lowLevelModule, methodParameters, allParameters,
               MethodModuleListApi.extendRenames(parameterRenames), lowLevelMethod, enforceModelValidity);
@@ -41,8 +39,8 @@ public class MethodModuleListApiUnaggregated extends MethodModuleCloudApiUnaggre
     }
 
     @Override
-    protected void determineReturnType(Model currentModel, Method lowLevelMethod) {
-        MethodModuleListApi.setReturnType(this, currentModel);
+    protected void determineReturnType(Model returnModel, Method lowLevelMethod) {
+        MethodModuleListApi.setReturnType(this, returnModel);
     }
 
     @Override

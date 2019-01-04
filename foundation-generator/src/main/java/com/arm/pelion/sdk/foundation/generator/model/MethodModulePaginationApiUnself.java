@@ -4,14 +4,14 @@ import java.util.List;
 
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 
-public class MethodModulePaginationApiUnaggregated extends MethodModuleListApiUnaggregated {
+public class MethodModulePaginationApiUnself extends MethodModuleListApiUnself {
 
-    private final MethodModuleListApiUnaggregated correspondingMethod;
+    private final MethodModuleListApiUnself correspondingMethod;
 
-    public MethodModulePaginationApiUnaggregated(MethodModuleListApiUnaggregated listMethod, boolean needsCustomCode) {
+    public MethodModulePaginationApiUnself(MethodModuleListApiUnself listMethod, boolean needsCustomCode) {
         super(listMethod.currentModel, listMethod.returnModel,
               MethodModulePaginationApi.generatePaginatorName(listMethod),
-              MethodModulePaginationApi.generateDescription(listMethod),
+              MethodModulePaginationApi.generateDescription(listMethod.returnModel),
               MethodModulePaginationApi.generateLongDescription(listMethod), needsCustomCode, false, listMethod.fetcher,
               listMethod.adapterFetcher, listMethod.endpoints, listMethod.endpointVariableName,
               listMethod.lowLevelModule, listMethod.methodParameters, listMethod.allParameters,

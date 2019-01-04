@@ -21,7 +21,7 @@ public class ForeignKey {
     }
 
     public void setEntityRef(String entityRef) {
-        this.entityRef = entityRef;
+        this.entityRef = Utils.getKey(entityRef, false);
     }
 
     public List<String> getGroupId() {

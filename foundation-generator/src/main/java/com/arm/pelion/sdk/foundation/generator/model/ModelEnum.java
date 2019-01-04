@@ -22,7 +22,7 @@ public class ModelEnum extends ModelPojo {
     public ModelEnum(String packageName, String attachedEntity, String name, String group, String longDescription,
                      List<String> options, String defaultOption) {
         super(packageName, generateName(attachedEntity, name), group,
-              generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
+              Utils.generateDescriptionFromName(generateName(attachedEntity, name)), longDescription, false, false);
         this.options = options == null ? new LinkedList<>() : options;
         this.rawDefaultOption = defaultOption;
         this.defaultOption = determineDefaultValue(defaultOption, options);
@@ -54,17 +54,10 @@ public class ModelEnum extends ModelPojo {
     }
 
     private static String generateName(String attachedEntity, String name) {
-        String snakeName = (attachedEntity == null ? "" : ApiUtils.convertCamelToSnake(attachedEntity) + "_")
-                           + ApiUtils.convertCamelToSnake(name);
+        String snakeName = ApiUtils.convertCamelToSnake(name);
         // Remove any reference to enum
         snakeName = snakeName == null ? null : snakeName.replace("enum", "");
-        return ApiUtils.convertSnakeToCamel(snakeName, true);
-    }
-
-    private static String generateDescriptionFromName(String name) {
-        return name == null ? null
-                            : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name).replace("_", "+"), true)
-                                      .replace("+", " ");
+        return Utils.combineNames(true, attachedEntity, snakeName);
     }
 
     @Override

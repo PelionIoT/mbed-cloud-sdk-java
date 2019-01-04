@@ -107,6 +107,9 @@ public class ModelDao extends Model {
                 correspondingInterface = UpdateDao.class;
                 daoMethodName = UpdateDao.METHOD_NAME_UPDATE;
                 break;
+            case ME:
+                daoMethodName = ReadDao.METHOD_NAME_ME;
+                break;
 
         }
         if (!superinterfaces.containsKey(CrudDao.class.getName())) {
@@ -114,7 +117,7 @@ public class ModelDao extends Model {
             checkSuperInterfaces();
         }
         if (correspondingInterface == null) {
-            generateOtherMethod(action, methodName, description, longDescription, needsCustomCode, true);
+            generateOtherMethod(action, methodName, daoMethodName, description, longDescription, needsCustomCode, true);
         } else {
             generateCrudMethods(action, daoMethodName, correspondingInterface, needsCustomCode, true);
         }
@@ -181,17 +184,21 @@ public class ModelDao extends Model {
         addMethod(method);
     }
 
-    private void generateOtherMethod(MethodAction action, String methodName, String description, String longDescription,
-                                     boolean needsCustomCode, boolean isPublic) {
+    private void generateOtherMethod(MethodAction action, String methodName, String daoMethodName, String description,
+                                     String longDescription, boolean needsCustomCode, boolean isPublic) {
         if (!correspondingModule.hasMethod(correspondingModel, action, methodName)) {
-            Method method = new MethodGeneric(methodName, description, longDescription, null);
+            Method method = new MethodGeneric(daoMethodName == null || daoMethodName.isEmpty() ? methodName
+                                                                                               : daoMethodName,
+                                              description, longDescription, null);
             method.setAsOverride(false);
             addMethod(method);
             return;
         }
         final List<Method> moduleMethods = correspondingModule.getAllMethods(correspondingModel, action, methodName);
         for (Method moduleMethod : moduleMethods) {
-            final MethodOverloaded method = generateMethod(methodName, needsCustomCode, isPublic, null, moduleMethod,
+            final MethodOverloaded method = generateMethod(daoMethodName == null
+                                                           || daoMethodName.isEmpty() ? methodName : daoMethodName,
+                                                           needsCustomCode, isPublic, null, moduleMethod,
                                                            correspondingModule.toType());
             addMethod(method);
         }

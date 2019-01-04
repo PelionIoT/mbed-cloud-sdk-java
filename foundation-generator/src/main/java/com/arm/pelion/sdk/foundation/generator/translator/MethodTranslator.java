@@ -37,6 +37,12 @@ public class MethodTranslator {
         if (m.isUpdateMethod()) {
             return MethodAction.UPDATE;
         }
+        if (m.isMeMethod()) {
+            return MethodAction.ME;
+        }
+        if (m.hasPaginatedResponse()) {
+            return MethodAction.LIST_OTHER;
+        }
         return MethodAction.OTHER;
     }
 
@@ -53,7 +59,9 @@ public class MethodTranslator {
             case UPDATE:
                 return Utils.combineNames(false, name,
                                           currentModel.getName() + (action.equals(MethodAction.LIST) ? "s" : ""));
-
+            case ME:
+                return Utils.combineNames(false, "my", currentModel.getName());
+            case LIST_OTHER:
             case OTHER:
             default:
                 return Utils.combineNames(false, name);
@@ -69,7 +77,7 @@ public class MethodTranslator {
     @SuppressWarnings("incomplete-switch")
     private static String generateMethodDescription(MethodAction action, Model currentModel, String summary,
                                                     String methodName, boolean hasFilters) {
-        if (action == MethodAction.OTHER) {
+        if (action == MethodAction.OTHER || action == MethodAction.LIST_OTHER) {
             if (summary != null) {
                 return summary;
             }
@@ -95,6 +103,9 @@ public class MethodTranslator {
                     break;
                 case READ:
                     build.append("Gets");
+                    break;
+                case ME:
+                    build.append("Gets my");
                     break;
                 case UPDATE:
                     build.append("Modifies");

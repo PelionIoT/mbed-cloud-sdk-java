@@ -9,6 +9,7 @@ import com.arm.pelion.sdk.foundation.generator.input.ForeignKey;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 import com.arm.pelion.sdk.foundation.generator.model.ModelEnum;
 import com.arm.pelion.sdk.foundation.generator.model.TypeParameter;
+import com.arm.pelion.sdk.foundation.generator.util.FoundationGeneratorException;
 
 public class CommonTranslator {
 
@@ -19,13 +20,35 @@ public class CommonTranslator {
         return groupId == null ? null : String.join(PACKAGE_SEPARATOR, groupId);
     }
 
-    public static TypeParameter FetchNestedEntityType(String packageName, ForeignKey key) {
+    public static TypeParameter FetchNestedEntityType(String packageName,
+                                                      ForeignKey key) throws FoundationGeneratorException {
         if (key == null) {
             return null;
         }
-        final Model refModel = new Model(packageName, key.getEntityRef(),
-                                         CommonTranslator.generateGoup(key.getGroupId()));
+        return fetchNestedEntityType(packageName, key.getEntityRef());
+    }
+
+    public static TypeParameter fetchNestedEntityType(String packageName,
+                                                      String entityName) throws FoundationGeneratorException {
+        if (entityName == null) {
+            return null;
+        }
+        final Model refModel = new Model(packageName, entityName, fetchGroup(entityName));
         return fetchNestedType(refModel);
+    }
+
+    public static String fetchGroup(String ref) throws FoundationGeneratorException {
+        if (ref == null) {
+            return null;
+        }
+        if (!PelionModelDefinitionStore.get().hasRelatedGroup(ref)) {
+            throw new FoundationGeneratorException("Cannot find any group definition for the following model [" + ref
+                                                   + "]",
+                                                   new IllegalArgumentException("Available models: "
+                                                                                + PelionModelDefinitionStore.get()
+                                                                                                            .availableModels()));
+        }
+        return CommonTranslator.generateGoup(PelionModelDefinitionStore.get().getRelatedGroup(ref));
     }
 
     public static boolean isPrimitiveType(String returnType) {
@@ -38,23 +61,27 @@ public class CommonTranslator {
                                                                          : returnType.trim().toLowerCase(Locale.UK)));
     }
 
-    public static Model fetchCorrespondingModel(Configuration config, String entityName, List<String> currentGroupId) {
+    public static Model fetchCorrespondingModel(Configuration config,
+                                                String entityName) throws FoundationGeneratorException {
         if (entityName == null) {
             return null;
         }
-        final Model refModel = new Model(generateModelPackageName(config, currentGroupId), entityName,
-                                         CommonTranslator.generateGoup(currentGroupId));
+        final Model refModel = new Model(generateModelPackageName(config,
+                                                                  PelionModelDefinitionStore.get()
+                                                                                            .getRelatedGroup(entityName)),
+                                         entityName, fetchGroup(entityName));
         if (PelionModelDefinitionStore.get().has(refModel)) {
             return PelionModelDefinitionStore.get().get(refModel);
         }
         return refModel;
     }
 
-    public static TypeParameter FetchNestedEnumType(String packageName, String enumRef, String group) {
+    public static TypeParameter FetchNestedEnumType(String packageName,
+                                                    String enumRef) throws FoundationGeneratorException {
         if (enumRef == null) {
             return null;
         }
-        final ModelEnum enumerator = new ModelEnum(packageName, enumRef, group);
+        final ModelEnum enumerator = new ModelEnum(packageName, enumRef, fetchGroup(enumRef));
         return fetchNestedType(enumerator);
     }
 

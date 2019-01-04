@@ -5,10 +5,10 @@ import java.util.List;
 import com.arm.pelion.sdk.foundation.generator.util.TranslationException;
 import com.arm.pelion.sdk.foundation.generator.util.Utils;
 
-public class MethodModuleModifyApiUnaggregated extends MethodModuleCloudApiUnaggregated {
+public class MethodModuleModifyApiUnself extends MethodModuleCloudApiUnself {
     protected final boolean isForCreation;
 
-    public MethodModuleModifyApiUnaggregated(boolean isForCreation, Model currentModel, Model returnModel,
+    public MethodModuleModifyApiUnself(boolean isForCreation, Model currentModel, Model returnModel,
                                              ModelAdapterFetcher adapterFetcher, String name, String description,
                                              String longDescription, boolean needsCustomCode, ModelEndpoints endpoints,
                                              String endpointVariableName, Class<?> lowLevelModule,

@@ -279,7 +279,7 @@ public class Field {
     }
 
     public void setEnumRef(String enumRef) {
-        this.enumRef = enumRef;
+        this.enumRef = Utils.getKey(enumRef, false);
     }
 
     public ForeignKey getForeignKey() {
