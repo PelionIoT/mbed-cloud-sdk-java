@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.annotations.Required;
 
 @Preamble(description = "Utilities for APIs")
 @Internal
-public class ApiUtils {
+public final class ApiUtils {
 
     private ApiUtils() {
         super();

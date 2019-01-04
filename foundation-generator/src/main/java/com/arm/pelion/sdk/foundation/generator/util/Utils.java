@@ -11,6 +11,8 @@ import com.arm.pelion.sdk.foundation.generator.model.Method;
 import com.arm.pelion.sdk.foundation.generator.model.Model;
 
 public class Utils {
+    private static final String PLUS = "+";
+    public static final String MY_ARTICLE = "my";
     private static final String HYPHEN = "-";
     private static final String WHITE_SPACE = " ";
     private static final String UNDERSCORE = "_";
@@ -57,15 +59,35 @@ public class Utils {
     }
 
     public static String generateDocumentationString(String prefix, String modelName, boolean plural) {
-        return generateDocumentationString((prefix + " " + modelName).replace("  ", " "), plural);
+        return generateDocumentationString(prefix, modelName, plural, true);
+    }
+
+    public static String generateDocumentationString(String prefix, String modelName, boolean plural,
+                                                     boolean addArticle) {
+        final boolean shouldAddArticle = prefix == null ? true
+                                                        : !prefix.toLowerCase(Locale.UK)
+                                                                 .contains(WHITE_SPACE + MY_ARTICLE)
+                                                          && !prefix.toLowerCase(Locale.UK).startsWith(MY_ARTICLE);
+        return generateDocumentationString(prefix == null
+                                           || modelName == null ? modelName
+                                                                : (prefix.trim() + WHITE_SPACE
+                                                                   + modelName.trim()).trim().replace(
+                                                                                                      WHITE_SPACE
+                                                                                                      + WHITE_SPACE,
+                                                                                                      WHITE_SPACE),
+                                           plural, shouldAddArticle);
     }
 
     public static String generateDocumentationString(String modelName, boolean plural) {
+        return generateDocumentationString(modelName, plural, true);
+    }
+
+    public static String generateDocumentationString(String modelName, boolean plural, boolean addArticle) {
         if (modelName == null || modelName.trim().isEmpty()) {
             return null;
         }
         final StringBuilder build = new StringBuilder();
-        if (!plural) {
+        if (!plural && addArticle) {
             final String firstLetter = modelName.trim().substring(0, 1).toLowerCase(Locale.UK);
             if (WORD_OPPOSITE_EXCEPTIONS.stream().anyMatch(w -> modelName.toLowerCase(Locale.UK).startsWith(w))
                 || (!WORD_EXCEPTIONS.stream().anyMatch(w -> modelName.toLowerCase(Locale.UK).startsWith(w))
@@ -74,7 +96,7 @@ public class Utils {
             } else {
                 build.append("a");
             }
-            build.append(" ");
+            build.append(WHITE_SPACE);
         }
         String text = generateModelNameAsText(modelName);
         if (plural) {
@@ -114,14 +136,16 @@ public class Utils {
     }
 
     public static String generateDescriptionFromName(String name) {
-        return name == null ? null
-                            : ApiUtils.convertSnakeToCamel(ApiUtils.convertCamelToSnake(name).replace("_", "+"), true)
-                                      .replace("+", " ");
+        return name == null ? null : ApiUtils
+                                             .convertSnakeToCamel(ApiUtils.convertCamelToSnake(name)
+                                                                          .replace(UNDERSCORE, PLUS),
+                                                                  true)
+                                             .replace(PLUS, WHITE_SPACE);
     }
 
     public static String generateModelNameAsText(String modelName) {
         return ApiUtils.convertCamelToSnake(modelName).replace(HYPHEN, UNDERSCORE).replace(UNDERSCORE, WHITE_SPACE)
-                       .trim();
+                       .replace(WHITE_SPACE + WHITE_SPACE, WHITE_SPACE).trim();
     }
 
     public static String generateDocumentationString(String modelName) {

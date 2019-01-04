@@ -94,6 +94,7 @@ public class MethodTranslator {
                 build.append(" matching filter options");
             }
         } else {
+            String prefix = null;
             switch (action) {
                 case CREATE:
                     build.append("Adds");
@@ -102,17 +103,18 @@ public class MethodTranslator {
                     build.append("Deletes");
                     break;
                 case READ:
-                    build.append("Gets");
-                    break;
                 case ME:
-                    build.append("Gets my");
+                    build.append("Gets");
+                    if (action == MethodAction.ME) {
+                        prefix = Utils.MY_ARTICLE;
+                    }
                     break;
                 case UPDATE:
                     build.append("Modifies");
                     break;
             }
             build.append(" ");
-            build.append(Utils.generateDocumentationString(currentModel.getName()));
+            build.append(Utils.generateDocumentationString(prefix, currentModel.getName(), false));
         }
         build.append(".");
         return build.toString();
