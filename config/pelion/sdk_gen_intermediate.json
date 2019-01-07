@@ -4,6 +4,7 @@
       "entities": [
         "password_policy",
         "login_history",
+        "parent_account",
         "policy",
         "user",
         "subtenant_user",
@@ -1041,8 +1042,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account",
-            "group": "Accounts"
+            "type": "account"
           },
           "drop_fields": [
             "object",
@@ -1319,22 +1319,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -1657,22 +1667,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -2109,8 +2129,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account",
-            "group": "Accounts"
+            "type": "account"
           },
           "drop_fields": [
             "object",
@@ -2442,22 +2461,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -2758,22 +2787,32 @@
                                     "type": "string",
                                     "example": "info@arm.com",
                                     "description": "The email address of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_email",
+                                    "entity_fieldname": "admin_email",
                                     "_key": "admin_email"
                                   },
                                   {
                                     "type": "string",
                                     "example": "J. Doe",
                                     "description": "The name of the admin user who is the contact person of the parent account.",
+                                    "api_fieldname": "admin_name",
+                                    "entity_fieldname": "admin_name",
                                     "_key": "admin_name"
                                   },
                                   {
                                     "type": "string",
                                     "example": "01619571dad80242ac12000600000000",
                                     "description": "The ID of the parent account",
+                                    "api_fieldname": "id",
+                                    "entity_fieldname": "id",
                                     "_key": "id"
                                   }
                                 ],
                                 "description": "This object represents parent account contact details in responses.",
+                                "foreign_key": {
+                                  "group": "Accounts",
+                                  "entity": "parent_account"
+                                },
                                 "_key": "parent_account"
                               },
                               {
@@ -3185,8 +3224,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account",
-            "group": "Accounts"
+            "type": "account"
           },
           "drop_fields": [
             "object",
@@ -3460,22 +3498,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -3798,22 +3846,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -4177,8 +4235,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account",
-            "group": "Accounts"
+            "type": "account"
           },
           "drop_fields": [
             "object",
@@ -4356,30 +4413,18 @@
                           "type": "string",
                           "example": "01619571e2e90242ac12000600000000",
                           "description": "The ID of the account.",
-                          "api_fieldname": "account_id",
-                          "entity_fieldname": "account_id",
-                          "parameter_fieldname": "account_id",
-                          "in": "path",
-                          "required": true,
                           "_key": "account_id"
                         },
                         {
                           "type": "string",
                           "example": "-----BEGIN CERTIFICATE----- ... -----END CERTIFICATE-----",
                           "description": "X509.v3 trusted certificate in PEM format.",
-                          "api_fieldname": "certificate",
-                          "entity_fieldname": "certificate",
-                          "parameter_fieldname": "certificate",
-                          "in": "body",
-                          "required": false,
                           "_key": "certificate"
                         },
                         {
                           "type": "string",
                           "example": "a10fb2c8ba90e6de927bd0ae391dcc38f6115685de2d7024712af37ead0608f1",
                           "description": "A SHA-256 fingerprint of the certificate.",
-                          "api_fieldname": "certificate_fingerprint",
-                          "entity_fieldname": "certificate_fingerprint",
                           "_key": "certificate_fingerprint"
                         },
                         {
@@ -4387,19 +4432,12 @@
                           "format": "date-time",
                           "example": "2018-02-13T09:35:20Z",
                           "description": "Creation UTC time RFC3339.",
-                          "api_fieldname": "created_at",
-                          "entity_fieldname": "created_at",
                           "_key": "created_at"
                         },
                         {
                           "type": "string",
                           "example": "Certificate created by me.",
                           "description": "Human readable description of this certificate.",
-                          "api_fieldname": "description",
-                          "entity_fieldname": "description",
-                          "parameter_fieldname": "description",
-                          "in": "body",
-                          "required": false,
                           "_key": "description"
                         },
                         {
@@ -4409,54 +4447,36 @@
                           "description": "Device execution mode where 1 means a developer certificate.",
                           "private_field": true,
                           "_override": true,
-                          "api_fieldname": "device_execution_mode",
-                          "entity_fieldname": "device_execution_mode",
                           "_key": "device_execution_mode"
                         },
                         {
                           "type": "boolean",
                           "example": false,
                           "description": "If true, signature is not required. Default value false.",
-                          "api_fieldname": "enrollment_mode",
-                          "entity_fieldname": "enrollment_mode",
-                          "parameter_fieldname": "enrollment_mode",
-                          "in": "body",
-                          "required": false,
                           "_key": "enrollment_mode"
                         },
                         {
                           "type": "string",
                           "example": "1",
                           "description": "API resource entity version.",
-                          "api_fieldname": "etag",
-                          "entity_fieldname": "etag",
                           "_key": "etag"
                         },
                         {
                           "type": "string",
                           "example": "01619571d01d0242ac12000600000000",
                           "description": "Entity ID.",
-                          "api_fieldname": "id",
-                          "entity_fieldname": "id",
                           "_key": "id"
                         },
                         {
                           "type": "string",
                           "example": "CN=issuer",
                           "description": "Issuer of the certificate.",
-                          "api_fieldname": "issuer",
-                          "entity_fieldname": "issuer",
                           "_key": "issuer"
                         },
                         {
                           "type": "string",
                           "example": "My certificate",
                           "description": "Certificate name.",
-                          "api_fieldname": "name",
-                          "entity_fieldname": "name",
-                          "parameter_fieldname": "name",
-                          "in": "body",
-                          "required": false,
                           "_key": "name"
                         },
                         {
@@ -4465,24 +4485,18 @@
                           "enum": [
                             "trusted-cert"
                           ],
-                          "api_fieldname": "object",
-                          "entity_fieldname": "object",
                           "_key": "object"
                         },
                         {
                           "type": "string",
                           "example": "01619571dad80242ac12000600000000",
                           "description": "The ID of the owner.",
-                          "api_fieldname": "owner_id",
-                          "entity_fieldname": "owner_id",
                           "_key": "owner_id"
                         },
                         {
                           "type": "string",
                           "example": "MIICdwIBADANBgkqhkiG9w0BAQEFAASCAmE...",
                           "description": "Private key of the certificate in PEM or base64 encoded DER format.",
-                          "api_fieldname": "private_key",
-                          "entity_fieldname": "private_key",
                           "_key": "private_key"
                         },
                         {
@@ -4492,12 +4506,6 @@
                             "lwm2m",
                             "bootstrap"
                           ],
-                          "api_fieldname": "service",
-                          "entity_fieldname": "service",
-                          "parameter_fieldname": "service",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_service_enum",
                           "_key": "service"
                         },
                         {
@@ -4508,20 +4516,12 @@
                             "ACTIVE",
                             "INACTIVE"
                           ],
-                          "api_fieldname": "status",
-                          "entity_fieldname": "status",
-                          "parameter_fieldname": "status",
-                          "in": "body",
-                          "required": false,
-                          "enum_reference": "subtenant_trusted_certificate_status_enum",
                           "_key": "status"
                         },
                         {
                           "type": "string",
                           "example": "CN=subject",
                           "description": "Subject of the certificate.",
-                          "api_fieldname": "subject",
-                          "entity_fieldname": "subject",
                           "_key": "subject"
                         },
                         {
@@ -4529,8 +4529,6 @@
                           "format": "date-time",
                           "example": "2018-02-14T15:24:14Z",
                           "description": "Last update UTC time RFC3339.",
-                          "api_fieldname": "updated_at",
-                          "entity_fieldname": "updated_at",
                           "_key": "updated_at"
                         },
                         {
@@ -4538,8 +4536,6 @@
                           "format": "date-time",
                           "example": "2038-02-14T15:24:14Z",
                           "description": "Expiration time in UTC formatted as RFC3339.",
-                          "api_fieldname": "validity",
-                          "entity_fieldname": "validity",
                           "_key": "validity"
                         }
                       ],
@@ -4835,8 +4831,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_trusted_certificate",
-            "group": "Accounts"
+            "type": "subtenant_trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -5369,22 +5364,32 @@
                         "type": "string",
                         "example": "info@arm.com",
                         "description": "The email address of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_email",
+                        "entity_fieldname": "admin_email",
                         "_key": "admin_email"
                       },
                       {
                         "type": "string",
                         "example": "J. Doe",
                         "description": "The name of the admin user who is the contact person of the parent account.",
+                        "api_fieldname": "admin_name",
+                        "entity_fieldname": "admin_name",
                         "_key": "admin_name"
                       },
                       {
                         "type": "string",
                         "example": "01619571dad80242ac12000600000000",
                         "description": "The ID of the parent account",
+                        "api_fieldname": "id",
+                        "entity_fieldname": "id",
                         "_key": "id"
                       }
                     ],
                     "description": "This object represents parent account contact details in responses.",
+                    "foreign_key": {
+                      "group": "Accounts",
+                      "entity": "parent_account"
+                    },
                     "api_fieldname": "parent_account",
                     "entity_fieldname": "parent_account",
                     "_key": "parent_account"
@@ -5707,22 +5712,32 @@
                               "type": "string",
                               "example": "info@arm.com",
                               "description": "The email address of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_email",
+                              "entity_fieldname": "admin_email",
                               "_key": "admin_email"
                             },
                             {
                               "type": "string",
                               "example": "J. Doe",
                               "description": "The name of the admin user who is the contact person of the parent account.",
+                              "api_fieldname": "admin_name",
+                              "entity_fieldname": "admin_name",
                               "_key": "admin_name"
                             },
                             {
                               "type": "string",
                               "example": "01619571dad80242ac12000600000000",
                               "description": "The ID of the parent account",
+                              "api_fieldname": "id",
+                              "entity_fieldname": "id",
                               "_key": "id"
                             }
                           ],
                           "description": "This object represents parent account contact details in responses.",
+                          "foreign_key": {
+                            "group": "Accounts",
+                            "entity": "parent_account"
+                          },
                           "_key": "parent_account"
                         },
                         {
@@ -6232,8 +6247,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "account",
-            "group": "Accounts"
+            "type": "account"
           },
           "drop_fields": [
             "object",
@@ -6786,8 +6800,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_user_invitation",
-            "group": "Accounts"
+            "type": "subtenant_user_invitation"
           },
           "drop_fields": [
             "object",
@@ -7471,8 +7484,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -7708,22 +7720,32 @@
               "type": "string",
               "example": "info@arm.com",
               "description": "The email address of the admin user who is the contact person of the parent account.",
+              "api_fieldname": "admin_email",
+              "entity_fieldname": "admin_email",
               "_key": "admin_email"
             },
             {
               "type": "string",
               "example": "J. Doe",
               "description": "The name of the admin user who is the contact person of the parent account.",
+              "api_fieldname": "admin_name",
+              "entity_fieldname": "admin_name",
               "_key": "admin_name"
             },
             {
               "type": "string",
               "example": "01619571dad80242ac12000600000000",
               "description": "The ID of the parent account",
+              "api_fieldname": "id",
+              "entity_fieldname": "id",
               "_key": "id"
             }
           ],
           "description": "This object represents parent account contact details in responses.",
+          "foreign_key": {
+            "group": "Accounts",
+            "entity": "parent_account"
+          },
           "api_fieldname": "parent_account",
           "_key": "parent_account"
         },
@@ -7736,6 +7758,9 @@
         },
         {
           "type": "object",
+          "required": [
+            "minimum_length"
+          ],
           "properties": [
             {
               "type": "string",
@@ -8323,8 +8348,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -8601,8 +8625,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -9005,8 +9028,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -9445,8 +9467,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -9774,8 +9795,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -10300,8 +10320,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "api_key",
-            "group": "Accounts"
+            "type": "api_key"
           },
           "drop_fields": [
             "object",
@@ -10819,8 +10838,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_enrollment",
-            "group": "Security"
+            "type": "certificate_enrollment"
           },
           "drop_fields": [
             "object",
@@ -11290,8 +11308,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_enrollment",
-            "group": "Security"
+            "type": "certificate_enrollment"
           },
           "drop_fields": [
             "object",
@@ -11339,6 +11356,7 @@
           "api_fieldname": "certificate_name",
           "in": "path",
           "name": "certificate-name",
+          "required": true,
           "pattern": "[\\w-]{1,10}\\.[\\w-.]{1,10}",
           "external_param": true,
           "parameter_fieldname": "certificate-name",
@@ -11388,6 +11406,7 @@
           "api_fieldname": "id",
           "parameter_fieldname": "device-id",
           "in": "path",
+          "required": true,
           "_key": "id"
         },
         {
@@ -11892,8 +11911,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer",
-            "group": "Security"
+            "type": "certificate_issuer"
           },
           "drop_fields": [
             "object",
@@ -12200,8 +12218,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer",
-            "group": "Security"
+            "type": "certificate_issuer"
           },
           "drop_fields": [
             "object",
@@ -12591,8 +12608,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer",
-            "group": "Security"
+            "type": "certificate_issuer"
           },
           "drop_fields": [
             "object",
@@ -12969,8 +12985,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer",
-            "group": "Security"
+            "type": "certificate_issuer"
           },
           "drop_fields": [
             "object",
@@ -13549,8 +13564,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer",
-            "group": "Security"
+            "type": "certificate_issuer"
           },
           "drop_fields": [
             "object",
@@ -13944,8 +13958,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "verification_response",
-            "group": "Security"
+            "type": "verification_response"
           },
           "drop_fields": [
             "object",
@@ -14418,8 +14431,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -14730,8 +14742,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -15113,8 +15124,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -15530,8 +15540,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -15847,8 +15856,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -16246,8 +16254,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "certificate_issuer_config",
-            "group": "Security"
+            "type": "certificate_issuer_config"
           },
           "drop_fields": [
             "object",
@@ -16826,8 +16833,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate",
-            "group": "Security"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -17111,8 +17117,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate",
-            "group": "Security"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -17505,8 +17510,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "developer_certificate",
-            "group": "Security"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -17984,8 +17988,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -18059,6 +18062,7 @@
           "api_fieldname": "id",
           "parameter_fieldname": "developerCertificateId",
           "in": "path",
+          "required": true,
           "_key": "id"
         },
         {
@@ -18774,8 +18778,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device",
-            "group": "Devices"
+            "type": "device"
           },
           "drop_fields": [
             "object",
@@ -18850,8 +18853,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device",
-            "group": "Devices"
+            "type": "device"
           },
           "drop_fields": [
             "object",
@@ -19263,8 +19265,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device",
-            "group": "Devices"
+            "type": "device"
           },
           "drop_fields": [
             "object",
@@ -19737,8 +19738,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device",
-            "group": "Devices"
+            "type": "device"
           },
           "drop_fields": [
             "object",
@@ -20285,8 +20285,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "certificate_enrollment",
-            "group": "Security"
+            "type": "certificate_enrollment"
           },
           "drop_fields": [
             "object",
@@ -20824,8 +20823,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device",
-            "group": "Devices"
+            "type": "device"
           },
           "drop_fields": [
             "object",
@@ -21558,8 +21556,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment",
-            "group": "Devices"
+            "type": "device_enrollment"
           },
           "drop_fields": [
             "object",
@@ -21759,8 +21756,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment",
-            "group": "Devices"
+            "type": "device_enrollment"
           },
           "drop_fields": [
             "object",
@@ -22051,8 +22047,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment",
-            "group": "Devices"
+            "type": "device_enrollment"
           },
           "drop_fields": [
             "object",
@@ -22461,8 +22456,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment",
-            "group": "Devices"
+            "type": "device_enrollment"
           },
           "drop_fields": [
             "object",
@@ -22860,8 +22854,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_create",
-            "group": "Devices"
+            "type": "device_enrollment_bulk_create"
           },
           "drop_fields": [
             "object",
@@ -22901,8 +22894,7 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file",
-            "group": "Devices"
+            "type": "file"
           },
           "drop_fields": [
             "object",
@@ -22936,8 +22928,7 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file",
-            "group": "Devices"
+            "type": "file"
           },
           "drop_fields": [
             "object",
@@ -23335,8 +23326,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_create",
-            "group": "Devices"
+            "type": "device_enrollment_bulk_create"
           },
           "drop_fields": [
             "object",
@@ -23763,8 +23753,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_delete",
-            "group": "Devices"
+            "type": "device_enrollment_bulk_delete"
           },
           "drop_fields": [
             "object",
@@ -23804,8 +23793,7 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file",
-            "group": "Devices"
+            "type": "file"
           },
           "drop_fields": [
             "object",
@@ -23839,8 +23827,7 @@
           "return_info": {
             "self": false,
             "custom": true,
-            "type": "file",
-            "group": "Devices"
+            "type": "file"
           },
           "drop_fields": [
             "object",
@@ -24241,8 +24228,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_enrollment_bulk_delete",
-            "group": "Devices"
+            "type": "device_enrollment_bulk_delete"
           },
           "drop_fields": [
             "object",
@@ -24319,6 +24305,7 @@
           "api_fieldname": "id",
           "parameter_fieldname": "id",
           "in": "path",
+          "required": true,
           "_key": "id"
         },
         {
@@ -24524,8 +24511,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_events",
-            "group": "Devices"
+            "type": "device_events"
           },
           "drop_fields": [
             "object",
@@ -24790,8 +24776,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "device_events",
-            "group": "Devices"
+            "type": "device_events"
           },
           "drop_fields": [
             "object",
@@ -24945,6 +24930,40 @@
       "tags": [],
       "group_id": "Accounts",
       "_key": "login_history"
+    },
+    {
+      "swagger_models": [
+        "ParentAccountInfo"
+      ],
+      "primary_key_field": "id",
+      "methods": [],
+      "fields": [
+        {
+          "type": "string",
+          "example": "info@arm.com",
+          "description": "The email address of the admin user who is the contact person of the parent account.",
+          "api_fieldname": "admin_email",
+          "_key": "admin_email"
+        },
+        {
+          "type": "string",
+          "example": "J. Doe",
+          "description": "The name of the admin user who is the contact person of the parent account.",
+          "api_fieldname": "admin_name",
+          "_key": "admin_name"
+        },
+        {
+          "type": "string",
+          "example": "01619571dad80242ac12000600000000",
+          "description": "The ID of the parent account",
+          "api_fieldname": "id",
+          "_key": "id"
+        }
+      ],
+      "field_renames": [],
+      "tags": [],
+      "group_id": "Accounts",
+      "_key": "parent_account"
     },
     {
       "swagger_models": [
@@ -25257,8 +25276,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "server_credentials",
-            "group": "Security"
+            "type": "server_credentials"
           },
           "drop_fields": [
             "object",
@@ -25522,8 +25540,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "server_credentials",
-            "group": "Security"
+            "type": "server_credentials"
           },
           "drop_fields": [
             "object",
@@ -26216,8 +26233,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate",
-            "group": "Security"
+            "type": "subtenant_trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -26526,8 +26542,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate",
-            "group": "Security"
+            "type": "subtenant_trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -26927,8 +26942,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "developer_certificate",
-            "group": "Security"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -27435,8 +27449,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate",
-            "group": "Security"
+            "type": "subtenant_trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -28093,8 +28106,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_trusted_certificate",
-            "group": "Security"
+            "type": "subtenant_trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -28138,6 +28150,7 @@
           "api_fieldname": "certificate",
           "parameter_fieldname": "certificate",
           "in": "body",
+          "required": false,
           "_key": "certificate"
         },
         {
@@ -28162,6 +28175,7 @@
           "api_fieldname": "description",
           "parameter_fieldname": "description",
           "in": "body",
+          "required": false,
           "_key": "description"
         },
         {
@@ -28181,6 +28195,7 @@
           "api_fieldname": "enrollment_mode",
           "parameter_fieldname": "enrollment_mode",
           "in": "body",
+          "required": false,
           "_key": "enrollment_mode"
         },
         {
@@ -28214,6 +28229,7 @@
           "api_fieldname": "name",
           "parameter_fieldname": "name",
           "in": "body",
+          "required": false,
           "_key": "name"
         },
         {
@@ -28233,6 +28249,7 @@
           "api_fieldname": "service",
           "parameter_fieldname": "service",
           "in": "body",
+          "required": false,
           "enum_reference": "subtenant_trusted_certificate_service_enum",
           "_key": "service"
         },
@@ -28247,6 +28264,7 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
+          "required": false,
           "enum_reference": "subtenant_trusted_certificate_status_enum",
           "_key": "status"
         },
@@ -29180,8 +29198,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -29559,8 +29576,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -30192,8 +30208,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -31108,8 +31123,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -31415,8 +31429,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user",
-            "group": "Accounts"
+            "type": "subtenant_user"
           },
           "drop_fields": [
             "object",
@@ -31452,6 +31465,7 @@
           "api_fieldname": "address",
           "parameter_fieldname": "address",
           "in": "body",
+          "required": false,
           "_key": "address"
         },
         {
@@ -31477,6 +31491,7 @@
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
+          "required": false,
           "_key": "email"
         },
         {
@@ -31493,6 +31508,7 @@
           "api_fieldname": "full_name",
           "parameter_fieldname": "full_name",
           "in": "body",
+          "required": false,
           "_key": "full_name"
         },
         {
@@ -31502,6 +31518,7 @@
           "api_fieldname": "id",
           "parameter_fieldname": "user_id",
           "in": "path",
+          "required": true,
           "_key": "id"
         },
         {
@@ -31605,6 +31622,7 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
+          "required": false,
           "_key": "login_profiles"
         },
         {
@@ -31614,6 +31632,7 @@
           "api_fieldname": "is_marketing_accepted",
           "parameter_fieldname": "is_marketing_accepted",
           "in": "body",
+          "required": false,
           "_key": "marketing_accepted"
         },
         {
@@ -31623,6 +31642,7 @@
           "api_fieldname": "password",
           "parameter_fieldname": "password",
           "in": "body",
+          "required": false,
           "_key": "password"
         },
         {
@@ -31640,6 +31660,7 @@
           "api_fieldname": "phone_number",
           "parameter_fieldname": "phone_number",
           "in": "body",
+          "required": false,
           "_key": "phone_number"
         },
         {
@@ -31656,6 +31677,7 @@
           "api_fieldname": "status",
           "parameter_fieldname": "status",
           "in": "body",
+          "required": false,
           "enum_reference": "subtenant_user_status_enum",
           "_key": "status"
         },
@@ -31666,6 +31688,7 @@
           "api_fieldname": "is_gtc_accepted",
           "parameter_fieldname": "is_gtc_accepted",
           "in": "body",
+          "required": false,
           "_key": "terms_accepted"
         },
         {
@@ -31675,6 +31698,7 @@
           "api_fieldname": "is_totp_enabled",
           "parameter_fieldname": "is_totp_enabled",
           "in": "body",
+          "required": false,
           "_key": "two_factor_authentication"
         },
         {
@@ -31692,6 +31716,7 @@
           "api_fieldname": "username",
           "parameter_fieldname": "username",
           "in": "body",
+          "required": false,
           "_key": "username"
         }
       ],
@@ -32197,8 +32222,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation",
-            "group": "Accounts"
+            "type": "subtenant_user_invitation"
           },
           "drop_fields": [
             "object",
@@ -32485,8 +32509,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation",
-            "group": "Accounts"
+            "type": "subtenant_user_invitation"
           },
           "drop_fields": [
             "object",
@@ -32925,8 +32948,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "subtenant_user_invitation",
-            "group": "Accounts"
+            "type": "subtenant_user_invitation"
           },
           "drop_fields": [
             "object",
@@ -32976,6 +32998,7 @@
           "api_fieldname": "email",
           "parameter_fieldname": "email",
           "in": "body",
+          "required": false,
           "_key": "email"
         },
         {
@@ -32993,6 +33016,7 @@
           "api_fieldname": "id",
           "parameter_fieldname": "invitation_id",
           "in": "path",
+          "required": true,
           "_key": "id"
         },
         {
@@ -33033,6 +33057,7 @@
           "api_fieldname": "login_profiles",
           "parameter_fieldname": "login_profiles",
           "in": "body",
+          "required": false,
           "_key": "login_profiles"
         },
         {
@@ -33659,8 +33684,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -33961,8 +33985,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -34365,8 +34388,7 @@
           "return_info": {
             "self": false,
             "custom": false,
-            "type": "developer_certificate",
-            "group": "Security"
+            "type": "developer_certificate"
           },
           "drop_fields": [
             "object",
@@ -34854,8 +34876,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -35361,8 +35382,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -36076,8 +36096,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "trusted_certificate",
-            "group": "Security"
+            "type": "trusted_certificate"
           },
           "drop_fields": [
             "object",
@@ -37031,8 +37050,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user",
-            "group": "Accounts"
+            "type": "user"
           },
           "drop_fields": [
             "object",
@@ -37399,8 +37417,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user",
-            "group": "Accounts"
+            "type": "user"
           },
           "drop_fields": [
             "object",
@@ -37979,8 +37996,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user",
-            "group": "Accounts"
+            "type": "user"
           },
           "drop_fields": [
             "object",
@@ -38585,8 +38601,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user",
-            "group": "Accounts"
+            "type": "user"
           },
           "drop_fields": [
             "object",
@@ -39443,8 +39458,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user",
-            "group": "Accounts"
+            "type": "user"
           },
           "drop_fields": [
             "object",
@@ -40188,8 +40202,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation",
-            "group": "Accounts"
+            "type": "user_invitation"
           },
           "drop_fields": [
             "object",
@@ -40465,8 +40478,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation",
-            "group": "Accounts"
+            "type": "user_invitation"
           },
           "drop_fields": [
             "object",
@@ -40879,8 +40891,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation",
-            "group": "Accounts"
+            "type": "user_invitation"
           },
           "drop_fields": [
             "object",
@@ -41319,8 +41330,7 @@
           "return_info": {
             "self": true,
             "custom": false,
-            "type": "user_invitation",
-            "group": "Accounts"
+            "type": "user_invitation"
           },
           "drop_fields": [
             "object",
