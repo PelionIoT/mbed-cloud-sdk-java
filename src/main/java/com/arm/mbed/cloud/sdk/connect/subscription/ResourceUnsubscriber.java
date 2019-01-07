@@ -11,7 +11,7 @@ import com.arm.mbed.cloud.sdk.connect.model.Presubscription;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
-@Preamble(description = "Object in charge of performing all necessary action to take place when unsubscribing to a resource")
+@Preamble(description = "Object in charge of performing all necessary actions which need to take place when unsubscribing to a resource")
 public class ResourceUnsubscriber extends AbstractSubscriptionAction {
 
     public ResourceUnsubscriber(AbstractModule module, FirstValue mode) {

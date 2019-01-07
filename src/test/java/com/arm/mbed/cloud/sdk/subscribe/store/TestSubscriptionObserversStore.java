@@ -44,7 +44,8 @@ public class TestSubscriptionObserversStore {
         ScheduledExecutorService executor = null;
         try {
             List<DeviceStateNotification> receivedNotifications = new LinkedList<>();
-            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
+            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null,
+                                                                              null);
             DeviceStateObserver obs1 = store.deviceStateChanges(new DeviceStateFilterOptions().likeDevice("016%33e")
                                                                                               .equalDeviceState(DeviceState.REGISTRATION_UPDATE),
                                                                 BackpressureStrategy.BUFFER);
@@ -150,7 +151,8 @@ public class TestSubscriptionObserversStore {
         ScheduledExecutorService executor = null;
         try {
             List<ResourceValueNotification> receivedNotifications = new LinkedList<>();
-            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null);
+            SubscriptionObserversStore store = new SubscriptionObserversStore(Schedulers.computation(), null, null,
+                                                                              null);
             ResourceValueObserver obs1 = store.resourceValues(SubscriptionFilterOptions.newFilter()
                                                                                        .likeDevice("016%33e")
                                                                                        .equalResourcePath("/1/0/3/"),

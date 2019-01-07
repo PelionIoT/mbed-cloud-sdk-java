@@ -20,7 +20,7 @@ import com.arm.mbed.cloud.sdk.subscribe.model.AsynchronousResponseObserver;
 import com.arm.mbed.cloud.sdk.subscribe.model.FirstValue;
 import com.arm.mbed.cloud.sdk.subscribe.model.SubscriptionFilterOptions;
 
-@Preamble(description = "Object in charge of performing all necessary action to take place when subscribing to a resource")
+@Preamble(description = "Object in charge of performing all necessary actions which need to take place when subscribing to a resource")
 public class ResourceSubscriber extends AbstractSubscriptionAction {
 
     public ResourceSubscriber(AbstractModule module, FirstValue mode) {

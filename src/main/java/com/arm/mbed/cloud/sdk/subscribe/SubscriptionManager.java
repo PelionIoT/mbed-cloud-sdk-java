@@ -93,8 +93,11 @@ public interface SubscriptionManager {
 
     /**
      * Unsubscribes all observers contained in the system.
+     * 
+     * @throws MbedCloudException
+     *             if a problem occurs during the process.
      */
-    void unsubscribeAll();
+    void unsubscribeAll() throws MbedCloudException;
 
     /**
      * Unsubscribes all observers of a certain type contained in the system.

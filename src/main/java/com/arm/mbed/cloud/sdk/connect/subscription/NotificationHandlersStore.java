@@ -81,7 +81,8 @@ public class NotificationHandlersStore implements Closeable {
         observerStore = new SubscriptionObserversStore((customSubscriptionHandlingExecutor == null) ? Schedulers.computation()
                                                                                                     : Schedulers.from(customSubscriptionHandlingExecutor),
                                                        new ResourceSubscriber(module, FirstValue.getDefault()),
-                                                       new ResourceUnsubscriber(module, FirstValue.getDefault()));
+                                                       new ResourceUnsubscriber(module, FirstValue.getDefault()),
+                                                       new ResourceUnsubscriberAll(module, FirstValue.getDefault()));
     }
 
     private EndPoints createNotificationPull(EndPoints endpoint2) {
@@ -413,7 +414,7 @@ public class NotificationHandlersStore implements Closeable {
 
     }
 
-    private void clearStores() {
+    private void clearStores() throws MbedCloudException {
         observerStore.unsubscribeAll();
     }
 
