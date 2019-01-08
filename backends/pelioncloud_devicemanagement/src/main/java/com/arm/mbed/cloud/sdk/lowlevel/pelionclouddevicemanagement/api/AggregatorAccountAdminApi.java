@@ -6,7 +6,6 @@ import retrofit2.Call;
 import retrofit2.http.*;
 
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountCreationReq;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountCreationResp;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfo;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountInfoList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.AccountUpdateRootReq;
@@ -29,10 +28,9 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.Identit
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.NotificationEntryList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SubjectList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateInternalResp;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateInternalRespList;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateResp;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRootReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRespList;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UpdatedResponse;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
@@ -84,7 +82,7 @@ public interface AggregatorAccountAdminApi {
     @POST("v3/accounts/{account_id}/trusted-certificates")
     Call<TrustedCertificateResp>
         addAccountCertificate(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
-                              @retrofit2.http.Body TrustedCertificateRootReq body);
+                              @retrofit2.http.Body TrustedCertificateReq body);
 
     /**
      * Add user to a list of groups. An endpoint for adding user to groups. **Example usage:** &#x60;curl -X POST
@@ -217,12 +215,12 @@ public interface AggregatorAccountAdminApi {
      *            If the user already exists, its status is not modified. Email to finish the enrollment or to notify
      *            the existing user about the new account is sent to the admin_email defined in the request.
      *            &lt;/li&gt;&lt;/ul&gt; (optional, default to create)
-     * @return Call&lt;AccountCreationResp&gt;
+     * @return Call&lt;AccountInfo&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @POST("v3/accounts")
-    Call<AccountCreationResp> createAccount(@retrofit2.http.Body AccountCreationReq body,
-                                            @retrofit2.http.Query("action") String action);
+    Call<AccountInfo> createAccount(@retrofit2.http.Body AccountCreationReq body,
+                                    @retrofit2.http.Query("action") String action);
 
     /**
      * Create a new API key. An endpoint for creating a new API key. There is no default value for the owner ID and it
@@ -449,10 +447,10 @@ public interface AggregatorAccountAdminApi {
      *            Account ID. (required)
      * @param certId
      *            The ID of the trusted certificate to be retrieved. (required)
-     * @return Call&lt;TrustedCertificateInternalResp&gt;
+     * @return Call&lt;TrustedCertificateResp&gt;
      */
     @GET("v3/accounts/{account_id}/trusted-certificates/{cert_id}")
-    Call<TrustedCertificateInternalResp>
+    Call<TrustedCertificateResp>
         getAccountCertificate(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                               @retrofit2.http.Path(value = "cert_id", encoded = true) String certId);
 
@@ -719,10 +717,10 @@ public interface AggregatorAccountAdminApi {
      * @param subjectLike
      *            Filter for subject. Finds all matches where the filter value is a case insensitive substring of the
      *            result. Example: subject__like&#x3D;cn&#x3D;su matches CN&#x3D;subject. (optional)
-     * @return Call&lt;TrustedCertificateInternalRespList&gt;
+     * @return Call&lt;TrustedCertificateRespList&gt;
      */
     @GET("v3/accounts/{account_id}/trusted-certificates")
-    Call<TrustedCertificateInternalRespList>
+    Call<TrustedCertificateRespList>
         getAllAccountCertificates(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                   @retrofit2.http.Query("limit") Integer limit,
                                   @retrofit2.http.Query("after") String after,
@@ -1284,11 +1282,11 @@ public interface AggregatorAccountAdminApi {
      *            The ID of the trusted certificate to be updated. (required)
      * @param body
      *            A trusted certificate object with attributes. (required)
-     * @return Call&lt;TrustedCertificateInternalResp&gt;
+     * @return Call&lt;TrustedCertificateResp&gt;
      */
     @Headers({ "Content-Type:application/json" })
     @PUT("v3/accounts/{account_id}/trusted-certificates/{cert_id}")
-    Call<TrustedCertificateInternalResp>
+    Call<TrustedCertificateResp>
         updateAccountCertificate(@retrofit2.http.Path(value = "account_id", encoded = true) String accountId,
                                  @retrofit2.http.Path(value = "cert_id", encoded = true) String certId,
                                  @retrofit2.http.Body TrustedCertificateUpdateReq body);

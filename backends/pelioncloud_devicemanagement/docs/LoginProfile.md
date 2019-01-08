@@ -1,12 +1,12 @@
 
-# LoginProfileResp
+# LoginProfile
 
 ## Properties
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **id** | **String** | ID of the identity provider. | 
-**name** | **String** | Name of the identity provider. | 
-**type** | [**TypeEnum**](#TypeEnum) | Identity provider type. | 
+**name** | **String** | Name of the identity provider. |  [optional]
+**type** | [**TypeEnum**](#TypeEnum) | Identity provider type. |  [optional]
 
 
 <a name="TypeEnum"></a>

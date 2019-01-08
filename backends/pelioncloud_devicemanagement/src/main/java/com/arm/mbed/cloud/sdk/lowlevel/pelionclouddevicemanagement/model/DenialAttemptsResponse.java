@@ -25,17 +25,17 @@ import java.util.List;
 import java.io.Serializable;
 
 /**
- * TrustedCertificateInternalRespList
+ * DenialAttemptsResponse
  */
 
-public class TrustedCertificateInternalRespList implements Serializable {
+public class DenialAttemptsResponse implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("after")
     private String after = null;
 
     @SerializedName("data")
-    private List<TrustedCertificateInternalResp> data = new ArrayList<TrustedCertificateInternalResp>();
+    private List<BlackListedDeviceData> data = null;
 
     @SerializedName("has_more")
     private Boolean hasMore = null;
@@ -43,56 +43,11 @@ public class TrustedCertificateInternalRespList implements Serializable {
     @SerializedName("limit")
     private Integer limit = null;
 
-    /**
-     * Entity name: always &#39;list&#39;
-     */
-    @JsonAdapter(ObjectEnum.Adapter.class)
-    public enum ObjectEnum {
-        LIST("list");
-
-        private String value;
-
-        ObjectEnum(String value) {
-            this.value = value;
-        }
-
-        public String getValue() {
-            return value;
-        }
-
-        @Override
-        public String toString() {
-            return String.valueOf(value);
-        }
-
-        public static ObjectEnum fromValue(String text) {
-            for (ObjectEnum b : ObjectEnum.values()) {
-                if (String.valueOf(b.value).equals(text)) {
-                    return b;
-                }
-            }
-            return null;
-        }
-
-        public static class Adapter extends TypeAdapter<ObjectEnum> {
-            @Override
-            public void write(final JsonWriter jsonWriter, final ObjectEnum enumeration) throws IOException {
-                jsonWriter.value(enumeration.getValue());
-            }
-
-            @Override
-            public ObjectEnum read(final JsonReader jsonReader) throws IOException {
-                String value = jsonReader.nextString();
-                return ObjectEnum.fromValue(String.valueOf(value));
-            }
-        }
-    }
-
     @SerializedName("object")
-    private ObjectEnum object = null;
+    private String object = null;
 
     /**
-     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     * The creation time based order of the entries.
      */
     @JsonAdapter(OrderEnum.Adapter.class)
     public enum OrderEnum {
@@ -144,18 +99,17 @@ public class TrustedCertificateInternalRespList implements Serializable {
     @SerializedName("total_count")
     private Integer totalCount = null;
 
-    public TrustedCertificateInternalRespList after(String after) {
+    public DenialAttemptsResponse after(String after) {
         this.after = after;
         return this;
     }
 
     /**
-     * The entity ID to fetch after the given one.
+     * An offset token for current page.
      * 
      * @return after
      **/
-    @ApiModelProperty(example = "01619571f3c00242ac12000600000000",
-                      value = "The entity ID to fetch after the given one.")
+    @ApiModelProperty(value = "An offset token for current page.")
     public String getAfter() {
         return after;
     }
@@ -164,41 +118,44 @@ public class TrustedCertificateInternalRespList implements Serializable {
         this.after = after;
     }
 
-    public TrustedCertificateInternalRespList data(List<TrustedCertificateInternalResp> data) {
+    public DenialAttemptsResponse data(List<BlackListedDeviceData> data) {
         this.data = data;
         return this;
     }
 
-    public TrustedCertificateInternalRespList addDataItem(TrustedCertificateInternalResp dataItem) {
+    public DenialAttemptsResponse addDataItem(BlackListedDeviceData dataItem) {
+        if (this.data == null) {
+            this.data = new ArrayList<BlackListedDeviceData>();
+        }
         this.data.add(dataItem);
         return this;
     }
 
     /**
-     * A list of entities.
+     * Get data
      * 
      * @return data
      **/
-    @ApiModelProperty(required = true, value = "A list of entities.")
-    public List<TrustedCertificateInternalResp> getData() {
+    @ApiModelProperty(value = "")
+    public List<BlackListedDeviceData> getData() {
         return data;
     }
 
-    public void setData(List<TrustedCertificateInternalResp> data) {
+    public void setData(List<BlackListedDeviceData> data) {
         this.data = data;
     }
 
-    public TrustedCertificateInternalRespList hasMore(Boolean hasMore) {
+    public DenialAttemptsResponse hasMore(Boolean hasMore) {
         this.hasMore = hasMore;
         return this;
     }
 
     /**
-     * Flag indicating whether there is more results.
+     * Are there more results available.
      * 
      * @return hasMore
      **/
-    @ApiModelProperty(example = "false", required = true, value = "Flag indicating whether there is more results.")
+    @ApiModelProperty(example = "false", value = "Are there more results available.")
     public Boolean isHasMore() {
         return hasMore;
     }
@@ -207,18 +164,19 @@ public class TrustedCertificateInternalRespList implements Serializable {
         this.hasMore = hasMore;
     }
 
-    public TrustedCertificateInternalRespList limit(Integer limit) {
+    public DenialAttemptsResponse limit(Integer limit) {
         this.limit = limit;
         return this;
     }
 
     /**
-     * The number of results to return, (range: 2-1000), or equals to &#x60;total_count&#x60;
+     * How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of
+     * this range are set to the closest limit. minimum: 2 maximum: 1000
      * 
      * @return limit
      **/
-    @ApiModelProperty(example = "50", required = true,
-                      value = "The number of results to return, (range: 2-1000), or equals to `total_count`")
+    @ApiModelProperty(example = "50",
+                      value = "How many objects to retrieve in the page. The minimum limit is 2 and the maximum is 1000. Limit values outside of this range are set to the closest limit.")
     public Integer getLimit() {
         return limit;
     }
@@ -227,36 +185,36 @@ public class TrustedCertificateInternalRespList implements Serializable {
         this.limit = limit;
     }
 
-    public TrustedCertificateInternalRespList object(ObjectEnum object) {
+    public DenialAttemptsResponse object(String object) {
         this.object = object;
         return this;
     }
 
     /**
-     * Entity name: always &#39;list&#39;
+     * The type of this API object is a \&quot;list\&quot;.
      * 
      * @return object
      **/
-    @ApiModelProperty(required = true, value = "Entity name: always 'list'")
-    public ObjectEnum getObject() {
+    @ApiModelProperty(example = "list", value = "The type of this API object is a \"list\".")
+    public String getObject() {
         return object;
     }
 
-    public void setObject(ObjectEnum object) {
+    public void setObject(String object) {
         this.object = object;
     }
 
-    public TrustedCertificateInternalRespList order(OrderEnum order) {
+    public DenialAttemptsResponse order(OrderEnum order) {
         this.order = order;
         return this;
     }
 
     /**
-     * The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.
+     * The creation time based order of the entries.
      * 
      * @return order
      **/
-    @ApiModelProperty(value = "The order of the records to return based on creation time. Available values: ASC, DESC; by default ASC.")
+    @ApiModelProperty(example = "DESC", value = "The creation time based order of the entries.")
     public OrderEnum getOrder() {
         return order;
     }
@@ -265,18 +223,17 @@ public class TrustedCertificateInternalRespList implements Serializable {
         this.order = order;
     }
 
-    public TrustedCertificateInternalRespList totalCount(Integer totalCount) {
+    public DenialAttemptsResponse totalCount(Integer totalCount) {
         this.totalCount = totalCount;
         return this;
     }
 
     /**
-     * The total number or records, if requested. It might be returned also for small lists.
+     * Get totalCount
      * 
      * @return totalCount
      **/
-    @ApiModelProperty(example = "20", required = true,
-                      value = "The total number or records, if requested. It might be returned also for small lists.")
+    @ApiModelProperty(example = "1", value = "")
     public Integer getTotalCount() {
         return totalCount;
     }
@@ -293,14 +250,14 @@ public class TrustedCertificateInternalRespList implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        TrustedCertificateInternalRespList trustedCertificateInternalRespList = (TrustedCertificateInternalRespList) o;
-        return Objects.equals(this.after, trustedCertificateInternalRespList.after)
-               && Objects.equals(this.data, trustedCertificateInternalRespList.data)
-               && Objects.equals(this.hasMore, trustedCertificateInternalRespList.hasMore)
-               && Objects.equals(this.limit, trustedCertificateInternalRespList.limit)
-               && Objects.equals(this.object, trustedCertificateInternalRespList.object)
-               && Objects.equals(this.order, trustedCertificateInternalRespList.order)
-               && Objects.equals(this.totalCount, trustedCertificateInternalRespList.totalCount);
+        DenialAttemptsResponse denialAttemptsResponse = (DenialAttemptsResponse) o;
+        return Objects.equals(this.after, denialAttemptsResponse.after)
+               && Objects.equals(this.data, denialAttemptsResponse.data)
+               && Objects.equals(this.hasMore, denialAttemptsResponse.hasMore)
+               && Objects.equals(this.limit, denialAttemptsResponse.limit)
+               && Objects.equals(this.object, denialAttemptsResponse.object)
+               && Objects.equals(this.order, denialAttemptsResponse.order)
+               && Objects.equals(this.totalCount, denialAttemptsResponse.totalCount);
     }
 
     @Override
@@ -311,7 +268,7 @@ public class TrustedCertificateInternalRespList implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class TrustedCertificateInternalRespList {\n");
+        sb.append("class DenialAttemptsResponse {\n");
 
         sb.append("    after: ").append(toIndentedString(after)).append("\n");
         sb.append("    data: ").append(toIndentedString(data)).append("\n");

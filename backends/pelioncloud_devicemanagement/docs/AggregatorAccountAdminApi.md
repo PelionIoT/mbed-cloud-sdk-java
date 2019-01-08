@@ -158,7 +158,7 @@ Bearer.setApiKey("YOUR API KEY");
 
 AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountId = "accountId_example"; // String | Account ID.
-TrustedCertificateRootReq body = new TrustedCertificateRootReq(); // TrustedCertificateRootReq | A trusted certificate object with attributes, signature is optional.
+TrustedCertificateReq body = new TrustedCertificateReq(); // TrustedCertificateReq | A trusted certificate object with attributes, signature is optional.
 try {
     TrustedCertificateResp result = apiInstance.addAccountCertificate(accountId, body);
     System.out.println(result);
@@ -173,7 +173,7 @@ try {
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **accountId** | **String**| Account ID. |
- **body** | [**TrustedCertificateRootReq**](TrustedCertificateRootReq.md)| A trusted certificate object with attributes, signature is optional. |
+ **body** | [**TrustedCertificateReq**](TrustedCertificateReq.md)| A trusted certificate object with attributes, signature is optional. |
 
 ### Return type
 
@@ -536,7 +536,7 @@ Name | Type | Description  | Notes
 
 <a name="createAccount"></a>
 # **createAccount**
-> AccountCreationResp createAccount(body, action)
+> AccountInfo createAccount(body, action)
 
 Create a new account.
 
@@ -563,7 +563,7 @@ AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 AccountCreationReq body = new AccountCreationReq(); // AccountCreationReq | Details of the account to be created.
 String action = "create"; // String | Action, either 'create' or 'enroll'. <ul><li>'create' creates the account where its admin user has ACTIVE status if admin_password was defined in the request, or RESET status if no admin_password was defined. If the user already exists, its status is not modified. </li><li>'enroll' creates the account where its admin user has ENROLLING status. If the user already exists, its status is not modified. Email to finish the enrollment or to notify the existing user about the new account is sent to the admin_email defined in the request. </li></ul>
 try {
-    AccountCreationResp result = apiInstance.createAccount(body, action);
+    AccountInfo result = apiInstance.createAccount(body, action);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#createAccount");
@@ -580,7 +580,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AccountCreationResp**](AccountCreationResp.md)
+[**AccountInfo**](AccountInfo.md)
 
 ### Authorization
 
@@ -1338,7 +1338,7 @@ Name | Type | Description  | Notes
 
 <a name="getAccountCertificate"></a>
 # **getAccountCertificate**
-> TrustedCertificateInternalResp getAccountCertificate(accountId, certId)
+> TrustedCertificateResp getAccountCertificate(accountId, certId)
 
 Get trusted certificate by ID.
 
@@ -1365,7 +1365,7 @@ AggregatorAccountAdminApi apiInstance = new AggregatorAccountAdminApi();
 String accountId = "accountId_example"; // String | Account ID.
 String certId = "certId_example"; // String | The ID of the trusted certificate to be retrieved.
 try {
-    TrustedCertificateInternalResp result = apiInstance.getAccountCertificate(accountId, certId);
+    TrustedCertificateResp result = apiInstance.getAccountCertificate(accountId, certId);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAccountCertificate");
@@ -1382,7 +1382,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrustedCertificateInternalResp**](TrustedCertificateInternalResp.md)
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 
@@ -2148,7 +2148,7 @@ Name | Type | Description  | Notes
 
 <a name="getAllAccountCertificates"></a>
 # **getAllAccountCertificates**
-> TrustedCertificateInternalRespList getAllAccountCertificates(accountId, limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike)
+> TrustedCertificateRespList getAllAccountCertificates(accountId, limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike)
 
 Get all trusted certificates.
 
@@ -2188,7 +2188,7 @@ String statusEq = "statusEq_example"; // String | Filter for certificate status
 String issuerLike = "issuerLike_example"; // String | Filter for issuer. Finds all matches where the filter value is a case insensitive substring of the result. Example: issuer__like=cn=iss matches CN=issuer.
 String subjectLike = "subjectLike_example"; // String | Filter for subject. Finds all matches where the filter value is a case insensitive substring of the result. Example: subject__like=cn=su matches CN=subject.
 try {
-    TrustedCertificateInternalRespList result = apiInstance.getAllAccountCertificates(accountId, limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike);
+    TrustedCertificateRespList result = apiInstance.getAllAccountCertificates(accountId, limit, after, order, include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq, statusEq, issuerLike, subjectLike);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#getAllAccountCertificates");
@@ -2218,7 +2218,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrustedCertificateInternalRespList**](TrustedCertificateInternalRespList.md)
+[**TrustedCertificateRespList**](TrustedCertificateRespList.md)
 
 ### Authorization
 
@@ -3591,7 +3591,7 @@ Name | Type | Description  | Notes
 
 <a name="updateAccountCertificate"></a>
 # **updateAccountCertificate**
-> TrustedCertificateInternalResp updateAccountCertificate(accountId, certId, body)
+> TrustedCertificateResp updateAccountCertificate(accountId, certId, body)
 
 Update trusted certificate.
 
@@ -3619,7 +3619,7 @@ String accountId = "accountId_example"; // String | Account ID.
 String certId = "certId_example"; // String | The ID of the trusted certificate to be updated.
 TrustedCertificateUpdateReq body = new TrustedCertificateUpdateReq(); // TrustedCertificateUpdateReq | A trusted certificate object with attributes.
 try {
-    TrustedCertificateInternalResp result = apiInstance.updateAccountCertificate(accountId, certId, body);
+    TrustedCertificateResp result = apiInstance.updateAccountCertificate(accountId, certId, body);
     System.out.println(result);
 } catch (ApiException e) {
     System.err.println("Exception when calling AggregatorAccountAdminApi#updateAccountCertificate");
@@ -3637,7 +3637,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**TrustedCertificateInternalResp**](TrustedCertificateInternalResp.md)
+[**TrustedCertificateResp**](TrustedCertificateResp.md)
 
 ### Authorization
 

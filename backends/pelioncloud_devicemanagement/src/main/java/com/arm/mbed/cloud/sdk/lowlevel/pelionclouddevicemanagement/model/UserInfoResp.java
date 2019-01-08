@@ -80,7 +80,7 @@ public class UserInfoResp implements Serializable {
     private List<LoginHistory> loginHistory = null;
 
     @SerializedName("login_profiles")
-    private List<LoginProfileResp> loginProfiles = null;
+    private List<LoginProfile> loginProfiles = null;
 
     /**
      * Entity name: always &#39;user&#39;
@@ -511,14 +511,14 @@ public class UserInfoResp implements Serializable {
         this.loginHistory = loginHistory;
     }
 
-    public UserInfoResp loginProfiles(List<LoginProfileResp> loginProfiles) {
+    public UserInfoResp loginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
         return this;
     }
 
-    public UserInfoResp addLoginProfilesItem(LoginProfileResp loginProfilesItem) {
+    public UserInfoResp addLoginProfilesItem(LoginProfile loginProfilesItem) {
         if (this.loginProfiles == null) {
-            this.loginProfiles = new ArrayList<LoginProfileResp>();
+            this.loginProfiles = new ArrayList<LoginProfile>();
         }
         this.loginProfiles.add(loginProfilesItem);
         return this;
@@ -530,11 +530,11 @@ public class UserInfoResp implements Serializable {
      * @return loginProfiles
      **/
     @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user is associated with.")
-    public List<LoginProfileResp> getLoginProfiles() {
+    public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
 
-    public void setLoginProfiles(List<LoginProfileResp> loginProfiles) {
+    public void setLoginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
     }
 

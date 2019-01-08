@@ -28,7 +28,7 @@ import java.io.Serializable;
  */
 @ApiModel(description = "This object represents a user login profile in Device Management.")
 
-public class LoginProfileResp implements Serializable {
+public class LoginProfile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @SerializedName("id")
@@ -91,7 +91,7 @@ public class LoginProfileResp implements Serializable {
     @SerializedName("type")
     private TypeEnum type = null;
 
-    public LoginProfileResp id(String id) {
+    public LoginProfile id(String id) {
         this.id = id;
         return this;
     }
@@ -110,28 +110,14 @@ public class LoginProfileResp implements Serializable {
         this.id = id;
     }
 
-    public LoginProfileResp name(String name) {
-        this.name = name;
-        return this;
-    }
-
     /**
      * Name of the identity provider.
      * 
      * @return name
      **/
-    @ApiModelProperty(required = true, value = "Name of the identity provider.")
+    @ApiModelProperty(value = "Name of the identity provider.")
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LoginProfileResp type(TypeEnum type) {
-        this.type = type;
-        return this;
     }
 
     /**
@@ -139,13 +125,9 @@ public class LoginProfileResp implements Serializable {
      * 
      * @return type
      **/
-    @ApiModelProperty(required = true, value = "Identity provider type.")
+    @ApiModelProperty(value = "Identity provider type.")
     public TypeEnum getType() {
         return type;
-    }
-
-    public void setType(TypeEnum type) {
-        this.type = type;
     }
 
     @Override
@@ -156,9 +138,9 @@ public class LoginProfileResp implements Serializable {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        LoginProfileResp loginProfileResp = (LoginProfileResp) o;
-        return Objects.equals(this.id, loginProfileResp.id) && Objects.equals(this.name, loginProfileResp.name)
-               && Objects.equals(this.type, loginProfileResp.type);
+        LoginProfile loginProfile = (LoginProfile) o;
+        return Objects.equals(this.id, loginProfile.id) && Objects.equals(this.name, loginProfile.name)
+               && Objects.equals(this.type, loginProfile.type);
     }
 
     @Override
@@ -169,7 +151,7 @@ public class LoginProfileResp implements Serializable {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("class LoginProfileResp {\n");
+        sb.append("class LoginProfile {\n");
 
         sb.append("    id: ").append(toIndentedString(id)).append("\n");
         sb.append("    name: ").append(toIndentedString(name)).append("\n");

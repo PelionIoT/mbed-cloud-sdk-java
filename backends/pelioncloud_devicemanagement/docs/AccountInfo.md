@@ -6,7 +6,13 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **addressLine1** | **String** | Postal address line 1. |  [optional]
 **addressLine2** | **String** | Postal address line 2. |  [optional]
-**aliases** | **List&lt;String&gt;** | An array of aliases. | 
+**adminEmail** | **String** | The email address of the admin user created for this account. Present only in the response for the account creation. |  [optional]
+**adminFullName** | **String** | The full name of the admin user created for this account. Present only in the response for the account creation. |  [optional]
+**adminId** | **String** | The ID of the admin user created for this account. |  [optional]
+**adminKey** | **String** | The admin API key created for this account. Present only in the response for the account creation. |  [optional]
+**adminName** | **String** | The username of the admin user created for this account. Present only in the response for the account creation. |  [optional]
+**adminPassword** | **String** | The password of the admin user created for this account. Present only in the response for the account creation. |  [optional]
+**aliases** | **List&lt;String&gt;** | An array of aliases. |  [optional]
 **city** | **String** | The city part of the postal address. |  [optional]
 **company** | **String** | The name of the company. |  [optional]
 **contact** | **String** | The name of the contact person for this account. |  [optional]
@@ -19,6 +25,7 @@ Name | Type | Description | Notes
 **email** | **String** | The company email address for this account. |  [optional]
 **endMarket** | **String** | Account end market. | 
 **etag** | **String** | API resource entity version. | 
+**expiration** | [**DateTime**](DateTime.md) | Expiration time of the account, as UTC time RFC3339. |  [optional]
 **expirationWarningThreshold** | **String** | Indicates how many days (1-180) before account expiration a notification email should be sent. |  [optional]
 **id** | **String** | Account ID. | 
 **idleTimeout** | **String** | The reference token expiration time in minutes for this account. |  [optional]

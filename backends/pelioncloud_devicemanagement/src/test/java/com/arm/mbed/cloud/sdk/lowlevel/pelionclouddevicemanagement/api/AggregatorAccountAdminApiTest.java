@@ -12,7 +12,7 @@ import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.GroupUp
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderCreationReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.IdentityProviderUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.SubjectList;
-import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateRootReq;
+import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.TrustedCertificateUpdateReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInfoReq;
 import com.arm.mbed.cloud.sdk.lowlevel.pelionclouddevicemanagement.model.UserInvitationReq;
@@ -64,7 +64,7 @@ public class AggregatorAccountAdminApiTest {
     @Test
     public void addAccountCertificateTest() {
         String accountId = null;
-        TrustedCertificateRootReq body = null;
+        TrustedCertificateReq body = null;
         // TrustedCertificateResp response = api.addAccountCertificate(accountId, body);
 
         // TODO: test validations
@@ -189,7 +189,7 @@ public class AggregatorAccountAdminApiTest {
     public void createAccountTest() {
         AccountCreationReq body = null;
         String action = null;
-        // AccountCreationResp response = api.createAccount(body, action);
+        // AccountInfo response = api.createAccount(body, action);
 
         // TODO: test validations
     }
@@ -416,7 +416,7 @@ public class AggregatorAccountAdminApiTest {
     public void getAccountCertificateTest() {
         String accountId = null;
         String certId = null;
-        // TrustedCertificateInternalResp response = api.getAccountCertificate(accountId, certId);
+        // TrustedCertificateResp response = api.getAccountCertificate(accountId, certId);
 
         // TODO: test validations
     }
@@ -656,9 +656,9 @@ public class AggregatorAccountAdminApiTest {
         String statusEq = null;
         String issuerLike = null;
         String subjectLike = null;
-        // TrustedCertificateInternalRespList response = api.getAllAccountCertificates(accountId, limit, after, order,
-        // include, nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq,
-        // enrollmentModeEq, statusEq, issuerLike, subjectLike);
+        // TrustedCertificateRespList response = api.getAllAccountCertificates(accountId, limit, after, order, include,
+        // nameEq, serviceEq, expireEq, deviceExecutionModeEq, deviceExecutionModeNeq, ownerEq, enrollmentModeEq,
+        // statusEq, issuerLike, subjectLike);
 
         // TODO: test validations
     }
@@ -1093,7 +1093,7 @@ public class AggregatorAccountAdminApiTest {
         String accountId = null;
         String certId = null;
         TrustedCertificateUpdateReq body = null;
-        // TrustedCertificateInternalResp response = api.updateAccountCertificate(accountId, certId, body);
+        // TrustedCertificateResp response = api.updateAccountCertificate(accountId, certId, body);
 
         // TODO: test validations
     }

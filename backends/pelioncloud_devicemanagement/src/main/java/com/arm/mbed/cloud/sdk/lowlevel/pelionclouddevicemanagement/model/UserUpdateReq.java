@@ -55,7 +55,7 @@ public class UserUpdateReq implements Serializable {
     private Boolean isTotpEnabled = null;
 
     @SerializedName("login_profiles")
-    private List<String> loginProfiles = null;
+    private List<LoginProfile> loginProfiles = null;
 
     @SerializedName("phone_number")
     private String phoneNumber = null;
@@ -262,31 +262,32 @@ public class UserUpdateReq implements Serializable {
         this.isTotpEnabled = isTotpEnabled;
     }
 
-    public UserUpdateReq loginProfiles(List<String> loginProfiles) {
+    public UserUpdateReq loginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
         return this;
     }
 
-    public UserUpdateReq addLoginProfilesItem(String loginProfilesItem) {
+    public UserUpdateReq addLoginProfilesItem(LoginProfile loginProfilesItem) {
         if (this.loginProfiles == null) {
-            this.loginProfiles = new ArrayList<String>();
+            this.loginProfiles = new ArrayList<LoginProfile>();
         }
         this.loginProfiles.add(loginProfilesItem);
         return this;
     }
 
     /**
-     * A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated
-     * with. The list cannot be empty. A limit of 100 profiles.
+     * A list of login profiles for the user. Specified as the identity providers the user should be associated with.
+     * Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit
+     * of 100 profiles.
      * 
      * @return loginProfiles
      **/
-    @ApiModelProperty(value = "A list of login profiles for the user. Specified as IDs of the identity providers the user should be associated with. The list cannot be empty. A limit of 100 profiles.")
-    public List<String> getLoginProfiles() {
+    @ApiModelProperty(value = "A list of login profiles for the user. Specified as the identity providers the user should be associated with. Only the ID attribute of the login profile should be set in the request object. The list cannot be empty. A limit of 100 profiles.")
+    public List<LoginProfile> getLoginProfiles() {
         return loginProfiles;
     }
 
-    public void setLoginProfiles(List<String> loginProfiles) {
+    public void setLoginProfiles(List<LoginProfile> loginProfiles) {
         this.loginProfiles = loginProfiles;
     }
 
