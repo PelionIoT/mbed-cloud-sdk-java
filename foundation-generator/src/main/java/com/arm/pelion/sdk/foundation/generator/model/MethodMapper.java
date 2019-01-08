@@ -83,9 +83,11 @@ public class MethodMapper extends Method {
         final TypeParameter toType = to.toType();
         fromType.translate();
         toType.translate();
-        final List<Object> values = Arrays.asList(toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
-                                                  variableName,
-                                                  toType.hasClass() ? toType.getClazz() : toType.getTypeName());
+        final List<Object> values = new ArrayList<>(Arrays.asList(toType.hasClass() ? toType.getClazz()
+                                                                                    : toType.getTypeName(),
+                                                                  variableName,
+                                                                  toType.hasClass() ? toType.getClazz()
+                                                                                    : toType.getTypeName()));
         List<Field> settableFields = null;
         boolean toIsLowLevelModel = toType.isLowLevelModel();
         if (!toIsLowLevelModel && to.hasConstructor(MethodConstructorReadOnly.IDENTIFIER)) {
@@ -105,83 +107,88 @@ public class MethodMapper extends Method {
                     final String fromFieldName = renames.containsMappingFor(toFieldName) ? renames.getRenamedField(toFieldName)
                                                                                          : toFieldName;
                     final Field fromField = to.fetchField(fromFieldName);
-                    final TypeParameter fromFieldType = fromField.getType();
-                    fType.translate();
-                    fromFieldType.translate();
-                    if (needsTranslation(fromFieldType, fType)) {
-                        if (!doesTypeNeedTranslation(fType)) {
+                    if (fromField == null) {
+                        recordThatFieldWasNotFound(code, toType, fromType, fromFieldName);
+                    } else {
+                        final TypeParameter fromFieldType = fromField.getType();
+                        fType.translate();
+                        fromFieldType.translate();
+                        if (needsTranslation(fromFieldType, fType)) {
+                            if (!doesTypeNeedTranslation(fType)) {
+                                statementString.append("$L.$L()");
+                                values.addAll(Arrays.asList(fromVariableName,
+                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                          fType.isBoolean(),
+                                                                                                          isFromLowLevel)));
+                            } else if (fType.isFormPart()) {
+                                statementString.append("$T.$L($L.$L())");
+                                values.addAll(Arrays.asList(DataFileAdapter.class, DataFileAdapter.METHOD_REVERSE_MAP,
+                                                            fromVariableName,
+                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                          fType.isBoolean(),
+                                                                                                          isFromLowLevel)));
+                            } else if (f.hasDefaultValue()) {
+                                statementString.append("$T.$L($L.$L(),$L)");
+                                values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
+                                                            getTranslationMethod(fType, fromFieldType),
+                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                          fType.isBoolean(),
+                                                                                                          isFromLowLevel),
+                                                            f.getDefaultValue()));
+                            } else {
+                                statementString.append("$T.$L($L.$L())");
+                                values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
+                                                            getTranslationMethod(fType, fromFieldType),
+                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                          fType.isBoolean(),
+                                                                                                          isFromLowLevel)));
+                            }
+                        } else if (fType.isEnum()) {
+                            statementString.append("$L($L.$L())");
+                            values.addAll(Arrays.asList(MethodMapperEnum.generateName(toIsLowLevelModel ? fromField : f,
+                                                                                      toIsLowLevelModel ? f : fromField,
+                                                                                      toIsLowLevelModel),
+                                                        fromVariableName,
+                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                      fType.isBoolean(),
+                                                                                                      isFromLowLevel)));
+                        } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
+                            final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
+                                                                                              (TypeCompose) fromFieldType,
+                                                                                              action)
+                                                                          .toType();
+                            modelAdapterType.translate();
+                            // TODO do what is needed for hashtable
+                            if (fType.isList()) {
+                                statementString.append("$T.$L($L.$L())");
+                                values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                                        : modelAdapterType.getTypeName(),
+                                                            ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST,
+                                                            fromVariableName,
+                                                            MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                          fType.isBoolean(),
+                                                                                                          isFromLowLevel)));
+                            }
+
+                        } else if (TypeUtils.checkIfModel(fType)) {
+                            final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType, action).toType();
+                            modelAdapterType.translate();
+                            statementString.append("$T.$L($L.$L())");
+                            values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
+                                                                                    : modelAdapterType.getTypeName(),
+                                                        mapFunction, fromVariableName,
+                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
+                                                                                                      fType.isBoolean(),
+                                                                                                      isFromLowLevel)));
+                        } else {
                             statementString.append("$L.$L()");
                             values.addAll(Arrays.asList(fromVariableName,
                                                         MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
                                                                                                       fType.isBoolean(),
                                                                                                       isFromLowLevel)));
-                        } else if (fType.isFormPart()) {
-                            statementString.append("$T.$L($L.$L())");
-                            values.addAll(Arrays.asList(DataFileAdapter.class, DataFileAdapter.METHOD_REVERSE_MAP,
-                                                        fromVariableName,
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
-                        } else if (f.hasDefaultValue()) {
-                            statementString.append("$T.$L($L.$L(),$L)");
-                            values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
-                                                        getTranslationMethod(fType, fromFieldType),
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel),
-                                                        f.getDefaultValue()));
-                        } else {
-                            statementString.append("$T.$L($L.$L())");
-                            values.addAll(Arrays.asList(fromVariableName, TranslationUtils.class,
-                                                        getTranslationMethod(fType, fromFieldType),
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
-                        }
-                    } else if (fType.isEnum()) {
-                        statementString.append("$L($L.$L())");
-                        values.addAll(Arrays.asList(MethodMapperEnum.generateName(toIsLowLevelModel ? fromField : f,
-                                                                                  toIsLowLevelModel ? f : fromField,
-                                                                                  toIsLowLevelModel),
-                                                    fromVariableName,
-                                                    MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                  fType.isBoolean(),
-                                                                                                  isFromLowLevel)));
-                    } else if (TypeUtils.checkIfCollectionOfModel(fType)) {
-                        final TypeParameter modelAdapterType = fetcher.fetchForCollection((TypeCompose) fType,
-                                                                                          (TypeCompose) fromFieldType,
-                                                                                          action)
-                                                                      .toType();
-                        modelAdapterType.translate();
-                        // TODO do what is needed for hashtable
-                        if (fType.isList()) {
-                            statementString.append("$T.$L($L.$L())");
-                            values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
-                                                                                    : modelAdapterType.getTypeName(),
-                                                        ModelAdapter.FUNCTION_NAME_MAP_SIMPLE_LIST, fromVariableName,
-                                                        MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                      fType.isBoolean(),
-                                                                                                      isFromLowLevel)));
                         }
 
-                    } else if (TypeUtils.checkIfModel(fType)) {
-                        final TypeParameter modelAdapterType = fetcher.fetch(fType, fromFieldType, action).toType();
-                        modelAdapterType.translate();
-                        statementString.append("$T.$L($L.$L())");
-                        values.addAll(Arrays.asList(modelAdapterType.hasClass() ? modelAdapterType.getClazz()
-                                                                                : modelAdapterType.getTypeName(),
-                                                    mapFunction, fromVariableName,
-                                                    MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                  fType.isBoolean(),
-                                                                                                  isFromLowLevel)));
-                    } else {
-                        statementString.append("$L.$L()");
-                        values.addAll(Arrays.asList(fromVariableName,
-                                                    MethodGetter.getCorrespondingGetterMethodName(fromFieldName,
-                                                                                                  fType.isBoolean(),
-                                                                                                  isFromLowLevel)));
                     }
-
                 }
             }
         }
@@ -204,9 +211,7 @@ public class MethodMapper extends Method {
             final Field fromField = from.fetchField(fromFieldName);
             final TypeParameter fromFieldType = fromField == null ? null : fromField.getType();
             if (fromFieldType == null) {
-                code.add("//No field equivalent to $L in $T was found in $T" + System.lineSeparator(), toFieldName,
-                         toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
-                         fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
+                recordThatFieldWasNotFound(code, fromType, toType, toFieldName);
             } else if (needsTranslation(fromFieldType, fType)) {
                 if (!doesTypeNeedTranslation(fType)) {
                     code.addStatement("$L.$L($L.$L())", variableName,
@@ -276,6 +281,14 @@ public class MethodMapper extends Method {
 
         }
         code.addStatement("return $L", variableName);
+    }
+
+    private static void recordThatFieldWasNotFound(CodeBlock.Builder code, final TypeParameter fromType,
+                                                   final TypeParameter toType, final String toFieldName) {
+        System.out.println(toFieldName + " " + toType);
+        code.add("//No field equivalent to $L in $T was found in $T" + System.lineSeparator(), toFieldName,
+                 toType.hasClass() ? toType.getClazz() : toType.getTypeName(),
+                 fromType.hasClass() ? fromType.getClazz() : fromType.getTypeName());
     }
 
     private static String getTranslationMethod(TypeParameter fType,
